@@ -31,7 +31,7 @@ from drawlib.diagrams.flow import (
     Process,
     Start,
 )
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 
 class TestFlowNodes:

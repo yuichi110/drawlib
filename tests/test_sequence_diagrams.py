@@ -27,7 +27,7 @@ from drawlib.diagrams.sequence import (
     PhosphorIcon,
     SequenceDiagram,
 )
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 
 class TestSequenceParticipantAndMessage:
@@ -244,7 +244,7 @@ class TestSequenceDiagramRenderingEndToEnd:
             ParticipantGroup(
                 title="Backend VPC",
                 style=Style(
-                    shape_fill_color=(240, 245, 255, 0.5), shape_line_color=Colors.Gray, shape_line_style="dashed"
+                    shape_fill_color=(240, 245, 255, 0.5), shape_line_color=Colors.Gray4, shape_line_style="dashed"
                 ),
             )
         )

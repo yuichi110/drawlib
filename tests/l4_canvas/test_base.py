@@ -22,15 +22,13 @@ from drawlib._core.l4_canvas import (
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib.canvas import clear, save, setup
 from drawlib.fonts import Font
-from drawlib.preset_colors import (
-    Colors,
-    Colors140,
-)
-from drawlib.preset_styles import default_styles
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import polygon, rectangle, shape
+from drawlib.styles import Colors, Styles
 
 # ruff: noqa: F403, F405
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l4_canvas/base/"
 
 

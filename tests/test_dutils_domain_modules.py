@@ -17,7 +17,8 @@ from drawlib.builder import (
 )
 from drawlib.canvas import clear
 from drawlib.math import get_angle, get_center_and_size, get_distance
-from drawlib.preset_colors import Color, Colors
+from drawlib.preset_colors import Color
+from drawlib.styles import Colors
 
 
 class TestDomainUtilities:

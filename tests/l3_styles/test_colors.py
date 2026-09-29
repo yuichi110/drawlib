@@ -13,7 +13,7 @@ import pytest
 from pydantic import BaseModel, ValidationError
 
 from drawlib._core.l2_types import Color
-from drawlib.preset_colors import (
+from drawlib._preset_colors import (
     BaseColors,
     Colors,
     Colors16,
@@ -22,10 +22,11 @@ from drawlib.preset_colors import (
     DefaultColors,
     GoogleColors,
     MonochromeColors,
-    default_colors,
-    google_colors,
-    monochrome_colors,
 )
+
+default_colors = DefaultColors()
+google_colors = GoogleColors()
+monochrome_colors = MonochromeColors()
 
 
 class TestColors:

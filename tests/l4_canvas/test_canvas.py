@@ -17,14 +17,12 @@ from matplotlib import pyplot
 from drawlib._core.l4_canvas import canvas
 from drawlib.canvas import clear, get_dimage, save, setup, show
 from drawlib.images import Dimage, image
-from drawlib.preset_colors import (
-    Colors,
-    Colors140,
-)
-from drawlib.preset_styles import default_styles
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
+from drawlib.styles import Colors, Styles
 from drawlib.types import Style
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l4_canvas/canvas/"
 
 

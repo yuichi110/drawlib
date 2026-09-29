@@ -9,41 +9,20 @@
 
 """Public preset_styles module for drawlib."""
 
+from drawlib._core.types import Style
 from drawlib._preset_styles import (
-    BaseStyles,
+    DefaultDarkStyles,
+    DefaultLightStyles,
     DefaultStyles,
     GoogleStyles,
     MonochromeStyles,
-    StylesDefault,
-    StylesDefaultDark,
-    StylesDefaultLight,
-    StylesGoogle,
-    StylesMonochrome,
-    default_dark_styles,
-    default_light_styles,
-    default_styles,
-    google_styles,
-    monochrome_styles,
 )
 
-EssentialsStyles = DefaultStyles
-essentials_styles = default_styles
-
 __all__ = [
-    "BaseStyles",
+    "DefaultDarkStyles",
+    "DefaultLightStyles",
     "DefaultStyles",
-    "EssentialsStyles",
     "GoogleStyles",
     "MonochromeStyles",
-    "StylesDefault",
-    "StylesDefaultDark",
-    "StylesDefaultLight",
-    "StylesGoogle",
-    "StylesMonochrome",
-    "default_dark_styles",
-    "default_light_styles",
-    "default_styles",
-    "essentials_styles",
-    "google_styles",
-    "monochrome_styles",
+    "Style",
 ]

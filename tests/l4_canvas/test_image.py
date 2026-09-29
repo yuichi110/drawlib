@@ -17,7 +17,7 @@ from PIL import Image
 from drawlib._core.l2_types import Dimage
 from drawlib.canvas import clear, save, setup
 from drawlib.images import image
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 from drawlib.types import Style
 
 # ruff: noqa: F403, F405
@@ -98,11 +98,11 @@ class TestCanvasImage:
             xy=(50, 50),
             width=30,
             image=IMAGE_FILE,
-            style=Style(image_tint_color=Colors.Gray),
+            style=Style(image_tint_color=Colors.Gray4),
         )
 
         # Alpha adjustment
-        setup(grid_only=True, background_color=Colors.Gray)
+        setup(grid_only=True, background_color=Colors.Gray4)
         image(
             xy=(50, 50),
             width=30,

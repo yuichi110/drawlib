@@ -13,16 +13,26 @@ from drawlib import preset_styles
 from drawlib._preset_styles import (
     BaseStyles,
     DefaultStyles,
+    GoogleStyles,
     MonochromeStyles,
-    default_styles,
-    google_styles,
-    monochrome_styles,
 )
 from drawlib.canvas import save
 from drawlib.fonts import Font, FontJapanese, FontRoboto, FontSourceCode
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.types import Style
+
+_ds_inst = DefaultStyles.get_default_instance()
+assert isinstance(_ds_inst, DefaultStyles)
+default_styles = _ds_inst
+
+_gs_inst = GoogleStyles.get_default_instance()
+assert isinstance(_gs_inst, GoogleStyles)
+google_styles = _gs_inst
+
+_ms_inst = MonochromeStyles.get_default_instance()
+assert isinstance(_ms_inst, MonochromeStyles)
+monochrome_styles = _ms_inst
 
 IMAGE_FILE = "../assets/image.png"
 OUTPUT_DIR_DEFAULT = "../../output_tests/preset_styles/default/"

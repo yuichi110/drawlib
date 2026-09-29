@@ -22,8 +22,9 @@ In complex technical diagrams and architectural illustrations, manually specifyi
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                               Public Facade API                                   │
-│       from drawlib.preset_styles import default_styles, monochrome_styles, ...    │
-│       from drawlib.preset_colors import Colors, default_colors, DefaultColors     │
+│       from drawlib.preset_styles import DefaultStyles, GoogleStyles, ...          │
+│       from drawlib.preset_colors import DefaultColors, GoogleColors, ...          │
+│       from drawlib.styles import Styles, Colors                                   │
 └────────────────────────────────────────┬──────────────────────────────────────────┘
                                          │
                     ┌────────────────────┴────────────────────┐
@@ -75,16 +76,13 @@ from drawlib.preset_styles import (
 
 # Color collections and utilities
 from drawlib.preset_colors import (
-    BaseColors,
     Color,
-    Colors,
     Colors140,
     DefaultColors,
+    DefaultDarkColors,
+    DefaultLightColors,
     GoogleColors,
     MonochromeColors,
-    default_colors,
-    google_colors,
-    monochrome_colors,
 )
 
 # Underlying Style model
@@ -460,15 +458,15 @@ You can construct a one-off `PresetStyles` instance directly with custom `Style`
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, from_hex
+from drawlib.preset_colors import Color, Colors140
 from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
 from drawlib.types import Style
 
 # Brand corporate identity colors
-CORP_NAVY = from_hex("#0D1B2A")
-CORP_CYAN = from_hex("#00A896")
-CORP_GOLD = from_hex("#F4A261")
+CORP_NAVY = Color.from_hex("#0D1B2A")
+CORP_CYAN = Color.from_hex("#00A896")
+CORP_GOLD = Color.from_hex("#F4A261")
 
 brand_preset = PresetStyles(
     background_color=(250, 250, 252, 1.0),
@@ -493,8 +491,9 @@ save()
 Because `BaseStyles` inherits from Pydantic's `BaseModel`, creating a dedicated subclass provides IDE autocompletion, type safety, field validation, and dictionary iteration:
 
 ```python
-from drawlib.preset_colors import Colors, from_hex
+from drawlib.preset_colors import Color
 from drawlib.preset_styles import BaseStyles
+from drawlib.styles import Colors
 from drawlib.types import Style
 
 
@@ -522,10 +521,10 @@ class CloudPlatformStyles(BaseStyles):
 
 # Factory function returning fully configured domain styles
 def get_cloud_styles() -> CloudPlatformStyles:
-    c_blue = from_hex("#1a73e8")
-    c_green = from_hex("#34a853")
-    c_red = from_hex("#ea4335")
-    c_gray = from_hex("#5f6368")
+    c_blue = Color.from_hex("#1a73e8")
+    c_green = Color.from_hex("#34a853")
+    c_red = Color.from_hex("#ea4335")
+    c_gray = Color.from_hex("#5f6368")
 
     return CloudPlatformStyles(
         primary=Style(fill_color=c_blue, line_color=c_gray, line_width=1.5),
@@ -601,7 +600,6 @@ The following diagram demonstrates how color and style variations distinguish us
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, DefaultColors
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -844,9 +842,9 @@ Under the hood, `_officials.py` processes the string through a deterministic seq
 # s = Style(fill_color="red")
 
 # CORRECT: Pass color constant
-from drawlib.preset_colors import default_colors
+from drawlib.preset_colors import DefaultColors
 
-s = Style(fill_color=default_colors.Red)
+s = Style(fill_color=DefaultColors.Red)
 
 # CORRECT: Or resolve via get_style
 s = get_style("red_flat")
@@ -924,7 +922,6 @@ Popular Default Colors:
 ```drawlib show-code
 # Standard imports
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, DefaultColors
 from drawlib.preset_styles import BaseStyles, default_styles, monochrome_styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text

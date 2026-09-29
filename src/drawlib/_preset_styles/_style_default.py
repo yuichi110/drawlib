@@ -18,9 +18,8 @@ from drawlib._core.fonts import FontSourceCode
 from drawlib._core.types import Style
 from drawlib._preset_colors import (
     DefaultColors,
-    default_colors,
-    default_dark_colors,
-    default_light_colors,
+    DefaultDarkColors,
+    DefaultLightColors,
 )
 from drawlib._preset_styles._base import BaseStyles
 from drawlib._preset_styles._utils import _make_variants
@@ -32,7 +31,7 @@ warnings.filterwarnings(
 )
 
 
-class StylesDefault(BaseStyles):
+class DefaultStyles(BaseStyles):
     """Default preset styles with complete typing for IDE autocompletion."""
 
     # Primary
@@ -1112,21 +1111,17 @@ class StylesDefault(BaseStyles):
     canvas_flat: Style
 
 
-# Backwards compatibility alias
-DefaultStyles = StylesDefault
-
-
-class StylesDefaultLight(StylesDefault):
+class DefaultLightStyles(DefaultStyles):
     """Default light/pastel preset styles (Tone 1 centered)."""
 
 
-class StylesDefaultDark(StylesDefault):
+class DefaultDarkStyles(DefaultStyles):
     """Default dark mode preset styles (Tone 3 centered, dark canvas)."""
 
 
 def _create_default_styles(  # noqa: C901
     theme: Literal["default", "light", "dark"] = "default",
-) -> StylesDefault:
+) -> DefaultStyles:
     """Generate default preset styles for the given theme variant.
 
     Args:
@@ -1136,13 +1131,13 @@ def _create_default_styles(  # noqa: C901
         StylesDefault: Default preset styles instance.
     """
     if theme == "light":
-        col = default_light_colors
+        col = DefaultLightColors
         bg_col = (255, 255, 255, 1.0)
     elif theme == "dark":
-        col = default_dark_colors
+        col = DefaultDarkColors
         bg_col = (24, 28, 36, 1.0)
     else:
-        col = default_colors
+        col = DefaultColors
         bg_col = (255, 255, 255, 1.0)
 
     # 1. Colors Map for all registered color names
@@ -1262,22 +1257,22 @@ def _create_default_styles(  # noqa: C901
     )
 
     if theme == "light":
-        return StylesDefaultLight(**styles_dict)
+        return DefaultLightStyles(**styles_dict)
     elif theme == "dark":
-        return StylesDefaultDark(**styles_dict)
-    return StylesDefault(**styles_dict)
+        return DefaultDarkStyles(**styles_dict)
+    return DefaultStyles(**styles_dict)
 
 
-default_styles: StylesDefault = _create_default_styles("default")
-default_light_styles: StylesDefaultLight = _create_default_styles("light")  # type: ignore
-default_dark_styles: StylesDefaultDark = _create_default_styles("dark")    # type: ignore
+_default_styles: DefaultStyles = _create_default_styles("default")
+_default_light_styles: DefaultLightStyles = _create_default_styles("light")  # type: ignore
+_default_dark_styles: DefaultDarkStyles = _create_default_styles("dark")    # type: ignore
+
+DefaultStyles.register_default_instance(_default_styles)
+DefaultLightStyles.register_default_instance(_default_light_styles)
+DefaultDarkStyles.register_default_instance(_default_dark_styles)
 
 __all__ = [
+    "DefaultDarkStyles",
+    "DefaultLightStyles",
     "DefaultStyles",
-    "StylesDefault",
-    "StylesDefaultDark",
-    "StylesDefaultLight",
-    "default_dark_styles",
-    "default_light_styles",
-    "default_styles",
 ]

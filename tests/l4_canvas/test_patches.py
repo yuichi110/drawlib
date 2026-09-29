@@ -13,13 +13,13 @@ import pytest
 
 from drawlib.canvas import clear, save
 from drawlib.fonts import Font
-from drawlib.preset_colors import Colors
-from drawlib.preset_styles import default_styles
 from drawlib.shapes import arc, circle, donuts, ellipse, fan, regularpolygon, wedge
+from drawlib.styles import Colors, Styles
 from drawlib.types import Style
 
 # ruff: noqa: F403, F405
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l4_canvas/patches/"
 
 

@@ -19,8 +19,10 @@ import pytest
 from drawlib import canvas
 from drawlib._core.l2_types import ColorType
 from drawlib._core.l3_styles import Style
-from drawlib.preset_styles import default_styles
 from drawlib.smartarts import ChevronProcess
+from drawlib.styles import Styles
+
+default_styles = Styles
 
 
 class TestChevronProcessUnit:

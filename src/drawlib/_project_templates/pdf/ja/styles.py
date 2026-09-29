@@ -12,10 +12,10 @@
 from __future__ import annotations
 
 from drawlib.fonts import FontJapanese
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 # 日本語フォントをデフォルトとして適用
-styles = styles.patch_font(
+Styles = Styles.patch_font(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
     light=FontJapanese.SANSSERIF_LIGHT,

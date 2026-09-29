@@ -16,10 +16,16 @@ from drawlib._preset_styles import (
     DefaultStyles,
     GoogleStyles,
     MonochromeStyles,
-    default_styles,
-    google_styles,
 )
 from drawlib.types import BaseStyles as TypesBaseStyles
+
+_ds_inst = DefaultStyles.get_default_instance()
+assert isinstance(_ds_inst, DefaultStyles)
+default_styles = _ds_inst
+
+_gs_inst = GoogleStyles.get_default_instance()
+assert isinstance(_gs_inst, GoogleStyles)
+google_styles = _gs_inst
 
 
 class TestPresetStyles:

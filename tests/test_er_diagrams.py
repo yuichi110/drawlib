@@ -19,7 +19,7 @@ import pytest
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
 from drawlib.diagrams.er import Cardinality, ColumnInfo, Entity, ERDiagram, Relationship, Side
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 
 class TestEntity:

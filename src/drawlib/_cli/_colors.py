@@ -26,11 +26,11 @@ from drawlib._core.fonts import Font
 from drawlib._core.l2_types import Color, Dimage
 from drawlib._core.l3_styles import BaseColors, Style
 from drawlib._preset_colors import (
+    DefaultColors,
+    GoogleColors,
+    MonochromeColors,
     colors_16,
     colors_140,
-    default_colors,
-    google_colors,
-    monochrome_colors,
 )
 from drawlib.canvas import clear, get_dimage, setup
 from drawlib.shapes import rectangle
@@ -48,16 +48,16 @@ colors_app = typer.Typer(
 
 SortMode = Literal["hsv", "name", "raw"]
 
-_PRESET_MAP: dict[str, tuple[BaseColors, str]] = {
+_PRESET_MAP: dict[str, tuple[BaseColors | type[BaseColors], str]] = {
     "140": (colors_140, "Colors140 (CSS 140 Web Colors)"),
     "colors140": (colors_140, "Colors140 (CSS 140 Web Colors)"),
     "16": (colors_16, "Colors16 (Basic 16 Web Colors)"),
     "colors16": (colors_16, "Colors16 (Basic 16 Web Colors)"),
     "colors": (colors_16, "Colors16 (Basic 16 Web Colors)"),
-    "default": (default_colors, "DefaultColors (Drawlib Default Palette)"),
-    "google": (google_colors, "GoogleColors (Official Google Palette)"),
-    "monochrome": (monochrome_colors, "MonochromeColors (Grayscale Palette)"),
-    "mono": (monochrome_colors, "MonochromeColors (Grayscale Palette)"),
+    "default": (DefaultColors, "DefaultColors (Drawlib Default Palette)"),
+    "google": (GoogleColors, "GoogleColors (Official Google Palette)"),
+    "monochrome": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
+    "mono": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
 }
 
 
@@ -168,7 +168,7 @@ def _draw_color_tile(
 
 
 def render_color_chart(
-    colors: BaseColors,
+    colors: BaseColors | type[BaseColors],
     name: str,
     *,
     sort_mode: SortMode = "hsv",
@@ -281,7 +281,7 @@ def cmd_colors_list() -> None:
 
     visited = set()
     for alias, (instance, desc) in _PRESET_MAP.items():
-        cls_name = instance.__class__.__name__
+        cls_name = instance.__name__ if isinstance(instance, type) else instance.__class__.__name__
         if cls_name in visited:
             continue
         visited.add(cls_name)

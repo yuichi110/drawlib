@@ -39,9 +39,6 @@ class MonochromeColors(BaseColors):
     Canvas: Color = White
 
 
-monochrome_colors: MonochromeColors = MonochromeColors()
-
 __all__ = [
     "MonochromeColors",
-    "monochrome_colors",
 ]

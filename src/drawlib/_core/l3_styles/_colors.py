@@ -21,19 +21,58 @@ from drawlib._core.l2_types import Color
 class _BaseColorsMeta(type(BaseModel)):
     """Metaclass allowing class-level attribute access for color fields."""
 
-    def __getattr__(self, name: str) -> Any:  # noqa: ANN401
-        fields = self.__dict__.get("__pydantic_fields__")
+    def __getattribute__(cls, name: str) -> Any:  # noqa: ANN401
+        attr = super().__getattribute__(name)
+        if isinstance(attr, property):
+            cap_name = name.capitalize()
+            fields = cls.__dict__.get("__pydantic_fields__", {})
+            if cap_name in fields and fields[cap_name].default is not None:
+                return fields[cap_name].default
+            if hasattr(cls, cap_name):
+                return getattr(cls, cap_name)
+        if name == "patch":
+            return cls().patch
+        return attr
+
+    def __getattr__(cls, name: str) -> Any:  # noqa: ANN401
+        if name.lower() == "transparent":
+            return cls.Transparent
+        fields = cls.__dict__.get("__pydantic_fields__")
         if fields:
             if name in fields:
                 default = fields[name].default
                 if default is not None:
                     return default
+                return None
             cap_name = name.capitalize()
             if cap_name in fields:
                 default = fields[cap_name].default
                 if default is not None:
                     return default
-        raise AttributeError(f"type object '{self.__name__}' has no attribute '{name}'")
+        raise AttributeError(f"type object '{cls.__name__}' has no attribute '{name}'")
+
+    def __getitem__(cls, key: str) -> Color:
+        if not isinstance(key, str):
+            raise KeyError(f"Invalid key type: {type(key)}")
+        if hasattr(cls, key):
+            val = getattr(cls, key)
+            if isinstance(val, Color):
+                return val
+        cap_key = key.capitalize()
+        if hasattr(cls, cap_key):
+            val = getattr(cls, cap_key)
+            if isinstance(val, Color):
+                return val
+        raise KeyError(f'Color "{key}" is not found in {cls.__name__}.')
+
+    def __iter__(cls) -> Generator[tuple[str, Color], None, None]:
+        for field_name in cls.model_fields:
+            val = getattr(cls, field_name, None)
+            if isinstance(val, Color):
+                yield field_name, val
+
+    def patch(cls, **kwargs: Any) -> Any:  # noqa: ANN401
+        return cls().patch(**kwargs)
 
 
 class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
@@ -143,16 +182,32 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         Raises:
             KeyError: If the specified key does not exist.
         """
-        if hasattr(self, key):
+        if key.lower() == "transparent":
+            return self.Transparent
+        fields = self.__class__.model_fields
+        if key in fields:
             val = getattr(self, key)
             if isinstance(val, Color):
                 return val
         cap_key = key.capitalize()
-        if hasattr(self, cap_key):
+        if cap_key in fields:
             val = getattr(self, cap_key)
             if isinstance(val, Color):
                 return val
         raise KeyError(f'Color "{key}" is not found in {self.__class__.__name__}.')
+
+    def __getattr__(self, name: str) -> Any:  # noqa: ANN401
+        """Allow fallback resolution for transparent and lowercase color names on instances."""
+        if name.startswith("__"):
+            raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+        if name.lower() == "transparent":
+            return self.Transparent
+        cap_name = name.capitalize()
+        if cap_name != name and hasattr(self, cap_name):
+            val = getattr(self, cap_name)
+            if isinstance(val, Color):
+                return val
+        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
 
     def get(self, key: str, default: Any = None) -> Any:  # noqa: ANN401
         """Safely retrieve a color or attribute with an optional default fallback.

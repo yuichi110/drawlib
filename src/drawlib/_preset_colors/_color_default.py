@@ -146,15 +146,8 @@ class DefaultDarkColors(DefaultColors):
     Canvas: Color = DefaultColors.Gray6
 
 
-default_colors: DefaultColors = DefaultColors()
-default_light_colors: DefaultLightColors = DefaultLightColors()
-default_dark_colors: DefaultDarkColors = DefaultDarkColors()
-
 __all__ = [
     "DefaultColors",
     "DefaultDarkColors",
     "DefaultLightColors",
-    "default_colors",
-    "default_dark_colors",
-    "default_light_colors",
 ]

@@ -14,13 +14,13 @@ import pytest
 from drawlib._core.l4_canvas._line import LineArcHelper
 from drawlib.canvas import clear, save
 from drawlib.lines import line, line_arc, line_bezier1, line_bezier2, line_curved, lines, lines_bezier, lines_curved
-from drawlib.preset_colors import Colors
-from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle, ellipse
+from drawlib.styles import Colors, Styles
 from drawlib.types import Style
 
 # ruff: noqa: F403, F405
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l4_canvas/line/"
 
 

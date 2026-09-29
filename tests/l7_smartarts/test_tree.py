@@ -9,11 +9,12 @@
 
 """Unit and integration tests for TreeNode smart art hierarchical rendering."""
 
-from drawlib._preset_styles import default_styles
 from drawlib.canvas import clear, save
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
+from drawlib.styles import Styles
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l7_smartarts/tree/"
 
 

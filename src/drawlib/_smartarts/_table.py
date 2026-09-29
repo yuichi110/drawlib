@@ -18,8 +18,8 @@ from drawlib._core.fonts import Font
 from drawlib._core.lines import line
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import ColorType, Coordinate, PosFloat, PosInt, Style
-from drawlib._preset_colors import Colors, default_colors, monochrome_colors
-from drawlib._preset_styles import default_styles, monochrome_styles
+from drawlib._preset_colors import Colors, DefaultColors, MonochromeColors
+from drawlib._preset_styles import DefaultStyles, MonochromeStyles
 
 
 class _CellStyleOrder(BaseModel):
@@ -85,7 +85,7 @@ class Table:
                 if default_cell_style and default_cell_style.shape_fill_color
                 else Colors.Transparent
             )
-            txt = default_text_style or default_styles.primary
+            txt = default_text_style or DefaultStyles.Primary
             self.set_style_cell(background_color=bg, textstyle=txt)
             has_custom = True
 
@@ -95,7 +95,7 @@ class Table:
                 if header_cell_style and header_cell_style.shape_fill_color
                 else Colors.Transparent
             )
-            txt = header_text_style or default_styles.bold
+            txt = header_text_style or DefaultStyles.Bold
             self.set_style_cell_header(background_color=bg, textstyle=txt)
             has_custom = True
 
@@ -148,59 +148,59 @@ class Table:
 
         if name == "default":
             self.set_style_cell_evenodd(
-                even_color=default_colors.Gray1,
-                even_textstyle=default_styles.primary.patch(text_color=default_colors.Gray5),
-                odd_color=default_colors.White,
-                odd_textstyle=default_styles.primary.patch(text_color=default_colors.Gray5),
+                even_color=DefaultColors.Gray1,
+                even_textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
+                odd_color=DefaultColors.White,
+                odd_textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
             )
             self.set_style_cell_header(
-                background_color=default_colors.Blue2,
-                textstyle=default_styles.bold.patch(
-                    text_color=default_colors.White, text_font=Font.SANSSERIF_BOLD
+                background_color=DefaultColors.Blue2,
+                textstyle=DefaultStyles.Bold.patch(
+                    text_color=DefaultColors.White, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                bottom=default_styles.solid.patch(line_color=default_colors.Gray5, line_width=1.0),
+                bottom=DefaultStyles.Solid.patch(line_color=DefaultColors.Gray5, line_width=1.0),
             )
 
         elif name == "none":
             self.set_style_cell(
                 background_color=Colors.Transparent,
-                textstyle=default_styles.primary.patch(text_color=default_colors.Gray5),
+                textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
             )
 
         elif name == "monochrome":
             self.set_style_cell_evenodd(
-                even_color=monochrome_colors.Gray1,
-                even_textstyle=monochrome_styles.primary.patch(text_color=monochrome_colors.Gray5),
-                odd_color=monochrome_colors.White,
-                odd_textstyle=monochrome_styles.primary.patch(text_color=monochrome_colors.Gray5),
+                even_color=MonochromeColors.Gray1,
+                even_textstyle=MonochromeStyles.Primary.patch(text_color=MonochromeColors.Gray5),
+                odd_color=MonochromeColors.White,
+                odd_textstyle=MonochromeStyles.Primary.patch(text_color=MonochromeColors.Gray5),
             )
             self.set_style_cell_header(
-                background_color=monochrome_colors.Gray4,
-                textstyle=monochrome_styles.bold.patch(
-                    text_color=monochrome_colors.White, text_font=Font.SANSSERIF_BOLD
+                background_color=MonochromeColors.Gray4,
+                textstyle=MonochromeStyles.Bold.patch(
+                    text_color=MonochromeColors.White, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                bottom=monochrome_styles.solid.patch(line_color=monochrome_colors.Gray5, line_width=1.0),
+                bottom=MonochromeStyles.Solid.patch(line_color=MonochromeColors.Gray5, line_width=1.0),
             )
 
         elif name == "border_simple":
             self.set_style_cell(
-                background_color=default_colors.White,
-                textstyle=default_styles.primary.patch(text_color=default_colors.Gray5),
+                background_color=DefaultColors.White,
+                textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
             )
             self.set_style_cell_header(
-                background_color=default_colors.White,
-                textstyle=default_styles.bold.patch(
-                    text_color=default_colors.Gray5, text_font=Font.SANSSERIF_BOLD
+                background_color=DefaultColors.White,
+                textstyle=DefaultStyles.Bold.patch(
+                    text_color=DefaultColors.Gray5, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                top=default_styles.solid.patch(line_color=default_colors.Gray5, line_width=1.5),
-                top2=default_styles.solid.patch(line_color=default_colors.Gray5, line_width=0.75),
-                bottom=default_styles.solid.patch(line_color=default_colors.Gray5, line_width=1.5),
+                top=DefaultStyles.Solid.patch(line_color=DefaultColors.Gray5, line_width=1.5),
+                top2=DefaultStyles.Solid.patch(line_color=DefaultColors.Gray5, line_width=0.75),
+                bottom=DefaultStyles.Solid.patch(line_color=DefaultColors.Gray5, line_width=1.5),
             )
 
         else:
@@ -393,7 +393,7 @@ class Table:
             data (List[List[Any]]): The data to be displayed in the table.
         """
         # create blank matrix
-        default_textstyle = self._default_text_style or default_styles.primary
+        default_textstyle = self._default_text_style or DefaultStyles.Primary
         matrix: list[list[_CellInfo]] = []
         for row_data in data:
             row: list[_CellInfo] = []

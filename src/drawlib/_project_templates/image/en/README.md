@@ -47,9 +47,9 @@ drawlib build image __SRC_DIR__/ -o __OUT_DIR__/
 Configure drawing styles, color palettes, and fonts for all standalone scripts:
 ```python
 from drawlib.fonts import FontRoboto
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
-styles = styles.patch_font(
+Styles = Styles.patch_font(
     regular=FontRoboto.REGULAR,
     bold=FontRoboto.BOLD,
 )

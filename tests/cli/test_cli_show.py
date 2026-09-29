@@ -22,7 +22,7 @@ def test_cli_show_python_script_default(tmp_path: Path) -> None:
     script = tmp_path / "drawing.py"
     script.write_text(
         """from drawlib.canvas import save, setup
-from drawlib.preset_styles import default_styles
+from drawlib.styles import Styles as default_styles
 from drawlib.shapes import circle
 
 styles = default_styles
@@ -46,7 +46,7 @@ def test_cli_show_python_script_with_grid_long(tmp_path: Path) -> None:
     script = tmp_path / "drawing_grid.py"
     script.write_text(
         """from drawlib.canvas import save, setup
-from drawlib.preset_styles import default_styles
+from drawlib.styles import Styles as default_styles
 from drawlib.shapes import rectangle
 
 styles = default_styles
@@ -70,7 +70,7 @@ def test_cli_show_python_script_with_grid_short(tmp_path: Path) -> None:
     script = tmp_path / "drawing_grid_short.py"
     script.write_text(
         """from drawlib.canvas import save, setup
-from drawlib.preset_styles import default_styles
+from drawlib.styles import Styles as default_styles
 from drawlib.shapes import rectangle
 
 styles = default_styles
@@ -120,7 +120,7 @@ def test_cli_show_markdown_block_by_index(tmp_path: Path) -> None:
         """# Doc
 
 ```drawlib
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -141,7 +141,7 @@ def test_cli_show_markdown_block_with_grid(tmp_path: Path) -> None:
         """# Doc
 
 ```drawlib
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,
         encoding="utf-8",

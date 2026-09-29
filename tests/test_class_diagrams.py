@@ -27,7 +27,7 @@ from drawlib.diagrams.class_diagram import (
     RelationshipType,
     Side,
 )
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 
 class TestClassNode:

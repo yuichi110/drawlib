@@ -29,7 +29,7 @@ from drawlib.diagrams.state_diagram import (
     StateDiagram,
     StateTransition,
 )
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 
 class TestStateNode:

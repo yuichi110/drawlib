@@ -17,7 +17,7 @@ from PIL import Image
 from drawlib._core.l2_types import Dimage
 from drawlib.canvas import save
 from drawlib.images import image
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 IMAGE_FILE = "../assets/image.png"
 FONT_FILE = "../../assets/font.ttf"
@@ -53,14 +53,14 @@ class TestDimage:
 
     def test_fill1(self):
         """Test Dimage fill with color."""
-        img = Dimage(IMAGE_FILE).fill(Colors.Gray)
+        img = Dimage(IMAGE_FILE).fill(Colors.Gray4)
         image((50, 50), 50, img)
         img.save(f"{OUTPUT_DIR}test_fill1_dimage.png")
         save(f"{OUTPUT_DIR}test_fill1.png")
 
     def test_fill2(self):
         """Test Dimage fill with alpha and color."""
-        img = Dimage(IMAGE_FILE).alpha(0.3).fill(Colors.Gray)
+        img = Dimage(IMAGE_FILE).alpha(0.3).fill(Colors.Gray4)
         image((50, 50), 50, img)
         img.save(f"{OUTPUT_DIR}test_fill2_dimage.png")
         save(f"{OUTPUT_DIR}test_fill2.png")

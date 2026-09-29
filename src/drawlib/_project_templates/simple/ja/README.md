@@ -52,9 +52,9 @@ drawlib build html __SRC_DIR__/doc.md -o __OUT_HTML_DIR__/doc.html
 図面全体のスタイルやフォントを一元管理します:
 ```python
 from drawlib.fonts import FontJapanese
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
-styles = styles.patch_font(
+Styles = Styles.patch_font(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
 )

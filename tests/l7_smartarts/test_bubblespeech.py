@@ -10,10 +10,10 @@
 """Unit and integration tests for bubblespeech smart art."""
 
 from drawlib.canvas import clear, save
-from drawlib.preset_colors import Colors
-from drawlib.preset_styles import default_styles
 from drawlib.smartarts import bubblespeech
+from drawlib.styles import Colors, Styles
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l7_smartarts/bubblespeech/"
 
 

@@ -172,9 +172,6 @@ class GoogleColors(BaseColors):
     Canvas: Color = White              # #FFFFFF (スライドキャンバス背景)
 
 
-google_colors: GoogleColors = GoogleColors()
-
 __all__ = [
     "GoogleColors",
-    "google_colors",
 ]

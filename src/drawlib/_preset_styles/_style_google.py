@@ -16,7 +16,7 @@ from typing import Any
 
 from drawlib._core.fonts import FontSourceCode
 from drawlib._core.types import Style
-from drawlib._preset_colors import google_colors
+from drawlib._preset_colors import GoogleColors
 from drawlib._preset_styles._base import BaseStyles
 from drawlib._preset_styles._utils import _make_variants
 
@@ -27,7 +27,7 @@ warnings.filterwarnings(
 )
 
 
-class StylesGoogle(BaseStyles):
+class GoogleStyles(BaseStyles):
     """Google preset styles with complete typing for IDE autocompletion."""
 
     # Primary
@@ -1719,8 +1719,8 @@ class StylesGoogle(BaseStyles):
     google_orange_dashed_light: Style
 
 
-def _create_google_styles() -> StylesGoogle:
-    col = google_colors
+def _create_google_styles() -> GoogleStyles:
+    col = GoogleColors
     styles_dict: dict[str, Any] = {
         "background_color": col.Canvas,
         "sourcecode_font": FontSourceCode.SOURCECODEPRO,
@@ -1899,14 +1899,12 @@ def _create_google_styles() -> StylesGoogle:
         shape_line_width=0.0,
     )
 
-    return StylesGoogle(**styles_dict)
+    return GoogleStyles(**styles_dict)
 
 
-google_styles: StylesGoogle = _create_google_styles()
-GoogleStyles = StylesGoogle
+_google_styles: GoogleStyles = _create_google_styles()
+GoogleStyles.register_default_instance(_google_styles)
 
 __all__ = [
     "GoogleStyles",
-    "StylesGoogle",
-    "google_styles",
 ]

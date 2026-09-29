@@ -26,9 +26,9 @@ from drawlib._core.l2_types import Color, Dimage
 from drawlib._core.l3_styles import Style
 from drawlib._preset_styles import (
     BaseStyles,
-    default_styles,
-    google_styles,
-    monochrome_styles,
+    DefaultStyles,
+    GoogleStyles,
+    MonochromeStyles,
 )
 from drawlib.canvas import clear, get_dimage, setup
 from drawlib.lines import line
@@ -45,12 +45,20 @@ styles_app = typer.Typer(
     context_settings=_HELP_CTX,
 )
 
+
+def _get_preset(cls: type[BaseStyles]) -> BaseStyles:
+    inst = cls.get_default_instance()
+    if inst is None:
+        raise RuntimeError(f"Default instance for {cls.__name__} not registered.")
+    return inst
+
+
 _PRESET_MAP: dict[str, tuple[BaseStyles, str]] = {
-    "default": (default_styles, "StylesDefault (Drawlib Standard Styles)"),
-    "def": (default_styles, "StylesDefault (Drawlib Standard Styles)"),
-    "monochrome": (monochrome_styles, "StylesMonochrome (Grayscale / B&W Styles)"),
-    "mono": (monochrome_styles, "StylesMonochrome (Grayscale / B&W Styles)"),
-    "google": (google_styles, "StylesGoogle (Google Sheets Palette Styles)"),
+    "default": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles)"),
+    "def": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles)"),
+    "monochrome": (_get_preset(MonochromeStyles), "MonochromeStyles (Grayscale / B&W Styles)"),
+    "mono": (_get_preset(MonochromeStyles), "MonochromeStyles (Grayscale / B&W Styles)"),
+    "google": (_get_preset(GoogleStyles), "GoogleStyles (Google Sheets Palette Styles)"),
 }
 
 _COL_HEADERS = [

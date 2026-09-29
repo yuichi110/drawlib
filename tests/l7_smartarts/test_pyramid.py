@@ -12,9 +12,10 @@
 import pytest
 
 from drawlib.canvas import clear, save
-from drawlib.preset_styles import default_styles
 from drawlib.smartarts import Pyramid
+from drawlib.styles import Styles
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l7_smartarts/pyramid/"
 
 

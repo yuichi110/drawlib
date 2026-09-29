@@ -14,19 +14,19 @@ from __future__ import annotations
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 # Setup canvas: 100 wide x 50 high
 setup(width=100, height=50)
 
 # Draw shapes
-rectangle((25, 25), width=28, height=18, style=styles.blue_flat, text="Service A", textstyle=styles.white_bold)
-rectangle((75, 25), width=28, height=18, style=styles.green_flat, text="Service B", textstyle=styles.white_bold)
+rectangle((25, 25), width=28, height=18, style=Styles.blue_flat, text="Service A", textstyle=Styles.white_bold)
+rectangle((75, 25), width=28, height=18, style=Styles.green_flat, text="Service B", textstyle=Styles.white_bold)
 
 # Draw connecting line with arrow
-line((39, 25), (61, 25), arrowhead="->", style=styles.bold)
-text((50, 28), "gRPC", style=styles.primary)
+line((39, 25), (61, 25), arrowhead="->", style=Styles.bold)
+text((50, 28), "gRPC", style=Styles.primary)
 
 # Save the rendered canvas image
 save()

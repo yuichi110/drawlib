@@ -14,19 +14,17 @@ from drawlib.preset_colors import (
     # First-class Color model
     Color,
 
-    # Standard Color Constant Classes & Instances
-    Colors,                  # 16 basic web colors + Transparent
+    # Standard Color Constant Classes
     Colors140,               # Full CSS / W3C 140 standard named colors
     DefaultColors,           # Palette class used by preset style 'default'
-    default_colors,          # Singleton instance
+    DefaultDarkColors,
+    DefaultLightColors,
     MonochromeColors,        # Grayscale palette class used by 'monochrome'
-    monochrome_colors,       # Singleton instance
     GoogleColors,            # Palette class used by 'google' theme
-    google_colors,           # Singleton instance
 )
 
-# Or access active theme colors dynamically:
-from drawlib.styles import colors
+# Or access active theme colors dynamically as PascalCase tokens:
+from drawlib.styles import Colors
 ```
 
 ---
@@ -95,25 +93,25 @@ Colors140.SteelBlue          # (70, 130, 180)
 ### 3.3. Theme Palette Catalogs
 Curated color schemes designed to work harmoniously across complex architectures:
 
-- **`DefaultColors` (`default_colors`, `styles.colors`)**: Standard palette for default themes (`Red`, `Green`, `Blue`, `Black`, `White`, `Orange`, `Purple`, `Teal`, `Navy`, `Aqua`, `Silver`, `Charcoal`, and variants).
-- **`MonochromeColors` (`monochrome_colors`)**: Multi-tier grayscale tones (`Black`, `Charcoal`, `Graphite`, `Gray`, `Silver`, `Snow`, `White`) for printer-friendly publications and patent drawings.
-- **`GoogleColors` (`google_colors`)**: Google Material palette matching `GoogleStyles`.
+- **`DefaultColors` (`from drawlib.styles import Colors`)**: Standard palette for default themes (`Red`, `Green`, `Blue`, `Black`, `White`, `Orange`, `Purple`, `Teal`, `Navy`, `Aqua`, `Silver`, `Charcoal`, and variants).
+- **`MonochromeColors`**: Multi-tier grayscale tones (`Black`, `Charcoal`, `Graphite`, `Gray`, `Silver`, `Snow`, `White`) for printer-friendly publications and patent drawings.
+- **`GoogleColors`**: Google Material palette matching `GoogleStyles`.
 
 ---
 
 ## 4. Color Manipulation & Derivation
 
-All preset colors (`Colors`, `default_colors`, `monochrome_colors`, `Colors140`, `google_colors`) are `Color` instances.
+All preset colors (`Colors`, `DefaultColors`, `MonochromeColors`, `Colors140`, `GoogleColors`) are `Color` instances.
 
 ### 4.1. The `.patch()` Method
 Derives a new `Color` instance by modifying specific channels while preserving immutability (analogous to `Style.patch()`):
 
 ```python
-from drawlib.preset_colors import Colors, default_colors
+from drawlib.styles import Colors
 
 # Adjust transparency (alpha)
 glass_blue = Colors.Blue.patch(alpha=0.2)  # (0, 0, 255, 0.2)
-subtle_orange = default_colors.Orange.patch(alpha=0.15)
+subtle_orange = Colors.Orange.patch(alpha=0.15)
 
 # Adjust RGB channels
 custom_red = Colors.Red.patch(g=50, b=50)
@@ -205,21 +203,21 @@ save()
 ```drawlib fold-code 600px center caption:"Monochrome Architectural Print Layout"
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.preset_colors import monochrome_colors
+from drawlib.preset_colors import MonochromeColors
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 setup(width=120, height=50)
 
-box_style = styles.primary.patch(
-    shape_fill_color=monochrome_colors.Silver,
-    shape_line_color=monochrome_colors.Black,
+box_style = Styles.Primary.patch(
+    shape_fill_color=MonochromeColors.Silver,
+    shape_line_color=MonochromeColors.Black,
     shape_line_width=2,
 )
 
-rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=styles.bold)
-rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=styles.bold)
-line((45, 25), (75, 25), arrowhead="->", style=styles.bold)
+rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=Styles.Bold)
+rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=Styles.Bold)
+line((45, 25), (75, 25), arrowhead="->", style=Styles.Bold)
 save()
 ```
 

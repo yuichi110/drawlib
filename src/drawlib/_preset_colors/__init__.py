@@ -16,12 +16,9 @@ from drawlib._preset_colors._color_default import (
     DefaultColors,
     DefaultDarkColors,
     DefaultLightColors,
-    default_colors,
-    default_dark_colors,
-    default_light_colors,
 )
-from drawlib._preset_colors._color_google import GoogleColors, google_colors
-from drawlib._preset_colors._color_monochrome import MonochromeColors, monochrome_colors
+from drawlib._preset_colors._color_google import GoogleColors
+from drawlib._preset_colors._color_monochrome import MonochromeColors
 
 __all__ = [
     "BaseColors",
@@ -36,9 +33,4 @@ __all__ = [
     "MonochromeColors",
     "colors_140",
     "colors_16",
-    "default_colors",
-    "default_dark_colors",
-    "default_light_colors",
-    "google_colors",
-    "monochrome_colors",
 ]

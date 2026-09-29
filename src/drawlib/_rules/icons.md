@@ -57,14 +57,13 @@ from drawlib.icons import font_icon, gcp, phosphor
 
 # Supporting styling and color modules
 from drawlib.preset_colors import (
-    BaseColors,
     Color,
-    Colors,
     Colors140,
     DefaultColors,
+    DefaultDarkColors,
+    DefaultLightColors,
     GoogleColors,
     MonochromeColors,
-    default_colors,
 )
 from drawlib.types import Style
 ```
@@ -236,9 +235,9 @@ CODE_SERVER = "\uf233"
 CODE_TERMINAL = "\uf120"
 
 # Brand colors
-COLOR_GITHUB = from_hex("#24292e")
-COLOR_DOCKER = from_hex("#2496ed")
-COLOR_PYTHON = from_hex("#3776ab")
+COLOR_GITHUB = Color.from_hex("#24292e")
+COLOR_DOCKER = Color.from_hex("#2496ed")
+COLOR_PYTHON = Color.from_hex("#3776ab")
 
 # Render Brand Icons
 font_icon((20, 24), width=11, code=CODE_GITHUB, file=FILE_BRANDS, style=Style(text_color=COLOR_GITHUB))
@@ -361,7 +360,6 @@ text_halign  │       (x, y) Center Anchor     │ text_halign
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -427,8 +425,8 @@ Vector icons and raster GCP icons handle color customization differently:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import gcp
+from drawlib.styles import Colors, styles
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -589,7 +587,6 @@ This architecture features an internet-facing Cloud Armor and Load Balancer tier
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, from_hex
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle

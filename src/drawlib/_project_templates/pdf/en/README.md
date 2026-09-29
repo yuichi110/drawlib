@@ -50,9 +50,9 @@ drawlib build pdf __SRC_DIR__/ -o __OUT_PDF__ --generate-index
 Configure drawing styles, color palettes, and fonts for all embedded illustrations:
 ```python
 from drawlib.fonts import FontRoboto
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
-styles = styles.patch_font(
+Styles = Styles.patch_font(
     regular=FontRoboto.REGULAR,
     bold=FontRoboto.BOLD,
 )

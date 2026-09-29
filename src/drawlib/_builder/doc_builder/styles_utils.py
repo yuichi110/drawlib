@@ -15,6 +15,8 @@ import os
 import sys
 from typing import Any, Dict, Optional
 
+import drawlib.preset_colors
+import drawlib.preset_styles
 import drawlib.styles
 import drawlib.utils
 
@@ -37,7 +39,7 @@ def _inject_shared_globals(shared_globals: Dict[str, Any]) -> None:
         "from drawlib.types import *\n"
         "from drawlib.math import *\n"
         "from drawlib.builder import *\n"
-        "from drawlib.styles import styles, colors, Style, Color\n",
+        "from drawlib.styles import Styles, Colors, Style, Color\n",
         shared_globals,
     )
 
@@ -50,7 +52,7 @@ def load_styles(
 
     If styles_path is None or empty, drawlib.styles is reset to its default theme.
     When a styles_path is provided, the script is executed in a namespace initialized with
-    drawlib.styles.styles and drawlib.styles.colors, and any overridden `styles` or `colors`
+    drawlib.styles.Styles and drawlib.styles.Colors, and any overridden `Styles` or `Colors`
     are applied to drawlib.styles.
 
     Args:
@@ -60,7 +62,8 @@ def load_styles(
     Raises:
         FileNotFoundError: If the specified styles_path does not exist.
     """
-    drawlib.styles._reset_styles()
+    drawlib.styles.Styles = drawlib.preset_styles.DefaultStyles
+    drawlib.styles.Colors = drawlib.preset_colors.DefaultColors
 
     if shared_globals is not None:
         _inject_shared_globals(shared_globals)
@@ -76,10 +79,14 @@ def load_styles(
     if styles_dir not in sys.path:
         sys.path.insert(0, styles_dir)
 
+    orig_styles = drawlib.styles.Styles
+    orig_colors = drawlib.styles.Colors
+
     user_globals: dict[str, Any] = {
         "__file__": styles_abs_path,
         "__name__": "drawlib_styles",
-        "styles": drawlib.styles.styles,
+        "Styles": orig_styles,
+        "Colors": orig_colors,
     }
 
     current_cwd = os.getcwd()
@@ -93,15 +100,28 @@ def load_styles(
     finally:
         os.chdir(current_cwd)
 
-    custom_colors = user_globals["colors"] if "colors" in user_globals else None
-    if "styles" in user_globals:
-        drawlib.styles._set_active_styles(user_globals["styles"], custom_colors)
-    elif custom_colors is not None:
-        drawlib.styles._set_active_styles(drawlib.styles.styles, custom_colors)
+    custom_colors = None
+    if user_globals.get("Colors") is not orig_colors:
+        custom_colors = user_globals["Colors"]
+    elif user_globals.get("colors") is not None and user_globals.get("colors") is not orig_colors:
+        custom_colors = user_globals["colors"]
+
+    custom_styles = None
+    if user_globals.get("Styles") is not orig_styles:
+        custom_styles = user_globals["Styles"]
+    elif user_globals.get("styles") is not None and user_globals.get("styles") is not orig_styles:
+        custom_styles = user_globals["styles"]
+
+    if custom_styles is not None:
+        drawlib.styles.Styles = custom_styles
+        if custom_colors is None:
+            custom_colors = getattr(custom_styles, "colors", drawlib.preset_colors.DefaultColors)
+    if custom_colors is not None:
+        drawlib.styles.Colors = custom_colors
 
     if shared_globals is not None:
-        shared_globals["styles"] = drawlib.styles.styles
-        shared_globals["colors"] = drawlib.styles.colors
+        shared_globals["Styles"] = drawlib.styles.Styles
+        shared_globals["Colors"] = drawlib.styles.Colors
 
 
 def load_utils(

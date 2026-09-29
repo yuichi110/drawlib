@@ -16,7 +16,7 @@ from pydantic import ValidationError
 
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles._style_models import Style
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 
 class TestStyleModelBase:
@@ -228,7 +228,7 @@ class TestTextProperties:
             text_angle=45.0,
             text_flip=True,
             text_xy_shift=(2.0, 3.0),
-            text_bg_fill_color=Colors.Gray,
+            text_bg_fill_color=Colors.Gray3,
             text_bg_fill_alpha=0.5,
             text_bg_line_color=Colors.Black,
             text_bg_line_width=1.0,
@@ -242,7 +242,7 @@ class TestTextProperties:
         assert s.text_angle == 45.0
         assert s.text_flip is True
         assert s.text_xy_shift == (2.0, 3.0)
-        assert s.text_bg_fill_color == Colors.Gray
+        assert s.text_bg_fill_color == Colors.Gray3
 
     def test_invalid_text_properties(self):
         """Test invalid text property values raise ValueError."""
@@ -278,13 +278,13 @@ class TestImageProperties:
     def test_valid_image_properties(self):
         """Test valid image property values."""
         s = Style(
-            image_tint_color=Colors.Gray,
+            image_tint_color=Colors.Gray3,
             image_alpha=0.7,
             image_border_color=Colors.Black,
             image_border_width=2.0,
             image_border_style="solid",
         )
-        assert s.image_tint_color == Colors.Gray
+        assert s.image_tint_color == Colors.Gray3
         assert s.image_alpha == 0.7
         assert s.image_border_color == Colors.Black
         assert s.image_border_width == 2.0

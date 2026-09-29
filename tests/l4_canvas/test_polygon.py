@@ -12,12 +12,12 @@
 import pytest
 
 from drawlib.canvas import clear, save
-from drawlib.preset_colors import Colors
-from drawlib.preset_styles import default_styles
 from drawlib.shapes import chevron, parallelogram, rhombus, star, trapezoid, triangle
+from drawlib.styles import Colors, Styles
 
 # ruff: noqa: F403, F405
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l4_canvas/polygon/"
 
 

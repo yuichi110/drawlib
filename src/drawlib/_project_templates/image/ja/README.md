@@ -47,9 +47,9 @@ drawlib build image __SRC_DIR__/ -o __OUT_DIR__/
 図面全体のスタイルや日本語フォントを一元管理します:
 ```python
 from drawlib.fonts import FontJapanese
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
-styles = styles.patch_font(
+Styles = Styles.patch_font(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
 )

@@ -31,7 +31,7 @@ from drawlib.diagrams.architecture import (
     PhosphorIcon,
 )
 from drawlib.diagrams.architecture import icons as arch_icons
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 
 class TestArchitectureIcons:
@@ -305,7 +305,7 @@ class TestArchitectureDiagramEndToEnd:
                 "Custom Gateway",
                 icon=custom_icon,
                 icon_size=10.0,
-                style=Style(shape_fill_color=Colors.White, shape_line_color=Colors.Gray, shape_line_width=1.0),
+                style=Style(shape_fill_color=Colors.White, shape_line_color=Colors.Gray4, shape_line_width=1.0),
             ),
             (45.0, 50.0),
         )

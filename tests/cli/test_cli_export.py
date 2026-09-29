@@ -24,18 +24,18 @@ def test_cli_export_list(tmp_path: Path) -> None:
 
 ```drawlib 400px center caption:"First Image"
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=Styles.primary)
 ```
 
 ```drawlib 500px file:custom.png
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import rectangle
 setup(width=100, height=100)
-rectangle((50, 50), width=40, height=30, style=styles.primary)
+rectangle((50, 50), width=40, height=30, style=Styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -56,10 +56,10 @@ def test_cli_export_by_index_with_output(tmp_path: Path) -> None:
 
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -77,8 +77,8 @@ def test_cli_export_with_styles(tmp_path: Path) -> None:
     """Test export command executing code block with a custom styles script."""
     styles_file = tmp_path / "my_styles.py"
     styles_file.write_text(
-        """from drawlib.preset_styles import monochrome_styles
-styles = monochrome_styles
+        """from drawlib.preset_styles import MonochromeStyles
+Styles = MonochromeStyles
 """,
         encoding="utf-8",
     )
@@ -89,11 +89,11 @@ styles = monochrome_styles
 
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import circle
-assert styles.__class__.__name__ in ("StylesMonochrome", "MonochromeStyles")
+assert getattr(Styles, '__name__', Styles.__class__.__name__) in ("StylesMonochrome", "MonochromeStyles")
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -124,11 +124,11 @@ def test_cli_export_with_utils(tmp_path: Path) -> None:
 
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.utils import get_radius
 from drawlib.shapes import circle
 setup(width=100, height=100)
-circle((50, 50), radius=get_radius(), style=styles.primary)
+circle((50, 50), radius=get_radius(), style=Styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -151,10 +151,10 @@ def test_cli_export_with_grid(tmp_path: Path) -> None:
 
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -172,11 +172,11 @@ def test_cli_export_python_script(tmp_path: Path) -> None:
     script_file = tmp_path / "draw_standalone.py"
     script_file.write_text(
         """from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import circle
 
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=Styles.primary)
 """,
         encoding="utf-8",
     )
@@ -195,10 +195,10 @@ def test_cli_show_with_output_option(tmp_path: Path) -> None:
 
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,
         encoding="utf-8",

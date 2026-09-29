@@ -15,12 +15,12 @@ from typing import Any
 
 from drawlib._core.fonts import FontSourceCode
 from drawlib._core.types import Style
-from drawlib._preset_colors import Colors, monochrome_colors
+from drawlib._preset_colors import Colors, MonochromeColors
 from drawlib._preset_styles._base import BaseStyles
 from drawlib._preset_styles._utils import _make_variants
 
 
-class StylesMonochrome(BaseStyles):
+class MonochromeStyles(BaseStyles):
     """Monochrome preset styles with complete typing for IDE autocompletion."""
 
     # Black
@@ -179,24 +179,20 @@ class StylesMonochrome(BaseStyles):
         return val
 
 
-# Backwards compatibility alias
-MonochromeStyles = StylesMonochrome
-
-
-def _create_monochrome_styles() -> StylesMonochrome:
+def _create_monochrome_styles() -> MonochromeStyles:
     """Generate monochrome preset styles.
 
     Returns:
-        StylesMonochrome: Monochrome preset styles instance.
+        MonochromeStyles: Monochrome preset styles instance.
     """
-    black = monochrome_colors.Black
-    gray1 = monochrome_colors.Gray1
-    gray2 = monochrome_colors.Gray2
-    gray3 = monochrome_colors.Gray3
-    gray4 = monochrome_colors.Gray4
-    gray5 = monochrome_colors.Gray5
-    gray6 = monochrome_colors.Gray6
-    white = monochrome_colors.White
+    black = MonochromeColors.Black
+    gray1 = MonochromeColors.Gray1
+    gray2 = MonochromeColors.Gray2
+    gray3 = MonochromeColors.Gray3
+    gray4 = MonochromeColors.Gray4
+    gray5 = MonochromeColors.Gray5
+    gray6 = MonochromeColors.Gray6
+    white = MonochromeColors.White
 
     p_v = _make_variants(
         white,
@@ -261,7 +257,7 @@ def _create_monochrome_styles() -> StylesMonochrome:
         "width": 140,
         "height": 70,
         "dpi": 100,
-        "colors": monochrome_colors,
+        "colors": MonochromeColors,
         "background_color": (255, 255, 255, 1.0),
         "sourcecode_font": FontSourceCode.SOURCECODEPRO,
         "canvas": Style(supports={"shape"}, shape_fill_color=white, shape_line_color=white, shape_line_width=0.0),
@@ -308,13 +304,12 @@ def _create_monochrome_styles() -> StylesMonochrome:
         styles_dict[f"{cname}_dashed_bold"] = v["dashed_bold"]
         styles_dict[f"{cname}_dashed_light"] = v["dashed_light"]
 
-    return StylesMonochrome(**styles_dict)
+    return MonochromeStyles(**styles_dict)
 
 
-monochrome_styles: StylesMonochrome = _create_monochrome_styles()
+_monochrome_styles: MonochromeStyles = _create_monochrome_styles()
+MonochromeStyles.register_default_instance(_monochrome_styles)
 
 __all__ = [
     "MonochromeStyles",
-    "StylesMonochrome",
-    "monochrome_styles",
 ]

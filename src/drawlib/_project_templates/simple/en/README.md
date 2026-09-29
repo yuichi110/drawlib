@@ -52,10 +52,10 @@ drawlib build html __SRC_DIR__/doc.md -o __OUT_HTML_DIR__/doc.html
 Configure drawing styles, color palettes, and fonts for all embedded illustrations:
 ```python
 from drawlib.fonts import FontRoboto
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 # Patch default fonts or themes
-styles = styles.patch_font(
+Styles = Styles.patch_font(
     regular=FontRoboto.REGULAR,
     bold=FontRoboto.BOLD,
 )

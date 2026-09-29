@@ -62,10 +62,10 @@ drawlib serve __OUT_HTML_DIR__/
 
 ```python
 from drawlib.fonts import FontRoboto
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 # Patch default fonts or colors across all diagrams
-styles = styles.patch_font(
+Styles = Styles.patch_font(
     regular=FontRoboto.REGULAR,
     bold=FontRoboto.BOLD,
 )

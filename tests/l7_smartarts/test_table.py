@@ -10,10 +10,10 @@
 """Unit and integration tests for Table smart art rendering."""
 
 from drawlib.canvas import clear, save
-from drawlib.preset_colors import Colors
-from drawlib.preset_styles import default_styles
 from drawlib.smartarts import Table
+from drawlib.styles import Colors, Styles
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l7_smartarts/table/"
 
 
@@ -66,7 +66,7 @@ class TestTable:
         t = Table()
         t.clear_styles()
         t.set_style_cell_evenodd(
-            even_color=Colors.Gray,
+            even_color=Colors.Gray3,
             even_textstyle=styles.white,
             odd_color=Colors.White,
             odd_textstyle=styles.black,

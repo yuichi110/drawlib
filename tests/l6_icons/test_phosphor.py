@@ -15,10 +15,10 @@ from drawlib import icons
 from drawlib._icons.font_icons import phosphor as phosphor_internal
 from drawlib.canvas import clear, save
 from drawlib.icons import phosphor
-from drawlib.preset_colors import Colors
-from drawlib.preset_styles import default_styles
+from drawlib.styles import Colors, Styles
 from drawlib.types import Style
 
+default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l6_icons/icon_phosphor/"
 
 

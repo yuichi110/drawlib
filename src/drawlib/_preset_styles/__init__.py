@@ -15,40 +15,20 @@ from drawlib._preset_styles._base import (
     PresetStyles,
 )
 from drawlib._preset_styles._style_default import (
+    DefaultDarkStyles,
+    DefaultLightStyles,
     DefaultStyles,
-    StylesDefault,
-    StylesDefaultDark,
-    StylesDefaultLight,
-    default_dark_styles,
-    default_light_styles,
-    default_styles,
 )
-from drawlib._preset_styles._style_google import (
-    GoogleStyles,
-    StylesGoogle,
-    google_styles,
-)
-from drawlib._preset_styles._style_monochrome import (
-    MonochromeStyles,
-    StylesMonochrome,
-    monochrome_styles,
-)
+from drawlib._preset_styles._style_google import GoogleStyles
+from drawlib._preset_styles._style_monochrome import MonochromeStyles
 
 __all__ = [
     "BasePresetStyles",
     "BaseStyles",
+    "DefaultDarkStyles",
+    "DefaultLightStyles",
     "DefaultStyles",
     "GoogleStyles",
     "MonochromeStyles",
     "PresetStyles",
-    "StylesDefault",
-    "StylesDefaultDark",
-    "StylesDefaultLight",
-    "StylesGoogle",
-    "StylesMonochrome",
-    "default_dark_styles",
-    "default_light_styles",
-    "default_styles",
-    "google_styles",
-    "monochrome_styles",
 ]

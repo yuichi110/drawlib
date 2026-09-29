@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import Any, Generator, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
@@ -20,7 +21,101 @@ from drawlib._core.types import ColorType, Style
 from drawlib._preset_styles._utils import _resolve_target_font
 
 
-class BaseStyles(BaseModel):
+def _pascal_to_snake(name: str) -> str:
+    """Convert PascalCase string to snake_case.
+
+    Args:
+        name (str): Identifier in PascalCase.
+
+    Returns:
+        str: Converted identifier in snake_case.
+    """
+    s = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1_\2", name)
+    s = re.sub(r"([a-z\d])([A-Z])", r"\1_\2", s)
+    return s.lower()
+
+
+def _snake_to_pascal(name: str) -> str:
+    """Convert snake_case string to PascalCase.
+
+    Args:
+        name (str): Identifier in snake_case.
+
+    Returns:
+        str: Converted identifier in PascalCase.
+    """
+    return "".join(word.capitalize() for word in name.split("_"))
+
+
+class _BaseStylesMeta(type(BaseModel)):
+    """Metaclass allowing class-level attribute access for preset styles."""
+
+    _default_instances: dict[type, BaseStyles] = {}
+
+    def register_default_instance(cls, instance: BaseStyles) -> None:
+        """Register the default singleton instance for this style class.
+
+        Args:
+            instance (BaseStyles): Default preset style instance.
+        """
+        _BaseStylesMeta._default_instances[cls] = instance
+
+    def get_default_instance(cls) -> BaseStyles | None:
+        """Get the registered default instance for this style class or its superclasses.
+
+        Returns:
+            BaseStyles | None: The registered instance or None if not found.
+        """
+        if cls in _BaseStylesMeta._default_instances:
+            return _BaseStylesMeta._default_instances[cls]
+        for registered_cls, inst in _BaseStylesMeta._default_instances.items():
+            if issubclass(cls, registered_cls) or issubclass(registered_cls, cls):
+                return inst
+        return None
+
+    def __getattribute__(cls, name: str) -> Any:  # noqa: ANN401
+        val = super().__getattribute__(name)
+        if isinstance(val, property):
+            inst = cls.get_default_instance()
+            if inst is not None and val.fget is not None:
+                return val.fget(inst)
+        if name in {"patch_font", "copy"}:
+            inst = cls.get_default_instance()
+            if inst is not None:
+                return val.__get__(inst, cls)
+        return val
+
+    def __getattr__(cls, name: str) -> Any:  # noqa: ANN401
+        if name.startswith("__"):
+            raise AttributeError(f"type object '{cls.__name__}' has no attribute '{name}'")
+        inst = cls.get_default_instance()
+        if inst is not None:
+            if name in cls.model_fields:
+                return getattr(inst, name)
+            snake_name = _pascal_to_snake(name)
+            if snake_name in cls.model_fields:
+                return getattr(inst, snake_name)
+            if hasattr(inst, name):
+                return getattr(inst, name)
+            if snake_name != name and hasattr(inst, snake_name):
+                return getattr(inst, snake_name)
+        raise AttributeError(f"type object '{cls.__name__}' has no attribute '{name}'")
+
+    def __getitem__(cls, key: str) -> Style:
+        inst = cls.get_default_instance()
+        if inst is not None:
+            return inst[key]
+        raise KeyError(f'Style "{key}" is not found in {cls.__name__}.')
+
+    def __dir__(cls) -> list[str]:
+        attrs = set(super().__dir__())
+        for field in cls.model_fields:
+            attrs.add(field)
+            attrs.add(_snake_to_pascal(field))
+        return sorted(attrs)
+
+
+class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     """Base model for preset styles providing iteration, dictionary-like access, and autocompletion.
 
     Attributes:
@@ -247,9 +342,39 @@ class BaseStyles(BaseModel):
                 val = getattr(self, key)
                 if val is not None:
                     return val
+            snake_key = _pascal_to_snake(key)
+            if hasattr(self, snake_key):
+                val = getattr(self, snake_key)
+                if val is not None:
+                    return val
         except AttributeError:
             pass
         raise KeyError(f'Style "{key}" is not found in {self.__class__.__name__}.')
+
+    def __getattr__(self, name: str) -> Any:  # noqa: ANN401
+        """Allow fallback resolution for PascalCase style names and extra fields on instances."""
+        if name.startswith("__"):
+            raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+        extra = getattr(self, "__pydantic_extra__", None)
+        if extra is not None and name in extra:
+            return extra[name]
+        snake_name = _pascal_to_snake(name)
+        if snake_name != name:
+            if hasattr(self.__class__, snake_name):
+                return getattr(self, snake_name)
+            if snake_name in self.__class__.model_fields:
+                return getattr(self, snake_name)
+            if extra is not None and snake_name in extra:
+                return extra[snake_name]
+        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+
+    def __dir__(self) -> list[str]:
+        """Include both snake_case and PascalCase style attribute names."""
+        attrs = set(super().__dir__())
+        for field in self.__class__.model_fields:
+            attrs.add(field)
+            attrs.add(_snake_to_pascal(field))
+        return sorted(attrs)
 
     def get(self, key: str, default: Any = None) -> Any:  # noqa: ANN401
         """Safely retrieve a style or attribute with an optional default fallback.

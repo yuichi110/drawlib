@@ -9,7 +9,7 @@
 
 from drawlib.canvas import save
 from drawlib.fonts import FontSansSerif
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 from drawlib.text import text
 from drawlib.types import Style
 

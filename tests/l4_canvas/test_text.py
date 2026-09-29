@@ -13,11 +13,12 @@ import os
 
 from drawlib.canvas import clear, save
 from drawlib.fonts import FontFile
-from drawlib.preset_colors import Colors
-from drawlib.preset_styles import default_styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text, text_vertical
 
 # ruff: noqa: F403, F405
+
+default_styles = Styles
 
 FONT_AVENGER = os.path.normpath(os.path.join(os.path.dirname(__file__), "../assets/avenger/regular.ttf"))
 FONT_MPLUS1P = os.path.normpath(os.path.join(os.path.dirname(__file__), "../assets/mplus1p/regular.ttf"))

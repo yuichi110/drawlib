@@ -62,10 +62,10 @@ drawlib serve __OUT_HTML_DIR__/
 
 ```python
 from drawlib.fonts import FontJapanese
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 # 日本語フォントのデフォルト適用やスタイルの上書き
-styles = styles.patch_font(
+Styles = Styles.patch_font(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
 )

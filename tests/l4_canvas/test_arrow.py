@@ -13,11 +13,12 @@ import pytest
 
 from drawlib.canvas import clear, save
 from drawlib.fonts import Font
-from drawlib.preset_colors import Colors
-from drawlib.preset_styles import default_styles
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, ellipse
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 from drawlib.types import Style
+
+default_styles = Styles
 
 OUTPUT_DIR = "../../output_tests/l4_canvas/arrow/"
 
