@@ -93,15 +93,16 @@ Every SmartArt accepts either:
 
 ### 3.2 Constructor & Style Methods
 ```python
-table = Table()
+table = Table(
+    default_text_style=Styles.Primary,
+    header_text_style=Styles.Bold,
+    header_cell_style=Styles.PrimaryLight,
+    border_style=Styles.MutedLight,
+)
 ```
 
-#### Predefined Styles
-- `set_predefined_style(name: Literal["default", "none", "monochrome", "border_simple"])`:
-  - `"default"`: Light blue header with bold white text, alternating snow/white rows, thin bottom border.
-  - `"none"`: Transparent backgrounds with charcoal text, no borders.
-  - `"monochrome"`: Graphite gray header with bold white text, alternating snow/white rows.
-  - `"border_simple"`: White backgrounds with bold charcoal header, double top borders, solid bottom border.
+- `Table(*, default_cell_style=None, default_text_style=None, header_cell_style=None, header_text_style=None, border_style=None)`:
+  Initializes table. If no styles are provided and no cell styles are configured via `set_style_*()`, drawing will raise `ValueError`.
 - `clear_styles()`: Resets all registered cell and border style overrides.
 
 #### Cell Styling Methods
@@ -973,21 +974,19 @@ top_left_y = bottom_y + H
 ### 14.2 Multi-Component Dashboard Integration Example
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.smartarts import ChevronProcess, GridLayout, SourceCode, Table
-from drawlib.styles import styles
-from drawlib.types import Style
+from drawlib.smartarts import ChevronProcess, SourceCode, Table
+from drawlib.styles import Styles
 
 setup(width=120, height=80)
 
 # 1. Top Section: Pipeline Status
 pipeline = ChevronProcess(
-    default_style=styles.solid,
+    default_style=Styles.Solid,
     corner_angle=60.0,
     spacing=1.5,
     flat_left_end=True,
-    default_textstyle=styles.white_bold,
-    default_description_style=styles.light,
+    default_textstyle=Styles.WhiteBold,
+    default_description_style=Styles.Light,
 )
 pipeline.extend(
     texts=["1. Plan", "2. Build", "3. Test", "4. Deploy"],
@@ -996,8 +995,12 @@ pipeline.extend(
 pipeline.draw(xy=(10, 62), width=100, height=12)
 
 # 2. Bottom-Left Section: Service Matrix Table
-table = Table()
-table.set_predefined_style("default")
+table = Table(
+    header_cell_style=Styles.PrimaryFlat,
+    header_text_style=Styles.WhiteBold,
+    default_text_style=Styles.Primary,
+    border_style=Styles.MutedLight,
+)
 table.draw(
     xy=(10, 55),
     width=50,

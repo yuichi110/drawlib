@@ -14,20 +14,17 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.fonts import Font
 from drawlib._core.lines import line
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import ColorType, Coordinate, PosFloat, PosInt, Style
-from drawlib._preset_colors import DefaultColors, MonochromeColors
-from drawlib._preset_styles import DefaultStyles, MonochromeStyles
 
 
 class _CellStyleOrder(BaseModel):
     """Represents the style order of cells."""
 
     order: Literal["range", "even_odd"]
-    textstyle1: Style
-    background_color1: ColorType
+    textstyle1: Style | None = None
+    background_color1: ColorType | None = None
     textstyle2: Style | None = None
     background_color2: ColorType | None = None
     rows: list[PosInt] | None = None
@@ -41,7 +38,7 @@ class _CellInfo(BaseModel):
     width: PosFloat
     height: PosFloat
     background_color: ColorType
-    textstyle: Style
+    textstyle: Style | None = None
     text: str
 
 
@@ -78,26 +75,35 @@ class Table:
         self._cell_style_orders: list[_CellStyleOrder] = []
         self._default_text_style = default_text_style
 
-        has_custom = False
         if default_cell_style is not None or default_text_style is not None:
             bg = (
                 default_cell_style.shape_fill_color
                 if default_cell_style and default_cell_style.shape_fill_color
-                else DefaultColors.Transparent
+                else (0, 0, 0, 0.0)
             )
-            txt = default_text_style or DefaultStyles.Primary
-            self.set_style_cell(background_color=bg, textstyle=txt)
-            has_custom = True
+            self._cell_style_orders.append(
+                _CellStyleOrder(
+                    order="range",
+                    background_color1=bg,
+                    textstyle1=default_text_style,
+                )
+            )
 
         if header_cell_style is not None or header_text_style is not None:
             bg = (
                 header_cell_style.shape_fill_color
                 if header_cell_style and header_cell_style.shape_fill_color
-                else DefaultColors.Transparent
+                else (0, 0, 0, 0.0)
             )
-            txt = header_text_style or DefaultStyles.Bold
-            self.set_style_cell_header(background_color=bg, textstyle=txt)
-            has_custom = True
+            hdr_txt = header_text_style or default_text_style
+            self._cell_style_orders.append(
+                _CellStyleOrder(
+                    order="range",
+                    background_color1=bg,
+                    textstyle1=hdr_txt,
+                    rows=[0],
+                )
+            )
 
         if border_style is not None:
             self.set_style_border(
@@ -108,10 +114,6 @@ class Table:
                 between_columns=border_style,
                 between_rows=border_style,
             )
-            has_custom = True
-
-        if not has_custom:
-            self.set_predefined_style("default")
 
     @validate_call
     def clear_styles(self) -> None:
@@ -125,86 +127,7 @@ class Table:
         self._bs_between_columns = None
         self._bs_between_rows = None
         self._cell_style_orders = []
-
-    @validate_call
-    def set_predefined_style(
-        self,
-        name: Literal[
-            "default",
-            "none",
-            "monochrome",
-            "border_simple",
-        ],
-    ) -> None:
-        """Sets a predefined style for the table based on the given name.
-
-        Args:
-            name (Literal["default", "none", "monochrome", "border_simple"]): The name of the predefined style.
-
-        Raises:
-            ValueError: If the provided style name is not recognized.
-        """
-        self.clear_styles()
-
-        if name == "default":
-            self.set_style_cell_evenodd(
-                even_color=DefaultColors.Gray1,
-                even_textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
-                odd_color=DefaultColors.White,
-                odd_textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
-            )
-            self.set_style_cell_header(
-                background_color=DefaultColors.Blue2,
-                textstyle=DefaultStyles.Bold.patch(
-                    text_color=DefaultColors.White, text_font=Font.SANSSERIF_BOLD
-                ),
-            )
-            self.set_style_border(
-                bottom=DefaultStyles.Solid.patch(line_color=DefaultColors.Gray5, line_width=1.0),
-            )
-
-        elif name == "none":
-            self.set_style_cell(
-                background_color=DefaultColors.Transparent,
-                textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
-            )
-
-        elif name == "monochrome":
-            self.set_style_cell_evenodd(
-                even_color=MonochromeColors.Gray1,
-                even_textstyle=MonochromeStyles.Primary.patch(text_color=MonochromeColors.Gray5),
-                odd_color=MonochromeColors.White,
-                odd_textstyle=MonochromeStyles.Primary.patch(text_color=MonochromeColors.Gray5),
-            )
-            self.set_style_cell_header(
-                background_color=MonochromeColors.Gray4,
-                textstyle=MonochromeStyles.Bold.patch(
-                    text_color=MonochromeColors.White, text_font=Font.SANSSERIF_BOLD
-                ),
-            )
-            self.set_style_border(
-                bottom=MonochromeStyles.Solid.patch(line_color=MonochromeColors.Gray5, line_width=1.0),
-            )
-
-        elif name == "border_simple":
-            self.set_style_cell(
-                background_color=DefaultColors.White,
-                textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
-            )
-            self.set_style_cell_header(
-                background_color=DefaultColors.White,
-                textstyle=DefaultStyles.Bold.patch(
-                    text_color=DefaultColors.Gray5, text_font=Font.SANSSERIF_BOLD
-                ),
-            )
-            self.set_style_border(
-                top=DefaultStyles.Solid.patch(line_color=DefaultColors.Gray5, line_width=1.5),
-                top2=DefaultStyles.Solid.patch(line_color=DefaultColors.Gray5, line_width=0.75),
-                bottom=DefaultStyles.Solid.patch(line_color=DefaultColors.Gray5, line_width=1.5),
-            )
-
-        else:
-            raise ValueError(f'Provided pre defined name "{name}" is not supported.')
+        self._default_text_style = None
 
     # cell styles
 
@@ -393,7 +316,6 @@ class Table:
             data (List[List[Any]]): The data to be displayed in the table.
         """
         # create blank matrix
-        default_textstyle = self._default_text_style or DefaultStyles.Primary
         matrix: list[list[_CellInfo]] = []
         for row_data in data:
             row: list[_CellInfo] = []
@@ -402,8 +324,8 @@ class Table:
                     xy=(0, 0),
                     width=0,
                     height=0,
-                    background_color=DefaultColors.White,
-                    textstyle=default_textstyle,
+                    background_color=(0, 0, 0, 0.0),
+                    textstyle=self._default_text_style,
                     text=str(column),
                 )
                 row.append(cell)
@@ -417,6 +339,15 @@ class Table:
             matrix=matrix,
         )
         self._update_cell_style(matrix)
+
+        # validate that all cells have textstyle
+        for r_idx, row in enumerate(matrix):
+            for c_idx, cell in enumerate(row):
+                if cell.textstyle is None:
+                    raise ValueError(
+                        f"No text style provided for cell at row {r_idx}, column {c_idx}. "
+                        "Please specify 'default_text_style' in Table() or apply styles via set_style_*()."
+                    )
 
         # draw matrix
         self._draw_cells(matrix=matrix)
@@ -454,24 +385,28 @@ class Table:
         matrix: list[list[_CellInfo]],
     ) -> None:
         def style_even_odd(
-            even_background_color: ColorType,
-            even_textstyle: Style,
-            odd_background_color: ColorType,
-            odd_textstyle: Style,
+            even_background_color: ColorType | None,
+            even_textstyle: Style | None,
+            odd_background_color: ColorType | None,
+            odd_textstyle: Style | None,
         ) -> None:
             for i, row in enumerate(matrix):
                 if i % 2 == 0:
                     for c in row:
-                        c.background_color = even_background_color
-                        c.textstyle = even_textstyle
+                        if even_background_color is not None:
+                            c.background_color = even_background_color
+                        if even_textstyle is not None:
+                            c.textstyle = even_textstyle
                 else:
                     for c in row:
-                        c.background_color = odd_background_color
-                        c.textstyle = odd_textstyle
+                        if odd_background_color is not None:
+                            c.background_color = odd_background_color
+                        if odd_textstyle is not None:
+                            c.textstyle = odd_textstyle
 
         def style_range(
-            background_color: ColorType,
-            textstyle: Style,
+            background_color: ColorType | None,
+            textstyle: Style | None,
             rows: list[int] | None,
             columns: list[int] | None,
         ) -> None:
@@ -486,16 +421,13 @@ class Table:
                         continue
                     if j not in columns:
                         continue
-                    col.background_color = background_color
-                    col.textstyle = textstyle
+                    if background_color is not None:
+                        col.background_color = background_color
+                    if textstyle is not None:
+                        col.textstyle = textstyle
 
         for cso in self._cell_style_orders:
             if cso.order == "even_odd":
-                if cso.background_color2 is None:
-                    raise ValueError("Drawlib Internal error.")
-                if cso.textstyle2 is None:
-                    raise ValueError("Drawlib Internal error.")
-
                 style_even_odd(
                     cso.background_color1,
                     cso.textstyle1,
@@ -524,13 +456,15 @@ class Table:
                 textstyle = col.textstyle
                 text = col.text
 
+                if textstyle is None:
+                    continue
                 rectangle(
                     xy=cell_xy,
                     width=width,
                     height=height,
                     style=Style(
                         shape_line_width=0,
-                        shape_line_color=DefaultColors.Transparent,
+                        shape_line_color=(0, 0, 0, 0.0),
                         shape_fill_color=bg_color,
                     ),
                     text=text,

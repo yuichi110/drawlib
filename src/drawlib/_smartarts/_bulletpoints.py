@@ -17,7 +17,6 @@ from pydantic import BaseModel, validate_call
 from drawlib._core.shapes import circle
 from drawlib._core.text import text
 from drawlib._core.types import Coordinate, PosFloat, Style
-from drawlib._preset_colors import DefaultColors as Colors
 
 
 class _BulletPointsShape(BaseModel):
@@ -75,7 +74,7 @@ class BulletPoints:
         """Register default circle bullet shapes using text color."""
         text_color = ref_style.text_color
         style1 = Style(shape_line_color=text_color, shape_fill_color=text_color, shape_line_width=1.0)
-        style2 = Style(shape_line_color=text_color, shape_fill_color=Colors.Transparent, shape_line_width=1.0)
+        style2 = Style(shape_line_color=text_color, shape_fill_color=(0, 0, 0, 0.0), shape_line_width=1.0)
         if 1 not in self._bullet_shape_map:
             self.set_bullet_style(1, circle, style1, args={"radius": 0.5})
         if 2 not in self._bullet_shape_map:

@@ -19,7 +19,6 @@ from drawlib._core.lines import line
 from drawlib._core.shapes import ellipse, rectangle
 from drawlib._core.text import get_charwidth_from_fontsize
 from drawlib._core.types import Coordinate, Style
-from drawlib._preset_colors import DefaultColors as Colors
 
 
 class MindMapNode:
@@ -319,7 +318,7 @@ class MindMapNode:
                 and node_style.shape_fill_color is not None
                 and node_style.shape_fill_color == text_style.text_color
             ):
-                text_style = text_style.patch(text_color=Colors.White)
+                text_style = text_style.patch(text_color=(255, 255, 255))
         else:
             text_style = None
         line_style = self._linestyle or self._default_linestyle or default_linestyle
@@ -364,8 +363,8 @@ class MindMapNode:
         else:  # shape == "none" (transparent box)
             transparent_style = node_style.patch(
                 shape_line_width=0,
-                shape_line_color=Colors.Transparent,
-                shape_fill_color=Colors.Transparent,
+                shape_line_color=(0, 0, 0, 0.0),
+                shape_fill_color=(0, 0, 0, 0.0),
                 shape_fill_alpha=0.0,
             )
             rectangle(
