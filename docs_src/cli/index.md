@@ -55,13 +55,13 @@ The CLI is organized into specialized subcommands:
 
 ```drawlib 700px center caption:"Drawlib Unified CLI Command Hierarchy"
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=140, height=80)
 
@@ -77,10 +77,10 @@ rectangle(
     width=44,
     height=16,
     r=3,
-    style=styles.primary.patch(shape_fill_color=Colors140.GhostWhite, shape_line_color=purple_primary, shape_line_width=2.5),
+    style=Styles.Primary.patch(shape_fill_color=Colors140.GhostWhite, shape_line_color=purple_primary, shape_line_width=2.5),
 )
-text((70, 72), "drawlib CLI", style=styles.primary.patch(text_size=15, text_font=FontRoboto.ROBOTO_BOLD, text_color=purple_primary))
-text((70, 64), "drawlib [OPTIONS] <command>", style=styles.primary.patch(text_size=10, text_color=Colors140.DarkSlateGray))
+text((70, 72), "drawlib CLI", style=Styles.Primary.patch(text_size=15, text_font=FontRoboto.ROBOTO_BOLD, text_color=purple_primary))
+text((70, 64), "drawlib [OPTIONS] <command>", style=Styles.Primary.patch(text_size=10, text_color=Colors140.DarkSlateGray))
 
 # 3 Category Clusters
 # Cluster 1: Document & Project (Left)
@@ -89,18 +89,18 @@ rectangle(
     width=40,
     height=42,
     r=4,
-    style=styles.primary.patch(shape_fill_color=Colors140.AliceBlue, shape_line_color=blue_primary, shape_line_width=1.8),
+    style=Styles.Primary.patch(shape_fill_color=Colors140.AliceBlue, shape_line_color=blue_primary, shape_line_width=1.8),
 )
-text((26, 47), "Documentation", style=styles.primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD, text_color=blue_primary))
+text((26, 47), "Documentation", style=Styles.Primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD, text_color=blue_primary))
 
-rectangle((26, 37), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=blue_primary, shape_line_width=1))
-text((26, 37), "build (html/md/pdf)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((26, 37), width=32, height=7, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=blue_primary, shape_line_width=1))
+text((26, 37), "build (html/md/pdf)", style=Styles.Primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
-rectangle((26, 27), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=blue_primary, shape_line_width=1))
-text((26, 27), "serve (preview site)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((26, 27), width=32, height=7, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=blue_primary, shape_line_width=1))
+text((26, 27), "serve (preview site)", style=Styles.Primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
-rectangle((26, 17), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=blue_primary, shape_line_width=1))
-text((26, 17), "init (scaffold project)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((26, 17), width=32, height=7, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=blue_primary, shape_line_width=1))
+text((26, 17), "init (scaffold project)", style=Styles.Primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
 # Cluster 2: Diagram Inspection (Center)
 rectangle(
@@ -108,15 +108,15 @@ rectangle(
     width=40,
     height=42,
     r=4,
-    style=styles.primary.patch(shape_fill_color=Colors140.HoneyDew, shape_line_color=teal_primary, shape_line_width=1.8),
+    style=Styles.Primary.patch(shape_fill_color=Colors140.HoneyDew, shape_line_color=teal_primary, shape_line_width=1.8),
 )
-text((70, 47), "Inspection & Export", style=styles.primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD, text_color=teal_primary))
+text((70, 47), "Inspection & Export", style=Styles.Primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD, text_color=teal_primary))
 
-rectangle((70, 34), width=32, height=9, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=teal_primary, shape_line_width=1))
-text((70, 34), "show (GUI preview)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((70, 34), width=32, height=9, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=teal_primary, shape_line_width=1))
+text((70, 34), "show (GUI preview)", style=Styles.Primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
-rectangle((70, 21), width=32, height=9, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=teal_primary, shape_line_width=1))
-text((70, 21), "export (save image)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((70, 21), width=32, height=9, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=teal_primary, shape_line_width=1))
+text((70, 21), "export (save image)", style=Styles.Primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
 # Cluster 3: Assets & System (Right)
 rectangle(
@@ -124,23 +124,23 @@ rectangle(
     width=40,
     height=42,
     r=4,
-    style=styles.primary.patch(shape_fill_color=Colors140.Linen, shape_line_color=orange_primary, shape_line_width=1.8),
+    style=Styles.Primary.patch(shape_fill_color=Colors140.Linen, shape_line_color=orange_primary, shape_line_width=1.8),
 )
-text((114, 47), "Assets & Standards", style=styles.primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD, text_color=orange_primary))
+text((114, 47), "Assets & Standards", style=Styles.Primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD, text_color=orange_primary))
 
-rectangle((114, 37), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
-text((114, 37), "cache (fonts/icons)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((114, 37), width=32, height=7, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
+text((114, 37), "cache (fonts/icons)", style=Styles.Primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
-rectangle((114, 27), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
-text((114, 27), "css (presets)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((114, 27), width=32, height=7, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
+text((114, 27), "css (presets)", style=Styles.Primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
-rectangle((114, 17), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
-text((114, 17), "rules (AI guidelines)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((114, 17), width=32, height=7, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
+text((114, 17), "rules (AI guidelines)", style=Styles.Primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
 # Connect Root to Clusters
-line((55, 60), (32, 53), arrowhead="->", style=styles.primary.patch(line_width=1.8, line_color=blue_primary))
-line((70, 60), (70, 53), arrowhead="->", style=styles.primary.patch(line_width=1.8, line_color=teal_primary))
-line((85, 60), (108, 53), arrowhead="->", style=styles.primary.patch(line_width=1.8, line_color=orange_primary))
+line((55, 60), (32, 53), arrowhead="->", style=Styles.Primary.patch(line_width=1.8, line_color=blue_primary))
+line((70, 60), (70, 53), arrowhead="->", style=Styles.Primary.patch(line_width=1.8, line_color=teal_primary))
+line((85, 60), (108, 53), arrowhead="->", style=Styles.Primary.patch(line_width=1.8, line_color=orange_primary))
 
 save()
 ```

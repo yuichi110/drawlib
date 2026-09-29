@@ -238,7 +238,6 @@ Classes and relationships fully integrate with Drawlib's `Style` class:
 
 ```python
 from drawlib import canvas
-from drawlib.preset_colors import Colors
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.types import Style
 

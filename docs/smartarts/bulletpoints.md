@@ -11,13 +11,13 @@ from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.smartarts import BulletPoints
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=48)
 
 
 def center():
-    bp = BulletPoints(default_style=styles.bold, vertical_margin=4, indent_width=4)
+    bp = BulletPoints(default_style=Styles.Bold, vertical_margin=4, indent_width=4)
     bp.add("Types of Drawlib Shapes")
     bp.set_indent(1)
     bp.add("Circle-like Shapes")
@@ -37,23 +37,23 @@ def left():
     x2 = 28
     x3 = 39
 
-    text((x1, 38), "Indent Level 0", style=styles.light)
-    line((x2, 38), (x3, 38), style=styles.dashed, arrowhead="->")
-    text((x1, 34), "Indent Level 1", style=styles.light)
-    line((x2, 34), (x3, 34), style=styles.dashed, arrowhead="->")
-    text((x1, 30), "Indent Level 2", style=styles.light)
-    line((x2, 30), (x3, 30), style=styles.dashed, arrowhead="->")
+    text((x1, 38), "Indent Level 0", style=Styles.Light)
+    line((x2, 38), (x3, 38), style=Styles.Dashed, arrowhead="->")
+    text((x1, 34), "Indent Level 1", style=Styles.Light)
+    line((x2, 34), (x3, 34), style=Styles.Dashed, arrowhead="->")
+    text((x1, 30), "Indent Level 2", style=Styles.Light)
+    line((x2, 30), (x3, 30), style=Styles.Dashed, arrowhead="->")
 
-    line((x2, 21), (44, 22), style=styles.dashed, arrowhead="->")
-    line((x2, 19), (48, 14), style=styles.dashed, arrowhead="->")
-    text((x1, 20), "bullet_style", style=styles.light)
+    line((x2, 21), (44, 22), style=Styles.Dashed, arrowhead="->")
+    line((x2, 19), (48, 14), style=Styles.Dashed, arrowhead="->")
+    text((x1, 20), "bullet_style", style=Styles.Light)
 
 
 def others():
-    line((74, 38), (74, 34), style=styles.dashed, arrowhead="<->")
-    text((86, 36), "vertical_margin", style=styles.light)
-    line((44, 10), (48, 10), style=styles.dashed, arrowhead="<->")
-    text((46, 7), "indent_width", style=styles.light)
+    line((74, 38), (74, 34), style=Styles.Dashed, arrowhead="<->")
+    text((86, 36), "vertical_margin", style=Styles.Light)
+    line((44, 10), (48, 10), style=Styles.Dashed, arrowhead="<->")
+    text((46, 7), "indent_width", style=Styles.Light)
 
 
 center()

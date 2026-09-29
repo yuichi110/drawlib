@@ -258,7 +258,6 @@ Here is a full production example combining participant groups (`ParticipantGrou
 
 ```drawlib show-code 700px center caption:"Production Microservices Pipeline"
 from drawlib import canvas
-from drawlib.preset_colors import Colors
 from drawlib.diagrams.sequence import SequenceDiagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon
 from drawlib.types import Style
 
@@ -272,11 +271,7 @@ backend = d.add_group(
     ParticipantGroup(
         title="Google Cloud VPC",
         padding=4.0,
-        style=Style(
-            shape_fill_color=(242, 246, 255, 0.4),
-            shape_line_color=Colors.Gray,
-            shape_line_style="dashed",
-        ),
+        style=Styles.MutedDashed,
     )
 )
 api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))

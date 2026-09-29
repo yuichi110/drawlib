@@ -506,10 +506,10 @@ build_pdf(
 <p><strong>Note</strong>: If a <code>config.py</code> file exists inside your source directory (e.g., <code>docs_src/config.py</code>), Drawlib automatically detects and loads it without requiring the <code>--config</code> flag. Use <code>--config</code> when specifying a custom path or alternative configuration file.</p>
 </blockquote>
 <h3>Example <code>setup_theme.py</code>:</h3>
-<pre><code class="language-python">from drawlib.preset_styles import monochrome_styles
+<pre><code class="language-python">from drawlib.preset_styles import MonochromeStyles
 
 # Override default theme styles or define project constants:
-styles = monochrome_styles
+Styles = MonochromeStyles
 PROJECT_NAME = &quot;Enterprise Architecture Docs&quot;
 </code></pre>
 <p>All functions, classes, and global variables declared in the configuration script are automatically available within every embedded <code>drawlib</code> code block.</p>

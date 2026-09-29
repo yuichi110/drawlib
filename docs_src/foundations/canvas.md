@@ -11,12 +11,11 @@ Below is a succinct overview of drawlib's canvas architecture:
 ```drawlib fold-code 600px center
 from copy import deepcopy
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle, rectangle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 
 setup(width=100, height=60, grid=True)
@@ -24,8 +23,8 @@ setup(width=100, height=60, grid=True)
 outer_y = 10
 outer_height = 35
 outer_r = 2
-outer_style = styles.primary.patch(text_halign="left", text_valign="bottom", shape_fill_color=Colors.Transparent)
-text_style = styles.primary.patch(text_halign="left")
+outer_style = Styles.Primary.patch(text_halign="left", text_valign="bottom", shape_fill_color=Colors.Transparent)
+text_style = Styles.Primary.patch(text_halign="left")
 
 
 def left():
@@ -36,7 +35,7 @@ def left():
         r=outer_r,
         style=outer_style,
         text="Other drawlib features",
-        textstyle=styles.primary.patch(text_angle=270, text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+        textstyle=Styles.Primary.patch(text_angle=270, text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
     )
 
 
@@ -55,7 +54,7 @@ def center():
     text(
         (30 + width / 2, 42),
         "Canvas Instance",
-        style=styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=18, text_color=Colors.Red),
+        style=Styles.Primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=18, text_color=Colors.Red),
     )
     x = 34
     y = 37
@@ -81,7 +80,7 @@ def right():
     text(
         (65 + width / 2, 42),
         "Public APIs",
-        style=styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+        style=Styles.Primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
     )
     x = 69
     y = 37
@@ -104,15 +103,15 @@ def center_to_right():
             x1 = 23
             continue
 
-        line((x1, y - pad_y * i), (x2, y - pad_y * i), arrowhead="->", style=styles.primary.patch(line_width=1.5, line_style="dashed"))
-    text(((23 + 68) / 2, 10), "Publish private as API", style=styles.primary)
+        line((x1, y - pad_y * i), (x2, y - pad_y * i), arrowhead="->", style=Styles.Primary.patch(line_width=1.5, line_style="dashed"))
+    text(((23 + 68) / 2, 10), "Publish private as API", style=Styles.Primary)
 
 
 rectangle((5, 5), width=55, height=50, r=outer_r, style=outer_style)
 text(
     (5 + 55 / 2, 50),
     "Drawlib's internal state (Private)",
-    style=styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+    style=Styles.Primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
 )
 left()
 arrow(
@@ -221,10 +220,10 @@ The former image without the grid:
 ```drawlib 450px center
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save()
 ```
 
@@ -234,10 +233,10 @@ The latter image with the grid displayed:
 ```drawlib 450px center file:image_grid1_grid.png
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid_only=True)
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save()
 ```
 
@@ -251,10 +250,10 @@ If you only require the grid illustration, you can use the `grid_only=True` opti
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid_only=True)
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save()
 ```
 
@@ -264,10 +263,10 @@ This code will generate an image with grid lines but without the additional grid
 ```drawlib 450px center
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid_only=True)
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save()
 ```
 
@@ -284,18 +283,17 @@ Here's an example code snippet demonstrating the use of grid styles:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(
     width=100,
     height=50,
     grid_only=True,
-    grid_style=styles.primary.patch(line_width=1, line_color=Colors.Red, line_style="dashed"),
-    grid_centerstyle=styles.primary.patch(line_width=2, line_color=Colors.Blue, line_style="dashed"),
+    grid_style=Styles.Primary.patch(line_width=1, line_color=Colors.Red, line_style="dashed"),
+    grid_centerstyle=Styles.Primary.patch(line_width=2, line_color=Colors.Blue, line_style="dashed"),
 )
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save()
 ```
 
@@ -305,18 +303,17 @@ Note that providing a grid_style automatically sets the grid option to True, but
 
 ```drawlib 450px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(
     width=100,
     height=50,
     grid_only=True,
-    grid_style=styles.primary.patch(line_width=1, line_color=Colors.Red, line_style="dashed"),
-    grid_centerstyle=styles.primary.patch(line_width=2, line_color=Colors.Blue, line_style="dashed"),
+    grid_style=Styles.Primary.patch(line_width=1, line_color=Colors.Red, line_style="dashed"),
+    grid_centerstyle=Styles.Primary.patch(line_width=2, line_color=Colors.Blue, line_style="dashed"),
 )
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save()
 ```
 
@@ -355,15 +352,15 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text="(50,50)",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_size=36),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_size=36),
 )
 save()
 ```
@@ -375,15 +372,15 @@ Executing this code generates the following image:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text="(50,50)",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_size=36),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_size=36),
 )
 save()
 ```
@@ -398,15 +395,15 @@ Now, let's adjust the size to `setup(width=200, height=200, ...)`:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=200, height=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text="(50,50)",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_size=36),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_size=36),
 )
 save()
 ```
@@ -418,15 +415,15 @@ This change results in a new image:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=200, height=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text="(50,50)",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_size=36),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_size=36),
 )
 save()
 ```
@@ -443,15 +440,15 @@ In the following example, we set the canvas coordinate size to full HD (1920x108
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=1920, height=1080, grid_only=True)
 circle(
     (960, 540),
     radius=300,
     text="(960,540)",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_size=36),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_size=36),
 )
 save()
 ```
@@ -463,15 +460,15 @@ This produces the image below:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=1920, height=1080, grid_only=True)
 circle(
     (960, 540),
     radius=300,
     text="(960,540)",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_size=36),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_size=36),
 )
 save()
 ```
@@ -527,15 +524,15 @@ Let's demonstrate this with an example:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100, dpi=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text="(50,50)",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_size=36),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_size=36),
 )
 save()
 ```
@@ -547,15 +544,15 @@ Executing this code generates the following image:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100, dpi=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text="(50,50)",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_size=36),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_size=36),
 )
 save()
 ```
@@ -598,10 +595,10 @@ Let's look at an example:
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(background_color=Colors140.Orange, background_alpha=0.2)
-circle((50, 50), radius=30, style=styles.primary)
+circle((50, 50), radius=30, style=Styles.Primary)
 save()
 ```
 
@@ -613,10 +610,10 @@ Executing this code generates the following output:
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(background_color=Colors140.Orange, background_alpha=0.2)
-circle((50, 50), radius=30, style=styles.primary)
+circle((50, 50), radius=30, style=Styles.Primary)
 save()
 ```
 
@@ -653,10 +650,10 @@ Here's an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save(file="myimage.webp")
 ```
 
@@ -666,10 +663,10 @@ Executing this code generates the following image:
 ```drawlib 600px center format:webp file:myimage.webp
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save()
 ```
 
@@ -697,10 +694,10 @@ Here's an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save(format="jpg")
 ```
 
@@ -710,10 +707,10 @@ This code generate this file.
 ```drawlib 450px center
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-circle((50, 25), radius=20, style=styles.primary)
+circle((50, 25), radius=20, style=Styles.Primary)
 save(format="jpg")
 ```
 

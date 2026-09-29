@@ -51,7 +51,7 @@ Here's how you can use the FontFile class in your Python code:
 ```python
 from drawlib.canvas import setup
 from drawlib.fonts import FontFile
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
 
@@ -59,7 +59,7 @@ setup(width=100, height=50)
 text(
     (50, 25),
     "Hello Drawlib!",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         text_size=36,
         text_font=FontFile("../_assets/avenger/regular.ttf"),
     ),
@@ -73,13 +73,13 @@ Executing this code generates the output:
 from drawlib.canvas import setup
 from drawlib.fonts import FontFile
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 text(
     (50, 25),
     "Hello Drawlib!",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         text_size=36,
         text_font=FontFile("../_assets/avenger/regular.ttf"),
     ),
@@ -116,7 +116,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import Font
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("SansSerif", Font.SANSSERIF_LIGHT, Font.SANSSERIF_REGULAR, Font.SANSSERIF_BOLD),
@@ -126,19 +126,19 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -183,7 +183,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontSansSerif
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("Lato", FontSansSerif.LATO_LIGHT, FontSansSerif.LATO_REGULAR, FontSansSerif.LATO_BOLD),
@@ -196,19 +196,19 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -246,7 +246,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontSerif
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("Courier", None, FontSerif.COURIER_REGULAR, FontSerif.COURIER_BOLD),
@@ -258,19 +258,19 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -315,7 +315,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontRoboto
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("Roboto", FontRoboto.ROBOTO_LIGHT, FontRoboto.ROBOTO_REGULAR, FontRoboto.ROBOTO_BOLD),
@@ -328,19 +328,19 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -380,7 +380,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontMonoSpace
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("Courier", None, FontMonoSpace.COURIER_REGULAR, FontMonoSpace.COURIER_BOLD),
@@ -392,19 +392,19 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), "Hello Drawlib!", style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), "Hello Drawlib!", style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -437,7 +437,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontArabic
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("SansSerif", FontArabic.SANSSERIF_LIGHT, FontArabic.SANSSERIF_REGULAR, FontArabic.SANSSERIF_BOLD),
@@ -448,20 +448,20 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 sample = "لمّا كان الاعتر "
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), sample, style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), sample, style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), sample, style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), sample, style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), sample, style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), sample, style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -512,7 +512,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontBrahmic
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("Bengali SansSerif", FontBrahmic.BENGALI_SANSSERIF_LIGHT, FontBrahmic.BENGALI_SANSSERIF_REGULAR, FontBrahmic.BENGALI_SANSSERIF_BOLD, "যেহেতু মানব পরিবারের"),
@@ -528,19 +528,19 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 for i, (name, light, regular, bold, sample) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), sample, style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), sample, style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), sample, style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), sample, style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), sample, style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), sample, style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -582,7 +582,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontChinese
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("Simplified SansSerif", FontChinese.SIMPLIFIED_SANSSERIF_LIGHT, FontChinese.SIMPLIFIED_SANSSERIF_REGULAR, FontChinese.SIMPLIFIED_SANSSERIF_BOLD),
@@ -596,20 +596,20 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 sample = "今天天气很好。"
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), sample, style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), sample, style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), sample, style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), sample, style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), sample, style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), sample, style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -653,7 +653,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontJapanese
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("SansSerif", FontJapanese.SANSSERIF_LIGHT, FontJapanese.SANSSERIF_REGULAR, FontJapanese.SANSSERIF_BOLD),
@@ -667,20 +667,20 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 sample = "今日はいい天気ですね。"
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), sample, style=styles.primary.patch(text_size=15, text_font=light))
+        text((35, y), sample, style=Styles.Primary.patch(text_size=15, text_font=light))
     if regular is not None:
-        text((60, y), sample, style=styles.primary.patch(text_size=15, text_font=regular))
+        text((60, y), sample, style=Styles.Primary.patch(text_size=15, text_font=regular))
     if bold is not None:
-        text((85, y), sample, style=styles.primary.patch(text_size=15, text_font=bold))
+        text((85, y), sample, style=Styles.Primary.patch(text_size=15, text_font=bold))
 
 ```
 
@@ -707,7 +707,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontKorean
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("SansSerif", FontKorean.SANSSERIF_LIGHT, FontKorean.SANSSERIF_REGULAR, FontKorean.SANSSERIF_BOLD),
@@ -717,20 +717,20 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 sample = "오늘은 날씨가 좋네요。"
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), sample, style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), sample, style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), sample, style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), sample, style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), sample, style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), sample, style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 
@@ -757,7 +757,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontThai
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 font_matrix = [
     ("SansSerif", FontThai.SANSSERIF_LIGHT, FontThai.SANSSERIF_REGULAR, FontThai.SANSSERIF_BOLD),
@@ -767,20 +767,20 @@ font_matrix = [
 setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
-text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
-text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=styles.primary.patch(text_size=13))
-text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=styles.primary.patch(text_size=13))
+text((35, y_pitch * (len(font_matrix) + 1)), "light", style=Styles.Primary.patch(text_size=13))
+text((60, y_pitch * (len(font_matrix) + 1)), "regular", style=Styles.Primary.patch(text_size=13))
+text((85, y_pitch * (len(font_matrix) + 1)), "bold", style=Styles.Primary.patch(text_size=13))
 
 sample = "วันนี้อากาศดีจังเลย"
 for i, (name, light, regular, bold) in enumerate(font_matrix):
     y = y_pitch * (len(font_matrix) - i)
-    text((10, y), name, style=styles.primary.patch(text_size=13))
+    text((10, y), name, style=Styles.Primary.patch(text_size=13))
     if light is not None:
-        text((35, y), sample, style=styles.primary.patch(text_size=16, text_font=light))
+        text((35, y), sample, style=Styles.Primary.patch(text_size=16, text_font=light))
     if regular is not None:
-        text((60, y), sample, style=styles.primary.patch(text_size=16, text_font=regular))
+        text((60, y), sample, style=Styles.Primary.patch(text_size=16, text_font=regular))
     if bold is not None:
-        text((85, y), sample, style=styles.primary.patch(text_size=16, text_font=bold))
+        text((85, y), sample, style=Styles.Primary.patch(text_size=16, text_font=bold))
 
 ```
 

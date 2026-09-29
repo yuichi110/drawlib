@@ -11,12 +11,12 @@ For instance, consider the following Python code:
 from drawlib.canvas import save
 from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 circle(
     xy=(50, 50),
     radius=30,
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         line_style="dashed",
         shape_line_color=Colors140.BlueViolet,
         shape_line_width=5,

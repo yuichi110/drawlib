@@ -51,7 +51,7 @@ Here's how you can use the FontFile class in your Python code:
 ```python
 from drawlib.canvas import setup
 from drawlib.fonts import FontFile
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
 
@@ -59,7 +59,7 @@ setup(width=100, height=50)
 text(
     (50, 25),
     "Hello Drawlib!",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         text_size=36,
         text_font=FontFile("../_assets/avenger/regular.ttf"),
     ),

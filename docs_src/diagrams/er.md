@@ -207,7 +207,6 @@ Entities and relationships fully integrate with Drawlib's `Style` class:
 
 ```drawlib show-code 650px center caption:"Custom Styled ER Diagram"
 from drawlib import canvas
-from drawlib.preset_colors import Colors
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.types import Style
 

@@ -16,7 +16,7 @@ Drawlib is structured around the following APIs:
 - Fundamental classes and functions: These include essential canvas manipulation methods such as `save()` and `setup()`.
 - Drawing functions: Examples include `circle()` and `line()`.
 - Style class: The unified `Style` class defines the visual appearance of elements (lines, shapes, text, icons, images).
-- Dynamic Styles & Preset styles (`drawlib.styles`, `drawlib.preset_styles`): Provides active project styles (`from drawlib.styles import styles, colors`) and preset catalogs.
+- Dynamic Styles & Preset styles (`drawlib.styles`, `drawlib.preset_styles`): Provides active project styles (`from drawlib.styles import Colors, Styles`) and preset catalogs.
 - Advanced classes and functions: These components utilize the aforementioned APIs internally to provide extended functionality.
 
 
@@ -31,17 +31,16 @@ Drawlib is structured around the following APIs:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.icons import font_icon, phosphor
 from drawlib.images import image
 from drawlib.lines import line, line_curved
 from drawlib.shapes import circle, rectangle, shape
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
-textstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
-shapetextstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+textstyle_bold = Styles.Primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+shapetextstyle_bold = Styles.Primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
 setup(width=100, height=60, grid=True)
 
 
@@ -51,7 +50,7 @@ def bottom():
         width=90,
         height=10,
         r=2,
-        style=styles.primary.patch(shape_fill_color=Colors.Transparent),
+        style=Styles.Primary.patch(shape_fill_color=Colors.Transparent),
         text="Canvas and coordinate system, preset styles etc.",
         textstyle=shapetextstyle_bold,
     )
@@ -63,7 +62,7 @@ def middle(x, width, name, functions, styles_list):
         width=width,
         height=30,
         r=2,
-        style=styles.primary.patch(shape_fill_color=Colors.Transparent),
+        style=Styles.Primary.patch(shape_fill_color=Colors.Transparent),
     )
     tx = x + width / 2
     text((tx, 42), name, style=textstyle_bold)
@@ -72,16 +71,16 @@ def middle(x, width, name, functions, styles_list):
         text(
             (x + 1, 36 - i * 3),
             f"- {function}",
-            style=styles.primary.patch(text_halign="left", text_size=12),
+            style=Styles.Primary.patch(text_halign="left", text_size=12),
         )
 
-    line((x + 1, 26), (x + width - 1, 26), style=styles.primary.patch(line_style="dashed"))
+    line((x + 1, 26), (x + width - 1, 26), style=Styles.Primary.patch(line_style="dashed"))
 
     for i, s in enumerate(styles_list):
         text(
             (x + 1, 22 - i * 3),
             f"- {s}",
-            style=styles.primary.patch(text_halign="left", text_size=12),
+            style=Styles.Primary.patch(text_halign="left", text_size=12),
         )
 
 
@@ -91,7 +90,7 @@ def top():
         width=90,
         height=10,
         r=2,
-        style=styles.primary.patch(shape_fill_color=Colors.Transparent),
+        style=Styles.Primary.patch(shape_fill_color=Colors.Transparent),
         text="Advanced topics, handle many files etc.",
         textstyle=shapetextstyle_bold,
     )

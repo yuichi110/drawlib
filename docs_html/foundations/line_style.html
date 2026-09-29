@@ -414,7 +414,7 @@
 <ul>
 <li><code>arrowhead</code>: Specifies the type of arrowhead. Options are <code>[&quot;&quot;, &quot;-&gt;&quot;, &quot;&lt;-&quot;, &quot;&lt;-&gt;&quot;, &quot;-&quot;]</code>.</li>
 <li><code>width</code>: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.</li>
-<li><code>style</code>: Defines the line style. Requires a <code>Style</code> object (e.g., <code>styles.primary</code>).</li>
+<li><code>style</code>: Defines the line style. Requires a <code>Style</code> object (e.g., <code>Styles.Primary</code>).</li>
 </ul>
 <p>These arguments control the line's style.
 Regarding line width, you can control it using both the <code>width</code> argument and the <code>style</code> attribute.
@@ -440,30 +440,29 @@ This structure allows for precise control over the appearance of lines and their
 <h1>Drawing line with style</h1>
 <p>Let's explore different line styles through examples.</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=40)
 
-text((10, 5), &quot;primary&quot;, style=styles.primary)
-line((20, 5), (40, 5), style=styles.primary)
-text((10, 15), &quot;width: 5&quot;, style=styles.primary)
-line((20, 15), (40, 15), style=styles.primary.patch(line_width=5))
-text((10, 25), &quot;color: Red&quot;, style=styles.primary)
-line((20, 25), (40, 25), style=styles.primary.patch(line_color=Colors.Red))
-text((10, 35), &quot;alpha: 0.2&quot;, style=styles.primary)
-line((20, 35), (40, 35), style=styles.primary.patch(line_alpha=0.2))
+text((10, 5), &quot;primary&quot;, style=Styles.Primary)
+line((20, 5), (40, 5), style=Styles.Primary)
+text((10, 15), &quot;width: 5&quot;, style=Styles.Primary)
+line((20, 15), (40, 15), style=Styles.Primary.patch(line_width=5))
+text((10, 25), &quot;color: Red&quot;, style=Styles.Primary)
+line((20, 25), (40, 25), style=Styles.Primary.patch(line_color=Colors.Red))
+text((10, 35), &quot;alpha: 0.2&quot;, style=Styles.Primary)
+line((20, 35), (40, 35), style=Styles.Primary.patch(line_alpha=0.2))
 
-text((60, 5), &quot;style: solid\n(default)&quot;, style=styles.primary)
-line((70, 5), (90, 5), style=styles.primary.patch(line_style=&quot;solid&quot;))
-text((60, 15), &quot;style: dashed&quot;, style=styles.primary)
-line((70, 15), (90, 15), style=styles.primary.patch(line_style=&quot;dashed&quot;))
-text((60, 25), &quot;style: dotted&quot;, style=styles.primary)
-line((70, 25), (90, 25), style=styles.primary.patch(line_style=&quot;dotted&quot;))
-text((60, 35), &quot;style: dashdot&quot;, style=styles.primary)
-line((70, 35), (90, 35), style=styles.primary.patch(line_style=&quot;dashdot&quot;))
+text((60, 5), &quot;style: solid\n(default)&quot;, style=Styles.Primary)
+line((70, 5), (90, 5), style=Styles.Primary.patch(line_style=&quot;solid&quot;))
+text((60, 15), &quot;style: dashed&quot;, style=Styles.Primary)
+line((70, 15), (90, 15), style=Styles.Primary.patch(line_style=&quot;dashed&quot;))
+text((60, 25), &quot;style: dotted&quot;, style=Styles.Primary)
+line((70, 25), (90, 25), style=Styles.Primary.patch(line_style=&quot;dotted&quot;))
+text((60, 35), &quot;style: dashdot&quot;, style=Styles.Primary)
+line((70, 35), (90, 35), style=Styles.Primary.patch(line_style=&quot;dashdot&quot;))
 
 save()
 </code></pre>
@@ -490,38 +489,37 @@ save()
 </ul>
 <p>Let's see an example:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
-text((10, 5), &quot;arrowhead -&gt;&quot;, style=styles.primary)
-line((20, 5), (40, 5), arrowhead=&quot;-&gt;&quot;, style=styles.primary)
-text((10, 13), &quot;width: 5&quot;, style=styles.primary)
-line((20, 13), (40, 13), arrowhead=&quot;-&gt;&quot;, style=styles.primary.patch(line_width=5))
-text((10, 21), &quot;color: Red&quot;, style=styles.primary)
-line((20, 21), (40, 21), arrowhead=&quot;-&gt;&quot;, style=styles.primary.patch(line_color=Colors.Red))
-text((10, 29), &quot;alpha: 0.2&quot;, style=styles.primary)
-line((20, 29), (40, 29), arrowhead=&quot;-&gt;&quot;, style=styles.primary.patch(line_alpha=0.2))
-text((10, 37), &quot;lstyle: dashed&quot;, style=styles.primary)
-line((20, 37), (40, 37), arrowhead=&quot;-&gt;&quot;, style=styles.primary.patch(line_style=&quot;dashed&quot;))
-text((10, 45), &quot;head_scale: 40&quot;, style=styles.primary)
-line((20, 45), (40, 45), arrowhead=&quot;-&gt;&quot;, style=styles.primary.patch(line_arrow_head_scale=40))
+text((10, 5), &quot;arrowhead -&gt;&quot;, style=Styles.Primary)
+line((20, 5), (40, 5), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary)
+text((10, 13), &quot;width: 5&quot;, style=Styles.Primary)
+line((20, 13), (40, 13), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary.patch(line_width=5))
+text((10, 21), &quot;color: Red&quot;, style=Styles.Primary)
+line((20, 21), (40, 21), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary.patch(line_color=Colors.Red))
+text((10, 29), &quot;alpha: 0.2&quot;, style=Styles.Primary)
+line((20, 29), (40, 29), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary.patch(line_alpha=0.2))
+text((10, 37), &quot;lstyle: dashed&quot;, style=Styles.Primary)
+line((20, 37), (40, 37), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary.patch(line_style=&quot;dashed&quot;))
+text((10, 45), &quot;head_scale: 40&quot;, style=Styles.Primary)
+line((20, 45), (40, 45), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary.patch(line_arrow_head_scale=40))
 
-text((60, 5), &quot;arrowhead: -&gt;&quot;, style=styles.primary)
-line((70, 5), (90, 5), arrowhead=&quot;-&gt;&quot;, style=styles.primary)
-text((60, 13), &quot;arrowhead: &lt;-&quot;, style=styles.primary)
-line((70, 13), (90, 13), arrowhead=&quot;&lt;-&quot;, style=styles.primary)
-text((60, 21), &quot;arrowhead: &lt;-&gt;&quot;, style=styles.primary)
-line((70, 21), (90, 21), arrowhead=&quot;&lt;-&gt;&quot;, style=styles.primary)
-text((60, 29), 'arrowhead: &quot;&quot;', style=styles.primary)
-line((70, 29), (90, 29), arrowhead=&quot;&quot;, style=styles.primary)
-text((60, 37), &quot;head_fill: True&quot;, style=styles.primary)
-line((70, 37), (90, 37), arrowhead=&quot;-&gt;&quot;, style=styles.primary.patch(line_arrow_head_fill=True))
-text((60, 45), &quot;head_scale: 10&quot;, style=styles.primary)
-line((70, 45), (90, 45), arrowhead=&quot;-&gt;&quot;, style=styles.primary.patch(line_arrow_head_scale=10))
+text((60, 5), &quot;arrowhead: -&gt;&quot;, style=Styles.Primary)
+line((70, 5), (90, 5), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary)
+text((60, 13), &quot;arrowhead: &lt;-&quot;, style=Styles.Primary)
+line((70, 13), (90, 13), arrowhead=&quot;&lt;-&quot;, style=Styles.Primary)
+text((60, 21), &quot;arrowhead: &lt;-&gt;&quot;, style=Styles.Primary)
+line((70, 21), (90, 21), arrowhead=&quot;&lt;-&gt;&quot;, style=Styles.Primary)
+text((60, 29), 'arrowhead: &quot;&quot;', style=Styles.Primary)
+line((70, 29), (90, 29), arrowhead=&quot;&quot;, style=Styles.Primary)
+text((60, 37), &quot;head_fill: True&quot;, style=Styles.Primary)
+line((70, 37), (90, 37), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary.patch(line_arrow_head_fill=True))
+text((60, 45), &quot;head_scale: 10&quot;, style=Styles.Primary)
+line((70, 45), (90, 45), arrowhead=&quot;-&gt;&quot;, style=Styles.Primary.patch(line_arrow_head_scale=10))
 
 save()
 </code></pre>
@@ -534,32 +532,32 @@ save()
 <p>This example demonstrates lines with different arrowhead styles and visual configurations using Drawlib.</p>
 <h1>Pre-defined Line Styles</h1>
 <p>Drawlib provides pre-defined line styles on the <code>styles</code> object.
-You can access them as attributes (e.g. <code>styles.red</code>, <code>styles.red_solid</code>, <code>styles.red_dashed</code>, <code>styles.bold</code>).</p>
+You can access them as attributes (e.g. <code>Styles.Red</code>, <code>Styles.RedSolid</code>, <code>Styles.RedDashed</code>, <code>Styles.Bold</code>).</p>
 <p>Let's look at an example:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=40)
 
-text((12, 5), &quot;styles.primary&quot;, style=styles.primary)
-line((25, 5), (40, 5), style=styles.primary)
-text((12, 15), &quot;styles.red&quot;, style=styles.primary)
-line((25, 15), (40, 15), style=styles.red)
-text((12, 25), &quot;styles.red_solid&quot;, style=styles.primary)
-line((25, 25), (40, 25), style=styles.red_solid)
-text((12, 35), &quot;styles.red_dashed&quot;, style=styles.primary)
-line((25, 35), (40, 35), style=styles.red_dashed)
+text((12, 5), &quot;Styles.Primary&quot;, style=Styles.Primary)
+line((25, 5), (40, 5), style=Styles.Primary)
+text((12, 15), &quot;Styles.Red&quot;, style=Styles.Primary)
+line((25, 15), (40, 15), style=Styles.Red)
+text((12, 25), &quot;Styles.RedSolid&quot;, style=Styles.Primary)
+line((25, 25), (40, 25), style=Styles.RedSolid)
+text((12, 35), &quot;Styles.RedDashed&quot;, style=Styles.Primary)
+line((25, 35), (40, 35), style=Styles.RedDashed)
 
-text((60, 5), &quot;styles.red_bold&quot;, style=styles.primary)
-line((75, 5), (90, 5), arrowhead=&quot;-&gt;&quot;, style=styles.red_bold)
-text((60, 15), &quot;styles.blue_light&quot;, style=styles.primary)
-line((75, 15), (90, 15), arrowhead=&quot;-&gt;&quot;, style=styles.blue_light)
-text((60, 25), &quot;styles.dashed&quot;, style=styles.primary)
-line((75, 25), (90, 25), arrowhead=&quot;-&gt;&quot;, style=styles.dashed)
-text((60, 35), &quot;styles.bold&quot;, style=styles.primary)
-line((75, 35), (90, 35), arrowhead=&quot;-&gt;&quot;, style=styles.bold)
+text((60, 5), &quot;Styles.RedBold&quot;, style=Styles.Primary)
+line((75, 5), (90, 5), arrowhead=&quot;-&gt;&quot;, style=Styles.RedBold)
+text((60, 15), &quot;Styles.BlueLight&quot;, style=Styles.Primary)
+line((75, 15), (90, 15), arrowhead=&quot;-&gt;&quot;, style=Styles.BlueLight)
+text((60, 25), &quot;Styles.Dashed&quot;, style=Styles.Primary)
+line((75, 25), (90, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.Dashed)
+text((60, 35), &quot;Styles.Bold&quot;, style=Styles.Primary)
+line((75, 35), (90, 35), arrowhead=&quot;-&gt;&quot;, style=Styles.Bold)
 
 save()
 </code></pre>

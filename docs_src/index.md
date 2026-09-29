@@ -4,28 +4,28 @@ Drawlib is a pure-Python drawing library and documentation compiler crafted to f
 
 ```drawlib fold-code 600px center caption:"Code makes Illustration"
 from drawlib.canvas import setup
-from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
-from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=100, height=40)
 
 circle(
     xy=(25, 20),
     radius=12,
-    style=styles.primary.patch(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors.Navy, shape_line_width=2),
+    style=Styles.Primary,
+    text="Circle",
+    textsize=16,
 )
-text(xy=(25, 20), text="Circle", style=styles.primary.patch(text_color=Colors.White, text_size=16))
 
 rectangle(
     xy=(75, 20),
     width=24,
     height=24,
-    style=styles.primary.patch(shape_fill_color=Colors140.Coral, shape_line_color=Colors.Navy, shape_line_width=2),
+    style=Styles.Secondary,
+    text="Rectangle",
+    textsize=16,
 )
-text(xy=(75, 20), text="Rectangle", style=styles.primary.patch(text_color=Colors.White, text_size=16))
 ```
 
 ---
@@ -46,58 +46,56 @@ Because the entire documentation workflow is unified in Python and Markdown, hum
 
 ```drawlib fold-code 700px center caption:"End-to-End Documentation System with Drawlib"
 from drawlib.canvas import setup
-from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
-from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=140, height=65)
 
 # Styles
-s_src = styles.blue_flat
-s_engine = styles.purple_flat
-s_out = styles.green_flat
+s_src = Styles.PrimaryFlat
+s_engine = Styles.AccentFlat
+s_out = Styles.SecondaryFlat
 
-ts_title = styles.primary.patch(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
-ts_desc = styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
-ts_engine_title = styles.primary.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
-ts_engine_desc = styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue)
+ts_title = Styles.WhiteBold.patch(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD)
+ts_desc = Styles.WhiteLight.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR)
+ts_engine_title = Styles.WhiteBold.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD)
+ts_engine_desc = Styles.WhiteLight.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR)
 
 # Section Headers
-text((25, 60), "Source Authoring", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
-text((70, 60), "Drawlib Compiler", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
-text((116, 60), "Publication Targets", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
+text((25, 60), "Source Authoring", style=Styles.PrimaryBold.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD))
+text((70, 60), "Drawlib Compiler", style=Styles.AccentBold.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD))
+text((116, 60), "Publication Targets", style=Styles.SecondaryBold.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD))
 
 # 1. Source (Left)
 rectangle((25, 33), width=36, height=44, style=s_src, r=2.5)
 text((25, 51.5), "Documentation Source", style=ts_title)
-text((25, 46.5), "Human or AI writes Markdown (.md)", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.PaleTurquoise))
+text((25, 46.5), "Human or AI writes Markdown (.md)", style=Styles.White.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR))
 
 # Mini editor window inside Source box
-rectangle((25, 29), width=31, height=23, style=styles.primary.patch(shape_fill_color=Colors140.DarkSlateGray, shape_line_color=Colors140.SlateGray, shape_line_width=1), r=1.5)
+rectangle((25, 29), width=31, height=23, style=Styles.MutedSolid, r=1.5)
 # Window dots
-circle((13, 37.8), radius=0.7, style=styles.primary.patch(shape_fill_color=Colors140.IndianRed, shape_line_color=Colors.Transparent))
-circle((15.2, 37.8), radius=0.7, style=styles.primary.patch(shape_fill_color=Colors140.SandyBrown, shape_line_color=Colors.Transparent))
-circle((17.4, 37.8), radius=0.7, style=styles.primary.patch(shape_fill_color=Colors140.MediumSeaGreen, shape_line_color=Colors.Transparent))
-text((26, 37.8), "system_guide.md", style=styles.primary.patch(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
-line((10.5, 36.2), (39.5, 36.2), style=styles.bold.patch(line_color=Colors140.SlateGray, line_width=0.8))
+circle((13, 37.8), radius=0.7, style=Styles.Red)
+circle((15.2, 37.8), radius=0.7, style=Styles.Yellow)
+circle((17.4, 37.8), radius=0.7, style=Styles.Green)
+text((26, 37.8), "system_guide.md", style=Styles.WhiteLight.patch(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR))
+line((10.5, 36.2), (39.5, 36.2), style=Styles.Muted)
 # Editor text
-text((12.5, 27.5), "# System Guide\nArchitecture overview...\n\n```drawlib\nrectangle(...)\n```", style=styles.primary.patch(text_size=6.8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors.White, text_halign="left"))
+text((12.5, 27.5), "# System Guide\nArchitecture overview...\n\n```drawlib\nrectangle(...)\n```", style=Styles.White.patch(text_size=6.8, text_font=FontRoboto.ROBOTO_REGULAR, text_halign="left"))
 
-text((25, 13.5), "Text + Embedded Illustration Code", style=styles.primary.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.GhostWhite))
+text((25, 13.5), "Text + Embedded Illustration Code", style=Styles.WhiteBold.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD))
 
 # 2. Engine (Center)
 rectangle((70, 33), width=34, height=44, style=s_engine, r=2.5)
 text((70, 50), "drawlib build", style=ts_engine_title)
-text((70, 43.5), "All-in-One Compiler", style=styles.primary.patch(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.Wheat))
-text((57, 30), "• Parses Markdown AST\n• Executes Python blocks\n• Auto-generates images\n• Resolves internal links", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue, text_halign="left"))
-text((70, 16), "No External Tools Needed\n(Zero Sphinx / MkDocs)", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.Gold))
+text((70, 43.5), "All-in-One Compiler", style=Styles.WhiteBold.patch(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD))
+text((57, 30), "• Parses Markdown AST\n• Executes Python blocks\n• Auto-generates images\n• Resolves internal links", style=Styles.WhiteLight.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_halign="left"))
+text((70, 16), "No External Tools Needed\n(Zero Sphinx / MkDocs)", style=Styles.WhiteBold.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD))
 
 # Arrow Left -> Center
-line((43, 33), (53, 33), arrowhead="->", style=styles.bold)
+line((43, 33), (53, 33), arrowhead="->", style=Styles.Bold)
 
 # 3. Targets (Right)
 rectangle((116, 49), width=36, height=13, style=s_out, r=1.5)
@@ -113,9 +111,9 @@ text((116, 20), "Headless Vector PDF", style=ts_title)
 text((116, 14.5), "docs_pdf/ (Chromium vector print)", style=ts_desc)
 
 # Arrows Center -> Right targets
-line((87, 45), (98, 49), arrowhead="->", style=styles.bold)
-line((87, 33), (98, 33), arrowhead="->", style=styles.bold)
-line((87, 21), (98, 17), arrowhead="->", style=styles.bold)
+line((87, 45), (98, 49), arrowhead="->", style=Styles.Bold)
+line((87, 33), (98, 33), arrowhead="->", style=Styles.Bold)
+line((87, 21), (98, 17), arrowhead="->", style=Styles.Bold)
 ```
 
 ---
@@ -132,28 +130,26 @@ By placing Drawlib directly in your application or documentation repository:
 
 ```drawlib fold-code 700px center caption:"AI Coding Agents Generating Grounded Docs & Diagrams from Repository"
 from drawlib.canvas import setup
-from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
-from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=140, height=65)
 
 # Styles
-s_repo = styles.blue_flat
-s_agent = styles.purple_flat
-s_doc = styles.green_flat
+s_repo = Styles.PrimaryFlat
+s_agent = Styles.AccentFlat
+s_doc = Styles.SecondaryFlat
 
-ts_title = styles.primary.patch(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
-ts_desc = styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
+ts_title = Styles.WhiteBold.patch(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD)
+ts_desc = Styles.WhiteLight.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR)
 
 # Column Headers
-text((24, 60), "1. Repository Context", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
-text((69, 60), "2. Autonomous AI Agent", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
-text((116, 60), "3. Grounded Docs & Diagrams", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
+text((24, 60), "1. Repository Context", style=Styles.PrimaryBold.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD))
+text((69, 60), "2. Autonomous AI Agent", style=Styles.AccentBold.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD))
+text((116, 60), "3. Grounded Docs & Diagrams", style=Styles.SecondaryBold.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD))
 
 # 1. Left: Repository Context items
 rectangle((24, 48), width=34, height=13, style=s_repo, r=1.5)
@@ -169,47 +165,47 @@ text((24, 20.5), "Infra & Config", style=ts_title)
 text((24, 15.5), "docker-compose, k8s, env", style=ts_desc)
 
 # Arrows from Repo to Agent
-line((41, 48), (53, 39), arrowhead="->", style=styles.bold)
-line((41, 33), (53, 33), arrowhead="->", style=styles.bold)
-line((41, 18), (53, 27), arrowhead="->", style=styles.bold)
+line((41, 48), (53, 39), arrowhead="->", style=Styles.Bold)
+line((41, 33), (53, 33), arrowhead="->", style=Styles.Bold)
+line((41, 18), (53, 27), arrowhead="->", style=Styles.Bold)
 
 # 2. Center: AI Agent
 rectangle((69, 33), width=32, height=44, style=s_agent, r=2.5)
-circle((69, 45), radius=4.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Transparent))
-text((69, 45), "AI", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
-text((69, 37), "Coding Agent", style=styles.primary.patch(text_size=11.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
-text((69, 31.5), "Claude Code / Cursor / Copilot", style=styles.primary.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
-text((55, 21), "• Explores codebase & schemas\n• Synthesizes Drawlib code\n• Validates image output (-g)\n• Refines layout autonomously", style=styles.primary.patch(text_size=7.2, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite, text_halign="left"))
+circle((69, 45), radius=4.5, style=Styles.White)
+text((69, 45), "AI", style=Styles.AccentBold.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
+text((69, 37), "Coding Agent", style=Styles.WhiteBold.patch(text_size=11.5, text_font=FontRoboto.ROBOTO_BOLD))
+text((69, 31.5), "Claude Code / Cursor / Copilot", style=Styles.WhiteLight.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_REGULAR))
+text((55, 21), "• Explores codebase & schemas\n• Synthesizes Drawlib code\n• Validates image output (-g)\n• Refines layout autonomously", style=Styles.WhiteLight.patch(text_size=7.2, text_font=FontRoboto.ROBOTO_REGULAR, text_halign="left"))
 
 # Arrow Agent to Output
-line((85, 33), (98, 33), arrowhead="->", style=styles.bold)
+line((85, 33), (98, 33), arrowhead="->", style=Styles.Bold)
 
 # 3. Right: Delivered Docs & Diagrams
 rectangle((116, 33), width=36, height=44, style=s_doc, r=2.5)
 text((116, 51.5), "Grounded Documentation", style=ts_title)
-text((116, 46.5), "100% In-Sync with Real Code", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.PaleTurquoise))
+text((116, 46.5), "100% In-Sync with Real Code", style=Styles.WhiteBold.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD))
 
 # Mini visual card inside doc box
-rectangle((116, 29), width=31, height=23, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors140.SeaGreen, shape_line_width=1), r=1.5)
-text((116, 37.5), "System Architecture & Specs", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.SeaGreen))
+rectangle((116, 29), width=31, height=23, style=Styles.White, r=1.5)
+text((116, 37.5), "System Architecture & Specs", style=Styles.SecondaryBold.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD))
 
 # 3 Mini mockup nodes inside card: App -> API -> DB
-rectangle((105, 29), width=7.5, height=6.5, style=styles.blue_flat, r=1)
-text((105, 29), "App", style=styles.primary.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+rectangle((105, 29), width=7.5, height=6.5, style=Styles.PrimaryFlat, r=1)
+text((105, 29), "App", style=Styles.WhiteBold.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD))
 
-line((108.75, 29), (112.25, 29), arrowhead="->", style=styles.bold.patch(line_width=1.2, line_color=Colors140.SlateGray))
+line((108.75, 29), (112.25, 29), arrowhead="->", style=Styles.Muted.patch(line_width=1.2))
 
-rectangle((116, 29), width=7.5, height=6.5, style=styles.purple_flat, r=1)
-text((116, 29), "API", style=styles.primary.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+rectangle((116, 29), width=7.5, height=6.5, style=Styles.AccentFlat, r=1)
+text((116, 29), "API", style=Styles.WhiteBold.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD))
 
-line((119.75, 29), (123.25, 29), arrowhead="->", style=styles.bold.patch(line_width=1.2, line_color=Colors140.SlateGray))
+line((119.75, 29), (123.25, 29), arrowhead="->", style=Styles.Muted.patch(line_width=1.2))
 
-rectangle((127, 29), width=7.5, height=6.5, style=styles.green_flat, r=1)
-text((127, 29), "DB", style=styles.primary.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+rectangle((127, 29), width=7.5, height=6.5, style=Styles.SecondaryFlat, r=1)
+text((127, 29), "DB", style=Styles.WhiteBold.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD))
 
-text((116, 20.5), "ER Diagrams • Sequences • APIs", style=styles.primary.patch(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.DimGray))
+text((116, 20.5), "ER Diagrams • Sequences • APIs", style=Styles.Muted.patch(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR))
 
-text((116, 13.5), "Updated in Same Pull Request", style=styles.primary.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.GhostWhite))
+text((116, 13.5), "Updated in Same Pull Request", style=Styles.WhiteBold.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD))
 ```
 
 ---

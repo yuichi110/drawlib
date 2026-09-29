@@ -405,14 +405,14 @@
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=48)
 
 tree1 = TreeNode(
     &quot;Root&quot;,
-    default_textstyle=styles.primary,
-    default_linestyle=styles.light,
+    default_textstyle=Styles.Primary,
+    default_linestyle=Styles.Light,
     default_line_horizontal_margin=2,
     default_line_horizontal_length=2,
     default_line_vertical_margin=5,
@@ -426,12 +426,12 @@ tree1 = TreeNode(
                         TreeNode(&quot;Child1-1-1&quot;),
                     ],
                 ),
-                TreeNode(&quot;Child1-2&quot;, textstyle=styles.red),
+                TreeNode(&quot;Child1-2&quot;, textstyle=Styles.Red),
             ],
         ),
         TreeNode(
             text=&quot;Child2&quot;,
-            default_textstyle=styles.blue,
+            default_textstyle=Styles.Blue,
             children=[
                 TreeNode(&quot;Child2-1&quot;),
                 TreeNode(&quot;Child2-2&quot;),
@@ -447,7 +447,7 @@ TreeNode.register_drawing_item(
     location=&quot;before&quot;,
     padding_width=5,
     function=phosphor.file_py,
-    style=styles.primary,
+    style=Styles.Primary,
     args={&quot;width&quot;: 4},
 )
 TreeNode.register_drawing_item(
@@ -455,14 +455,14 @@ TreeNode.register_drawing_item(
     location=&quot;before&quot;,
     padding_width=5,
     function=phosphor.file_png,
-    style=styles.red,
+    style=Styles.Red,
     args={&quot;width&quot;: 4},
 )
 
 tree2 = TreeNode(
     &quot;Root&quot;,
-    default_textstyle=styles.primary,
-    default_linestyle=styles.light,
+    default_textstyle=Styles.Primary,
+    default_linestyle=Styles.Light,
     default_line_horizontal_margin=2,
     default_line_horizontal_length=2,
     default_line_vertical_margin=5,

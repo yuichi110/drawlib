@@ -101,23 +101,23 @@ Here's an example of changing the aspect ratio where we halve the image height:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
 image((25, 30), 20, original_image)
-text((25, 15), "original", style=styles.primary)
+text((25, 15), "original", style=Styles.Primary)
 width, height = original_image.get_image_size()
-text((25, 10), f"width={width}, height={height}", style=styles.primary)
+text((25, 10), f"width={width}, height={height}", style=Styles.Primary)
 
 # resize
 new_height = int(height / 2)
 resized_image = original_image.resize(width, new_height)
 image((75, 30), 20, resized_image)
-text((75, 15), "resize()", style=styles.primary)
-text((75, 10), f"width={width}, height={new_height}", style=styles.primary)
+text((75, 15), "resize()", style=Styles.Primary)
+text((75, 10), f"width={width}, height={new_height}", style=Styles.Primary)
 ```
 
 In this example, we retrieve the original image dimensions using `get_image_size()`.
@@ -155,14 +155,14 @@ Here's an example that keeps the center 50% of the image:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
-image((25, 25), 20, original_image, style=styles.primary.patch(image_border_width=1))
-text((25, 10), "original", style=styles.primary)
+image((25, 25), 20, original_image, style=Styles.Primary.patch(image_border_width=1))
+text((25, 10), "original", style=Styles.Primary)
 width, height = original_image.get_image_size()
 
 # trimming
@@ -171,8 +171,8 @@ crop_width = int(width / 2)
 y_start = int(height / 4)
 crop_height = int(height / 2)
 cropped_image = original_image.crop(x_start, y_start, crop_width, crop_height)
-image((75, 25), 20, cropped_image, style=styles.primary.patch(image_border_width=1))
-text((75, 10), "crop()", style=styles.primary)
+image((75, 25), 20, cropped_image, style=Styles.Primary.patch(image_border_width=1))
+text((75, 10), "crop()", style=Styles.Primary)
 ```
 
 In this example, we calculate the cropping parameters to keep the center 50% of the image. 
@@ -210,8 +210,7 @@ Here is an example:
 from PIL import Image
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
-from drawlib.preset_colors import Colors
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
 setup(width=100, height=50, dpi=200)
@@ -227,9 +226,9 @@ image(
     (25, 27),
     22,
     original_with_margin,
-    style=styles.primary.patch(image_border_width=1, image_border_color=Colors.Red),
+    style=Styles.Primary.patch(image_border_width=1, image_border_color=Colors.Red),
 )
-text((25, 10), "original (with margin)", style=styles.primary)
+text((25, 10), "original (with margin)", style=Styles.Primary)
 
 # Automatically trim margins
 trimmed = original_with_margin.trim()
@@ -237,9 +236,9 @@ image(
     (75, 27),
     22,
     trimmed,
-    style=styles.primary.patch(image_border_width=1, image_border_color=Colors.Green),
+    style=Styles.Primary.patch(image_border_width=1, image_border_color=Colors.Green),
 )
-text((75, 10), "trim()", style=styles.primary)
+text((75, 10), "trim()", style=Styles.Primary)
 ```
 
 In this example, `trim()` detects the white margin around the subject automatically and crops the image to its tightly bounded content.
@@ -272,22 +271,22 @@ Here's an example:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
 image((20, 25), 20, original_image)
-text((20, 10), "original", style=styles.primary)
+text((20, 10), "original", style=Styles.Primary)
 
 # mirror
 image((50, 25), 20, original_image.mirror())
-text((50, 10), "mirror()", style=styles.primary)
+text((50, 10), "mirror()", style=Styles.Primary)
 
 # flip
 image((80, 25), 20, original_image.flip())
-text((80, 10), "flip()", style=styles.primary)
+text((80, 10), "flip()", style=Styles.Primary)
 ```
 
 Here is the output:
@@ -318,22 +317,22 @@ Here's an example:
 from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
 image((20, 25), 20, original_image)
-text((20, 10), "original", style=styles.primary)
+text((20, 10), "original", style=Styles.Primary)
 
 # grayscale
 image((50, 25), 20, Dimage("../_assets/linux.png").grayscale())
-text((50, 10), "grayscale()", style=styles.primary)
+text((50, 10), "grayscale()", style=Styles.Primary)
 
 # sepia
 image((80, 25), 20, original_image.sepia())
-text((80, 10), "sepia()", style=styles.primary)
+text((80, 10), "sepia()", style=Styles.Primary)
 ```
 
 Here is the output.
@@ -360,18 +359,18 @@ Here's an example:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage("../_assets/linux.png").brightness(0.5))
-text((20, 10), "brightness(0.5)", style=styles.primary)
+text((20, 10), "brightness(0.5)", style=Styles.Primary)
 
 image((50, 25), 20, Dimage("../_assets/linux.png").brightness(1.0))
-text((50, 10), "brightness(1.0): Original", style=styles.primary)
+text((50, 10), "brightness(1.0): Original", style=Styles.Primary)
 
 image((80, 25), 20, Dimage("../_assets/linux.png").brightness(2.0))
-text((80, 10), "brightness(2.0)", style=styles.primary)
+text((80, 10), "brightness(2.0)", style=Styles.Primary)
 ```
 
 Here is an output.
@@ -392,16 +391,16 @@ Here is an output.
 
 ```python
 from drawlib.canvas import setup
-from drawlib.preset_colors import Colors, DefaultColors
+from drawlib.preset_colors import DefaultColors
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
-setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
+setup(width=100, height=50, dpi=200, background_color=Colors.Gray4)
 
 # invert
 image((20, 25), 20, Dimage("../_assets/linux.png").invert())
-text((20, 10), "invert()", style=styles.white)
+text((20, 10), "invert()", style=Styles.White)
 
 # colorize
 image(
@@ -412,7 +411,7 @@ image(
         from_white_to=DefaultColors.Red,
     ),
 )
-text((50, 10), "colorize()", style=styles.white)
+text((50, 10), "colorize()", style=Styles.White)
 
 # colorize 3 colors
 image(
@@ -424,7 +423,7 @@ image(
         from_mid_to=DefaultColors.Green,
     ),
 )
-text((80, 10), "colorize()", style=styles.white)
+text((80, 10), "colorize()", style=Styles.White)
 ```
 
 Here is the output.
@@ -457,11 +456,10 @@ Here is an example placed on a colored canvas:
 from PIL import Image
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
-from drawlib.preset_colors import Colors
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
+setup(width=100, height=50, dpi=200, background_color=Colors.Gray4)
 
 # Create an image with a solid white background
 base = Image.new("RGB", (400, 400), (255, 255, 255))
@@ -471,12 +469,12 @@ original_with_white_bg = Dimage(base)
 
 # Original image shows a distracting white box on colored canvas
 image((25, 27), 22, original_with_white_bg)
-text((25, 10), "original (white bg)", style=styles.white)
+text((25, 10), "original (white bg)", style=Styles.White)
 
 # Automatically convert the background to transparent
 transparent_img = original_with_white_bg.make_transparent()
 image((75, 27), 22, transparent_img)
-text((75, 10), "make_transparent()", style=styles.white)
+text((75, 10), "make_transparent()", style=Styles.White)
 ```
 
 Here is the output:
@@ -508,18 +506,18 @@ Here's an example:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage("../_assets/linux.png").mosaic(8))
-text((20, 10), "mosaic(8)", style=styles.primary)
+text((20, 10), "mosaic(8)", style=Styles.Primary)
 
 image((50, 25), 20, Dimage("../_assets/linux.png").mosaic(16))
-text((50, 10), "mosaic(16)", style=styles.primary)
+text((50, 10), "mosaic(16)", style=Styles.Primary)
 
 image((80, 25), 20, Dimage("../_assets/linux.png").blur())
-text((80, 10), "blur()", style=styles.primary)
+text((80, 10), "blur()", style=Styles.Primary)
 ```
 
 Here is the output.

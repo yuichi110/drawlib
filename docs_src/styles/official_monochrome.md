@@ -21,7 +21,7 @@ from drawlib.preset_colors import MonochromeColors
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=45)
 start_x = 8.5
@@ -50,8 +50,8 @@ for i, (color_name, color) in enumerate(colors):
         height=10,
         style=Style(shape_fill_color=color, shape_line_width=lwidth, shape_line_color=(0, 0, 0)),
     )
-    text((x, text1_y), color_name, style=styles.bold.patch(text_size=12))
-    text((x, text2_y), str(color[:3]), style=styles.primary.patch(text_size=8))
+    text((x, text1_y), color_name, style=Styles.Bold.patch(text_size=12))
+    text((x, text2_y), str(color[:3]), style=Styles.Primary.patch(text_size=8))
 ```
 
 Here is a list of the colors. 

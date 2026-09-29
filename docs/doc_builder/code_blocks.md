@@ -81,7 +81,7 @@ For authors writing raw HTML documentation or slides, Drawlib also supports nati
 ```html
 <drawlib width="600px" align="center" caption="Microservices Architecture">
 setup(width=100, height=50)
-rectangle((50, 25), width=80, height=30, text="API Gateway", style=styles.primary)
+rectangle((50, 25), width=80, height=30, text="API Gateway", style=Styles.Primary)
 </drawlib>
 ```
 
@@ -89,7 +89,7 @@ Alternatively, `<script type="text/drawlib">` can be used:
 
 ```html
 <script type="text/drawlib" data-width="500px" data-align="center">
-circle((50, 50), radius=25, style=styles.primary)
+circle((50, 50), radius=25, style=Styles.Primary)
 </script>
 ```
 

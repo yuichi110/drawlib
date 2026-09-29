@@ -16,7 +16,7 @@ from drawlib.preset_colors import GoogleColors
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=120, height=50)
 
@@ -36,8 +36,8 @@ for x, label, color in semantic_items:
         height=14,
         style=Style(shape_fill_color=color, shape_line_width=1, shape_line_color=GoogleColors.Gray8),
     )
-    text((x, 18), label, style=styles.bold)
-    text((x, 10), str(color[:3]), style=styles.primary.patch(text_size=9))
+    text((x, 18), label, style=Styles.Bold)
+    text((x, 10), str(color[:3]), style=Styles.Primary.patch(text_size=9))
 ```
 
 
@@ -62,7 +62,7 @@ Each role provides 10 orthogonal variants:
 ```drawlib 650px center caption:"Semantic Roles in Action"
 from drawlib.canvas import setup
 from drawlib.lines import line
-from drawlib.preset_styles import google_styles
+from drawlib.preset_styles import GoogleStyles
 from drawlib.shapes import circle
 from drawlib.text import text
 
@@ -71,12 +71,12 @@ line_y = 36
 text_y = 9
 
 items = [
-    (12, "primary", google_styles.primary),
-    (31, "secondary", google_styles.secondary),
-    (50, "accent", google_styles.accent),
-    (69, "muted", google_styles.muted),
-    (88, "danger", google_styles.danger),
-    (107, "success", google_styles.success),
+    (12, "primary", GoogleStyles.Primary),
+    (31, "secondary", GoogleStyles.Secondary),
+    (50, "accent", GoogleStyles.Accent),
+    (69, "muted", GoogleStyles.Muted),
+    (88, "danger", GoogleStyles.Danger),
+    (107, "success", GoogleStyles.Success),
 ]
 
 for x, label, st in items:

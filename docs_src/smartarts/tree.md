@@ -8,14 +8,14 @@ Class `Tree` draws smart art tree which is similar to `tree` command output.
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=48)
 
 tree1 = TreeNode(
     "Root",
-    default_textstyle=styles.primary,
-    default_linestyle=styles.light,
+    default_textstyle=Styles.Primary,
+    default_linestyle=Styles.Light,
     default_line_horizontal_margin=2,
     default_line_horizontal_length=2,
     default_line_vertical_margin=5,
@@ -29,12 +29,12 @@ tree1 = TreeNode(
                         TreeNode("Child1-1-1"),
                     ],
                 ),
-                TreeNode("Child1-2", textstyle=styles.red),
+                TreeNode("Child1-2", textstyle=Styles.Red),
             ],
         ),
         TreeNode(
             text="Child2",
-            default_textstyle=styles.blue,
+            default_textstyle=Styles.Blue,
             children=[
                 TreeNode("Child2-1"),
                 TreeNode("Child2-2"),
@@ -50,7 +50,7 @@ TreeNode.register_drawing_item(
     location="before",
     padding_width=5,
     function=phosphor.file_py,
-    style=styles.primary,
+    style=Styles.Primary,
     args={"width": 4},
 )
 TreeNode.register_drawing_item(
@@ -58,14 +58,14 @@ TreeNode.register_drawing_item(
     location="before",
     padding_width=5,
     function=phosphor.file_png,
-    style=styles.red,
+    style=Styles.Red,
     args={"width": 4},
 )
 
 tree2 = TreeNode(
     "Root",
-    default_textstyle=styles.primary,
-    default_linestyle=styles.light,
+    default_textstyle=Styles.Primary,
+    default_linestyle=Styles.Light,
     default_line_horizontal_margin=2,
     default_line_horizontal_length=2,
     default_line_vertical_margin=5,

@@ -105,12 +105,11 @@ Once a feature cycle stabilizes, an official release (e.g. `0.3.1`) is published
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, chevron
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 
 def draw_versions(x: float, y: float, versions: list[str]):
@@ -119,10 +118,10 @@ def draw_versions(x: float, y: float, versions: list[str]):
     corner_angle = 60
     padding = 1
 
-    s1 = styles.blue_flat
-    s2 = styles.primary.patch(line_style="dashed", shape_fill_color=Colors.Transparent, shape_line_color=Colors.Blue)
-    st1 = styles.primary.patch(text_size=11, text_color=Colors.White, text_font=FontRoboto.ROBOTO_REGULAR)
-    st2 = styles.primary.patch(text_size=11, text_color=Colors.Blue, text_font=FontRoboto.ROBOTO_REGULAR)
+    s1 = Styles.BlueFlat
+    s2 = Styles.Primary.patch(line_style="dashed", shape_fill_color=Colors.Transparent, shape_line_color=Colors.Blue)
+    st1 = Styles.Primary.patch(text_size=11, text_color=Colors.White, text_font=FontRoboto.ROBOTO_REGULAR)
+    st2 = Styles.Primary.patch(text_size=11, text_color=Colors.Blue, text_font=FontRoboto.ROBOTO_REGULAR)
     for i, version in enumerate(versions):
         if len(versions) == 5 and i in [0, 1]:
             chevron(
@@ -148,7 +147,7 @@ def draw_versions(x: float, y: float, versions: list[str]):
 
 setup(width=115, height=72)
 
-ts = styles.primary.patch(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR)
+ts = Styles.Primary.patch(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR)
 text((7, 6), "private\nα\nrelease", style=ts)
 text((7, 18), "public\nβ\nrelease", style=ts)
 text((7, 30), "public\nreleases", style=ts)
@@ -156,22 +155,22 @@ text((7, 51), "matured\npublic\nreleases", style=ts)
 
 # v0.1
 draw_versions(15, 3, ["0.1.1", "...", "0.1.n"])
-line((32, 9), (32, 13.5), arrowhead="->", style=styles.primary)
+line((32, 9), (32, 13.5), arrowhead="->", style=Styles.Primary)
 
 # v0.2
 draw_versions(29, 15, ["0.2.1", "...", "0.2.n"])
-line((46, 21), (46, 25.5), arrowhead="->", style=styles.primary)
+line((46, 21), (46, 25.5), arrowhead="->", style=Styles.Primary)
 
-text((50, 34), "dev only", style=styles.primary.patch(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
+text((50, 34), "dev only", style=Styles.Primary.patch(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
 draw_versions(43, 27, ["0.3.0\ndev1", "...", "0.3.1", "...", "0.3.n"])
-line((74, 33), (74, 37.5), arrowhead="->", style=styles.primary)
-text((74, 39.5), 'keep "0.n.m" till library matures', style=styles.primary.patch(text_font=FontRoboto.ROBOTO_REGULAR))
-line((74, 43), (74, 46.5), arrowhead="->", style=styles.primary)
+line((74, 33), (74, 37.5), arrowhead="->", style=Styles.Primary)
+text((74, 39.5), 'keep "0.n.m" till library matures', style=Styles.Primary.patch(text_font=FontRoboto.ROBOTO_REGULAR))
+line((74, 43), (74, 46.5), arrowhead="->", style=Styles.Primary)
 
-text((78, 55), "dev only", style=styles.primary.patch(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
+text((78, 55), "dev only", style=Styles.Primary.patch(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
 draw_versions(71, 48, ["1.0.0\ndev1", "...", "1.0.1", "...", "1.0.n"])
-line((102, 54), (102, 58.5), arrowhead="->", style=styles.primary)
-text((102, 62), "...", style=styles.primary.patch(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR))
+line((102, 54), (102, 58.5), arrowhead="->", style=Styles.Primary)
+text((102, 62), "...", style=Styles.Primary.patch(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR))
 
 arrow(
     (15, 67),
@@ -179,9 +178,9 @@ arrow(
     tail_width=3,
     head_width=7,
     head_length=5,
-    style=styles.blue_flat,
+    style=Styles.BlueFlat,
     text="Time",
-    textstyle=styles.primary.patch(text_color=Colors.White, text_size=14, text_font=FontRoboto.ROBOTO_REGULAR),
+    textstyle=Styles.Primary.patch(text_color=Colors.White, text_size=14, text_font=FontRoboto.ROBOTO_REGULAR),
 )
 ```
 

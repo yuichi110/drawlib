@@ -12,7 +12,7 @@ Here is an example of code:
 from drawlib.canvas import setup
 from drawlib.preset_colors import Colors140
 from drawlib.fonts import FontSourceCode
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import circle
 from drawlib.smartarts import SourceCode
 
@@ -40,7 +40,7 @@ sc2 = SourceCode(
     linenum_textcolor=Colors140.Black,
     linenum_bgcolor=Colors140.LightGray,
 )
-sc2.draw((75, 25), width=40, code=CODE, style=styles.red_solid)
+sc2.draw((75, 25), width=40, code=CODE, style=Styles.RedSolid)
 ```
 
 In the example above, the `SourceCode` instance is configured with options such as:
@@ -70,7 +70,7 @@ from drawlib.smartarts import SourceCode
 CODE = """
 from drawlib.canvas import setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100)
 circle(xy=(50, 50), radius=30, style="blue_dashed")
@@ -91,7 +91,7 @@ sc2 = SourceCode(
     linenum_textcolor=Colors140.Black,
     linenum_bgcolor=Colors140.LightGray,
 )
-sc2.draw((75, 25), width=40, code=CODE, style=styles.red_solid)
+sc2.draw((75, 25), width=40, code=CODE, style=Styles.RedSolid)
 ```
 
 
@@ -123,7 +123,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontSourceCode
 from drawlib.smartarts import SourceCode
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 CODE = """
 import math
@@ -162,8 +162,8 @@ for style in [
 
     x = xs[ix]
     y = ys[iy]
-    sc.draw(xy=(x, y), width=25, code=CODE, style=styles.solid)
-    text((x, y - 9), text=style, style=styles.bold)
+    sc.draw(xy=(x, y), width=25, code=CODE, style=Styles.Solid)
+    text((x, y - 9), text=style, style=Styles.Bold)
 
     if ix == len(xs) - 1:
         ix = 0

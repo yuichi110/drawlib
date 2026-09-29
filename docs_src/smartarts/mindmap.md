@@ -17,7 +17,7 @@ Here is an example of a multi-directional mind map:
 ```drawlib show-code 600px center
 from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=150, height=80)
 
@@ -25,8 +25,8 @@ root = MindMapNode(
     "Main Concept",
     shape="oval",
     size=(24, 10),
-    style=styles.bold,
-    textstyle=styles.white,
+    style=Styles.Bold,
+    textstyle=Styles.White,
     children=[
         # Right branches
         MindMapNode(
@@ -34,7 +34,7 @@ root = MindMapNode(
             branch="right",
             shape="rectangle",
             size=(16, 7),
-            style=styles.solid,
+            style=Styles.Solid,
             line_length=6,
             children=[
                 MindMapNode("Fast Development", shape="none"),
@@ -47,7 +47,7 @@ root = MindMapNode(
             branch="left",
             shape="rectangle",
             size=(16, 7),
-            style=styles.solid,
+            style=Styles.Solid,
             line_length=6,
             children=[
                 MindMapNode("Learning Curve", shape="none"),
@@ -59,7 +59,7 @@ root = MindMapNode(
             branch="top",
             shape="rectangle",
             size=(16, 7),
-            style=styles.solid,
+            style=Styles.Solid,
         ),
         # Bottom branch with custom shift
         MindMapNode(
@@ -67,12 +67,12 @@ root = MindMapNode(
             branch="bottom",
             shape="rectangle",
             size=(20, 7),
-            style=styles.solid,
+            style=Styles.Solid,
             xy_shift=(0, -2),
         ),
     ],
-    default_style=styles.solid,
-    default_linestyle=styles.solid,
+    default_style=Styles.Solid,
+    default_linestyle=Styles.Solid,
     default_line_length=6,
 )
 
@@ -90,7 +90,7 @@ Specifying `branch="bottom"` on the root creates a standard top-down organizatio
 ```drawlib show-code 600px center
 from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=60)
 
@@ -98,9 +98,9 @@ root = MindMapNode(
     "CEO",
     shape="rectangle",
     size=(20, 8),
-    style=styles.bold,
-    default_style=styles.solid,
-    default_linestyle=styles.solid,
+    style=Styles.Bold,
+    default_style=Styles.Solid,
+    default_linestyle=Styles.Solid,
     children=[
         MindMapNode(
             "CTO",
@@ -135,7 +135,7 @@ Each node can have one of three shapes:
 ```drawlib show-code 600px center
 from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=35)
 
@@ -143,12 +143,12 @@ root = MindMapNode(
     "Central Topic",
     shape="oval",
     size=(24, 10),
-    style=styles.bold,
-    textstyle=styles.white,
-    default_style=styles.solid,
-    default_linestyle=styles.solid,
+    style=Styles.Bold,
+    textstyle=Styles.White,
+    default_style=Styles.Solid,
+    default_linestyle=Styles.Solid,
     children=[
-        MindMapNode("Rectangle Box", branch="right", shape="rectangle", size=(22, 8), style=styles.solid),
+        MindMapNode("Rectangle Box", branch="right", shape="rectangle", size=(22, 8), style=Styles.Solid),
         MindMapNode("Text Only Leaf", branch="right", shape="none"),
     ],
 )

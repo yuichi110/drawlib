@@ -11,12 +11,12 @@ For instance, consider the following Python code:
 from drawlib.canvas import save
 from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 circle(
     xy=(50, 50),
     radius=30,
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         line_style="dashed",
         shape_line_color=Colors140.BlueViolet,
         shape_line_width=5,
@@ -41,12 +41,12 @@ This will generate an image file:
 from drawlib.canvas import save
 from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 circle(
     xy=(50, 50),
     radius=30,
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         line_style="dashed",
         shape_line_color=Colors140.BlueViolet,
         shape_line_width=5,
@@ -78,60 +78,59 @@ Here is a typical use case of Drawlib:
 
 ```drawlib 650px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import arrow, rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=60)
 
 rect_width = 20
 rect_height = 38
-style_dashed = styles.primary.patch(line_style="dashed", shape_fill_color=Colors.White)
-style_text_head = styles.primary.patch(text_size=15, text_halign="center")
-style_text_left = styles.primary.patch(text_size=11, text_halign="left")
-style_text_red = styles.primary.patch(text_size=11, text_halign="left", text_color=Colors.Red)
-style_tree_line = styles.primary.patch(line_width=1, line_color=Colors.Gray)
+style_dashed = Styles.MutedDashed
+style_text_head = Styles.PrimaryBold.patch(text_size=15, text_halign="center")
+style_text_left = Styles.Primary.patch(text_size=11, text_halign="left")
+style_text_red = Styles.Red.patch(text_size=11, text_halign="left")
+style_tree_line = Styles.Muted
 
 def left():
     text((15, 54), "Drawlib's\nDocument Source", style=style_text_head)
     rectangle((15, 30), width=rect_width, height=rect_height, r=2, style=style_dashed)
 
     x = 8
-    phosphor.folder((x, 45), width=3, style=styles.primary)
+    phosphor.folder((x, 45), width=3, style=Styles.Primary)
     text((x + 2.5, 45), "docs", style=style_text_left)
     line((x, 43), (x, 13), style=style_tree_line)
 
     line((x, 42), (x + 1, 42), style=style_tree_line)
-    phosphor.folder((x + 3, 42), width=3, style=styles.primary)
+    phosphor.folder((x + 3, 42), width=3, style=Styles.Primary)
     text((x + 5.5, 42), "commons", style=style_text_left)
     line((x + 3, 40), (x + 3, 35), style=style_tree_line)
-    phosphor.file_py((x + 6, 39), width=3, style=styles.primary.patch(icon_color=Colors.Red))
+    phosphor.file_py((x + 6, 39), width=3, style=Styles.Primary.patch(icon_color=Colors.Red))
     text((x + 8.5, 39), "style.py", style=style_text_red)
     line((x + 3, 39), (x + 4, 39), style=style_tree_line)
-    phosphor.file_py((x + 6, 36), width=3, style=styles.primary.patch(icon_color=Colors.Red))
+    phosphor.file_py((x + 6, 36), width=3, style=Styles.Primary.patch(icon_color=Colors.Red))
     text((x + 8.5, 36), "util.py", style=style_text_red)
     line((x + 3, 36), (x + 4, 36), style=style_tree_line)
 
     line((x, 30), (x + 1, 30), style=style_tree_line)
-    phosphor.folder((x + 3, 30), width=3, style=styles.primary)
+    phosphor.folder((x + 3, 30), width=3, style=Styles.Primary)
     text((x + 5.5, 30), "chapter1", style=style_text_left)
     line((x + 3, 28), (x + 3, 19), style=style_tree_line)
-    phosphor.file_md((x + 6, 27), width=3, style=styles.primary)
+    phosphor.file_md((x + 6, 27), width=3, style=Styles.Primary)
     text((x + 8.5, 27), "doc.md", style=style_text_left)
     line((x + 3, 27), (x + 4, 27), style=style_tree_line)
-    phosphor.file_py((x + 6, 24), width=3, style=styles.primary.patch(icon_color=Colors.Red))
+    phosphor.file_py((x + 6, 24), width=3, style=Styles.Primary.patch(icon_color=Colors.Red))
     text((x + 8.5, 24), "img1.py", style=style_text_red)
     line((x + 3, 24), (x + 4, 24), style=style_tree_line)
-    phosphor.file_py((x + 6, 21), width=3, style=styles.primary.patch(icon_color=Colors.Red))
+    phosphor.file_py((x + 6, 21), width=3, style=Styles.Primary.patch(icon_color=Colors.Red))
     text((x + 8.5, 21), "img2.py", style=style_text_red)
     line((x + 3, 21), (x + 4, 21), style=style_tree_line)
 
     line((x, 15), (x + 1, 15), style=style_tree_line)
-    phosphor.folder((x + 3, 15), width=3, style=styles.primary)
+    phosphor.folder((x + 3, 15), width=3, style=Styles.Primary)
     text((x + 5.5, 15), "chapter2", style=style_text_left)
 
 def center():
@@ -139,42 +138,42 @@ def center():
     rectangle((50, 30), width=rect_width, height=rect_height, r=2, style=style_dashed)
 
     x = 43
-    phosphor.folder((x, 45), width=3, style=styles.primary)
+    phosphor.folder((x, 45), width=3, style=Styles.Primary)
     text((x + 2.5, 45), "docs", style=style_text_left)
     line((x, 43), (x, 13), style=style_tree_line)
 
     line((x, 30), (x + 1, 30), style=style_tree_line)
-    phosphor.folder((x + 3, 30), width=3, style=styles.primary)
+    phosphor.folder((x + 3, 30), width=3, style=Styles.Primary)
     text((x + 5.5, 30), "chapter1", style=style_text_left)
     line((x + 3, 28), (x + 3, 19), style=style_tree_line)
-    phosphor.file_md((x + 6, 27), width=3, style=styles.primary)
+    phosphor.file_md((x + 6, 27), width=3, style=Styles.Primary)
     text((x + 8.5, 27), "doc.md", style=style_text_left)
     line((x + 3, 27), (x + 4, 27), style=style_tree_line)
-    phosphor.file_image((x + 6, 24), width=3, style=styles.primary.patch(icon_color=Colors.Red))
+    phosphor.file_image((x + 6, 24), width=3, style=Styles.Primary.patch(icon_color=Colors.Red))
     text((x + 8.5, 24), "img1.png", style=style_text_red)
     line((x + 3, 24), (x + 4, 24), style=style_tree_line)
-    phosphor.file_image((x + 6, 21), width=3, style=styles.primary.patch(icon_color=Colors.Red))
+    phosphor.file_image((x + 6, 21), width=3, style=Styles.Primary.patch(icon_color=Colors.Red))
     text((x + 8.5, 21), "img2.png", style=style_text_red)
     line((x + 3, 21), (x + 4, 21), style=style_tree_line)
 
     line((x, 15), (x + 1, 15), style=style_tree_line)
-    phosphor.folder((x + 3, 15), width=3, style=styles.primary)
+    phosphor.folder((x + 3, 15), width=3, style=Styles.Primary)
     text((x + 5.5, 15), "chapter2", style=style_text_left)
 
 def right():
     text((85, 54), "Output Documents", style=style_text_head)
     rectangle((85, 30), width=rect_width, height=rect_height, r=2, style=style_dashed)
 
-    phosphor.file_pdf((85, 43), width=6, style=styles.primary)
-    phosphor.file_html((85, 35), width=6, style=styles.primary)
-    phosphor.file_ppt((85, 27), width=6, style=styles.primary)
-    phosphor.book_bookmark((85, 19), width=6, style=styles.primary)
-    text((85, 14.5), text="eBook", style=styles.primary.patch(text_size=13, text_halign="center"))
+    phosphor.file_pdf((85, 43), width=6, style=Styles.Primary)
+    phosphor.file_html((85, 35), width=6, style=Styles.Primary)
+    phosphor.file_ppt((85, 27), width=6, style=Styles.Primary)
+    phosphor.book_bookmark((85, 19), width=6, style=Styles.Primary)
+    text((85, 14.5), text="eBook", style=Styles.Primary.patch(text_size=13, text_halign="center"))
 
 def bottom():
-    rectangle((50, 5), width=90, height=6, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Black))
-    phosphor.github_logo((17, 5), width=5, style=styles.primary)
-    text((53, 5), "Illustration and doc text versioning with CI/CD automation", style=styles.primary.patch(text_size=14, text_halign="center"))
+    rectangle((50, 5), width=90, height=6, r=2, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Black))
+    phosphor.github_logo((17, 5), width=5, style=Styles.Primary)
+    text((53, 5), "Illustration and doc text versioning with CI/CD automation", style=Styles.Primary.patch(text_size=14, text_halign="center"))
 
 left()
 arrow(
@@ -183,11 +182,11 @@ arrow(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style=styles.red_flat,
+    style=Styles.RedFlat,
     text="Drawlib",
-    textstyle=styles.primary.patch(text_size=13, text_color=Colors.White),
+    textstyle=Styles.Primary.patch(text_size=13, text_color=Colors.White),
 )
-text((32, 25), "Build\nImages", style=styles.primary.patch(text_size=14, text_halign="center", text_color=Colors.Red))
+text((32, 25), "Build\nImages", style=Styles.Primary.patch(text_size=14, text_halign="center", text_color=Colors.Red))
 center()
 arrow(
     (63, 35),
@@ -195,9 +194,9 @@ arrow(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Black),
+    style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Black),
 )
-text((67, 25), "Build\nDocs", style=styles.primary.patch(text_size=14, text_halign="center"))
+text((67, 25), "Build\nDocs", style=Styles.Primary.patch(text_size=14, text_halign="center"))
 right()
 bottom()
 ```

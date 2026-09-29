@@ -22,14 +22,14 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100)
 
-line((10, 10), (90, 90), style=styles.primary)
-circle((25, 75), radius=20, style=styles.primary)
+line((10, 10), (90, 90), style=Styles.Primary)
+circle((25, 75), radius=20, style=Styles.Primary)
 image((75, 25), width=30, image="../_assets/python.png")
-text((75, 5), "Hello drawlib!", style=styles.primary)
+text((75, 5), "Hello drawlib!", style=Styles.Primary)
 
 save()
 ```
@@ -51,14 +51,14 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100)
 
-line((10, 10), (90, 90), style=styles.primary)
-circle((25, 75), radius=20, style=styles.primary)
+line((10, 10), (90, 90), style=Styles.Primary)
+circle((25, 75), radius=20, style=Styles.Primary)
 image((75, 25), width=30, image="../_assets/python.png")
-text((75, 5), "Hello drawlib!", style=styles.primary)
+text((75, 5), "Hello drawlib!", style=Styles.Primary)
 
 save()
 ```
@@ -122,14 +122,14 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=200, height=100)
 
-line((10, 10), (90, 90), style=styles.primary)
-circle((25, 75), radius=20, style=styles.primary)
+line((10, 10), (90, 90), style=Styles.Primary)
+circle((25, 75), radius=20, style=Styles.Primary)
 image((75, 25), width=30, image="../_assets/python.png")
-text((75, 5), "Hello drawlib!", style=styles.primary)
+text((75, 5), "Hello drawlib!", style=Styles.Primary)
 
 save()
 ```
@@ -180,14 +180,14 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100, grid=True)
 
-line((10, 10), (90, 90), style=styles.primary)
-circle((25, 75), radius=20, style=styles.primary)
+line((10, 10), (90, 90), style=Styles.Primary)
+circle((25, 75), radius=20, style=Styles.Primary)
 image((75, 25), width=30, image="../_assets/python.png")
-text((75, 5), "Hello drawlib!", style=styles.primary)
+text((75, 5), "Hello drawlib!", style=Styles.Primary)
 
 save()
 ```
@@ -202,14 +202,14 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100, grid_only=True)
 
-line((10, 10), (90, 90), style=styles.primary)
-circle((25, 75), radius=20, style=styles.primary)
+line((10, 10), (90, 90), style=Styles.Primary)
+circle((25, 75), radius=20, style=Styles.Primary)
 image((75, 25), width=30, image="../_assets/python.png")
-text((75, 5), "Hello drawlib!", style=styles.primary)
+text((75, 5), "Hello drawlib!", style=Styles.Primary)
 
 save()
 ```
@@ -250,36 +250,35 @@ Let's examine these alignment options through an example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid_only=True)
 
 circle(
     xy=(25, 25),
     radius=10,
-    style=styles.primary.patch(text_halign="center", text_valign="center"),
+    style=Styles.Primary.patch(text_halign="center", text_valign="center"),
 )
 circle(
     xy=(25, 25),
     radius=1,
-    style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
+    style=Styles.Primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
 )
-text((25, 10), "Align center,center", style=styles.primary.patch(text_color=Colors.Red))
+text((25, 10), "Align center,center", style=Styles.Primary.patch(text_color=Colors.Red))
 
 circle(
     xy=(75, 25),
     radius=10,
-    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_halign="left", text_valign="bottom"),
 )
 circle(
     xy=(75, 25),
     radius=1,
-    style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
+    style=Styles.Primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
 )
-text((75, 10), "Align left,bottom", style=styles.primary.patch(text_color=Colors.Red))
+text((75, 10), "Align left,bottom", style=Styles.Primary.patch(text_color=Colors.Red))
 
 save()
 ```
@@ -291,36 +290,35 @@ The resulting image demonstrates the effects of different alignments:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid_only=True)
 
 circle(
     xy=(25, 25),
     radius=10,
-    style=styles.primary.patch(text_halign="center", text_valign="center"),
+    style=Styles.Primary.patch(text_halign="center", text_valign="center"),
 )
 circle(
     xy=(25, 25),
     radius=1,
-    style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
+    style=Styles.Primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
 )
-text((25, 10), "Align center,center", style=styles.primary.patch(text_color=Colors.Red))
+text((25, 10), "Align center,center", style=Styles.Primary.patch(text_color=Colors.Red))
 
 circle(
     xy=(75, 25),
     radius=10,
-    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_halign="left", text_valign="bottom"),
 )
 circle(
     xy=(75, 25),
     radius=1,
-    style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
+    style=Styles.Primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
 )
-text((75, 10), "Align left,bottom", style=styles.primary.patch(text_color=Colors.Red))
+text((75, 10), "Align left,bottom", style=Styles.Primary.patch(text_color=Colors.Red))
 
 save()
 ```
@@ -358,18 +356,17 @@ Here's an example using phosphor:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=60, grid=True)
 
-phosphor.airplane((25, 30), width=20, style=styles.primary)
+phosphor.airplane((25, 30), width=20, style=Styles.Primary)
 phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
-    style=styles.primary.patch(icon_color=Colors.Red, icon_style="fill"),
+    style=Styles.Primary.patch(icon_color=Colors.Red, icon_style="fill"),
 )
 
 save()
@@ -380,18 +377,17 @@ This code generates the following output image:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=60, grid=True)
 
-phosphor.airplane((25, 30), width=20, style=styles.primary)
+phosphor.airplane((25, 30), width=20, style=Styles.Primary)
 phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
-    style=styles.primary.patch(icon_color=Colors.Red, icon_style="fill"),
+    style=Styles.Primary.patch(icon_color=Colors.Red, icon_style="fill"),
 )
 
 save()
@@ -421,7 +417,7 @@ Here's an example using the `image()` function:
 from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
@@ -431,7 +427,7 @@ image(
     width=20,
     angle=45,
     image="../_assets/python.png",
-    style=styles.primary.patch(image_border_width=1),
+    style=Styles.Primary.patch(image_border_width=1),
 )
 
 save()
@@ -443,7 +439,7 @@ Execute this code using the Python command to get image.
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.images import image
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
@@ -453,7 +449,7 @@ image(
     width=20,
     angle=45,
     image="../_assets/python.png",
-    style=styles.primary.patch(image_border_width=1),
+    style=Styles.Primary.patch(image_border_width=1),
 )
 
 save()
@@ -532,14 +528,14 @@ Let's explore some of these line types:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_curved, lines
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
-line((20, 7), (80, 7), style=styles.primary)
-line_curved((20, 20), (80, 20), bend=0.2, style=styles.primary)
-line_curved((20, 30), (80, 30), bend=-0.2, style=styles.primary)
-lines([(20, 40), (30, 45), (70, 45), (80, 40)], style=styles.primary)
+line((20, 7), (80, 7), style=Styles.Primary)
+line_curved((20, 20), (80, 20), bend=0.2, style=Styles.Primary)
+line_curved((20, 30), (80, 30), bend=-0.2, style=Styles.Primary)
+lines([(20, 40), (30, 45), (70, 45), (80, 40)], style=Styles.Primary)
 
 save()
 ```
@@ -551,14 +547,14 @@ A bend value of 0.2 indicates a curved line 1.2 times longer than a straight lin
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_curved, lines
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
-line((20, 7), (80, 7), style=styles.primary)
-line_curved((20, 20), (80, 20), bend=0.2, style=styles.primary)
-line_curved((20, 30), (80, 30), bend=-0.2, style=styles.primary)
-lines([(20, 40), (30, 45), (70, 45), (80, 40)], style=styles.primary)
+line((20, 7), (80, 7), style=Styles.Primary)
+line_curved((20, 20), (80, 20), bend=0.2, style=Styles.Primary)
+line_curved((20, 30), (80, 30), bend=-0.2, style=Styles.Primary)
+lines([(20, 40), (30, 45), (70, 45), (80, 40)], style=Styles.Primary)
 
 save()
 ```
@@ -579,25 +575,24 @@ Consider this example showcasing styling:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
-line((20, 7), (80, 7), style=styles.primary)
+line((20, 7), (80, 7), style=Styles.Primary)
 line(
     (20, 16),
     (80, 16),
-    style=styles.primary.patch(line_style="dashed", line_width=5, line_color=Colors.Red),
+    style=Styles.Primary.patch(line_style="dashed", line_width=5, line_color=Colors.Red),
 )
-line((20, 25), (80, 25), arrowhead="->", style=styles.primary)
-line((20, 34), (80, 34), arrowhead="<->", style=styles.primary)
+line((20, 25), (80, 25), arrowhead="->", style=Styles.Primary)
+line((20, 34), (80, 34), arrowhead="<->", style=Styles.Primary)
 line(
     (20, 43),
     (80, 43),
     arrowhead="<-",
-    style=styles.primary.patch(line_arrow_head_scale=50, line_style="dashdot", line_arrow_head_fill=True),
+    style=Styles.Primary.patch(line_arrow_head_scale=50, line_style="dashdot", line_arrow_head_fill=True),
 )
 
 save()
@@ -609,25 +604,24 @@ Arrow head style is specified in function directry.
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
-line((20, 7), (80, 7), style=styles.primary)
+line((20, 7), (80, 7), style=Styles.Primary)
 line(
     (20, 16),
     (80, 16),
-    style=styles.primary.patch(line_style="dashed", line_width=5, line_color=Colors.Red),
+    style=Styles.Primary.patch(line_style="dashed", line_width=5, line_color=Colors.Red),
 )
-line((20, 25), (80, 25), arrowhead="->", style=styles.primary)
-line((20, 34), (80, 34), arrowhead="<->", style=styles.primary)
+line((20, 25), (80, 25), arrowhead="->", style=Styles.Primary)
+line((20, 34), (80, 34), arrowhead="<->", style=Styles.Primary)
 line(
     (20, 43),
     (80, 43),
     arrowhead="<-",
-    style=styles.primary.patch(line_arrow_head_scale=50, line_style="dashdot", line_arrow_head_fill=True),
+    style=Styles.Primary.patch(line_arrow_head_scale=50, line_style="dashdot", line_arrow_head_fill=True),
 )
 
 save()
@@ -678,12 +672,12 @@ Let's explore two examples: a circle-like shape, `star()`, and a rectangle-like 
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, star
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
-star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5, style=styles.primary)
-rectangle((75, 25), width=30, height=20, r=3, angle=45, style=styles.primary)
+star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5, style=Styles.Primary)
+rectangle((75, 25), width=30, height=20, r=3, angle=45, style=Styles.Primary)
 
 save()
 ```
@@ -694,12 +688,12 @@ This code generates the following image:
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, star
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
-star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5, style=styles.primary)
-rectangle((75, 25), width=30, height=20, r=3, angle=45, style=styles.primary)
+star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5, style=Styles.Primary)
+rectangle((75, 25), width=30, height=20, r=3, angle=45, style=Styles.Primary)
 
 save()
 ```
@@ -723,9 +717,8 @@ Let's examine a styling example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
@@ -735,7 +728,7 @@ rectangle(
     height=20,
     angle=45,
     text="Hello!",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_line_style="dashed", shape_line_width=5, shape_line_color=Colors.Red, shape_fill_color=Colors.Transparent
     ),
 )
@@ -745,8 +738,8 @@ rectangle(
     height=20,
     angle=45,
     text="Hello!",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()
@@ -757,9 +750,8 @@ This code generates the following output:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid=True)
 
@@ -769,7 +761,7 @@ rectangle(
     height=20,
     angle=45,
     text="Hello!",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_line_style="dashed", shape_line_width=5, shape_line_color=Colors.Red, shape_fill_color=Colors.Transparent
     ),
 )
@@ -779,8 +771,8 @@ rectangle(
     height=20,
     angle=45,
     text="Hello!",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()
@@ -817,34 +809,33 @@ Let's examine some code examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
-text((50, 7), "Hello drawlib. こんにちは。", style=styles.primary)
+text((50, 7), "Hello drawlib. こんにちは。", style=Styles.Primary)
 text(
     (50, 16),
     "Hello drawlib.",
     angle=10,
-    style=styles.primary.patch(text_font=FontRoboto.ROBOTO_REGULAR),
+    style=Styles.Primary.patch(text_font=FontRoboto.ROBOTO_REGULAR),
 )
 text(
     (50, 25),
     "Hello drawlib.",
-    style=styles.primary.patch(text_font=FontFile("../_assets/avenger/regular.ttf")),
+    style=Styles.Primary.patch(text_font=FontFile("../_assets/avenger/regular.ttf")),
 )
 text(
     (50, 34),
     "Hello drawlib. こんにちは。",
-    style=styles.primary.patch(text_color=Colors.Red, text_size=24),
+    style=Styles.Primary.patch(text_color=Colors.Red, text_size=24),
 )
 text(
     (50, 43),
     "Hello drawlib. こんにちは。",
-    style=styles.primary.patch(text_color=Colors.White, text_bg_fill_color=Colors.Black),
+    style=Styles.Primary.patch(text_color=Colors.White, text_bg_fill_color=Colors.Black),
 )
 save()
 ```
@@ -854,34 +845,33 @@ Executing this code yields the following image:
 
 ```drawlib 600px center
 from drawlib.canvas import setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
-text((50, 7), "Hello drawlib. こんにちは。", style=styles.primary)
+text((50, 7), "Hello drawlib. こんにちは。", style=Styles.Primary)
 text(
     (50, 16),
     "Hello drawlib.",
     angle=10,
-    style=styles.primary.patch(text_font=FontRoboto.ROBOTO_REGULAR),
+    style=Styles.Primary.patch(text_font=FontRoboto.ROBOTO_REGULAR),
 )
 text(
     (50, 25),
     "Hello drawlib.",
-    style=styles.primary.patch(text_font=FontFile("../_assets/avenger/regular.ttf")),
+    style=Styles.Primary.patch(text_font=FontFile("../_assets/avenger/regular.ttf")),
 )
 text(
     (50, 34),
     "Hello drawlib. こんにちは。",
-    style=styles.primary.patch(text_color=Colors.Red, text_size=24),
+    style=Styles.Primary.patch(text_color=Colors.Red, text_size=24),
 )
 text(
     (50, 43),
     "Hello drawlib. こんにちは。",
-    style=styles.primary.patch(text_color=Colors.White, text_bg_fill_color=Colors.Black),
+    style=Styles.Primary.patch(text_color=Colors.White, text_bg_fill_color=Colors.Black),
 )
 ```
 
@@ -923,7 +913,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 x1 = 12
@@ -936,24 +926,24 @@ circle_y = 25
 text_y = 10
 
 # blue style
-line((x1 - line_length, line_y), (x1 + line_length, line_y), style=styles.blue)
-circle((x1, circle_y), radius=8, style=styles.blue)
-text((x1, text_y), text="blue", style=styles.blue)
+line((x1 - line_length, line_y), (x1 + line_length, line_y), style=Styles.Blue)
+circle((x1, circle_y), radius=8, style=Styles.Blue)
+text((x1, text_y), text="blue", style=Styles.Blue)
 
 # blue solid style
-line((x2 - line_length, line_y), (x2 + line_length, line_y), style=styles.blue_solid)
-circle((x2, circle_y), radius=8, style=styles.blue_solid)
-text((x2, text_y), text="styles.blue_solid", style=styles.blue)
+line((x2 - line_length, line_y), (x2 + line_length, line_y), style=Styles.BlueSolid)
+circle((x2, circle_y), radius=8, style=Styles.BlueSolid)
+text((x2, text_y), text="Styles.BlueSolid", style=Styles.Blue)
 
 # green dashed style
-line((x3 - line_length, line_y), (x3 + line_length, line_y), style=styles.green_dashed)
-circle((x3, circle_y), radius=8, style=styles.green_dashed)
-text((x3, text_y), text="styles.green_dashed", style=styles.green_bold)
+line((x3 - line_length, line_y), (x3 + line_length, line_y), style=Styles.GreenDashed)
+circle((x3, circle_y), radius=8, style=Styles.GreenDashed)
+text((x3, text_y), text="Styles.GreenDashed", style=Styles.GreenBold)
 
 # red flat style
-line((x4 - line_length, line_y), (x4 + line_length, line_y), style=styles.red)
-circle((x4, circle_y), radius=8, style=styles.red_flat)
-text((x4, text_y), text="styles.red_flat", style=styles.red)
+line((x4 - line_length, line_y), (x4 + line_length, line_y), style=Styles.Red)
+circle((x4, circle_y), radius=8, style=Styles.RedFlat)
+text((x4, text_y), text="Styles.RedFlat", style=Styles.Red)
 
 save()
 ```
@@ -968,7 +958,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 x1 = 12
@@ -981,24 +971,24 @@ circle_y = 25
 text_y = 10
 
 # blue style
-line((x1 - line_length, line_y), (x1 + line_length, line_y), style=styles.blue)
-circle((x1, circle_y), radius=8, style=styles.blue)
-text((x1, text_y), text="blue", style=styles.blue)
+line((x1 - line_length, line_y), (x1 + line_length, line_y), style=Styles.Blue)
+circle((x1, circle_y), radius=8, style=Styles.Blue)
+text((x1, text_y), text="blue", style=Styles.Blue)
 
 # blue solid style
-line((x2 - line_length, line_y), (x2 + line_length, line_y), style=styles.blue_solid)
-circle((x2, circle_y), radius=8, style=styles.blue_solid)
-text((x2, text_y), text="styles.blue_solid", style=styles.blue)
+line((x2 - line_length, line_y), (x2 + line_length, line_y), style=Styles.BlueSolid)
+circle((x2, circle_y), radius=8, style=Styles.BlueSolid)
+text((x2, text_y), text="Styles.BlueSolid", style=Styles.Blue)
 
 # green dashed style
-line((x3 - line_length, line_y), (x3 + line_length, line_y), style=styles.green_dashed)
-circle((x3, circle_y), radius=8, style=styles.green_dashed)
-text((x3, text_y), text="styles.green_dashed", style=styles.green_bold)
+line((x3 - line_length, line_y), (x3 + line_length, line_y), style=Styles.GreenDashed)
+circle((x3, circle_y), radius=8, style=Styles.GreenDashed)
+text((x3, text_y), text="Styles.GreenDashed", style=Styles.GreenBold)
 
 # red flat style
-line((x4 - line_length, line_y), (x4 + line_length, line_y), style=styles.red)
-circle((x4, circle_y), radius=8, style=styles.red_flat)
-text((x4, text_y), text="styles.red_flat", style=styles.red)
+line((x4 - line_length, line_y), (x4 + line_length, line_y), style=Styles.Red)
+circle((x4, circle_y), radius=8, style=Styles.RedFlat)
+text((x4, text_y), text="Styles.RedFlat", style=Styles.Red)
 
 save()
 ```

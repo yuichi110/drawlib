@@ -14,24 +14,24 @@ Create a `BoxList`, append or extend items, and render them with `draw()`:
 ```python
 from drawlib.canvas import setup
 from drawlib.smartarts import BoxList
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=45)
 
 # 1. Horizontal list (Left to Right)
-b1 = BoxList(default_box_style=styles.blue_flat, default_text_style=styles.white)
+b1 = BoxList(default_box_style=Styles.BlueFlat, default_text_style=Styles.White)
 b1.extend(["1", "2", "3", "4"])
 b1.draw(xy=(10, 30), box_width=8, box_height=6)
 
 # 2. Custom box styling & highlighted elements
-b2 = BoxList(default_box_style=styles.solid, default_text_style=styles.primary)
+b2 = BoxList(default_box_style=Styles.Solid, default_text_style=Styles.Primary)
 b2.extend(["1", "2"])
-b2.append("3", box_style=styles.red_bold, text_style=styles.red_bold)
+b2.append("3", box_style=Styles.RedBold, text_style=Styles.RedBold)
 b2.extend(["4", "", ""])
 b2.draw(xy=(10, 10), box_width=8, box_height=6)
 
 # 3. Vertical list (Bottom to Top)
-b3 = BoxList(default_box_style=styles.green_flat, default_text_style=styles.white)
+b3 = BoxList(default_box_style=Styles.GreenFlat, default_text_style=Styles.White)
 b3.extend(["1", "2", "3", "4"])
 b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
 ```

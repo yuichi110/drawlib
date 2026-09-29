@@ -218,7 +218,6 @@ Classes and relationships fully integrate with Drawlib's `Style` class:
 
 ```drawlib show-code 650px center caption:"Styled UML Class Diagram"
 from drawlib import canvas
-from drawlib.preset_colors import Colors
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.types import Style
 

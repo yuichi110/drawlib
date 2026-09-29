@@ -2,7 +2,7 @@
 
 
 Drawlib's color format is standard RGB `(0-255, 0-255, 0-255)` or RGBA `(0-255, 0-255, 0-255, 0.0-1.0)`. 
-To make color handling intuitive, Drawlib provides a first-class `Color` model as well as pre-defined Color catalogs in `drawlib.preset_colors` (or active colors via `drawlib.styles.colors`):
+To make color handling intuitive, Drawlib provides a first-class `Color` model as well as pre-defined Color catalogs in `drawlib.preset_colors` (or active colors via `drawlib.Styles.Colors`):
 
 - `Color`: Immutable color model with `.patch()` and `.from_hex()`
 - `Colors`: Basic web 16 colors + Transparent
@@ -16,12 +16,12 @@ Here is an image showing their relationships:
 
 ```drawlib fold-code 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=80)
 y1 = 70
@@ -30,8 +30,8 @@ y3 = 25
 y4 = 10
 rect_width = 25
 rect_height = 10
-rect_style = styles.white
-rect_text_style = styles.primary.patch(text_size=18)
+rect_style = Styles.White
+rect_text_style = Styles.Primary.patch(text_size=18)
 
 COLORS_BASE_TEXT = """
 - Transparent = Color(0, 0, 0, 0.0)
@@ -57,7 +57,7 @@ def draw_base():
     text(
         (7.5, 60),
         COLORS_BASE_TEXT,
-        style=styles.primary.patch(text_halign="left", text_valign="top"),
+        style=Styles.Primary.patch(text_halign="left", text_valign="top"),
     )
 
 
@@ -65,12 +65,12 @@ def draw_line_arrows():
     x1 = 40
     x2 = 47.5
     x3 = 55
-    line((x1, y1), (x3, y1), arrowhead="->", style=styles.bold)
-    text((x2, y1 + 3), "inherit", style=styles.primary.patch(text_size=20))
-    line((x2, y1), (x2, y4), style=styles.bold)
-    line((x2, y2), (x3, y2), arrowhead="->", style=styles.bold)
-    line((x2, y3), (x3, y3), arrowhead="->", style=styles.bold)
-    line((x2, y4), (x3, y4), arrowhead="->", style=styles.bold)
+    line((x1, y1), (x3, y1), arrowhead="->", style=Styles.Bold)
+    text((x2, y1 + 3), "inherit", style=Styles.Primary.patch(text_size=20))
+    line((x2, y1), (x2, y4), style=Styles.Bold)
+    line((x2, y2), (x3, y2), arrowhead="->", style=Styles.Bold)
+    line((x2, y3), (x3, y3), arrowhead="->", style=Styles.Bold)
+    line((x2, y4), (x3, y4), arrowhead="->", style=Styles.Bold)
 
 
 def draw_childs():
@@ -87,7 +87,7 @@ def draw_childs():
     text(
         (62.5, 60),
         COLORS_TEXT,
-        style=styles.primary.patch(text_halign="left", text_valign="top"),
+        style=Styles.Primary.patch(text_halign="left", text_valign="top"),
     )
 
     rectangle(
@@ -99,7 +99,7 @@ def draw_childs():
         textstyle=rect_text_style,
     )
 
-    text((x, y3), "...", style=styles.primary.patch(text_size=32))
+    text((x, y3), "...", style=Styles.Primary.patch(text_size=32))
 
     rectangle(
         (x, y4),
@@ -379,7 +379,7 @@ from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
 from drawlib.types import BaseColors, Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 
 # Please define color at styling codes normally.
@@ -410,31 +410,31 @@ shape_y = 30
 circle(
     (15, shape_y),
     radius=10,
-    style=styles.flat.patch(shape_fill_color=google_colors.MediumBlue),
+    style=Styles.Flat.patch(shape_fill_color=google_colors.MediumBlue),
 )
 triangle(
     (37.5, shape_y),
     width=20,
     height=15,
-    style=styles.flat.patch(shape_fill_color=google_colors.MediumRed),
+    style=Styles.Flat.patch(shape_fill_color=google_colors.MediumRed),
 )
 rectangle(
     (62.5, shape_y),
     width=18,
     height=18,
-    style=styles.flat.patch(shape_fill_color=google_colors.Yellow),
+    style=Styles.Flat.patch(shape_fill_color=google_colors.Yellow),
 )
 wedge(
     (85, shape_y),
     radius=10,
     width=5,
     angle_end=270,
-    style=styles.flat.patch(shape_fill_color=google_colors.MediumGreen),
+    style=Styles.Flat.patch(shape_fill_color=google_colors.MediumGreen),
 )
 text(
     (50, 10),
     "Google Colors",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         text_color=google_colors.Black,
         text_size=32,
         text_font=FontRoboto.ROBOTO_REGULAR,
@@ -455,7 +455,7 @@ from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
 from drawlib.types import BaseColors, Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 
 # Please define color at styling codes normally.
@@ -486,31 +486,31 @@ shape_y = 30
 circle(
     (15, shape_y),
     radius=10,
-    style=styles.flat.patch(shape_fill_color=google_colors.MediumBlue),
+    style=Styles.Flat.patch(shape_fill_color=google_colors.MediumBlue),
 )
 triangle(
     (37.5, shape_y),
     width=20,
     height=15,
-    style=styles.flat.patch(shape_fill_color=google_colors.MediumRed),
+    style=Styles.Flat.patch(shape_fill_color=google_colors.MediumRed),
 )
 rectangle(
     (62.5, shape_y),
     width=18,
     height=18,
-    style=styles.flat.patch(shape_fill_color=google_colors.Yellow),
+    style=Styles.Flat.patch(shape_fill_color=google_colors.Yellow),
 )
 wedge(
     (85, shape_y),
     radius=10,
     width=5,
     angle_end=270,
-    style=styles.flat.patch(shape_fill_color=google_colors.MediumGreen),
+    style=Styles.Flat.patch(shape_fill_color=google_colors.MediumGreen),
 )
 text(
     (50, 10),
     "Google Colors",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         text_color=google_colors.Black,
         text_size=32,
         text_font=FontRoboto.ROBOTO_REGULAR,
@@ -521,10 +521,10 @@ text(
 
 # Color Model & Manipulation
 
-All preset colors in `drawlib.preset_colors` (and `drawlib.styles.colors`) are `Color` instances. The `Color` class provides `.patch()` for deriving modified colors and `Color.from_hex()` for hex strings:
+All preset colors in `drawlib.preset_colors` (and `drawlib.Styles.Colors`) are `Color` instances. The `Color` class provides `.patch()` for deriving modified colors and `Color.from_hex()` for hex strings:
 
 ```python
-from drawlib.preset_colors import Color, default_colors
+from drawlib.preset_colors import Color, DefaultColors
 
 # 1. Hex code to Color:
 color1 = Color.from_hex("#4285F4")         # Google Blue (66, 133, 244, 1.0)
@@ -532,7 +532,7 @@ color2 = Color("#34A85380")                # Direct initialization with hex (52,
 
 # 2. Add or modify alpha channel of an existing color via .patch():
 transparent_blue = color1.patch(alpha=0.3) # (66, 133, 244, 0.3)
-subtle_blue = default_colors.Blue.patch(alpha=0.15)
+subtle_blue = DefaultColors.Blue.patch(alpha=0.15)
 
 # 3. Modify RGB channels:
 custom_red = color1.patch(r=255, g=0)

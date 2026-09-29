@@ -25,7 +25,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -33,34 +33,34 @@ setup(width=100, height=100, grid_only=True)
 text(
     (19, 73),
     "Drawlib",
-    style=styles.primary.patch(text_size=24, text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_size=24, text_halign="left", text_valign="bottom"),
 )
 phosphor.heart(
     (45, 70),
     width=10,
-    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_halign="left", text_valign="bottom"),
 )
 circle(
     (70, 70),
     radius=5,
-    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_halign="left", text_valign="bottom"),
 )
 
 # alignment: horizontally center, vertically center
 text(
     (25, 25),
     "Drawlib",
-    style=styles.primary.patch(text_size=24, text_halign="center", text_valign="center"),
+    style=Styles.Primary.patch(text_size=24, text_halign="center", text_valign="center"),
 )
 phosphor.heart(
     (50, 25),
     width=10,
-    style=styles.primary,
+    style=Styles.Primary,
 )
 circle(
     (75, 25),
     radius=5,
-    style=styles.primary,
+    style=Styles.Primary,
 )
 
 save()
@@ -74,7 +74,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -82,34 +82,34 @@ setup(width=100, height=100, grid_only=True)
 text(
     (19, 73),
     "Drawlib",
-    style=styles.primary.patch(text_size=24, text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_size=24, text_halign="left", text_valign="bottom"),
 )
 phosphor.heart(
     (45, 70),
     width=10,
-    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_halign="left", text_valign="bottom"),
 )
 circle(
     (70, 70),
     radius=5,
-    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_halign="left", text_valign="bottom"),
 )
 
 # alignment: horizontally center, vertically center
 text(
     (25, 25),
     "Drawlib",
-    style=styles.primary.patch(text_size=24, text_halign="center", text_valign="center"),
+    style=Styles.Primary.patch(text_size=24, text_halign="center", text_valign="center"),
 )
 phosphor.heart(
     (50, 25),
     width=10,
-    style=styles.primary,
+    style=Styles.Primary,
 )
 circle(
     (75, 25),
     radius=5,
-    style=styles.primary,
+    style=Styles.Primary,
 )
 
 save()
@@ -154,7 +154,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 100
@@ -165,9 +165,9 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), "Drawlib", style=styles.primary.patch(text_size=24))
-phosphor.heart((margin_x * 2, y), width=10, style=styles.primary)
-circle((margin_x * 3, y), radius=5, style=styles.primary)
+text((margin_x, y), "Drawlib", style=Styles.Primary.patch(text_size=24))
+phosphor.heart((margin_x * 2, y), width=10, style=Styles.Primary)
+circle((margin_x * 3, y), radius=5, style=Styles.Primary)
 
 save()
 ```
@@ -183,7 +183,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 100
@@ -194,9 +194,9 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), "Drawlib", style=styles.primary.patch(text_size=24))
-phosphor.heart((margin_x * 2, y), width=10, style=styles.primary)
-circle((margin_x * 3, y), radius=5, style=styles.primary)
+text((margin_x, y), "Drawlib", style=Styles.Primary.patch(text_size=24))
+phosphor.heart((margin_x * 2, y), width=10, style=Styles.Primary)
+circle((margin_x * 3, y), radius=5, style=Styles.Primary)
 
 save()
 ```
@@ -214,7 +214,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50  # <= CHANGED FROM 100 !!
@@ -225,10 +225,10 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), "Drawlib", style=styles.primary.patch(text_size=24))
-phosphor.heart((margin_x * 2, y), width=10, style=styles.primary)
-circle((margin_x * 3, y), radius=5, style=styles.primary)
-rectangle((margin_x * 4, y), width=10, height=10, style=styles.primary)
+text((margin_x, y), "Drawlib", style=Styles.Primary.patch(text_size=24))
+phosphor.heart((margin_x * 2, y), width=10, style=Styles.Primary)
+circle((margin_x * 3, y), radius=5, style=Styles.Primary)
+rectangle((margin_x * 4, y), width=10, height=10, style=Styles.Primary)
 
 save()
 ```
@@ -242,7 +242,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50  # <= CHANGED FROM 100 !!
@@ -253,10 +253,10 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), "Drawlib", style=styles.primary.patch(text_size=24))
-phosphor.heart((margin_x * 2, y), width=10, style=styles.primary)
-circle((margin_x * 3, y), radius=5, style=styles.primary)
-rectangle((margin_x * 4, y), width=10, height=10, style=styles.primary)
+text((margin_x, y), "Drawlib", style=Styles.Primary.patch(text_size=24))
+phosphor.heart((margin_x * 2, y), width=10, style=Styles.Primary)
+circle((margin_x * 3, y), radius=5, style=Styles.Primary)
+rectangle((margin_x * 4, y), width=10, height=10, style=Styles.Primary)
 
 save()
 ```

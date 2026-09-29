@@ -46,18 +46,18 @@ Here are three examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
-from drawlib.styles import styles
+from drawlib.preset_colors import Colors140
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import circle, rectangle
 
 setup(width=150, height=50)
 
 # left
-rectangle(xy=(25, 25), width=40, height=20, style=styles.primary)
+rectangle(xy=(25, 25), width=40, height=20, style=Styles.Primary)
 circle(
     xy=(25, 25),
     radius=15,
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_line_width=5,
         shape_line_color=Colors.Red,
         shape_line_style="dashed",
@@ -66,11 +66,11 @@ circle(
 )
 
 # center
-rectangle(xy=(75, 25), width=40, height=20, style=styles.primary)
+rectangle(xy=(75, 25), width=40, height=20, style=Styles.Primary)
 circle(
     xy=(75, 25),
     radius=15,
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_line_width=5,
         shape_line_color=Colors.Red,
         shape_line_style="dashed",
@@ -79,11 +79,11 @@ circle(
 )
 
 # right
-rectangle(xy=(125, 25), width=40, height=20, style=styles.primary)
+rectangle(xy=(125, 25), width=40, height=20, style=Styles.Primary)
 circle(
     xy=(125, 25),
     radius=15,
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_line_width=0,
         shape_fill_color=Colors140.Orange,
         shape_fill_alpha=0.3,
@@ -133,9 +133,8 @@ Here are three examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import rectangle
 
 setup(width=150, height=50)
@@ -146,8 +145,8 @@ rectangle(
     width=40,
     height=20,
     text="rectangle()",
-    style=styles.primary,
-    textstyle=styles.primary.patch(
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(
         text_color=Colors.White,
         text_size=24,
         text_font=FontSerif.COURIER_BOLD,
@@ -162,8 +161,8 @@ rectangle(
     height=20,
     angle=45,
     text="rectangle()",
-    style=styles.primary,
-    textstyle=styles.primary.patch(
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(
         text_color=Colors.White,
         text_size=24,
         text_font=FontSansSerif.RALEWAYS_REGULAR,
@@ -178,8 +177,8 @@ rectangle(
     height=20,
     angle=45,
     text="rectangle()",
-    style=styles.primary,
-    textstyle=styles.primary.patch(
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(
         text_color=Colors.White,
         text_angle=0,
         text_xy_shift=(-12, -3),
@@ -215,7 +214,7 @@ The x and y values are not absolute coordinates but are relative to the shape's 
 # Pre-defined Preset Styles
 
 
-Shapes use `Style` instances provided by `drawlib.styles` (`from drawlib.styles import styles`).
+Shapes use `Style` instances provided by `drawlib.styles` (`from drawlib.styles import Colors, Styles`).
 
 Preset styles provide pre-defined `Style` objects as attributes on `styles`, following the naming pattern `<color>_<variant>`:
 
@@ -233,7 +232,7 @@ Here are three examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import circle
 
 setup(width=150, height=50)
@@ -242,27 +241,27 @@ setup(width=150, height=50)
 circle(
     xy=(25, 25),
     radius=15,
-    style=styles.red_flat,
+    style=Styles.RedFlat,
     text="circle",
-    textstyle=styles.white,
+    textstyle=Styles.White,
 )
 
 # center
 circle(
     xy=(75, 25),
     radius=15,
-    style=styles.blue_solid,
+    style=Styles.BlueSolid,
     text="circle",
-    textstyle=styles.blue_bold,
+    textstyle=Styles.BlueBold,
 )
 
 # right
 circle(
     xy=(125, 25),
     radius=15,
-    style=styles.green_dashed,
+    style=Styles.GreenDashed,
     text="circle",
-    textstyle=styles.green,
+    textstyle=Styles.Green,
 )
 save()
 ```

@@ -26,7 +26,7 @@ Let's explore with examples using `phosphor`:
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -34,13 +34,13 @@ setup(width=width, height=height)
 
 x = width / 7
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.primary)
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.primary)
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.primary)
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.primary)
-phosphor.airplane(xy=(x * 5, y), width=10, angle=270, style=styles.primary)
-text(xy=(x * 5, y - 10), text="angle 270", style=styles.primary)
-phosphor.airplane_landing(xy=(x * 6, y), width=10, style=styles.primary)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Styles.Primary)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Styles.Primary)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Styles.Primary)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Styles.Primary)
+phosphor.airplane(xy=(x * 5, y), width=10, angle=270, style=Styles.Primary)
+text(xy=(x * 5, y - 10), text="angle 270", style=Styles.Primary)
+phosphor.airplane_landing(xy=(x * 6, y), width=10, style=Styles.Primary)
 
 save()
 ```
@@ -50,7 +50,7 @@ All functions have these args.
 - `xy` : coordinate
 - `width` : icon width
 - `angle` : angle 0.0~360.0
-- `style` : Style object (e.g., `styles.primary`)
+- `style` : Style object (e.g., `Styles.Primary`)
 
 Executing this code yields the following image:
 
@@ -59,7 +59,7 @@ Executing this code yields the following image:
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -67,13 +67,13 @@ setup(width=width, height=height)
 
 x = width / 7
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.primary)
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.primary)
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.primary)
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.primary)
-phosphor.airplane(xy=(x * 5, y), width=10, angle=270, style=styles.primary)
-text(xy=(x * 5, y - 10), text="angle 270", style=styles.primary)
-phosphor.airplane_landing(xy=(x * 6, y), width=10, style=styles.primary)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Styles.Primary)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Styles.Primary)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Styles.Primary)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Styles.Primary)
+phosphor.airplane(xy=(x * 5, y), width=10, angle=270, style=Styles.Primary)
+text(xy=(x * 5, y - 10), text="angle 270", style=Styles.Primary)
+phosphor.airplane_landing(xy=(x * 6, y), width=10, style=Styles.Primary)
 
 save()
 ```
@@ -99,7 +99,7 @@ They accept standard coordinate, width, angle, and style arguments:
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 45
@@ -107,17 +107,17 @@ setup(width=width, height=height)
 
 x = width / 5
 y = height / 2 + 5
-gcp.compute_engine(xy=(x, y), width=10, style=styles.primary)
-text(xy=(x, y - 10), text="compute_engine", size=10, style=styles.primary)
+gcp.compute_engine(xy=(x, y), width=10, style=Styles.Primary)
+text(xy=(x, y - 10), text="compute_engine", size=10, style=Styles.Primary)
 
-gcp.cloud_storage(xy=(x * 2, y), width=10, style=styles.primary)
-text(xy=(x * 2, y - 10), text="cloud_storage", size=10, style=styles.primary)
+gcp.cloud_storage(xy=(x * 2, y), width=10, style=Styles.Primary)
+text(xy=(x * 2, y - 10), text="cloud_storage", size=10, style=Styles.Primary)
 
-gcp.cloud_run(xy=(x * 3, y), width=10, style=styles.primary)
-text(xy=(x * 3, y - 10), text="cloud_run", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x * 3, y), width=10, style=Styles.Primary)
+text(xy=(x * 3, y - 10), text="cloud_run", size=10, style=Styles.Primary)
 
-gcp.bigquery(xy=(x * 4, y), width=10, style=styles.primary)
-text(xy=(x * 4, y - 10), text="bigquery", size=10, style=styles.primary)
+gcp.bigquery(xy=(x * 4, y), width=10, style=Styles.Primary)
+text(xy=(x * 4, y - 10), text="bigquery", size=10, style=Styles.Primary)
 
 save()
 ```
@@ -128,7 +128,7 @@ Executing this code generates the following image:
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 45
@@ -136,17 +136,17 @@ setup(width=width, height=height)
 
 x = width / 5
 y = height / 2 + 5
-gcp.compute_engine(xy=(x, y), width=10, style=styles.primary)
-text(xy=(x, y - 10), text="compute_engine", size=10, style=styles.primary)
+gcp.compute_engine(xy=(x, y), width=10, style=Styles.Primary)
+text(xy=(x, y - 10), text="compute_engine", size=10, style=Styles.Primary)
 
-gcp.cloud_storage(xy=(x * 2, y), width=10, style=styles.primary)
-text(xy=(x * 2, y - 10), text="cloud_storage", size=10, style=styles.primary)
+gcp.cloud_storage(xy=(x * 2, y), width=10, style=Styles.Primary)
+text(xy=(x * 2, y - 10), text="cloud_storage", size=10, style=Styles.Primary)
 
-gcp.cloud_run(xy=(x * 3, y), width=10, style=styles.primary)
-text(xy=(x * 3, y - 10), text="cloud_run", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x * 3, y), width=10, style=Styles.Primary)
+text(xy=(x * 3, y - 10), text="cloud_run", size=10, style=Styles.Primary)
 
-gcp.bigquery(xy=(x * 4, y), width=10, style=styles.primary)
-text(xy=(x * 4, y - 10), text="bigquery", size=10, style=styles.primary)
+gcp.bigquery(xy=(x * 4, y), width=10, style=Styles.Primary)
+text(xy=(x * 4, y - 10), text="bigquery", size=10, style=Styles.Primary)
 
 save()
 ```
@@ -172,10 +172,9 @@ You can customize them using `drawlib.types.Style`:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -185,20 +184,20 @@ x = width / 5
 y = height / 2 + 5
 
 # 1. Default multi-color artwork
-gcp.cloud_run(xy=(x, y), width=10, style=styles.primary)
-text(xy=(x, y - 10), text="Default", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x, y), width=10, style=Styles.Primary)
+text(xy=(x, y - 10), text="Default", size=10, style=Styles.Primary)
 
 # 2. Angle rotation
-gcp.cloud_run(xy=(x * 2, y), width=10, angle=45, style=styles.primary)
-text(xy=(x * 2, y - 10), text="angle=45", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x * 2, y), width=10, angle=45, style=Styles.Primary)
+text(xy=(x * 2, y - 10), text="angle=45", size=10, style=Styles.Primary)
 
 # 3. Alpha transparency
-gcp.cloud_run(xy=(x * 3, y), width=10, style=styles.primary.patch(image_alpha=0.35))
-text(xy=(x * 3, y - 10), text="image_alpha=0.35", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x * 3, y), width=10, style=Styles.Primary.patch(image_alpha=0.35))
+text(xy=(x * 3, y - 10), text="image_alpha=0.35", size=10, style=Styles.Primary)
 
 # 4. Color tint / silhouette mask
-gcp.cloud_run(xy=(x * 4, y), width=10, style=styles.primary.patch(image_tint_color=Colors.Red))
-text(xy=(x * 4, y - 10), text="image_tint_color=Red", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x * 4, y), width=10, style=Styles.Primary.patch(image_tint_color=Colors.Red))
+text(xy=(x * 4, y - 10), text="image_tint_color=Red", size=10, style=Styles.Primary)
 
 save()
 ```
@@ -207,10 +206,9 @@ Executing this code generates the following image:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -220,20 +218,20 @@ x = width / 5
 y = height / 2 + 5
 
 # 1. Default multi-color artwork
-gcp.cloud_run(xy=(x, y), width=10, style=styles.primary)
-text(xy=(x, y - 10), text="Default", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x, y), width=10, style=Styles.Primary)
+text(xy=(x, y - 10), text="Default", size=10, style=Styles.Primary)
 
 # 2. Angle rotation
-gcp.cloud_run(xy=(x * 2, y), width=10, angle=45, style=styles.primary)
-text(xy=(x * 2, y - 10), text="angle=45", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x * 2, y), width=10, angle=45, style=Styles.Primary)
+text(xy=(x * 2, y - 10), text="angle=45", size=10, style=Styles.Primary)
 
 # 3. Alpha transparency
-gcp.cloud_run(xy=(x * 3, y), width=10, style=styles.primary.patch(image_alpha=0.35))
-text(xy=(x * 3, y - 10), text="image_alpha=0.35", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x * 3, y), width=10, style=Styles.Primary.patch(image_alpha=0.35))
+text(xy=(x * 3, y - 10), text="image_alpha=0.35", size=10, style=Styles.Primary)
 
 # 4. Color tint / silhouette mask
-gcp.cloud_run(xy=(x * 4, y), width=10, style=styles.primary.patch(image_tint_color=Colors.Red))
-text(xy=(x * 4, y - 10), text="image_tint_color=Red", size=10, style=styles.primary)
+gcp.cloud_run(xy=(x * 4, y), width=10, style=Styles.Primary.patch(image_tint_color=Colors.Red))
+text(xy=(x * 4, y - 10), text="image_tint_color=Red", size=10, style=Styles.Primary)
 
 save()
 ```
@@ -248,12 +246,11 @@ Here is an end-to-end example demonstrating how GCP icons can be combined with s
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=60)
 
@@ -263,37 +260,32 @@ rectangle(
     width=66,
     height=50,
     r=2,
-    style=styles.primary.patch(
-        shape_fill_color=Colors.White,
-        shape_line_color=Colors.Gray,
-        shape_line_style="dashed",
-        shape_line_width=1.5,
-    ),
+    style=Styles.MutedDashed,
 )
-text(xy=(45, 51), text="Google Cloud Project", size=10, style=styles.primary.patch(text_color=Colors.Gray))
+text(xy=(45, 51), text="Google Cloud Project", size=10, style=Styles.Muted)
 
 # Client / User
-phosphor.user(xy=(14, 30), width=10, style=styles.primary)
-text(xy=(14, 20), text="Client", size=9, style=styles.primary)
+phosphor.user(xy=(14, 30), width=10, style=Styles.Primary)
+text(xy=(14, 20), text="Client", size=9, style=Styles.Primary)
 
 # Cloud Services
-gcp.cloud_load_balancing(xy=(38, 30), width=10, style=styles.primary)
-text(xy=(38, 20), text="Load Balancer", size=9, style=styles.primary)
+gcp.cloud_load_balancing(xy=(38, 30), width=10, style=Styles.Primary)
+text(xy=(38, 20), text="Load Balancer", size=9, style=Styles.Primary)
 
-gcp.cloud_run(xy=(62, 30), width=10, style=styles.primary)
-text(xy=(62, 20), text="Cloud Run", size=9, style=styles.primary)
+gcp.cloud_run(xy=(62, 30), width=10, style=Styles.Primary)
+text(xy=(62, 20), text="Cloud Run", size=9, style=Styles.Primary)
 
-gcp.cloud_sql(xy=(86, 40), width=9, style=styles.primary)
-text(xy=(86, 32), text="Cloud SQL", size=8, style=styles.primary)
+gcp.cloud_sql(xy=(86, 40), width=9, style=Styles.Primary)
+text(xy=(86, 32), text="Cloud SQL", size=8, style=Styles.Primary)
 
-gcp.cloud_storage(xy=(86, 20), width=9, style=styles.primary)
-text(xy=(86, 12), text="Cloud Storage", size=8, style=styles.primary)
+gcp.cloud_storage(xy=(86, 20), width=9, style=Styles.Primary)
+text(xy=(86, 12), text="Cloud Storage", size=8, style=Styles.Primary)
 
 # Connectors
-line(xy1=(20, 30), xy2=(32, 30), arrowhead="->", style=styles.primary)
-line(xy1=(44, 30), xy2=(56, 30), arrowhead="->", style=styles.primary)
-line(xy1=(68, 33), xy2=(80, 39), arrowhead="->", style=styles.primary)
-line(xy1=(68, 27), xy2=(80, 21), arrowhead="->", style=styles.primary)
+line(xy1=(20, 30), xy2=(32, 30), arrowhead="->", style=Styles.Primary)
+line(xy1=(44, 30), xy2=(56, 30), arrowhead="->", style=Styles.Primary)
+line(xy1=(68, 33), xy2=(80, 39), arrowhead="->", style=Styles.Primary)
+line(xy1=(68, 27), xy2=(80, 21), arrowhead="->", style=Styles.Primary)
 
 save()
 ```
@@ -302,12 +294,11 @@ Executing this code generates the following architecture diagram:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=60)
 
@@ -317,37 +308,32 @@ rectangle(
     width=66,
     height=50,
     r=2,
-    style=styles.primary.patch(
-        shape_fill_color=Colors.White,
-        shape_line_color=Colors.Gray,
-        shape_line_style="dashed",
-        shape_line_width=1.5,
-    ),
+    style=Styles.MutedDashed,
 )
-text(xy=(45, 51), text="Google Cloud Project", size=10, style=styles.primary.patch(text_color=Colors.Gray))
+text(xy=(45, 51), text="Google Cloud Project", size=10, style=Styles.Muted)
 
 # Client / User
-phosphor.user(xy=(14, 30), width=10, style=styles.primary)
-text(xy=(14, 20), text="Client", size=9, style=styles.primary)
+phosphor.user(xy=(14, 30), width=10, style=Styles.Primary)
+text(xy=(14, 20), text="Client", size=9, style=Styles.Primary)
 
 # Cloud Services
-gcp.cloud_load_balancing(xy=(38, 30), width=10, style=styles.primary)
-text(xy=(38, 20), text="Load Balancer", size=9, style=styles.primary)
+gcp.cloud_load_balancing(xy=(38, 30), width=10, style=Styles.Primary)
+text(xy=(38, 20), text="Load Balancer", size=9, style=Styles.Primary)
 
-gcp.cloud_run(xy=(62, 30), width=10, style=styles.primary)
-text(xy=(62, 20), text="Cloud Run", size=9, style=styles.primary)
+gcp.cloud_run(xy=(62, 30), width=10, style=Styles.Primary)
+text(xy=(62, 20), text="Cloud Run", size=9, style=Styles.Primary)
 
-gcp.cloud_sql(xy=(86, 40), width=9, style=styles.primary)
-text(xy=(86, 32), text="Cloud SQL", size=8, style=styles.primary)
+gcp.cloud_sql(xy=(86, 40), width=9, style=Styles.Primary)
+text(xy=(86, 32), text="Cloud SQL", size=8, style=Styles.Primary)
 
-gcp.cloud_storage(xy=(86, 20), width=9, style=styles.primary)
-text(xy=(86, 12), text="Cloud Storage", size=8, style=styles.primary)
+gcp.cloud_storage(xy=(86, 20), width=9, style=Styles.Primary)
+text(xy=(86, 12), text="Cloud Storage", size=8, style=Styles.Primary)
 
 # Connectors
-line(xy1=(20, 30), xy2=(32, 30), arrowhead="->", style=styles.primary)
-line(xy1=(44, 30), xy2=(56, 30), arrowhead="->", style=styles.primary)
-line(xy1=(68, 33), xy2=(80, 39), arrowhead="->", style=styles.primary)
-line(xy1=(68, 27), xy2=(80, 21), arrowhead="->", style=styles.primary)
+line(xy1=(20, 30), xy2=(32, 30), arrowhead="->", style=Styles.Primary)
+line(xy1=(44, 30), xy2=(56, 30), arrowhead="->", style=Styles.Primary)
+line(xy1=(68, 33), xy2=(80, 39), arrowhead="->", style=Styles.Primary)
+line(xy1=(68, 27), xy2=(80, 21), arrowhead="->", style=Styles.Primary)
 
 save()
 ```
@@ -379,7 +365,7 @@ Let's explore its usage with FontAwesome Free:
 from drawlib.canvas import save, setup
 from drawlib.icons import font_icon
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -398,23 +384,23 @@ google_pay = "\ue079"
 
 x = width / 7
 y = height / 2
-font_icon(xy=(x, y), width=10, code=google, file=file_brand, style=styles.primary)
-font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular, style=styles.primary)
-font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270, style=styles.primary)
-text(xy=(x * 3, y - 10), text="angle 270", style=styles.primary)
+font_icon(xy=(x, y), width=10, code=google, file=file_brand, style=Styles.Primary)
+font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular, style=Styles.Primary)
+font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270, style=Styles.Primary)
+text(xy=(x * 3, y - 10), text="angle 270", style=Styles.Primary)
 font_icon(
     xy=(x * 4, y),
     width=10,
     code=google_drive,
     file=file_brand,
-    style=styles.primary,
+    style=Styles.Primary,
 )
 font_icon(
     xy=(x * 5, y),
     width=10,
     code=google_play,
     file=file_brand,
-    style=styles.primary,
+    style=Styles.Primary,
 )
 
 
@@ -428,7 +414,7 @@ Executing this code generates the following image:
 from drawlib.canvas import save, setup
 from drawlib.icons import font_icon
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -447,23 +433,23 @@ google_pay = "\ue079"
 
 x = width / 7
 y = height / 2
-font_icon(xy=(x, y), width=10, code=google, file=file_brand, style=styles.primary)
-font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular, style=styles.primary)
-font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270, style=styles.primary)
-text(xy=(x * 3, y - 10), text="angle 270", style=styles.primary)
+font_icon(xy=(x, y), width=10, code=google, file=file_brand, style=Styles.Primary)
+font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular, style=Styles.Primary)
+font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270, style=Styles.Primary)
+text(xy=(x * 3, y - 10), text="angle 270", style=Styles.Primary)
 font_icon(
     xy=(x * 4, y),
     width=10,
     code=google_drive,
     file=file_brand,
-    style=styles.primary,
+    style=Styles.Primary,
 )
 font_icon(
     xy=(x * 5, y),
     width=10,
     code=google_play,
     file=file_brand,
-    style=styles.primary,
+    style=Styles.Primary,
 )
 
 
@@ -494,10 +480,9 @@ Let's illustrate this with an example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -505,20 +490,20 @@ setup(width=width, height=height)
 
 x = width / 6
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.primary.patch(icon_color=Colors.Red))
-text(xy=(x, y - 10), text="Red", style=styles.primary)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Styles.Primary.patch(icon_color=Colors.Red))
+text(xy=(x, y - 10), text="Red", style=Styles.Primary)
 
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.primary.patch(icon_style="thin"))
-text(xy=(x * 2, y - 10), text="thin", style=styles.primary)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Styles.Primary.patch(icon_style="thin"))
+text(xy=(x * 2, y - 10), text="thin", style=Styles.Primary)
 
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.primary.patch(icon_style="bold"))
-text(xy=(x * 3, y - 10), text="bold", style=styles.primary)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Styles.Primary.patch(icon_style="bold"))
+text(xy=(x * 3, y - 10), text="bold", style=Styles.Primary)
 
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.primary.patch(icon_style="fill"))
-text(xy=(x * 4, y - 10), text="fill", style=styles.primary)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Styles.Primary.patch(icon_style="fill"))
+text(xy=(x * 4, y - 10), text="fill", style=Styles.Primary)
 
-phosphor.airplane(xy=(x * 5, y), width=10, style=styles.primary.patch(icon_color=Colors.Blue, icon_style="bold"))
-text(xy=(x * 5, y - 10), text="Blue bold", style=styles.primary)
+phosphor.airplane(xy=(x * 5, y), width=10, style=Styles.Primary.patch(icon_color=Colors.Blue, icon_style="bold"))
+text(xy=(x * 5, y - 10), text="Blue bold", style=Styles.Primary)
 
 save()
 ```
@@ -528,10 +513,9 @@ Executing this code generates the following image:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -539,20 +523,20 @@ setup(width=width, height=height)
 
 x = width / 6
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.primary.patch(icon_color=Colors.Red))
-text(xy=(x, y - 10), text="Red", style=styles.primary)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Styles.Primary.patch(icon_color=Colors.Red))
+text(xy=(x, y - 10), text="Red", style=Styles.Primary)
 
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.primary.patch(icon_style="thin"))
-text(xy=(x * 2, y - 10), text="thin", style=styles.primary)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Styles.Primary.patch(icon_style="thin"))
+text(xy=(x * 2, y - 10), text="thin", style=Styles.Primary)
 
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.primary.patch(icon_style="bold"))
-text(xy=(x * 3, y - 10), text="bold", style=styles.primary)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Styles.Primary.patch(icon_style="bold"))
+text(xy=(x * 3, y - 10), text="bold", style=Styles.Primary)
 
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.primary.patch(icon_style="fill"))
-text(xy=(x * 4, y - 10), text="fill", style=styles.primary)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Styles.Primary.patch(icon_style="fill"))
+text(xy=(x * 4, y - 10), text="fill", style=Styles.Primary)
 
-phosphor.airplane(xy=(x * 5, y), width=10, style=styles.primary.patch(icon_color=Colors.Blue, icon_style="bold"))
-text(xy=(x * 5, y - 10), text="Blue bold", style=styles.primary)
+phosphor.airplane(xy=(x * 5, y), width=10, style=Styles.Primary.patch(icon_color=Colors.Blue, icon_style="bold"))
+text(xy=(x * 5, y - 10), text="Blue bold", style=Styles.Primary)
 
 save()
 ```
@@ -573,7 +557,7 @@ Here is an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -581,10 +565,10 @@ setup(width=width, height=height)
 
 x = width / 5
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.green)
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.red_bold)
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.blue_flat)
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.green_flat)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Styles.Green)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Styles.RedBold)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Styles.BlueFlat)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Styles.GreenFlat)
 save()
 ```
 
@@ -594,7 +578,7 @@ Executing this code generates the following image:
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 width = 100
 height = 50
@@ -602,10 +586,10 @@ setup(width=width, height=height)
 
 x = width / 5
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.green)
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.red_bold)
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.blue_flat)
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.green_flat)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Styles.Green)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Styles.RedBold)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Styles.BlueFlat)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Styles.GreenFlat)
 save()
 ```
 

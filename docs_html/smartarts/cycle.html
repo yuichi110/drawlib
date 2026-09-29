@@ -404,22 +404,22 @@
 <p>Class <code>Cycle</code> renders circular and cyclical process diagrams, perfect for continuous workflows such as PDCA loops, agile iterations, life cycles, and feedback mechanisms.</p>
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100)
 
 # Classic PDCA cycle with center topic and matching arc arrows
 cycle = Cycle(
-    default_style=styles.solid,
-    default_textstyle=styles.bold,
-    default_description_style=styles.light,
-    default_arrow_style=styles.solid,
+    default_style=Styles.Solid,
+    default_textstyle=Styles.Bold,
+    default_description_style=Styles.Light,
+    default_arrow_style=Styles.Solid,
     center_text=&quot;PDCA&quot;,
     center_description=&quot;Loop&quot;,
     center_radius=11.0,
-    center_style=styles.solid,
-    center_textstyle=styles.bold,
-    center_description_style=styles.light,
+    center_style=Styles.Solid,
+    center_textstyle=Styles.Bold,
+    center_description_style=Styles.Light,
     node_radius=9.0,
     arrow_width=2.2,
     arrow_head_width=4.8,
@@ -436,16 +436,16 @@ cycle.draw(xy=(50.0, 50.0), radius=32.0)
 </figure>
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100)
 
 # Continuous product lifecycle with rounded rectangle blocks
 cycle = Cycle(
-    default_style=styles.blue_flat,
-    default_textstyle=styles.white_bold,
-    default_description_style=styles.white,
-    default_arrow_style=styles.solid,
+    default_style=Styles.BlueFlat,
+    default_textstyle=Styles.WhiteBold,
+    default_description_style=Styles.White,
+    default_arrow_style=Styles.Solid,
     node_shape=&quot;rectangle&quot;,
     node_size=(18.0, 9.0),
     arrow_width=2.0,
@@ -468,15 +468,15 @@ cycle.draw(xy=(50.0, 50.0), radius=34.0)
 <p>Create a circular workflow diagram:</p>
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=100)
 
 cycle = Cycle(
-    default_style=styles.solid,
-    default_textstyle=styles.bold,
-    default_description_style=styles.light,
-    default_arrow_style=styles.solid,
+    default_style=Styles.Solid,
+    default_textstyle=Styles.Bold,
+    default_description_style=Styles.Light,
+    default_arrow_style=Styles.Solid,
 )
 cycle.append(&quot;Plan&quot;, description=&quot;Define goals&quot;)
 cycle.append(&quot;Do&quot;, description=&quot;Implement&quot;)

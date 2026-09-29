@@ -77,11 +77,10 @@ Here is code that specifies styles:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid_only=True)
 
@@ -89,26 +88,26 @@ image(
     xy=(10, 25),
     width=10,
     image="../_assets/python.png",
-    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_halign="left", text_valign="bottom"),
 )
-circle((10, 25), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red))
-text((15, 20), "align: left,bottom", style=styles.primary)
+circle((10, 25), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red))
+text((15, 20), "align: left,bottom", style=Styles.Primary)
 
 image(
     xy=(40, 25),
     width=20,
     image="../_assets/python.png",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         image_border_width=2,
         image_border_style="dashed",
         image_border_color=Colors.Red,
-        image_tint_color=Colors.Gray,
+        image_tint_color=Colors.Gray4,
     ),
 )
-text((40, 10), "border: red,dot,width2", style=styles.primary)
+text((40, 10), "border: red,dot,width2", style=Styles.Primary)
 
-image(xy=(75, 25), width=30, image="../_assets/python.png", angle=45, style=styles.green_solid)
-text((85, 5), "angle: 45", style=styles.primary)
+image(xy=(75, 25), width=30, image="../_assets/python.png", angle=45, style=Styles.GreenSolid)
+text((85, 5), "angle: 45", style=Styles.Primary)
 
 save()
 ```
@@ -120,18 +119,17 @@ Changing image border line and add color for transparent part at 2nd example.
 Default is no border, no fill.
 
 The 3rd example changes angle of image.
-With specifying preset style `styles.green_solid`.
+With specifying preset style `Styles.GreenSolid`.
 
 Executing code generates this output.
 
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50, grid_only=True)
 
@@ -139,26 +137,26 @@ image(
     xy=(10, 25),
     width=10,
     image="../_assets/python.png",
-    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
+    style=Styles.Primary.patch(text_halign="left", text_valign="bottom"),
 )
-circle((10, 25), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red))
-text((15, 20), "align: left,bottom", style=styles.primary)
+circle((10, 25), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red))
+text((15, 20), "align: left,bottom", style=Styles.Primary)
 
 image(
     xy=(40, 25),
     width=20,
     image="../_assets/python.png",
-    style=styles.primary.patch(
+    style=Styles.Primary.patch(
         image_border_width=2,
         image_border_style="dashed",
         image_border_color=Colors.Red,
-        image_tint_color=Colors.Gray,
+        image_tint_color=Colors.Gray4,
     ),
 )
-text((40, 10), "border: red,dot,width2", style=styles.primary)
+text((40, 10), "border: red,dot,width2", style=Styles.Primary)
 
-image(xy=(75, 25), width=30, image="../_assets/python.png", angle=45, style=styles.green_solid)
-text((85, 5), "angle: 45", style=styles.primary)
+image(xy=(75, 25), width=30, image="../_assets/python.png", angle=45, style=Styles.GreenSolid)
+text((85, 5), "angle: 45", style=Styles.Primary)
 
 save()
 ```

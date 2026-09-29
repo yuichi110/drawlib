@@ -31,21 +31,21 @@ When Drawlib lives alongside your source code:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=140, height=75)
 
 # Styles
-s_input = styles.blue_flat
-s_agent = styles.purple_flat
-s_output = styles.green_flat
-s_build = styles.white.patch(shape_line_color=Colors140.DarkSlateGray, shape_line_width=1.5)
+s_input = Styles.BlueFlat
+s_agent = Styles.PurpleFlat
+s_output = Styles.GreenFlat
+s_build = Styles.White.patch(shape_line_color=Colors140.DarkSlateGray, shape_line_width=1.5)
 
 ts_title = Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
 ts_desc = Style(text_size=8.5, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
@@ -72,16 +72,16 @@ text((23, 17.5), "CLI: shapes, lines, diagrams, styles", style=ts_desc)
 
 # 2. Central Agent
 rectangle((70, 38), width=34, height=36, style=s_agent, r=2.5)
-circle((70, 48), radius=5, style=styles.white.patch(shape_line_color=Colors.Transparent))
+circle((70, 48), radius=5, style=Styles.White.patch(shape_line_color=Colors.Transparent))
 text((70, 48), "AI", style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
 text((70, 39), "AI Coding Agent", style=Style(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
 text((70, 33), "Claude Code, Cursor,\nCopilot, ChatGPT", style=ts_desc)
 text((70, 24), "Inspects Context &\nSynthesizes Drawing Logic", style=Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
 
 # Arrows from Inputs to Agent
-line((41, 56), (53, 46), arrowhead="->", style=styles.bold)
-line((41, 38), (53, 38), arrowhead="->", style=styles.bold)
-line((41, 20), (53, 30), arrowhead="->", style=styles.bold)
+line((41, 56), (53, 46), arrowhead="->", style=Styles.Bold)
+line((41, 38), (53, 38), arrowhead="->", style=Styles.Bold)
+line((41, 20), (53, 30), arrowhead="->", style=Styles.Bold)
 
 # 3. Output (Right column)
 rectangle((117, 49), width=36, height=15, style=s_output, r=1.5)
@@ -89,7 +89,7 @@ text((117, 52), "Drawlib Code & Docs", style=ts_title)
 text((117, 46), "Embedded drawlib blocks\n& Standalone Python Scripts", style=ts_desc)
 
 # Arrow from Agent to Code Output
-line((87, 49), (99, 49), arrowhead="->", style=styles.bold)
+line((87, 49), (99, 49), arrowhead="->", style=Styles.Bold)
 
 # 4. Publication Output
 rectangle((117, 25), width=36, height=15, style=s_build, r=1.5)
@@ -216,21 +216,21 @@ Modern multimodal models (such as Claude 3.7 Sonnet or Gemini 2.0 Pro) can inspe
 
 ```python
 from drawlib.canvas import setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=150, height=80)
 
 # Colors & Styles
-s_human = styles.blue_flat
-s_ai_step = styles.purple_flat
-s_loop_bg = styles.white.patch(shape_fill_color=Colors140.GhostWhite, shape_line_color=Colors140.DarkSlateBlue, shape_line_width=1.5, shape_line_style="dashed")
-s_final = styles.green_flat
+s_human = Styles.BlueFlat
+s_ai_step = Styles.PurpleFlat
+s_loop_bg = Styles.White.patch(shape_fill_color=Colors140.GhostWhite, shape_line_color=Colors140.DarkSlateBlue, shape_line_width=1.5, shape_line_style="dashed")
+s_final = Styles.GreenFlat
 
 ts_title = Style(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
 ts_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
@@ -242,7 +242,7 @@ text((17, 55), "1. User Prompt", style=ts_title)
 text((17, 48.5), "Human describes\ndiagram requirements", style=ts_desc)
 
 # Arrow from Human (1) to AI Code (2) - Straight horizontal
-line((30, 51), (44, 51), arrowhead="->", style=styles.bold)
+line((30, 51), (44, 51), arrowhead="->", style=Styles.Bold)
 
 # Background container for AI Autonomous Loop (Center, X=75, Y=39)
 rectangle((75, 39), width=66, height=66, style=s_loop_bg, r=3.0)
@@ -254,7 +254,7 @@ text((58, 54.5), "2. AI Writes Code", style=ts_title)
 text((58, 48), "Generates Drawlib\nPython script", style=ts_desc)
 
 # Arrow 2 -> 3 (Horizontal)
-line((71, 51), (79, 51), arrowhead="->", style=styles.bold)
+line((71, 51), (79, 51), arrowhead="->", style=Styles.Bold)
 
 # Step 3: Render Image (Top-Right of loop)
 rectangle((92, 51), width=26, height=15, style=s_ai_step, r=1.5)
@@ -262,7 +262,7 @@ text((92, 54.5), "3. Render Image", style=ts_title)
 text((92, 48), "drawlib export -g\nor python -c '...'", style=ts_desc)
 
 # Arrow 3 -> 4 (Vertical Down)
-line((92, 43.5), (92, 35.5), arrowhead="->", style=styles.bold)
+line((92, 43.5), (92, 35.5), arrowhead="->", style=Styles.Bold)
 
 # Step 4: AI Reviews Image (Bottom-Right of loop)
 rectangle((92, 28), width=26, height=15, style=s_ai_step, r=1.5)

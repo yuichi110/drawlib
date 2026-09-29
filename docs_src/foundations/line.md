@@ -17,7 +17,7 @@ They all share the following arguments:
 
 - `arrowhead`: Specifies the type of arrowhead. Options are `["", "->", "<-", "<->", "-"]`.
 - `width`: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.
-- `style`: Defines the line style. Requires a `Style` object (e.g., `styles.primary`).
+- `style`: Defines the line style. Requires a `Style` object (e.g., `Styles.Primary`).
 
 Details on these options will be covered in the next section on line styles (see the following page).
 
@@ -40,24 +40,24 @@ Let's look at an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-line(xy1=(10, 10), xy2=(90, 40), style=styles.primary)
+line(xy1=(10, 10), xy2=(90, 40), style=Styles.Primary)
 save()
 ```
 
-In this example, we draw a line from (10, 10) to (90, 40) using `styles.primary`. 
+In this example, we draw a line from (10, 10) to (90, 40) using `Styles.Primary`. 
 This generates the following output:
 
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-line(xy1=(10, 10), xy2=(90, 40), style=styles.primary)
+line(xy1=(10, 10), xy2=(90, 40), style=Styles.Primary)
 save()
 ```
 
@@ -95,17 +95,17 @@ Let's check some examples:
 from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4, style=styles.primary)
-text((50, 7), "0.4", style=styles.primary)
-line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2, style=styles.primary)
-text((50, 18), "0.2", style=styles.primary)
-line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2, style=styles.primary)
-text((50, 32), "-0.2", style=styles.primary)
-line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4, style=styles.primary)
-text((50, 43), "-0.4", style=styles.primary)
+line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4, style=Styles.Primary)
+text((50, 7), "0.4", style=Styles.Primary)
+line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2, style=Styles.Primary)
+text((50, 18), "0.2", style=Styles.Primary)
+line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2, style=Styles.Primary)
+text((50, 32), "-0.2", style=Styles.Primary)
+line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4, style=Styles.Primary)
+text((50, 43), "-0.4", style=Styles.Primary)
 save()
 ```
 
@@ -116,17 +116,17 @@ This code generates the following output:
 from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4, style=styles.primary)
-text((50, 7), "0.4", style=styles.primary)
-line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2, style=styles.primary)
-text((50, 18), "0.2", style=styles.primary)
-line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2, style=styles.primary)
-text((50, 32), "-0.2", style=styles.primary)
-line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4, style=styles.primary)
-text((50, 43), "-0.4", style=styles.primary)
+line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4, style=Styles.Primary)
+text((50, 7), "0.4", style=Styles.Primary)
+line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2, style=Styles.Primary)
+text((50, 18), "0.2", style=Styles.Primary)
+line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2, style=Styles.Primary)
+text((50, 32), "-0.2", style=Styles.Primary)
+line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4, style=Styles.Primary)
+text((50, 43), "-0.4", style=Styles.Primary)
 save()
 ```
 
@@ -156,25 +156,24 @@ This code generates the following output:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40), style=styles.primary)
-line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40), style=Styles.Primary)
+line(xy1=(10, 10), xy2=(10, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
-line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10), style=styles.primary)
-line(xy1=(60, 40), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10), style=Styles.Primary)
+line(xy1=(60, 40), xy2=(90, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 save()
 ```
@@ -184,25 +183,24 @@ It generates this output.
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40), style=styles.primary)
-line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40), style=Styles.Primary)
+line(xy1=(10, 10), xy2=(10, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
-line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10), style=styles.primary)
-line(xy1=(60, 40), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10), style=Styles.Primary)
+line(xy1=(60, 40), xy2=(90, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 save()
 ```
@@ -233,29 +231,28 @@ Here is an example code:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10), style=styles.primary)
-line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(40, 40), xy2=(40, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(40, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10), style=Styles.Primary)
+line(xy1=(10, 10), xy2=(10, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(40, 40), xy2=(40, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
-line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40), style=styles.primary)
-line(xy1=(60, 40), xy2=(60, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 10), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 10), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40), style=Styles.Primary)
+line(xy1=(60, 40), xy2=(60, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(90, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 10), xy2=(90, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 save()
 ```
@@ -265,29 +262,28 @@ Executing this code generates the following output:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
-line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10), style=styles.primary)
-line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(40, 40), xy2=(40, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(40, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10), style=Styles.Primary)
+line(xy1=(10, 10), xy2=(10, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(40, 40), xy2=(40, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
-line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40), style=styles.primary)
-line(xy1=(60, 40), xy2=(60, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 10), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 10), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40), style=Styles.Primary)
+line(xy1=(60, 40), xy2=(60, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(90, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 10), xy2=(90, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 save()
 ```
@@ -322,7 +318,7 @@ Here is an example code:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 lines(
@@ -334,7 +330,7 @@ lines(
         (60, 40),
         (90, 10),
     ],
-    style=styles.primary,
+    style=Styles.Primary,
 )
 save()
 ```
@@ -345,7 +341,7 @@ It generates this output.
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 lines(
@@ -357,7 +353,7 @@ lines(
         (60, 40),
         (90, 10),
     ],
-    style=styles.primary,
+    style=Styles.Primary,
 )
 save()
 ```
@@ -394,10 +390,9 @@ Let's see how it works with an example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
@@ -406,23 +401,23 @@ points = [
     (60, 10),
     ((60, 40), (90, 40), (90, 10)),
 ]
-lines_bezier(xy=(10, 40), path_points=points, style=styles.primary)
+lines_bezier(xy=(10, 40), path_points=points, style=Styles.Primary)
 
 # bezier1 help line
-line(xy1=(10, 40), xy2=(10, 20), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 20), xy2=(30, 20), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(10, 20), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(30, 20), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(10, 20), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 20), xy2=(30, 20), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 20), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(30, 20), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 # bezier2 help line
-line(xy1=(60, 10), xy2=(60, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 40), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(60, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 save()
 ```
@@ -435,10 +430,9 @@ Executing this code generates the following output:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
@@ -447,23 +441,23 @@ points = [
     (60, 10),
     ((60, 40), (90, 40), (90, 10)),
 ]
-lines_bezier(xy=(10, 40), path_points=points, style=styles.primary)
+lines_bezier(xy=(10, 40), path_points=points, style=Styles.Primary)
 
 # bezier1 help line
-line(xy1=(10, 40), xy2=(10, 20), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 20), xy2=(30, 20), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(10, 20), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(30, 20), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(10, 20), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 20), xy2=(30, 20), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 20), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(30, 20), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 # bezier2 help line
-line(xy1=(60, 10), xy2=(60, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 40), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(60, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 ```
 
 This function can be used to draw curved lines from shape to shape like this:
@@ -471,14 +465,13 @@ This function can be used to draw curved lines from shape to shape like this:
 
 ```drawlib show-code 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
-circle((10, 40), radius=5, style=styles.primary)
+circle((10, 40), radius=5, style=Styles.Primary)
 lines_bezier(
     (20, 40),
     path_points=[
@@ -487,16 +480,16 @@ lines_bezier(
         (90, 20),
     ],
     arrowhead="->",
-    style=styles.primary,
+    style=Styles.Primary,
 )
-circle((90, 10), radius=5, style=styles.primary)
+circle((90, 10), radius=5, style=Styles.Primary)
 
 # bezier1 help line
-line(xy1=(75, 40), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 25), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
-circle(xy=(75, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
-circle(xy=(90, 25), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+line(xy1=(75, 40), xy2=(90, 40), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 25), style=Styles.Primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(75, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 25), radius=0.5, style=Styles.Primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 ```
 
 For precise control, use this function. 
@@ -526,26 +519,25 @@ Here is an example code:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
-circle((10, 40), radius=5, style=styles.primary)
+circle((10, 40), radius=5, style=Styles.Primary)
 lines(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 22)],
-    style=styles.primary.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5),
+    style=Styles.Primary.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5),
 )
 lines_curved(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 20)],
     r=8,
     width=2.5,
     arrowhead="->",
-    style=styles.primary,
+    style=Styles.Primary,
 )
-circle((90, 10), radius=5, style=styles.primary)
+circle((90, 10), radius=5, style=Styles.Primary)
 save()
 ```
 
@@ -554,26 +546,25 @@ Executing this code generates the following output:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
-circle((10, 40), radius=5, style=styles.primary)
+circle((10, 40), radius=5, style=Styles.Primary)
 lines(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 22)],
-    style=styles.primary.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5),
+    style=Styles.Primary.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5),
 )
 lines_curved(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 20)],
     r=8,
     width=2.5,
     arrowhead="->",
-    style=styles.primary,
+    style=Styles.Primary,
 )
-circle((90, 10), radius=5, style=styles.primary)
+circle((90, 10), radius=5, style=Styles.Primary)
 save()
 ```
 
@@ -605,15 +596,15 @@ It accepts the following arguments:
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.lines import line_arc
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
 # Circular upper arc with arrowhead
-line_arc(xy=(30, 25), width=30, height=30, angle_start=0, angle_end=180, arrowhead="->", style=styles.primary)
+line_arc(xy=(30, 25), width=30, height=30, angle_start=0, angle_end=180, arrowhead="->", style=Styles.Primary)
 
 # Elliptical lower arc
-line_arc(xy=(70, 25), width=40, height=25, angle_start=180, angle_end=360, arrowhead="<->", style=styles.blue)
+line_arc(xy=(70, 25), width=40, height=25, angle_start=180, angle_end=360, arrowhead="<->", style=Styles.Blue)
 save()
 ```
 

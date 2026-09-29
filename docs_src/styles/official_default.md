@@ -14,7 +14,7 @@ The `default` preset styles include 5 colors.
 ```drawlib 600px center caption:"Preset styles default color chart"
 from drawlib.canvas import setup
 from drawlib.preset_colors import DefaultColors
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -43,8 +43,8 @@ for i, (color_name, color) in enumerate(colors):
         height=12,
         style=Style(shape_fill_color=color, shape_line_width=lwidth, shape_line_color=(0, 0, 0)),
     )
-    text((x, text1_y), color_name, style=styles.bold)
-    text((x, text2_y), str(color[:3]), style=styles.primary.patch(text_size=11))
+    text((x, text1_y), color_name, style=Styles.Bold)
+    text((x, text2_y), str(color[:3]), style=Styles.Primary.patch(text_size=11))
 ```
 
 Here is a list of the colors. 
@@ -87,11 +87,11 @@ Let's take a look at a matrix with the blue color as an example:
 from drawlib.fonts import Font
 from drawlib.icons import phosphor
 from drawlib.lines import line
-from drawlib.preset_styles import default_styles
+from drawlib.preset_styles import DefaultStyles
 from drawlib.shapes import circle
 from drawlib.text import text
 
-styles = default_styles
+styles = DefaultStyles
 
 xs = [28, 48, 68, 88]
 ys = [80, 50, 20]
@@ -101,14 +101,14 @@ def draw_header():
     x0 = 10
     y0 = 92
 
-    text((x0, y0), "weight \\ type", style=styles.red_bold)
-    text((xs[0], y0), "(default)", style=styles.red_bold)
-    text((xs[1], y0), "flat", style=styles.red_bold)
-    text((xs[2], y0), "solid", style=styles.red_bold)
-    text((xs[3], y0), "dashed", style=styles.red_bold)
-    text((x0, ys[0]), "light", style=styles.red_bold)
-    text((x0, ys[1]), "(default)", style=styles.red_bold)
-    text((x0, ys[2]), "bold", style=styles.red_bold)
+    text((x0, y0), "weight \\ type", style=Styles.RedBold)
+    text((xs[0], y0), "(default)", style=Styles.RedBold)
+    text((xs[1], y0), "flat", style=Styles.RedBold)
+    text((xs[2], y0), "solid", style=Styles.RedBold)
+    text((xs[3], y0), "dashed", style=Styles.RedBold)
+    text((x0, ys[0]), "light", style=Styles.RedBold)
+    text((x0, ys[1]), "(default)", style=Styles.RedBold)
+    text((x0, ys[2]), "bold", style=Styles.RedBold)
 
 
 def draw_content():
@@ -139,7 +139,7 @@ def draw_content():
 
             if style_type != "flat":
                 line((x - 7.5, y - 8), (x + 7.5, y - 8), style=style_obj)
-            text((x, y - 12), style_name, style=styles.primary.patch(text_size=11))
+            text((x, y - 12), style_name, style=Styles.Primary.patch(text_size=11))
 
 
 draw_header()

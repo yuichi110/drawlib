@@ -96,10 +96,10 @@ drawlib build html docs_src/ -o docs_html/ --config setup_theme.py
 
 ### Example `setup_theme.py`:
 ```python
-from drawlib.preset_styles import monochrome_styles
+from drawlib.preset_styles import MonochromeStyles
 
 # Override default theme styles or define project constants:
-styles = monochrome_styles
+Styles = MonochromeStyles
 PROJECT_NAME = "Enterprise Architecture Docs"
 ```
 

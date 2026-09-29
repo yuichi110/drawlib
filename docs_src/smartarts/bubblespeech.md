@@ -9,7 +9,7 @@ Here's an example of using Bubblespeech in Drawlib:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.smartarts import bubblespeech
 
 setup(width=95, height=52)
@@ -21,9 +21,9 @@ bubblespeech(
     tail_start_ratio=0.2,
     tail_vertex_xy=(16, 26),
     tail_end_ratio=0.6,
-    style=styles.blue_flat,
+    style=Styles.BlueFlat,
     text="Hello Drawlib!",
-    textstyle=styles.white,
+    textstyle=Styles.White,
 )
 ```
 
@@ -33,7 +33,7 @@ This function call draws a speech bubble with a pointed tail extending from the 
 ```drawlib 600px center
 from drawlib.canvas import setup
 from drawlib.smartarts import bubblespeech
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=95, height=52)
 bubblespeech(
@@ -44,9 +44,9 @@ bubblespeech(
     tail_start_ratio=0.2,
     tail_vertex_xy=(16, 26),
     tail_end_ratio=0.6,
-    style=styles.blue_flat,
+    style=Styles.BlueFlat,
     text="Hello Drawlib!",
-    textstyle=styles.white,
+    textstyle=Styles.White,
 )
 ```
 
@@ -67,7 +67,7 @@ from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.smartarts import bubblespeech
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=95, height=52)
 
@@ -80,30 +80,30 @@ bubblespeech(
     tail_start_ratio=0.2,
     tail_vertex_xy=(16, 26),
     tail_end_ratio=0.6,
-    style=styles.light,
+    style=Styles.Light,
     text="Hello Drawlib!",
-    textstyle=styles.bold,
+    textstyle=Styles.Bold,
 )
 
 # Reference edge
-line((36, 11), (36, 41), style=styles.blue_dashed)
-text((36, 45), 'tail_edge = "left"', style=styles.blue)
+line((36, 11), (36, 41), style=Styles.BlueDashed)
+text((36, 45), 'tail_edge = "left"', style=Styles.Blue)
 
 # Bottom-left corner xy
-circle(xy=(36, 11), radius=1, style=styles.red_flat)
-text((36, 7), "xy = (36, 11)", style=styles.red)
+circle(xy=(36, 11), radius=1, style=Styles.RedFlat)
+text((36, 7), "xy = (36, 11)", style=Styles.Red)
 
 # Tail start ratio (0.2 * 30 = 6 above bottom -> y=17)
-line((33, 11), (33, 17), arrowhead="<->", style=styles.blue)
-text((19, 14), "tail_start_ratio = 0.2", style=styles.blue)
+line((33, 11), (33, 17), arrowhead="<->", style=Styles.Blue)
+text((19, 14), "tail_start_ratio = 0.2", style=Styles.Blue)
 
 # Tail vertex
-circle(xy=(16, 26), radius=1, style=styles.red_flat)
-text((20, 30), "tail_vertex_xy = (16, 26)", style=styles.red)
+circle(xy=(16, 26), radius=1, style=Styles.RedFlat)
+text((20, 30), "tail_vertex_xy = (16, 26)", style=Styles.Red)
 
 # Tail end ratio (0.6 * 30 = 18 above bottom -> y=29)
-line((39, 11), (39, 29), arrowhead="<->", style=styles.blue)
-text((53, 14), "tail_end_ratio = 0.6", style=styles.blue)
+line((39, 11), (39, 29), arrowhead="<->", style=Styles.Blue)
+text((53, 14), "tail_end_ratio = 0.6", style=Styles.Blue)
 ```
 
 Ellipse-like bubblespeech can also be approximated or customized using shapes and lines.

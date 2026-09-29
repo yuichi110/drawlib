@@ -30,11 +30,11 @@ All top-level CLI commands have direct 1-to-1 functional counterparts in `drawli
 
 ```drawlib 650px center caption:"Architecture: drawlib.tools as the Backend Engine"
 from drawlib.canvas import setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=140, height=75)
 
@@ -44,7 +44,7 @@ rectangle(
     width=50,
     height=36,
     r=3,
-    style=styles.blue_solid,
+    style=Styles.BlueSolid,
     text="Terminal / Shell\n\n$ drawlib build ...\n$ drawlib export ...",
     textsize=11,
 )
@@ -53,14 +53,14 @@ rectangle(
     width=50,
     height=36,
     r=3,
-    style=styles.green_solid,
+    style=Styles.GreenSolid,
     text="Python Code\n\nimport drawlib.tools\ntools.build_html(...)",
     textsize=11,
 )
 
 # Arrows pointing to center engine
-line((35, 30), (52, 23), arrowhead="->", style=styles.bold)
-line((105, 30), (88, 23), arrowhead="->", style=styles.bold)
+line((35, 30), (52, 23), arrowhead="->", style=Styles.Bold)
+line((105, 30), (88, 23), arrowhead="->", style=Styles.Bold)
 
 # Core engine box at bottom
 rectangle(
@@ -68,9 +68,9 @@ rectangle(
     width=64,
     height=18,
     r=3,
-    style=styles.flat.patch(shape_fill_color=Colors140.DarkOrchid, shape_line_color=Colors140.DarkOrchid),
+    style=Styles.Flat.patch(shape_fill_color=Colors140.DarkOrchid, shape_line_color=Colors140.DarkOrchid),
     text="drawlib.tools Engine\n(Unified Python API)",
-    textstyle=styles.primary.patch(text_color=Colors.White, text_font=FontRoboto.ROBOTO_BOLD),
+    textstyle=Styles.Primary.patch(text_color=Colors.White, text_font=FontRoboto.ROBOTO_BOLD),
 )
 ```
 

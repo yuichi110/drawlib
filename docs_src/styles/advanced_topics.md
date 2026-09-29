@@ -8,7 +8,7 @@ Drawlib provides style presets as catalog objects (`BaseStyles`) containing stro
 The recommended way to access styles in drawing code is via `drawlib.styles`:
 
 ```python
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 ```
 
 This provides direct access to the active project styles (defaulting to `EssentialsStyles`) and allows styles to be themed dynamically across the entire project via `styles.py` files.
@@ -17,79 +17,79 @@ This provides direct access to the active project styles (defaulting to `Essenti
 
 You can access standard preset styles directly by attribute or key:
 
-- `styles.primary`: The default primary style.
-- `styles.light`: Light line/font weight style.
-- `styles.bold`: Bold line/font weight style.
-- `styles.flat`: Filled shape with no border line.
-- `styles.solid`: Outlined shape with no fill color.
-- `styles.dashed`: Outlined shape with dashed line style.
+- `Styles.Primary`: The default primary style.
+- `Styles.Light`: Light line/font weight style.
+- `Styles.Bold`: Bold line/font weight style.
+- `Styles.Flat`: Filled shape with no border line.
+- `Styles.Solid`: Outlined shape with no fill color.
+- `Styles.Dashed`: Outlined shape with dashed line style.
 
 Example:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 setup(width=100, height=40)
 
-style_primary = styles.primary
-style_bold = styles.bold
+style_primary = Styles.Primary
+style_bold = Styles.Bold
 
 circle((25, 20), radius=10, style=style_primary)
 rectangle((75, 20), width=20, height=20, style=style_bold)
-text((50, 20), "Preset Styles", style=styles.bold)
+text((50, 20), "Preset Styles", style=Styles.Bold)
 ```
 
 Executing this code produces the following output:
 
 ```drawlib 600px center
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 setup(width=100, height=40)
 
-style_primary = styles.primary
-style_bold = styles.bold
+style_primary = Styles.Primary
+style_bold = Styles.Bold
 
 circle((25, 20), radius=10, style=style_primary)
 rectangle((75, 20), width=20, height=20, style=style_bold)
-text((50, 20), "Preset Styles", style=styles.bold)
+text((50, 20), "Preset Styles", style=Styles.Bold)
 ```
 
 ## Using Color Names and Combinations
 
-You can also access color-specific styles (e.g., `styles.red_flat`, `styles.blue_solid`, `styles.red_bold`):
+You can also access color-specific styles (e.g., `Styles.RedFlat`, `Styles.BlueSolid`, `Styles.RedBold`):
 
 ```python
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 setup(width=100, height=40)
 
-circle((25, 20), radius=10, style=styles.red_flat)
-rectangle((75, 20), width=20, height=20, style=styles.blue_solid)
-text((50, 20), "Combined Style", style=styles.red_bold)
+circle((25, 20), radius=10, style=Styles.RedFlat)
+rectangle((75, 20), width=20, height=20, style=Styles.BlueSolid)
+text((50, 20), "Combined Style", style=Styles.RedBold)
 ```
 
 Executing this code produces:
 
 ```drawlib 600px center
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 setup(width=100, height=40)
 
-circle((25, 20), radius=10, style=styles.red_flat)
-rectangle((75, 20), width=20, height=20, style=styles.blue_solid)
-text((50, 20), "Combined Style", style=styles.red_bold)
+circle((25, 20), radius=10, style=Styles.RedFlat)
+rectangle((75, 20), width=20, height=20, style=Styles.BlueSolid)
+text((50, 20), "Combined Style", style=Styles.RedBold)
 ```
 
 
@@ -97,39 +97,39 @@ text((50, 20), "Combined Style", style=styles.red_bold)
 
 # Accessing Official Style Catalogs Directly
 
-Drawlib includes three official immutable style catalogs: `default_styles`, `essentials_styles`, and `monochrome_styles`.
+Drawlib includes three official immutable style catalogs: `DefaultStyles`, `GoogleStyles`, and `MonochromeStyles`.
 You can import them directly from `drawlib.preset_styles`:
 
-- `from drawlib.preset_styles import default_styles`
-- `from drawlib.preset_styles import essentials_styles`
-- `from drawlib.preset_styles import monochrome_styles`
+- `from drawlib.preset_styles import DefaultStyles`
+- `from drawlib.preset_styles import GoogleStyles`
+- `from drawlib.preset_styles import MonochromeStyles`
 
-Each `BaseStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid`, and `dashed` `Style` attributes.
+Each `BaseStyles` instance contains `Primary`, `Light`, `Bold`, `Flat`, `Solid`, `Dashed`, and color-specific `Style` attributes.
 
 Example:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.preset_styles import essentials_styles, monochrome_styles
+from drawlib.preset_styles import DefaultStyles, MonochromeStyles
 from drawlib.shapes import circle, rectangle
 
 setup(width=100, height=40)
 
-circle((25, 20), radius=10, style=essentials_styles.primary)
-rectangle((75, 20), width=20, height=20, style=monochrome_styles.bold)
+circle((25, 20), radius=10, style=DefaultStyles.Primary)
+rectangle((75, 20), width=20, height=20, style=MonochromeStyles.Bold)
 ```
 
 Output:
 
 ```drawlib 600px center
 from drawlib.canvas import setup
-from drawlib.preset_styles import essentials_styles, monochrome_styles
+from drawlib.preset_styles import DefaultStyles, MonochromeStyles
 from drawlib.shapes import circle, rectangle
 
 setup(width=100, height=40)
 
-circle((25, 20), radius=10, style=essentials_styles.primary)
-rectangle((75, 20), width=20, height=20, style=monochrome_styles.bold)
+circle((25, 20), radius=10, style=DefaultStyles.Primary)
+rectangle((75, 20), width=20, height=20, style=MonochromeStyles.Bold)
 ```
 
 
@@ -140,10 +140,10 @@ Because `Style` objects in Drawlib are immutable (`frozen=True`), styles are cus
 ```python
 from drawlib.canvas import setup
 from drawlib.preset_colors import DefaultColors
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-custom_style = styles.blue.patch(text_size=28, text_color=DefaultColors.Red)
+custom_style = Styles.Blue.patch(text_size=28, text_color=DefaultColors.Red)
 
 setup(width=100, height=40)
 text((50, 20), "Customized Style", style=custom_style)
@@ -154,28 +154,28 @@ Output:
 ```drawlib 600px center
 from drawlib.canvas import setup
 from drawlib.preset_colors import DefaultColors
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-custom_style = styles.blue.patch(text_size=28, text_color=DefaultColors.Red)
+custom_style = Styles.Blue.patch(text_size=28, text_color=DefaultColors.Red)
 
 setup(width=100, height=40)
 text((50, 20), "Customized Style", style=custom_style)
 ```
 
 
-# Patching Typography Globally with `styles.patch_font()`
+# Patching Typography Globally with `Styles.PatchFont()`
 
 When creating illustrations or documentation in Japanese, Chinese, or specialized brand typefaces, setting fonts individually on each shape or text call is tedious and prone to missing glyphs (e.g. tofu boxes on bold text).
 
-You can patch all font definitions across the entire active style catalog using `styles.patch_font()`:
+You can patch all font definitions across the entire active style catalog using `Styles.PatchFont()`:
 
 ```python
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.fonts import FontJapanese
 
 # Patch regular and bold fonts for all styles in the active catalog
-styles.patch_font(
+Styles.PatchFont(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
 )
@@ -183,9 +183,9 @@ styles.patch_font(
 
 ### Parameter Resolution:
 - **`regular`**: Serves as the fallback default font for all styles in the catalog (including bold and light if not overridden).
-- **`bold`** (keyword-only): Overrides all bold styles (such as `styles.bold`, `styles.blue_bold`, etc.).
-- **`light`** (keyword-only): Overrides all light styles (such as `styles.light`, `styles.red_light`, etc.).
-- **`sourcecode`** (keyword-only): Updates the default monospace font used by source code rendering components (`styles.sourcecode_font`).
+- **`bold`** (keyword-only): Overrides all bold styles (such as `Styles.Bold`, `Styles.BlueBold`, etc.).
+- **`light`** (keyword-only): Overrides all light styles (such as `Styles.Light`, `Styles.RedLight`, etc.).
+- **`sourcecode`** (keyword-only): Updates the default monospace font used by source code rendering components (`Styles.SourcecodeFont`).
 
 This method is commonly configured in your project's `styles.py` so that all diagrams automatically render with the appropriate font.
 

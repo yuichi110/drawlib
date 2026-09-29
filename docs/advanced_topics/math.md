@@ -42,7 +42,7 @@ from drawlib.lines import line
 from drawlib.math import get_distance
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=50)
 
@@ -51,10 +51,10 @@ p2 = (75, 25)
 dist = get_distance(p1, p2)  # 50.0
 
 # Draw concentric nodes based on computed distance:
-circle(p1, radius=dist / 5, style=styles.blue_flat)
-circle(p2, radius=dist / 5, style=styles.blue_flat)
-line(p1, p2, arrowhead="<->", style=styles.dashed)
-text((50, 32), f"dist = {dist:.0f}", style=styles.primary)
+circle(p1, radius=dist / 5, style=Styles.BlueFlat)
+circle(p2, radius=dist / 5, style=Styles.BlueFlat)
+line(p1, p2, arrowhead="<->", style=Styles.Dashed)
+text((50, 32), f"dist = {dist:.0f}", style=Styles.Primary)
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -72,7 +72,7 @@ from drawlib.lines import line, line_arc
 from drawlib.math import get_angle
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=55)
 
@@ -81,12 +81,12 @@ target = (75, 45)
 angle = get_angle(start, target)
 
 # Baseline and directional vector
-line(start, (85, 15), style=styles.dashed)
-line(start, target, arrowhead="->", style=styles.bold)
-line_arc(start, width=20, height=20, angle_start=0, angle_end=angle, style=styles.primary)
-circle(start, radius=1.5, style=styles.primary)
-text((34, 19), f"{angle:.1f}°", style=styles.primary)
-text((50, 48), f"angle = {angle:.1f}°", style=styles.primary)
+line(start, (85, 15), style=Styles.Dashed)
+line(start, target, arrowhead="->", style=Styles.Bold)
+line_arc(start, width=20, height=20, angle_start=0, angle_end=angle, style=Styles.Primary)
+circle(start, radius=1.5, style=Styles.Primary)
+text((34, 19), f"{angle:.1f}°", style=Styles.Primary)
+text((50, 48), f"angle = {angle:.1f}°", style=Styles.Primary)
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -103,7 +103,7 @@ from drawlib.canvas import setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
 setup(width=100, height=60)
 
@@ -115,12 +115,12 @@ rectangle(
     xy=(center_x, center_y),
     width=width + 12,
     height=height + 12,
-    style=styles.dashed,
+    style=Styles.Dashed,
 )
 for pt in nodes:
-    circle(pt, radius=2.5, style=styles.blue_flat)
-circle((center_x, center_y), radius=1.5, style=styles.red_flat)
-text((center_x, center_y - 4), "center", style=styles.primary, size=9)
+    circle(pt, radius=2.5, style=Styles.BlueFlat)
+circle((center_x, center_y), radius=1.5, style=Styles.RedFlat)
+text((center_x, center_y - 4), "center", style=Styles.Primary, size=9)
 ```
 
 <div class="drawlib-image" style="text-align: center;">
