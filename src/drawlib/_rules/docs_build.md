@@ -131,8 +131,8 @@ Key Options:
 > **Note on Templates & Styles**:
 > `build html` and `build pdf` automatically resolve and use `template.html` and `style.css` located in the documentation directory (`docs_src/`). To change or re-export a stylesheet preset, use:
 > ```bash
-> drawlib css html list                                     # Inspect presets
-> drawlib css html export google -o docs_src/style.css --force  # Export preset
+> drawlib css list                                           # Inspect presets
+> drawlib css show html google -o docs_src/style.css --force # Export preset
 > ```
 
 ---

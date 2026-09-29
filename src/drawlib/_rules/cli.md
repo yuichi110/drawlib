@@ -37,8 +37,8 @@ drawlib serve docs_html/ -p 8080 --no-browser              # Headless server on 
 drawlib cache list                                         # Inspect cached font and icon assets
 drawlib cache clear                                        # Purge downloaded font and icon cache
 drawlib cache download --all                               # Pre-download all font/icon release assets
-drawlib css html list                                      # List built-in HTML stylesheets
-drawlib css html export google -o style.css                # Export Google styling preset
+drawlib css list                                           # List built-in HTML and PDF stylesheets
+drawlib css show html google -o style.css                  # Export Google styling preset
 
 # AI agent knowledge base
 drawlib rules list                                         # List available architectural rule topics
@@ -607,12 +607,8 @@ Drawlib includes professionally designed CSS presets for HTML documentation and 
 ### Subcommands:
 ```text
 drawlib css
-├── html
-│   ├── list       List available built-in HTML CSS presets
-│   └── export     Export a built-in HTML CSS preset to a local file
-└── pdf
-    ├── list       List available built-in PDF CSS presets
-    └── export     Export a built-in PDF CSS preset to a local file
+├── list [TARGET]                  # List available built-in CSS presets (html, pdf, or both)
+└── show [TARGET] <PRESET> [OPTS]  # Display in terminal or export (-o) a built-in CSS preset
 ```
 
 ---
@@ -633,19 +629,25 @@ drawlib css
 
 ---
 
-### 6.2 Listing and Exporting Presets:
+### 6.2 Listing and Inspecting Presets:
 ```bash
-# List all HTML CSS presets:
-drawlib css html list
+# List all CSS presets with HTML and PDF support matrix:
+drawlib css list
+
+# List HTML CSS presets only:
+drawlib css list html
+
+# List PDF CSS presets only:
+drawlib css list pdf
+
+# Display Google HTML CSS preset in terminal with syntax highlighting:
+drawlib css show html google
 
 # Export Google preset to local style.css:
-drawlib css html export google -o style.css --force
-
-# List all PDF CSS presets:
-drawlib css pdf list
+drawlib css show html google -o style.css --force
 
 # Export PDF preset to local docs_src/style.css:
-drawlib css pdf export default -o docs_src/style.css --force
+drawlib css show pdf default -o docs_src/style.css --force
 ```
 
 ---
@@ -654,7 +656,7 @@ drawlib css pdf export default -o docs_src/style.css --force
 `drawlib build html` and `drawlib build pdf` read `style.css` directly from your source directory:
 ```bash
 # Export or edit docs_src/style.css, then compile:
-drawlib css html export google -o docs_src/style.css --force
+drawlib css show html google -o docs_src/style.css --force
 drawlib build html docs_src/ -o docs_html/
 drawlib build pdf docs_src/ -o output.pdf
 ```

@@ -17,8 +17,17 @@ from tests.cli.common import run_drawlib_cli
 
 
 def test_cli_css_list(tmp_path) -> None:
-    """Test drawlib css html/pdf list subcommands."""
-    res_html_list = run_drawlib_cli(["css", "html", "list"], cwd=str(tmp_path))
+    """Test drawlib css list and target-filtered list subcommands."""
+    # Test unified list (both HTML & PDF)
+    res_all = run_drawlib_cli(["css", "list"], cwd=str(tmp_path))
+    assert res_all.returncode == 0
+    assert "default" in res_all.stdout
+    assert "google" in res_all.stdout
+    assert "HTML" in res_all.stdout
+    assert "PDF" in res_all.stdout
+
+    # Test html filtered list
+    res_html_list = run_drawlib_cli(["css", "list", "html"], cwd=str(tmp_path))
     assert res_html_list.returncode == 0
     assert "default" in res_html_list.stdout
     assert "default-dark" in res_html_list.stdout
@@ -27,7 +36,8 @@ def test_cli_css_list(tmp_path) -> None:
     assert "google-dark" in res_html_list.stdout
     assert "google-auto" in res_html_list.stdout
 
-    res_pdf_list = run_drawlib_cli(["css", "pdf", "list"], cwd=str(tmp_path))
+    # Test pdf filtered list
+    res_pdf_list = run_drawlib_cli(["css", "list", "pdf"], cwd=str(tmp_path))
     assert res_pdf_list.returncode == 0
     assert "default" in res_pdf_list.stdout
     assert "default-dark" in res_pdf_list.stdout
@@ -37,10 +47,21 @@ def test_cli_css_list(tmp_path) -> None:
     assert "google-auto" not in res_pdf_list.stdout
 
 
-def test_cli_css_export(tmp_path) -> None:
-    """Test drawlib css html/pdf export subcommands."""
+def test_cli_css_show(tmp_path) -> None:
+    """Test drawlib css show terminal display and export subcommands."""
+    # Test terminal output without -o
+    res_term = run_drawlib_cli(["css", "show", "html", "google"], cwd=str(tmp_path))
+    assert res_term.returncode == 0
+    assert ":root" in res_term.stdout or "color" in res_term.stdout
+
+    # Test convenience syntax defaulting to html
+    res_term_default = run_drawlib_cli(["css", "show", "google"], cwd=str(tmp_path))
+    assert res_term_default.returncode == 0
+    assert ":root" in res_term_default.stdout or "color" in res_term_default.stdout
+
+    # Test export with -o
     out_css = tmp_path / "style.css"
-    res_html = run_drawlib_cli(["css", "html", "export", "google", "-o", str(out_css)], cwd=str(tmp_path))
+    res_html = run_drawlib_cli(["css", "show", "html", "google", "-o", str(out_css)], cwd=str(tmp_path))
     assert res_html.returncode == 0
     assert "Success" in res_html.stdout
     assert out_css.exists()
@@ -48,26 +69,26 @@ def test_cli_css_export(tmp_path) -> None:
     assert len(content) > 100
 
     # Test failure without --force
-    res_fail = run_drawlib_cli(["css", "html", "export", "default", "-o", str(out_css)], cwd=str(tmp_path))
+    res_fail = run_drawlib_cli(["css", "show", "html", "default", "-o", str(out_css)], cwd=str(tmp_path))
     assert res_fail.returncode != 0
     fail_out = res_fail.stderr + res_fail.stdout
     assert "already" in fail_out and "exists" in fail_out
 
     # Test success with --force
-    res_force = run_drawlib_cli(["css", "html", "export", "default", "-o", str(out_css), "--force"], cwd=str(tmp_path))
+    res_force = run_drawlib_cli(["css", "show", "html", "default", "-o", str(out_css), "--force"], cwd=str(tmp_path))
     assert res_force.returncode == 0
     assert "Success" in res_force.stdout
 
     # Test pdf export
     pdf_out = tmp_path / "pdf_style.css"
-    res_pdf = run_drawlib_cli(["css", "pdf", "export", "google", "-o", str(pdf_out)], cwd=str(tmp_path))
+    res_pdf = run_drawlib_cli(["css", "show", "pdf", "google", "-o", str(pdf_out)], cwd=str(tmp_path))
     assert res_pdf.returncode == 0
     assert "Success" in res_pdf.stdout
     assert pdf_out.exists()
 
-    # Test top-level css export
+    # Test convenience export with default target
     top_out = tmp_path / "top_style.css"
-    res_top = run_drawlib_cli(["css", "export", "minimal", "-o", str(top_out)], cwd=str(tmp_path))
+    res_top = run_drawlib_cli(["css", "show", "minimal", "-o", str(top_out)], cwd=str(tmp_path))
     assert res_top.returncode == 0
     assert "Success" in res_top.stdout
     assert top_out.exists()

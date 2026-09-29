@@ -29,17 +29,15 @@ drawlib cache <subcommand> [OPTIONS]
 Inspect available built-in CSS style presets. When initializing a project, use `drawlib init site --css <theme>` to choose your starting stylesheet.
 
 ```bash
-drawlib css <target> <subcommand> [OPTIONS]
+drawlib css <subcommand> [OPTIONS]
 ```
-
-- `<target>`: `html` or `pdf`
 
 ### Subcommands
 
 | Subcommand | Description | Example |
 | :--- | :--- | :--- |
-| **`list`** | Lists available CSS preset names. | `drawlib css html list` |
-| **`export <preset>`** | Exports a built-in CSS preset to a stylesheet file (`style.css` by default). | `drawlib css html export google -o style.css --force` |
+| **`list [target]`** | Lists available CSS preset names (all, or filtered by `html`/`pdf`). | `drawlib css list` |
+| **`show [target] <preset>`** | Displays a preset in terminal, or exports it to file with `-o`. | `drawlib css show html google -o style.css --force` |
 
 ---
 

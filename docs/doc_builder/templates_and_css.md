@@ -64,11 +64,14 @@ Drawlib styles documents using modern, accessible typography with automatic synt
 You can inspect available built-in CSS presets:
 
 ```bash
-# List HTML CSS presets:
-drawlib css html list
+# List all CSS presets (HTML & PDF):
+drawlib css list
 
-# List PDF CSS presets:
-drawlib css pdf list
+# List HTML CSS presets only:
+drawlib css list html
+
+# List PDF CSS presets only:
+drawlib css list pdf
 ```
 
 Available presets include `default`, `default-dark`, `default-auto`, `google`, `google-dark`, `google-auto`, `github`, `minimal`, and `monochrome`.
@@ -78,11 +81,14 @@ To customize the visual style:
 - **Directly Edit `docs_src/style.css`**: Edit the scaffolded stylesheet directly. Because `build html` copies `docs_src/style.css` to `docs_html/style.css`, your edits take effect immediately on every build.
 - **Exporting Presets**: Switch to or export another preset stylesheet into your project:
   ```bash
+  # Display HTML Google theme in terminal:
+  drawlib css show html google
+
   # Export HTML Google theme to docs_src/style.css:
-  drawlib css html export google -o docs_src/style.css --force
+  drawlib css show html google -o docs_src/style.css --force
 
   # Export PDF dark theme to docs_src/style.css:
-  drawlib css pdf export default-dark -o docs_src/style.css --force
+  drawlib css show pdf default-dark -o docs_src/style.css --force
   ```
 
 ### 3.3 CSS Embedding Modes (`--css-mode`)
