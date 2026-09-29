@@ -107,9 +107,6 @@ def cmd_build_image(
         _handle_build_error("Build Image Error", e)
 
 
-build_app.command("images", help="Alias for 'build image'.", epilog=HELP_EPILOG)(cmd_build_image)
-
-
 @build_app.command("markdown", epilog=HELP_EPILOG)
 def cmd_build_markdown(
     input_path: Annotated[

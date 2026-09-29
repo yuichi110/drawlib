@@ -225,15 +225,13 @@ drawlib build pdf docs_src/ -o comprehensive_guide.pdf --page-break --toc
 
 ---
 
-### 1.4 `drawlib build images` / `drawlib build image` (Batch Python Script Execution)
+### 1.4 `drawlib build image` (Batch Python Script Execution)
 
 Executes one or more standalone Python drawing scripts (`.py`) or directories containing Python scripts to generate image assets.
 
 #### Syntax:
 ```bash
 drawlib build image <INPUTS...> [OPTIONS]
-# Alias:
-drawlib build images <INPUTS...> [OPTIONS]
 ```
 
 #### Arguments:
@@ -262,13 +260,13 @@ Before executing scripts in batch, Drawlib performs static AST analysis across a
 drawlib build image my_diagram.py -o out.png
 
 # Execute all Python scripts in a folder and output to an assets directory:
-drawlib build images scripts/ -o assets/
+drawlib build image scripts/ -o assets/
 
 # Batch build illustrations with coordinate grid companion images:
-drawlib build images scripts/ -o assets/ --grid
+drawlib build image scripts/ -o assets/ --grid
 
 # Override output format to WebP across all scripts:
-drawlib build images scripts/ -o assets/ -f webp
+drawlib build image scripts/ -o assets/ -f webp
 ```
 
 ---

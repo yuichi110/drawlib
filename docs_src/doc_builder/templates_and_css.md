@@ -26,7 +26,7 @@ When building HTML or PDF documentation (`drawlib build html` or `drawlib build 
 - `doc_builder` **strictly requires** `template.html` and `style.css` to reside in the target directory (or parent directory of a single file).
 - The previous `--css` and `--template` CLI options on build commands have been removed; styling and templating are managed cleanly and reproducibly via `style.css` and `template.html` in your project folder.
 - If either file is missing, `drawlib build` halts with an informative error directing you to run `drawlib init`.
-- For Markdown (`drawlib build markdown`) and image (`drawlib build images`) builds, `template.html` and `style.css` are not required and are automatically excluded from output processing.
+- For Markdown (`drawlib build markdown`) and image (`drawlib build image`) builds, `template.html` and `style.css` are not required and are automatically excluded from output processing.
 
 ### 1.2 Preset Selection at Initialization
 You can choose a built-in theme upon project initialization using the `--css` option:

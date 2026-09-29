@@ -119,7 +119,7 @@ Executes standalone Python drawing scripts to generate standalone images.
 drawlib build image my_chart.py
 
 # Run all drawing scripts in a directory:
-drawlib build images images_src/ -o images/
+drawlib build image images_src/ -o images/
 ```
 
 ---

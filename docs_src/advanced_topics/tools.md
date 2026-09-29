@@ -20,7 +20,7 @@ All top-level CLI commands have direct 1-to-1 functional counterparts in `drawli
 | `drawlib build html` | `build_html(...)` | `drawlib.builder` | Compile Markdown files or directory into an HTML site. |
 | `drawlib build markdown` | `build_markdown(...)` | `drawlib.builder` | Compile Markdown files for GitHub repository browsing. |
 | `drawlib build pdf` | `build_pdf(...)` | `drawlib.builder` | Compile documents to vector PDF via headless Chromium. |
-| `drawlib build images` | `build_image(...)` | `drawlib.builder` | Batch execute standalone Python drawing scripts into images. |
+| `drawlib build image` | `build_image(...)` | `drawlib.builder` | Batch execute standalone Python drawing scripts into images. |
 | `drawlib show -o` | `export_block(...)` | `drawlib.builder` | Extract and render a single diagram block or script to image. |
 | `drawlib show` | `show_block(...)` | `drawlib.builder` | Render and display diagram block in desktop GUI viewer. |
 | `drawlib init` | `init_project(...)` | `drawlib.tools` | Scaffold starter documentation project structures. |
