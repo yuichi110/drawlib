@@ -151,7 +151,7 @@ Estimating pixel-perfect coordinates by trial-and-error wastes developer time. D
   ```
 - Or run CLI headless export with `--grid` / `-g`:
   ```bash
-  drawlib export my_drawing.py -g -o scratch/debug_grid.png
+  drawlib show my_drawing.py -g -o scratch/debug_grid.png
   ```
 The grid overlays major coordinate lines, 10-unit numeric labels, and 5-unit subdivisions to make element placement intuitive.
 
@@ -386,7 +386,7 @@ build_html(
 | `build_html()` | `drawlib build html` | Compile static documentation sites or standalone HTML files. |
 | `build_markdown()` | `drawlib build markdown` | Render documentation for GitHub viewing with linked images. |
 | `build_pdf()` | `drawlib build pdf` | Export print-ready PDFs via headless browser. |
-| `export_block()` | `drawlib export` | Fast illustration rendering for AI self-verification and tests. |
+| `export_block()` | `drawlib show -o` | Fast illustration rendering for AI self-verification and tests. |
 | `init_project()` | `drawlib init` | Programmatic repository scaffolding. |
 | `serve_docs()` | `drawlib serve` | Local preview server and link verification checks. |
 | `clear_cache()` | `drawlib cache clear` | Cache cleanup. |
@@ -415,11 +415,11 @@ drawlib rules show <topic> --rebuild
 
 ### 5.1. CLI & Build Commands (`cli`)
 - **Command**: `drawlib rules show cli`
-- **Scope**: Document compilation (`build`), single illustration export (`export`), desktop preview (`show`), project scaffolding (`init`), local documentation server (`serve`), and cache management (`cache`).
+- **Scope**: Document compilation (`build`), desktop preview and illustration export (`show`), project scaffolding (`init`), local documentation server (`serve`), and cache management (`cache`).
 - **Key Syntax**:
   ```bash
   drawlib build html docs_src/ -o docs_html/
-  drawlib export script.py -g -o scratch/preview.png
+  drawlib show script.py -g -o scratch/preview.png
   drawlib init site --here
   ```
 - **When to read**: Refer to this rule when automating build pipelines, setting up CI/CD, configuring custom themes/templates, or debugging CLI flags.
@@ -680,13 +680,13 @@ Never deliver unverified drawing code to the user. Always execute the autonomous
 
 1. **Step 1: Understand Requirements & Context**: Inspect the user's instructions and related repository context (source files, data models, APIs).
 2. **Step 2: Generate Declarative Drawlib Code**: Write standard Python drawing code or embedded Markdown blocks using appropriate canvas bounds and semantic styles.
-3. **Step 3: Headless Image Render with Coordinate Grid (`-g`)**: Render the canvas immediately to a temporary location using Drawlib's fast export command:
+3. **Step 3: Headless Image Render with Coordinate Grid (`-g`)**: Render the canvas immediately to a temporary location using Drawlib's fast show command with `-o`:
    ```bash
    # For a standalone Python script:
-   uv run drawlib export scratch/preview.py -g -o scratch/preview.png
+   uv run drawlib show scratch/preview.py -g -o scratch/preview.png
 
    # For embedded block 1 in a Markdown document:
-   uv run drawlib export docs_src/my_doc.md 1 -g -o scratch/preview.png
+   uv run drawlib show docs_src/my_doc.md 1 -g -o scratch/preview.png
    ```
 4. **Step 4: Multimodal Self-Review (`view_file`)**: Use your image inspection capability to check the rendered grid image. Check for:
    - Overlapping shapes, clipped text boxes, or text colliding with borders.

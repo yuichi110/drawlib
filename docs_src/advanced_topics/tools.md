@@ -1,7 +1,7 @@
 # Programmatic Tools API (`drawlib.tools`)
 
 The `drawlib.tools` module is the official Python developer API that powers the Drawlib CLI.  
-While terminal commands like `drawlib build`, `drawlib export`, and `drawlib serve` are ideal for command-line workflows, you should use `drawlib.tools` **whenever you need to execute CLI-equivalent operations directly within Python code**.
+While terminal commands like `drawlib build`, `drawlib show`, and `drawlib serve` are ideal for command-line workflows, you should use `drawlib.tools` **whenever you need to execute CLI-equivalent operations directly within Python code**.
 
 This programmatic interface is specifically designed for:
 - **CI/CD Build Pipelines**: Automating multi-format documentation builds (HTML, Markdown, PDF) inside deployment scripts.
@@ -21,7 +21,7 @@ All top-level CLI commands have direct 1-to-1 functional counterparts in `drawli
 | `drawlib build markdown` | `build_markdown(...)` | `drawlib.builder` | Compile Markdown files for GitHub repository browsing. |
 | `drawlib build pdf` | `build_pdf(...)` | `drawlib.builder` | Compile documents to vector PDF via headless Chromium. |
 | `drawlib build images` | `build_image(...)` | `drawlib.builder` | Batch execute standalone Python drawing scripts into images. |
-| `drawlib export` | `export_block(...)` | `drawlib.builder` | Extract and render a single diagram block or script to image. |
+| `drawlib show -o` | `export_block(...)` | `drawlib.builder` | Extract and render a single diagram block or script to image. |
 | `drawlib show` | `show_block(...)` | `drawlib.builder` | Render and display diagram block in desktop GUI viewer. |
 | `drawlib init` | `init_project(...)` | `drawlib.tools` | Scaffold starter documentation project structures. |
 | `drawlib serve` | `serve_docs(...)` | `drawlib.tools` | Launch local preview HTTP web server with link checker. |
@@ -45,7 +45,7 @@ rectangle(
     height=36,
     r=3,
     style=Styles.BlueSolid,
-    text="Terminal / Shell\n\n$ drawlib build ...\n$ drawlib export ...",
+    text="Terminal / Shell\n\n$ drawlib build ...\n$ drawlib show ...",
     textsize=11,
 )
 rectangle(

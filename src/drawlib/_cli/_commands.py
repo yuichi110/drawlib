@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Typer commands for cache, template, css, serve, show, and export."""
+"""Typer commands for cache, css, serve, and show."""
 
 from __future__ import annotations
 
@@ -21,7 +21,6 @@ from rich.console import Console
 from rich.table import Table
 
 from drawlib._builder.cache_manager import clear_cache, download_cache, list_cache
-from drawlib._builder.doc_builder import export_code_block as export_block
 from drawlib._builder.doc_builder import show_code_block as show_block
 from drawlib._builder.rules_builder import _normalize_topic
 from drawlib._cli._rules import cmd_rules_show
@@ -303,10 +302,10 @@ def cmd_css_export(
 
 
 # ---------------------------------------------------------------------------
-# Top-level commands: serve, show, export
+# Top-level commands: serve, show
 # ---------------------------------------------------------------------------
 def register_top_commands(app: typer.Typer) -> None:
-    """Register top-level commands (`serve`, `show`, `export`) onto the main Typer app."""
+    """Register top-level commands (`serve`, `show`) onto the main Typer app."""
 
     @app.command("serve")
     def cmd_serve(
@@ -359,7 +358,11 @@ def register_top_commands(app: typer.Typer) -> None:
         ] = None,
         output: Annotated[
             Optional[str],
-            typer.Option("-o", "--output", help="Save output image to file path without opening GUI viewer."),
+            typer.Option(
+                "-o",
+                "--output",
+                help="Save output image to file path without opening GUI viewer (headless export).",
+            ),
         ] = None,
         grid: Annotated[
             bool,
@@ -374,7 +377,7 @@ def register_top_commands(app: typer.Typer) -> None:
             typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
         ] = None,
     ) -> None:
-        """Execute and display a drawlib code block from a Markdown/HTML file or Python script."""
+        """Execute and display or export a drawlib code block from a Markdown/HTML file or Python script."""
         # If file is not a regular file on disk, check if it matches a rules topic name
         if not os.path.isfile(file):
             try:
@@ -395,43 +398,3 @@ def register_top_commands(app: typer.Typer) -> None:
             )
         except Exception as e:
             _handle_cmd_error("Show Error", e)
-
-    @app.command("export")
-    def cmd_export(
-        file: Annotated[
-            str,
-            typer.Argument(help="Target Markdown (.md), HTML (.html), or Python script (.py) path."),
-        ],
-        target: Annotated[
-            Optional[str],
-            typer.Argument(help="1-based block index (e.g. 1) or target image filename (e.g. arch.png)."),
-        ] = None,
-        output: Annotated[
-            Optional[str],
-            typer.Option("-o", "--output", help="Output image file or directory path."),
-        ] = None,
-        styles: Annotated[
-            Optional[str],
-            typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
-        ] = None,
-        utils: Annotated[
-            Optional[str],
-            typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
-        ] = None,
-        grid: Annotated[
-            bool,
-            typer.Option("-g", "--grid", help="Export canvas with coordinate grid overlaid."),
-        ] = False,
-    ) -> None:
-        """Execute and export a drawlib code block or Python script to an image file."""
-        try:
-            export_block(
-                file_path=file,
-                target=target,
-                output_path=output,
-                styles_path=styles,
-                utils_path=utils,
-                grid=grid,
-            )
-        except Exception as e:
-            _handle_cmd_error("Export Error", e)

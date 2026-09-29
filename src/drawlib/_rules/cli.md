@@ -22,11 +22,11 @@ drawlib init pdf my_report/                                # Create multi-chapte
 drawlib init site --here                                   # Scaffold directly into current directory
 
 # Inspection, visual preview, and extraction
-drawlib export doc.md 1 -o scratch/fig1.png                # Extract block #1 without GUI
-drawlib export doc.md 1 -g -o scratch/fig1_grid.png        # Extract block #1 with coordinate grid
-drawlib export script.py -o scratch/script.png             # Render standalone Python script to image
-drawlib show doc.md 1 --grid                               # Open desktop GUI preview with grid
-drawlib show script.py                                     # Preview standalone Python script
+drawlib show doc.md 1 -o scratch/fig1.png                 # Extract block #1 to file without GUI
+drawlib show doc.md 1 -g -o scratch/fig1_grid.png         # Extract block #1 with coordinate grid
+drawlib show script.py -o scratch/script.png              # Render standalone Python script to image
+drawlib show doc.md 1 --grid                              # Open desktop GUI preview with grid
+drawlib show script.py                                    # Preview standalone Python script
 
 # Local preview server and link verification
 drawlib serve docs_html/                                   # Local HTTP server on http://localhost:8000
@@ -374,18 +374,19 @@ drawlib init image my_diagrams/      # Scaffold standalone image script project
 
 ---
 
-## 3. Single Illustration Export (`drawlib export`)
+## 3. Desktop Preview & Illustration Export (`drawlib show`)
 
-Extracts, compiles, and renders a single illustration from a Markdown file or a standalone Python script directly to an image file.
+Executes and displays an illustration in a native desktop GUI preview window, or exports it directly to an image file in headless environments when `--output` (`-o`) is specified.
 
 Designed specifically for:
-- **Headless Environments & CI/CD**: Renders illustrations on headless servers without requiring an X11/Wayland display server.
-- **AI Coding Agent Rapid Feedback**: Enables coding assistants to verify shape coordinates, colors, and layout in seconds without triggering a full site rebuild.
+- **Interactive Desktop Visual Preview**: Instantly preview a drawing script or Markdown code block in a window during development.
+- **Headless Environments & CI/CD**: When `-o` / `--output` is provided, automatically suppresses GUI display and writes the image directly to disk.
+- **AI Coding Agent Rapid Feedback**: Enables coding assistants to verify shape coordinates, colors, and layout (`-g`) in seconds without triggering a full site rebuild.
 - **Selective Diagram Extraction**: Rapidly export a single figure for inclusion in slide decks, tickets, or chat conversations.
 
 ### Syntax:
 ```bash
-drawlib export <FILE> [TARGET] [OPTIONS]
+drawlib show <FILE> [TARGET] [OPTIONS]
 ```
 
 ### Arguments:
@@ -395,17 +396,18 @@ drawlib export <FILE> [TARGET] [OPTIONS]
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<path>` | `<stem>_export.png` | Destination image file path or output directory path. |
-| `--config` | `-c` | `<path>` | `None` | Path to Python configuration script (e.g. `docs_config.py`). |
-| `--grid` | `-g` | flag | `False` | Overlay coordinate grid lines, axes, and numeric labels on exported image. |
+| `--output` | `-o` | `<path>` | `None` | Destination image file path. When specified, suppresses GUI window and runs in headless mode. |
+| `--grid` | `-g` | flag | `False` | Overlay coordinate grid lines, axes, and numeric labels on image. |
+| `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
+| `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 
 ---
 
 ### Discovering Code Blocks in a Document:
-If `[TARGET]` is omitted when pointing to a Markdown or HTML document, `drawlib export` scans the file and prints all available illustration blocks without executing them:
+If `[TARGET]` is omitted when pointing to a Markdown or HTML document, `drawlib show` scans the file and prints all available illustration blocks without executing them:
 
 ```bash
-drawlib export docs_src/architecture.md
+drawlib show docs_src/architecture.md
 ```
 
 Example Output:
@@ -420,52 +422,9 @@ Index   Line    File Target                  Header Options
 
 ---
 
-### Exporting by Index or Image Name:
-```bash
-# Export block #1 by index:
-drawlib export docs_src/architecture.md 1 -o scratch/fig1.png
+### Usage Modes:
 
-# Export the last block in the document using negative index:
-drawlib export docs_src/architecture.md -1 -o scratch/last_fig.png
-
-# Export block by explicit image filename:
-drawlib export docs_src/architecture.md db.png -o scratch/db.png
-
-# Export with coordinate grid overlay for alignment verification:
-drawlib export docs_src/architecture.md 1 -g -o scratch/fig1_grid.png
-
-# Export using project configuration (ensuring identical fonts and styling):
-drawlib export docs_src/architecture.md 1 -c docs_config.py -o scratch/fig1.png
-
-# Export from a standalone Python script:
-drawlib export my_drawing.py -o scratch/my_drawing.png
-```
-
----
-
-## 4. Desktop Visual Preview (`drawlib show`)
-
-Executes and displays an illustration in a native desktop GUI preview window.
-
-### Syntax:
-```bash
-drawlib show <FILE> [TARGET] [OPTIONS]
-```
-
-### Arguments:
-- `<FILE>`: Target Markdown (`.md`), HTML (`.html`), or Python script (`.py`).
-- `[TARGET]`: Optional 1-based block index or target image filename for Markdown/HTML files.
-
-### Options:
-| Option | Shorthand | Type | Default | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<path>` | `None` | Save output image to file path without opening GUI viewer (headless mode). |
-| `--grid` | `-g` | flag | `False` | Display canvas with coordinate grid overlaid. |
-| `--config` | `-c` | `<path>` | `None` | Path to Python configuration script (e.g. `docs_config.py`). |
-
----
-
-### Interactive Desktop Usage:
+#### 1. Interactive Desktop GUI Mode (Default without `-o`):
 ```bash
 # Preview standalone Python script in desktop window:
 drawlib show my_drawing.py
@@ -473,21 +432,39 @@ drawlib show my_drawing.py
 # Preview standalone script with coordinate grid overlay:
 drawlib show my_drawing.py --grid
 
-# List all blocks in a Markdown file:
-drawlib show docs_src/architecture.md
-
-# Preview block #2 in desktop window:
+# Preview block #2 of Markdown file in desktop window:
 drawlib show docs_src/architecture.md 2
 
 # Preview block with coordinate grid overlay:
 drawlib show docs_src/architecture.md 2 -g
 ```
 
-> **Headless Redirection**: When `-o` / `--output` is provided, `drawlib show` automatically suppresses the GUI window and writes the image directly to disk. This makes `drawlib show file.md 1 -o out.png` functionally equivalent to `drawlib export`.
+#### 2. Headless Export Mode (With `-o` / `--output`):
+When `-o` / `--output` is provided, `drawlib show` automatically suppresses the desktop GUI window and writes the rendered image directly to disk. This is ideal for CI/CD, headless terminals, and AI agent feedback loops:
+
+```bash
+# Export block #1 by index to file:
+drawlib show docs_src/architecture.md 1 -o scratch/fig1.png
+
+# Export the last block in the document using negative index:
+drawlib show docs_src/architecture.md -1 -o scratch/last_fig.png
+
+# Export block by explicit image filename:
+drawlib show docs_src/architecture.md db.png -o scratch/db.png
+
+# Export with coordinate grid overlay for alignment verification:
+drawlib show docs_src/architecture.md 1 -g -o scratch/fig1_grid.png
+
+# Export with custom styles script:
+drawlib show docs_src/architecture.md 1 -s styles.py -o scratch/fig1.png
+
+# Export from a standalone Python script:
+drawlib show my_drawing.py -o scratch/my_drawing.png
+```
 
 ---
 
-## 5. Local Documentation Server (`drawlib serve`)
+## 4. Local Documentation Server (`drawlib serve`)
 
 Starts a zero-dependency local development HTTP server to preview built HTML documentation websites with automatic browser launching and pre-flight link validation.
 
@@ -540,7 +517,7 @@ drawlib serve docs_html/ --skip-check
 
 ---
 
-## 6. Cache Management (`drawlib cache`)
+## 5. Cache Management (`drawlib cache`)
 
 Drawlib manages two distinct caching layers to maximize performance and minimize redundant network transfers and image rendering:
 1. **Release Asset Cache**: Locally cached font families and icon sets downloaded from official GitHub Releases.
@@ -556,7 +533,7 @@ drawlib cache
 
 ---
 
-### 6.1 `drawlib cache list`
+### 5.1 `drawlib cache list`
 Inspects all available font and icon packages and prints an overview of cached status, file count, and disk space utilization:
 
 ```bash
@@ -580,7 +557,7 @@ Cached packages: 3/5 (Total local size: 5.64 MB)
 
 ---
 
-### 6.2 `drawlib cache clear`
+### 5.2 `drawlib cache clear`
 Deletes all locally downloaded font and icon files from disk to reclaim storage:
 
 ```bash
@@ -591,7 +568,7 @@ drawlib cache purge
 
 ---
 
-### 6.3 `drawlib cache download`
+### 5.3 `drawlib cache download`
 Pre-fetches font and icon asset archives from GitHub Releases. Ideal for provisioning CI/CD build runners or offline development environments:
 
 ```bash
@@ -602,7 +579,7 @@ drawlib cache download --icons     # Download icon packages only
 
 ---
 
-### 6.4 SQLite Diagram Build Cache & Cache Bypassing
+### 5.4 SQLite Diagram Build Cache & Cache Bypassing
 When compiling Markdown documents or batch images, Drawlib computes a SHA-256 hash derived from:
 - The exact Python drawing code content.
 - The global configuration script hash (if `-c` / `--config` is supplied).
@@ -625,7 +602,7 @@ rm -rf .drawlib/
 
 ---
 
-## 7. CSS Stylesheet Presets & Theming (`drawlib css`)
+## 6. CSS Stylesheet Presets & Theming (`drawlib css`)
 
 Drawlib includes professionally designed CSS presets for HTML documentation and headless PDF printing.
 
@@ -642,7 +619,7 @@ drawlib css
 
 ---
 
-### 8.1 Available CSS Themes:
+### 6.1 Available CSS Themes:
 
 | Theme Preset | HTML Support | PDF Support | Description |
 | :--- | :---: | :---: | :--- |
@@ -658,7 +635,7 @@ drawlib css
 
 ---
 
-### 8.2 Listing and Exporting Presets:
+### 6.2 Listing and Exporting Presets:
 ```bash
 # List all HTML CSS presets:
 drawlib css html list
@@ -675,7 +652,7 @@ drawlib css pdf export default -o docs_src/style.css --force
 
 ---
 
-### 8.3 Compiling with Custom CSS:
+### 6.3 Compiling with Custom CSS:
 `drawlib build html` and `drawlib build pdf` read `style.css` directly from your source directory:
 ```bash
 # Export or edit docs_src/style.css, then compile:
@@ -686,7 +663,7 @@ drawlib build pdf docs_src/ -o output.pdf
 
 ---
 
-## 8. AI Agent Guidelines & Rule Topics (`drawlib rules`)
+## 7. AI Agent Guidelines & Rule Topics (`drawlib rules`)
 
 Drawlib features a built-in knowledge subsystem (`drawlib rules`) that delivers detailed coding standards, shape rules, coordinate conventions, and syntax examples directly to your terminal.
 
@@ -707,7 +684,7 @@ drawlib rules
 
 ---
 
-### 8.1 Rule Topic Catalog:
+### 7.1 Rule Topic Catalog:
 
 | Topic Name | Aliases | Description |
 | :--- | :--- | :--- |
@@ -725,14 +702,14 @@ drawlib rules
 
 ---
 
-### 8.2 On-Demand Multimodal Illustration Pairing:
+### 7.2 On-Demand Multimodal Illustration Pairing:
 When an AI agent or developer runs `drawlib rules show <topic>`, Drawlib automatically checks if the rendered document and its companion illustration images are cached under `drawlib/_assets/rules/`.
 - **First Call**: If not cached or if source rules were modified, Drawlib compiles code blocks on demand, generates companion PNG illustrations, and injects an agent instruction banner with local image paths.
 - **Subsequent Calls**: Instant retrieval directly from local cache.
 - **Multimodal Grounding**: AI coding assistants can view the companion images using their file viewing tools (`view_file`, etc.) to visually verify geometric layouts, alignments, and aesthetics alongside the Python source code.
 - **PyPI Safety**: All cached rule assets reside inside `_assets/rules/` which is ignored by Git and automatically purged before package publishing, keeping wheel distributions minimal.
 
-### 8.3 Usage Examples:
+### 7.3 Usage Examples:
 ```bash
 drawlib rules list                        # List all topics and cache status
 drawlib rules show overview               # Display canvas overview and core rules
@@ -745,13 +722,13 @@ drawlib rules clean                       # Delete all cached illustrations and 
 
 ---
 
-## 9. CI/CD & Automation Integration
+## 8. CI/CD & Automation Integration
 
 Integrating Drawlib into continuous integration workflows guarantees documentation is consistently validated, diagrams are automatically rendered, and broken links are caught prior to deployment.
 
 ---
 
-### 9.1 GitHub Actions Workflow (`.github/workflows/docs.yml`)
+### 8.1 GitHub Actions Workflow (`.github/workflows/docs.yml`)
 
 The following complete workflow builds HTML documentation, validates links, and deploys the static site to GitHub Pages:
 
@@ -823,7 +800,7 @@ jobs:
 
 ---
 
-### 9.2 Makefile Integration
+### 8.2 Makefile Integration
 
 Add the following targets to your project's `Makefile` for streamlined local development:
 
@@ -855,7 +832,7 @@ docs-clean:
 
 ---
 
-### 9.3 Pre-commit Hook Integration (`.pre-commit-config.yaml`)
+### 8.3 Pre-commit Hook Integration (`.pre-commit-config.yaml`)
 
 Enforce documentation integrity and prevent broken links from entering the repository:
 
@@ -873,7 +850,7 @@ repos:
 
 ---
 
-## 10. Troubleshooting & Diagnostics Reference
+## 9. Troubleshooting & Diagnostics Reference
 
 ### Common Error Messages & Solutions:
 

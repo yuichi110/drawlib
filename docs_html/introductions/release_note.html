@@ -117,7 +117,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/inspect.html" >drawlib show & export</a>
+                                <a href="../cli/inspect.html" >drawlib show</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -472,16 +472,16 @@
 <li>Integrated CLI tooling for linting (<code>ruff</code>), type checking (<code>ty</code>), asset management, and documentation builds.</li>
 </ul>
 </li>
-<li><strong>Single Block Image Export &amp; CLI Preview Enhancements</strong>:
+<li><strong>Single Block Image Export &amp; CLI Preview (<code>drawlib show</code>)</strong>:
 <ul>
-<li>Added <code>drawlib export</code> CLI command for extracting and rendering a single illustration from Python scripts or Markdown files directly to an image file.</li>
-<li>Full support for <code>--config</code> (<code>-c</code>) to apply custom document themes and settings, <code>--output</code> (<code>-o</code>) for explicit destination path, and <code>--grid</code> (<code>-g</code>) for coordinate overlay.</li>
-<li>Added <code>-o</code> / <code>--output</code> support to <code>drawlib show</code> for headless environments and automated scripts, suppressing GUI display when output path is specified.</li>
+<li><code>drawlib show</code> supports extracting and rendering a single illustration from Python scripts or Markdown files directly to an image file via <code>-o</code> / <code>--output</code>, suppressing GUI display for headless environments and automated scripts.</li>
+<li>Full support for <code>--styles</code> (<code>-s</code>), <code>--utils</code> (<code>-u</code>), and <code>--grid</code> (<code>-g</code>) for coordinate overlay.</li>
 </ul>
 </li>
 </ul>
 <h2>Requirements &amp; Breaking changes</h2>
 <ul>
+<li>The top-level CLI command <code>drawlib export</code> is removed and consolidated into <code>drawlib show -o &lt;output_path&gt;</code>.</li>
 <li>Python &gt;= 3.11 is now required.</li>
 <li>Package modules are directly accessible (e.g. <code>drawlib.canvas</code>, <code>drawlib.shapes</code>, <code>drawlib.smartarts</code>).</li>
 <li>The legacy <code>dsart</code> facade is removed in favor of direct imports from <code>drawlib.smartarts</code> (e.g., <code>from drawlib.smartarts import Table, SourceCode, bubblespeech</code>).</li>

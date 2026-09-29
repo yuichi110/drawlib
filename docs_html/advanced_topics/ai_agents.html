@@ -117,7 +117,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/inspect.html" >drawlib show & export</a>
+                                <a href="../cli/inspect.html" >drawlib show</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -549,10 +549,10 @@ uv run drawlib rules show preset_styles
 <h2>4. The Iterative Debug Loop with Coordinate Overlays (<code>--grid</code>)</h2>
 <p>If an agent's initial layout has slight misalignment or text clipping, do not guess coordinates. Use Drawlib's fast visual inspection tools with coordinate grids:</p>
 <pre><code class="language-bash"># Headless rapid export with coordinate grid overlay:
-uv run drawlib export my_drawing.py -g -o scratch/preview.png
+uv run drawlib show my_drawing.py -g -o scratch/preview.png
 
 # Or inspect block 1 of a Markdown document with grid:
-uv run drawlib export docs_src/diagrams/arch.md 1 -g -o scratch/arch_grid.png
+uv run drawlib show docs_src/diagrams/arch.md 1 -g -o scratch/arch_grid.png
 </code></pre>
 <h3>Human-in-the-Loop Feedback</h3>
 <p>Inspect the grid image. You can give concrete coordinate feedback to your agent:</p>
@@ -611,7 +611,7 @@ line((71, 51), (79, 51), arrowhead=&quot;-&gt;&quot;, style=Styles.Bold)
 # Step 3: Render Image (Top-Right of loop)
 rectangle((92, 51), width=26, height=15, style=s_ai_step, r=1.5)
 text((92, 54.5), &quot;3. Render Image&quot;, style=ts_title)
-text((92, 48), &quot;drawlib export -g\nor python -c '...'&quot;, style=ts_desc)
+text((92, 48), &quot;drawlib show -g -o\nor python -c '...'&quot;, style=ts_desc)
 
 # Arrow 3 -&gt; 4 (Vertical Down)
 line((92, 43.5), (92, 35.5), arrowhead=&quot;-&gt;&quot;, style=Styles.Bold)

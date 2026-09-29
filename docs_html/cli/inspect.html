@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>`drawlib show` & `drawlib export`</title>
+    <title>`drawlib show`</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -117,7 +117,7 @@
                             </li>
                             
                             <li class="nav-item active">
-                                <a href="inspect.html" >drawlib show & export</a>
+                                <a href="inspect.html" >drawlib show</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -396,26 +396,24 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">`drawlib show` & `drawlib export`</span>
+                    <span class="crumb active">`drawlib show`</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1><code>drawlib show</code> &amp; <code>drawlib export</code></h1>
-<p>During documentation authoring, rebuilding an entire site to test an individual diagram is slow. The <code>show</code> and <code>export</code> commands let you extract, execute, and inspect a single drawing block or standalone Python script instantaneously.</p>
+                <h1><code>drawlib show</code></h1>
+<p>During documentation authoring, rebuilding an entire site to test an individual diagram is slow. The <code>show</code> command lets you extract, execute, inspect, and export a single drawing block or standalone Python script instantaneously.</p>
 <blockquote>
-<p><strong>Tip</strong>: If you are using <code>uv</code>, run commands with <code>uv run</code> (e.g., <code>uv run drawlib export doc.md 1 -o diagram.png</code>).</p>
+<p><strong>Tip</strong>: If you are using <code>uv</code>, run commands with <code>uv run</code> (e.g., <code>uv run drawlib show doc.md 1 -o diagram.png</code>).</p>
 </blockquote>
 <hr />
 <h2>1. Fast Development Iteration</h2>
 <ul>
-<li><strong><code>drawlib show</code></strong>: Renders the illustration and displays it in a local GUI preview window (supports <code>--output</code> for headless environments).</li>
-<li><strong><code>drawlib export</code></strong>: Renders the illustration and writes it directly to an image file without GUI displays (ideal for CI, terminal sessions, and automated testing).</li>
+<li><strong>Desktop GUI Mode (default)</strong>: Renders the illustration and displays it in a local GUI preview window.</li>
+<li><strong>Headless Export Mode (<code>-o &lt;path&gt;</code>)</strong>: Renders the illustration and writes it directly to an image file without opening GUI windows (ideal for CI/CD, terminal sessions, and automated testing).</li>
 </ul>
 <hr />
 <h2>2. Syntax &amp; Arguments</h2>
-<p>Both commands share identical argument formats:</p>
 <pre><code class="language-bash">drawlib show {file} [target] [OPTIONS]
-drawlib export {file} [target] [OPTIONS]
 </code></pre>
 <h3>Arguments:</h3>
 <ul>
@@ -424,7 +422,7 @@ drawlib export {file} [target] [OPTIONS]
 <ul>
 <li><strong>1-based Block Index</strong>: An integer (e.g. <code>1</code>, <code>2</code>, <code>3</code>) selecting the $N$-th code block in the document.</li>
 <li><strong>Target Image Filename</strong>: The target filename specified in the block header (e.g. <code>file:arch.png</code> ➔ target <code>arch.png</code>).</li>
-<li><em>If omitted</em>, the CLI lists all available blocks in the document.</li>
+<li><em>If omitted</em>, the CLI lists all available blocks in the document without executing them.</li>
 </ul>
 </li>
 </ul>
@@ -442,7 +440,7 @@ drawlib export {file} [target] [OPTIONS]
 <tr>
 <td style="text-align:left"><code>--output</code></td>
 <td style="text-align:left"><code>-o &lt;path&gt;</code></td>
-<td style="text-align:left">Destination path for the rendered image file. In <code>drawlib show</code>, specifying <code>-o</code> suppresses the GUI window and operates in headless mode.</td>
+<td style="text-align:left">Destination path for the rendered image file. Specifying <code>-o</code> suppresses the GUI window and operates in headless export mode.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--grid</code></td>
@@ -450,33 +448,50 @@ drawlib export {file} [target] [OPTIONS]
 <td style="text-align:left">Overlays Cartesian coordinate grid lines and center axis markers on top of the illustration for precise coordinate tuning.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>--config</code></td>
-<td style="text-align:left"><code>-c &lt;path&gt;</code></td>
-<td style="text-align:left">Path to a Python setup/configuration script (e.g. <code>config.py</code>) to execute before rendering.</td>
+<td style="text-align:left"><code>--styles</code></td>
+<td style="text-align:left"><code>-s &lt;path&gt;</code></td>
+<td style="text-align:left">Path to a Python styles script (e.g. <code>styles.py</code>) to execute with custom styles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--utils</code></td>
+<td style="text-align:left"><code>-u &lt;path&gt;</code></td>
+<td style="text-align:left">Path to a Python utility script (e.g. <code>utils.py</code>) to execute with custom helpers.</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2>4. Usage Examples</h2>
 <h3>Listing All Blocks in a Document</h3>
-<pre><code class="language-bash">drawlib export docs_src/diagrams/sequence.md
+<pre><code class="language-bash">drawlib show docs_src/diagrams/sequence.md
 </code></pre>
 <p>Output:</p>
-<pre><code class="language-text">Available drawlib blocks in docs_src/diagrams/sequence.md:
-  [1] line 29: format=png, width=650px, align=center, caption='Basic Request-Reply Flow'
-  [2] line 68: format=png, width=650px, align=center, caption='Message Types and Synchronicity'
+<pre><code class="language-text">Available drawlib code blocks in 'docs_src/diagrams/sequence.md':
+Index   Line    File Target                               Header Options
+-----------------------------------------------------------------
+1       L29     sequence_images/1.png                     Basic Request-Reply Flow
+2       L68     sequence_images/sync_async.png            Message Types and Synchronicity
+</code></pre>
+<h3>Previewing in Desktop Window</h3>
+<pre><code class="language-bash">drawlib show docs_src/diagrams/sequence.md 1
 </code></pre>
 <h3>Previewing with Coordinate Grid Overlay</h3>
 <pre><code class="language-bash">drawlib show docs_src/diagrams/sequence.md 1 --grid
 </code></pre>
 <h3>Exporting Single Block to File in Headless Mode</h3>
-<pre><code class="language-bash">drawlib export docs_src/diagrams/sequence.md 1 -o scratch/test_diagram.png
+<pre><code class="language-bash">drawlib show docs_src/diagrams/sequence.md 1 -o scratch/test_diagram.png
 </code></pre>
 <h3>Exporting by Filename Target</h3>
-<pre><code class="language-bash">drawlib export docs_src/architecture.md arch.png -o scratch/arch.png
+<pre><code class="language-bash">drawlib show docs_src/architecture.md arch.png -o scratch/arch.png
 </code></pre>
-<h3>Applying a Custom Theme Configuration</h3>
-<pre><code class="language-bash">drawlib export docs_src/index.md 1 -c config.py -o scratch/preview.png
+<h3>Exporting with Coordinate Grid</h3>
+<pre><code class="language-bash">drawlib show docs_src/architecture.md 1 -g -o scratch/preview_grid.png
+</code></pre>
+<h3>Previewing or Exporting a Standalone Python Script</h3>
+<pre><code class="language-bash"># Preview in window:
+drawlib show my_drawing.py
+
+# Export directly to image file:
+drawlib show my_drawing.py -o scratch/my_drawing.png
 </code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

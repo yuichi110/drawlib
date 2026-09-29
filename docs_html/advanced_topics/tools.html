@@ -117,7 +117,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/inspect.html" >drawlib show & export</a>
+                                <a href="../cli/inspect.html" >drawlib show</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -402,7 +402,7 @@
             <main class="main-content">
                 <h1>Programmatic Tools API (<code>drawlib.tools</code>)</h1>
 <p>The <code>drawlib.tools</code> module is the official Python developer API that powers the Drawlib CLI.<br />
-While terminal commands like <code>drawlib build</code>, <code>drawlib export</code>, and <code>drawlib serve</code> are ideal for command-line workflows, you should use <code>drawlib.tools</code> <strong>whenever you need to execute CLI-equivalent operations directly within Python code</strong>.</p>
+While terminal commands like <code>drawlib build</code>, <code>drawlib show</code>, and <code>drawlib serve</code> are ideal for command-line workflows, you should use <code>drawlib.tools</code> <strong>whenever you need to execute CLI-equivalent operations directly within Python code</strong>.</p>
 <p>This programmatic interface is specifically designed for:</p>
 <ul>
 <li><strong>CI/CD Build Pipelines</strong>: Automating multi-format documentation builds (HTML, Markdown, PDF) inside deployment scripts.</li>
@@ -448,7 +448,7 @@ While terminal commands like <code>drawlib build</code>, <code>drawlib export</c
 <td style="text-align:left">Batch execute standalone Python drawing scripts into images.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>drawlib export</code></td>
+<td style="text-align:left"><code>drawlib show -o</code></td>
 <td style="text-align:left"><code>export_block(...)</code></td>
 <td style="text-align:left"><code>drawlib.builder</code></td>
 <td style="text-align:left">Extract and render a single diagram block or script to image.</td>

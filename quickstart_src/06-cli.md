@@ -10,8 +10,8 @@ Drawlib includes a built-in **Document Builder** and **CLI** (`drawlib`) that co
 | `drawlib build markdown <src> -o <out>` | Compile Markdown with `drawlib` blocks into standard GitHub-ready Markdown + images. |
 | `drawlib build html <src> -o <out>` | Compile Markdown/HTML into a responsive static HTML website (`--css google`). |
 | `drawlib build pdf <src> -o <out.pdf>` | Merge Markdown/HTML files in filename order into a single PDF (`--generate-index`). |
-| `drawlib show <file> [block]` | Preview an illustration or Markdown block interactively or headlessly. |
-| `drawlib export <file> [block] -o <img.png>` | Export a specific `drawlib` block from Markdown to an image file. |
+| `drawlib show <file> [block]` | Preview an illustration or Markdown block in desktop GUI viewer. |
+| `drawlib show <file> [block] -o <img.png>` | Export a specific `drawlib` block or script to an image file. |
 | `drawlib serve <html_dir>` | Start a local HTTP server with link and asset verification. |
 
 ## Example Build Commands

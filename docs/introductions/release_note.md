@@ -42,13 +42,13 @@
   - Assets such as icon sets and fonts are downloaded dynamically from GitHub Releases (`v0.3`), significantly reducing the PyPI package footprint.
 - **Unified Developer CLI (`dcli`)**:
   - Integrated CLI tooling for linting (`ruff`), type checking (`ty`), asset management, and documentation builds.
-- **Single Block Image Export & CLI Preview Enhancements**:
-  - Added `drawlib export` CLI command for extracting and rendering a single illustration from Python scripts or Markdown files directly to an image file.
-  - Full support for `--config` (`-c`) to apply custom document themes and settings, `--output` (`-o`) for explicit destination path, and `--grid` (`-g`) for coordinate overlay.
-  - Added `-o` / `--output` support to `drawlib show` for headless environments and automated scripts, suppressing GUI display when output path is specified.
+- **Single Block Image Export & CLI Preview (`drawlib show`)**:
+  - `drawlib show` supports extracting and rendering a single illustration from Python scripts or Markdown files directly to an image file via `-o` / `--output`, suppressing GUI display for headless environments and automated scripts.
+  - Full support for `--styles` (`-s`), `--utils` (`-u`), and `--grid` (`-g`) for coordinate overlay.
 
 ## Requirements & Breaking changes
 
+- The top-level CLI command `drawlib export` is removed and consolidated into `drawlib show -o <output_path>`.
 - Python >= 3.11 is now required.
 - Package modules are directly accessible (e.g. `drawlib.canvas`, `drawlib.shapes`, `drawlib.smartarts`).
 - The legacy `dsart` facade is removed in favor of direct imports from `drawlib.smartarts` (e.g., `from drawlib.smartarts import Table, SourceCode, bubblespeech`).

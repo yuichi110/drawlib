@@ -911,5 +911,5 @@ erd.draw(xy=(0.0, 0.0))
 
 ### 9.5 Rapid Iteration with Coordinate Grids
 During development, aligning nodes and fine-tuning orthogonal routing is accelerated by enabling canvas coordinate overlays:
-- **CLI Export**: `drawlib export my_diagram.md 1 -g -o preview.png`
+- **CLI Export**: `drawlib show my_diagram.md 1 -g -o preview.png`
 - **Canvas Overlay**: Call `canvas.show_grid()` during initial drafting to visually inspect `(x, y)` coordinates, then remove it for publication.

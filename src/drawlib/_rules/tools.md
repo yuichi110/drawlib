@@ -1,7 +1,7 @@
 # Drawlib Tools Guidelines
 
 `drawlib.tools` is the programmatic Python developer API powering the Drawlib CLI.  
-While `drawlib` CLI commands (`drawlib build`, `drawlib export`, etc.) are designed for terminal execution, `drawlib.tools` provides direct Python function interfaces to embed document compilation, diagram export, template validation, and cache management into custom automation scripts, CI/CD pipelines, and testing suites.
+While `drawlib` CLI commands (`drawlib build`, `drawlib show`, etc.) are designed for terminal execution, `drawlib.tools` provides direct Python function interfaces to embed document compilation, diagram export, template validation, and cache management into custom automation scripts, CI/CD pipelines, and testing suites.
 
 ---
 

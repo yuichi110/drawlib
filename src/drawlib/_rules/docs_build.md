@@ -198,11 +198,11 @@ When modifying or authoring documentation:
 1. **Never rebuild the full site for single diagram adjustments**:
    - Export and verify individual diagrams rapidly without browser/GUI popups:
      ```bash
-     drawlib export docs_src/architecture/index.md 1 -o scratch/test.png
+     drawlib show docs_src/architecture/index.md 1 -o scratch/test.png
      ```
    - Check with coordinate grid overlay if alignment needs tuning:
      ```bash
-     drawlib export docs_src/architecture/index.md 1 -g -o scratch/test_grid.png
+     drawlib show docs_src/architecture/index.md 1 -g -o scratch/test_grid.png
      ```
 2. **Once illustration code is verified**:
    - Run the full site build:

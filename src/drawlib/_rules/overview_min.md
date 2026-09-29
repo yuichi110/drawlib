@@ -27,9 +27,9 @@ When tasked with generating or updating Drawlib diagrams, execute this self-corr
 2. **Prototype in Scratch**: Write code in `scratch/test_diagram.py` instead of directly modifying production files.
 3. **Render Immediately with Coordinate Grid (`-g`)**:
    ```bash
-   uv run drawlib export scratch/test_diagram.py -g -o scratch/test_diagram.png
+   uv run drawlib show scratch/test_diagram.py -g -o scratch/test_diagram.png
    # Or for Markdown embedded block 1:
-   uv run drawlib export docs_src/doc.md 1 -g -o scratch/test_diagram.png
+   uv run drawlib show docs_src/doc.md 1 -g -o scratch/test_diagram.png
    ```
 4. **Multimodal Self-Review (`view_file`)**: Inspect `scratch/test_diagram.png`. Check for overlaps, text clipping, bad routing, or uneven whitespace.
 5. **Auto-Adjust & Iterate**: Fix coordinates and re-export until the layout is balanced.

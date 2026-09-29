@@ -132,7 +132,7 @@ save(
 
 ### 3.3. `show()`
 Opens an interactive desktop GUI window showing the rendered illustration.  
-- In headless environments (CI/CD, Docker, remote AI sessions), use `save()` or CLI `drawlib export` instead.
+- In headless environments (CI/CD, Docker, remote AI sessions), use `save()` or CLI `drawlib show -o` instead.
 
 ### 3.4. `clear()` and `initialize()`
 Resets canvas geometry, removes all registered artists, and restores default configuration settings.

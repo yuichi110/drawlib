@@ -22,7 +22,7 @@
 - [drawlib build](./cli/build.md)
 - [drawlib serve](./cli/serve.md)
 - [drawlib init](./cli/init.md)
-- [drawlib show & export](./cli/inspect.md)
+- [drawlib show](./cli/inspect.md)
 - [drawlib cache & css](./cli/assets.md)
 - [drawlib rules](./cli/rules.md)
 

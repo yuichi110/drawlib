@@ -141,7 +141,7 @@ uv run drawlib build html docs_src/ -o docs_html/ -s custom_styles.py -u custom_
 uv run drawlib build markdown docs_src/ -o docs/ --styles my_theme.py
 
 # 3. Export a single script using custom styles and grid overlay
-uv run drawlib export diagram.py -s styles.py -g -o diagram.png
+uv run drawlib show diagram.py -s styles.py -g -o diagram.png
 ```
 
 ---

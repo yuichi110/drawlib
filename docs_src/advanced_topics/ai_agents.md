@@ -173,10 +173,10 @@ If an agent's initial layout has slight misalignment or text clipping, do not gu
 
 ```bash
 # Headless rapid export with coordinate grid overlay:
-uv run drawlib export my_drawing.py -g -o scratch/preview.png
+uv run drawlib show my_drawing.py -g -o scratch/preview.png
 
 # Or inspect block 1 of a Markdown document with grid:
-uv run drawlib export docs_src/diagrams/arch.md 1 -g -o scratch/arch_grid.png
+uv run drawlib show docs_src/diagrams/arch.md 1 -g -o scratch/arch_grid.png
 ```
 
 ### Human-in-the-Loop Feedback
@@ -235,7 +235,7 @@ line((71, 51), (79, 51), arrowhead="->", style=Styles.Bold)
 # Step 3: Render Image (Top-Right of loop)
 rectangle((92, 51), width=26, height=15, style=s_ai_step, r=1.5)
 text((92, 54.5), "3. Render Image", style=ts_title)
-text((92, 48), "drawlib export -g\nor python -c '...'", style=ts_desc)
+text((92, 48), "drawlib show -g -o\nor python -c '...'", style=ts_desc)
 
 # Arrow 3 -> 4 (Vertical Down)
 line((92, 43.5), (92, 35.5), arrowhead="->", style=Styles.Bold)
