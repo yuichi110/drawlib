@@ -114,8 +114,8 @@ class DefaultColors(BaseColors):
     Muted: Color = Gray2
     Light: Color = White
     Dark: Color = Gray7
-    Danger: Color = Red
-    Success: Color = Green
+    Danger: Color = Red2
+    Success: Color = Green2
     Canvas: Color = White
 
 
@@ -128,13 +128,13 @@ class DefaultLightColors(DefaultColors):
     Muted: Color = DefaultColors.Gray1
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray7
-    Danger: Color = DefaultColors.Red
-    Success: Color = DefaultColors.Green
+    Danger: Color = DefaultColors.Red1
+    Success: Color = DefaultColors.Green1
     Canvas: Color = DefaultColors.White
 
 
 class DefaultDarkColors(DefaultColors):
-    """Class representing colors for default dark mode preset styles (Tone 3 centered)."""
+    """Class representing colors for default deep tone preset styles (Tone 3 centered)."""
 
     Primary: Color = DefaultColors.Blue3
     Secondary: Color = DefaultColors.Teal3
@@ -142,9 +142,9 @@ class DefaultDarkColors(DefaultColors):
     Muted: Color = DefaultColors.Gray6
     Light: Color = DefaultColors.Gray3
     Dark: Color = DefaultColors.Gray8
-    Danger: Color = DefaultColors.Red
-    Success: Color = DefaultColors.Green
-    Canvas: Color = DefaultColors.Gray8
+    Danger: Color = DefaultColors.Red3
+    Success: Color = DefaultColors.Green3
+    Canvas: Color = DefaultColors.White
 
 
 __all__ = [

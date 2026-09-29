@@ -1167,7 +1167,7 @@ def _create_default_styles(  # noqa: C901
         bg_col = (255, 255, 255, 1.0)
     elif theme == "dark":
         col = DefaultDarkColors
-        bg_col = (24, 28, 36, 1.0)
+        bg_col = (255, 255, 255, 1.0)
     else:
         col = DefaultColors
         bg_col = (255, 255, 255, 1.0)
