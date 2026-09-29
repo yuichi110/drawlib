@@ -9,7 +9,7 @@ from drawlib.canvas import setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=120, height=50)
@@ -20,25 +20,25 @@ rectangle(
     width=30,
     height=32,
     r=3,
-    style=styles.primary_outline,
+    style=Styles.PrimaryOutline,
 )
-phosphor.code(xy=(22, 31), width=10, style=styles.primary)
-text(xy=(22, 16), text="Python Code", style=styles.primary_bold, size=12)
+phosphor.code(xy=(22, 31), width=10, style=Styles.Primary)
+text(xy=(22, 16), text="Python Code", style=Styles.PrimaryBold, size=12)
 
 # Arrow 1
-line((39, 25), (49, 25), arrowhead="->", style=styles.primary_bold)
+line((39, 25), (49, 25), arrowhead="->", style=Styles.PrimaryBold)
 
 # Center card: Drawlib Engine
 circle(
     xy=(62, 25),
     radius=14,
-    style=styles.secondary_outline,
+    style=Styles.SecondaryOutline,
 )
-text(xy=(62, 27), text="drawlib", style=styles.secondary_bold, size=14)
-text(xy=(62, 21), text="Engine", style=styles.secondary, size=10)
+text(xy=(62, 27), text="drawlib", style=Styles.SecondaryBold, size=14)
+text(xy=(62, 21), text="Engine", style=Styles.Secondary, size=10)
 
 # Arrow 2
-line((78, 25), (88, 25), arrowhead="->", style=styles.secondary_bold)
+line((78, 25), (88, 25), arrowhead="->", style=Styles.SecondaryBold)
 
 # Right card: Output Formats
 rectangle(
@@ -46,10 +46,10 @@ rectangle(
     width=26,
     height=32,
     r=3,
-    style=styles.accent_outline,
+    style=Styles.AccentOutline,
 )
-gcp.cloud_run(xy=(102, 31), width=10, style=styles.accent)
-text(xy=(102, 16), text="PNG / HTML / PDF", style=styles.accent_bold, size=10)
+gcp.cloud_run(xy=(102, 31), width=10, style=Styles.Accent)
+text(xy=(102, 16), text="PNG / HTML / PDF", style=Styles.AccentBold, size=10)
 ```
 
 ---

@@ -9,6 +9,8 @@
 
 """Drawlib configuration file for Quickstart PDF."""
 
-from __future__ import annotations
+from drawlib.preset_colors import GoogleColors
+from drawlib.preset_styles import GoogleStyles
 
-# Configure global drawing settings, custom preset styles, or fonts here.
+Colors = GoogleColors
+Styles = GoogleStyles

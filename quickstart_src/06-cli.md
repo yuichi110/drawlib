@@ -29,7 +29,7 @@ uv run drawlib build pdf quickstart_src/ -o quickstart.pdf --generate-index
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=110, height=46)
@@ -40,10 +40,10 @@ rectangle(
     width=28,
     height=24,
     r=2,
-    style=styles.primary_outline,
+    style=Styles.PrimaryOutline,
 )
-text(xy=(20, 26), text="Markdown + drawlib", style=styles.primary_bold, size=10)
-text(xy=(20, 19), text="(docs_src/)", style=styles.primary, size=9)
+text(xy=(20, 26), text="Markdown + drawlib", style=Styles.PrimaryBold, size=10)
+text(xy=(20, 19), text="(docs_src/)", style=Styles.Primary, size=9)
 
 # Compiler
 rectangle(
@@ -51,20 +51,20 @@ rectangle(
     width=24,
     height=20,
     r=2,
-    style=styles.secondary_outline,
+    style=Styles.SecondaryOutline,
 )
-text(xy=(56, 23), text="drawlib build", style=styles.secondary_bold, size=10)
+text(xy=(56, 23), text="drawlib build", style=Styles.SecondaryBold, size=10)
 
-line((34, 23), (44, 23), arrowhead="->", style=styles.primary_bold)
+line((34, 23), (44, 23), arrowhead="->", style=Styles.PrimaryBold)
 
 # Outputs
 outputs = [
-    (36, "docs/ (Markdown)", styles.accent),
-    (23, "docs_html/ (Web)", styles.success),
-    (10, "quickstart.pdf (PDF)", styles.primary),
+    (36, "docs/ (Markdown)", Styles.Accent),
+    (23, "docs_html/ (Web)", Styles.Success),
+    (10, "quickstart.pdf (PDF)", Styles.Primary),
 ]
 for y_pos, label, st in outputs:
-    line((68, 23), (78, y_pos), arrowhead="->", style=styles.secondary_bold)
+    line((68, 23), (78, y_pos), arrowhead="->", style=Styles.SecondaryBold)
     rectangle(
         xy=(93, y_pos),
         width=28,
@@ -72,6 +72,6 @@ for y_pos, label, st in outputs:
         r=1.5,
         style=st,
         text=label,
-        textstyle=styles.white_bold,
+        textstyle=Styles.WhiteBold,
     )
 ```

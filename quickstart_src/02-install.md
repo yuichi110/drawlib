@@ -36,16 +36,16 @@ Drawlib follows `<major>.<minor>.<patch>` semantic versioning:
 ```drawlib 580px center caption:"Figure 2.1: Drawlib Release & Versioning Workflow"
 from drawlib.canvas import setup
 from drawlib.shapes import chevron
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=110, height=36)
 
 steps = [
-    ("1. Install", "pip / uv", styles.primary),
-    ("2. Author", "Python / MD", styles.secondary),
-    ("3. Preview", "drawlib show", styles.accent),
-    ("4. Publish", "HTML / PDF", styles.success),
+    ("1. Install", "pip / uv", Styles.Primary),
+    ("2. Author", "Python / MD", Styles.Secondary),
+    ("3. Preview", "drawlib show", Styles.Accent),
+    ("4. Publish", "HTML / PDF", Styles.Success),
 ]
 
 for idx, (title_str, sub_str, step_style) in enumerate(steps):
@@ -57,6 +57,6 @@ for idx, (title_str, sub_str, step_style) in enumerate(steps):
         corner_angle=50,
         style=step_style,
     )
-    text(xy=(cx, 20), text=title_str, style=styles.white_bold, size=11)
-    text(xy=(cx, 14), text=sub_str, style=styles.white, size=9)
+    text(xy=(cx, 20), text=title_str, style=Styles.WhiteBold, size=11)
+    text(xy=(cx, 14), text=sub_str, style=Styles.White, size=9)
 ```

@@ -9,21 +9,21 @@ Drawlib bundles rich icon modules under `drawlib.icons` so you can build express
 ```drawlib 580px center caption:"Figure 5.1: Vector Icons from drawlib.icons.phosphor"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=100, height=42)
 
 items = [
-    (16, phosphor.desktop, "desktop", styles.accent),
-    (38, phosphor.database, "database", styles.secondary),
-    (60, phosphor.cloud, "cloud", styles.primary),
-    (84, phosphor.shield_check, "shield_check", styles.success),
+    (16, phosphor.desktop, "desktop", Styles.Accent),
+    (38, phosphor.database, "database", Styles.Secondary),
+    (60, phosphor.cloud, "cloud", Styles.Primary),
+    (84, phosphor.shield_check, "shield_check", Styles.Success),
 ]
 
 for x, fn, label, st in items:
     fn(xy=(x, 26), width=11, style=st)
-    text(xy=(x, 10), text=f"phosphor.{label}", style=styles.primary, size=9)
+    text(xy=(x, 10), text=f"phosphor.{label}", style=Styles.Primary, size=9)
 ```
 
 ## 2. Google Cloud Platform Icons (`drawlib.icons.gcp`)
@@ -34,7 +34,7 @@ for x, fn, label, st in items:
 from drawlib.canvas import setup
 from drawlib.icons import gcp
 from drawlib.lines import line
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=100, height=42)
@@ -47,9 +47,9 @@ services = [
 ]
 
 for idx, (x, fn, label) in enumerate(services):
-    fn(xy=(x, 26), width=11, style=styles.primary)
-    text(xy=(x, 10), text=label, style=styles.primary, size=9)
+    fn(xy=(x, 26), width=11, style=Styles.Primary)
+    text(xy=(x, 10), text=label, style=Styles.Primary, size=9)
     if idx < len(services) - 1:
         next_x = services[idx + 1][0]
-        line((x + 8, 26), (next_x - 8, 26), arrowhead="->", style=styles.primary_bold)
+        line((x + 8, 26), (next_x - 8, 26), arrowhead="->", style=Styles.PrimaryBold)
 ```

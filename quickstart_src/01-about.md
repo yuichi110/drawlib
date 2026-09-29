@@ -15,15 +15,15 @@ Here is a simple example combining a styled circle and text label on a Drawlib c
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 setup(width=100, height=50)
 circle(
     xy=(50, 25),
     radius=18,
-    style=styles.primary,
+    style=Styles.Primary,
     text="Hello drawlib!",
-    textstyle=styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 save()
 ```
@@ -33,15 +33,15 @@ When compiled by Drawlib, this code renders the following illustration:
 ```drawlib 520px center caption:"Figure 1.1: Styled Circle Generated from Python Code"
 from drawlib.canvas import setup
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=100, height=50)
 circle(
     xy=(50, 25),
     radius=18,
-    style=styles.primary,
+    style=Styles.Primary,
     text="Hello drawlib!",
-    textstyle=styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 ```

@@ -6,7 +6,7 @@ This directory contains multi-chapter documents compiled into the unified `quick
 
 - `quickstart_src/`: Source Markdown chapters (**Source of Truth**).
   - `build.sh`: Build script to compile chapters into a single PDF document.
-  - `config.py`: Global configuration script (themes, styles, canvas defaults).
+  - `styles.py`: Global configuration script (themes, styles, canvas defaults).
   - `style.css`: PDF report stylesheet.
   - `template.html`: Jinja2 HTML layout used for PDF compilation.
   - `README.md`: This guide.
