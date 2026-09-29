@@ -10,14 +10,13 @@
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
-from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-textstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
-shapetextstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
-setup(width=100, height=60)
+textstyle_bold = Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+shapetextstyle_bold = Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+setup(width=100, height=60, background_color=Colors.canvas)
 
 
 def bottom():
@@ -26,11 +25,7 @@ def bottom():
         width=90,
         height=10,
         r=2,
-        style=styles.flat.patch(
-            shape_fill_color=Colors.Transparent,
-            shape_line_color=Colors.Black,
-            shape_line_width=1,
-        ),
+        style=Styles.MutedOutline,
         text="Canvas and coordinate system, theme etc.",
         textstyle=shapetextstyle_bold,
     )
@@ -42,10 +37,7 @@ def middle(x, width, name, functions, style_items):
         width=width,
         height=30,
         r=2,
-        style=styles.flat.patch(
-            shape_fill_color=Colors.Transparent,
-            shape_line_color=Colors.Black,
-            shape_line_width=1,
+        style=Styles.MutedOutline.patch(
             text_halign="left",
         ),
     )
@@ -56,16 +48,16 @@ def middle(x, width, name, functions, style_items):
         text(
             (x + 1, 36 - i * 3),
             f"- {function}",
-            style=styles.primary.patch(text_halign="left", text_size=12),
+            style=Styles.Primary.patch(text_halign="left", text_size=12),
         )
 
-    line((x + 1, 26), (x + width - 1, 26), style=styles.dashed)
+    line((x + 1, 26), (x + width - 1, 26), style=Styles.Dashed)
 
     for i, style in enumerate(style_items):
         text(
             (x + 1, 22 - i * 3),
             f"- {style}",
-            style=styles.primary.patch(text_halign="left", text_size=12),
+            style=Styles.Primary.patch(text_halign="left", text_size=12),
         )
 
 
@@ -75,11 +67,7 @@ def top():
         width=90,
         height=10,
         r=2,
-        style=styles.flat.patch(
-            shape_fill_color=Colors.Transparent,
-            shape_line_color=Colors.Black,
-            shape_line_width=1,
-        ),
+        style=Styles.MutedOutline,
         text="Advanced topics, handle many files etc.",
         textstyle=shapetextstyle_bold,
     )

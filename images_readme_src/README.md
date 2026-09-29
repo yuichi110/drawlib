@@ -6,7 +6,7 @@ This directory contains standalone Python scripts that generate diagram images f
 
 - `images_readme_src/`: Source Python illustration scripts (**Source of Truth**).
   - `build.sh`: Build script to execute drawing scripts and generate images.
-  - `config.py`: Global configuration script (themes, styles, canvas defaults).
+  - `styles.py`: Global configuration script (themes, styles, canvas defaults).
   - `README.md`: This guide.
   - `about/`: Scripts for the "About Drawlib" section.
   - `qs/`: Scripts for the "Quick Start" section.

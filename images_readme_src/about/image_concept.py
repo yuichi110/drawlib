@@ -8,12 +8,11 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import arrow, circle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=100, height=60)
+setup(width=100, height=60, background_color=Colors.canvas)
 
 
 def left():
@@ -22,14 +21,10 @@ def left():
         (x, 30),
         radius=8,
         text="Circle",
-        style=styles.flat.patch(
-            shape_fill_color=Colors.Transparent,
-            shape_line_color=Colors.Black,
-            shape_line_width=1,
-        ),
-        textstyle=styles.primary.patch(text_size=18),
+        style=Styles.MutedOutline,
+        textstyle=Styles.Primary.patch(text_size=18),
     )
-    text((x, 15), text="Content", style=styles.primary.patch(text_size=24))
+    text((x, 15), text="Content", style=Styles.Primary.patch(text_size=24))
 
 
 def center():
@@ -41,10 +36,10 @@ def center():
         tail_width=6,
         head_width=14,
         head_length=10,
-        style=styles.green,
+        style=Styles.Green,
         text="Apply Styles",
         textsize=20,
-        textstyle=styles.white,
+        textstyle=Styles.White,
     )
 
 
@@ -53,23 +48,23 @@ def right():
     circle(
         (x, 49),
         radius=8,
-        style=styles.primary,
+        style=Styles.Primary,
         text="Circle",
-        textstyle=styles.white.patch(text_size=18),
+        textstyle=Styles.White.patch(text_size=18),
     )
     circle(
         (x, 30),
         radius=8,
         text="Circle",
-        style=styles.blue_flat,
-        textstyle=styles.white.patch(text_size=18),
+        style=Styles.BlueFlat,
+        textstyle=Styles.White.patch(text_size=18),
     )
     circle(
         (x, 11),
         radius=8,
         text="Circle",
-        style=styles.red_bold,
-        textstyle=styles.white.patch(text_size=18),
+        style=Styles.RedBold,
+        textstyle=Styles.White.patch(text_size=18),
     )
 
 

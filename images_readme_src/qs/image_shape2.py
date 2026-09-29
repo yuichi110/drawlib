@@ -1,16 +1,15 @@
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
-setup(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True, background_color=Colors.canvas)
 rectangle(
     (25, 25),
     width=30,
     height=20,
     angle=45,
     text="Hello!",
-    style=styles.dashed.patch(
+    style=Styles.Dashed.patch(
         shape_line_width=5,
         shape_line_color=Colors.Red,
         shape_fill_color=Colors.Transparent,
@@ -22,8 +21,8 @@ rectangle(
     height=20,
     angle=45,
     text="Hello!",
-    style=styles.primary,
-    textstyle=styles.primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+    style=Styles.Primary,
+    textstyle=Styles.Primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()

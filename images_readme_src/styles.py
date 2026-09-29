@@ -9,6 +9,8 @@
 
 """Drawlib configuration file for README images."""
 
-from __future__ import annotations
+from drawlib.preset_colors import DefaultDarkColors
+from drawlib.preset_styles import DefaultDarkStyles
 
-# Configure global drawing settings, custom preset styles, or fonts here.
+Colors = DefaultDarkColors
+Styles = DefaultDarkStyles

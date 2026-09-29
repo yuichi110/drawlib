@@ -11,24 +11,23 @@ from drawlib.canvas import save, setup
 from drawlib.fonts import FontRoboto
 from drawlib.icons import phosphor
 from drawlib.lines import line
-from drawlib.preset_colors import Colors
 from drawlib.shapes import arrow, rectangle
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(height=60)
+setup(height=60, background_color=Colors.canvas)
 
 rect_width = 20
 rect_height = 38
 
-line_thin = styles.primary.patch(line_width=0.5)
-ts_left = styles.primary.patch(text_size=12, text_halign="left")
-ts_left_red = styles.danger.patch(text_size=12, text_halign="left")
-icon_thin = styles.primary.patch(icon_style="thin")
-icon_thin_red = styles.danger.patch(icon_style="thin")
+line_thin = Styles.Primary.patch(line_width=0.5)
+ts_left = Styles.Primary.patch(text_size=12, text_halign="left")
+ts_left_red = Styles.Danger.patch(text_size=12, text_halign="left")
+icon_thin = Styles.Primary.patch(icon_style="thin")
+icon_thin_red = Styles.Danger.patch(icon_style="thin")
 
-tscenter16 = styles.primary.patch(text_halign="center", text_size=16)
-tscenter16r = styles.danger.patch(text_halign="center", text_size=16)
+tscenter16 = Styles.Primary.patch(text_halign="center", text_size=16)
+tscenter16r = Styles.Danger.patch(text_halign="center", text_size=16)
 
 
 def left():
@@ -39,7 +38,7 @@ def left():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=styles.dashed,
+        style=Styles.Dashed,
     )
 
     x = 8
@@ -84,7 +83,7 @@ def center():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=styles.dashed,
+        style=Styles.Dashed,
     )
 
     x = 43
@@ -119,7 +118,7 @@ def right():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=styles.dashed,
+        style=Styles.Dashed,
     )
 
     phosphor.file_pdf((85, 43), width=6, style=icon_thin)
@@ -135,7 +134,7 @@ def bottom():
         width=90,
         height=6,
         r=2,
-        style=styles.solid,
+        style=Styles.Solid,
     )
     phosphor.github_logo((17, 5), width=5, style=icon_thin)
     text(
@@ -152,9 +151,9 @@ arrow(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style=styles.red_flat,
+    style=Styles.RedFlat,
     text="Drawlib",
-    textstyle=styles.primary.patch(
+    textstyle=Styles.Primary.patch(
         text_size=14,
         text_color=Colors.White,
         text_font=FontRoboto.ROBOTO_BOLD,
@@ -169,7 +168,7 @@ arrow(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style=styles.solid,
+    style=Styles.Solid,
 )
 text((67, 25), "Build\nDocs", style=tscenter16)
 right()

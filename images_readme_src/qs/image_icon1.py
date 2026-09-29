@@ -1,15 +1,14 @@
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
-from drawlib.preset_colors import Colors
-from drawlib.styles import styles
+from drawlib.styles import Colors, Styles
 
-setup(width=100, height=60, grid=True)
-phosphor.airplane((25, 30), width=20, style=styles.primary)
+setup(width=100, height=60, grid=True, background_color=Colors.canvas)
+phosphor.airplane((25, 30), width=20, style=Styles.Primary)
 phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
-    style=styles.primary.patch(icon_color=Colors.Red, icon_style="fill"),
+    style=Styles.Primary.patch(icon_color=Colors.Red, icon_style="fill"),
 )
 
 save()

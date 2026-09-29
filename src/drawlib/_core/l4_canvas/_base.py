@@ -137,7 +137,7 @@ class CanvasBase:
             width (int | None): Width of the canvas.
             height (int | None): Height of the canvas.
             dpi (int | None): Output image resolution.
-            background_color (Union[tuple[int, int, int | None, tuple[int, int, int, float]]]):
+            background_color (Color | tuple[int, int, int] | tuple[int, int, int, float] | str | None):
                 Background color.
             background_alpha (float | None): Background alpha (opacity).
             grid (bool | None): Show grid for checking coordinates.

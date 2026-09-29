@@ -1,7 +1,8 @@
 from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
+from drawlib.styles import Colors
 
-setup(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True, background_color=Colors.canvas)
 
 image(xy=(25, 25), width=20, image="python.png")
 
