@@ -28,7 +28,7 @@ class TestDomainUtilities:
         """Verify Color model, Color.from_hex, and Color.patch."""
         assert Color.from_hex("#FF0000") == (255, 0, 0, 1.0)
         assert abs(Color.from_hex("00FF0080")[3] - 0.5) < 0.01
-        assert Colors.Red.patch(alpha=0.5) == (255, 0, 0, 0.5)
+        assert Colors.Red.patch(alpha=0.5) == (*Colors.Red[:3], 0.5)
         assert Color(127, 127, 127, 0.8) == (127, 127, 127, 0.8)
 
     def test_math_utilities(self) -> None:
