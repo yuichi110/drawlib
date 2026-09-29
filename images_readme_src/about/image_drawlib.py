@@ -17,7 +17,7 @@ from drawlib.smartarts import SourceCode
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(height=60, dpi=200, background_color=Colors.canvas)
+setup(height=60, dpi=200, color=Colors.canvas)
 INNER_CODE = """from drawlib.canvas import save
 from drawlib.shapes import circle
 from drawlib.styles import Colors, Styles

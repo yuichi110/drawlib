@@ -2,7 +2,7 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
 
-setup(width=100, height=50, grid=True, background_color=Colors.canvas)
+setup(width=100, height=50, grid=True, color=Colors.canvas)
 rectangle(
     (25, 25),
     width=30,

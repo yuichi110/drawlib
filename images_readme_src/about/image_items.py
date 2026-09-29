@@ -22,7 +22,7 @@ icon_thin = Styles.Primary.patch(icon_style="thin")
 
 
 def main():
-    setup(width=100, height=60, background_color=Colors.canvas)
+    setup(width=100, height=60, color=Colors.canvas)
     draw_icon()
     draw_image()
     draw_line()

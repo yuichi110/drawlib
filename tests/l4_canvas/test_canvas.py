@@ -164,6 +164,16 @@ class TestCanvas:
         canvas._set_background()
         assert canvas._fig.patch.get_facecolor() is not None
 
+    def test_set_background_color_arg(self) -> None:
+        """Verify setup(color=..., alpha=...) sets canvas background."""
+        clear()
+        setup(color=Colors.Green, alpha=0.8)
+        assert canvas._background_color == Colors.Green
+        assert canvas._background_alpha == 0.8
+        canvas._set_background()
+        assert canvas._fig.patch.get_facecolor() is not None
+        clear()
+
     def test_show(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """Verify show() invokes pyplot.show without errors using monkeypatch."""
         show_called = False

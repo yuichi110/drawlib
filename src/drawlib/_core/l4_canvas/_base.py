@@ -118,6 +118,8 @@ class CanvasBase:
         width: PosInt | None = None,
         height: PosInt | None = None,
         dpi: PosInt | None = None,
+        color: ColorType | None = None,
+        alpha: Alpha | None = None,
         background_color: ColorType | None = None,
         background_alpha: Alpha | None = None,
         grid: bool | None = None,
@@ -137,9 +139,12 @@ class CanvasBase:
             width (int | None): Width of the canvas.
             height (int | None): Height of the canvas.
             dpi (int | None): Output image resolution.
+            color (Color | tuple[int, int, int] | tuple[int, int, int, float] | str | None):
+                Canvas background color.
+            alpha (float | None): Canvas background alpha (opacity).
             background_color (Color | tuple[int, int, int] | tuple[int, int, int, float] | str | None):
-                Background color.
-            background_alpha (float | None): Background alpha (opacity).
+                Canvas background color (alias for color).
+            background_alpha (float | None): Canvas background alpha (alias for alpha).
             grid (bool | None): Show grid for checking coordinates.
             grid_only (bool | None): Show grid only.
             grid_style (Style | None): Style of grid lines.
@@ -190,10 +195,12 @@ class CanvasBase:
             self._ax.margins(0, 0)
 
         def config_background() -> None:
-            if background_color is not None:
-                self._background_color = background_color
-            if background_alpha is not None:
-                self._background_alpha = background_alpha
+            resolved_color = color if color is not None else background_color
+            if resolved_color is not None:
+                self._background_color = resolved_color
+            resolved_alpha = alpha if alpha is not None else background_alpha
+            if resolved_alpha is not None:
+                self._background_alpha = resolved_alpha
 
         def config_grid() -> None:
             if grid_style is not None:

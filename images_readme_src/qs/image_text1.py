@@ -3,7 +3,7 @@ from drawlib.fonts import FontFile, FontRoboto
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=100, height=50, background_color=Colors.canvas)
+setup(width=100, height=50, color=Colors.canvas)
 text((50, 7), "Hello drawlib. こんにちは。", style=Styles.Primary)
 text(
     (50, 16),

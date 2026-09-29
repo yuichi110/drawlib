@@ -15,7 +15,7 @@ from drawlib.shapes import arrow, rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(height=60, background_color=Colors.canvas)
+setup(height=60, color=Colors.canvas)
 
 rect_width = 20
 rect_height = 38

@@ -2,7 +2,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.styles import Colors, Styles
 
-setup(width=100, height=50, grid=True, background_color=Colors.canvas)
+setup(width=100, height=50, grid=True, color=Colors.canvas)
 line((20, 7), (80, 7), style=Styles.Primary)
 line(
     (20, 16),
