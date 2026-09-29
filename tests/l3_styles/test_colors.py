@@ -178,3 +178,25 @@ class TestColors:
             _ = monochrome_colors["Danger"]
         with pytest.raises(KeyError):
             _ = monochrome_colors["danger"]
+
+    def test_colors_patch_instance_method(self) -> None:
+        """Verify patch on color instances creates a new instance with overridden attributes."""
+        c1 = DefaultColors()
+        p1 = c1.patch(Canvas=(12, 34, 56), Primary=(100, 150, 200), Red=(255, 0, 10))
+        assert isinstance(p1, DefaultColors)
+        assert p1.Canvas == (12, 34, 56, 1.0)
+        assert p1.Primary == (100, 150, 200, 1.0)
+        assert p1.Red == (255, 0, 10, 1.0)
+        assert c1.Canvas != p1.Canvas
+
+        c2 = GoogleColors()
+        p2 = c2.patch(GoogleBlue=(10, 20, 30), CornflowerBlue1=(40, 50, 60))
+        assert isinstance(p2, GoogleColors)
+        assert p2.GoogleBlue == (10, 20, 30, 1.0)
+        assert p2.CornflowerBlue1 == (40, 50, 60, 1.0)
+
+        c3 = MonochromeColors()
+        p3 = c3.patch(Gray1=(180, 180, 180), Accent=(99, 99, 99))
+        assert isinstance(p3, MonochromeColors)
+        assert p3.Gray1 == (180, 180, 180, 1.0)
+        assert p3.Accent == (99, 99, 99, 1.0)

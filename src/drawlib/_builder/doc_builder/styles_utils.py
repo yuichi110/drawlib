@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import os
 import sys
 from typing import Any, Dict, Optional
@@ -62,8 +63,8 @@ def load_styles(
     Raises:
         FileNotFoundError: If the specified styles_path does not exist.
     """
-    drawlib.styles.Styles = drawlib.preset_styles.DefaultStyles
-    drawlib.styles.Colors = drawlib.preset_colors.DefaultColors
+    drawlib.styles.Styles = drawlib.preset_styles.DefaultStyles()
+    drawlib.styles.Colors = drawlib.preset_colors.DefaultColors()
 
     if shared_globals is not None:
         _inject_shared_globals(shared_globals)
@@ -113,10 +114,16 @@ def load_styles(
         custom_styles = user_globals["styles"]
 
     if custom_styles is not None:
+        if isinstance(custom_styles, type):
+            with contextlib.suppress(Exception):
+                custom_styles = custom_styles()
         drawlib.styles.Styles = custom_styles
         if custom_colors is None:
-            custom_colors = getattr(custom_styles, "colors", drawlib.preset_colors.DefaultColors)
+            custom_colors = getattr(custom_styles, "colors", None) or drawlib.preset_colors.DefaultColors()
     if custom_colors is not None:
+        if isinstance(custom_colors, type):
+            with contextlib.suppress(Exception):
+                custom_colors = custom_colors()
         drawlib.styles.Colors = custom_colors
 
     if shared_globals is not None:

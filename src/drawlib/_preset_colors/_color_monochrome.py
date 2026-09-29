@@ -11,6 +11,9 @@
 
 from __future__ import annotations
 
+from typing import Any, Self
+
+from drawlib._core.l2_types import ColorType
 from drawlib._core.styles import BaseColors, Color
 
 
@@ -38,6 +41,60 @@ class MonochromeColors(BaseColors):
     Danger: Color | None = None
     Success: Color | None = None
     Canvas: Color = White
+
+    def patch(
+        self,
+        *,
+        Canvas: ColorType | None = None,
+        Primary: ColorType | None = None,
+        Secondary: ColorType | None = None,
+        Accent: ColorType | None = None,
+        Muted: ColorType | None = None,
+        Light: ColorType | None = None,
+        Dark: ColorType | None = None,
+        Danger: ColorType | None = None,
+        Success: ColorType | None = None,
+        White: ColorType | None = None,
+        Gray1: ColorType | None = None,
+        Gray2: ColorType | None = None,
+        Gray3: ColorType | None = None,
+        Gray4: ColorType | None = None,
+        Gray5: ColorType | None = None,
+        Gray6: ColorType | None = None,
+        Gray7: ColorType | None = None,
+        Gray8: ColorType | None = None,
+        Black: ColorType | None = None,
+        **kwargs: Any,  # noqa: ANN401
+    ) -> Self:
+        """Create a new copy of preset colors with updated attributes.
+
+        Args:
+            Canvas: Canvas background color.
+            Primary: Primary semantic color.
+            Secondary: Secondary semantic color.
+            Accent: Accent semantic color.
+            Muted: Muted semantic color.
+            Light: Light semantic color.
+            Dark: Dark semantic color.
+            Danger: Danger semantic color.
+            Success: Success semantic color.
+            White: White neutral color.
+            Gray1: Neutral gray level 1.
+            Gray2: Neutral gray level 2.
+            Gray3: Neutral gray level 3.
+            Gray4: Neutral gray level 4.
+            Gray5: Neutral gray level 5.
+            Gray6: Neutral gray level 6.
+            Gray7: Neutral gray level 7.
+            Gray8: Neutral gray level 8.
+            Black: Black neutral color.
+            **kwargs: Additional color attributes to update.
+
+        Returns:
+            Self: New preset colors instance with updated attributes.
+        """
+        passed = {k: v for k, v in locals().items() if k not in {"self", "kwargs"} and v is not None}
+        return super().patch(**passed, **kwargs)
 
 
 __all__ = [

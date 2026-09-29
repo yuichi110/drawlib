@@ -20,8 +20,8 @@ from drawlib.preset_colors import Color, DefaultColors
 from drawlib.preset_styles import DefaultStyles, Style
 
 # Active design tokens
-Colors: Any = DefaultColors
-Styles: Any = DefaultStyles
+Colors: Any = DefaultColors()
+Styles: Any = DefaultStyles()
 
 __all__ = [
     "Color",

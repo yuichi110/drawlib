@@ -18,45 +18,6 @@ from pydantic import BaseModel, ConfigDict
 from drawlib._core.l2_types import Color, ColorType
 from drawlib._core.l2_types._style import normalize_color
 
-_P = ParamSpec("_P")
-_R = TypeVar("_R")
-_T = TypeVar("_T")
-
-
-class _ClassOrInstanceMethod(Generic[_P, _R]):
-    """Descriptor enabling a method to be called on either a class or an instance.
-
-    When invoked on a class, it instantiates the class and calls the underlying method.
-    When invoked on an instance, it binds directly to that instance, preserving modified instance state.
-    """
-
-    def __init__(self, fn: Callable[Concatenate[Any, _P], _R]) -> None:
-        self.fn = fn
-        self.__doc__ = getattr(fn, "__doc__", None)
-        self.__name__ = getattr(fn, "__name__", "")
-
-    @overload
-    def __get__(self, instance: None, owner: type[_T]) -> Callable[_P, _T]: ...
-
-    @overload
-    def __get__(self, instance: _T, owner: type[_T] | None = None) -> Callable[_P, _T]: ...
-
-    def __get__(self, instance: Any, owner: Any = None) -> Any:  # noqa: ANN401
-        if instance is not None:
-
-            def wrapper(*args: _P.args, **kwargs: _P.kwargs) -> Any:  # noqa: ANN401
-                return self.fn(instance, *args, **kwargs)
-
-            return wrapper
-        if owner is not None:
-
-            def class_wrapper(*args: _P.args, **kwargs: _P.kwargs) -> Any:  # noqa: ANN401
-                return self.fn(owner(), *args, **kwargs)
-
-            return class_wrapper
-        msg = "Method must be accessed on an instance or a class."
-        raise AttributeError(msg)
-
 
 def _resolve_color_field_name(cls: type[BaseColors], name: str) -> str:
     """Resolve color field name matching model attributes regardless of casing.
@@ -139,7 +100,6 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         arbitrary_types_allowed=True,
         extra="allow",
         frozen=True,
-        ignored_types=(_ClassOrInstanceMethod,),
     )
 
     Transparent: ClassVar[Color] = Color(0, 0, 0, 0.0)
@@ -287,58 +247,16 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         """
         return {k: v for k, v in self}
 
-    @_ClassOrInstanceMethod
-    def patch(
-        self,
-        *,
-        canvas: ColorType | None = None,
-        primary: ColorType | None = None,
-        secondary: ColorType | None = None,
-        accent: ColorType | None = None,
-        muted: ColorType | None = None,
-        light: ColorType | None = None,
-        dark: ColorType | None = None,
-        danger: ColorType | None = None,
-        success: ColorType | None = None,
-        **kwargs: Any,  # noqa: ANN401
-    ) -> Self:
+    def patch(self, **kwargs: Any) -> Self:  # noqa: ANN401
         """Create a new copy of preset colors with updated attributes.
 
-        Can be called on either a class (e.g. ``DefaultDarkColors.patch(...)``)
-        or an instance (e.g. ``colors.patch(...)``). Both lowercase (e.g. ``canvas``)
-        and uppercase (e.g. ``Canvas``) argument names are accepted and normalized.
-
         Args:
-            canvas (ColorType | None): Canvas background color.
-            primary (ColorType | None): Primary semantic color.
-            secondary (ColorType | None): Secondary semantic color.
-            accent (ColorType | None): Accent semantic color.
-            muted (ColorType | None): Muted semantic color.
-            light (ColorType | None): Light semantic color.
-            dark (ColorType | None): Dark semantic color.
-            danger (ColorType | None): Danger semantic color.
-            success (ColorType | None): Success semantic color.
-            **kwargs: Additional color fields or palette names to update (e.g. ``Canvas``, ``blue1``).
+            **kwargs: Color attributes to update (accepts PascalCase, snake_case, or lowercase).
 
         Returns:
             Self: New preset colors instance with updated attributes.
         """
         updates: dict[str, Any] = {}
-        explicit = {
-            "Canvas": canvas,
-            "Primary": primary,
-            "Secondary": secondary,
-            "Accent": accent,
-            "Muted": muted,
-            "Light": light,
-            "Dark": dark,
-            "Danger": danger,
-            "Success": success,
-        }
-        for field_name, val in explicit.items():
-            if val is not None:
-                updates[field_name] = normalize_color(val)
-
         for k, v in kwargs.items():
             if v is not None:
                 target_key = _resolve_color_field_name(self.__class__, k)

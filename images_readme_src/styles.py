@@ -12,5 +12,5 @@
 from drawlib.preset_colors import DefaultDarkColors
 from drawlib.preset_styles import DefaultDarkStyles
 
-Colors = DefaultDarkColors
-Styles = DefaultDarkStyles
+Colors = DefaultDarkColors()
+Styles = DefaultDarkStyles()

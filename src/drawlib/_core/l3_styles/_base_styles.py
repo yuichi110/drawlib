@@ -17,6 +17,7 @@ from typing import Any, Generator, Self
 from pydantic import BaseModel, ConfigDict, validate_call
 
 from drawlib._core.l2_types import ColorType, FontBase, FontFile
+from drawlib._core.l2_types._style import normalize_color
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles._style_models import Style
 
@@ -69,6 +70,34 @@ def _snake_to_pascal(name: str) -> str:
         str: Converted identifier in PascalCase.
     """
     return "".join(word.capitalize() for word in name.split("_"))
+
+
+def _resolve_style_field_name(cls: type[BaseStyles], name: str, value: Any = None) -> str:  # noqa: ANN401
+    """Resolve style field name matching model attributes regardless of casing or aliases.
+
+    Args:
+        cls (type[BaseStyles]): Preset style class.
+        name (str): Style or attribute name.
+        value (Any): Optional value to distinguish style vs color for aliases like 'canvas'.
+
+    Returns:
+        str: Resolved field name matching cls.model_fields if found, else original name.
+    """
+    lower = name.lower()
+    if lower in {"bg_color", "background", "background_color"}:
+        return "background_color"
+    if lower == "colors":
+        return "colors"
+    fields = getattr(cls, "model_fields", {})
+    if name in fields:
+        return name
+    snake_name = _pascal_to_snake(name)
+    if snake_name in fields:
+        return snake_name
+    for f in fields:
+        if f.lower() == lower:
+            return f
+    return name
 
 
 class _BaseStylesMeta(type(BaseModel)):
@@ -159,6 +188,30 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     background_color: ColorType = (255, 255, 255, 1.0)
     sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO
     colors: Any = None
+
+    def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
+        """Initialize preset styles instance.
+
+        If called without arguments (or with partial overrides), missing fields are
+        automatically populated from the registered default singleton instance for this class.
+        """
+        normalized: dict[str, Any] = {}
+        for k, v in kwargs.items():
+            target_key = _resolve_style_field_name(self.__class__, k, v)
+            if target_key == "background_color" and v is not None:
+                try:
+                    normalized[target_key] = normalize_color(v)
+                except Exception:
+                    normalized[target_key] = v
+            else:
+                normalized[target_key] = v
+
+        default_inst = self.__class__.get_default_instance()
+        if default_inst is not None:
+            merged = {**default_inst.__dict__, **normalized}
+            super().__init__(**merged)
+        else:
+            super().__init__(**normalized)
 
     # 4 Core semantic roles required across all preset catalogs (10 variants each)
     primary: Style
@@ -428,12 +481,23 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         """Create a new copy of preset styles with updated attributes.
 
         Args:
-            **kwargs: Attributes to update.
+            **kwargs: Style attributes to update (accepts PascalCase, snake_case, or aliases).
 
         Returns:
             Self: New preset styles instance with updated attributes.
         """
-        return self.model_copy(update=kwargs)
+        updates: dict[str, Any] = {}
+        for k, v in kwargs.items():
+            if v is not None:
+                target_key = _resolve_style_field_name(self.__class__, k, v)
+                if target_key == "background_color":
+                    try:
+                        updates[target_key] = normalize_color(v)
+                    except Exception:
+                        updates[target_key] = v
+                else:
+                    updates[target_key] = v
+        return self.model_copy(update=updates)
 
     @validate_call
     def patch_font(

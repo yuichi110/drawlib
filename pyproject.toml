@@ -86,6 +86,13 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
+"src/drawlib/_preset_colors/**.py" = [
+    "N803", # PascalCase argument names for design token patch methods
+]
+"src/drawlib/_preset_styles/**.py" = [
+    "D417", # Style patch methods have hundreds of design tokens that do not need individual docstring entries
+    "N803", # PascalCase argument names for design token patch methods
+]
 "tools/**.py" = [
     "ANN",     # flake8-annotations
     "S101",    # Use of assert detected

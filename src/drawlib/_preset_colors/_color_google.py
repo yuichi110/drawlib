@@ -12,7 +12,9 @@
 from __future__ import annotations
 
 import warnings
+from typing import Any, Self
 
+from drawlib._core.l2_types import ColorType
 from drawlib._core.styles import BaseColors, Color
 
 warnings.filterwarnings(
@@ -169,6 +171,236 @@ class GoogleColors(BaseColors):
     Danger: Color = GoogleRed          # #EA4335 (エラー・停止状態)
     Success: Color = GoogleGreen       # #34A853 (正常・完了状態)
     Canvas: Color = White              # #FFFFFF (スライドキャンバス背景)
+
+    def patch(
+        self,
+        *,
+        Canvas: ColorType | None = None,
+        Primary: ColorType | None = None,
+        Secondary: ColorType | None = None,
+        Accent: ColorType | None = None,
+        Muted: ColorType | None = None,
+        Light: ColorType | None = None,
+        Dark: ColorType | None = None,
+        Danger: ColorType | None = None,
+        Success: ColorType | None = None,
+        # Neutrals
+        White: ColorType | None = None,
+        Gray1: ColorType | None = None,
+        Gray2: ColorType | None = None,
+        Gray3: ColorType | None = None,
+        Gray4: ColorType | None = None,
+        Gray5: ColorType | None = None,
+        Gray6: ColorType | None = None,
+        Gray7: ColorType | None = None,
+        Gray8: ColorType | None = None,
+        Black: ColorType | None = None,
+        # Chromatic Tones
+        CornflowerBlue1: ColorType | None = None,
+        CornflowerBlue2: ColorType | None = None,
+        CornflowerBlue3: ColorType | None = None,
+        CornflowerBlue4: ColorType | None = None,
+        CornflowerBlue5: ColorType | None = None,
+        CornflowerBlue6: ColorType | None = None,
+        Blue1: ColorType | None = None,
+        Blue2: ColorType | None = None,
+        Blue3: ColorType | None = None,
+        Blue4: ColorType | None = None,
+        Blue5: ColorType | None = None,
+        Blue6: ColorType | None = None,
+        Red1: ColorType | None = None,
+        Red2: ColorType | None = None,
+        Red3: ColorType | None = None,
+        Red4: ColorType | None = None,
+        Red5: ColorType | None = None,
+        Red6: ColorType | None = None,
+        RedBerry1: ColorType | None = None,
+        RedBerry2: ColorType | None = None,
+        RedBerry3: ColorType | None = None,
+        RedBerry4: ColorType | None = None,
+        RedBerry5: ColorType | None = None,
+        RedBerry6: ColorType | None = None,
+        Green1: ColorType | None = None,
+        Green2: ColorType | None = None,
+        Green3: ColorType | None = None,
+        Green4: ColorType | None = None,
+        Green5: ColorType | None = None,
+        Green6: ColorType | None = None,
+        Yellow1: ColorType | None = None,
+        Yellow2: ColorType | None = None,
+        Yellow3: ColorType | None = None,
+        Yellow4: ColorType | None = None,
+        Yellow5: ColorType | None = None,
+        Yellow6: ColorType | None = None,
+        Orange1: ColorType | None = None,
+        Orange2: ColorType | None = None,
+        Orange3: ColorType | None = None,
+        Orange4: ColorType | None = None,
+        Orange5: ColorType | None = None,
+        Orange6: ColorType | None = None,
+        Cyan1: ColorType | None = None,
+        Cyan2: ColorType | None = None,
+        Cyan3: ColorType | None = None,
+        Cyan4: ColorType | None = None,
+        Cyan5: ColorType | None = None,
+        Cyan6: ColorType | None = None,
+        Purple1: ColorType | None = None,
+        Purple2: ColorType | None = None,
+        Purple3: ColorType | None = None,
+        Purple4: ColorType | None = None,
+        Purple5: ColorType | None = None,
+        Purple6: ColorType | None = None,
+        Magenta1: ColorType | None = None,
+        Magenta2: ColorType | None = None,
+        Magenta3: ColorType | None = None,
+        Magenta4: ColorType | None = None,
+        Magenta5: ColorType | None = None,
+        Magenta6: ColorType | None = None,
+        # Base Primaries
+        Red: ColorType | None = None,
+        Green: ColorType | None = None,
+        Blue: ColorType | None = None,
+        Yellow: ColorType | None = None,
+        Orange: ColorType | None = None,
+        Cyan: ColorType | None = None,
+        Purple: ColorType | None = None,
+        Magenta: ColorType | None = None,
+        RedBerry: ColorType | None = None,
+        CornflowerBlue: ColorType | None = None,
+        Pink: ColorType | None = None,
+        Lime: ColorType | None = None,
+        Teal: ColorType | None = None,
+        Navy: ColorType | None = None,
+        Olive: ColorType | None = None,
+        Brown: ColorType | None = None,
+        Gold: ColorType | None = None,
+        Aqua: ColorType | None = None,
+        GreenYellow: ColorType | None = None,
+        Ivory: ColorType | None = None,
+        Steel: ColorType | None = None,
+        # Google Brand Colors
+        GoogleBlue: ColorType | None = None,
+        GoogleRed: ColorType | None = None,
+        GoogleYellow: ColorType | None = None,
+        GoogleGreen: ColorType | None = None,
+        GoogleOrange: ColorType | None = None,
+        **kwargs: Any,  # noqa: ANN401
+    ) -> Self:
+        """Create a new copy of preset colors with updated attributes.
+
+        Args:
+            Canvas: Canvas background color.
+            Primary: Primary semantic color.
+            Secondary: Secondary semantic color.
+            Accent: Accent semantic color.
+            Muted: Muted semantic color.
+            Light: Light semantic color.
+            Dark: Dark semantic color.
+            Danger: Danger semantic color.
+            Success: Success semantic color.
+            White: White neutral color.
+            Gray1: Neutral gray level 1.
+            Gray2: Neutral gray level 2.
+            Gray3: Neutral gray level 3.
+            Gray4: Neutral gray level 4.
+            Gray5: Neutral gray level 5.
+            Gray6: Neutral gray level 6.
+            Gray7: Neutral gray level 7.
+            Gray8: Neutral gray level 8.
+            Black: Black neutral color.
+            CornflowerBlue1: Cornflower blue tone level 1.
+            CornflowerBlue2: Cornflower blue tone level 2.
+            CornflowerBlue3: Cornflower blue tone level 3.
+            CornflowerBlue4: Cornflower blue tone level 4.
+            CornflowerBlue5: Cornflower blue tone level 5.
+            CornflowerBlue6: Cornflower blue tone level 6.
+            Blue1: Blue tone level 1.
+            Blue2: Blue tone level 2.
+            Blue3: Blue tone level 3.
+            Blue4: Blue tone level 4.
+            Blue5: Blue tone level 5.
+            Blue6: Blue tone level 6.
+            Red1: Red tone level 1.
+            Red2: Red tone level 2.
+            Red3: Red tone level 3.
+            Red4: Red tone level 4.
+            Red5: Red tone level 5.
+            Red6: Red tone level 6.
+            RedBerry1: Red berry tone level 1.
+            RedBerry2: Red berry tone level 2.
+            RedBerry3: Red berry tone level 3.
+            RedBerry4: Red berry tone level 4.
+            RedBerry5: Red berry tone level 5.
+            RedBerry6: Red berry tone level 6.
+            Green1: Green tone level 1.
+            Green2: Green tone level 2.
+            Green3: Green tone level 3.
+            Green4: Green tone level 4.
+            Green5: Green tone level 5.
+            Green6: Green tone level 6.
+            Yellow1: Yellow tone level 1.
+            Yellow2: Yellow tone level 2.
+            Yellow3: Yellow tone level 3.
+            Yellow4: Yellow tone level 4.
+            Yellow5: Yellow tone level 5.
+            Yellow6: Yellow tone level 6.
+            Orange1: Orange tone level 1.
+            Orange2: Orange tone level 2.
+            Orange3: Orange tone level 3.
+            Orange4: Orange tone level 4.
+            Orange5: Orange tone level 5.
+            Orange6: Orange tone level 6.
+            Cyan1: Cyan tone level 1.
+            Cyan2: Cyan tone level 2.
+            Cyan3: Cyan tone level 3.
+            Cyan4: Cyan tone level 4.
+            Cyan5: Cyan tone level 5.
+            Cyan6: Cyan tone level 6.
+            Purple1: Purple tone level 1.
+            Purple2: Purple tone level 2.
+            Purple3: Purple tone level 3.
+            Purple4: Purple tone level 4.
+            Purple5: Purple tone level 5.
+            Purple6: Purple tone level 6.
+            Magenta1: Magenta tone level 1.
+            Magenta2: Magenta tone level 2.
+            Magenta3: Magenta tone level 3.
+            Magenta4: Magenta tone level 4.
+            Magenta5: Magenta tone level 5.
+            Magenta6: Magenta tone level 6.
+            Red: Base red primary color.
+            Green: Base green primary color.
+            Blue: Base blue primary color.
+            Yellow: Base yellow primary color.
+            Orange: Base orange primary color.
+            Cyan: Base cyan primary color.
+            Purple: Base purple primary color.
+            Magenta: Base magenta primary color.
+            RedBerry: Base red berry primary color.
+            CornflowerBlue: Base cornflower blue primary color.
+            Pink: Additional pink primary color.
+            Lime: Additional lime primary color.
+            Teal: Additional teal primary color.
+            Navy: Additional navy primary color.
+            Olive: Additional olive primary color.
+            Brown: Additional brown primary color.
+            Gold: Additional gold primary color.
+            Aqua: Additional aqua primary color.
+            GreenYellow: Additional green-yellow primary color.
+            Ivory: Additional ivory primary color.
+            Steel: Additional steel primary color.
+            GoogleBlue: Google brand blue color.
+            GoogleRed: Google brand red color.
+            GoogleYellow: Google brand yellow color.
+            GoogleGreen: Google brand green color.
+            GoogleOrange: Google brand orange color.
+            **kwargs: Additional color attributes to update.
+
+        Returns:
+            Self: New preset colors instance with updated attributes.
+        """
+        passed = {k: v for k, v in locals().items() if k not in {"self", "kwargs"} and v is not None}
+        return super().patch(**passed, **kwargs)
 
 
 __all__ = [

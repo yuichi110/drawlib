@@ -173,3 +173,44 @@ class TestPresetStyles:
     def test_import_from_types(self) -> None:
         """Verifies that BaseStyles can be imported from drawlib.types."""
         assert TypesBaseStyles is BaseStyles
+
+    def test_styles_zero_argument_init(self) -> None:
+        """Verifies that preset style classes can be instantiated without arguments."""
+        d = DefaultStyles()
+        assert isinstance(d, DefaultStyles)
+        assert d.primary is not None
+        assert d.Primary == d.primary
+
+        g = GoogleStyles()
+        assert isinstance(g, GoogleStyles)
+        assert g.primary is not None
+        assert g.GoogleBlue == g.google_blue
+
+        m = MonochromeStyles()
+        assert isinstance(m, MonochromeStyles)
+        assert m.primary is not None
+
+    def test_styles_patch_instance_method(self) -> None:
+        """Verifies that patch on preset style instances creates updated instances."""
+        d = DefaultStyles()
+        custom_primary = Style(line_color=(1, 2, 3, 1.0))
+        p = d.patch(Primary=custom_primary, Width=200, BackgroundColor=(240, 240, 240))
+        assert isinstance(p, DefaultStyles)
+        assert p.primary == custom_primary
+        assert p.Primary == custom_primary
+        assert p.width == 200
+        assert p.background_color == (240, 240, 240, 1.0)
+        assert d.primary != custom_primary
+
+        g = GoogleStyles()
+        custom_blue = Style(line_color=(4, 5, 6, 1.0))
+        gp = g.patch(GoogleBlue=custom_blue)
+        assert isinstance(gp, GoogleStyles)
+        assert gp.google_blue == custom_blue
+        assert gp.GoogleBlue == custom_blue
+
+        m = MonochromeStyles()
+        custom_white = Style(line_color=(7, 8, 9, 1.0))
+        mp = m.patch(White=custom_white)
+        assert isinstance(mp, MonochromeStyles)
+        assert mp.white == custom_white
