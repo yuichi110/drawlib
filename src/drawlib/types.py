@@ -11,12 +11,10 @@
 
 from drawlib._core.types import (
     BaseColors,
+    BaseStyles,
     Color,
     FontBase,
     Style,
-)
-from drawlib._preset_styles import (
-    BaseStyles,
 )
 
 __all__ = [

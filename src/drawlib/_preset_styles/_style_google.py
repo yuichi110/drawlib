@@ -15,9 +15,9 @@ import warnings
 from typing import Any
 
 from drawlib._core.fonts import FontSourceCode
+from drawlib._core.styles import BaseStyles
 from drawlib._core.types import Style
 from drawlib._preset_colors import GoogleColors
-from drawlib._preset_styles._base import BaseStyles
 from drawlib._preset_styles._utils import _make_variants
 
 warnings.filterwarnings(

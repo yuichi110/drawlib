@@ -7,28 +7,22 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Private preset_styles package for drawlib."""
+"""Core styles facade module."""
 
-from drawlib._core.styles import (
+from drawlib._core.l3_styles import (
+    ALL_SUPPORTS,
     BasePresetStyles,
     BaseStyles,
     PresetStyles,
+    Style,
+    SupportType,
 )
-from drawlib._preset_styles._style_default import (
-    DefaultDarkStyles,
-    DefaultLightStyles,
-    DefaultStyles,
-)
-from drawlib._preset_styles._style_google import GoogleStyles
-from drawlib._preset_styles._style_monochrome import MonochromeStyles
 
 __all__ = [
+    "ALL_SUPPORTS",
     "BasePresetStyles",
     "BaseStyles",
-    "DefaultDarkStyles",
-    "DefaultLightStyles",
-    "DefaultStyles",
-    "GoogleStyles",
-    "MonochromeStyles",
     "PresetStyles",
+    "Style",
+    "SupportType",
 ]

@@ -46,6 +46,9 @@ from drawlib._core.l2_types import (
 from drawlib._core.l3_styles import (
     ALL_SUPPORTS,
     BaseColors,
+    BasePresetStyles,
+    BaseStyles,
+    PresetStyles,
     Style,
     SupportType,
 )
@@ -57,6 +60,8 @@ __all__ = [
     "Angle90",
     "ArrowHead",
     "BaseColors",
+    "BasePresetStyles",
+    "BaseStyles",
     "Bend",
     "Bezier2",
     "Bezier3",
@@ -82,6 +87,7 @@ __all__ = [
     "PathPoints",
     "PosFloat",
     "PosInt",
+    "PresetStyles",
     "Size",
     "Style",
     "SupportType",

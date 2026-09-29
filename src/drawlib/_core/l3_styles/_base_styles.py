@@ -16,9 +16,33 @@ from typing import Any, Generator, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
-from drawlib._core.fonts import FontBase, FontFile, FontSourceCode
-from drawlib._core.types import ColorType, Style
-from drawlib._preset_styles._utils import _resolve_target_font
+from drawlib._core.l2_types import ColorType, FontBase, FontFile
+from drawlib._core.l3_fonts import FontSourceCode
+from drawlib._core.l3_styles._style_models import Style
+
+
+def _resolve_target_font(
+    field_name: str,
+    regular: FontBase | FontFile | None,
+    bold: FontBase | FontFile | None,
+    light: FontBase | FontFile | None,
+) -> FontBase | FontFile | None:
+    """Resolve target font for a specific style field based on naming convention.
+
+    Args:
+        field_name (str): Style attribute name.
+        regular (FontBase | FontFile | None): Base font.
+        bold (FontBase | FontFile | None): Bold font.
+        light (FontBase | FontFile | None): Light font.
+
+    Returns:
+        FontBase | FontFile | None: Target font to apply.
+    """
+    if field_name == "bold" or field_name.endswith("_bold"):
+        return bold if bold is not None else regular
+    if field_name.endswith("_light"):
+        return light if light is not None else regular
+    return regular
 
 
 def _pascal_to_snake(name: str) -> str:
