@@ -1,6 +1,6 @@
-# 5. Icons: Phosphor & Google Cloud (GCP)
+# 5. Icons & External Images
 
-Drawlib bundles rich icon modules under `drawlib.icons` so you can build expressive system architecture diagrams without hunting for external image assets.
+Drawlib bundles rich icon modules under `drawlib.icons` and provides seamless external image embedding with in-memory transformations via `drawlib.images`.
 
 ## 1. Phosphor Icons (`drawlib.icons.phosphor`)
 
@@ -53,3 +53,36 @@ for idx, (x, fn, label) in enumerate(services):
         next_x = services[idx + 1][0]
         line((x + 8, 26), (next_x - 8, 26), arrowhead="->", style=Styles.PrimaryBold)
 ```
+
+## 3. External Images & Media (`drawlib.images`)
+
+For project logos, team avatars, or hardware badges, Drawlib provides the `image()` function and the `Dimage` utility class from `drawlib.images`. You can render raster images directly from file paths or apply chainable transformations (such as mirroring or sepia filtering):
+
+```drawlib 580px center caption:"Figure 5.3: External Image Embedding and Dimage Transformations"
+from drawlib.canvas import setup
+from drawlib.images import Dimage, image
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=42)
+
+# 1. Direct file path with border styling
+image(
+    xy=(20, 24),
+    width=16,
+    image="_assets/linux.png",
+    style=Styles.Primary.patch(image_border_width=1),
+)
+text(xy=(20, 8), text="image('_assets/linux.png')", style=Styles.Primary, size=8)
+
+# 2. Transformed with Dimage (mirror)
+dimg1 = Dimage("_assets/linux.png").mirror()
+image(xy=(50, 24), width=16, image=dimg1)
+text(xy=(50, 8), text="Dimage.mirror()", style=Styles.Secondary, size=8)
+
+# 3. Transformed with Dimage (sepia)
+dimg2 = Dimage("_assets/linux.png").sepia()
+image(xy=(80, 24), width=16, image=dimg2)
+text(xy=(80, 8), text="Dimage.sepia()", style=Styles.Accent, size=8)
+```
+

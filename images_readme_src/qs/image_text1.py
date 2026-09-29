@@ -14,7 +14,7 @@ text(
 text(
     (50, 25),
     "Hello drawlib.",
-    style=Styles.Primary.patch(text_font=FontFile("avenger/regular.ttf")),
+    style=Styles.Primary.patch(text_font=FontFile("../_assets/avenger/regular.ttf")),
 )
 text(
     (50, 34),

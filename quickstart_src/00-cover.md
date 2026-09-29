@@ -56,7 +56,7 @@ text(xy=(102, 16), text="PNG / HTML / PDF", style=Styles.AccentBold, size=10)
 
 ### About This Document
 
-This quickstart guide introduces the core workflows of **Drawlib**, from basic canvas coordinates and preset styling to icons, SmartArts, declarative charts, software diagrams, and the unified CLI document builder.
+This quickstart guide introduces the core workflows of **Drawlib**, from basic canvas coordinates and preset styling to typography, icons, external media, SmartArts, declarative charts, software diagrams, and the unified CLI document builder.
 
 - **Repository**: `https://github.com/yuichi110/drawlib`
 - **Author**: Yuichi Ito

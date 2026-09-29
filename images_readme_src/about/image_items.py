@@ -52,11 +52,11 @@ def draw_image():
     y = 41
     w = 7
     text((x1, y), "Image", style=title_style)
-    image((30, y), w, image="linux.png")
-    image((40, y), w, image="linux.png", style=Styles.Primary.patch(image_border_width=1))
-    image((50, y), w, image="linux.png", style=Styles.Primary.patch(image_tint_color=Colors.Red))
-    image((60, y), w, image="linux.png", angle=315)
-    dimg = Dimage("linux.png")
+    image((30, y), w, image="../_assets/linux.png")
+    image((40, y), w, image="../_assets/linux.png", style=Styles.Primary.patch(image_border_width=1))
+    image((50, y), w, image="../_assets/linux.png", style=Styles.Primary.patch(image_tint_color=Colors.Red))
+    image((60, y), w, image="../_assets/linux.png", angle=315)
+    dimg = Dimage("../_assets/linux.png")
     image((70, y), w, image=dimg.flip().sepia())
     image((80, y), w, image=dimg.mosaic(24))
     image((90, y), w, image=dimg.brightness(0.5).mirror())

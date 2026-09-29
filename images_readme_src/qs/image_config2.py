@@ -8,7 +8,7 @@ from drawlib.text import text
 setup(width=100, height=100, grid=True, color=Colors.canvas)
 line((10, 10), (90, 90), style=Styles.Primary)
 circle((25, 75), radius=20, style=Styles.Primary)
-image((75, 25), width=30, image="python.png")
+image((75, 25), width=30, image="../_assets/python.png")
 text((75, 5), "Hello drawlib!", style=Styles.Primary)
 
 save()

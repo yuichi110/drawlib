@@ -55,3 +55,31 @@ for x, label, st in items:
     circle((x, 23), radius=7, style=st)
     text((x, text_y), text=label, style=st, size=9)
 ```
+
+## Typography & Custom Fonts
+
+Drawlib includes universal CJK/Latin fonts (`Font`), sans-serif typography (`FontRoboto`), and code fonts (`FontMonoSpace`) via `drawlib.fonts`. You can also load custom font files using `FontFile`:
+
+```drawlib 620px center caption:"Figure 4.2: Typography and Custom Font Files"
+from drawlib.canvas import setup
+from drawlib.fonts import Font, FontFile, FontMonoSpace, FontRoboto
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=120, height=45)
+
+font_items = [
+    (18, Font.SANSSERIF_REGULAR, "Default Font", "Font.SANSSERIF", Styles.PrimaryOutline, "Universal"),
+    (46, FontRoboto.ROBOTO_REGULAR, "Roboto Sans", "FontRoboto", Styles.SecondaryOutline, "Clean Sans"),
+    (74, FontMonoSpace.ROBOTO_MONO_REGULAR, "Monospace", "FontMonoSpace", Styles.AccentOutline, "Code / Logs"),
+    (102, FontFile("_assets/avenger/regular.ttf"), "AVENGER", "FontFile", Styles.DangerOutline, "Custom Font"),
+]
+
+for x, font_obj, title, sub, st, desc in font_items:
+    rectangle(xy=(x, 26), width=24, height=22, r=2, style=st)
+    text(xy=(x, 28), text=title, style=Styles.Primary.patch(text_font=font_obj, text_size=10))
+    text(xy=(x, 19), text=sub, style=Styles.Muted, size=8)
+    text(xy=(x, 9), text=desc, style=Styles.Primary, size=9)
+```
+
