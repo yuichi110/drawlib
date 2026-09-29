@@ -34,7 +34,7 @@ from drawlib._diagrams.sequence._message import Message
 from drawlib._diagrams.sequence._note import Note
 from drawlib._diagrams.sequence._participant import Participant
 from drawlib._diagrams.sequence._types import DiagramPadding, IconType, PaddingType
-from drawlib._preset_colors import Colors
+from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.sequence._diagram import SequenceDiagram

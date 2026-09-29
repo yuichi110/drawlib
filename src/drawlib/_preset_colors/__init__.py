@@ -10,8 +10,7 @@
 """Private preset colors package for drawlib."""
 
 from drawlib._core.l3_styles import BaseColors
-from drawlib._preset_colors._color_16 import Colors, Colors16, colors_16
-from drawlib._preset_colors._color_140 import Colors140, Colors140Model, colors_140
+from drawlib._preset_colors._color_140 import Colors140
 from drawlib._preset_colors._color_default import (
     DefaultColors,
     DefaultDarkColors,
@@ -22,15 +21,10 @@ from drawlib._preset_colors._color_monochrome import MonochromeColors
 
 __all__ = [
     "BaseColors",
-    "Colors",
     "Colors140",
-    "Colors140Model",
-    "Colors16",
     "DefaultColors",
     "DefaultDarkColors",
     "DefaultLightColors",
     "GoogleColors",
     "MonochromeColors",
-    "colors_140",
-    "colors_16",
 ]

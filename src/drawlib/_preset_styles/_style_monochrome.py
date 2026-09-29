@@ -15,7 +15,7 @@ from typing import Any
 
 from drawlib._core.fonts import FontSourceCode
 from drawlib._core.types import Style
-from drawlib._preset_colors import Colors, MonochromeColors
+from drawlib._preset_colors import MonochromeColors
 from drawlib._preset_styles._base import BaseStyles
 from drawlib._preset_styles._utils import _make_variants
 
@@ -135,6 +135,38 @@ class MonochromeStyles(BaseStyles):
     gray6_dashed_bold: Style
     gray6_dashed_light: Style
 
+    # Gray7
+    gray7: Style
+    gray7_bordered: Style
+    gray7_bold: Style
+    gray7_light: Style
+    gray7_flat: Style
+    gray7_outline: Style
+    gray7_solid: Style
+    gray7_outline_bold: Style
+    gray7_solid_bold: Style
+    gray7_outline_light: Style
+    gray7_solid_light: Style
+    gray7_dashed: Style
+    gray7_dashed_bold: Style
+    gray7_dashed_light: Style
+
+    # Gray8
+    gray8: Style
+    gray8_bordered: Style
+    gray8_bold: Style
+    gray8_light: Style
+    gray8_flat: Style
+    gray8_outline: Style
+    gray8_solid: Style
+    gray8_outline_bold: Style
+    gray8_solid_bold: Style
+    gray8_outline_light: Style
+    gray8_solid_light: Style
+    gray8_dashed: Style
+    gray8_dashed_bold: Style
+    gray8_dashed_light: Style
+
     # White
     white: Style
     white_bordered: Style
@@ -192,6 +224,8 @@ def _create_monochrome_styles() -> MonochromeStyles:
     gray4 = MonochromeColors.Gray4
     gray5 = MonochromeColors.Gray5
     gray6 = MonochromeColors.Gray6
+    gray7 = MonochromeColors.Gray7
+    gray8 = MonochromeColors.Gray8
     white = MonochromeColors.White
 
     p_v = _make_variants(
@@ -203,7 +237,7 @@ def _create_monochrome_styles() -> MonochromeStyles:
     p_v["flat"] = Style(
         supports={"shape", "icon"},
         shape_fill_color=black,
-        shape_line_color=Colors.Transparent,
+        shape_line_color=MonochromeColors.Transparent,
         shape_line_width=0.0,
         shape_line_style="solid",
         icon_color=black,
@@ -238,7 +272,7 @@ def _create_monochrome_styles() -> MonochromeStyles:
         line_color=gray5,
     )
     d_v = _make_variants(
-        gray6,
+        gray8,
         border_color=black,
         default_text_color=white,
         line_color=black,
@@ -285,6 +319,8 @@ def _create_monochrome_styles() -> MonochromeStyles:
         "gray4": _make_variants(gray4, border_color=black, default_text_color=white),
         "gray5": _make_variants(gray5, border_color=black, default_text_color=white),
         "gray6": _make_variants(gray6, border_color=black, default_text_color=white),
+        "gray7": _make_variants(gray7, border_color=black, default_text_color=white),
+        "gray8": _make_variants(gray8, border_color=black, default_text_color=white),
         "black": _make_variants(black, border_color=black, default_text_color=white),
     }
 

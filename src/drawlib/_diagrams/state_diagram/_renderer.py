@@ -36,7 +36,7 @@ from drawlib._diagrams.state_diagram._state_node import (
     StateNodeBase,
 )
 from drawlib._diagrams.state_diagram._types import Side
-from drawlib._preset_colors import Colors
+from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.state_diagram._diagram import StateDiagram

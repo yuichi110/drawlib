@@ -15,7 +15,7 @@ from drawlib._core.l2_types import Color
 from drawlib._core.l3_styles import BaseColors
 
 
-class Colors140Model(BaseColors):
+class Colors140(BaseColors):
     """Class representing the 140 basic web colors(CSS Color Module Level3) along with a transparent color."""
 
     AliceBlue: Color = Color(240, 248, 255)
@@ -161,11 +161,6 @@ class Colors140Model(BaseColors):
     YellowGreen: Color = Color(154, 205, 50)
 
 
-Colors140: Colors140Model = Colors140Model()
-colors_140: Colors140Model = Colors140
-
 __all__ = [
     "Colors140",
-    "Colors140Model",
-    "colors_140",
 ]

@@ -20,11 +20,13 @@ class MonochromeColors(BaseColors):
 
     White: Color = Color(255, 255, 255)
     Gray1: Color = Color(245, 245, 245)
-    Gray2: Color = Color(220, 220, 220)
-    Gray3: Color = Color(180, 180, 180)
-    Gray4: Color = Color(130, 130, 130)
-    Gray5: Color = Color(75, 75, 75)
-    Gray6: Color = Color(35, 35, 35)
+    Gray2: Color = Color(230, 230, 230)
+    Gray3: Color = Color(210, 210, 210)
+    Gray4: Color = Color(175, 175, 175)
+    Gray5: Color = Color(135, 135, 135)
+    Gray6: Color = Color(95, 95, 95)
+    Gray7: Color = Color(55, 55, 55)
+    Gray8: Color = Color(25, 25, 25)
     Black: Color = Color(0, 0, 0)
 
     # Semantic Colors
@@ -33,7 +35,7 @@ class MonochromeColors(BaseColors):
     Accent: Color = Black
     Muted: Color = Gray1
     Light: Color = White
-    Dark: Color = Gray6
+    Dark: Color = Gray8
     Danger: Color | None = None
     Success: Color | None = None
     Canvas: Color = White

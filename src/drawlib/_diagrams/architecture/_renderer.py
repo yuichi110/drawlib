@@ -32,7 +32,7 @@ from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorI
 from drawlib._diagrams.architecture._junction import Junction
 from drawlib._diagrams.architecture._node import Node
 from drawlib._diagrams.architecture._types import Connectable, DiagramItem, IconType, PaddingType
-from drawlib._preset_colors import Colors
+from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.architecture._diagram import ArchitectureDiagram

@@ -21,7 +21,6 @@ def test_cli_colors_list(tmp_path: Path) -> None:
     res = run_drawlib_cli(["colors", "list"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Colors140" in res.stdout
-    assert "Colors16" in res.stdout
     assert "DefaultColors" in res.stdout
     assert "GoogleColors" in res.stdout
     assert "MonochromeColors" in res.stdout
@@ -55,9 +54,9 @@ def test_cli_colors_show_sort_modes(tmp_path: Path) -> None:
 
 def test_cli_colors_show_with_grid(tmp_path: Path) -> None:
     """Test drawlib colors show with --grid option."""
-    out_png = tmp_path / "colors16_grid.png"
+    out_png = tmp_path / "colors140_grid.png"
     res = run_drawlib_cli(
-        ["colors", "show", "16", "-o", str(out_png), "--grid"],
+        ["colors", "show", "140", "-o", str(out_png), "--grid"],
         cwd=str(tmp_path),
     )
     assert res.returncode == 0

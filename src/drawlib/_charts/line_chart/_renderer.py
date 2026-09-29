@@ -28,7 +28,7 @@ from drawlib._core.shapes import polygon as canvas_polygon
 from drawlib._core.shapes import rectangle as canvas_rectangle
 from drawlib._core.text import text as canvas_text
 from drawlib._core.types import Style
-from drawlib._preset_colors import Colors
+from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._charts.area_chart._chart import AreaChart

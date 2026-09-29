@@ -15,15 +15,13 @@ from pydantic import BaseModel, ValidationError
 from drawlib._core.l2_types import Color
 from drawlib._preset_colors import (
     BaseColors,
-    Colors,
-    Colors16,
     Colors140,
-    Colors140Model,
     DefaultColors,
     GoogleColors,
     MonochromeColors,
 )
 
+colors140 = Colors140()
 default_colors = DefaultColors()
 google_colors = GoogleColors()
 monochrome_colors = MonochromeColors()
@@ -36,8 +34,7 @@ class TestColors:
         """Test all color model classes subclass BaseColors and BaseModel."""
         classes: list[type[BaseColors]] = [
             BaseColors,
-            Colors16,
-            Colors140Model,
+            Colors140,
             DefaultColors,
             GoogleColors,
             MonochromeColors,
@@ -49,8 +46,7 @@ class TestColors:
     def test_colors_instances(self) -> None:
         """Test all color singletons are instances of BaseColors."""
         instances: list[BaseColors] = [
-            Colors,
-            Colors140,
+            colors140,
             default_colors,
             google_colors,
             monochrome_colors,
@@ -84,20 +80,18 @@ class TestColors:
     def test_color_values(self) -> None:
         """Test specific color constant tuple values."""
         assert BaseColors.Transparent == (0, 0, 0, 0.0)
-        assert Colors.Red == (255, 0, 0)
-        assert Colors.Black == (0, 0, 0)
-        assert Colors.White == (255, 255, 255)
         assert default_colors.Red == (255, 23, 23)
-        assert default_colors.Gray5 == (38, 42, 50)
+        assert default_colors.Black == (0, 0, 0)
+        assert default_colors.White == (255, 255, 255)
+        assert default_colors.Gray5 == (140, 152, 170)
         assert default_colors.Blue2 == (111, 111, 239)
-        assert monochrome_colors.Gray5 == (75, 75, 75)
+        assert monochrome_colors.Gray5 == (135, 135, 135)
         assert google_colors.Black == (0, 0, 0)
 
     def test_colors_attributes(self) -> None:
         """Test that all color attributes on instances are valid Color instances."""
         instances: list[BaseColors] = [
-            Colors,
-            Colors140,
+            colors140,
             default_colors,
             google_colors,
             monochrome_colors,
@@ -106,7 +100,7 @@ class TestColors:
             for field_name in inst.__class__.model_fields:
                 val = getattr(inst, field_name)
                 if val is None:
-                    if isinstance(inst, (Colors16, Colors140Model)):
+                    if isinstance(inst, Colors140):
                         assert field_name in {
                             "Primary",
                             "Secondary",
@@ -148,8 +142,8 @@ class TestColors:
                 assert inst[sem] == val
                 assert inst[sem.lower()] == val
 
-        # Colors and Colors140 do not define semantic colors
-        for inst in (Colors, Colors140):
+        # Colors140 does not define semantic colors
+        for inst in (colors140,):
             for sem in ("Primary", "Secondary", "Accent", "Muted", "Light", "Dark", "Danger", "Success", "Canvas"):
                 assert getattr(inst, sem) is None
                 with pytest.raises(AttributeError):

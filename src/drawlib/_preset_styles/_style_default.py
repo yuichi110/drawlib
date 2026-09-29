@@ -786,6 +786,38 @@ class DefaultStyles(BaseStyles):
     gray6_dashed_bold: Style
     gray6_dashed_light: Style
 
+    # Gray7
+    gray7: Style
+    gray7_bordered: Style
+    gray7_bold: Style
+    gray7_light: Style
+    gray7_flat: Style
+    gray7_outline: Style
+    gray7_solid: Style
+    gray7_outline_bold: Style
+    gray7_solid_bold: Style
+    gray7_outline_light: Style
+    gray7_solid_light: Style
+    gray7_dashed: Style
+    gray7_dashed_bold: Style
+    gray7_dashed_light: Style
+
+    # Gray8
+    gray8: Style
+    gray8_bordered: Style
+    gray8_bold: Style
+    gray8_light: Style
+    gray8_flat: Style
+    gray8_outline: Style
+    gray8_solid: Style
+    gray8_outline_bold: Style
+    gray8_solid_bold: Style
+    gray8_outline_light: Style
+    gray8_solid_light: Style
+    gray8_dashed: Style
+    gray8_dashed_bold: Style
+    gray8_dashed_light: Style
+
     # Black
     black: Style
     black_bordered: Style
@@ -1153,7 +1185,8 @@ def _create_default_styles(  # noqa: C901
         "pink1": col.Pink1, "pink2": col.Pink2, "pink3": col.Pink3, "pink4": col.Pink4,
         # Neutrals
         "white": col.White, "gray1": col.Gray1, "gray2": col.Gray2, "gray3": col.Gray3,
-        "gray4": col.Gray4, "gray5": col.Gray5, "gray6": col.Gray6, "black": col.Black,
+        "gray4": col.Gray4, "gray5": col.Gray5, "gray6": col.Gray6, "gray7": col.Gray7,
+        "gray8": col.Gray8, "black": col.Black,
         # Standard Primaries
         "red": col.Red, "green": col.Green, "blue": col.Blue, "yellow": col.Yellow,
         "orange": col.Orange, "purple": col.Purple, "pink": col.Pink, "cyan": col.Cyan,

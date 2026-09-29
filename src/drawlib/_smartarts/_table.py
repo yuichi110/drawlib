@@ -18,7 +18,7 @@ from drawlib._core.fonts import Font
 from drawlib._core.lines import line
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import ColorType, Coordinate, PosFloat, PosInt, Style
-from drawlib._preset_colors import Colors, DefaultColors, MonochromeColors
+from drawlib._preset_colors import DefaultColors, MonochromeColors
 from drawlib._preset_styles import DefaultStyles, MonochromeStyles
 
 
@@ -83,7 +83,7 @@ class Table:
             bg = (
                 default_cell_style.shape_fill_color
                 if default_cell_style and default_cell_style.shape_fill_color
-                else Colors.Transparent
+                else DefaultColors.Transparent
             )
             txt = default_text_style or DefaultStyles.Primary
             self.set_style_cell(background_color=bg, textstyle=txt)
@@ -93,7 +93,7 @@ class Table:
             bg = (
                 header_cell_style.shape_fill_color
                 if header_cell_style and header_cell_style.shape_fill_color
-                else Colors.Transparent
+                else DefaultColors.Transparent
             )
             txt = header_text_style or DefaultStyles.Bold
             self.set_style_cell_header(background_color=bg, textstyle=txt)
@@ -165,7 +165,7 @@ class Table:
 
         elif name == "none":
             self.set_style_cell(
-                background_color=Colors.Transparent,
+                background_color=DefaultColors.Transparent,
                 textstyle=DefaultStyles.Primary.patch(text_color=DefaultColors.Gray5),
             )
 
@@ -402,7 +402,7 @@ class Table:
                     xy=(0, 0),
                     width=0,
                     height=0,
-                    background_color=Colors.White,
+                    background_color=DefaultColors.White,
                     textstyle=default_textstyle,
                     text=str(column),
                 )
@@ -530,7 +530,7 @@ class Table:
                     height=height,
                     style=Style(
                         shape_line_width=0,
-                        shape_line_color=Colors.Transparent,
+                        shape_line_color=DefaultColors.Transparent,
                         shape_fill_color=bg_color,
                     ),
                     text=text,

@@ -27,7 +27,7 @@ from drawlib._diagrams.flow._lane import Lane
 from drawlib._diagrams.flow._node import FlowNode
 from drawlib._diagrams.flow._nodes import Data, Decision, End, Process, Start
 from drawlib._diagrams.flow._types import Connectable, PaddingType, Side
-from drawlib._preset_colors import Colors
+from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.flow._diagram import FlowDiagram

@@ -26,11 +26,10 @@ from drawlib._core.fonts import Font
 from drawlib._core.l2_types import Color, Dimage
 from drawlib._core.l3_styles import BaseColors, Style
 from drawlib._preset_colors import (
+    Colors140,
     DefaultColors,
     GoogleColors,
     MonochromeColors,
-    colors_16,
-    colors_140,
 )
 from drawlib.canvas import clear, get_dimage, setup
 from drawlib.shapes import rectangle
@@ -49,15 +48,12 @@ colors_app = typer.Typer(
 SortMode = Literal["hsv", "name", "raw"]
 
 _PRESET_MAP: dict[str, tuple[BaseColors | type[BaseColors], str]] = {
-    "140": (colors_140, "Colors140 (CSS 140 Web Colors)"),
-    "colors140": (colors_140, "Colors140 (CSS 140 Web Colors)"),
-    "16": (colors_16, "Colors16 (Basic 16 Web Colors)"),
-    "colors16": (colors_16, "Colors16 (Basic 16 Web Colors)"),
-    "colors": (colors_16, "Colors16 (Basic 16 Web Colors)"),
     "default": (DefaultColors, "DefaultColors (Drawlib Default Palette)"),
     "google": (GoogleColors, "GoogleColors (Official Google Palette)"),
     "monochrome": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
     "mono": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
+    "140": (Colors140, "Colors140 (CSS 140 Web Colors)"),
+    "colors140": (Colors140, "Colors140 (CSS 140 Web Colors)"),
 }
 
 
@@ -295,7 +291,7 @@ def cmd_colors_list() -> None:
 def cmd_colors_show(
     preset: Annotated[
         str,
-        typer.Argument(help="Preset name: '140', 'google', 'default', 'monochrome', '16'."),
+        typer.Argument(help="Preset name: 'default', 'google', 'monochrome', or '140'."),
     ],
     output: Annotated[
         Optional[str],

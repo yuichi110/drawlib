@@ -214,11 +214,10 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 
 | Class | Number of Colors | Base Class | Primary Purpose |
 | :--- | :--- | :--- | :--- |
-| `DefaultColors` (`default_colors`) | 25 | `BaseColors` | Core palette matching the `"default"` preset catalog. |
-| `MonochromeColors` (`monochrome_colors`) | 7 | `BaseColors` | Pure grayscale gradient from Black to White. |
-| `GoogleColors` (`google_colors`) | 15 | `BaseColors` | Official Google corporate color palette. |
-| `Colors140` (`colors_140`) | 140 | `BaseColors` | Complete W3C CSS Color Module Level 3 named colors. |
-| `Colors` (`colors_16`) | 16 | `BaseColors` | Classic 16 standard HTML/VGA web colors + Transparent. |
+| `DefaultColors` | 52 | `BaseColors` | Core palette matching the `"default"` preset catalog. |
+| `MonochromeColors` | 8 | `BaseColors` | Pure grayscale gradient from Black to White. |
+| `GoogleColors` | 112 | `BaseColors` | Official Google corporate color palette. |
+| `Colors140` | 140 | `BaseColors` | Complete W3C CSS Color Module Level 3 named colors. |
 
 ### 4.2. Exact RGB Values of Built-In Palettes
 

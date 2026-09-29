@@ -77,12 +77,14 @@ class DefaultColors(BaseColors):
 
     # --- Neutrals (Grayscale ordered Light to Dark) ---
     White: Color = Color(255, 255, 255)
-    Gray1: Color = Color(246, 248, 251)
-    Gray2: Color = Color(215, 222, 232)
-    Gray3: Color = Color(145, 158, 175)
-    Gray4: Color = Color(90, 100, 115)
-    Gray5: Color = Color(38, 42, 50)
-    Gray6: Color = Color(24, 28, 36)
+    Gray1: Color = Color(248, 250, 252)
+    Gray2: Color = Color(238, 242, 246)
+    Gray3: Color = Color(220, 226, 235)
+    Gray4: Color = Color(186, 196, 210)
+    Gray5: Color = Color(140, 152, 170)
+    Gray6: Color = Color(95, 107, 125)
+    Gray7: Color = Color(50, 58, 72)
+    Gray8: Color = Color(24, 28, 36)
     Black: Color = Color(0, 0, 0)
 
     # --- Standard / Classic Primaries (Unnumbered) ---
@@ -112,7 +114,7 @@ class DefaultColors(BaseColors):
     Accent: Color = Amber2
     Muted: Color = Gray2
     Light: Color = White
-    Dark: Color = Gray5
+    Dark: Color = Gray7
     Danger: Color = Red
     Success: Color = Green
     Canvas: Color = White
@@ -126,7 +128,7 @@ class DefaultLightColors(DefaultColors):
     Accent: Color = DefaultColors.Amber1
     Muted: Color = DefaultColors.Gray1
     Light: Color = DefaultColors.White
-    Dark: Color = DefaultColors.Gray5
+    Dark: Color = DefaultColors.Gray7
     Danger: Color = DefaultColors.Red
     Success: Color = DefaultColors.Green
     Canvas: Color = DefaultColors.White
@@ -138,12 +140,12 @@ class DefaultDarkColors(DefaultColors):
     Primary: Color = DefaultColors.Blue3
     Secondary: Color = DefaultColors.Teal3
     Accent: Color = DefaultColors.Amber3
-    Muted: Color = DefaultColors.Gray5
-    Light: Color = DefaultColors.Gray2
-    Dark: Color = DefaultColors.Gray6
+    Muted: Color = DefaultColors.Gray6
+    Light: Color = DefaultColors.Gray3
+    Dark: Color = DefaultColors.Gray8
     Danger: Color = DefaultColors.Red
     Success: Color = DefaultColors.Green
-    Canvas: Color = DefaultColors.Gray6
+    Canvas: Color = DefaultColors.Gray8
 
 
 __all__ = [

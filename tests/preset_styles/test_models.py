@@ -48,9 +48,9 @@ class TestPresetStyles:
         assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
 
     def test_default_styles_completeness(self) -> None:
-        """Verifies DefaultStyles provides all variants across all 25 colors without omission."""
+        """Verifies DefaultStyles provides all variants across all colors without omission."""
         preset = default_styles
-        assert len(preset.styles()) == 940
+        assert len(preset.styles()) == 968
         variants = ["flat", "solid", "dashed", "bold", "light"]
         colors = [
             "red",
@@ -79,6 +79,8 @@ class TestPresetStyles:
             "gray4",
             "gray5",
             "gray6",
+            "gray7",
+            "gray8",
             "black",
         ]
         for c in colors:

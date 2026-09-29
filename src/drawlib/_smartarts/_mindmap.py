@@ -19,7 +19,7 @@ from drawlib._core.lines import line
 from drawlib._core.shapes import ellipse, rectangle
 from drawlib._core.text import get_charwidth_from_fontsize
 from drawlib._core.types import Coordinate, Style
-from drawlib._preset_colors import Colors
+from drawlib._preset_colors import DefaultColors as Colors
 
 
 class MindMapNode:
