@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import io
 import math
 import os
 import sys
@@ -18,9 +19,12 @@ import tempfile
 from typing import Annotated, Optional
 
 import typer
+from PIL import Image
 from rich.console import Console
 from rich.table import Table
 
+from drawlib import LIB_VERSION
+from drawlib._builder.doc_builder.build_cache import CliImageCache, hash_text
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.fonts import Font
 from drawlib._core.images import Dimage
@@ -388,6 +392,7 @@ def render_styles_matrix(
     page_size: int = 25,
     filter_color: str | None = None,
     grid: bool = False,
+    no_cache: bool = False,
 ) -> Dimage:
     """Render an orthogonal visual matrix for a BaseStyles catalog page.
 
@@ -402,6 +407,7 @@ def render_styles_matrix(
         page_size (int): Number of colors per page. Defaults to 25.
         filter_color (str | None): Optional substring to filter base colors. Defaults to None.
         grid (bool): Whether to overlay coordinate grid. Defaults to False.
+        no_cache (bool): If True, bypass cache and force re-rendering. Defaults to False.
 
     Returns:
         Dimage: Rendered in-memory image.
@@ -409,6 +415,18 @@ def render_styles_matrix(
     Raises:
         ValueError: If page is less than 1 or exceeds total pages.
     """
+    preset_slug = name.strip().lower().split()[0]
+    cache = CliImageCache(enabled=not no_cache)
+    cache_key = hash_text(
+        f"styles_matrix:{preset_slug}:{page}:{page_size}:{filter_color}:{grid}:{LIB_VERSION}"
+    )
+
+    if cache.enabled:
+        cached_blob = cache.get(cache_key)
+        if cached_blob is not None:
+            pil_img = Image.open(io.BytesIO(cached_blob))
+            return Dimage(pil_img)
+
     base_colors = _extract_base_colors(styles, filter_color)
     total_pages = max(1, math.ceil(len(base_colors) / page_size))
     if page < 1 or page > total_pages:
@@ -479,7 +497,20 @@ def render_styles_matrix(
             cx = margin_x + c_idx * tile_w + tile_w / 2
             _draw_swatch(styles, key, cx, cy, tile_w, tile_h)
 
-    return get_dimage()
+    dimage = get_dimage()
+    if cache.enabled:
+        bio = io.BytesIO()
+        dimage.get_pil_image().save(bio, format="PNG")
+        cache.put(
+            cache_key=cache_key,
+            category="styles",
+            preset_name=preset_slug,
+            page=page,
+            has_grid=grid,
+            png_blob=bio.getvalue(),
+        )
+
+    return dimage
 
 
 def _display_dimage(dimage: Dimage) -> None:
@@ -497,6 +528,7 @@ def _export_all_pages(
     *,
     filter_color: str | None,
     grid: bool,
+    no_cache: bool = False,
 ) -> None:
     """Export all pages of a style catalog sequentially to separate image files.
 
@@ -508,10 +540,13 @@ def _export_all_pages(
         key (str): Catalog preset key.
         filter_color (str | None): Color filter if applied.
         grid (bool): Whether to show coordinate grid overlay.
+        no_cache (bool): If True, bypass cache and force re-rendering. Defaults to False.
     """
     saved_paths: list[str] = []
     for p in range(1, total_pages + 1):
-        dimage = render_styles_matrix(styles, short_name, page=p, filter_color=filter_color, grid=grid)
+        dimage = render_styles_matrix(
+            styles, short_name, page=p, filter_color=filter_color, grid=grid, no_cache=no_cache
+        )
         if output:
             base, ext = os.path.splitext(output)
             if not ext:
@@ -645,6 +680,10 @@ def cmd_styles_show(
         bool,
         typer.Option("-g", "--grid", help="Show coordinate grid overlay."),
     ] = False,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the styles image cache."),
+    ] = False,
 ) -> None:
     """Display or export a visual style matrix for a preset style catalog."""
     key = preset.strip().lower()
@@ -663,7 +702,16 @@ def cmd_styles_show(
         raise typer.Exit(code=1)
 
     if all_pages:
-        _export_all_pages(instance, short_name, total_pages, output, key, filter_color=color, grid=grid)
+        _export_all_pages(
+            instance,
+            short_name,
+            total_pages,
+            output,
+            key,
+            filter_color=color,
+            grid=grid,
+            no_cache=no_cache,
+        )
         return
 
     if not (1 <= page <= total_pages):
@@ -673,5 +721,7 @@ def cmd_styles_show(
         )
         raise typer.Exit(code=1)
 
-    dimage = render_styles_matrix(instance, short_name, page=page, filter_color=color, grid=grid)
+    dimage = render_styles_matrix(
+        instance, short_name, page=page, filter_color=color, grid=grid, no_cache=no_cache
+    )
     _handle_single_page_output(dimage, output, key, short_name, page, total_pages)

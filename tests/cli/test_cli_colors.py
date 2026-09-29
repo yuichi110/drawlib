@@ -72,3 +72,16 @@ def test_cli_colors_show_invalid_preset(tmp_path: Path) -> None:
     assert res.returncode != 0
     output = res.stderr + res.stdout
     assert "Unknown color preset" in output
+
+
+def test_cli_colors_show_no_cache(tmp_path: Path) -> None:
+    """Test drawlib colors show with --no-cache bypasses image cache."""
+    out_png = tmp_path / "monochrome_no_cache.png"
+    res = run_drawlib_cli(
+        ["colors", "show", "monochrome", "-o", str(out_png), "--no-cache"],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert "Success" in res.stdout
+    assert out_png.exists()
+    assert out_png.stat().st_size > 1000

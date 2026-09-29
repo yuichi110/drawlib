@@ -20,7 +20,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from drawlib._builder.cache_manager import clear_cache, download_cache, list_cache
+from drawlib._builder.cache_manager import clear_cache, clear_image_cache, download_cache, list_cache
 from drawlib._builder.doc_builder import show_code_block as show_block
 from drawlib._builder.rules_builder import _normalize_topic
 from drawlib._cli._help import HELP_EPILOG
@@ -62,11 +62,29 @@ def _handle_cmd_error(prefix: str, exc: Exception) -> None:
 # drawlib cache {clear, list, download}
 # ---------------------------------------------------------------------------
 @cache_app.command("clear", epilog=HELP_EPILOG)
-def cmd_cache_clear() -> None:
-    """Delete all locally cached font and icon files."""
+def cmd_cache_clear(
+    all_assets: Annotated[
+        bool,
+        typer.Option("--all", "-a", help="Clear all caches including fonts, icons, and SQLite image cache."),
+    ] = False,
+    images: Annotated[
+        bool,
+        typer.Option("--images", "-i", help="Clear SQLite image cache (.drawlib/cache.db)."),
+    ] = False,
+) -> None:
+    """Delete locally cached font, icon, and image files."""
     try:
-        clear_cache()
-        print("Successfully cleared font and icon cache.")
+        if images:
+            clear_image_cache()
+            print("Successfully cleared image cache.")
+        elif all_assets:
+            clear_cache()
+            clear_image_cache()
+            print("Successfully cleared all caches (fonts, icons, and image cache).")
+        else:
+            clear_cache()
+            clear_image_cache(cli_only=True)
+            print("Successfully cleared font, icon, and CLI image caches.")
     except Exception as e:
         _handle_cmd_error("Cache Error", e)
 

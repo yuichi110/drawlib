@@ -20,6 +20,7 @@ import pytest
 
 from drawlib._builder.doc_builder.build_cache import (
     BuildImageCache,
+    CliImageCache,
     hash_file,
     hash_text,
 )
@@ -238,3 +239,68 @@ save("my_output.png")
     # 2nd run: restored from cache without executing Python code
     build_image(str(script))
     assert out_img.exists()
+
+
+def test_cli_image_cache_put_get_clear(tmp_path: Path) -> None:
+    """Test storing, retrieving, and clearing PNG blobs in CliImageCache."""
+    db_path = str(tmp_path / ".drawlib" / "cache.db")
+    cache = CliImageCache(db_path=db_path)
+
+    key1 = "styles_show:monochrome:1:25:None:False:v0.3"
+    png_data = b"\x89PNG\r\n\x1a\nfake_cli_png"
+
+    # Initially missing
+    assert cache.get(key1) is None
+
+    # Put entry
+    cache.put(
+        cache_key=key1,
+        category="styles",
+        preset_name="monochrome",
+        page=1,
+        has_grid=False,
+        png_blob=png_data,
+    )
+
+    # Hit
+    retrieved = cache.get(key1)
+    assert retrieved == png_data
+
+    # Clear
+    cache.clear()
+    assert cache.get(key1) is None
+
+
+def test_build_cache_referenced_asset_invalidation(tmp_path: Path) -> None:
+    """Test that referenced assets in project_root/_assets are hashed and invalidate cache on change."""
+    docs_root = tmp_path / "docs_src"
+    docs_root.mkdir()
+    assets_dir = docs_root / "_assets"
+    assets_dir.mkdir()
+    logo_file = assets_dir / "logo.png"
+    logo_file.write_bytes(b"initial_logo_png_bytes")
+    unrelated_file = assets_dir / "unrelated.png"
+    unrelated_file.write_bytes(b"unrelated_bytes")
+
+    sub_dir = docs_root / "guide"
+    sub_dir.mkdir()
+
+    # Code referencing _assets/logo.png
+    code = 'image((10, 10), width=20, image="_assets/logo.png")'
+
+    # Compute key with explicit project_root
+    key1, _ = BuildImageCache.compute_keys(code, context_dir=str(sub_dir), project_root=str(docs_root))
+
+    # Compute key with auto-detected project_root (walking up from context_dir to find _assets/)
+    key1_auto, _ = BuildImageCache.compute_keys(code, context_dir=str(sub_dir), project_root=None)
+    assert key1 == key1_auto
+
+    # Modify unrelated asset -> key MUST NOT change (only referenced assets affect cache)
+    unrelated_file.write_bytes(b"modified_unrelated_bytes")
+    key_unrelated, _ = BuildImageCache.compute_keys(code, context_dir=str(sub_dir), project_root=str(docs_root))
+    assert key_unrelated == key1
+
+    # Modify the referenced logo file -> key MUST change
+    logo_file.write_bytes(b"updated_new_logo_png_bytes")
+    key2, _ = BuildImageCache.compute_keys(code, context_dir=str(sub_dir), project_root=str(docs_root))
+    assert key2 != key1

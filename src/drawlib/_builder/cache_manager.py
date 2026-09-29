@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
+from drawlib._builder.doc_builder.build_cache import BuildImageCache, CliImageCache
 from drawlib._core.utils import download_all_assets, download_all_fonts, download_all_icons, purge_font_cache
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES
 
@@ -20,6 +21,19 @@ from drawlib._release_assets import RELEASE_ASSET_PACKAGES
 def clear_cache() -> None:
     """Delete all locally cached font and icon asset files."""
     purge_font_cache()
+
+
+def clear_image_cache(cli_only: bool = False, build_only: bool = False) -> None:
+    """Clear cached image entries from SQLite cache database (.drawlib/cache.db).
+
+    Args:
+        cli_only (bool): If True, clear only CLI catalog image cache (cli_image_cache).
+        build_only (bool): If True, clear only document build image cache (image_cache).
+    """
+    if not cli_only:
+        BuildImageCache().clear()
+    if not build_only:
+        CliImageCache().clear()
 
 
 def list_cache() -> List[Dict[str, Any]]:

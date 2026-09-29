@@ -273,7 +273,11 @@ def build_merged_html(
 
         if doc_info.has_drawlib and processor is None:
             processor = DrawlibBlockProcessor(
-                styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                styles_path=styles_path,
+                utils_path=utils_path,
+                no_cache=no_cache,
+                cache=cache,
+                project_root=base_root,
             )
 
         orig_cwd = os.getcwd()
@@ -287,7 +291,11 @@ def build_merged_html(
             if doc_info.doc_type == "markdown_drawlib":
                 if processor is None:
                     processor = DrawlibBlockProcessor(
-                        styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                        styles_path=styles_path,
+                        utils_path=utils_path,
+                        no_cache=no_cache,
+                        cache=cache,
+                        project_root=base_root,
                     )
                 processed_md = processor.process_markdown(
                     content,
@@ -303,7 +311,11 @@ def build_merged_html(
             elif doc_info.doc_type == "html_drawlib":
                 if processor is None:
                     processor = DrawlibBlockProcessor(
-                        styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                        styles_path=styles_path,
+                        utils_path=utils_path,
+                        no_cache=no_cache,
+                        cache=cache,
+                        project_root=base_root,
                     )
                 processed_html = processor.process_html(
                     content,

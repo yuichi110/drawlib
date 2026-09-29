@@ -134,3 +134,16 @@ def test_cli_styles_show_headless_guidance(tmp_path: Path) -> None:
     assert res.returncode == 0
     assert "pages in total" in res.stdout
     assert "uv run drawlib styles show google 2" in res.stdout
+
+
+def test_cli_styles_show_no_cache(tmp_path: Path) -> None:
+    """Test drawlib styles show with --no-cache bypasses image cache."""
+    out_png = tmp_path / "monochrome_no_cache.png"
+    res = run_drawlib_cli(
+        ["styles", "show", "monochrome", "-o", str(out_png), "--no-cache"],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert "Success" in res.stdout
+    assert out_png.exists()
+    assert out_png.stat().st_size > 1000

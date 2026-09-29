@@ -133,6 +133,7 @@ def _compile_single_markdown_file(
     progress: Optional[FileBuildProgress] = None,
     no_cache: bool = False,
     cache: Optional[BuildImageCache] = None,
+    project_root: Optional[str] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown file into rendered Markdown."""
     with open(src_abs, "r", encoding="utf-8") as f:
@@ -153,7 +154,11 @@ def _compile_single_markdown_file(
 
     if processor is None:
         processor = DrawlibBlockProcessor(
-            styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            cache=cache,
+            project_root=project_root,
         )
 
     src_dir = os.path.dirname(src_abs)
@@ -323,6 +328,7 @@ def build_markdown(
                 ),
                 no_cache=no_cache,
                 cache=cache,
+                project_root=input_abs,
             )
 
         return out_dir_abs
@@ -370,6 +376,7 @@ def build_markdown(
         ),
         no_cache=no_cache,
         cache=cache,
+        project_root=os.path.dirname(input_abs),
     )
     return dest_abs
 
@@ -393,6 +400,7 @@ def _compile_single_html_file(
     nav_items: Optional[list[dict[str, Any]]] = None,
     index_url: Optional[str] = None,
     site_title: Optional[str] = None,
+    project_root: Optional[str] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown or HTML file into HTML."""
     with open(src_abs, "r", encoding="utf-8") as f:
@@ -408,7 +416,11 @@ def _compile_single_html_file(
 
     if doc_info.has_drawlib and processor is None:
         processor = DrawlibBlockProcessor(
-            styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            cache=cache,
+            project_root=project_root,
         )
 
     src_dir = os.path.dirname(src_abs)
@@ -426,7 +438,11 @@ def _compile_single_html_file(
         if doc_info.doc_type == "markdown_drawlib":
             if processor is None:
                 processor = DrawlibBlockProcessor(
-                    styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                    styles_path=styles_path,
+                    utils_path=utils_path,
+                    no_cache=no_cache,
+                    cache=cache,
+                    project_root=project_root,
                 )
             processed_text = processor.process_markdown(
                 content,
@@ -443,7 +459,11 @@ def _compile_single_html_file(
         elif doc_info.doc_type == "html_drawlib":
             if processor is None:
                 processor = DrawlibBlockProcessor(
-                    styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                    styles_path=styles_path,
+                    utils_path=utils_path,
+                    no_cache=no_cache,
+                    cache=cache,
+                    project_root=project_root,
                 )
             processed_html = processor.process_html(
                 content,
@@ -752,6 +772,7 @@ def build_html(
                 nav_items=cur_items,
                 index_url=rel_index_url,
                 site_title=site_title,
+                project_root=input_abs,
             )
 
         return out_dir_abs
@@ -810,6 +831,7 @@ def build_html(
         ),
         no_cache=no_cache,
         cache=cache,
+        project_root=search_dir,
     )
     return dest_abs
 

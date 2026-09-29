@@ -12,6 +12,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 from typing import Sequence
 
 from typer.testing import CliRunner
@@ -47,6 +48,11 @@ def run_drawlib_cli(args: Sequence[str], cwd: str | None = None) -> CliResult:
     original_cwd = os.getcwd()
     old_display = os.environ.get("DRAWLIB_SHOW_NO_DISPLAY")
     os.environ["DRAWLIB_SHOW_NO_DISPLAY"] = "1"
+    repo_cache_db = Path(__file__).resolve().parents[2] / ".drawlib" / "cache.db"
+    old_cache_db = os.environ.get("DRAWLIB_CACHE_DB")
+    if old_cache_db is None and repo_cache_db.is_file():
+        os.environ["DRAWLIB_CACHE_DB"] = str(repo_cache_db)
+
     try:
         if cwd is not None:
             os.chdir(cwd)
@@ -63,3 +69,7 @@ def run_drawlib_cli(args: Sequence[str], cwd: str | None = None) -> CliResult:
             os.environ.pop("DRAWLIB_SHOW_NO_DISPLAY", None)
         else:
             os.environ["DRAWLIB_SHOW_NO_DISPLAY"] = old_display
+        if old_cache_db is None:
+            os.environ.pop("DRAWLIB_CACHE_DB", None)
+        else:
+            os.environ["DRAWLIB_CACHE_DB"] = old_cache_db

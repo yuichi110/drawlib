@@ -397,10 +397,12 @@ class DrawlibExecuter:
             return False
 
         need_grid = self._grid or dutil_settings.get_force_grid() or bool(re.search(r"\bgrid\s*=\s*True\b", code))
+        project_root = self._topdir_path or (self._target_roots[0] if self._target_roots else None)
         cache_key, code_hash = self._cache.compute_keys(
             code=code,
             config_hash=self._config_hash,
             context_dir=script_dir,
+            project_root=project_root,
         )
         if self._restore_cached_image(target_abs, ext, need_grid, cache_key):
             return True

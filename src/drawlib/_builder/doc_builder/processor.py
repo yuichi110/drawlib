@@ -102,6 +102,7 @@ class DrawlibBlockProcessor:
         utils_path: Optional[str] = None,
         no_cache: bool = False,
         cache: Optional[BuildImageCache] = None,
+        project_root: Optional[str] = None,
     ) -> None:
         """Initialize processor with shared globals and SQLite build image cache.
 
@@ -110,6 +111,7 @@ class DrawlibBlockProcessor:
             utils_path (Optional[str]): Optional path to Python utils script.
             no_cache (bool): If True, disable reading/writing the SQLite build image cache.
             cache (Optional[BuildImageCache]): Optional shared BuildImageCache instance.
+            project_root (Optional[str]): Optional project or documentation root directory.
         """
         self.shared_globals: Dict[str, Any] = {}
         self.styles_path = styles_path
@@ -119,6 +121,12 @@ class DrawlibBlockProcessor:
         self.config_hash = f"{s_hash}:{u_hash}"
         self.no_cache = no_cache
         self._cache: BuildImageCache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
+        self.project_root: Optional[str] = os.path.abspath(project_root) if project_root else None
+        if self.project_root is None:
+            if styles_path and os.path.isfile(styles_path):
+                self.project_root = os.path.dirname(os.path.abspath(styles_path))
+            elif utils_path and os.path.isfile(utils_path):
+                self.project_root = os.path.dirname(os.path.abspath(utils_path))
 
         load_styles_and_utils(
             styles_path=styles_path,
@@ -206,6 +214,7 @@ class DrawlibBlockProcessor:
                 code=code,
                 config_hash=self.config_hash,
                 context_dir=context_dir,
+                project_root=self.project_root,
             )
             cached = self._cache.get(cache_key, image_format=fmt)
             if cached is not None:

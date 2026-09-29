@@ -12,6 +12,7 @@
 from __future__ import annotations
 
 import colorsys
+import io
 import math
 import os
 import sys
@@ -19,9 +20,12 @@ import tempfile
 from typing import Annotated, Literal, Optional
 
 import typer
+from PIL import Image
 from rich.console import Console
 from rich.table import Table
 
+from drawlib import LIB_VERSION
+from drawlib._builder.doc_builder.build_cache import CliImageCache, hash_text
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.fonts import Font
 from drawlib._core.images import Dimage
@@ -165,12 +169,26 @@ def _draw_color_tile(
     )
 
 
+def _calc_grid_cols(n: int, has_semantics: bool, semantic_count: int) -> int:
+    """Determine optimal grid columns for color palette items."""
+    if n <= 24:
+        cols = 4
+    elif n <= 60:
+        cols = 6
+    else:
+        cols = 10
+    if has_semantics:
+        cols = max(cols, semantic_count)
+    return cols
+
+
 def render_color_chart(
     colors: BaseColors | type[BaseColors],
     name: str,
     *,
     sort_mode: SortMode = "hsv",
     grid: bool = False,
+    no_cache: bool = False,
 ) -> Dimage:
     """Render a dynamic visual color chart for any BaseColors instance.
 
@@ -179,10 +197,23 @@ def render_color_chart(
         name (str): Display name of the color palette.
         sort_mode (SortMode): Sorting strategy ('hsv', 'name', or 'raw'). Defaults to 'hsv'.
         grid (bool): Whether to overlay coordinate grid. Defaults to False.
+        no_cache (bool): If True, bypass cache and force re-rendering. Defaults to False.
 
     Returns:
         Dimage: Rendered in-memory image.
     """
+    preset_slug = name.strip().lower().split()[0]
+    cache = CliImageCache(enabled=not no_cache)
+    cache_key = hash_text(
+        f"colors_chart:{preset_slug}:{sort_mode}:{grid}:{LIB_VERSION}"
+    )
+
+    if cache.enabled:
+        cached_blob = cache.get(cache_key)
+        if cached_blob is not None:
+            pil_img = Image.open(io.BytesIO(cached_blob))
+            return Dimage(pil_img)
+
     semantic_items = [(k, getattr(colors, k)) for k in _SEMANTIC_KEYS if getattr(colors, k, None) is not None]
     has_semantics = len(semantic_items) > 0
 
@@ -190,17 +221,7 @@ def render_color_chart(
     items = _sort_colors(raw_items, sort_mode)
     n = len(items)
 
-    # 1. Determine optimal grid columns
-    if n <= 8:
-        cols = 4
-    elif n <= 24:
-        cols = 4
-    elif n <= 60:
-        cols = 6
-    else:
-        cols = 10
-    if has_semantics:
-        cols = max(cols, len(semantic_items))
+    cols = _calc_grid_cols(n, has_semantics, len(semantic_items))
     rows = math.ceil(n / cols)
 
     tile_w = 17.0
@@ -259,7 +280,20 @@ def render_color_chart(
         cy = start_y - (r_idx * tile_h + tile_h / 2)
         _draw_color_tile(cx, cy, tile_w, tile_h, col_name, col)
 
-    return get_dimage()
+    dimage = get_dimage()
+    if cache.enabled:
+        bio = io.BytesIO()
+        dimage.get_pil_image().save(bio, format="PNG")
+        cache.put(
+            cache_key=cache_key,
+            category="colors",
+            preset_name=preset_slug,
+            page=1,
+            has_grid=grid,
+            png_blob=bio.getvalue(),
+        )
+
+    return dimage
 
 
 def _display_dimage(dimage: Dimage) -> None:
@@ -307,6 +341,10 @@ def cmd_colors_show(
         bool,
         typer.Option("-g", "--grid", help="Show coordinate grid overlay."),
     ] = False,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the colors image cache."),
+    ] = False,
 ) -> None:
     """Display or export a visual color chart for a preset color catalog."""
     key = preset.strip().lower()
@@ -316,7 +354,7 @@ def cmd_colors_show(
         raise typer.Exit(code=1)
 
     instance, display_name = _PRESET_MAP[key]
-    dimage = render_color_chart(instance, display_name, sort_mode=sort, grid=grid)
+    dimage = render_color_chart(instance, display_name, sort_mode=sort, grid=grid, no_cache=no_cache)
 
     if output:
         dest_abs = os.path.abspath(output)
