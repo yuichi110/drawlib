@@ -14,7 +14,7 @@ import os
 import pytest
 from PIL import Image
 
-from drawlib._core.l2_types import Dimage
+from drawlib._core.images import Dimage
 from drawlib.canvas import clear, save, setup
 from drawlib.images import image
 from drawlib.styles import Colors

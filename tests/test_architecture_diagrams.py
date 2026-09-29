@@ -17,7 +17,6 @@ import pytest
 from PIL import Image
 
 from drawlib import canvas
-from drawlib._core.l2_types import Dimage
 from drawlib._core.l3_styles import Style
 from drawlib._diagrams.architecture._renderer import _apply_edge_padding
 from drawlib.diagrams.architecture import (
@@ -31,6 +30,7 @@ from drawlib.diagrams.architecture import (
     PhosphorIcon,
 )
 from drawlib.diagrams.architecture import icons as arch_icons
+from drawlib.images import Dimage
 from drawlib.styles import Colors
 
 

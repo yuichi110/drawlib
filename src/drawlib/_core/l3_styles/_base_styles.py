@@ -477,11 +477,6 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         return self.model_copy(update=updates)
 
 
-BasePresetStyles = BaseStyles
-PresetStyles = BaseStyles
-
 __all__ = [
-    "BasePresetStyles",
     "BaseStyles",
-    "PresetStyles",
 ]

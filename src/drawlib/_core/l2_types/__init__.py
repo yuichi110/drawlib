@@ -12,9 +12,6 @@
 from drawlib._core.l2_types._color import (
     Color,
 )
-from drawlib._core.l2_types._dimage import (
-    Dimage,
-)
 from drawlib._core.l2_types._font import (
     Font,
     FontBase,
@@ -77,7 +74,6 @@ __all__ = [
     "ColorType",
     "Coordinate",
     "Coordinates",
-    "Dimage",
     "FilePath",
     "Font",
     "FontBase",

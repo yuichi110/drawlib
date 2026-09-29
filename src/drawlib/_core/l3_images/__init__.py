@@ -7,12 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Core colors facade module."""
+"""Package for image processing models."""
 
-from drawlib._core.l3_styles import (
-    BaseColors,
+from drawlib._core.l3_images._dimage import (
+    Dimage,
 )
 
 __all__ = [
-    "BaseColors",
+    "Dimage",
 ]

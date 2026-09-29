@@ -21,11 +21,11 @@ from pydantic import ConfigDict, validate_call
 from drawlib._core.l2_types import (
     Angle,
     Coordinate,
-    Dimage,
     FilePath,
     ImageZoom,
     PosFloat,
 )
+from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import BaseColors, Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas_utils import ImageUtil

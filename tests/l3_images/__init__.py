@@ -6,21 +6,3 @@
 # This software is provided "as is", without warranty of any kind,
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
-
-"""Core styles facade module."""
-
-from drawlib._core.l2_types import (
-    Color,
-)
-from drawlib._core.l3_styles import (
-    BaseColors,
-    BaseStyles,
-    Style,
-)
-
-__all__ = [
-    "BaseColors",
-    "BaseStyles",
-    "Color",
-    "Style",
-]

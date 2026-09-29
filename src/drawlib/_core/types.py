@@ -43,24 +43,18 @@ from drawlib._core.l2_types import (
     TailEdge,
     VAlign,
 )
-from drawlib._core.l3_styles import (
-    ALL_SUPPORTS,
+from drawlib._core.styles import (
     BaseColors,
-    BasePresetStyles,
     BaseStyles,
-    PresetStyles,
     Style,
-    SupportType,
 )
 
 __all__ = [
-    "ALL_SUPPORTS",
     "Alpha",
     "Angle",
     "Angle90",
     "ArrowHead",
     "BaseColors",
-    "BasePresetStyles",
     "BaseStyles",
     "Bend",
     "Bezier2",
@@ -87,10 +81,8 @@ __all__ = [
     "PathPoints",
     "PosFloat",
     "PosInt",
-    "PresetStyles",
     "Size",
     "Style",
-    "SupportType",
     "TailEdge",
     "VAlign",
 ]

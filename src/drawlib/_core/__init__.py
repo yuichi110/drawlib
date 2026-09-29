@@ -16,7 +16,6 @@ rather than accessing lower-level implementation details directly.
 
 from drawlib._core import (
     canvas,
-    colors,
     fonts,
     images,
     lines,
@@ -29,7 +28,6 @@ from drawlib._core import (
 
 __all__ = [
     "canvas",
-    "colors",
     "fonts",
     "images",
     "lines",

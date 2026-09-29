@@ -26,22 +26,19 @@ from PIL import (
 )
 from pydantic import ConfigDict, validate_call
 
-from drawlib._core.l2_types._color import Color
-from drawlib._core.l2_types._image import (
-    ImageQuality,
-    ImageResample,
-)
-from drawlib._core.l2_types._path import FilePath, resolve_file_path
-from drawlib._core.l2_types._primitive import (
-    PosFloat,
-    PosInt,
-)
-from drawlib._core.l2_types._style import (
+from drawlib._core.l2_types import (
     Alpha,
     Angle,
     ColorRGB,
     ColorType,
+    FilePath,
+    ImageQuality,
+    ImageResample,
+    PosFloat,
+    PosInt,
 )
+from drawlib._core.l2_types._path import resolve_file_path
+from drawlib._core.styles import Color
 
 list_ = list
 

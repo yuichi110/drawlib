@@ -13,8 +13,7 @@ from __future__ import annotations
 
 import warnings
 
-from drawlib._core.l2_types import Color
-from drawlib._core.l3_styles import BaseColors
+from drawlib._core.styles import BaseColors, Color
 
 warnings.filterwarnings(
     "ignore",

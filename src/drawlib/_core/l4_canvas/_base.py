@@ -31,7 +31,6 @@ from drawlib._core.l2_types import (
     ColorType,
     Coordinate,
     Coordinates,
-    Dimage,
     ImageZoom,
     PathPoints,
     PosFloat,

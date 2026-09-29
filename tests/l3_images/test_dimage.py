@@ -14,14 +14,13 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from drawlib._core.l2_types import Dimage
+from drawlib._core.images import Dimage
 from drawlib.canvas import save
 from drawlib.images import image
-from drawlib.styles import Colors
 
 IMAGE_FILE = "../assets/image.png"
 FONT_FILE = "../../assets/font.ttf"
-OUTPUT_DIR = "../../output_tests/l2_types/dimage/"
+OUTPUT_DIR = "../../output_tests/l3_images/dimage/"
 
 
 @pytest.mark.image_threshold(70.0)
@@ -53,14 +52,14 @@ class TestDimage:
 
     def test_fill1(self):
         """Test Dimage fill with color."""
-        img = Dimage(IMAGE_FILE).fill(Colors.Gray4)
+        img = Dimage(IMAGE_FILE).fill((128, 128, 128))
         image((50, 50), 50, img)
         img.save(f"{OUTPUT_DIR}test_fill1_dimage.png")
         save(f"{OUTPUT_DIR}test_fill1.png")
 
     def test_fill2(self):
         """Test Dimage fill with alpha and color."""
-        img = Dimage(IMAGE_FILE).alpha(0.3).fill(Colors.Gray4)
+        img = Dimage(IMAGE_FILE).alpha(0.3).fill((128, 128, 128))
         image((50, 50), 50, img)
         img.save(f"{OUTPUT_DIR}test_fill2_dimage.png")
         save(f"{OUTPUT_DIR}test_fill2.png")
@@ -124,7 +123,7 @@ class TestDimage:
 
     def test_colorize(self):
         """Test Dimage colorization."""
-        img = Dimage(IMAGE_FILE).colorize(from_black_to=Colors.Blue, from_white_to=(255, 0, 0, 1.0))
+        img = Dimage(IMAGE_FILE).colorize(from_black_to=(0, 0, 255), from_white_to=(255, 0, 0, 1.0))
         image((50, 50), 50, img)
         img.save(f"{OUTPUT_DIR}test_colorize_dimage.png")
         save(f"{OUTPUT_DIR}test_colorize.png")
@@ -132,9 +131,9 @@ class TestDimage:
     def test_colorize_mid(self):
         """Test Dimage colorization with mid-tones."""
         img = Dimage(IMAGE_FILE).colorize(
-            from_black_to=Colors.Blue,
-            from_white_to=Colors.Red,
-            from_mid_to=Colors.Green,
+            from_black_to=(0, 0, 255),
+            from_white_to=(255, 0, 0),
+            from_mid_to=(0, 128, 0),
         )
         image((50, 50), 50, img)
         img.save(f"{OUTPUT_DIR}test_colorize_mid_dimage.png")
