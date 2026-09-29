@@ -7,18 +7,18 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Color model module for drawlib.
+"""Color model and types for drawlib.
 
 Provides the immutable Color class representing an RGBA color model with channel accessors,
-patch derivation, hex conversion, and Pydantic validation integration.
+patch derivation, hex conversion, and Pydantic validation integration, along with associated color type definitions.
 """
 
 from __future__ import annotations
 
 import re
-from typing import Any, Iterator, Sequence, Union
+from typing import Annotated, Any
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
+from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, model_validator
 
 _HEX_COLOR_PATTERN = re.compile(r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
 _HEX_NO_HASH_PATTERN = re.compile(r"^(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
@@ -29,8 +29,8 @@ def _parse_hex(hexcode: str, alpha: float | None = None) -> tuple[int, int, int,
     """Parse hexadecimal string into integer RGB and float alpha.
 
     Args:
-        hexcode (str): Hex color string.
-        alpha (float | None): Optional alpha override (0.0-1.0).
+        hexcode: Hex color string.
+        alpha: Optional alpha override (0.0-1.0).
 
     Returns:
         tuple[int, int, int, float]: Parsed (r, g, b, alpha) values.
@@ -60,77 +60,39 @@ def _parse_hex(hexcode: str, alpha: float | None = None) -> tuple[int, int, int,
     return r_val, g_val, b_val, a_val
 
 
-def _resolve_sequence(
-    seq: Sequence[Any], alpha: float | None  # noqa: ANN401
+def _normalize_color_input(
+    data: Any,  # noqa: ANN401
+    alpha: float | None = None,
 ) -> dict[str, Any]:  # noqa: ANN401
-    seq_len = len(seq)
-    if seq_len not in {3, 4}:
-        raise ValueError(f"Color tuple must have length 3 (RGB) or 4 (RGBA). Given length: {seq_len}.")
-    a_val = (1.0 if seq_len == 3 else seq[3]) if alpha is None else alpha
-    return {"r": seq[0], "g": seq[1], "b": seq[2], "alpha": a_val}
+    """Normalize various color inputs into an RGBA dictionary for Pydantic.
 
+    Args:
+        data: Color instance, hex string, sequence of channel values, or dictionary.
+        alpha: Optional alpha override (0.0-1.0).
 
-def _resolve_kwargs(
-    r: Any,  # noqa: ANN401
-    g: int | None,
-    b: int | None,
-    alpha: float | None,
-    kwargs: dict[str, Any],  # noqa: ANN401
-) -> dict[str, Any]:  # noqa: ANN401
-    data = dict(kwargs)
-    if "r" not in data:
-        data["r"] = r
-    if g is not None:
-        data["g"] = g
-    if b is not None:
-        data["b"] = b
-    if alpha is not None:
-        data["alpha"] = alpha
-    return data
+    Returns:
+        dict[str, Any]: Dictionary containing r, g, b, and alpha channels.
 
-
-def _resolve_positional(
-    r: int | tuple[int | float, ...] | list[int | float] | Color | str | dict[str, Any] | object,
-    g: int | None,
-    b: int | None,
-    alpha: float | None,
-) -> dict[str, Any]:  # noqa: ANN401
-    if isinstance(r, dict):
-        d = dict(r)
+    Raises:
+        ValueError: If input format or sequence length is invalid.
+    """
+    if isinstance(data, Color):
+        return {"r": data.r, "g": data.g, "b": data.b, "alpha": data.alpha if alpha is None else alpha}
+    if isinstance(data, str):
+        r, g, b, a = _parse_hex(data, alpha=alpha)
+        return {"r": r, "g": g, "b": b, "alpha": a}
+    if isinstance(data, (tuple, list)):
+        seq_len = len(data)
+        if seq_len not in {3, 4}:
+            raise ValueError(f"Color tuple must have length 3 (RGB) or 4 (RGBA). Given length: {seq_len}.")
+        a_val = (1.0 if seq_len == 3 else data[3]) if alpha is None else alpha
+        return {"r": data[0], "g": data[1], "b": data[2], "alpha": a_val}
+    if isinstance(data, dict):
+        d = dict(data)
         if alpha is not None:
             d["alpha"] = alpha
         return d
-    if isinstance(r, str):
-        r_val, g_val, b_val, a_val = _parse_hex(
-            r, alpha=alpha if alpha is not None else (g if isinstance(g, (int, float)) else None)
-        )
-        return {"r": r_val, "g": g_val, "b": b_val, "alpha": a_val}
-    if isinstance(r, Color):
-        return {"r": r.r, "g": r.g, "b": r.b, "alpha": r.alpha if alpha is None else alpha}
-    if isinstance(r, (tuple, list)):
-        return _resolve_sequence(r, alpha)
-    if isinstance(r, (int, float)):
-        if g is None or b is None:
-            raise ValueError("Green (g) and Blue (b) channels must be provided when Red (r) is an integer.")
-        return {"r": int(r), "g": g, "b": b, "alpha": 1.0 if alpha is None else alpha}
-    raise ValueError(f"Invalid color value: {r}")
-
-
-def _resolve_color_init_data(
-    r: int | tuple[int | float, ...] | list[int | float] | Color | str | dict[str, Any] | object,
-    g: int | None,
-    b: int | None,
-    alpha: float | None,
-    kwargs: dict[str, Any],  # noqa: ANN401
-) -> dict[str, Any]:  # noqa: ANN401
-    """Resolve raw arguments from __init__ into dictionary for Pydantic."""
-    if r is _UNSET:
-        if kwargs:
-            return kwargs
-        raise ValueError("Color channel values must be provided.")
-    if kwargs:
-        return _resolve_kwargs(r, g, b, alpha, kwargs)
-    return _resolve_positional(r, g, b, alpha)
+    raise ValueError(f"Invalid color value: {data}")
 
 
 class Color(BaseModel):
@@ -153,39 +115,16 @@ class Color(BaseModel):
         validate_assignment=True,
     )
 
-    r: int = Field(description="Red channel (0-255)")
-    g: int = Field(description="Green channel (0-255)")
-    b: int = Field(description="Blue channel (0-255)")
-    alpha: float = Field(default=1.0, description="Alpha channel (0.0-1.0)")
-
-    @field_validator("r", "g", "b")
-    @classmethod
-    def _validate_rgb(cls, v: int) -> int:
-        if not (0 <= v <= 255):
-            raise ValueError(f"RGB channel values must be between 0 and 255. Got: {v}")
-        return v
-
-    @field_validator("alpha")
-    @classmethod
-    def _validate_alpha(cls, v: float) -> float:
-        if not (0.0 <= v <= 1.0):
-            raise ValueError(f"Alpha channel must be between 0.0 and 1.0. Got: {v}")
-        return v
+    r: int = Field(ge=0, le=255, description="Red channel (0-255)")
+    g: int = Field(ge=0, le=255, description="Green channel (0-255)")
+    b: int = Field(ge=0, le=255, description="Blue channel (0-255)")
+    alpha: float = Field(default=1.0, ge=0.0, le=1.0, description="Alpha channel (0.0-1.0)")
 
     @model_validator(mode="before")
     @classmethod
     def _pre_validate(cls, data: Any) -> Any:  # noqa: ANN401
-        if isinstance(data, Color):
-            return {"r": data.r, "g": data.g, "b": data.b, "alpha": data.alpha}
-        if isinstance(data, str):
-            r, g, b, a = _parse_hex(data)
-            return {"r": r, "g": g, "b": b, "alpha": a}
-        if isinstance(data, (tuple, list)):
-            seq_len = len(data)
-            if seq_len not in {3, 4}:
-                raise ValueError(f"Color tuple must have length 3 (RGB) or 4 (RGBA). Given length: {seq_len}.")
-            a_val = 1.0 if seq_len == 3 else data[3]
-            return {"r": data[0], "g": data[1], "b": data[2], "alpha": a_val}
+        if isinstance(data, (Color, str, tuple, list)):
+            return _normalize_color_input(data)
         return data
 
     def __init__(
@@ -199,21 +138,37 @@ class Color(BaseModel):
         """Create a new Color instance.
 
         Args:
-            r (int | tuple[int | float, ...] | list[int | float] | Color | str):
-                Red channel integer (0-255), RGB/RGBA tuple/list, Color instance, or hex string.
-            g (int | None): Green channel integer (0-255) when r is an integer.
-            b (int | None): Blue channel integer (0-255) when r is an integer.
-            alpha (float | None): Alpha value (0.0-1.0). Defaults to 1.0 (or original alpha if r is RGBA).
-            **kwargs (Any): Keyword arguments for r, g, b, alpha.
+            r: Red channel integer (0-255), RGB/RGBA tuple/list, Color instance, or hex string.
+            g: Green channel integer (0-255) when r is an integer.
+            b: Blue channel integer (0-255) when r is an integer.
+            alpha: Alpha value (0.0-1.0). Defaults to 1.0 (or original alpha if r is RGBA).
+            **kwargs: Keyword arguments for r, g, b, alpha.
 
         Raises:
             ValueError: If channel values or sequence length are invalid.
+            ValidationError: If channel values fail validation constraints.
         """
-        data = _resolve_color_init_data(r, g, b, alpha, kwargs)
-        try:
+        if r is _UNSET:
+            if kwargs:
+                super().__init__(**kwargs)
+                return
+            raise ValueError("Color channel values must be provided.")
+
+        if g is not None or b is not None:
+            if g is None or b is None:
+                raise ValueError("Green (g) and Blue (b) channels must be provided when Red (r) is an integer.")
+            data: dict[str, Any] = {"r": r, "g": g, "b": b}
+            if alpha is not None:
+                data["alpha"] = alpha
+            if kwargs:
+                data.update(kwargs)
             super().__init__(**data)
-        except ValidationError as e:
-            raise ValueError(str(e)) from e
+            return
+
+        data = _normalize_color_input(r, alpha=alpha)
+        if kwargs:
+            data.update(kwargs)
+        super().__init__(**data)
 
     def to_mplot_rgba(self) -> tuple[float, float, float, float]:
         """Return normalized RGBA tuple (0.0-1.0) for matplotlib.
@@ -256,10 +211,10 @@ class Color(BaseModel):
         """Derive a new Color with modified channels (similar to Style.patch).
 
         Args:
-            r (int | None): New red channel (0-255).
-            g (int | None): New green channel (0-255).
-            b (int | None): New blue channel (0-255).
-            alpha (float | None): New alpha channel (0.0-1.0).
+            r: New red channel (0-255).
+            g: New green channel (0-255).
+            b: New blue channel (0-255).
+            alpha: New alpha channel (0.0-1.0).
 
         Returns:
             Color: A new immutable Color instance with updated values.
@@ -278,8 +233,8 @@ class Color(BaseModel):
         Supports '#RGB', '#RGBA', '#RRGGBB', and '#RRGGBBAA' (with or without '#').
 
         Args:
-            hexcode (str): Hex color string.
-            alpha (float | None): Optional alpha override (0.0-1.0).
+            hexcode: Hex color string.
+            alpha: Optional alpha override (0.0-1.0).
 
         Returns:
             Color: Parsed Color instance.
@@ -327,6 +282,21 @@ class Color(BaseModel):
         return f"Color({self.r}, {self.g}, {self.b}, alpha={self.alpha})"
 
 
+# Color type definitions
+Alpha = Annotated[float, Field(ge=0.0, le=1.0)]
+RGBChannel = Annotated[int, Field(ge=0, le=255)]
+ColorRGB = tuple[RGBChannel, RGBChannel, RGBChannel]
+ColorRGBA = tuple[RGBChannel, RGBChannel, RGBChannel, Alpha]
+ColorType = Annotated[
+    Color | ColorRGB | ColorRGBA | str,
+    BeforeValidator(lambda v: v if isinstance(v, Color) else Color(v)),
+]
+
 __all__ = [
+    "Alpha",
     "Color",
+    "ColorRGB",
+    "ColorRGBA",
+    "ColorType",
+    "RGBChannel",
 ]

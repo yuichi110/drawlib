@@ -10,7 +10,12 @@
 """Package for core drawing action modules."""
 
 from drawlib._core.l2_types._color import (
+    Alpha,
     Color,
+    ColorRGB,
+    ColorRGBA,
+    ColorType,
+    RGBChannel,
 )
 from drawlib._core.l2_types._font import (
     Font,
@@ -44,14 +49,10 @@ from drawlib._core.l2_types._primitive import (
     PosInt,
 )
 from drawlib._core.l2_types._style import (
-    Alpha,
     Angle,
     Angle90,
     ArrowHead,
     Bend,
-    ColorRGB,
-    ColorRGBA,
-    ColorType,
     HAlign,
     IconStyle,
     LineStyle,

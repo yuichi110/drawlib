@@ -77,14 +77,14 @@ class TestColorInstantiation:
         assert c2.alpha == 0.8
 
     def test_init_invalid_values(self) -> None:
-        """Test invalid channel values raise ValueError."""
-        with pytest.raises(ValueError, match="between 0 and 255"):
+        """Test invalid channel values raise ValidationError."""
+        with pytest.raises(ValidationError):
             Color(256, 0, 0)
-        with pytest.raises(ValueError, match="between 0 and 255"):
+        with pytest.raises(ValidationError):
             Color(-1, 0, 0)
-        with pytest.raises(ValueError, match="between 0.0 and 1.0"):
+        with pytest.raises(ValidationError):
             Color(0, 0, 0, 1.5)
-        with pytest.raises(ValueError, match="between 0.0 and 1.0"):
+        with pytest.raises(ValidationError):
             Color(0, 0, 0, -0.1)
 
     def test_init_invalid_arguments(self) -> None:

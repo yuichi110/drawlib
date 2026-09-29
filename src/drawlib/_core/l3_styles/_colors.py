@@ -16,7 +16,6 @@ from typing import Any, Callable, ClassVar, Concatenate, Generator, Generic, Par
 from pydantic import BaseModel, ConfigDict
 
 from drawlib._core.l2_types import Color, ColorType
-from drawlib._core.l2_types._style import normalize_color
 
 
 def _resolve_color_field_name(cls: type[BaseColors], name: str) -> str:
@@ -261,7 +260,7 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
             if v is not None:
                 target_key = _resolve_color_field_name(self.__class__, k)
                 try:
-                    updates[target_key] = normalize_color(v)
+                    updates[target_key] = v if isinstance(v, Color) else Color(v)
                 except Exception:
                     updates[target_key] = v
 

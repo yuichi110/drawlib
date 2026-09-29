@@ -16,8 +16,7 @@ from typing import Any, Generator, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
-from drawlib._core.l2_types import ColorType, FontBase, FontFile
-from drawlib._core.l2_types._style import normalize_color
+from drawlib._core.l2_types import Color, ColorType, FontBase, FontFile
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles._style_models import Style
 
@@ -200,7 +199,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
             target_key = _resolve_style_field_name(self.__class__, k, v)
             if target_key == "background_color" and v is not None:
                 try:
-                    normalized[target_key] = normalize_color(v)
+                    normalized[target_key] = v if isinstance(v, Color) else Color(v)
                 except Exception:
                     normalized[target_key] = v
             else:
@@ -492,7 +491,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
                 target_key = _resolve_style_field_name(self.__class__, k, v)
                 if target_key == "background_color":
                     try:
-                        updates[target_key] = normalize_color(v)
+                        updates[target_key] = v if isinstance(v, Color) else Color(v)
                     except Exception:
                         updates[target_key] = v
                 else:

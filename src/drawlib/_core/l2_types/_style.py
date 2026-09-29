@@ -13,7 +13,14 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BeforeValidator, Field
 
-from drawlib._core.l2_types._color import Color
+from drawlib._core.l2_types._color import (
+    Alpha,
+    Color,
+    ColorRGB,
+    ColorRGBA,
+    ColorType,
+    RGBChannel,
+)
 from drawlib._core.l2_types._primitive import PosFloat
 
 
@@ -40,19 +47,6 @@ def normalize_angle(v: Any) -> float:  # noqa: ANN401
         raise ValueError(f"Angle must be a number. But '{v}' is given.") from e
 
 
-def normalize_color(v: Any) -> Color:  # noqa: ANN401
-    """Normalize RGB/RGBA tuple, list, Hex string, dict, or Color to Color instance."""
-    if isinstance(v, Color):
-        return v
-    if isinstance(v, str):
-        return Color.from_hex(v)
-    if isinstance(v, (tuple, list)):
-        return Color(v)
-    if isinstance(v, dict):
-        return Color(**v)
-    raise ValueError(f"Color must be Color, RGB/RGBA tuple/list, dict, or hex string. But {v} is given.")
-
-
 def normalize_literal_str(v: Any) -> Any:  # noqa: ANN401
     """Normalize string by stripping whitespace and converting to lowercase."""
     if isinstance(v, str):
@@ -61,15 +55,9 @@ def normalize_literal_str(v: Any) -> Any:  # noqa: ANN401
 
 
 # Modern Type Definitions
-Alpha = Annotated[float, Field(ge=0.0, le=1.0)]
 Angle = Annotated[float, BeforeValidator(normalize_angle)]
 Angle90 = Annotated[float, Field(ge=0.0, le=90.0)]
 Bend = Annotated[float, Field(gt=-2.0, lt=2.0)]
-
-RGBChannel = Annotated[int, Field(ge=0, le=255)]
-ColorRGB = tuple[RGBChannel, RGBChannel, RGBChannel]
-ColorRGBA = tuple[RGBChannel, RGBChannel, RGBChannel, Alpha]
-ColorType = Annotated[Color | ColorRGB | ColorRGBA | str, BeforeValidator(normalize_color)]
 
 HAlign = Annotated[
     Literal["left", "center", "right"],
