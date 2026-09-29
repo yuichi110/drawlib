@@ -24,23 +24,24 @@ from PIL import (
     ImageFilter,
     ImageOps,
 )
-from pydantic import ConfigDict, validate_call
+from pydantic import ConfigDict, TypeAdapter, validate_call
 
 from drawlib._core.l2_types import (
     Alpha,
     Angle,
     ColorRGB,
     ColorType,
+    ExistingFilePath,
     FilePath,
     ImageQuality,
     ImageResample,
     PosFloat,
     PosInt,
 )
-from drawlib._core.l2_types._path import resolve_file_path
 from drawlib._core.styles import Color
 
 list_ = list
+_existing_file_path_adapter: TypeAdapter[ExistingFilePath] = TypeAdapter(ExistingFilePath)
 
 
 def _resolve_target_rgb(
@@ -121,7 +122,7 @@ class Dimage:
 
     def __init__(
         self,
-        image: FilePath | Dimage | Image.Image,
+        image: ExistingFilePath | Dimage | Image.Image,
         copy: bool = False,
     ) -> None:
         """Initialize a Dimage instance from a file path, PIL Image, or another Dimage.
@@ -146,9 +147,7 @@ class Dimage:
             absolute path before passing it to this class.
         """
         if isinstance(image, (str, os.PathLike)):
-            image_path = resolve_file_path(image)
-            if not os.path.exists(image_path):
-                raise FileNotFoundError(f'file "{image_path}" does not exist.')
+            image_path = _existing_file_path_adapter.validate_python(image)
             self._pilimg = Image.open(image_path)
 
         elif isinstance(image, Image.Image):

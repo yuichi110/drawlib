@@ -78,7 +78,7 @@ class TestFontFile:
             patch("drawlib._core.l2_types._path.get_script_relative_path", return_value="/dummy/font.ttf"),
             patch("os.path.exists", return_value=False),
         ):
-            with pytest.raises(FileNotFoundError, match='font file "/dummy/font.ttf" does not exist.'):
+            with pytest.raises(FileNotFoundError, match='"/dummy/font.ttf" does not exist.'):
                 FontFile("dummy/font.ttf")
 
 

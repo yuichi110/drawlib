@@ -14,12 +14,12 @@ from __future__ import annotations
 import os
 from typing import Annotated, Any
 
-from pydantic import BeforeValidator
+from pydantic import AfterValidator, BeforeValidator
 
 from drawlib._core.l1_core import get_script_relative_path
 
 
-def resolve_file_path(v: Any) -> Any:  # noqa: ANN401
+def _resolve_file_path(v: Any) -> Any:  # noqa: ANN401
     """Normalize user-provided path to absolute path resolved relative to caller script.
 
     If an absolute path is provided, it is returned unchanged.
@@ -50,4 +50,31 @@ def resolve_file_path(v: Any) -> Any:  # noqa: ANN401
     return get_script_relative_path(path_str)
 
 
-FilePath = Annotated[str, BeforeValidator(resolve_file_path)]
+def _validate_file_exists(v: str) -> str:
+    """Validate that the file exists on the filesystem.
+
+    Args:
+        v: Resolved file path string.
+
+    Returns:
+        str: Validated file path string.
+
+    Raises:
+        FileNotFoundError: If the file does not exist at the specified path.
+    """
+    if not os.path.exists(v):
+        raise FileNotFoundError(f'File "{v}" does not exist.')
+    return v
+
+
+# Backwards compatibility alias
+resolve_file_path = _resolve_file_path
+
+FilePath = Annotated[str, BeforeValidator(_resolve_file_path)]
+ExistingFilePath = Annotated[str, BeforeValidator(_resolve_file_path), AfterValidator(_validate_file_exists)]
+
+__all__ = [
+    "ExistingFilePath",
+    "FilePath",
+    "resolve_file_path",
+]

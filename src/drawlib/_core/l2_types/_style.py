@@ -21,10 +21,10 @@ from drawlib._core.l2_types._color import (
     ColorType,
     RGBChannel,
 )
-from drawlib._core.l2_types._primitive import PosFloat
+from drawlib._core.l2_types._primitive import PosFloat, _normalize_str
 
 
-def normalize_angle(v: Any) -> float:  # noqa: ANN401
+def _normalize_angle(v: Any) -> float:  # noqa: ANN401
     """Normalize angle in degrees.
 
     Values in [0.0, 360.0] are preserved.
@@ -47,46 +47,62 @@ def normalize_angle(v: Any) -> float:  # noqa: ANN401
         raise ValueError(f"Angle must be a number. But '{v}' is given.") from e
 
 
-def normalize_literal_str(v: Any) -> Any:  # noqa: ANN401
-    """Normalize string by stripping whitespace and converting to lowercase."""
-    if isinstance(v, str):
-        return v.strip().lower()
-    return v
-
+# Backwards compatibility alias
+normalize_angle = _normalize_angle
+normalize_literal_str = _normalize_str
 
 # Modern Type Definitions
-Angle = Annotated[float, BeforeValidator(normalize_angle)]
+Angle = Annotated[float, BeforeValidator(_normalize_angle)]
 Angle90 = Annotated[float, Field(ge=0.0, le=90.0)]
 Bend = Annotated[float, Field(gt=-2.0, lt=2.0)]
 
 HAlign = Annotated[
     Literal["left", "center", "right"],
-    BeforeValidator(normalize_literal_str),
+    BeforeValidator(_normalize_str),
 ]
 VAlign = Annotated[
     Literal["bottom", "center", "top"],
-    BeforeValidator(normalize_literal_str),
+    BeforeValidator(_normalize_str),
 ]
 LineStyle = Annotated[
     Literal["solid", "dashed", "dotted", "dashdot"],
-    BeforeValidator(normalize_literal_str),
+    BeforeValidator(_normalize_str),
 ]
 ArrowHead = Annotated[
     Literal["", "->", "<-", "<->"],
-    BeforeValidator(normalize_literal_str),
+    BeforeValidator(_normalize_str),
 ]
 TailEdge = Annotated[
     Literal["left", "top", "right", "bottom"],
-    BeforeValidator(normalize_literal_str),
+    BeforeValidator(_normalize_str),
 ]
 IconStyle = Annotated[
     Literal["thin", "light", "regular", "bold", "fill"],
-    BeforeValidator(normalize_literal_str),
+    BeforeValidator(_normalize_str),
 ]
 Size = (
     PosFloat
     | Annotated[
         Literal["small", "medium", "large"],
-        BeforeValidator(normalize_literal_str),
+        BeforeValidator(_normalize_str),
     ]
 )
+
+__all__ = [
+    "Alpha",
+    "Angle",
+    "Angle90",
+    "ArrowHead",
+    "Bend",
+    "Color",
+    "ColorRGB",
+    "ColorRGBA",
+    "ColorType",
+    "HAlign",
+    "IconStyle",
+    "LineStyle",
+    "RGBChannel",
+    "Size",
+    "TailEdge",
+    "VAlign",
+]

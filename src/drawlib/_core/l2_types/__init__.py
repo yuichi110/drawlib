@@ -39,6 +39,7 @@ from drawlib._core.l2_types._image import (
     ImageZoom,
 )
 from drawlib._core.l2_types._path import (
+    ExistingFilePath,
     FilePath,
 )
 from drawlib._core.l2_types._primitive import (
@@ -75,6 +76,7 @@ __all__ = [
     "ColorType",
     "Coordinate",
     "Coordinates",
+    "ExistingFilePath",
     "FilePath",
     "Font",
     "FontBase",

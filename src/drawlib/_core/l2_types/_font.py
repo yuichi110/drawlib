@@ -9,13 +9,12 @@
 
 """Font type definitions for drawlib."""
 
-import os
 from enum import Enum
 from typing import Annotated
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field
 
-from drawlib._core.l2_types._path import FilePath
+from drawlib._core.l2_types._path import ExistingFilePath, FilePath
 
 
 class FontMetadata(BaseModel):
@@ -43,9 +42,9 @@ class FontFile(BaseModel):
 
     model_config = ConfigDict(validate_assignment=True)
 
-    file: FilePath
+    file: ExistingFilePath
 
-    def __init__(self, file: FilePath) -> None:
+    def __init__(self, file: ExistingFilePath | FilePath | str) -> None:
         """Initialize the font file.
 
         Args:
@@ -54,26 +53,13 @@ class FontFile(BaseModel):
         """
         super().__init__(file=file)
 
-    @field_validator("file")
-    @classmethod
-    def validate_file(cls, value: str) -> str:
-        """Validate the font file path.
-
-        Validates that the provided path exists and is a valid file path. If not,
-        raises an appropriate exception.
-
-        Args:
-            value (str): The path to the font file.
-
-        Returns:
-            str: The absolute path to the font file.
-
-        Raises:
-            FileNotFoundError: If the file does not exist at the specified path.
-        """
-        if not os.path.exists(value):
-            raise FileNotFoundError(f'font file "{value}" does not exist.')
-        return value
-
 
 Font = Annotated[FontBase | FontFile, Field()]
+
+__all__ = [
+    "Font",
+    "FontBase",
+    "FontFile",
+    "FontMetadata",
+    "FontResource",
+]

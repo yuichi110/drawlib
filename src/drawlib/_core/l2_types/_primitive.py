@@ -9,9 +9,17 @@
 
 """Primitive type definitions for drawlib."""
 
-from typing import Annotated
+from typing import Annotated, Any
 
 from pydantic import Field
+
+
+def _normalize_str(v: Any) -> Any:  # noqa: ANN401
+    """Normalize string by stripping whitespace and converting to lowercase."""
+    if isinstance(v, str):
+        return v.strip().lower()
+    return v
+
 
 # Integers
 PosInt = Annotated[int, Field(ge=0)]

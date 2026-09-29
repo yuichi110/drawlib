@@ -16,7 +16,7 @@ from typing import Union
 import pytest
 from pydantic import TypeAdapter, ValidationError, validate_call
 
-from drawlib._core.l2_types import FilePath
+from drawlib._core.l2_types import ExistingFilePath, FilePath
 
 
 class TestFilePath:
@@ -85,3 +85,19 @@ class TestFilePath:
         type_int, val_int = flexible_loader(42)
         assert type_int is int
         assert val_int == 42
+
+
+class TestExistingFilePath:
+    """Test cases for ExistingFilePath validation."""
+
+    def test_existing_file(self):
+        """Test that an existing file path passes validation."""
+        adapter: TypeAdapter[ExistingFilePath] = TypeAdapter(ExistingFilePath)
+        resolved = adapter.validate_python(__file__)
+        assert resolved == os.path.realpath(__file__)
+
+    def test_non_existing_file_fails(self):
+        """Test that a non-existing file path raises FileNotFoundError."""
+        adapter: TypeAdapter[ExistingFilePath] = TypeAdapter(ExistingFilePath)
+        with pytest.raises(FileNotFoundError):
+            adapter.validate_python("non_existent_file_xyz_12345.png")

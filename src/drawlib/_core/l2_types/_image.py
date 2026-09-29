@@ -9,25 +9,20 @@
 
 """Image type definitions for drawlib."""
 
-from typing import Annotated, Any, Literal
+from typing import Annotated, Literal
 
 from pydantic import BeforeValidator, Field
 
-
-def _normalize_image_str(v: Any) -> Any:  # noqa: ANN401
-    if isinstance(v, str):
-        return v.strip().lower()
-    return v
-
+from drawlib._core.l2_types._primitive import _normalize_str
 
 ImageFormat = Annotated[
     Literal["jpg", "png", "webp", "pdf"],
-    BeforeValidator(_normalize_image_str),
+    BeforeValidator(_normalize_str),
 ]
 
 ImageZoom = Annotated[float, Field(gt=0.0)]
 ImageQuality = Annotated[int, Field(ge=0, le=100)]
 ImageResample = Annotated[
     Literal["nearest", "box", "bilinear", "hamming", "bicubic", "lanczos"],
-    BeforeValidator(_normalize_image_str),
+    BeforeValidator(_normalize_str),
 ]
