@@ -16,6 +16,7 @@ drawlib build pdf docs_src/ -o manual.pdf --toc             # Merged vector PDF 
 drawlib build image scripts/ -o assets/ -g                 # Batch Python illustration rendering
 
 # Project scaffolding
+drawlib init list                                          # List available starter project templates
 drawlib init site my_site/                                 # Create multi-page website project
 drawlib init simple my_doc/                                # Create single-page document project
 drawlib init pdf my_report/                                # Create multi-chapter PDF book project
@@ -33,6 +34,12 @@ drawlib serve docs_html/                                   # Local HTTP server o
 drawlib serve docs_html/ --check                           # Pre-flight broken link/asset check & exit
 drawlib serve docs_html/ -p 8080 --no-browser              # Headless server on custom port
 
+# Palette colors and style presets
+drawlib colors list                                        # List available color preset catalogs
+drawlib colors show default -o colors.png                  # Export color chart to image
+drawlib styles list                                        # List available style preset catalogs
+drawlib styles show default -o styles.png                  # Export style matrix to image
+
 # Cache and stylesheet preset management
 drawlib cache list                                         # Inspect cached font and icon assets
 drawlib cache clear                                        # Purge downloaded font and icon cache
@@ -42,8 +49,10 @@ drawlib css show html google -o style.css                  # Export Google styli
 
 # AI agent knowledge base
 drawlib rules list                                         # List available architectural rule topics
+drawlib rules show                                         # Display default overview drawing guidelines
 drawlib rules show cli                                     # Display this CLI reference guide
 drawlib rules show docs_build                              # Display documentation build conventions
+drawlib rules clear                                        # Delete all cached rule illustrations and docs
 ```
 
 ---
@@ -103,8 +112,9 @@ drawlib build html <INPUT> [OPTIONS]
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--output` | `-o` | `<path>` | `<input_dir>` or `<name>.html` | Destination HTML file path or output directory path. |
-| `--config` | `-c` | `<path>` | `None` | Path to Python configuration script executed before blocks (e.g. `docs_config.py`). |
 | `--format` | `-f` | `png \| webp` | `png` | Image output format for embedded `drawlib` blocks. |
+| `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
+| `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache (forces clean re-rendering). |
 
 > **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of a single file). Run `drawlib init` to scaffold them.
@@ -127,8 +137,8 @@ drawlib build html docs_src/ -o docs_html/
 # Compile single Markdown document to standalone HTML:
 drawlib build html docs_src/overview.md -o docs_html/overview.html
 
-# Compile with Python configuration script:
-drawlib build html docs_src/ -o docs_html/ -c docs_config.py
+# Compile with custom Python styles script:
+drawlib build html docs_src/ -o docs_html/ -s styles.py
 
 # Force complete re-rendering ignoring cached images:
 drawlib build html docs_src/ -o docs_html/ --no-cache
@@ -152,8 +162,9 @@ drawlib build markdown <INPUT> [OPTIONS]
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--output` | `-o` | `<path>` | `<stem>.rendered.md` or directory | Output destination file or directory path. |
-| `--config` | `-c` | `<path>` | `None` | Path to Python configuration script executed before blocks. |
 | `--format` | `-f` | `png \| webp` | `png` | Image output format for rendered blocks. |
+| `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
+| `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache. |
 
 #### Overwrite Protection:
@@ -169,8 +180,8 @@ To safeguard author source files, `drawlib build markdown` strictly refuses to o
 # Compile author source directory to GitHub-ready docs/ directory:
 drawlib build markdown docs_src/ -o docs/
 
-# Compile single file using custom configuration:
-drawlib build markdown docs_src/architecture.md -o docs/architecture.md -c docs_config.py
+# Compile single file using custom styles script:
+drawlib build markdown docs_src/architecture.md -o docs/architecture.md -s styles.py
 
 # Export images as modern WebP format:
 drawlib build markdown docs_src/ -o docs/ -f webp
@@ -197,7 +208,8 @@ drawlib build pdf <INPUT> [OPTIONS]
 | `--title` | | `<str>` | Extracted from H1 | Overall document title displayed on cover and running headers. |
 | `--generate-index` | `--toc` | flag | `False` | Generate a Table of Contents (ToC) and insert it between chapters. |
 | `--page-break` | `--no-page-break` | flag | `True` | Insert CSS page breaks (`page-break-before: always`) between chapters. |
-| `--config` | `-c` | `<path>` | `None` | Path to Python configuration script executed before blocks. |
+| `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
+| `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in PDF metadata instead of normalizing for deterministic builds. |
 
@@ -238,7 +250,8 @@ drawlib build image <INPUT> [OPTIONS]
 | :--- | :--- | :--- | :--- | :--- |
 | `--output`, `--output-dir` | `-o` | `<path>` | `None` | Output file path (for single script) or destination directory path. |
 | `--format` | `-f` | `png \| webp \| jpg \| pdf` | `None` (uses script setting) | Global output image format override. |
-| `--config` | `-c` | `<path>` | `None` | Path to Python setup/configuration script. |
+| `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
+| `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--grid` | `-g` | flag | `False` | Save companion `*_grid.<ext>` images with coordinate grid overlaid. |
 | `--disable-auto-clear` | | flag | `False` | Disable clearing canvas per executing drawing code files. |
 | `--enable-auto-initialize` | | flag | `False` | Enable complete canvas re-initialization per executing code file. |
@@ -660,17 +673,144 @@ drawlib build pdf docs_src/ -o output.pdf
 
 ---
 
-## 7. AI Agent Guidelines & Rule Topics (`drawlib rules`)
+## 7. Preset Colors & Visual Palettes (`drawlib colors`)
+
+Drawlib includes curated color palettes optimized for technical diagrams, architecture schemas, and data visualizations. The `drawlib colors` subsystem allows developers and AI assistants to inspect available palette catalogs, examine hue distributions, and export visual swatch charts.
+
+### Subcommands:
+```text
+drawlib colors
+├── list                           # List all available built-in color presets
+└── show <PRESET> [OPTIONS]        # Display or export a visual color chart
+```
+
+---
+
+### 7.1 `drawlib colors list`
+Inspects all registered color preset classes and displays a formatted summary table:
+
+```bash
+drawlib colors list
+```
+
+Available Color Presets:
+- `default`: Balanced core color palette (`DefaultColors`)
+- `google`: Official Google brand and Material color palette (`GoogleColors`)
+- `monochrome` (alias: `mono`): Clean, accessible grayscale palette (`MonochromeColors`)
+- `140` (alias: `colors140`): Full 140 standard web color collection (`Colors140`)
+
+---
+
+### 7.2 `drawlib colors show`
+Generates and displays (or exports) a high-resolution visual color chart rendering swatches, color names, and luminance contrast:
+
+```bash
+drawlib colors show <PRESET> [OPTIONS]
+```
+
+#### Arguments:
+- `<PRESET>`: Name of preset palette (`default`, `google`, `monochrome`, or `140`).
+
+#### Options:
+| Option | Shorthand | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `--output` | `-o` | `<path>` | `None` | Save chart to image file instead of opening GUI viewer. |
+| `--sort` | | `hsv \| name \| raw` | `hsv` | Color tile sort order (`hsv`, `name`, or `raw`). |
+| `--grid` | `-g` | flag | `False` | Show coordinate grid overlay. |
+| `--no-cache` | | flag | `False` | Disable reading and writing the colors image cache. |
+
+#### Examples:
+```bash
+# Preview default color chart in GUI viewer:
+drawlib colors show default
+
+# Export 140-color chart sorted by hue:
+drawlib colors show 140 --sort hsv -o colors_140.png
+
+# Export Google palette with coordinate grid:
+drawlib colors show google -g -o google_colors.png
+```
+
+---
+
+## 8. Preset Styles & Visual Matrix (`drawlib styles`)
+
+Drawlib provides pre-engineered design systems and style collections that pair shape fills, outlines, and text formatting. The `drawlib styles` subsystem generates visual matrices for inspecting style variations across base colors and semantic roles.
+
+### Subcommands:
+```text
+drawlib styles
+├── list                           # List all available style preset catalogs
+└── show <PRESET> [PAGE] [OPTIONS] # Display or export a visual style matrix
+```
+
+---
+
+### 8.1 `drawlib styles list`
+Lists all available style preset catalogs and style counts:
+
+```bash
+drawlib styles list
+```
+
+Available Style Presets:
+- `default`: Drawlib standard theme styles (`DefaultStyles`)
+- `monochrome`: High-contrast grayscale styles (`MonochromeStyles`)
+- `google`: Google Material-themed styles (`GoogleStyles`)
+
+---
+
+### 8.2 `drawlib styles show`
+Renders a 2D style matrix displaying 10 orthogonal variants (`bordered`, `bold`, `light`, `flat`, `outline`, `outline_bold`, `outline_light`, `dashed`, `dashed_bold`, `dashed_light`) across colors and semantic roles:
+
+```bash
+drawlib styles show <PRESET> [PAGE] [OPTIONS]
+```
+
+#### Arguments:
+- `<PRESET>`: Preset style catalog (`default`, `monochrome`, `google`).
+- `[PAGE]`: 1-based page index (defaults to `1`, 25 colors per page).
+
+#### Options:
+| Option | Shorthand | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `--output` | `-o` | `<path>` | `None` | Save chart to image file instead of opening GUI viewer. |
+| `--all` | `-a` | flag | `False` | Export all pages at once (e.g. `styles_google_1.png`, ...). |
+| `--color` | `-c` | `<str>` | `None` | Filter by base color or hue name (e.g. `blue`, `red`). |
+| `--grid` | `-g` | flag | `False` | Show coordinate grid overlay. |
+| `--no-cache` | | flag | `False` | Disable reading and writing the styles image cache. |
+
+#### Examples:
+```bash
+# Preview page 1 of default styles:
+drawlib styles show default
+
+# Export page 2 of Google styles to image file:
+drawlib styles show google 2 -o styles_google_p2.png
+
+# Export all pages at once:
+drawlib styles show default --all -o styles_default.png
+
+# Filter by red hue styles:
+drawlib styles show default -c red -o styles_red.png
+```
+
+---
+
+## 9. AI Agent Guidelines & Rule Topics (`drawlib rules`)
 
 Drawlib features a built-in knowledge subsystem (`drawlib rules`) that delivers detailed coding standards, shape rules, coordinate conventions, and syntax examples directly to your terminal.
 
 AI pair-programming assistants and developers can query these rules at any time during development to ensure API consistency.
 
+### Default Execution Behavior:
+Like all other command groups in Drawlib, executing `drawlib rules` without arguments displays contextual help and lists all available subcommands (`no_args_is_help=True`). To display the default canvas overview guidelines, execute `drawlib rules show` (or `drawlib rules show overview`).
+
 ### Subcommands:
 ```text
 drawlib rules
 ├── list                    List all available rule topics and cache status
-├── show [TOPIC]            Display rules and examples (on-demand illustration build)
+├── show [TOPIC]            Display rules and examples (defaults to overview)
 │   ├── --rebuild, -r       Force regenerate illustrations even if cached
 │   └── --raw               Display raw Markdown without building or checking cache
 ├── build [TOPIC]           Pre-build illustrations into _assets/rules/
@@ -681,35 +821,46 @@ drawlib rules
 
 ---
 
-### 7.1 Rule Topic Catalog:
+### 9.1 Rule Topic Catalog:
 
 | Topic Name | Aliases | Description |
 | :--- | :--- | :--- |
-| `overview` | *(default)* | Canvas lifecycle, coordinate systems, core imports, and workflow. |
-| `cli` | | Complete CLI reference manual, options, and CI/CD automation. |
-| `docs_build` | `doc`, `docs`, `doc_build` | Documentation site layout, `navbar.md` rules, and build scripts. |
+| `overview` | *(default)* | Canvas lifecycle, coordinate system, core imports, and workflow. |
+| `overview_min` | `overview-min` | Concise overview (<10k chars) for context-constrained rule files. |
+| `canvas` | | Canvas configuration, coordinate space, clear/save lifecycle, and background. |
+| `styles` | | Styles and utils architecture, active preset styles, colors palette, and dynamic custom scripts. |
 | `shapes` | | Rectangles, circles, ellipses, wedges, and polygons. |
 | `lines` | | Straight, curved, and chained lines with arrowheads. |
-| `text` | | Text rendering, alignment, fonts, and multiline formatting. |
-| `icons` | | Phosphor, FontAwesome, and GCP cloud architecture icons. |
+| `text` | | Text rendering, formatting, alignment, and fonts. |
+| `colors` | | Color models, RGB/RGBA tuples, hex conversion, and palette classes. |
+| `fonts` | | Font configuration, system/file fonts, CJK/multilingual typography, and cache. |
+| `images` | | Embedding bitmap and vector images, scaling, rotation, and Dimage. |
+| `math` | | Geometry helpers, coordinate calculations, angles, distance, and bounding box. |
+| `types` | | Type models, Style class, base classes, and Drawlib type conventions. |
 | `preset_styles` | `theme`, `themes` | Pre-defined style naming rules and color palette classes. |
+| `icons` | | Phosphor, FontAwesome, and GCP cloud architecture icons. |
 | `smartarts` | | Tables, trees, mindmaps, and structured visual elements. |
 | `charts` | | Bar, line, pie, scatter, radar, area, and Gantt charts. |
 | `diagrams` | | Flowcharts, sequence, state, class, ER, and architecture diagrams. |
+| `tools` | | Python developer API for document building, diagram export, and cache management. |
+| `cli` | | Document compilation, export, preview, and cache CLI commands. |
+| `docs_build` | `doc`, `docs`, `doc_build` | Documentation site structure, navbar rules, scaffolding, and build conventions. |
 
 ---
 
-### 7.2 On-Demand Multimodal Illustration Pairing:
+### 9.2 On-Demand Multimodal Illustration Pairing:
 When an AI agent or developer runs `drawlib rules show <topic>`, Drawlib automatically checks if the rendered document and its companion illustration images are cached under `drawlib/_assets/rules/`.
 - **First Call**: If not cached or if source rules were modified, Drawlib compiles code blocks on demand, generates companion PNG illustrations, and injects an agent instruction banner with local image paths.
 - **Subsequent Calls**: Instant retrieval directly from local cache.
 - **Multimodal Grounding**: AI coding assistants can view the companion images using their file viewing tools (`view_file`, etc.) to visually verify geometric layouts, alignments, and aesthetics alongside the Python source code.
 - **PyPI Safety**: All cached rule assets reside inside `_assets/rules/` which is ignored by Git and automatically purged before package publishing, keeping wheel distributions minimal.
 
-### 7.3 Usage Examples:
+### 9.3 Usage Examples:
 ```bash
+drawlib rules                             # Display help and available subcommands
 drawlib rules list                        # List all topics and cache status
-drawlib rules show overview               # Display canvas overview and core rules
+drawlib rules show                        # Display default canvas overview rules
+drawlib rules show overview               # Explicitly display canvas overview rules
 drawlib rules show shapes                 # Display shapes API rules (builds on-demand)
 drawlib rules show shapes --rebuild       # Force regenerate illustrations for shapes
 drawlib rules show shapes --raw           # Output raw Markdown source without cache
@@ -719,13 +870,13 @@ drawlib rules clear                       # Delete all cached illustrations and 
 
 ---
 
-## 8. CI/CD & Automation Integration
+## 10. CI/CD & Automation Integration
 
 Integrating Drawlib into continuous integration workflows guarantees documentation is consistently validated, diagrams are automatically rendered, and broken links are caught prior to deployment.
 
 ---
 
-### 8.1 GitHub Actions Workflow (`.github/workflows/docs.yml`)
+### 10.1 GitHub Actions Workflow (`.github/workflows/docs.yml`)
 
 The following complete workflow builds HTML documentation, validates links, and deploys the static site to GitHub Pages:
 
@@ -797,7 +948,7 @@ jobs:
 
 ---
 
-### 8.2 Makefile Integration
+### 10.2 Makefile Integration
 
 Add the following targets to your project's `Makefile` for streamlined local development:
 
@@ -807,12 +958,11 @@ Add the following targets to your project's `Makefile` for streamlined local dev
 DOCS_SRC := docs_src
 DOCS_HTML := docs_html
 DOCS_MD := docs
-CONFIG := docs_config.py
 
 docs-build:
 	@echo "==> Compiling Drawlib documentation..."
-	uv run python -m drawlib build html $(DOCS_SRC) -o $(DOCS_HTML) -c $(CONFIG)
-	uv run python -m drawlib build markdown $(DOCS_SRC) -o $(DOCS_MD) -c $(CONFIG)
+	uv run python -m drawlib build html $(DOCS_SRC) -o $(DOCS_HTML)
+	uv run python -m drawlib build markdown $(DOCS_SRC) -o $(DOCS_MD)
 
 docs-serve:
 	@echo "==> Starting local documentation server..."
@@ -829,7 +979,7 @@ docs-clean:
 
 ---
 
-### 8.3 Pre-commit Hook Integration (`.pre-commit-config.yaml`)
+### 10.3 Pre-commit Hook Integration (`.pre-commit-config.yaml`)
 
 Enforce documentation integrity and prevent broken links from entering the repository:
 
@@ -847,7 +997,7 @@ repos:
 
 ---
 
-## 9. Troubleshooting & Diagnostics Reference
+## 11. Troubleshooting & Diagnostics Reference
 
 ### Common Error Messages & Solutions:
 
