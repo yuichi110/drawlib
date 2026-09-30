@@ -16,9 +16,8 @@ from drawlib.types import (
 
     # Architectural Base Classes
     BaseColors,          # Base class for defining custom color palettes
+    BaseStyles,          # Base class for defining custom preset styles
     FontBase,            # Base class for font representations
-    BasePresetStyles,    # Base class for defining custom preset themes
-    PresetStyles,        # Concrete container for theme preset styles
 )
 ```
 
@@ -97,8 +96,7 @@ In Drawlib v0.3, `Style` instances are strictly **frozen** and immutable (`froze
 
 To create derivative styles, always use the `.patch()` method:
 ```python
-from drawlib.preset_colors import Colors
-from drawlib.styles import styles
+from drawlib.styles import Colors, styles
 
 # Patch an existing preset to derive a new style:
 highlighted_style = styles.primary.patch(
@@ -130,13 +128,13 @@ When reading function signatures across Drawlib modules, parameters adhere to th
 
 ---
 
-## 4. Custom Themes via `BasePresetStyles`
+## 4. Custom Themes via `BaseStyles`
 
-You can define cohesive organizational design systems by subclassing `BasePresetStyles`:
+You can define cohesive organizational design systems by subclassing `BaseStyles`:
 
 ```python
-from drawlib.preset_colors import BaseColors, Color
-from drawlib.types import BasePresetStyles, Style
+from drawlib.preset_colors import Color
+from drawlib.types import BaseColors, BaseStyles, Style
 
 class AcmeColors(BaseColors):
     BrandBlue: Color = Color.from_hex("#0052cc")
@@ -146,20 +144,17 @@ class AcmeColors(BaseColors):
 
 acme_colors = AcmeColors()
 
-class AcmeTheme(BasePresetStyles):
-    def __init__(self) -> None:
-        super().__init__()
-        # Register custom shape styles
-        self.shape_styles["primary"] = Style(
-            fill_color=acme_colors.BrandBlue,
-            text_color=(255, 255, 255),
-            line_width=0,
-        )
-        self.shape_styles["accent"] = Style(
-            fill_color=acme_colors.BrandOrange,
-            text_color=(255, 255, 255),
-            line_width=0,
-        )
+class AcmeTheme(BaseStyles):
+    primary: Style = Style(
+        shape_fill_color=acme_colors.BrandBlue,
+        text_color=Color(255, 255, 255),
+        shape_line_width=0,
+    )
+    accent: Style = Style(
+        shape_fill_color=acme_colors.BrandOrange,
+        text_color=Color(255, 255, 255),
+        shape_line_width=0,
+    )
 ```
 
 ---

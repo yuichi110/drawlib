@@ -31,7 +31,7 @@ from drawlib._core.fonts import Font
 from drawlib._core.images import Dimage
 from drawlib._core.styles import BaseColors, Color, Style
 from drawlib._preset_colors import (
-    Colors140,
+    CssColors,
     DefaultColors,
     DefaultColors1,
     DefaultColors2,
@@ -71,8 +71,10 @@ _PRESET_MAP: dict[str, tuple[BaseColors | type[BaseColors], str]] = {
     "google": (GoogleColors, "GoogleColors (Official Google Palette)"),
     "monochrome": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
     "mono": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
-    "140": (Colors140, "Colors140 (CSS 140 Web Colors)"),
-    "colors140": (Colors140, "Colors140 (CSS 140 Web Colors)"),
+    "css": (CssColors, "CssColors (W3C CSS Named Colors)"),
+    "csscolors": (CssColors, "CssColors (W3C CSS Named Colors)"),
+    "140": (CssColors, "CssColors (W3C CSS Named Colors)"),
+    "colors140": (CssColors, "CssColors (W3C CSS Named Colors)"),
 }
 
 
@@ -340,7 +342,7 @@ def cmd_colors_list() -> None:
 def cmd_colors_show(
     preset: Annotated[
         str,
-        typer.Argument(help="Preset name: 'default', 'google', 'monochrome', or '140'."),
+        typer.Argument(help="Preset name: 'default', 'google', 'monochrome', or 'css'."),
     ],
     output: Annotated[
         Optional[str],

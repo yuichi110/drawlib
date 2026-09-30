@@ -15,7 +15,7 @@ In complex technical diagrams and architectural illustrations, manually specifyi
    Instead of instantiating verbose `Style(...)` objects for standard variations, Drawlib parses ergonomic shorthand strings such as `"blue"`, `"green_flat"`, `"red_solid_bold"`, or `"dashed"`. These strings are resolved dynamically into full `Style` instances.
 
 3. **Layered Object Models**:
-   At the core of the preset style system is `BasePresetStyles` (a Pydantic `BaseModel`), which exposes standard role-based styles (`primary`, `light`, `bold`, `flat`, `solid`, `dashed`), default canvas background colors, and font definitions. Users can inspect, iterate, serialize, or subclass these models to define enterprise brand guidelines.
+   At the core of the preset style system is `BaseStyles` (a standard Python dataclass), which exposes standard role-based styles (`primary`, `light`, `bold`, `flat`, `solid`, `dashed`), default canvas background colors, and font definitions. Users can inspect, copy, patch, or subclass these models to define enterprise brand guidelines.
 
 ### 1.1. High-Level Architecture Overview
 
@@ -31,18 +31,18 @@ In complex technical diagrams and architectural illustrations, manually specifyi
                     ▼                                         ▼
    ┌─────────────────────────────────┐       ┌─────────────────────────────────┐
    │       Color Collections         │       │     Official Style Catalogs     │
-   │  - default_colors (DefaultColors)│      │  - default_styles (DefaultStyles)│
-   │  - monochrome_colors (MonoColors)│      │  - monochrome_styles (MonoStyles)│
-   │  - google_colors (GoogleColors) │       │  - google_styles (GoogleStyles) │
-   │  - Colors140 (140 CSS colors)   │       │  (Base: BasePresetStyles)       │
-   │  - Colors (16 basic web colors) │       │                                 │
+   │  - DefaultColors                │       │  - DefaultStyles                │
+   │  - MonochromeColors             │       │  - MonochromeStyles             │
+   │  - GoogleColors                 │       │  - GoogleStyles                 │
+   │  - CssColors (140 CSS colors)   │       │  - Styles (Active Facade)       │
+   │  - Colors (Active Facade)       │       │  (Base: BaseStyles)             │
    └────────────────┬────────────────┘       └────────────────┬────────────────┘
                     │                                         │
                     └────────────────────┬────────────────────┘
                                          │
                                          ▼
                     ┌─────────────────────────────────────────┐
-                    │      Style Resolution: get_style()      │
+                    │      Style Resolution                   │
                     │  Token parsing: <color>_<type>_<weight> │
                     └────────────────────┬────────────────────┘
                                          │
@@ -61,47 +61,53 @@ In complex technical diagrams and architectural illustrations, manually specifyi
 All preset styling symbols and color utilities are accessed through clean, public module namespaces:
 
 ```python
-# Preset styles constants and model classes
+# Active theme styling tokens (recommended for general drawing)
+from drawlib.styles import Colors, Styles
+
+# Preset style catalog classes
 from drawlib.preset_styles import (
-    BasePresetStyles,
     DefaultStyles,
-    DefaultStyles,
+    DefaultStyles1,
+    DefaultStyles2,
+    DefaultStyles3,
+    DefaultStyles4,
+    DefaultStyles5,
+    DefaultStyles6,
+    GoogleStyles,
     MonochromeStyles,
-    PresetStyles,
-    default_styles,
-    default_styles,
-    get_style,
-    monochrome_styles,
+    Style,
 )
 
 # Color collections and utilities
 from drawlib.preset_colors import (
     Color,
-    Colors140,
+    CssColors,
     DefaultColors,
-    DefaultDarkColors,
-    DefaultLightColors,
+    DefaultColors1,
+    DefaultColors2,
+    DefaultColors3,
+    DefaultColors4,
+    DefaultColors5,
+    DefaultColors6,
     GoogleColors,
     MonochromeColors,
 )
 
-# Underlying Style model
-from drawlib.types import Style
+# Architectural Base classes
+from drawlib.types import BaseColors, BaseStyles
 ```
 
 ### 2.1. Re-exported Symbol Summary
 
 | Symbol | Category | Description |
 | :--- | :--- | :--- |
-| `default_styles` | Immutable Catalog | Singleton `DefaultStyles` instance providing base 5-color preset styles. |
-| `default_styles` | Immutable Catalog | Singleton `DefaultStyles` instance providing 25-color preset styles. |
-| `monochrome_styles` | Immutable Catalog | Singleton `MonochromeStyles` instance providing grayscale preset styles. |
-| `get_style(style=None)` | Resolver Function | Resolves a style string shortcut, `Style` object, or `None` into an active `Style`. |
-| `BasePresetStyles` | Base Model | Pydantic base model providing dict-like access, iteration, and field validation. |
-| `PresetStyles` | Alias | Backward-compatible alias for `BasePresetStyles`. |
-| `DefaultStyles` | Model Class | Strongly typed model containing default style definitions. |
-| `DefaultStyles` | Model Class | Strongly typed model containing 25-color essentials style definitions. |
-| `MonochromeStyles` | Model Class | Strongly typed model containing grayscale style definitions. |
+| `Styles` | Active Facade | Active style catalog singleton imported from `drawlib.styles`. |
+| `Colors` | Active Facade | Active color palette singleton imported from `drawlib.styles`. |
+| `DefaultStyles` | Model Class | Default design system style catalog (Level 4 primary centered). |
+| `GoogleStyles` | Model Class | Google Slides & Workspace brand style catalog. |
+| `MonochromeStyles` | Model Class | Grayscale style catalog for print, papers, and e-ink. |
+| `Style` | Data Model | Core style dataclass representing visual attributes. |
+| `BaseStyles` | Base Model | Dataclass base providing dict-like access, copy, and patch operations. |
 
 ---
 
@@ -143,9 +149,9 @@ The standard catalog optimized for technical documentation, flowcharts, and soft
   - `dashed`: Transparent fill, blue dashed border (width 1.5), regular icons.
 
 ```python
-from drawlib.preset_styles import default_styles
+from drawlib.styles import Styles
 
-default_catalog = default_styles
+default_catalog = Styles
 
 print("Default Primary Fill:", default_catalog.primary.fill_color)
 print("Default Primary Line:", default_catalog.primary.line_color)
@@ -156,7 +162,7 @@ print("Default Line Width:", default_catalog.primary.line_width)
 
 Specially designed for printed engineering manuals, formal academic papers, patents, and grayscale e-ink displays. It uses pure black, white, and balanced intermediate gray tones to maintain razor-sharp contrast without color dependencies.
 
-- **Primary Colors**: Black (`#000000`), Charcoal (`#272727`), Graphite (`#3F3F3F`), Gray (`#7F7F7F`), Silver (`#BFBFBF`), Snow (`#EFEFEF`), White (`#FFFFFF`).
+- **Primary Colors**: Black (`#000000`), Gray1 (`#F5F5F5`) to Gray8 (`#191919`), White (`#FFFFFF`).
 - **Visual Design**:
   - `primary`: White fill, black border (width 1.5), black text, sans-serif regular font.
   - `light`: White fill, black border (width 0.75), sans-serif light font.
@@ -167,12 +173,12 @@ Specially designed for printed engineering manuals, formal academic papers, pate
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_styles import monochrome_styles
+from drawlib.preset_styles import MonochromeStyles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
 setup(width=120, height=40)
-mono = monochrome_styles
+mono = MonochromeStyles
 
 # White box with black outline
 rectangle((30, 20), width=35, height=20, style=mono.primary)
@@ -187,22 +193,22 @@ save()
 
 ### 3.3. DefaultStyles (`"essentials"`)
 
-An expressive, modern palette featuring 25 rich, coordinated colors. It is the recommended base for complex multi-tier system designs, data visualization dashboards, and cloud infrastructure diagrams where distinct subsystems require dedicated semantic colors.
+An expressive, modern palette featuring systematic 6-tone chromatic scales, neutral grays, and semantic roles. It is the recommended base for complex multi-tier system designs, data visualization dashboards, and cloud infrastructure diagrams where distinct subsystems require dedicated semantic colors.
 
-- **Primary Colors**: Red, LightRed, Pink, Brown, Orange, Green, LightGreen, GreenYellow, Teal, Olive, Blue, LightBlue, Aqua, Navy, Steel, Yellow, Purple, Ivory, Black, Charcoal, Graphite, Gray, Silver, Snow, White.
+- **Primary Colors**: 8 chromatic hues across 6 tone levels (Blue, Green, Red, Orange, Amber, Purple, Teal, Pink), 8 gray levels (Gray1 to Gray8), Black, White, and standard primaries.
 - **Visual Design**:
-  - `primary`: LightBlue fill, Charcoal border (width 1.5), Charcoal text.
-  - `light`: LightBlue fill, Charcoal border (width 0.75), sans-serif light font.
-  - `bold`: LightBlue fill, Charcoal border (width 2.25), sans-serif bold font.
-  - `flat`: LightBlue fill, borderless (`line_width=0`).
-  - `solid`: Transparent fill, LightBlue border (width 1.5).
-  - `dashed`: Transparent fill, LightBlue dashed border (width 1.5).
+  - `primary`: Blue4 fill, Blue6 border (width 1.5), white text.
+  - `light`: Blue1 fill, Blue5 border (width 0.75), sans-serif light font.
+  - `bold`: Blue4 fill, Blue6 border (width 2.25), sans-serif bold font.
+  - `flat`: Blue4 fill, borderless (`line_width=0`).
+  - `solid`: Transparent fill, Blue4 border (width 1.5).
+  - `dashed`: Transparent fill, Blue4 dashed border (width 1.5).
 
 ```python
-from drawlib.preset_styles import default_styles
+from drawlib.preset_styles import DefaultStyles
 
-# Access singleton directly
-essentials = default_styles
+# Access class attributes directly
+essentials = DefaultStyles
 
 print("Default Primary Text Color:", essentials.primary.text_color)
 print("Default Background:", essentials.background_color)
@@ -216,59 +222,43 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 
 ### 4.1. Color Classes Overview
 
-| Class | Number of Colors | Base Class | Primary Purpose |
-| :--- | :--- | :--- | :--- |
-| `DefaultColors` | 52 | `BaseColors` | Core palette matching the `"default"` preset catalog. |
-| `MonochromeColors` | 8 | `BaseColors` | Pure grayscale gradient from Black to White. |
-| `GoogleColors` | 112 | `BaseColors` | Official Google corporate color palette. |
-| `Colors140` | 140 | `BaseColors` | Complete W3C CSS Color Module Level 3 named colors. |
+| Class | Base Class | Primary Purpose |
+| :--- | :--- | :--- |
+| `DefaultColors` | `BaseColors` | Core palette matching the `"default"` preset catalog (6-tone scales + neutrals + semantics). |
+| `MonochromeColors` | `BaseColors` | Pure grayscale gradient from Black to White (Gray1 to Gray8). |
+| `GoogleColors` | `BaseColors` | Official Google corporate color palette. |
+| `CssColors` | `BaseColors` | Complete W3C CSS Color Module Level 3 named colors. |
 
 ### 4.2. Exact RGB Values of Built-In Palettes
 
-#### DefaultStyleColors
-- `Red`: `(239, 95, 95)`
-- `Green`: `(79, 191, 79)`
-- `Blue`: `(111, 111, 239)`
-- `Black`: `(0, 0, 0)`
+#### MonochromeColors
 - `White`: `(255, 255, 255)`
-
-#### MonochromeStyleColors
+- `Gray1`: `(245, 245, 245)`
+- `Gray2`: `(230, 230, 230)`
+- `Gray3`: `(210, 210, 210)`
+- `Gray4`: `(175, 175, 175)`
+- `Gray5`: `(135, 135, 135)`
+- `Gray6`: `(95, 95, 95)`
+- `Gray7`: `(55, 55, 55)`
+- `Gray8`: `(25, 25, 25)`
 - `Black`: `(0, 0, 0)`
-- `Charcoal`: `(39, 39, 39)`
-- `Graphite`: `(63, 63, 63)`
-- `Gray`: `(127, 127, 127)`
-- `Silver`: `(191, 191, 191)`
-- `Snow`: `(239, 239, 239)`
-- `White`: `(255, 255, 255)`
 
-#### DefaultColors
+#### DefaultColors (Selected Tones and Primaries)
 | Color Name | RGB Value | Hex Equivalent | Visual Role |
 | :--- | :--- | :--- | :--- |
-| `Red` | `(255, 23, 23)` | `#FF1717` | Critical alerts, destructive actions |
-| `LightRed` | `(239, 95, 95)` | `#EF5F5F` | Soft errors, warnings |
-| `Pink` | `(239, 63, 239)` | `#EF3FEF` | Special events, highlights |
-| `Brown` | `(159, 31, 31)` | `#9F1F1F` | Legacy components, storage blocks |
-| `Orange` | `(255, 95, 31)` | `#FF5F1F` | Compute nodes, warning thresholds |
-| `Green` | `(15, 127, 15)` | `#0F7F0F` | Production status, valid states |
-| `LightGreen` | `(79, 191, 79)` | `#4FBF4F` | Healthy services, operational nodes |
-| `GreenYellow` | `(127, 207, 31)`| `#7FCF1F` | Minor notices, caches |
-| `Teal` | `(15, 127, 127)` | `#0F7F7F` | Networking, API gateways |
-| `Olive` | `(127, 127, 31)` | `#7F7F1F` | Secondary systems, batch jobs |
-| `Blue` | `(31, 31, 255)`  | `#1F1FFF` | High-priority primary services |
-| `LightBlue` | `(111, 111, 239)`| `#6F6FEF` | Standard application services |
-| `Aqua` | `(47, 239, 239)` | `#2FEFEF` | Ingress streams, client connections |
-| `Navy` | `(15, 15, 127)`  | `#0F0F7F` | Databases, persistent storage |
-| `Steel` | `(96, 96, 143)`  | `#60608F` | Infrastructure hosts, containers |
-| `Yellow` | `(239, 239, 31)` | `#EFEF1F` | Authentication, token services |
-| `Purple` | `(127, 31, 127)` | `#7F1F7F` | Message queues, asynchronous pub/sub |
-| `Ivory` | `(239, 239, 207)`| `#EFEFCF` | Canvas background, callout panels |
-| `Black` | `(0, 0, 0)`      | `#000000` | Borders, primary dark text |
-| `Charcoal` | `(39, 39, 39)`   | `#272727` | High-contrast structural borders |
-| `Graphite` | `(63, 63, 63)`   | `#3F3F3F` | Secondary structural borders |
-| `Gray` | `(127, 127, 127)`| `#7F7F7F` | Inactive nodes, boundary lines |
-| `Silver` | `(191, 191, 191)`| `#BFBFBF` | Subnet backdrops, divider lines |
-| `Snow` | `(239, 239, 239)`| `#EFEFEF` | Neutral container card backdrops |
-| `White` | `(255, 255, 255)`| `#FFFFFF` | Canvas default, card surfaces |
+| `Blue4` | `(72, 98, 218)` | `#4862DA` | Default primary tone, key service cards |
+| `Blue1` | `(232, 242, 255)` | `#E8F2FF` | Light background fills, subtle highlights |
+| `Green4` | `(58, 150, 75)` | `#3A964B` | Success states, operational services |
+| `Red4` | `(190, 58, 68)` | `#BE3A44` | Danger states, critical alerts |
+| `Orange4` | `(215, 100, 20)` | `#D76414` | Compute nodes, warnings |
+| `Amber4` | `(215, 134, 20)` | `#D78614` | Accent highlight, caches |
+| `Purple4` | `(128, 55, 195)` | `#8037C3` | Asynchronous queues, brokers |
+| `Teal4` | `(42, 152, 154)` | `#2A989A` | API gateways, network routing |
+| `Pink4` | `(195, 45, 125)` | `#C32D7D` | Special events, security tags |
+| `Gray3` | `(220, 226, 235)` | `#DCE2EB` | Container card backdrops, muted fills |
+| `Gray5` | `(140, 152, 170)` | `#8C98AA` | Subnet borders, divider lines |
+| `Black` | `(0, 0, 0)` | `#000000` | Borders, primary dark text |
+| `White` | `(255, 255, 255)` | `#FFFFFF` | Canvas default, card surfaces |
 
 ### 4.3. Color Manipulation: Color Model, Hex, and .patch()
 
@@ -302,13 +292,13 @@ Every preset style shortcut string follows a deterministic, composable three-par
                         │        │
                         │        └─► "flat" | "solid" | "dashed" | (omitted)
                         │
-                        └─► "blue" | "red" | "green" | "teal" | "charcoal" | ...
+                        └─► "blue" | "red" | "green" | "teal" | "dark" | ...
 ```
 
 ### 5.1. Grammar Token Breakdown
 
 1. **`<color>` (Color Token)**:
-   - Any color name available in `DefaultColors`, `Colors140`, or `Colors`.
+   - Any color name available in `DefaultColors`, `CssColors`, or `Colors`.
    - Matching is case-insensitive (e.g. `"blue"`, `"Blue"`, `"deepskyblue"`, `"darkorange"`).
    - If omitted, the default primary accent color (`DefaultStyleColors.Blue`) is used.
 
@@ -344,19 +334,18 @@ Every preset style shortcut string follows a deterministic, composable three-par
 | `"red_solid"` | Transparent | Red | Solid | 1.5 | Regular |
 | `"red_solid_bold"`| Transparent | Red | Solid | 2.25 | Bold |
 | `"teal_dashed"` | Transparent | Teal | Dashed | 1.5 | Regular |
-| `"charcoal_flat"` | Charcoal | None | None | 0.0 | Regular |
+| `"muted_flat"` | Muted | None | None | 0.0 | Regular |
 
 ### 5.3. Code Demonstration of Shorthand Variations
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.preset_styles import default_styles
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=140, height=70)
-styles = default_styles
 
 # Column positions
 x_coords = [20, 50, 80, 110]
@@ -387,7 +376,7 @@ rectangle((x_coords[2], y_bot), width=24, height=18, style=styles.orange_flat)
 text((x_coords[2], y_bot), "flat", style=styles.white_bold)
 
 # Connecting line showcasing weight
-line((x_coords[0] - 12, 32), (x_coords[3] + 12, 32), style=styles.charcoal_dashed)
+line((x_coords[0] - 12, 32), (x_coords[3] + 12, 32), style=styles.muted_dashed)
 
 save()
 ```
@@ -455,23 +444,22 @@ Not every visual property applies to every drawing element. For example, lines d
 
 In enterprise projects and client presentations, you often need custom color palettes and typography rules that match specific brand guidelines. Drawlib allows you to define custom style catalogs by subclassing `BaseStyles`.
 
-### 7.1. Direct Instantiation of PresetStyles
+### 7.1. Direct Instantiation of BaseStyles
 
-You can construct a one-off `PresetStyles` instance directly with custom `Style` objects:
+You can construct a one-off `BaseStyles` instance directly with custom `Style` objects:
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Color, Colors140
-from drawlib.preset_styles import PresetStyles
+from drawlib.preset_colors import Color
 from drawlib.shapes import circle, rectangle
-from drawlib.types import Style
+from drawlib.types import BaseStyles, Style
 
 # Brand corporate identity colors
 CORP_NAVY = Color.from_hex("#0D1B2A")
 CORP_CYAN = Color.from_hex("#00A896")
 CORP_GOLD = Color.from_hex("#F4A261")
 
-brand_preset = PresetStyles(
+brand_preset = BaseStyles(
     background_color=(250, 250, 252, 1.0),
     primary=Style(shape_fill_color=CORP_CYAN, shape_line_color=CORP_NAVY, shape_line_width=2.0),
     light=Style(shape_fill_color=CORP_CYAN, shape_line_color=CORP_NAVY, shape_line_width=1.0),
@@ -491,13 +479,12 @@ save()
 
 ### 7.2. Domain-Driven Subclassing with Type Hints
 
-Because `BaseStyles` inherits from Pydantic's `BaseModel`, creating a dedicated subclass provides IDE autocompletion, type safety, field validation, and dictionary iteration:
+Subclassing `BaseStyles` provides IDE autocompletion, type safety, field validation, and dictionary iteration:
 
 ```python
 from drawlib.preset_colors import Color
-from drawlib.preset_styles import BaseStyles
 from drawlib.styles import Colors
-from drawlib.types import Style
+from drawlib.types import BaseStyles, Style
 
 
 class CloudPlatformStyles(BaseStyles):
@@ -606,25 +593,24 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 from drawlib.text import text
-from drawlib.preset_styles import default_styles
 
 setup(width=140, height=90)
-styles = default_styles
 
 # Section Headers
 text((70, 84), "Enterprise E-Commerce Microservices", style=styles.bold, size=18)
-text((70, 78), "Synchronous REST Ingress & Asynchronous Event Bus", style=styles.charcoal, size=12)
+text((70, 78), "Synchronous REST Ingress & Asynchronous Event Bus", style=styles.dark, size=12)
 
 # Subnet / Boundary Containers
-rectangle((70, 42), width=132, height=60, r=4, style=styles.silver_dashed)
-text((22, 68), "Internal VPC (10.0.0.0/16)", style=styles.gray_bold, size=11)
+rectangle((70, 42), width=132, height=60, r=4, style=styles.muted_dashed)
+text((22, 68), "Internal VPC (10.0.0.0/16)", style=styles.muted_bold, size=11)
 
 # Tier 1: External Client & API Gateway
 rectangle((22, 42), width=22, height=30, r=2, style=styles.blue_solid)
 phosphor.user((22, 50), width=9, style=styles.blue)
 text((22, 40), "Client Apps", style=styles.blue_bold, size=11)
-text((22, 33), "Web / Mobile", style=styles.charcoal, size=9)
+text((22, 33), "Web / Mobile", style=styles.dark, size=9)
 
 rectangle((50, 42), width=22, height=30, r=2, style=styles.teal_flat)
 phosphor.cloud((50, 50), width=9, style=styles.white_bold)
@@ -634,11 +620,11 @@ text((50, 33), "Rate Limiting", style=styles.white, size=9)
 # Tier 2: Backend Core Services
 rectangle((80, 53), width=24, height=18, r=2, style=styles.green_bold)
 text((80, 56), "Order Service", style=styles.green_bold, size=11)
-text((80, 48), "gRPC :8081", style=styles.charcoal, size=9)
+text((80, 48), "gRPC :8081", style=styles.dark, size=9)
 
 rectangle((80, 27), width=24, height=18, r=2, style=styles.green_bold)
 text((80, 30), "Payment Service", style=styles.green_bold, size=11)
-text((80, 22), "gRPC :8082", style=styles.charcoal, size=9)
+text((80, 22), "gRPC :8082", style=styles.dark, size=9)
 
 # Tier 3: Asynchronous Pub/Sub Queue & Storage
 rectangle((114, 53), width=22, height=18, r=2, style=styles.purple_flat)
@@ -651,8 +637,8 @@ text((114, 22), "PostgreSQL HA", style=styles.navy_bold, size=10)
 
 # Connectors with semantic weights
 line((33, 42), (39, 42), arrowhead="->", style=styles.blue_bold)
-line((61, 46), (68, 53), arrowhead="->", style=styles.charcoal)
-line((61, 38), (68, 27), arrowhead="->", style=styles.charcoal)
+line((61, 46), (68, 53), arrowhead="->", style=styles.bold)
+line((61, 38), (68, 27), arrowhead="->", style=styles.bold)
 line((92, 53), (103, 53), arrowhead="->", style=styles.purple_dashed)
 line((92, 27), (103, 27), arrowhead="<->", style=styles.navy_bold)
 
@@ -671,11 +657,10 @@ Preset styles make state transitions intuitive by mapping distinct semantic mean
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
+from drawlib.styles import styles
 from drawlib.text import text
-from drawlib.preset_styles import default_styles
 
 setup(width=130, height=50)
-styles = default_styles
 
 # Start State
 circle((15, 25), radius=5, style=styles.blue_flat)
@@ -684,7 +669,7 @@ text((15, 14), "Initial", style=styles.blue_bold, size=10)
 # Processing State
 rectangle((45, 25), width=22, height=16, r=3, style=styles.green_bold)
 text((45, 27), "Validating", style=styles.green_bold, size=11)
-text((45, 20), "Worker Poll", style=styles.charcoal, size=9)
+text((45, 20), "Worker Poll", style=styles.dark, size=9)
 
 # Decision Branches: Success vs Failure
 rectangle((80, 36), width=22, height=14, r=3, style=styles.green_flat)
@@ -699,8 +684,8 @@ circle((115, 36), radius=3.2, style=styles.green_flat)
 text((115, 24), "Completed", style=styles.green_bold, size=10)
 
 # Transitions
-line((20, 25), (34, 25), arrowhead="->", style=styles.charcoal_bold)
-text((27, 28), "submit", style=styles.charcoal, size=9)
+line((20, 25), (34, 25), arrowhead="->", style=styles.dark_bold)
+text((27, 28), "submit", style=styles.dark, size=9)
 
 line((56, 29), (69, 36), arrowhead="->", style=styles.green_bold)
 text((60, 37), "valid", style=styles.green, size=9)
@@ -718,7 +703,7 @@ save()
 Multi-element architectures frequently utilize the **Medallion Pattern** (Raw Ingestion -> Bronze -> Silver -> Gold -> Analytics). Preset styles make distinct processing tiers instantly recognizable:
 
 - **Brown / Orange (`brown_flat`, `orange_solid`)**: Raw Ingestion & Bronze Landing (unfiltered CDC & Kafka logs).
-- **Silver / Gray (`silver_flat`, `steel_solid_bold`)**: Cleansed, deduplicated, and enriched Delta tables.
+- **Steel / Gray (`muted_flat`, `steel_solid_bold`)**: Cleansed, deduplicated, and enriched Delta tables.
 - **Gold / Yellow (`yellow_flat`, `green_solid_bold`)**: Business-level aggregates, feature stores, and BI marts.
 - **Teal / Navy (`teal_solid`, `navy_bold`)**: Query engines, dashboards, and automated ML pipelines.
 
@@ -727,15 +712,14 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 from drawlib.text import text
-from drawlib.preset_styles import default_styles
 
 setup(width=150, height=85)
-styles = default_styles
 
 # Architecture Title & Subtitle
 text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=styles.bold, size=18)
-text((75, 72), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style=styles.charcoal, size=11)
+text((75, 72), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style=styles.dark, size=11)
 
 # Tier 1: Ingestion Sources
 rectangle((20, 40), width=22, height=44, r=2, style=styles.orange_solid)
@@ -755,8 +739,8 @@ text((52, 28), "Parquet / JSON", style=styles.white, size=8)
 rectangle((86, 40), width=24, height=44, r=2, style=styles.steel_bold)
 phosphor.check_circle((86, 53), width=8, style=styles.steel)
 text((86, 43), "Silver Tier", style=styles.steel_bold, size=11)
-text((86, 36), "Cleaned / Joined", style=styles.charcoal, size=9)
-text((86, 28), "Delta Tables", style=styles.charcoal, size=8)
+text((86, 36), "Cleaned / Joined", style=styles.dark, size=9)
+text((86, 28), "Delta Tables", style=styles.dark, size=8)
 
 # Tier 4: Gold Layer (Business Aggregates)
 rectangle((120, 52), width=24, height=22, r=2, style=styles.green_flat)
@@ -768,11 +752,11 @@ text((120, 44), "Star Schemas", style=styles.white, size=8)
 rectangle((120, 25), width=24, height=22, r=2, style=styles.teal_bold)
 phosphor.cpu((120, 31), width=7, style=styles.teal)
 text((120, 22), "ML Models", style=styles.teal_bold, size=10)
-text((120, 17), "Serving API", style=styles.charcoal, size=8)
+text((120, 17), "Serving API", style=styles.dark, size=8)
 
 # Connectors with Flow Arrows
 line((31, 40), (40, 40), arrowhead="->", style=styles.orange_bold)
-line((64, 40), (74, 40), arrowhead="->", style=styles.charcoal_bold)
+line((64, 40), (74, 40), arrowhead="->", style=styles.dark_bold)
 line((98, 45), (108, 52), arrowhead="->", style=styles.green_bold)
 line((98, 35), (108, 25), arrowhead="->", style=styles.teal_bold)
 
@@ -824,7 +808,7 @@ Under the hood, `_officials.py` processes the string through a deterministic seq
 1. Check if the string matches one of the canonical pre-built role keys:
    `["primary", "light", "bold", "flat", "solid", "dashed", "solid_light", "solid_bold", "dashed_light", "dashed_bold"]`.
 2. If not an exact match, check if it ends with `_{role_key}`. If found, split into `<color_name>` and `<preset_name>`.
-3. Resolve `<color_name>` against `DefaultColors`, `Colors140`, and `Colors`.
+3. Resolve `<color_name>` against `DefaultColors`, `CssColors`, and `Colors`.
 4. Clone the base role template corresponding to `<preset_name>` (or `primary` if no role was appended).
 5. Mutate the cloned style:
    - Assign `text_color = color`
@@ -855,19 +839,17 @@ s = get_style("red_flat")
 
 ### Pitfall 2: Attempting Direct Mutation on Frozen Catalogs
 
-Official preset style singletons (`default_styles`, `google_styles`, `monochrome_styles`) are immutable and frozen. Attempting to assign new attributes directly will raise a validation error:
+Official preset style classes and active singletons (`Styles`, `DefaultStyles`, `GoogleStyles`, `MonochromeStyles`) are immutable and frozen. Attempting to assign new attributes directly will raise an error:
 
 ```python
-from drawlib.preset_styles import default_styles
+from drawlib.styles import Styles
 
-catalog = default_styles
-
-# INVALID: Raises error because singletons are frozen
-# catalog.primary = ...
+# INVALID: Raises error because preset styles are frozen
+# Styles.primary = ...
 
 # SAFE: Derive modified catalog or styles via patch() or copy()
-custom_catalog = catalog.patch(primary=catalog.bold)
-custom_style = catalog.primary.patch(line_width=10.0)
+custom_styles = Styles.patch(primary=Styles.bold)
+custom_style = Styles.primary.patch(line_width=10.0)
 ```
 
 ### Pitfall 3: Applying `flat` to Line Elements
@@ -891,18 +873,17 @@ A common source of confusion for newcomers is the distinction between `flat` and
 
 ```text
 Default Colors:
-  red           RGB(239, 95, 95)     green         RGB(79, 191, 79)
-  blue          RGB(111, 111, 239)   black         RGB(0, 0, 0)
+  red           RGB(255, 23, 23)     green         RGB(15, 127, 15)
+  blue          RGB(31, 31, 255)     black         RGB(0, 0, 0)
   white         RGB(255, 255, 255)
 
 Popular Default Colors:
-  teal          RGB(15, 127, 127)    orange        RGB(255, 95, 31)
-  navy          RGB(15, 15, 127)     purple        RGB(127, 31, 127)
-  charcoal      RGB(39, 39, 39)      graphite      RGB(63, 63, 63)
-  silver        RGB(191, 191, 191)   snow          RGB(239, 239, 239)
+  teal          RGB(15, 127, 127)    orange        RGB(255, 120, 0)
+  navy          RGB(15, 25, 110)     purple        RGB(130, 20, 160)
+  gray          RGB(140, 152, 170)   amber         RGB(215, 134, 20)
   aqua          RGB(47, 239, 239)    olive         RGB(127, 127, 31)
-  brown         RGB(159, 31, 31)     pink          RGB(239, 63, 239)
-  steel         RGB(96, 96, 143)     yellow        RGB(239, 239, 31)
+  brown         RGB(145, 45, 25)     pink          RGB(255, 50, 150)
+  steel         RGB(96, 96, 143)     yellow        RGB(255, 230, 0)
 ```
 
 ### 11.2. Structure & Weight Matrix
@@ -925,27 +906,25 @@ Popular Default Colors:
 ```drawlib show-code
 # Standard imports
 from drawlib.canvas import save, setup
-from drawlib.preset_styles import BaseStyles, default_styles, monochrome_styles
+from drawlib.preset_styles import DefaultStyles, MonochromeStyles
 from drawlib.shapes import circle, rectangle
+from drawlib.styles import Styles
 from drawlib.text import text
-
-styles = default_styles
 
 # Initialize canvas with default or custom catalog
 setup(width=100, height=60)
 
 # 1. Preset style usage
-rectangle((25, 36), width=20, height=20, style=styles.blue_flat, text="Flat", textstyle=styles.white_bold)
-rectangle((50, 36), width=20, height=20, style=styles.green_bold, text="Solid", textstyle=styles.green_bold)
-circle((75, 36), radius=10, style=styles.red_dashed, text="Dashed", textstyle=styles.red_bold)
+rectangle((25, 36), width=20, height=20, style=Styles.blue_flat, text="Flat", textstyle=Styles.white_bold)
+rectangle((50, 36), width=20, height=20, style=Styles.green_bold, text="Solid", textstyle=Styles.green_bold)
+circle((75, 36), radius=10, style=Styles.red_dashed, text="Dashed", textstyle=Styles.red_bold)
 
 # 2. Dynamic style retrieval via key lookup
-accent_style = styles["teal_flat"]
+accent_style = DefaultStyles["teal_flat"]
 circle((85, 48), radius=5, style=accent_style)
 
 # 3. Dedicated monochrome catalog retrieval
-monochrome = monochrome_styles
-rectangle((50, 12), width=80, height=12, style=monochrome.flat, text="Monochrome Catalog Banner", textstyle=monochrome.white_bold)
+rectangle((50, 12), width=80, height=12, style=MonochromeStyles.flat, text="Monochrome Catalog Banner", textstyle=MonochromeStyles.white_bold)
 
 save()
 ```

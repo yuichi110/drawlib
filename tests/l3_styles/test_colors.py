@@ -15,13 +15,13 @@ from pydantic import BaseModel, ValidationError
 from drawlib._core.l2_types import Color
 from drawlib._preset_colors import (
     BaseColors,
-    Colors140,
+    CssColors,
     DefaultColors,
     GoogleColors,
     MonochromeColors,
 )
 
-colors140 = Colors140()
+css_colors = CssColors()
 default_colors = DefaultColors()
 google_colors = GoogleColors()
 monochrome_colors = MonochromeColors()
@@ -34,7 +34,7 @@ class TestColors:
         """Test all color model classes subclass BaseColors and BaseModel."""
         classes: list[type[BaseColors]] = [
             BaseColors,
-            Colors140,
+            CssColors,
             DefaultColors,
             GoogleColors,
             MonochromeColors,
@@ -46,7 +46,7 @@ class TestColors:
     def test_colors_instances(self) -> None:
         """Test all color singletons are instances of BaseColors."""
         instances: list[BaseColors] = [
-            colors140,
+            css_colors,
             default_colors,
             google_colors,
             monochrome_colors,
@@ -91,7 +91,7 @@ class TestColors:
     def test_colors_attributes(self) -> None:
         """Test that all color attributes on instances are valid Color instances."""
         instances: list[BaseColors] = [
-            colors140,
+            css_colors,
             default_colors,
             google_colors,
             monochrome_colors,
@@ -100,7 +100,7 @@ class TestColors:
             for field_name in inst.__class__.model_fields:
                 val = getattr(inst, field_name)
                 if val is None:
-                    if isinstance(inst, Colors140):
+                    if isinstance(inst, CssColors):
                         assert field_name in {
                             "Primary",
                             "Secondary",
@@ -142,8 +142,8 @@ class TestColors:
                 assert inst[sem] == val
                 assert inst[sem.lower()] == val
 
-        # Colors140 does not define semantic colors
-        for inst in (colors140,):
+        # CssColors does not define semantic colors
+        for inst in (css_colors,):
             for sem in ("Primary", "Secondary", "Accent", "Muted", "Light", "Dark", "Danger", "Success", "Canvas"):
                 assert getattr(inst, sem) is None
                 with pytest.raises(AttributeError):

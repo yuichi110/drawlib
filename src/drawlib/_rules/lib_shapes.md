@@ -175,13 +175,13 @@ Embedded shape text rotates alongside the shape by default, maintaining its rela
 Shape styling is driven by Drawlib's core `Style` dataclass or predefined style preset strings (e.g., `"blue"`, `"green_flat"`, `"red_dashed"`).
 
 ```python
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.types import Style
 
 custom_shape_style = Style(
-    fill_color=Colors140.AliceBlue,      # Interior fill color (RGB, RGBA, or hex)
+    fill_color=CssColors.AliceBlue,      # Interior fill color (RGB, RGBA, or hex)
     fill_alpha=0.85,                     # Opacity float: 0.0 (transparent) to 1.0 (opaque)
-    line_color=Colors140.SteelBlue,      # Stroke boundary color
+    line_color=CssColors.SteelBlue,      # Stroke boundary color
     line_width=2.5,                      # Stroke thickness in points (0 disables border)
     line_style="dashed",                 # "solid" | "dashed" | "dotted" | "dashdot"
     text_halign="center",                # Layout horizontal anchor
@@ -215,7 +215,7 @@ from drawlib.fonts import FontSansSerif
 from drawlib.types import Style
 
 custom_text_style = Style(
-    text_color=Colors140.MidnightBlue,
+    text_color=CssColors.MidnightBlue,
     text_size=18,
     text_font=FontSansSerif.ROBOTO_BOLD,
     text_angle=0.0,                  # Freeze text horizontally even if shape rotates
@@ -290,7 +290,7 @@ def circle(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import circle
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -304,13 +304,13 @@ circle(
     radius=18,
     angle=35,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.DeepSkyBlue,
+        shape_fill_color=CssColors.DeepSkyBlue,
         shape_fill_alpha=0.3,
         shape_line_style="dashed",
         shape_line_width=2,
     ),
     text="Zone B",
-    textstyle=styles.primary.patch(text_color=Colors140.Navy, text_size=12),
+    textstyle=styles.primary.patch(text_color=CssColors.Navy, text_size=12),
 )
 save()
 ```
@@ -359,13 +359,13 @@ def donuts(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import donuts
 from drawlib.types import Style
 from drawlib.styles import styles
 
 # 1. Thin status indicator ring
-donuts((30, 22), radius=15, width=4, style=styles.gray_flat, text="Base")
+donuts((30, 22), radius=15, width=4, style=styles.muted_flat, text="Base")
 
 # 2. KPI ring badge with custom fill and styled percentage label
 donuts(
@@ -373,10 +373,10 @@ donuts(
     radius=17,
     width=6,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.Purple, shape_line_color=Colors140.Indigo, shape_line_width=2
+        shape_fill_color=CssColors.Purple, shape_line_color=CssColors.Indigo, shape_line_width=2
     ),
     text="78%",
-    textstyle=styles.white_bold.patch(text_size=14, text_color=Colors140.White),
+    textstyle=styles.white_bold.patch(text_size=14, text_color=CssColors.White),
 )
 save()
 ```
@@ -425,7 +425,7 @@ def ellipse(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import ellipse
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -440,13 +440,13 @@ ellipse(
     height=18,
     angle=335,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.AliceBlue,
-        shape_line_color=Colors140.SteelBlue,
+        shape_fill_color=CssColors.AliceBlue,
+        shape_line_color=CssColors.SteelBlue,
         shape_line_style="dashed",
         shape_line_width=2,
     ),
     text="In-Flight Job",
-    textstyle=styles.primary.patch(text_size=11, text_color=Colors140.Navy),
+    textstyle=styles.primary.patch(text_size=11, text_color=CssColors.Navy),
 )
 save()
 ```
@@ -499,7 +499,7 @@ def wedge(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import wedge
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -516,10 +516,10 @@ wedge(
     width=6,
     angle=15,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.Orange, shape_line_color=Colors140.DarkRed, shape_line_width=1.5
+        shape_fill_color=CssColors.Orange, shape_line_color=CssColors.DarkRed, shape_line_width=1.5
     ),
     text="60%",
-    textstyle=styles.white_bold.patch(text_size=11, text_color=Colors140.White),
+    textstyle=styles.white_bold.patch(text_size=11, text_color=CssColors.White),
 )
 save()
 ```
@@ -570,7 +570,7 @@ def fan(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import fan
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -582,9 +582,9 @@ fan(
     angle_start=30,
     angle_end=150,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightGreen,
+        shape_fill_color=CssColors.LightGreen,
         shape_fill_alpha=0.4,
-        shape_line_color=Colors140.ForestGreen,
+        shape_line_color=CssColors.ForestGreen,
         shape_line_width=1.5,
     ),
     text="FOV",
@@ -642,7 +642,7 @@ def arc(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arc
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -654,7 +654,7 @@ arc(
     height=20,
     angle_start=30,
     angle_end=150,
-    style=styles.bold.patch(line_color=Colors140.Navy, line_width=3),
+    style=styles.bold.patch(line_color=CssColors.Navy, line_width=3),
 )
 
 # 2. Dashed orbit path with centered status label
@@ -665,9 +665,9 @@ arc(
     angle_start=315,
     angle_end=225,
     angle=15,
-    style=styles.bold.patch(line_color=Colors140.Crimson, line_width=2, line_style="dashed"),
+    style=styles.bold.patch(line_color=CssColors.Crimson, line_width=2, line_style="dashed"),
     text="Orbit A",
-    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.Crimson),
+    textstyle=styles.primary.patch(text_size=10, text_color=CssColors.Crimson),
 )
 save()
 ```
@@ -731,7 +731,7 @@ def rectangle(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import rectangle
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -748,13 +748,13 @@ rectangle(
     height=20,
     r=4,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.GhostWhite,
-        shape_line_color=Colors140.SlateGray,
+        shape_fill_color=CssColors.GhostWhite,
+        shape_line_color=CssColors.SlateGray,
         shape_line_width=2,
         shape_line_style="dashed",
     ),
     text="Worker Node",
-    textstyle=styles.primary.patch(text_color=Colors140.MidnightBlue, text_size=11),
+    textstyle=styles.primary.patch(text_color=CssColors.MidnightBlue, text_size=11),
 )
 save()
 ```
@@ -802,7 +802,7 @@ def parallelogram(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import parallelogram
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -820,10 +820,10 @@ parallelogram(
     corner_angle=65,
     angle=15,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightYellow, shape_line_color=Colors140.GoldenRod, shape_line_width=2
+        shape_fill_color=CssColors.LightYellow, shape_line_color=CssColors.GoldenRod, shape_line_width=2
     ),
     text="Kafka Stream",
-    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.SaddleBrown),
+    textstyle=styles.primary.patch(text_size=10, text_color=CssColors.SaddleBrown),
 )
 save()
 ```
@@ -869,7 +869,7 @@ def rhombus(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import rhombus
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -893,10 +893,10 @@ rhombus(
     height=24,
     angle=20,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.MistyRose, shape_line_color=Colors140.Crimson, shape_line_width=2
+        shape_fill_color=CssColors.MistyRose, shape_line_color=CssColors.Crimson, shape_line_width=2
     ),
     text="Audit",
-    textstyle=styles.primary.patch(text_size=11, text_color=Colors140.DarkRed),
+    textstyle=styles.primary.patch(text_size=11, text_color=CssColors.DarkRed),
 )
 save()
 ```
@@ -947,7 +947,7 @@ def trapezoid(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import trapezoid
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -973,10 +973,10 @@ trapezoid(
     topedge_width=18,
     topedge_x=0,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.Lavender, shape_line_color=Colors140.Indigo, shape_line_width=2
+        shape_fill_color=CssColors.Lavender, shape_line_color=CssColors.Indigo, shape_line_width=2
     ),
     text="Proj",
-    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.Indigo),
+    textstyle=styles.primary.patch(text_size=10, text_color=CssColors.Indigo),
 )
 save()
 ```
@@ -1025,7 +1025,7 @@ def triangle(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import triangle
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1038,10 +1038,10 @@ triangle(
     width=30,
     height=26,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.Gold, shape_line_color=Colors140.DarkGoldenRod, shape_line_width=2
+        shape_fill_color=CssColors.Gold, shape_line_color=CssColors.DarkGoldenRod, shape_line_width=2
     ),
     text="!",
-    textstyle=styles.primary.patch(text_size=16, text_color=Colors140.Black, text_xy_shift=(0, -3)),
+    textstyle=styles.primary.patch(text_size=16, text_color=CssColors.Black, text_xy_shift=(0, -3)),
 )
 
 # 2. Right-angle ramp element
@@ -1092,7 +1092,7 @@ def regularpolygon(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import regularpolygon
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1107,10 +1107,10 @@ regularpolygon(
     radius=18,
     angle=22.5,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.Tomato, shape_line_color=Colors140.DarkRed, shape_line_width=2
+        shape_fill_color=CssColors.Tomato, shape_line_color=CssColors.DarkRed, shape_line_width=2
     ),
     text="WAF",
-    textstyle=styles.white_bold.patch(text_size=12, text_color=Colors140.White),
+    textstyle=styles.white_bold.patch(text_size=12, text_color=CssColors.White),
 )
 save()
 ```
@@ -1152,7 +1152,7 @@ def polygon(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import polygon
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1161,7 +1161,7 @@ from drawlib.styles import styles
 polygon(
     [(10, 15), (25, 35), (45, 30), (40, 10), (20, 8)],
     style=styles.primary.patch(
-        shape_fill_color=Colors140.AliceBlue, shape_line_color=Colors140.SteelBlue, shape_line_width=2
+        shape_fill_color=CssColors.AliceBlue, shape_line_color=CssColors.SteelBlue, shape_line_width=2
     ),
     text="VLAN 1",
 )
@@ -1220,7 +1220,7 @@ def star(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import star
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1236,10 +1236,10 @@ star(
     radius_int=10,
     angle=22.5,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightCoral, shape_line_color=Colors140.FireBrick, shape_line_width=2
+        shape_fill_color=CssColors.LightCoral, shape_line_color=CssColors.FireBrick, shape_line_width=2
     ),
     text="ALERT",
-    textstyle=styles.primary.patch(text_size=9, text_color=Colors140.DarkRed),
+    textstyle=styles.primary.patch(text_size=9, text_color=CssColors.DarkRed),
 )
 save()
 ```
@@ -1293,10 +1293,10 @@ def shape(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import shape
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -1326,7 +1326,7 @@ shape(
         (30, 0),
     ],
     style=styles.primary.patch(
-        shape_fill_color=Colors140.Lavender, shape_line_color=Colors140.Purple, shape_line_width=1.5
+        shape_fill_color=CssColors.Lavender, shape_line_color=CssColors.Purple, shape_line_width=1.5
     ),
 )
 save()
@@ -1401,7 +1401,7 @@ def arrow(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1417,10 +1417,10 @@ arrow(
     head_width=7,
     head_length=5,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightGreen, shape_line_color=Colors140.ForestGreen, shape_line_width=1.5
+        shape_fill_color=CssColors.LightGreen, shape_line_color=CssColors.ForestGreen, shape_line_width=1.5
     ),
     text="200 OK",
-    textstyle=styles.primary.patch(text_size=9, text_color=Colors140.DarkGreen),
+    textstyle=styles.primary.patch(text_size=9, text_color=CssColors.DarkGreen),
 )
 save()
 ```
@@ -1470,7 +1470,7 @@ def arrow_l(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow_l
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1488,7 +1488,7 @@ arrow_l(
     head_length=7,
     r=5,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.MistyRose, shape_line_color=Colors140.Crimson, shape_line_width=2
+        shape_fill_color=CssColors.MistyRose, shape_line_color=CssColors.Crimson, shape_line_width=2
     ),
 )
 save()
@@ -1539,7 +1539,7 @@ def arrow_u(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow_u
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1558,7 +1558,7 @@ arrow_u(
     r=4,
     angle=90,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.Lavender, shape_line_color=Colors140.Purple, shape_line_width=1.5
+        shape_fill_color=CssColors.Lavender, shape_line_color=CssColors.Purple, shape_line_width=1.5
     ),
 )
 save()
@@ -1611,7 +1611,7 @@ def arrow_arc(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow_arc
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1629,7 +1629,7 @@ arrow_arc(
     tail_width=3,
     head_width=8,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.Gold, shape_line_color=Colors140.DarkGoldenRod, shape_line_width=1.5
+        shape_fill_color=CssColors.Gold, shape_line_color=CssColors.DarkGoldenRod, shape_line_width=1.5
     ),
 )
 save()
@@ -1674,7 +1674,7 @@ def arrow_polyline(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow_polyline
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1697,7 +1697,7 @@ arrow_polyline(
     head_length=5,
     r=2,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightGreen, shape_line_color=Colors140.ForestGreen, shape_line_width=1.5
+        shape_fill_color=CssColors.LightGreen, shape_line_color=CssColors.ForestGreen, shape_line_width=1.5
     ),
 )
 save()
@@ -1769,10 +1769,10 @@ This pattern illustrates a secure multi-tier virtual private cloud containing pu
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow, circle, ellipse, rectangle
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=150, height=90)
 
@@ -1783,13 +1783,13 @@ rectangle(
     height=80,
     r=4,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.GhostWhite,
-        shape_line_color=Colors140.RoyalBlue,
+        shape_fill_color=CssColors.GhostWhite,
+        shape_line_color=CssColors.RoyalBlue,
         shape_line_width=2,
         shape_line_style="dashed",
     ),
     text="VPC (10.0.0.0/16)",
-    textstyle=styles.primary.patch(text_size=12, text_color=Colors140.RoyalBlue, text_xy_shift=(-45, 34)),
+    textstyle=styles.primary.patch(text_size=12, text_color=CssColors.RoyalBlue, text_xy_shift=(-45, 34)),
 )
 
 # 2. Internet Gateway
@@ -1797,8 +1797,8 @@ circle(
     (20, 45),
     radius=7,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.MediumPurple,
-        shape_line_color=Colors140.Indigo,
+        shape_fill_color=CssColors.MediumPurple,
+        shape_line_color=CssColors.Indigo,
         shape_line_width=1.5,
     ),
     text="IGW",
@@ -1812,12 +1812,12 @@ rectangle(
     height=32,
     r=3,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.HoneyDew,
-        shape_line_color=Colors140.ForestGreen,
+        shape_fill_color=CssColors.HoneyDew,
+        shape_line_color=CssColors.ForestGreen,
         shape_line_width=1.5,
     ),
     text="Public Subnet (DMZ)",
-    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.ForestGreen, text_xy_shift=(-6, 12)),
+    textstyle=styles.primary.patch(text_size=10, text_color=CssColors.ForestGreen, text_xy_shift=(-6, 12)),
 )
 rectangle(
     (48, 60),
@@ -1845,12 +1845,12 @@ rectangle(
     height=32,
     r=3,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.AliceBlue,
-        shape_line_color=Colors140.SteelBlue,
+        shape_fill_color=CssColors.AliceBlue,
+        shape_line_color=CssColors.SteelBlue,
         shape_line_width=1.5,
     ),
     text="Private App Subnet",
-    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.SteelBlue, text_xy_shift=(-8, 12)),
+    textstyle=styles.primary.patch(text_size=10, text_color=CssColors.SteelBlue, text_xy_shift=(-8, 12)),
 )
 rectangle(
     (48, 24),
@@ -1878,20 +1878,20 @@ rectangle(
     height=60,
     r=3,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.MistyRose,
-        shape_line_color=Colors140.IndianRed,
+        shape_fill_color=CssColors.MistyRose,
+        shape_line_color=CssColors.IndianRed,
         shape_line_width=1.5,
     ),
     text="Database Tier (Multi-AZ)",
-    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.DarkRed, text_xy_shift=(0, 25)),
+    textstyle=styles.primary.patch(text_size=10, text_color=CssColors.DarkRed, text_xy_shift=(0, 25)),
 )
 ellipse(
     (118, 58),
     width=30,
     height=14,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightGoldenRodYellow,
-        shape_line_color=Colors140.GoldenRod,
+        shape_fill_color=CssColors.LightGoldenRodYellow,
+        shape_line_color=CssColors.GoldenRod,
         shape_line_width=2,
     ),
     text="Postgres Primary",
@@ -1902,8 +1902,8 @@ ellipse(
     width=30,
     height=14,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.WhiteSmoke,
-        shape_line_color=Colors140.DimGray,
+        shape_fill_color=CssColors.WhiteSmoke,
+        shape_line_color=CssColors.DimGray,
         shape_line_width=1.5,
     ),
     text="Read Replica",
@@ -1911,10 +1911,10 @@ ellipse(
 )
 
 # 6. Connecting Arrows
-arrow((27, 45), (39, 58), tail_width=2, head_width=5, head_length=4, style=styles.gray_flat)
-arrow((57, 60), (63, 60), tail_width=2, head_width=5, head_length=4, style=styles.gray_flat)
-arrow((72, 53), (72, 31), tail_width=2, head_width=5, head_length=4, style=styles.gray_flat)
-arrow((81, 24), (102, 58), tail_width=2, head_width=5, head_length=4, style=styles.gray_flat)
+arrow((27, 45), (39, 58), tail_width=2, head_width=5, head_length=4, style=styles.muted_flat)
+arrow((57, 60), (63, 60), tail_width=2, head_width=5, head_length=4, style=styles.muted_flat)
+arrow((72, 53), (72, 31), tail_width=2, head_width=5, head_length=4, style=styles.muted_flat)
+arrow((81, 24), (102, 58), tail_width=2, head_width=5, head_length=4, style=styles.muted_flat)
 
 save()
 ```
@@ -1927,10 +1927,10 @@ Demonstrates message publishers, Kafka message topic queues, consumer groups, an
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow, donuts, parallelogram, rectangle
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=140, height=65)
 
@@ -1952,10 +1952,10 @@ parallelogram(
     height=28,
     corner_angle=70,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightSteelBlue, shape_line_color=Colors140.SteelBlue, shape_line_width=2
+        shape_fill_color=CssColors.LightSteelBlue, shape_line_color=CssColors.SteelBlue, shape_line_width=2
     ),
     text="orders.events\n(Kafka Topic)",
-    textstyle=styles.primary.patch(text_size=11, text_color=Colors140.MidnightBlue),
+    textstyle=styles.primary.patch(text_size=11, text_color=CssColors.MidnightBlue),
 )
 
 # Consumer Group
@@ -1984,10 +1984,10 @@ donuts(
     radius=6,
     width=2,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.IndianRed, shape_line_color=Colors140.DarkRed, shape_line_width=1.5
+        shape_fill_color=CssColors.IndianRed, shape_line_color=CssColors.DarkRed, shape_line_width=1.5
     ),
     text="DLQ",
-    textstyle=styles.primary.patch(text_size=8, text_color=Colors140.DarkRed),
+    textstyle=styles.primary.patch(text_size=8, text_color=CssColors.DarkRed),
 )
 
 # Event Flow Arrows
@@ -2014,10 +2014,10 @@ Demonstrates convolution, pooling, batch normalization, and skip residual connec
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow, arrow_polyline, circle, rectangle, trapezoid
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=150, height=55)
 
@@ -2027,7 +2027,7 @@ rectangle(
     width=18,
     height=22,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightGray, shape_line_color=Colors140.DimGray, shape_line_width=1.5
+        shape_fill_color=CssColors.LightGray, shape_line_color=CssColors.DimGray, shape_line_width=1.5
     ),
     text="Input\n3x224x224",
     textstyle=styles.primary.patch(text_size=8, text_color=Colors.Black),
@@ -2071,8 +2071,8 @@ circle(
     (114, 25),
     radius=4.5,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightGoldenRodYellow,
-        shape_line_color=Colors140.GoldenRod,
+        shape_fill_color=CssColors.LightGoldenRodYellow,
+        shape_line_color=CssColors.GoldenRod,
         shape_line_width=1.5,
     ),
     text="+",
@@ -2091,11 +2091,11 @@ trapezoid(
 )
 
 # Forward Feed Connections
-arrow((25, 25), (32, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
-arrow((52, 25), (59, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
-arrow((77, 25), (82, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
-arrow((102, 25), (109.5, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
-arrow((118.5, 25), (123, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((25, 25), (32, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
+arrow((52, 25), (59, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
+arrow((77, 25), (82, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
+arrow((102, 25), (109.5, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
+arrow((118.5, 25), (123, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
 
 # ResNet Residual Skip Connection (arrow_polyline)
 arrow_polyline(
@@ -2105,7 +2105,7 @@ arrow_polyline(
     head_length=3,
     r=3,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.DarkOrange, shape_line_color=Colors140.DarkOrange
+        shape_fill_color=CssColors.DarkOrange, shape_line_color=CssColors.DarkOrange
     ),
 )
 
@@ -2120,10 +2120,10 @@ Constructs a standard UML state chart featuring initial pseudo-states, rounded c
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow, circle, donuts, rectangle, rhombus
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=150, height=60)
 
@@ -2176,8 +2176,8 @@ donuts(
 circle((136, 30), radius=3.5, style=styles.primary.patch(shape_fill_color=Colors.Black, shape_line_width=0))
 
 # Transitions
-arrow((20, 30), (27, 30), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
-arrow((53, 30), (61, 30), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((20, 30), (27, 30), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
+arrow((53, 30), (61, 30), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
 arrow(
     (78, 35),
     (91, 43),
@@ -2198,8 +2198,8 @@ arrow(
     textstyle=styles.bold.patch(text_size=8),
     style=styles.red_flat,
 )
-arrow((117, 43), (130, 33), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
-arrow((117, 17), (130, 27), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((117, 43), (130, 33), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
+arrow((117, 17), (130, 27), tail_width=1.5, head_width=4, head_length=3, style=styles.muted_flat)
 
 save()
 ```
@@ -2212,10 +2212,10 @@ Demonstrates how human designers and AI coding agents can construct crisp applic
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arc, circle, rectangle
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=140, height=75)
 
@@ -2226,7 +2226,7 @@ rectangle(
     height=65,
     r=4,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.WhiteSmoke, shape_line_color=Colors140.LightGray, shape_line_width=1.5
+        shape_fill_color=CssColors.WhiteSmoke, shape_line_color=CssColors.LightGray, shape_line_width=1.5
     ),
 )
 
@@ -2237,10 +2237,10 @@ rectangle(
     height=50,
     r=3,
     style=styles.primary.patch(
-        shape_fill_color=Colors.White, shape_line_color=Colors140.Gainsboro, shape_line_width=1
+        shape_fill_color=Colors.White, shape_line_color=CssColors.Gainsboro, shape_line_width=1
     ),
     text="CPU LOAD\n\n42%",
-    textstyle=styles.primary.patch(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)),
+    textstyle=styles.primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
 )
 arc(
     (28, 48),
@@ -2248,7 +2248,7 @@ arc(
     height=20,
     angle_start=0,
     angle_end=220,
-    style=styles.bold.patch(line_color=Colors140.DodgerBlue, line_width=3),
+    style=styles.bold.patch(line_color=CssColors.DodgerBlue, line_width=3),
 )
 
 # KPI Card 2: Memory Usage
@@ -2258,10 +2258,10 @@ rectangle(
     height=50,
     r=3,
     style=styles.primary.patch(
-        shape_fill_color=Colors.White, shape_line_color=Colors140.Gainsboro, line_width=1
+        shape_fill_color=Colors.White, shape_line_color=CssColors.Gainsboro, line_width=1
     ),
     text="MEMORY\n\n78%",
-    textstyle=styles.primary.patch(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)),
+    textstyle=styles.primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
 )
 arc(
     (70, 48),
@@ -2269,7 +2269,7 @@ arc(
     height=20,
     angle_start=0,
     angle_end=280,
-    style=styles.bold.patch(line_color=Colors140.MediumSeaGreen, line_width=3),
+    style=styles.bold.patch(line_color=CssColors.MediumSeaGreen, line_width=3),
 )
 
 # KPI Card 3: Network Status
@@ -2279,16 +2279,16 @@ rectangle(
     height=50,
     r=3,
     style=styles.primary.patch(
-        shape_fill_color=Colors.White, shape_line_color=Colors140.Gainsboro, line_width=1
+        shape_fill_color=Colors.White, shape_line_color=CssColors.Gainsboro, line_width=1
     ),
     text="NETWORK\n\nActive",
-    textstyle=styles.primary.patch(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)),
+    textstyle=styles.primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
 )
 circle(
     (112, 48),
     radius=6,
     style=styles.primary.patch(
-        shape_fill_color=Colors140.PaleGreen, shape_line_color=Colors140.ForestGreen, shape_line_width=2
+        shape_fill_color=CssColors.PaleGreen, shape_line_color=CssColors.ForestGreen, shape_line_width=2
     ),
 )
 

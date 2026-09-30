@@ -31,42 +31,42 @@ class GoogleColors(BaseColors):
     # 1. Neutrals (Grayscale: White, Gray1-Gray8 from lightest to darkest, Black)
     # =========================================================================
     White: Color = Color(255, 255, 255)  # #FFFFFF
-    Gray1: Color = Color(243, 243, 243)  # #F3F3F3 (Google Light Gray 3: 極淡背景・カード)
-    Gray2: Color = Color(239, 239, 239)  # #EFEFEF (Google Light Gray 2: セクション背景)
-    Gray3: Color = Color(217, 217, 217)  # #D9D9D9 (Google Light Gray 1: 境界線・枠)
-    Gray4: Color = Color(204, 204, 204)  # #CCCCCC (Google Gray: 表罫線)
-    Gray5: Color = Color(183, 183, 183)  # #B7B7B7 (Google Dark Gray 1: 非活性・セパレータ)
-    Gray6: Color = Color(153, 153, 153)  # #999999 (Google Dark Gray 2: 副テキスト・薄アイコン)
-    Gray7: Color = Color(102, 102, 102)  # #666666 (Google Dark Gray 3: サブタイトル・濃い枠)
-    Gray8: Color = Color(67, 67, 67)    # #434343 (Google Dark Gray 4: 本文チャコールテキスト)
+    Gray1: Color = Color(243, 243, 243)  # #F3F3F3 (Google Light Gray 3: Ultra light card background)
+    Gray2: Color = Color(239, 239, 239)  # #EFEFEF (Google Light Gray 2: Section background)
+    Gray3: Color = Color(217, 217, 217)  # #D9D9D9 (Google Light Gray 1: Boundary & container border)
+    Gray4: Color = Color(204, 204, 204)  # #CCCCCC (Google Gray: Table border)
+    Gray5: Color = Color(183, 183, 183)  # #B7B7B7 (Google Dark Gray 1: Inactive separator)
+    Gray6: Color = Color(153, 153, 153)  # #999999 (Google Dark Gray 2: Sub-text & subtle icons)
+    Gray7: Color = Color(102, 102, 102)  # #666666 (Google Dark Gray 3: Subtitle & dark border)
+    Gray8: Color = Color(67, 67, 67)    # #434343 (Google Dark Gray 4: Body charcoal text)
     Black: Color = Color(0, 0, 0)        # #000000
 
     # =========================================================================
     # 2. Main Chromatic Tones (10 Hues x 6 Levels: 1 is lightest, 6 is darkest)
     # =========================================================================
     # Cornflower Blue (Google Presentation Blue)
-    CornflowerBlue1: Color = Color(201, 218, 248)  # #C9DAF8 (Light 3: 最淡パステル)
+    CornflowerBlue1: Color = Color(201, 218, 248)  # #C9DAF8 (Light 3: Lightest pastel)
     CornflowerBlue2: Color = Color(164, 194, 244)  # #A4C2F4 (Light 2)
-    CornflowerBlue3: Color = Color(109, 158, 235)  # #6D9EEB (Light 1: 標準面)
-    CornflowerBlue4: Color = Color(60, 120, 216)   # #3C78D8 (Dark 1: 強調面・境界)
+    CornflowerBlue3: Color = Color(109, 158, 235)  # #6D9EEB (Light 1: Standard fill)
+    CornflowerBlue4: Color = Color(60, 120, 216)   # #3C78D8 (Dark 1: Accent fill & border)
     CornflowerBlue5: Color = Color(17, 85, 204)    # #1155CC (Dark 2)
-    CornflowerBlue6: Color = Color(28, 69, 135)    # #1C4587 (Dark 3: 最濃シェード)
+    CornflowerBlue6: Color = Color(28, 69, 135)    # #1C4587 (Dark 3: Darkest shade)
 
-    # Blue (Pure Blue base)
-    Blue1: Color = Color(207, 226, 243)  # #CFE2F3
-    Blue2: Color = Color(159, 197, 232)  # #9FC5E8
-    Blue3: Color = Color(111, 168, 220)  # #6FA8DC
-    Blue4: Color = Color(61, 133, 198)   # #3D85C6
-    Blue5: Color = Color(11, 83, 148)    # #0B5394 (Google Theme Deep Blue)
-    Blue6: Color = Color(7, 55, 99)      # #073763
+    # Blue (centered on GoogleBlue at Tone 4)
+    Blue1: Color = Color(232, 240, 254)  # #E8F0FE
+    Blue2: Color = Color(174, 203, 250)  # #AECBFA
+    Blue3: Color = Color(102, 157, 246)  # #669DF6
+    Blue4: Color = Color(66, 133, 244)   # #4285F4 (GoogleBlue)
+    Blue5: Color = Color(26, 115, 232)   # #1A73E8
+    Blue6: Color = Color(23, 78, 166)    # #174EA6
 
-    # Red
-    Red1: Color = Color(244, 204, 204)   # #F4CCCC
-    Red2: Color = Color(234, 153, 153)   # #EA9999
-    Red3: Color = Color(224, 102, 102)   # #E06666
-    Red4: Color = Color(204, 0, 0)       # #CC0000
-    Red5: Color = Color(153, 0, 0)       # #990000
-    Red6: Color = Color(102, 0, 0)       # #660000
+    # Red (centered on GoogleRed at Tone 4)
+    Red1: Color = Color(252, 232, 230)  # #FCE8E6
+    Red2: Color = Color(246, 174, 169)  # #F6AEA9
+    Red3: Color = Color(238, 103, 92)   # #EE675C
+    Red4: Color = Color(234, 67, 53)    # #EA4335 (GoogleRed)
+    Red5: Color = Color(197, 34, 31)    # #C5221F
+    Red6: Color = Color(140, 29, 24)    # #8C1D18
 
     # Red Berry (Wine / Burgundy)
     RedBerry1: Color = Color(230, 184, 175)  # #E6B8AF
@@ -76,13 +76,13 @@ class GoogleColors(BaseColors):
     RedBerry5: Color = Color(133, 32, 12)    # #85210D
     RedBerry6: Color = Color(91, 15, 0)      # #5B0F00
 
-    # Green
-    Green1: Color = Color(217, 234, 211)  # #D9EAD3
-    Green2: Color = Color(182, 215, 168)  # #B6D7A8
-    Green3: Color = Color(147, 196, 125)  # #93C47D
-    Green4: Color = Color(106, 168, 79)   # #6AA84F
-    Green5: Color = Color(56, 118, 29)    # #38761D
-    Green6: Color = Color(39, 78, 19)     # #274E13
+    # Green (centered on GoogleGreen at Tone 4)
+    Green1: Color = Color(230, 244, 234)  # #E6F4EA
+    Green2: Color = Color(206, 234, 214)  # #CEEAD6
+    Green3: Color = Color(91, 185, 116)   # #5BB974
+    Green4: Color = Color(52, 168, 83)    # #34A853 (GoogleGreen)
+    Green5: Color = Color(24, 128, 56)    # #188038
+    Green6: Color = Color(13, 101, 45)    # #0D652D
 
     # Yellow
     Yellow1: Color = Color(255, 242, 204)  # #FFF2CC
@@ -92,13 +92,13 @@ class GoogleColors(BaseColors):
     Yellow5: Color = Color(191, 144, 0)    # #BF9000
     Yellow6: Color = Color(127, 96, 0)     # #7F6000
 
-    # Orange
-    Orange1: Color = Color(252, 229, 205)  # #FCE5CD
-    Orange2: Color = Color(249, 203, 156)  # #F9CB9C
-    Orange3: Color = Color(246, 178, 107)  # #F6B26B
-    Orange4: Color = Color(230, 145, 56)   # #E69138
-    Orange5: Color = Color(180, 95, 6)     # #B45F06
-    Orange6: Color = Color(120, 63, 4)     # #783F04
+    # Orange (centered on GoogleOrange at Tone 4)
+    Orange1: Color = Color(254, 237, 222)  # #FEEDE0
+    Orange2: Color = Color(255, 204, 153)  # #FFCC99
+    Orange3: Color = Color(251, 164, 75)   # #FBA44B
+    Orange4: Color = Color(245, 124, 0)    # #F57C00 (GoogleOrange)
+    Orange5: Color = Color(224, 86, 0)     # #E05600
+    Orange6: Color = Color(163, 62, 0)     # #A33E00
 
     # Cyan
     Cyan1: Color = Color(208, 224, 227)  # #D0E0E3
@@ -151,26 +151,73 @@ class GoogleColors(BaseColors):
     Steel: Color = Color(96, 96, 143)
 
     # =========================================================================
-    # 4. Google Brand Colors (Theme header circles)
+    # 4. Google Brand Colors (Standalone brand constants, single colors only)
     # =========================================================================
-    GoogleBlue: Color = Color(66, 133, 244)   # #4285F4 (Circle 1)
-    GoogleRed: Color = Color(234, 67, 53)     # #EA4335 (Circle 7)
-    GoogleYellow: Color = Color(251, 188, 4)  # #FBBC04 (Circle 10)
-    GoogleGreen: Color = Color(52, 168, 83)   # #34A853 (Circle 6)
-    GoogleOrange: Color = Color(255, 152, 0)  # #FF9800 (Circle 8)
+    GoogleBlue: Color = Blue4           # #4285F4 (Theme Primary)
+    GoogleRed: Color = Red4             # #EA4335 (Theme Danger)
+    GoogleYellow: Color = Color(251, 188, 4)  # #FBBC04 (Standalone brand color)
+    GoogleGreen: Color = Green4         # #34A853 (Theme Success)
+    GoogleOrange: Color = Orange4       # #F57C00 (Theme Accent)
+    GooglePurple: Color = Purple4       # #674EA7 (Theme Secondary)
+    GoogleGray: Color = Gray3           # #D9D9D9 (Theme Muted border)
 
     # =========================================================================
-    # 5. Semantic Roles (8+1 roles)
+    # 5. Semantic Numbered Palette (6 Roles x 6 Levels)
     # =========================================================================
-    Primary: Color = GoogleBlue        # #4285F4 (メイン処理・コアサービス)
-    Secondary: Color = Blue5           # #0B5394 (データ層・ストレージ・キュー)
-    Accent: Color = Orange4            # #E69138 (クライアント・入口・通知)
-    Muted: Color = Gray3               # #D9D9D9 (VPC境界・グループコンテナ枠線)
-    Light: Color = Gray1               # #F3F3F3 (白キャンバス上の淡色カード面)
-    Dark: Color = Gray8                # #434343 (本文・タイトル文字・濃色枠線)
-    Danger: Color = GoogleRed          # #EA4335 (エラー・停止状態)
-    Success: Color = GoogleGreen       # #34A853 (正常・完了状態)
-    Canvas: Color = White              # #FFFFFF (スライドキャンバス背景)
+    Primary1: Color = Blue1
+    Primary2: Color = Blue2
+    Primary3: Color = Blue3
+    Primary4: Color = Blue4
+    Primary5: Color = Blue5
+    Primary6: Color = Blue6
+
+    Secondary1: Color = Purple1
+    Secondary2: Color = Purple2
+    Secondary3: Color = Purple3
+    Secondary4: Color = Purple4
+    Secondary5: Color = Purple5
+    Secondary6: Color = Purple6
+
+    Accent1: Color = Orange1
+    Accent2: Color = Orange2
+    Accent3: Color = Orange3
+    Accent4: Color = Orange4
+    Accent5: Color = Orange5
+    Accent6: Color = Orange6
+
+    Muted1: Color = Gray1
+    Muted2: Color = Gray2
+    Muted3: Color = Gray3
+    Muted4: Color = Gray4
+    Muted5: Color = Gray5
+    Muted6: Color = Gray6
+
+    Danger1: Color = Red1
+    Danger2: Color = Red2
+    Danger3: Color = Red3
+    Danger4: Color = Red4
+    Danger5: Color = Red5
+    Danger6: Color = Red6
+
+    Success1: Color = Green1
+    Success2: Color = Green2
+    Success3: Color = Green3
+    Success4: Color = Green4
+    Success5: Color = Green5
+    Success6: Color = Green6
+
+    # =========================================================================
+    # 6. Semantic Roles (Tone 4 Centered as Default)
+    # =========================================================================
+    Primary: Color = Primary4          # GoogleBlue (#4285F4)
+    Secondary: Color = Secondary4      # GooglePurple (#674EA7)
+    Accent: Color = Accent4            # GoogleOrange (#F57C00)
+    Muted: Color = Muted3              # GoogleGray (#D9D9D9)
+    Light: Color = Gray1               # #F3F3F3
+    Dark: Color = Gray8                # #434343
+    Danger: Color = Danger4            # GoogleRed (#EA4335)
+    Success: Color = Success4          # GoogleGreen (#34A853)
+    Canvas: Color = White              # #FFFFFF
 
     def patch(
         self,
@@ -184,6 +231,43 @@ class GoogleColors(BaseColors):
         Dark: ColorType | None = None,
         Danger: ColorType | None = None,
         Success: ColorType | None = None,
+        # Semantic Numbered
+        Primary1: ColorType | None = None,
+        Primary2: ColorType | None = None,
+        Primary3: ColorType | None = None,
+        Primary4: ColorType | None = None,
+        Primary5: ColorType | None = None,
+        Primary6: ColorType | None = None,
+        Secondary1: ColorType | None = None,
+        Secondary2: ColorType | None = None,
+        Secondary3: ColorType | None = None,
+        Secondary4: ColorType | None = None,
+        Secondary5: ColorType | None = None,
+        Secondary6: ColorType | None = None,
+        Accent1: ColorType | None = None,
+        Accent2: ColorType | None = None,
+        Accent3: ColorType | None = None,
+        Accent4: ColorType | None = None,
+        Accent5: ColorType | None = None,
+        Accent6: ColorType | None = None,
+        Muted1: ColorType | None = None,
+        Muted2: ColorType | None = None,
+        Muted3: ColorType | None = None,
+        Muted4: ColorType | None = None,
+        Muted5: ColorType | None = None,
+        Muted6: ColorType | None = None,
+        Danger1: ColorType | None = None,
+        Danger2: ColorType | None = None,
+        Danger3: ColorType | None = None,
+        Danger4: ColorType | None = None,
+        Danger5: ColorType | None = None,
+        Danger6: ColorType | None = None,
+        Success1: ColorType | None = None,
+        Success2: ColorType | None = None,
+        Success3: ColorType | None = None,
+        Success4: ColorType | None = None,
+        Success5: ColorType | None = None,
+        Success6: ColorType | None = None,
         # Neutrals
         White: ColorType | None = None,
         Gray1: ColorType | None = None,
@@ -284,6 +368,8 @@ class GoogleColors(BaseColors):
         GoogleYellow: ColorType | None = None,
         GoogleGreen: ColorType | None = None,
         GoogleOrange: ColorType | None = None,
+        GooglePurple: ColorType | None = None,
+        GoogleGray: ColorType | None = None,
         **kwargs: Any,  # noqa: ANN401
     ) -> Self:
         """Create a new copy of preset colors with updated attributes.
@@ -298,6 +384,42 @@ class GoogleColors(BaseColors):
             Dark: Dark semantic color.
             Danger: Danger semantic color.
             Success: Success semantic color.
+            Primary1: Primary semantic color tone level 1.
+            Primary2: Primary semantic color tone level 2.
+            Primary3: Primary semantic color tone level 3.
+            Primary4: Primary semantic color tone level 4.
+            Primary5: Primary semantic color tone level 5.
+            Primary6: Primary semantic color tone level 6.
+            Secondary1: Secondary semantic color tone level 1.
+            Secondary2: Secondary semantic color tone level 2.
+            Secondary3: Secondary semantic color tone level 3.
+            Secondary4: Secondary semantic color tone level 4.
+            Secondary5: Secondary semantic color tone level 5.
+            Secondary6: Secondary semantic color tone level 6.
+            Accent1: Accent semantic color tone level 1.
+            Accent2: Accent semantic color tone level 2.
+            Accent3: Accent semantic color tone level 3.
+            Accent4: Accent semantic color tone level 4.
+            Accent5: Accent semantic color tone level 5.
+            Accent6: Accent semantic color tone level 6.
+            Muted1: Muted semantic color tone level 1.
+            Muted2: Muted semantic color tone level 2.
+            Muted3: Muted semantic color tone level 3.
+            Muted4: Muted semantic color tone level 4.
+            Muted5: Muted semantic color tone level 5.
+            Muted6: Muted semantic color tone level 6.
+            Danger1: Danger semantic color tone level 1.
+            Danger2: Danger semantic color tone level 2.
+            Danger3: Danger semantic color tone level 3.
+            Danger4: Danger semantic color tone level 4.
+            Danger5: Danger semantic color tone level 5.
+            Danger6: Danger semantic color tone level 6.
+            Success1: Success semantic color tone level 1.
+            Success2: Success semantic color tone level 2.
+            Success3: Success semantic color tone level 3.
+            Success4: Success semantic color tone level 4.
+            Success5: Success semantic color tone level 5.
+            Success6: Success semantic color tone level 6.
             White: White neutral color.
             Gray1: Neutral gray level 1.
             Gray2: Neutral gray level 2.
@@ -394,6 +516,8 @@ class GoogleColors(BaseColors):
             GoogleYellow: Google brand yellow color.
             GoogleGreen: Google brand green color.
             GoogleOrange: Google brand orange color.
+            GooglePurple: Google brand purple color.
+            GoogleGray: Google brand gray color.
             **kwargs: Additional color attributes to update.
 
         Returns:

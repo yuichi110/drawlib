@@ -175,7 +175,6 @@ text((70, 52), "System Boundary", style=styles.bold)
 
 ```drawlib fold-code 500px center caption:"Transparent Status Pill"
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
 from drawlib.styles import styles
 

@@ -15,12 +15,10 @@ from drawlib.text import text, text_vertical
 
 # Style and color types
 from drawlib.preset_colors import (
-    Colors,
-    Colors140,
+    CssColors,
     DefaultColors,
     GoogleColors,
     MonochromeColors,
-    default_colors,
 )
 from drawlib.types import Style
 
@@ -113,12 +111,11 @@ halign  │     (x, y) anchor point      │  halign
 ### 3.2. Alignment Code Example
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import Font
 from drawlib.shapes import circle
+from drawlib.styles import Colors, styles
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=100, height=60)
 
@@ -201,8 +198,9 @@ Drawlib can automatically render a padded background rectangle behind the text b
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.fonts import FontSerif
+from drawlib.styles import Colors
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -217,7 +215,7 @@ badge_style = Style(
     text_valign="center",
     text_bg_fill_color=Colors.Navy,
     text_bg_fill_alpha=0.9,
-    text_bg_line_color=Colors140.LightBlue,
+    text_bg_line_color=CssColors.LightBlue,
     text_bg_line_width=1.5,
     text_bg_line_style="solid",
 )

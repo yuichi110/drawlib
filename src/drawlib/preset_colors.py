@@ -11,7 +11,7 @@
 
 from drawlib._core.styles import Color
 from drawlib._preset_colors import (
-    Colors140,
+    CssColors,
     DefaultColors,
     DefaultColors1,
     DefaultColors2,
@@ -19,15 +19,13 @@ from drawlib._preset_colors import (
     DefaultColors4,
     DefaultColors5,
     DefaultColors6,
-    DefaultDarkColors,
-    DefaultLightColors,
     GoogleColors,
     MonochromeColors,
 )
 
 __all__ = [
     "Color",
-    "Colors140",
+    "CssColors",
     "DefaultColors",
     "DefaultColors1",
     "DefaultColors2",
@@ -35,8 +33,6 @@ __all__ = [
     "DefaultColors4",
     "DefaultColors5",
     "DefaultColors6",
-    "DefaultDarkColors",
-    "DefaultLightColors",
     "GoogleColors",
     "MonochromeColors",
 ]

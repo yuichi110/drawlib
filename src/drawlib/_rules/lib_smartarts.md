@@ -45,8 +45,8 @@ from drawlib.smartarts import (
 Common auxiliary imports required for canvas setup, styling, and colors:
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140, default_colors
-from drawlib.styles import styles
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
 ```
 
@@ -123,35 +123,34 @@ table = Table(
 ### 3.3 Production Example: Microservice SLA & Availability Table
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140, default_colors
-from drawlib.smartarts import Table
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=120, height=65)
 
 table = Table()
 table.clear_styles()
 
-table.set_style_cell_header(background_color=default_colors.Graphite, textstyle=styles.white_bold)
+table.set_style_cell_header(background_color=Colors.Dark, textstyle=styles.white_bold)
 table.set_style_cell_evenodd(
-    even_color=default_colors.Snow,
-    even_textstyle=styles.primary.patch(text_color=default_colors.Charcoal, text_size=10),
-    odd_color=default_colors.White,
-    odd_textstyle=styles.primary.patch(text_color=default_colors.Charcoal, text_size=10),
+    even_color=Colors.Light,
+    even_textstyle=styles.primary.patch(text_color=Colors.Dark, text_size=10),
+    odd_color=Colors.White,
+    odd_textstyle=styles.primary.patch(text_color=Colors.Dark, text_size=10),
 )
 # SLA highlight (Row 2, Column 3)
 table.set_style_cell(
-    background_color=Colors140.PaleGreen,
-    textstyle=styles.primary.patch(text_color=Colors140.ForestGreen, text_size=10),
+    background_color=CssColors.PaleGreen,
+    textstyle=styles.primary.patch(text_color=CssColors.ForestGreen, text_size=10),
     rows=[2],
     columns=[3],
 )
 table.set_style_border(
-    top=styles.primary.patch(line_color=default_colors.Charcoal, line_width=1.5),
-    top2=styles.primary.patch(line_color=default_colors.Charcoal, line_width=1.0),
-    bottom=styles.primary.patch(line_color=default_colors.Charcoal, line_width=1.5),
-    between_rows=styles.primary.patch(line_color=Colors140.LightGray, line_width=0.5),
+    top=styles.primary.patch(line_color=Colors.Dark, line_width=1.5),
+    top2=styles.primary.patch(line_color=Colors.Dark, line_width=1.0),
+    bottom=styles.primary.patch(line_color=Colors.Dark, line_width=1.5),
+    between_rows=styles.primary.patch(line_color=CssColors.LightGray, line_width=0.5),
 )
 
 sla_data = [
@@ -205,31 +204,29 @@ Register icon functions (e.g. Phosphor icons) before or after node text:
 ### 4.4 Production Example: Monorepo Project Structure
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.icons import phosphor
-from drawlib.smartarts import TreeNode
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=110, height=70)
 
 TreeNode.register_drawing_item(
     name="dir_icon", location="before", padding_width=4.5, function=phosphor.folder,
-    style=styles.primary.patch(icon_color=default_colors.LightBlue), args={"width": 3.0},
+    style=styles.primary.patch(icon_color=Colors.Primary), args={"width": 3.0},
 )
 TreeNode.register_drawing_item(
     name="py_icon", location="before", padding_width=4.5, function=phosphor.file_py,
-    style=styles.primary.patch(icon_color=Colors140.ForestGreen), args={"width": 3.0},
+    style=styles.primary.patch(icon_color=CssColors.ForestGreen), args={"width": 3.0},
 )
 TreeNode.register_drawing_item(
     name="yaml_icon", location="before", padding_width=4.5, function=phosphor.file_code,
-    style=styles.primary.patch(icon_color=default_colors.Graphite), args={"width": 3.0},
+    style=styles.primary.patch(icon_color=Colors.Dark), args={"width": 3.0},
 )
 
 tree_root = TreeNode(
     "monorepo-root/",
     default_textstyle=styles.primary.patch(text_size=11),
-    default_linestyle=styles.primary.patch(line_color=default_colors.Gray, line_width=1.0),
+    default_linestyle=styles.primary.patch(line_color=Colors.Muted, line_width=1.0),
     default_line_horizontal_margin=3.0,
     default_line_horizontal_length=3.0,
     default_line_vertical_margin=6.0,
@@ -279,15 +276,14 @@ save()
 ### 5.3 Production Example: Horizontal Service Pipeline & Status Cards
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.smartarts import BoxList
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=110, height=50)
 
 pipeline = BoxList(
-    default_box_style=styles.primary.patch(shape_fill_color=default_colors.LightBlue, shape_line_color=default_colors.Charcoal, shape_line_width=1.0),
+    default_box_style=styles.primary,
     default_text_style=styles.white_bold.patch(text_size=10),
 )
 pipeline.append("1. Ingestion")
@@ -295,14 +291,14 @@ pipeline.append("2. Validation")
 # Highlighted degraded step
 pipeline.append(
     "3. ML Inference",
-    box_style=styles.primary.patch(shape_fill_color=Colors140.Crimson, shape_line_color=Colors140.DarkRed, shape_line_width=1.5),
+    box_style=styles.primary.patch(shape_fill_color=CssColors.Crimson, shape_line_color=CssColors.DarkRed, shape_line_width=1.5),
     text_style=styles.white_bold.patch(text_size=10),
 )
 pipeline.append("4. Persistence")
 pipeline.append("5. Dispatch")
 pipeline.draw(xy=(8, 30), box_width=18, box_height=10, align="left")
 
-status_list = BoxList(default_box_style=styles.gray_flat, default_text_style=styles.white_bold)
+status_list = BoxList(default_box_style=styles.muted_flat, default_text_style=styles.white_bold)
 status_list.extend(["Cluster A: OK", "Cluster B: OK", "Cluster C: WARN"])
 status_list.draw(xy=(8, 5), box_width=25, box_height=6, align="left")
 save()
@@ -356,14 +352,13 @@ MindMapNode(
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.fonts import Font
-from drawlib.preset_colors import default_colors
+from drawlib.styles import Colors, styles
 from drawlib.smartarts import MindMapNode
-from drawlib.styles import styles
 from drawlib.types import Style
 
 setup(width=220, height=110)
 
-txt_white = styles.primary.patch(text_color=default_colors.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
+txt_white = styles.primary.patch(text_color=Colors.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
 txt_child = styles.primary.patch(text_size=8.5, text_font=Font.SANSSERIF_BOLD)
 txt_leaf = styles.primary.patch(text_size=9)
 
@@ -371,7 +366,7 @@ root = MindMapNode(
     "Core API Gateway",
     shape="oval",
     size=(28, 12),
-    style=styles.primary.patch(shape_fill_color=default_colors.Graphite, shape_line_color=default_colors.Charcoal),
+    style=styles.dark_flat,
     textstyle=txt_white,
     default_linestyle=styles.primary,
     default_line_length=12.0,
@@ -450,10 +445,9 @@ ChevronProcess(
 ### 7.4 Production Example: Cloud CI/CD Deployment Pipeline
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.smartarts import ChevronProcess
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=130, height=45)
 
@@ -462,17 +456,17 @@ pipeline = ChevronProcess(
     spacing=2.0,
     flat_left_end=True,
     default_textstyle=styles.white_bold.patch(text_size=9.5),
-    default_description_style=styles.white.patch(text_size=8, text_color=default_colors.Snow),
+    default_description_style=styles.white.patch(text_size=8),
 )
-pipeline.append("1. Commit", description="Lint / Hooks", style=styles.gray_flat)
+pipeline.append("1. Commit", description="Lint / Hooks", style=styles.muted_flat)
 pipeline.append("2. Build", description="Docker Image", style=styles.blue_flat)
 # Active Stage Highlight
 pipeline.append(
     text="3. Security",
     description="SAST & CVE",
-    style=styles.primary.patch(shape_fill_color=Colors140.Crimson, shape_line_color=default_colors.Charcoal, shape_line_width=1.5),
+    style=styles.primary.patch(shape_fill_color=CssColors.Crimson, shape_line_color=Colors.Dark, shape_line_width=1.5),
     textstyle=styles.white_bold.patch(text_size=9.5),
-    description_style=styles.white.patch(text_size=8, text_color=default_colors.Snow),
+    description_style=styles.white.patch(text_size=8),
 )
 pipeline.append("4. Staging", description="Integration", style=styles.blue_flat)
 pipeline.append("5. Production", description="Canary Deploy", style=styles.green_flat)
@@ -528,10 +522,9 @@ Cycle(
 ### 8.4 Production Example: SRE Incident Response Lifecycle
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.smartarts import Cycle
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=100, height=90)
 
@@ -545,7 +538,7 @@ incident_cycle = Cycle(
     arrow_head_width=4.0,
     arrow_color_mode="match_source",
     default_textstyle=styles.white_bold.patch(text_size=9),
-    default_description_style=styles.white.patch(text_size=7, text_color=default_colors.Snow),
+    default_description_style=styles.white.patch(text_size=7),
     default_arrow_style=styles.solid,
     description_placement="inside",
 )
@@ -559,9 +552,9 @@ incident_cycle.set_center(
     text="SRE",
     description="Command",
     radius=11.0,
-    style=styles.charcoal_flat,
+    style=styles.dark_flat,
     textstyle=styles.white_bold.patch(text_size=12),
-    description_style=styles.white.patch(text_color=Colors140.LightGray, text_size=8),
+    description_style=styles.white.patch(text_color=CssColors.LightGray, text_size=8),
 )
 incident_cycle.draw(xy=(50, 45), radius=32.0, align="center")
 save()
@@ -612,10 +605,9 @@ grid.add(
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.smartarts import GridLayout
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=110, height=75)
 
@@ -632,7 +624,7 @@ grid.add(position=(0, 1), width=1, height=1, text="Postgres", style=styles.green
 grid.add(position=(1, 1), width=1, height=1, text="Mongo", style=styles.green_flat)
 grid.add(position=(2, 1), width=2, height=1, text="Redis Replication Cluster", style=styles.green_flat)
 # Row 0 (Bottom): Cloud Infrastructure
-grid.add(position=(0, 0), width=4, height=1, text="Kubernetes Core Platform (AWS EKS Multi-AZ)", style=styles.gray_flat)
+grid.add(position=(0, 0), width=4, height=1, text="Kubernetes Core Platform (AWS EKS Multi-AZ)", style=styles.muted_flat)
 
 grid.draw(
     xy=(10, 10),
@@ -640,7 +632,7 @@ grid.draw(
     height=55,
     margin=1.5,
     outer_r=2.0,
-    outer_style=styles.primary.patch(shape_line_color=default_colors.Charcoal, shape_line_width=1.0, shape_fill_color=default_colors.Snow),
+    outer_style=styles.muted_dashed,
 )
 save()
 ```
@@ -687,10 +679,9 @@ pyramid.add(
 ### 10.4 Production Example: Software Testing Pyramid
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.smartarts import Pyramid
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=100, height=65)
 
@@ -734,30 +725,27 @@ BulletPoints(
 ### 11.3 Production Example: Architecture Decision RFC Summary
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.icons import phosphor
-from drawlib.shapes import rectangle
-from drawlib.smartarts import BulletPoints
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=110, height=65)
 
 bp = BulletPoints(
     vertical_margin=4.5,
     indent_width=5.0,
-    default_style=styles.primary.patch(text_size=10, text_color=default_colors.Charcoal),
+    default_style=styles.primary.patch(text_size=10, text_color=Colors.Dark),
 )
 bp.set_bullet_style(
     indent_level=1,
     function=rectangle,
-    style=styles.primary.patch(shape_fill_color=default_colors.LightBlue, shape_line_width=0),
+    style=styles.primary.patch(shape_fill_color=Colors.Primary, shape_line_width=0),
     args={"width": 1.2, "height": 1.2},
 )
 bp.set_bullet_style(
     indent_level=2,
     function=phosphor.check_circle,
-    style=styles.primary.patch(icon_color=Colors140.ForestGreen),
+    style=styles.primary.patch(icon_color=CssColors.ForestGreen),
     args={"width": 2.0},
 )
 
@@ -818,14 +806,14 @@ from drawlib.styles import styles
 setup(width=110, height=105)
 
 # Outer window frame
-rectangle(xy=(55, 52.5), width=96, height=95, r=2, style=styles.charcoal_solid)
+rectangle(xy=(55, 52.5), width=96, height=95, r=2, style=styles.dark_solid)
 # Header bar
 rectangle(
     xy=(55, 94),
     width=96,
     height=12,
     r=2,
-    style=styles.charcoal_flat,
+    style=styles.dark_flat,
     text="Kubernetes Deployment Spec (v1)",
     textstyle=styles.white_bold,
 )
@@ -900,10 +888,9 @@ bubblespeech(
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.fonts import Font
-from drawlib.preset_colors import Colors140, default_colors
-from drawlib.shapes import rectangle
+from drawlib.preset_colors import CssColors
+from drawlib.styles import Colors, styles
 from drawlib.smartarts import bubblespeech
-from drawlib.styles import styles
 from drawlib.types import Style
 
 setup(width=110, height=60)
@@ -927,14 +914,14 @@ bubblespeech(
     tail_end_ratio=0.45,
     tail_vertex_xy=(25, 27),
     style=styles.primary.patch(
-        shape_fill_color=Colors140.LightCoral,
-        shape_line_color=Colors140.Crimson,
+        shape_fill_color=CssColors.LightCoral,
+        shape_line_color=CssColors.Crimson,
         shape_line_width=1.5,
     ),
     text="ACTION REQUIRED:\nExceeding IOPS threshold.\nMigrate read replicas to AWS Aurora.",
     textsize=9,
     textstyle=styles.primary.patch(
-        text_color=Colors140.DarkRed,
+        text_color=CssColors.DarkRed,
         text_font=Font.SANSSERIF_BOLD,
         text_size=9,
     ),

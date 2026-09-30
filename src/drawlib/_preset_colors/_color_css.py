@@ -7,15 +7,15 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""140 CSS web colors module."""
+"""CSS web colors module."""
 
 from __future__ import annotations
 
 from drawlib._core.styles import BaseColors, Color
 
 
-class Colors140(BaseColors):
-    """Class representing the 140 basic web colors(CSS Color Module Level3) along with a transparent color."""
+class CssColors(BaseColors):
+    """Class representing standard named CSS web colors (CSS Color Module) along with a transparent color."""
 
     AliceBlue: Color = Color(240, 248, 255)
     AntiqueWhite: Color = Color(250, 235, 215)
@@ -161,5 +161,5 @@ class Colors140(BaseColors):
 
 
 __all__ = [
-    "Colors140",
+    "CssColors",
 ]

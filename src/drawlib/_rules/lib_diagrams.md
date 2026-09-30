@@ -412,8 +412,7 @@ Indented Python `with` statements naturally structure condition frames in the di
 #### Example 5.3.1: Microservices Order Processing Pipeline
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.preset_colors import Colors
-from drawlib.styles import styles
+from drawlib.styles import Colors, styles
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 
 canvas.clear()
@@ -426,7 +425,7 @@ backend = d.add_group(
     ParticipantGroup(
         title="Google Cloud VPC",
         padding=4.0,
-        style=styles.primary.patch(shape_fill_color=(242, 246, 255, 0.4), shape_line_color=Colors.Gray, shape_line_style="dashed"),
+        style=styles.primary.patch(shape_fill_color=(242, 246, 255, 0.4), shape_line_color=Colors.Gray5, shape_line_style="dashed"),
     )
 )
 api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))

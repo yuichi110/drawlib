@@ -15,10 +15,8 @@ from drawlib.preset_colors import (
     Color,
 
     # Standard Color Constant Classes
-    Colors140,               # Full CSS / W3C 140 standard named colors
+    CssColors,               # Full CSS / W3C 140 standard named colors
     DefaultColors,           # Palette class used by preset style 'default'
-    DefaultDarkColors,
-    DefaultLightColors,
     MonochromeColors,        # Grayscale palette class used by 'monochrome'
     GoogleColors,            # Palette class used by 'google' theme
 )
@@ -53,55 +51,41 @@ Drawlib accepts colors in multiple convenient formats:
 
 ## 3. Color Catalogs
 
-### 3.1. `Colors` (16 Basic Web Colors + Transparent)
-The standard set for quick prototyping and basic geometric annotations:
+### 3.1. `Colors` / `DefaultColors`
+The standard set for rapid prototyping, architecture diagrams, and geometric styling:
 
-```python
-Colors.Black       # (0, 0, 0)
-Colors.White       # (255, 255, 255)
-Colors.Gray        # (128, 128, 128)
-Colors.Silver      # (192, 192, 192)
-Colors.Red         # (255, 0, 0)
-Colors.Maroon      # (128, 0, 0)
-Colors.Yellow      # (255, 255, 0)
-Colors.Olive       # (128, 128, 0)
-Colors.Lime        # (0, 255, 0)
-Colors.Green       # (0, 128, 0)
-Colors.Aqua        # (0, 255, 255)
-Colors.Teal        # (0, 128, 128)
-Colors.Blue        # (0, 0, 255)
-Colors.Navy        # (0, 0, 128)
-Colors.Fuchsia     # (255, 0, 255)
-Colors.Purple      # (128, 0, 128)
-Colors.Transparent # (0, 0, 0, 0.0)
-```
+- **6-Tone Chromatic Scales (Levels 1 to 6)**: `Blue1..6`, `Green1..6`, `Red1..6`, `Orange1..6`, `Amber1..6`, `Purple1..6`, `Teal1..6`, `Pink1..6`
+- **Neutrals (Light to Dark)**: `White`, `Gray1` through `Gray8`, `Black`
+- **Classic Primaries**: `Red`, `Green`, `Blue`, `Yellow`, `Orange`, `Purple`, `Pink`, `Cyan`, `Magenta`, `Lime`, `Teal`, `Navy`, `Olive`, `Brown`, `Gold`, `Aqua`, `GreenYellow`, `Ivory`, `Steel`
+- **Semantic Roles**: `Primary`, `Secondary`, `Accent`, `Muted`, `Light`, `Dark`, `Danger`, `Success`, `Canvas`, and numbered `Primary1..6`, `Secondary1..6`, `Accent1..6`, `Muted1..6`, `Danger1..6`, `Success1..6`
 
-### 3.2. `Colors140` (CSS 140 Color Catalog)
+### 3.2. `CssColors` (W3C CSS Named Colors Catalog)
 Contains all 140 standardized CSS color definitions for precise styling:
 
 ```python
-Colors140.AliceBlue          # (240, 248, 255)
-Colors140.CornflowerBlue     # (100, 149, 237)
-Colors140.DarkSlateGray      # (47, 79, 79)
-Colors140.LightCoral         # (240, 128, 128)
-Colors140.MediumSeaGreen     # (60, 179, 113)
-Colors140.MidnightBlue       # (25, 25, 112)
-Colors140.SteelBlue          # (70, 130, 180)
+CssColors.AliceBlue          # (240, 248, 255)
+CssColors.CornflowerBlue     # (100, 149, 237)
+CssColors.DarkSlateGray      # (47, 79, 79)
+CssColors.LightCoral         # (240, 128, 128)
+CssColors.MediumSeaGreen     # (60, 179, 113)
+CssColors.MidnightBlue       # (25, 25, 112)
+CssColors.SteelBlue          # (70, 130, 180)
 # ... and 133 more standardized web color attributes
 ```
 
 ### 3.3. Theme Palette Catalogs
 Curated color schemes designed to work harmoniously across complex architectures:
 
-- **`DefaultColors` (`from drawlib.styles import Colors`)**: Standard palette for default themes (`Red`, `Green`, `Blue`, `Black`, `White`, `Orange`, `Purple`, `Teal`, `Navy`, `Aqua`, `Silver`, `Charcoal`, and variants).
-- **`MonochromeColors`**: Multi-tier grayscale tones (`Black`, `Charcoal`, `Graphite`, `Gray`, `Silver`, `Snow`, `White`) for printer-friendly publications and patent drawings.
-- **`GoogleColors`**: Google Material palette matching `GoogleStyles`.
+- **`DefaultColors` (`from drawlib.preset_colors import DefaultColors`)**: Standard 6-tone chromatic scales, 8-level grayscale, and semantic roles.
+- **`MonochromeColors`**: 8-level grayscale tones (`White`, `Gray1..8`, `Black`) for printer-friendly publications and patent drawings.
+- **`GoogleColors`**: Google Workspace and Presentation palette matching `GoogleStyles`.
+
 
 ---
 
 ## 4. Color Manipulation & Derivation
 
-All preset colors (`Colors`, `DefaultColors`, `MonochromeColors`, `Colors140`, `GoogleColors`) are `Color` instances.
+All preset colors (`Colors`, `DefaultColors`, `MonochromeColors`, `CssColors`, `GoogleColors`) are `Color` instances.
 
 ### 4.1. The `.patch()` Method
 Derives a new `Color` instance by modifying specific channels while preserving immutability (analogous to `Style.patch()`):
@@ -141,7 +125,7 @@ c5 = Color("#f00")                         # (255, 0, 0, 1.0)
 `Color` instances provide read-only properties for channel inspection:
 
 ```python
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors
 
 c = Colors.Blue.patch(alpha=0.5)
 print(c.r)     # 0
@@ -209,15 +193,15 @@ from drawlib.styles import Styles
 
 setup(width=120, height=50)
 
-box_style = Styles.Primary.patch(
-    shape_fill_color=MonochromeColors.Silver,
+box_style = Styles.primary.patch(
+    shape_fill_color=MonochromeColors.Gray3,
     shape_line_color=MonochromeColors.Black,
     shape_line_width=2,
 )
 
-rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=Styles.Bold)
-rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=Styles.Bold)
-line((45, 25), (75, 25), arrowhead="->", style=Styles.Bold)
+rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=Styles.bold)
+rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=Styles.bold)
+line((45, 25), (75, 25), arrowhead="->", style=Styles.bold)
 save()
 ```
 

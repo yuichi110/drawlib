@@ -16,7 +16,7 @@ from typing import Any, Self
 
 from drawlib._core.fonts import FontSourceCode
 from drawlib._core.l2_types import ColorType
-from drawlib._core.styles import BaseColors, BaseStyles
+from drawlib._core.styles import BaseColors, BaseStyles, Color
 from drawlib._core.types import Style
 from drawlib._preset_colors import GoogleColors
 from drawlib._preset_styles._utils import _make_variants
@@ -158,6 +158,586 @@ class GoogleStyles(BaseStyles):
     success_dashed: Style
     success_dashed_bold: Style
     success_dashed_light: Style
+
+    # =========================================================================
+    # Numbered Semantic Roles
+    # =========================================================================
+
+    # primary1
+    primary1: Style
+    primary1_bordered: Style
+    primary1_bold: Style
+    primary1_light: Style
+    primary1_flat: Style
+    primary1_outline: Style
+    primary1_solid: Style
+    primary1_outline_bold: Style
+    primary1_solid_bold: Style
+    primary1_outline_light: Style
+    primary1_solid_light: Style
+    primary1_dashed: Style
+    primary1_dashed_bold: Style
+    primary1_dashed_light: Style
+
+    # primary2
+    primary2: Style
+    primary2_bordered: Style
+    primary2_bold: Style
+    primary2_light: Style
+    primary2_flat: Style
+    primary2_outline: Style
+    primary2_solid: Style
+    primary2_outline_bold: Style
+    primary2_solid_bold: Style
+    primary2_outline_light: Style
+    primary2_solid_light: Style
+    primary2_dashed: Style
+    primary2_dashed_bold: Style
+    primary2_dashed_light: Style
+
+    # primary3
+    primary3: Style
+    primary3_bordered: Style
+    primary3_bold: Style
+    primary3_light: Style
+    primary3_flat: Style
+    primary3_outline: Style
+    primary3_solid: Style
+    primary3_outline_bold: Style
+    primary3_solid_bold: Style
+    primary3_outline_light: Style
+    primary3_solid_light: Style
+    primary3_dashed: Style
+    primary3_dashed_bold: Style
+    primary3_dashed_light: Style
+
+    # primary4
+    primary4: Style
+    primary4_bordered: Style
+    primary4_bold: Style
+    primary4_light: Style
+    primary4_flat: Style
+    primary4_outline: Style
+    primary4_solid: Style
+    primary4_outline_bold: Style
+    primary4_solid_bold: Style
+    primary4_outline_light: Style
+    primary4_solid_light: Style
+    primary4_dashed: Style
+    primary4_dashed_bold: Style
+    primary4_dashed_light: Style
+
+    # primary5
+    primary5: Style
+    primary5_bordered: Style
+    primary5_bold: Style
+    primary5_light: Style
+    primary5_flat: Style
+    primary5_outline: Style
+    primary5_solid: Style
+    primary5_outline_bold: Style
+    primary5_solid_bold: Style
+    primary5_outline_light: Style
+    primary5_solid_light: Style
+    primary5_dashed: Style
+    primary5_dashed_bold: Style
+    primary5_dashed_light: Style
+
+    # primary6
+    primary6: Style
+    primary6_bordered: Style
+    primary6_bold: Style
+    primary6_light: Style
+    primary6_flat: Style
+    primary6_outline: Style
+    primary6_solid: Style
+    primary6_outline_bold: Style
+    primary6_solid_bold: Style
+    primary6_outline_light: Style
+    primary6_solid_light: Style
+    primary6_dashed: Style
+    primary6_dashed_bold: Style
+    primary6_dashed_light: Style
+
+    # secondary1
+    secondary1: Style
+    secondary1_bordered: Style
+    secondary1_bold: Style
+    secondary1_light: Style
+    secondary1_flat: Style
+    secondary1_outline: Style
+    secondary1_solid: Style
+    secondary1_outline_bold: Style
+    secondary1_solid_bold: Style
+    secondary1_outline_light: Style
+    secondary1_solid_light: Style
+    secondary1_dashed: Style
+    secondary1_dashed_bold: Style
+    secondary1_dashed_light: Style
+
+    # secondary2
+    secondary2: Style
+    secondary2_bordered: Style
+    secondary2_bold: Style
+    secondary2_light: Style
+    secondary2_flat: Style
+    secondary2_outline: Style
+    secondary2_solid: Style
+    secondary2_outline_bold: Style
+    secondary2_solid_bold: Style
+    secondary2_outline_light: Style
+    secondary2_solid_light: Style
+    secondary2_dashed: Style
+    secondary2_dashed_bold: Style
+    secondary2_dashed_light: Style
+
+    # secondary3
+    secondary3: Style
+    secondary3_bordered: Style
+    secondary3_bold: Style
+    secondary3_light: Style
+    secondary3_flat: Style
+    secondary3_outline: Style
+    secondary3_solid: Style
+    secondary3_outline_bold: Style
+    secondary3_solid_bold: Style
+    secondary3_outline_light: Style
+    secondary3_solid_light: Style
+    secondary3_dashed: Style
+    secondary3_dashed_bold: Style
+    secondary3_dashed_light: Style
+
+    # secondary4
+    secondary4: Style
+    secondary4_bordered: Style
+    secondary4_bold: Style
+    secondary4_light: Style
+    secondary4_flat: Style
+    secondary4_outline: Style
+    secondary4_solid: Style
+    secondary4_outline_bold: Style
+    secondary4_solid_bold: Style
+    secondary4_outline_light: Style
+    secondary4_solid_light: Style
+    secondary4_dashed: Style
+    secondary4_dashed_bold: Style
+    secondary4_dashed_light: Style
+
+    # secondary5
+    secondary5: Style
+    secondary5_bordered: Style
+    secondary5_bold: Style
+    secondary5_light: Style
+    secondary5_flat: Style
+    secondary5_outline: Style
+    secondary5_solid: Style
+    secondary5_outline_bold: Style
+    secondary5_solid_bold: Style
+    secondary5_outline_light: Style
+    secondary5_solid_light: Style
+    secondary5_dashed: Style
+    secondary5_dashed_bold: Style
+    secondary5_dashed_light: Style
+
+    # secondary6
+    secondary6: Style
+    secondary6_bordered: Style
+    secondary6_bold: Style
+    secondary6_light: Style
+    secondary6_flat: Style
+    secondary6_outline: Style
+    secondary6_solid: Style
+    secondary6_outline_bold: Style
+    secondary6_solid_bold: Style
+    secondary6_outline_light: Style
+    secondary6_solid_light: Style
+    secondary6_dashed: Style
+    secondary6_dashed_bold: Style
+    secondary6_dashed_light: Style
+
+    # accent1
+    accent1: Style
+    accent1_bordered: Style
+    accent1_bold: Style
+    accent1_light: Style
+    accent1_flat: Style
+    accent1_outline: Style
+    accent1_solid: Style
+    accent1_outline_bold: Style
+    accent1_solid_bold: Style
+    accent1_outline_light: Style
+    accent1_solid_light: Style
+    accent1_dashed: Style
+    accent1_dashed_bold: Style
+    accent1_dashed_light: Style
+
+    # accent2
+    accent2: Style
+    accent2_bordered: Style
+    accent2_bold: Style
+    accent2_light: Style
+    accent2_flat: Style
+    accent2_outline: Style
+    accent2_solid: Style
+    accent2_outline_bold: Style
+    accent2_solid_bold: Style
+    accent2_outline_light: Style
+    accent2_solid_light: Style
+    accent2_dashed: Style
+    accent2_dashed_bold: Style
+    accent2_dashed_light: Style
+
+    # accent3
+    accent3: Style
+    accent3_bordered: Style
+    accent3_bold: Style
+    accent3_light: Style
+    accent3_flat: Style
+    accent3_outline: Style
+    accent3_solid: Style
+    accent3_outline_bold: Style
+    accent3_solid_bold: Style
+    accent3_outline_light: Style
+    accent3_solid_light: Style
+    accent3_dashed: Style
+    accent3_dashed_bold: Style
+    accent3_dashed_light: Style
+
+    # accent4
+    accent4: Style
+    accent4_bordered: Style
+    accent4_bold: Style
+    accent4_light: Style
+    accent4_flat: Style
+    accent4_outline: Style
+    accent4_solid: Style
+    accent4_outline_bold: Style
+    accent4_solid_bold: Style
+    accent4_outline_light: Style
+    accent4_solid_light: Style
+    accent4_dashed: Style
+    accent4_dashed_bold: Style
+    accent4_dashed_light: Style
+
+    # accent5
+    accent5: Style
+    accent5_bordered: Style
+    accent5_bold: Style
+    accent5_light: Style
+    accent5_flat: Style
+    accent5_outline: Style
+    accent5_solid: Style
+    accent5_outline_bold: Style
+    accent5_solid_bold: Style
+    accent5_outline_light: Style
+    accent5_solid_light: Style
+    accent5_dashed: Style
+    accent5_dashed_bold: Style
+    accent5_dashed_light: Style
+
+    # accent6
+    accent6: Style
+    accent6_bordered: Style
+    accent6_bold: Style
+    accent6_light: Style
+    accent6_flat: Style
+    accent6_outline: Style
+    accent6_solid: Style
+    accent6_outline_bold: Style
+    accent6_solid_bold: Style
+    accent6_outline_light: Style
+    accent6_solid_light: Style
+    accent6_dashed: Style
+    accent6_dashed_bold: Style
+    accent6_dashed_light: Style
+
+    # muted1
+    muted1: Style
+    muted1_bordered: Style
+    muted1_bold: Style
+    muted1_light: Style
+    muted1_flat: Style
+    muted1_outline: Style
+    muted1_solid: Style
+    muted1_outline_bold: Style
+    muted1_solid_bold: Style
+    muted1_outline_light: Style
+    muted1_solid_light: Style
+    muted1_dashed: Style
+    muted1_dashed_bold: Style
+    muted1_dashed_light: Style
+
+    # muted2
+    muted2: Style
+    muted2_bordered: Style
+    muted2_bold: Style
+    muted2_light: Style
+    muted2_flat: Style
+    muted2_outline: Style
+    muted2_solid: Style
+    muted2_outline_bold: Style
+    muted2_solid_bold: Style
+    muted2_outline_light: Style
+    muted2_solid_light: Style
+    muted2_dashed: Style
+    muted2_dashed_bold: Style
+    muted2_dashed_light: Style
+
+    # muted3
+    muted3: Style
+    muted3_bordered: Style
+    muted3_bold: Style
+    muted3_light: Style
+    muted3_flat: Style
+    muted3_outline: Style
+    muted3_solid: Style
+    muted3_outline_bold: Style
+    muted3_solid_bold: Style
+    muted3_outline_light: Style
+    muted3_solid_light: Style
+    muted3_dashed: Style
+    muted3_dashed_bold: Style
+    muted3_dashed_light: Style
+
+    # muted4
+    muted4: Style
+    muted4_bordered: Style
+    muted4_bold: Style
+    muted4_light: Style
+    muted4_flat: Style
+    muted4_outline: Style
+    muted4_solid: Style
+    muted4_outline_bold: Style
+    muted4_solid_bold: Style
+    muted4_outline_light: Style
+    muted4_solid_light: Style
+    muted4_dashed: Style
+    muted4_dashed_bold: Style
+    muted4_dashed_light: Style
+
+    # muted5
+    muted5: Style
+    muted5_bordered: Style
+    muted5_bold: Style
+    muted5_light: Style
+    muted5_flat: Style
+    muted5_outline: Style
+    muted5_solid: Style
+    muted5_outline_bold: Style
+    muted5_solid_bold: Style
+    muted5_outline_light: Style
+    muted5_solid_light: Style
+    muted5_dashed: Style
+    muted5_dashed_bold: Style
+    muted5_dashed_light: Style
+
+    # muted6
+    muted6: Style
+    muted6_bordered: Style
+    muted6_bold: Style
+    muted6_light: Style
+    muted6_flat: Style
+    muted6_outline: Style
+    muted6_solid: Style
+    muted6_outline_bold: Style
+    muted6_solid_bold: Style
+    muted6_outline_light: Style
+    muted6_solid_light: Style
+    muted6_dashed: Style
+    muted6_dashed_bold: Style
+    muted6_dashed_light: Style
+
+    # danger1
+    danger1: Style
+    danger1_bordered: Style
+    danger1_bold: Style
+    danger1_light: Style
+    danger1_flat: Style
+    danger1_outline: Style
+    danger1_solid: Style
+    danger1_outline_bold: Style
+    danger1_solid_bold: Style
+    danger1_outline_light: Style
+    danger1_solid_light: Style
+    danger1_dashed: Style
+    danger1_dashed_bold: Style
+    danger1_dashed_light: Style
+
+    # danger2
+    danger2: Style
+    danger2_bordered: Style
+    danger2_bold: Style
+    danger2_light: Style
+    danger2_flat: Style
+    danger2_outline: Style
+    danger2_solid: Style
+    danger2_outline_bold: Style
+    danger2_solid_bold: Style
+    danger2_outline_light: Style
+    danger2_solid_light: Style
+    danger2_dashed: Style
+    danger2_dashed_bold: Style
+    danger2_dashed_light: Style
+
+    # danger3
+    danger3: Style
+    danger3_bordered: Style
+    danger3_bold: Style
+    danger3_light: Style
+    danger3_flat: Style
+    danger3_outline: Style
+    danger3_solid: Style
+    danger3_outline_bold: Style
+    danger3_solid_bold: Style
+    danger3_outline_light: Style
+    danger3_solid_light: Style
+    danger3_dashed: Style
+    danger3_dashed_bold: Style
+    danger3_dashed_light: Style
+
+    # danger4
+    danger4: Style
+    danger4_bordered: Style
+    danger4_bold: Style
+    danger4_light: Style
+    danger4_flat: Style
+    danger4_outline: Style
+    danger4_solid: Style
+    danger4_outline_bold: Style
+    danger4_solid_bold: Style
+    danger4_outline_light: Style
+    danger4_solid_light: Style
+    danger4_dashed: Style
+    danger4_dashed_bold: Style
+    danger4_dashed_light: Style
+
+    # danger5
+    danger5: Style
+    danger5_bordered: Style
+    danger5_bold: Style
+    danger5_light: Style
+    danger5_flat: Style
+    danger5_outline: Style
+    danger5_solid: Style
+    danger5_outline_bold: Style
+    danger5_solid_bold: Style
+    danger5_outline_light: Style
+    danger5_solid_light: Style
+    danger5_dashed: Style
+    danger5_dashed_bold: Style
+    danger5_dashed_light: Style
+
+    # danger6
+    danger6: Style
+    danger6_bordered: Style
+    danger6_bold: Style
+    danger6_light: Style
+    danger6_flat: Style
+    danger6_outline: Style
+    danger6_solid: Style
+    danger6_outline_bold: Style
+    danger6_solid_bold: Style
+    danger6_outline_light: Style
+    danger6_solid_light: Style
+    danger6_dashed: Style
+    danger6_dashed_bold: Style
+    danger6_dashed_light: Style
+
+    # success1
+    success1: Style
+    success1_bordered: Style
+    success1_bold: Style
+    success1_light: Style
+    success1_flat: Style
+    success1_outline: Style
+    success1_solid: Style
+    success1_outline_bold: Style
+    success1_solid_bold: Style
+    success1_outline_light: Style
+    success1_solid_light: Style
+    success1_dashed: Style
+    success1_dashed_bold: Style
+    success1_dashed_light: Style
+
+    # success2
+    success2: Style
+    success2_bordered: Style
+    success2_bold: Style
+    success2_light: Style
+    success2_flat: Style
+    success2_outline: Style
+    success2_solid: Style
+    success2_outline_bold: Style
+    success2_solid_bold: Style
+    success2_outline_light: Style
+    success2_solid_light: Style
+    success2_dashed: Style
+    success2_dashed_bold: Style
+    success2_dashed_light: Style
+
+    # success3
+    success3: Style
+    success3_bordered: Style
+    success3_bold: Style
+    success3_light: Style
+    success3_flat: Style
+    success3_outline: Style
+    success3_solid: Style
+    success3_outline_bold: Style
+    success3_solid_bold: Style
+    success3_outline_light: Style
+    success3_solid_light: Style
+    success3_dashed: Style
+    success3_dashed_bold: Style
+    success3_dashed_light: Style
+
+    # success4
+    success4: Style
+    success4_bordered: Style
+    success4_bold: Style
+    success4_light: Style
+    success4_flat: Style
+    success4_outline: Style
+    success4_solid: Style
+    success4_outline_bold: Style
+    success4_solid_bold: Style
+    success4_outline_light: Style
+    success4_solid_light: Style
+    success4_dashed: Style
+    success4_dashed_bold: Style
+    success4_dashed_light: Style
+
+    # success5
+    success5: Style
+    success5_bordered: Style
+    success5_bold: Style
+    success5_light: Style
+    success5_flat: Style
+    success5_outline: Style
+    success5_solid: Style
+    success5_outline_bold: Style
+    success5_solid_bold: Style
+    success5_outline_light: Style
+    success5_solid_light: Style
+    success5_dashed: Style
+    success5_dashed_bold: Style
+    success5_dashed_light: Style
+
+    # success6
+    success6: Style
+    success6_bordered: Style
+    success6_bold: Style
+    success6_light: Style
+    success6_flat: Style
+    success6_outline: Style
+    success6_solid: Style
+    success6_outline_bold: Style
+    success6_solid_bold: Style
+    success6_outline_light: Style
+    success6_solid_light: Style
+    success6_dashed: Style
+    success6_dashed_bold: Style
+    success6_dashed_light: Style
 
     # White
     white: Style
@@ -1719,6 +2299,38 @@ class GoogleStyles(BaseStyles):
     google_orange_dashed_bold: Style
     google_orange_dashed_light: Style
 
+    # GooglePurple
+    google_purple: Style
+    google_purple_bordered: Style
+    google_purple_bold: Style
+    google_purple_light: Style
+    google_purple_flat: Style
+    google_purple_outline: Style
+    google_purple_solid: Style
+    google_purple_outline_bold: Style
+    google_purple_solid_bold: Style
+    google_purple_outline_light: Style
+    google_purple_solid_light: Style
+    google_purple_dashed: Style
+    google_purple_dashed_bold: Style
+    google_purple_dashed_light: Style
+
+    # GoogleGray
+    google_gray: Style
+    google_gray_bordered: Style
+    google_gray_bold: Style
+    google_gray_light: Style
+    google_gray_flat: Style
+    google_gray_outline: Style
+    google_gray_solid: Style
+    google_gray_outline_bold: Style
+    google_gray_solid_bold: Style
+    google_gray_outline_light: Style
+    google_gray_solid_light: Style
+    google_gray_dashed: Style
+    google_gray_dashed_bold: Style
+    google_gray_dashed_light: Style
+
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize preset styles instance.
 
@@ -1826,6 +2438,510 @@ class GoogleStyles(BaseStyles):
         SuccessDashed: Style | None = None,
         SuccessDashedBold: Style | None = None,
         SuccessDashedLight: Style | None = None,
+        Primary1: Style | None = None,
+        Primary1Bordered: Style | None = None,
+        Primary1Bold: Style | None = None,
+        Primary1Light: Style | None = None,
+        Primary1Flat: Style | None = None,
+        Primary1Outline: Style | None = None,
+        Primary1Solid: Style | None = None,
+        Primary1OutlineBold: Style | None = None,
+        Primary1SolidBold: Style | None = None,
+        Primary1OutlineLight: Style | None = None,
+        Primary1SolidLight: Style | None = None,
+        Primary1Dashed: Style | None = None,
+        Primary1DashedBold: Style | None = None,
+        Primary1DashedLight: Style | None = None,
+        Primary2: Style | None = None,
+        Primary2Bordered: Style | None = None,
+        Primary2Bold: Style | None = None,
+        Primary2Light: Style | None = None,
+        Primary2Flat: Style | None = None,
+        Primary2Outline: Style | None = None,
+        Primary2Solid: Style | None = None,
+        Primary2OutlineBold: Style | None = None,
+        Primary2SolidBold: Style | None = None,
+        Primary2OutlineLight: Style | None = None,
+        Primary2SolidLight: Style | None = None,
+        Primary2Dashed: Style | None = None,
+        Primary2DashedBold: Style | None = None,
+        Primary2DashedLight: Style | None = None,
+        Primary3: Style | None = None,
+        Primary3Bordered: Style | None = None,
+        Primary3Bold: Style | None = None,
+        Primary3Light: Style | None = None,
+        Primary3Flat: Style | None = None,
+        Primary3Outline: Style | None = None,
+        Primary3Solid: Style | None = None,
+        Primary3OutlineBold: Style | None = None,
+        Primary3SolidBold: Style | None = None,
+        Primary3OutlineLight: Style | None = None,
+        Primary3SolidLight: Style | None = None,
+        Primary3Dashed: Style | None = None,
+        Primary3DashedBold: Style | None = None,
+        Primary3DashedLight: Style | None = None,
+        Primary4: Style | None = None,
+        Primary4Bordered: Style | None = None,
+        Primary4Bold: Style | None = None,
+        Primary4Light: Style | None = None,
+        Primary4Flat: Style | None = None,
+        Primary4Outline: Style | None = None,
+        Primary4Solid: Style | None = None,
+        Primary4OutlineBold: Style | None = None,
+        Primary4SolidBold: Style | None = None,
+        Primary4OutlineLight: Style | None = None,
+        Primary4SolidLight: Style | None = None,
+        Primary4Dashed: Style | None = None,
+        Primary4DashedBold: Style | None = None,
+        Primary4DashedLight: Style | None = None,
+        Primary5: Style | None = None,
+        Primary5Bordered: Style | None = None,
+        Primary5Bold: Style | None = None,
+        Primary5Light: Style | None = None,
+        Primary5Flat: Style | None = None,
+        Primary5Outline: Style | None = None,
+        Primary5Solid: Style | None = None,
+        Primary5OutlineBold: Style | None = None,
+        Primary5SolidBold: Style | None = None,
+        Primary5OutlineLight: Style | None = None,
+        Primary5SolidLight: Style | None = None,
+        Primary5Dashed: Style | None = None,
+        Primary5DashedBold: Style | None = None,
+        Primary5DashedLight: Style | None = None,
+        Primary6: Style | None = None,
+        Primary6Bordered: Style | None = None,
+        Primary6Bold: Style | None = None,
+        Primary6Light: Style | None = None,
+        Primary6Flat: Style | None = None,
+        Primary6Outline: Style | None = None,
+        Primary6Solid: Style | None = None,
+        Primary6OutlineBold: Style | None = None,
+        Primary6SolidBold: Style | None = None,
+        Primary6OutlineLight: Style | None = None,
+        Primary6SolidLight: Style | None = None,
+        Primary6Dashed: Style | None = None,
+        Primary6DashedBold: Style | None = None,
+        Primary6DashedLight: Style | None = None,
+        Secondary1: Style | None = None,
+        Secondary1Bordered: Style | None = None,
+        Secondary1Bold: Style | None = None,
+        Secondary1Light: Style | None = None,
+        Secondary1Flat: Style | None = None,
+        Secondary1Outline: Style | None = None,
+        Secondary1Solid: Style | None = None,
+        Secondary1OutlineBold: Style | None = None,
+        Secondary1SolidBold: Style | None = None,
+        Secondary1OutlineLight: Style | None = None,
+        Secondary1SolidLight: Style | None = None,
+        Secondary1Dashed: Style | None = None,
+        Secondary1DashedBold: Style | None = None,
+        Secondary1DashedLight: Style | None = None,
+        Secondary2: Style | None = None,
+        Secondary2Bordered: Style | None = None,
+        Secondary2Bold: Style | None = None,
+        Secondary2Light: Style | None = None,
+        Secondary2Flat: Style | None = None,
+        Secondary2Outline: Style | None = None,
+        Secondary2Solid: Style | None = None,
+        Secondary2OutlineBold: Style | None = None,
+        Secondary2SolidBold: Style | None = None,
+        Secondary2OutlineLight: Style | None = None,
+        Secondary2SolidLight: Style | None = None,
+        Secondary2Dashed: Style | None = None,
+        Secondary2DashedBold: Style | None = None,
+        Secondary2DashedLight: Style | None = None,
+        Secondary3: Style | None = None,
+        Secondary3Bordered: Style | None = None,
+        Secondary3Bold: Style | None = None,
+        Secondary3Light: Style | None = None,
+        Secondary3Flat: Style | None = None,
+        Secondary3Outline: Style | None = None,
+        Secondary3Solid: Style | None = None,
+        Secondary3OutlineBold: Style | None = None,
+        Secondary3SolidBold: Style | None = None,
+        Secondary3OutlineLight: Style | None = None,
+        Secondary3SolidLight: Style | None = None,
+        Secondary3Dashed: Style | None = None,
+        Secondary3DashedBold: Style | None = None,
+        Secondary3DashedLight: Style | None = None,
+        Secondary4: Style | None = None,
+        Secondary4Bordered: Style | None = None,
+        Secondary4Bold: Style | None = None,
+        Secondary4Light: Style | None = None,
+        Secondary4Flat: Style | None = None,
+        Secondary4Outline: Style | None = None,
+        Secondary4Solid: Style | None = None,
+        Secondary4OutlineBold: Style | None = None,
+        Secondary4SolidBold: Style | None = None,
+        Secondary4OutlineLight: Style | None = None,
+        Secondary4SolidLight: Style | None = None,
+        Secondary4Dashed: Style | None = None,
+        Secondary4DashedBold: Style | None = None,
+        Secondary4DashedLight: Style | None = None,
+        Secondary5: Style | None = None,
+        Secondary5Bordered: Style | None = None,
+        Secondary5Bold: Style | None = None,
+        Secondary5Light: Style | None = None,
+        Secondary5Flat: Style | None = None,
+        Secondary5Outline: Style | None = None,
+        Secondary5Solid: Style | None = None,
+        Secondary5OutlineBold: Style | None = None,
+        Secondary5SolidBold: Style | None = None,
+        Secondary5OutlineLight: Style | None = None,
+        Secondary5SolidLight: Style | None = None,
+        Secondary5Dashed: Style | None = None,
+        Secondary5DashedBold: Style | None = None,
+        Secondary5DashedLight: Style | None = None,
+        Secondary6: Style | None = None,
+        Secondary6Bordered: Style | None = None,
+        Secondary6Bold: Style | None = None,
+        Secondary6Light: Style | None = None,
+        Secondary6Flat: Style | None = None,
+        Secondary6Outline: Style | None = None,
+        Secondary6Solid: Style | None = None,
+        Secondary6OutlineBold: Style | None = None,
+        Secondary6SolidBold: Style | None = None,
+        Secondary6OutlineLight: Style | None = None,
+        Secondary6SolidLight: Style | None = None,
+        Secondary6Dashed: Style | None = None,
+        Secondary6DashedBold: Style | None = None,
+        Secondary6DashedLight: Style | None = None,
+        Accent1: Style | None = None,
+        Accent1Bordered: Style | None = None,
+        Accent1Bold: Style | None = None,
+        Accent1Light: Style | None = None,
+        Accent1Flat: Style | None = None,
+        Accent1Outline: Style | None = None,
+        Accent1Solid: Style | None = None,
+        Accent1OutlineBold: Style | None = None,
+        Accent1SolidBold: Style | None = None,
+        Accent1OutlineLight: Style | None = None,
+        Accent1SolidLight: Style | None = None,
+        Accent1Dashed: Style | None = None,
+        Accent1DashedBold: Style | None = None,
+        Accent1DashedLight: Style | None = None,
+        Accent2: Style | None = None,
+        Accent2Bordered: Style | None = None,
+        Accent2Bold: Style | None = None,
+        Accent2Light: Style | None = None,
+        Accent2Flat: Style | None = None,
+        Accent2Outline: Style | None = None,
+        Accent2Solid: Style | None = None,
+        Accent2OutlineBold: Style | None = None,
+        Accent2SolidBold: Style | None = None,
+        Accent2OutlineLight: Style | None = None,
+        Accent2SolidLight: Style | None = None,
+        Accent2Dashed: Style | None = None,
+        Accent2DashedBold: Style | None = None,
+        Accent2DashedLight: Style | None = None,
+        Accent3: Style | None = None,
+        Accent3Bordered: Style | None = None,
+        Accent3Bold: Style | None = None,
+        Accent3Light: Style | None = None,
+        Accent3Flat: Style | None = None,
+        Accent3Outline: Style | None = None,
+        Accent3Solid: Style | None = None,
+        Accent3OutlineBold: Style | None = None,
+        Accent3SolidBold: Style | None = None,
+        Accent3OutlineLight: Style | None = None,
+        Accent3SolidLight: Style | None = None,
+        Accent3Dashed: Style | None = None,
+        Accent3DashedBold: Style | None = None,
+        Accent3DashedLight: Style | None = None,
+        Accent4: Style | None = None,
+        Accent4Bordered: Style | None = None,
+        Accent4Bold: Style | None = None,
+        Accent4Light: Style | None = None,
+        Accent4Flat: Style | None = None,
+        Accent4Outline: Style | None = None,
+        Accent4Solid: Style | None = None,
+        Accent4OutlineBold: Style | None = None,
+        Accent4SolidBold: Style | None = None,
+        Accent4OutlineLight: Style | None = None,
+        Accent4SolidLight: Style | None = None,
+        Accent4Dashed: Style | None = None,
+        Accent4DashedBold: Style | None = None,
+        Accent4DashedLight: Style | None = None,
+        Accent5: Style | None = None,
+        Accent5Bordered: Style | None = None,
+        Accent5Bold: Style | None = None,
+        Accent5Light: Style | None = None,
+        Accent5Flat: Style | None = None,
+        Accent5Outline: Style | None = None,
+        Accent5Solid: Style | None = None,
+        Accent5OutlineBold: Style | None = None,
+        Accent5SolidBold: Style | None = None,
+        Accent5OutlineLight: Style | None = None,
+        Accent5SolidLight: Style | None = None,
+        Accent5Dashed: Style | None = None,
+        Accent5DashedBold: Style | None = None,
+        Accent5DashedLight: Style | None = None,
+        Accent6: Style | None = None,
+        Accent6Bordered: Style | None = None,
+        Accent6Bold: Style | None = None,
+        Accent6Light: Style | None = None,
+        Accent6Flat: Style | None = None,
+        Accent6Outline: Style | None = None,
+        Accent6Solid: Style | None = None,
+        Accent6OutlineBold: Style | None = None,
+        Accent6SolidBold: Style | None = None,
+        Accent6OutlineLight: Style | None = None,
+        Accent6SolidLight: Style | None = None,
+        Accent6Dashed: Style | None = None,
+        Accent6DashedBold: Style | None = None,
+        Accent6DashedLight: Style | None = None,
+        Muted1: Style | None = None,
+        Muted1Bordered: Style | None = None,
+        Muted1Bold: Style | None = None,
+        Muted1Light: Style | None = None,
+        Muted1Flat: Style | None = None,
+        Muted1Outline: Style | None = None,
+        Muted1Solid: Style | None = None,
+        Muted1OutlineBold: Style | None = None,
+        Muted1SolidBold: Style | None = None,
+        Muted1OutlineLight: Style | None = None,
+        Muted1SolidLight: Style | None = None,
+        Muted1Dashed: Style | None = None,
+        Muted1DashedBold: Style | None = None,
+        Muted1DashedLight: Style | None = None,
+        Muted2: Style | None = None,
+        Muted2Bordered: Style | None = None,
+        Muted2Bold: Style | None = None,
+        Muted2Light: Style | None = None,
+        Muted2Flat: Style | None = None,
+        Muted2Outline: Style | None = None,
+        Muted2Solid: Style | None = None,
+        Muted2OutlineBold: Style | None = None,
+        Muted2SolidBold: Style | None = None,
+        Muted2OutlineLight: Style | None = None,
+        Muted2SolidLight: Style | None = None,
+        Muted2Dashed: Style | None = None,
+        Muted2DashedBold: Style | None = None,
+        Muted2DashedLight: Style | None = None,
+        Muted3: Style | None = None,
+        Muted3Bordered: Style | None = None,
+        Muted3Bold: Style | None = None,
+        Muted3Light: Style | None = None,
+        Muted3Flat: Style | None = None,
+        Muted3Outline: Style | None = None,
+        Muted3Solid: Style | None = None,
+        Muted3OutlineBold: Style | None = None,
+        Muted3SolidBold: Style | None = None,
+        Muted3OutlineLight: Style | None = None,
+        Muted3SolidLight: Style | None = None,
+        Muted3Dashed: Style | None = None,
+        Muted3DashedBold: Style | None = None,
+        Muted3DashedLight: Style | None = None,
+        Muted4: Style | None = None,
+        Muted4Bordered: Style | None = None,
+        Muted4Bold: Style | None = None,
+        Muted4Light: Style | None = None,
+        Muted4Flat: Style | None = None,
+        Muted4Outline: Style | None = None,
+        Muted4Solid: Style | None = None,
+        Muted4OutlineBold: Style | None = None,
+        Muted4SolidBold: Style | None = None,
+        Muted4OutlineLight: Style | None = None,
+        Muted4SolidLight: Style | None = None,
+        Muted4Dashed: Style | None = None,
+        Muted4DashedBold: Style | None = None,
+        Muted4DashedLight: Style | None = None,
+        Muted5: Style | None = None,
+        Muted5Bordered: Style | None = None,
+        Muted5Bold: Style | None = None,
+        Muted5Light: Style | None = None,
+        Muted5Flat: Style | None = None,
+        Muted5Outline: Style | None = None,
+        Muted5Solid: Style | None = None,
+        Muted5OutlineBold: Style | None = None,
+        Muted5SolidBold: Style | None = None,
+        Muted5OutlineLight: Style | None = None,
+        Muted5SolidLight: Style | None = None,
+        Muted5Dashed: Style | None = None,
+        Muted5DashedBold: Style | None = None,
+        Muted5DashedLight: Style | None = None,
+        Muted6: Style | None = None,
+        Muted6Bordered: Style | None = None,
+        Muted6Bold: Style | None = None,
+        Muted6Light: Style | None = None,
+        Muted6Flat: Style | None = None,
+        Muted6Outline: Style | None = None,
+        Muted6Solid: Style | None = None,
+        Muted6OutlineBold: Style | None = None,
+        Muted6SolidBold: Style | None = None,
+        Muted6OutlineLight: Style | None = None,
+        Muted6SolidLight: Style | None = None,
+        Muted6Dashed: Style | None = None,
+        Muted6DashedBold: Style | None = None,
+        Muted6DashedLight: Style | None = None,
+        Danger1: Style | None = None,
+        Danger1Bordered: Style | None = None,
+        Danger1Bold: Style | None = None,
+        Danger1Light: Style | None = None,
+        Danger1Flat: Style | None = None,
+        Danger1Outline: Style | None = None,
+        Danger1Solid: Style | None = None,
+        Danger1OutlineBold: Style | None = None,
+        Danger1SolidBold: Style | None = None,
+        Danger1OutlineLight: Style | None = None,
+        Danger1SolidLight: Style | None = None,
+        Danger1Dashed: Style | None = None,
+        Danger1DashedBold: Style | None = None,
+        Danger1DashedLight: Style | None = None,
+        Danger2: Style | None = None,
+        Danger2Bordered: Style | None = None,
+        Danger2Bold: Style | None = None,
+        Danger2Light: Style | None = None,
+        Danger2Flat: Style | None = None,
+        Danger2Outline: Style | None = None,
+        Danger2Solid: Style | None = None,
+        Danger2OutlineBold: Style | None = None,
+        Danger2SolidBold: Style | None = None,
+        Danger2OutlineLight: Style | None = None,
+        Danger2SolidLight: Style | None = None,
+        Danger2Dashed: Style | None = None,
+        Danger2DashedBold: Style | None = None,
+        Danger2DashedLight: Style | None = None,
+        Danger3: Style | None = None,
+        Danger3Bordered: Style | None = None,
+        Danger3Bold: Style | None = None,
+        Danger3Light: Style | None = None,
+        Danger3Flat: Style | None = None,
+        Danger3Outline: Style | None = None,
+        Danger3Solid: Style | None = None,
+        Danger3OutlineBold: Style | None = None,
+        Danger3SolidBold: Style | None = None,
+        Danger3OutlineLight: Style | None = None,
+        Danger3SolidLight: Style | None = None,
+        Danger3Dashed: Style | None = None,
+        Danger3DashedBold: Style | None = None,
+        Danger3DashedLight: Style | None = None,
+        Danger4: Style | None = None,
+        Danger4Bordered: Style | None = None,
+        Danger4Bold: Style | None = None,
+        Danger4Light: Style | None = None,
+        Danger4Flat: Style | None = None,
+        Danger4Outline: Style | None = None,
+        Danger4Solid: Style | None = None,
+        Danger4OutlineBold: Style | None = None,
+        Danger4SolidBold: Style | None = None,
+        Danger4OutlineLight: Style | None = None,
+        Danger4SolidLight: Style | None = None,
+        Danger4Dashed: Style | None = None,
+        Danger4DashedBold: Style | None = None,
+        Danger4DashedLight: Style | None = None,
+        Danger5: Style | None = None,
+        Danger5Bordered: Style | None = None,
+        Danger5Bold: Style | None = None,
+        Danger5Light: Style | None = None,
+        Danger5Flat: Style | None = None,
+        Danger5Outline: Style | None = None,
+        Danger5Solid: Style | None = None,
+        Danger5OutlineBold: Style | None = None,
+        Danger5SolidBold: Style | None = None,
+        Danger5OutlineLight: Style | None = None,
+        Danger5SolidLight: Style | None = None,
+        Danger5Dashed: Style | None = None,
+        Danger5DashedBold: Style | None = None,
+        Danger5DashedLight: Style | None = None,
+        Danger6: Style | None = None,
+        Danger6Bordered: Style | None = None,
+        Danger6Bold: Style | None = None,
+        Danger6Light: Style | None = None,
+        Danger6Flat: Style | None = None,
+        Danger6Outline: Style | None = None,
+        Danger6Solid: Style | None = None,
+        Danger6OutlineBold: Style | None = None,
+        Danger6SolidBold: Style | None = None,
+        Danger6OutlineLight: Style | None = None,
+        Danger6SolidLight: Style | None = None,
+        Danger6Dashed: Style | None = None,
+        Danger6DashedBold: Style | None = None,
+        Danger6DashedLight: Style | None = None,
+        Success1: Style | None = None,
+        Success1Bordered: Style | None = None,
+        Success1Bold: Style | None = None,
+        Success1Light: Style | None = None,
+        Success1Flat: Style | None = None,
+        Success1Outline: Style | None = None,
+        Success1Solid: Style | None = None,
+        Success1OutlineBold: Style | None = None,
+        Success1SolidBold: Style | None = None,
+        Success1OutlineLight: Style | None = None,
+        Success1SolidLight: Style | None = None,
+        Success1Dashed: Style | None = None,
+        Success1DashedBold: Style | None = None,
+        Success1DashedLight: Style | None = None,
+        Success2: Style | None = None,
+        Success2Bordered: Style | None = None,
+        Success2Bold: Style | None = None,
+        Success2Light: Style | None = None,
+        Success2Flat: Style | None = None,
+        Success2Outline: Style | None = None,
+        Success2Solid: Style | None = None,
+        Success2OutlineBold: Style | None = None,
+        Success2SolidBold: Style | None = None,
+        Success2OutlineLight: Style | None = None,
+        Success2SolidLight: Style | None = None,
+        Success2Dashed: Style | None = None,
+        Success2DashedBold: Style | None = None,
+        Success2DashedLight: Style | None = None,
+        Success3: Style | None = None,
+        Success3Bordered: Style | None = None,
+        Success3Bold: Style | None = None,
+        Success3Light: Style | None = None,
+        Success3Flat: Style | None = None,
+        Success3Outline: Style | None = None,
+        Success3Solid: Style | None = None,
+        Success3OutlineBold: Style | None = None,
+        Success3SolidBold: Style | None = None,
+        Success3OutlineLight: Style | None = None,
+        Success3SolidLight: Style | None = None,
+        Success3Dashed: Style | None = None,
+        Success3DashedBold: Style | None = None,
+        Success3DashedLight: Style | None = None,
+        Success4: Style | None = None,
+        Success4Bordered: Style | None = None,
+        Success4Bold: Style | None = None,
+        Success4Light: Style | None = None,
+        Success4Flat: Style | None = None,
+        Success4Outline: Style | None = None,
+        Success4Solid: Style | None = None,
+        Success4OutlineBold: Style | None = None,
+        Success4SolidBold: Style | None = None,
+        Success4OutlineLight: Style | None = None,
+        Success4SolidLight: Style | None = None,
+        Success4Dashed: Style | None = None,
+        Success4DashedBold: Style | None = None,
+        Success4DashedLight: Style | None = None,
+        Success5: Style | None = None,
+        Success5Bordered: Style | None = None,
+        Success5Bold: Style | None = None,
+        Success5Light: Style | None = None,
+        Success5Flat: Style | None = None,
+        Success5Outline: Style | None = None,
+        Success5Solid: Style | None = None,
+        Success5OutlineBold: Style | None = None,
+        Success5SolidBold: Style | None = None,
+        Success5OutlineLight: Style | None = None,
+        Success5SolidLight: Style | None = None,
+        Success5Dashed: Style | None = None,
+        Success5DashedBold: Style | None = None,
+        Success5DashedLight: Style | None = None,
+        Success6: Style | None = None,
+        Success6Bordered: Style | None = None,
+        Success6Bold: Style | None = None,
+        Success6Light: Style | None = None,
+        Success6Flat: Style | None = None,
+        Success6Outline: Style | None = None,
+        Success6Solid: Style | None = None,
+        Success6OutlineBold: Style | None = None,
+        Success6SolidBold: Style | None = None,
+        Success6OutlineLight: Style | None = None,
+        Success6SolidLight: Style | None = None,
+        Success6Dashed: Style | None = None,
+        Success6DashedBold: Style | None = None,
+        Success6DashedLight: Style | None = None,
         PrimarySolid: Style | None = None,
         PrimarySolidBold: Style | None = None,
         PrimarySolidLight: Style | None = None,
@@ -3194,6 +4310,34 @@ class GoogleStyles(BaseStyles):
         GoogleOrangeDashed: Style | None = None,
         GoogleOrangeDashedBold: Style | None = None,
         GoogleOrangeDashedLight: Style | None = None,
+        GooglePurple: Style | None = None,
+        GooglePurpleBordered: Style | None = None,
+        GooglePurpleBold: Style | None = None,
+        GooglePurpleLight: Style | None = None,
+        GooglePurpleFlat: Style | None = None,
+        GooglePurpleOutline: Style | None = None,
+        GooglePurpleSolid: Style | None = None,
+        GooglePurpleOutlineBold: Style | None = None,
+        GooglePurpleSolidBold: Style | None = None,
+        GooglePurpleOutlineLight: Style | None = None,
+        GooglePurpleSolidLight: Style | None = None,
+        GooglePurpleDashed: Style | None = None,
+        GooglePurpleDashedBold: Style | None = None,
+        GooglePurpleDashedLight: Style | None = None,
+        GoogleGray: Style | None = None,
+        GoogleGrayBordered: Style | None = None,
+        GoogleGrayBold: Style | None = None,
+        GoogleGrayLight: Style | None = None,
+        GoogleGrayFlat: Style | None = None,
+        GoogleGrayOutline: Style | None = None,
+        GoogleGraySolid: Style | None = None,
+        GoogleGrayOutlineBold: Style | None = None,
+        GoogleGraySolidBold: Style | None = None,
+        GoogleGrayOutlineLight: Style | None = None,
+        GoogleGraySolidLight: Style | None = None,
+        GoogleGrayDashed: Style | None = None,
+        GoogleGrayDashedBold: Style | None = None,
+        GoogleGrayDashedLight: Style | None = None,
         **kwargs: Any,  # noqa: ANN401
     ) -> Self:
         """Create a new copy of preset styles with updated attributes.
@@ -3261,7 +4405,7 @@ def _create_google_styles() -> GoogleStyles:
     }
 
     # 3. Tones (10 hues x 6 tones)
-    tones_map = {}
+    tones_map: dict[str, Color] = {}
     tones_map["cornflower_blue1"] = getattr(col, "CornflowerBlue1")
     tones_map["cornflower_blue2"] = getattr(col, "CornflowerBlue2")
     tones_map["cornflower_blue3"] = getattr(col, "CornflowerBlue3")
@@ -3324,7 +4468,7 @@ def _create_google_styles() -> GoogleStyles:
     tones_map["magenta6"] = getattr(col, "Magenta6")
 
     # 4. Primaries
-    primaries_map = {}
+    primaries_map: dict[str, Color] = {}
     primaries_map["cornflower_blue"] = getattr(col, "CornflowerBlue")
     primaries_map["blue"] = getattr(col, "Blue")
     primaries_map["red"] = getattr(col, "Red")
@@ -3348,14 +4492,22 @@ def _create_google_styles() -> GoogleStyles:
     primaries_map["steel"] = getattr(col, "Steel")
 
     # 5. Brand
-    brand_map = {}
+    brand_map: dict[str, Color] = {}
     brand_map["google_blue"] = getattr(col, "GoogleBlue")
     brand_map["google_red"] = getattr(col, "GoogleRed")
     brand_map["google_yellow"] = getattr(col, "GoogleYellow")
     brand_map["google_green"] = getattr(col, "GoogleGreen")
     brand_map["google_orange"] = getattr(col, "GoogleOrange")
+    brand_map["google_purple"] = getattr(col, "GooglePurple")
+    brand_map["google_gray"] = getattr(col, "GoogleGray")
 
-    all_colors = {**neutrals_map, **tones_map, **primaries_map, **brand_map}
+    # 6. Semantic Tones (6 roles x 6 tones)
+    semantic_tones_map: dict[str, Color] = {}
+    for r in ["primary", "secondary", "accent", "muted", "danger", "success"]:
+        for i in range(1, 7):
+            semantic_tones_map[f"{r}{i}"] = getattr(col, f"{r.capitalize()}{i}")
+
+    all_colors: dict[str, Color] = {**neutrals_map, **tones_map, **primaries_map, **brand_map, **semantic_tones_map}
     for cname, color in all_colors.items():
         v = _make_variants(color, border_color=border_color)
         styles_dict[cname] = v["normal"]

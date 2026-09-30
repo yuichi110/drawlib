@@ -25,8 +25,6 @@ from drawlib._preset_colors import (
     DefaultColors4,
     DefaultColors5,
     DefaultColors6,
-    DefaultDarkColors,
-    DefaultLightColors,
 )
 from drawlib._preset_styles._utils import _make_variants
 

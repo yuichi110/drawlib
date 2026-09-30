@@ -22,7 +22,7 @@ from drawlib._core.l4_canvas import (
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib.canvas import clear, save, setup
 from drawlib.fonts import Font
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import polygon, rectangle, shape
 from drawlib.styles import Colors, Styles
 
@@ -67,7 +67,7 @@ class TestCanvasBase:
             width=150,
             height=120,
             dpi=120,
-            background_color=Colors140.Orange,
+            background_color=CssColors.Orange,
             background_alpha=0.5,
             grid=True,
             grid_style=Style(line_width=2, text_color=Colors.Red),
@@ -75,7 +75,7 @@ class TestCanvasBase:
         assert canvas._width == 150
         assert canvas._height == 120
         assert canvas._dpi == 120
-        assert canvas._background_color == Colors140.Orange
+        assert canvas._background_color == CssColors.Orange
         assert canvas._background_alpha == 0.5
         assert canvas._grid is True
         assert canvas._grid_style.line_width == 2

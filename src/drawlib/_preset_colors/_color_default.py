@@ -523,11 +523,6 @@ class DefaultColors6(DefaultColors):
     Canvas: Color = DefaultColors.White
 
 
-# --- Backward Compatibility Aliases ---
-DefaultLightColors = DefaultColors2
-DefaultDarkColors = DefaultColors5
-
-
 __all__ = [
     "DefaultColors",
     "DefaultColors1",
@@ -536,6 +531,4 @@ __all__ = [
     "DefaultColors4",
     "DefaultColors5",
     "DefaultColors6",
-    "DefaultDarkColors",
-    "DefaultLightColors",
 ]

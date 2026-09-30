@@ -58,10 +58,8 @@ from drawlib.icons import font_icon, gcp, phosphor
 # Supporting styling and color modules
 from drawlib.preset_colors import (
     Color,
-    Colors140,
+    CssColors,
     DefaultColors,
-    DefaultDarkColors,
-    DefaultLightColors,
     GoogleColors,
     MonochromeColors,
 )
@@ -146,7 +144,7 @@ for i, (name, style_obj) in enumerate(weights):
     # Render cloud icon in respective weight
     phosphor.cloud((x, y_icon), width=12, style=style_obj)
     # Render descriptive label underneath
-    text((x, y_text), name, size=11, style=styles.charcoal)
+    text((x, y_text), name, size=11, style=styles.dark)
 
 save()
 ```
@@ -250,8 +248,8 @@ font_icon((70, 24), width=11, code=CODE_PYTHON, file=FILE_BRANDS, style=Style(te
 text((70, 10), "Python", size=10, style=Style(text_color=COLOR_PYTHON))
 
 # Render Solid Infrastructure Icons
-font_icon((95, 24), width=11, code=CODE_SERVER, file=FILE_SOLID, style=styles.charcoal_bold)
-text((95, 10), "Server", size=10, style=styles.charcoal)
+font_icon((95, 24), width=11, code=CODE_SERVER, file=FILE_SOLID, style=styles.dark_bold)
+text((95, 10), "Server", size=10, style=styles.dark)
 
 font_icon((118, 24), width=11, code=CODE_TERMINAL, file=FILE_SOLID, style=styles.green_bold)
 text((118, 10), "CLI", size=10, style=styles.green)
@@ -401,7 +399,7 @@ pad_x = 22
 for i, ang in enumerate(angles):
     x = start_x + pad_x * i
     phosphor.airplane((x, 24), width=11, angle=ang, style=styles.blue_bold)
-    text((x, 9), f"{ang}°", size=10, style=styles.charcoal)
+    text((x, 9), f"{ang}°", size=10, style=styles.dark)
 
 save()
 ```
@@ -462,7 +460,7 @@ In production cloud architecture schemas and workflow diagrams, icons rarely exi
 
 ```text
  ┌────────────────────────────────────────────────────────┐
- │ Container Card (rectangle with r=2, style="silver_flat")│
+ │ Container Card (rectangle with r=2, style="muted_flat") │
  │                                                        │
  │        ┌──────────┐                                    │
  │        │   ICON   │    ◄── Icon (e.g. gcp.cloud_run)    │
@@ -497,7 +495,7 @@ gcp.google_kubernetes_engine((icon_x, icon_y), width=icon_w, style=styles.primar
 
 # 2. Render primary and secondary labels
 text((icon_x, icon_y - (icon_w / 2) - 4), "GKE Ingress", style=styles.bold, size=10)
-text((icon_x, icon_y - (icon_w / 2) - 9), "v1.30 Production", style=styles.charcoal, size=8)
+text((icon_x, icon_y - (icon_w / 2) - 9), "v1.30 Production", style=styles.dark, size=8)
 
 save()
 ```
@@ -517,15 +515,15 @@ card_x, card_y = 50, 30
 card_w, card_h = 36, 42
 
 # 1. Card container background
-rectangle((card_x, card_y), width=card_w, height=card_h, r=3, style=styles.silver_flat)
-rectangle((card_x, card_y), width=card_w, height=card_h, r=3, style=styles.gray_solid)
+rectangle((card_x, card_y), width=card_w, height=card_h, r=3, style=styles.muted_flat)
+rectangle((card_x, card_y), width=card_w, height=card_h, r=3, style=styles.muted_solid)
 
 # 2. Cloud service icon
 gcp.compute_engine((card_x, card_y + 6), width=14, style=styles.primary)
 
 # 3. Label block
 text((card_x, card_y - 7), "Worker Node 01", style=styles.bold, size=10)
-text((card_x, card_y - 13), "n2-standard-4", style=styles.charcoal, size=8)
+text((card_x, card_y - 13), "n2-standard-4", style=styles.dark, size=8)
 
 # 4. Status badge (top-right corner indicator)
 badge_x = card_x + (card_w / 2) - 4
@@ -560,7 +558,7 @@ steps = [
 for num, label, icon_fn, x in steps:
     # 1. Main action icon
     icon_fn((x, 22), width=10, style=styles.blue_bold)
-    text((x, 9), label, style=styles.charcoal_bold, size=9)
+    text((x, 9), label, style=styles.dark_bold, size=9)
 
     # 2. Numbered badge at top-left corner of icon
     b_x, b_y = x - 6, 28
@@ -568,9 +566,9 @@ for num, label, icon_fn, x in steps:
     text((b_x, b_y), str(num), style=styles.white_bold, size=8)
 
 # Connectors between milestones
-line((28, 22), (42, 22), arrowhead="->", style=styles.charcoal)
-line((58, 22), (72, 22), arrowhead="->", style=styles.charcoal)
-line((88, 22), (102, 22), arrowhead="->", style=styles.charcoal)
+line((28, 22), (42, 22), arrowhead="->", style=styles.bold)
+line((58, 22), (72, 22), arrowhead="->", style=styles.bold)
+line((88, 22), (102, 22), arrowhead="->", style=styles.bold)
 
 save()
 ```
@@ -598,19 +596,19 @@ setup(width=150, height=95)
 
 # 1. Diagram Title & Subtitle
 text((75, 88), "High-Availability Multi-Tier Web Application on GCP", style=styles.bold, size=17)
-text((75, 82), "End-to-End Traffic Routing, Microservices, Caching, and Persistence", style=styles.charcoal, size=10)
+text((75, 82), "End-to-End Traffic Routing, Microservices, Caching, and Persistence", style=styles.dark, size=10)
 
 # 2. Boundary Containers: GCP Project & VPC Network
 rectangle((80, 42), width=130, height=66, r=4, style=styles.blue_dashed)
 text((28, 71), "Google Cloud Project (prod-us-central1)", style=styles.blue_bold, size=10)
 
-rectangle((86, 40), width=114, height=54, r=3, style=styles.silver_dashed)
-text((42, 63), "Custom VPC Network (10.0.0.0/16)", style=styles.charcoal_bold, size=9)
+rectangle((86, 40), width=114, height=54, r=3, style=styles.muted_dashed)
+text((42, 63), "Custom VPC Network (10.0.0.0/16)", style=styles.dark_bold, size=9)
 
 # 3. Public Internet Tier (Users & CDN)
-phosphor.user((14, 45), width=9, style=styles.charcoal_bold)
+phosphor.user((14, 45), width=9, style=styles.dark_bold)
 text((14, 37), "Web Clients", style=styles.bold, size=9)
-text((14, 32), "HTTPS / SSL", style=styles.charcoal, size=8)
+text((14, 32), "HTTPS / SSL", style=styles.dark, size=8)
 
 # 4. Ingress Tier: Cloud Armor & Load Balancing
 rectangle((38, 45), width=18, height=30, r=2, style=styles.white_flat)
@@ -625,7 +623,7 @@ rectangle((68, 45), width=24, height=34, r=2, style=styles.white_flat)
 rectangle((68, 45), width=24, height=34, r=2, style=styles.green_solid)
 gcp.cloud_run((68, 52), width=10, style=styles.primary)
 text((68, 43), "App Backend", style=styles.green_bold, size=9)
-text((68, 38), "Cloud Run", style=styles.charcoal, size=8)
+text((68, 38), "Cloud Run", style=styles.dark, size=8)
 # Replica indicator badge
 circle((77, 58), radius=2.5, style=styles.green_flat)
 text((77, 58), "x8", style=styles.white_bold, size=7)
@@ -635,14 +633,14 @@ rectangle((104, 55), width=22, height=22, r=2, style=styles.white_flat)
 rectangle((104, 55), width=22, height=22, r=2, style=styles.red_solid)
 gcp.memorystore((104, 60), width=8, style=styles.primary)
 text((104, 51), "Memorystore", style=styles.bold, size=8)
-text((104, 46), "Redis In-Memory", style=styles.charcoal, size=7)
+text((104, 46), "Redis In-Memory", style=styles.dark, size=7)
 
 # 7. Database Tier: Cloud SQL HA
 rectangle((104, 27), width=22, height=22, r=2, style=styles.white_flat)
 rectangle((104, 27), width=22, height=22, r=2, style=styles.blue_solid)
 gcp.cloud_sql((104, 32), width=8, style=styles.primary)
 text((104, 23), "Cloud SQL", style=styles.bold, size=8)
-text((104, 18), "PostgreSQL HA", style=styles.charcoal, size=7)
+text((104, 18), "PostgreSQL HA", style=styles.dark, size=7)
 
 # 8. Storage & Observability Tier
 rectangle((132, 45), width=20, height=34, r=2, style=styles.white_flat)
@@ -653,7 +651,7 @@ gcp.cloud_monitoring((132, 33), width=8, style=styles.primary)
 text((132, 25), "Monitoring", size=8, style=styles.bold)
 
 # 9. Inter-service Connectors
-line((19, 45), (29, 45), arrowhead="->", style=styles.charcoal_bold)
+line((19, 45), (29, 45), arrowhead="->", style=styles.dark_bold)
 line((47, 45), (56, 45), arrowhead="->", style=styles.blue_bold)
 line((80, 48), (93, 55), arrowhead="<->", style=styles.red_bold)
 line((80, 42), (93, 27), arrowhead="<->", style=styles.blue_bold)
@@ -682,30 +680,30 @@ text((70, 58), "Event-Driven Serverless Ingestion & Analytics Pipeline", style=s
 # Step 1: External IoT Producer
 phosphor.cpu((18, 30), width=10, style=styles.orange_bold)
 text((18, 19), "IoT Sensors", style=styles.orange_bold, size=9)
-text((18, 14), "MQTT Stream", style=styles.charcoal, size=8)
+text((18, 14), "MQTT Stream", style=styles.dark, size=8)
 
 # Step 2: Message Buffer (Pub/Sub)
 rectangle((45, 30), width=22, height=28, r=2, style=styles.blue_solid)
 gcp.pubsub((45, 36), width=10, style=styles.primary)
 text((45, 26), "Cloud Pub/Sub", style=styles.blue_bold, size=9)
-text((45, 20), "Buffer Topic", style=styles.charcoal, size=8)
+text((45, 20), "Buffer Topic", style=styles.dark, size=8)
 
 # Step 3: Serverless Worker (Cloud Functions)
 rectangle((75, 30), width=22, height=28, r=2, style=styles.green_solid)
 gcp.cloud_functions((75, 36), width=10, style=styles.primary)
 text((75, 26), "Cloud Functions", style=styles.green_bold, size=9)
-text((75, 20), "Transform / Parse", style=styles.charcoal, size=8)
+text((75, 20), "Transform / Parse", style=styles.dark, size=8)
 
 # Step 4: Analytical Data Warehouse (BigQuery)
 rectangle((105, 30), width=22, height=28, r=2, style=styles.blue_bold)
 gcp.bigquery((105, 36), width=10, style=styles.primary)
 text((105, 26), "BigQuery", style=styles.blue_bold, size=9)
-text((105, 20), "Partitioned Tables", style=styles.charcoal, size=8)
+text((105, 20), "Partitioned Tables", style=styles.dark, size=8)
 
 # Step 5: Dashboard Visualization (Looker)
 phosphor.chart_line_up((130, 30), width=10, style=styles.purple_bold)
 text((130, 19), "Looker Studio", style=styles.purple_bold, size=9)
-text((130, 14), "Real-time BI", style=styles.charcoal, size=8)
+text((130, 14), "Real-time BI", style=styles.dark, size=8)
 
 # Connectors
 line((24, 30), (34, 30), arrowhead="->", style=styles.orange_bold)
@@ -734,13 +732,13 @@ setup(width=140, height=60)
 text((70, 54), "Hybrid Enterprise On-Premises to GCP Interconnect", style=styles.bold, size=14)
 
 # On-Premise Datacenter Boundary
-rectangle((30, 26), width=44, height=36, r=2, style=styles.charcoal_solid)
-text((30, 40), "Corporate On-Premises Datacenter", style=styles.charcoal_bold, size=9)
+rectangle((30, 26), width=44, height=36, r=2, style=styles.dark_solid)
+text((30, 40), "Corporate On-Premises Datacenter", style=styles.dark_bold, size=9)
 
-phosphor.hard_drives((20, 24), width=9, style=styles.charcoal_bold)
+phosphor.hard_drives((20, 24), width=9, style=styles.dark_bold)
 text((20, 15), "App Server", size=8, style=styles.primary)
 
-phosphor.database((40, 24), width=9, style=styles.charcoal_bold)
+phosphor.database((40, 24), width=9, style=styles.dark_bold)
 text((40, 15), "Oracle DB", size=8, style=styles.primary)
 
 # Cloud Boundary
@@ -784,31 +782,31 @@ setup(width=150, height=65)
 text((75, 58), "Automated GitOps & CI/CD Delivery Pipeline", style=styles.bold, size=15)
 
 # Stage 1: Developer Workstation
-rectangle((20, 28), width=24, height=32, r=2, style=styles.charcoal_solid)
-phosphor.laptop((20, 36), width=10, style=styles.charcoal_bold)
-text((20, 25), "Developer", style=styles.charcoal_bold, size=9)
-text((20, 19), "git push", style=styles.charcoal, size=8)
+rectangle((20, 28), width=24, height=32, r=2, style=styles.dark_solid)
+phosphor.laptop((20, 36), width=10, style=styles.dark_bold)
+text((20, 25), "Developer", style=styles.dark_bold, size=9)
+text((20, 19), "git push", style=styles.dark, size=8)
 
 # Stage 2: Source Repository & Webhook
 rectangle((52, 28), width=24, height=32, r=2, style=styles.blue_solid)
 phosphor.git_branch((52, 36), width=10, style=styles.blue_bold)
 text((52, 25), "Cloud Source", style=styles.blue_bold, size=9)
-text((52, 19), "Pull Request", style=styles.charcoal, size=8)
+text((52, 19), "Pull Request", style=styles.dark, size=8)
 
 # Stage 3: Build & Automated Testing (Cloud Build)
 rectangle((84, 28), width=24, height=32, r=2, style=styles.green_solid)
 gcp.cloud_build((84, 36), width=10, style=styles.primary)
 text((84, 25), "Cloud Build", style=styles.green_bold, size=9)
-text((84, 19), "Unit / Lint / Test", style=styles.charcoal, size=8)
+text((84, 19), "Unit / Lint / Test", style=styles.dark, size=8)
 
 # Stage 4: Artifact Registry (OCI Images)
 rectangle((116, 28), width=24, height=32, r=2, style=styles.orange_solid)
 gcp.artifact_registry((116, 36), width=10, style=styles.primary)
 text((116, 25), "Artifact Reg.", style=styles.orange_bold, size=9)
-text((116, 19), "Vulnerability Scan", style=styles.charcoal, size=8)
+text((116, 19), "Vulnerability Scan", style=styles.dark, size=8)
 
 # Connectors with Pipeline Direction
-line((32, 28), (40, 28), arrowhead="->", style=styles.charcoal_bold)
+line((32, 28), (40, 28), arrowhead="->", style=styles.dark_bold)
 line((64, 28), (72, 28), arrowhead="->", style=styles.blue_bold)
 line((96, 28), (104, 28), arrowhead="->", style=styles.green_bold)
 

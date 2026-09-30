@@ -28,8 +28,8 @@ from drawlib.lines import (
 Lines connect architectural elements and require styling, canvas configuration, and textual annotations:
 ```python
 from drawlib.canvas import clear, save, setup
-from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle, circle
+from drawlib.styles import Colors
 from drawlib.text import text
 from drawlib.types import Style
 ```
@@ -92,24 +92,23 @@ When computing line endpoints programmatically:
 ### 2.4. Code Example: Multi-Tier Architectural Dividers & Direct Edges
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import Colors, styles
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=120, height=60)
 
 # 1. Tier boundary lines
-tier_style = styles.bold.patch(line_color=Colors.Gray, line_style="dashed", line_width=1.0)
+tier_style = styles.bold.patch(line_color=Colors.Gray5, line_style="dashed", line_width=1.0)
 line((10, 40), (110, 40), style=tier_style)
 line((10, 20), (110, 20), style=tier_style)
 
 # Tier labels
-text((12, 42), "Presentation Tier", style=styles.primary.patch(text_size=10, text_color=Colors.Gray, text_halign="left"))
-text((12, 22), "Application Tier", style=styles.primary.patch(text_size=10, text_color=Colors.Gray, text_halign="left"))
-text((12, 2), "Persistence Tier", style=styles.primary.patch(text_size=10, text_color=Colors.Gray, text_halign="left"))
+text((12, 42), "Presentation Tier", style=styles.primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
+text((12, 22), "Application Tier", style=styles.primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
+text((12, 2), "Persistence Tier", style=styles.primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
 
 # 2. Service nodes
 rectangle((30, 48), width=24, height=10, style=styles.blue_flat, text="Web Client", textstyle=styles.white_bold)
@@ -183,18 +182,17 @@ Because the travel direction is reversed in the second call, both lines bow outw
 ### 3.4. Code Example: Microservice Request-Response Cycle & Bypass Path
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line_curved
 from drawlib.shapes import circle, rectangle
+from drawlib.styles import Colors, styles
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=120, height=60)
 
 # Nodes
 circle((25, 30), radius=10, style=styles.blue_flat, text="Service A", textstyle=styles.white_bold)
-rectangle((60, 30), width=18, height=14, style=styles.gray_flat, text="Proxy", textstyle=styles.bold.patch(text_color=Colors.Black))
+rectangle((60, 30), width=18, height=14, style=styles.muted_flat, text="Proxy", textstyle=styles.bold.patch(text_color=Colors.Black))
 circle((95, 30), radius=10, style=styles.green_flat, text="Service B", textstyle=styles.white_bold)
 
 # 1. Forward request (A -> B, curving above the Proxy)
@@ -411,11 +409,10 @@ Routes around an intermediate obstacle:
 ### 5.4. Code Example: Orthogonal Bus Architecture
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
+from drawlib.styles import Colors, styles
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=120, height=60)
 
@@ -730,7 +727,7 @@ Drawlib provides two ways to style lines: declarative `Style` objects for custom
 The universal `Style` dataclass supports these line-specific attributes:
 ```python
 from drawlib.types import Style
-from drawlib.preset_colors import Colors
+from drawlib.styles import Colors, styles
 
 custom_style = styles.primary.patch(
     line_color=Colors.Red,        # Stroke color (RGB/RGBA tuple, Colors.*, or hex)
@@ -784,18 +781,17 @@ Aligning visual stroke properties with architectural meanings makes diagrams ins
 ### 9.5. Code Example: Multi-Protocol Network Styling
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
+from drawlib.styles import Colors, styles
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=120, height=55)
 
 protocols = [
     ("Synchronous REST API", Colors.Blue, "solid", 1.5, "->"),
     ("Asynchronous Event Queue", Colors.Purple, "dashed", 1.5, "->"),
-    ("Telemetry / Health Check", Colors.Gray, "dotted", 1.0, "->"),
+    ("Telemetry / Health Check", Colors.Gray5, "dotted", 1.0, "->"),
     ("Cross-VPC Transit Tunnel", Colors.Red, "dashdot", 2.0, "<->"),
 ]
 
@@ -834,7 +830,7 @@ badge_style = styles.primary.patch(
     text_size=10,
     text_color=Colors.Navy,
     text_bg_fill_color=Colors.White,    # Masks the underlying line stroke
-    text_bg_line_color=Colors.Gray,     # Optional border around the label badge
+    text_bg_line_color=Colors.Gray5,    # Optional border around the label badge
     text_bg_line_width=0.5,             # Subtle border width
     text_halign="center",
     text_valign="center",
@@ -856,9 +852,9 @@ $$\theta = \operatorname{atan2}(y_2 - y_1, x_2 - x_1) \times \frac{180}{\pi}$$
 ### 10.4. Code Example: Reusable Labeled Connector with Badges
 ```python
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import Colors
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -964,17 +960,16 @@ save()
 Security zones and perimeter firewalls traversed by distinct cross-boundary links:
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import Colors, styles
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.styles import styles
 
 setup(width=120, height=50)
 line((60, 5), (60, 45), style=styles.bold.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5))
-text((58, 43), "Public DMZ", style=styles.primary.patch(text_size=9, text_halign="right", text_color=Colors.Gray))
-text((62, 43), "Private Subnet", style=styles.primary.patch(text_size=9, text_halign="left", text_color=Colors.Gray))
+text((58, 43), "Public DMZ", style=styles.primary.patch(text_size=9, text_halign="right", text_color=Colors.Gray5))
+text((62, 43), "Private Subnet", style=styles.primary.patch(text_size=9, text_halign="left", text_color=Colors.Gray5))
 
 rectangle((25, 25), width=22, height=12, style=styles.blue_flat, text="Reverse Proxy", textstyle=styles.white_bold)
 rectangle((95, 25), width=22, height=12, style=styles.green_flat, text="App Backend", textstyle=styles.white_bold)

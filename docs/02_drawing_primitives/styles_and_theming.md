@@ -74,12 +74,12 @@ To create custom style variations without rebuilding a `Style` from scratch, use
 
 ```python
 from drawlib.styles import Styles
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 
 # Derive a custom card style with a custom border and fill
 custom_card = Styles.primary.patch(
-    shape_fill_color=Colors140.AliceBlue,
-    shape_line_color=Colors140.DodgerBlue,
+    shape_fill_color=CssColors.AliceBlue,
+    shape_line_color=CssColors.DodgerBlue,
     shape_line_width=2.5,
 )
 ```

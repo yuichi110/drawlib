@@ -11,7 +11,7 @@ from drawlib.canvas import save, setup
 from drawlib.fonts import FontRoboto, FontSourceCode
 from drawlib.icons import phosphor
 from drawlib.images import get_dimage_from_code, image
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow
 from drawlib.smartarts import SourceCode
 from drawlib.styles import Colors, Styles
@@ -45,7 +45,7 @@ def upper():
     phosphor.heart(
         xy=(38, y),
         width=7,
-        style=Styles.Primary.patch(icon_color=Colors140.Pink, icon_style="fill"),
+        style=Styles.Primary.patch(icon_color=CssColors.Pink, icon_style="fill"),
     )
     text(
         xy=(70, y),

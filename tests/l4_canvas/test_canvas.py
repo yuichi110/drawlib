@@ -17,7 +17,7 @@ from matplotlib import pyplot
 from drawlib._core.l4_canvas import canvas
 from drawlib.canvas import clear, get_dimage, save, setup, show
 from drawlib.images import Dimage, image
-from drawlib.preset_colors import Colors140
+from drawlib.preset_colors import CssColors
 from drawlib.shapes import circle
 from drawlib.styles import Colors, Styles
 from drawlib.types import Style
@@ -90,7 +90,7 @@ class TestCanvas:
 
         clear()
         setup(
-            background_color=Colors140.Orange,
+            background_color=CssColors.Orange,
             background_alpha=0.2,
             grid_only=True,
         )

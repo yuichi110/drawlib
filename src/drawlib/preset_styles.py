@@ -11,8 +11,6 @@
 
 from drawlib._core.styles import Style
 from drawlib._preset_styles import (
-    DefaultDarkStyles,
-    DefaultLightStyles,
     DefaultStyles,
     DefaultStyles1,
     DefaultStyles2,
@@ -25,8 +23,6 @@ from drawlib._preset_styles import (
 )
 
 __all__ = [
-    "DefaultDarkStyles",
-    "DefaultLightStyles",
     "DefaultStyles",
     "DefaultStyles1",
     "DefaultStyles2",

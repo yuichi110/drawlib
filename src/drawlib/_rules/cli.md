@@ -702,7 +702,7 @@ Available Color Presets:
 - `default`: Balanced core color palette (`DefaultColors`)
 - `google`: Official Google brand and Material color palette (`GoogleColors`)
 - `monochrome` (alias: `mono`): Clean, accessible grayscale palette (`MonochromeColors`)
-- `140` (alias: `colors140`): Full 140 standard web color collection (`Colors140`)
+- `css` (aliases: `csscolors`, `140`, `colors140`): Full 140 standard web color collection (`CssColors`)
 
 ---
 
@@ -714,7 +714,7 @@ drawlib colors show <PRESET> [OPTIONS]
 ```
 
 #### Arguments:
-- `<PRESET>`: Name of preset palette (`default`, `google`, `monochrome`, or `140`).
+- `<PRESET>`: Name of preset palette (`default`, `google`, `monochrome`, or `css`).
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -729,8 +729,8 @@ drawlib colors show <PRESET> [OPTIONS]
 # Preview default color chart in GUI viewer:
 drawlib colors show default
 
-# Export 140-color chart sorted by hue:
-drawlib colors show 140 --sort hsv -o colors_140.png
+# Export CSS color chart sorted by hue:
+drawlib colors show css --sort hsv -o colors_css.png
 
 # Export Google palette with coordinate grid:
 drawlib colors show google -g -o google_colors.png
