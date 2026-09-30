@@ -118,6 +118,7 @@ line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
 - **Code Display**: `hide-code` *(default)*, `show-code` (displays code above image), `fold-code` (collapsible `<details>` block).
 - **Dimensions & Alignment**: `600px`, `100%`, `center` *(default)*, `left`, `right`.
 - **Caption & Asset Name**: `caption:"Description"` (renders `<figcaption>`), `file:custom_name.png`.
+- **Explicit Imports & PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles`. **Always use uppercase `Styles` and `Colors`** (e.g. `style=Styles.primary_flat`, `Colors.Blue`). Never rename or lowercase them to `styles` or `colors` to avoid shadowing module `drawlib.styles`.
 
 ### 4.2. Standard Project Scaffolding (`drawlib init`)
 Never create documentation project structures manually. Always scaffold them with `drawlib init`:

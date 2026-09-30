@@ -36,7 +36,13 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     (src / "index.md").write_text("# Welcome\nHome page content.\n", encoding="utf-8")
     (src / "navbar.md").write_text("# Site\n- [Home](index.md)\n- [Guide](guide.md)\n", encoding="utf-8")
     (src / "guide.md").write_text(
-        "# Guide\n```drawlib\nsetup(50, 50)\ncircle((25, 25), 10, style=Styles.primary)\nsave()\n```\n",
+        "# Guide\n```drawlib\n"
+        "from drawlib.canvas import setup, save\n"
+        "from drawlib.shapes import circle\n"
+        "from drawlib.styles import Styles\n"
+        "setup(50, 50)\n"
+        "circle((25, 25), 10, style=Styles.primary)\n"
+        "save()\n```\n",
         encoding="utf-8",
     )
 

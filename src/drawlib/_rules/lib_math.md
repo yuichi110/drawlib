@@ -89,7 +89,7 @@ for i in range(total_nodes):
 Align text perfectly parallel to a connecting line between points `p1` and `p2`:
 
 ```python
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.lines import line
 from drawlib.math import get_angle
 from drawlib.text import text
@@ -98,14 +98,14 @@ p1 = (30, 20)
 p2 = (90, 60)
 
 # Draw slanted connection
-line(p1, p2, arrowhead="->", style=styles.bold)
+line(p1, p2, arrowhead="->", style=Styles.bold)
 
 # Calculate angle and midpoint
 angle = get_angle(p1, p2)
 midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 3)
 
 # Rotate text along the line
-text(midpoint, "Data Sync (60°)", angle=angle, style=styles.bold)
+text(midpoint, "Data Sync (60°)", angle=angle, style=Styles.bold)
 ```
 
 ---
@@ -119,7 +119,7 @@ from drawlib.canvas import save, setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 setup(width=140, height=70)
 
@@ -135,14 +135,14 @@ rectangle(
     width=bw + 28,
     height=bh + 22,
     r=4,
-    style=styles.muted_dashed,
+    style=Styles.muted_dashed,
     text="Kubernetes Worker Nodes",
-    textstyle=styles.bold.patch(text_valign="top"),
+    textstyle=Styles.bold.patch(text_valign="top"),
 )
 
 # Render nodes on top
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style=styles.primary_flat, text=f"Pod {i}", textstyle=styles.white_bold)
+    circle((x, y), radius=7, style=Styles.primary_flat, text=f"Pod {i}", textstyle=Styles.white_bold)
 
 save()
 ```
@@ -156,7 +156,7 @@ from drawlib.lines import line
 from drawlib.math import get_angle, get_distance
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 setup(width=120, height=80)
 
@@ -165,7 +165,7 @@ radius = 26
 num_clients = 5
 
 # Central Hub (radius=12)
-circle(hub, radius=12, style=styles.primary_flat, text="Leader", textstyle=styles.white_bold)
+circle(hub, radius=12, style=Styles.primary_flat, text="Leader", textstyle=Styles.white_bold)
 
 # Surrounding Worker Nodes (radius=6)
 for i in range(num_clients):
@@ -179,13 +179,13 @@ for i in range(num_clients):
     # Offset connection endpoints to shape boundaries rather than shape centers
     hub_edge = (hub[0] + 13 * math.cos(angle_rad), hub[1] + 13 * math.sin(angle_rad))
     node_edge = (node_xy[0] - 7 * math.cos(angle_rad), node_xy[1] - 7 * math.sin(angle_rad))
-    line(hub_edge, node_edge, arrowhead="->", style=styles.bold)
+    line(hub_edge, node_edge, arrowhead="->", style=Styles.bold)
     
     # Label line distance
     label_xy = ((hub_edge[0] + node_edge[0]) / 2, (hub_edge[1] + node_edge[1]) / 2 + 2)
-    text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=styles.primary.patch(text_size=7))
+    text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=Styles.primary.patch(text_size=7))
     
-    circle(node_xy, radius=6, style=styles.secondary_flat, text=f"N{i+1}", textstyle=styles.white_bold)
+    circle(node_xy, radius=6, style=Styles.secondary_flat, text=f"N{i+1}", textstyle=Styles.white_bold)
 
 save()
 ```

@@ -147,17 +147,17 @@ print(c.hex)   # '#1f1fff80'
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import Colors, styles
+from drawlib.styles import Colors, Styles
 
 setup(width=140, height=60)
 
 # Define custom semantic styles
-cloud_style = styles.primary.patch(
+cloud_style = Styles.primary.patch(
     shape_fill_color=Colors.Blue.patch(alpha=0.15),
     shape_line_color=Colors.Blue,
     shape_line_width=2,
 )
-db_style = styles.primary.patch(
+db_style = Styles.primary.patch(
     shape_fill_color=Colors.Orange.patch(alpha=0.2),
     shape_line_color=Colors.Orange,
     shape_line_width=2,
@@ -170,15 +170,15 @@ rectangle(
     height=50,
     style=cloud_style,
     text="Kubernetes Cluster",
-    textstyle=styles.primary.patch(text_valign="top", text_color=Colors.Blue),
+    textstyle=Styles.primary.patch(text_valign="top", text_color=Colors.Blue),
 )
 
 # Service nodes
-rectangle((40, 26), width=32, height=18, style=styles.blue_flat, text="Web Service", textstyle=styles.white_bold)
-rectangle((100, 26), width=32, height=18, style=db_style, text="Database", textstyle=styles.white_bold)
+rectangle((40, 26), width=32, height=18, style=Styles.blue_flat, text="Web Service", textstyle=Styles.white_bold)
+rectangle((100, 26), width=32, height=18, style=db_style, text="Database", textstyle=Styles.white_bold)
 
 # Data connection
-line((56, 26), (84, 26), arrowhead="->", style=styles.bold)
+line((56, 26), (84, 26), arrowhead="->", style=Styles.bold)
 save()
 ```
 
@@ -189,19 +189,19 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.preset_colors import MonochromeColors
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 setup(width=120, height=50)
 
-box_style = styles.primary.patch(
+box_style = Styles.primary.patch(
     shape_fill_color=MonochromeColors.Gray3,
     shape_line_color=MonochromeColors.Black,
     shape_line_width=2,
 )
 
-rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=styles.bold)
-rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=styles.bold)
-line((45, 25), (75, 25), arrowhead="->", style=styles.bold)
+rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=Styles.bold)
+rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=Styles.bold)
+line((45, 25), (75, 25), arrowhead="->", style=Styles.bold)
 save()
 ```
 

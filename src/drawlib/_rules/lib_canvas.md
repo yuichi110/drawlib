@@ -151,22 +151,22 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 # Configure a 140x60 canvas with a subtle light background
 setup(width=140, height=60, background_color=(248, 249, 250))
 
 # Service nodes
-rectangle((30, 30), width=32, height=18, style=styles.accent_flat, text="Web Frontend", textstyle=styles.white_bold)
-rectangle((75, 30), width=32, height=18, style=styles.primary_flat, text="API Gateway", textstyle=styles.white_bold)
-rectangle((120, 30), width=32, height=18, style=styles.secondary_flat, text="Auth Service", textstyle=styles.white_bold)
+rectangle((30, 30), width=32, height=18, style=Styles.accent_flat, text="Web Frontend", textstyle=Styles.white_bold)
+rectangle((75, 30), width=32, height=18, style=Styles.primary_flat, text="API Gateway", textstyle=Styles.white_bold)
+rectangle((120, 30), width=32, height=18, style=Styles.secondary_flat, text="Auth Service", textstyle=Styles.white_bold)
 
 # Connecting lines with arrowheads
-line((46, 30), (59, 30), arrowhead="->", style=styles.bold)
-line((91, 30), (104, 30), arrowhead="->", style=styles.bold)
+line((46, 30), (59, 30), arrowhead="->", style=Styles.bold)
+line((91, 30), (104, 30), arrowhead="->", style=Styles.bold)
 
 # Annotations
-text((70, 52), "System Boundary", style=styles.bold)
+text((70, 52), "System Boundary", style=Styles.bold)
 save()
 ```
 
@@ -175,7 +175,7 @@ save()
 ```drawlib fold-code 500px center caption:"Transparent Status Pill"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 # 0.0 alpha produces a transparent PNG background
 setup(width=80, height=30, background_alpha=0.0)
@@ -186,9 +186,9 @@ rectangle(
     width=72,
     height=22,
     r=11,
-    style=styles.success_flat,
+    style=Styles.success_flat,
     text="DEPLOYED - v2.4.0",
-    textstyle=styles.white_bold,
+    textstyle=Styles.white_bold,
 )
 save()
 ```
@@ -199,12 +199,12 @@ When writing standalone Python scripts producing multiple assets:
 
 ```python
 from drawlib.canvas import clear, save, setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import circle, rectangle
 
 # Image 1: Architecture
 setup(width=120, height=60)
-rectangle((60, 30), width=40, height=20, style=styles.primary_flat, text="Stage 1")
+rectangle((60, 30), width=40, height=20, style=Styles.primary_flat, text="Stage 1")
 save("output_stage1.png")
 
 # ALWAYS CLEAR BEFORE NEXT IMAGE
@@ -212,7 +212,7 @@ clear()
 
 # Image 2: Deployment
 setup(width=100, height=100)
-circle((50, 50), radius=30, style=styles.secondary_flat, text="Stage 2")
+circle((50, 50), radius=30, style=Styles.secondary_flat, text="Stage 2")
 save("output_stage2.png")
 ```
 

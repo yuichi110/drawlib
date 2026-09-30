@@ -120,6 +120,8 @@ def test_cli_show_markdown_block_by_index(tmp_path: Path) -> None:
         """# Doc
 
 ```drawlib
+from drawlib.shapes import circle
+from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,
@@ -141,6 +143,8 @@ def test_cli_show_markdown_block_with_grid(tmp_path: Path) -> None:
         """# Doc
 
 ```drawlib
+from drawlib.shapes import circle
+from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,
@@ -201,6 +205,8 @@ def test_cli_show_markdown_block_no_cache(tmp_path: Path) -> None:
         """# Doc
 
 ```drawlib
+from drawlib.shapes import circle
+from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,

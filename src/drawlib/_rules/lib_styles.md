@@ -2,8 +2,13 @@
 
 Drawlib operates on an **"Illustration as Code"** philosophy, treating technical drawings, architectural schemas, and documentation diagrams as maintainable software artifacts.  
 Rather than hardcoding colors, fonts, theme styles, or reusable helper functions into every individual script, Drawlib provides two decoupled, deterministic runtime modules:
-1. `drawlib.styles`: Dynamic styling and theme presets (`styles`, `colors`).
+1. `drawlib.styles`: Dynamic styling and theme presets (`Styles`, `Colors`).
 2. `drawlib.utils`: Dynamic container for project-wide helper functions, components, and business constants.
+
+> [!IMPORTANT]
+> **Always Use PascalCase `Styles` and `Colors`**:
+> In drawing scripts and Markdown blocks, **always import and use uppercase `Styles` and `Colors`** (`from drawlib.styles import Colors, Styles` and `style=Styles.primary_flat`, `color=Colors.Blue`).
+> **Never use lowercase `styles` or `colors`**. Uppercase naming avoids variable shadowing with the `drawlib.styles` module and ensures deterministic AI code generation.
 
 ---
 
@@ -14,9 +19,9 @@ Drawlib separates visual presentation (themes, palettes, typography) from diagra
 | Concept | `drawlib.styles` | `drawlib.utils` |
 | :--- | :--- | :--- |
 | **Primary File** | `styles.py` (or custom file via `--styles` / `-s`) | `utils.py` (or custom file via `--utils` / `-u`) |
-| **Core Exports** | `Styles` / `styles` (active preset styles), `Colors` / `colors` (active color palette) | User-defined functions, classes, and constants |
+| **Core Exports** | `Styles` (active preset styles), `Colors` (active color palette) | User-defined functions, classes, and constants |
 | **Default Fallback** | `Styles = DefaultStyles()`, `Colors = DefaultColors()` | Empty container (raises actionable `AttributeError`) |
-| **Typical Usage** | `from drawlib.styles import Styles, Colors` (or `styles, colors`) | `from drawlib.utils import draw_service_box, API_PORT` |
+| **Typical Usage** | `from drawlib.styles import Colors, Styles` (Mandatory) | `from drawlib.utils import draw_service_box, API_PORT` |
 
 ---
 
@@ -58,7 +63,7 @@ A `utils.py` file houses user-defined helper functions, diagram macro components
 ```python
 # utils.py
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 PROJECT_NAME = "Enterprise Cloud Architecture"
@@ -68,9 +73,9 @@ DATABASE_PORT = 5432
 def draw_service_card(center: tuple[float, float], title: str, subtitle: str) -> None:
     """Reusable diagram component for microservice nodes."""
     x, y = center
-    rectangle((x, y), width=36, height=20, r=2, style=styles.primary)
-    text((x, y + 4), title, style=styles.bold)
-    text((x, y - 4), subtitle, style=styles.light)
+    rectangle((x, y), width=36, height=20, r=2, style=Styles.primary)
+    text((x, y + 4), title, style=Styles.bold)
+    text((x, y - 4), subtitle, style=Styles.light)
 ```
 
 ### Auto-Detection & CLI Overrides
@@ -90,7 +95,7 @@ Drawlib strictly avoids blackbox magic, hidden global variables, and implicit wi
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.styles import colors, styles
+from drawlib.styles import Colors, Styles
 from drawlib.utils import API_BASE_URL, PROJECT_NAME, draw_service_card
 
 setup(width=140, height=70)
@@ -106,12 +111,12 @@ save("service_architecture.png")
 
 Drawlib provides two ways to reference style presets:
 1. `drawlib.preset_styles`: Static, immutable factory presets (e.g. `DefaultStyles`, `MonochromeStyles`, `GoogleStyles`).
-2. `drawlib.styles`: Dynamic, project-level styles and palettes (`styles`, `colors`) that can be replaced or patched at runtime via `styles.py` or `--styles`.
+2. `drawlib.styles`: Dynamic, project-level styles and palettes (`Styles`, `Colors`) that can be replaced or patched at runtime via `styles.py` or `--styles`.
 
 > **Crucial Rule**:
-> If there is any scenario where you may want to theme, customize, or patch styles across documents and scripts without editing drawing code, **always reference styles from `drawlib.styles` (`from drawlib.styles import styles, colors`) rather than importing from `drawlib.preset_styles`**.
+> If there is any scenario where you may want to theme, customize, or patch styles across documents and scripts without editing drawing code, **always reference styles from `drawlib.styles` (`from drawlib.styles import Colors, Styles`) rather than importing from `drawlib.preset_styles`**.
 
-| Dimension | `from drawlib.styles import styles, colors` (Recommended) | `from drawlib.preset_styles import ...` |
+| Dimension | `from drawlib.styles import Colors, Styles` (Recommended) | `from drawlib.preset_styles import ...` |
 | :--- | :--- | :--- |
 | **Customizability** | Fully customizable & replaceable via `--styles` / `styles.py` | Fixed, static default values only |
 | **Theme Switching** | Dynamic (one `styles.py` restyles all diagrams) | Manual (must edit every drawing script) |

@@ -76,9 +76,7 @@ When compiling embedded code blocks:
 ## 4. Canvas Isolation & Sandbox
 
 - **Automatic Clear**: Drawlib invokes `canvas.clear()` before executing each embedded code block. State, shapes, and settings from a preceding diagram will never contaminate subsequent blocks.
-- **Sandbox Pre-Imports**: To allow concise authoring, frequently used modules are pre-injected into the block's execution namespace:
-  - `canvas`, `shapes`, `lines`, `text`, `styles`, `preset_colors`
-  - High-level modules: `smartarts`, `charts`, `diagrams`
+- **Explicit Imports**: Embedded drawing blocks require explicit imports (e.g. `from drawlib.shapes import circle`, `from drawlib.styles import Styles`). This guarantees clean namespace boundaries, full IDE autocompletion support, and self-contained reproducibility.
 
 ---
 

@@ -1,62 +1,63 @@
-# 2. Installation & Setup
+# 2. Installation & Environment Setup
 
-Drawlib requires **Python 3.11 or higher** and can be installed from PyPI using `pip` or `uv`.
+Drawlib is a modern, pure-Python library requiring **Python 3.11 or higher**. It integrates seamlessly with modern Python tooling like `uv` or standard `pip`.
 
-## Installing with pip or uv
+## Package Installation
 
 ```bash
-# Using pip
-pip install drawlib
-
-# Using uv
+# Recommended: Using uv (fast, isolated virtual environment)
 uv add drawlib
+
+# Or using standard pip
+pip install drawlib
 ```
 
 ## Verifying the Installation
 
-Once installed, both the Python package `drawlib` and the `drawlib` command-line tool are available:
+After installation, verify that both the Python library and the CLI tool are accessible:
 
 ```bash
-$ drawlib --version
+# Check installed CLI version
+uv run drawlib --version
+# Output: Drawlib version: 0.2.0
+
+# Or execute via Python module launcher
+python3 -m drawlib --version
 ```
 
-You can also invoke the CLI via Python's module runner:
+## System Dependencies for PDF & Image Export
 
-```bash
-$ python -m drawlib --version
-```
+- **Raster Image Output (PNG, WebP)**: Supported out of the box via Pillow and Matplotlib backends.
+- **Headless PDF Compilation (`drawlib build pdf`)**: Drawlib uses Playwright with headless Chromium to render HTML and CSS print stylesheets into high-fidelity PDF documents:
+  ```bash
+  # Install Playwright browser binaries for PDF builds
+  uv run playwright install chromium
+  ```
+- **Universal Typography**: Drawlib bundles CJK-ready Google Noto Sans and Roboto fonts, ensuring Chinese, Japanese, Korean, and Latin typography renders consistently across Linux, macOS, and Windows without missing glyph boxes (`tofu`).
 
-## Semantic Versioning & Stability
-
-Drawlib follows `<major>.<minor>.<patch>` semantic versioning:
-- **Major Version**: Significant architectural or API changes
-- **Minor Version**: New features and backward-compatible enhancements
-- **Patch Version**: Bug fixes and internal optimizations without API changes
-
-```drawlib 580px center caption:"Figure 2.1: Drawlib Release & Versioning Workflow"
+```drawlib 620px center caption:"Figure 2.1: Drawlib Environment & Toolchain Architecture"
 from drawlib.canvas import setup
-from drawlib.shapes import chevron
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=110, height=36)
+setup(width=120, height=44)
 
-steps = [
-    ("1. Install", "pip / uv", Styles.Primary),
-    ("2. Author", "Python / MD", Styles.Secondary),
-    ("3. Preview", "drawlib show", Styles.Accent),
-    ("4. Publish", "HTML / PDF", Styles.Success),
+layers = [
+    (18, phosphor.terminal, "Developer Environment", "Python 3.11+\nuv / pip / git", Styles.primary_flat),
+    (52, phosphor.package, "Drawlib Core", "Prims, Styles, Icons\nSmartArts, Diagrams", Styles.secondary_flat),
+    (86, phosphor.gear, "Compilation Engine", "HTML Builder\nPlaywright PDF\nSQLite Cache", Styles.accent_flat),
+    (110, phosphor.file_arrow_down, "Outputs", "PNG / WebP\nHTML Site\nPrint PDF", Styles.success_flat),
 ]
 
-for idx, (title_str, sub_str, step_style) in enumerate(steps):
-    cx = 16 + idx * 26
-    chevron(
-        xy=(cx, 18),
-        width=23,
-        height=18,
-        corner_angle=50,
-        style=step_style,
-    )
-    text(xy=(cx, 20), text=title_str, style=Styles.WhiteBold, size=11)
-    text(xy=(cx, 14), text=sub_str, style=Styles.White, size=9)
+for idx, (x, icon_fn, title, desc, st) in enumerate(layers):
+    rectangle(xy=(x, 22), width=22, height=36, r=2.5, style=Styles.muted_dashed)
+    icon_fn(xy=(x, 34), width=6, style=st)
+    text(xy=(x, 26), text=title, style=Styles.bold, size=8)
+    text(xy=(x, 14), text=desc, style=Styles.primary, size=7)
+    if idx < len(layers) - 1:
+        next_x = layers[idx + 1][0]
+        line((x + 11, 22), (next_x - 11, 22), arrowhead="->", style=Styles.bold)
 ```

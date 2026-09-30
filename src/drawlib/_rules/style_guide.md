@@ -74,7 +74,7 @@ Drawlib presets organize styles into semantic roles with 10 orthogonal visual va
 - **`Styles.yellow` / `Styles.orange`**: Warnings, transient states, pending queues.
 - **Palette Colors (`Styles.blue`, `Styles.purple`, etc.)**: Multi-brand differentiation or distinct architectural layers.
 
-> **Import Best Practice**: Always import `Styles` and `Colors` from `drawlib.styles` (`from drawlib.styles import Colors, Styles`) rather than importing from `drawlib.preset_styles`. This allows project-wide theme switching and font configuration via `styles.py` (or `--styles custom_theme.py`).
+> **Import Best Practice**: Always import `Styles` and `Colors` from `drawlib.styles` (`from drawlib.styles import Colors, Styles`) rather than importing from `drawlib.preset_styles`. **Always use uppercase PascalCase `Styles` and `Colors`** (never lowercase `styles` or `colors`). This allows project-wide theme switching and font configuration via `styles.py` (or `--styles custom_theme.py`) while preventing module shadowing.
 
 ### 3.1. Example: Using `Styles` and `Colors` in Diagrams
 
@@ -187,10 +187,10 @@ Establish a clear typographical scale:
 
 | Level | Size (`text_size`) | Recommended Style | Usage |
 | :--- | :--- | :--- | :--- |
-| **Diagram Title** | 18 – 22 | `styles.bold.patch(text_size=20)` | Top of canvas diagram titles. |
-| **Section Header**| 14 – 16 | `styles.bold` | Subsystem containers, VPC group headers. |
-| **Primary Node** | 11 – 13 | `styles.bold` / `styles.white_bold` | Service names, entity titles, actions. |
-| **Metadata / Note**| 8 – 10 | `styles.light` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
+| **Diagram Title** | 18 – 22 | `Styles.bold.patch(text_size=20)` | Top of canvas diagram titles. |
+| **Section Header**| 14 – 16 | `Styles.bold` | Subsystem containers, VPC group headers. |
+| **Primary Node** | 11 – 13 | `Styles.bold` / `Styles.white_bold` | Service names, entity titles, actions. |
+| **Metadata / Note**| 8 – 10 | `Styles.light` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
 
 Drawlib automatically ensures optimal luminance contrast when text is embedded inside shapes. If using standalone `text()`, ensure dark text on light backgrounds and light text on dark containers.
 
@@ -205,7 +205,7 @@ Lines and arrows guide the viewer's eyes through the diagram:
    - `<->`: Bidirectional sync, continuous handshake, WebSocket connection.
    - `-`: Structural link, un-directed relationship, database association.
 2. **Consistent Line Weights**:
-   - Use `styles.bold` (line_width ~2) or `styles.primary` consistently.
+   - Use `Styles.bold` (line_width ~2) or `Styles.primary` consistently.
    - Reserve extra-thick lines strictly for highlighting critical paths or primary data flows.
 3. **Smooth Curved Bends**:
    - When using `line_curved`, maintain moderate curvature: `bend=0.2 ~ 0.3`.

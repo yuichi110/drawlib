@@ -108,10 +108,10 @@ In Drawlib v0.3, `Style` instances are strictly **frozen** and immutable (`froze
 
 To create derivative styles, always use the `.patch()` method:
 ```python
-from drawlib.styles import Colors, styles
+from drawlib.styles import Colors, Styles
 
 # Patch an existing preset to derive a new style:
-highlighted_style = styles.primary.patch(
+highlighted_style = Styles.primary.patch(
     shape_line_color=Colors.Red,
     shape_line_width=4.0,
 )
@@ -188,12 +188,12 @@ from drawlib.canvas import save, setup
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import Colors, styles
+from drawlib.styles import Colors, Styles
 
 setup(width=140, height=60)
 
-# Base card style derived from styles.primary
-card_style = styles.primary.patch(
+# Base card style derived from Styles.primary
+card_style = Styles.primary.patch(
     shape_fill_color=(245, 247, 250),
     shape_line_color=Colors.Blue,
     shape_line_width=2,
@@ -212,7 +212,7 @@ active_card_style = card_style.patch(
 rectangle((40, 30), width=40, height=24, r=3, style=card_style, text="Standby Node")
 rectangle((100, 30), width=40, height=24, r=3, style=active_card_style, text="Active Leader")
 
-line((60, 30), (80, 30), arrowhead="->", style=styles.bold)
+line((60, 30), (80, 30), arrowhead="->", style=Styles.bold)
 save()
 ```
 

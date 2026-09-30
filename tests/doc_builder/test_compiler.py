@@ -125,6 +125,8 @@ def test_build_html_markdown_with_external_css(tmp_path) -> None:
         """# Architecture
 
 ```drawlib
+from drawlib.shapes import circle
+from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.primary, text="Core Engine")
 ```
 """,
@@ -155,6 +157,8 @@ def test_build_html_webp_format(tmp_path) -> None:
         """# WebP Test
 
 ```drawlib
+from drawlib.shapes import circle
+from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.primary)
 ```
 """,
@@ -180,6 +184,8 @@ def test_build_html_from_html_drawlib(tmp_path) -> None:
 <body>
 <h1>Diagram inside HTML</h1>
 <script type="text/drawlib" file="my_fig.png">
+from drawlib.shapes import circle
+from drawlib.styles import Styles
 circle((50, 50), radius=15, style=Styles.primary)
 </script>
 </body>
@@ -227,6 +233,8 @@ def test_build_markdown_format(tmp_path) -> None:
         """# Rendered MD Test
 
 ```drawlib
+from drawlib.lines import line
+from drawlib.styles import Styles
 line((0, 0), (100, 100), style=Styles.primary)
 ```
 """,
@@ -336,6 +344,8 @@ def test_build_pdf_multi_document_merge(tmp_path) -> None:
         """# Introduction
 
 ```drawlib
+from drawlib.shapes import circle
+from drawlib.styles import Styles
 circle((50, 50), radius=15, style=Styles.primary)
 ```
 """,

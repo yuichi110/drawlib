@@ -19,6 +19,7 @@ This document defines the coding standards and style guidelines for the `drawlib
 - **Classes**: `PascalCase`.
 - **Functions and Methods**: `snake_case`.
 - **Variables and Constants**: `snake_case`. (Note: Some constants might use `UPPER_SNAKE_CASE` if they are truly global constants).
+- **Design Tokens (`Styles`, `Colors`)**: Active preset styles and color palettes exported from `drawlib.styles` are deliberately named using `PascalCase` (`Styles`, `Colors`) to act as class-like design token namespaces and prevent shadowing with module `drawlib.styles`. Always use `Styles` and `Colors`; do NOT lowercase them to `styles` or `colors`.
 - **Private Members**: Prefix with a single underscore `_` for internal class/module attributes or methods.
 - **Type Variables**: Use `PascalCase` (e.g., `T`, `ShapeT`).
 

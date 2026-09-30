@@ -23,15 +23,9 @@ from drawlib.preset_styles import DefaultStyles, Style
 Colors: Any = DefaultColors()
 Styles: Any = DefaultStyles()
 
-# Lowercase aliases for ergonomic importing
-colors: Any = Colors
-styles: Any = Styles
-
 __all__ = [
     "Color",
     "Colors",
     "Style",
     "Styles",
-    "colors",
-    "styles",
 ]

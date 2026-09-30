@@ -22,29 +22,6 @@ import drawlib.styles
 import drawlib.utils
 
 
-def _inject_shared_globals(shared_globals: Dict[str, Any]) -> None:
-    """Pre-populate shared globals with standard drawlib facades and wildcard imports."""
-    exec(
-        "from drawlib import (builder, canvas, charts, diagrams, fonts, icons, "
-        "images, lines, math, preset_colors, preset_styles, shapes, smartarts, styles, text, tools, types, utils)\n"
-        "from drawlib.canvas import *\n"
-        "from drawlib.shapes import *\n"
-        "from drawlib.lines import *\n"
-        "from drawlib.text import *\n"
-        "from drawlib.icons import *\n"
-        "from drawlib.images import *\n"
-        "from drawlib.preset_styles import *\n"
-        "from drawlib.smartarts import *\n"
-        "from drawlib.fonts import *\n"
-        "from drawlib.preset_colors import *\n"
-        "from drawlib.types import *\n"
-        "from drawlib.math import *\n"
-        "from drawlib.builder import *\n"
-        "from drawlib.styles import Styles, Colors, Style, Color\n",
-        shared_globals,
-    )
-
-
 def load_styles(
     styles_path: Optional[str] = None,
     shared_globals: Optional[Dict[str, Any]] = None,
@@ -65,9 +42,8 @@ def load_styles(
     """
     drawlib.styles.Styles = drawlib.preset_styles.DefaultStyles()
     drawlib.styles.Colors = drawlib.preset_colors.DefaultColors()
-
-    if shared_globals is not None:
-        _inject_shared_globals(shared_globals)
+    drawlib.styles.styles = drawlib.styles.Styles
+    drawlib.styles.colors = drawlib.styles.Colors
 
     if not styles_path:
         return
@@ -87,7 +63,9 @@ def load_styles(
         "__file__": styles_abs_path,
         "__name__": "drawlib_styles",
         "Styles": orig_styles,
+        "styles": orig_styles,
         "Colors": orig_colors,
+        "colors": orig_colors,
     }
 
     current_cwd = os.getcwd()
@@ -118,6 +96,7 @@ def load_styles(
             with contextlib.suppress(Exception):
                 custom_styles = custom_styles()
         drawlib.styles.Styles = custom_styles
+        drawlib.styles.styles = custom_styles
         if custom_colors is None:
             custom_colors = getattr(custom_styles, "colors", None) or drawlib.preset_colors.DefaultColors()
     if custom_colors is not None:
@@ -125,10 +104,13 @@ def load_styles(
             with contextlib.suppress(Exception):
                 custom_colors = custom_colors()
         drawlib.styles.Colors = custom_colors
+        drawlib.styles.colors = custom_colors
 
     if shared_globals is not None:
         shared_globals["Styles"] = drawlib.styles.Styles
+        shared_globals["styles"] = drawlib.styles.Styles
         shared_globals["Colors"] = drawlib.styles.Colors
+        shared_globals["colors"] = drawlib.styles.Colors
 
 
 def load_utils(

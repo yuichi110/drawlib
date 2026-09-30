@@ -28,7 +28,7 @@ Unlike GUI tools where every coordinate is dragged by hand, Drawlib code leverag
 ```drawlib show-code
 # Pattern A: Horizontal linear distribution with computed gaps
 from drawlib.canvas import save, setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 
@@ -39,11 +39,11 @@ start_x, y, gap = 15, 20, 10
 
 for i, name in enumerate(services):
     x = start_x + i * (box_w + gap) + (box_w / 2)
-    rectangle((x, y), width=box_w, height=box_h, style=styles.blue_flat, text=name, textstyle=styles.white_bold)
+    rectangle((x, y), width=box_w, height=box_h, style=Styles.blue_flat, text=name, textstyle=Styles.white_bold)
     if i > 0:
         prev_right = start_x + (i - 1) * (box_w + gap) + box_w
         curr_left = start_x + i * (box_w + gap)
-        line((prev_right, y), (curr_left, y), arrowhead="->", style=styles.bold)
+        line((prev_right, y), (curr_left, y), arrowhead="->", style=Styles.bold)
 
 save()
 ```
@@ -54,7 +54,7 @@ import math
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
-from drawlib.styles import styles
+from drawlib.styles import Styles
 
 setup(width=100, height=100)
 center_x, center_y, radius = 50, 50, 30
@@ -62,21 +62,21 @@ nodes = ["Ingest", "Transform", "Validate", "Store", "Index", "Serve"]
 n = len(nodes)
 
 # Central hub
-circle((center_x, center_y), radius=12, style=styles.purple_flat, text="Data Hub", textstyle=styles.white_bold)
+circle((center_x, center_y), radius=12, style=Styles.purple_flat, text="Data Hub", textstyle=Styles.white_bold)
 
 # Satellite nodes
 for i, label in enumerate(nodes):
     angle = (2 * math.pi / n) * i
     x = center_x + radius * math.cos(angle)
     y = center_y + radius * math.sin(angle)
-    circle((x, y), radius=8, style=styles.green_flat, text=label, textstyle=styles.white_bold)
+    circle((x, y), radius=8, style=Styles.green_flat, text=label, textstyle=Styles.white_bold)
 
     # Connect hub edge to satellite edge without cutting through nodes
     lx1 = center_x + 13 * math.cos(angle)
     ly1 = center_y + 13 * math.sin(angle)
     lx2 = center_x + 21 * math.cos(angle)
     ly2 = center_y + 21 * math.sin(angle)
-    line((lx1, ly1), (lx2, ly2), arrowhead="->", style=styles.bold)
+    line((lx1, ly1), (lx2, ly2), arrowhead="->", style=Styles.bold)
 
 save()
 ```
@@ -160,19 +160,19 @@ When a Python script produces multiple sequential illustrations (e.g. presentati
 
 ```python
 from drawlib.canvas import clear, save, setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.shapes import rectangle
 
 # Figure 1: Step 1
 setup(width=100, height=50)
-rectangle((30, 25), width=25, height=18, style=styles.blue_flat, text="Stage 1")
+rectangle((30, 25), width=25, height=18, style=Styles.blue_flat, text="Stage 1")
 save("stage1.png")
 clear()
 
 # Figure 2: Step 2 with fresh canvas
 setup(width=100, height=50)
-rectangle((30, 25), width=25, height=18, style=styles.blue_flat, text="Stage 1")
-rectangle((70, 25), width=25, height=18, style=styles.green_flat, text="Stage 2")
+rectangle((30, 25), width=25, height=18, style=Styles.blue_flat, text="Stage 1")
+rectangle((70, 25), width=25, height=18, style=Styles.green_flat, text="Stage 2")
 save("stage2.png")
 ```
 
@@ -191,7 +191,7 @@ Drawlib provides built-in geometric math utilities in `drawlib.math` so develope
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.math import get_angle, get_center_and_size, get_distance
 from drawlib.shapes import circle, rectangle
 
@@ -200,10 +200,10 @@ nodes = [(25, 30), (45, 55), (75, 40)]
 
 # Automatically compute bounding container surrounding all nodes
 (cx, cy), (w, h) = get_center_and_size(nodes)
-rectangle((cx, cy), width=w + 16, height=h + 16, style=styles.gray_light, text="Subsystem Boundary", valign="top")
+rectangle((cx, cy), width=w + 16, height=h + 16, style=Styles.gray_light, text="Subsystem Boundary", valign="top")
 
 for xy in nodes:
-    circle(xy, radius=6, style=styles.blue_flat)
+    circle(xy, radius=6, style=Styles.blue_flat)
 
 save()
 ```
@@ -321,14 +321,14 @@ In Markdown source files under `docs_src/`, embed illustrations using the ````dr
 ````markdown
 ```drawlib 600px center show-code caption:"System Architecture Overview"
 from drawlib.canvas import setup
-from drawlib.styles import styles
+from drawlib.styles import Styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 
 setup(width=120, height=50)
-rectangle((25, 25), width=30, height=20, style=styles.primary_flat, text="Client", textstyle=styles.white_bold)
-rectangle((95, 25), width=30, height=20, style=styles.secondary_flat, text="Service", textstyle=styles.white_bold)
-line((40, 25), (80, 25), arrowhead="->", style=styles.bold)
+rectangle((25, 25), width=30, height=20, style=Styles.primary_flat, text="Client", textstyle=Styles.white_bold)
+rectangle((95, 25), width=30, height=20, style=Styles.secondary_flat, text="Service", textstyle=Styles.white_bold)
+line((40, 25), (80, 25), arrowhead="->", style=Styles.bold)
 ```
 ````
 
@@ -338,7 +338,7 @@ line((40, 25), (80, 25), arrowhead="->", style=styles.bold)
 - **Alignment**: `center`, `left`, `right`.
 - **Caption & Filename**: `caption:"Figure Title"`, `file:custom_name.png`.
 
-**Automatic Global Injection**: In `docs_src/` code blocks, all standard Drawlib domain symbols (`canvas`, `shapes`, `lines`, `text`, `icons`, `smartarts`, `charts`, `colors`) are automatically pre-imported. Boilerplate imports are not needed in Markdown blocks.
+**Explicit Imports**: All embedded drawing blocks require explicit Python imports (e.g. `from drawlib.shapes import rectangle`, `from drawlib.lines import line`, `from drawlib.styles import Colors, Styles`). **Always use uppercase `Styles` and `Colors`** (never lowercase `styles` or `colors`) to avoid shadowing module `drawlib.styles`. This ensures clean namespace isolation and deterministic AI code generation.
 
 ### 4.5. Build & Preview Commands
 ```bash
@@ -449,11 +449,11 @@ drawlib rules show <topic> --rebuild
 - **Scope**: All 22 geometric shape functions including `rectangle`, `circle`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, and `chevron`.
 - **Key Syntax**:
   ```python
-  from drawlib.styles import styles
+  from drawlib.styles import Styles
   from drawlib.shapes import circle, rectangle
 
-  rectangle((30, 25), width=20, height=15, style=styles.blue_flat, text="Box")
-  circle((70, 25), radius=8, style=styles.green_outline)
+  rectangle((30, 25), width=20, height=15, style=Styles.blue_flat, text="Box")
+  circle((70, 25), radius=8, style=Styles.green_outline)
   ```
 - **When to read**: Refer to this rule when selecting the right geometric primitive, styling shape borders and fills, rounding corners, rotating shapes, or embedding centered text inside containers.
 
@@ -464,11 +464,11 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Straight lines (`line`), curved splines (`line_curved`), Bezier paths (`line_bezier1`, `line_bezier2`), multi-point chained lines (`lines`, `lines_curved`), and circular arcs (`line_arc`).
 - **Key Syntax**:
   ```python
-  from drawlib.styles import styles
+  from drawlib.styles import Styles
   from drawlib.lines import line, line_curved
 
-  line((10, 20), (40, 20), arrowhead="->", style=styles.bold)
-  line_curved((50, 20), (80, 40), bend=0.3, arrowhead="<->", style=styles.dashed)
+  line((10, 20), (40, 20), arrowhead="->", style=Styles.bold)
+  line_curved((50, 20), (80, 40), bend=0.3, arrowhead="<->", style=Styles.dashed)
   ```
 - **When to read**: Refer to this rule when connecting diagram nodes, configuring arrowheads (`->`, `<-`, `<->`, `-`), routing complex paths, or adjusting curve bending parameters.
 
@@ -479,10 +479,10 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Standalone labels, multi-line paragraphs, text alignment (`halign`, `valign`), rotation angles, typography options (`TextStyle`), custom fonts, and background text boxes.
 - **Key Syntax**:
   ```python
-  from drawlib.styles import styles
+  from drawlib.styles import Styles
   from drawlib.text import text
 
-  text((50, 80), "Architecture Diagram", style=styles.title_bold, halign="center")
+  text((50, 80), "Architecture Diagram", style=Styles.title_bold, halign="center")
   text((10, 50), "Line 1\nLine 2", fontsize=12, color="#555555", halign="left")
   ```
 - **When to read**: Refer to this rule when fine-tuning title typography, aligning table headers, formatting multiline captions, or rotating vertical axis labels.
@@ -494,10 +494,10 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Vector and PNG icons from Phosphor, FontAwesome, and Google Cloud Platform (GCP) official architecture libraries.
 - **Key Syntax**:
   ```python
-  from drawlib.styles import styles
+  from drawlib.styles import Styles
   from drawlib.icons import font_icon, gcp, phosphor
 
-  phosphor.desktop((20, 30), width=10, style=styles.blue_flat)
+  phosphor.desktop((20, 30), width=10, style=Styles.blue_flat)
   gcp.compute_engine((50, 30), width=12)
   font_icon((80, 30), "fa-database", width=10)
   ```
@@ -512,9 +512,9 @@ drawlib rules show <topic> --rebuild
   ```python
   # Common preset styles: "blue_flat", "green_outline", "red_soft", "bold", "white_bold"
   # Tip: Prefer importing styles from drawlib.styles if themes might be customized via --styles
-  from drawlib.styles import styles
+  from drawlib.styles import Styles
 
-  rectangle((30, 30), width=20, height=10, style=styles.purple_flat, textstyle=styles.white_bold)
+  rectangle((30, 30), width=20, height=10, style=Styles.purple_flat, textstyle=Styles.white_bold)
   ```
 - **When to read**: Refer to this rule to maintain visual consistency, pick matching foreground/background colors, or define reusable corporate themes across a team.
 
@@ -654,12 +654,12 @@ drawlib rules show <topic> --rebuild
 
 ### 5.18. Dynamic Preset Styles & Utility Architecture (`lib-styles`)
 - **Command**: `drawlib rules show lib-styles`
-- **Scope**: Dynamic style theming and user utility injection, explicit import rules (`from drawlib.styles import styles, colors` and `from drawlib.utils import ...`), and CLI (`--styles`, `--utils`) / Python API integration.
+- **Scope**: Dynamic style theming and user utility injection, explicit import rules (`from drawlib.styles import Colors, Styles` and `from drawlib.utils import ...`), and CLI (`--styles`, `--utils`) / Python API integration.
 - **Key Syntax**:
   ```python
-  from drawlib.styles import styles, colors  # Dynamic runtime styles and colors
+  from drawlib.styles import Colors, Styles  # Dynamic runtime Styles and Colors
   from drawlib.utils import custom_box       # User-defined helper utilities
-  rectangle((30, 20), width=40, height=20, style=styles.primary)
+  rectangle((30, 20), width=40, height=20, style=Styles.primary)
   ```
 - **When to read**: Refer to this rule when customizing project-wide palettes or themes, defining reusable helper functions, or decoupling drawing scripts from hardcoded styles.
 
@@ -737,6 +737,6 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 ### 6.4. Implementation Checklist
 
 - [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
-- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import styles` (e.g. `style=styles.blue_flat`, `textstyle=styles.white_bold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
+- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import Styles` (e.g. `style=Styles.blue_flat`, `textstyle=Styles.white_bold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
 - [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.
 - [ ] **Clean Separation of Concerns**: Decouple data lists/dictionaries from drawing loops for maintainability.

@@ -2,9 +2,9 @@
 
 **Illustration as Code & Documentation as Code in Pure Python**
 
-Drawlib is a modern Python library for creating technical diagrams, architecture blueprints, charts, SmartArts, and publication-ready documentation directly from code.
+Drawlib is a pure-Python library designed to bridge technical system design, cloud architecture diagrams, quantitative charts, and publication-grade engineering documentation. Instead of maintaining fragile binary drawings or low-level plotting code, Drawlib enables developers and AI agents to express architecture and workflows declaratively in Python.
 
-```drawlib 620px center caption:"Drawlib: Illustration as Code in Pure Python"
+```drawlib 640px center caption:"Figure 0.1: Drawlib End-to-End Workflow — Code to Publication"
 from drawlib.canvas import setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
@@ -12,52 +12,51 @@ from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=50)
+setup(width=120, height=48)
 
-# Left card: Python Code
-rectangle(
-    xy=(22, 25),
-    width=30,
-    height=32,
-    r=3,
-    style=Styles.PrimaryOutline,
-)
-phosphor.code(xy=(22, 31), width=10, style=Styles.Primary)
-text(xy=(22, 16), text="Python Code", style=Styles.PrimaryBold, size=12)
+# 1. Stage: Source Code & Markdown
+rectangle(xy=(18, 24), width=26, height=32, r=2.5, style=Styles.primary_outline)
+phosphor.code(xy=(18, 30), width=9, style=Styles.primary)
+text(xy=(18, 16), text="Declarative Python\n& Markdown", style=Styles.primary_bold, size=9.5)
 
-# Arrow 1
-line((39, 25), (49, 25), arrowhead="->", style=Styles.PrimaryBold)
+# Transition 1
+line((31, 24), (43, 24), arrowhead="->", style=Styles.bold)
 
-# Center card: Drawlib Engine
-circle(
-    xy=(62, 25),
-    radius=14,
-    style=Styles.SecondaryOutline,
-)
-text(xy=(62, 27), text="drawlib", style=Styles.SecondaryBold, size=14)
-text(xy=(62, 21), text="Engine", style=Styles.Secondary, size=10)
+# 2. Stage: Drawlib Engine
+circle(xy=(56, 24), radius=13, style=Styles.secondary_outline)
+phosphor.cpu(xy=(56, 29), width=8, style=Styles.secondary)
+text(xy=(56, 18), text="drawlib\nEngine", style=Styles.secondary_bold, size=10)
 
-# Arrow 2
-line((78, 25), (88, 25), arrowhead="->", style=Styles.SecondaryBold)
+# Transition 2
+line((69, 24), (81, 24), arrowhead="->", style=Styles.bold)
 
-# Right card: Output Formats
-rectangle(
-    xy=(102, 25),
-    width=26,
-    height=32,
-    r=3,
-    style=Styles.AccentOutline,
-)
-gcp.cloud_run(xy=(102, 31), width=10, style=Styles.Accent)
-text(xy=(102, 16), text="PNG / HTML / PDF", style=Styles.AccentBold, size=10)
+# 3. Stage: Unified Publication Outputs
+rectangle(xy=(98, 35), width=26, height=12, r=2, style=Styles.accent_flat)
+text(xy=(98, 35), text="Static Site / HTML", style=Styles.white_bold, size=9)
+
+rectangle(xy=(98, 24), width=26, height=12, r=2, style=Styles.secondary_flat)
+text(xy=(98, 24), text="Design Spec / PDF", style=Styles.white_bold, size=9)
+
+rectangle(xy=(98, 13), width=26, height=12, r=2, style=Styles.primary_flat)
+text(xy=(98, 13), text="Image Batch / PNG", style=Styles.white_bold, size=9)
 ```
 
 ---
 
-### About This Document
+### Document Overview & Navigation
 
-This quickstart guide introduces the core workflows of **Drawlib**, from basic canvas coordinates and preset styling to typography, icons, external media, SmartArts, declarative charts, software diagrams, and the unified CLI document builder.
+This guide serves as a comprehensive handbook for developers and AI agents adopting Drawlib:
 
-- **Repository**: `https://github.com/yuichi110/drawlib`
-- **Author**: Yuichi Ito
-- **License**: Apache License, Version 2.0
+- **Chapters 1–3**: Foundations — Design philosophy, installation, and Cartesian canvas coordinate system.
+- **Chapters 4–6**: Core Primitives & Styling — Shapes, lines, GoogleStyles, fonts, icons, and external images.
+- **Chapters 7–10**: High-Level Graphics — SmartArts components, declarative charts, cloud diagrams, and software models.
+- **Chapters 11–12**: Documentation as Code & CLI — Markdown integration, code fence options, and build automation.
+- **Chapters 13–15**: AI Collaboration & Engineering Practice — Autonomous agent workflows, scaffolding templates, and design rules.
+
+| Document Metadata | Value |
+| :--- | :--- |
+| **Document Version** | `0.2.0` |
+| **Theme** | GoogleStyles & GoogleColors |
+| **Source Repository** | `https://github.com/yuichi110/drawlib` |
+| **Author** | Yuichi Ito |
+| **License** | Apache License 2.0 |
