@@ -303,10 +303,10 @@ While it's possible to create independent image codes, packaging your code offer
 Here are some reasons why creating a package is beneficial:
 
 - Consistent Style: By defining styles in one place, any changes to the style code will automatically affect all images, ensuring a uniform appearance.
-- Utility Functions: You can create utility functions in a separate utility code file, simplifying your image code.
+- Utility Functions: Define reusable drawing functions and macro components in `utils.py` to keep your illustration code DRY and maintainable. See [Reusable Utilities (`utils.py`)](../doc_builder/utils.md).
 - Organization: Group images by chapters and sections for better organization and easier navigation.
 
-Please take a look documents for building many images.
+For a comprehensive guide on building documentation and structuring projects, see [Document Builder Overview](../doc_builder/index.md) and [Reusable Utilities (`utils.py`)](../doc_builder/utils.md).
 
 ---
 

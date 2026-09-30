@@ -11,29 +11,65 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Style, Styles
+from drawlib.text import text
+
 # Define reusable drawing helper functions, macro components,
 # or project-specific constants in this file.
 #
-# All top-level functions and variables defined here are automatically
+# All top-level functions, classes, and variables defined here are automatically
 # accessible in drawing code via `drawlib.utils`.
-#
-# Example:
-#
-# from drawlib.shapes import rectangle
-# from drawlib.styles import styles
-# from drawlib.text import text
-#
-# PROJECT_NAME = "My Documentation Project"
-# BRAND_PRIMARY = "#1a73e8"
-#
-# def service_card(xy: tuple[float, float], title: str, subtitle: str = "") -> None:
-#     """Draw a reusable service card component."""
-#     x, y = xy
-#     rectangle(xy, width=32, height=18, r=2, style="blue_flat")
-#     text((x, y + 3), title, style="white_bold")
-#     if subtitle:
-#         text((x, y - 3), subtitle, style="white_light")
-#
-# In your drawing scripts or embedded markdown code blocks:
-#     from drawlib.utils import PROJECT_NAME, service_card
-#     service_card((50, 50), "Auth Service")
+
+
+def service_card(
+    xy: tuple[float, float],
+    title: str,
+    subtitle: str = "",
+    width: float = 24.0,
+    height: float = 16.0,
+    style: Style = Styles.primary_flat,
+) -> None:
+    """Draw a standardized service card with a title and optional subtitle.
+
+    Args:
+        xy: Center coordinate (x, y).
+        title: Main service name (e.g. 'API Gateway').
+        subtitle: Secondary label or tech stack (e.g. 'FastAPI / :8000').
+        width: Card width.
+        height: Card height.
+        style: Card shape style.
+    """
+    x, y = xy
+    rectangle(xy, width=width, height=height, r=2.0, style=style)
+    if subtitle:
+        text((x, y + 2.5), title, style=Styles.white_bold.patch(text_size=11))
+        text((x, y - 3.5), subtitle, style=Styles.white.patch(text_size=8))
+    else:
+        text((x, y), title, style=Styles.white_bold)
+
+
+def connect(
+    start: tuple[float, float],
+    end: tuple[float, float],
+    label: str = "",
+    arrowhead: Literal["", "->", "<-", "<->"] = "->",
+    style: Style = Styles.bold,
+) -> None:
+    """Draw a styled connecting line with an optional centered protocol label.
+
+    Args:
+        start: Starting point (x, y).
+        end: Ending point (x, y).
+        label: Protocol or description text (e.g. 'HTTPS', 'gRPC').
+        arrowhead: Arrowhead style ('->', '<-', '<->', or '').
+        style: Line style.
+    """
+    line(start, end, arrowhead=arrowhead, style=style)
+    if label:
+        mid_x = (start[0] + end[0]) / 2
+        mid_y = (start[1] + end[1]) / 2
+        text((mid_x, mid_y + 3.0), label, style=Styles.primary.patch(text_size=9))

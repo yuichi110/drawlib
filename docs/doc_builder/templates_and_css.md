@@ -13,7 +13,8 @@ my_docs/
 ├── docs_src/
 │   ├── index.md
 │   ├── navbar.md
-│   ├── config.py
+│   ├── styles.py           # Global styles and fonts
+│   ├── utils.py            # Reusable drawing components
 │   ├── style.css           # Project stylesheet (customizable directly)
 │   ├── template.html       # Jinja2 HTML layout (customizable directly)
 │   └── build.sh

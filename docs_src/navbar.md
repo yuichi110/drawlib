@@ -16,6 +16,7 @@
 - [Building Documents (HTML/MD/PDF)](./doc_builder/building_docs.md)
 - [Templates & CSS Customization](./doc_builder/templates_and_css.md)
 - [Project Scaffolding](./doc_builder/project_scaffolding.md)
+- [Reusable Utilities (`utils.py`)](./doc_builder/utils.md)
 
 ## 3. CLI Reference
 - [CLI Overview & Global Options](./cli/index.md)

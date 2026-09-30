@@ -93,6 +93,10 @@
                                 <a href="project_scaffolding.html" >Project Scaffolding</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="utils.html" >Reusable Utilities (`utils.py`)</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -419,25 +423,25 @@
 <td style="text-align:left"><strong><code>site</code></strong></td>
 <td style="text-align:left"><code>drawlib init site</code></td>
 <td style="text-align:left">Complete documentation websites, project manuals, API references</td>
-<td style="text-align:left"><code>docs_src/</code> hierarchy, <code>navbar.md</code>, <code>config.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
+<td style="text-align:left"><code>docs_src/</code> hierarchy, <code>navbar.md</code>, <code>styles.py</code>, <code>utils.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>simple</code></strong></td>
 <td style="text-align:left"><code>drawlib init simple</code></td>
 <td style="text-align:left">Single articles, README diagrams, standalone blog posts</td>
-<td style="text-align:left"><code>document.md</code>, <code>config.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
+<td style="text-align:left"><code>doc.md</code>, <code>styles.py</code>, <code>utils.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>pdf</code></strong></td>
 <td style="text-align:left"><code>drawlib init pdf</code></td>
 <td style="text-align:left">Technical specifications, whitepapers, executive reports</td>
-<td style="text-align:left"><code>doc_src/</code> chapters (<code>00_cover.md</code>...), <code>config.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
+<td style="text-align:left"><code>doc_src/</code> chapters (<code>00_cover.md</code>...), <code>styles.py</code>, <code>utils.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>image</code></strong></td>
 <td style="text-align:left"><code>drawlib init image</code></td>
 <td style="text-align:left">Standalone Python diagram/illustration scripts</td>
-<td style="text-align:left">Python script scaffolding, configuration, and image export tasks</td>
+<td style="text-align:left"><code>sample1.py</code>, <code>sample2.py</code>, <code>styles.py</code>, <code>utils.py</code>, <code>build.sh</code></td>
 </tr>
 </tbody>
 </table>
@@ -456,7 +460,7 @@
 <pre><code class="language-bash"># Bootstrap a Japanese documentation website with the Google theme:
 drawlib init site my_docs/ --lang ja --css google
 </code></pre>
-<p>When <code>--lang ja</code> is selected, Drawlib configures Japanese font patching (<code>FontJapanese.SANSSERIF_REGULAR</code>) in <code>config.py</code> out of the box.</p>
+<p>When <code>--lang ja</code> is selected, Drawlib configures Japanese font patching (<code>FontJapanese.SANSSERIF_REGULAR</code>) in <code>styles.py</code> out of the box.</p>
 <h3>2.4 Scaffolding in the Current Directory</h3>
 <p>Use the <code>--here</code> flag to bootstrap directly into an existing empty directory:</p>
 <pre><code class="language-bash">mkdir documentation &amp;&amp; cd documentation

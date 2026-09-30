@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Smart Arts</title>
+    <title>Reusable Utilities with `utils.py`</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -74,27 +74,27 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../doc_builder/index.html" >Document Builder Overview</a>
+                                <a href="index.html" >Document Builder Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../doc_builder/code_blocks.html" >Code Block Syntax & Options</a>
+                                <a href="code_blocks.html" >Code Block Syntax & Options</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../doc_builder/building_docs.html" >Building Documents (HTML/MD/PDF)</a>
+                                <a href="building_docs.html" >Building Documents (HTML/MD/PDF)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../doc_builder/templates_and_css.html" >Templates & CSS Customization</a>
+                                <a href="templates_and_css.html" >Templates & CSS Customization</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../doc_builder/project_scaffolding.html" >Project Scaffolding</a>
+                                <a href="project_scaffolding.html" >Project Scaffolding</a>
                             </li>
                             
-                            <li class="nav-item ">
-                                <a href="../doc_builder/utils.html" >Reusable Utilities (`utils.py`)</a>
+                            <li class="nav-item active">
+                                <a href="utils.html" >Reusable Utilities (`utils.py`)</a>
                             </li>
                             
                         </ul>
@@ -245,52 +245,52 @@
                         
                         <ul class="nav-list">
                             
-                            <li class="nav-item active">
-                                <a href="index.html" >SmartArts Overview</a>
+                            <li class="nav-item ">
+                                <a href="../smartarts/index.html" >SmartArts Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="sourcecode.html" >SourceCode Highlighting</a>
+                                <a href="../smartarts/sourcecode.html" >SourceCode Highlighting</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="table.html" >Table Component</a>
+                                <a href="../smartarts/table.html" >Table Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="tree.html" >Tree Component</a>
+                                <a href="../smartarts/tree.html" >Tree Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="boxlist.html" >BoxList Component</a>
+                                <a href="../smartarts/boxlist.html" >BoxList Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="bubblespeech.html" >BubbleSpeech Component</a>
+                                <a href="../smartarts/bubblespeech.html" >BubbleSpeech Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="bulletpoints.html" >BulletPoints Component</a>
+                                <a href="../smartarts/bulletpoints.html" >BulletPoints Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="chevronprocess.html" >ChevronProcess Component</a>
+                                <a href="../smartarts/chevronprocess.html" >ChevronProcess Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="cycle.html" >Cycle Component</a>
+                                <a href="../smartarts/cycle.html" >Cycle Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="gridlayout.html" >GridLayout Component</a>
+                                <a href="../smartarts/gridlayout.html" >GridLayout Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="mindmap.html" >MindMap Component</a>
+                                <a href="../smartarts/mindmap.html" >MindMap Component</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="pyramid.html" >Pyramid Component</a>
+                                <a href="../smartarts/pyramid.html" >Pyramid Component</a>
                             </li>
                             
                         </ul>
@@ -400,30 +400,143 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">About Smart Arts</span>
+                    <span class="crumb active">Reusable Utilities with `utils.py`</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>About Smart Arts</h1>
-<p>Smart Arts are an advanced drawing feature in Drawlib, inspired by PowerPoint's Smart Art.
-These features are implemented within the <code>smartarts</code> module.</p>
-<p>Below is an index of available Smart Arts with brief descriptions:</p>
-<ul>
-<li><strong>boxlist</strong>: Draws sequential or aligned text boxes.</li>
-<li><strong>bubblespeech</strong>: Draws bubble speech / callout graphics with customizable tails.</li>
-<li><strong>bulletpoints</strong>: Draws nested bullet point lists with custom bullet markers.</li>
-<li><strong>chevronprocess</strong>: Draws sequential chevron (arrowhead block) process pipelines.</li>
-<li><strong>cycle</strong>: Draws circular and cyclical process flows (PDCA, life cycles).</li>
-<li><strong>gridlayout</strong>: Places rectangles and texts on a structured grid.</li>
-<li><strong>mindmap</strong>: Draws multi-directional mind maps and hierarchy trees with rectangle, oval, or text-only nodes.</li>
-<li><strong>pyramid</strong>: Draws hierarchical pyramid diagrams.</li>
-<li><strong>sourcecode</strong>: Renders syntax-highlighted source code images.</li>
-<li><strong>table</strong>: Draws data tables with custom cell styles and borders.</li>
-<li><strong>tree</strong>: Draws directory/file-system style indented trees.</li>
-</ul>
-<p>Each Smart Art item provides specialized drawing capabilities tailored for different graphical needs.</p>
+                <h1>Reusable Utilities with <code>utils.py</code></h1>
+<p>When building documentation sites, technical whitepapers, or batch illustration suites, you often need to draw consistent components across multiple pages and chapters: service nodes, database containers, network arrows with protocol labels, or company branding banners.</p>
+<p>Instead of duplicating dozens of lines of coordinate calculations and styling boilerplate across your Markdown files, Drawlib provides <strong><code>utils.py</code></strong>—a dedicated project-level extension module for reusable drawing helpers and constants.</p>
 <hr />
-<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+<h2>1. How <code>utils.py</code> Works</h2>
+<p>When you scaffold a project with <code>drawlib init</code>, a <code>utils.py</code> file is automatically placed at your project root:</p>
+<pre><code class="language-text">my_docs/
+├── docs_src/
+│   ├── index.md
+│   ├── navbar.md
+│   ├── styles.py          # Global styles, fonts, and themes (drawlib.styles)
+│   ├── utils.py           # Reusable drawing functions and constants (drawlib.utils)
+│   ├── _assets/           # Static image assets (logos, icons)
+│   ├── style.css
+│   ├── template.html
+│   └── build.sh
+</code></pre>
+<h3>1.1. Automatic Discovery</h3>
+<p>When you run <code>drawlib build</code> (for HTML, Markdown, or PDF) or <code>drawlib show</code>, Drawlib automatically detects <code>utils.py</code> in your source directory.</p>
+<p>All top-level functions, classes, and constants defined in <code>utils.py</code> are loaded directly into the <code>drawlib.utils</code> namespace.</p>
+<h3>1.2. Importing in Drawing Code</h3>
+<p>Inside any embedded <code>drawlib</code> code fence in your Markdown documents, or inside standalone Python illustration scripts, import your project helpers just like any other Drawlib module:</p>
+<pre><code class="language-python">from drawlib.utils import connect, service_card
+</code></pre>
+<p>No relative path imports or <code>sys.path</code> modifications are required.</p>
+<hr />
+<h2>2. Common Implementation Patterns</h2>
+<p>Here are the most common and practical ways to leverage <code>utils.py</code>.</p>
+<h3>2.1. Standardized Service Cards (<code>service_card</code>)</h3>
+<p>Complex architectural diagrams often feature repeated service containers with titles, subtitles, and status indicators. Encapsulating this in a helper keeps diagrams clean and maintainable.</p>
+<p>In <code>utils.py</code>:</p>
+<pre><code class="language-python">from drawlib.shapes import rectangle
+from drawlib.styles import Style, Styles
+from drawlib.text import text
+
+def service_card(
+    xy: tuple[float, float],
+    title: str,
+    subtitle: str = &quot;&quot;,
+    width: float = 24.0,
+    height: float = 16.0,
+    style: Style = Styles.primary_flat,
+) -&gt; None:
+    &quot;&quot;&quot;Draw a standardized service card with a title and optional subtitle.&quot;&quot;&quot;
+    x, y = xy
+    rectangle(xy, width=width, height=height, r=2.0, style=style)
+    if subtitle:
+        text((x, y + 2.5), title, style=Styles.white_bold.patch(text_size=11))
+        text((x, y - 3.5), subtitle, style=Styles.white.patch(text_size=8))
+    else:
+        text((x, y), title, style=Styles.white_bold)
+</code></pre>
+<p>In your Markdown document:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="utils_images/1.png" alt="utils_1" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Service Cards Defined via utils.py</figcaption>
+</figure>
+<h3>2.2. Labeled Connectors &amp; Protocols (<code>connect</code>)</h3>
+<p>Manually computing midpoints to place protocol labels (such as <code>HTTPS</code>, <code>gRPC</code>, or <code>SQL</code>) on connection arrows is tedious and prone to misalignment. Delegating this to a connector function eliminates boilerplate.</p>
+<p>In <code>utils.py</code>:</p>
+<pre><code class="language-python">from typing import Literal
+from drawlib.lines import line
+from drawlib.styles import Style, Styles
+from drawlib.text import text
+
+def connect(
+    start: tuple[float, float],
+    end: tuple[float, float],
+    label: str = &quot;&quot;,
+    arrowhead: Literal[&quot;&quot;, &quot;-&gt;&quot;, &quot;&lt;-&quot;, &quot;&lt;-&gt;&quot;] = &quot;-&gt;&quot;,
+    style: Style = Styles.bold,
+) -&gt; None:
+    &quot;&quot;&quot;Draw a styled connecting line with an optional centered protocol label.&quot;&quot;&quot;
+    line(start, end, arrowhead=arrowhead, style=style)
+    if label:
+        mid_x = (start[0] + end[0]) / 2
+        mid_y = (start[1] + end[1]) / 2
+        text((mid_x, mid_y + 3.0), label, style=Styles.primary.patch(text_size=9))
+</code></pre>
+<p>In your Markdown document:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="utils_images/2.png" alt="utils_2" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Labeled Connectors with Automated Midpoint Labels</figcaption>
+</figure>
+<h3>2.3. Combining Helpers with Local Assets (<code>_assets/</code>)</h3>
+<p>Static branding images, cloud logos, and icons stored in <code>_assets/</code> (e.g. <code>_assets/linux.png</code>) can be cleanly combined with <code>utils.py</code> components to build production-grade architectural illustrations:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="utils_images/3.png" alt="utils_3" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Complete Microservice Architecture using utils.py and _assets/</figcaption>
+</figure>
+<h3>2.4. Project Constants &amp; Design Tokens</h3>
+<p>In addition to functions, <code>utils.py</code> is the ideal location to define project-wide design tokens and constants:</p>
+<pre><code class="language-python"># utils.py
+BRAND_PRIMARY = &quot;#0055ff&quot;
+DEFAULT_CARD_WIDTH = 28.0
+DEFAULT_CARD_HEIGHT = 18.0
+DATABASE_PORT = 5432
+</code></pre>
+<p>In your diagrams:</p>
+<pre><code class="language-python">from drawlib.utils import BRAND_PRIMARY, DEFAULT_CARD_WIDTH
+</code></pre>
+<hr />
+<h2>3. CLI Configuration &amp; Overrides</h2>
+<h3>3.1. Default Lookup Behavior</h3>
+<p>By default, <code>drawlib build</code> and <code>drawlib show</code> search for a file named <code>utils.py</code> in the root of the source directory being built.</p>
+<h3>3.2. Custom Utilities Script (<code>-u</code> / <code>--utils</code>)</h3>
+<p>If you maintain multiple utility scripts (e.g., for different diagram domains or test fixtures), use the <code>-u</code> / <code>--utils</code> CLI flag:</p>
+<pre><code class="language-bash"># Build documentation using a specific utilities file
+drawlib build html docs_src/ -o docs_html/ --utils custom_utils.py
+
+# Inspect an individual diagram with custom utilities and coordinate grid
+drawlib show docs_src/index.md 1 -u custom_utils.py -g
+</code></pre>
+<hr />
+<h2>4. Best Practices for Writing <code>utils.py</code></h2>
+<ol>
+<li>
+<p><strong>Provide Strong Type Annotations</strong>:
+Annotate arguments with standard Drawlib types (<code>Style</code>, <code>tuple[float, float]</code>, <code>Literal[&quot;-&gt;&quot;, &quot;&lt;-&quot;, &quot;&lt;-&gt;&quot;, &quot;&quot;]</code>). This ensures accurate autocomplete and type-checking in IDEs and AI agent workflows.</p>
+</li>
+<li>
+<p><strong>Leverage Default Arguments with <code>Styles</code></strong>:
+Use predefined styles as defaults (e.g., <code>style: Style = Styles.primary_flat</code>), allowing caller code to easily customize individual nodes with <code>.patch()</code> or alternative themes.</p>
+</li>
+<li>
+<p><strong>Keep Helpers Pure &amp; Declarative</strong>:
+Avoid managing global state inside helpers. Take coordinates <code>xy</code> and dimensions explicitly, returning <code>None</code>.</p>
+</li>
+<li>
+<p><strong>Write Clear Google-Style Docstrings</strong>:
+Document the parameters and purpose of each macro component so that team members and AI coding assistants can discover and use them effortlessly.</p>
+</li>
+</ol>
 
             </main>
         </div>

@@ -10,10 +10,10 @@ Drawlib includes four official starter project types:
 
 | Template | Command | Best For | Included Artifacts |
 | :--- | :--- | :--- | :--- |
-| **`site`** | `drawlib init site` | Complete documentation websites, project manuals, API references | `docs_src/` hierarchy, `navbar.md`, `config.py`, `style.css`, `template.html`, `build.sh` |
-| **`simple`** | `drawlib init simple` | Single articles, README diagrams, standalone blog posts | `document.md`, `config.py`, `style.css`, `template.html`, `build.sh` |
-| **`pdf`** | `drawlib init pdf` | Technical specifications, whitepapers, executive reports | `doc_src/` chapters (`00_cover.md`...), `config.py`, `style.css`, `template.html`, `build.sh` |
-| **`image`** | `drawlib init image` | Standalone Python diagram/illustration scripts | Python script scaffolding, configuration, and image export tasks |
+| **`site`** | `drawlib init site` | Complete documentation websites, project manuals, API references | `docs_src/` hierarchy, `navbar.md`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh` |
+| **`simple`** | `drawlib init simple` | Single articles, README diagrams, standalone blog posts | `doc.md`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh` |
+| **`pdf`** | `drawlib init pdf` | Technical specifications, whitepapers, executive reports | `doc_src/` chapters (`00_cover.md`...), `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh` |
+| **`image`** | `drawlib init image` | Standalone Python diagram/illustration scripts | `sample1.py`, `sample2.py`, `styles.py`, `utils.py`, `build.sh` |
 
 ---
 
@@ -41,7 +41,7 @@ You can specify the document language and starting CSS theme:
 drawlib init site my_docs/ --lang ja --css google
 ```
 
-When `--lang ja` is selected, Drawlib configures Japanese font patching (`FontJapanese.SANSSERIF_REGULAR`) in `config.py` out of the box.
+When `--lang ja` is selected, Drawlib configures Japanese font patching (`FontJapanese.SANSSERIF_REGULAR`) in `styles.py` out of the box.
 
 ### 2.4 Scaffolding in the Current Directory
 Use the `--here` flag to bootstrap directly into an existing empty directory:
