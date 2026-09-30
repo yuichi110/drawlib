@@ -1,0 +1,412 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowDiagram: ISO Flowcharts & Cross-Functional Swimlanes</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">FlowDiagram: ISO Flowcharts & Cross-Functional Swimlanes</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>FlowDiagram: ISO Flowcharts &amp; Cross-Functional Swimlanes</h1>
+<p><code>FlowDiagram</code> implements standard flowchart symbols according to ISO 5807 and JIS X 0121 standards, with native support for cross-functional swimlane layouts (vertical columns or horizontal rows) sharing a unified global coordinate plane.</p>
+<hr />
+<h2>1. Overview &amp; Standard Symbols</h2>
+<pre><code class="language-text">  Lane: Customer                Lane: Gateway              Lane: Warehouse
+ ┌───────────────────────────┬───────────────────────────┬───────────────────────────┐
+ │   (Start)                 │                           │                           │
+ │      │                    │                           │                           │
+ │      ▼                    │                           │                           │
+ │ [Submit Order]───────────►│ &lt;Payment Valid?&gt;          │                           │
+ │                           │    │           │ (No)     │                           │
+ │                           │    ▼ (Yes)     ▼          │                           │
+ │                           │    │        [Show Error]  │                           │
+ │                           │    ▼                      │                           │
+ │                           │    └─────────────────────►│ [Pack &amp; Ship]             │
+ └───────────────────────────┴───────────────────────────┴───────────────────────────┘
+</code></pre>
+<h3>Flowchart Symbol Classes</h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Shape Geometry</th>
+<th>Default Size ($W \times H$)</th>
+<th>Standard ISO Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Start</code></td>
+<td>Stadium / Pill (<code>r=5.0</code>)</td>
+<td><code>20.0 x 10.0</code></td>
+<td>Initial entry point</td>
+</tr>
+<tr>
+<td><code>End</code></td>
+<td>Stadium / Pill (<code>r=5.0</code>)</td>
+<td><code>20.0 x 10.0</code></td>
+<td>Terminal completion point</td>
+</tr>
+<tr>
+<td><code>Process</code></td>
+<td>Rectangle</td>
+<td><code>24.0 x 12.0</code></td>
+<td>Execution task, calculation, or step</td>
+</tr>
+<tr>
+<td><code>Decision</code></td>
+<td>Rhombus / Diamond</td>
+<td><code>22.0 x 14.0</code></td>
+<td>Conditional branch (Yes/No, True/False)</td>
+</tr>
+<tr>
+<td><code>Data</code></td>
+<td>Parallelogram</td>
+<td><code>24.0 x 12.0</code></td>
+<td>Input, output, or file I/O</td>
+</tr>
+<tr>
+<td><code>Junction</code></td>
+<td>Coordinate point</td>
+<td><code>0.0 x 0.0</code></td>
+<td>Wire tap, waypoint, or merge junction</td>
+</tr>
+<tr>
+<td><code>Lane</code></td>
+<td>Boundary container</td>
+<td>Dynamic</td>
+<td>Swimlane column or row</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Global Coordinate Architecture</h2>
+<p>In Drawlib's <code>FlowDiagram</code>, swimlanes provide a structured visual background and column/row headers <strong>without trapping nodes inside local relative coordinates</strong>.</p>
+<p>All nodes share a single global canvas coordinate system. This means:</p>
+<ul>
+<li>Steps occurring at the same stage in different departments can be placed at the exact same vertical $Y$ coordinate.</li>
+<li>Connecting lines cross swimlane boundaries cleanly with automatic orthogonal right-angle routing.</li>
+</ul>
+<hr />
+<h2>3. Vertical Swimlanes: Approval Workflow</h2>
+<p>The following example illustrates a multi-department expense reimbursement process across three vertical swimlanes:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="flow_images/1.png" alt="flow_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Cross-Department Reimbursement Approval Workflow</figcaption>
+</figure>
+<hr />
+<h2>4. Horizontal Swimlanes: Order Logistics</h2>
+<p>By specifying <code>lane_orientation=&quot;horizontal&quot;</code>, lanes are laid out as stacked horizontal bands:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="flow_images/2.png" alt="flow_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Fulfillment Logistics Horizontal Pipeline</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Explicit Decision Exits</strong>: Always specify <code>start_side</code> (e.g. <code>start_side=&quot;right&quot;</code> for &quot;No&quot;, <code>start_side=&quot;bottom&quot;</code> for &quot;Yes&quot;) on <code>Decision</code> nodes to keep branch directions clear and consistent.</li>
+<li><strong>Merge with <code>flow.junction</code></strong>: When multiple paths lead to a single destination or pass through a bottleneck, route them through an intermediate junction to prevent crossing lines.</li>
+<li><strong>Lane Width Balancing</strong>: Ensure lane widths accommodate the widest nodes with at least 5 coordinate units of padding on either side.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

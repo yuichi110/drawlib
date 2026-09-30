@@ -1,0 +1,455 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GanttChart: Project Roadmaps, Milestones & Dependencies</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">GanttChart: Project Roadmaps, Milestones & Dependencies</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>GanttChart: Project Roadmaps, Milestones &amp; Dependencies</h1>
+<p><code>GanttChart</code> provides declarative, vector-grade project roadmaps, sprint schedules, and milestone timelines. Drawing inspiration from sequence diagrams, timeline intervals are structured horizontally along the X-axis while task rows, section divider banners, and milestones stack sequentially downwards.</p>
+<hr />
+<h2>1. Overview &amp; Structural Hierarchy</h2>
+<pre><code class="language-text">  Task / Milestone         Sprint 1       Sprint 2       Sprint 3       Sprint 4
+ ┌──────────────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
+ │ ▼ Core Engine        │              │              │              │              │
+ │ Database Migration   │ [██████████] │              │              │              │
+ │ API Gateway V2       │       └──────┼───────────►[████████]       │              │
+ │ ◆ Beta Code Freeze   │              │              │       ◆      │              │
+ └──────────────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
+                                                       │
+                                                 Today's Marker
+</code></pre>
+<ul>
+<li><strong>Section Dividers (<code>add_section</code>)</strong>: Categorize tasks into functional domains (e.g. &quot;Core Engine&quot;, &quot;Observability&quot;).</li>
+<li><strong>Task Bars (<code>add_task</code>)</strong>: Represent working durations with optional percentage completion progress bars (<code>progress=0.85</code>).</li>
+<li><strong>Milestones (<code>add_milestone</code>)</strong>: Diamond marker indicators representing key delivery dates or code freezes.</li>
+<li><strong>Vertical Time Markers (<code>add_marker</code>)</strong>: Full-height vertical indicators highlighting the current date or sprint boundaries.</li>
+<li><strong>Dependency Connectors (<code>add_dependency</code>)</strong>: Orthogonal routing arrows linking prerequisite tasks to downstream deliverables.</li>
+</ul>
+<hr />
+<h2>2. Constructor &amp; Configuration</h2>
+<pre><code class="language-python">from drawlib.charts.gantt import GanttChart
+
+chart = GanttChart(
+    columns=[&quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;],
+    width=95.0,                 # Total chart bounding width
+    label_width=28.0,           # Width reserved for task label column
+    header_height=6.0,          # Height of the top timeline header band
+    row_height=5.0,             # Height allocated per task/milestone row
+    title=&quot;Engineering Roadmap (2026)&quot;,
+    bar_radius=1.0,             # Rounded corners for task duration bars
+    show_vertical_grid=True,    # Vertical divider gridlines
+    show_zebra=True,            # Alternating background row colors
+)
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>columns</code></td>
+<td><code>list[str]</code></td>
+<td>Required</td>
+<td>Ordered timeline interval labels along horizontal header band.</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float</code></td>
+<td><code>90.0</code></td>
+<td>Overall chart bounding width.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Overall height. If <code>None</code>, calculated dynamically from total row count.</td>
+</tr>
+<tr>
+<td><code>row_height</code></td>
+<td><code>float</code></td>
+<td><code>4.5</code></td>
+<td>Height per task, milestone, or section row.</td>
+</tr>
+<tr>
+<td><code>header_height</code></td>
+<td><code>float</code></td>
+<td><code>5.5</code></td>
+<td>Height of the top column header band.</td>
+</tr>
+<tr>
+<td><code>label_width</code></td>
+<td><code>float</code></td>
+<td><code>24.0</code></td>
+<td>Width allocated for the left task name column.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Chart title displayed at the top.</td>
+</tr>
+<tr>
+<td><code>show_vertical_grid</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to draw vertical divider gridlines between columns.</td>
+</tr>
+<tr>
+<td><code>show_zebra</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to alternate row background colors.</td>
+</tr>
+<tr>
+<td><code>bar_radius</code></td>
+<td><code>float</code></td>
+<td><code>0.8</code></td>
+<td>Corner rounding radius for task bars.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Engineering Release Roadmap with Dependencies</h2>
+<p>The following complete example demonstrates sections, tasks with progress indicators, milestones, dependency arrows, and a &quot;Today&quot; marker:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="gantt_images/1.png" alt="gantt_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Engineering Release Roadmap with Dependencies</figcaption>
+</figure>
+<hr />
+<h2>4. Time Coordinate Indexing</h2>
+<p>In <code>GanttChart</code>, time coordinates can be passed as:</p>
+<ol>
+<li><strong>Column Name String</strong>: Matches the exact string in <code>columns</code> (e.g., <code>start=&quot;Apr&quot;</code> aligns with the beginning of the &quot;Apr&quot; column).</li>
+<li><strong>Floating-point Offset</strong>: <code>0.0</code> represents the left edge of the first column, <code>1.0</code> is the start of the second column, <code>1.5</code> is halfway through the second column, etc.</li>
+</ol>
+<pre><code class="language-python"># Task starts at column index 0 (&quot;Apr&quot;) and runs until 80% through &quot;Apr&quot;
+t1 = chart.add_task(&quot;Quick Task&quot;, start=&quot;Apr&quot;, end=0.8)
+
+# Task starts halfway through month 2 and ends at month 4
+t2 = chart.add_task(&quot;Longer Task&quot;, start=1.5, end=4.0)
+</code></pre>
+<hr />
+<h2>5. Agile Sprint Schedule with Custom Palette</h2>
+<p>Tasks can also accept explicit colors to designate project phases, teams, or status:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="gantt_images/2.png" alt="gantt_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Agile Sprint Schedule with Status Theming</figcaption>
+</figure>
+<hr />
+<h2>6. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Dynamic Height Calculation</strong>: Leave <code>height=None</code> so <code>GanttChart</code> automatically sizes its height based on the number of tasks, sections, and milestones added.</li>
+<li><strong>Label Width Budget</strong>: Set <code>label_width</code> large enough (usually 24–30 coordinate units) to prevent long task names from being truncated.</li>
+<li><strong>Canvas Margin</strong>: Gantt titles and headers require headroom; ensure the bottom-left coordinate <code>(x, y)</code> and canvas dimensions provide at least 10–15 units of vertical space.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

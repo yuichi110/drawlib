@@ -1,0 +1,413 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScatterChart: Dual-Axis Plots & Multidimensional Bubble Charts</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">ScatterChart: Dual-Axis Plots & Multidimensional Bubble Charts</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>ScatterChart: Dual-Axis Plots &amp; Multidimensional Bubble Charts</h1>
+<p><code>ScatterChart</code> plots continuous numerical data across dual Cartesian axes ($X$ and $Y$). It is ideal for identifying statistical correlations, clustering patterns, latency vs. throughput trade-offs, and 3D bubble analysis (where marker radius encodes a third numerical variable).</p>
+<hr />
+<h2>1. Overview &amp; Topologies</h2>
+<pre><code class="language-text">    Latency (ms) ▲
+             100 │           ● Legacy (High Latency)
+              80 │
+              60 │                ▲ Competitor
+              40 │        ●
+              20 │    ● Optimized v2.0
+               0 └────────────────────────────► Throughput (req/s)
+                 0    200   400   600   800
+</code></pre>
+<ul>
+<li><strong>Dual Continuous Axes</strong>: Unlike categorical charts where the X-axis represents discrete bins, <code>ScatterChart</code> computes independent numerical scales for both axes using linear or logarithmic scaling.</li>
+<li><strong>Annotated Individual Points</strong>: Use <code>chart.add()</code> to place highlighted reference points with dedicated text callouts (e.g., benchmark baselines or SLA targets).</li>
+<li><strong>Multidimensional Bubble Plots</strong>: Passing 3-tuples <code>(x, y, radius)</code> to <code>add_series()</code> scales point sizes dynamically to communicate a third dimension (such as cost, memory footprint, or cluster size).</li>
+</ul>
+<hr />
+<h2>2. Constructor &amp; Configuration</h2>
+<pre><code class="language-python">from drawlib.charts.scatter import ScatterChart
+
+chart = ScatterChart(
+    width=85.0,                 # Total chart bounding width
+    height=52.0,                # Total chart bounding height
+    title=&quot;Service Throughput vs Latency&quot;,
+    default_radius=1.0,         # Default radius for points
+    default_shape=&quot;circle&quot;,     # &quot;circle&quot;, &quot;square&quot;, &quot;rhombus&quot;, &quot;triangle&quot;
+    legend_position=&quot;auto&quot;,     # &quot;top&quot;, &quot;bottom&quot;, &quot;right&quot;, &quot;none&quot;, &quot;auto&quot;
+    show_labels=True,           # Display text annotation labels
+)
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code> / <code>height</code></td>
+<td><code>float</code></td>
+<td><code>88.0</code> / <code>55.0</code></td>
+<td>Overall container dimensions in canvas units.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Chart title displayed at the top.</td>
+</tr>
+<tr>
+<td><code>default_radius</code></td>
+<td><code>float</code></td>
+<td><code>1.0</code></td>
+<td>Default radius for point markers when unspecified.</td>
+</tr>
+<tr>
+<td><code>default_shape</code></td>
+<td><code>PointShape</code></td>
+<td><code>&quot;circle&quot;</code></td>
+<td>Marker shape (<code>&quot;circle&quot;</code>, <code>&quot;square&quot;</code>, <code>&quot;rhombus&quot;</code>, <code>&quot;triangle&quot;</code>).</td>
+</tr>
+<tr>
+<td><code>legend_position</code></td>
+<td><code>LegendPosition</code></td>
+<td><code>&quot;auto&quot;</code></td>
+<td>Location of series legend box.</td>
+</tr>
+<tr>
+<td><code>show_labels</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to display text annotation labels next to points.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Benchmark Scatter Plot with Baseline Callouts</h2>
+<p>Combining series with individually annotated baseline points makes system performance reports immediately actionable:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="scatter_images/1.png" alt="scatter_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Throughput vs p99 Latency Benchmark</figcaption>
+</figure>
+<hr />
+<h2>4. Multidimensional Cloud Cost Bubble Chart</h2>
+<p>By providing 3-tuples <code>(x, y, radius)</code> in series data, the radius reflects a 3rd numerical dimension:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="scatter_images/2.png" alt="scatter_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Compute Workload Multidimensional Bubble Plot</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Explicit Axis Bounds</strong>: Specifying <code>min_value</code> and <code>max_value</code> on both axes ensures consistent coordinate framing across comparative diagrams.</li>
+<li><strong>Bubble Scaling</strong>: Keep marker radii between <code>1.0</code> and <code>6.0</code> canvas coordinate units to prevent bubbles from occluding neighbouring points.</li>
+<li><strong>Logarithmic Scaling</strong>: If throughput or latency spans multiple orders of magnitude, set <code>scale=&quot;log&quot;</code> on the respective axis via <code>chart.configure_x_axis(scale=&quot;log&quot;)</code>.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

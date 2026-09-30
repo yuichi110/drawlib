@@ -1,0 +1,476 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas & Coordinates</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Canvas & Coordinates</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Canvas &amp; Coordinates</h1>
+<p>The <code>canvas</code> is the foundational drawing surface of Drawlib.<br />
+Under the &quot;Illustration as Code&quot; paradigm, canvas dimensions, resolution, background coloring, coordinate grids, and export formats are managed entirely through declarative Python function calls.</p>
+<hr />
+<h2>1. Imports &amp; Core Lifecycle</h2>
+<p>Canvas lifecycle functions are imported from <code>drawlib.canvas</code>:</p>
+<pre><code class="language-python">from drawlib.canvas import (
+    clear,        # Reset canvas state between drawings
+    get_dimage,   # Render canvas in-memory and return a Dimage object
+    initialize,   # Alias for clear()
+    save,         # Save drawing to disk (PNG, SVG, PDF, WebP)
+    setup,        # Configure dimensions, grid, background color, and DPI
+    show,         # Display canvas in an interactive GUI window
+)
+</code></pre>
+<h3>The Canvas Lifecycle Model</h3>
+<p>Drawlib maintains an active canvas singleton. Drawing functions (<code>rectangle()</code>, <code>line()</code>, <code>text()</code>, etc.) register visual elements to this active canvas before it is saved or rendered:</p>
+<pre><code class="language-text">1. Configure Canvas              2. Draw Elements               3. Output Result
+┌───────────────────────┐       ┌──────────────────────┐       ┌────────────────────────┐
+│ setup(width, height) │ ────&gt; │ shapes, lines, text, │ ────&gt; │ save() / show()        │
+│ Set size, grid, bg    │       │ smartarts, diagrams  │       │ Export to file or view │
+└───────────────────────┘       └──────────────────────┘       └────────────────────────┘
+            ▲                                                               │
+            │                                                               │
+            └────────────────────────── clear() ────────────────────────────┘
+                               Reset state for next image
+</code></pre>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Sequential Scripts &amp; Multi-Image Generation</strong>:<br />
+If you generate multiple illustrations in a single Python script, always call <code>clear()</code> between images. Otherwise, elements from earlier drawings will bleed onto subsequent canvases.</p>
+</blockquote>
+<hr />
+<h2>2. Cartesian Coordinate Space</h2>
+<p>Drawlib uses a mathematical Cartesian coordinate system:</p>
+<ul>
+<li><strong>Origin <code>(0, 0)</code></strong>: Fixed at the <strong>bottom-left corner</strong> of the canvas.</li>
+<li><strong>X-Axis</strong>: Increases horizontally to the right (<code>0</code> to <code>width</code>).</li>
+<li><strong>Y-Axis</strong>: Increases vertically upwards (<code>0</code> to <code>height</code>).</li>
+<li><strong>Center-Based Anchoring</strong>: Coordinates <code>(x, y)</code> for shapes, text, and icons refer to their <strong>exact geometric center</strong> by default.</li>
+</ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/1.png" alt="canvas_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Custom Canvas Configuration with Grid</figcaption>
+</figure>
+<hr />
+<h2>3. Function Reference</h2>
+<h3>3.1. <code>setup()</code></h3>
+<p>Configures canvas geometry, resolution, coordinate grids, and background appearance. Must be called before drawing elements.</p>
+<pre><code class="language-python">setup(
+    width: int | None = None,
+    height: int | None = None,
+    dpi: int | None = None,
+    background_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    background_alpha: float | None = None,
+    grid: bool | None = None,
+    grid_only: bool | None = None,
+    grid_style: Style | None = None,
+    grid_centerstyle: Style | None = None,
+    grid_xpitch: int | None = None,
+    grid_ypitch: int | None = None,
+)
+</code></pre>
+<h4>Parameter Reference:</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>width</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>100</code></td>
+<td style="text-align:left">Canvas width in virtual coordinate units.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>100</code></td>
+<td style="text-align:left">Canvas height in virtual coordinate units.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>dpi</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>100</code></td>
+<td style="text-align:left">Dots per inch (resolution and raster sharpness).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>background_color</code></td>
+<td style="text-align:left"><code>tuple</code></td>
+<td style="text-align:left"><code>(255, 255, 255)</code></td>
+<td style="text-align:left">Canvas background color as an RGB or RGBA tuple.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>background_alpha</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>1.0</code></td>
+<td style="text-align:left">Background opacity (<code>0.0</code> = fully transparent, <code>1.0</code> = opaque).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>grid</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">Overlays coordinate grid lines for layout alignment.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>grid_only</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">Renders the coordinate grid only without visual shapes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>grid_style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Gray dashed</td>
+<td style="text-align:left">Custom line style for grid lines.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>grid_centerstyle</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left">Bold gray</td>
+<td style="text-align:left">Custom line style for center axes (<code>x=width/2</code>, <code>y=height/2</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>grid_xpitch</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>width / 10</code></td>
+<td style="text-align:left">Spacing between vertical grid lines.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>grid_ypitch</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>height / 10</code></td>
+<td style="text-align:left">Spacing between horizontal grid lines.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>3.2. <code>save()</code></h3>
+<p>Exports the active canvas to an image file on disk.</p>
+<pre><code class="language-python">save(
+    file: str | None = None,
+    format: str | None = None,
+)
+</code></pre>
+<ul>
+<li><strong><code>file</code></strong>: Target file path. If omitted, defaults to <code>&lt;script_name&gt;.png</code> in the directory of the running script.</li>
+<li><strong><code>format</code></strong>: File format (<code>&quot;png&quot;</code>, <code>&quot;svg&quot;</code>, <code>&quot;pdf&quot;</code>, <code>&quot;webp&quot;</code>). If omitted, inferred from the filename extension or defaults to <code>&quot;png&quot;</code>.</li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+In Markdown embedded code blocks (<code>```drawlib</code>), you do <strong>not</strong> need to call <code>save()</code>. The Document Builder captures the canvas automatically.</p>
+</blockquote>
+<hr />
+<h3>3.3. <code>show()</code></h3>
+<p>Opens a local interactive desktop window displaying the illustration. In headless environments (CI/CD, Docker, remote servers), use <code>save()</code> or CLI <code>drawlib show -o &lt;path&gt;</code> instead.</p>
+<h3>3.4. <code>clear()</code> and <code>initialize()</code></h3>
+<p>Resets canvas geometry, clears registered artists, and restores default styles. <code>initialize()</code> is an alias for <code>clear()</code>.</p>
+<h3>3.5. <code>get_dimage()</code></h3>
+<p>Renders the canvas in-memory and returns a <code>Dimage</code> object, allowing programmatic image transformations, cropping, and chaining without writing temporary files to disk.</p>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

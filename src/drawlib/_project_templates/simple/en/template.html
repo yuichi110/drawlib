@@ -179,6 +179,7 @@ tr:nth-child(even) {
 
 .drawlib-image {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 2rem 0;
@@ -198,6 +199,16 @@ tr:nth-child(even) {
 .drawlib-image img, .drawlib-image svg {
     max-width: 100%;
     height: auto;
+    display: block;
+}
+
+.drawlib-caption {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--rtd-muted-color, #64748b);
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.4;
 }
 
 details.drawlib-code-details {

@@ -1,0 +1,442 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PieChart: Proportional Compositions & Donut Badges</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">PieChart: Proportional Compositions & Donut Badges</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>PieChart: Proportional Compositions &amp; Donut Badges</h1>
+<p><code>PieChart</code> visualizes proportional compositions where slices represent parts of a whole ($100%$). It supports classic solid pie charts, modern donut rings with center KPI badges, and outward slice explosion for emphasizing key figures.</p>
+<hr />
+<h2>1. Overview &amp; Topologies</h2>
+<pre><code class="language-text">        Standard Pie Chart                          Donut Chart with Center KPI
+            12 o'clock                                      12 o'clock
+                ▲                                               ▲
+            . - ~ - .                                       . - ~ - .
+        . '    |    ' .                             . '    |    ' .
+      /        |  45%   \                         /    ┌───────┐    \
+     |  35%    |         |                       |     │ $1.2B │     |
+     |         |   20%   |                       |     │  ARR  │     |
+      \        |        /                         \    └───────┘    /
+        . '    |    ' .                             . '    |    ' .
+            ' - ~ - '                                       ' - ~ - '
+</code></pre>
+<ul>
+<li><strong>Solid Pie (<code>hole_ratio=0.0</code>)</strong>: Traditional full sector representation.</li>
+<li><strong>Donut Chart (<code>hole_ratio=0.5</code> to <code>0.7</code>)</strong>: Modern ring layout that provides central canvas real estate for large numeric key indicators (<code>center_text</code>).</li>
+<li><strong>Exploded Slices (<code>explode &gt; 0.0</code>)</strong>: Displaces a specific wedge radially outwards from the center for visual emphasis.</li>
+</ul>
+<hr />
+<h2>2. Constructor &amp; Configuration</h2>
+<pre><code class="language-python">from drawlib.charts.pie import PieChart
+
+chart = PieChart(
+    radius=26.0,                # Outer radius in canvas coordinate units
+    hole_ratio=0.62,            # Inner hole ratio (0.0 for pie, 0.6+ for donut)
+    center_text=&quot;$1.2B\nARR&quot;,   # Center badge text (supports multiline)
+    title=&quot;Revenue by Product&quot;, # Top title text
+    start_angle=90.0,           # Starting angle in degrees (90.0 = 12 o'clock)
+    clockwise=True,             # Clockwise slice progression
+    show_values=True,           # Display percentage labels on slices
+    value_format=&quot;{:.1f}%&quot;,     # Formatter for percentage badges
+    legend_position=&quot;right&quot;,    # &quot;right&quot;, &quot;bottom&quot;, &quot;top&quot;, &quot;none&quot;
+)
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>radius</code></td>
+<td><code>float</code></td>
+<td><code>20.0</code></td>
+<td>Outer radius of the pie circle in canvas units.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Chart title displayed at the top.</td>
+</tr>
+<tr>
+<td><code>hole_ratio</code></td>
+<td><code>float</code></td>
+<td><code>0.0</code></td>
+<td>Inner hole ratio (0.0 for solid pie; 0.1 to 0.9 for donut ring).</td>
+</tr>
+<tr>
+<td><code>center_text</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Text rendered in center hole of donut (supports <code>\n</code>).</td>
+</tr>
+<tr>
+<td><code>start_angle</code></td>
+<td><code>float</code></td>
+<td><code>90.0</code></td>
+<td>Starting radial angle in degrees (90.0 is 12 o'clock).</td>
+</tr>
+<tr>
+<td><code>clockwise</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether slices are ordered clockwise.</td>
+</tr>
+<tr>
+<td><code>show_values</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to display percentage labels on slices ($\ge 4%$).</td>
+</tr>
+<tr>
+<td><code>value_format</code></td>
+<td><code>FormatterType</code></td>
+<td><code>&quot;{:.1f}%&quot;</code></td>
+<td>String format or function converting proportional ratio.</td>
+</tr>
+<tr>
+<td><code>legend_position</code></td>
+<td><code>LegendPosition</code></td>
+<td><code>&quot;right&quot;</code></td>
+<td>Legend box placement (<code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;none&quot;</code>).</td>
+</tr>
+<tr>
+<td><code>width</code> / <code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Optional container dimension overrides.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Donut Chart with Center KPI Badge</h2>
+<p>Donut charts are the preferred choice for enterprise dashboards and executive presentations.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="pie_images/1.png" alt="pie_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Revenue Contribution Donut Chart</figcaption>
+</figure>
+<hr />
+<h2>4. Exploded Slice Allocation</h2>
+<p>Setting <code>explode &gt; 0.0</code> radially displaces a slice away from the center origin, drawing immediate focus to that wedge:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="pie_images/2.png" alt="pie_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Budget Allocation with Exploded Slice</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Category Count</strong>: Keep total slices between 3 and 7. More than 7 slices makes comparison difficult; consider grouping smaller items into an <code>&quot;Others&quot;</code> category.</li>
+<li><strong>Small Slice Suppression</strong>: Drawlib automatically suppresses percentage labels for slices with $&lt; 4%$ share to prevent label collisions. Rely on the legend for small items.</li>
+<li><strong>Canvas Bounds</strong>: Since the pie chart radius extends equally in all radial directions, ensure sufficient canvas padding on all four sides (<code>canvas.setup(width=95, height=75)</code> with <code>radius=26</code>).</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

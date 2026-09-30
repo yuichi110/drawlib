@@ -7,8 +7,18 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Drawlib configuration file."""
+"""Drawlib styles configuration file."""
 
 from __future__ import annotations
 
-# Configure global drawing settings, custom preset styles, or fonts here.
+# Configure project-wide drawing styles, custom preset styles, or colors here.
+#
+# All variables defined here will automatically override or extend drawlib.styles.
+#
+# Example (customizing default theme):
+#
+# from drawlib.preset_colors import DefaultColors
+# from drawlib.preset_styles import DefaultStyles
+#
+# Colors = DefaultColors()
+# Styles = DefaultStyles()

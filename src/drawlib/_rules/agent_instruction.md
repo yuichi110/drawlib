@@ -139,7 +139,7 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | :--- | :--- | :--- |
 | `uv run drawlib rules show agent-instruction` | `agent-instruction` | This bootstrap manual (purpose, capabilities, workflow loop). |
 | `uv run drawlib rules show overview` | `overview` | Canvas coordinate space `(0,0)` at bottom-left, Cartesian geometry, lifecycle (`setup`, `clear`, `save`). |
-| `uv run drawlib rules show style-guide` | `style-guide` | 60-30-10 color rule, semantic roles vs raw colors, padding, grid alignment, typography hierarchy. |
+| `uv run drawlib rules show style-guide` | `style-guide` | 6-color semantic system, primary anchor, padding, grid alignment, typography hierarchy. |
 | `uv run drawlib rules show project` | `project` | Project scaffolding (`init`), 4 template types (`site`, `simple`, `pdf`, `image`), `docs_src/`, `navbar.md`, builds. |
 | `uv run drawlib rules show cli` | `cli` | Complete command line interface (`build`, `show`, `init`, `serve`, `cache`, `rules`). |
 

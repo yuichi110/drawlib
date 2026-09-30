@@ -33,6 +33,12 @@ from drawlib._core.styles import BaseColors, Color, Style
 from drawlib._preset_colors import (
     Colors140,
     DefaultColors,
+    DefaultColors1,
+    DefaultColors2,
+    DefaultColors3,
+    DefaultColors4,
+    DefaultColors5,
+    DefaultColors6,
     GoogleColors,
     MonochromeColors,
 )
@@ -55,6 +61,13 @@ SortMode = Literal["hsv", "name", "raw"]
 
 _PRESET_MAP: dict[str, tuple[BaseColors | type[BaseColors], str]] = {
     "default": (DefaultColors, "DefaultColors (Drawlib Default Palette)"),
+    "def": (DefaultColors, "DefaultColors (Drawlib Default Palette)"),
+    "default1": (DefaultColors1, "DefaultColors1 (Drawlib Tone 1 Ultra Light)"),
+    "default2": (DefaultColors2, "DefaultColors2 (Drawlib Tone 2 Light)"),
+    "default3": (DefaultColors3, "DefaultColors3 (Drawlib Tone 3 Medium Soft)"),
+    "default4": (DefaultColors4, "DefaultColors4 (Drawlib Tone 4 Standard Base)"),
+    "default5": (DefaultColors5, "DefaultColors5 (Drawlib Tone 5 Deep)"),
+    "default6": (DefaultColors6, "DefaultColors6 (Drawlib Tone 6 Darkest Shade)"),
     "google": (GoogleColors, "GoogleColors (Official Google Palette)"),
     "monochrome": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
     "mono": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),

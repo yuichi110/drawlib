@@ -1,0 +1,490 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERDiagram: Relational Schemas & Crow's Foot Notations</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">ERDiagram: Relational Schemas & Crow's Foot Notations</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>ERDiagram: Relational Schemas &amp; Crow's Foot Notations</h1>
+<p><code>ERDiagram</code> visualizes relational database architectures adhering strictly to <strong>Information Engineering (IE) / Crow's Foot notation</strong>—the industry standard for physical database schema modeling.</p>
+<hr />
+<h2>1. Overview &amp; Crow's Foot Notation</h2>
+<pre><code class="language-text">     users                               orders
+  ┌──────────────────────┐            ┌──────────────────────┐
+  │ id          INT [PK] │──||────o&lt;──│ id          INT [PK] │
+  │ email   VARCHAR(255) │            │ user_id     INT [FK] │
+  │ name    VARCHAR(100) │            │ total  DECIMAL(10,2) │
+  └──────────────────────┘            └──────────────────────┘
+</code></pre>
+<ul>
+<li><strong>Information Engineering (IE) Standard</strong>: Uses standard Crow's Foot markers (<code>||</code> for exactly 1, <code>o&lt;</code> for zero or more, <code>|&lt;</code> for one or more, <code>o|</code> for zero or one).</li>
+<li><strong>Column-Level Anchoring</strong>: Rather than connecting to arbitrary points on the table perimeter, Drawlib allows you to anchor lines directly to the specific primary key and foreign key table rows (<code>start_column=&quot;id&quot;</code>, <code>end_column=&quot;user_id&quot;</code>).</li>
+<li><strong>Key Badges</strong>: Automatically renders <code>[PK]</code> and <code>[FK]</code> tags next to column definitions with syntax highlighting.</li>
+</ul>
+<hr />
+<h2>2. Constructor &amp; Entity Definition</h2>
+<pre><code class="language-python">from drawlib.diagrams.er import ERDiagram, Entity
+
+er = ERDiagram(title=&quot;Relational Schema&quot;)
+
+# Create entity table
+users = er.add(Entity(name=&quot;users&quot;, width=30.0), xy=(20.0, 45.0))
+users.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
+users.add_column(&quot;email&quot;, type=&quot;VARCHAR(255)&quot;, nullable=False)
+users.add_column(&quot;created_at&quot;, type=&quot;TIMESTAMP&quot;)
+</code></pre>
+<h3>Parameter Reference</h3>
+<h4><code>Entity</code> Class</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>Required</td>
+<td>Table name displayed in entity header band.</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float</code></td>
+<td><code>30.0</code></td>
+<td>Table bounding width in canvas units.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Optional height override (calculated from rows if None).</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional styling for table border and header.</td>
+</tr>
+</tbody>
+</table>
+<h4>Column Properties (<code>add_column</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>Required</td>
+<td>Column field name.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Data type (e.g. <code>INT</code>, <code>VARCHAR(255)</code>).</td>
+</tr>
+<tr>
+<td><code>pk</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>When True, displays the <code>[PK]</code> badge.</td>
+</tr>
+<tr>
+<td><code>fk</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>When True, displays the <code>[FK]</code> badge.</td>
+</tr>
+<tr>
+<td><code>nullable</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether field allows NULL values.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Supported Cardinality Notations</h2>
+<table>
+<thead>
+<tr>
+<th>Cardinality String</th>
+<th>Parent Marker</th>
+<th>Child Marker</th>
+<th>Standard Semantics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;1:*&quot;</code></td>
+<td>Exactly 1 (`</td>
+<td></td>
+<td>`)</td>
+</tr>
+<tr>
+<td><code>&quot;1:1&quot;</code></td>
+<td>Exactly 1 (`</td>
+<td></td>
+<td>`)</td>
+</tr>
+<tr>
+<td><code>&quot;1:1..*&quot;</code></td>
+<td>Exactly 1 (`</td>
+<td></td>
+<td>`)</td>
+</tr>
+<tr>
+<td><code>&quot;1:0..1&quot;</code></td>
+<td>Exactly 1 (`</td>
+<td></td>
+<td>`)</td>
+</tr>
+<tr>
+<td><code>&quot;0..1:1&quot;</code></td>
+<td>Zero or one (`o</td>
+<td>`)</td>
+<td>Exactly 1 (`</td>
+</tr>
+<tr>
+<td><code>&quot;0..1:*&quot;</code></td>
+<td>Zero or one (`o</td>
+<td>`)</td>
+<td>Zero or more (<code>o&lt;</code>)</td>
+</tr>
+<tr>
+<td><code>&quot;*:*&quot;</code></td>
+<td>Zero or more (<code>o&lt;</code>)</td>
+<td>Zero or more (<code>o&lt;</code>)</td>
+<td>Many-to-Many</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. E-Commerce Relational Schema with Column Anchors</h2>
+<p>The following example anchors connections directly to the exact foreign and primary key rows:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="er_images/1.png" alt="er_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">E-Commerce Relational Database Schema</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Always Use Column Anchoring</strong>: Supplying <code>start_column</code> and <code>end_column</code> visually connects the specific foreign key attribute to its referenced primary key, making schemas intuitive and professional.</li>
+<li><strong>Width Budgeting</strong>: Tables with long data types (e.g., <code>VARCHAR(255)</code>) look best with a <code>width</code> of <code>28.0</code> to <code>34.0</code> canvas units.</li>
+<li><strong>Cardinality Strings</strong>: Always use explicit cardinality strings (<code>&quot;1:*&quot;</code>, <code>&quot;1:1&quot;</code>, etc.) rather than manual arrow heads.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

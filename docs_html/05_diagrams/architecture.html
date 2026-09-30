@@ -1,0 +1,433 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Diagrams: Cloud Topologies, Microservices & VPC Boundaries</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Architecture Diagrams: Cloud Topologies, Microservices & VPC Boundaries</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Architecture Diagrams: Cloud Topologies, Microservices &amp; VPC Boundaries</h1>
+<p><code>ArchitectureDiagram</code> visualizes distributed systems, cloud networks, microservices topologies, and infrastructure boundaries. It pairs icon-centric nodes with automatic hierarchical boundary boxes (<code>NodeGroup</code>) and multi-way branch routing.</p>
+<hr />
+<h2>1. Overview &amp; Key Concepts</h2>
+<pre><code class="language-text"> ┌──────────────────────────────────────────────────────────────┐
+ │ VPC Network (NodeGroup)                                      │
+ │   ┌────────────────────────┐    ┌────────────────────────┐   │
+ │   │ Public Subnet          │    │ Private Subnet         │   │
+ │   │      ┌──────┐          │    │      ┌──────┐          │   │
+ │   │      │ [LB] │──────────┼────┼─────►│[App1]│          │   │
+ │   │      └──────┘          │    │      └──────┘          │   │
+ │   └────────────────────────┘    └────────────────────────┘   │
+ └──────────────────────────────────────────────────────────────┘
+</code></pre>
+<ul>
+<li><strong>Icon-Centric Coordinates</strong>: When placing a node via <code>d.add(node, xy=(x, y))</code>, the coordinate strictly defines the <strong>center of the icon</strong>. The text label is offset according to <code>text_position</code> (<code>&quot;bottom&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>), ensuring that horizontally or vertically aligned icons maintain perfectly straight wire connections.</li>
+<li><strong>Hierarchical Auto-Bounding (<code>NodeGroup</code>)</strong>: Groups automatically compute their outer boundary boxes to enclose all enclosed nodes and nested sub-groups with configurable padding.</li>
+<li><strong>Connectable Boundaries</strong>: You can connect edges directly to or from a group's perimeter box as well as individual nodes.</li>
+<li><strong>1-to-N Fan-Out (<code>fork</code>)</strong>: Easily split a single connection line into multiple downstream destinations using an automatic intermediate bus line.</li>
+</ul>
+<hr />
+<h2>2. Constructor &amp; Core Classes</h2>
+<pre><code class="language-python">from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+
+d = ArchitectureDiagram(title=&quot;Production Multi-Tier Cloud VPC&quot;)
+</code></pre>
+<h3>Parameter Reference</h3>
+<h4><code>Node</code> Class</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Node label text (supports <code>\n</code>).</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td><code>IconType | None</code></td>
+<td><code>None</code></td>
+<td><code>PhosphorIcon</code>, <code>GcpIcon</code>, or <code>CustomIcon</code>.</td>
+</tr>
+<tr>
+<td><code>icon_size</code></td>
+<td><code>float</code></td>
+<td><code>8.0</code></td>
+<td>Outer width and height of the icon square.</td>
+</tr>
+<tr>
+<td><code>text_position</code></td>
+<td><code>&quot;bottom&quot;</code> | <code>&quot;top&quot;</code> | <code>&quot;left&quot;</code> | <code>&quot;right&quot;</code></td>
+<td><code>&quot;bottom&quot;</code></td>
+<td>Label placement relative to icon center.</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional typography or node background style.</td>
+</tr>
+</tbody>
+</table>
+<h4><code>NodeGroup</code> Class</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Group banner title (e.g. <code>&quot;VPC Network (10.0.0.0/16)&quot;</code>).</td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td><code>float</code></td>
+<td><code>6.0</code></td>
+<td>Inner margin around enclosed child nodes.</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style for group background fill and boundary border.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Production Cloud VPC Architecture</h2>
+<p>The following complete example demonstrates public and private subnets, load balancing, GKE pods, Cloud SQL, and external users:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/1.png" alt="architecture_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Production Multi-Tier Cloud VPC Topology</figcaption>
+</figure>
+<hr />
+<h2>4. Event-Driven Streaming Mesh</h2>
+<p>You can also use general architecture icons from <code>PhosphorIcon</code> to model messaging queues, Kafka clusters, and analytics engines:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/2.png" alt="architecture_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Event-Driven Message Streaming Topology</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Keep Coordinates Icon-Centric</strong>: When aligning multiple nodes in a row or column, give them the exact same X or Y coordinate. The text labels will not alter the position of the icon or connections.</li>
+<li><strong>Use <code>fork</code> for Fan-Out</strong>: Avoid drawing multiple crossing lines from a single node. Use <code>node.fork([n1, n2, ...], at_x=...)</code> to create clean right-angle bus routes.</li>
+<li><strong>Padded Boundaries</strong>: Always set <code>padding</code> on <code>NodeGroup</code> (typically <code>5.0</code> to <code>7.0</code>) to give enclosed components breathing room from the border lines.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

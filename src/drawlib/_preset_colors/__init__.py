@@ -13,6 +13,12 @@ from drawlib._core.styles import BaseColors
 from drawlib._preset_colors._color_140 import Colors140
 from drawlib._preset_colors._color_default import (
     DefaultColors,
+    DefaultColors1,
+    DefaultColors2,
+    DefaultColors3,
+    DefaultColors4,
+    DefaultColors5,
+    DefaultColors6,
     DefaultDarkColors,
     DefaultLightColors,
 )
@@ -23,6 +29,12 @@ __all__ = [
     "BaseColors",
     "Colors140",
     "DefaultColors",
+    "DefaultColors1",
+    "DefaultColors2",
+    "DefaultColors3",
+    "DefaultColors4",
+    "DefaultColors5",
+    "DefaultColors6",
     "DefaultDarkColors",
     "DefaultLightColors",
     "GoogleColors",

@@ -84,7 +84,7 @@ class TestColors:
         assert default_colors.Black == (0, 0, 0)
         assert default_colors.White == (255, 255, 255)
         assert default_colors.Gray5 == (140, 152, 170)
-        assert default_colors.Blue2 == (111, 111, 239)
+        assert default_colors.Blue2 == (176, 196, 250)
         assert monochrome_colors.Gray5 == (135, 135, 135)
         assert google_colors.Black == (0, 0, 0)
 

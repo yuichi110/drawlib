@@ -275,6 +275,7 @@ th {
 
 .drawlib-image {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 2rem 0;
@@ -284,6 +285,16 @@ th {
 .drawlib-image img, .drawlib-image svg {
     max-width: 100%;
     height: auto;
+    display: block;
+}
+
+.drawlib-caption {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: #737373;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.4;
 }
 
 details.drawlib-code-details {

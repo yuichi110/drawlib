@@ -107,12 +107,16 @@ class TestPresetColorsPascalCaseAccess:
         assert isinstance(DefaultColors.Red, Color)
         assert DefaultColors.Red == (255, 23, 23)
         assert DefaultColors.red == (255, 23, 23)
-        assert DefaultColors.Primary == (111, 111, 239)
-        assert DefaultColors.primary == (111, 111, 239)
+        assert DefaultColors.Primary == (72, 98, 218)
+        assert DefaultColors.primary == (72, 98, 218)
         assert DefaultColors.Transparent == (0, 0, 0, 0.0)
         assert DefaultColors.transparent == (0, 0, 0, 0.0)
-        assert DefaultColors.Blue1 == (210, 225, 255)
-        assert DefaultColors.blue1 == (210, 225, 255)
+        assert DefaultColors.Blue1 == (232, 242, 255)
+        assert DefaultColors.blue1 == (232, 242, 255)
+        assert DefaultColors.Blue4 == (72, 98, 218)
+        assert DefaultColors.blue4 == (72, 98, 218)
+        assert DefaultColors.Blue6 == (18, 32, 95)
+        assert DefaultColors.blue6 == (18, 32, 95)
 
     def test_default_colors_dict_and_dir(self) -> None:
         """Test dictionary access on class and instance."""

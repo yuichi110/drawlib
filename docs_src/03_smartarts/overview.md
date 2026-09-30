@@ -1,0 +1,69 @@
+# SmartArts Overview
+
+Drawing structured diagrams (such as process flows, comparison tables, directory trees, or mindmaps) using raw shapes and lines often requires calculating hundreds of manual coordinates. 
+The `drawlib.smartarts` module eliminates this boilerplate by providing **high-level, declarative layout components**.
+
+---
+
+## 1. What SmartArts Can Do
+
+```drawlib 650px center caption:"SmartArts High-Level Component Showcase"
+from drawlib.canvas import setup
+from drawlib.smartarts import ChevronProcess, Table
+from drawlib.styles import Styles
+
+setup(width=120, height=60)
+
+# 1. ChevronProcess: Automatic stage spacing and interlocking angles
+proc = ChevronProcess(flat_left_end=True, spacing=2.0, default_textstyle=Styles.white_bold)
+proc.append("Plan", style=Styles.primary_flat)
+proc.append("Code", style=Styles.accent_flat)
+proc.append("Test", style=Styles.secondary_flat)
+proc.append("Deploy", style=Styles.success_flat)
+proc.draw(xy=(10, 42), width=100, height=12)
+
+# 2. Table: Structured comparison and schema datasets
+tbl = Table(
+    header_cell_style=Styles.primary_flat,
+    header_text_style=Styles.white_bold,
+    default_cell_style=Styles.muted_flat,
+    default_text_style=Styles.bold,
+    border_style=Styles.bold,
+)
+data = [
+    ["Component", "Target Diagram", "Coordinate Anchor"],
+    ["ChevronProcess", "CI/CD & Phased Pipelines", "Bottom-Left (x, y)"],
+    ["Cycle", "PDCA & Feedback Loops", "Center (cx, cy)"],
+    ["Table", "Comparison & Schema Tables", "Top-Left (x, y)"],
+]
+tbl.draw(xy=(10, 32), width=100, height=22, data=data)
+```
+
+---
+
+## 2. Component Catalog Matrix
+
+| Component | Primary Use Case | Anchor System | Key Methods |
+| :--- | :--- | :--- | :--- |
+| **`ChevronProcess`** | Phased pipelines, CI/CD stages, migration roadmaps | Bottom-Left `(x, y)` | `append()`, `extend()`, `draw()` |
+| **`Cycle`** | PDCA devops loops, circular lifecycles, state loops | Center `(cx, cy)` | `append()`, `set_center()`, `draw()` |
+| **`Table`** | Service SLAs, specification matrices, DB schemas | Top-Left `(x, y)` | `draw()`, `set_style_cell_*()` |
+| **`TreeNode`** | Directory hierarchies, org charts, taxonomy trees | Top-Left `(x, y)` | `draw()`, `add_child()` |
+| **`MindMapNode`** | Brainstorming nodes, radial feature maps | Center `(cx, cy)` | `draw()`, `add_child()` |
+| **`GridLayout`** | Layered architectures, dashboard card grids | Bottom-Left `(x, y)` | `add()`, `draw()` |
+| **`Pyramid`** | Testing pyramids, tiered memory/cache hierarchies | Bottom-Left `(x, y)` | `add()`, `draw()` |
+| **`BulletPoints`** | Architectural takeaways, RFC key points | Top-Left `(x, y)` | `draw()` |
+| **`SourceCode`** | Syntax-highlighted code blocks in diagrams | Top-Left `(x, y)` | `draw()` |
+| **`bubblespeech`** | Speech bubbles, architecture callouts, warnings | Bottom-Left `(x, y)` | Direct function call |
+
+---
+
+## 3. Coordinate Anchor Conventions
+
+Understanding anchor points is essential when combining SmartArts with other elements:
+- **Top-Left Anchored (`Table`, `TreeNode`, `BulletPoints`, `SourceCode`)**:  
+  You specify the top-left coordinate `(x, y)`. Content flows horizontally to the right and vertically downward (`y` decreases).
+- **Bottom-Left Anchored (`ChevronProcess`, `GridLayout`, `Pyramid`, `bubblespeech`)**:  
+  You specify the bottom-left coordinate `(x, y)`. The bounding container extends rightward and upward (`y` increases).
+- **Center Anchored (`Cycle`, `MindMapNode`)**:  
+  You specify the center coordinate `(cx, cy)`. The diagram expands symmetrically or radially around the center.

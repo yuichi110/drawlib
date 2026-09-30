@@ -27,54 +27,70 @@ warnings.filterwarnings(
 class DefaultColors(BaseColors):
     """Class representing colors for default preset styles along with standard colors."""
 
-    # --- 4-Tone Numbered Palette (8 Hues x 4 Levels) ---
+    # --- 6-Tone Numbered Palette (8 Hues x 6 Levels) ---
     # Blue
-    Blue1: Color = Color(210, 225, 255)
-    Blue2: Color = Color(111, 111, 239)
-    Blue3: Color = Color(40, 75, 200)
-    Blue4: Color = Color(18, 32, 95)
+    Blue1: Color = Color(232, 242, 255)
+    Blue2: Color = Color(176, 196, 250)
+    Blue3: Color = Color(120, 145, 242)
+    Blue4: Color = Color(72, 98, 218)
+    Blue5: Color = Color(38, 62, 160)
+    Blue6: Color = Color(18, 32, 95)
 
     # Green
-    Green1: Color = Color(210, 245, 215)
-    Green2: Color = Color(79, 191, 79)
-    Green3: Color = Color(20, 130, 60)
-    Green4: Color = Color(10, 60, 28)
+    Green1: Color = Color(232, 250, 235)
+    Green2: Color = Color(162, 223, 172)
+    Green3: Color = Color(92, 196, 110)
+    Green4: Color = Color(58, 150, 75)
+    Green5: Color = Color(30, 102, 48)
+    Green6: Color = Color(10, 60, 28)
 
     # Red
-    Red1: Color = Color(255, 218, 220)
-    Red2: Color = Color(239, 95, 95)
-    Red3: Color = Color(200, 35, 45)
-    Red4: Color = Color(100, 15, 22)
+    Red1: Color = Color(255, 235, 238)
+    Red2: Color = Color(245, 168, 174)
+    Red3: Color = Color(235, 102, 110)
+    Red4: Color = Color(190, 58, 68)
+    Red5: Color = Color(142, 32, 42)
+    Red6: Color = Color(100, 15, 22)
 
     # Orange
-    Orange1: Color = Color(255, 228, 205)
-    Orange2: Color = Color(245, 145, 65)
-    Orange3: Color = Color(215, 95, 20)
-    Orange4: Color = Color(110, 42, 8)
+    Orange1: Color = Color(255, 238, 218)
+    Orange2: Color = Color(250, 198, 145)
+    Orange3: Color = Color(240, 148, 55)
+    Orange4: Color = Color(215, 100, 20)
+    Orange5: Color = Color(165, 68, 12)
+    Orange6: Color = Color(110, 42, 8)
 
     # Amber
-    Amber1: Color = Color(255, 242, 195)
-    Amber2: Color = Color(235, 185, 55)
-    Amber3: Color = Color(195, 135, 15)
-    Amber4: Color = Color(105, 68, 5)
+    Amber1: Color = Color(255, 246, 222)
+    Amber2: Color = Color(248, 216, 140)
+    Amber3: Color = Color(242, 180, 58)
+    Amber4: Color = Color(215, 134, 20)
+    Amber5: Color = Color(162, 92, 12)
+    Amber6: Color = Color(106, 56, 6)
 
     # Purple
-    Purple1: Color = Color(238, 220, 255)
-    Purple2: Color = Color(165, 115, 235)
-    Purple3: Color = Color(115, 50, 185)
-    Purple4: Color = Color(58, 20, 98)
+    Purple1: Color = Color(245, 232, 255)
+    Purple2: Color = Color(205, 168, 248)
+    Purple3: Color = Color(165, 110, 235)
+    Purple4: Color = Color(128, 55, 195)
+    Purple5: Color = Color(92, 32, 145)
+    Purple6: Color = Color(58, 20, 98)
 
     # Teal
-    Teal1: Color = Color(205, 245, 245)
-    Teal2: Color = Color(60, 180, 180)
-    Teal3: Color = Color(15, 125, 130)
-    Teal4: Color = Color(8, 62, 65)
+    Teal1: Color = Color(230, 250, 250)
+    Teal2: Color = Color(158, 222, 222)
+    Teal3: Color = Color(85, 195, 195)
+    Teal4: Color = Color(42, 152, 154)
+    Teal5: Color = Color(22, 104, 108)
+    Teal6: Color = Color(8, 62, 65)
 
     # Pink
-    Pink1: Color = Color(255, 220, 238)
-    Pink2: Color = Color(240, 110, 175)
-    Pink3: Color = Color(195, 35, 115)
-    Pink4: Color = Color(100, 14, 58)
+    Pink1: Color = Color(255, 230, 242)
+    Pink2: Color = Color(248, 175, 210)
+    Pink3: Color = Color(235, 110, 170)
+    Pink4: Color = Color(195, 45, 125)
+    Pink5: Color = Color(145, 25, 90)
+    Pink6: Color = Color(100, 14, 58)
 
     # --- Neutrals (Grayscale ordered Light to Dark) ---
     White: Color = Color(255, 255, 255)
@@ -109,15 +125,53 @@ class DefaultColors(BaseColors):
     Ivory: Color = Color(239, 239, 207)
     Steel: Color = Color(96, 96, 143)
 
-    # --- Semantic Colors (Default Preset: Tone 2 centered) ---
-    Primary: Color = Blue2
-    Secondary: Color = Teal2
-    Accent: Color = Amber2
-    Muted: Color = Gray2
+    # --- Semantic Numbered Palette (6 Roles x 6 Levels) ---
+    Primary1: Color = Blue1
+    Primary2: Color = Blue2
+    Primary3: Color = Blue3
+    Primary4: Color = Blue4
+    Primary5: Color = Blue5
+    Primary6: Color = Blue6
+    Secondary1: Color = Teal1
+    Secondary2: Color = Teal2
+    Secondary3: Color = Teal3
+    Secondary4: Color = Teal4
+    Secondary5: Color = Teal5
+    Secondary6: Color = Teal6
+    Accent1: Color = Amber1
+    Accent2: Color = Amber2
+    Accent3: Color = Amber3
+    Accent4: Color = Amber4
+    Accent5: Color = Amber5
+    Accent6: Color = Amber6
+    Muted1: Color = Gray1
+    Muted2: Color = Gray2
+    Muted3: Color = Gray3
+    Muted4: Color = Gray4
+    Muted5: Color = Gray5
+    Muted6: Color = Gray6
+    Danger1: Color = Red1
+    Danger2: Color = Red2
+    Danger3: Color = Red3
+    Danger4: Color = Red4
+    Danger5: Color = Red5
+    Danger6: Color = Red6
+    Success1: Color = Green1
+    Success2: Color = Green2
+    Success3: Color = Green3
+    Success4: Color = Green4
+    Success5: Color = Green5
+    Success6: Color = Green6
+
+    # --- Semantic Colors (Tone 4 Centered as Default) ---
+    Primary: Color = Primary4
+    Secondary: Color = Secondary4
+    Accent: Color = Accent4
+    Muted: Color = Muted3
     Light: Color = White
     Dark: Color = Gray7
-    Danger: Color = Red2
-    Success: Color = Green2
+    Danger: Color = Danger4
+    Success: Color = Success4
     Canvas: Color = White
 
     def patch(
@@ -132,6 +186,43 @@ class DefaultColors(BaseColors):
         Dark: ColorType | None = None,
         Danger: ColorType | None = None,
         Success: ColorType | None = None,
+        # Semantic Tones
+        Primary1: ColorType | None = None,
+        Primary2: ColorType | None = None,
+        Primary3: ColorType | None = None,
+        Primary4: ColorType | None = None,
+        Primary5: ColorType | None = None,
+        Primary6: ColorType | None = None,
+        Secondary1: ColorType | None = None,
+        Secondary2: ColorType | None = None,
+        Secondary3: ColorType | None = None,
+        Secondary4: ColorType | None = None,
+        Secondary5: ColorType | None = None,
+        Secondary6: ColorType | None = None,
+        Accent1: ColorType | None = None,
+        Accent2: ColorType | None = None,
+        Accent3: ColorType | None = None,
+        Accent4: ColorType | None = None,
+        Accent5: ColorType | None = None,
+        Accent6: ColorType | None = None,
+        Muted1: ColorType | None = None,
+        Muted2: ColorType | None = None,
+        Muted3: ColorType | None = None,
+        Muted4: ColorType | None = None,
+        Muted5: ColorType | None = None,
+        Muted6: ColorType | None = None,
+        Danger1: ColorType | None = None,
+        Danger2: ColorType | None = None,
+        Danger3: ColorType | None = None,
+        Danger4: ColorType | None = None,
+        Danger5: ColorType | None = None,
+        Danger6: ColorType | None = None,
+        Success1: ColorType | None = None,
+        Success2: ColorType | None = None,
+        Success3: ColorType | None = None,
+        Success4: ColorType | None = None,
+        Success5: ColorType | None = None,
+        Success6: ColorType | None = None,
         # Grays
         White: ColorType | None = None,
         Gray1: ColorType | None = None,
@@ -143,39 +234,55 @@ class DefaultColors(BaseColors):
         Gray7: ColorType | None = None,
         Gray8: ColorType | None = None,
         Black: ColorType | None = None,
-        # 4-Tone Numbered Palette
+        # 6-Tone Numbered Palette
         Blue1: ColorType | None = None,
         Blue2: ColorType | None = None,
         Blue3: ColorType | None = None,
         Blue4: ColorType | None = None,
+        Blue5: ColorType | None = None,
+        Blue6: ColorType | None = None,
         Green1: ColorType | None = None,
         Green2: ColorType | None = None,
         Green3: ColorType | None = None,
         Green4: ColorType | None = None,
+        Green5: ColorType | None = None,
+        Green6: ColorType | None = None,
         Red1: ColorType | None = None,
         Red2: ColorType | None = None,
         Red3: ColorType | None = None,
         Red4: ColorType | None = None,
+        Red5: ColorType | None = None,
+        Red6: ColorType | None = None,
         Orange1: ColorType | None = None,
         Orange2: ColorType | None = None,
         Orange3: ColorType | None = None,
         Orange4: ColorType | None = None,
+        Orange5: ColorType | None = None,
+        Orange6: ColorType | None = None,
         Amber1: ColorType | None = None,
         Amber2: ColorType | None = None,
         Amber3: ColorType | None = None,
         Amber4: ColorType | None = None,
+        Amber5: ColorType | None = None,
+        Amber6: ColorType | None = None,
         Purple1: ColorType | None = None,
         Purple2: ColorType | None = None,
         Purple3: ColorType | None = None,
         Purple4: ColorType | None = None,
+        Purple5: ColorType | None = None,
+        Purple6: ColorType | None = None,
         Teal1: ColorType | None = None,
         Teal2: ColorType | None = None,
         Teal3: ColorType | None = None,
         Teal4: ColorType | None = None,
+        Teal5: ColorType | None = None,
+        Teal6: ColorType | None = None,
         Pink1: ColorType | None = None,
         Pink2: ColorType | None = None,
         Pink3: ColorType | None = None,
         Pink4: ColorType | None = None,
+        Pink5: ColorType | None = None,
+        Pink6: ColorType | None = None,
         # Standard Primaries
         Red: ColorType | None = None,
         Green: ColorType | None = None,
@@ -210,67 +317,119 @@ class DefaultColors(BaseColors):
             Dark: Dark semantic color.
             Danger: Danger semantic color.
             Success: Success semantic color.
-            White: White neutral color.
-            Gray1: Neutral gray level 1.
-            Gray2: Neutral gray level 2.
-            Gray3: Neutral gray level 3.
-            Gray4: Neutral gray level 4.
-            Gray5: Neutral gray level 5.
-            Gray6: Neutral gray level 6.
-            Gray7: Neutral gray level 7.
-            Gray8: Neutral gray level 8.
-            Black: Black neutral color.
-            Blue1: Blue tone level 1.
-            Blue2: Blue tone level 2.
-            Blue3: Blue tone level 3.
-            Blue4: Blue tone level 4.
-            Green1: Green tone level 1.
-            Green2: Green tone level 2.
-            Green3: Green tone level 3.
-            Green4: Green tone level 4.
-            Red1: Red tone level 1.
-            Red2: Red tone level 2.
-            Red3: Red tone level 3.
-            Red4: Red tone level 4.
-            Orange1: Orange tone level 1.
-            Orange2: Orange tone level 2.
-            Orange3: Orange tone level 3.
-            Orange4: Orange tone level 4.
-            Amber1: Amber tone level 1.
-            Amber2: Amber tone level 2.
-            Amber3: Amber tone level 3.
-            Amber4: Amber tone level 4.
-            Purple1: Purple tone level 1.
-            Purple2: Purple tone level 2.
-            Purple3: Purple tone level 3.
-            Purple4: Purple tone level 4.
-            Teal1: Teal tone level 1.
-            Teal2: Teal tone level 2.
-            Teal3: Teal tone level 3.
-            Teal4: Teal tone level 4.
-            Pink1: Pink tone level 1.
-            Pink2: Pink tone level 2.
-            Pink3: Pink tone level 3.
-            Pink4: Pink tone level 4.
-            Red: Standard red primary color.
-            Green: Standard green primary color.
-            Blue: Standard blue primary color.
-            Yellow: Standard yellow primary color.
-            Orange: Standard orange primary color.
-            Purple: Standard purple primary color.
-            Pink: Standard pink primary color.
-            Cyan: Standard cyan primary color.
-            Magenta: Standard magenta primary color.
-            Lime: Standard lime primary color.
-            Teal: Standard teal primary color.
-            Navy: Standard navy primary color.
-            Olive: Standard olive primary color.
-            Brown: Standard brown primary color.
-            Gold: Standard gold primary color.
-            Aqua: Standard aqua primary color.
-            GreenYellow: Standard green-yellow primary color.
-            Ivory: Standard ivory primary color.
-            Steel: Standard steel primary color.
+            Primary1: Primary semantic color tone level 1.
+            Primary2: Primary semantic color tone level 2.
+            Primary3: Primary semantic color tone level 3.
+            Primary4: Primary semantic color tone level 4.
+            Primary5: Primary semantic color tone level 5.
+            Primary6: Primary semantic color tone level 6.
+            Secondary1: Secondary semantic color tone level 1.
+            Secondary2: Secondary semantic color tone level 2.
+            Secondary3: Secondary semantic color tone level 3.
+            Secondary4: Secondary semantic color tone level 4.
+            Secondary5: Secondary semantic color tone level 5.
+            Secondary6: Secondary semantic color tone level 6.
+            Accent1: Accent semantic color tone level 1.
+            Accent2: Accent semantic color tone level 2.
+            Accent3: Accent semantic color tone level 3.
+            Accent4: Accent semantic color tone level 4.
+            Accent5: Accent semantic color tone level 5.
+            Accent6: Accent semantic color tone level 6.
+            Muted1: Muted semantic color tone level 1.
+            Muted2: Muted semantic color tone level 2.
+            Muted3: Muted semantic color tone level 3.
+            Muted4: Muted semantic color tone level 4.
+            Muted5: Muted semantic color tone level 5.
+            Muted6: Muted semantic color tone level 6.
+            Danger1: Danger semantic color tone level 1.
+            Danger2: Danger semantic color tone level 2.
+            Danger3: Danger semantic color tone level 3.
+            Danger4: Danger semantic color tone level 4.
+            Danger5: Danger semantic color tone level 5.
+            Danger6: Danger semantic color tone level 6.
+            Success1: Success semantic color tone level 1.
+            Success2: Success semantic color tone level 2.
+            Success3: Success semantic color tone level 3.
+            Success4: Success semantic color tone level 4.
+            Success5: Success semantic color tone level 5.
+            Success6: Success semantic color tone level 6.
+            White: Neutral White color.
+            Gray1: Neutral Gray1 color.
+            Gray2: Neutral Gray2 color.
+            Gray3: Neutral Gray3 color.
+            Gray4: Neutral Gray4 color.
+            Gray5: Neutral Gray5 color.
+            Gray6: Neutral Gray6 color.
+            Gray7: Neutral Gray7 color.
+            Gray8: Neutral Gray8 color.
+            Black: Neutral Black color.
+            Blue1: Blue color tone level 1.
+            Blue2: Blue color tone level 2.
+            Blue3: Blue color tone level 3.
+            Blue4: Blue color tone level 4.
+            Blue5: Blue color tone level 5.
+            Blue6: Blue color tone level 6.
+            Green1: Green color tone level 1.
+            Green2: Green color tone level 2.
+            Green3: Green color tone level 3.
+            Green4: Green color tone level 4.
+            Green5: Green color tone level 5.
+            Green6: Green color tone level 6.
+            Red1: Red color tone level 1.
+            Red2: Red color tone level 2.
+            Red3: Red color tone level 3.
+            Red4: Red color tone level 4.
+            Red5: Red color tone level 5.
+            Red6: Red color tone level 6.
+            Orange1: Orange color tone level 1.
+            Orange2: Orange color tone level 2.
+            Orange3: Orange color tone level 3.
+            Orange4: Orange color tone level 4.
+            Orange5: Orange color tone level 5.
+            Orange6: Orange color tone level 6.
+            Amber1: Amber color tone level 1.
+            Amber2: Amber color tone level 2.
+            Amber3: Amber color tone level 3.
+            Amber4: Amber color tone level 4.
+            Amber5: Amber color tone level 5.
+            Amber6: Amber color tone level 6.
+            Purple1: Purple color tone level 1.
+            Purple2: Purple color tone level 2.
+            Purple3: Purple color tone level 3.
+            Purple4: Purple color tone level 4.
+            Purple5: Purple color tone level 5.
+            Purple6: Purple color tone level 6.
+            Teal1: Teal color tone level 1.
+            Teal2: Teal color tone level 2.
+            Teal3: Teal color tone level 3.
+            Teal4: Teal color tone level 4.
+            Teal5: Teal color tone level 5.
+            Teal6: Teal color tone level 6.
+            Pink1: Pink color tone level 1.
+            Pink2: Pink color tone level 2.
+            Pink3: Pink color tone level 3.
+            Pink4: Pink color tone level 4.
+            Pink5: Pink color tone level 5.
+            Pink6: Pink color tone level 6.
+            Red: Classic primary Red color.
+            Green: Classic primary Green color.
+            Blue: Classic primary Blue color.
+            Yellow: Classic primary Yellow color.
+            Orange: Classic primary Orange color.
+            Purple: Classic primary Purple color.
+            Pink: Classic primary Pink color.
+            Cyan: Classic primary Cyan color.
+            Magenta: Classic primary Magenta color.
+            Lime: Classic primary Lime color.
+            Teal: Classic primary Teal color.
+            Navy: Classic primary Navy color.
+            Olive: Classic primary Olive color.
+            Brown: Classic primary Brown color.
+            Gold: Classic primary Gold color.
+            Aqua: Classic primary Aqua color.
+            GreenYellow: Classic primary GreenYellow color.
+            Ivory: Classic primary Ivory color.
+            Steel: Classic primary Steel color.
             **kwargs: Additional color attributes to update.
 
         Returns:
@@ -280,36 +439,103 @@ class DefaultColors(BaseColors):
         return super().patch(**passed, **kwargs)
 
 
-class DefaultLightColors(DefaultColors):
-    """Class representing colors for default light/pastel preset styles (Tone 1 centered)."""
+class DefaultColors1(DefaultColors):
+    """Class representing colors for Default preset Tone 1 (Ultra light pastel)."""
 
-    Primary: Color = DefaultColors.Blue1
-    Secondary: Color = DefaultColors.Teal1
-    Accent: Color = DefaultColors.Amber1
-    Muted: Color = DefaultColors.Gray1
+    Primary: Color = DefaultColors.Primary1
+    Secondary: Color = DefaultColors.Secondary1
+    Accent: Color = DefaultColors.Accent1
+    Muted: Color = DefaultColors.Muted1
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray7
-    Danger: Color = DefaultColors.Red1
-    Success: Color = DefaultColors.Green1
+    Danger: Color = DefaultColors.Danger1
+    Success: Color = DefaultColors.Success1
     Canvas: Color = DefaultColors.White
 
 
-class DefaultDarkColors(DefaultColors):
-    """Class representing colors for default deep tone preset styles (Tone 3 centered)."""
+class DefaultColors2(DefaultColors):
+    """Class representing colors for Default preset Tone 2 (Light / card background)."""
 
-    Primary: Color = DefaultColors.Blue3
-    Secondary: Color = DefaultColors.Teal3
-    Accent: Color = DefaultColors.Amber3
-    Muted: Color = DefaultColors.Gray6
-    Light: Color = DefaultColors.Gray3
+    Primary: Color = DefaultColors.Primary2
+    Secondary: Color = DefaultColors.Secondary2
+    Accent: Color = DefaultColors.Accent2
+    Muted: Color = DefaultColors.Muted2
+    Light: Color = DefaultColors.White
+    Dark: Color = DefaultColors.Gray7
+    Danger: Color = DefaultColors.Danger2
+    Success: Color = DefaultColors.Success2
+    Canvas: Color = DefaultColors.White
+
+
+class DefaultColors3(DefaultColors):
+    """Class representing colors for Default preset Tone 3 (Medium soft)."""
+
+    Primary: Color = DefaultColors.Primary3
+    Secondary: Color = DefaultColors.Secondary3
+    Accent: Color = DefaultColors.Accent3
+    Muted: Color = DefaultColors.Muted3
+    Light: Color = DefaultColors.White
+    Dark: Color = DefaultColors.Gray7
+    Danger: Color = DefaultColors.Danger3
+    Success: Color = DefaultColors.Success3
+    Canvas: Color = DefaultColors.White
+
+
+class DefaultColors4(DefaultColors):
+    """Class representing colors for Default preset Tone 4 (Standard base / high contrast)."""
+
+    Primary: Color = DefaultColors.Primary4
+    Secondary: Color = DefaultColors.Secondary4
+    Accent: Color = DefaultColors.Accent4
+    Muted: Color = DefaultColors.Muted3
+    Light: Color = DefaultColors.White
+    Dark: Color = DefaultColors.Gray7
+    Danger: Color = DefaultColors.Danger4
+    Success: Color = DefaultColors.Success4
+    Canvas: Color = DefaultColors.White
+
+
+class DefaultColors5(DefaultColors):
+    """Class representing colors for Default preset Tone 5 (Deep tone)."""
+
+    Primary: Color = DefaultColors.Primary5
+    Secondary: Color = DefaultColors.Secondary5
+    Accent: Color = DefaultColors.Accent5
+    Muted: Color = DefaultColors.Muted5
+    Light: Color = DefaultColors.White
+    Dark: Color = DefaultColors.Gray7
+    Danger: Color = DefaultColors.Danger5
+    Success: Color = DefaultColors.Success5
+    Canvas: Color = DefaultColors.White
+
+
+class DefaultColors6(DefaultColors):
+    """Class representing colors for Default preset Tone 6 (Darkest shade)."""
+
+    Primary: Color = DefaultColors.Primary6
+    Secondary: Color = DefaultColors.Secondary6
+    Accent: Color = DefaultColors.Accent6
+    Muted: Color = DefaultColors.Muted6
+    Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray8
-    Danger: Color = DefaultColors.Red3
-    Success: Color = DefaultColors.Green3
+    Danger: Color = DefaultColors.Danger6
+    Success: Color = DefaultColors.Success6
     Canvas: Color = DefaultColors.White
+
+
+# --- Backward Compatibility Aliases ---
+DefaultLightColors = DefaultColors2
+DefaultDarkColors = DefaultColors5
 
 
 __all__ = [
     "DefaultColors",
+    "DefaultColors1",
+    "DefaultColors2",
+    "DefaultColors3",
+    "DefaultColors4",
+    "DefaultColors5",
+    "DefaultColors6",
     "DefaultDarkColors",
     "DefaultLightColors",
 ]

@@ -32,6 +32,12 @@ from drawlib._core.styles import Color, Style
 from drawlib._preset_styles import (
     BaseStyles,
     DefaultStyles,
+    DefaultStyles1,
+    DefaultStyles2,
+    DefaultStyles3,
+    DefaultStyles4,
+    DefaultStyles5,
+    DefaultStyles6,
     GoogleStyles,
     MonochromeStyles,
 )
@@ -60,8 +66,14 @@ def _get_preset(cls: type[BaseStyles]) -> BaseStyles:
 
 
 _PRESET_MAP: dict[str, tuple[BaseStyles, str]] = {
-    "default": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles)"),
-    "def": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles)"),
+    "default": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles - Tone 4)"),
+    "def": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles - Tone 4)"),
+    "default1": (_get_preset(DefaultStyles1), "DefaultStyles1 (Drawlib Tone 1 Ultra Light)"),
+    "default2": (_get_preset(DefaultStyles2), "DefaultStyles2 (Drawlib Tone 2 Light)"),
+    "default3": (_get_preset(DefaultStyles3), "DefaultStyles3 (Drawlib Tone 3 Medium Soft)"),
+    "default4": (_get_preset(DefaultStyles4), "DefaultStyles4 (Drawlib Tone 4 Standard Base)"),
+    "default5": (_get_preset(DefaultStyles5), "DefaultStyles5 (Drawlib Tone 5 Deep)"),
+    "default6": (_get_preset(DefaultStyles6), "DefaultStyles6 (Drawlib Tone 6 Darkest Shade)"),
     "monochrome": (_get_preset(MonochromeStyles), "MonochromeStyles (Grayscale / B&W Styles)"),
     "mono": (_get_preset(MonochromeStyles), "MonochromeStyles (Grayscale / B&W Styles)"),
     "google": (_get_preset(GoogleStyles), "GoogleStyles (Google Sheets Palette Styles)"),

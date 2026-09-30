@@ -18,37 +18,47 @@ Every visual element in a technical diagram should convey information. Avoid clu
 
 ---
 
-## 2. The 60-30-10 Color Rule for Technical Diagrams
+## 2. The 6-Color Semantic Design System
 
-Maintain a controlled, cohesive visual hierarchy using the 60-30-10 color principle:
+Drawlib structures diagram color schemes around **6 fundamental semantic roles**, anchoring the illustration around `primary` while allowing rich, expressive use of the remaining roles:
 
 ```text
 ┌────────────────────────────────────────────────────────┐
-│ 60% Neutral & Structural Base                          │
-│ Canvas background, group boundaries, subnets, borders  │
-│ (styles.muted_outline, styles.muted_dashed)            │
-│  ┌──────────────────────────────────────────────────┐  │
-│  │ 30% Primary Flow & Core Services                 │  │
-│  │ Core application services, databases, messaging  │  │
-│  │ (styles.primary, styles.secondary)               │  │
-│  │  ┌────────────────────────┐                      │  │
-│  │  │ 10% Accent & Focus     │                      │  │
-│  │  │ Triggers, users, entry │                      │  │
-│  │  │ (styles.accent)        │                      │  │
-│  │  └────────────────────────┘                      │  │
-│  └──────────────────────────────────────────────────┘  │
+│ Muted (Structural Foundation)                          │
+│ Canvas background, group boundaries, subnets, clusters │
+│ (Styles.muted, Styles.muted_dashed, Styles.muted_flat) │
+│                                                        │
+│  ┌───────────────────────┐   ┌──────────────────────┐  │
+│  │ Primary (Visual Core) │──>│ Secondary / Accent   │  │
+│  │ Core services & flows │   │ Auxiliary, events, DB│  │
+│  │ (Styles.primary)      │   │ (secondary, accent)  │  │
+│  └───────────┬───────────┘   └──────────────────────┘  │
+│              │                                         │
+│              ▼                                         │
+│  ┌───────────────────────┐   ┌──────────────────────┐  │
+│  │ Success (Valid Path)  │   │ Danger (Alert/Risk)  │  │
+│  │ Healthy, target output│   │ Errors, failure paths│  │
+│  │ (Styles.success)      │   │ (Styles.danger)      │  │
+│  └───────────────────────┘   └──────────────────────┘  │
 └────────────────────────────────────────────────────────┘
 ```
 
-- **60% Neutral / Muted**: Canvas background, structural group boundaries, cluster containers (`styles.muted_dashed`, `styles.muted_outline`).
-- **30% Primary / Secondary**: Main architectural flow, application components, databases, servers (`styles.primary`, `styles.primary_flat`, `styles.secondary`).
-- **10% Accent / Focus**: Triggers, clients/users, API gateways, key milestones, critical alerts (`styles.accent`, `styles.red`, `styles.green`).
+### Core Color Principles:
+1. **Primary as the Visual Anchor**:
+   - `Styles.primary` serves as the primary focal point, core services, and central workflow spine.
+   - Using `primary` consistently anchors the eye and gives the diagram a unified, recognizable identity.
+2. **Active, Equal-Standing Role Usage (No Artificial Frequency Restrictions)**:
+   - Technical diagrams require rich classification to distinguish multiple services, databases, external systems, and states.
+   - Unlike generic web layout rules that suppress secondary colors or relegate accent/alert colors to rare appearances, Drawlib treats all 6 colors as active, functional design assets.
+   - `secondary`, `accent`, `danger`, and `success` operate on equal standing without artificial percentage quotas. Use each color wherever its functional meaning naturally applies.
+3. **Muted for Calm Structural Grounding**:
+   - `Styles.muted` (`muted_dashed`, `muted_outline`, `muted_flat`) provides containers, grouping boundaries, and network subnets without competing for attention with functional nodes.
 
 ---
 
-## 3. Prefer Semantic Roles over Raw Palette Colors
+## 3. Semantic Roles & Visual Intent
 
-Drawlib presets organize styles into semantic roles with 10 orthogonal visual variants:
+Drawlib presets organize styles into semantic roles with 14 orthogonal visual variants:
 - **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **6 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`, `danger`, `success`).
 - **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes danger/success.
 
@@ -68,32 +78,36 @@ Drawlib presets organize styles into semantic roles with 10 orthogonal visual va
 
 ### 3.1. Example: Using `Styles` and `Colors` in Diagrams
 
-The following embedded Markdown block illustrates the 60-30-10 color rule using semantic roles and connectors:
+The following embedded Markdown block illustrates the 6-color semantic system using functional roles and connectors:
 
 ````markdown
 ```drawlib 600px center caption:"Architecture Flow with Semantic Roles"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
-from drawlib.styles import Colors, Styles
+from drawlib.styles import Styles
 
 setup(width=140, height=70)
 
-# 1. 60% Neutral: Structural Boundary / Subnet Container
-rectangle((70, 35), width=120, height=52, style=Styles.muted_dashed)
+# 1. Structural Boundary / Subnet Container (Muted)
+rectangle((70, 35), width=124, height=52, style=Styles.muted_dashed)
 
-# 2. 10% Accent: External Client / Entrypoint
-rectangle((30, 35), width=28, height=18, style=Styles.accent_flat, text="Client App", textstyle=Styles.white_bold)
+# 2. External Client Entrypoint (Accent)
+rectangle((24, 35), width=24, height=18, style=Styles.accent_flat, text="Client App", textstyle=Styles.white_bold)
 
-# 3. 30% Primary: Core Microservice
-rectangle((70, 35), width=28, height=18, style=Styles.primary_flat, text="API Gateway", textstyle=Styles.white_bold)
+# 3. Core Processing Service (Primary Anchor)
+rectangle((60, 35), width=26, height=18, style=Styles.primary_flat, text="API Gateway", textstyle=Styles.white_bold)
 
-# 4. 30% Secondary: Auxiliary Database / Storage
-rectangle((110, 35), width=28, height=18, style=Styles.secondary_flat, text="Database", textstyle=Styles.white_bold)
+# 4. Auxiliary Microservice (Secondary)
+rectangle((96, 45), width=24, height=14, style=Styles.secondary_flat, text="Auth Service", textstyle=Styles.white_bold)
 
-# 5. Connectors with semantic line styles
-line((44, 35), (56, 35), arrowhead="->", style=Styles.bold)
-line((84, 35), (96, 35), arrowhead="->", style=Styles.bold)
+# 5. Verified Data Sink (Success)
+rectangle((96, 25), width=24, height=14, style=Styles.success_flat, text="Audit Log", textstyle=Styles.white_bold)
+
+# 6. Connectors with semantic line styles
+line((36, 35), (47, 35), arrowhead="->", style=Styles.bold)
+line((73, 40), (84, 45), arrowhead="->", style=Styles.bold)
+line((73, 30), (84, 25), arrowhead="->", style=Styles.bold)
 ```
 ````
 

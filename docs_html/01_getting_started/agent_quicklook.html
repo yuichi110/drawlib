@@ -1,0 +1,399 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Driven Workflow & Agent Setup</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">AI-Driven Workflow & Agent Setup</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>AI-Driven Workflow &amp; Agent Setup</h1>
+<p>Drawlib v0.3 is engineered from the ground up for <strong>autonomous AI coding agents</strong> (such as Claude Code, Cursor, Gemini, and GitHub Copilot).</p>
+<p>Instead of requiring human engineers to manually craft technical specifications and draw architecture diagrams, Drawlib makes it possible to delegate the <strong>entire documentation lifecycle</strong> to AI agents.</p>
+<hr />
+<h2>Why Drawlib is Ideal for AI Agents</h2>
+<p>When tasked with generating technical illustrations, AI agents typically struggle with raw SVG generation or GUI design tools:</p>
+<ul>
+<li><strong>Raw SVGs are brittle</strong>: LLMs frequently miscalculate coordinate bounds, leading to clipped text and misaligned arrows.</li>
+<li><strong>Low-level Matplotlib requires boilerplate</strong>: Matplotlib is designed for statistical plots, not clean software architecture schemas.</li>
+<li><strong>GUI tools cannot be driven by agents</strong>: AI agents cannot drag and drop shapes in Visio or Figma.</li>
+</ul>
+<h3>The Drawlib Advantage for LLMs</h3>
+<ol>
+<li><strong>High-Level Declarative Abstractions</strong>:<br />
+Instead of drawing raw boxes and wires, an agent simply writes <code>ArchitectureDiagram</code>, <code>ERDiagram</code>, or <code>FlowDiagram</code>. The library handles orthogonal routing, padding, and marker styling automatically.</li>
+<li><strong>Built-in Visual Harmony</strong>:<br />
+Predefined semantic styles (<code>Styles.primary_flat</code>, <code>Styles.accent_flat</code>) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.</li>
+<li><strong>On-Demand Rule Injection</strong>:<br />
+Drawlib includes a complete built-in manual that agents can query via the CLI at runtime (<code>drawlib rules show &lt;topic&gt;</code>), eliminating context-window bloat and outdated training data.</li>
+</ol>
+<hr />
+<h2>Equipping Your AI Agent</h2>
+<p>To enable your AI agent to author Drawlib illustrations and documentation, configure your environment with Drawlib's core guidelines.</p>
+<h3>1. Configure Workspace Rules</h3>
+<p>Add the Drawlib agent instructions to your project's rule file:</p>
+<ul>
+<li><strong>Cursor</strong>: Paste the instructions into <code>.cursorrules</code> or <code>.cursor/rules/drawlib.md</code>.</li>
+<li><strong>Claude Code</strong>: Add instructions to your project's <code>CLAUDE.md</code>.</li>
+<li><strong>Gemini / Generic Agents</strong>: Place instructions in <code>.agents/rules/drawlib.md</code>.</li>
+</ul>
+<p>You can dump the official agent instruction template directly using the CLI:</p>
+<pre><code class="language-bash"># Display the bootstrap agent manual
+$ uv run drawlib rules show agent-instruction
+</code></pre>
+<h3>2. Essential Commands to Teach Your Agent</h3>
+<p>Ensure your agent knows how to query rules and preview drawings:</p>
+<table>
+<thead>
+<tr>
+<th>Purpose</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Query Module Syntax</strong></td>
+<td><code>uv run drawlib rules show &lt;topic&gt;</code> (e.g. <code>lib-diagrams</code>, <code>lib-smartarts</code>)</td>
+</tr>
+<tr>
+<td><strong>List Available Rules</strong></td>
+<td><code>uv run drawlib rules list</code></td>
+</tr>
+<tr>
+<td><strong>Render Grid Preview</strong></td>
+<td><code>uv run drawlib show &lt;path&gt; -g -o scratch/test.png</code></td>
+</tr>
+<tr>
+<td><strong>Build Full Docs</strong></td>
+<td><code>./build.sh</code> or <code>uv run drawlib build html docs_src/ -o docs_html/</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>The Autonomous Verification Loop</h2>
+<p>Teach your agent to follow Drawlib's autonomous self-correction loop when creating diagrams:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="agent_quicklook_images/1.png" alt="agent_quicklook_1" style="width: 700px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Autonomous AI Visual Self-Correction Loop</figcaption>
+</figure>
+<ol>
+<li><strong>Inspect Context</strong>: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.</li>
+<li><strong>Draft Illustration</strong>: The agent writes drawing code in a temporary scratch script (<code>scratch/test.py</code>) or embedded Markdown block.</li>
+<li><strong>Render Image with Grid (<code>-g</code>)</strong>:<br />
+<code>uv run drawlib show scratch/test.py -g -o scratch/test.png</code></li>
+<li><strong>Multimodal Self-Review</strong>: The agent inspects the rendered PNG with its vision/file viewing tool, checking for:
+<ul>
+<li>Label overflow or text clipping outside boxes.</li>
+<li>Overlapping arrow lines or awkward elbow routings.</li>
+<li>Missing perimeter margins around canvas borders.</li>
+</ul>
+</li>
+<li><strong>Auto-Adjust &amp; Finalize</strong>: The agent adjusts coordinates and integrates the verified code directly into the documentation.</li>
+</ol>
+<hr />
+<blockquote>
+<p>[!TIP]
+For complete system prompts, rule topic catalogues, and advanced automated CI/CD integration, proceed to <strong><a href="../07_ai_agents_and_advanced/ai_agent_instructions.html">Chapter 7: AI Agents &amp; Advanced Integration</a></strong>.</p>
+</blockquote>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

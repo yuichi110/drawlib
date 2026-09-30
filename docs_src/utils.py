@@ -65,7 +65,7 @@ def connect(
         start: Starting point (x, y).
         end: Ending point (x, y).
         label: Protocol or description text (e.g. 'HTTPS', 'gRPC').
-        arrowhead: Arrowhead style ('->', '<-', '<->', or '').
+        arrowhead: Arrowhead style ('->', '<->', '-').
         style: Line style.
     """
     line(start, end, arrowhead=arrowhead, style=style)

@@ -833,7 +833,7 @@ drawlib rules
 | :--- | :--- |
 | `agent-instruction` | AI agent bootstrap instructions, workflow loop, and capabilities. |
 | `overview` | Canvas lifecycle, coordinate system, core imports, and workflow. |
-| `style-guide` | Diagram design principles, visual hierarchy, 60-30-10 color rules, and layout best practices. |
+| `style-guide` | Diagram design principles, visual hierarchy, 6-color semantic system, and layout best practices. |
 | `project` | Project scaffolding (`init`), 4 template types (`site`, `simple`, `pdf`, `image`), `docs_src/` layout, `navbar.md` rules, and build pipelines. |
 | `cli` | Document compilation, export, preview, and cache CLI commands. |
 

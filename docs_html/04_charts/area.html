@@ -1,0 +1,438 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AreaChart: Overlapping & Stacked Quantitative Volumes</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">AreaChart: Overlapping & Stacked Quantitative Volumes</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>AreaChart: Overlapping &amp; Stacked Quantitative Volumes</h1>
+<p><code>AreaChart</code> visualizes cumulative volumes, capacity distributions, and continuous trends over categorical intervals or time periods. By filling the geometric area between data series contours and the baseline ($Y=0$), it highlights both the total volume and individual series contributions.</p>
+<hr />
+<h2>1. Overview &amp; Key Modes</h2>
+<p>Area charts support two core operational modes:</p>
+<ul>
+<li><strong><code>mode=&quot;overlap&quot;</code></strong>: Each series polygon starts at the baseline ($Y=0$) and overlaps with preceding series. Use a semi-transparent opacity (<code>fill_alpha=0.3</code> to <code>0.5</code>) to make underlying curves visible.</li>
+<li><strong><code>mode=&quot;stack&quot;</code></strong>: Each series rests directly on top of the preceding one, showing cumulative totals (e.g., total gross revenue broken down by product line).</li>
+</ul>
+<pre><code class="language-text">       mode=&quot;overlap&quot; (Semi-transparent)           mode=&quot;stack&quot; (Cumulative Total)
+   Y ▲                                         Y ▲
+     │        ▲                                  │         ▲ Total
+     │       ╱ █╲    ▲                           │        ╱█╲
+     │     ▲╱  █ ╲  ╱ ╲                          │      ▲╱███╲ Series B
+     │    ╱ █  █  ╲╱   ╲                         │     ╱██████╲ Series A
+     └───┴──┴──┴───┴────┴──► X                   └────┴────────┴────► X
+</code></pre>
+<hr />
+<h2>2. Constructor &amp; Configuration</h2>
+<pre><code class="language-python">from drawlib.charts.area import AreaChart
+
+chart = AreaChart(
+    categories=[&quot;2021&quot;, &quot;2022&quot;, &quot;2023&quot;, &quot;2024&quot;, &quot;2025&quot;],
+    width=80.0,
+    height=55.0,
+    title=&quot;Cumulative Revenue Streams&quot;,
+    mode=&quot;stack&quot;,               # &quot;stack&quot; or &quot;overlap&quot;
+    fill_alpha=0.65,            # Polygon fill opacity (0.0 to 1.0)
+    smooth=False,               # Smooth spline curve or straight lines
+    show_points=False,          # Draw vertex markers
+    legend_position=&quot;top&quot;,      # &quot;top&quot;, &quot;bottom&quot;, &quot;right&quot;, &quot;none&quot;, &quot;auto&quot;
+)
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>categories</code></td>
+<td><code>list[str]</code></td>
+<td>Required</td>
+<td>Category labels along the horizontal X-axis.</td>
+</tr>
+<tr>
+<td><code>width</code> / <code>height</code></td>
+<td><code>float</code></td>
+<td><code>80.0</code> / <code>50.0</code></td>
+<td>Bounding box dimensions on the canvas.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Chart title displayed at the top.</td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td><code>&quot;overlap&quot;</code> | <code>&quot;stack&quot;</code></td>
+<td><code>&quot;overlap&quot;</code></td>
+<td>Cumulative stacked or overlapping volume.</td>
+</tr>
+<tr>
+<td><code>fill_alpha</code></td>
+<td><code>float</code></td>
+<td><code>0.35</code></td>
+<td>Transparency opacity of the area fill polygon.</td>
+</tr>
+<tr>
+<td><code>smooth</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>When <code>True</code>, renders smooth cubic-like curves.</td>
+</tr>
+<tr>
+<td><code>show_points</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Whether to draw marker points at vertex coordinates.</td>
+</tr>
+<tr>
+<td><code>point_shape</code></td>
+<td><code>&quot;circle&quot;</code> | <code>&quot;square&quot;</code> | <code>&quot;none&quot;</code></td>
+<td><code>&quot;none&quot;</code></td>
+<td>Shape of vertex markers.</td>
+</tr>
+<tr>
+<td><code>point_size</code></td>
+<td><code>float</code></td>
+<td><code>1.0</code></td>
+<td>Radius or half-width of vertex markers.</td>
+</tr>
+<tr>
+<td><code>legend_position</code></td>
+<td><code>LegendPosition</code></td>
+<td><code>&quot;auto&quot;</code></td>
+<td>Position of the legend box.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Cumulative Stacked Area Chart</h2>
+<p>Stacked area charts are ideal for displaying total aggregate metrics and showing the proportional contribution of each stream over time.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="area_images/1.png" alt="area_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Cumulative Stacked Revenue Streams</figcaption>
+</figure>
+<hr />
+<h2>4. Overlapping Area Chart with Custom Markers</h2>
+<p>When comparing independent metrics that share the same scale (such as network ingress and egress traffic), use <code>mode=&quot;overlap&quot;</code> with a lighter alpha and vertex markers:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="area_images/2.png" alt="area_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Gateway Ingress vs Egress Traffic</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Alpha Selection in Overlap Mode</strong>: Keep <code>fill_alpha</code> between <code>0.25</code> and <code>0.45</code> when overlapping 2–3 series. Higher opacity makes back layers invisible.</li>
+<li><strong>Order of Series in Stack Mode</strong>: Define the most stable, foundational series first (it anchors the bottom of the stack), and place fluctuating series higher up.</li>
+<li><strong>Axis Anchoring</strong>: Area charts must always anchor the value axis to zero (<code>min_value=0.0</code>) so proportional visual areas represent accurate relative quantities.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

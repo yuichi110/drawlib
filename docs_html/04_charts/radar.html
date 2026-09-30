@@ -1,0 +1,451 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RadarChart: Multivariate Radial Metrics & Spider Webs</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">RadarChart: Multivariate Radial Metrics & Spider Webs</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>RadarChart: Multivariate Radial Metrics &amp; Spider Webs</h1>
+<p><code>RadarChart</code> (also known as a spider web or star chart) evaluates multivariate entities across three or more symmetric radial dimensions emanating from a common center origin point. It is widely used for skill matrices, competitive benchmark profiles, and system architectural trade-off evaluations.</p>
+<hr />
+<h2>1. Overview &amp; Radial Geometry</h2>
+<pre><code class="language-text">                     Dimension 1 (Top spoke, 90°)
+                         ▲
+                        ╱ ╲
+                       ╱ ● ╲ Series Alpha
+                      ╱ ╱ ╲ ╲
+        Dimension 5  ●─┼───┼─●  Dimension 2
+                     │ │ * │ │
+                     │ └───┘ │
+                      ╲     ╱
+                       ╲   ╱
+                        ╲ ╱
+                         ▼
+                    Dimension 3
+</code></pre>
+<ul>
+<li><strong>Symmetric Spoke Rays</strong>: Each category forms a radial ray extending from <code>min_value</code> at the center to <code>max_value</code> at the outer perimeter.</li>
+<li><strong>Concentric Grid Contours</strong>: Configured with <code>grid_shape=&quot;polygon&quot;</code> (faceted polygon rings matching the vertex count) or <code>grid_shape=&quot;circle&quot;</code> (smooth circular concentric rings).</li>
+<li><strong>Semi-transparent Series Volumes</strong>: Multiple series overlay each other using semi-transparent polygon fills (<code>fill_alpha=0.2</code> to <code>0.4</code>) and distinct contour line styles (<code>solid</code>, <code>dashed</code>).</li>
+</ul>
+<hr />
+<h2>2. Constructor &amp; Configuration</h2>
+<pre><code class="language-python">from drawlib.charts.radar import RadarChart
+
+chart = RadarChart(
+    categories=[&quot;Scalability&quot;, &quot;Reliability&quot;, &quot;Security&quot;, &quot;Maintainability&quot;, &quot;Latency&quot;],
+    radius=24.0,                # Outer boundary spoke radius
+    min_value=0.0,              # Value at center origin
+    max_value=100.0,            # Scale value at outer ring (None = auto)
+    levels=5,                   # Number of concentric grid contours
+    grid_shape=&quot;polygon&quot;,       # &quot;polygon&quot; or &quot;circle&quot;
+    title=&quot;System Architecture Trade-offs&quot;,
+    legend_position=&quot;right&quot;,    # &quot;right&quot;, &quot;bottom&quot;, &quot;top&quot;, &quot;none&quot;
+    show_values=True,           # Display numeric values near vertices
+    value_format=&quot;{:.0f}&quot;,
+)
+</code></pre>
+<h3>Parameter Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>categories</code></td>
+<td><code>list[str]</code></td>
+<td>Required</td>
+<td>Names of radial dimensions (minimum 3 required).</td>
+</tr>
+<tr>
+<td><code>radius</code></td>
+<td><code>float</code></td>
+<td><code>25.0</code></td>
+<td>Radius of the outer boundary spoke circle.</td>
+</tr>
+<tr>
+<td><code>min_value</code></td>
+<td><code>float</code></td>
+<td><code>0.0</code></td>
+<td>Data value at the central origin point.</td>
+</tr>
+<tr>
+<td><code>max_value</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Scale value at outer ring. If <code>None</code>, computed automatically.</td>
+</tr>
+<tr>
+<td><code>levels</code></td>
+<td><code>int</code></td>
+<td><code>5</code></td>
+<td>Number of concentric grid contours.</td>
+</tr>
+<tr>
+<td><code>grid_shape</code></td>
+<td><code>&quot;polygon&quot;</code> | <code>&quot;circle&quot;</code></td>
+<td><code>&quot;polygon&quot;</code></td>
+<td>Shape of concentric gridlines (regular polygon or circles).</td>
+</tr>
+<tr>
+<td><code>show_grid_labels</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to print numeric scale ticks along reference spoke.</td>
+</tr>
+<tr>
+<td><code>grid_label_format</code></td>
+<td><code>FormatterType</code></td>
+<td><code>None</code></td>
+<td>Formatter string or function for scale levels.</td>
+</tr>
+<tr>
+<td><code>legend_position</code></td>
+<td><code>LegendPosition</code></td>
+<td><code>&quot;right&quot;</code></td>
+<td>Position of the legend box.</td>
+</tr>
+<tr>
+<td><code>show_values</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Whether to print numeric data values next to series vertices.</td>
+</tr>
+<tr>
+<td><code>value_format</code></td>
+<td><code>FormatterType</code></td>
+<td><code>None</code></td>
+<td>Formatter for vertex values.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Polygonal Grid Architecture Benchmark</h2>
+<p>Polygonal gridlines align precisely with spokes, making it easy to gauge relative metric ratings:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radar_images/1.png" alt="radar_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">System Architecture Non-Functional Analysis</figcaption>
+</figure>
+<hr />
+<h2>4. Circular Grid Product Benchmark</h2>
+<p>Using <code>grid_shape=&quot;circle&quot;</code> renders smooth concentric circles, ideal for scoring matrices and consumer benchmark comparisons:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radar_images/2.png" alt="radar_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Device Feature Matrix with Circular Contours</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Category Limit</strong>: For best legibility, use between 4 and 8 dimensions. More than 8 categories makes spoke labels crowded.</li>
+<li><strong>Normalized Dimensions</strong>: Ensure all radial metrics share a similar range (e.g. 0 to 10 or 0% to 100%). Mixing incompatible units (e.g., latency in ms with availability in %) can mislead readers without normalization.</li>
+<li><strong>Alpha Blending</strong>: Keep <code>fill_alpha</code> around <code>0.2</code> to <code>0.35</code> so overlapping series do not obscure inner boundaries.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematical Utilities & Dynamic Geometric Layouts (`drawlib.math`)</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Mathematical Utilities & Dynamic Geometric Layouts (`drawlib.math`)</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Mathematical Utilities &amp; Dynamic Geometric Layouts (<code>drawlib.math</code>)</h1>
+<p>Drawlib provides geometric and mathematical calculation utilities to streamline coordinate positioning, angle derivations, distance measurements, and dynamic bounding box computations for technical diagrams.</p>
+<hr />
+<h2>1. Imports &amp; Core Functions</h2>
+<p>All public math utilities are imported from <code>drawlib.math</code>:</p>
+<pre><code class="language-python">from drawlib.math import (
+    get_angle,            # Calculate angle in degrees from point A to point B
+    get_center_and_size,  # Compute center coordinates and bounding box dimensions
+    get_distance,         # Compute Euclidean distance between two points
+)
+</code></pre>
+<hr />
+<h2>2. Function Specifications</h2>
+<h3>2.1 <code>get_angle(xy1, xy2) -&gt; float</code></h3>
+<p>Calculates the counter-clockwise angle in degrees from point <code>xy1</code> to point <code>xy2</code>:</p>
+<ul>
+<li><strong>Reference</strong>: 0° points horizontally along the positive X-axis (East).</li>
+<li><strong>Range</strong>: <code>[0.0, 360.0)</code>.
+<ul>
+<li>Point to the right: <code>0.0°</code></li>
+<li>Point directly above: <code>90.0°</code></li>
+<li>Point to the left: <code>180.0°</code></li>
+<li>Point directly below: <code>270.0°</code></li>
+</ul>
+</li>
+<li><strong>Primary Use Case</strong>: Aligning text labels or rotating directional icons parallel to slanted connection lines.</li>
+</ul>
+<h3>2.2 <code>get_distance(xy1, xy2) -&gt; float</code></h3>
+<p>Calculates the Euclidean distance $\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$ between two points:</p>
+<ul>
+<li><strong>Primary Use Case</strong>: Determining line lengths, collision thresholds, and radial distribution spacing.</li>
+</ul>
+<h3>2.3 <code>get_center_and_size(xys) -&gt; tuple[tuple[float, float], tuple[float, float]]</code></h3>
+<p>Computes the geometric midpoint and outer bounding box dimensions for an arbitrary collection of coordinates:</p>
+<ul>
+<li><strong>Returns</strong>: <code>((center_x, center_y), (width, height))</code>.</li>
+<li><strong>Primary Use Case</strong>: Dynamically enclosing multiple service nodes inside an automated background container rectangle with uniform padding.</li>
+</ul>
+<hr />
+<h2>3. Dynamic Automated Grouping Box</h2>
+<p>Using <code>get_center_and_size()</code>, you can calculate the exact boundary of a cluster of service nodes and draw an encompassing card behind them:</p>
+<pre><code class="language-python">from drawlib.canvas import setup
+from drawlib.math import get_center_and_size
+from drawlib.shapes import circle, rectangle
+from drawlib.styles import Styles
+
+setup(width=140, height=70)
+
+# 1. Define service node positions
+nodes = [(40, 45), (70, 50), (100, 40), (60, 25)]
+
+# 2. Calculate dynamic bounding box
+(cx, cy), (bw, bh) = get_center_and_size(nodes)
+
+# 3. Draw background container with +28 width and +22 height padding
+rectangle(
+    (cx, cy),
+    width=bw + 28,
+    height=bh + 22,
+    r=4,
+    style=Styles.muted_dashed,
+    text=&quot;Kubernetes Worker Cluster&quot;,
+    textstyle=Styles.bold,
+)
+
+# 4. Render nodes
+for i, (x, y) in enumerate(nodes, start=1):
+    circle((x, y), radius=7, style=Styles.primary_flat, text=f&quot;Pod {i}&quot;, textstyle=Styles.white_bold)
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="math_and_layout_images/1.png" alt="math_and_layout_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Automated Grouping Box via get_center_and_size()</figcaption>
+</figure>
+<hr />
+<h2>4. Radial Circular Node Distribution</h2>
+<p>To distribute $N$ worker nodes symmetrically around a central hub:</p>
+<pre><code class="language-python">import math
+from drawlib.canvas import setup
+from drawlib.lines import line
+from drawlib.math import get_angle, get_distance
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+
+setup(width=120, height=80)
+
+hub = (60, 40)
+radius = 26
+num_clients = 5
+
+# Central Hub
+circle(hub, radius=12, style=Styles.primary_flat, text=&quot;Master&quot;, textstyle=Styles.white_bold)
+
+# Surrounding Worker Nodes
+for i in range(num_clients):
+    angle_rad = 2 * math.pi * i / num_clients
+    node_xy = (hub[0] + radius * math.cos(angle_rad), hub[1] + radius * math.sin(angle_rad))
+    
+    # Calculate connection angle and distance
+    dist = get_distance(hub, node_xy)
+    angle_deg = get_angle(hub, node_xy)
+    
+    line(hub, node_xy, style=Styles.bold)
+    circle(node_xy, radius=6, style=Styles.secondary_flat, text=f&quot;N{i+1}&quot;, textstyle=Styles.white_bold)
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="math_and_layout_images/2.png" alt="math_and_layout_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Radial Topology with Polar Math Distribution</figcaption>
+</figure>
+<hr />
+<h2>5. Slanted Connection Line Text Alignment</h2>
+<p>Align text labels parallel to angled lines using <code>get_angle()</code>:</p>
+<pre><code class="language-python">from drawlib.lines import line
+from drawlib.math import get_angle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+p1 = (30, 20)
+p2 = (90, 60)
+
+# Draw slanted wire
+line(p1, p2, arrowhead=&quot;-&gt;&quot;, style=Styles.bold)
+
+# Calculate rotation angle and midpoint
+angle = get_angle(p1, p2)
+midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 3)
+
+# Render rotated text parallel to the connection
+text(midpoint, &quot;Telemetry Stream (33.7°)&quot;, angle=angle, style=Styles.bold)
+</code></pre>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>
