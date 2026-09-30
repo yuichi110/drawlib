@@ -42,8 +42,8 @@ def load_styles(
     """
     drawlib.styles.Styles = drawlib.preset_styles.DefaultStyles()
     drawlib.styles.Colors = drawlib.preset_colors.DefaultColors()
-    drawlib.styles.styles = drawlib.styles.Styles
-    drawlib.styles.colors = drawlib.styles.Colors
+    setattr(drawlib.styles, "styles", drawlib.styles.Styles)
+    setattr(drawlib.styles, "colors", drawlib.styles.Colors)
 
     if not styles_path:
         return
@@ -96,7 +96,7 @@ def load_styles(
             with contextlib.suppress(Exception):
                 custom_styles = custom_styles()
         drawlib.styles.Styles = custom_styles
-        drawlib.styles.styles = custom_styles
+        setattr(drawlib.styles, "styles", custom_styles)
         if custom_colors is None:
             custom_colors = getattr(custom_styles, "colors", None) or drawlib.preset_colors.DefaultColors()
     if custom_colors is not None:
@@ -104,7 +104,7 @@ def load_styles(
             with contextlib.suppress(Exception):
                 custom_colors = custom_colors()
         drawlib.styles.Colors = custom_colors
-        drawlib.styles.colors = custom_colors
+        setattr(drawlib.styles, "colors", custom_colors)
 
     if shared_globals is not None:
         shared_globals["Styles"] = drawlib.styles.Styles

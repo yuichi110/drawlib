@@ -15,6 +15,7 @@ Every visual element in a technical diagram should convey information. Avoid clu
 3. **Rainbow Color Chaos**: Using arbitrary raw colors for every box without semantic meaning.
 4. **Line Spaghetti**: Diagonal lines intersecting boxes awkwardly instead of clean orthogonal paths.
 5. **Inconsistent Line Weights**: Mixing ultra-thick borders with hairline arrows arbitrarily.
+6. **Right-Edge Compression (Uneven Spacing)**: Placing elements ad-hoc from left to right, running out of canvas width, and crowding remaining nodes against the right border with uneven margins.
 
 ---
 
@@ -178,6 +179,33 @@ Nodes should comfortably enclose their text labels without clipping:
 Align node center coordinates `(x, y)` to clean increments:
 - Multiples of **5** or **10** (e.g. `x=30`, `x=60`, `x=90`).
 - Consistent horizontal and vertical spacing creates an immediate sense of structural order.
+
+### 5.4 Equidistant Spacing via Formulas (Preventing Right-Edge Crowding)
+Never guess or hardcode absolute coordinates one by one from left to right. When placing a sequence of $N$ nodes across a canvas, **always calculate the gap dynamically** using Python math to ensure exact bilateral symmetry:
+
+```python
+# Distribute N elements evenly between canvas margins:
+total_w = 120
+margin_x = 12
+n = 4
+box_w, box_h = 20, 14
+y = 25
+
+# Dynamically calculate equal spacing between elements
+gap = (total_w - (margin_x * 2) - (box_w * n)) / (n - 1)
+
+for i in range(n):
+    cx = margin_x + (box_w / 2) + i * (box_w + gap)
+    rectangle((cx, y), width=box_w, height=box_h, style=Styles.primary_flat)
+```
+
+### 5.5 Favor High-Level Components over Manual Assembly
+When arranging pipelines, sequences, hierarchies, or tabular data, avoid assembling dozens of raw rectangles and lines by hand. High-level modules automatically compute balanced padding and spacing:
+- **Linear workflows / stages**: `drawlib.smartarts.ChevronProcess`, `drawlib.diagrams.flow.FlowDiagram`
+- **Lists & cards**: `drawlib.smartarts.BoxList`
+- **Trees & hierarchies**: `drawlib.smartarts.TreeNode`
+- **Relational / tabular data**: `drawlib.smartarts.Table`
+- **Client/server lifelines**: `drawlib.diagrams.sequence.SequenceDiagram`
 
 ---
 

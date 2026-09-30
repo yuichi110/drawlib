@@ -46,7 +46,7 @@ Always execute this self-correction loop when creating or modifying diagrams:
 ```
 
 1. **Inspect Context**: Check real repository files (`models.py`, API routes, configurations) so diagrams accurately reflect actual code.
-2. **Prototype in Scratch**: Write drawing code in `scratch/test_diagram.py` or test a specific embedded block rather than modifying production assets blindly.
+2. **Prototype in Scratch**: Write drawing code in `scratch/test_diagram.py` or test a specific embedded block. **Calculate spacing mathematically** (`gap = (width - margins - total_node_width) / (n - 1)`) or use high-level components (`smartarts`, `diagrams`) rather than guessing ad-hoc coordinates to prevent right-edge crowding.
 3. **Render Immediately with Coordinate Grid (`-g`)**:
    ```bash
    uv run drawlib show scratch/test_diagram.py -g -o scratch/test_diagram.png
@@ -56,6 +56,7 @@ Always execute this self-correction loop when creating or modifying diagrams:
 4. **Multimodal Self-Review (`view_file`)**:
    Inspect `scratch/test_diagram.png` with your image viewing tool (`view_file`). Check for:
    - Text clipping or label overflow outside shapes.
+   - Uneven margins or right-edge squishing (elements running out of canvas room).
    - Arrowhead misalignment or awkward line overlaps.
    - Missing perimeter margins (elements too close to canvas edges).
    - Poor color contrast (e.g. dark text on dark fill).
