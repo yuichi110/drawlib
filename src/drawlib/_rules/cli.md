@@ -23,11 +23,11 @@ drawlib init pdf my_report/                                # Create multi-chapte
 drawlib init site --here                                   # Scaffold directly into current directory
 
 # Inspection, visual preview, and extraction
-drawlib show doc.md 1 -o scratch/fig1.png                 # Extract block #1 to file without GUI
-drawlib show doc.md 1 -g -o scratch/fig1_grid.png         # Extract block #1 with coordinate grid
-drawlib show script.py -o scratch/script.png              # Render standalone Python script to image
-drawlib show doc.md 1 --grid                              # Open desktop GUI preview with grid
-drawlib show script.py                                    # Preview standalone Python script
+drawlib show doc.md arch.png -o scratch/arch.png            # Export named block to file without GUI (Recommended)
+drawlib show doc.md arch.png -g -o scratch/arch_grid.png    # Export block with coordinate grid for review
+drawlib show script.py -o scratch/script.png                # Render standalone Python script to image
+drawlib show script.py -g -o scratch/script_grid.png        # Render script with coordinate grid
+drawlib show doc.md arch.png                                # Open desktop GUI preview (interactive only)
 
 # Local preview server and link verification
 drawlib serve docs_html/                                   # Local HTTP server on http://localhost:8000
@@ -406,7 +406,11 @@ drawlib show <FILE> [TARGET] [OPTIONS]
 
 ### Arguments:
 - `<FILE>`: Path to a Markdown (`.md`), HTML (`.html`), or standalone Python script (`.py`).
-- `[TARGET]`: *(Optional for Markdown/HTML)* 1-based block index (e.g. `1`, `2`, `-1`) or target image filename (e.g. `arch.png`). If omitted for Markdown/HTML, Drawlib prints a summary table of all detected blocks.
+- `[TARGET]`: *(Optional for Markdown/HTML)* Target image filename (e.g. `db.png`, **recommended**) or 1-based block index (e.g. `1`, `2`, `-1`). If omitted for Markdown/HTML, Drawlib prints a summary table of all detected blocks.
+
+> [!TIP]
+> **Best Practice for AI & Automation (Name over Index)**:
+> Always target blocks by filename (e.g. `db.png` matching `file:db.png`) rather than by numeric index (`1`, `2`). Numeric indices shift whenever blocks are added, removed, or reordered in the Markdown file, whereas named targets provide immutable, self-describing references.
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -431,9 +435,9 @@ Example Output:
 Available drawlib code blocks in 'docs_src/architecture.md':
 Index   Line    File Target                  Header Options
 -----------------------------------------------------------------
-1       L34     architecture_images/1.png    600px center caption:"System Overview"
-2       L88     architecture_images/db.png   caption:"Database Schema" file:db.png
-3       L145    architecture_images/3.png    show-code
+1       L34     architecture_images/overview.png  600px center file:overview.png caption:"System Overview"
+2       L88     architecture_images/db.png        caption:"Database Schema" file:db.png
+3       L145    architecture_images/api.png       show-code file:api.png
 ```
 
 ---
@@ -442,37 +446,37 @@ Index   Line    File Target                  Header Options
 
 #### 1. Interactive Desktop GUI Mode (Default without `-o`):
 ```bash
-# Preview standalone Python script in desktop window:
-drawlib show my_drawing.py
-
-# Preview standalone script with coordinate grid overlay:
-drawlib show my_drawing.py --grid
-
-# Preview block #2 of Markdown file in desktop window:
-drawlib show docs_src/architecture.md 2
+# Preview block by image filename (Recommended):
+drawlib show docs_src/architecture.md db.png
 
 # Preview block with coordinate grid overlay:
-drawlib show docs_src/architecture.md 2 -g
+drawlib show docs_src/architecture.md db.png -g
+
+# Preview block by index (convenient for ad-hoc inspection):
+drawlib show docs_src/architecture.md 2
+
+# Preview standalone Python script in desktop window:
+drawlib show my_drawing.py --grid
 ```
 
 #### 2. Headless Export Mode (With `-o` / `--output`):
 When `-o` / `--output` is provided, `drawlib show` automatically suppresses the desktop GUI window and writes the rendered image directly to disk. This is ideal for CI/CD, headless terminals, and AI agent feedback loops:
 
 ```bash
-# Export block #1 by index to file:
+# Export block by explicit image filename (Recommended):
+drawlib show docs_src/architecture.md db.png -o scratch/db.png
+
+# Export block with coordinate grid overlay for alignment verification:
+drawlib show docs_src/architecture.md db.png -g -o scratch/db_grid.png
+
+# Export block by index to file:
 drawlib show docs_src/architecture.md 1 -o scratch/fig1.png
 
 # Export the last block in the document using negative index:
 drawlib show docs_src/architecture.md -1 -o scratch/last_fig.png
 
-# Export block by explicit image filename:
-drawlib show docs_src/architecture.md db.png -o scratch/db.png
-
-# Export with coordinate grid overlay for alignment verification:
-drawlib show docs_src/architecture.md 1 -g -o scratch/fig1_grid.png
-
 # Export with custom styles script:
-drawlib show docs_src/architecture.md 1 -s styles.py -o scratch/fig1.png
+drawlib show docs_src/architecture.md db.png -s styles.py -o scratch/db.png
 
 # Export from a standalone Python script:
 drawlib show my_drawing.py -o scratch/my_drawing.png

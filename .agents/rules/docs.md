@@ -46,13 +46,16 @@ Always execute this self-correction loop when creating or modifying diagrams:
 ```
 
 1. **Inspect Context**: Check real repository files (`models.py`, API routes, configurations) so diagrams accurately reflect actual code.
-2. **Prototype in Scratch**: Write drawing code in `scratch/test_diagram.py` or test a specific embedded block. **Calculate spacing mathematically** (`gap = (width - margins - total_node_width) / (n - 1)`) or use high-level components (`smartarts`, `diagrams`) rather than guessing ad-hoc coordinates to prevent right-edge crowding.
+2. **Prototype in Scratch**: Write drawing code in `scratch/test_diagram.py` or test a specific embedded block. **Define semantic coordinate variables** (e.g. `client_xy`, `gateway_xy`) and **calculate spacing mathematically** (`gap = (width - margins - total_node_width) / (n - 1)`) or use high-level components (`smartarts`, `diagrams`) rather than scattering ad-hoc tuples or list indices.
 3. **Render Immediately with Coordinate Grid (`-g`)**:
    ```bash
    uv run drawlib show scratch/test_diagram.py -g -o scratch/test_diagram.png
-   # Or for Markdown embedded block 1:
-   uv run drawlib show docs_src/doc.md 1 -g -o scratch/test_diagram.png
+   # Or for Markdown embedded block by name (Recommended - prevents off-by-one errors):
+   uv run drawlib show docs_src/doc.md event_microservices.png -g -o scratch/test_diagram.png
+   # (Avoid using index numbers like '1' or '2' because inserting or reordering blocks shifts numbering)
    ```
+   > **Headless Export (`-o`) is Mandatory for AI Agents**:
+   > By default, `drawlib show` attempts to open an interactive desktop GUI window. In headless AI environments, **always specify `-o <path>` to write the image directly to disk**. Without `-o`, no file is generated and multimodal review (`view_file`) in Step 4 cannot proceed.
 4. **Multimodal Self-Review (`view_file`)**:
    Inspect `scratch/test_diagram.png` with your image viewing tool (`view_file`). Check for:
    - Text clipping or label overflow outside shapes.
@@ -102,7 +105,7 @@ Write diagrams inline within your Markdown documents using the ````drawlib```` c
 
 The system communicates via asynchronous message queues:
 
-```drawlib 600px center caption:"Event-Driven Microservices"
+```drawlib 600px center file:event_microservices.png caption:"Event-Driven Microservices"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -118,7 +121,7 @@ line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
 **Key Code Block Attributes**:
 - **Code Display**: `hide-code` *(default)*, `show-code` (displays code above image), `fold-code` (collapsible `<details>` block).
 - **Dimensions & Alignment**: `600px`, `100%`, `center` *(default)*, `left`, `right`.
-- **Caption & Asset Name**: `caption:"Description"` (renders `<figcaption>`), `file:custom_name.png`.
+- **Caption & Asset Name**: `caption:"Description"` (renders `<figcaption>`), `file:custom_name.png`. **Always specify `file:<name>.png`** for every embedded block to ensure deterministic referencing and clean asset management. Avoid relying on auto-generated index filenames (`0.png`, `1.png`).
 - **Explicit Imports & PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles`. **Always use uppercase `Styles` and `Colors`** (e.g. `style=Styles.primary_flat`, `Colors.Blue`). Never rename or lowercase them to `styles` or `colors` to avoid shadowing module `drawlib.styles`.
 
 ### 4.2. Standard Project Scaffolding (`drawlib init`)

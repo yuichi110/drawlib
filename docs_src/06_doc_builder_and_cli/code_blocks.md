@@ -53,6 +53,10 @@ Options are specified space-delimited on the opening code fence line:
 - **Caption**: `caption:"Description of diagram"` wraps the rendered figure in semantic HTML `<figure>` and `<figcaption>` elements with clean typography.
 - **Custom Filename**: By default, Drawlib numbers companion images sequentially (`1.png`, `2.png`). Specify `file:my_diagram.png` to set an explicit filename in the output directory.
 
+> [!TIP]
+> **Best Practice for AI & Automation**:
+> Always specify an explicit `file:<name>.png` attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via `drawlib show <file> <image_name.png>`.
+
 ---
 
 ## 3. Working Directory & Path Resolution

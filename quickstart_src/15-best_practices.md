@@ -22,7 +22,7 @@ Never place elements flush against the edges of the canvas. Maintain at least a 
 
 Avoid arbitrary rainbow palettes. Use colors intentionally to communicate architectural roles:
 
-```drawlib 640px center caption:"Figure 15.1: Architectural Design Best Practices Matrix"
+```drawlib 640px center file:matrix.png caption:"Figure 15.1: Architectural Design Best Practices Matrix"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -45,12 +45,20 @@ for x, icon_fn, title, desc, st in rules:
     text(xy=(x, 14), text=desc, style=Styles.primary, size=7.5)
 ```
 
+## 4. Semantic Coordinates Pattern (`*_xy`)
+
+Avoid scattering raw coordinate literals `(50, 25)` or cryptic list indices (`a[1]`) across drawing calls. Define meaningful coordinate variables (e.g. `client_xy = (25, 25)`, `gateway_xy = (65, 25)`) at the beginning of the block:
+- **Refactoring Resilience**: Repositioning a node automatically updates both its shape and all incoming/outgoing connection lines.
+- **Self-Documenting Flows**: Connectors read with immediate clarity: `line(client_xy, gateway_xy, arrowhead="->", style=Styles.bold)`.
+
 ## Summary Checklist for Production Blueprints
 
 Before merging illustrations into production documentation:
 
-- [ ] **Explicit Imports**: Does every ````drawlib```` block explicitly import all required symbols?
+- [ ] **Explicit Imports**: Does every ````drawlib```` block explicitly import all required symbols (e.g. `from drawlib.styles import Colors, Styles`)?
+- [ ] **Explicit Naming**: Does every block specify `file:<name>.png` for deterministic referencing?
+- [ ] **Semantic Coordinates**: Are coordinates organized via named variables (`*_xy`) rather than raw magic literals?
 - [ ] **Aspect Ratio**: Is the canvas `width` and `height` proportioned to the diagram contents without wasted letterbox space?
 - [ ] **Contrast Verification**: Is text easily readable across dark and light backgrounds?
 - [ ] **Connected Flows**: Do connecting lines have directional arrowheads indicating data flow direction?
-- [ ] **Incremental Verification**: Has the block been tested with `uv run drawlib show <file> <index> -g`?
+- [ ] **Incremental Verification**: Has the block been tested with `uv run drawlib show <file> <name.png> -g -o scratch/test.png`?

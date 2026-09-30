@@ -319,7 +319,7 @@ For multi-page documentation sites, `docs_src/navbar.md` defines the navigation 
 In Markdown source files under `docs_src/`, embed illustrations using the ````drawlib```` language fence:
 
 ````markdown
-```drawlib 600px center show-code caption:"System Architecture Overview"
+```drawlib 600px center show-code file:system_architecture.png caption:"System Architecture Overview"
 from drawlib.canvas import setup
 from drawlib.styles import Styles
 from drawlib.lines import line
@@ -336,7 +336,7 @@ line((40, 25), (80, 25), arrowhead="->", style=Styles.bold)
 - **Code Visibility**: `hide-code` (default, image only), `show-code` (code + image), `fold-code` (image + collapsed `<details>` dropdown).
 - **Dimensions**: `400px`, `600px`, `100%` (width tokens).
 - **Alignment**: `center`, `left`, `right`.
-- **Caption & Filename**: `caption:"Figure Title"`, `file:custom_name.png`.
+- **Caption & Filename**: `caption:"Figure Title"`, `file:custom_name.png`. **Always specify `file:<name>.png`** so blocks are uniquely addressable by name across builds and prevent off-by-one errors from content shifts.
 
 **Explicit Imports**: All embedded drawing blocks require explicit Python imports (e.g. `from drawlib.shapes import rectangle`, `from drawlib.lines import line`, `from drawlib.styles import Colors, Styles`). **Always use uppercase `Styles` and `Colors`** (never lowercase `styles` or `colors`) to avoid shadowing module `drawlib.styles`. This ensures clean namespace isolation and deterministic AI code generation.
 
@@ -344,6 +344,10 @@ line((40, 25), (80, 25), arrowhead="->", style=Styles.bold)
 ```bash
 # Run full documentation build via script:
 ./docs_build.sh
+
+# Preview or test a specific diagram block by name with coordinate grid (Recommended):
+# (Always pass -o <path> in headless environments to write images to disk for AI inspection)
+drawlib show docs_src/index.md system_architecture.png -g -o scratch/test.png
 
 # Or compile manually via CLI:
 drawlib build html docs_src/ -o docs_html/ -s styles.py -u utils.py
@@ -363,10 +367,10 @@ When you need to execute CLI operations programmatically (e.g. inside Python bui
 ```python
 from drawlib.tools import build_html, build_markdown, export_block
 
-# Export a single diagram from a Markdown file
+# Export a single diagram from a Markdown file by name (recommended)
 image_path = export_block(
     file_path="docs_src/architecture.md",
-    target="1",
+    target="system_architecture.png",
     output_path="scratch/preview.png",
     grid=True,
 )

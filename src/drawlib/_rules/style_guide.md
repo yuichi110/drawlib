@@ -207,6 +207,38 @@ When arranging pipelines, sequences, hierarchies, or tabular data, avoid assembl
 - **Relational / tabular data**: `drawlib.smartarts.Table`
 - **Client/server lifelines**: `drawlib.diagrams.sequence.SequenceDiagram`
 
+### 5.6 Semantic Coordinate Variables (`*_xy`)
+Never use opaque list indexing (`points[0]`, `a[1]`) or scatter magic literal tuples `(60, 30)` across multiple drawing calls. Instead, define meaningful coordinate variables (e.g. `client_xy`, `gateway_xy`, `db_xy`) at the top of the block.
+
+**Why this is essential**:
+1. **Single Source of Truth**: Moving a node (e.g. updating `gateway_xy`) automatically realigns both the node shape and all incoming/outgoing connector lines.
+2. **Self-Documenting Connections**: Connecting lines read clearly (`line(client_xy, gateway_xy)`), eliminating guesswork and AI hallucinations.
+3. **Clean Separation of Concerns**: Divides drawing code into (1) Layout Geometry, (2) Node Rendering, and (3) Connectors.
+
+```python
+# 1. Define layout geometry & semantic coordinates
+box_w, box_h = 24, 16
+client_xy  = (25, 30)
+gateway_xy = (65, 30)
+db_xy      = (105, 30)
+
+# 2. Render shapes using coordinate variables
+rectangle(client_xy,  width=box_w, height=box_h, style=Styles.accent_flat,  text="Client", textstyle=Styles.white_bold)
+rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.primary_flat, text="Gateway", textstyle=Styles.white_bold)
+rectangle(db_xy,      width=box_w, height=box_h, style=Styles.secondary_flat, text="Database", textstyle=Styles.white_bold)
+
+# 3. Connect nodes by referencing the same coordinates
+line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrowhead="->", style=Styles.bold)
+line((gateway_xy[0] + box_w/2, gateway_xy[1]), (db_xy[0] - box_w/2,      db_xy[1]),      arrowhead="->", style=Styles.bold)
+```
+
+### 5.7 Z-Order & Layering Pipeline
+Execute drawing calls in a disciplined "back-to-front" sequence to prevent lines intersecting node text or container fills masking child elements:
+1. **Layer 1: Structural Boundaries**: Background canvas fills, VPC/subnet boundary boxes (`Styles.muted_dashed`).
+2. **Layer 2: Connections & Lines**: Inter-service arrows and communication links (`lines`, `lines_curved`). Placing connectors before nodes prevents line strokes from cutting across shape borders or embedded text.
+3. **Layer 3: Node Containers**: Service cards, databases, client endpoints (`rectangle`, `circle`).
+4. **Layer 4: Foreground Details**: Protocol badges (`HTTPS: 443`), status icons, and floating callout text.
+
 ---
 
 ## 6. Typography & Text Hierarchy
@@ -238,6 +270,23 @@ Lines and arrows guide the viewer's eyes through the diagram:
 3. **Smooth Curved Bends**:
    - When using `line_curved`, maintain moderate curvature: `bend=0.2 ~ 0.3`.
    - Avoid extreme bends (`bend > 0.6`) that create exaggerated loops or obscure other elements.
+4. **Boundary Edge Port Snapping**:
+   Never connect node center coordinates `(cx, cy)` directly, as this causes arrowheads to penetrate into shapes or intersect text. Calculate connection ports along shape perimeter edges:
+   - **Left Port**: `(cx - w/2, cy)`
+   - **Right Port**: `(cx + w/2, cy)`
+   - **Top Port**: `(cx, cy + h/2)`
+   - **Bottom Port**: `(cx, cy - h/2)`
+5. **Orthogonal Waypoint Routing (`lines()` & `lines_curved()`)**:
+   Avoid diagonal lines cutting across unrelated components (Line Spaghetti). Use multi-segment routing through intermediate waypoints:
+   - **`lines(xys=[...], arrowhead="->", style=Styles.bold)`**: Renders a clean $90^\circ$ Manhattan route in a single call, attaching the arrowhead strictly to the final segment:
+     ```python
+     # L-shaped routing through an intermediate right-angle corner:
+     src_port = (gateway_xy[0], gateway_xy[1] - box_h / 2)   # Bottom port
+     dst_port = (db_xy[0] - box_w / 2, db_xy[1])             # Left port
+     waypoint = (src_port[0], dst_port[1])                  # 90° corner waypoint
+     lines([src_port, waypoint, dst_port], arrowhead="->", style=Styles.bold)
+     ```
+   - **`lines_curved(xys=[...], r=3.0, arrowhead="->", style=Styles.bold)`**: Smoothly fillets right-angle corners with radius `r`, producing professional cloud architecture network topologies.
 
 ---
 
