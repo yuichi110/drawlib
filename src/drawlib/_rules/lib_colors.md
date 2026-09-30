@@ -94,7 +94,7 @@ Derives a new `Color` instance by modifying specific channels while preserving i
 from drawlib.styles import Colors
 
 # Adjust transparency (alpha)
-glass_blue = Colors.Blue.patch(alpha=0.2)  # (0, 0, 255, 0.2)
+glass_blue = Colors.Blue.patch(alpha=0.2)  # (31, 31, 255, 0.2)
 subtle_orange = Colors.Orange.patch(alpha=0.15)
 
 # Adjust RGB channels
@@ -128,13 +128,13 @@ c5 = Color("#f00")                         # (255, 0, 0, 1.0)
 from drawlib.styles import Colors
 
 c = Colors.Blue.patch(alpha=0.5)
-print(c.r)     # 0
-print(c.g)     # 0
+print(c.r)     # 31
+print(c.g)     # 31
 print(c.b)     # 255
 print(c.alpha) # 0.5 (alias: c.a)
-print(c.rgb)   # (0, 0, 255)
-print(c.rgba)  # (0, 0, 255, 0.5)
-print(c.hex)   # '#0000ff80'
+print(c.rgb)   # (31, 31, 255)
+print(c.rgba)  # (31, 31, 255, 0.5)
+print(c.hex)   # '#1f1fff80'
 ```
 
 ---
@@ -147,19 +147,19 @@ print(c.hex)   # '#0000ff80'
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import colors, styles
+from drawlib.styles import Colors, styles
 
 setup(width=140, height=60)
 
 # Define custom semantic styles
 cloud_style = styles.primary.patch(
-    shape_fill_color=colors.Blue.patch(alpha=0.15),
-    shape_line_color=colors.Blue,
+    shape_fill_color=Colors.Blue.patch(alpha=0.15),
+    shape_line_color=Colors.Blue,
     shape_line_width=2,
 )
 db_style = styles.primary.patch(
-    shape_fill_color=colors.Orange.patch(alpha=0.2),
-    shape_line_color=colors.Orange,
+    shape_fill_color=Colors.Orange.patch(alpha=0.2),
+    shape_line_color=Colors.Orange,
     shape_line_width=2,
 )
 
@@ -170,12 +170,12 @@ rectangle(
     height=50,
     style=cloud_style,
     text="Kubernetes Cluster",
-    textstyle=styles.primary.patch(text_valign="top", text_color=colors.Blue),
+    textstyle=styles.primary.patch(text_valign="top", text_color=Colors.Blue),
 )
 
 # Service nodes
 rectangle((40, 26), width=32, height=18, style=styles.blue_flat, text="Web Service", textstyle=styles.white_bold)
-rectangle((100, 26), width=32, height=18, style=styles.green_flat, text="Database", textstyle=styles.white_bold)
+rectangle((100, 26), width=32, height=18, style=db_style, text="Database", textstyle=styles.white_bold)
 
 # Data connection
 line((56, 26), (84, 26), arrowhead="->", style=styles.bold)
@@ -189,19 +189,19 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.preset_colors import MonochromeColors
 from drawlib.shapes import rectangle
-from drawlib.styles import Styles
+from drawlib.styles import styles
 
 setup(width=120, height=50)
 
-box_style = Styles.primary.patch(
+box_style = styles.primary.patch(
     shape_fill_color=MonochromeColors.Gray3,
     shape_line_color=MonochromeColors.Black,
     shape_line_width=2,
 )
 
-rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=Styles.bold)
-rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=Styles.bold)
-line((45, 25), (75, 25), arrowhead="->", style=Styles.bold)
+rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=styles.bold)
+rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=styles.bold)
+line((45, 25), (75, 25), arrowhead="->", style=styles.bold)
 save()
 ```
 

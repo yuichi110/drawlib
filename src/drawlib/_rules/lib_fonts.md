@@ -34,12 +34,15 @@ from drawlib.fonts import (
 ```
 
 ### On-Demand Download & Local Caching
-To keep the base Drawlib installation lightweight (~few megabytes), fonts are downloaded dynamically upon first access and cached in the local user directory (`~/.cache/drawlib/fonts/`).
+To keep the base Drawlib installation lightweight (~few megabytes), fonts are downloaded dynamically upon first access and cached in the package asset directory (`drawlib/_assets/fonts/`).
 
 You can inspect and manage cached font files using CLI commands:
 ```bash
-# List all locally cached font files:
+# List all downloadable asset packages and their cache status:
 uv run drawlib cache list
+
+# Download all font packs for offline use:
+uv run drawlib cache download
 
 # Clear font cache to free disk space:
 uv run drawlib cache clear
@@ -82,12 +85,12 @@ Tailored for clean Western technical documentation:
 ### 2.3. Regional Script Families
 Specialized typography for international technical documentation:
 
-- **`FontJapanese`**: Optimized glyphs for Japanese documentation (`Font.SANSSERIF_REGULAR` / `Font.SANSSERIF_BOLD` or system fonts).
-- **`FontChinese`**: Optimized for Chinese documentation (`SIMPLIFIED_SANSSERIF_REGULAR`, `TRADITIONAL_SANSSERIF_REGULAR`).
-- **`FontKorean`**: Optimized for Korean documentation (`Font.SANSSERIF_REGULAR`).
-- **`FontArabic`**: Right-to-left cursive Arabic typography (`SANSSERIF_REGULAR`, `KUFI_REGULAR`, `NASKH_REGULAR`).
-- **`FontThai`**: Thai script typography (`Font.SANSSERIF_REGULAR`).
-- **`FontBrahmic`**: Devanagari and South Asian scripts (`DEVANAGARI_SANSSERIF_REGULAR`, `BENGALI_SANSSERIF_REGULAR`).
+- **`FontJapanese`**: Japanese typography (`FontJapanese.SANSSERIF_REGULAR`, `FontJapanese.SANSSERIF_BOLD`, `FontJapanese.MPLUS1P_REGULAR`, `FontJapanese.SAWARABI_GOTHIC`).
+- **`FontChinese`**: Chinese typography (`FontChinese.SIMPLIFIED_SANSSERIF_REGULAR`, `FontChinese.TRADITIONAL_SANSSERIF_REGULAR`, `FontChinese.HONGKONG_SANSSERIF_REGULAR`).
+- **`FontKorean`**: Korean typography (`FontKorean.SANSSERIF_REGULAR`, `FontKorean.SERIF_REGULAR`).
+- **`FontArabic`**: Right-to-left cursive Arabic typography (`FontArabic.SANSSERIF_REGULAR`, `FontArabic.KUFI_REGULAR`, `FontArabic.NASKH_REGULAR`).
+- **`FontThai`**: Thai script typography (`FontThai.SANSSERIF_REGULAR`, `FontThai.SERIF_REGULAR`).
+- **`FontBrahmic`**: Devanagari and South Asian scripts (`FontBrahmic.DEVANAGARI_SANSSERIF_REGULAR`, `FontBrahmic.BENGALI_SANSSERIF_REGULAR`, `FontBrahmic.TAMIL_SANSSERIF_REGULAR`, `FontBrahmic.TELUGU_SANSSERIF_REGULAR`).
 
 ---
 
@@ -114,11 +117,11 @@ When designing technical diagrams, maintain a clear typographic scale:
 
 | Level | Recommended `text_size` | Recommended Weight | Example Use Case |
 | :--- | :--- | :--- | :--- |
-| **Diagram Title** | `22` - `26` | Bold (`FontRoboto.ROBOTO_BOLD`) | Top header or canvas title |
-| **Container / Group Box** | `16` - `18` | Bold / Medium | Kubernetes pod boundary, VPC network label |
-| **Node / Shape Title** | `13` - `15` | Bold (`white_bold`, `bold`) | Service names (`"Auth Service"`, `"Worker"`) |
-| **Node Subtitle / Port** | `10` - `12` | Regular (`ROBOTO_REGULAR`) | Subtitle or protocol (`"port: 8080"`, `"POST /v1"`) |
-| **Line Label** | `10` - `12` | Regular / Italic | Arrow description (`"gRPC (mTLS)"`) |
+| **Diagram Title** | `22` - `26` | Bold (`FontRoboto.ROBOTO_BOLD`, `Font.SANSSERIF_BOLD`) | Top header or canvas title |
+| **Container / Group Box** | `16` - `18` | Bold / Medium (`Font.SANSSERIF_BOLD`) | Kubernetes pod boundary, VPC network label |
+| **Node / Shape Title** | `13` - `15` | Bold (`Font.SANSSERIF_BOLD`) | Service names (`"Auth Service"`, `"Worker"`) |
+| **Node Subtitle / Port** | `10` - `12` | Regular (`FontRoboto.ROBOTO_REGULAR`, `Font.SANSSERIF_REGULAR`) | Subtitle or protocol (`"port: 8080"`, `"POST /v1"`) |
+| **Line Label** | `10` - `12` | Regular (`Font.SANSSERIF_REGULAR`) | Arrow description (`"gRPC (mTLS)"`) |
 
 ---
 

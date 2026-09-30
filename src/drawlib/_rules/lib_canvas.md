@@ -15,7 +15,6 @@ from drawlib.canvas import (
     clear,        # Reset canvas state and options between images
     setup,        # Set canvas dimensions, grid, background color, DPI
     get_dimage,   # Render canvas in-memory and return a Dimage object
-    initialize,   # Re-initialize the drawing environment (calls clear())
     save,         # Save canvas drawing to an image file on disk
     show,         # Display canvas in a local desktop preview window
 )
@@ -89,7 +88,7 @@ setup(
     width: int | None = None,
     height: int | None = None,
     dpi: int | None = None,
-    background_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    background_color: tuple[int, int, int] | tuple[int, int, int, float] | str | Color | None = None,
     background_alpha: float | None = None,
     grid: bool | None = None,
     grid_only: bool | None = None,
@@ -106,7 +105,7 @@ setup(
 | `width` | `int` | `100` | Canvas width in logical coordinate units. |
 | `height` | `int` | `100` | Canvas height in logical coordinate units. |
 | `dpi` | `int` | `100` | Dots per inch for rasterization and image sharpness. |
-| `background_color` | `tuple` | `(255, 255, 255)` | Canvas background color (RGB or RGBA). |
+| `background_color` | `Color \| tuple \| str` | `(255, 255, 255)` | Canvas background color (Color, RGB/RGBA tuple, hex string, or CSS name). |
 | `background_alpha` | `float` | `1.0` | Background transparency (`0.0` = fully transparent, `1.0` = opaque). |
 | `grid` | `bool` | `False` | Overlays coordinate grid lines with center axes. |
 | `grid_only` | `bool` | `False` | Renders coordinate grid only (useful for design scaffolding). |
@@ -120,23 +119,22 @@ Exports the current canvas drawing to an image file on disk.
 
 ```python
 save(
-    file: str | None = None,
-    format: str | None = None,
+    file: str | Path | None = None,
+    format: Literal["jpg", "png", "webp", "pdf"] | None = None,
 )
 ```
 
 - **`file`**: Path to the output image file.
   - If omitted, Drawlib saves the image as `<script_name>.png` in the directory of the running script.
   - Supports absolute paths or relative paths.
-- **`format`**: File format extension (`"png"`, `"svg"`, `"pdf"`, `"webp"`). If omitted, inferred from the filename extension or defaults to `"png"`.
+- **`format`**: File format (`"png"`, `"jpg"`, `"webp"`, `"pdf"`). If omitted, inferred from the filename extension or defaults to `"png"`.
 
 ### 3.3. `show()`
 Opens an interactive desktop GUI window showing the rendered illustration.  
 - In headless environments (CI/CD, Docker, remote AI sessions), use `save()` or CLI `drawlib show -o` instead.
 
-### 3.4. `clear()` and `initialize()`
+### 3.4. `clear()`
 Resets canvas geometry, removes all registered artists, and restores default configuration settings.
-- `initialize()` is a convenience alias for `clear()`.
 
 ### 3.5. `get_dimage() -> Dimage`
 Renders the canvas in-memory into a Drawlib `Dimage` object without saving to disk.
@@ -159,9 +157,9 @@ from drawlib.styles import styles
 setup(width=140, height=60, background_color=(248, 249, 250))
 
 # Service nodes
-rectangle((30, 30), width=32, height=18, style=styles.blue_flat, text="Web Frontend", textstyle=styles.white_bold)
-rectangle((75, 30), width=32, height=18, style=styles.purple_flat, text="API Gateway", textstyle=styles.white_bold)
-rectangle((120, 30), width=32, height=18, style=styles.green_flat, text="Auth Service", textstyle=styles.white_bold)
+rectangle((30, 30), width=32, height=18, style=styles.accent_flat, text="Web Frontend", textstyle=styles.white_bold)
+rectangle((75, 30), width=32, height=18, style=styles.primary_flat, text="API Gateway", textstyle=styles.white_bold)
+rectangle((120, 30), width=32, height=18, style=styles.secondary_flat, text="Auth Service", textstyle=styles.white_bold)
 
 # Connecting lines with arrowheads
 line((46, 30), (59, 30), arrowhead="->", style=styles.bold)
@@ -169,6 +167,7 @@ line((91, 30), (104, 30), arrowhead="->", style=styles.bold)
 
 # Annotations
 text((70, 52), "System Boundary", style=styles.bold)
+save()
 ```
 
 ### 4.2. Transparent Canvas for Embedded Badges
@@ -187,10 +186,11 @@ rectangle(
     width=72,
     height=22,
     r=11,
-    style=styles.green_flat,
+    style=styles.success_flat,
     text="DEPLOYED - v2.4.0",
     textstyle=styles.white_bold,
 )
+save()
 ```
 
 ### 4.3. Multi-Image Sequential Generation
@@ -204,7 +204,7 @@ from drawlib.shapes import circle, rectangle
 
 # Image 1: Architecture
 setup(width=120, height=60)
-rectangle((60, 30), width=40, height=20, style=styles.blue_flat, text="Stage 1")
+rectangle((60, 30), width=40, height=20, style=styles.primary_flat, text="Stage 1")
 save("output_stage1.png")
 
 # ALWAYS CLEAR BEFORE NEXT IMAGE
@@ -212,7 +212,7 @@ clear()
 
 # Image 2: Deployment
 setup(width=100, height=100)
-circle((50, 50), radius=30, style=styles.green_flat, text="Stage 2")
+circle((50, 50), radius=30, style=styles.secondary_flat, text="Stage 2")
 save("output_stage2.png")
 ```
 

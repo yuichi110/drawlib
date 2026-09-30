@@ -46,8 +46,9 @@ from drawlib.builder import build_html
 
 build_html(
     input_path="docs_src/",
-    output_path="docs_html/",
-    config_path="config.py",        # Optional global Python config
+    output="docs_html/",
+    styles="styles.py",             # Optional Python styles script
+    utils="utils.py",               # Optional Python utils script
     css_mode="external",            # "external" (default) or "embed"
     no_cache=False,                 # Force re-rendering all code blocks
     image_format="png",             # "png" or "webp"
@@ -62,8 +63,9 @@ from drawlib.builder import build_markdown
 
 build_markdown(
     input_path="docs_src/",
-    output_path="docs/",
-    config_path="config.py",
+    output="docs/",
+    styles="styles.py",
+    utils="utils.py",
     image_format="png",
 )
 ```
@@ -76,8 +78,9 @@ from drawlib.builder import build_pdf
 
 build_pdf(
     inputs="docs_src/index.md",
-    output_path="output.pdf",
-    config_path="config.py",
+    output="output.pdf",
+    styles="styles.py",
+    utils="utils.py",
 )
 ```
 
@@ -88,9 +91,10 @@ Executes standalone Python drawing scripts in batch mode:
 from drawlib.builder import build_image
 
 build_image(
-    input_path="drawings/",
-    output_path="dist/images/",
-    config_path="config.py",
+    inputs="drawings/",
+    output="dist/images/",
+    styles="styles.py",
+    utils="utils.py",
     grid=False,
 )
 ```
@@ -111,7 +115,8 @@ export_block(
     target="1",                      # 1-based index or target filename (e.g. "arch.png")
     output_path="scratch/arch.png",
     grid=True,                       # Overlay coordinate grid lines (-g)
-    config_path="config.py",
+    styles_path="styles.py",
+    utils_path="utils.py",
 )
 
 # Export directly from a standalone Python script:
@@ -132,6 +137,8 @@ show_block(
     file_path="docs_src/architecture.md",
     target="1",
     grid=True,
+    styles_path="styles.py",
+    utils_path="utils.py",
 )
 ```
 
@@ -146,12 +153,12 @@ from drawlib.tools import init_project, list_project_types
 
 # Inspect available starter templates:
 types = list_project_types()
-# Returns: ["site", "simple", "pdf", "image"]
+# Returns: {"site": "Multi-page documentation...", "simple": "...", "pdf": "...", "image": "..."}
 
 # Scaffold a multi-page documentation website:
 init_project(
     project_type="site",
-    target_dir="./my_docs",
+    destination="./my_docs",
     force=False,
 )
 ```
@@ -170,7 +177,8 @@ serve_docs(
     directory="docs_html/",
     port=8000,
     open_browser=True,
-    check_links=True,
+    skip_check=False,
+    check_only=False,
 )
 ```
 
@@ -197,11 +205,11 @@ Inspect available CSS themes and export stylesheets:
 from drawlib.tools import export_css, list_css
 
 # List CSS style presets:
-html_presets = list_css(format="html")  # ["google", "google-dark", "github", ...]
-pdf_presets = list_css(format="pdf")    # ["default", "monochrome", ...]
+html_presets = list_css(target="html")  # [{"name": "google", "description": ...}, ...]
+pdf_presets = list_css(target="pdf")    # [{"name": "default", ...}, ...]
 
 # Export a preset CSS stylesheet:
-export_css(name="google", output_path="style.css", format="html", force=True)
+export_css(name="google", output_path="style.css", target="html", force=True)
 ```
 
 ---
@@ -212,7 +220,7 @@ export_css(name="google", output_path="style.css", format="html", force=True)
 
 ```python
 from pathlib import Path
-from drawlib.tools import build_html, build_markdown, export_block
+from drawlib.builder import build_html, build_markdown, export_block
 
 def run_documentation_pipeline() -> None:
     src_dir = Path("docs_src")
@@ -220,10 +228,10 @@ def run_documentation_pipeline() -> None:
     md_dir = Path("docs")
 
     print("[1/3] Compiling GitHub Markdown documentation...")
-    build_markdown(input_path=str(src_dir), output_path=str(md_dir))
+    build_markdown(input_path=str(src_dir), output=str(md_dir))
 
     print("[2/3] Compiling Responsive HTML static site...")
-    build_html(input_path=str(src_dir), output_path=str(html_dir))
+    build_html(input_path=str(src_dir), output=str(html_dir))
 
     print("[3/3] Exporting hero diagram for release badge...")
     export_block(

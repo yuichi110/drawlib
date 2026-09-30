@@ -51,36 +51,36 @@ from drawlib.fonts import (
 text(
     xy: tuple[float, float],
     text: str,
-    size: float | None = None,
-    angle: float = 0,
-    style: Style | str | None = None,
-)
+    *,
+    style: Style,
+    size: float | Literal["small", "medium", "large"] | None = None,
+    angle: float = 0.0,
+) -> None
 ```
 
 #### Parameter Breakdown:
 - **`xy` (tuple[float, float])**: The anchor point `(x, y)` on the canvas.
 - **`text` (str)**: The string content to render. Supports newline characters (`\n`) for multi-line blocks.
-- **`size` (float | None)**: Font size in typographical points (default: 16). Can also be controlled via `style`.
-- **`angle` (float)**: Counter-clockwise rotation angle in degrees around the anchor point `xy` (default: 0).
-- **`style` (Style | str | None)**: Predefined style name (e.g. `"bold"`, `"blue_bold"`, `"white"`) or a custom `Style` instance.
+- **`style` (Style)**: Required keyword-only `Style` instance (e.g. `styles.bold`, `styles.primary`, `styles.blue_bold` or custom `Style(...)`).
   Alignment is controlled via `Style(text_halign="...", text_valign="...")` (`text_halign`: `"left"`, `"center"`, `"right"`; `text_valign`: `"bottom"`, `"center"`, `"top"`).
+- **`size` (float | Literal["small", "medium", "large"] | None)**: Font size in typographical points or semantic label. If `None` (default), inherits from `style.text_size`.
+- **`angle` (float)**: Counter-clockwise rotation angle in degrees around the anchor point `xy` (default: 0.0).
 
 ### 2.2. `text_vertical()` Specification
-While uncommon in Western languages, vertical text layout is standard in East Asian typography (Japanese, Chinese). `text_vertical()` stacks glyphs vertically from top to bottom.
+Vertical text layout stacks glyphs vertically from top to bottom.
 
 ```python
 text_vertical(
     xy: tuple[float, float],
     text: str,
-    size: float | None = None,
-    angle: float = 0,
-    style: Style | str | None = None,
-    halign: str = "center",
-    valign: str = "center",
-)
+    *,
+    style: Style,
+    size: float | Literal["small", "medium", "large"] | None = None,
+    angle: float = 0.0,
+) -> None
 ```
 
-> **Rule for Vertical Text**: Always use `halign="center"` with `text_vertical()`. Left or right alignments will cause glyph centerlines to drift unevenly across non-monospaced fonts.
+> **Rule for Vertical Text**: `style.text_halign` must be `"center"`. If another alignment is specified, Drawlib will issue a warning and automatically patch it to `"center"` to ensure glyph centerlines remain aligned.
 
 ---
 
@@ -179,7 +179,7 @@ save()
 
 ## 5. Advanced Styling with the `Style` Class
 
-When pre-defined style strings are insufficient, pass a custom `Style` instance to control color, typography, and background framing.
+When pre-defined styles are insufficient, pass a custom `Style` instance to control color, typography, and background framing.
 
 ### 5.1. Text Typography Attributes in `Style`
 - **`text_color` (tuple | str | Color)**: Color of the glyphs (e.g. `Colors.Blue`, `"#1a73e8"`).
@@ -238,25 +238,33 @@ Imported from `drawlib.fonts`:
    - `Font.SANSSERIF_LIGHT`, `Font.SANSSERIF_REGULAR`, `Font.SANSSERIF_BOLD`
    - `Font.SERIF_LIGHT`, `Font.SERIF_REGULAR`, `Font.SERIF_BOLD`
    - Default family: **Noto Sans CJK Japanese** (universal multilingual sans-serif).
-2. **`FontSansSerif`**:
-   - `FontSansSerif.ROBOTO_REGULAR`, `ROBOTO_BOLD`
-   - `FontSansSerif.RALEWAY_REGULAR`, `RALEWAY_BOLD`
-   - `FontSansSerif.LATO_REGULAR`, `LATO_BOLD`
-3. **`FontSerif`**:
-   - `FontSerif.MERRIWEATHER_REGULAR`, `MERRIWEATHER_BOLD`
-   - `FontSerif.NOTO_SERIF_REGULAR`, `NOTO_SERIF_BOLD`
-4. **`FontMonoSpace` / `FontSourceCode`**:
-   - `FontMonoSpace.SOURCECODEPRO_REGULAR`, `SOURCECODEPRO_BOLD`
+2. **`FontRoboto`**:
+   - `FontRoboto.ROBOTO_LIGHT`, `FontRoboto.ROBOTO_REGULAR`, `FontRoboto.ROBOTO_BOLD`
+   - `FontRoboto.SERIF_LIGHT`, `FontRoboto.SERIF_REGULAR`, `FontRoboto.SERIF_BOLD`
+   - `FontRoboto.MONO_LIGHT`, `FontRoboto.MONO_REGULAR`, `FontRoboto.MONO_BOLD`
+3. **`FontSansSerif`**:
+   - `FontSansSerif.LATO_LIGHT`, `LATO_REGULAR`, `LATO_BOLD`
+   - `FontSansSerif.MONTSERRAT_LIGHT`, `MONTSERRAT_REGULAR`, `MONTSERRAT_BOLD`
+   - `FontSansSerif.OSWALD_LIGHT`, `OSWALD_REGULAR`, `OSWALD_BOLD`
+   - `FontSansSerif.POPPINS_LIGHT`, `POPPINS_REGULAR`, `POPPINS_BOLD`
+   - `FontSansSerif.RALEWAYS_LIGHT`, `RALEWAYS_REGULAR`, `RALEWAYS_BOLD`
+4. **`FontSerif`**:
+   - `FontSerif.COURIER_REGULAR`, `COURIER_BOLD`
+   - `FontSerif.MERRIWEATHER_LIGHT`, `MERRIWEATHER_REGULAR`, `MERRIWEATHER_BOLD`
+   - `FontSerif.PLATYPI_LIGHT`, `PLATYPI_REGULAR`, `PLATYPI_BOLD`
+   - `FontSerif.PLAYFAIRDISPLAY_REGULAR`, `PLAYFAIRDISPLAY_BOLD`
+5. **`FontMonoSpace` / `FontSourceCode`**:
+   - `FontMonoSpace.ROBOTO_MONO_REGULAR`, `FontMonoSpace.COURIER_REGULAR`, `FontMonoSpace.SOURCECODEPRO_REGULAR`, `FontMonoSpace.SOURCEHANCODEJP_REGULAR`
    - Essential for code blocks, terminal outputs, JSON keys, and monospaced tables.
 
 ### 6.2. International & Local Language Fonts
 For non-Latin languages requiring specialized typographies:
-- **`FontJapanese`**: `FontJapanese.MPLUS1P_REGULAR`, `NOTO_SANS_JP_BOLD`
-- **`FontChinese`**: `FontChinese.NOTO_SANS_SC_REGULAR`, `NOTO_SANS_TC_REGULAR`
-- **`FontKorean`**: `FontKorean.NOTO_SANS_KR_REGULAR`
-- **`FontThai`**: `FontThai.NOTO_SANS_THAI_REGULAR`, `SERIF_REGULAR`
-- **`FontArabic`**: `FontArabic.NOTO_SANS_ARABIC_REGULAR`
-- **`FontBrahmic`**: Devanagari and Indic font sets.
+- **`FontJapanese`**: `FontJapanese.SANSSERIF_REGULAR`, `SERIF_REGULAR`, `MPLUS1P_REGULAR`, `MPLUSROUNDED1C_REGULAR`, `SAWARABI_GOTHIC`, `SAWARABI_MINCHO`
+- **`FontChinese`**: `FontChinese.SIMPLIFIED_SANSSERIF_REGULAR`, `TRADITIONAL_SANSSERIF_REGULAR`, `HONGKONG_SANSSERIF_REGULAR`
+- **`FontKorean`**: `FontKorean.SANSSERIF_REGULAR`, `SERIF_REGULAR`
+- **`FontThai`**: `FontThai.SANSSERIF_REGULAR`, `SERIF_REGULAR`
+- **`FontArabic`**: `FontArabic.SANSSERIF_REGULAR`, `KUFI_REGULAR`, `NASKH_REGULAR`
+- **`FontBrahmic`**: `FontBrahmic.BENGALI_SANSSERIF_REGULAR`, `DEVANAGARI_SANSSERIF_REGULAR`, `TAMIL_SANSSERIF_REGULAR`, `TELUGU_SANSSERIF_REGULAR`
 
 ### 6.3. External Custom Font Files (`FontFile`)
 To use custom corporate fonts (TTF/OTF), use `FontFile`:

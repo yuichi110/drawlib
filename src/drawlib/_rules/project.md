@@ -41,7 +41,7 @@ Drawlib features 4 built-in project starter templates tailored to different publ
 | Project Type | Purpose | Source Directory | Generated Artifacts | Best Used For |
 | :--- | :--- | :--- | :--- | :--- |
 | **`site`** | **Multi-Page Website** | `docs_src/` | `docs_html/` (HTML site)<br>`docs/` (GitHub Markdown) | Software documentation, technical guides, architectural handbooks, API manuals. |
-| **`simple`** | **Single Markdown Document** | `docs_src/` | `docs_html/index.html`<br>`docs/index.rendered.md` | Single-page project README, technical RFCs, standalone design proposals. |
+| **`simple`** | **Single Markdown Document** | `docs_src/` | `docs_html/doc.html`<br>`docs/doc.md` | Single-page project README, technical RFCs, standalone design proposals. |
 | **`pdf`** | **Multi-Chapter Report** | `docs_src/` | `docs.pdf` | Whitepapers, technical design documents, formal deliverables with Table of Contents. |
 | **`image`** | **Standalone Image Scripts** | `images_src/` | `images/*.png` (or `.webp`) | Generating standalone architecture diagrams, social cards, or presentation assets from Python scripts. |
 
@@ -140,8 +140,8 @@ from drawlib.shapes import rectangle
 
 setup(width=100, height=50)
 
-rectangle((25, 25), width=30, height=20, style=Styles.blue_flat, text="Client", textstyle=Styles.white_bold)
-rectangle((75, 25), width=30, height=20, style=Styles.green_flat, text="Server", textstyle=Styles.white_bold)
+rectangle((25, 25), width=30, height=20, style=Styles.primary_flat, text="Client", textstyle=Styles.white_bold)
+rectangle((75, 25), width=30, height=20, style=Styles.secondary_flat, text="Server", textstyle=Styles.white_bold)
 line((40, 25), (60, 25), arrowhead="->", style=Styles.bold)
 ```
 ````
@@ -151,7 +151,7 @@ line((40, 25), (60, 25), arrowhead="->", style=Styles.bold)
   - `hide-code` *(default)*: Renders illustration only.
   - `show-code`: Displays Python source followed by the rendered image.
   - `fold-code`: Displays image followed by a collapsed `<details><summary>Source Code</summary>...</details>` dropdown.
-- **Dimensions**: `500px`, `100%`, `w:600px`, `h:300px`.
+- **Dimensions**: `500px`, `600px`, `100%` (width tokens).
 - **Alignment**: `center` *(default)*, `left`, `right`.
 - **Caption**: `caption:"Description"` (rendered in `<figcaption>`).
 - **Filename**: `file:custom_name.png` (explicitly name the companion image).

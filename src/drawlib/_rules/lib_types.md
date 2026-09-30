@@ -30,15 +30,18 @@ All properties are domain-segregated to prevent ambiguous collisions:
 
 ```python
 Style(
+    # Target declaration (inferred automatically from provided attributes if omitted)
+    supports: frozenset[Literal["shape", "line", "text", "icon", "image"]] | set[str] | None = None,
+
     # Shape Properties (rectangle, circle, polygon, etc.)
-    shape_fill_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    shape_fill_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     shape_fill_alpha: float | None = None,
-    shape_line_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    shape_line_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     shape_line_width: float | None = None,
     shape_line_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
 
     # Line / Arrow Properties (line, lines, arrow, etc.)
-    line_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    line_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     line_width: float | None = None,
     line_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
     line_alpha: float | None = None,
@@ -46,24 +49,29 @@ Style(
     line_arrow_head_scale: float | None = None,
 
     # Text & Typography Properties
-    text_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
-    text_size: float | None = None,
+    text_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
+    text_size: float | Literal["small", "medium", "large"] | None = None,
     text_font: FontBase | FontFile | None = None,
     text_halign: Literal["left", "center", "right"] | None = None,
     text_valign: Literal["bottom", "center", "top"] | None = None,
     text_angle: float | None = None,
-    text_bg_fill_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
-    text_bg_line_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    text_flip: bool | None = None,
+    text_xy_shift: tuple[float, float] | None = None,
+    text_xy_abs_shift: tuple[float, float] | None = None,
+    text_bg_fill_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
+    text_bg_fill_alpha: float | None = None,
+    text_bg_line_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     text_bg_line_width: float | None = None,
+    text_bg_line_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
 
     # Icon Properties (phosphor, font_icon, gcp)
-    icon_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    icon_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     icon_style: Literal["regular", "bold", "fill", "thin", "light", "duotone"] | None = None,
 
     # Image Properties
-    image_tint_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    image_tint_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     image_alpha: float | None = None,
-    image_border_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
+    image_border_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     image_border_width: float | None = None,
     image_border_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
 )
@@ -72,23 +80,27 @@ Style(
 ### Complete Attribute Reference:
 | Attribute | Type | Description |
 | :--- | :--- | :--- |
-| `shape_fill_color` | `tuple` | Background/interior fill color for shapes. |
+| `supports` | `frozenset` | Declared targets (`"shape"`, `"line"`, `"text"`, `"icon"`, `"image"`). Inferred if omitted. |
+| `shape_fill_color` | `ColorType` | Background/interior fill color for shapes (`tuple`, `Color`, or hex `str`). |
 | `shape_fill_alpha` | `float` | Shape fill opacity (`0.0` = fully transparent, `1.0` = fully opaque). |
-| `shape_line_color` | `tuple` | Shape border stroke color. |
+| `shape_line_color` | `ColorType` | Shape border stroke color. |
 | `shape_line_width` | `float` | Shape border stroke thickness in points. |
 | `shape_line_style` | `str` | Shape border pattern: `"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`. |
-| `line_color` | `tuple` | Connector/path line stroke color. |
+| `line_color` | `ColorType` | Connector/path line stroke color. |
 | `line_width` | `float` | Line stroke thickness in points. |
 | `line_style` | `str` | Line dash pattern: `"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`. |
 | `line_arrow_head_fill` | `bool` | Whether arrowhead is filled triangle (`True`) or stick (`False`). |
 | `line_arrow_head_scale` | `float` | Physical scaling factor for arrowheads (default: 20.0). |
-| `text_color` | `tuple` | Color for embedded text or standalone text labels. |
-| `text_size` | `float` | Font size in typographical points (e.g. `12`, `14`, `18`, `24`). |
-| `text_font` | `Font` | Font instance (e.g. `FontRoboto.ROBOTO_BOLD`, `Font.SANSSERIF_REGULAR`). |
+| `text_color` | `ColorType` | Color for embedded text or standalone text labels. |
+| `text_size` | `float \| str` | Font size in points or semantic label (`"small"`, `"medium"`, `"large"`). |
+| `text_font` | `FontBase` | Font instance (e.g. `FontRoboto.ROBOTO_BOLD`, `Font.SANSSERIF_REGULAR`). |
 | `text_halign` | `str` | Horizontal alignment: `"left"`, `"center"`, `"right"`. |
 | `text_valign` | `str` | Vertical alignment: `"bottom"`, `"center"`, `"top"`. |
 | `text_angle` | `float` | Counter-clockwise text rotation angle in degrees. |
-| `icon_color` | `tuple` | Color for vector icons. |
+| `text_flip` | `bool` | Whether to mirror text horizontally. |
+| `text_xy_shift` | `tuple` | Normalized relative offset `(dx, dy)` for embedded text within shapes. |
+| `text_xy_abs_shift` | `tuple` | Absolute coordinate offset `(dx, dy)` in canvas units. |
+| `icon_color` | `ColorType` | Color for vector icons. |
 | `icon_style` | `str` | Icon weight/fill style variant (`"regular"`, `"bold"`, `"fill"`, etc.). |
 
 ### Immutability & Derivation via `.patch()`
@@ -109,28 +121,30 @@ highlighted_style = styles.primary.patch(
 
 ## 3. Drawlib Core Type Conventions
 
-When reading function signatures across Drawlib modules, parameters adhere to these conventions:
+Public Drawlib functions use standard Python typing rather than internal aliases to maximize IDE autocompletion and clarity:
 
-- **Coordinates (`TypeCoordinate`)**:  
+- **Coordinates**:  
   `tuple[float, float]` representing `(x, y)` in canvas coordinate space.
-- **Coordinate Sequences (`TypeCoordinates`)**:  
+- **Coordinate Sequences**:  
   `list[tuple[float, float]]` representing chained paths or polygon vertices.
-- **Colors (`TypeColor`)**:  
-  RGB `tuple[int, int, int]` or RGBA `tuple[int, int, int, float]`.
-- **Angles (`TypeAngle`)**:  
+- **Colors**:  
+  `tuple[int, int, int]`, `tuple[int, int, int, float]`, `Color`, or hex `str` (e.g. `"#1a73e8"`).
+- **Angles**:  
   `float` or `int` in degrees `[0.0, 360.0)`, measured counter-clockwise from horizontal East.
-- **Arrowheads (`TypeArrowHead`)**:  
-  `"->"` (forward), `"<-"` (backward), `"<->"` (bidirectional), `"-"` (plain stroke without head).
-- **Line Styles (`TypeLineStyle`)**:  
-  `"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`.
-- **Alignments (`TypeHAlign`, `TypeVAlign`)**:  
-  Horizontal: `"left"`, `"center"`, `"right"`. Vertical: `"bottom"`, `"center"`, `"top"`.
+- **Arrowheads**:  
+  `Literal["->", "<-", "<->", "-"]` (`"->"` forward, `"<-"` backward, `"<->"` bidirectional, `"-"` plain stroke).
+- **Line Styles**:  
+  `Literal["solid", "dashed", "dotted", "dashdot"]`.
+- **Alignments**:  
+  Horizontal: `Literal["left", "center", "right"]`. Vertical: `Literal["bottom", "center", "top"]`.
 
 ---
 
 ## 4. Custom Themes via `BaseStyles`
 
-You can define cohesive organizational design systems by subclassing `BaseStyles`:
+You can define cohesive organizational design systems by subclassing `BaseStyles`.
+
+> **Important**: `BaseStyles` is built upon Pydantic `BaseModel`. All style attributes **must** be explicitly type-annotated (`primary: Style = ...`) so Pydantic properly registers them.
 
 ```python
 from drawlib.preset_colors import Color
@@ -147,13 +161,19 @@ acme_colors = AcmeColors()
 class AcmeTheme(BaseStyles):
     primary: Style = Style(
         shape_fill_color=acme_colors.BrandBlue,
-        text_color=Color(255, 255, 255),
+        shape_line_color=acme_colors.BrandBlue,
         shape_line_width=0,
+        text_color=Color(255, 255, 255),
+        text_size=14,
+        text_font=FontRoboto.ROBOTO_REGULAR,
     )
     accent: Style = Style(
         shape_fill_color=acme_colors.BrandOrange,
-        text_color=Color(255, 255, 255),
+        shape_line_color=acme_colors.BrandOrange,
         shape_line_width=0,
+        text_color=Color(255, 255, 255),
+        text_size=14,
+        text_font=FontRoboto.ROBOTO_BOLD,
     )
 ```
 
@@ -168,14 +188,14 @@ from drawlib.canvas import save, setup
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import colors, styles
+from drawlib.styles import Colors, styles
 
 setup(width=140, height=60)
 
 # Base card style derived from styles.primary
 card_style = styles.primary.patch(
     shape_fill_color=(245, 247, 250),
-    shape_line_color=colors.Blue,
+    shape_line_color=Colors.Blue,
     shape_line_width=2,
     shape_line_style="solid",
     text_color=(30, 40, 50),
@@ -185,7 +205,7 @@ card_style = styles.primary.patch(
 
 # Active card style derived via .patch()
 active_card_style = card_style.patch(
-    shape_fill_color=colors.Blue,
+    shape_fill_color=Colors.Blue,
     text_color=(255, 255, 255),
 )
 

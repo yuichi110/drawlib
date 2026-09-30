@@ -161,6 +161,7 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 ### 3.2 Constructor Parameters
 | Parameter | Type | Default | Description |
 |---|---|---|---|
+| `title` | `str` | `""` | Chart title displayed at the top. |
 | `categories` | `list[str]` | `[]` | Category labels along the category axis. |
 | `width` / `height` | `float` | `60.0` / `40.0` | Bounding box dimensions on the canvas. |
 | `orientation` | `"vertical"` \| `"horizontal"` | `"vertical"` | Direction of bars. |
@@ -169,7 +170,11 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 | `r` | `float` | `0.0` | Corner rounding radius for bar rectangles. |
 | `show_values` | `bool` | `False` | Whether to render numerical text labels on or above bars. |
 | `value_format` | `FormatterType` | `None` | Formatter string or callable for value labels. |
+| `value_label_style`| `Style \| None` | `None` | Text style for numerical value labels. |
 | `legend_position` | `LegendPosition` | `"auto"` | Placement of legend (`"auto"`, `"top"`, `"bottom"`, `"right"`, `"none"`). |
+| `legend_style` | `Style \| None` | `None` | Text style for legend labels. |
+| `title_style` | `Style \| None` | `None` | Text style for the chart title. |
+| `style` | `Style \| None` | `None` | Base style fallback for chart elements. |
 
 ### 3.3 Methods & Data Model
 - `add_series(name: str, values: list[float], color: ColorType | None = None, style: Style | None = None) -> Series`
@@ -183,11 +188,10 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 
 #### Example 3.4.1: Vertical Grouped Bar Chart with Value Labels
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 
-canvas.clear()
-canvas.setup(width=100, height=80)
+setup(width=100, height=80)
 
 chart = BarChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
@@ -210,11 +214,10 @@ chart.draw(xy=(10.0, 15.0))
 
 #### Example 3.4.2: Horizontal Stacked Bar Chart with Resource Breakdown
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 
-canvas.clear()
-canvas.setup(width=105, height=75)
+setup(width=105, height=75)
 
 chart = BarChart(
     categories=["Frontend", "API Gateway", "Database", "Search Index"],
@@ -238,11 +241,10 @@ chart.draw(xy=(10.0, 15.0))
 
 #### Example 3.4.3: Logarithmic Scale Latency Benchmark
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 
-canvas.clear()
-canvas.setup(width=100, height=75)
+setup(width=100, height=75)
 
 chart = BarChart(
     categories=["L1 Cache", "RAM", "NVMe SSD", "Cross-Region API"],
@@ -299,11 +301,10 @@ chart.draw(xy=(10.0, 12.0))
 
 #### Example 4.4.1: Multi-Series Active Users Comparison
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
 
-canvas.clear()
-canvas.setup(width=100, height=80)
+setup(width=100, height=80)
 
 chart = LineChart(
     categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
@@ -323,11 +324,10 @@ chart.draw(xy=(10.0, 15.0))
 
 #### Example 4.4.2: Smooth Spline CPU Load with Custom Markers
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
 
-canvas.clear()
-canvas.setup(width=100, height=75)
+setup(width=100, height=75)
 
 chart = LineChart(
     categories=["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
@@ -390,11 +390,10 @@ chart.draw(xy=(10.0, 15.0))
 
 #### Example 5.4.1: Cumulative Stacked Revenue Streams
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.area import AreaChart
 
-canvas.clear()
-canvas.setup(width=100, height=80)
+setup(width=100, height=80)
 
 chart = AreaChart(
     categories=["2021", "2022", "2023", "2024", "2025"],
@@ -414,11 +413,10 @@ chart.draw(xy=(10.0, 15.0))
 
 #### Example 5.4.2: Overlapping Network Bandwidth with Custom Alpha
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.area import AreaChart
 
-canvas.clear()
-canvas.setup(width=100, height=75)
+setup(width=100, height=75)
 
 chart = AreaChart(
     categories=["02:00", "06:00", "10:00", "14:00", "18:00", "22:00"],
@@ -483,11 +481,10 @@ chart.draw(xy=(10.0, 15.0))
 
 #### Example 6.4.1: Donut Chart with Center Metric
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
 
-canvas.clear()
-canvas.setup(width=95, height=75)
+setup(width=95, height=75)
 
 chart = PieChart(
     radius=26.0,
@@ -505,11 +502,10 @@ chart.draw(xy=(10.0, 10.0))
 
 #### Example 6.4.2: Exploded Slice Allocation
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
 
-canvas.clear()
-canvas.setup(width=90, height=80)
+setup(width=90, height=80)
 
 chart = PieChart(
     radius=25.0,
@@ -572,11 +568,10 @@ chart.draw(xy=(15.0, 10.0))
 
 #### Example 7.4.1: Software Architecture Non-Functional Attributes
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.radar import RadarChart
 
-canvas.clear()
-canvas.setup(width=105, height=88)
+setup(width=105, height=88)
 
 chart = RadarChart(
     categories=["Scalability", "Reliability", "Security", "Maintainability", "Latency"],
@@ -597,11 +592,10 @@ chart.draw(xy=(5.0, 5.0))
 
 #### Example 7.4.2: Circular Grid Product Evaluation
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.radar import RadarChart
 
-canvas.clear()
-canvas.setup(width=95, height=75)
+setup(width=95, height=75)
 
 chart = RadarChart(
     categories=["UX Design", "Performance", "Battery Life", "Camera Quality", "Ecosystem", "Price"],
@@ -658,12 +652,11 @@ chart.draw(xy=(15.0, 8.0))
 
 #### Example 8.4.1: Benchmark Scatter with Labeled Baseline Points
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.types import Style
 
-canvas.clear()
-canvas.setup(width=105, height=75)
+setup(width=105, height=75)
 
 chart = ScatterChart(
     width=85.0,
@@ -691,11 +684,10 @@ chart.draw(xy=(10.0, 12.0))
 
 #### Example 8.4.2: Multidimensional Cloud Cost Bubble Chart
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.scatter import ScatterChart
 
-canvas.clear()
-canvas.setup(width=105, height=75)
+setup(width=105, height=75)
 
 chart = ScatterChart(
     width=85.0,
@@ -767,11 +759,10 @@ Data models include `Task`, `Section`, `Milestone`, `Marker`, and `Dependency`.
 
 #### Example 9.4.1: Engineering Release Roadmap with Dependencies
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
 
-canvas.clear()
-canvas.setup(width=110, height=85)
+setup(width=110, height=85)
 
 chart = GanttChart(
     columns=["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
@@ -804,11 +795,10 @@ chart.draw(xy=(8.0, 10.0))
 
 #### Example 9.4.2: Agile Sprint Schedule with Custom Task Colors
 ```drawlib show-code
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
 
-canvas.clear()
-canvas.setup(width=100, height=70)
+setup(width=100, height=70)
 
 chart = GanttChart(
     columns=["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"],
@@ -888,7 +878,7 @@ chart = BarChart(..., style=card_style)
 - **Container Placement**: Remember that `chart.draw(xy=(x, y))` anchors the **bottom-left corner** of the entire chart bounding box.
 - **Canvas Sizing**: If your chart width is `80.0` and height is `50.0`, ensure your canvas width and height provide at least 10–15 units of surrounding padding:
   ```python
-  canvas.setup(width=100.0, height=75.0)
+  setup(width=100.0, height=75.0)
   chart.draw(xy=(10.0, 12.0))
   ```
 

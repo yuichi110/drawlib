@@ -50,9 +50,10 @@ The `line()` function renders a single direct line segment connecting a starting
 def line(
     xy1: tuple[float, float],
     xy2: tuple[float, float],
+    *,
+    style: Style,
     width: float | None = None,
     arrowhead: Literal["", "->", "<-", "<->"] | str = "",
-    style: Style | str | None = None,
 ) -> None:
 ```
 
@@ -60,9 +61,9 @@ def line(
 | :--- | :--- | :--- | :--- |
 | `xy1` | `tuple[float, float]` | *Required* | Starting coordinate `(x1, y1)` in virtual canvas units. |
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `(x2, y2)` in virtual canvas units. |
+| `style` | `Style` | *Required* | Active `Style` object (e.g. `styles.bold`, `styles.primary`). Keyword-only argument. |
 | `width` | `float \| None` | `None` | Stroke width override in points. If omitted, uses `style.line_width` (default: `1.0`). |
 | `arrowhead` | `str` | `""` | Terminal arrowhead style: `""` (none), `"->"` (forward), `"<-"` (reverse), `"<->"` (both). |
-| `style` | `Style \| str \| None` | `None` | Named preset string (e.g. `"blue_bold"`, `"gray_dashed"`) or a `Style` object. |
 
 ### 2.2. Coordinate Geometry & Orientation Math
 When computing line endpoints programmatically:
@@ -363,18 +364,19 @@ The `lines()` function takes an ordered list of vertices and connects them in se
 ```python
 def lines(
     xys: list[tuple[float, float]],
+    *,
+    style: Style,
     width: float | None = None,
     arrowhead: Literal["", "->", "<-", "<->"] | str = "",
-    style: Style | str | None = None,
 ) -> None:
 ```
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xys` | `list[tuple[float, float]]` | *Required* | Sequence of 2 or more coordinates `[(x0, y0), (x1, y1), ...]`. |
+| `style` | `Style` | *Required* | Active `Style` instance. Keyword-only argument. |
 | `width` | `float \| None` | `None` | Stroke width override in points. |
 | `arrowhead` | `str` | `""` | Arrowhead placed on terminal segment(s). |
-| `style` | `Style \| str \| None` | `None` | Named preset or `Style` instance. |
 
 ### 5.2. Built-in Optimizations: Sanitization & Collinear Merging
 Drawlib's `LineUtil.sanitize_xys()` runs automatically prior to rendering:

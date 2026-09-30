@@ -172,34 +172,34 @@ Embedded shape text rotates alongside the shape by default, maintaining its rela
 
 ### 1.6 The Unified Styling System (`Style`)
 
-Shape styling is driven by Drawlib's core `Style` dataclass or predefined style preset strings (e.g., `"blue"`, `"green_flat"`, `"red_dashed"`).
+Shape styling is driven by Drawlib's core `Style` model directly imported from `drawlib.styles.styles` (e.g., `styles.primary`, `styles.secondary_flat`, `styles.accent_bold`) or custom `Style` instances.
 
 ```python
 from drawlib.preset_colors import CssColors
 from drawlib.types import Style
 
 custom_shape_style = Style(
-    fill_color=CssColors.AliceBlue,      # Interior fill color (RGB, RGBA, or hex)
-    fill_alpha=0.85,                     # Opacity float: 0.0 (transparent) to 1.0 (opaque)
-    line_color=CssColors.SteelBlue,      # Stroke boundary color
-    line_width=2.5,                      # Stroke thickness in points (0 disables border)
-    line_style="dashed",                 # "solid" | "dashed" | "dotted" | "dashdot"
-    text_halign="center",                # Layout horizontal anchor
-    text_valign="center",                # Layout vertical anchor
+    shape_fill_color=CssColors.AliceBlue,      # Interior fill color (RGB, RGBA, or hex)
+    shape_fill_alpha=0.85,                     # Opacity float: 0.0 (transparent) to 1.0 (opaque)
+    shape_line_color=CssColors.SteelBlue,      # Stroke boundary color
+    shape_line_width=2.5,                      # Stroke thickness in points (0 disables border)
+    shape_line_style="dashed",                 # "solid" | "dashed" | "dotted" | "dashdot"
+    text_halign="center",                      # Layout horizontal anchor
+    text_valign="center",                      # Layout vertical anchor
 )
 ```
 
 #### System Defaults (`SYSTEM_DEFAULT_SHAPE_STYLE`)
 Unless overridden, all shapes inherit these baseline attributes:
-- `fill_color`: `Colors.White` `(255, 255, 255)`
-- `fill_alpha`: `1.0` (fully opaque)
-- `line_color`: `Colors.Black` `(0, 0, 0)`
-- `line_width`: `1.0`
-- `line_style`: `"solid"`
+- `shape_fill_color`: `Colors.White` `(255, 255, 255)`
+- `shape_fill_alpha`: `1.0` (fully opaque)
+- `shape_line_color`: `Colors.Black` `(0, 0, 0)`
+- `shape_line_width`: `1.0`
+- `shape_line_style`: `"solid"`
 - `text_halign`: `"center"`
 - `text_valign`: `"center"`
 
-To eliminate a shape's border line entirely, explicitly pass `line_width=0`. To make a shape completely hollow/transparent, pass `fill_color=Colors.Transparent` or `fill_alpha=0.0`.
+To eliminate a shape's border line entirely, explicitly set `shape_line_width=0`. To make a shape completely hollow/transparent, pass `shape_fill_alpha=0.0`.
 
 ---
 
@@ -211,13 +211,14 @@ Almost all shapes accept `text`, `textsize`, and `textstyle` parameters.
 - Font size can be specified directly via `textsize` (numeric float or `"small" | "medium" | "large"`), or through `textstyle=Style(text_size=...)`. The `textstyle` parameter is preferred.
 
 ```python
-from drawlib.fonts import FontSansSerif
+from drawlib.fonts import FontRoboto
+from drawlib.preset_colors import CssColors
 from drawlib.types import Style
 
 custom_text_style = Style(
     text_color=CssColors.MidnightBlue,
     text_size=18,
-    text_font=FontSansSerif.ROBOTO_BOLD,
+    text_font=FontRoboto.ROBOTO_BOLD,
     text_angle=0.0,                  # Freeze text horizontally even if shape rotates
     text_flip=False,                 # Invert 180 degrees if True
     text_xy_shift=(0.0, -3.0),       # Relative micro-adjustment offset (dx, dy)

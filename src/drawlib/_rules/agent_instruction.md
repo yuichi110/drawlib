@@ -12,12 +12,15 @@ Avoid manually writing SVGs or plotting with low-level matplotlib boilerplate. D
 | Diagram Category | Recommended High-Level Module | What It Draws |
 | :--- | :--- | :--- |
 | **Cloud & Microservices** | `drawlib.diagrams.architecture.ArchitectureDiagram` | Cloud topologies, VPCs, clusters, icons |
-| **Pipelines & Workflows** | `drawlib.smartarts.ChevronProcess`, `FlowDiagram` | Linear stages, decision gates, branching flows |
-| **Hierarchy & Organization**| `drawlib.smartarts.tree`, `TreeNode` | Directory trees, org charts, taxonomy trees |
-| **Radial Concepts & Maps** | `drawlib.smartarts.mindmap`, `MindMapNode` | Brainstorming nodes, radial feature maps |
+| **Pipelines & Workflows** | `drawlib.smartarts.ChevronProcess`, `drawlib.diagrams.flow.FlowDiagram` | Linear stages, decision gates, branching flows |
+| **Hierarchy & Organization**| `drawlib.smartarts.TreeNode` | Directory trees, org charts, taxonomy trees |
+| **Radial Concepts & Maps** | `drawlib.smartarts.MindMapNode` | Brainstorming nodes, radial feature maps |
 | **Relational Data & Tables** | `drawlib.smartarts.Table` | Comparison matrix, schemas, data tables |
 | **API Sequences & Protocols**| `drawlib.diagrams.sequence.SequenceDiagram` | Client/server lifelines, message flows, notes |
-| **Quantitative Charts** | `drawlib.charts` (Bar, Line, Pie, Radar, Gantt) | Trend plots, project schedules, metrics |
+| **Class & Object Models** | `drawlib.diagrams.class_diagram.ClassDiagram` | OOP classes, methods, inheritance, associations |
+| **State & Transitions** | `drawlib.diagrams.state.StateDiagram` | State machine lifecycles, triggers, guards |
+| **Database Schemas & ER** | `drawlib.diagrams.er.ERDiagram` | Relational tables, foreign keys, cardinalities |
+| **Quantitative Charts** | `drawlib.charts` (Bar, Line, Area, Pie, Radar, Gantt) | Trend plots, project schedules, metrics |
 | **Drawing Primitives** | `drawlib.shapes`, `drawlib.lines`, `drawlib.text` | 22 shapes, curved/bezier lines, styled text |
 | **Standardized Icons** | `drawlib.icons` (Phosphor, FontAwesome, GCP) | Vector and official cloud architecture icons |
 
@@ -60,7 +63,7 @@ Always execute this self-correction loop when creating or modifying diagrams:
 ## 3. Quickstart Example
 
 ```python
-from drawlib.canvas import clear, save, setup
+from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -101,8 +104,8 @@ from drawlib.lines import line
 from drawlib.styles import Styles
 
 setup(width=100, height=40)
-rectangle((25, 20), width=30, height=18, style=Styles.blue_flat, text="Publisher", textstyle=Styles.white_bold)
-rectangle((75, 20), width=30, height=18, style=Styles.green_flat, text="Consumer", textstyle=Styles.white_bold)
+rectangle((25, 20), width=30, height=18, style=Styles.primary_flat, text="Publisher", textstyle=Styles.white_bold)
+rectangle((75, 20), width=30, height=18, style=Styles.secondary_flat, text="Consumer", textstyle=Styles.white_bold)
 line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
 ```
 ````
@@ -115,7 +118,7 @@ line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
 ### 4.2. Standard Project Scaffolding (`drawlib init`)
 Never create documentation project structures manually. Always scaffold them with `drawlib init`:
 - **`site`**: Multi-page documentation website (`docs_html/`) and GitHub-ready Markdown (`docs/`) with sidebar navigation (`navbar.md`).
-- **`simple`**: Single-document technical spec / RFC (`docs_html/index.html` + `docs/index.rendered.md`).
+- **`simple`**: Single-document technical spec / RFC (`docs_html/doc.html` + `docs/doc.md`).
 - **`pdf`**: Multi-chapter formal technical reports and design documents (`docs.pdf`).
 - **`image`**: Standalone Python drawing scripts generating image batches (`images_src/` -> `images/`).
 

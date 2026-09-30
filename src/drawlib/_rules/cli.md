@@ -68,7 +68,7 @@ drawlib [GLOBAL_OPTIONS] COMMAND [SUBCOMMAND] [ARGS...]
 ```
 
 ### Global Options:
-- `-v`, `--version`: Print library version and API specification version to `stderr`, then exit with status code 0.
+- `-v`, `--version`: Print library version to `stdout`, then exit with status code 0.
 - `-h`, `--help`: Display contextual help messages, arguments, options, and subcommand listings.
 - `--quiet`: Suppress non-critical standard output. Only warnings and error messages are emitted.
 - `--verbose`: Enable verbose logging including timing metrics and complete execution traces.
@@ -321,7 +321,8 @@ my_site/
 │   ├── navbar.md              # [MANDATORY] Sidebar categories and links definition
 │   ├── template.html          # [MANDATORY] Jinja2 HTML layout template
 │   ├── style.css              # [MANDATORY] Site stylesheet (from --css preset)
-│   ├── config.py              # Global canvas settings, themes, and font defaults
+│   ├── styles.py              # Global custom styles and theme presets
+│   ├── utils.py               # Custom helper drawing functions
 │   ├── build.sh               # Executable build script (Markdown + HTML)
 │   ├── README.md              # Documentation workflow guide
 │   ├── architecture/
@@ -338,7 +339,8 @@ my_doc/
 │   ├── doc.md                 # Single authoring document
 │   ├── template.html          # [MANDATORY] Jinja2 HTML layout template
 │   ├── style.css              # [MANDATORY] Document stylesheet
-│   ├── config.py              # Global drawing configuration
+│   ├── styles.py              # Global custom styles and theme presets
+│   ├── utils.py               # Custom helper drawing functions
 │   ├── build.sh               # Automation script for Markdown & HTML export
 │   └── README.md              # Quickstart guide
 ```
@@ -353,7 +355,8 @@ my_report/
 │   ├── 02_design.md           # Technical design chapter
 │   ├── template.html          # [MANDATORY] Jinja2 PDF layout template
 │   ├── style.css              # [MANDATORY] Print/PDF stylesheet
-│   ├── config.py              # Global drawing configuration
+│   ├── styles.py              # Global custom styles and theme presets
+│   ├── utils.py               # Custom helper drawing functions
 │   ├── build.sh               # Headless PDF generation script
 │   └── README.md              # Compilation instructions
 ```

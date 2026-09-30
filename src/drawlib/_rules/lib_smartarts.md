@@ -57,9 +57,9 @@ Understanding anchor points is essential for programmatic generation and positio
 - **Center Anchored**: `MindMapNode` (root node center `(x, y)`), `Cycle` (default `align="center"` anchors orbit center).
 
 ### 1.3 Style Resolution
-Every SmartArt accepts either:
-- A `Style` instance: `Style(fill_color=Colors.Blue, line_color=Colors.White, line_width=1.5)`
-- A preset style string key: `"blue"`, `"red_flat"`, `"green_solid"`, `"white_bold"`, `"light"`, `"bold"`
+Every SmartArt accepts:
+- A `Style` instance: `Style(shape_fill_color=Colors.Blue, shape_line_color=Colors.White, shape_line_width=1.5)`
+- A predefined theme style from `drawlib.styles.styles`: `styles.primary`, `styles.secondary_flat`, `styles.white_bold`, `styles.bold`, etc.
 - `None`: falls back to default component styles or canvas theme defaults.
 
 ---
@@ -94,10 +94,10 @@ Every SmartArt accepts either:
 ### 3.2 Constructor & Style Methods
 ```python
 table = Table(
-    default_text_style=Styles.Primary,
-    header_text_style=Styles.Bold,
-    header_cell_style=Styles.PrimaryLight,
-    border_style=Styles.MutedLight,
+    default_text_style=styles.primary,
+    header_text_style=styles.bold,
+    header_cell_style=styles.primary_light,
+    border_style=styles.muted_light,
 )
 ```
 

@@ -129,9 +129,9 @@ The `drawlib.canvas` module manages global drawing state:
 
 | Function | Signature / Options | Description |
 | :--- | :--- | :--- |
-| `setup()` | `width=100, height=100, background_color="#ffffff", dpi=300, ...` | Configures dimensions, canvas background color, rasterization resolution, and base settings. |
+| `setup()` | `width=100, height=100, background_color="#ffffff", dpi=100, ...` | Configures dimensions, canvas background color, rasterization resolution (default 100 DPI), and base settings. |
 | `clear()` | *(no arguments)* | Flushes all buffered shapes and resets canvas state. Essential in multi-image batch scripts to prevent bleeding. |
-| `save()` | `file_path=None, image_format="png", ...` | Renders the display list to disk. When omitted, writes to automatic sequence paths (`1.png`, etc.). |
+| `save()` | `file=None, format=None, ...` | Renders the display list to disk. When omitted, writes to automatic sequence paths (`1.png`, etc.). |
 | `get_dimage()` | *(no arguments)* | Returns an in-memory `Dimage` representation of the current canvas without saving to disk. |
 | `show()` | `grid=False` | Opens an interactive local GUI desktop window displaying the rendered canvas. |
 
@@ -326,15 +326,15 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 
 setup(width=120, height=50)
-rectangle((25, 25), width=30, height=20, style=styles.blue_flat, text="Client", textstyle=styles.white_bold)
-rectangle((95, 25), width=30, height=20, style=styles.green_flat, text="Service", textstyle=styles.white_bold)
+rectangle((25, 25), width=30, height=20, style=styles.primary_flat, text="Client", textstyle=styles.white_bold)
+rectangle((95, 25), width=30, height=20, style=styles.secondary_flat, text="Service", textstyle=styles.white_bold)
 line((40, 25), (80, 25), arrowhead="->", style=styles.bold)
 ```
 ````
 
 **Block Header Options**:
 - **Code Visibility**: `hide-code` (default, image only), `show-code` (code + image), `fold-code` (image + collapsed `<details>` dropdown).
-- **Dimensions**: `400px`, `100%`, `w:600px`, `h:300px`.
+- **Dimensions**: `400px`, `600px`, `100%` (width tokens).
 - **Alignment**: `center`, `left`, `right`.
 - **Caption & Filename**: `caption:"Figure Title"`, `file:custom_name.png`.
 
@@ -522,7 +522,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.8. Structured SmartArts Elements (`lib-smartarts`)
 - **Command**: `drawlib rules show lib-smartarts`
-- **Scope**: High-level visual abstractions including `Table`, `TreeNode` / `tree`, `MindMapNode` / `mindmap`, `BoxList`, `BulletPoints`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `SourceCode`, and `bubblespeech`.
+- **Scope**: High-level visual abstractions including `Table`, `TreeNode`, `MindMapNode`, `BoxList`, `BulletPoints`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `SourceCode`, and `bubble_speech`.
 - **Key Syntax**:
   ```python
   from drawlib.smartarts import ChevronProcess, Table
@@ -633,7 +633,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.types import BaseStyles, Style
-  custom_style = Style(fill_color=(50, 100, 200), line_width=2, text_size=14)
+  custom_style = Style(shape_fill_color=(50, 100, 200), shape_line_width=2, text_size=14)
   ```
 - **When to read**: Refer to this rule when building reusable design systems, encapsulating corporate styles, or writing type-safe drawing utilities.
 
@@ -722,7 +722,7 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 
 1. **Evaluate SmartArts & Domain Diagrams First**:
    - **Pipelines & Lifecycles**: Use `ChevronProcess` or `Cycle` instead of manual chevrons and arrow lines.
-   - **Hierarchies & Organizations**: Use `TreeNode` / `tree` or `MindMapNode` / `mindmap` instead of calculating recursive tree node coordinates.
+   - **Hierarchies & Organizations**: Use `TreeNode` or `MindMapNode` instead of calculating recursive tree node coordinates.
    - **Tabular Data & Comparisons**: Use `Table` instead of manually drawing grids of lines and text cells.
    - **Status Cards & Matrices**: Use `BoxList` or `GridLayout` instead of looping through offset formulas.
    - **Software Architecture & Flows**: Use `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, or `ERDiagram`.

@@ -57,7 +57,6 @@ A `utils.py` file houses user-defined helper functions, diagram macro components
 
 ```python
 # utils.py
-from drawlib.canvas import canvas
 from drawlib.shapes import rectangle
 from drawlib.styles import styles
 from drawlib.text import text
@@ -106,7 +105,7 @@ save("service_architecture.png")
 ### Best Practice: Prefer `drawlib.styles` over `drawlib.preset_styles`
 
 Drawlib provides two ways to reference style presets:
-1. `drawlib.preset_styles`: Static, immutable factory presets (e.g. `essentials_styles`, `clean_styles`).
+1. `drawlib.preset_styles`: Static, immutable factory presets (e.g. `DefaultStyles`, `MonochromeStyles`, `GoogleStyles`).
 2. `drawlib.styles`: Dynamic, project-level styles and palettes (`styles`, `colors`) that can be replaced or patched at runtime via `styles.py` or `--styles`.
 
 > **Crucial Rule**:
@@ -117,7 +116,7 @@ Drawlib provides two ways to reference style presets:
 | **Customizability** | Fully customizable & replaceable via `--styles` / `styles.py` | Fixed, static default values only |
 | **Theme Switching** | Dynamic (one `styles.py` restyles all diagrams) | Manual (must edit every drawing script) |
 | **Project Decoupling** | High (diagrams decouple from concrete palettes) | Low (tightly coupled to built-in presets) |
-| **Usage** | `from drawlib.styles import Styles, Colors`<br>`style=Styles.blue_flat` | `from drawlib.preset_styles import DefaultStyles`<br>`style=DefaultStyles.blue_flat` |
+| **Usage** | `from drawlib.styles import Styles, Colors`<br>`style=Styles.primary_flat` | `from drawlib.preset_styles import DefaultStyles`<br>`style=DefaultStyles.primary_flat` |
 
 ### Helpful `AttributeError` Diagnostics
 

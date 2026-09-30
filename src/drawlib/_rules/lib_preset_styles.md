@@ -8,14 +8,14 @@ Drawlib provides a comprehensive, centralized preset style system in `drawlib.pr
 
 In complex technical diagrams and architectural illustrations, manually specifying colors, line widths, borders, and fonts for every individual element leads to verbose, brittle, and visually inconsistent code. Drawlib addresses this through three core design principles:
 
-1. **Convention over Configuration**:
-   When drawing any shape, line, text, or icon without an explicit style, Drawlib automatically applies the active preset's default style. A circle, a line, and a label created with zero styling arguments naturally harmonize.
+1. **Systematic Semantic Roles**:
+   Rather than hardcoding arbitrary colors, Drawlib organizes styles around 6 semantic roles (`primary`, `secondary`, `accent`, `muted`, `danger`, `success`) across 10 orthogonal variants (`flat`, `bold`, `light`, `outline`, `dashed`, etc.).
 
-2. **Systematic String Shortcuts**:
-   Instead of instantiating verbose `Style(...)` objects for standard variations, Drawlib parses ergonomic shorthand strings such as `"blue"`, `"green_flat"`, `"red_solid_bold"`, or `"dashed"`. These strings are resolved dynamically into full `Style` instances.
+2. **First-Class Object Referencing**:
+   Styles are passed as strongly-typed `Style` instances directly from `drawlib.styles.styles` (or `Styles`), e.g., `style=styles.primary_flat` or `style=styles.accent_bold`. Passing arbitrary strings to `style` is rejected by Pydantic validation to ensure compile-time safety.
 
 3. **Layered Object Models**:
-   At the core of the preset style system is `BaseStyles` (a standard Python dataclass), which exposes standard role-based styles (`primary`, `light`, `bold`, `flat`, `solid`, `dashed`), default canvas background colors, and font definitions. Users can inspect, copy, patch, or subclass these models to define enterprise brand guidelines.
+   At the core of the preset style system is `BaseStyles` (a Pydantic `BaseModel` with dynamic metaclass resolution), which exposes standard role-based styles (`primary`, `secondary`, `accent`, `muted`), default canvas background colors, and font definitions. Users can inspect, copy, patch, or subclass these models to define enterprise brand guidelines.
 
 ### 1.1. High-Level Architecture Overview
 
@@ -106,8 +106,8 @@ from drawlib.types import BaseColors, BaseStyles
 | `DefaultStyles` | Model Class | Default design system style catalog (Level 4 primary centered). |
 | `GoogleStyles` | Model Class | Google Slides & Workspace brand style catalog. |
 | `MonochromeStyles` | Model Class | Grayscale style catalog for print, papers, and e-ink. |
-| `Style` | Data Model | Core style dataclass representing visual attributes. |
-| `BaseStyles` | Base Model | Dataclass base providing dict-like access, copy, and patch operations. |
+| `Style` | Data Model | Core style model representing visual attributes. |
+| `BaseStyles` | Base Model | Pydantic BaseModel providing dict-like access, copy, and patch operations. |
 
 ---
 
@@ -153,9 +153,9 @@ from drawlib.styles import Styles
 
 default_catalog = Styles
 
-print("Default Primary Fill:", default_catalog.primary.fill_color)
-print("Default Primary Line:", default_catalog.primary.line_color)
-print("Default Line Width:", default_catalog.primary.line_width)
+print("Default Primary Fill:", default_catalog.primary.shape_fill_color)
+print("Default Primary Line:", default_catalog.primary.shape_line_color)
+print("Default Line Width:", default_catalog.primary.shape_line_width)
 ```
 
 ### 3.2. MonochromeStyles (`"monochrome"`)

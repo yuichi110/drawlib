@@ -11,20 +11,23 @@ Unlike external diagramming engines that depend on Graphviz, PlantUML, or opaque
 Drawlib diagrams are designed for engineers and architects who require exact visual presentation:
 1. **Explicit, Deterministic Layout**: Rather than fighting heuristic layout algorithms that rearrange diagrams when text changes, Drawlib gives you precise coordinate control while automatically handling boundary clipping, line offsets, and arrow alignments.
 2. **First-Class Connectables**: Nodes, entities, classes, boundaries, and junctions implement a unified `Connectable` interface, enabling effortless connections between any diagram components.
-3. **Rich Icon Ecosystem**: Built-in support for 259 official Google Cloud Platform (`GcpIcon`) icons, 1,531 Phosphor (`PhosphorIcon`) icons, and custom images (`CustomIcon`).
+3. **Rich Icon Ecosystem**: Built-in support for official Google Cloud Platform (`GcpIcon`) icons, Phosphor (`PhosphorIcon`) icons, and custom images (`CustomIcon`) in `drawlib.diagrams.architecture` and `drawlib.diagrams.sequence`.
 4. **Context-Aware Routing**: Smart orthogonal routing (with L-bends and Z-bends), direct straight lines with boundary clipping, and curved transition arcs.
 
 ### 1.2 Module Structure & Imports
 Domain diagram modules are organized under `drawlib.diagrams`:
 
 ```python
+# Import diagram classes from their respective submodules:
+from drawlib.diagrams.architecture import ArchitectureDiagram
+from drawlib.diagrams.class_diagram import ClassDiagram
+from drawlib.diagrams.er import ERDiagram
+from drawlib.diagrams.flow import FlowDiagram
+from drawlib.diagrams.sequence import SequenceDiagram
+from drawlib.diagrams.state_diagram import StateDiagram
+
+# Or import submodules from drawlib.diagrams:
 from drawlib.diagrams import (
-    ArchitectureDiagram,
-    ClassDiagram,
-    ERDiagram,
-    FlowDiagram,
-    SequenceDiagram,
-    StateDiagram,
     architecture,
     class_diagram,
     er,

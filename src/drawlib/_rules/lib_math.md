@@ -129,20 +129,20 @@ nodes = [(40, 45), (70, 50), (100, 40), (60, 25)]
 # Calculate bounding box of all nodes
 (cx, cy), (bw, bh) = get_center_and_size(nodes)
 
-# Draw encompassing cluster background with padding (+24 width, +20 height)
+# Draw encompassing cluster background with padding (+28 width, +22 height)
 rectangle(
     (cx, cy),
     width=bw + 28,
     height=bh + 22,
     r=4,
-    style=styles.blue_solid,
+    style=styles.muted_dashed,
     text="Kubernetes Worker Nodes",
-    textstyle=styles.bold,
+    textstyle=styles.bold.patch(text_valign="top"),
 )
 
 # Render nodes on top
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style=styles.blue_flat, text=f"Pod {i}", textstyle=styles.white_bold)
+    circle((x, y), radius=7, style=styles.primary_flat, text=f"Pod {i}", textstyle=styles.white_bold)
 
 save()
 ```
@@ -164,10 +164,10 @@ hub = (60, 40)
 radius = 26
 num_clients = 5
 
-# Central Hub
-circle(hub, radius=12, style=styles.purple_flat, text="Master", textstyle=styles.white_bold)
+# Central Hub (radius=12)
+circle(hub, radius=12, style=styles.primary_flat, text="Leader", textstyle=styles.white_bold)
 
-# Surrounding Worker Nodes
+# Surrounding Worker Nodes (radius=6)
 for i in range(num_clients):
     angle_rad = 2 * math.pi * i / num_clients
     node_xy = (hub[0] + radius * math.cos(angle_rad), hub[1] + radius * math.sin(angle_rad))
@@ -176,8 +176,16 @@ for i in range(num_clients):
     dist = get_distance(hub, node_xy)
     angle_deg = get_angle(hub, node_xy)
     
-    line(hub, node_xy, style=styles.bold)
-    circle(node_xy, radius=6, style=styles.blue_flat, text=f"N{i+1}", textstyle=styles.white_bold)
+    # Offset connection endpoints to shape boundaries rather than shape centers
+    hub_edge = (hub[0] + 13 * math.cos(angle_rad), hub[1] + 13 * math.sin(angle_rad))
+    node_edge = (node_xy[0] - 7 * math.cos(angle_rad), node_xy[1] - 7 * math.sin(angle_rad))
+    line(hub_edge, node_edge, arrowhead="->", style=styles.bold)
+    
+    # Label line distance
+    label_xy = ((hub_edge[0] + node_edge[0]) / 2, (hub_edge[1] + node_edge[1]) / 2 + 2)
+    text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=styles.primary.patch(text_size=7))
+    
+    circle(node_xy, radius=6, style=styles.secondary_flat, text=f"N{i+1}", textstyle=styles.white_bold)
 
 save()
 ```

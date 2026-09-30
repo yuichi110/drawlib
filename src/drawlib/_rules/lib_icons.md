@@ -42,7 +42,7 @@ Drawlib implements a dual-engine architecture for icon rendering:
 | **Resolution & Scaling**| Infinite vector scalability; razor-sharp at any zoom | Fixed 256x256 pixel assets; optimized for diagrams |
 | **Color Rendering** | Monochrome by default; tinted via `text_color` / preset | Official vendor multi-color branding |
 | **Weight Variations** | 5 distinct weights (`thin`, `light`, `regular`, `bold`, `fill`) | Single official artwork (weight simulated via borders) |
-| **Silhouette Masking** | Native (font glyph color) | Supported via `Style(fill_color=...)` |
+| **Silhouette Masking** | Native (font glyph color) | Supported via `Style(icon_color=...)` |
 | **Asset Storage** | Bundled directly within Python package TTFs | Cached locally under `_assets/`, synced via GitHub |
 
 ---
@@ -88,15 +88,16 @@ phosphor.<icon_name>(
     xy: tuple[float, float],
     width: float,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
 ) -> None
 ```
 
 #### Parameter Breakdown:
-- **`xy` (tuple[float, float])**: The center coordinate `(x, y)` where the icon is anchored. By default, alignment is centered (`text_halign="center"`, `text_valign="center"`).
+- **`xy` (tuple[float, float])**: The center coordinate `(x, y)` where the icon is anchored. By default, alignment is centered.
 - **`width` (float)**: The horizontal width of the icon in canvas coordinate units. The height scales proportionally to maintain a strict 1:1 square aspect ratio.
 - **`angle` (float)**: Counter-clockwise rotation angle in degrees (0.0 to 360.0) around the anchor point `xy`. Default is 0.0.
-- **`style` (Style | str | None)**: Predefined style shortcut string (e.g. `"blue"`, `"green_flat"`, `"red_bold"`) or a custom `Style` instance.
+- **`style` (Style)**: Active `Style` instance (e.g. `styles.primary`, `styles.bold`, or custom `Style(icon_color=...)`). Required keyword-only argument.
 
 ### 3.2. The Five Phosphor Weights (`icon_style`)
 
@@ -238,21 +239,21 @@ COLOR_DOCKER = Color.from_hex("#2496ed")
 COLOR_PYTHON = Color.from_hex("#3776ab")
 
 # Render Brand Icons
-font_icon((20, 24), width=11, code=CODE_GITHUB, file=FILE_BRANDS, style=Style(text_color=COLOR_GITHUB))
-text((20, 10), "GitHub", size=10, style=Style(text_color=COLOR_GITHUB))
+font_icon((20, 24), width=11, code=CODE_GITHUB, file=FILE_BRANDS, style=Style(icon_color=COLOR_GITHUB))
+text((20, 10), "GitHub", style=styles.primary.patch(text_color=COLOR_GITHUB, text_size=10))
 
-font_icon((45, 24), width=11, code=CODE_DOCKER, file=FILE_BRANDS, style=Style(text_color=COLOR_DOCKER))
-text((45, 10), "Docker", size=10, style=Style(text_color=COLOR_DOCKER))
+font_icon((45, 24), width=11, code=CODE_DOCKER, file=FILE_BRANDS, style=Style(icon_color=COLOR_DOCKER))
+text((45, 10), "Docker", style=styles.primary.patch(text_color=COLOR_DOCKER, text_size=10))
 
-font_icon((70, 24), width=11, code=CODE_PYTHON, file=FILE_BRANDS, style=Style(text_color=COLOR_PYTHON))
-text((70, 10), "Python", size=10, style=Style(text_color=COLOR_PYTHON))
+font_icon((70, 24), width=11, code=CODE_PYTHON, file=FILE_BRANDS, style=Style(icon_color=COLOR_PYTHON))
+text((70, 10), "Python", style=styles.primary.patch(text_color=COLOR_PYTHON, text_size=10))
 
 # Render Solid Infrastructure Icons
-font_icon((95, 24), width=11, code=CODE_SERVER, file=FILE_SOLID, style=styles.dark_bold)
-text((95, 10), "Server", size=10, style=styles.dark)
+font_icon((95, 24), width=11, code=CODE_SERVER, file=FILE_SOLID, style=styles.primary_bold)
+text((95, 10), "Server", style=styles.primary.patch(text_size=10))
 
-font_icon((118, 24), width=11, code=CODE_TERMINAL, file=FILE_SOLID, style=styles.green_bold)
-text((118, 10), "CLI", size=10, style=styles.green)
+font_icon((118, 24), width=11, code=CODE_TERMINAL, file=FILE_SOLID, style=styles.success_bold)
+text((118, 10), "CLI", style=styles.success.patch(text_size=10))
 
 save()
 ```

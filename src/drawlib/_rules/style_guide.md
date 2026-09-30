@@ -58,7 +58,7 @@ Drawlib structures diagram color schemes around **6 fundamental semantic roles**
 
 ## 3. Semantic Roles & Visual Intent
 
-Drawlib presets organize styles into semantic roles with 14 orthogonal visual variants:
+Drawlib presets organize styles into semantic roles with 10 orthogonal visual variants:
 - **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **6 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`, `danger`, `success`).
 - **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes danger/success.
 
@@ -187,10 +187,10 @@ Establish a clear typographical scale:
 
 | Level | Size (`text_size`) | Recommended Style | Usage |
 | :--- | :--- | :--- | :--- |
-| **Diagram Title** | 18 – 22 | `styles.title_bold` | Top of canvas diagram titles. |
+| **Diagram Title** | 18 – 22 | `styles.bold.patch(text_size=20)` | Top of canvas diagram titles. |
 | **Section Header**| 14 – 16 | `styles.bold` | Subsystem containers, VPC group headers. |
 | **Primary Node** | 11 – 13 | `styles.bold` / `styles.white_bold` | Service names, entity titles, actions. |
-| **Metadata / Note**| 8 – 10 | `styles.light` / `FontMonoSpace` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
+| **Metadata / Note**| 8 – 10 | `styles.light` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
 
 Drawlib automatically ensures optimal luminance contrast when text is embedded inside shapes. If using standalone `text()`, ensure dark text on light backgrounds and light text on dark containers.
 
@@ -205,7 +205,7 @@ Lines and arrows guide the viewer's eyes through the diagram:
    - `<->`: Bidirectional sync, continuous handshake, WebSocket connection.
    - `-`: Structural link, un-directed relationship, database association.
 2. **Consistent Line Weights**:
-   - Use `styles.bold` (line_width ~2) or `styles.default` consistently.
+   - Use `styles.bold` (line_width ~2) or `styles.primary` consistently.
    - Reserve extra-thick lines strictly for highlighting critical paths or primary data flows.
 3. **Smooth Curved Bends**:
    - When using `line_curved`, maintain moderate curvature: `bend=0.2 ~ 0.3`.
@@ -218,9 +218,9 @@ Lines and arrows guide the viewer's eyes through the diagram:
 Before assembling dozens of raw `rectangle` and `line` primitives, choose the matching high-level abstraction:
 
 - **Sequential Stages**: `drawlib.smartarts.ChevronProcess` (automatic arrow geometry).
-- **Hierarchical Trees**: `drawlib.smartarts.tree` / `TreeNode` (automatic tree spacing).
+- **Hierarchical Trees**: `drawlib.smartarts.TreeNode` (automatic tree spacing).
 - **Relational Tables**: `drawlib.smartarts.Table` (automatic grid lines and cell padding).
-- **Mind Maps**: `drawlib.smartarts.mindmap` / `MindMapNode` (automatic radial geometry).
+- **Mind Maps**: `drawlib.smartarts.MindMapNode` (automatic radial geometry).
 - **System Topologies**: `drawlib.diagrams.architecture.ArchitectureDiagram`.
 - **Interaction Sequences**: `drawlib.diagrams.sequence.SequenceDiagram`.
 

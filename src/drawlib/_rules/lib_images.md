@@ -29,6 +29,7 @@ image(
     width: float,
     image: str | Image.Image | Dimage,
     angle: float = 0.0,
+    *,
     style: Style | None = None,
 )
 ```
@@ -36,25 +37,14 @@ image(
 ### Parameter Breakdown:
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | Required | Coordinate of the image anchor point `(x, y)`. |
+| `xy` | `tuple[float, float]` | Required | Coordinate of the image center anchor point `(x, y)`. |
 | `width` | `float` | Required | Width of the image in canvas units. Height is calculated automatically from the image aspect ratio. |
-| `image` | `str \| Image \| Dimage`| Required | Filesystem path to an image file (`.png`, `.jpg`, `.svg`), a PIL `Image`, or a `Dimage`. |
+| `image` | `str \| Image \| Dimage`| Required | Filesystem path to an image file (`.png`, `.jpg`, `.webp`), a PIL `Image`, or a `Dimage`. |
 | `angle` | `float` | `0.0` | Counter-clockwise rotation angle in degrees around the anchor point. |
-| `style` | `Style \| None` | `None` | Style controlling transparency (`image_alpha`), tint color (`image_tint_color`), or anchor alignment (`text_halign`, `text_valign`). |
+| `style` | `Style \| None` | `None` | Style controlling transparency (`image_alpha`), tint color (`image_tint_color`), or border (`image_border_width`, `image_border_color`). |
 
 ### Anchor Alignment
-By default, `(x, y)` corresponds to the **geometric center** of the image.  
-To change anchor alignment, configure `text_halign` and `text_valign` via `Style`:
-
-```python
-from drawlib.types import Style
-
-# Anchor is bottom-left corner of image
-bottom_left_style = Style(text_halign="left", text_valign="bottom")
-```
-
-> **Rotation & Alignment Note**:  
-> If an image is rotated (`angle != 0.0`), `text_halign` and `text_valign` should be left at `"center"`. Non-center alignments on rotated images are automatically adjusted to `"center"` to prevent spatial distortion.
+By default, `(x, y)` corresponds to the **geometric center** of the image in canvas coordinates.
 
 ---
 
@@ -94,7 +84,7 @@ from drawlib.canvas import setup
 from drawlib.styles import styles
 from drawlib.shapes import circle
 setup(width=50, height=50)
-circle((25, 25), radius=20, style=styles.purple_flat, text="Pod")
+circle((25, 25), radius=20, style=styles.primary_flat, text="Pod")
 """
 sub_image = get_dimage_from_code(sub_code)
 
@@ -106,10 +96,11 @@ image((40, 30), width=25, image=sub_image)
 
 ## 5. Practical Code Examples
 
-### 5.1. Architectural Schema with External Server Icons
+### 5.1. Architectural Schema with In-Memory Embedded Diagrams
 
-```drawlib fold-code 600px center caption:"Architecture Schema with External Logos & Containers"
+```drawlib fold-code 600px center caption:"Architecture Schema with Embedded Diagram Images"
 from drawlib.canvas import save, setup
+from drawlib.images import get_dimage_from_code, image
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
@@ -117,21 +108,40 @@ from drawlib.styles import styles
 
 setup(width=140, height=60)
 
+# Generate sub-diagram components dynamically
+frontend_code = """
+from drawlib.canvas import setup
+from drawlib.shapes import circle
+from drawlib.styles import styles
+setup(width=40, height=40)
+circle((20, 20), radius=16, style=styles.accent_flat, text="UI")
+"""
+api_code = """
+from drawlib.canvas import setup
+from drawlib.shapes import circle
+from drawlib.styles import styles
+setup(width=40, height=40)
+circle((20, 20), radius=16, style=styles.primary_flat, text="API")
+"""
+
+img_frontend = get_dimage_from_code(frontend_code)
+img_api = get_dimage_from_code(api_code)
+
 # Service container cards
-rectangle((35, 30), width=36, height=36, r=3, style=styles.blue_solid)
-rectangle((105, 30), width=36, height=36, r=3, style=styles.green_solid)
+rectangle((35, 30), width=36, height=36, r=3, style=styles.muted_dashed)
+rectangle((105, 30), width=36, height=36, r=3, style=styles.muted_dashed)
+
+# Embed sub-diagram images
+image((35, 30), width=22, image=img_frontend)
+image((105, 30), width=22, image=img_api)
 
 # Card titles
-text((35, 42), "Client Application", style=styles.bold)
-text((105, 42), "Microservice API", style=styles.bold)
-
-# Inner placeholder badges
-rectangle((35, 26), width=20, height=12, style=styles.blue_flat, text="React", textstyle=styles.white_bold)
-rectangle((105, 26), width=20, height=12, style=styles.green_flat, text="FastAPI", textstyle=styles.white_bold)
+text((35, 52), "Client Application", style=styles.bold)
+text((105, 52), "Microservice API", style=styles.bold)
 
 # Connecting arrow with payload label
 line((53, 30), (87, 30), arrowhead="->", style=styles.bold)
-text((70, 34), "JSON over HTTPS", style=styles.bold)
+text((70, 35), "JSON / HTTPS", style=styles.primary)
 save()
 ```
 
@@ -139,15 +149,30 @@ save()
 
 ```drawlib fold-code 500px center caption:"Styling Images with Transparency and Tint"
 from drawlib.canvas import save, setup
+from drawlib.images import get_dimage_from_code, image
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.styles import styles
 
 setup(width=100, height=50)
 
+# Generate a base icon image
+badge_code = """
+from drawlib.canvas import setup
+from drawlib.shapes import star
+from drawlib.styles import styles
+setup(width=30, height=30)
+star((15, 15), num_vertex=5, radius_ext=12, radius_int=6, style=styles.primary_flat)
+"""
+badge_img = get_dimage_from_code(badge_code)
+
 # Solid border backdrop
-rectangle((50, 25), width=80, height=36, r=4, style=styles.purple_solid)
-text((50, 25), "Overlay Panel", style=styles.bold)
+rectangle((50, 25), width=80, height=36, r=4, style=styles.muted_dashed)
+
+# Place image with alpha transparency
+image_style = styles.primary.patch(image_alpha=0.6)
+image((50, 25), width=20, image=badge_img, style=image_style)
+text((50, 12), "Watermarked Badge", style=styles.bold)
 save()
 ```
 
