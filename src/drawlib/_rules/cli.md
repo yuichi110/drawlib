@@ -49,10 +49,11 @@ drawlib css show html google -o style.css                  # Export Google styli
 
 # AI agent knowledge base
 drawlib rules list                                         # List available architectural rule topics
+drawlib rules show agent-instruction                       # Display AI agent bootstrap and workflow loop
 drawlib rules show overview                                # Display canvas overview drawing guidelines
-drawlib rules show lib-shapes                              # Display shapes API reference and examples
+drawlib rules show style-guide                             # Display design principles and color rules
+drawlib rules show project                                 # Display project scaffolding and build conventions
 drawlib rules show cli                                     # Display this CLI reference guide
-drawlib rules show docs-build                              # Display documentation build conventions
 drawlib rules clear                                        # Delete all cached rule illustrations and docs
 ```
 
@@ -827,10 +828,11 @@ drawlib rules
 #### General Guidelines:
 | Topic Name | Description |
 | :--- | :--- |
+| `agent-instruction` | AI agent bootstrap instructions, workflow loop, and capabilities. |
 | `overview` | Canvas lifecycle, coordinate system, core imports, and workflow. |
-| `overview-min` | Concise overview (<10k chars) for context-constrained rule files. |
+| `style-guide` | Diagram design principles, visual hierarchy, 60-30-10 color rules, and layout best practices. |
+| `project` | Project scaffolding (`init`), 4 template types (`site`, `simple`, `pdf`, `image`), `docs_src/` layout, `navbar.md` rules, and build pipelines. |
 | `cli` | Document compilation, export, preview, and cache CLI commands. |
-| `docs-build` | Documentation site structure, navbar rules, scaffolding, and build conventions. |
 
 #### Library Modules (`drawlib.*`):
 | Topic Name | Description |
@@ -1013,7 +1015,7 @@ repos:
 
 #### 2. `Directory build requires "navbar.md" at the root of the input directory`
 - **Cause**: Multi-page website builds require `navbar.md` in the root of the input directory to construct sidebar navigation.
-- **Fix**: Add `docs_src/navbar.md` defining categories and links. Refer to `drawlib rules show docs-build` for navbar syntax.
+- **Fix**: Add `docs_src/navbar.md` defining categories and links. Refer to `drawlib rules show project` for navbar syntax.
 
 #### 3. `Refusing to overwrite input source file "..."`
 - **Cause**: The output path `-o` points to the exact same file or directory as the input source.

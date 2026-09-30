@@ -1,7 +1,3 @@
----
-trigger: always_on
----
-
 # Drawlib AI Agent Instructions
 
 Drawlib is a pure-Python library for **"Illustration as Code"** and **"Documentation as Code"**.

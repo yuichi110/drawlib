@@ -29,15 +29,16 @@ If invoked without arguments (`drawlib rules`), it displays contextual help and 
 
 ## 3. Available Topics
 
-Drawlib features 20 comprehensive rule topics divided into General Guidelines and Library Modules:
+Drawlib features 21 comprehensive rule topics divided into General Guidelines and Library Modules:
 
 ### General Guidelines
 | Topic | Primary Focus |
 | :--- | :--- |
+| **`agent-instruction`** | AI agent bootstrap instructions, workflow loop, and capabilities. |
 | **`overview`** | Package architecture, coordinate spaces, Cartesian geometry, and rendering pipeline. |
-| **`overview-min`** | Concise overview (<10k chars) for context-constrained rule files. |
+| **`style-guide`** | Diagram design principles, visual hierarchy, 60-30-10 color rules, and layout best practices. |
+| **`project`** | Project scaffolding (`init`), 4 template types (`site`, `simple`, `pdf`, `image`), `docs_src/` layout, and build pipelines. |
 | **`cli`** | Complete command line interface and subcommands. |
-| **`docs-build`** | Markdown parsing, code block options, HTML/Markdown/PDF compilation, and templates. |
 
 ### Library Modules (`drawlib.*`)
 | Topic | Primary Focus |

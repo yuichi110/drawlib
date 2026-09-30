@@ -494,18 +494,18 @@ text((120, 37), &quot;drawlib build&quot;, style=Style(text_size=8, text_font=Fo
 <h2>2. Equipping Your Agent with Drawlib Rules</h2>
 <p>AI agents perform best when provided with concise, high-signal architectural rules rather than raw API dumps. Drawlib includes a built-in rules distribution engine (<code>drawlib rules</code>) tailored for LLMs.</p>
 <h3>Step 1: Initialize Base Rules for Your Agent</h3>
-<p>Dumping full specifications for all 10+ Drawlib modules into your project rule file would consume too many context tokens. Instead, export the <strong><code>overview</code></strong> rule, which gives your agent a complete mental model and an index of available tools:</p>
+<p>Dumping full specifications for all 10+ Drawlib modules into your project rule file would consume too many context tokens. Instead, export the <strong><code>agent-instruction</code></strong> rule, which gives your agent a complete mental model, the autonomous workflow loop, and an index of available tools:</p>
 <pre><code class="language-bash"># For Cursor (.cursorrules):
-uv run drawlib rules show overview &gt; .cursorrules
+uv run drawlib rules show agent-instruction &gt; .cursorrules
 
 # For Claude Code (CLAUDE.md):
-uv run drawlib rules show overview &gt;&gt; CLAUDE.md
+uv run drawlib rules show agent-instruction &gt;&gt; CLAUDE.md
 
 # For Windsurf (.windsurfrules) or custom LLM system prompts:
-uv run drawlib rules show overview &gt; .windsurfrules
+uv run drawlib rules show agent-instruction &gt; .windsurfrules
 </code></pre>
 <h3>Step 2: Enable On-Demand Rule Lookup</h3>
-<p>The <code>overview</code> rule instructs your agent to autonomously fetch detailed rules when needed. When prompted to create a specific illustration, the agent will dynamically run:</p>
+<p>The <code>agent-instruction</code> rule instructs your agent to autonomously fetch detailed rules when needed. When prompted to create a specific illustration, the agent will dynamically run:</p>
 <pre><code class="language-bash"># Shapes primitives (rectangles, circles, polylines, chevrons):
 uv run drawlib rules show lib-shapes
 

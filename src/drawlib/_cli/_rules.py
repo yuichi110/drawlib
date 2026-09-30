@@ -36,10 +36,11 @@ rules_app = typer.Typer(
 )
 
 GENERAL_TOPICS: Final[dict[str, str]] = {
+    "agent-instruction": "AI agent bootstrap instructions, workflow loop, and capabilities",
     "overview": "Canvas lifecycle, coordinate system, core imports, and workflow",
-    "overview-min": "Concise overview (<10k chars) for context-constrained rule files",
+    "style-guide": "Diagram design principles, visual hierarchy, 60-30-10 color rules, and layout best practices",
+    "project": "Project scaffolding (init), directory structure (docs_src), navbar rules, and build workflows",
     "cli": "Document compilation, export, preview, and cache CLI commands",
-    "docs-build": "Documentation site structure, navbar rules, scaffolding, and build conventions",
 }
 
 LIBRARY_TOPICS: Final[dict[str, str]] = {

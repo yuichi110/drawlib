@@ -43,10 +43,11 @@ def test_cli_rules_list() -> None:
     assert "General Guidelines:" in res.stdout
     assert "Library Modules (drawlib.*):" in res.stdout
     for topic in [
+        "agent-instruction",
         "overview",
-        "overview-min",
+        "style-guide",
+        "project",
         "cli",
-        "docs-build",
         "lib-canvas",
         "lib-shapes",
         "lib-lines",
@@ -70,10 +71,11 @@ def test_cli_rules_list() -> None:
 @pytest.mark.parametrize(
     "topic,expected_heading",
     [
+        ("agent-instruction", "# Drawlib AI Agent Instructions"),
         ("overview", "# Drawlib Agent Drawing Guidelines"),
-        ("overview-min", "# Drawlib Agent Drawing Guidelines (Minimal)"),
+        ("style-guide", "# Drawlib Diagram Style Guide & Aesthetic Philosophy"),
+        ("project", "# Drawlib Project Architecture & Scaffolding Guidelines"),
         ("cli", "# Drawlib CLI Guidelines"),
-        ("docs-build", "# Drawlib Documentation Build Guidelines"),
         ("lib-canvas", "# Drawlib Canvas Guidelines"),
         ("lib-shapes", "# Drawlib Shapes Guidelines"),
         ("lib-lines", "# Drawlib Lines Guidelines"),
@@ -105,14 +107,31 @@ def test_cli_rules_show_underscore_normalization() -> None:
     assert res.returncode == 0
     assert "# Drawlib Shapes Guidelines" in res.stdout
 
-    res_docs = run_drawlib_cli(["rules", "show", "docs_build"])
-    assert res_docs.returncode == 0
-    assert "# Drawlib Documentation Build Guidelines" in res_docs.stdout
+    res_agent = run_drawlib_cli(["rules", "show", "agent_instruction"])
+    assert res_agent.returncode == 0
+    assert "# Drawlib AI Agent Instructions" in res_agent.stdout
+
+    res_style = run_drawlib_cli(["rules", "show", "style_guide"])
+    assert res_style.returncode == 0
+    assert "# Drawlib Diagram Style Guide & Aesthetic Philosophy" in res_style.stdout
 
 
 @pytest.mark.parametrize(
     "deprecated_topic",
-    ["shapes", "lines", "canvas", "themes", "theme", "docs", "doc", "preset_styles"],
+    [
+        "shapes",
+        "lines",
+        "canvas",
+        "themes",
+        "theme",
+        "docs",
+        "doc",
+        "preset_styles",
+        "overview-min",
+        "overview_min",
+        "docs-build",
+        "docs_build",
+    ],
 )
 def test_cli_rules_show_deprecated_topics_rejected(deprecated_topic: str) -> None:
     """Test that legacy or un-prefixed topics are strictly rejected with code 1."""
@@ -215,6 +234,7 @@ def test_cli_help_shows_ai_instructions(cmd_args: list[str]) -> None:
     res = run_drawlib_cli(cmd_args)
     assert res.returncode == 0
     assert "AI Instructions:" in res.stdout
+    assert "drawlib rules show agent-instruction" in res.stdout
     assert "drawlib rules show cli" in res.stdout
     assert "drawlib rules show overview" in res.stdout
     assert "drawlib rules list" in res.stdout

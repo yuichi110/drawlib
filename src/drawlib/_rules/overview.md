@@ -426,17 +426,22 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.2. Documentation Site Rules (`docs-build`)
-- **Command**: `drawlib rules show docs-build`
-- **Scope**: Multi-page documentation architecture, `navbar.md` authoring syntax, broken-link prevention, code block options, and agent authoring workflows.
+### 5.2. Project Architecture & Scaffolding (`project`)
+- **Command**: `drawlib rules show project`
+- **Scope**: Scaffolding with `drawlib init`, 4 starter templates (`site`, `simple`, `pdf`, `image`), `docs_src/` directory layout, `navbar.md` navigation authoring, code block options, and multi-image compilation.
 - **Key Syntax**:
-  ```markdown
-  # Site Brand Name
-  - [Home](index.md)
-  ## Category Name
-  - [Chapter 1](chapter1/index.md)
+  ```bash
+  drawlib init site my_docs/
+  drawlib init image --here
   ```
-- **When to read**: Refer to this rule when adding chapters, configuring navigation sidebars, troubleshooting missing document errors, or structuring new documentation sites.
+- **When to read**: Refer to this rule when setting up a new documentation site or image gallery, structuring navigation sidebars, troubleshooting missing document errors, or organizing build scripts.
+
+---
+
+### 5.3. Diagram Style Guide & Aesthetics (`style-guide`)
+- **Command**: `drawlib rules show style-guide`
+- **Scope**: Visual hierarchy, the 60-30-10 color rule for technical diagrams, semantic roles vs raw palette colors, standard canvas aspect ratios, coordinate grid alignment, and typography sizing scales.
+- **When to read**: Refer to this rule before authoring diagrams to ensure harmonious color palettes, generous margins, proper text padding, and publication-grade visual quality.
 
 ---
 

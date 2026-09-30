@@ -99,22 +99,22 @@ AI agents perform best when provided with concise, high-signal architectural rul
 
 ### Step 1: Initialize Base Rules for Your Agent
 
-Dumping full specifications for all 10+ Drawlib modules into your project rule file would consume too many context tokens. Instead, export the **`overview`** rule, which gives your agent a complete mental model and an index of available tools:
+Dumping full specifications for all 10+ Drawlib modules into your project rule file would consume too many context tokens. Instead, export the **`agent-instruction`** rule, which gives your agent a complete mental model, the autonomous workflow loop, and an index of available tools:
 
 ```bash
 # For Cursor (.cursorrules):
-uv run drawlib rules show overview > .cursorrules
+uv run drawlib rules show agent-instruction > .cursorrules
 
 # For Claude Code (CLAUDE.md):
-uv run drawlib rules show overview >> CLAUDE.md
+uv run drawlib rules show agent-instruction >> CLAUDE.md
 
 # For Windsurf (.windsurfrules) or custom LLM system prompts:
-uv run drawlib rules show overview > .windsurfrules
+uv run drawlib rules show agent-instruction > .windsurfrules
 ```
 
 ### Step 2: Enable On-Demand Rule Lookup
 
-The `overview` rule instructs your agent to autonomously fetch detailed rules when needed. When prompted to create a specific illustration, the agent will dynamically run:
+The `agent-instruction` rule instructs your agent to autonomously fetch detailed rules when needed. When prompted to create a specific illustration, the agent will dynamically run:
 
 ```bash
 # Shapes primitives (rectangles, circles, polylines, chevrons):

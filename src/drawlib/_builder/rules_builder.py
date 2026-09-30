@@ -24,10 +24,11 @@ from drawlib._builder.doc_builder import build_markdown
 from drawlib._core.utils import RULES_DIR_PATH
 
 AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
+    "agent-instruction",
     "overview",
-    "overview-min",
+    "style-guide",
+    "project",
     "cli",
-    "docs-build",
     "lib-canvas",
     "lib-shapes",
     "lib-lines",
