@@ -19,11 +19,13 @@ from tests.cli.common import run_drawlib_cli
 
 
 def test_cli_rules_default() -> None:
-    """Test `drawlib rules` without arguments outputs overview."""
+    """Test `drawlib rules` without arguments outputs help message."""
     res = run_drawlib_cli(["rules"])
-    assert res.returncode == 0
-    assert "# Drawlib Agent Drawing Guidelines" in res.stdout
-    assert "from drawlib.canvas import" in res.stdout
+    assert res.returncode != 0
+    assert "Usage:" in res.stdout or "Usage:" in res.stderr
+    assert "rules [OPTIONS] COMMAND" in (res.stdout + res.stderr)
+    assert "show" in (res.stdout + res.stderr)
+    assert "list" in (res.stdout + res.stderr)
 
 
 def test_cli_rules_show_default() -> None:

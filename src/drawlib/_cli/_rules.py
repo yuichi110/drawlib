@@ -30,7 +30,7 @@ rules_app = typer.Typer(
     name="rules",
     help="Display drawing guidelines, API rules, and code examples for AI coding agents.",
     epilog=HELP_EPILOG,
-    no_args_is_help=False,
+    no_args_is_help=True,
     context_settings={"help_option_names": ["-h", "--help"]},
 )
 
@@ -189,10 +189,3 @@ def cmd_rules_list() -> None:
         print(f"  - {topic:<{max_len}} : {desc} {cached_tag}".rstrip())
     print("\nRun `drawlib rules show <topic>` to view rules for a specific topic.")
     print("Pass `--rebuild` to regenerate illustrations, or `--raw` to view raw Markdown.")
-
-
-@rules_app.callback(invoke_without_command=True)
-def rules_default_callback(ctx: typer.Context) -> None:
-    """Default callback when `drawlib rules` is executed without subcommands."""
-    if ctx.invoked_subcommand is None:
-        cmd_rules_show(topic=None)

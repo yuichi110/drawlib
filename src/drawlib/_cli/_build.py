@@ -72,7 +72,6 @@ def cmd_build_image(
         bool,
         typer.Option(
             "--disable-auto-clear",
-            "--disable_auto_clear",
             help="Disable clearing canvas per executing drawing code files.",
         ),
     ] = False,
@@ -80,7 +79,6 @@ def cmd_build_image(
         bool,
         typer.Option(
             "--enable-auto-initialize",
-            "--enable_auto_initialize",
             help="Enable initializing canvas per executing drawing code files.",
         ),
     ] = False,

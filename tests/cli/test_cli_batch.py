@@ -242,3 +242,52 @@ save()
     assert res.returncode == 0
     assert (pkg_dir / "img1.png").exists()
     assert (pkg_dir / "img1_grid.png").exists()
+
+
+def test_cli_build_image_kebab_options(tmp_path) -> None:
+    """Test build image command accepts --disable-auto-clear and --enable-auto-initialize."""
+    script = tmp_path / "test_opts.py"
+    script.write_text(
+        """from drawlib.canvas import save, setup
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+
+setup(width=100, height=100)
+circle((25, 25), radius=10, style=Styles.primary)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli(
+        ["build", "image", str(script), "--disable-auto-clear", "--enable-auto-initialize"],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert (tmp_path / "test_opts.png").exists()
+
+
+def test_cli_build_image_snake_case_options_rejected(tmp_path) -> None:
+    """Test build image command rejects deprecated snake_case options."""
+    script = tmp_path / "test_snake.py"
+    script.write_text(
+        """from drawlib.canvas import save, setup
+setup(width=100, height=100)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res_disable = run_drawlib_cli(
+        ["build", "image", str(script), "--disable_auto_clear"],
+        cwd=str(tmp_path),
+    )
+    assert res_disable.returncode != 0
+    assert "No such option: --disable_auto_clear" in (res_disable.stdout + res_disable.stderr)
+
+    res_enable = run_drawlib_cli(
+        ["build", "image", str(script), "--enable_auto_initialize"],
+        cwd=str(tmp_path),
+    )
+    assert res_enable.returncode != 0
+    assert "No such option: --enable_auto_initialize" in (res_enable.stdout + res_enable.stderr)
