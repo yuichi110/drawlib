@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Drawlib styles configuration file."""
+"""Drawlib スタイル設定ファイル。"""
 
 from __future__ import annotations
 
@@ -20,3 +20,8 @@ Styles = Styles.patch_font(
     bold=FontJapanese.SANSSERIF_BOLD,
     light=FontJapanese.SANSSERIF_LIGHT,
 )
+
+# プロジェクト全体のカラーテーマやカスタムスタイルを変更したい場合は以下を記述します:
+#
+# from drawlib.preset_colors import DefaultColors
+# Colors = DefaultColors()

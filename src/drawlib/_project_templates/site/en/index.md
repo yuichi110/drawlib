@@ -2,17 +2,49 @@
 
 Welcome to the documentation site created with [Drawlib](https://github.com/yuichi110/drawlib).
 
-## Quick Overview
+## 1. Quick Overview (Primitive API)
 
-```drawlib
-setup(width=100, height=50)
+This diagram demonstrates standard diagramming using Drawlib's core primitives without external helpers:
 
-rectangle((20, 25), width=25, height=18, style=Styles.blue_flat, text="Client", textstyle=Styles.white_bold)
-rectangle((50, 25), width=25, height=18, style=Styles.green_flat, text="Server", textstyle=Styles.white_bold)
-rectangle((80, 25), width=25, height=18, style=Styles.red_flat, text="Database", textstyle=Styles.white_bold)
+```drawlib 600px center caption:"Basic Architecture Diagram"
+from drawlib.canvas import setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
 
-line((32.5, 25), (37.5, 25), arrowhead="->", style=Styles.bold)
-line((62.5, 25), (67.5, 25), arrowhead="->", style=Styles.bold)
+setup(width=100, height=45)
+
+# Standard shapes drawn with primitive functions
+rectangle((25, 22.5), width=28, height=18, style=Styles.primary_flat, text="Client App", textstyle=Styles.white_bold)
+rectangle((75, 22.5), width=28, height=18, style=Styles.accent_flat, text="Backend API", textstyle=Styles.white_bold)
+
+# Connecting line with arrow
+line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.bold)
+```
+
+## 2. Advanced Overview (Utilities & Assets)
+
+This diagram demonstrates reusable drawing components defined in `utils.py` and local image assets stored in `_assets/`:
+
+```drawlib 600px center caption:"Architecture with Reusable Helpers & Local Assets"
+from drawlib.canvas import setup
+from drawlib.images import image
+from drawlib.styles import Styles
+from drawlib.utils import connect, service_card
+
+setup(width=110, height=52)
+
+# Service nodes drawn using reusable helper from utils.py
+service_card((20, 24), title="Web Client", subtitle="Browser / App")
+service_card((55, 24), title="Linux Server", subtitle="Ubuntu / Nginx", style=Styles.accent_flat)
+service_card((90, 24), title="Database", subtitle="PostgreSQL", style=Styles.secondary_flat)
+
+# Connections with protocol labels
+connect((32, 24), (43, 24), label="HTTPS")
+connect((67, 24), (78, 24), label="SQL")
+
+# Embedded local image asset from docs_src/_assets/ directory
+image((55, 41), width=8, image="_assets/linux.png")
 ```
 
 Explore the documentation:

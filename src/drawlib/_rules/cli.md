@@ -363,8 +363,11 @@ Designed for illustration asset repositories, diagrams for slides, or article ba
 ```text
 images/
 ├── images_src/
-│   ├── sample.py              # Starter Python drawing script
-│   ├── config.py              # Drawing configuration
+│   ├── _assets/               # Static project assets (images, icons)
+│   ├── sample1.py             # Basic diagram script (primitives)
+│   ├── sample2.py             # Advanced diagram script (utils & assets)
+│   ├── styles.py              # Global styles script
+│   ├── utils.py               # Reusable drawing components
 │   ├── build.sh               # Batch image rendering script
 │   └── README.md              # Illustration workflow guide
 ```

@@ -20,7 +20,8 @@ This directory contains standalone Python scripts that generate diagram images i
   - `styles.py`: Global styles script (themes, styles, font presets).
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
   - `README.md`: This customization guide.
-  - `sample.py`: Example drawing script.
+  - `sample1.py`: Basic architecture diagram using Drawlib core primitives.
+  - `sample2.py`: Advanced architecture diagram using `utils.py` and local assets (`_assets/`).
 - `__OUT_DIR__/`: Generated images directory (**Do not edit directly**).
 
 ---
@@ -85,7 +86,7 @@ component_box((50, 30), "Service Worker")
 ### 3.4. Fast Developer Verification
 Test an individual drawing script with alignment grid (`-g`):
 ```bash
-drawlib export __SRC_DIR__/sample.py -g -o preview.png
+drawlib show __SRC_DIR__/sample1.py -g -o preview.png
 ```
 Rebuild without cache:
 ```bash

@@ -1,16 +1,28 @@
 # Chapter 2: Technical Design
 
-## Data Flow
+## Component Architecture
 
-This chapter describes how data flows through the processing pipeline.
+This chapter describes the multi-tier component architecture using reusable drawing helpers defined in `utils.py` and local image assets stored in `_assets/`.
 
-```drawlib
-setup(width=100, height=45)
+```drawlib 600px center caption:"Detailed Component Architecture"
+from drawlib.canvas import setup
+from drawlib.images import image
+from drawlib.styles import Styles
+from drawlib.utils import connect, service_card
 
-circle((20, 22.5), radius=12, style=Styles.blue_flat, text="Ingest", textstyle=Styles.white_bold)
-rectangle((50, 22.5), width=24, height=18, style=Styles.green_flat, text="Process", textstyle=Styles.white_bold)
-rectangle((80, 22.5), width=24, height=18, style=Styles.purple_flat, text="Storage", textstyle=Styles.white_bold)
+setup(width=110, height=52)
 
-line((32, 22.5), (38, 22.5), arrowhead="->", style=Styles.bold)
-line((62, 22.5), (68, 22.5), arrowhead="->", style=Styles.bold)
+# Service nodes drawn using reusable helper from utils.py
+service_card((20, 24), title="Web Client", subtitle="Browser / App")
+service_card((55, 24), title="Linux Server", subtitle="Ubuntu / Nginx", style=Styles.accent_flat)
+service_card((90, 24), title="Database", subtitle="PostgreSQL", style=Styles.secondary_flat)
+
+# Connections with protocol labels
+connect((32, 24), (43, 24), label="HTTPS")
+connect((67, 24), (78, 24), label="SQL")
+
+# Embedded local image asset from doc_src/_assets/ directory
+image((55, 41), width=8, image="_assets/linux.png")
 ```
+
+The system separates concerns across client access, application logic on the Linux host, and persistent storage.

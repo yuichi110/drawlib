@@ -4,13 +4,20 @@ This document illustrates the execution lifecycle.
 
 ## Process Flow
 
-```drawlib
+```drawlib 600px center caption:"Execution Lifecycle Flow"
+from drawlib.canvas import setup
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+from drawlib.utils import connect, service_card
+
 setup(width=100, height=40)
 
-circle((20, 20), radius=10, style=Styles.blue_flat, text="Start", textstyle=Styles.white_bold)
-rectangle((50, 20), width=24, height=16, style=Styles.green_flat, text="Process", textstyle=Styles.white_bold)
-circle((80, 20), radius=10, style=Styles.red_flat, text="Finish", textstyle=Styles.white_bold)
+# Process stages
+circle((18, 20), radius=9, style=Styles.primary_flat, text="Start", textstyle=Styles.white_bold)
+service_card((50, 20), title="Process", subtitle="Worker Job", width=26, height=16, style=Styles.accent_flat)
+circle((82, 20), radius=9, style=Styles.secondary_flat, text="Finish", textstyle=Styles.white_bold)
 
-line((30, 20), (38, 20), arrowhead="->", style=Styles.bold)
-line((62, 20), (70, 20), arrowhead="->", style=Styles.bold)
+# Transitions
+connect((27, 20), (37, 20))
+connect((63, 20), (73, 20))
 ```

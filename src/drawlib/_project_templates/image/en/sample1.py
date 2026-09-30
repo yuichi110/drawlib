@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Sample Drawlib drawing script."""
+"""Basic architecture diagram using Drawlib core primitives."""
 
 from __future__ import annotations
 
@@ -15,18 +15,30 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
-from drawlib.text import text
 
-# Setup canvas: 100 wide x 50 high
-setup(width=100, height=50)
+# Setup canvas: 100 wide x 45 high
+setup(width=100, height=45)
 
-# Draw shapes
-rectangle((25, 25), width=28, height=18, style=Styles.blue_flat, text="Service A", textstyle=Styles.white_bold)
-rectangle((75, 25), width=28, height=18, style=Styles.green_flat, text="Service B", textstyle=Styles.white_bold)
+# Standard shapes drawn with primitive functions
+rectangle(
+    (25, 22.5),
+    width=28,
+    height=18,
+    style=Styles.primary_flat,
+    text="Client App",
+    textstyle=Styles.white_bold,
+)
+rectangle(
+    (75, 22.5),
+    width=28,
+    height=18,
+    style=Styles.accent_flat,
+    text="Backend API",
+    textstyle=Styles.white_bold,
+)
 
-# Draw connecting line with arrow
-line((39, 25), (61, 25), arrowhead="->", style=Styles.bold)
-text((50, 28), "gRPC", style=Styles.primary)
+# Connecting line with arrow
+line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.bold)
 
 # Save the rendered canvas image
 save()

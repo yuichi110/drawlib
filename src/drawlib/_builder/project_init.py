@@ -186,6 +186,35 @@ def _resolve_template_root(selected_type: str, lang: str = "en") -> Traversable:
     return root
 
 
+def _copy_shared_assets(
+    src_path: Path,
+    replacements: dict[str, str],
+    created_files: list[Path],
+) -> None:
+    """Copy shared static assets from _project_templates/_assets into target project."""
+    shared_assets_root = importlib.resources.files("drawlib._project_templates").joinpath("_assets")
+    if shared_assets_root.is_dir():
+        _copy_item_with_substitutions(shared_assets_root, src_path / "_assets", replacements, created_files)
+
+
+def _deploy_stylesheet(
+    selected_type: str,
+    src_path: Path,
+    css: Optional[str],
+    created_files: list[Path],
+) -> None:
+    """Deploy custom or default style.css for document projects."""
+    if selected_type not in {"site", "simple", "pdf"}:
+        return
+
+    target = "pdf" if selected_type == "pdf" else "html"
+    css_content = get_default_css(custom_css_path=css or "default", target=target)
+    style_css_target = src_path / "style.css"
+    style_css_target.write_text(css_content, encoding="utf-8")
+    if style_css_target not in created_files:
+        created_files.append(style_css_target)
+
+
 def init_project(
     project_type: str,
     destination: str | Path = ".",
@@ -258,20 +287,8 @@ def init_project(
             continue
         _copy_item_with_substitutions(item, src_path / item.name, replacements, created_files)
 
-    if selected_type in {"site", "simple"}:
-        css_theme = css or "default"
-        css_content = get_default_css(custom_css_path=css_theme, target="html")
-        style_css_target = src_path / "style.css"
-        style_css_target.write_text(css_content, encoding="utf-8")
-        if style_css_target not in created_files:
-            created_files.append(style_css_target)
-    elif selected_type == "pdf":
-        css_theme = css or "default"
-        css_content = get_default_css(custom_css_path=css_theme, target="pdf")
-        style_css_target = src_path / "style.css"
-        style_css_target.write_text(css_content, encoding="utf-8")
-        if style_css_target not in created_files:
-            created_files.append(style_css_target)
+    _copy_shared_assets(src_path, replacements, created_files)
+    _deploy_stylesheet(selected_type, src_path, css, created_files)
 
     if not no_build:
         _run_initial_build(

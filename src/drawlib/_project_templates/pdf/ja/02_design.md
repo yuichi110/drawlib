@@ -1,14 +1,28 @@
-# 第2章 詳細設計
+# 第2章: 詳細設計
 
-各コンポーネントの詳細設計および処理フローです。
+## コンポーネント設計
 
-```drawlib
-setup(width=100, height=40)
+本章では、`utils.py` で定義した再利用可能な描画コンポーネントと、`_assets/` ディレクトリに配置した画像アセットを活用した 3 層アーキテクチャの詳細設計について解説します。
 
-circle((20, 20), radius=10, style=Styles.blue_flat, text="受信", textstyle=Styles.white_bold)
-rectangle((50, 20), width=24, height=16, style=Styles.green_flat, text="解析・変換", textstyle=Styles.white_bold)
-circle((80, 20), radius=10, style=Styles.red_flat, text="保存", textstyle=Styles.white_bold)
+```drawlib 600px center caption:"詳細コンポーネント構成図"
+from drawlib.canvas import setup
+from drawlib.images import image
+from drawlib.styles import Styles
+from drawlib.utils import connect, service_card
 
-line((30, 20), (38, 20), arrowhead="->", style=Styles.bold)
-line((62, 20), (70, 20), arrowhead="->", style=Styles.bold)
+setup(width=110, height=52)
+
+# utils.py の共通ヘルパー関数によるサービス描画
+service_card((20, 24), title="Web クライアント", subtitle="Browser / App")
+service_card((55, 24), title="Linux サーバー", subtitle="Ubuntu / Nginx", style=Styles.accent_flat)
+service_card((90, 24), title="データベース", subtitle="PostgreSQL", style=Styles.secondary_flat)
+
+# プロトコルラベル付き接続線
+connect((32, 24), (43, 24), label="HTTPS")
+connect((67, 24), (78, 24), label="SQL")
+
+# doc_src/_assets/ 配下のローカル画像アセットの埋め込み
+image((55, 41), width=8, image="_assets/linux.png")
 ```
+
+システムはクライアントアクセス、Linux ホスト上で稼働するアプリケーションロジック、および永続化データベースに責務を分離しています。

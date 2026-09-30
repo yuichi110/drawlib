@@ -1,16 +1,22 @@
-# システムアーキテクチャ
+# アーキテクチャ設計
 
-システムの内部構成とコンポーネント間の連携について説明します。
+システムの内部アーキテクチャ構成について解説します。
 
 ## コンポーネント構成
 
-```drawlib
+```drawlib 600px center caption:"コンポーネント構成詳細"
+from drawlib.canvas import setup
+from drawlib.styles import Styles
+from drawlib.utils import connect, service_card
+
 setup(width=120, height=60)
 
-rectangle((30, 40), width=35, height=20, style=Styles.blue_flat, text="フロントエンド (UI)", textstyle=Styles.white_bold)
-rectangle((30, 15), width=35, height=20, style=Styles.green_flat, text="認証サービス", textstyle=Styles.white_bold)
-rectangle((90, 27.5), width=35, height=40, style=Styles.purple_flat, text="コアバックエンド", textstyle=Styles.white_bold)
+# utils.py で定義したカスタムコンポーネントによるサービス描画
+service_card((30, 42), title="フロントエンド UI", subtitle="Single Page App", width=34, height=18, style=Styles.primary_flat)
+service_card((30, 18), title="認証サービス", subtitle="OAuth 2.0 / JWT", width=34, height=18, style=Styles.accent_flat)
+service_card((90, 30), title="バックエンド", subtitle="マイクロサービス群", width=36, height=36, style=Styles.secondary_flat)
 
-line((47.5, 40), (72.5, 35), arrowhead="->", style=Styles.bold)
-line((47.5, 15), (72.5, 20), arrowhead="->", style=Styles.bold)
+# プロトコルラベル付き接続線
+connect((47, 42), (72, 35), label="HTTPS")
+connect((47, 18), (72, 25), label="gRPC")
 ```

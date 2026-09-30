@@ -20,7 +20,8 @@
   - `styles.py`: 全体描画テーマ、パレット、日本語フォント設定スクリプト。
   - `utils.py`: 再利用可能な描画ヘルパー関数、マクロ、プロジェクト共通定数。
   - `README.md`: 本カスタマイズガイド。
-  - `sample.py`: サンプル描画スクリプト。
+  - `sample1.py`: Drawlib の基本図形機能のみを使用した基本構成図スクリプト。
+  - `sample2.py`: `utils.py` の共通ヘルパーと画像アセット (`_assets/`) を活用した構成図スクリプト。
 - `__OUT_DIR__/`: 生成された画像出力ディレクトリ (**直接編集しないでください**)。
 
 ---
@@ -85,7 +86,7 @@ component_box((50, 30), "サービスワーカー")
 ### 3.4. 図面開発の高速検証
 特定の描画スクリプトをグリッド付き (`-g`) で画像出力してレイアウトを確認できます:
 ```bash
-drawlib export __SRC_DIR__/sample.py -g -o preview.png
+drawlib show __SRC_DIR__/sample1.py -g -o preview.png
 ```
 キャッシュを無視して再ビルドする場合:
 ```bash

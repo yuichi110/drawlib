@@ -7,16 +7,18 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Drawlib styles configuration file."""
+"""Drawlib スタイル設定ファイル。"""
 
 from __future__ import annotations
 
-from drawlib.fonts import FontJapanese
-from drawlib.styles import Styles
-
-# 日本語フォントをデフォルトとして適用
-Styles = Styles.patch_font(
-    regular=FontJapanese.SANSSERIF_REGULAR,
-    bold=FontJapanese.SANSSERIF_BOLD,
-    light=FontJapanese.SANSSERIF_LIGHT,
-)
+# このファイルでは、プロジェクト全体の作図スタイル、プリセットスタイル、またはカラーテーマを設定します。
+#
+# ここで定義した変数は、自動的に `drawlib.styles` を上書き・拡張します。
+#
+# 例（デフォルトテーマのカスタマイズ）:
+#
+# from drawlib.preset_colors import DefaultColors
+# from drawlib.preset_styles import DefaultStyles
+#
+# Colors = DefaultColors()
+# Styles = DefaultStyles()

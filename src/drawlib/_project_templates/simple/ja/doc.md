@@ -1,15 +1,50 @@
-# システム設計書
+# ドキュメント
 
-[Drawlib](https://github.com/yuichi110/drawlib) を利用したスタンドアロンドキュメントのサンプルです。
+[Drawlib](https://github.com/yuichi110/drawlib) で作成されたシンプルなドキュメントの例です。
 
-## 概要図
+## 1. 基本構成（プリミティブ API）
 
-```drawlib
-setup(width=100, height=50)
+Drawlib の基本図形描画機能のみを使用したシンプルな構成図です：
 
-rectangle((25, 25), width=30, height=20, style=Styles.blue_flat, text="クライアント", textstyle=Styles.white_bold)
-rectangle((75, 25), width=30, height=20, style=Styles.green_flat, text="API サーバー", textstyle=Styles.white_bold)
-line((40, 25), (60, 25), arrowhead="->", style=Styles.bold)
+```drawlib 600px center caption:"基本アーキテクチャ構成図"
+from drawlib.canvas import setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=100, height=45)
+
+# 基本図形描画関数を使用したサービスノード
+rectangle((25, 22.5), width=28, height=18, style=Styles.primary_flat, text="クライアント", textstyle=Styles.white_bold)
+rectangle((75, 22.5), width=28, height=18, style=Styles.accent_flat, text="バックエンド API", textstyle=Styles.white_bold)
+
+# 矢印付き接続線
+line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.bold)
 ```
 
-このドキュメントは単一の HTML ファイルおよび GitHub 用 Markdown にコンパイルされます。
+## 2. 応用構成（ユーティリティとアセット）
+
+`utils.py` で定義した再利用可能な描画コンポーネントと、`_assets/` ディレクトリに配置した画像アセットを組み合わせた実践例です：
+
+```drawlib 600px center caption:"共通ヘルパーと画像アセットを活用した構成図"
+from drawlib.canvas import setup
+from drawlib.images import image
+from drawlib.styles import Styles
+from drawlib.utils import connect, service_card
+
+setup(width=110, height=52)
+
+# utils.py の共通ヘルパー関数によるサービス描画
+service_card((20, 24), title="Web クライアント", subtitle="Browser / App")
+service_card((55, 24), title="Linux サーバー", subtitle="Ubuntu / Nginx", style=Styles.accent_flat)
+service_card((90, 24), title="データベース", subtitle="PostgreSQL", style=Styles.secondary_flat)
+
+# プロトコルラベル付き接続線
+connect((32, 24), (43, 24), label="HTTPS")
+connect((67, 24), (78, 24), label="SQL")
+
+# docs_src/_assets/ 配下のローカル画像アセットの埋め込み
+image((55, 41), width=8, image="_assets/linux.png")
+```
+
+Drawlib を使用すると、Markdown 内に直接 Python 作図コードを埋め込んで文書と図版を一体管理できます。
