@@ -28,38 +28,41 @@ def test_cli_rules_default() -> None:
     assert "list" in (res.stdout + res.stderr)
 
 
-def test_cli_rules_show_default() -> None:
-    """Test `drawlib rules show` without topic outputs overview."""
+def test_cli_rules_show_missing_topic() -> None:
+    """Test `drawlib rules show` without topic fails with missing argument error."""
     res = run_drawlib_cli(["rules", "show"])
-    assert res.returncode == 0
-    assert "# Drawlib Agent Drawing Guidelines" in res.stdout
+    assert res.returncode != 0
+    assert "Missing argument" in (res.stdout + res.stderr)
+    assert "topic" in (res.stdout + res.stderr).lower()
 
 
 def test_cli_rules_list() -> None:
-    """Test `drawlib rules list` lists all topics."""
+    """Test `drawlib rules list` lists all general guidelines and library modules."""
     res = run_drawlib_cli(["rules", "list"])
     assert res.returncode == 0
+    assert "General Guidelines:" in res.stdout
+    assert "Library Modules (drawlib.*):" in res.stdout
     for topic in [
         "overview",
-        "overview_min",
-        "canvas",
-        "styles",
+        "overview-min",
         "cli",
-        "docs_build",
-        "shapes",
-        "lines",
-        "text",
-        "colors",
-        "fonts",
-        "images",
-        "math",
-        "types",
-        "icons",
-        "preset_styles",
-        "smartarts",
-        "charts",
-        "diagrams",
-        "tools",
+        "docs-build",
+        "lib-canvas",
+        "lib-shapes",
+        "lib-lines",
+        "lib-text",
+        "lib-colors",
+        "lib-styles",
+        "lib-preset-styles",
+        "lib-fonts",
+        "lib-images",
+        "lib-icons",
+        "lib-math",
+        "lib-types",
+        "lib-smartarts",
+        "lib-charts",
+        "lib-diagrams",
+        "lib-tools",
     ]:
         assert topic in res.stdout
 
@@ -68,25 +71,25 @@ def test_cli_rules_list() -> None:
     "topic,expected_heading",
     [
         ("overview", "# Drawlib Agent Drawing Guidelines"),
-        ("overview_min", "# Drawlib Agent Drawing Guidelines (Minimal)"),
-        ("canvas", "# Drawlib Canvas Guidelines"),
-        ("styles", "# Drawlib Styles & Utilities Architecture Guidelines"),
+        ("overview-min", "# Drawlib Agent Drawing Guidelines (Minimal)"),
         ("cli", "# Drawlib CLI Guidelines"),
-        ("docs_build", "# Drawlib Documentation Build Guidelines"),
-        ("shapes", "# Drawlib Shapes Guidelines"),
-        ("lines", "# Drawlib Lines Guidelines"),
-        ("text", "# Drawlib Text Guidelines"),
-        ("colors", "# Drawlib Colors Guidelines"),
-        ("fonts", "# Drawlib Fonts Guidelines"),
-        ("images", "# Drawlib Images Guidelines"),
-        ("math", "# Drawlib Math Guidelines"),
-        ("types", "# Drawlib Types & Style Models Guidelines"),
-        ("tools", "# Drawlib Tools Guidelines"),
-        ("icons", "# Drawlib Icons Guidelines"),
-        ("preset_styles", "# Drawlib Preset Styles Guidelines"),
-        ("smartarts", "# Drawlib SmartArts Guidelines"),
-        ("charts", "# Drawlib Charts Guidelines"),
-        ("diagrams", "# Drawlib Diagrams Guidelines"),
+        ("docs-build", "# Drawlib Documentation Build Guidelines"),
+        ("lib-canvas", "# Drawlib Canvas Guidelines"),
+        ("lib-shapes", "# Drawlib Shapes Guidelines"),
+        ("lib-lines", "# Drawlib Lines Guidelines"),
+        ("lib-text", "# Drawlib Text Guidelines"),
+        ("lib-colors", "# Drawlib Colors Guidelines"),
+        ("lib-styles", "# Drawlib Styles & Utilities Architecture Guidelines"),
+        ("lib-preset-styles", "# Drawlib Preset Styles Guidelines"),
+        ("lib-fonts", "# Drawlib Fonts Guidelines"),
+        ("lib-images", "# Drawlib Images Guidelines"),
+        ("lib-icons", "# Drawlib Icons Guidelines"),
+        ("lib-math", "# Drawlib Math Guidelines"),
+        ("lib-types", "# Drawlib Types & Style Models Guidelines"),
+        ("lib-smartarts", "# Drawlib SmartArts Guidelines"),
+        ("lib-charts", "# Drawlib Charts Guidelines"),
+        ("lib-diagrams", "# Drawlib Diagrams Guidelines"),
+        ("lib-tools", "# Drawlib Tools Guidelines"),
     ],
 )
 def test_cli_rules_show_topics(topic: str, expected_heading: str) -> None:
@@ -96,19 +99,27 @@ def test_cli_rules_show_topics(topic: str, expected_heading: str) -> None:
     assert expected_heading in res.stdout
 
 
-def test_cli_rules_show_themes_alias() -> None:
-    """Test `drawlib rules show themes` redirects to preset_styles with a friendly note."""
-    res = run_drawlib_cli(["rules", "show", "themes"])
+def test_cli_rules_show_underscore_normalization() -> None:
+    """Test `drawlib rules show` transparently accepts underscore-style topic names."""
+    res = run_drawlib_cli(["rules", "show", "lib_shapes"])
     assert res.returncode == 0
-    assert "# Drawlib Preset Styles Guidelines" in res.stdout
-    assert "preset_styles" in res.stderr.lower()
+    assert "# Drawlib Shapes Guidelines" in res.stdout
+
+    res_docs = run_drawlib_cli(["rules", "show", "docs_build"])
+    assert res_docs.returncode == 0
+    assert "# Drawlib Documentation Build Guidelines" in res_docs.stdout
 
 
-def test_cli_rules_show_docs_alias() -> None:
-    """Test `drawlib rules show docs` redirects to docs_build."""
-    res = run_drawlib_cli(["rules", "show", "docs"])
-    assert res.returncode == 0
-    assert "# Drawlib Documentation Build Guidelines" in res.stdout
+@pytest.mark.parametrize(
+    "deprecated_topic",
+    ["shapes", "lines", "canvas", "themes", "theme", "docs", "doc", "preset_styles"],
+)
+def test_cli_rules_show_deprecated_topics_rejected(deprecated_topic: str) -> None:
+    """Test that legacy or un-prefixed topics are strictly rejected with code 1."""
+    res = run_drawlib_cli(["rules", "show", deprecated_topic])
+    assert res.returncode == 1
+    assert f"Error: Unknown rule topic '{deprecated_topic}'" in res.stderr
+    assert "Available topics:" in res.stderr
 
 
 def test_cli_rules_show_unknown_topic() -> None:
@@ -147,9 +158,9 @@ def test_cli_rules_show_rebuild_and_clear() -> None:
 
 def test_cli_rules_build_specific_topic() -> None:
     """Test `drawlib rules build <topic>` pre-builds illustrations."""
-    res_build = run_drawlib_cli(["rules", "build", "overview", "--force"])
+    res_build = run_drawlib_cli(["rules", "build", "lib-shapes", "--force"])
     assert res_build.returncode == 0
-    assert "Successfully compiled rule topic 'overview'" in res_build.stdout
+    assert "Successfully compiled rule topic 'lib-shapes'" in res_build.stdout
 
     # Clear cache after test
     res_clear = run_drawlib_cli(["rules", "clear"])
@@ -158,11 +169,11 @@ def test_cli_rules_build_specific_topic() -> None:
 
 def test_cli_show_rules_fallback() -> None:
     """Test `drawlib show <topic>` seamlessly redirects to `drawlib rules show <topic>`."""
-    res_canvas = run_drawlib_cli(["show", "canvas"])
+    res_canvas = run_drawlib_cli(["show", "lib-canvas"])
     assert res_canvas.returncode == 0
     assert "# Drawlib Canvas Guidelines" in res_canvas.stdout
 
-    res_tools = run_drawlib_cli(["show", "tools"])
+    res_tools = run_drawlib_cli(["show", "lib-tools"])
     assert res_tools.returncode == 0
     assert "# Drawlib Tools Guidelines" in res_tools.stdout
 

@@ -49,9 +49,10 @@ drawlib css show html google -o style.css                  # Export Google styli
 
 # AI agent knowledge base
 drawlib rules list                                         # List available architectural rule topics
-drawlib rules show                                         # Display default overview drawing guidelines
+drawlib rules show overview                                # Display canvas overview drawing guidelines
+drawlib rules show lib-shapes                              # Display shapes API reference and examples
 drawlib rules show cli                                     # Display this CLI reference guide
-drawlib rules show docs_build                              # Display documentation build conventions
+drawlib rules show docs-build                              # Display documentation build conventions
 drawlib rules clear                                        # Delete all cached rule illustrations and docs
 ```
 
@@ -804,13 +805,13 @@ Drawlib features a built-in knowledge subsystem (`drawlib rules`) that delivers 
 AI pair-programming assistants and developers can query these rules at any time during development to ensure API consistency.
 
 ### Default Execution Behavior:
-Like all other command groups in Drawlib, executing `drawlib rules` without arguments displays contextual help and lists all available subcommands (`no_args_is_help=True`). To display the default canvas overview guidelines, execute `drawlib rules show` (or `drawlib rules show overview`).
+Like all other command groups in Drawlib, executing `drawlib rules` without arguments displays contextual help and lists all available subcommands (`no_args_is_help=True`). To display a specific rule guide, pass the required topic to `drawlib rules show <TOPIC>` (e.g. `drawlib rules show overview` or `drawlib rules show lib-shapes`).
 
 ### Subcommands:
 ```text
 drawlib rules
 ├── list                    List all available rule topics and cache status
-├── show [TOPIC]            Display rules and examples (defaults to overview)
+├── show <TOPIC>            Display rules and examples for a topic (e.g. lib-shapes, overview)
 │   ├── --rebuild, -r       Force regenerate illustrations even if cached
 │   └── --raw               Display raw Markdown without building or checking cache
 ├── build [TOPIC]           Pre-build illustrations into _assets/rules/
@@ -823,28 +824,33 @@ drawlib rules
 
 ### 9.1 Rule Topic Catalog:
 
-| Topic Name | Aliases | Description |
-| :--- | :--- | :--- |
-| `overview` | *(default)* | Canvas lifecycle, coordinate system, core imports, and workflow. |
-| `overview_min` | `overview-min` | Concise overview (<10k chars) for context-constrained rule files. |
-| `canvas` | | Canvas configuration, coordinate space, clear/save lifecycle, and background. |
-| `styles` | | Styles and utils architecture, active preset styles, colors palette, and dynamic custom scripts. |
-| `shapes` | | Rectangles, circles, ellipses, wedges, and polygons. |
-| `lines` | | Straight, curved, and chained lines with arrowheads. |
-| `text` | | Text rendering, formatting, alignment, and fonts. |
-| `colors` | | Color models, RGB/RGBA tuples, hex conversion, and palette classes. |
-| `fonts` | | Font configuration, system/file fonts, CJK/multilingual typography, and cache. |
-| `images` | | Embedding bitmap and vector images, scaling, rotation, and Dimage. |
-| `math` | | Geometry helpers, coordinate calculations, angles, distance, and bounding box. |
-| `types` | | Type models, Style class, base classes, and Drawlib type conventions. |
-| `preset_styles` | `theme`, `themes` | Pre-defined style naming rules and color palette classes. |
-| `icons` | | Phosphor, FontAwesome, and GCP cloud architecture icons. |
-| `smartarts` | | Tables, trees, mindmaps, and structured visual elements. |
-| `charts` | | Bar, line, pie, scatter, radar, area, and Gantt charts. |
-| `diagrams` | | Flowcharts, sequence, state, class, ER, and architecture diagrams. |
-| `tools` | | Python developer API for document building, diagram export, and cache management. |
-| `cli` | | Document compilation, export, preview, and cache CLI commands. |
-| `docs_build` | `doc`, `docs`, `doc_build` | Documentation site structure, navbar rules, scaffolding, and build conventions. |
+#### General Guidelines:
+| Topic Name | Description |
+| :--- | :--- |
+| `overview` | Canvas lifecycle, coordinate system, core imports, and workflow. |
+| `overview-min` | Concise overview (<10k chars) for context-constrained rule files. |
+| `cli` | Document compilation, export, preview, and cache CLI commands. |
+| `docs-build` | Documentation site structure, navbar rules, scaffolding, and build conventions. |
+
+#### Library Modules (`drawlib.*`):
+| Topic Name | Description |
+| :--- | :--- |
+| `lib-canvas` | Canvas configuration, coordinate space, clear/save lifecycle, and background. |
+| `lib-shapes` | Rectangles, circles, ellipses, wedges, and polygons. |
+| `lib-lines` | Straight, curved, and chained lines with arrowheads. |
+| `lib-text` | Text rendering, formatting, alignment, and fonts. |
+| `lib-colors` | Color models, RGB/RGBA tuples, hex conversion, and palette classes. |
+| `lib-styles` | Styles and utils architecture, active preset styles, colors palette, and dynamic custom scripts. |
+| `lib-preset-styles` | Pre-defined style naming rules and color palette classes. |
+| `lib-fonts` | Font configuration, system/file fonts, CJK/multilingual typography, and cache. |
+| `lib-images` | Embedding bitmap and vector images, scaling, rotation, and Dimage. |
+| `lib-icons` | Phosphor, FontAwesome, and GCP cloud architecture icons. |
+| `lib-math` | Geometry helpers, coordinate calculations, angles, distance, and bounding box. |
+| `lib-types` | Type models, Style class, base classes, and Drawlib type conventions. |
+| `lib-smartarts` | Tables, trees, mindmaps, and structured visual elements. |
+| `lib-charts` | Bar, line, pie, scatter, radar, area, and Gantt charts. |
+| `lib-diagrams` | Flowcharts, sequence, state, class, ER, and architecture diagrams. |
+| `lib-tools` | Python developer API for document building, diagram export, and cache management. |
 
 ---
 
@@ -859,11 +865,11 @@ When an AI agent or developer runs `drawlib rules show <topic>`, Drawlib automat
 ```bash
 drawlib rules                             # Display help and available subcommands
 drawlib rules list                        # List all topics and cache status
-drawlib rules show                        # Display default canvas overview rules
-drawlib rules show overview               # Explicitly display canvas overview rules
-drawlib rules show shapes                 # Display shapes API rules (builds on-demand)
-drawlib rules show shapes --rebuild       # Force regenerate illustrations for shapes
-drawlib rules show shapes --raw           # Output raw Markdown source without cache
+drawlib rules show overview               # Display canvas overview rules
+drawlib rules show lib-shapes             # Display shapes API rules (builds on-demand)
+drawlib rules show lib-shapes --rebuild   # Force regenerate illustrations for shapes
+drawlib rules show lib-shapes --raw       # Output raw Markdown source without cache
+drawlib rules build lib-shapes            # Pre-build illustrations for a single topic
 drawlib rules build --all                 # Pre-build illustrations for all topics
 drawlib rules clear                       # Delete all cached illustrations and docs
 ```
@@ -1007,7 +1013,7 @@ repos:
 
 #### 2. `Directory build requires "navbar.md" at the root of the input directory`
 - **Cause**: Multi-page website builds require `navbar.md` in the root of the input directory to construct sidebar navigation.
-- **Fix**: Add `docs_src/navbar.md` defining categories and links. Refer to `drawlib rules show docs_build` for navbar syntax.
+- **Fix**: Add `docs_src/navbar.md` defining categories and links. Refer to `drawlib rules show docs-build` for navbar syntax.
 
 #### 3. `Refusing to overwrite input source file "..."`
 - **Cause**: The output path `-o` points to the exact same file or directory as the input source.

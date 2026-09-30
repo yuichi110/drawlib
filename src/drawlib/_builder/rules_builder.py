@@ -25,57 +25,32 @@ from drawlib._core.utils import RULES_DIR_PATH
 
 AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "overview",
-    "overview_min",
-    "canvas",
-    "styles",
-    "shapes",
-    "lines",
-    "text",
-    "colors",
-    "fonts",
-    "images",
-    "math",
-    "types",
-    "preset_styles",
-    "icons",
-    "smartarts",
-    "charts",
-    "diagrams",
-    "tools",
+    "overview-min",
     "cli",
-    "docs_build",
+    "docs-build",
+    "lib-canvas",
+    "lib-shapes",
+    "lib-lines",
+    "lib-text",
+    "lib-colors",
+    "lib-styles",
+    "lib-preset-styles",
+    "lib-fonts",
+    "lib-images",
+    "lib-icons",
+    "lib-math",
+    "lib-types",
+    "lib-smartarts",
+    "lib-charts",
+    "lib-diagrams",
+    "lib-tools",
 )
 
 INSTRUCTION_MARKER: Final[str] = "Instructions for AI Agents & Developers"
 
 
-_TOPIC_ALIASES: Final[dict[str, str]] = {
-    "doc_build": "docs_build",
-    "docs": "docs_build",
-    "doc": "docs_build",
-    "theme": "preset_styles",
-    "themes": "preset_styles",
-    "overview-min": "overview_min",
-    "overview_min": "overview_min",
-    "overviewmin": "overview_min",
-    "min": "overview_min",
-    "color": "colors",
-    "colour": "colors",
-    "colours": "colors",
-    "font": "fonts",
-    "image": "images",
-    "img": "images",
-    "type": "types",
-    "style": "styles",
-    "tool": "tools",
-    "config": "styles",
-    "configuration": "styles",
-    "configs": "styles",
-}
-
-
 def _normalize_topic(topic: str) -> str:
-    """Normalize topic name and handle historical aliases.
+    """Normalize topic name.
 
     Args:
         topic: Input topic string.
@@ -86,8 +61,7 @@ def _normalize_topic(topic: str) -> str:
     Raises:
         ValueError: If topic name is unknown.
     """
-    clean = topic.strip().lower()
-    clean = _TOPIC_ALIASES.get(clean, clean)
+    clean = topic.strip().lower().replace("_", "-")
 
     if clean not in AVAILABLE_TOPICS:
         raise ValueError(f"Unknown rule topic '{topic}'. Available topics: {', '.join(AVAILABLE_TOPICS)}")
@@ -104,7 +78,8 @@ def get_rule_source_path(topic: str) -> Path:
         Path: Filesystem path to the source rule Markdown file.
     """
     canonical = _normalize_topic(topic)
-    res = importlib.resources.files("drawlib._rules").joinpath(f"{canonical}.md")
+    file_name = canonical.replace("-", "_") + ".md"
+    res = importlib.resources.files("drawlib._rules").joinpath(file_name)
     return Path(str(res))
 
 
@@ -132,7 +107,8 @@ def get_rule_target_path(topic: str) -> Path:
         Path: Filesystem path to the cached rule Markdown file.
     """
     canonical = _normalize_topic(topic)
-    return get_rules_dir() / f"{canonical}.md"
+    file_name = canonical.replace("-", "_") + ".md"
+    return get_rules_dir() / file_name
 
 
 def is_rule_cached(topic: str) -> bool:
@@ -161,23 +137,24 @@ def _rewrite_image_paths_to_runtime(content: str, topic: str) -> str:
 
     Args:
         content: Markdown content with relative image links.
-        topic: Rule topic name (e.g. 'overview', 'shapes').
+        topic: Rule topic name (e.g. 'overview', 'lib-shapes').
 
     Returns:
         str: Markdown content with image links rewritten to PYTHON_RUNTIME/site-packages/...
     """
-    prefix = f"PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/{topic}_images/"
+    file_stem = topic.replace("-", "_")
+    prefix = f"PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/{file_stem}_images/"
 
-    # 1. Standard Markdown image syntax: ![alt](<topic>_images/<file>)
-    md_pattern = rf"!\[(.*?)\]\({re.escape(topic)}_images/([^)]+)\)"
+    # 1. Standard Markdown image syntax: ![alt](<file_stem>_images/<file>)
+    md_pattern = rf"!\[(.*?)\]\({re.escape(file_stem)}_images/([^)]+)\)"
     content = re.sub(md_pattern, rf"![\1]({prefix}\2)", content)
 
-    # 2. HTML <img> tags with double quotes: src="<topic>_images/<file>"
-    html_pattern_dq = rf'(<img\s+[^>]*?src="){re.escape(topic)}_images/([^"]+)(")'
+    # 2. HTML <img> tags with double quotes: src="<file_stem>_images/<file>"
+    html_pattern_dq = rf'(<img\s+[^>]*?src="){re.escape(file_stem)}_images/([^"]+)(")'
     content = re.sub(html_pattern_dq, rf"\1{prefix}\2\3", content)
 
-    # 3. HTML <img> tags with single quotes: src='<topic>_images/<file>'
-    html_pattern_sq = rf"(<img\s+[^>]*?src='){re.escape(topic)}_images/([^']+)(')"
+    # 3. HTML <img> tags with single quotes: src='<file_stem>_images/<file>'
+    html_pattern_sq = rf"(<img\s+[^>]*?src='){re.escape(file_stem)}_images/([^']+)(')"
     content = re.sub(html_pattern_sq, rf"\1{prefix}\2\3", content)
 
     return content
@@ -196,11 +173,12 @@ def _inject_agent_instructions(content: str, topic: str) -> str:
     if INSTRUCTION_MARKER in content:
         return content
 
+    file_stem = topic.replace("-", "_")
     banner = (
         "> [!NOTE]\n"
         "> **Instructions for AI Agents & Developers**:\n"
         f"> This document is compiled from `drawlib` core rules and companion illustrations are located at:\n"
-        f"> `PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/{topic}_images/<n>.png`\n"
+        f"> `PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/{file_stem}_images/<n>.png`\n"
         ">\n"
         "> (Resolve `PYTHON_RUNTIME` to your active Python / virtualenv environment path to inspect images).\n"
         "> You can inspect any image directly using your file/image viewing tool (`view_file`, etc.) "

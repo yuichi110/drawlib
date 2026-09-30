@@ -118,22 +118,22 @@ The `overview` rule instructs your agent to autonomously fetch detailed rules wh
 
 ```bash
 # Shapes primitives (rectangles, circles, polylines, chevrons):
-uv run drawlib rules show shapes
+uv run drawlib rules show lib-shapes
 
 # Connections, routing, and arrowheads:
-uv run drawlib rules show lines
+uv run drawlib rules show lib-lines
 
 # High-level domain diagrams (Architecture, Sequence, Flow, ER, Class):
-uv run drawlib rules show diagrams
+uv run drawlib rules show lib-diagrams
 
 # Structured layout components (Tables, Trees, MindMaps, ChevronProcess):
-uv run drawlib rules show smartarts
+uv run drawlib rules show lib-smartarts
 
 # Data visualizations and Gantt charts:
-uv run drawlib rules show charts
+uv run drawlib rules show lib-charts
 
 # Visual style matrix and color palettes:
-uv run drawlib rules show preset_styles
+uv run drawlib rules show lib-preset-styles
 ```
 
 This keeps your agent's initial prompt lightweight while granting it instantaneous access to exhaustive API signatures and production code patterns on demand.

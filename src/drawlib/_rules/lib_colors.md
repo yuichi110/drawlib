@@ -224,6 +224,6 @@ save()
 ---
 
 ## 6. Related Rules
-- Preset Styles & Naming: `uv run drawlib rules show preset_styles`
-- Shapes Drawing Primitives: `uv run drawlib rules show shapes`
-- Text Formatting & Fonts: `uv run drawlib rules show text`
+- Preset Styles & Naming: `uv run drawlib rules show lib-preset-styles`
+- Shapes Drawing Primitives: `uv run drawlib rules show lib-shapes`
+- Text Formatting & Fonts: `uv run drawlib rules show lib-text`

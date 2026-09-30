@@ -407,9 +407,9 @@
 </blockquote>
 <hr />
 <h2>1. Syntax Overview</h2>
-<pre><code class="language-bash">drawlib rules [COMMAND] [TOPIC] [OPTIONS]
+<pre><code class="language-bash">drawlib rules [COMMAND] [ARGS...] [OPTIONS]
 </code></pre>
-<p>If invoked without arguments (<code>drawlib rules</code>), it prints a summary of available topics and quick commands.</p>
+<p>If invoked without arguments (<code>drawlib rules</code>), it displays contextual help and lists all available subcommands.</p>
 <hr />
 <h2>2. Available Subcommands</h2>
 <table>
@@ -424,23 +424,29 @@
 <tr>
 <td style="text-align:left"><strong><code>show</code></strong></td>
 <td style="text-align:left">Prints the complete architectural rule guide for a specific topic.</td>
-<td style="text-align:left"><code>drawlib rules show shapes</code></td>
+<td style="text-align:left"><code>drawlib rules show lib-shapes</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>list</code></strong> (alias: <code>topics</code>)</td>
+<td style="text-align:left"><strong><code>list</code></strong></td>
 <td style="text-align:left">Lists all available rule topics and cached build status.</td>
 <td style="text-align:left"><code>drawlib rules list</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>build</code></strong></td>
 <td style="text-align:left">Compiles rule Markdown and illustrations into cached package assets.</td>
-<td style="text-align:left"><code>drawlib rules build smartarts</code></td>
+<td style="text-align:left"><code>drawlib rules build lib-smartarts</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>clear</code></strong></td>
+<td style="text-align:left">Deletes all cached rule documents and generated illustration assets.</td>
+<td style="text-align:left"><code>drawlib rules clear</code></td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2>3. Available Topics</h2>
-<p>Drawlib features 11 comprehensive rule topics:</p>
+<p>Drawlib features 20 comprehensive rule topics divided into General Guidelines and Library Modules:</p>
+<h3>General Guidelines</h3>
 <table>
 <thead>
 <tr>
@@ -454,44 +460,91 @@
 <td style="text-align:left">Package architecture, coordinate spaces, Cartesian geometry, and rendering pipeline.</td>
 </tr>
 <tr>
+<td style="text-align:left"><strong><code>overview-min</code></strong></td>
+<td style="text-align:left">Concise overview (&lt;10k chars) for context-constrained rule files.</td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>cli</code></strong></td>
 <td style="text-align:left">Complete command line interface and subcommands.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>docs_build</code></strong></td>
+<td style="text-align:left"><strong><code>docs-build</code></strong></td>
 <td style="text-align:left">Markdown parsing, code block options, HTML/Markdown/PDF compilation, and templates.</td>
 </tr>
+</tbody>
+</table>
+<h3>Library Modules (<code>drawlib.*</code>)</h3>
+<table>
+<thead>
 <tr>
-<td style="text-align:left"><strong><code>shapes</code></strong></td>
-<td style="text-align:left">All 21 geometric primitives, block arrows, anchors, and alignment transforms.</td>
+<th style="text-align:left">Topic</th>
+<th style="text-align:left">Primary Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>lib-canvas</code></strong></td>
+<td style="text-align:left">Canvas configuration, coordinate space, clear/save lifecycle, and background.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>lines</code></strong></td>
+<td style="text-align:left"><strong><code>lib-shapes</code></strong></td>
+<td style="text-align:left">All 22 geometric primitives, block arrows, anchors, and alignment transforms.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>lib-lines</code></strong></td>
 <td style="text-align:left">Straight, curved, bezier, chained, and arc lines with arrowhead semantics.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>text</code></strong></td>
+<td style="text-align:left"><strong><code>lib-text</code></strong></td>
 <td style="text-align:left">Typography, text alignments, multiline rendering, and vertical text.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>icons</code></strong></td>
+<td style="text-align:left"><strong><code>lib-colors</code></strong></td>
+<td style="text-align:left">Color models, RGB/RGBA tuples, hex conversion, and palette classes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>lib-styles</code></strong></td>
+<td style="text-align:left">Styles and utils architecture, active preset styles, colors palette, and dynamic custom scripts.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>lib-preset-styles</code></strong></td>
+<td style="text-align:left">Systematic style naming rules (<code>&lt;color&gt;_&lt;variant&gt;</code>) and palette classes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>lib-fonts</code></strong></td>
+<td style="text-align:left">Font configuration, system/file fonts, CJK/multilingual typography, and cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>lib-images</code></strong></td>
+<td style="text-align:left">Embedding bitmap and vector images, scaling, rotation, and Dimage.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>lib-icons</code></strong></td>
 <td style="text-align:left">Phosphor vector font icons and official Google Cloud Platform architecture icons.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>preset_styles</code></strong></td>
-<td style="text-align:left">Palettes (<code>default</code>, <code>essentials</code>, <code>monochrome</code>) and custom theme modeling.</td>
+<td style="text-align:left"><strong><code>lib-math</code></strong></td>
+<td style="text-align:left">Geometry helpers, coordinate calculations, angles, distance, and bounding box.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>smartarts</code></strong></td>
-<td style="text-align:left">11 high-level components (SourceCode, Tables, MindMaps, Chevrons, Trees, etc.).</td>
+<td style="text-align:left"><strong><code>lib-types</code></strong></td>
+<td style="text-align:left">Type models, Style class, base classes, and Drawlib type conventions.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>charts</code></strong></td>
-<td style="text-align:left">7 pure-Python vector charts (Bar, Line, Area, Pie, Radar, Scatter, Gantt).</td>
+<td style="text-align:left"><strong><code>lib-smartarts</code></strong></td>
+<td style="text-align:left">Tables, trees, mindmaps, and structured visual elements.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>diagrams</code></strong></td>
+<td style="text-align:left"><strong><code>lib-charts</code></strong></td>
+<td style="text-align:left">Bar, line, pie, scatter, radar, area, and Gantt charts.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>lib-diagrams</code></strong></td>
 <td style="text-align:left">Domain diagrams (Architecture, Sequence, Flow, Class, ER, State Machine).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>lib-tools</code></strong></td>
+<td style="text-align:left">Python developer API for document building, diagram export, and cache management.</td>
 </tr>
 </tbody>
 </table>
@@ -500,13 +553,13 @@
 <h3>Inspecting Guidelines for AI Agents</h3>
 <p>When working with AI coding assistants, you can inject specific Drawlib rules directly into their context:</p>
 <pre><code class="language-bash"># Output full shapes manual:
-drawlib rules show shapes
+drawlib rules show lib-shapes
 
 # Output sequence diagram rules:
-drawlib rules show diagrams
+drawlib rules show lib-diagrams
 </code></pre>
 <h3>Forcing Asset Rebuild</h3>
-<pre><code class="language-bash">drawlib rules build all --force
+<pre><code class="language-bash">drawlib rules build --all --force
 </code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

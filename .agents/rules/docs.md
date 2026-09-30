@@ -80,11 +80,11 @@ save()
 ```
 
 **Related Rules**:
-- Canvas & Sizing Detail: `uv run drawlib rules show canvas`
-- Shapes Detail (22 primitives): `uv run drawlib rules show shapes`
-- Lines & Routing Detail: `uv run drawlib rules show lines`
-- Text & Fonts Detail: `uv run drawlib rules show text`
-- Math & Coordinate Helpers: `uv run drawlib rules show math`
+- Canvas & Sizing Detail: `uv run drawlib rules show lib-canvas`
+- Shapes Detail (22 primitives): `uv run drawlib rules show lib-shapes`
+- Lines & Routing Detail: `uv run drawlib rules show lib-lines`
+- Text & Fonts Detail: `uv run drawlib rules show lib-text`
+- Math & Coordinate Helpers: `uv run drawlib rules show lib-math`
 
 ---
 
@@ -108,9 +108,9 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
 > **Rule**: If a user requests a workflow, tree, table, or sequence diagram, proactively propose and use these high-level components.
 
 **Related Rules**:
-- SmartArts Components Detail: `uv run drawlib rules show smartarts`
-- Domain Diagrams Detail: `uv run drawlib rules show diagrams`
-- Charts & Visualizations Detail: `uv run drawlib rules show charts`
+- SmartArts Components Detail: `uv run drawlib rules show lib-smartarts`
+- Domain Diagrams Detail: `uv run drawlib rules show lib-diagrams`
+- Charts & Visualizations Detail: `uv run drawlib rules show lib-charts`
 
 ---
 
@@ -142,13 +142,13 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
   - **Fail-Fast `supports` Protection**: Styles strictly validate their target context (`{"shape", "line", "text", "icon"}`). Text inside shapes automatically resolves optimal luminance contrast.
 
 **Related Rules**:
-- Preset Styles & Dynamic Theming: `uv run drawlib rules show styles`
-- Preset Styles & Palettes Detail: `uv run drawlib rules show preset_styles`
-- Preset Colors & Palettes Detail: `uv run drawlib rules show colors`
-- Typography & Fonts: `uv run drawlib rules show fonts`
-- Style Models & Types: `uv run drawlib rules show types`
-- Icons Library Detail: `uv run drawlib rules show icons`
-- Images & Logos Embedding: `uv run drawlib rules show images`
+- Preset Styles & Dynamic Theming: `uv run drawlib rules show lib-styles`
+- Preset Styles & Palettes Detail: `uv run drawlib rules show lib-preset-styles`
+- Preset Colors & Palettes Detail: `uv run drawlib rules show lib-colors`
+- Typography & Fonts: `uv run drawlib rules show lib-fonts`
+- Style Models & Types: `uv run drawlib rules show lib-types`
+- Icons Library Detail: `uv run drawlib rules show lib-icons`
+- Images & Logos Embedding: `uv run drawlib rules show lib-images`
 
 ---
 
@@ -195,9 +195,9 @@ build_html("docs_src/", "docs_html/", styles_path="styles.py", utils_path="utils
 ```
 
 **Related Rules**:
-- Documentation Site & Navbar Rules: `uv run drawlib rules show docs_build`
+- Documentation Site & Navbar Rules: `uv run drawlib rules show docs-build`
 - Project Scaffolding & Build CLI: `uv run drawlib rules show cli`
-- Python Developer Tools API: `uv run drawlib rules show tools`
+- Python Developer Tools API: `uv run drawlib rules show lib-tools`
 
 ---
 
@@ -206,22 +206,22 @@ build_html("docs_src/", "docs_html/", styles_path="styles.py", utils_path="utils
 When you need complete function signatures and comprehensive code examples, run:
 
 ```bash
-uv run drawlib rules show canvas        # Canvas config, sizing, coordinates, clear/save
-uv run drawlib rules show shapes        # 22 shapes: circle, rectangle, wedge, chevron...
-uv run drawlib rules show lines         # line, line_curved, lines, Bezier paths, arrowheads
-uv run drawlib rules show text          # text alignment, fonts, formatting, text boxes
-uv run drawlib rules show colors        # Colors, Colors140, palettes, hex conversion
-uv run drawlib rules show fonts         # Font classes, weights, CJK/regional scripts, cache
-uv run drawlib rules show images        # Embedding images, scaling, tinting, Dimage model
-uv run drawlib rules show math          # get_angle, get_distance, get_center_and_size
-uv run drawlib rules show types         # Style model, BaseColors, FontBase, type conventions
-uv run drawlib rules show smartarts     # Table, TreeNode, ChevronProcess, MindMap, Cycle
-uv run drawlib rules show diagrams      # Architecture, Flow, Sequence, State, ER, Class
-uv run drawlib rules show charts        # Bar, Line, Area, Pie, Radar, Scatter, Gantt
-uv run drawlib rules show icons         # Phosphor, FontAwesome, and GCP architecture icons
-uv run drawlib rules show preset_styles # Full style naming matrix and palette catalogs
-uv run drawlib rules show styles        # Dynamic styles, custom theme overlays, CLI options
-uv run drawlib rules show tools         # Python developer API: build, export, cache, template
-uv run drawlib rules show cli           # build, export, show, init, serve, cache commands
-uv run drawlib rules show docs_build    # multi-page docs structure, navbar.md rules
+uv run drawlib rules show lib-canvas        # Canvas config, sizing, coordinates, clear/save
+uv run drawlib rules show lib-shapes        # 22 shapes: circle, rectangle, wedge, chevron...
+uv run drawlib rules show lib-lines         # line, line_curved, lines, Bezier paths, arrowheads
+uv run drawlib rules show lib-text          # text alignment, fonts, formatting, text boxes
+uv run drawlib rules show lib-colors        # Colors, Colors140, palettes, hex conversion
+uv run drawlib rules show lib-fonts         # Font classes, weights, CJK/regional scripts, cache
+uv run drawlib rules show lib-images        # Embedding images, scaling, tinting, Dimage model
+uv run drawlib rules show lib-math          # get_angle, get_distance, get_center_and_size
+uv run drawlib rules show lib-types         # Style model, BaseColors, FontBase, type conventions
+uv run drawlib rules show lib-smartarts     # Table, TreeNode, ChevronProcess, MindMap, Cycle
+uv run drawlib rules show lib-diagrams      # Architecture, Flow, Sequence, State, ER, Class
+uv run drawlib rules show lib-charts        # Bar, Line, Area, Pie, Radar, Scatter, Gantt
+uv run drawlib rules show lib-icons         # Phosphor, FontAwesome, and GCP architecture icons
+uv run drawlib rules show lib-preset-styles # Full style naming matrix and palette catalogs
+uv run drawlib rules show lib-styles        # Dynamic styles, custom theme overlays, CLI options
+uv run drawlib rules show lib-tools         # Python developer API: build, export, cache, template
+uv run drawlib rules show cli               # build, export, show, init, serve, cache commands
+uv run drawlib rules show docs-build        # multi-page docs structure, navbar.md rules
 ```

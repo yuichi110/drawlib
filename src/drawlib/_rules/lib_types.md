@@ -204,7 +204,7 @@ save()
 ---
 
 ## 6. Related Rules
-- Preset Styles Catalog: `uv run drawlib rules show preset_styles`
-- Color Palettes & Helpers: `uv run drawlib rules show colors`
-- Typography & Font Classes: `uv run drawlib rules show fonts`
-- Shapes Drawing Primitives: `uv run drawlib rules show shapes`
+- Preset Styles Catalog: `uv run drawlib rules show lib-preset-styles`
+- Color Palettes & Helpers: `uv run drawlib rules show lib-colors`
+- Typography & Font Classes: `uv run drawlib rules show lib-fonts`
+- Shapes Drawing Primitives: `uv run drawlib rules show lib-shapes`

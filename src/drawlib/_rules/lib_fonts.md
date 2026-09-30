@@ -185,6 +185,6 @@ save()
 ---
 
 ## 6. Related Rules
-- Text Alignment & Formatting: `uv run drawlib rules show text`
-- Visual Styles: `uv run drawlib rules show preset_styles`
-- Canvas Sizing: `uv run drawlib rules show canvas`
+- Text Alignment & Formatting: `uv run drawlib rules show lib-text`
+- Visual Styles: `uv run drawlib rules show lib-preset-styles`
+- Canvas Sizing: `uv run drawlib rules show lib-canvas`

@@ -154,6 +154,6 @@ save()
 ---
 
 ## 6. Related Rules
-- Icons Catalog (Phosphor, FontAwesome, GCP): `uv run drawlib rules show icons`
-- Canvas Coordinate Space: `uv run drawlib rules show canvas`
-- Shapes Drawing Primitives: `uv run drawlib rules show shapes`
+- Icons Catalog (Phosphor, FontAwesome, GCP): `uv run drawlib rules show lib-icons`
+- Canvas Coordinate Space: `uv run drawlib rules show lib-canvas`
+- Shapes Drawing Primitives: `uv run drawlib rules show lib-shapes`
