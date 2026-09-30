@@ -53,18 +53,85 @@ Drawlib presets organize styles into semantic roles with 10 orthogonal visual va
 - **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes danger/success.
 
 ### Semantic Roles:
-- **`styles.primary`**: Core application logic, microservices, main processing components.
-- **`styles.secondary`**: Databases, caches, message queues, auxiliary services, background workers.
-- **`styles.accent`**: Clients, external users, entry gateways, triggers, scheduled jobs.
-- **`styles.muted`**: Structural boundaries (VPCs, Kubernetes namespaces, clusters, subnets).
-- **`styles.danger`** *(Color presets only)*: Errors, failure paths, alert thresholds, security risks.
-- **`styles.success`** *(Color presets only)*: Successful outcomes, healthy status, verified states.
+- **`Styles.primary`**: Core application logic, microservices, main processing components.
+- **`Styles.secondary`**: Databases, caches, message queues, auxiliary services, background workers.
+- **`Styles.accent`**: Clients, external users, entry gateways, triggers, scheduled jobs.
+- **`Styles.muted`**: Structural boundaries (VPCs, Kubernetes namespaces, clusters, subnets).
+- **`Styles.danger`** *(Color presets only)*: Errors, failure paths, alert thresholds, security risks.
+- **`Styles.success`** *(Color presets only)*: Successful outcomes, healthy status, verified states.
 
 ### When to Use Raw Palette Colors:
-- **`styles.yellow` / `styles.orange`**: Warnings, transient states, pending queues.
-- **Palette Colors (`styles.blue`, `styles.purple`, etc.)**: Multi-brand differentiation or distinct architectural layers.
+- **`Styles.yellow` / `Styles.orange`**: Warnings, transient states, pending queues.
+- **Palette Colors (`Styles.blue`, `Styles.purple`, etc.)**: Multi-brand differentiation or distinct architectural layers.
 
-> **Import Best Practice**: Always import `styles` from `drawlib.styles` (`from drawlib.styles import styles, colors`) rather than hardcoding colors from `drawlib.preset_styles`. This allows project-wide theme switching via `--styles custom_theme.py`.
+> **Import Best Practice**: Always import `Styles` and `Colors` from `drawlib.styles` (`from drawlib.styles import Colors, Styles`) rather than importing from `drawlib.preset_styles`. This allows project-wide theme switching and font configuration via `styles.py` (or `--styles custom_theme.py`).
+
+### 3.1. Example: Using `Styles` and `Colors` in Diagrams
+
+The following embedded Markdown block illustrates the 60-30-10 color rule using semantic roles and connectors:
+
+````markdown
+```drawlib 600px center caption:"Architecture Flow with Semantic Roles"
+from drawlib.canvas import setup
+from drawlib.shapes import rectangle
+from drawlib.lines import line
+from drawlib.styles import Colors, Styles
+
+setup(width=140, height=70)
+
+# 1. 60% Neutral: Structural Boundary / Subnet Container
+rectangle((70, 35), width=120, height=52, style=Styles.muted_dashed)
+
+# 2. 10% Accent: External Client / Entrypoint
+rectangle((30, 35), width=28, height=18, style=Styles.accent_flat, text="Client App", textstyle=Styles.white_bold)
+
+# 3. 30% Primary: Core Microservice
+rectangle((70, 35), width=28, height=18, style=Styles.primary_flat, text="API Gateway", textstyle=Styles.white_bold)
+
+# 4. 30% Secondary: Auxiliary Database / Storage
+rectangle((110, 35), width=28, height=18, style=Styles.secondary_flat, text="Database", textstyle=Styles.white_bold)
+
+# 5. Connectors with semantic line styles
+line((44, 35), (56, 35), arrowhead="->", style=Styles.bold)
+line((84, 35), (96, 35), arrowhead="->", style=Styles.bold)
+```
+````
+
+### 3.2. Project-Wide Font & Theme Customization in `styles.py`
+
+To change fonts (e.g. Japanese or Roboto) or customize default colors across all diagrams without editing individual drawing files, configure a `styles.py` file in your documentation or project root.
+
+Drawlib automatically discovers `styles.py` (or you can specify a custom file via `--styles` / `-s`).
+
+```python
+# styles.py
+from __future__ import annotations
+
+from drawlib.fonts import FontJapanese
+from drawlib.styles import Colors, Styles
+
+# 1. Patch fonts project-wide
+# (regular font applies to all styles; bold and light can be explicitly overridden)
+Styles = Styles.patch_font(
+    regular=FontJapanese.SANSSERIF_REGULAR,
+    bold=FontJapanese.SANSSERIF_BOLD,
+    light=FontJapanese.SANSSERIF_LIGHT,
+)
+
+# 2. Patch specific styles or color tokens project-wide
+Styles = Styles.patch(
+    primary=Styles.primary.patch(
+        shape_fill_color=Colors.Blue.patch(alpha=0.15),
+        shape_line_color=Colors.Blue,
+        shape_line_width=2.0,
+    ),
+    bold=Styles.bold.patch(
+        line_width=2.5,
+    ),
+)
+```
+
+By defining `Styles` in `styles.py`, all drawing blocks importing `from drawlib.styles import Colors, Styles` automatically inherit these typography and style configurations.
 
 ---
 
