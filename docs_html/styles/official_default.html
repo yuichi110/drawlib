@@ -422,7 +422,55 @@ You can use <code>ColorsDefault</code> to retrieve RGB codes by their names.</p>
 <li><code>black</code>: RGB(0, 0, 0)</li>
 <li><code>white</code>: RGB(255, 255, 255)</li>
 </ul>
-<p>Here is a color chart:</p>
+<h1>Semantic Roles</h1>
+<p>Drawlib maps the default palette to <strong>6 core semantic roles</strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Role</th>
+<th style="text-align:left">Default Color</th>
+<th style="text-align:left">Intended Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>primary</code></strong></td>
+<td style="text-align:left"><code>Blue2</code></td>
+<td style="text-align:left">Core application logic, main processing components, default actions</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>secondary</code></strong></td>
+<td style="text-align:left"><code>Teal2</code></td>
+<td style="text-align:left">Databases, caches, message queues, auxiliary background services</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>accent</code></strong></td>
+<td style="text-align:left"><code>Amber2</code></td>
+<td style="text-align:left">Clients, users, entry gateways, triggers, focal callouts</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>muted</code></strong></td>
+<td style="text-align:left"><code>Gray1</code></td>
+<td style="text-align:left">Structural boundaries, VPCs, subnets, grouping containers</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>danger</code></strong></td>
+<td style="text-align:left"><code>Red2</code></td>
+<td style="text-align:left">Errors, failure paths, alert thresholds, destructive actions</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>success</code></strong></td>
+<td style="text-align:left"><code>Green2</code></td>
+<td style="text-align:left">Completed milestones, healthy status, verified states</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, <code>light</code> and <code>dark</code> are available for surface cards and high-contrast typography.
+Each semantic role provides 10 orthogonal variants (<code>bordered</code>, <code>bold</code>, <code>light</code>, <code>flat</code>, <code>outline</code>, <code>outline_bold</code>, <code>outline_light</code>, <code>dashed</code>, <code>dashed_bold</code>, <code>dashed_light</code>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="official_default_images/2.png" alt="official_default_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Default Semantic Roles in Action</figcaption>
+</figure>
 <h1>Style Types</h1>
 <p>The default preset styles possess these style types for all colors:</p>
 <ul>
@@ -441,7 +489,7 @@ You can use <code>ColorsDefault</code> to retrieve RGB codes by their names.</p>
 If the color, type, and weight are default, they may not appear in the style name.</p>
 <p>Let's take a look at a matrix with the blue color as an example:</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="official_default_images/2.png" alt="official_default_2" style="width: 650px; max-width: 100%;" />
+  <img src="official_default_images/3.png" alt="official_default_3" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Style type and weight matrix</figcaption>
 </figure>
 <p>As you can see, each drawing element is affected by preset style names as follows:</p>

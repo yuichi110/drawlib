@@ -29,7 +29,28 @@ You can use `ColorsDefault` to retrieve RGB codes by their names.
 - `black`: RGB(0, 0, 0)
 - `white`: RGB(255, 255, 255)
 
-Here is a color chart:
+# Semantic Roles
+
+Drawlib maps the default palette to **6 core semantic roles**:
+
+| Role | Default Color | Intended Usage |
+| :--- | :--- | :--- |
+| **`primary`** | `Blue2` | Core application logic, main processing components, default actions |
+| **`secondary`** | `Teal2` | Databases, caches, message queues, auxiliary background services |
+| **`accent`** | `Amber2` | Clients, users, entry gateways, triggers, focal callouts |
+| **`muted`** | `Gray1` | Structural boundaries, VPCs, subnets, grouping containers |
+| **`danger`** | `Red2` | Errors, failure paths, alert thresholds, destructive actions |
+| **`success`** | `Green2` | Completed milestones, healthy status, verified states |
+
+In addition, `light` and `dark` are available for surface cards and high-contrast typography.
+Each semantic role provides 10 orthogonal variants (`bordered`, `bold`, `light`, `flat`, `outline`, `outline_bold`, `outline_light`, `dashed`, `dashed_bold`, `dashed_light`).
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="official_default_images/2.png" alt="official_default_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Default Semantic Roles in Action</figcaption>
+</figure>
 
 
 
@@ -59,7 +80,7 @@ Let's take a look at a matrix with the blue color as an example:
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="official_default_images/2.png" alt="official_default_2" style="width: 650px; max-width: 100%;" />
+  <img src="official_default_images/3.png" alt="official_default_3" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Style type and weight matrix</figcaption>
 </figure>
 

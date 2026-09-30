@@ -396,9 +396,9 @@ def render_styles_matrix(
 ) -> Dimage:
     """Render an orthogonal visual matrix for a BaseStyles catalog page.
 
-    Displays a single reference legend at the top, followed by 4 core semantic roles,
-    and then an orthogonal grid where columns represent 10 variants and rows represent
-    base colors for the specified page.
+    Displays a single reference legend at the top, followed by semantic roles (6 for
+    color catalogs, 4 for monochrome), and then an orthogonal grid where columns represent
+    10 variants and rows represent base colors for the specified page.
 
     Args:
         styles (BaseStyles): BaseStyles instance containing style attributes.

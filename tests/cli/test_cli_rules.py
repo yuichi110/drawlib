@@ -150,11 +150,11 @@ def test_cli_rules_show_unknown_topic() -> None:
 
 
 def test_cli_rules_show_raw() -> None:
-    """Test `drawlib rules show --raw` returns raw markdown without the instruction banner."""
+    """Test `drawlib rules show --raw` returns raw markdown without building illustrations."""
     res = run_drawlib_cli(["rules", "show", "overview", "--raw"])
     assert res.returncode == 0
     assert "# Drawlib Agent Drawing Guidelines" in res.stdout
-    assert "Instructions for AI Agents & Developers" not in res.stdout
+    assert "PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/overview_images" not in res.stdout
 
 
 def test_cli_rules_show_rebuild_and_clear() -> None:
@@ -163,7 +163,7 @@ def test_cli_rules_show_rebuild_and_clear() -> None:
     res_show = run_drawlib_cli(["rules", "show", "overview", "--rebuild"])
     assert res_show.returncode == 0
     assert "# Drawlib Agent Drawing Guidelines" in res_show.stdout
-    assert "Instructions for AI Agents & Developers" in res_show.stdout
+    assert "PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/overview_images" in res_show.stdout
 
     # Clear cache
     res_clear = run_drawlib_cli(["rules", "clear"])

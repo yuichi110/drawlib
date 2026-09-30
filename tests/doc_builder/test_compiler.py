@@ -106,6 +106,16 @@ def test_detect_document_type(tmp_path) -> None:
     assert info4.doc_type == "html"
     assert info4.has_drawlib is False
 
+    md_nested = tmp_path / "doc_nested.md"
+    md_nested.write_text(
+        "# Meta Doc\n\n````markdown\n```drawlib\ncircle((50,50), 10)\n```\n````\n",
+        encoding="utf-8",
+    )
+    info5 = detect_document_type(str(md_nested))
+    assert info5.doc_type == "markdown"
+    assert info5.has_drawlib is False
+    assert info5.block_count == 0
+
 
 def test_build_html_markdown_with_external_css(tmp_path) -> None:
     """Test compiling Markdown file to HTML with PNG image export and external style.css."""

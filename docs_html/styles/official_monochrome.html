@@ -428,6 +428,47 @@ You can use <code>MonochromeColors</code> to retrieve RGB codes by their names (
 <li><code>gray1</code>: RGB(245, 245, 245)</li>
 <li><code>white</code>: RGB(255, 255, 255)</li>
 </ul>
+<h1>Semantic Roles</h1>
+<p>Because grayscale documents lack color cues, <strong>MonochromeStyles focuses on 4 core semantic roles</strong> (excluding <code>danger</code> and <code>success</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Role</th>
+<th style="text-align:left">Monochrome Tone</th>
+<th style="text-align:left">Intended Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>primary</code></strong></td>
+<td style="text-align:left"><code>White</code> fill / <code>Black</code> border</td>
+<td style="text-align:left">Core application logic, main components</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>secondary</code></strong></td>
+<td style="text-align:left"><code>Gray2</code> fill / <code>Gray6</code> border</td>
+<td style="text-align:left">Secondary components, data stores, background workers</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>accent</code></strong></td>
+<td style="text-align:left"><code>Black</code> fill / <code>White</code> text</td>
+<td style="text-align:left">High-contrast focal callouts, active triggers, key gateways</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>muted</code></strong></td>
+<td style="text-align:left"><code>Gray1</code> fill / <code>Gray4</code> dashed</td>
+<td style="text-align:left">Grouping containers, boundaries, subnets</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note on Danger &amp; Success</strong>: Grayscale has no universal neutral equivalents for red and green without confusing value hierarchies. Therefore, <code>MonochromeStyles.danger</code> and <code>MonochromeStyles.success</code> are omitted (<code>None</code>). For alerts in monochrome, use <code>accent</code> or <code>muted_dashed</code> with explicit text labels or icons.</p>
+</blockquote>
+<p>Each role provides 10 orthogonal variants (<code>bordered</code>, <code>bold</code>, <code>light</code>, <code>flat</code>, <code>outline</code>, <code>outline_bold</code>, <code>outline_light</code>, <code>dashed</code>, <code>dashed_bold</code>, <code>dashed_light</code>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="official_monochrome_images/2.png" alt="official_monochrome_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Monochrome Semantic Roles in Action</figcaption>
+</figure>
 <h1>Style Names</h1>
 <p>Here is a list of style names.</p>
 <pre><code class="language-python">from drawlib.types import Style

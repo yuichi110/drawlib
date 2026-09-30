@@ -107,21 +107,25 @@ from drawlib.types import Style
 
 ## 3. Official Palette Catalogs
 
-Drawlib ships with three pre-built, production-ready style catalogs. Each catalog defines standard style roles (`primary`, `light`, `bold`, `flat`, `solid`, `dashed`), default canvas background colors, and typographical defaults.
+Drawlib ships with three pre-built, production-ready style catalogs. Each catalog organizes styles into semantic roles (with 10 orthogonal variants each) alongside default canvas background colors and typographical defaults:
+- **Color Catalogs (`DefaultStyles`, `GoogleStyles`)**: **6 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`, `danger`, `success`).
+- **Monochrome Catalog (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes danger/success.
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────────────┐
-│                               BasePresetStyles Model                                  │
+│                                   BaseStyles Model                                    │
 ├───────────────────────────────────────────────────────────────────────────────────────┤
-│ + background_color: TypeColor = (255, 255, 255, 1.0)                                  │
+│ + background_color: ColorType = (255, 255, 255, 1.0)                                  │
 │ + sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO                      │
 ├───────────────────────────────────────────────────────────────────────────────────────┤
-│ + primary: Style   --> Core default fill, outline, and text style                     │
-│ + light: Style     --> Half-width line borders, lighter font weight                   │
-│ + bold: Style      --> 1.5x to 2x line borders, bold font weight                      │
-│ + flat: Style      --> Borderless solid color fill (line_width=0)                     │
-│ + solid: Style     --> Transparent fill with solid colored border outline             │
-│ + dashed: Style    --> Transparent fill with dashed colored border outline            │
+│ Semantic Roles (10 orthogonal variants each: bordered, bold, light, flat, outline,    │
+│                 outline_bold, outline_light, dashed, dashed_bold, dashed_light):      │
+│   - primary: Core application logic, main components                                  │
+│   - secondary: Databases, message queues, auxiliary services                          │
+│   - accent: Gateways, clients, focal points                                           │
+│   - muted: Boundaries, VPCs, subnets, containers                                      │
+│   - danger: Errors, alerts, security risks (Color catalogs only)                      │
+│   - success: Completed milestones, healthy status (Color catalogs only)               │
 └───────────────────────────────────────────────────────────────────────────────────────┘
 ```
 

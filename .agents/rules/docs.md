@@ -156,7 +156,7 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | `uv run drawlib rules show lib-text` | `lib-text` | Alignments (`halign`, `valign`), rotation, multiline text, font styles. |
 | `uv run drawlib rules show lib-colors` | `lib-colors` | Color model, RGB/hex conversion, palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`). |
 | `uv run drawlib rules show lib-styles` | `lib-styles` | Dynamic runtime theming, `styles.py`, `utils.py`, CLI injection flags. |
-| `uv run drawlib rules show lib-preset-styles`| `lib-preset-styles` | Systematic naming matrix (`<color>_<variant>`), 4 semantic roles, 10 variants. |
+| `uv run drawlib rules show lib-preset-styles`| `lib-preset-styles` | Systematic naming matrix (`<color>_<variant>`), 6 semantic roles (4 for monochrome), 10 variants. |
 | `uv run drawlib rules show lib-fonts` | `lib-fonts` | Universal CJK+Latin typography, regional scripts, custom font files. |
 | `uv run drawlib rules show lib-images` | `lib-images` | Embedding images, scaling, tinting, `Dimage` transformations. |
 | `uv run drawlib rules show lib-icons` | `lib-icons` | Phosphor, FontAwesome, and GCP architecture vector and PNG icons. |

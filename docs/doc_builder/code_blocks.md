@@ -9,11 +9,14 @@ Drawlib's document builder parses embedded drawing code blocks directly within M
 Embedded drawing code blocks in Markdown use the `drawlib` language identifier:
 
 ````markdown
+```drawlib
+from drawlib.canvas import setup
+from drawlib.shapes import circle
+from drawlib.styles import Colors, Styles
 
-
-![code_blocks_1](code_blocks_images/1.png)
-
-
+setup(width=100, height=100)
+circle((50, 50), radius=30, style=Styles.Primary)
+```
 ````
 
 ### Automatic Namespace Injection
@@ -31,19 +34,10 @@ You can call primitives directly without needing `import` statements in every bl
 Options can be specified on the opening block line as space-separated tokens, `key:value` pairs, or `key=value` pairs:
 
 ````markdown
-
-
-```python
+```drawlib 500px center show-code caption:"Figure 1: System Overview" file:arch.png
 setup(width=100, height=60)
 # Drawing code...
 ```
-
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="code_blocks_images/arch.png" alt="code_blocks_2" style="width: 500px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Figure 1: System Overview</figcaption>
-</figure>
-
-
 ````
 
 ### Supported Options Reference

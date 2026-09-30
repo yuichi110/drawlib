@@ -65,7 +65,44 @@ You can use `MonochromeColors` to retrieve RGB codes by their names (all colors 
 - `gray2`: RGB(220, 220, 220)
 - `gray1`: RGB(245, 245, 245)
 - `white`: RGB(255, 255, 255)
+# Semantic Roles
 
+Because grayscale documents lack color cues, **MonochromeStyles focuses on 4 core semantic roles** (excluding `danger` and `success`):
+
+| Role | Monochrome Tone | Intended Usage |
+| :--- | :--- | :--- |
+| **`primary`** | `White` fill / `Black` border | Core application logic, main components |
+| **`secondary`** | `Gray2` fill / `Gray6` border | Secondary components, data stores, background workers |
+| **`accent`** | `Black` fill / `White` text | High-contrast focal callouts, active triggers, key gateways |
+| **`muted`** | `Gray1` fill / `Gray4` dashed | Grouping containers, boundaries, subnets |
+
+> **Note on Danger & Success**: Grayscale has no universal neutral equivalents for red and green without confusing value hierarchies. Therefore, `MonochromeStyles.danger` and `MonochromeStyles.success` are omitted (`None`). For alerts in monochrome, use `accent` or `muted_dashed` with explicit text labels or icons.
+
+Each role provides 10 orthogonal variants (`bordered`, `bold`, `light`, `flat`, `outline`, `outline_bold`, `outline_light`, `dashed`, `dashed_bold`, `dashed_light`).
+
+```drawlib 650px center caption:"Monochrome Semantic Roles in Action"
+from drawlib.canvas import setup
+from drawlib.lines import line
+from drawlib.preset_styles import MonochromeStyles
+from drawlib.shapes import circle
+from drawlib.text import text
+
+setup(width=100, height=45)
+line_y = 36
+text_y = 9
+
+items = [
+    (15, "primary", MonochromeStyles.Primary),
+    (38, "secondary", MonochromeStyles.Secondary),
+    (61, "accent", MonochromeStyles.Accent),
+    (84, "muted", MonochromeStyles.Muted),
+]
+
+for x, label, st in items:
+    line((x - 7, line_y), (x + 7, line_y), style=st)
+    circle((x, 23), radius=7, style=st)
+    text((x, text_y), text=label, style=MonochromeStyles.Primary, size=9)
+```
 
 
 # Style Names

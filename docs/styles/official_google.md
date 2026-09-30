@@ -22,7 +22,7 @@ The `google` preset styles provide neutral greys, 10 primary hue families with l
 
 # Semantic Roles
 
-Drawlib maps the `google` theme colors to the core semantic roles:
+Drawlib maps the `google` theme colors to **6 core semantic roles**:
 
 | Role | Theme Color | Hex | Intended Usage |
 | :--- | :--- | :--- | :--- |
@@ -30,13 +30,11 @@ Drawlib maps the `google` theme colors to the core semantic roles:
 | **`secondary`** | `Blue5` | `#0B5394` | Data stores, databases, caches, queues |
 | **`accent`** | `Orange4` | `#E69138` | Clients, users, gateways, focal callouts |
 | **`muted`** | `Gray3` | `#D9D9D9` | Group boundaries, VPC/subnets, containers |
-| **`light`** | `Gray1` | `#F3F3F3` | Surface cards, light container backgrounds |
-| **`dark`** | `Gray8` | `#434343` | Charcoal typography, high-contrast dark elements |
 | **`danger`** | `GoogleRed` | `#EA4335` | Alerts, errors, security risks, failures |
 | **`success`** | `GoogleGreen` | `#34A853` | Completed milestones, verified status, healthy state |
 
-Each role provides 10 orthogonal variants:
-`bordered` (default), `flat`, `outline`, `dashed`, `bold`, `light`, `outline_bold`, `outline_light`, `dashed_bold`, and `dashed_light`.
+In addition, `light` (`Gray1`) and `dark` (`Gray8`) are available for surface cards and high-contrast typography.
+Each role provides 10 orthogonal variants (`bordered`, `bold`, `light`, `flat`, `outline`, `outline_bold`, `outline_light`, `dashed`, `dashed_bold`, `dashed_light`).
 
 
 

@@ -48,17 +48,19 @@ Maintain a controlled, cohesive visual hierarchy using the 60-30-10 color princi
 
 ## 3. Prefer Semantic Roles over Raw Palette Colors
 
-Drawlib presets organize styles into 4 universal semantic roles with 10 orthogonal visual variants:
+Drawlib presets organize styles into semantic roles with 10 orthogonal visual variants:
+- **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **6 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`, `danger`, `success`).
+- **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes danger/success.
 
 ### Semantic Roles:
 - **`styles.primary`**: Core application logic, microservices, main processing components.
 - **`styles.secondary`**: Databases, caches, message queues, auxiliary services, background workers.
 - **`styles.accent`**: Clients, external users, entry gateways, triggers, scheduled jobs.
 - **`styles.muted`**: Structural boundaries (VPCs, Kubernetes namespaces, clusters, subnets).
+- **`styles.danger`** *(Color presets only)*: Errors, failure paths, alert thresholds, security risks.
+- **`styles.success`** *(Color presets only)*: Successful outcomes, healthy status, verified states.
 
-### When to Use Raw Colors:
-- **`styles.green`**: Successful outcomes, healthy status, approved states.
-- **`styles.red`**: Errors, failure paths, alert thresholds, destructive actions.
+### When to Use Raw Palette Colors:
 - **`styles.yellow` / `styles.orange`**: Warnings, transient states, pending queues.
 - **Palette Colors (`styles.blue`, `styles.purple`, etc.)**: Multi-brand differentiation or distinct architectural layers.
 

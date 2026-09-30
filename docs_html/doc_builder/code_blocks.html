@@ -409,13 +409,14 @@
 <hr />
 <h2>1. Basic Syntax</h2>
 <p>Embedded drawing code blocks in Markdown use the <code>drawlib</code> language identifier:</p>
-<pre><code class="language-markdown">
+<pre><code class="language-markdown">```drawlib
+from drawlib.canvas import setup
+from drawlib.shapes import circle
+from drawlib.styles import Colors, Styles
 
-&lt;div class=&quot;drawlib-image&quot;&gt;
-  &lt;img src=&quot;code_blocks_images/1.png&quot; alt=&quot;code_blocks_1&quot; /&gt;
-&lt;/div&gt;
-
-
+setup(width=100, height=100)
+circle((50, 50), radius=30, style=Styles.Primary)
+```
 </code></pre>
 <h3>Automatic Namespace Injection</h3>
 <p>To minimize repetitive boilerplate in documentation, Drawlib's compiler automatically injects core domain modules into every code block's global namespace:</p>
@@ -428,19 +429,10 @@
 <hr />
 <h2>2. Block Header Options</h2>
 <p>Options can be specified on the opening block line as space-separated tokens, <code>key:value</code> pairs, or <code>key=value</code> pairs:</p>
-<pre><code class="language-markdown">
-
-```python
+<pre><code class="language-markdown">```drawlib 500px center show-code caption:&quot;Figure 1: System Overview&quot; file:arch.png
 setup(width=100, height=60)
 # Drawing code...
 ```
-
-&lt;figure class=&quot;drawlib-image&quot; style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;code_blocks_images/arch.png&quot; alt=&quot;code_blocks_2&quot; style=&quot;width: 500px; max-width: 100%;&quot; /&gt;
-  &lt;figcaption class=&quot;drawlib-caption&quot;&gt;Figure 1: System Overview&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-
 </code></pre>
 <h3>Supported Options Reference</h3>
 <table>

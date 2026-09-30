@@ -27,7 +27,11 @@ from pydantic import BaseModel
 import drawlib._core.canvas
 import drawlib.canvas
 from drawlib._builder.doc_builder.build_cache import BuildImageCache, hash_file
-from drawlib._builder.doc_builder.detector import detect_document_type
+from drawlib._builder.doc_builder.detector import (
+    detect_document_type,
+    preserve_outer_fences,
+    restore_outer_fences,
+)
 from drawlib._builder.doc_builder.styles_utils import load_styles_and_utils
 from drawlib._core.canvas import save
 from drawlib._core.utils import dutil_settings
@@ -442,11 +446,12 @@ class DrawlibBlockProcessor:
         Returns:
             str: Processed Markdown text with img tags or Markdown image links.
         """
+        masked_text, preserved = preserve_outer_fences(markdown_text)
         pattern = re.compile(r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?\n)[ \t]*```", re.DOTALL)
         block_counter = 0
 
-        prepend_newline = not markdown_text.startswith("\n")
-        text_to_search = "\n" + markdown_text if prepend_newline else markdown_text
+        prepend_newline = not masked_text.startswith("\n")
+        text_to_search = "\n" + masked_text if prepend_newline else masked_text
         total_blocks = len(pattern.findall(text_to_search))
 
         def replacer(match: re.Match[str]) -> str:
@@ -510,7 +515,8 @@ class DrawlibBlockProcessor:
                 return f"\n\n{img_part}\n\n"
 
         res = pattern.sub(replacer, text_to_search)
-        return res[1:] if prepend_newline else res
+        final_res = res[1:] if prepend_newline else res
+        return restore_outer_fences(final_res, preserved)
 
     def process_html(
         self,
@@ -649,7 +655,8 @@ def extract_code_blocks(text: str, is_html: bool = False) -> List[ExtractedBlock
             )
         return blocks
 
-    lines = text.splitlines()
+    masked_text, _ = preserve_outer_fences(text)
+    lines = masked_text.splitlines()
     i = 0
     block_index = 0
     while i < len(lines):

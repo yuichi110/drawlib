@@ -15,9 +15,9 @@ The **Styles & Theming** section provides a comprehensive guide to Drawlib's des
 
 Preset styles unify colors, line weights, fills, and typography into intuitive string identifiers (e.g., `"blue_flat"`, `"red_outline"`, `"green_soft"`).
 
-- [Official Default Preset Styles](./official_default.md): Core 5-color palette (Red, Green, Blue, Black, White) with shape and line variations.
-- [Official Google Preset Styles](./official_google.md): Modern Google Sheets & Material color palette with full semantic role support.
-- [Official Monochrome Preset Styles](./official_monochrome.md): Clean grayscale palette from White to Black (pure grayscale with Gray1–Gray6) for print-friendly or minimal technical documentation.
+- [Official Default Preset Styles](./official_default.md): Balanced 25-color design system featuring 6 core semantic roles and 10 orthogonal variants.
+- [Official Google Preset Styles](./official_google.md): Modern Google Sheets & Material color palette featuring 6 core semantic roles and 10 orthogonal variants.
+- [Official Monochrome Preset Styles](./official_monochrome.md): Clean grayscale palette from White to Black featuring 4 core semantic roles optimized for print and minimal technical documentation.
 
 ---
 

@@ -51,6 +51,76 @@ class DocumentInputInfo(BaseModel):
     block_count: int
 
 
+def preserve_outer_fences(text: str) -> tuple[str, list[tuple[str, list[str]]]]:
+    """Preserve outer code fence blocks (opened with 4 or more backticks/tildes).
+
+    Any nested drawlib code blocks inside these outer fences are preserved as literal
+    markdown text and will not be compiled into images or replaced with HTML.
+    Preserves exact line counts so subsequent line number calculations remain accurate.
+
+    Args:
+        text (str): Input Markdown text.
+
+    Returns:
+        tuple[str, list[tuple[str, list[str]]]]: Masked text and list of (placeholder_block, original_lines).
+    """
+    lines = text.split("\n")
+    preserved: list[tuple[str, list[str]]] = []
+    output_lines: list[str] = []
+
+    in_outer_fence = False
+    fence_char = ""
+    fence_len = 0
+    current_fence_lines: list[str] = []
+
+    for line in lines:
+        if not in_outer_fence:
+            m = re.match(r"^[ \t]{0,3}(`{4,}|~{4,})", line)
+            if m:
+                in_outer_fence = True
+                fence_char = m.group(1)[0]
+                fence_len = len(m.group(1))
+                current_fence_lines = [line]
+                continue
+            output_lines.append(line)
+        else:
+            current_fence_lines.append(line)
+            close_pattern = rf"^[ \t]{{0,3}}{re.escape(fence_char)}{{{fence_len},}}[ \t\r]*$"
+            if re.match(close_pattern, line):
+                in_outer_fence = False
+                idx = len(preserved)
+                eol = "\r" if current_fence_lines[0].endswith("\r") else ""
+                placeholder_lines = [f"__DRAWLIB_PRESERVED_FENCE_{idx}__{eol}"]
+                for pad_idx in range(len(current_fence_lines) - 1):
+                    pad_eol = "\r" if current_fence_lines[pad_idx + 1].endswith("\r") else ""
+                    placeholder_lines.append(f"__DRAWLIB_FENCE_PAD_{idx}_{pad_idx}__{pad_eol}")
+                placeholder_block = "\n".join(placeholder_lines)
+                preserved.append((placeholder_block, current_fence_lines))
+                output_lines.extend(placeholder_lines)
+                current_fence_lines = []
+
+    if in_outer_fence and current_fence_lines:
+        output_lines.extend(current_fence_lines)
+
+    return "\n".join(output_lines), preserved
+
+
+def restore_outer_fences(text: str, preserved: list[tuple[str, list[str]]]) -> str:
+    """Restore preserved code fence blocks from placeholders.
+
+    Args:
+        text (str): Markdown text containing fence placeholders.
+        preserved (list[tuple[str, list[str]]]): Preserved block records.
+
+    Returns:
+        str: Fully restored Markdown text.
+    """
+    for placeholder_block, original_lines in preserved:
+        original_block = "\n".join(original_lines)
+        text = text.replace(placeholder_block, original_block)
+    return text
+
+
 def detect_document_type(file_path: str, content: str | None = None) -> DocumentInputInfo:
     """Classify an input Markdown or HTML document into one of 4 canonical document types.
 
@@ -70,7 +140,8 @@ def detect_document_type(file_path: str, content: str | None = None) -> Document
             content = f.read()
 
     if ext in {".md", ".markdown"}:
-        matches = _MD_DRAWLIB_PATTERN.findall(content)
+        masked_content, _ = preserve_outer_fences(content)
+        matches = _MD_DRAWLIB_PATTERN.findall(masked_content)
         block_count = len(matches)
         has_drawlib = block_count > 0
         doc_type: DocType = "markdown_drawlib" if has_drawlib else "markdown"

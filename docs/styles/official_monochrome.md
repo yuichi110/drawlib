@@ -35,6 +35,28 @@ You can use `MonochromeColors` to retrieve RGB codes by their names (all colors 
 - `gray2`: RGB(220, 220, 220)
 - `gray1`: RGB(245, 245, 245)
 - `white`: RGB(255, 255, 255)
+# Semantic Roles
+
+Because grayscale documents lack color cues, **MonochromeStyles focuses on 4 core semantic roles** (excluding `danger` and `success`):
+
+| Role | Monochrome Tone | Intended Usage |
+| :--- | :--- | :--- |
+| **`primary`** | `White` fill / `Black` border | Core application logic, main components |
+| **`secondary`** | `Gray2` fill / `Gray6` border | Secondary components, data stores, background workers |
+| **`accent`** | `Black` fill / `White` text | High-contrast focal callouts, active triggers, key gateways |
+| **`muted`** | `Gray1` fill / `Gray4` dashed | Grouping containers, boundaries, subnets |
+
+> **Note on Danger & Success**: Grayscale has no universal neutral equivalents for red and green without confusing value hierarchies. Therefore, `MonochromeStyles.danger` and `MonochromeStyles.success` are omitted (`None`). For alerts in monochrome, use `accent` or `muted_dashed` with explicit text labels or icons.
+
+Each role provides 10 orthogonal variants (`bordered`, `bold`, `light`, `flat`, `outline`, `outline_bold`, `outline_light`, `dashed`, `dashed_bold`, `dashed_light`).
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="official_monochrome_images/2.png" alt="official_monochrome_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Monochrome Semantic Roles in Action</figcaption>
+</figure>
+
 
 
 

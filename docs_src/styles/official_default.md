@@ -56,9 +56,47 @@ You can use `ColorsDefault` to retrieve RGB codes by their names.
 - `black`: RGB(0, 0, 0)
 - `white`: RGB(255, 255, 255)
 
-Here is a color chart:
+# Semantic Roles
 
+Drawlib maps the default palette to **6 core semantic roles**:
 
+| Role | Default Color | Intended Usage |
+| :--- | :--- | :--- |
+| **`primary`** | `Blue2` | Core application logic, main processing components, default actions |
+| **`secondary`** | `Teal2` | Databases, caches, message queues, auxiliary background services |
+| **`accent`** | `Amber2` | Clients, users, entry gateways, triggers, focal callouts |
+| **`muted`** | `Gray1` | Structural boundaries, VPCs, subnets, grouping containers |
+| **`danger`** | `Red2` | Errors, failure paths, alert thresholds, destructive actions |
+| **`success`** | `Green2` | Completed milestones, healthy status, verified states |
+
+In addition, `light` and `dark` are available for surface cards and high-contrast typography.
+Each semantic role provides 10 orthogonal variants (`bordered`, `bold`, `light`, `flat`, `outline`, `outline_bold`, `outline_light`, `dashed`, `dashed_bold`, `dashed_light`).
+
+```drawlib 650px center caption:"Default Semantic Roles in Action"
+from drawlib.canvas import setup
+from drawlib.lines import line
+from drawlib.preset_styles import DefaultStyles
+from drawlib.shapes import circle
+from drawlib.text import text
+
+setup(width=120, height=45)
+line_y = 36
+text_y = 9
+
+items = [
+    (12, "primary", DefaultStyles.Primary),
+    (31, "secondary", DefaultStyles.Secondary),
+    (50, "accent", DefaultStyles.Accent),
+    (69, "muted", DefaultStyles.Muted),
+    (88, "danger", DefaultStyles.Danger),
+    (107, "success", DefaultStyles.Success),
+]
+
+for x, label, st in items:
+    line((x - 7, line_y), (x + 7, line_y), style=st)
+    circle((x, 23), radius=7, style=st)
+    text((x, text_y), text=label, style=st, size=9)
+```
 
 
 # Style Types

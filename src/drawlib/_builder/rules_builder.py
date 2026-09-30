@@ -47,8 +47,6 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "lib-tools",
 )
 
-INSTRUCTION_MARKER: Final[str] = "Instructions for AI Agents & Developers"
-
 
 def _normalize_topic(topic: str) -> str:
     """Normalize topic name.
@@ -161,46 +159,6 @@ def _rewrite_image_paths_to_runtime(content: str, topic: str) -> str:
     return content
 
 
-def _inject_agent_instructions(content: str, topic: str) -> str:
-    """Inject AI Agent and developer instructions banner directly below the first H1 header.
-
-    Args:
-        content: Rendered Markdown content.
-        topic: Topic name.
-
-    Returns:
-        str: Markdown content with instructions banner injected.
-    """
-    if INSTRUCTION_MARKER in content:
-        return content
-
-    file_stem = topic.replace("-", "_")
-    banner = (
-        "> [!NOTE]\n"
-        "> **Instructions for AI Agents & Developers**:\n"
-        f"> This document is compiled from `drawlib` core rules and companion illustrations are located at:\n"
-        f"> `PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/{file_stem}_images/<n>.png`\n"
-        ">\n"
-        "> (Resolve `PYTHON_RUNTIME` to your active Python / virtualenv environment path to inspect images).\n"
-        "> You can inspect any image directly using your file/image viewing tool (`view_file`, etc.) "
-        "to visually verify the layout, spatial positioning, coordinate alignment, and styling produced "
-        "by the corresponding Python code block above it.\n"
-    )
-
-    lines = content.splitlines(keepends=True)
-    h1_idx = -1
-    for idx, line in enumerate(lines):
-        if line.strip().startswith("# "):
-            h1_idx = idx
-            break
-
-    if h1_idx != -1:
-        lines.insert(h1_idx + 1, "\n" + banner + "\n")
-        return "".join(lines)
-
-    return banner + "\n" + content
-
-
 def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
     """Compile a single rule topic and its illustrations into _assets/rules/.
 
@@ -238,17 +196,13 @@ def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
 
     rendered_text = target_path.read_text(encoding="utf-8")
     rewritten_text = _rewrite_image_paths_to_runtime(rendered_text, topic=canonical)
-    final_text = _inject_agent_instructions(
-        content=rewritten_text,
-        topic=canonical,
-    )
-    target_path.write_text(final_text, encoding="utf-8")
+    target_path.write_text(rewritten_text, encoding="utf-8")
 
     if not quiet:
         sys.stderr.write("Done.\n")
         sys.stderr.flush()
 
-    return final_text
+    return rewritten_text
 
 
 def build_all_rules(force: bool = False, quiet: bool = False) -> list[str]:

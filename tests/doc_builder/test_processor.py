@@ -245,3 +245,94 @@ def test_block_processor_code_options_parsing() -> None:
     assert processor._parse_block_info("hide-code").code == "hide"
     assert processor._parse_block_info("code:hide").code == "hide"
     assert processor._parse_block_info("500px fold-code center").code == "fold"
+
+
+def test_nested_drawlib_in_outer_code_fence_not_compiled(tmp_path) -> None:
+    """Test that drawlib blocks nested inside outer Markdown fences (4+ backticks) are preserved literally."""
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    processor = DrawlibBlockProcessor()
+
+    md_input = """# Tutorial
+
+Here is how to write a diagram in Drawlib:
+
+````markdown
+```drawlib 400px center
+circle((50, 50), radius=10, style=Styles.primary)
+```
+````
+
+End of tutorial.
+"""
+    # 1. extract_code_blocks must not return nested blocks
+    blocks = extract_code_blocks(md_input, is_html=False)
+    assert len(blocks) == 0
+
+    # 2. process_markdown must keep the block untouched and create no image
+    processed_md = processor.process_markdown(md_input, doc_base_name="tut", output_dir=str(out_dir))
+    assert processed_md == md_input
+    assert not (out_dir / "tut_images").exists()
+
+
+def test_mixed_nested_and_real_drawlib_blocks(tmp_path) -> None:
+    """Test document with both a nested example block and an actual executable drawlib block."""
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    processor = DrawlibBlockProcessor()
+
+    md_input = """# Document
+
+Example snippet:
+````markdown
+```drawlib
+circle((0, 0), radius=5)
+```
+````
+
+Actual diagram:
+```drawlib
+circle((50, 50), radius=20, style=Styles.primary)
+```
+"""
+    # 1. extract_code_blocks should only extract the real block
+    blocks = extract_code_blocks(md_input, is_html=False)
+    assert len(blocks) == 1
+    assert blocks[0].index == 1
+    assert "radius=20" in blocks[0].code
+    # Line 11 is '```drawlib' for the actual diagram
+    assert blocks[0].line_number == 11
+
+    # 2. process_markdown renders the real block and preserves the nested example
+    processed = processor.process_markdown(md_input, doc_base_name="mixed", output_dir=str(out_dir))
+    # Outer fence snippet preserved
+    assert "````markdown\n```drawlib\ncircle((0, 0), radius=5)\n```\n````" in processed
+    # Real block replaced with image
+    assert 'src="mixed_images/1.png"' in processed
+    assert (out_dir / "mixed_images" / "1.png").exists()
+
+
+def test_tilde_and_varied_length_outer_fences(tmp_path) -> None:
+    """Test outer fences with tildes (~~~~) and 5 backticks."""
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    processor = DrawlibBlockProcessor()
+
+    md_input = """~~~~markdown
+```drawlib
+circle((10, 10), radius=5)
+```
+~~~~
+
+`````text
+```drawlib
+circle((20, 20), radius=5)
+```
+`````
+"""
+    blocks = extract_code_blocks(md_input, is_html=False)
+    assert len(blocks) == 0
+
+    processed = processor.process_markdown(md_input, doc_base_name="fences", output_dir=str(out_dir))
+    assert processed == md_input
+    assert not (out_dir / "fences_images").exists()

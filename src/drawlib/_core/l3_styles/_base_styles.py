@@ -212,7 +212,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         else:
             super().__init__(**normalized)
 
-    # 4 Core semantic roles required across all preset catalogs (10 variants each)
+    # 4 Universal semantic roles available across all preset catalogs including monochrome (10 variants each)
     primary: Style
     primary_bordered: Style | None = None
     primary_bold: Style | None = None
@@ -261,7 +261,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     muted_dashed_bold: Style | None = None
     muted_dashed_light: Style | None = None
 
-    # Extended semantic roles (10 variants each)
+    # Extended semantic roles (10 variants each):
+    # - danger & success: Provided for color presets (giving 6 action/status roles total; excluded in monochrome)
+    # - light & dark: Surface backgrounds and high-contrast typography
     light: Style | None = None
     light_bordered: Style | None = None
     light_bold: Style | None = None
