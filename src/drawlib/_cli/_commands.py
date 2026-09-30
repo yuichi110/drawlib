@@ -396,6 +396,10 @@ def register_top_commands(app: typer.Typer) -> None:
             Optional[str],
             typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
         ] = None,
+        no_cache: Annotated[
+            bool,
+            typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+        ] = False,
     ) -> None:
         """Execute and display or export a drawlib code block from a Markdown/HTML file or Python script."""
         # If file is not a regular file on disk, check if it matches a rules topic name
@@ -415,6 +419,7 @@ def register_top_commands(app: typer.Typer) -> None:
                 utils_path=utils,
                 grid=grid,
                 output_path=output,
+                no_cache=no_cache,
             )
         except Exception as e:
             _handle_cmd_error("Show Error", e)

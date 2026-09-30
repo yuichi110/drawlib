@@ -335,7 +335,7 @@ def cmd_colors_show(
     ] = None,
     sort: Annotated[
         SortMode,
-        typer.Option("--sort", "-s", help="Color sort order: 'hsv', 'name', or 'raw'."),
+        typer.Option("--sort", help="Color sort order: 'hsv', 'name', or 'raw'."),
     ] = "hsv",
     grid: Annotated[
         bool,

@@ -289,7 +289,7 @@ def build_all_rules(force: bool = False, quiet: bool = False) -> list[str]:
     return built
 
 
-def clean_rules_cache() -> None:
+def clear_rules_cache() -> None:
     """Delete all cached rule documents and generated illustration images."""
     cache_dir = get_rules_dir()
     if not cache_dir.exists():

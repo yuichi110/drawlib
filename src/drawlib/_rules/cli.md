@@ -394,6 +394,7 @@ drawlib show <FILE> [TARGET] [OPTIONS]
 | `--grid` | `-g` | flag | `False` | Overlay coordinate grid lines, axes, and numeric labels on image. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
+| `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
 
 ---
 
@@ -675,7 +676,7 @@ drawlib rules
 ├── build [TOPIC]           Pre-build illustrations into _assets/rules/
 │   ├── --all, -a           Compile illustrations for all topics
 │   └── --force, -f         Force recompile even if up-to-date
-└── clean                   Delete all cached rule documents and generated images
+└── clear                   Delete all cached rule documents and generated images
 ```
 
 ---
@@ -713,7 +714,7 @@ drawlib rules show shapes                 # Display shapes API rules (builds on-
 drawlib rules show shapes --rebuild       # Force regenerate illustrations for shapes
 drawlib rules show shapes --raw           # Output raw Markdown source without cache
 drawlib rules build --all                 # Pre-build illustrations for all topics
-drawlib rules clean                       # Delete all cached illustrations and docs
+drawlib rules clear                       # Delete all cached illustrations and docs
 ```
 
 ---

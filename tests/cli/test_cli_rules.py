@@ -125,18 +125,22 @@ def test_cli_rules_show_raw() -> None:
     assert "Instructions for AI Agents & Developers" not in res.stdout
 
 
-def test_cli_rules_show_rebuild_and_clean() -> None:
-    """Test `drawlib rules show --rebuild` caches output and `drawlib rules clean` removes it."""
+def test_cli_rules_show_rebuild_and_clear() -> None:
+    """Test `drawlib rules show --rebuild` caches output and `drawlib rules clear` removes it."""
     # Build on demand
     res_show = run_drawlib_cli(["rules", "show", "overview", "--rebuild"])
     assert res_show.returncode == 0
     assert "# Drawlib Agent Drawing Guidelines" in res_show.stdout
     assert "Instructions for AI Agents & Developers" in res_show.stdout
 
-    # Clean cache
+    # Clear cache
+    res_clear = run_drawlib_cli(["rules", "clear"])
+    assert res_clear.returncode == 0
+    assert "Successfully cleared" in res_clear.stdout
+
+    # Verify deprecated 'clean' is rejected
     res_clean = run_drawlib_cli(["rules", "clean"])
-    assert res_clean.returncode == 0
-    assert "Successfully cleaned" in res_clean.stdout
+    assert res_clean.returncode != 0
 
 
 def test_cli_rules_build_specific_topic() -> None:
@@ -145,9 +149,9 @@ def test_cli_rules_build_specific_topic() -> None:
     assert res_build.returncode == 0
     assert "Successfully compiled rule topic 'overview'" in res_build.stdout
 
-    # Clean cache after test
-    res_clean = run_drawlib_cli(["rules", "clean"])
-    assert res_clean.returncode == 0
+    # Clear cache after test
+    res_clear = run_drawlib_cli(["rules", "clear"])
+    assert res_clear.returncode == 0
 
 
 def test_cli_show_rules_fallback() -> None:
@@ -186,7 +190,7 @@ def test_cli_show_rules_fallback() -> None:
         ["rules", "--help"],
         ["rules", "show", "--help"],
         ["rules", "build", "--help"],
-        ["rules", "clean", "--help"],
+        ["rules", "clear", "--help"],
         ["rules", "list", "--help"],
         ["styles", "--help"],
         ["styles", "list", "--help"],

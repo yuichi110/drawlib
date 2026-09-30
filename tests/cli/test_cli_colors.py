@@ -40,7 +40,7 @@ def test_cli_colors_show_export(tmp_path: Path) -> None:
 
 
 def test_cli_colors_show_sort_modes(tmp_path: Path) -> None:
-    """Test drawlib colors show with different sort modes."""
+    """Test drawlib colors show with different sort modes and verify -s is rejected."""
     for mode in ["hsv", "name", "raw"]:
         out_png = tmp_path / f"default_{mode}.png"
         res = run_drawlib_cli(
@@ -50,6 +50,13 @@ def test_cli_colors_show_sort_modes(tmp_path: Path) -> None:
         assert res.returncode == 0
         assert out_png.exists()
         assert out_png.stat().st_size > 1000
+
+    # Verify shorthand -s is rejected
+    res_err = run_drawlib_cli(
+        ["colors", "show", "default", "-s", "name"],
+        cwd=str(tmp_path),
+    )
+    assert res_err.returncode != 0
 
 
 def test_cli_colors_show_with_grid(tmp_path: Path) -> None:

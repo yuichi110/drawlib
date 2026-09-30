@@ -728,6 +728,7 @@ def _render_code_with_context(
     styles_path: Optional[str],
     utils_path: Optional[str],
     grid: bool,
+    no_cache: bool = False,
 ) -> None:
     """Execute code block and render directly to destination path under directory context.
 
@@ -739,8 +740,9 @@ def _render_code_with_context(
         styles_path (Optional[str]): Optional path to styles Python script.
         utils_path (Optional[str]): Optional path to utils Python script.
         grid (bool): Whether to overlay coordinate grid.
+        no_cache (bool): Whether to disable reading/writing SQLite build cache.
     """
-    processor = DrawlibBlockProcessor(styles_path=styles_path, utils_path=utils_path)
+    processor = DrawlibBlockProcessor(styles_path=styles_path, utils_path=utils_path, no_cache=no_cache)
     orig_cwd = os.getcwd()
     sys_path_added = False
     try:
@@ -763,6 +765,7 @@ def export_code_block(
     styles_path: Optional[str] = None,
     utils_path: Optional[str] = None,
     grid: bool = False,
+    no_cache: bool = False,
 ) -> str:
     """Execute target code block from Markdown, HTML, or Python file and export image to specified output path.
 
@@ -773,6 +776,7 @@ def export_code_block(
         styles_path (Optional[str]): Optional path to Python styles script (e.g. styles.py).
         utils_path (Optional[str]): Optional path to Python utils script (e.g. utils.py).
         grid (bool): Whether to overlay coordinate grid on exported image.
+        no_cache (bool): Whether to disable reading/writing SQLite build cache.
 
     Returns:
         str: Absolute path of the exported image file, or empty string if list was displayed.
@@ -804,6 +808,7 @@ def export_code_block(
             styles_path=styles_path,
             utils_path=utils_path,
             grid=grid,
+            no_cache=no_cache,
         )
         print(f"Successfully exported Python script to: {dest_abs}")
         return dest_abs
@@ -848,6 +853,7 @@ def export_code_block(
         styles_path=styles_path,
         utils_path=utils_path,
         grid=grid,
+        no_cache=no_cache,
     )
     print(f"Successfully exported block #{selected_block.index} to: {dest_abs}")
     return dest_abs
@@ -860,6 +866,7 @@ def show_code_block(
     utils_path: Optional[str] = None,
     grid: bool = False,
     output_path: Optional[str] = None,
+    no_cache: bool = False,
 ) -> None:
     """Execute target code block from Markdown/HTML file or Python drawing script and display output image.
 
@@ -870,6 +877,7 @@ def show_code_block(
         utils_path (Optional[str]): Optional path to Python utils script.
         grid (bool): Whether to overlay coordinate grid on displayed image.
         output_path (Optional[str]): Optional destination image path. If specified, saves image without GUI display.
+        no_cache (bool): Whether to disable reading/writing SQLite build cache.
     """
     if output_path:
         export_code_block(
@@ -879,6 +887,7 @@ def show_code_block(
             styles_path=styles_path,
             utils_path=utils_path,
             grid=grid,
+            no_cache=no_cache,
         )
         return
 
@@ -911,6 +920,7 @@ def show_code_block(
             styles_path=styles_path,
             utils_path=utils_path,
             grid=grid,
+            no_cache=no_cache,
         )
         display_path = grid_path if (grid and os.path.exists(grid_path)) else tmp_path
         _display_image_file(display_path)
@@ -965,6 +975,7 @@ def show_code_block(
         styles_path=styles_path,
         utils_path=utils_path,
         grid=grid,
+        no_cache=no_cache,
     )
     display_path = grid_path if (grid and os.path.exists(grid_path)) else tmp_path
     _display_image_file(display_path)

@@ -170,3 +170,44 @@ def test_cli_show_invalid_block_target(tmp_path: Path) -> None:
     res = run_drawlib_cli(["show", str(doc), "1"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "No drawlib code blocks found" in res.stdout
+
+
+def test_cli_show_python_script_no_cache(tmp_path: Path) -> None:
+    """Test show command executing a Python script with --no-cache flag."""
+    script = tmp_path / "drawing_nocache.py"
+    script.write_text(
+        """from drawlib.canvas import save, setup
+from drawlib.styles import Styles as default_styles
+from drawlib.shapes import circle
+
+styles = default_styles
+setup(width=100, height=100)
+circle((50, 50), radius=20, style=styles.primary)
+save()
+""",
+        encoding="utf-8",
+    )
+    out_png = tmp_path / "out_nocache.png"
+
+    res = run_drawlib_cli(["show", str(script), "-o", str(out_png), "--no-cache"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert out_png.exists()
+
+
+def test_cli_show_markdown_block_no_cache(tmp_path: Path) -> None:
+    """Test show command executing a Markdown block with --no-cache flag."""
+    doc = tmp_path / "doc_nocache.md"
+    doc.write_text(
+        """# Doc
+
+```drawlib
+circle((50, 50), radius=20, style=Styles.primary)
+```
+""",
+        encoding="utf-8",
+    )
+    out_png = tmp_path / "out_block_nocache.png"
+
+    res = run_drawlib_cli(["show", str(doc), "1", "-o", str(out_png), "--no-cache"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert out_png.exists()

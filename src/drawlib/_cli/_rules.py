@@ -20,7 +20,7 @@ from drawlib._builder.rules_builder import (
     AVAILABLE_TOPICS,
     build_all_rules,
     build_rule,
-    clean_rules_cache,
+    clear_rules_cache,
     get_rule_markdown,
     is_rule_cached,
 )
@@ -168,14 +168,14 @@ def cmd_rules_build(
         raise typer.Exit(code=1) from exc
 
 
-@rules_app.command("clean", epilog=HELP_EPILOG)
-def cmd_rules_clean() -> None:
+@rules_app.command("clear", epilog=HELP_EPILOG)
+def cmd_rules_clear() -> None:
     """Delete all cached rule documents and generated illustration images in _assets/rules/."""
     try:
-        clean_rules_cache()
-        print("Successfully cleaned rules illustration cache (_assets/rules/).")
+        clear_rules_cache()
+        print("Successfully cleared rules illustration cache (_assets/rules/).")
     except Exception as exc:
-        print(f"Error: Failed to clean rules cache: {exc}", file=sys.stderr)
+        print(f"Error: Failed to clear rules cache: {exc}", file=sys.stderr)
         raise typer.Exit(code=1) from exc
 
 
