@@ -29,6 +29,7 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "style-guide",
     "project",
     "cli",
+    "api",
     "lib-canvas",
     "lib-shapes",
     "lib-lines",

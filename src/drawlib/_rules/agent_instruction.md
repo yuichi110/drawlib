@@ -150,6 +150,7 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | `uv run drawlib rules show style-guide` | `style-guide` | 6-color semantic system, primary anchor, padding, grid alignment, typography hierarchy. |
 | `uv run drawlib rules show project` | `project` | Project scaffolding (`init`), 4 template types (`site`, `simple`, `pdf`, `image`), `docs_src/`, `navbar.md`, builds. |
 | `uv run drawlib rules show cli` | `cli` | Complete command line interface (`build`, `show`, `init`, `serve`, `cache`, `rules`). |
+| `uv run drawlib rules show api` | `api` | Unified API index and cheat sheet for all Drawlib modules, primitives, and tokens. |
 
 ### Library Modules (`drawlib.*`)
 | Command | Topic | Primary Focus |

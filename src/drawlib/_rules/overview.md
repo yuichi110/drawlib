@@ -448,7 +448,14 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.3. Shapes Primitives & Styling (`lib-shapes`)
+### 5.4. Unified API Reference & Cheat Sheet (`api`)
+- **Command**: `drawlib rules show api`
+- **Scope**: Unified, high-speed API index covering all public modules, functions, classes, drawing primitives, styling tokens (`Styles`, `Colors`), and developer utilities.
+- **When to read**: Refer to this rule for rapid syntax lookups, import statements, parameter signatures, and best-practice checklists without switching across multiple manuals.
+
+---
+
+### 5.5. Shapes Primitives & Styling (`lib-shapes`)
 - **Command**: `drawlib rules show lib-shapes`
 - **Scope**: All 22 geometric shape functions including `rectangle`, `circle`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, and `chevron`.
 - **Key Syntax**:
@@ -463,7 +470,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.4. Lines, Curves, & Arrowheads (`lib-lines`)
+### 5.6. Lines, Curves, & Arrowheads (`lib-lines`)
 - **Command**: `drawlib rules show lib-lines`
 - **Scope**: Straight lines (`line`), curved splines (`line_curved`), Bezier paths (`line_bezier1`, `line_bezier2`), multi-point chained lines (`lines`, `lines_curved`), and circular arcs (`line_arc`).
 - **Key Syntax**:
@@ -478,7 +485,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.5. Text Rendering & Typography (`lib-text`)
+### 5.7. Text Rendering & Typography (`lib-text`)
 - **Command**: `drawlib rules show lib-text`
 - **Scope**: Standalone labels, multi-line paragraphs, text alignment (`halign`, `valign`), rotation angles, typography options (`TextStyle`), custom fonts, and background text boxes.
 - **Key Syntax**:
@@ -493,7 +500,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.6. Icons Library (`lib-icons`)
+### 5.8. Icons Library (`lib-icons`)
 - **Command**: `drawlib rules show lib-icons`
 - **Scope**: Vector and PNG icons from Phosphor, FontAwesome, and Google Cloud Platform (GCP) official architecture libraries.
 - **Key Syntax**:
@@ -509,7 +516,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.7. Preset Styles & Color Palettes (`lib-preset-styles`)
+### 5.9. Preset Styles & Color Palettes (`lib-preset-styles`)
 - **Command**: `drawlib rules show lib-preset-styles`
 - **Scope**: Systematic style naming rules (`<color>_<variant>`), built-in palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`), pre-defined styles for shapes, lines, and text, and custom style registration.
 - **Key Syntax**:
@@ -524,7 +531,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.8. Structured SmartArts Elements (`lib-smartarts`)
+### 5.10. Structured SmartArts Elements (`lib-smartarts`)
 - **Command**: `drawlib rules show lib-smartarts`
 - **Scope**: High-level visual abstractions including `Table`, `TreeNode`, `MindMapNode`, `BoxList`, `BulletPoints`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `SourceCode`, and `bubble_speech`.
 - **Key Syntax**:
@@ -537,7 +544,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.9. Data Charts & Visualizations (`lib-charts`)
+### 5.11. Data Charts & Visualizations (`lib-charts`)
 - **Command**: `drawlib rules show lib-charts`
 - **Scope**: Statistical and planning charts: `BarChart` (grouped, stacked, horizontal), `LineChart`, `AreaChart`, `PieChart` / donut, `RadarChart`, `ScatterChart`, and `GanttChart`.
 - **Key Syntax**:
@@ -552,7 +559,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.10. Domain Diagrams (`lib-diagrams`)
+### 5.12. Domain Diagrams (`lib-diagrams`)
 - **Command**: `drawlib rules show lib-diagrams`
 - **Scope**: Specialized software engineering diagrams: `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, and `ERDiagram`.
 - **Key Syntax**:
@@ -568,7 +575,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.11. Canvas Lifecycle & Dimensions (`lib-canvas`)
+### 5.13. Canvas Lifecycle & Dimensions (`lib-canvas`)
 - **Command**: `drawlib rules show lib-canvas`
 - **Scope**: Canvas singleton (`canvas`), canvas setup parameters (`setup`), coordinate grids, background transparency, image saving (`save`), in-memory Dimage generation (`get_dimage`), and canvas clearing (`clear`).
 - **Key Syntax**:
@@ -581,7 +588,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.12. Color Models, Catalogs & Palettes (`lib-colors`)
+### 5.14. Color Models, Catalogs & Palettes (`lib-colors`)
 - **Command**: `drawlib rules show lib-colors`
 - **Scope**: `Color` model with `.patch()`, RGB/RGBA formats, 140 CSS colors (`CssColors`), and curated theme palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`).
 - **Key Syntax**:
@@ -594,7 +601,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.13. Typography, Fonts & Cache (`lib-fonts`)
+### 5.15. Typography, Fonts & Cache (`lib-fonts`)
 - **Command**: `drawlib rules show lib-fonts`
 - **Scope**: Universal CJK + Latin font (`Font`), Western typography (`FontRoboto`, `FontSansSerif`, `FontMonoSpace`), non-Latin regional scripts (`FontJapanese`, `FontChinese`, `FontArabic`), custom font loading (`FontFile`), and cache management.
 - **Key Syntax**:
@@ -606,7 +613,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.14. Image & Graphic Embedding (`lib-images`)
+### 5.16. Image & Graphic Embedding (`lib-images`)
 - **Command**: `drawlib rules show lib-images`
 - **Scope**: Embedding raster and vector images (`image`), aspect ratio handling, image transformation model (`Dimage`), color tinting, and dynamic in-memory diagram embedding (`get_dimage_from_code`).
 - **Key Syntax**:
@@ -618,7 +625,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.15. Geometry & Coordinate Math (`lib-math`)
+### 5.17. Geometry & Coordinate Math (`lib-math`)
 - **Command**: `drawlib rules show lib-math`
 - **Scope**: Geometric derivations: counter-clockwise angle between two points (`get_angle`), Euclidean distance (`get_distance`), and automated bounding box calculation (`get_center_and_size`).
 - **Key Syntax**:
@@ -631,7 +638,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.16. Style Models, Base Classes & Types (`lib-types`)
+### 5.18. Style Models, Base Classes & Types (`lib-types`)
 - **Command**: `drawlib rules show lib-types`
 - **Scope**: Strongly-typed `Style` model attributes (fill, line, typography, alignments), theme inheritance (`BaseStyles`), palette extension (`BaseColors`), and Drawlib type alias conventions.
 - **Key Syntax**:
@@ -643,7 +650,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.17. Developer Tools API (`lib-tools`)
+### 5.19. Developer Tools API (`lib-tools`)
 - **Command**: `drawlib rules show lib-tools`
 - **Scope**: Programmatic Python developer API for document compilation (`build_html`, `build_markdown`, `build_pdf`), single illustration extraction (`export_block`), project scaffolding (`init_project`), local server (`serve_docs`), and cache management.
 - **Key Syntax**:
@@ -656,7 +663,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.18. Dynamic Preset Styles & Utility Architecture (`lib-styles`)
+### 5.20. Dynamic Preset Styles & Utility Architecture (`lib-styles`)
 - **Command**: `drawlib rules show lib-styles`
 - **Scope**: Dynamic style theming and user utility injection, explicit import rules (`from drawlib.styles import Colors, Styles` and `from drawlib.utils import ...`), and CLI (`--styles`, `--utils`) / Python API integration.
 - **Key Syntax**:

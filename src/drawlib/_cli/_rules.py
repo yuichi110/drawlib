@@ -41,6 +41,7 @@ GENERAL_TOPICS: Final[dict[str, str]] = {
     "style-guide": "Diagram design principles, visual hierarchy, 6-color semantic system, and layout best practices",
     "project": "Project scaffolding (init), directory structure (docs_src), navbar rules, and build workflows",
     "cli": "Document compilation, export, preview, and cache CLI commands",
+    "api": "Comprehensive API index and quick reference cheat sheet for all Drawlib modules",
 }
 
 LIBRARY_TOPICS: Final[dict[str, str]] = {
