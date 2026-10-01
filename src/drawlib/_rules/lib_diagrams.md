@@ -542,7 +542,7 @@ d.draw(xy=(5.0, 5.0))
 ### 6.4 Production Examples
 
 #### Example 6.4.1: Session Lifecycle State Machine
-```python
+```drawlib show-code file:diagram_state_lifecycle.png
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import ChoiceState, FinalState, InitialState, State, StateDiagram
 

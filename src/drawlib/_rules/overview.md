@@ -189,7 +189,7 @@ Drawlib provides built-in geometric math utilities in `drawlib.math` so develope
 - **`get_distance(p1, p2)`**: Calculates the Euclidean distance between two points. Useful for dynamic sizing or threshold checks.
 - **`get_center_and_size(points)`**: Takes a collection of coordinate tuples `[(x1, y1), (x2, y2), ...]` and returns `((center_x, center_y), (width, height))`. This enables dynamic bounding boxes around arbitrary clusters of nodes with zero manual math:
 
-```python
+```drawlib show-code file:overview_geometry_helpers.png
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.math import get_angle, get_center_and_size, get_distance
@@ -200,7 +200,15 @@ nodes = [(25, 30), (45, 55), (75, 40)]
 
 # Automatically compute bounding container surrounding all nodes
 (cx, cy), (w, h) = get_center_and_size(nodes)
-rectangle((cx, cy), width=w + 16, height=h + 16, style=Styles.gray_light, text="Subsystem Boundary", valign="top")
+bw, bh = w + 24, h + 28
+rectangle(
+    (cx, cy),
+    width=bw,
+    height=bh,
+    style=Styles.light,
+    text="Subsystem Boundary",
+    textstyle=Styles.bold.patch(text_xy_shift=(0, bh / 2 - 4)),
+)
 
 for xy in nodes:
     circle(xy, radius=6, style=Styles.blue_flat)

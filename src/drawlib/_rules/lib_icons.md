@@ -422,7 +422,7 @@ Vector icons and raster GCP icons handle color customization differently:
    - **Silhouette Color Mask (`image_tint_color`)**: Replaces the multi-color artwork with a solid flat silhouette mask.
    - **Border Outline (`image_border_color`, `image_border_width`, `image_border_style`)**: Draws an explicit boundary frame around the icon bounding box.
 
-```python
+```drawlib show-code file:icons_gcp_styling.png
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.styles import Colors, Styles

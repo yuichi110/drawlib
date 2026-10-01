@@ -852,11 +852,11 @@ $$\theta = \operatorname{atan2}(y_2 - y_1, x_2 - x_1) \times \frac{180}{\pi}$$
 > ```
 
 ### 10.4. Code Example: Reusable Labeled Connector with Badges
-```python
+```drawlib show-code file:lines_labeled_connector.png
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import Colors
+from drawlib.styles import Colors, Styles
 from drawlib.text import text
 from drawlib.types import Style
 
