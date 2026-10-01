@@ -172,7 +172,8 @@ def cmd_init(
         str,
         typer.Option(
             "--lang",
-            help="Language for starter templates and font config ('en' or 'ja').",
+            "-l",
+            help="Language code for starter templates and font config ('en', 'ja', 'zh-cn', 'ko', 'th', 'hi', etc.).",
         ),
     ] = "en",
     css: Annotated[
@@ -199,7 +200,7 @@ def cmd_init(
         output: Output project/artifact name.
         here: If True, initialize directly into current directory.
         no_build: If True, skip running initial build.
-        lang: Starter template language ('en' or 'ja').
+        lang: Starter template language code ('en', 'ja', 'zh-cn', 'zh-tw', 'ko', 'th', 'hi', etc.).
         css: CSS theme preset name or custom stylesheet file path.
         force: If True, overwrite existing files in destination directory.
     """

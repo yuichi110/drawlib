@@ -93,6 +93,17 @@ def test_cli_css_show(tmp_path) -> None:
     assert "Success" in res_top.stdout
     assert top_out.exists()
 
+    # Test with -l / --lang option
+    res_lang = run_drawlib_cli(["css", "show", "google", "--lang", "th"], cwd=str(tmp_path))
+    assert res_lang.returncode == 0
+    assert "Noto Sans Thai" in res_lang.stdout
+
+    lang_out = tmp_path / "thai.css"
+    res_export_lang = run_drawlib_cli(["css", "show", "google", "-l", "th", "-o", str(lang_out)], cwd=str(tmp_path))
+    assert res_export_lang.returncode == 0
+    assert lang_out.exists()
+    assert "Noto Sans Thai" in lang_out.read_text(encoding="utf-8")
+
 
 def test_cli_cache_list(tmp_path) -> None:
     """Test drawlib cache list subcommand."""

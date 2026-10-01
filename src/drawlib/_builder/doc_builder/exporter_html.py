@@ -20,12 +20,14 @@ from drawlib._css_templates import get_css
 def get_default_css(
     custom_css_path: Optional[str] = None,
     target: Literal["html", "pdf"] = "html",
+    lang: str = "en",
 ) -> str:
     """Get complete theme CSS content string for HTML or PDF.
 
     Args:
         custom_css_path (Optional[str]): Built-in CSS preset name or path to custom CSS file.
         target (Literal["html", "pdf"]): Target format ('html' or 'pdf'). Defaults to 'html'.
+        lang (str): Language code or alias (e.g. 'en', 'ja', 'th'). Defaults to 'en'.
 
     Returns:
         str: Complete CSS content string.
@@ -33,12 +35,20 @@ def get_default_css(
     Raises:
         ValueError: If specified CSS preset name is unknown or unsupported for the target format.
     """
-    return get_css(name=custom_css_path, target=target)
+    return get_css(name=custom_css_path, target=target, lang=lang)
 
 
-def get_pdf_css(custom_css_path: Optional[str] = None) -> str:
-    """Get complete PDF CSS content string from pdf or custom CSS file path."""
-    return get_css(name=custom_css_path, target="pdf")
+def get_pdf_css(custom_css_path: Optional[str] = None, lang: str = "en") -> str:
+    """Get complete PDF CSS content string from pdf or custom CSS file path.
+
+    Args:
+        custom_css_path (Optional[str]): Built-in PDF CSS preset name or path to custom CSS file.
+        lang (str): Language code or alias (e.g. 'en', 'ja', 'th'). Defaults to 'en'.
+
+    Returns:
+        str: Complete PDF CSS content string.
+    """
+    return get_css(name=custom_css_path, target="pdf", lang=lang)
 
 
 def render_html_document(

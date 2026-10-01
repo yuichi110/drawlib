@@ -105,6 +105,17 @@ def test_get_and_export_css(tmp_path) -> None:
     export_css("default", str(out_file), target="html", force=True)
     assert out_file.read_text(encoding="utf-8") != html_css
 
+    # Test with lang parameter
+    th_css = get_css("google", target="html", lang="th")
+    assert "Noto Sans Thai" in th_css
+
+    ja_css = get_css("default", target="pdf", lang="ja")
+    assert "Noto Sans JP" in ja_css
+
+    out_th = tmp_path / "style_th.css"
+    export_css("google", str(out_th), target="html", lang="th")
+    assert "Noto Sans Thai" in out_th.read_text(encoding="utf-8")
+
 
 def test_build_document_custom_template(tmp_path) -> None:
     """Test compiling document with custom template.html and style.css in the directory."""

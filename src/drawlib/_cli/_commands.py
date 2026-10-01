@@ -243,10 +243,11 @@ def _run_css_export(
     preset: str,
     output: Optional[str],
     force: bool,
+    lang: str = "en",
 ) -> None:
     """Export a built-in CSS preset to destination file."""
     try:
-        out_abs = export_css(name=preset, output_path=output, target=target, force=force)
+        out_abs = export_css(name=preset, output_path=output, target=target, force=force, lang=lang)
         console.print(
             f"[bold green]Success:[/bold green] Exported {target.upper()} CSS preset "
             f"[bold yellow]'{preset}'[/bold yellow] to [bold cyan]'{out_abs}'[/bold cyan]."
@@ -302,16 +303,24 @@ def cmd_css_show(
             help="Overwrite destination file if it already exists.",
         ),
     ] = False,
+    lang: Annotated[
+        str,
+        typer.Option(
+            "-l",
+            "--lang",
+            help="Language code or alias for typography font stack (e.g. 'en', 'ja', 'zh-cn', 'th').",
+        ),
+    ] = "en",
 ) -> None:
     """Display or export a built-in CSS stylesheet preset for HTML or PDF."""
     target, preset_name = _resolve_css_target_and_preset(target_or_preset, preset)
 
     if output is not None:
-        _run_css_export(target, preset_name, output, force)
+        _run_css_export(target, preset_name, output, force, lang=lang)
         return
 
     try:
-        content = get_css(name=preset_name, target=target)
+        content = get_css(name=preset_name, target=target, lang=lang)
         _print_css_content(content)
     except ValueError as e:
         console.print(f"[bold red]Error:[/bold red] {e}")

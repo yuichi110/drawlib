@@ -251,7 +251,7 @@ def test_cli_init_lang_ja(tmp_path: Path) -> None:
     assert "プロジェクト概要" in index_content
 
     template_content = (src_dir / "template.html").read_text(encoding="utf-8")
-    assert '<html lang="ja">' in template_content
+    assert '<html lang="ja"' in template_content
 
     config_content = (src_dir / "styles.py").read_text(encoding="utf-8")
     assert "FontJapanese" in config_content
@@ -270,3 +270,25 @@ def test_cli_init_css_option(tmp_path: Path) -> None:
     content = style_file.read_text(encoding="utf-8")
     # Verify google theme font or palette is present
     assert "Google Sans" in content or "#1a73e8" in content or "google" in content.lower()
+
+
+def test_cli_init_lang_th(tmp_path: Path) -> None:
+    """Test `drawlib init site --lang th` injects Thai font and falls back gracefully."""
+    res = run_drawlib_cli(["init", "site", "--lang", "th", "--no-build"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Initialized 'site' project" in res.stdout
+
+    src_dir = tmp_path / "docs_src"
+    template_content = (src_dir / "template.html").read_text(encoding="utf-8")
+    assert '<html lang="th"' in template_content
+    assert "Noto Sans Thai" in template_content
+
+    style_content = (src_dir / "style.css").read_text(encoding="utf-8")
+    assert "Noto Sans Thai" in style_content
+
+
+def test_cli_init_lang_invalid(tmp_path: Path) -> None:
+    """Test `drawlib init site --lang invalid` fails with helpful error."""
+    res = run_drawlib_cli(["init", "site", "--lang", "unknown_lang", "--no-build"], cwd=str(tmp_path))
+    assert res.returncode != 0
+    assert "Unsupported language 'unknown_lang'" in res.stderr

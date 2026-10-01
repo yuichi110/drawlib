@@ -21,6 +21,7 @@ from typing import Final, Literal, Optional
 from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
 from drawlib._builder.doc_builder.exporter_html import get_default_css
 from drawlib._builder.image_builder import build_image
+from drawlib._langs import get_font_replacements, normalize_language
 
 logger = logging.getLogger(__name__)
 
@@ -117,7 +118,10 @@ def _copy_item_with_substitutions(
         return
 
     dst.parent.mkdir(parents=True, exist_ok=True)
-    if dst.suffix in {".sh", ".md", ".txt"}:
+    if dst.name.endswith(".template"):
+        dst = dst.with_name(dst.name[:-9])
+
+    if dst.suffix in {".sh", ".md", ".txt", ".html", ".css", ".py"}:
         content = src.read_text(encoding="utf-8")
         for key, val in replacements.items():
             content = content.replace(key, val)
@@ -130,7 +134,8 @@ def _copy_item_with_substitutions(
             dst.chmod(dst.stat().st_mode | 0o755)
         except OSError:
             pass
-    created_files.append(dst)
+    if dst not in created_files:
+        created_files.append(dst)
 
 
 def _resolve_project_paths(
@@ -178,14 +183,6 @@ def _resolve_project_paths(
     )
 
 
-def _resolve_template_root(selected_type: str, lang: str = "en") -> Traversable:
-    """Resolve importlib resources template root directory."""
-    root = importlib.resources.files("drawlib._project_templates").joinpath(selected_type, lang)
-    if not root.is_dir():
-        raise FileNotFoundError(f"Template directory for '{selected_type}' (lang='{lang}') not found.")
-    return root
-
-
 def _copy_shared_assets(
     src_path: Path,
     replacements: dict[str, str],
@@ -202,17 +199,93 @@ def _deploy_stylesheet(
     src_path: Path,
     css: Optional[str],
     created_files: list[Path],
+    lang: str = "en",
 ) -> None:
     """Deploy custom or default style.css for document projects."""
     if selected_type not in {"site", "simple", "pdf"}:
         return
 
     target = "pdf" if selected_type == "pdf" else "html"
-    css_content = get_default_css(custom_css_path=css or "default", target=target)
+    css_content = get_default_css(custom_css_path=css or "default", target=target, lang=lang)
     style_css_target = src_path / "style.css"
     style_css_target.write_text(css_content, encoding="utf-8")
     if style_css_target not in created_files:
         created_files.append(style_css_target)
+
+
+def _deploy_shared_templates(
+    templates_base: Traversable,
+    src_path: Path,
+    replacements: dict[str, str],
+    created_files: list[Path],
+) -> None:
+    """Deploy default shared files (_shared/styles.py.template, _shared/utils.py).
+
+    Args:
+        templates_base: Base traversable of project templates.
+        src_path: Target source directory.
+        replacements: Placeholder substitution dictionary.
+        created_files: Mutable list collecting created file paths.
+    """
+    shared_root = templates_base.joinpath("_shared")
+    if not shared_root.is_dir():
+        return
+    for item in shared_root.iterdir():
+        if item.name == "__pycache__" or item.name.startswith("."):
+            continue
+        _copy_item_with_substitutions(item, src_path / item.name, replacements, created_files)
+
+
+def _deploy_type_root_files(
+    type_root: Traversable,
+    src_path: Path,
+    replacements: dict[str, str],
+    created_files: list[Path],
+) -> None:
+    """Deploy type-specific root files (build.sh, template.html, or overrides).
+
+    Args:
+        type_root: Traversable root of the selected project type.
+        src_path: Target source directory.
+        replacements: Placeholder substitution dictionary.
+        created_files: Mutable list collecting created file paths.
+    """
+    for item in type_root.iterdir():
+        if item.name in {"docs", "__pycache__"} or item.name.startswith("."):
+            continue
+        _copy_item_with_substitutions(item, src_path / item.name, replacements, created_files)
+
+
+def _deploy_localized_docs(
+    type_root: Traversable,
+    src_path: Path,
+    selected_lang: str,
+    replacements: dict[str, str],
+    created_files: list[Path],
+) -> None:
+    """Deploy localized documents and samples (<type>/docs/<lang>/, fallback to 'en').
+
+    Args:
+        type_root: Traversable root of the selected project type.
+        src_path: Target source directory.
+        selected_lang: Normalized language code.
+        replacements: Placeholder substitution dictionary.
+        created_files: Mutable list collecting created file paths.
+    """
+    docs_root = type_root.joinpath("docs")
+    if not docs_root.is_dir():
+        return
+
+    lang_docs = docs_root.joinpath(selected_lang)
+    if not lang_docs.is_dir():
+        lang_docs = docs_root.joinpath("en")
+    if not lang_docs.is_dir():
+        return
+
+    for item in lang_docs.iterdir():
+        if item.name == "__pycache__" or item.name.startswith("."):
+            continue
+        _copy_item_with_substitutions(item, src_path / item.name, replacements, created_files)
 
 
 def init_project(
@@ -250,9 +323,7 @@ def init_project(
         types_str = ", ".join(PROJECT_TYPES.keys())
         raise ValueError(f"Unknown project type '{project_type}'. Available types: {types_str}")
 
-    selected_lang = lang.strip().lower()
-    if selected_lang not in {"en", "ja"}:
-        raise ValueError(f"Unsupported language '{lang}'. Supported languages: 'en', 'ja'")
+    selected_lang = normalize_language(lang)
 
     (
         parent_dest,
@@ -272,23 +343,25 @@ def init_project(
         no_build=no_build,
     )
 
-    template_root = _resolve_template_root(selected_type, lang=selected_lang)
+    templates_base = importlib.resources.files("drawlib._project_templates")
+    type_root = templates_base.joinpath(selected_type)
+    if not type_root.is_dir():
+        raise FileNotFoundError(f"Template directory for '{selected_type}' not found.")
 
     replacements = {
         "__SRC_DIR__": "." if here else src_dir_name,
         "__OUT_DIR__": out_dir_name,
         "__OUT_HTML_DIR__": out_html_dir_name,
         "__OUT_PDF__": out_pdf_name,
+        **get_font_replacements(selected_lang),
     }
 
     created_files: list[Path] = []
-    for item in template_root.iterdir():
-        if item.name == "__pycache__" or item.name.startswith("."):
-            continue
-        _copy_item_with_substitutions(item, src_path / item.name, replacements, created_files)
-
+    _deploy_shared_templates(templates_base, src_path, replacements, created_files)
+    _deploy_type_root_files(type_root, src_path, replacements, created_files)
+    _deploy_localized_docs(type_root, src_path, selected_lang, replacements, created_files)
     _copy_shared_assets(src_path, replacements, created_files)
-    _deploy_stylesheet(selected_type, src_path, css, created_files)
+    _deploy_stylesheet(selected_type, src_path, css, created_files, lang=selected_lang)
 
     if not no_build:
         _run_initial_build(

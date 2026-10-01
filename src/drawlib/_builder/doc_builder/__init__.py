@@ -48,7 +48,7 @@ from drawlib._css_templates import (
 )
 
 _EXCLUDED_ASSET_NAMES = {"build.sh", "styles.py", "utils.py", "style.css", "template.html.j2", "template.html"}
-_EXCLUDED_ASSET_EXTENSIONS = (".py", ".sh", ".j2")
+_EXCLUDED_ASSET_EXTENSIONS = (".py", ".sh", ".j2", ".template")
 
 
 def _validate_markdown_images(src_abs: str, content: str) -> None:

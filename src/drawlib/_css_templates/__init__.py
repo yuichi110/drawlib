@@ -14,72 +14,74 @@ from __future__ import annotations
 import os
 from typing import Dict, List, Literal, Optional
 
+from drawlib._langs import get_font_replacements
+
 BUILTIN_HTML_CSS_PRESETS: Dict[str, Dict[str, str]] = {
     "default": {
-        "file": "default.css",
+        "file": "default.css.template",
         "description": "Modern developer light theme inspired by VitePress & Tailwind CSS.",
     },
     "default-dark": {
-        "file": "default-dark.css",
+        "file": "default-dark.css.template",
         "description": "Modern developer dark theme with deep slate & indigo palette.",
     },
     "default-auto": {
-        "file": "default-auto.css",
+        "file": "default-auto.css.template",
         "description": "Modern developer responsive theme switching between light and dark.",
     },
     "google": {
-        "file": "google.css",
+        "file": "google.css.template",
         "description": "Clean editorial Google Blog (The Keyword) & Material Design light style.",
     },
     "google-dark": {
-        "file": "google-dark.css",
+        "file": "google-dark.css.template",
         "description": "Google editorial dark theme with Material Dark palette.",
     },
     "google-auto": {
-        "file": "google-auto.css",
+        "file": "google-auto.css.template",
         "description": "Google editorial responsive theme switching between light and dark.",
     },
     "github": {
-        "file": "github.css",
+        "file": "github.css.template",
         "description": "GitHub-flavored Markdown style with familiar code block and table formatting.",
     },
     "minimal": {
-        "file": "minimal.css",
+        "file": "minimal.css.template",
         "description": "Lightweight, distraction-free minimalist typography.",
     },
     "monochrome": {
-        "file": "monochrome.css",
+        "file": "monochrome.css.template",
         "description": "High-contrast black-and-white style suited for formal web publications.",
     },
 }
 
 BUILTIN_PDF_CSS_PRESETS: Dict[str, Dict[str, str]] = {
     "default": {
-        "file": "default.css",
+        "file": "default.css.template",
         "description": "Modern print/PDF typography with line-wrapped code and A4 pagination.",
     },
     "default-dark": {
-        "file": "default-dark.css",
+        "file": "default-dark.css.template",
         "description": "Modern print/PDF dark theme with deep slate & indigo palette.",
     },
     "google": {
-        "file": "google.css",
+        "file": "google.css.template",
         "description": "Google editorial print/PDF theme with line-wrapped code and clean pagination.",
     },
     "google-dark": {
-        "file": "google-dark.css",
+        "file": "google-dark.css.template",
         "description": "Google editorial print/PDF dark theme with Material Dark palette.",
     },
     "github": {
-        "file": "github.css",
+        "file": "github.css.template",
         "description": "GitHub-flavored print/PDF theme with line-wrapped code and bordered tables.",
     },
     "minimal": {
-        "file": "minimal.css",
+        "file": "minimal.css.template",
         "description": "Minimalist serif print/PDF typography.",
     },
     "monochrome": {
-        "file": "monochrome.css",
+        "file": "monochrome.css.template",
         "description": "High-contrast black-and-white print/PDF theme.",
     },
 }
@@ -110,9 +112,19 @@ def list_pdf_css() -> List[Dict[str, str]]:
     return list_css(target="pdf")
 
 
+def _apply_css_font_replacements(css_text: str, lang: str = "en") -> str:
+    """Apply font family replacements to CSS placeholders."""
+    replacements = get_font_replacements(lang)
+    for key in ("__RTD_FONT_FAMILY__", "__RTD_MONO_FONT_FAMILY__"):
+        if key in replacements:
+            css_text = css_text.replace(key, replacements[key])
+    return css_text
+
+
 def get_css(
     name: Optional[str] = None,
     target: Literal["html", "pdf"] = "html",
+    lang: str = "en",
 ) -> str:
     """Get complete theme CSS content string for HTML or PDF.
 
@@ -120,6 +132,7 @@ def get_css(
         name (Optional[str]): Built-in CSS preset name or path to a custom CSS file.
             If None or empty, returns the default theme CSS content.
         target (Literal["html", "pdf"]): Target document format ('html' or 'pdf'). Defaults to 'html'.
+        lang (str): Language code or alias (e.g. 'en', 'ja', 'zh-cn', 'th') for typography. Defaults to 'en'.
 
     Returns:
         str: Complete CSS content string.
@@ -131,26 +144,33 @@ def get_css(
     css_dir = os.path.join(os.path.dirname(__file__), subdir)
     registry = BUILTIN_PDF_CSS_PRESETS if target == "pdf" else BUILTIN_HTML_CSS_PRESETS
 
+    raw_css = ""
     if not name:
-        default_file = os.path.join(css_dir, "default.css")
+        default_file = os.path.join(css_dir, "default.css.template")
+        if not os.path.exists(default_file):
+            default_file = os.path.join(css_dir, "default.css")
         if os.path.exists(default_file):
             with open(default_file, "r", encoding="utf-8") as f:
-                return f.read()
-        return ""
-
-    if os.path.exists(name):
+                raw_css = f.read()
+    elif os.path.exists(name):
         with open(name, "r", encoding="utf-8") as f:
-            return f.read()
+            raw_css = f.read()
+    else:
+        normalized = "google" if (target == "pdf" and name == "google-pdf") else name
+        if normalized in registry:
+            file_name = registry[normalized]["file"]
+            preset_file = os.path.join(css_dir, file_name)
+            if not os.path.exists(preset_file):
+                preset_file = os.path.join(css_dir, file_name + ".template")
+            if os.path.exists(preset_file):
+                with open(preset_file, "r", encoding="utf-8") as f:
+                    raw_css = f.read()
 
-    normalized = "google" if (target == "pdf" and name == "google-pdf") else name
-    if normalized in registry:
-        preset_file = os.path.join(css_dir, registry[normalized]["file"])
-        if os.path.exists(preset_file):
-            with open(preset_file, "r", encoding="utf-8") as f:
-                return f.read()
+    if not raw_css and name and not os.path.exists(name):
+        available = ", ".join(sorted(registry.keys()))
+        raise ValueError(f"Unknown CSS preset '{name}' for target '{target}'. Available presets: {available}")
 
-    available = ", ".join(sorted(registry.keys()))
-    raise ValueError(f"Unknown CSS preset '{name}' for target '{target}'. Available presets: {available}")
+    return _apply_css_font_replacements(raw_css, lang=lang)
 
 
 def export_css(
@@ -158,6 +178,7 @@ def export_css(
     output_path: Optional[str] = None,
     target: Literal["html", "pdf"] = "html",
     force: bool = False,
+    lang: str = "en",
 ) -> str:
     """Export a built-in CSS preset to a target file.
 
@@ -167,6 +188,7 @@ def export_css(
             'docs_src/style.css' if 'docs_src/style.css' exists, otherwise 'style.css'.
         target (Literal["html", "pdf"]): Target format ('html' or 'pdf'). Defaults to 'html'.
         force (bool): If True, overwrite destination file if it already exists.
+        lang (str): Language code or alias (e.g. 'en', 'ja', 'zh-cn', 'th') for typography. Defaults to 'en'.
 
     Returns:
         str: Absolute path of exported CSS file.
@@ -175,7 +197,7 @@ def export_css(
         ValueError: If preset name is unknown.
         FileExistsError: If destination file exists and force is False.
     """
-    content = get_css(name=name, target=target)
+    content = get_css(name=name, target=target, lang=lang)
 
     if output_path is None:
         cand_docs_src = os.path.join("docs_src", "style.css")
