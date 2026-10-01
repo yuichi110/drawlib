@@ -19,7 +19,7 @@ def test_block_processor_render_block_to_file_and_data_url(tmp_path) -> None:
     code = (
         "from drawlib.shapes import circle\n"
         "from drawlib.styles import Styles\n"
-        "circle((50, 50), radius=20, style=Styles.primary)"
+        "circle((50, 50), radius=20, style=Styles.Primary)"
     )
     png_path = tmp_path / "out.png"
     processor.render_block_to_file(code, str(png_path))
@@ -48,7 +48,7 @@ Hello World
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 ```
 
 Footer
@@ -71,7 +71,7 @@ def test_block_processor_html_script_tag(tmp_path) -> None:
 <script type="text/drawlib" width="400px" align="center" caption="HTML Diagram" file="custom_diag.png">
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=15, style=Styles.primary)
+circle((50, 50), radius=15, style=Styles.Primary)
 </script>
 """
     blocks = extract_code_blocks(html_input, is_html=True)
@@ -93,7 +93,7 @@ def test_block_processor_with_utils(tmp_path) -> None:
 def draw_my_node(label: str) -> None:
     from drawlib.shapes import circle
     from drawlib.styles import Styles
-    circle((50, 50), radius=15, style=Styles.primary, text=label)
+    circle((50, 50), radius=15, style=Styles.Primary, text=label)
 """,
         encoding="utf-8",
     )
@@ -130,7 +130,7 @@ def test_block_processor_ignore_explicit_save(tmp_path) -> None:
 from drawlib.canvas import save
 from drawlib.styles import Styles
 from drawlib.shapes import circle
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 save(r"{ignored_file}")
 ```
 """
@@ -163,7 +163,7 @@ def test_block_processor_space_separated_options(tmp_path) -> None:
 ```drawlib 400px center caption:"System Architecture"
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 ```
 """
     processed_md = processor.process_markdown(md_input, doc_base_name="opts_test", output_dir=str(out_dir))
@@ -184,7 +184,7 @@ def test_block_processor_code_visibility_modes(tmp_path) -> None:
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 ```
 """
     res_default = processor.process_markdown(md_default, doc_base_name="default_doc", output_dir=str(out_dir))
@@ -197,7 +197,7 @@ circle((50, 50), radius=10, style=Styles.primary)
 ```drawlib show-code
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 ```
 """
     res_show = processor.process_markdown(md_show, doc_base_name="show_doc", output_dir=str(out_dir))
@@ -205,7 +205,7 @@ circle((50, 50), radius=10, style=Styles.primary)
         "```python\n"
         "from drawlib.shapes import circle\n"
         "from drawlib.styles import Styles\n"
-        "circle((50, 50), radius=10, style=Styles.primary)\n"
+        "circle((50, 50), radius=10, style=Styles.Primary)\n"
         "```"
     )
     assert expected_md_code in res_show
@@ -218,7 +218,7 @@ circle((50, 50), radius=10, style=Styles.primary)
 ```drawlib fold-code
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 ```
 """
     res_fold = processor.process_markdown(md_fold, doc_base_name="fold_doc", output_dir=str(out_dir))
@@ -234,17 +234,17 @@ circle((50, 50), radius=10, style=Styles.primary)
 <script type="text/drawlib" code="fold" file="fold_img.png">
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 </script>
 <script type="text/drawlib" code="show" file="show_img.png">
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 </script>
 <script type="text/drawlib" file="hide_img.png">
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 </script>
 """
     res_html = processor.process_html(html_input, doc_base_name="html_doc", output_dir=str(out_dir))
@@ -253,7 +253,7 @@ circle((50, 50), radius=10, style=Styles.primary)
         '<pre><code class="language-python">'
         "from drawlib.shapes import circle\n"
         "from drawlib.styles import Styles\n"
-        "circle((50, 50), radius=10, style=Styles.primary)"
+        "circle((50, 50), radius=10, style=Styles.Primary)"
         "</code></pre>"
     )
     assert expected_code in res_html
@@ -293,7 +293,7 @@ Here is how to write a diagram in Drawlib:
 
 ````markdown
 ```drawlib 400px center
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 ```
 ````
 
@@ -328,7 +328,7 @@ Actual diagram:
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """
     # 1. extract_code_blocks should only extract the real block

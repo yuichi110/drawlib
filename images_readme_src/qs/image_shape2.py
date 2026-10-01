@@ -2,14 +2,14 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
 
-setup(width=100, height=50, grid=True, color=Colors.canvas)
+setup(width=100, height=50, grid=True, color=Colors.Canvas)
 rectangle(
     (25, 25),
     width=30,
     height=20,
     angle=45,
     text="Hello!",
-    style=Styles.Dashed.patch(
+    style=Styles.PrimaryDashed.patch(
         shape_line_width=5,
         shape_line_color=Colors.Red,
         shape_fill_color=Colors.Transparent,

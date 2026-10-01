@@ -27,7 +27,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -51,7 +51,7 @@ from drawlib.shapes import rectangle
 
 styles = default_styles
 setup(width=100, height=100)
-rectangle((50, 50), width=40, height=30, style=styles.primary)
+rectangle((50, 50), width=40, height=30, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -75,7 +75,7 @@ from drawlib.shapes import rectangle
 
 styles = default_styles
 setup(width=100, height=100)
-rectangle((50, 50), width=40, height=30, style=styles.primary)
+rectangle((50, 50), width=40, height=30, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -96,11 +96,11 @@ def test_cli_show_markdown_list_blocks(tmp_path: Path) -> None:
         """# Sample Document
 
 ```drawlib file:first.png
-circle((30, 30), radius=10, style=styles.primary)
+circle((30, 30), radius=10, style=styles.Primary)
 ```
 
 ```drawlib file:second.png
-rectangle((50, 50), width=20, height=20, style=styles.primary)
+rectangle((50, 50), width=20, height=20, style=styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -122,7 +122,7 @@ def test_cli_show_markdown_block_by_index(tmp_path: Path) -> None:
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -145,7 +145,7 @@ def test_cli_show_markdown_block_with_grid(tmp_path: Path) -> None:
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -186,7 +186,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -207,7 +207,7 @@ def test_cli_show_markdown_block_no_cache(tmp_path: Path) -> None:
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",

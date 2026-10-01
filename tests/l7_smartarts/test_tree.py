@@ -28,8 +28,8 @@ class TestTree:
         tn = TreeNode
         t = tn(
             "Root",
-            default_textstyle=styles.primary,
-            default_linestyle=styles.light,
+            default_textstyle=styles.Primary,
+            default_linestyle=styles.PrimaryLight,
             default_line_horizontal_margin=2,
             default_line_horizontal_length=2,
             default_line_vertical_margin=5,
@@ -43,12 +43,12 @@ class TestTree:
                                 tn("Child1-1-1"),
                             ],
                         ),
-                        tn("Child1-2", textstyle=styles.primary.patch(text_color=(255, 0, 0, 1.0))),
+                        tn("Child1-2", textstyle=styles.Primary.patch(text_color=(255, 0, 0, 1.0))),
                     ],
                 ),
                 tn(
                     text="Child2",
-                    default_textstyle=styles.primary.patch(text_color=(0, 0, 255, 1.0)),
+                    default_textstyle=styles.Primary.patch(text_color=(0, 0, 255, 1.0)),
                     children=[
                         tn("Child2-1"),
                         tn("Child2-2"),
@@ -70,14 +70,14 @@ class TestTree:
             location="before",
             padding_width=5,
             function=phosphor.file_py,
-            style=styles.primary,
+            style=styles.Primary,
             args={"width": 4},
         )
 
         t = tn(
             "Root",
-            default_textstyle=styles.primary,
-            default_linestyle=styles.solid,
+            default_textstyle=styles.Primary,
+            default_linestyle=styles.PrimarySolid,
             default_line_horizontal_margin=2,
             default_line_horizontal_length=2,
             default_line_vertical_margin=5,

@@ -4,7 +4,7 @@ from drawlib.shapes import circle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=100, height=50, color=Colors.canvas)
+setup(width=100, height=50, color=Colors.Canvas)
 x1 = 12
 x2 = 34
 x3 = 62

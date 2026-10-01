@@ -24,21 +24,21 @@ rectangle(
     (25, 22.5),
     width=28,
     height=18,
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
     text="クライアント",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 rectangle(
     (75, 22.5),
     width=28,
     height=18,
-    style=Styles.accent_flat,
+    style=Styles.AccentFlat,
     text="バックエンド API",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 
 # 矢印付き接続線
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.bold)
+line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 
 # 描画したキャンバス画像を保存
 save()

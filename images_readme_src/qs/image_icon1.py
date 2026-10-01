@@ -2,7 +2,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.styles import Colors, Styles
 
-setup(width=100, height=60, grid=True, color=Colors.canvas)
+setup(width=100, height=60, grid=True, color=Colors.Canvas)
 phosphor.airplane((25, 30), width=20, style=Styles.Primary)
 phosphor.coffee(
     xy=(75, 30),

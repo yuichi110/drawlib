@@ -35,9 +35,9 @@ def _resolve_target_font(
     Returns:
         FontBase | FontFile | None: Target font to apply.
     """
-    if field_name == "bold" or field_name.endswith("_bold"):
+    if field_name == "Bold" or field_name.endswith("Bold"):
         return bold if bold is not None else regular
-    if field_name.endswith("_light"):
+    if field_name.endswith("Light"):
         return light if light is not None else regular
     return regular
 

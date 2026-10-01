@@ -14,33 +14,33 @@ from drawlib.styles import Colors, Styles
 setup(width=120, height=60)
 
 table = Table(
-    header_cell_style=Styles.primary_flat,
-    header_text_style=Styles.white_bold,
-    default_cell_style=Styles.white,
-    default_text_style=Styles.bold,
-    border_style=Styles.bold,
+    header_cell_style=Styles.PrimaryFlat,
+    header_text_style=Styles.WhiteBold,
+    default_cell_style=Styles.White,
+    default_text_style=Styles.PrimaryBold,
+    border_style=Styles.PrimaryBold,
 )
 
 # Custom even/odd row styling using semantic tokens
 table.set_style_cell_evenodd(
-    even_color=Colors.muted1,
-    even_textstyle=Styles.bold,
-    odd_color=Colors.white,
-    odd_textstyle=Styles.bold,
+    even_color=Colors.Muted1,
+    even_textstyle=Styles.PrimaryBold,
+    odd_color=Colors.White,
+    odd_textstyle=Styles.PrimaryBold,
 )
 
 # SLA highlight on HEALTHY rows using Success tint
 table.set_style_cell(
-    background_color=Colors.success1,
-    textstyle=Styles.success_bold,
+    background_color=Colors.Success1,
+    textstyle=Styles.SuccessBold,
     rows=[1, 2],
     columns=[3],
 )
 
 # SLA highlight on DEGRADED row using Danger tint
 table.set_style_cell(
-    background_color=Colors.danger1,
-    textstyle=Styles.danger_bold,
+    background_color=Colors.Danger1,
+    textstyle=Styles.DangerBold,
     rows=[3],
     columns=[3],
 )

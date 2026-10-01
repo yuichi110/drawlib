@@ -32,7 +32,7 @@ class TestCanvasLine:
         """Verify standard straight line drawing and custom style overrides."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         # Simple straight line
         line((10, 10), (90, 90), style=s_def)
@@ -51,8 +51,8 @@ class TestCanvasLine:
         )
 
         # Preset styles
-        line((10, 10), (90, 90), style=styles.green)
-        line((10, 90), (90, 10), arrowhead="->", style=styles.red)
+        line((10, 10), (90, 90), style=styles.Green)
+        line((10, 90), (90, 10), arrowhead="->", style=styles.Red)
 
         # Width options
         for y, w in [(10, 2), (20, 4), (30, 8), (40, 1), (50, 0.5)]:
@@ -64,7 +64,7 @@ class TestCanvasLine:
         """Verify curved line drawing with bend and arrowheads."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         line_curved(
             (20, 20),
@@ -86,7 +86,7 @@ class TestCanvasLine:
             (20, 20),
             (80, 80),
             bend=-0.5,
-            style=styles.green,
+            style=styles.Green,
         )
 
         save(f"{OUTPUT_DIR}test_line_curved.png")
@@ -105,7 +105,7 @@ class TestCanvasLine:
         """Verify elliptical and circular arc drawing with angles and arrowheads."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         # On Circle
         line_arc(xy=(25, 25), width=20, height=20, angle_start=45, angle_end=135, arrowhead="->", style=s_def)
@@ -136,12 +136,12 @@ class TestCanvasLine:
         clear()
         styles = default_styles
 
-        ellipse((50, 50), 30, 30, style=styles.dashed)
+        ellipse((50, 50), 30, 30, style=styles.PrimaryDashed)
         a, b, c, d = LineArcHelper.bezier_ellipse_arc_approximation((50, 50), 30, 30, 45, -45)
-        circle(a, 1, style=styles.black)
-        circle(b, 1, style=styles.red)
-        circle(c, 1, style=styles.green)
-        circle(d, 1, style=styles.blue)
+        circle(a, 1, style=styles.Black)
+        circle(b, 1, style=styles.Red)
+        circle(c, 1, style=styles.Green)
+        circle(d, 1, style=styles.Blue)
 
         # Get ellipse path points calculation
         path_points = LineArcHelper.get_ellipse_path_points((50, 50), 30, 30, 180, 45)
@@ -152,14 +152,14 @@ class TestCanvasLine:
         """Verify drawing multiple consecutive connected straight lines."""
         clear()
         styles = default_styles
-        lines(xys=[(20, 20), (40, 80), (70, 30)], style=styles.primary)
+        lines(xys=[(20, 20), (40, 80), (70, 30)], style=styles.Primary)
         save(f"{OUTPUT_DIR}test_lines.png")
 
     def test_lines_curved(self) -> None:
         """Verify drawing curved line connections along consecutive points."""
         clear()
         styles = default_styles
-        lines_curved(xys=[(20, 20), (40, 80), (70, 30), (90, 50)], r=5, style=styles.primary)
+        lines_curved(xys=[(20, 20), (40, 80), (70, 30), (90, 50)], r=5, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_lines_curved.png")
 
     def test_lines_bezier(self) -> None:
@@ -172,5 +172,5 @@ class TestCanvasLine:
             ((40, 20), (40, 10)),
             ((40, 20), (50, 20)),
         ]
-        lines_bezier(xy=(0, 30), path_points=points, style=styles.primary)  # type: ignore
+        lines_bezier(xy=(0, 30), path_points=points, style=styles.Primary)  # type: ignore
         save(f"{OUTPUT_DIR}test_lines_bezier.png")

@@ -52,9 +52,9 @@ from drawlib import canvas, shapes, lines, styles
 canvas.setup(width=100, height=60)
 
 # Draw components
-shapes.rectangle((30, 30), width=35, height=25, style=styles.Styles.accent_flat, text="Client")
-shapes.rectangle((70, 30), width=35, height=25, style=styles.Styles.primary_flat, text="Server")
-lines.line((47.5, 30), (52.5, 30), arrowhead="->", style=styles.Styles.bold)
+shapes.rectangle((30, 30), width=35, height=25, style=styles.Styles.AccentFlat, text="Client")
+shapes.rectangle((70, 30), width=35, height=25, style=styles.Styles.PrimaryFlat, text="Server")
+lines.line((47.5, 30), (52.5, 30), arrowhead="->", style=styles.Styles.PrimaryBold)
 
 # Save image (relative to output directory)
 canvas.save("architecture_overview.png")

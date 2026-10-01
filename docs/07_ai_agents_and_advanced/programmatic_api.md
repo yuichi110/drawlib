@@ -108,7 +108,7 @@ Drawlib can export canvases directly to in-memory `Dimage` objects without writi
 from drawlib import canvas, shapes, styles
 
 canvas.setup(width=60, height=40)
-shapes.rectangle((30, 20), width=40, height=25, style=styles.Styles.accent_flat, text="In-Memory")
+shapes.rectangle((30, 20), width=40, height=25, style=styles.Styles.AccentFlat, text="In-Memory")
 
 # Export directly to Dimage object
 dimage = canvas.export_dimage()

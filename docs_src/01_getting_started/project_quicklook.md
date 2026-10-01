@@ -17,19 +17,19 @@ from drawlib.styles import Styles
 setup(width=120, height=45)
 
 # Source folder
-rectangle((24, 22.5), width=32, height=24, style=Styles.primary_flat, text="Source of Truth\n\ndocs_src/\n(Markdown + Code)", textstyle=Styles.white_bold)
+rectangle((24, 22.5), width=32, height=24, style=Styles.PrimaryFlat, text="Source of Truth\n\ndocs_src/\n(Markdown + Code)", textstyle=Styles.WhiteBold)
 
 # Build engine
-rectangle((60, 22.5), width=24, height=16, style=Styles.accent_flat, text="drawlib\nbuild", textstyle=Styles.white_bold)
+rectangle((60, 22.5), width=24, height=16, style=Styles.AccentFlat, text="drawlib\nbuild", textstyle=Styles.WhiteBold)
 
 # Outputs
-rectangle((98, 31), width=28, height=12, style=Styles.success_flat, text="docs_html/ (Site)", textstyle=Styles.white_bold)
-rectangle((98, 14), width=28, height=12, style=Styles.secondary_flat, text="docs/ (GitHub MD)", textstyle=Styles.white_bold)
+rectangle((98, 31), width=28, height=12, style=Styles.SuccessFlat, text="docs_html/ (Site)", textstyle=Styles.WhiteBold)
+rectangle((98, 14), width=28, height=12, style=Styles.SecondaryFlat, text="docs/ (GitHub MD)", textstyle=Styles.WhiteBold)
 
 # Lines
-line((40, 22.5), (48, 22.5), arrowhead="->", style=Styles.bold)
-line((72, 25), (84, 31), arrowhead="->", style=Styles.bold)
-line((72, 20), (84, 14), arrowhead="->", style=Styles.bold)
+line((40, 22.5), (48, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((72, 25), (84, 31), arrowhead="->", style=Styles.PrimaryBold)
+line((72, 20), (84, 14), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ### The Golden Rule: `<name>_src/` is the Single Source of Truth

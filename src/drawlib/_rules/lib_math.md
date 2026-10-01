@@ -101,14 +101,14 @@ p1 = (30, 20)
 p2 = (90, 60)
 
 # Draw slanted connection
-line(p1, p2, arrowhead="->", style=Styles.bold)
+line(p1, p2, arrowhead="->", style=Styles.PrimaryBold)
 
 # Calculate angle and midpoint
 angle = get_angle(p1, p2)
 midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 4)
 
 # Rotate text along the line
-text(midpoint, f"Data Sync ({angle:.1f}°)", angle=angle, style=Styles.bold)
+text(midpoint, f"Data Sync ({angle:.1f}°)", angle=angle, style=Styles.PrimaryBold)
 
 save()
 ```
@@ -140,14 +140,14 @@ rectangle(
     width=bw + 28,
     height=bh + 22,
     r=4,
-    style=Styles.muted_dashed,
+    style=Styles.MutedDashed,
     text="Kubernetes Worker Nodes",
-    textstyle=Styles.bold.patch(text_valign="top"),
+    textstyle=Styles.PrimaryBold.patch(text_valign="top"),
 )
 
 # Render nodes on top
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style=Styles.primary_flat, text=f"Pod {i}", textstyle=Styles.white_bold)
+    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f"Pod {i}", textstyle=Styles.WhiteBold)
 
 save()
 ```
@@ -170,7 +170,7 @@ radius = 26
 num_clients = 5
 
 # Central Hub (radius=12)
-circle(hub, radius=12, style=Styles.primary_flat, text="Leader", textstyle=Styles.white_bold)
+circle(hub, radius=12, style=Styles.PrimaryFlat, text="Leader", textstyle=Styles.WhiteBold)
 
 # Surrounding Worker Nodes (radius=6)
 for i in range(num_clients):
@@ -184,13 +184,13 @@ for i in range(num_clients):
     # Offset connection endpoints to shape boundaries rather than shape centers
     hub_edge = (hub[0] + 13 * math.cos(angle_rad), hub[1] + 13 * math.sin(angle_rad))
     node_edge = (node_xy[0] - 7 * math.cos(angle_rad), node_xy[1] - 7 * math.sin(angle_rad))
-    line(hub_edge, node_edge, arrowhead="->", style=Styles.bold)
+    line(hub_edge, node_edge, arrowhead="->", style=Styles.PrimaryBold)
     
     # Label line distance
     label_xy = ((hub_edge[0] + node_edge[0]) / 2, (hub_edge[1] + node_edge[1]) / 2 + 2)
-    text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=Styles.primary.patch(text_size=7))
+    text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=Styles.Primary.patch(text_size=7))
     
-    circle(node_xy, radius=6, style=Styles.secondary_flat, text=f"N{i+1}", textstyle=Styles.white_bold)
+    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f"N{i+1}", textstyle=Styles.WhiteBold)
 
 save()
 ```

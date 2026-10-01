@@ -144,9 +144,9 @@ chart = GanttChart(
     bar_radius=1.2,
 )
 
-s1 = chart.add_task("Auth Microservice", start=0.0, end=1.8, progress=1.0, color=Colors.primary)
-s2 = chart.add_task("Payment Gateway", start=1.2, end=3.0, progress=0.6, color=Colors.success)
-s3 = chart.add_task("Load Testing & Tuning", start=2.5, end=4.0, progress=0.1, color=Colors.accent)
+s1 = chart.add_task("Auth Microservice", start=0.0, end=1.8, progress=1.0, color=Colors.Primary)
+s2 = chart.add_task("Payment Gateway", start=1.2, end=3.0, progress=0.6, color=Colors.Success)
+s3 = chart.add_task("Load Testing & Tuning", start=2.5, end=4.0, progress=0.1, color=Colors.Accent)
 
 chart.add_dependency(s1, s2)
 chart.add_milestone("Feature Complete", at=3.0)

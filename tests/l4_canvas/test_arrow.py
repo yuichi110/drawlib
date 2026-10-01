@@ -31,7 +31,7 @@ class TestCanvasArrow:
         """Verify standard arrow drawing with different heads, styling, and text."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
         s_lbl = s_def.patch(text_size=14, text_halign="left")
 
         # Simple arrow
@@ -128,9 +128,9 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             head="->",
-            style=styles_default.blue,
+            style=styles_default.Blue,
             text="Hello Drawlib",
-            textstyle=styles_default.white.patch(text_color=Colors.White),
+            textstyle=styles_default.White.patch(text_color=Colors.White),
         )
         save(f"{OUTPUT_DIR}test_arrow.png")
 
@@ -138,7 +138,7 @@ class TestCanvasArrow:
         """Verify polyline arrow drawing, point duplicates, and head styles."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         # Standard polyline arrow
         arrow_polyline(
@@ -199,10 +199,10 @@ class TestCanvasArrow:
         """Verify elliptical arc arrow drawing on circles and ellipses."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         # On circle (quadrant 1)
-        ellipse(xy=(25, 25), width=30, height=30, style=styles.dashed)
+        ellipse(xy=(25, 25), width=30, height=30, style=styles.PrimaryDashed)
         arrow_arc(
             xy=(25, 25),
             width=30,
@@ -217,7 +217,7 @@ class TestCanvasArrow:
         )
 
         # Other heads & full angles on circles (quadrant 2)
-        ellipse(xy=(25, 75), width=30, height=30, style=styles.dashed)
+        ellipse(xy=(25, 75), width=30, height=30, style=styles.PrimaryDashed)
         arrow_arc(
             xy=(25, 75),
             width=30,
@@ -232,7 +232,7 @@ class TestCanvasArrow:
         )
 
         # Ellipse (quadrant 3)
-        ellipse(xy=(75, 25), width=40, height=20, style=styles.dashed)
+        ellipse(xy=(75, 25), width=40, height=20, style=styles.PrimaryDashed)
         arrow_arc(
             xy=(75, 25),
             width=40,
@@ -247,7 +247,7 @@ class TestCanvasArrow:
         )
 
         # Ellipse with 45 degrees orientation (quadrant 4)
-        ellipse(xy=(75, 75), width=40, height=20, style=styles.dashed, angle=45)
+        ellipse(xy=(75, 75), width=40, height=20, style=styles.PrimaryDashed, angle=45)
         arrow_arc(
             xy=(75, 75),
             width=40,
@@ -268,7 +268,7 @@ class TestCanvasArrow:
         """Verify L-shape arrow drawing and rotation angle options."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         arrow_l(
             (25, 25),
@@ -334,7 +334,7 @@ class TestCanvasArrow:
         """Verify U-shape arrow drawing and rotation angle options."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         arrow_u(
             xy=(25, 25),

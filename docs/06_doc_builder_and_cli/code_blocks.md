@@ -17,9 +17,9 @@ from drawlib.lines import line
 from drawlib.styles import Styles
 
 setup(width=100, height=40)
-rectangle((25, 20), width=30, height=18, style=Styles.accent_flat, text="Publisher", textstyle=Styles.white_bold)
-rectangle((75, 20), width=30, height=18, style=Styles.primary_flat, text="Consumer", textstyle=Styles.white_bold)
-line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
+rectangle((25, 20), width=30, height=18, style=Styles.AccentFlat, text="Publisher", textstyle=Styles.WhiteBold)
+rectangle((75, 20), width=30, height=18, style=Styles.PrimaryFlat, text="Consumer", textstyle=Styles.WhiteBold)
+line((40, 20), (60, 20), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 

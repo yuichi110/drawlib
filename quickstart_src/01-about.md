@@ -23,16 +23,16 @@ from drawlib.text import text
 setup(width=120, height=44)
 
 pillars = [
-    (20, phosphor.code, "Illustration as Code", "Declarative Python API\nVersion-Controlled\nPR & Diff Friendly", Styles.primary_flat),
-    (60, phosphor.palette, "Design Token Themes", "Google & Default Themes\nSemantic 6-Color Roles\n10 Systematic Variants", Styles.secondary_flat),
-    (100, phosphor.book_open, "Documentation as Code", "Embedded in Markdown\nMulti-Target Compilers\nHTML, PDF, WebP, PNG", Styles.accent_flat),
+    (20, phosphor.code, "Illustration as Code", "Declarative Python API\nVersion-Controlled\nPR & Diff Friendly", Styles.PrimaryFlat),
+    (60, phosphor.palette, "Design Token Themes", "Google & Default Themes\nSemantic 6-Color Roles\n10 Systematic Variants", Styles.SecondaryFlat),
+    (100, phosphor.book_open, "Documentation as Code", "Embedded in Markdown\nMulti-Target Compilers\nHTML, PDF, WebP, PNG", Styles.AccentFlat),
 ]
 
 for x, icon_fn, title, bullets, style in pillars:
-    rectangle(xy=(x, 22), width=34, height=36, r=3, style=Styles.muted_dashed)
+    rectangle(xy=(x, 22), width=34, height=36, r=3, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=7, style=style)
-    text(xy=(x, 26), text=title, style=Styles.bold, size=10)
-    text(xy=(x, 14), text=bullets, style=Styles.primary, size=7.5)
+    text(xy=(x, 26), text=title, style=Styles.PrimaryBold, size=10)
+    text(xy=(x, 14), text=bullets, style=Styles.Primary, size=7.5)
 ```
 
 1. **High-Level Declarative Components**: Rather than assembling raw polygons by hand, Drawlib provides pre-engineered modules for cloud architectures (`ArchitectureDiagram`), pipelines (`ChevronProcess`), sequence flows (`SequenceDiagram`), tables (`Table`), and charts (`BarChart`).

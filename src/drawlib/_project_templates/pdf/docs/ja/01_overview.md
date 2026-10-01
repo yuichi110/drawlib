@@ -13,11 +13,11 @@ from drawlib.styles import Styles
 setup(width=100, height=45)
 
 # 基本図形描画関数を使用したサービスノード
-rectangle((25, 22.5), width=28, height=18, style=Styles.primary_flat, text="クライアント", textstyle=Styles.white_bold)
-rectangle((75, 22.5), width=28, height=18, style=Styles.accent_flat, text="クラウド基盤", textstyle=Styles.white_bold)
+rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="クライアント", textstyle=Styles.WhiteBold)
+rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="クラウド基盤", textstyle=Styles.WhiteBold)
 
 # 矢印付き接続線
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.bold)
+line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 クライアントアプリケーションは、安全な通信経路を通じてクラウドバックエンドサービスと通信します。

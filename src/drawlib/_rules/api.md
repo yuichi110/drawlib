@@ -87,7 +87,7 @@ from drawlib.styles import Styles
 setup(width=100, height=45)
 
 # 2. Draw canvas content
-rectangle((50, 22), width=80, height=26, style=Styles.primary_flat, text="Canvas (100x45)", textstyle=Styles.white_bold)
+rectangle((50, 22), width=80, height=26, style=Styles.PrimaryFlat, text="Canvas (100x45)", textstyle=Styles.WhiteBold)
 ```
 
 ---
@@ -128,10 +128,10 @@ from drawlib.styles import Styles
 
 setup(width=120, height=40)
 
-rectangle((20, 20), width=28, height=18, style=Styles.primary_flat, text="Rectangle", textstyle=Styles.white_bold)
-circle((50, 20), radius=10, style=Styles.secondary_flat, text="Circle", textstyle=Styles.white_bold)
-chevron((68, 11), width=24, height=18, corner_angle=45, style=Styles.accent_flat, text="Chevron", textstyle=Styles.white_bold)
-star((106, 20), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.success_flat)
+rectangle((20, 20), width=28, height=18, style=Styles.PrimaryFlat, text="Rectangle", textstyle=Styles.WhiteBold)
+circle((50, 20), radius=10, style=Styles.SecondaryFlat, text="Circle", textstyle=Styles.WhiteBold)
+chevron((68, 11), width=24, height=18, corner_angle=45, style=Styles.AccentFlat, text="Chevron", textstyle=Styles.WhiteBold)
+star((106, 20), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.SuccessFlat)
 ```
 
 ---
@@ -159,13 +159,13 @@ from drawlib.styles import Styles
 setup(width=120, height=40)
 
 # 1. Straight connector
-line((10, 20), (35, 20), arrowhead="->", style=Styles.bold)
+line((10, 20), (35, 20), arrowhead="->", style=Styles.PrimaryBold)
 
 # 2. Curved arc connector
-line_curved((45, 12), (75, 12), bend=0.3, arrowhead="<->", style=Styles.accent_bold)
+line_curved((45, 12), (75, 12), bend=0.3, arrowhead="<->", style=Styles.AccentBold)
 
 # 3. Orthogonal stepped connector via lines()
-lines([(85, 12), (98, 12), (98, 28), (115, 28)], arrowhead="->", style=Styles.primary_bold)
+lines([(85, 12), (98, 12), (98, 28), (115, 28)], arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ---
@@ -190,14 +190,14 @@ from drawlib.text import text, text_vertical
 setup(width=120, height=45)
 
 # Centered main title
-text((60, 36), "System Architecture", style=Styles.primary_bold)
+text((60, 36), "System Architecture", style=Styles.PrimaryBold)
 
 # Left-aligned and right-aligned annotations using style.patch()
-text((15, 20), "Left Aligned", style=Styles.secondary_bold.patch(text_halign="left"))
-text((105, 20), "Right Aligned", style=Styles.accent_bold.patch(text_halign="right"))
+text((15, 20), "Left Aligned", style=Styles.SecondaryBold.patch(text_halign="left"))
+text((105, 20), "Right Aligned", style=Styles.AccentBold.patch(text_halign="right"))
 
 # Vertical text
-text_vertical((60, 16), "STATUS", style=Styles.muted_bold)
+text_vertical((60, 16), "STATUS", style=Styles.MutedBold)
 ```
 
 ---
@@ -224,7 +224,7 @@ Styles are systematically constructed as `<color>_<variant>`:
   - `_glow`: Radiant glow effect.
   - `_glass`: Translucent glassmorphism fill.
   - `_neon`: High-intensity vibrant stroke.
-- **Typography Styles**: `Styles.white_bold`, `Styles.primary_bold`, `Styles.muted_thin`, etc.
+- **Typography Styles**: `Styles.WhiteBold`, `Styles.PrimaryBold`, `Styles.MutedLight`, etc.
 
 ### 6.3 Custom Style and Color Construction
 
@@ -352,7 +352,7 @@ from drawlib.styles import Styles
 
 setup(width=120, height=35)
 
-process = ChevronProcess(default_style=Styles.primary_flat, default_textstyle=Styles.white_bold)
+process = ChevronProcess(default_style=Styles.PrimaryFlat, default_textstyle=Styles.WhiteBold)
 process.append("1. Ingest")
 process.append("2. Transform")
 process.append("3. Validate")
@@ -401,10 +401,10 @@ from drawlib.styles import Styles
 setup(width=100, height=40)
 
 # Vector Phosphor Icon
-phosphor.database((30, 20), width=14, style=Styles.primary_flat)
+phosphor.database((30, 20), width=14, style=Styles.PrimaryFlat)
 
 # Official GCP Architecture Icon
-gcp.compute_engine((70, 20), width=16, style=Styles.primary_flat)
+gcp.compute_engine((70, 20), width=16, style=Styles.PrimaryFlat)
 ```
 
 ### 10.2 Images & Dimage
@@ -419,7 +419,7 @@ from drawlib.styles import Styles
 setup(width=100, height=45)
 
 # Background container
-rectangle((50, 22), width=85, height=36, style=Styles.light_flat)
+rectangle((50, 22), width=85, height=36, style=Styles.LightFlat)
 
 # 1. Original bitmap image loaded from _rules/_assets/
 image((32, 22), width=24, image="_assets/linux.png")
@@ -441,13 +441,13 @@ from drawlib.text import text
 setup(width=100, height=45)
 
 # Background container
-rectangle((50, 22), width=85, height=36, style=Styles.light_flat)
+rectangle((50, 22), width=85, height=36, style=Styles.LightFlat)
 
 # 1. Built-in universal typography preset
-text((50, 29), "Roboto Regular Preset", style=Styles.primary_bold.patch(text_font=FontRoboto.ROBOTO_REGULAR, text_size=16))
+text((50, 29), "Roboto Regular Preset", style=Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_REGULAR, text_size=16))
 
 # 2. Custom local TTF font loaded from _rules/_assets/
-avenger_style = Styles.accent_bold.patch(text_font=FontFile("_assets/avenger/regular.ttf"), text_size=18)
+avenger_style = Styles.AccentBold.patch(text_font=FontFile("_assets/avenger/regular.ttf"), text_size=18)
 text((50, 15), "AVENGER FONT", style=avenger_style)
 ```
 
@@ -489,7 +489,7 @@ broken = scan_broken_links("docs_html")
 1. **Explicit Semantic Coordinate Variables**:
    Always declare semantic coordinate anchors (`gateway_xy`, `db_xy`) and compute horizontal/vertical gaps mathematically (`gap = (width - margins - total_node_width) / (n - 1)`). Avoid hardcoded magic numbers or raw list index lookups (`points[1]`).
 2. **PascalCase Design Tokens**:
-   Always use `from drawlib.styles import Colors, Styles` and `Styles.primary_flat`. Never lowercase to `styles` or `colors`.
+   Always use `from drawlib.styles import Colors, Styles` and `Styles.PrimaryFlat`. Never lowercase to `styles` or `colors`.
 3. **Z-Order Layering Discipline**:
    Always draw background boundaries/containers first, main entity shapes second, connector lines third, and text/badges last.
 4. **Perimeter Margins & Right-Edge Protection**:

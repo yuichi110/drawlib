@@ -15,11 +15,11 @@ from drawlib.styles import Styles
 setup(width=100, height=45)
 
 # 基本図形描画関数を使用したサービスノード
-rectangle((25, 22.5), width=28, height=18, style=Styles.primary_flat, text="クライアント", textstyle=Styles.white_bold)
-rectangle((75, 22.5), width=28, height=18, style=Styles.accent_flat, text="バックエンド API", textstyle=Styles.white_bold)
+rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="クライアント", textstyle=Styles.WhiteBold)
+rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="バックエンド API", textstyle=Styles.WhiteBold)
 
 # 矢印付き接続線
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.bold)
+line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ## 2. 応用構成（ユーティリティとアセット）
@@ -36,8 +36,8 @@ setup(width=110, height=52)
 
 # utils.py の共通ヘルパー関数によるサービス描画
 service_card((20, 24), title="Web クライアント", subtitle="Browser / App")
-service_card((55, 24), title="Linux サーバー", subtitle="Ubuntu / Nginx", style=Styles.accent_flat)
-service_card((90, 24), title="データベース", subtitle="PostgreSQL", style=Styles.secondary_flat)
+service_card((55, 24), title="Linux サーバー", subtitle="Ubuntu / Nginx", style=Styles.AccentFlat)
+service_card((90, 24), title="データベース", subtitle="PostgreSQL", style=Styles.SecondaryFlat)
 
 # プロトコルラベル付き接続線
 connect((32, 24), (43, 24), label="HTTPS")

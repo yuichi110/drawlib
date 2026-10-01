@@ -14,19 +14,19 @@ from drawlib.styles import Styles
 setup(width=120, height=45)
 
 # 1. Rounded Rectangle
-rectangle((15, 23), width=20, height=22, r=2, style=Styles.primary_flat, text="Rounded\nBox", textstyle=Styles.white_bold)
+rectangle((15, 23), width=20, height=22, r=2, style=Styles.PrimaryFlat, text="Rounded\nBox", textstyle=Styles.WhiteBold)
 
 # 2. Circle
-circle((38, 23), radius=10, style=Styles.secondary_flat, text="Circle", textstyle=Styles.white_bold)
+circle((38, 23), radius=10, style=Styles.SecondaryFlat, text="Circle", textstyle=Styles.WhiteBold)
 
 # 3. Donut Ring
-donuts((60, 23), radius=10, width=4, style=Styles.accent_flat, text="Ring", textstyle=Styles.white_bold)
+donuts((60, 23), radius=10, width=4, style=Styles.AccentFlat, text="Ring", textstyle=Styles.WhiteBold)
 
 # 4. Rhombus / Decision Diamond
-rhombus((80, 23), width=18, height=20, style=Styles.danger_flat, text="Decision", textstyle=Styles.white_bold)
+rhombus((80, 23), width=18, height=20, style=Styles.DangerFlat, text="Decision", textstyle=Styles.WhiteBold)
 
 # 5. Process Chevron
-chevron((102, 23), width=18, height=18, corner_angle=60, style=Styles.success_flat, text="Stage", textstyle=Styles.white_bold)
+chevron((102, 23), width=18, height=18, corner_angle=60, style=Styles.SuccessFlat, text="Stage", textstyle=Styles.WhiteBold)
 ```
 
 ### Direct Text Integration in Shapes
@@ -42,9 +42,9 @@ rectangle(
     width=32,
     height=18,
     r=2,
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
     text="Worker Node\n(Active)",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 ```
 
@@ -69,21 +69,21 @@ from drawlib.text import text
 setup(width=120, height=45)
 
 # Nodes
-circle((20, 23), radius=8, style=Styles.primary_flat, text="A", textstyle=Styles.white_bold)
-circle((60, 35), radius=8, style=Styles.secondary_flat, text="B", textstyle=Styles.white_bold)
-circle((100, 23), radius=8, style=Styles.accent_flat, text="C", textstyle=Styles.white_bold)
+circle((20, 23), radius=8, style=Styles.PrimaryFlat, text="A", textstyle=Styles.WhiteBold)
+circle((60, 35), radius=8, style=Styles.SecondaryFlat, text="B", textstyle=Styles.WhiteBold)
+circle((100, 23), radius=8, style=Styles.AccentFlat, text="C", textstyle=Styles.WhiteBold)
 
 # 1. Straight Line A -> B
-line((28, 25), (52, 33), arrowhead="->", style=Styles.bold)
-text((38, 33), "Direct", style=Styles.bold, size=8.5)
+line((28, 25), (52, 33), arrowhead="->", style=Styles.PrimaryBold)
+text((38, 33), "Direct", style=Styles.PrimaryBold, size=8.5)
 
 # 2. Curved Arc B -> C
-line_curved((68, 35), (92, 25), bend=0.25, arrowhead="->", style=Styles.secondary_bold)
-text((84, 35), "Curved Arc", style=Styles.secondary_bold, size=8.5)
+line_curved((68, 35), (92, 25), bend=0.25, arrowhead="->", style=Styles.SecondaryBold)
+text((84, 35), "Curved Arc", style=Styles.SecondaryBold, size=8.5)
 
 # 3. Chained Orthogonal Path A -> C
-lines([(20, 15), (20, 8), (100, 8), (100, 15)], arrowhead="->", style=Styles.muted_dashed_bold)
-text((60, 5), "Multi-Point Orthogonal Route", style=Styles.muted_bold, size=8)
+lines([(20, 15), (20, 8), (100, 8), (100, 15)], arrowhead="->", style=Styles.MutedDashedBold)
+text((60, 5), "Multi-Point Orthogonal Route", style=Styles.MutedBold, size=8)
 ```
 
 ## Geometric Math Utilities (`drawlib.math`)

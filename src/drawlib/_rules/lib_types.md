@@ -111,7 +111,7 @@ To create derivative styles, always use the `.patch()` method:
 from drawlib.styles import Colors, Styles
 
 # Patch an existing preset to derive a new style:
-highlighted_style = Styles.primary.patch(
+highlighted_style = Styles.Primary.patch(
     shape_line_color=Colors.Red,
     shape_line_width=4.0,
 )
@@ -192,8 +192,8 @@ from drawlib.styles import Colors, Styles
 
 setup(width=140, height=60)
 
-# Base card style derived from Styles.primary
-card_style = Styles.primary.patch(
+# Base card style derived from Styles.Primary
+card_style = Styles.Primary.patch(
     shape_fill_color=(245, 247, 250),
     shape_line_color=Colors.Blue,
     shape_line_width=2,
@@ -212,7 +212,7 @@ active_card_style = card_style.patch(
 rectangle((40, 30), width=40, height=24, r=3, style=card_style, text="Standby Node")
 rectangle((100, 30), width=40, height=24, r=3, style=active_card_style, text="Active Leader")
 
-line((60, 30), (80, 30), arrowhead="->", style=Styles.bold)
+line((60, 30), (80, 30), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 

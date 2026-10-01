@@ -17,15 +17,15 @@ from drawlib.text import text
 setup(width=120, height=50)
 
 # Card 1: Local image file
-rectangle((35, 25), width=45, height=36, r=3, style=Styles.primary_dashed)
+rectangle((35, 25), width=45, height=36, r=3, style=Styles.PrimaryDashed)
 image((35, 28), width=18, image="../_assets/linux.png")
-text((35, 12), "Linux Logo", style=Styles.bold)
+text((35, 12), "Linux Logo", style=Styles.PrimaryBold)
 
 # Card 2: Memory Dimage
-rectangle((85, 25), width=45, height=36, r=3, style=Styles.secondary_dashed)
+rectangle((85, 25), width=45, height=36, r=3, style=Styles.SecondaryDashed)
 dimg = Dimage("../_assets/python.png")
 image((85, 28), width=18, image=dimg)
-text((85, 12), "Python Dimage", style=Styles.bold)
+text((85, 12), "Python Dimage", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -59,7 +59,7 @@ By default, `(x, y)` anchors the center of the image. To position an image by it
 ```python
 from drawlib.styles import Styles
 
-bottom_left_style = Styles.bold.patch(text_halign="left", text_valign="bottom")
+bottom_left_style = Styles.PrimaryBold.patch(text_halign="left", text_valign="bottom")
 image((10, 10), width=25, image="logo.png", style=bottom_left_style)
 ```
 
@@ -107,7 +107,7 @@ from drawlib.shapes import circle
 from drawlib.styles import Styles
 
 setup(width=40, height=40)
-circle((20, 20), radius=15, style=Styles.accent_flat, text="Pod", textstyle=Styles.white_bold.patch(text_size=36))
+circle((20, 20), radius=15, style=Styles.AccentFlat, text="Pod", textstyle=Styles.WhiteBold.patch(text_size=36))
 save()
 """
 
@@ -115,9 +115,9 @@ sub_diagram = get_dimage_from_code(sub_code)
 
 # 2. Embed the sub-diagram onto the primary canvas
 setup(width=100, height=50)
-rectangle((50, 25), width=70, height=36, style=Styles.muted_dashed)
+rectangle((50, 25), width=70, height=36, style=Styles.MutedDashed)
 image((50, 26), width=28, image=sub_diagram)
-text((50, 11), "Host Canvas with Embedded Sub-Diagram", style=Styles.bold)
+text((50, 11), "Host Canvas with Embedded Sub-Diagram", style=Styles.PrimaryBold)
 
 save()
 ```

@@ -18,17 +18,17 @@ from drawlib.text import text
 setup(width=120, height=44)
 
 icons_list = [
-    (15, phosphor.desktop, "phosphor.desktop", Styles.primary_flat),
-    (38, phosphor.database, "phosphor.database", Styles.secondary_flat),
-    (61, phosphor.cloud, "phosphor.cloud", Styles.accent_flat),
-    (84, phosphor.shield_check, "phosphor.shield", Styles.danger_flat),
-    (107, phosphor.lock_key, "phosphor.lock", Styles.success_flat),
+    (15, phosphor.desktop, "phosphor.desktop", Styles.PrimaryFlat),
+    (38, phosphor.database, "phosphor.database", Styles.SecondaryFlat),
+    (61, phosphor.cloud, "phosphor.cloud", Styles.AccentFlat),
+    (84, phosphor.shield_check, "phosphor.shield", Styles.DangerFlat),
+    (107, phosphor.lock_key, "phosphor.lock", Styles.SuccessFlat),
 ]
 
 for x, fn, label, st in icons_list:
-    rectangle(xy=(x, 22), width=20, height=36, r=2, style=Styles.muted_dashed)
+    rectangle(xy=(x, 22), width=20, height=36, r=2, style=Styles.MutedDashed)
     fn(xy=(x, 28), width=10, style=st)
-    text(xy=(x, 10), text=label, style=Styles.bold, size=7.5)
+    text(xy=(x, 10), text=label, style=Styles.PrimaryBold, size=7.5)
 ```
 
 ## Google Cloud Architecture Icons (`drawlib.icons.gcp`)
@@ -53,12 +53,12 @@ services = [
 ]
 
 for idx, (x, icon_fn, label) in enumerate(services):
-    rectangle(xy=(x, 22), width=24, height=36, r=2, style=Styles.muted_dashed)
-    icon_fn(xy=(x, 28), width=10, style=Styles.primary)
-    text(xy=(x, 10), text=label, style=Styles.bold, size=8)
+    rectangle(xy=(x, 22), width=24, height=36, r=2, style=Styles.MutedDashed)
+    icon_fn(xy=(x, 28), width=10, style=Styles.Primary)
+    text(xy=(x, 10), text=label, style=Styles.PrimaryBold, size=8)
     if idx < len(services) - 1:
         next_x = services[idx + 1][0]
-        line((x + 12, 28), (next_x - 12, 28), arrowhead="->", style=Styles.bold)
+        line((x + 12, 28), (next_x - 12, 28), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ## External Media & In-Memory Images (`drawlib.images`)
@@ -74,5 +74,5 @@ from drawlib.styles import Styles
 
 # Load external logo, apply horizontal mirror, and render to canvas
 mirrored_logo = Dimage("_assets/linux.png").mirror()
-image(xy=(50, 30), width=20, image=mirrored_logo, style=Styles.primary_outline)
+image(xy=(50, 30), width=20, image=mirrored_logo, style=Styles.PrimaryOutline)
 ```

@@ -328,15 +328,15 @@ from drawlib.text import text
 setup(width=100, height=50)
 
 # Step 3: Draw background boundary container
-rectangle((50, 25), width=90, height=40, style=Styles.muted_dashed)
+rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
 
 # Step 4: Draw main entities and connectors
-circle((25, 25), radius=12, style=Styles.accent_flat, text=&quot;Client&quot;, textstyle=Styles.white_bold)
-rectangle((75, 25), width=24, height=20, style=Styles.primary_flat, text=&quot;Server&quot;, textstyle=Styles.white_bold)
+circle((25, 25), radius=12, style=Styles.AccentFlat, text=&quot;Client&quot;, textstyle=Styles.WhiteBold)
+rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, textstyle=Styles.WhiteBold)
 
 # Connection line with arrowhead
-line((37, 25), (63, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.bold)
-text((50, 30), &quot;REST API&quot;, style=Styles.bold)
+line((37, 25), (63, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
+text((50, 30), &quot;REST API&quot;, style=Styles.PrimaryBold)
 
 # Step 5: Save image (defaults to client_server.png)
 save()
@@ -369,11 +369,11 @@ from drawlib.styles import Styles
 
 setup(width=100, height=50)
 
-rectangle((50, 25), width=90, height=40, style=Styles.muted_dashed)
-circle((25, 25), radius=12, style=Styles.accent_flat, text=&quot;Client&quot;, textstyle=Styles.white_bold)
-rectangle((75, 25), width=24, height=20, style=Styles.primary_flat, text=&quot;Server&quot;, textstyle=Styles.white_bold)
-line((37, 25), (63, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.bold)
-text((50, 30), &quot;REST API&quot;, style=Styles.bold)
+rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
+circle((25, 25), radius=12, style=Styles.AccentFlat, text=&quot;Client&quot;, textstyle=Styles.WhiteBold)
+rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, textstyle=Styles.WhiteBold)
+line((37, 25), (63, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
+text((50, 30), &quot;REST API&quot;, style=Styles.PrimaryBold)
 ```
 </code></pre>
 <p>When compiled with <code>drawlib build html</code> or <code>drawlib build markdown</code>, the code fence is executed and replaced with the rendered image:</p>
@@ -386,7 +386,7 @@ text((50, 30), &quot;REST API&quot;, style=Styles.bold)
 <ol>
 <li><strong><code>setup()</code> is Mandatory</strong>: Always call <code>setup(width=..., height=...)</code> at the start of your drawing block.</li>
 <li><strong>Handling <code>save()</code> in Markdown Blocks</strong>: In Markdown embedded blocks, calling <code>save()</code> is optional because Drawlib captures the canvas automatically (and calls to <code>save()</code> are safely treated as no-ops). However, writing <code>save()</code> (without arguments) in complete examples is recommended for 100% copy-paste compatibility with standalone <code>.py</code> scripts.</li>
-<li><strong>Use Semantic Styles</strong>: Avoid hardcoding RGB values like <code>(255, 0, 0)</code>. Leverage <code>Styles.primary_flat</code>, <code>Styles.accent_flat</code>, and <code>Styles.bold</code> to maintain clean visual harmony.</li>
+<li><strong>Use Semantic Styles</strong>: Avoid hardcoding RGB values like <code>(255, 0, 0)</code>. Leverage <code>Styles.PrimaryFlat</code>, <code>Styles.AccentFlat</code>, and <code>Styles.PrimaryBold</code> to maintain clean visual harmony.</li>
 </ol>
 
             </main>

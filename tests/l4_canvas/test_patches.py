@@ -30,7 +30,7 @@ class TestCanvasPatches:
         """Verify arc drawing with dimensions, angles, alignments, and text."""
         clear()
         styles = default_styles
-        s_def = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_def = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple arc
         arc((50, 50), 30, 50, style=s_def)
@@ -64,7 +64,7 @@ class TestCanvasPatches:
         """Verify circle drawing with radius, alignments, custom styles, and preset styles."""
         clear()
         styles = default_styles
-        s_def = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_def = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
         styles_essentials = default_styles
 
         # Simple circle
@@ -107,8 +107,8 @@ class TestCanvasPatches:
         )
 
         # Preset styles
-        circle(xy=(25, 25), radius=20, style=styles_essentials.blue)
-        circle(xy=(25, 75), radius=20, style=styles_essentials.green)
+        circle(xy=(25, 25), radius=20, style=styles_essentials.Blue)
+        circle(xy=(25, 75), radius=20, style=styles_essentials.Green)
 
         save(f"{OUTPUT_DIR}test_circle.png")
 
@@ -116,8 +116,8 @@ class TestCanvasPatches:
         """Verify ellipse drawing with dimensions, alignments, styles, and angles."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple ellipse
         ellipse(xy=(50, 50), width=40, height=20, style=s_primary)
@@ -162,8 +162,8 @@ class TestCanvasPatches:
         """Verify regular polygon vertices counts, styles, and alignments."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Vertices counts
         regularpolygon(xy=(50, 50), radius=30, num_vertex=5, text="Hello", style=s_primary)
@@ -208,8 +208,8 @@ class TestCanvasPatches:
         """Verify wedge segment drawing with radii, spans, styles, and alignments."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple wedge
         wedge((50, 50), radius=30, width=10, text="Hello", style=s_primary)
@@ -262,8 +262,8 @@ class TestCanvasPatches:
         """Verify donut shape drawing with outer radius, width, styling, and text."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple donut
         donuts((50, 50), radius=30, width=10, style=s_primary)
@@ -307,8 +307,8 @@ class TestCanvasPatches:
         """Verify fan sector drawing with radius, theta boundaries, styling, and text."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple fan
         fan((50, 50), radius=30, angle_start=45, angle_end=90, style=s_primary)

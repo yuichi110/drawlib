@@ -15,19 +15,19 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # 1. Straight Block Arrow
-arrow((15, 45), (45, 45), tail_width=4, head_width=10, head_length=8, style=Styles.primary_flat, text="arrow", textstyle=Styles.white_bold)
+arrow((15, 45), (45, 45), tail_width=4, head_width=10, head_length=8, style=Styles.PrimaryFlat, text="arrow", textstyle=Styles.WhiteBold)
 
 # 2. Chevron
-chevron((75, 45), width=24, height=14, corner_angle=60, style=Styles.accent_flat, text="chevron", textstyle=Styles.white_bold)
+chevron((75, 45), width=24, height=14, corner_angle=60, style=Styles.AccentFlat, text="chevron", textstyle=Styles.WhiteBold)
 
 # 3. Arrow Arc (Circular flow)
-arrow_arc((105, 45), width=20, height=20, angle_start=180, angle_end=0, tail_width=3, head_width=8, style=Styles.success_flat)
+arrow_arc((105, 45), width=20, height=20, angle_start=180, angle_end=0, tail_width=3, head_width=8, style=Styles.SuccessFlat)
 
 # 4. L-shaped Arrow
-arrow_l((30, 20), width=25, height=20, tail_width=3, head_width=8, head_length=6, style=Styles.secondary_flat)
+arrow_l((30, 20), width=25, height=20, tail_width=3, head_width=8, head_length=6, style=Styles.SecondaryFlat)
 
 # 5. U-turn Arrow
-arrow_u((75, 20), width=25, height=22, tail_width=3, head_width=8, head_length=6, style=Styles.danger_flat)
+arrow_u((75, 20), width=25, height=22, tail_width=3, head_width=8, head_length=6, style=Styles.DangerFlat)
 
 save()
 ```
@@ -51,9 +51,9 @@ arrow(
     head_width=13,
     head_length=10,
     head="->",  # "->", "<-", or "<->"
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
     text="Data Ingestion",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 save()
 ```
@@ -78,9 +78,9 @@ chevron(
     width=40,
     height=20,
     corner_angle=60,  # Tip acute angle
-    style=Styles.accent_flat,
+    style=Styles.AccentFlat,
     text="Stage 1",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 save()
 ```
@@ -109,7 +109,7 @@ arrow_l(
     head_width=11,
     head_length=8,
     r=5,  # Corner rounding radius
-    style=Styles.secondary_flat,
+    style=Styles.SecondaryFlat,
 )
 save()
 ```
@@ -131,7 +131,7 @@ arrow_u(
     head_width=11,
     head_length=8,
     r=6,  # Corner rounding radius
-    style=Styles.danger_flat,
+    style=Styles.DangerFlat,
 )
 save()
 ```
@@ -157,7 +157,7 @@ arrow_arc(
     angle_end=0,
     tail_width=4,
     head_width=11,
-    style=Styles.success_flat,
+    style=Styles.SuccessFlat,
 )
 save()
 ```
@@ -177,7 +177,7 @@ arrow_polyline(
     head_width=11,
     head_length=8,
     r=4,
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
 )
 save()
 ```

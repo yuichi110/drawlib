@@ -29,55 +29,55 @@ from drawlib.text import text
 
 setup(width=135, height=54)
 
-ts_sec_body = Styles.secondary.patch(text_size=8.5, text_halign="left")
-ts_body = Styles.primary.patch(text_size=8.5, text_halign="left")
-ts_acc_body = Styles.accent.patch(text_size=8.5, text_halign="left")
+ts_sec_body = Styles.Secondary.patch(text_size=8.5, text_halign="left")
+ts_body = Styles.Primary.patch(text_size=8.5, text_halign="left")
+ts_acc_body = Styles.Accent.patch(text_size=8.5, text_halign="left")
 
 # 1. スキャフォールド: drawlib init
-rectangle((23.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.muted_dashed)
-rectangle((23.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.secondary_flat, text="1. drawlib init", textstyle=Styles.white_bold)
+rectangle((23.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.MutedDashed)
+rectangle((23.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.SecondaryFlat, text="1. drawlib init", textstyle=Styles.WhiteBold)
 
-phosphor.terminal_window(xy=(11.0, 31.0), width=5.0, style=Styles.secondary)
+phosphor.terminal_window(xy=(11.0, 31.0), width=5.0, style=Styles.Secondary)
 text((16.0, 31.0), text="-o report\nフォルダと出力名の連動", style=ts_sec_body)
 
-phosphor.palette(xy=(11.0, 21.5), width=5.0, style=Styles.secondary)
+phosphor.palette(xy=(11.0, 21.5), width=5.0, style=Styles.Secondary)
 text((16.0, 21.5), text="-s google\nCSS と Python の統一", style=ts_sec_body)
 
-phosphor.translate(xy=(11.0, 12.0), width=5.0, style=Styles.secondary)
+phosphor.translate(xy=(11.0, 12.0), width=5.0, style=Styles.Secondary)
 text((16.0, 12.0), text="-l ja\n日本語フォント設定", style=ts_sec_body)
 
 # 矢印 1
-line((42.0, 24.0), (49.0, 24.0), arrowhead="->", style=Styles.bold)
-text((45.5, 27.5), text="自動生成", style=Styles.secondary_bold, size=8.5)
+line((42.0, 24.0), (49.0, 24.0), arrowhead="->", style=Styles.PrimaryBold)
+text((45.5, 27.5), text="自動生成", style=Styles.SecondaryBold, size=8.5)
 
 # 2. 編集ディレクトリ: report_src/ (Source of Truth)
-rectangle((67.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.primary_outline)
-rectangle((67.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.primary_flat, text="2. report_src/ (編集源)", textstyle=Styles.white_bold)
+rectangle((67.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
+rectangle((67.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="2. report_src/ (編集源)", textstyle=Styles.WhiteBold)
 
-phosphor.file_text(xy=(55.0, 31.0), width=5.0, style=Styles.primary)
+phosphor.file_text(xy=(55.0, 31.0), width=5.0, style=Styles.Primary)
 text((60.0, 31.0), text="00_cover.md, 01_*.md\n文章 + 埋め込み作図コード", style=ts_body)
 
-phosphor.file_code(xy=(55.0, 21.5), width=5.0, style=Styles.primary)
+phosphor.file_code(xy=(55.0, 21.5), width=5.0, style=Styles.Primary)
 text((60.0, 21.5), text="styles.py / style.css\n統一デザイン定義", style=ts_body)
 
-phosphor.play_circle(xy=(55.0, 12.0), width=5.0, style=Styles.primary)
+phosphor.play_circle(xy=(55.0, 12.0), width=5.0, style=Styles.Primary)
 text((60.0, 12.0), text="build.sh\nコンパイルスクリプト", style=ts_body)
 
 # 矢印 2
-line((86.0, 24.0), (93.0, 24.0), arrowhead="->", style=Styles.bold)
-text((89.5, 27.5), text="build.sh", style=Styles.primary_bold, size=8.5)
+line((86.0, 24.0), (93.0, 24.0), arrowhead="->", style=Styles.PrimaryBold)
+text((89.5, 27.5), text="build.sh", style=Styles.PrimaryBold, size=8.5)
 
 # 3. 成果物: report.pdf
-rectangle((111.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.accent_outline)
-rectangle((111.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.accent_flat, text="3. report.pdf (成果物)", textstyle=Styles.white_bold)
+rectangle((111.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.AccentOutline)
+rectangle((111.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="3. report.pdf (成果物)", textstyle=Styles.WhiteBold)
 
-phosphor.file_pdf(xy=(99.0, 31.0), width=5.0, style=Styles.accent)
+phosphor.file_pdf(xy=(99.0, 31.0), width=5.0, style=Styles.Accent)
 text((104.0, 31.0), text="A4 印刷最適化\nChromium による描画", style=ts_acc_body)
 
-phosphor.list_numbers(xy=(99.0, 21.5), width=5.0, style=Styles.accent)
+phosphor.list_numbers(xy=(99.0, 21.5), width=5.0, style=Styles.Accent)
 text((104.0, 21.5), text="自動目次生成\nページ番号の完全連動", style=ts_acc_body)
 
-phosphor.image(xy=(99.0, 12.0), width=5.0, style=Styles.accent)
+phosphor.image(xy=(99.0, 12.0), width=5.0, style=Styles.Accent)
 text((104.0, 12.0), text="ベクター図版統合\n高解像度レンダリング", style=ts_acc_body)
 ```
 

@@ -18,17 +18,17 @@ setup(width=100, height=60)
 # Register custom icons for folders and files
 TreeNode.register_drawing_item(
     name="folder", location="before", padding_width=4.0, function=phosphor.folder,
-    style=Styles.primary_flat, args={"width": 3.0}
+    style=Styles.PrimaryFlat, args={"width": 3.0}
 )
 TreeNode.register_drawing_item(
     name="file", location="before", padding_width=4.0, function=phosphor.file_text,
-    style=Styles.secondary_flat, args={"width": 3.0}
+    style=Styles.SecondaryFlat, args={"width": 3.0}
 )
 
 root = TreeNode(
     "src/",
-    default_textstyle=Styles.bold,
-    default_linestyle=Styles.bold,
+    default_textstyle=Styles.PrimaryBold,
+    default_linestyle=Styles.PrimaryBold,
     default_line_horizontal_margin=3.0,
     default_line_horizontal_length=3.0,
     default_line_vertical_margin=6.0,
@@ -68,7 +68,7 @@ TreeNode.register_drawing_item(
     location="before",  # "before" or "after" the label text
     padding_width=4.0,
     function=phosphor.file_code,
-    style=Styles.accent_flat,
+    style=Styles.AccentFlat,
     args={"width": 3.5},
 )
 

@@ -162,16 +162,16 @@ from drawlib.styles import Styles
 setup(width=140, height=60, background_color=(248, 249, 250))
 
 # Service nodes
-rectangle((30, 30), width=32, height=18, style=Styles.accent_flat, text="Web Frontend", textstyle=Styles.white_bold)
-rectangle((75, 30), width=32, height=18, style=Styles.primary_flat, text="API Gateway", textstyle=Styles.white_bold)
-rectangle((120, 30), width=32, height=18, style=Styles.secondary_flat, text="Auth Service", textstyle=Styles.white_bold)
+rectangle((30, 30), width=32, height=18, style=Styles.AccentFlat, text="Web Frontend", textstyle=Styles.WhiteBold)
+rectangle((75, 30), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", textstyle=Styles.WhiteBold)
+rectangle((120, 30), width=32, height=18, style=Styles.SecondaryFlat, text="Auth Service", textstyle=Styles.WhiteBold)
 
 # Connecting lines with arrowheads
-line((46, 30), (59, 30), arrowhead="->", style=Styles.bold)
-line((91, 30), (104, 30), arrowhead="->", style=Styles.bold)
+line((46, 30), (59, 30), arrowhead="->", style=Styles.PrimaryBold)
+line((91, 30), (104, 30), arrowhead="->", style=Styles.PrimaryBold)
 
 # Annotations
-text((70, 52), "System Boundary", style=Styles.bold)
+text((70, 52), "System Boundary", style=Styles.PrimaryBold)
 save()
 ```
 
@@ -191,9 +191,9 @@ rectangle(
     width=72,
     height=22,
     r=11,
-    style=Styles.success_flat,
+    style=Styles.SuccessFlat,
     text="DEPLOYED - v2.4.0",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 save()
 ```
@@ -209,7 +209,7 @@ from drawlib.shapes import circle, rectangle
 
 # Image 1: Architecture
 setup(width=120, height=60)
-rectangle((60, 30), width=40, height=20, style=Styles.primary_flat, text="Stage 1")
+rectangle((60, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Stage 1")
 save("output_stage1.png")
 
 # ALWAYS CLEAR BEFORE NEXT IMAGE
@@ -217,7 +217,7 @@ clear()
 
 # Image 2: Deployment
 setup(width=100, height=100)
-circle((50, 50), radius=30, style=Styles.secondary_flat, text="Stage 2")
+circle((50, 50), radius=30, style=Styles.SecondaryFlat, text="Stage 2")
 save("output_stage2.png")
 ```
 

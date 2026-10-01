@@ -34,8 +34,8 @@ class TestTable:
         clear()
         styles = default_styles
         t = Table(
-            default_text_style=styles.black,
-            border_style=styles.solid,
+            default_text_style=styles.Black,
+            border_style=styles.PrimarySolid,
         )
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         save(f"{OUTPUT_DIR}test_table_default.png")
@@ -44,9 +44,9 @@ class TestTable:
         """Verify Table drawing with custom cell headers."""
         clear()
         styles = default_styles
-        t = Table(default_text_style=styles.black)
-        t.set_style_cell_headers((220, 230, 245), styles.bold)
-        t.set_style_border(top=styles.solid, bottom=styles.solid)
+        t = Table(default_text_style=styles.Black)
+        t.set_style_cell_headers((220, 230, 245), styles.PrimaryBold)
+        t.set_style_border(top=styles.PrimarySolid, bottom=styles.PrimarySolid)
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         save(f"{OUTPUT_DIR}test_table_headers.png")
 
@@ -57,11 +57,11 @@ class TestTable:
         t = Table()
         t.set_style_cell_evenodd(
             even_color=Colors.Gray3,
-            even_textstyle=styles.white,
+            even_textstyle=styles.White,
             odd_color=Colors.White,
-            odd_textstyle=styles.black,
+            odd_textstyle=styles.Black,
         )
-        t.set_style_border(bottom=styles.solid)
+        t.set_style_border(bottom=styles.PrimarySolid)
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         save(f"{OUTPUT_DIR}test_table_evenodd.png")
 
@@ -69,7 +69,7 @@ class TestTable:
         """Verify Table clear_styles resets styles and causes draw to raise ValueError."""
         clear()
         styles = default_styles
-        t = Table(default_text_style=styles.black)
+        t = Table(default_text_style=styles.Black)
         t.clear_styles()
         with pytest.raises(ValueError, match="No text style provided for cell"):
             t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -82,11 +82,11 @@ class TestTable:
         t.clear_styles()
         t.set_style_cell_evenodd(
             even_color=Colors.Gray3,
-            even_textstyle=styles.white,
+            even_textstyle=styles.White,
             odd_color=Colors.White,
-            odd_textstyle=styles.black,
+            odd_textstyle=styles.Black,
         )
-        t.set_style_border(top=styles.black, top2=styles.black_light, bottom=styles.black)
+        t.set_style_border(top=styles.Black, top2=styles.BlackLight, bottom=styles.Black)
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         save(f"{OUTPUT_DIR}test_table_custom_style.png")
 
@@ -95,10 +95,10 @@ class TestTable:
         clear()
         styles = default_styles
         t = Table(
-            default_cell_style=styles.solid,
-            default_text_style=styles.black,
-            header_cell_style=styles.blue_solid,
-            header_text_style=styles.white_bold,
-            border_style=styles.solid,
+            default_cell_style=styles.PrimarySolid,
+            default_text_style=styles.Black,
+            header_cell_style=styles.BlueSolid,
+            header_text_style=styles.WhiteBold,
+            border_style=styles.PrimarySolid,
         )
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])

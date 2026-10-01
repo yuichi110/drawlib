@@ -29,22 +29,22 @@ from drawlib.text import text
 setup(width=120, height=52)
 
 roles = [
-    (14, "primary", Styles.primary_flat, Styles.primary_outline, Styles.primary_dashed),
-    (32, "secondary", Styles.secondary_flat, Styles.secondary_outline, Styles.secondary_dashed),
-    (50, "accent", Styles.accent_flat, Styles.accent_outline, Styles.accent_dashed),
-    (68, "muted", Styles.muted_flat, Styles.muted_outline, Styles.muted_dashed),
-    (86, "danger", Styles.danger_flat, Styles.danger_outline, Styles.danger_dashed),
-    (104, "success", Styles.success_flat, Styles.success_outline, Styles.success_dashed),
+    (14, "primary", Styles.PrimaryFlat, Styles.PrimaryOutline, Styles.PrimaryDashed),
+    (32, "secondary", Styles.SecondaryFlat, Styles.SecondaryOutline, Styles.SecondaryDashed),
+    (50, "accent", Styles.AccentFlat, Styles.AccentOutline, Styles.AccentDashed),
+    (68, "muted", Styles.MutedFlat, Styles.MutedOutline, Styles.MutedDashed),
+    (86, "danger", Styles.DangerFlat, Styles.DangerOutline, Styles.DangerDashed),
+    (104, "success", Styles.SuccessFlat, Styles.SuccessOutline, Styles.SuccessDashed),
 ]
 
 for x, label, st_flat, st_out, st_dash in roles:
-    text((x, 48), label, style=Styles.bold, size=9)
+    text((x, 48), label, style=Styles.PrimaryBold, size=9)
     # Flat box
-    rectangle((x, 37), width=15, height=12, r=1.5, style=st_flat, text="flat", textstyle=Styles.white_bold)
+    rectangle((x, 37), width=15, height=12, r=1.5, style=st_flat, text="flat", textstyle=Styles.WhiteBold)
     # Outline box
-    rectangle((x, 22), width=15, height=12, r=1.5, style=st_out, text="outline", textstyle=Styles.primary)
+    rectangle((x, 22), width=15, height=12, r=1.5, style=st_out, text="outline", textstyle=Styles.Primary)
     # Dashed box
-    rectangle((x, 7), width=15, height=12, r=1.5, style=st_dash, text="dashed", textstyle=Styles.primary)
+    rectangle((x, 7), width=15, height=12, r=1.5, style=st_dash, text="dashed", textstyle=Styles.Primary)
 ```
 
 ## Creating Custom Styles with `.patch()`
@@ -55,7 +55,7 @@ Styles are immutable by design. To derive a variant with modified properties (e.
 from drawlib.styles import Styles
 
 # Derive a custom style by modifying specific attributes
-callout_style = Styles.accent_flat.patch(
+callout_style = Styles.AccentFlat.patch(
     shape_fill_alpha=0.85,
     text_size=11.0,
     shape_line_width=1.5,
@@ -81,14 +81,14 @@ from drawlib.text import text
 setup(width=120, height=44)
 
 type_samples = [
-    (20, "Noto Universal", "Font.SANSSERIF_BOLD", Font.SANSSERIF_BOLD, Styles.primary_flat),
-    (60, "Roboto Sans", "FontRoboto.ROBOTO_BOLD", FontRoboto.ROBOTO_BOLD, Styles.secondary_flat),
-    (100, "Roboto Mono", "FontMonoSpace.ROBOTO_MONO", FontMonoSpace.ROBOTO_MONO_REGULAR, Styles.accent_flat),
+    (20, "Noto Universal", "Font.SANSSERIF_BOLD", Font.SANSSERIF_BOLD, Styles.PrimaryFlat),
+    (60, "Roboto Sans", "FontRoboto.ROBOTO_BOLD", FontRoboto.ROBOTO_BOLD, Styles.SecondaryFlat),
+    (100, "Roboto Mono", "FontMonoSpace.ROBOTO_MONO", FontMonoSpace.ROBOTO_MONO_REGULAR, Styles.AccentFlat),
 ]
 
 for x, title, sub, font_obj, st in type_samples:
-    rectangle((x, 22), width=34, height=36, r=2.5, style=Styles.muted_dashed)
-    rectangle((x, 32), width=30, height=10, r=1.5, style=st, text=title, textstyle=Styles.white_bold)
-    text((x, 20), sub, style=Styles.bold, size=7.5)
-    text((x, 11), "Quick brown fox jumps\n1234567890", style=Styles.primary.patch(text_font=font_obj, text_size=7.5))
+    rectangle((x, 22), width=34, height=36, r=2.5, style=Styles.MutedDashed)
+    rectangle((x, 32), width=30, height=10, r=1.5, style=st, text=title, textstyle=Styles.WhiteBold)
+    text((x, 20), sub, style=Styles.PrimaryBold, size=7.5)
+    text((x, 11), "Quick brown fox jumps\n1234567890", style=Styles.Primary.patch(text_font=font_obj, text_size=7.5))
 ```

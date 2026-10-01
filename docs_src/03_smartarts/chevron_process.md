@@ -18,14 +18,14 @@ pipeline = ChevronProcess(
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
-    default_textstyle=Styles.white_bold.patch(text_size=10),
-    default_description_style=Styles.white.patch(text_size=7.5),
+    default_textstyle=Styles.WhiteBold.patch(text_size=10),
+    default_description_style=Styles.White.patch(text_size=7.5),
 )
-pipeline.append("1. Commit", description="Lint & Tests", style=Styles.primary_flat)
-pipeline.append("2. Build", description="Docker Image", style=Styles.primary_flat)
-pipeline.append("3. Security", description="Vulnerability Scan", style=Styles.accent_flat)
-pipeline.append("4. Staging", description="E2E Validation", style=Styles.primary_flat)
-pipeline.append("5. Production", description="Canary Release", style=Styles.success_flat)
+pipeline.append("1. Commit", description="Lint & Tests", style=Styles.PrimaryFlat)
+pipeline.append("2. Build", description="Docker Image", style=Styles.PrimaryFlat)
+pipeline.append("3. Security", description="Vulnerability Scan", style=Styles.AccentFlat)
+pipeline.append("4. Staging", description="E2E Validation", style=Styles.PrimaryFlat)
+pipeline.append("5. Production", description="Canary Release", style=Styles.SuccessFlat)
 
 pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 ```

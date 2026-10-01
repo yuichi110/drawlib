@@ -26,7 +26,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -48,7 +48,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -71,7 +71,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((25, 25), radius=10, style=styles.primary)
+circle((25, 25), radius=10, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -83,7 +83,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((75, 75), radius=10, style=styles.primary)
+circle((75, 75), radius=10, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -106,7 +106,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((50, 50), radius=15, style=styles.primary)
+circle((50, 50), radius=15, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -131,7 +131,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -160,7 +160,7 @@ Styles = Styles
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 
-circle((100, 50), radius=20, style=Styles.primary)
+circle((100, 50), radius=20, style=Styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -184,7 +184,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -207,7 +207,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=styles.primary)
+circle((50, 50), radius=20, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -232,7 +232,7 @@ from drawlib.shapes import circle
 
 styles = default_styles
 setup(width=100, height=100)
-circle((25, 25), radius=10, style=styles.primary)
+circle((25, 25), radius=10, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -253,7 +253,7 @@ from drawlib.shapes import circle
 from drawlib.styles import Styles
 
 setup(width=100, height=100)
-circle((25, 25), radius=10, style=Styles.primary)
+circle((25, 25), radius=10, style=Styles.Primary)
 save()
 """,
         encoding="utf-8",

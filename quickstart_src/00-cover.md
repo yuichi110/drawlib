@@ -15,30 +15,30 @@ from drawlib.text import text
 setup(width=120, height=48)
 
 # 1. Stage: Source Code & Markdown
-rectangle(xy=(18, 24), width=26, height=32, r=2.5, style=Styles.primary_outline)
-phosphor.code(xy=(18, 30), width=9, style=Styles.primary)
-text(xy=(18, 16), text="Declarative Python\n& Markdown", style=Styles.primary_bold, size=9.5)
+rectangle(xy=(18, 24), width=26, height=32, r=2.5, style=Styles.PrimaryOutline)
+phosphor.code(xy=(18, 30), width=9, style=Styles.Primary)
+text(xy=(18, 16), text="Declarative Python\n& Markdown", style=Styles.PrimaryBold, size=9.5)
 
 # Transition 1
-line((31, 24), (43, 24), arrowhead="->", style=Styles.bold)
+line((31, 24), (43, 24), arrowhead="->", style=Styles.PrimaryBold)
 
 # 2. Stage: Drawlib Engine
-circle(xy=(56, 24), radius=13, style=Styles.secondary_outline)
-phosphor.cpu(xy=(56, 29), width=8, style=Styles.secondary)
-text(xy=(56, 18), text="drawlib\nEngine", style=Styles.secondary_bold, size=10)
+circle(xy=(56, 24), radius=13, style=Styles.SecondaryOutline)
+phosphor.cpu(xy=(56, 29), width=8, style=Styles.Secondary)
+text(xy=(56, 18), text="drawlib\nEngine", style=Styles.SecondaryBold, size=10)
 
 # Transition 2
-line((69, 24), (81, 24), arrowhead="->", style=Styles.bold)
+line((69, 24), (81, 24), arrowhead="->", style=Styles.PrimaryBold)
 
 # 3. Stage: Unified Publication Outputs
-rectangle(xy=(98, 35), width=26, height=12, r=2, style=Styles.accent_flat)
-text(xy=(98, 35), text="Static Site / HTML", style=Styles.white_bold, size=9)
+rectangle(xy=(98, 35), width=26, height=12, r=2, style=Styles.AccentFlat)
+text(xy=(98, 35), text="Static Site / HTML", style=Styles.WhiteBold, size=9)
 
-rectangle(xy=(98, 24), width=26, height=12, r=2, style=Styles.secondary_flat)
-text(xy=(98, 24), text="Design Spec / PDF", style=Styles.white_bold, size=9)
+rectangle(xy=(98, 24), width=26, height=12, r=2, style=Styles.SecondaryFlat)
+text(xy=(98, 24), text="Design Spec / PDF", style=Styles.WhiteBold, size=9)
 
-rectangle(xy=(98, 13), width=26, height=12, r=2, style=Styles.primary_flat)
-text(xy=(98, 13), text="Image Batch / PNG", style=Styles.white_bold, size=9)
+rectangle(xy=(98, 13), width=26, height=12, r=2, style=Styles.PrimaryFlat)
+text(xy=(98, 13), text="Image Batch / PNG", style=Styles.WhiteBold, size=9)
 ```
 
 ---

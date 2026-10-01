@@ -180,7 +180,7 @@ def test_build_markdown_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), 20, style=Styles.primary)
+circle((50, 50), 20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -221,7 +221,7 @@ from drawlib.styles import Styles
 from drawlib.shapes import circle
 
 setup(width=100, height=100)
-circle((50, 50), 20, style=Styles.primary)
+circle((50, 50), 20, style=Styles.Primary)
 save("my_output.png")
 """,
         encoding="utf-8",

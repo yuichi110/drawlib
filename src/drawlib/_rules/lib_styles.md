@@ -7,7 +7,7 @@ Rather than hardcoding colors, fonts, theme styles, or reusable helper functions
 
 > [!IMPORTANT]
 > **Always Use PascalCase `Styles` and `Colors`**:
-> In drawing scripts and Markdown blocks, **always import and use uppercase `Styles` and `Colors`** (`from drawlib.styles import Colors, Styles` and `style=Styles.primary_flat`, `color=Colors.Blue`).
+> In drawing scripts and Markdown blocks, **always import and use uppercase `Styles` and `Colors`** (`from drawlib.styles import Colors, Styles` and `style=Styles.PrimaryFlat`, `color=Colors.Blue`).
 > **Never use lowercase `styles` or `colors`**. Uppercase naming avoids variable shadowing with the `drawlib.styles` module and ensures deterministic AI code generation.
 
 ---
@@ -36,12 +36,12 @@ from drawlib.preset_styles import DefaultStyles
 
 # 1. Customize or replace theme presets
 Styles = DefaultStyles.patch(
-    primary=DefaultStyles.primary.patch(
+    Primary=DefaultStyles.Primary.patch(
         shape_fill_color=DefaultColors.Blue.patch(alpha=0.1),
         shape_line_color=DefaultColors.Blue,
         shape_line_width=2.0,
     ),
-    bold=DefaultStyles.bold.patch(
+    PrimaryBold=DefaultStyles.PrimaryBold.patch(
         shape_line_width=2.5,
     ),
 )
@@ -73,9 +73,9 @@ DATABASE_PORT = 5432
 def draw_service_card(center: tuple[float, float], title: str, subtitle: str) -> None:
     """Reusable diagram component for microservice nodes."""
     x, y = center
-    rectangle((x, y), width=36, height=20, r=2, style=Styles.primary)
-    text((x, y + 4), title, style=Styles.bold)
-    text((x, y - 4), subtitle, style=Styles.light)
+    rectangle((x, y), width=36, height=20, r=2, style=Styles.Primary)
+    text((x, y + 4), title, style=Styles.PrimaryBold)
+    text((x, y - 4), subtitle, style=Styles.Light)
 ```
 
 ### Auto-Detection & CLI Overrides
@@ -121,7 +121,7 @@ Drawlib provides two ways to reference style presets:
 | **Customizability** | Fully customizable & replaceable via `--styles` / `styles.py` | Fixed, static default values only |
 | **Theme Switching** | Dynamic (one `styles.py` restyles all diagrams) | Manual (must edit every drawing script) |
 | **Project Decoupling** | High (diagrams decouple from concrete palettes) | Low (tightly coupled to built-in presets) |
-| **Usage** | `from drawlib.styles import Styles, Colors`<br>`style=Styles.primary_flat` | `from drawlib.preset_styles import DefaultStyles`<br>`style=DefaultStyles.primary_flat` |
+| **Usage** | `from drawlib.styles import Styles, Colors`<br>`style=Styles.PrimaryFlat` | `from drawlib.preset_styles import DefaultStyles`<br>`style=DefaultStyles.PrimaryFlat` |
 
 ### Helpful `AttributeError` Diagnostics
 

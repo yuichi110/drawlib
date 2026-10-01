@@ -37,7 +37,7 @@ class TestCanvas:
 
         clear()
         styles = default_styles
-        circle((50, 50), 30, style=styles.primary)
+        circle((50, 50), 30, style=styles.Primary)
         # Saves to directory of running script with default "png" format
         save()
         # Ensure file got saved
@@ -52,7 +52,7 @@ class TestCanvas:
 
         clear()
         styles = default_styles
-        circle((50, 50), 30, style=styles.primary)
+        circle((50, 50), 30, style=styles.Primary)
         save(format="webp")
         assert os.path.exists(target_path)
         os.remove(target_path)
@@ -108,25 +108,25 @@ class TestCanvas:
         save(f"{OUTPUT_DIR}test_grid.png")
 
         clear()
-        circle((50, 50), 30, style=styles.primary)
+        circle((50, 50), 30, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_nogrid.png")
 
         clear()
         setup(grid=True)
-        circle((50, 50), 30, style=styles.primary)
+        circle((50, 50), 30, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_both.png")
 
     def test_serial_save(self) -> None:
         """Verify multiple saves consecutively maintain isolated drawing updates."""
         clear()
         styles = default_styles
-        circle((25, 25), radius=10, style=styles.primary)
+        circle((25, 25), radius=10, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_serial_save_1.png")
-        circle((25, 75), radius=10, style=styles.primary)
+        circle((25, 75), radius=10, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_serial_save_2.png")
-        circle((75, 25), radius=10, style=styles.primary)
+        circle((75, 25), radius=10, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_serial_save_3.png")
-        circle((75, 75), radius=10, style=styles.primary)
+        circle((75, 75), radius=10, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_serial_save_4.png")
 
     def test_serial_save_grid(self) -> None:
@@ -134,9 +134,9 @@ class TestCanvas:
         clear()
         styles = default_styles
         setup(grid=True)
-        circle((25, 25), radius=10, style=styles.primary)
+        circle((25, 25), radius=10, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_serial_save_grid_1.png")
-        circle((25, 75), radius=10, style=styles.primary)
+        circle((25, 75), radius=10, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_serial_save_grid_2.png")
 
     def test_serial_save_gridonly(self) -> None:
@@ -144,9 +144,9 @@ class TestCanvas:
         clear()
         styles = default_styles
         setup(grid_only=True)
-        circle((25, 25), radius=10, style=styles.primary)
+        circle((25, 25), radius=10, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_serial_save_gridonly_1.png")
-        circle((25, 75), radius=10, style=styles.primary)
+        circle((25, 75), radius=10, style=styles.Primary)
         save(f"{OUTPUT_DIR}test_serial_save_gridonly_2.png")
 
     def test_get_save_file_path(self) -> None:
@@ -186,7 +186,7 @@ class TestCanvas:
 
         clear()
         styles = default_styles
-        circle((50, 50), 10, style=styles.primary)
+        circle((50, 50), 10, style=styles.Primary)
         show()
         assert show_called
 
@@ -194,7 +194,7 @@ class TestCanvas:
         show_called = False
         clear()
         setup(grid=True)
-        circle((50, 50), 10, style=styles.primary)
+        circle((50, 50), 10, style=styles.Primary)
         show()
         assert show_called
 
@@ -203,7 +203,7 @@ class TestCanvas:
         clear()
         styles = default_styles
         setup(width=100, height=100)
-        circle((50, 50), 30, style=styles.primary)
+        circle((50, 50), 30, style=styles.Primary)
 
         dimg = get_dimage()
         assert isinstance(dimg, Dimage)
@@ -228,7 +228,7 @@ class TestCanvas:
         clear()
         styles = default_styles
         setup(width=100, height=100, grid=True)
-        circle((50, 50), 30, style=styles.primary)
+        circle((50, 50), 30, style=styles.Primary)
 
         dimg = get_dimage()
         assert isinstance(dimg, Dimage)

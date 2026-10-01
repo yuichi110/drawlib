@@ -23,23 +23,23 @@ from drawlib.text import text
 setup(width=105, height=42)
 
 # Client Node
-rectangle((20, 21), width=24, height=18, r=1.5, style=Styles.secondary_flat, text="Client App", textstyle=Styles.white_bold)
-phosphor.device_mobile(xy=(20, 34), width=6, style=Styles.secondary)
+rectangle((20, 21), width=24, height=18, r=1.5, style=Styles.SecondaryFlat, text="Client App", textstyle=Styles.WhiteBold)
+phosphor.device_mobile(xy=(20, 34), width=6, style=Styles.Secondary)
 
 # API Gateway Node
-rectangle((55, 21), width=26, height=20, r=1.5, style=Styles.primary_flat, text="API Gateway", textstyle=Styles.white_bold)
-phosphor.cloud(xy=(55, 35), width=6, style=Styles.primary)
+rectangle((55, 21), width=26, height=20, r=1.5, style=Styles.PrimaryFlat, text="API Gateway", textstyle=Styles.WhiteBold)
+phosphor.cloud(xy=(55, 35), width=6, style=Styles.Primary)
 
 # Database Cluster Node
-circle((88, 21), radius=9, style=Styles.accent_flat, text="DB Cluster", textstyle=Styles.white_bold)
-phosphor.database(xy=(88, 34), width=6, style=Styles.accent)
+circle((88, 21), radius=9, style=Styles.AccentFlat, text="DB Cluster", textstyle=Styles.WhiteBold)
+phosphor.database(xy=(88, 34), width=6, style=Styles.Accent)
 
 # Connections and Arrows
-line((32, 21), (42, 21), arrowhead="->", style=Styles.bold)
-text((37, 24), "HTTPS", style=Styles.primary, size=9)
+line((32, 21), (42, 21), arrowhead="->", style=Styles.PrimaryBold)
+text((37, 24), "HTTPS", style=Styles.Primary, size=9)
 
-line((68, 21), (79, 21), arrowhead="->", style=Styles.bold)
-text((73.5, 24), "SQL", style=Styles.accent, size=9)
+line((68, 21), (79, 21), arrowhead="->", style=Styles.PrimaryBold)
+text((73.5, 24), "SQL", style=Styles.Accent, size=9)
 ```
 
 ## 7.3 Essential Drawing Functions

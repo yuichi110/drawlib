@@ -60,13 +60,14 @@ Styles = Styles.patch_font(
 繰り返し利用する図面コンポーネントや定数を定義します:
 ```python
 from drawlib.shapes import rectangle
+from drawlib.styles import Styles
 from drawlib.text import text
 
 BRAND_COLOR = "#0055ff"
 
 def component_box(xy: tuple[float, float], label: str) -> None:
-    rectangle(xy, width=28, height=16, r=2, style="blue_flat")
-    text(xy, label, style="white_bold")
+    rectangle(xy, width=28, height=16, r=2, style=Styles.BlueFlat)
+    text(xy, label, style=Styles.WhiteBold)
 ```
 スタンドアロンスクリプトから利用する例:
 ```python

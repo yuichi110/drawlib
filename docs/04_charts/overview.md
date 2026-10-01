@@ -10,7 +10,7 @@ Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, 
 
 - **Seamless Canvas Coexistence**: Charts can share the same canvas with architecture schemas, callout bubbles, and icons.
 - **Deterministic Layouts**: All margins, tick spaces, and legend boxes are mathematically computed from explicit canvas dimensions (`width`, `height`).
-- **Consistent Visual Theming**: Chart elements—bars, areas, gridlines, axes, labels, and legends—automatically adapt to Drawlib's active styling presets (`Styles.primary_flat`, `Styles.accent_flat`, etc.).
+- **Consistent Visual Theming**: Chart elements—bars, areas, gridlines, axes, labels, and legends—automatically adapt to Drawlib's active styling presets (`Styles.PrimaryFlat`, `Styles.AccentFlat`, etc.).
 
 
 

@@ -8,11 +8,11 @@ Establish an unambiguous reading order by adhering to a consistent text hierarch
 
 | Hierarchy Level | Recommended Size | Recommended Style | Typical Placement |
 | :--- | :--- | :--- | :--- |
-| **Diagram Title** | `14–18` | `Styles.bold` | Top of canvas or figure caption |
-| **Container / Boundary** | `10–12` | `Styles.muted_bold` | Top-left of boundary boxes |
-| **Service / Node Title** | `9–11` | `Styles.white_bold` (or `bold`) | Centered inside service cards |
-| **Subtitle / Tech Stack** | `7.5–8.5` | `Styles.white` (or `primary`) | Below node titles (`fastapi / :8000`) |
-| **Annotation / Metadata** | `7–8` | `Styles.muted` | Connector protocols, IP subnets |
+| **Diagram Title** | `14–18` | `Styles.PrimaryBold` | Top of canvas or figure caption |
+| **Container / Boundary** | `10–12` | `Styles.MutedBold` | Top-left of boundary boxes |
+| **Service / Node Title** | `9–11` | `Styles.WhiteBold` (or `bold`) | Centered inside service cards |
+| **Subtitle / Tech Stack** | `7.5–8.5` | `Styles.White` (or `primary`) | Below node titles (`fastapi / :8000`) |
+| **Annotation / Metadata** | `7–8` | `Styles.Muted` | Connector protocols, IP subnets |
 
 ## 2. Perimeter Margins & Spacing
 
@@ -32,24 +32,24 @@ from drawlib.text import text
 setup(width=120, height=48)
 
 rules = [
-    (18, phosphor.check_circle, "High Contrast", "White text on dark fill\nDark text on light fill\nNever low-contrast gray", Styles.success_flat),
-    (46, phosphor.arrows_out, "Perimeter Margin", "5–10% canvas buffer\nPrevent edge crowding\nBalanced whitespace", Styles.primary_flat),
-    (74, phosphor.palette, "Color Meaning", "Primary: Core service\nSecondary: Data store\nAccent: Entry gateway", Styles.secondary_flat),
-    (102, phosphor.puzzle_piece, "High-Level First", "Favor SmartArts\nFavor Diagrams\nAvoid manual raw math", Styles.accent_flat),
+    (18, phosphor.check_circle, "High Contrast", "White text on dark fill\nDark text on light fill\nNever low-contrast gray", Styles.SuccessFlat),
+    (46, phosphor.arrows_out, "Perimeter Margin", "5–10% canvas buffer\nPrevent edge crowding\nBalanced whitespace", Styles.PrimaryFlat),
+    (74, phosphor.palette, "Color Meaning", "Primary: Core service\nSecondary: Data store\nAccent: Entry gateway", Styles.SecondaryFlat),
+    (102, phosphor.puzzle_piece, "High-Level First", "Favor SmartArts\nFavor Diagrams\nAvoid manual raw math", Styles.AccentFlat),
 ]
 
 for x, icon_fn, title, desc, st in rules:
-    rectangle(xy=(x, 24), width=24, height=36, r=2.5, style=Styles.muted_dashed)
+    rectangle(xy=(x, 24), width=24, height=36, r=2.5, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=7, style=st)
-    text(xy=(x, 25), text=title, style=Styles.bold, size=8.5)
-    text(xy=(x, 14), text=desc, style=Styles.primary, size=7.5)
+    text(xy=(x, 25), text=title, style=Styles.PrimaryBold, size=8.5)
+    text(xy=(x, 14), text=desc, style=Styles.Primary, size=7.5)
 ```
 
 ## 4. Semantic Coordinates Pattern (`*_xy`)
 
 Avoid scattering raw coordinate literals `(50, 25)` or cryptic list indices (`a[1]`) across drawing calls. Define meaningful coordinate variables (e.g. `client_xy = (25, 25)`, `gateway_xy = (65, 25)`) at the beginning of the block:
 - **Refactoring Resilience**: Repositioning a node automatically updates both its shape and all incoming/outgoing connection lines.
-- **Self-Documenting Flows**: Connectors read with immediate clarity: `line(client_xy, gateway_xy, arrowhead="->", style=Styles.bold)`.
+- **Self-Documenting Flows**: Connectors read with immediate clarity: `line(client_xy, gateway_xy, arrowhead="->", style=Styles.PrimaryBold)`.
 
 ## Summary Checklist for Production Blueprints
 

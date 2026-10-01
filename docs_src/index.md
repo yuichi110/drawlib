@@ -13,16 +13,16 @@ from drawlib.styles import Styles
 setup(width=120, height=45)
 
 # Background Boundary
-rectangle((60, 22.5), width=116, height=38, style=Styles.muted_dashed)
+rectangle((60, 22.5), width=116, height=38, style=Styles.MutedDashed)
 
 # Pipeline stages
-rectangle((25, 22.5), width=30, height=18, style=Styles.primary_flat, text="AI Agent / Dev\n(Python Script)", textstyle=Styles.white_bold)
-rectangle((62, 22.5), width=28, height=18, style=Styles.accent_flat, text="Markdown\n(```drawlib)", textstyle=Styles.white_bold)
-circle((98, 22.5), radius=10, style=Styles.success_flat, text="HTML, PDF\n& Markdown", textstyle=Styles.white_bold)
+rectangle((25, 22.5), width=30, height=18, style=Styles.PrimaryFlat, text="AI Agent / Dev\n(Python Script)", textstyle=Styles.WhiteBold)
+rectangle((62, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Markdown\n(```drawlib)", textstyle=Styles.WhiteBold)
+circle((98, 22.5), radius=10, style=Styles.SuccessFlat, text="HTML, PDF\n& Markdown", textstyle=Styles.WhiteBold)
 
 # Connectors
-line((40, 22.5), (48, 22.5), arrowhead="->", style=Styles.bold)
-line((76, 22.5), (88, 22.5), arrowhead="->", style=Styles.bold)
+line((40, 22.5), (48, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((76, 22.5), (88, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ---

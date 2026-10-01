@@ -44,7 +44,7 @@ Choose dimensions that match the natural aspect ratio of your diagram:
 A common mistake when generating diagrams is placing elements too close to the canvas edges.
 
 - **Keep 5%–10% Margin**: Leave breathing room around all four borders. For a canvas with `width=100` and `height=60`, avoid placing text or shape boundaries below `x=5`, above `x=95`, below `y=5`, or above `y=55`.
-- **Containers Before Components**: Draw boundary containers (e.g. `rectangle(..., style=Styles.muted_dashed)`) to establish visual scopes before positioning child components.
+- **Containers Before Components**: Draw boundary containers (e.g. `rectangle(..., style=Styles.MutedDashed)`) to establish visual scopes before positioning child components.
 
 ---
 
@@ -61,12 +61,12 @@ Professional illustrations maintain visual clarity by structuring colors around 
 
 
 
-1. **Primary Anchor (`Styles.primary`)**:
+1. **Primary Anchor (`Styles.Primary`)**:
    Central workflow spine, core microservices, and primary subject matter.
-2. **Functional Semantics (`Styles.secondary`, `Styles.accent`, `Styles.danger`, `Styles.success`)**:
+2. **Functional Semantics (`Styles.Secondary`, `Styles.Accent`, `Styles.Danger`, `Styles.Success`)**:
    Auxiliary services, events, databases, alerts, and verified deliverables. Used actively across the diagram according to their functional intent without artificial percentage caps.
-3. **Muted Structural Base (`Styles.muted`)**:
-   Neutral containers, group boundaries, subnets, and grouping boxes (`Styles.muted_flat`, `Styles.muted_dashed`).
+3. **Muted Structural Base (`Styles.Muted`)**:
+   Neutral containers, group boundaries, subnets, and grouping boxes (`Styles.MutedFlat`, `Styles.MutedDashed`).
 
 ---
 

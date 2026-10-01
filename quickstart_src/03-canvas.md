@@ -20,27 +20,27 @@ from drawlib.text import text
 setup(width=120, height=55)
 
 # Outer canvas boundary
-rectangle(xy=(60, 27.5), width=108, height=45, r=2, style=Styles.muted_dashed)
+rectangle(xy=(60, 27.5), width=108, height=45, r=2, style=Styles.MutedDashed)
 
 # Coordinate axes
-line((12, 10), (110, 10), arrowhead="->", style=Styles.primary_bold)
-text((112, 10), "X", style=Styles.primary_bold, size=11)
+line((12, 10), (110, 10), arrowhead="->", style=Styles.PrimaryBold)
+text((112, 10), "X", style=Styles.PrimaryBold, size=11)
 
-line((16, 6), (16, 48), arrowhead="->", style=Styles.primary_bold)
-text((16, 50), "Y", style=Styles.primary_bold, size=11)
+line((16, 6), (16, 48), arrowhead="->", style=Styles.PrimaryBold)
+text((16, 50), "Y", style=Styles.PrimaryBold, size=11)
 
 # Origin marker
-circle((16, 10), radius=1.5, style=Styles.accent_flat)
-text((13, 6), "(0, 0)", style=Styles.accent_bold, size=9)
+circle((16, 10), radius=1.5, style=Styles.AccentFlat)
+text((13, 6), "(0, 0)", style=Styles.AccentBold, size=9)
 
 # Center anchor element
-circle((60, 28), radius=8, style=Styles.primary_flat)
-text((60, 28), "Center\n(60, 28)", style=Styles.white_bold, size=9)
+circle((60, 28), radius=8, style=Styles.PrimaryFlat)
+text((60, 28), "Center\n(60, 28)", style=Styles.WhiteBold, size=9)
 
 # Corner coordinate labels
-text((18, 45), "Top-Left (0, H)", style=Styles.muted_bold, size=8)
-text((105, 45), "Top-Right (W, H)", style=Styles.muted_bold, size=8)
-text((105, 14), "Bottom-Right (W, 0)", style=Styles.muted_bold, size=8)
+text((18, 45), "Top-Left (0, H)", style=Styles.MutedBold, size=8)
+text((105, 45), "Top-Right (W, H)", style=Styles.MutedBold, size=8)
+text((105, 14), "Bottom-Right (W, 0)", style=Styles.MutedBold, size=8)
 ```
 
 ## Configuring the Canvas with `setup()`
@@ -75,16 +75,16 @@ from drawlib.text import text
 setup(width=120, height=44)
 
 anchors = [
-    (24, "left", "Left Aligned\n(starts at X)", Styles.primary),
-    (60, "center", "Center Aligned\n(centered at X)", Styles.secondary),
-    (96, "right", "Right Aligned\n(ends at X)", Styles.accent),
+    (24, "left", "Left Aligned\n(starts at X)", Styles.Primary),
+    (60, "center", "Center Aligned\n(centered at X)", Styles.Secondary),
+    (96, "right", "Right Aligned\n(ends at X)", Styles.Accent),
 ]
 
 for x, align_mode, label, st in anchors:
     # Reference vertical alignment line
-    line((x, 10), (x, 38), style=Styles.muted_dashed)
+    line((x, 10), (x, 38), style=Styles.MutedDashed)
     # Red anchor dot
-    circle((x, 24), radius=1.5, style=Styles.danger_flat)
-    text((x, 24), label, style=Styles.bold.patch(text_halign=align_mode), size=8.5)
+    circle((x, 24), radius=1.5, style=Styles.DangerFlat)
+    text((x, 24), label, style=Styles.PrimaryBold.patch(text_halign=align_mode), size=8.5)
     text((x, 6), f"text_halign='{align_mode}'", style=st, size=8.5)
 ```

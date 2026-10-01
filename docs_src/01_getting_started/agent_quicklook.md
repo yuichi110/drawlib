@@ -17,7 +17,7 @@ When tasked with generating technical illustrations, AI agents typically struggl
 1. **High-Level Declarative Abstractions**:  
    Instead of drawing raw boxes and wires, an agent simply writes `ArchitectureDiagram`, `ERDiagram`, or `FlowDiagram`. The library handles orthogonal routing, padding, and marker styling automatically.
 2. **Built-in Visual Harmony**:  
-   Predefined semantic styles (`Styles.primary_flat`, `Styles.accent_flat`) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.
+   Predefined semantic styles (`Styles.PrimaryFlat`, `Styles.AccentFlat`) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.
 3. **On-Demand Rule Injection**:  
    Drawlib includes a complete built-in manual that agents can query via the CLI at runtime (`drawlib rules show <topic>`), eliminating context-window bloat and outdated training data.
 
@@ -66,20 +66,20 @@ from drawlib.styles import Styles
 setup(width=130, height=45)
 
 # Agent loop boxes
-rectangle((20, 22.5), width=26, height=20, style=Styles.primary_flat, text="1. LLM Agent\n(Reads Code)", textstyle=Styles.white_bold)
-rectangle((56, 22.5), width=28, height=20, style=Styles.accent_flat, text="2. Generate\nDrawlib Code", textstyle=Styles.white_bold)
-rectangle((92, 22.5), width=26, height=20, style=Styles.secondary_flat, text="3. Render Grid\n(-g Image)", textstyle=Styles.white_bold)
-rectangle((118, 22.5), width=18, height=20, style=Styles.success_flat, text="4. Auto\nReview", textstyle=Styles.white_bold)
+rectangle((20, 22.5), width=26, height=20, style=Styles.PrimaryFlat, text="1. LLM Agent\n(Reads Code)", textstyle=Styles.WhiteBold)
+rectangle((56, 22.5), width=28, height=20, style=Styles.AccentFlat, text="2. Generate\nDrawlib Code", textstyle=Styles.WhiteBold)
+rectangle((92, 22.5), width=26, height=20, style=Styles.SecondaryFlat, text="3. Render Grid\n(-g Image)", textstyle=Styles.WhiteBold)
+rectangle((118, 22.5), width=18, height=20, style=Styles.SuccessFlat, text="4. Auto\nReview", textstyle=Styles.WhiteBold)
 
 # Forward arrows
-line((33, 22.5), (42, 22.5), arrowhead="->", style=Styles.bold)
-line((70, 22.5), (79, 22.5), arrowhead="->", style=Styles.bold)
-line((105, 22.5), (109, 22.5), arrowhead="->", style=Styles.bold)
+line((33, 22.5), (42, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((70, 22.5), (79, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((105, 22.5), (109, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 
 # Feedback loop
-line((118, 32.5), (118, 38), style=Styles.danger_bold)
-line((118, 38), (56, 38), style=Styles.danger_bold)
-line((56, 38), (56, 32.5), arrowhead="->", style=Styles.danger_bold)
+line((118, 32.5), (118, 38), style=Styles.DangerBold)
+line((118, 38), (56, 38), style=Styles.DangerBold)
+line((56, 38), (56, 32.5), arrowhead="->", style=Styles.DangerBold)
 ```
 
 1. **Inspect Context**: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.

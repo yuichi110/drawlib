@@ -79,14 +79,14 @@ from drawlib.shapes import rectangle
 setup(width=120, height=50)
 
 # 1. Background / Boundary Container
-rectangle((60, 25), width=108, height=38, style=Styles.muted_dashed)
+rectangle((60, 25), width=108, height=38, style=Styles.MutedDashed)
 
 # 2. Main Services
-rectangle((30, 25), width=32, height=18, style=Styles.accent_flat, text="Client App", textstyle=Styles.white_bold)
-rectangle((90, 25), width=32, height=18, style=Styles.primary_flat, text="API Gateway", textstyle=Styles.white_bold)
+rectangle((30, 25), width=32, height=18, style=Styles.AccentFlat, text="Client App", textstyle=Styles.WhiteBold)
+rectangle((90, 25), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", textstyle=Styles.WhiteBold)
 
 # 3. Connection
-line((46, 25), (74, 25), arrowhead="->", style=Styles.bold)
+line((46, 25), (74, 25), arrowhead="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -112,9 +112,9 @@ from drawlib.lines import line
 from drawlib.styles import Styles
 
 setup(width=100, height=40)
-rectangle((25, 20), width=30, height=18, style=Styles.primary_flat, text="Publisher", textstyle=Styles.white_bold)
-rectangle((75, 20), width=30, height=18, style=Styles.secondary_flat, text="Consumer", textstyle=Styles.white_bold)
-line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
+rectangle((25, 20), width=30, height=18, style=Styles.PrimaryFlat, text="Publisher", textstyle=Styles.WhiteBold)
+rectangle((75, 20), width=30, height=18, style=Styles.SecondaryFlat, text="Consumer", textstyle=Styles.WhiteBold)
+line((40, 20), (60, 20), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 ````
@@ -123,7 +123,7 @@ save()
 - **Code Display**: `hide-code` *(default)*, `show-code` (displays code above image), `fold-code` (collapsible `<details>` block).
 - **Dimensions & Alignment**: `600px`, `100%`, `center` *(default)*, `left`, `right`.
 - **Caption & Asset Name**: `caption:"Description"` (renders `<figcaption>`), `file:custom_name.png`. **Always specify `file:<name>.png`** for every embedded block to ensure deterministic referencing and clean asset management. Avoid relying on auto-generated index filenames (`0.png`, `1.png`).
-- **Explicit Imports & PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles`. **Always use uppercase `Styles` and `Colors`** (e.g. `style=Styles.primary_flat`, `Colors.Blue`). Never rename or lowercase them to `styles` or `colors` to avoid shadowing module `drawlib.styles`.
+- **Explicit Imports & PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles`. **Always use uppercase `Styles` and `Colors`** (e.g. `style=Styles.PrimaryFlat`, `Colors.Blue`). Never rename or lowercase them to `styles` or `colors` to avoid shadowing module `drawlib.styles`.
 - **Lifecycle & `save()`**: Calling `save()` in embedded blocks is optional as the build engine automatically captures the canvas (and calls to `save()` are safely treated as no-ops). However, including `save()` (without arguments) in complete examples is recommended to ensure 100% copy-paste portability with standalone `.py` scripts.
 
 ### 4.2. Standard Project Scaffolding (`drawlib init`)

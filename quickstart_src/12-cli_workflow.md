@@ -25,27 +25,27 @@ from drawlib.text import text
 setup(width=120, height=48)
 
 # Input
-rectangle(xy=(18, 24), width=24, height=34, r=2, style=Styles.primary_outline)
-phosphor.file_text(xy=(18, 30), width=8, style=Styles.primary)
-text(xy=(18, 16), text="Source Docs\n(docs_src/)", style=Styles.primary_bold, size=9)
+rectangle(xy=(18, 24), width=24, height=34, r=2, style=Styles.PrimaryOutline)
+phosphor.file_text(xy=(18, 30), width=8, style=Styles.Primary)
+text(xy=(18, 16), text="Source Docs\n(docs_src/)", style=Styles.PrimaryBold, size=9)
 
 # CLI Engine
-rectangle(xy=(56, 24), width=26, height=34, r=2, style=Styles.secondary_outline)
-phosphor.terminal_window(xy=(56, 30), width=8, style=Styles.secondary)
-text(xy=(56, 16), text="drawlib CLI\n& SQLite Cache", style=Styles.secondary_bold, size=9)
+rectangle(xy=(56, 24), width=26, height=34, r=2, style=Styles.SecondaryOutline)
+phosphor.terminal_window(xy=(56, 30), width=8, style=Styles.Secondary)
+text(xy=(56, 16), text="drawlib CLI\n& SQLite Cache", style=Styles.SecondaryBold, size=9)
 
-line((30, 24), (43, 24), arrowhead="->", style=Styles.bold)
+line((30, 24), (43, 24), arrowhead="->", style=Styles.PrimaryBold)
 
 # Output Targets
 targets = [
-    (38, "build html -> docs_html/", Styles.accent_flat),
-    (24, "build pdf -> book.pdf", Styles.primary_flat),
-    (10, "build markdown -> docs/", Styles.success_flat),
+    (38, "build html -> docs_html/", Styles.AccentFlat),
+    (24, "build pdf -> book.pdf", Styles.PrimaryFlat),
+    (10, "build markdown -> docs/", Styles.SuccessFlat),
 ]
 
 for y_pos, label, st in targets:
-    line((69, 24), (82, y_pos), arrowhead="->", style=Styles.bold)
-    rectangle(xy=(101, y_pos), width=36, height=10, r=1.5, style=st, text=label, textstyle=Styles.white_bold)
+    line((69, 24), (82, y_pos), arrowhead="->", style=Styles.PrimaryBold)
+    rectangle(xy=(101, y_pos), width=36, height=10, r=1.5, style=st, text=label, textstyle=Styles.WhiteBold)
 ```
 
 ## High-Performance Incremental Build Cache

@@ -15,7 +15,7 @@ from drawlib.shapes import arrow, rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(height=60, color=Colors.canvas)
+setup(height=60, color=Colors.Canvas)
 
 rect_width = 20
 rect_height = 38
@@ -38,7 +38,7 @@ def left():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=Styles.Dashed,
+        style=Styles.PrimaryDashed,
     )
 
     x = 8
@@ -83,7 +83,7 @@ def center():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=Styles.Dashed,
+        style=Styles.PrimaryDashed,
     )
 
     x = 43
@@ -118,7 +118,7 @@ def right():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=Styles.Dashed,
+        style=Styles.PrimaryDashed,
     )
 
     phosphor.file_pdf((85, 43), width=6, style=icon_thin)
@@ -134,7 +134,7 @@ def bottom():
         width=90,
         height=6,
         r=2,
-        style=Styles.Solid,
+        style=Styles.PrimarySolid,
     )
     phosphor.github_logo((17, 5), width=5, style=icon_thin)
     text(
@@ -168,7 +168,7 @@ arrow(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style=Styles.Solid,
+    style=Styles.PrimarySolid,
 )
 text((67, 25), "Build\nDocs", style=tscenter16)
 right()

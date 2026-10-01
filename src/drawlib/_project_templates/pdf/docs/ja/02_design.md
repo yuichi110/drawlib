@@ -14,8 +14,8 @@ setup(width=110, height=52)
 
 # utils.py の共通ヘルパー関数によるサービス描画
 service_card((20, 24), title="Web クライアント", subtitle="Browser / App")
-service_card((55, 24), title="Linux サーバー", subtitle="Ubuntu / Nginx", style=Styles.accent_flat)
-service_card((90, 24), title="データベース", subtitle="PostgreSQL", style=Styles.secondary_flat)
+service_card((55, 24), title="Linux サーバー", subtitle="Ubuntu / Nginx", style=Styles.AccentFlat)
+service_card((90, 24), title="データベース", subtitle="PostgreSQL", style=Styles.SecondaryFlat)
 
 # プロトコルラベル付き接続線
 connect((32, 24), (43, 24), label="HTTPS")

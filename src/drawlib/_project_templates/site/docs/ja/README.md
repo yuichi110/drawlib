@@ -82,13 +82,14 @@ drawlib build html __SRC_DIR__/ -o __OUT_HTML_DIR__/ -s custom_styles.py
 ```python
 # utils.py 内:
 from drawlib.shapes import rectangle
+from drawlib.styles import Styles
 from drawlib.text import text
 
 PROJECT_NAME = "基幹プラットフォーム"
 
 def service_card(xy: tuple[float, float], title: str) -> None:
-    rectangle(xy, width=32, height=18, r=2, style="blue_flat")
-    text(xy, title, style="white_bold")
+    rectangle(xy, width=32, height=18, r=2, style=Styles.BlueFlat)
+    text(xy, title, style=Styles.WhiteBold)
 ```
 
 Markdown 内の ````drawlib```` コードブロックから利用する例:

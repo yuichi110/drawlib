@@ -23,18 +23,18 @@ from drawlib.text import text
 setup(width=110, height=45)
 
 # Left: Traditional Approach
-rectangle((28, 22.5), width=48, height=36, r=2, style=Styles.muted_dashed)
-text((28, 36), text="Traditional Manual Approach", style=Styles.muted_bold, size=10)
-phosphor.file_x(xy=(16, 24), width=8, style=Styles.muted)
-text((34, 24), text="• Hand-drawn in Figma / draw.io\n• Binary PNGs stored in Git\n• Out-of-sync docs & diagram rot", style=Styles.muted, size=8.5)
+rectangle((28, 22.5), width=48, height=36, r=2, style=Styles.MutedDashed)
+text((28, 36), text="Traditional Manual Approach", style=Styles.MutedBold, size=10)
+phosphor.file_x(xy=(16, 24), width=8, style=Styles.Muted)
+text((34, 24), text="• Hand-drawn in Figma / draw.io\n• Binary PNGs stored in Git\n• Out-of-sync docs & diagram rot", style=Styles.Muted, size=8.5)
 
 # Right: Drawlib Approach
-rectangle((82, 22.5), width=48, height=36, r=2, style=Styles.primary_outline)
-text((82, 36), text="Illustrated Doc as Code (Drawlib)", style=Styles.primary_bold, size=10)
-phosphor.code(xy=(70, 24), width=8, style=Styles.primary)
-text((88, 24), text="• Declarative Python drawing code\n• Inline ```drawlib``` blocks in Markdown\n• Git diff reviews & CI/CD builds", style=Styles.primary, size=8.5)
+rectangle((82, 22.5), width=48, height=36, r=2, style=Styles.PrimaryOutline)
+text((82, 36), text="Illustrated Doc as Code (Drawlib)", style=Styles.PrimaryBold, size=10)
+phosphor.code(xy=(70, 24), width=8, style=Styles.Primary)
+text((88, 24), text="• Declarative Python drawing code\n• Inline ```drawlib``` blocks in Markdown\n• Git diff reviews & CI/CD builds", style=Styles.Primary, size=8.5)
 
-line((53, 22.5), (57, 22.5), arrowhead="->", style=Styles.bold)
+line((53, 22.5), (57, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ## 2.3 Synergy with AI Pair Programming

@@ -15,20 +15,20 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # 1. ChevronProcess: Automatic stage spacing and interlocking angles
-proc = ChevronProcess(flat_left_end=True, spacing=2.0, default_textstyle=Styles.white_bold)
-proc.append("Plan", style=Styles.primary_flat)
-proc.append("Code", style=Styles.accent_flat)
-proc.append("Test", style=Styles.secondary_flat)
-proc.append("Deploy", style=Styles.success_flat)
+proc = ChevronProcess(flat_left_end=True, spacing=2.0, default_textstyle=Styles.WhiteBold)
+proc.append("Plan", style=Styles.PrimaryFlat)
+proc.append("Code", style=Styles.AccentFlat)
+proc.append("Test", style=Styles.SecondaryFlat)
+proc.append("Deploy", style=Styles.SuccessFlat)
 proc.draw(xy=(10, 42), width=100, height=12)
 
 # 2. Table: Structured comparison and schema datasets
 tbl = Table(
-    header_cell_style=Styles.primary_flat,
-    header_text_style=Styles.white_bold,
-    default_cell_style=Styles.muted_flat,
-    default_text_style=Styles.bold,
-    border_style=Styles.bold,
+    header_cell_style=Styles.PrimaryFlat,
+    header_text_style=Styles.WhiteBold,
+    default_cell_style=Styles.MutedFlat,
+    default_text_style=Styles.PrimaryBold,
+    border_style=Styles.PrimaryBold,
 )
 data = [
     ["Component", "Target Diagram", "Coordinate Anchor"],

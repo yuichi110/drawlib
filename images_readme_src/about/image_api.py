@@ -16,7 +16,7 @@ from drawlib.text import text
 
 textstyle_bold = Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
 shapetextstyle_bold = Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
-setup(width=100, height=60, color=Colors.canvas)
+setup(width=100, height=60, color=Colors.Canvas)
 
 
 def bottom():
@@ -51,7 +51,7 @@ def middle(x, width, name, functions, style_items):
             style=Styles.Primary.patch(text_halign="left", text_size=12),
         )
 
-    line((x + 1, 26), (x + width - 1, 26), style=Styles.Dashed)
+    line((x + 1, 26), (x + width - 1, 26), style=Styles.PrimaryDashed)
 
     for i, style in enumerate(style_items):
         text(

@@ -39,11 +39,11 @@ start_x, y, gap = 15, 20, 10
 
 for i, name in enumerate(services):
     x = start_x + i * (box_w + gap) + (box_w / 2)
-    rectangle((x, y), width=box_w, height=box_h, style=Styles.blue_flat, text=name, textstyle=Styles.white_bold)
+    rectangle((x, y), width=box_w, height=box_h, style=Styles.BlueFlat, text=name, textstyle=Styles.WhiteBold)
     if i > 0:
         prev_right = start_x + (i - 1) * (box_w + gap) + box_w
         curr_left = start_x + i * (box_w + gap)
-        line((prev_right, y), (curr_left, y), arrowhead="->", style=Styles.bold)
+        line((prev_right, y), (curr_left, y), arrowhead="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -62,21 +62,21 @@ nodes = ["Ingest", "Transform", "Validate", "Store", "Index", "Serve"]
 n = len(nodes)
 
 # Central hub
-circle((center_x, center_y), radius=12, style=Styles.purple_flat, text="Data Hub", textstyle=Styles.white_bold)
+circle((center_x, center_y), radius=12, style=Styles.PurpleFlat, text="Data Hub", textstyle=Styles.WhiteBold)
 
 # Satellite nodes
 for i, label in enumerate(nodes):
     angle = (2 * math.pi / n) * i
     x = center_x + radius * math.cos(angle)
     y = center_y + radius * math.sin(angle)
-    circle((x, y), radius=8, style=Styles.green_flat, text=label, textstyle=Styles.white_bold)
+    circle((x, y), radius=8, style=Styles.GreenFlat, text=label, textstyle=Styles.WhiteBold)
 
     # Connect hub edge to satellite edge without cutting through nodes
     lx1 = center_x + 13 * math.cos(angle)
     ly1 = center_y + 13 * math.sin(angle)
     lx2 = center_x + 21 * math.cos(angle)
     ly2 = center_y + 21 * math.sin(angle)
-    line((lx1, ly1), (lx2, ly2), arrowhead="->", style=Styles.bold)
+    line((lx1, ly1), (lx2, ly2), arrowhead="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -165,14 +165,14 @@ from drawlib.shapes import rectangle
 
 # Figure 1: Step 1
 setup(width=100, height=50)
-rectangle((30, 25), width=25, height=18, style=Styles.blue_flat, text="Stage 1")
+rectangle((30, 25), width=25, height=18, style=Styles.BlueFlat, text="Stage 1")
 save("stage1.png")
 clear()
 
 # Figure 2: Step 2 with fresh canvas
 setup(width=100, height=50)
-rectangle((30, 25), width=25, height=18, style=Styles.blue_flat, text="Stage 1")
-rectangle((70, 25), width=25, height=18, style=Styles.green_flat, text="Stage 2")
+rectangle((30, 25), width=25, height=18, style=Styles.BlueFlat, text="Stage 1")
+rectangle((70, 25), width=25, height=18, style=Styles.GreenFlat, text="Stage 2")
 save("stage2.png")
 ```
 
@@ -205,13 +205,13 @@ rectangle(
     (cx, cy),
     width=bw,
     height=bh,
-    style=Styles.light,
+    style=Styles.Light,
     text="Subsystem Boundary",
-    textstyle=Styles.bold.patch(text_xy_shift=(0, bh / 2 - 4)),
+    textstyle=Styles.PrimaryBold.patch(text_xy_shift=(0, bh / 2 - 4)),
 )
 
 for xy in nodes:
-    circle(xy, radius=6, style=Styles.blue_flat)
+    circle(xy, radius=6, style=Styles.BlueFlat)
 
 save()
 ```
@@ -334,9 +334,9 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 
 setup(width=120, height=50)
-rectangle((25, 25), width=30, height=20, style=Styles.primary_flat, text="Client", textstyle=Styles.white_bold)
-rectangle((95, 25), width=30, height=20, style=Styles.secondary_flat, text="Service", textstyle=Styles.white_bold)
-line((40, 25), (80, 25), arrowhead="->", style=Styles.bold)
+rectangle((25, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Client", textstyle=Styles.WhiteBold)
+rectangle((95, 25), width=30, height=20, style=Styles.SecondaryFlat, text="Service", textstyle=Styles.WhiteBold)
+line((40, 25), (80, 25), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 ````
@@ -476,8 +476,8 @@ drawlib rules show <topic> --rebuild
   from drawlib.styles import Styles
   from drawlib.shapes import circle, rectangle
 
-  rectangle((30, 25), width=20, height=15, style=Styles.blue_flat, text="Box")
-  circle((70, 25), radius=8, style=Styles.green_outline)
+  rectangle((30, 25), width=20, height=15, style=Styles.BlueFlat, text="Box")
+  circle((70, 25), radius=8, style=Styles.GreenOutline)
   ```
 - **When to read**: Refer to this rule when selecting the right geometric primitive, styling shape borders and fills, rounding corners, rotating shapes, or embedding centered text inside containers.
 
@@ -491,8 +491,8 @@ drawlib rules show <topic> --rebuild
   from drawlib.styles import Styles
   from drawlib.lines import line, line_curved
 
-  line((10, 20), (40, 20), arrowhead="->", style=Styles.bold)
-  line_curved((50, 20), (80, 40), bend=0.3, arrowhead="<->", style=Styles.dashed)
+  line((10, 20), (40, 20), arrowhead="->", style=Styles.PrimaryBold)
+  line_curved((50, 20), (80, 40), bend=0.3, arrowhead="<->", style=Styles.PrimaryDashed)
   ```
 - **When to read**: Refer to this rule when connecting diagram nodes, configuring arrowheads (`->`, `<-`, `<->`, `-`), routing complex paths, or adjusting curve bending parameters.
 
@@ -506,7 +506,7 @@ drawlib rules show <topic> --rebuild
   from drawlib.styles import Styles
   from drawlib.text import text
 
-  text((50, 80), "Architecture Diagram", style=Styles.title_bold, halign="center")
+  text((50, 80), "Architecture Diagram", style=Styles.PrimaryBold, halign="center")
   text((10, 50), "Line 1\nLine 2", fontsize=12, color="#555555", halign="left")
   ```
 - **When to read**: Refer to this rule when fine-tuning title typography, aligning table headers, formatting multiline captions, or rotating vertical axis labels.
@@ -521,7 +521,7 @@ drawlib rules show <topic> --rebuild
   from drawlib.styles import Styles
   from drawlib.icons import font_icon, gcp, phosphor
 
-  phosphor.desktop((20, 30), width=10, style=Styles.blue_flat)
+  phosphor.desktop((20, 30), width=10, style=Styles.BlueFlat)
   gcp.compute_engine((50, 30), width=12)
   font_icon((80, 30), "fa-database", width=10)
   ```
@@ -531,14 +531,14 @@ drawlib rules show <topic> --rebuild
 
 ### 5.9. Preset Styles & Color Palettes (`lib-preset-styles`)
 - **Command**: `drawlib rules show lib-preset-styles`
-- **Scope**: Systematic style naming rules (`<color>_<variant>`), built-in palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`), pre-defined styles for shapes, lines, and text, and custom style registration.
+- **Scope**: Systematic style naming rules (`Styles.<Color><Variant>`), built-in palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`), pre-defined styles for shapes, lines, and text, and custom style registration.
 - **Key Syntax**:
   ```python
-  # Common preset styles: "blue_flat", "green_outline", "red_soft", "bold", "white_bold"
+  # Common preset styles: Styles.PrimaryFlat, Styles.GreenOutline, Styles.Red, Styles.PrimaryBold, Styles.WhiteBold
   # Tip: Prefer importing styles from drawlib.styles if themes might be customized via --styles
   from drawlib.styles import Styles
 
-  rectangle((30, 30), width=20, height=10, style=Styles.purple_flat, textstyle=Styles.white_bold)
+  rectangle((30, 30), width=20, height=10, style=Styles.PurpleFlat, textstyle=Styles.WhiteBold)
   ```
 - **When to read**: Refer to this rule to maintain visual consistency, pick matching foreground/background colors, or define reusable corporate themes across a team.
 
@@ -683,7 +683,7 @@ drawlib rules show <topic> --rebuild
   ```python
   from drawlib.styles import Colors, Styles  # Dynamic runtime Styles and Colors
   from drawlib.utils import custom_box       # User-defined helper utilities
-  rectangle((30, 20), width=40, height=20, style=Styles.primary)
+  rectangle((30, 20), width=40, height=20, style=Styles.Primary)
   ```
 - **When to read**: Refer to this rule when customizing project-wide palettes or themes, defining reusable helper functions, or decoupling drawing scripts from hardcoded styles.
 
@@ -762,6 +762,6 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 ### 6.4. Implementation Checklist
 
 - [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
-- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import Styles` (e.g. `style=Styles.blue_flat`, `textstyle=Styles.white_bold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
+- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import Styles` (e.g. `style=Styles.BlueFlat`, `textstyle=Styles.WhiteBold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
 - [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.
 - [ ] **Clean Separation of Concerns**: Decouple data lists/dictionaries from drawing loops for maintainability.

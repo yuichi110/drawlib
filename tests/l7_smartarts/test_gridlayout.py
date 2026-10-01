@@ -30,8 +30,8 @@ class TestGridLayout:
             num_column=3,
             num_row=3,
             default_r=2,
-            default_style=styles.solid,
-            default_textstyle=styles.bold,
+            default_style=styles.PrimarySolid,
+            default_textstyle=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
@@ -49,8 +49,8 @@ class TestGridLayout:
             num_column=3,
             num_row=3,
             default_r=2,
-            default_style=styles.solid,
-            default_textstyle=styles.bold,
+            default_style=styles.PrimarySolid,
+            default_textstyle=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A", textangle=270)
         gl.add((0, 1), 1, 1, text="B", textangle=90)
@@ -68,8 +68,8 @@ class TestGridLayout:
             num_column=3,
             num_row=3,
             default_r=2,
-            default_style=styles.solid,
-            default_textstyle=styles.bold,
+            default_style=styles.PrimarySolid,
+            default_textstyle=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A", text_xy_shift=(3, 3))
         gl.add((0, 1), 1, 1, text="B", text_xy_shift=(-3, -3))
@@ -87,16 +87,16 @@ class TestGridLayout:
             num_column=3,
             num_row=3,
             default_r=2,
-            default_style=styles.solid,
-            default_textstyle=styles.bold,
+            default_style=styles.PrimarySolid,
+            default_textstyle=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
         gl.add((0, 2), 1, 1, text="C")
         gl.add((1, 0), 1, 3, text="D")
         gl.add((2, 0), 1, 1, text="E")
-        gl.draw((10, 10), 30, 30, 1, outer_style=styles.solid)
-        gl.draw((60, 10), 30, 30, 1, outer_r=0, outer_style=styles.solid)
+        gl.draw((10, 10), 30, 30, 1, outer_style=styles.PrimarySolid)
+        gl.draw((60, 10), 30, 30, 1, outer_r=0, outer_style=styles.PrimarySolid)
         save(f"{OUTPUT_DIR}test_gridlayout_outerstyle.png")
 
     def test_gridlayout_missing_style_raises_error(self) -> None:
@@ -106,6 +106,6 @@ class TestGridLayout:
             gl_no_style.add((0, 0), 1, 1)
 
         styles = default_styles
-        gl_no_textstyle = GridLayout(num_column=2, num_row=2, default_style=styles.solid)
+        gl_no_textstyle = GridLayout(num_column=2, num_row=2, default_style=styles.PrimarySolid)
         with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
             gl_no_textstyle.add((0, 0), 1, 1, text="Test")

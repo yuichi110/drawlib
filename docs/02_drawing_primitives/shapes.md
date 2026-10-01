@@ -46,9 +46,9 @@ from drawlib.styles import Styles
 
 setup(width=110, height=45)
 
-circle((20, 22.5), radius=12, style=Styles.primary_flat, text="circle", textstyle=Styles.white_bold)
-donuts((55, 22.5), radius=12, width=4.5, style=Styles.accent_flat, text="donuts", textstyle=Styles.white_bold)
-ellipse((90, 22.5), width=24, height=16, style=Styles.secondary_flat, text="ellipse", textstyle=Styles.white_bold)
+circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text="circle", textstyle=Styles.WhiteBold)
+donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text="donuts", textstyle=Styles.WhiteBold)
+ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text="ellipse", textstyle=Styles.WhiteBold)
 
 save()
 ```
@@ -84,7 +84,7 @@ from drawlib.styles import Styles
 
 setup(width=100, height=50)
 
-rectangle((50, 25), width=50, height=26, r=4, style=Styles.primary_flat, text="Service Card", textstyle=Styles.white_bold)
+rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text="Service Card", textstyle=Styles.WhiteBold)
 
 save()
 ```
@@ -122,9 +122,9 @@ setup(width=100, height=60)
 shape(
     (50, 30),
     path_points=[(0, 0), (20, 0), (30, 15), (10, 25), (-5, 10)],
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
     text="Custom Path",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 
 save()

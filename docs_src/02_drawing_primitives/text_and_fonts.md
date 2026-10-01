@@ -16,20 +16,20 @@ from drawlib.text import text, text_vertical
 setup(width=120, height=50)
 
 # 1. Alignment anchors (red dots mark coordinate anchor xy)
-circle((30, 35), radius=1.5, style=Styles.danger_flat)
-text((30, 35), "Left-Aligned", style=Styles.primary_bold.patch(text_halign="left", text_valign="center"))
+circle((30, 35), radius=1.5, style=Styles.DangerFlat)
+text((30, 35), "Left-Aligned", style=Styles.PrimaryBold.patch(text_halign="left", text_valign="center"))
 
-circle((30, 20), radius=1.5, style=Styles.danger_flat)
-text((30, 20), "Center-Aligned", style=Styles.primary_bold.patch(text_halign="center", text_valign="center"))
+circle((30, 20), radius=1.5, style=Styles.DangerFlat)
+text((30, 20), "Center-Aligned", style=Styles.PrimaryBold.patch(text_halign="center", text_valign="center"))
 
-circle((30, 5), radius=1.5, style=Styles.danger_flat)
-text((30, 5), "Right-Aligned", style=Styles.primary_bold.patch(text_halign="right", text_valign="center"))
+circle((30, 5), radius=1.5, style=Styles.DangerFlat)
+text((30, 5), "Right-Aligned", style=Styles.PrimaryBold.patch(text_halign="right", text_valign="center"))
 
 # 2. Rotated text
-text((75, 25), "Rotated 45°", angle=45, style=Styles.accent_bold)
+text((75, 25), "Rotated 45°", angle=45, style=Styles.AccentBold)
 
 # 3. Japanese Vertical text
-text_vertical((105, 40), "縦書き日本語", style=Styles.secondary_bold)
+text_vertical((105, 40), "縦書き日本語", style=Styles.SecondaryBold)
 
 save()
 ```
@@ -65,7 +65,7 @@ from drawlib.text import text_vertical
 
 setup(width=50, height=60)
 
-text_vertical((25, 48), "設計仕様書", style=Styles.primary_bold.patch(text_size=18))
+text_vertical((25, 48), "設計仕様書", style=Styles.PrimaryBold.patch(text_size=18))
 
 save()
 ```
@@ -94,13 +94,13 @@ from drawlib.text import text
 setup(width=100, height=35)
 
 # Anchor pin at (30, 17.5)
-circle((30, 17.5), radius=2, style=Styles.danger_flat)
+circle((30, 17.5), radius=2, style=Styles.DangerFlat)
 
 # Align text neatly to the right of the pin
 text(
     (35, 17.5),
     "Aligned Label",
-    style=Styles.bold.patch(text_halign="left", text_valign="center"),
+    style=Styles.PrimaryBold.patch(text_halign="left", text_valign="center"),
 )
 
 save()
@@ -137,7 +137,7 @@ setup(width=100, height=35)
 text(
     (50, 17.5),
     "SELECT * FROM users;",
-    style=Styles.primary_bold.patch(text_font=FontSourceCode.SOURCECODEPRO, text_size=15),
+    style=Styles.PrimaryBold.patch(text_font=FontSourceCode.SOURCECODEPRO, text_size=15),
 )
 
 save()

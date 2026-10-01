@@ -24,21 +24,21 @@ rectangle(
     (25, 22.5),
     width=28,
     height=18,
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
     text="Client App",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 rectangle(
     (75, 22.5),
     width=28,
     height=18,
-    style=Styles.accent_flat,
+    style=Styles.AccentFlat,
     text="Backend API",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 
 # Connecting line with arrow
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.bold)
+line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 
 # Save the rendered canvas image
 save()

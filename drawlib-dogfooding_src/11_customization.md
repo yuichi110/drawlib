@@ -33,8 +33,8 @@ Styles = GoogleStyles().patch_font(
 ```python
 from drawlib.styles import Styles
 
-# primary_flat をベースに角丸と背景色を変更
-my_card_style = Styles.primary_flat.patch(
+# PrimaryFlat をベースに角丸と背景色を変更
+my_card_style = Styles.PrimaryFlat.patch(
     shape_fill_color=(235, 248, 255),
     shape_line_color=(49, 130, 206),
     shape_line_width=1.5,

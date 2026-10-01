@@ -18,9 +18,9 @@ from drawlib.lines import line
 from drawlib.styles import Styles
 
 setup(width=100, height=40)
-rectangle((25, 20), width=30, height=18, style=Styles.primary_flat, text="Publisher", textstyle=Styles.white_bold)
-rectangle((75, 20), width=30, height=18, style=Styles.secondary_flat, text="Consumer", textstyle=Styles.white_bold)
-line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
+rectangle((25, 20), width=30, height=18, style=Styles.PrimaryFlat, text="Publisher", textstyle=Styles.WhiteBold)
+rectangle((75, 20), width=30, height=18, style=Styles.SecondaryFlat, text="Consumer", textstyle=Styles.WhiteBold)
+line((40, 20), (60, 20), arrowhead="->", style=Styles.PrimaryBold)
 ```
 ````
 
@@ -31,9 +31,9 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=36)
-rectangle((25, 18), width=30, height=18, r=2, style=Styles.primary_flat, text="Publisher", textstyle=Styles.white_bold)
-rectangle((75, 18), width=30, height=18, r=2, style=Styles.secondary_flat, text="Consumer", textstyle=Styles.white_bold)
-line((40, 18), (60, 18), arrowhead="->", style=Styles.bold)
+rectangle((25, 18), width=30, height=18, r=2, style=Styles.PrimaryFlat, text="Publisher", textstyle=Styles.WhiteBold)
+rectangle((75, 18), width=30, height=18, r=2, style=Styles.SecondaryFlat, text="Consumer", textstyle=Styles.WhiteBold)
+line((40, 18), (60, 18), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ## Block Header Options

@@ -32,7 +32,7 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(10, 50),
             tail_end_ratio=0.6,
-            style=styles.primary,
+            style=styles.Primary,
         )
         save(f"{OUTPUT_DIR}test_tail_left.png")
 
@@ -48,7 +48,7 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(50, 90),
             tail_end_ratio=0.6,
-            style=styles.primary,
+            style=styles.Primary,
         )
         save(f"{OUTPUT_DIR}test_tail_top.png")
 
@@ -64,7 +64,7 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(95, 50),
             tail_end_ratio=0.6,
-            style=styles.primary,
+            style=styles.Primary,
         )
         save(f"{OUTPUT_DIR}test_tail_right.png")
 
@@ -80,7 +80,7 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(50, 10),
             tail_end_ratio=0.6,
-            style=styles.primary,
+            style=styles.Primary,
         )
         save(f"{OUTPUT_DIR}test_tail_bottom.png")
 
@@ -96,8 +96,8 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(10, 50),
             tail_end_ratio=0.6,
-            style=styles.primary,
+            style=styles.Primary,
             text="Hello Drawlib\nHello Python World!!",
-            textstyle=styles.primary.patch(text_color=Colors.Red, text_size=28),
+            textstyle=styles.Primary.patch(text_color=Colors.Red, text_size=28),
         )
         save(f"{OUTPUT_DIR}test_with_text_style.png")

@@ -378,11 +378,11 @@ drawlib rules list                                         # List AI rule instru
 </code></pre>
 <ul>
 <li><code>&lt;TYPE&gt;</code>: <code>site</code>, <code>simple</code>, <code>pdf</code>, <code>image</code>, or <code>list</code>.</li>
-<li><code>-o</code>, <code>--output &lt;name&gt;</code>: Custom output artifact prefix (source becomes <code>&lt;name&gt;_src</code>).</li>
+<li><code>-o</code>, <code>--output &lt;name&gt;</code>: Base project/artifact name (sets source folder to <code>&lt;name&gt;_src</code> and output to <code>&lt;name&gt;.pdf</code> or <code>&lt;name&gt;_html</code>).</li>
+<li><code>-s</code>, <code>--style &lt;theme&gt;</code>: Style preset theme (<code>default</code>, <code>google</code>, <code>monochrome</code>, etc.) configuring both <code>style.css</code> and <code>styles.py</code>.</li>
 <li><code>--here</code>: Scaffold directly in the current working directory without a wrapper folder.</li>
 <li><code>--force</code>: Overwrite existing files if directory is not empty.</li>
-<li><code>--css &lt;preset&gt;</code>: Scaffolds with a built-in theme (<code>google</code>, <code>github</code>, <code>monochrome</code>, <code>minimal</code>).</li>
-<li><code>--lang &lt;en|ja&gt;</code>: Starter content language (<code>en</code> or <code>ja</code>).</li>
+<li><code>--lang &lt;code/alias&gt;</code>: Starter content language (<code>en</code>, <code>ja</code>, <code>zh-cn</code>, <code>ko</code>, <code>th</code>, <code>hi</code>, etc.).</li>
 </ul>
 <hr />
 <h2>4. Single Diagram Extraction (<code>drawlib show</code>)</h2>

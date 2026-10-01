@@ -30,14 +30,14 @@ pipeline = ChevronProcess(
     corner_angle=60.0,
     spacing=1.8,
     flat_left_end=True,
-    default_textstyle=Styles.white_bold.patch(text_size=10),
-    default_description_style=Styles.white.patch(text_size=8),
+    default_textstyle=Styles.WhiteBold.patch(text_size=10),
+    default_description_style=Styles.White.patch(text_size=8),
 )
 
-pipeline.append("1. Commit", "Git Push", style=Styles.primary_flat)
-pipeline.append("2. Test", "pytest / linter", style=Styles.secondary_flat)
-pipeline.append("3. Build", "Docker Container", style=Styles.accent_flat)
-pipeline.append("4. Deploy", "Cloud Run (Prod)", style=Styles.success_flat)
+pipeline.append("1. Commit", "Git Push", style=Styles.PrimaryFlat)
+pipeline.append("2. Test", "pytest / linter", style=Styles.SecondaryFlat)
+pipeline.append("3. Build", "Docker Container", style=Styles.AccentFlat)
+pipeline.append("4. Deploy", "Cloud Run (Prod)", style=Styles.SuccessFlat)
 
 pipeline.draw(xy=(10, 8), width=100, height=20)
 ```
@@ -54,17 +54,17 @@ from drawlib.styles import Colors, Styles
 setup(width=120, height=52)
 
 table = Table(
-    header_cell_style=Styles.primary_flat,
-    header_text_style=Styles.white_bold.patch(text_size=9.5),
-    default_text_style=Styles.primary.patch(text_size=9),
-    border_style=Styles.muted_light,
+    header_cell_style=Styles.PrimaryFlat,
+    header_text_style=Styles.WhiteBold.patch(text_size=9.5),
+    default_text_style=Styles.Primary.patch(text_size=9),
+    border_style=Styles.MutedLight,
 )
 
 table.set_style_cell_evenodd(
-    even_color=Colors.white,
-    even_textstyle=Styles.primary.patch(text_size=9),
-    odd_color=Colors.light,
-    odd_textstyle=Styles.primary.patch(text_size=9),
+    even_color=Colors.White,
+    even_textstyle=Styles.Primary.patch(text_size=9),
+    odd_color=Colors.Light,
+    odd_textstyle=Styles.Primary.patch(text_size=9),
 )
 
 table.draw(

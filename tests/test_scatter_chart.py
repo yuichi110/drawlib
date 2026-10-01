@@ -107,8 +107,8 @@ class TestScatterChartRendering:
             # Standalone points with labels
             styles = default_styles
             chart.add(xy=(100, 15.0), radius=1.2, label="v1.0 Baseline")
-            chart.add(xy=(500, 28.0), radius=1.8, style=styles.red_flat, label="v1.5")
-            chart.add(xy=(900, 19.5), radius=2.2, style=styles.blue_flat, label="v2.0")
+            chart.add(xy=(500, 28.0), radius=1.8, style=styles.RedFlat, label="v1.5")
+            chart.add(xy=(900, 19.5), radius=2.2, style=styles.BlueFlat, label="v2.0")
 
             # Named series
             chart.add_series(

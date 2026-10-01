@@ -75,7 +75,7 @@ If you are upgrading from Drawlib v0.2, review the following required changes:
      from drawlib.smartarts import Table, Tree, ChevronProcess, Cycle
      ```
 4. **Semantic Style Naming Normalized**:
-   - Prefer lowercase snake_case styles (`Styles.primary_flat`, `Styles.accent_bold`) or string shorthands (`style="blue_flat"`).
+   - Styles tokens unified to PascalCase (`Styles.PrimaryFlat`, `Styles.AccentBold`). Legacy snake-case style attributes are completely removed.
 5. **Diagram Class Naming Unified**:
    - All diagram containers follow PascalCase with the `Diagram` suffix:
      - `ArchitectureDiagram`

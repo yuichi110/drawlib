@@ -15,11 +15,11 @@ Drawlib is an integrated platform for Illustrated Documentation as Code. It unif
 
 With Drawlib, you never waste time tweaking arbitrary RGB hex codes. It provides a cohesive **6-role semantic color palette**:
 
-- **`Styles.primary`**: Core system nodes and primary paths (Blue)
-- **`Styles.secondary`**: External entities, user actors, and clients (Slate / Indigo)
-- **`Styles.accent`**: Highlighted features and auxiliary components (Amber / Teal)
-- **`Styles.muted`**: Boundary containers, structural grids, and subtle annotations (Light Gray)
-- **`Styles.success` / `Styles.warning` / `Styles.danger`**: Operational statuses, alerts, and errors
+- **`Styles.Primary`**: Core system nodes and primary paths (Blue)
+- **`Styles.Secondary`**: External entities, user actors, and clients (Slate / Indigo)
+- **`Styles.Accent`**: Highlighted features and auxiliary components (Amber / Teal)
+- **`Styles.Muted`**: Boundary containers, structural grids, and subtle annotations (Light Gray)
+- **`Styles.Success` / `Styles.Warning` / `Styles.Danger`**: Operational statuses, alerts, and errors
 
 Every color role includes variants such as `_flat` (solid fill), `_outline` (bordered), `_bold` (thick line), and `_dashed` (dashed border).
 

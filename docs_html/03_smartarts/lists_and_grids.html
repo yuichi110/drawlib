@@ -328,10 +328,10 @@ from drawlib.smartarts import GridLayout
 from drawlib.styles import Styles
 
 setup(width=110, height=75)
-grid = GridLayout(num_column=3, num_row=3, default_r=2.0, default_textstyle=Styles.white_bold)
-grid.add(position=(0, 2), width=3, height=1, text=&quot;Top Header Span&quot;, style=Styles.primary_flat)
-grid.add(position=(0, 0), width=1, height=2, text=&quot;Sidebar&quot;, style=Styles.secondary_flat)
-grid.add(position=(1, 0), width=2, height=2, text=&quot;Main Content&quot;, style=Styles.accent_flat)
+grid = GridLayout(num_column=3, num_row=3, default_r=2.0, default_textstyle=Styles.WhiteBold)
+grid.add(position=(0, 2), width=3, height=1, text=&quot;Top Header Span&quot;, style=Styles.PrimaryFlat)
+grid.add(position=(0, 0), width=1, height=2, text=&quot;Sidebar&quot;, style=Styles.SecondaryFlat)
+grid.add(position=(1, 0), width=2, height=2, text=&quot;Main Content&quot;, style=Styles.AccentFlat)
 grid.draw(xy=(10, 10), width=90, height=55, margin=1.5)
 save()
 </code></pre>
@@ -360,9 +360,9 @@ from drawlib.smartarts import BoxList
 from drawlib.styles import Styles
 
 setup(width=110, height=35)
-bl = BoxList(default_box_style=Styles.primary_flat, default_text_style=Styles.white_bold)
+bl = BoxList(default_box_style=Styles.PrimaryFlat, default_text_style=Styles.WhiteBold)
 bl.append(&quot;Step 1&quot;)
-bl.append(&quot;Step 2&quot;, box_style=Styles.accent_flat)  # Highlighted step
+bl.append(&quot;Step 2&quot;, box_style=Styles.AccentFlat)  # Highlighted step
 bl.append(&quot;Step 3&quot;)
 bl.draw(xy=(17, 10), box_width=25, box_height=15, align=&quot;left&quot;)
 save()
@@ -379,7 +379,7 @@ from drawlib.smartarts import BulletPoints
 from drawlib.styles import Styles
 
 setup(width=100, height=45)
-bp = BulletPoints(vertical_margin=8.0, indent_width=5.0, default_style=Styles.bold)
+bp = BulletPoints(vertical_margin=8.0, indent_width=5.0, default_style=Styles.PrimaryBold)
 bp.set_indent(1)
 bp.add(&quot;First architectural requirement&quot;)
 bp.add(&quot;Second architectural requirement&quot;)

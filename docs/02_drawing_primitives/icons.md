@@ -60,8 +60,8 @@ from drawlib.text import text
 setup(width=60, height=50)
 
 # Solid filled bell icon
-phosphor.bell((30, 28), width=14, style=Styles.accent.patch(icon_style="fill"))
-text((30, 12), "Alert Badge", style=Styles.accent_bold)
+phosphor.bell((30, 28), width=14, style=Styles.Accent.patch(icon_style="fill"))
+text((30, 12), "Alert Badge", style=Styles.AccentBold)
 
 save()
 ```
@@ -89,11 +89,11 @@ from drawlib.text import text
 
 setup(width=100, height=45)
 
-gcp.compute_engine((30, 26), width=14, style=Styles.primary)
-text((30, 10), "Compute Engine", style=Styles.bold)
+gcp.compute_engine((30, 26), width=14, style=Styles.Primary)
+text((30, 10), "Compute Engine", style=Styles.PrimaryBold)
 
-gcp.cloud_storage((70, 26), width=14, style=Styles.primary)
-text((70, 10), "Cloud Storage", style=Styles.bold)
+gcp.cloud_storage((70, 26), width=14, style=Styles.Primary)
+text((70, 10), "Cloud Storage", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -123,7 +123,7 @@ font_icon(
     xy=(50, 50),
     icon="fa-brands fa-github",
     width=12,
-    style=Styles.primary_bold,
+    style=Styles.PrimaryBold,
 )
 ```
 

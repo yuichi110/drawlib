@@ -33,8 +33,8 @@ Derive custom styles from existing presets by overriding specific attributes:
 ```python
 from drawlib.styles import Styles
 
-# Derive a custom card style from primary_flat
-my_card_style = Styles.primary_flat.patch(
+# Derive a custom card style from PrimaryFlat
+my_card_style = Styles.PrimaryFlat.patch(
     shape_fill_color=(235, 248, 255),
     shape_line_color=(49, 130, 206),
     shape_line_width=1.5,

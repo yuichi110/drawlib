@@ -28,8 +28,8 @@ class TestCanvasOriginalPolygon:
         """Verify triangle drawing with base, height, alignments, styling, top vertex shifts, and angles."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple triangle
         triangle((50, 50), 30, 40, style=s_primary)
@@ -67,8 +67,8 @@ class TestCanvasOriginalPolygon:
         """Verify parallelogram drawing with dimensions, corner angles, alignments, and text."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
         s_red_text = s_primary.patch(text_color=Colors.Red)
 
         # Simple parallelogram
@@ -104,8 +104,8 @@ class TestCanvasOriginalPolygon:
         """Verify trapezoid drawing with edge widths, topedge offsets, and angles."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple trapezoid
         trapezoid((50, 50), 30, 40, 20, style=s_primary)
@@ -143,8 +143,8 @@ class TestCanvasOriginalPolygon:
         """Verify rhombus drawing with width, height, alignments, and angles."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple rhombus
         rhombus((50, 50), 20, 40, style=s_primary)
@@ -173,8 +173,8 @@ class TestCanvasOriginalPolygon:
         """Verify chevron drawing with corner angles, mirroring, and validation."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple chevron corner angle 60
         chevron(xy=(50, 50), width=10, height=15, corner_angle=60, style=s_primary)
@@ -228,14 +228,14 @@ class TestCanvasOriginalPolygon:
         clear()
         styles = default_styles
         with pytest.raises(ValueError):
-            chevron(xy=(50, 50), width=10, height=15, corner_angle=120, style=styles.primary)
+            chevron(xy=(50, 50), width=10, height=15, corner_angle=120, style=styles.Primary)
 
     def test_star(self) -> None:
         """Verify star drawing with vertices, outer/inner radii, and alignments."""
         clear()
         styles = default_styles
-        s_primary = styles.primary
-        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_primary = styles.Primary
+        s_white = styles.White.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Vertices counts
         star((50, 50), 3, 30, 5, text="Hello", style=s_primary)

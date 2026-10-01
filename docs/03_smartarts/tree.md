@@ -40,7 +40,7 @@ TreeNode.register_drawing_item(
     location="before",  # "before" or "after" the label text
     padding_width=4.0,
     function=phosphor.file_code,
-    style=Styles.accent_flat,
+    style=Styles.AccentFlat,
     args={"width": 3.5},
 )
 

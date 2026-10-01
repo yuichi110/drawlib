@@ -325,13 +325,13 @@ Drawlib resolves this with a <strong>systematic design token system</strong> in 
 <p>Every style token is composed of a <strong>Semantic Role</strong> (or color name) and an optional <strong>Visual Variant</strong>:</p>
 <h3>Semantic Roles:</h3>
 <ul>
-<li><strong><code>primary</code></strong>: Main structural components and key architectural blocks.</li>
-<li><strong><code>secondary</code></strong>: Secondary supporting services and auxiliary nodes.</li>
-<li><strong><code>accent</code></strong>: Emphasized focal points and action triggers.</li>
-<li><strong><code>success</code></strong>: Healthy statuses, successful states, and completed steps.</li>
-<li><strong><code>danger</code></strong>: Error conditions, security threats, and terminating gates.</li>
-<li><strong><code>warning</code></strong>: Warnings, deprecations, and pending queues.</li>
-<li><strong><code>muted</code></strong>: Background boundaries, subtle partitions, and inactive states.</li>
+<li><strong><code>Primary</code></strong>: Main structural components and key architectural blocks.</li>
+<li><strong><code>Secondary</code></strong>: Secondary supporting services and auxiliary nodes.</li>
+<li><strong><code>Accent</code></strong>: Emphasized focal points and action triggers.</li>
+<li><strong><code>Success</code></strong>: Healthy statuses, successful states, and completed steps.</li>
+<li><strong><code>Danger</code></strong>: Error conditions, security threats, and terminating gates.</li>
+<li><strong><code>Warning</code></strong>: Warnings, deprecations, and pending queues.</li>
+<li><strong><code>Muted</code></strong>: Background boundaries, subtle partitions, and inactive states.</li>
 </ul>
 <h3>Common Variants:</h3>
 <table>
@@ -344,43 +344,43 @@ Drawlib resolves this with a <strong>systematic design token system</strong> in 
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>_flat</code></td>
-<td style="text-align:left"><code>Styles.primary_flat</code></td>
+<td style="text-align:left"><code>Flat</code></td>
+<td style="text-align:left"><code>Styles.PrimaryFlat</code></td>
 <td style="text-align:left">Solid fill color without border lines.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>_bordered</code></td>
-<td style="text-align:left"><code>Styles.primary_bordered</code></td>
+<td style="text-align:left"><code>Bordered</code></td>
+<td style="text-align:left"><code>Styles.PrimaryBordered</code></td>
 <td style="text-align:left">Standard fill with a contrasting border.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>_bold</code></td>
-<td style="text-align:left"><code>Styles.primary_bold</code></td>
+<td style="text-align:left"><code>Bold</code></td>
+<td style="text-align:left"><code>Styles.PrimaryBold</code></td>
 <td style="text-align:left">Heavy stroke for lines and borders.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>_light</code></td>
-<td style="text-align:left"><code>Styles.primary_light</code></td>
+<td style="text-align:left"><code>Light</code></td>
+<td style="text-align:left"><code>Styles.PrimaryLight</code></td>
 <td style="text-align:left">Soft, pastel fill color.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>_outline</code></td>
-<td style="text-align:left"><code>Styles.primary_outline</code></td>
+<td style="text-align:left"><code>Outline</code></td>
+<td style="text-align:left"><code>Styles.PrimaryOutline</code></td>
 <td style="text-align:left">Transparent fill with a colored border line.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>_dashed</code></td>
-<td style="text-align:left"><code>Styles.muted_dashed</code></td>
+<td style="text-align:left"><code>Dashed</code></td>
+<td style="text-align:left"><code>Styles.MutedDashed</code></td>
 <td style="text-align:left">Dashed border stroke (ideal for VPCs and clusters).</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2>4. Systematic String Shorthands</h2>
-<p>Instead of importing <code>Styles</code>, you can use string shortcuts directly in drawing functions:</p>
-<pre><code class="language-python"># Shorthand string is resolved dynamically
-rectangle((50, 25), width=30, height=20, style=&quot;blue_flat&quot;)
-line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+<h2>4. Typography &amp; Icon Styles</h2>
+<p>Preset styles are also applied to text labels and icons:</p>
+<pre><code class="language-python"># Use WhiteBold for text inside filled dark containers
+rectangle((50, 25), width=30, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, textstyle=Styles.WhiteBold)
+line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
 </code></pre>
 <hr />
 <h2>5. Customizing &amp; Deriving Styles (<code>.patch()</code>)</h2>
@@ -389,7 +389,7 @@ line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
 from drawlib.preset_colors import CssColors
 
 # Derive a custom card style with a custom border and fill
-custom_card = Styles.primary.patch(
+custom_card = Styles.Primary.patch(
     shape_fill_color=CssColors.AliceBlue,
     shape_line_color=CssColors.DodgerBlue,
     shape_line_width=2.5,

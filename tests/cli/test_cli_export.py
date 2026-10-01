@@ -27,7 +27,7 @@ from drawlib.canvas import setup
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -96,7 +96,7 @@ from drawlib.styles import Styles
 from drawlib.utils import get_radius
 from drawlib.shapes import circle
 setup(width=100, height=100)
-circle((50, 50), radius=get_radius(), style=Styles.primary)
+circle((50, 50), radius=get_radius(), style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -122,7 +122,7 @@ from drawlib.canvas import setup
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -144,7 +144,7 @@ from drawlib.styles import Styles
 from drawlib.shapes import circle
 
 setup(width=100, height=100)
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 """,
         encoding="utf-8",
     )

@@ -65,13 +65,14 @@ Styles = Styles.patch_font(
 Define reusable drawing functions and constants in `utils.py`:
 ```python
 from drawlib.shapes import rectangle
+from drawlib.styles import Styles
 from drawlib.text import text
 
 PROJECT_NAME = "System Architecture Document"
 
 def node(xy: tuple[float, float], label: str) -> None:
-    rectangle(xy, width=24, height=14, r=1, style="blue_flat")
-    text(xy, label, style="white_bold")
+    rectangle(xy, width=24, height=14, r=1, style=Styles.BlueFlat)
+    text(xy, label, style=Styles.WhiteBold)
 ```
 Consume inside embedded ````drawlib```` blocks:
 ```python

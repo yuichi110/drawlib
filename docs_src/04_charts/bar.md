@@ -23,8 +23,8 @@ chart = BarChart(
     r=1.0,
     show_values=True,
 )
-chart.add_series("Allocated", [4.0, 16.0, 64.0], color=Colors.primary)
-chart.add_series("Burst Buffer", [2.0, 8.0, 32.0], color=Colors.accent)
+chart.add_series("Allocated", [4.0, 16.0, 64.0], color=Colors.Primary)
+chart.add_series("Burst Buffer", [2.0, 8.0, 32.0], color=Colors.Accent)
 
 chart.draw(xy=(10, 8))
 ```

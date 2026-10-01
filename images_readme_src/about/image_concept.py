@@ -12,7 +12,7 @@ from drawlib.shapes import arrow, circle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=100, height=60, color=Colors.canvas)
+setup(width=100, height=60, color=Colors.Canvas)
 
 
 def left():

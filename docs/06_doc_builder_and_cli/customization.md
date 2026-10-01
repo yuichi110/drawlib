@@ -57,7 +57,7 @@ CARD_STYLE = Style(
     font=FontRoboto.Medium,
 )
 
-HIGHLIGHT_STYLE = Styles.accent_flat
+HIGHLIGHT_STYLE = Styles.AccentFlat
 ```
 
 Pass `-s docs_src/styles.py` during build. Drawlib automatically makes your styles accessible in every embedded ````drawlib```` block:
@@ -86,9 +86,9 @@ from drawlib.styles import Styles
 def draw_server_node(xy, name: str, is_active: bool = True):
     x, y = xy
     # Container
-    rectangle((x, y), width=28, height=14, style=Styles.primary_flat, text=name, textstyle=Styles.white_bold)
+    rectangle((x, y), width=28, height=14, style=Styles.PrimaryFlat, text=name, textstyle=Styles.WhiteBold)
     # Status indicator light
-    indicator_style = Styles.success_flat if is_active else Styles.danger_flat
+    indicator_style = Styles.SuccessFlat if is_active else Styles.DangerFlat
     circle((x + 10, y + 4), radius=1.5, style=indicator_style)
 ```
 

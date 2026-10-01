@@ -25,174 +25,258 @@ class MonochromeStyles(BaseStyles):
     """Monochrome preset styles with complete typing for IDE autocompletion."""
 
     # Black
-    black: Style
-    black_bordered: Style
-    black_bold: Style
-    black_light: Style
-    black_flat: Style
-    black_outline: Style
-    black_solid: Style
-    black_outline_bold: Style
-    black_solid_bold: Style
-    black_outline_light: Style
-    black_solid_light: Style
-    black_dashed: Style
-    black_dashed_bold: Style
-    black_dashed_light: Style
+    Black: Style
+    BlackBordered: Style
+    BlackBold: Style
+    BlackLight: Style
+    BlackFlat: Style
+    BlackOutline: Style
+    BlackSolid: Style
+    BlackOutlineBold: Style
+    BlackSolidBold: Style
+    BlackOutlineLight: Style
+    BlackSolidLight: Style
+    BlackDashed: Style
+    BlackDashedBold: Style
+    BlackDashedLight: Style
 
     # Gray1
-    gray1: Style
-    gray1_bordered: Style
-    gray1_bold: Style
-    gray1_light: Style
-    gray1_flat: Style
-    gray1_outline: Style
-    gray1_solid: Style
-    gray1_outline_bold: Style
-    gray1_solid_bold: Style
-    gray1_outline_light: Style
-    gray1_solid_light: Style
-    gray1_dashed: Style
-    gray1_dashed_bold: Style
-    gray1_dashed_light: Style
+    Gray1: Style
+    Gray1Bordered: Style
+    Gray1Bold: Style
+    Gray1Light: Style
+    Gray1Flat: Style
+    Gray1Outline: Style
+    Gray1Solid: Style
+    Gray1OutlineBold: Style
+    Gray1SolidBold: Style
+    Gray1OutlineLight: Style
+    Gray1SolidLight: Style
+    Gray1Dashed: Style
+    Gray1DashedBold: Style
+    Gray1DashedLight: Style
 
     # Gray2
-    gray2: Style
-    gray2_bordered: Style
-    gray2_bold: Style
-    gray2_light: Style
-    gray2_flat: Style
-    gray2_outline: Style
-    gray2_solid: Style
-    gray2_outline_bold: Style
-    gray2_solid_bold: Style
-    gray2_outline_light: Style
-    gray2_solid_light: Style
-    gray2_dashed: Style
-    gray2_dashed_bold: Style
-    gray2_dashed_light: Style
+    Gray2: Style
+    Gray2Bordered: Style
+    Gray2Bold: Style
+    Gray2Light: Style
+    Gray2Flat: Style
+    Gray2Outline: Style
+    Gray2Solid: Style
+    Gray2OutlineBold: Style
+    Gray2SolidBold: Style
+    Gray2OutlineLight: Style
+    Gray2SolidLight: Style
+    Gray2Dashed: Style
+    Gray2DashedBold: Style
+    Gray2DashedLight: Style
 
     # Gray3
-    gray3: Style
-    gray3_bordered: Style
-    gray3_bold: Style
-    gray3_light: Style
-    gray3_flat: Style
-    gray3_outline: Style
-    gray3_solid: Style
-    gray3_outline_bold: Style
-    gray3_solid_bold: Style
-    gray3_outline_light: Style
-    gray3_solid_light: Style
-    gray3_dashed: Style
-    gray3_dashed_bold: Style
-    gray3_dashed_light: Style
+    Gray3: Style
+    Gray3Bordered: Style
+    Gray3Bold: Style
+    Gray3Light: Style
+    Gray3Flat: Style
+    Gray3Outline: Style
+    Gray3Solid: Style
+    Gray3OutlineBold: Style
+    Gray3SolidBold: Style
+    Gray3OutlineLight: Style
+    Gray3SolidLight: Style
+    Gray3Dashed: Style
+    Gray3DashedBold: Style
+    Gray3DashedLight: Style
 
     # Gray4
-    gray4: Style
-    gray4_bordered: Style
-    gray4_bold: Style
-    gray4_light: Style
-    gray4_flat: Style
-    gray4_outline: Style
-    gray4_solid: Style
-    gray4_outline_bold: Style
-    gray4_solid_bold: Style
-    gray4_outline_light: Style
-    gray4_solid_light: Style
-    gray4_dashed: Style
-    gray4_dashed_bold: Style
-    gray4_dashed_light: Style
+    Gray4: Style
+    Gray4Bordered: Style
+    Gray4Bold: Style
+    Gray4Light: Style
+    Gray4Flat: Style
+    Gray4Outline: Style
+    Gray4Solid: Style
+    Gray4OutlineBold: Style
+    Gray4SolidBold: Style
+    Gray4OutlineLight: Style
+    Gray4SolidLight: Style
+    Gray4Dashed: Style
+    Gray4DashedBold: Style
+    Gray4DashedLight: Style
 
     # Gray5
-    gray5: Style
-    gray5_bordered: Style
-    gray5_bold: Style
-    gray5_light: Style
-    gray5_flat: Style
-    gray5_outline: Style
-    gray5_solid: Style
-    gray5_outline_bold: Style
-    gray5_solid_bold: Style
-    gray5_outline_light: Style
-    gray5_solid_light: Style
-    gray5_dashed: Style
-    gray5_dashed_bold: Style
-    gray5_dashed_light: Style
+    Gray5: Style
+    Gray5Bordered: Style
+    Gray5Bold: Style
+    Gray5Light: Style
+    Gray5Flat: Style
+    Gray5Outline: Style
+    Gray5Solid: Style
+    Gray5OutlineBold: Style
+    Gray5SolidBold: Style
+    Gray5OutlineLight: Style
+    Gray5SolidLight: Style
+    Gray5Dashed: Style
+    Gray5DashedBold: Style
+    Gray5DashedLight: Style
 
     # Gray6
-    gray6: Style
-    gray6_bordered: Style
-    gray6_bold: Style
-    gray6_light: Style
-    gray6_flat: Style
-    gray6_outline: Style
-    gray6_solid: Style
-    gray6_outline_bold: Style
-    gray6_solid_bold: Style
-    gray6_outline_light: Style
-    gray6_solid_light: Style
-    gray6_dashed: Style
-    gray6_dashed_bold: Style
-    gray6_dashed_light: Style
+    Gray6: Style
+    Gray6Bordered: Style
+    Gray6Bold: Style
+    Gray6Light: Style
+    Gray6Flat: Style
+    Gray6Outline: Style
+    Gray6Solid: Style
+    Gray6OutlineBold: Style
+    Gray6SolidBold: Style
+    Gray6OutlineLight: Style
+    Gray6SolidLight: Style
+    Gray6Dashed: Style
+    Gray6DashedBold: Style
+    Gray6DashedLight: Style
 
     # Gray7
-    gray7: Style
-    gray7_bordered: Style
-    gray7_bold: Style
-    gray7_light: Style
-    gray7_flat: Style
-    gray7_outline: Style
-    gray7_solid: Style
-    gray7_outline_bold: Style
-    gray7_solid_bold: Style
-    gray7_outline_light: Style
-    gray7_solid_light: Style
-    gray7_dashed: Style
-    gray7_dashed_bold: Style
-    gray7_dashed_light: Style
+    Gray7: Style
+    Gray7Bordered: Style
+    Gray7Bold: Style
+    Gray7Light: Style
+    Gray7Flat: Style
+    Gray7Outline: Style
+    Gray7Solid: Style
+    Gray7OutlineBold: Style
+    Gray7SolidBold: Style
+    Gray7OutlineLight: Style
+    Gray7SolidLight: Style
+    Gray7Dashed: Style
+    Gray7DashedBold: Style
+    Gray7DashedLight: Style
 
     # Gray8
-    gray8: Style
-    gray8_bordered: Style
-    gray8_bold: Style
-    gray8_light: Style
-    gray8_flat: Style
-    gray8_outline: Style
-    gray8_solid: Style
-    gray8_outline_bold: Style
-    gray8_solid_bold: Style
-    gray8_outline_light: Style
-    gray8_solid_light: Style
-    gray8_dashed: Style
-    gray8_dashed_bold: Style
-    gray8_dashed_light: Style
+    Gray8: Style
+    Gray8Bordered: Style
+    Gray8Bold: Style
+    Gray8Light: Style
+    Gray8Flat: Style
+    Gray8Outline: Style
+    Gray8Solid: Style
+    Gray8OutlineBold: Style
+    Gray8SolidBold: Style
+    Gray8OutlineLight: Style
+    Gray8SolidLight: Style
+    Gray8Dashed: Style
+    Gray8DashedBold: Style
+    Gray8DashedLight: Style
 
     # White
-    white: Style
-    white_bordered: Style
-    white_bold: Style
-    white_light: Style
-    white_flat: Style
-    white_outline: Style
-    white_solid: Style
-    white_outline_bold: Style
-    white_solid_bold: Style
-    white_outline_light: Style
-    white_solid_light: Style
-    white_dashed: Style
-    white_dashed_bold: Style
-    white_dashed_light: Style
+    White: Style
+    WhiteBordered: Style
+    WhiteBold: Style
+    WhiteLight: Style
+    WhiteFlat: Style
+    WhiteOutline: Style
+    WhiteSolid: Style
+    WhiteOutlineBold: Style
+    WhiteSolidBold: Style
+    WhiteOutlineLight: Style
+    WhiteSolidLight: Style
+    WhiteDashed: Style
+    WhiteDashedBold: Style
+    WhiteDashedLight: Style
 
     # Semantic Roles
-    primary: Style
-    secondary: Style
-    accent: Style
-    muted: Style
-    light: Style
-    dark: Style
-    canvas: Style
-    canvas_flat: Style
+    Primary: Style
+    PrimaryBordered: Style
+    PrimaryBold: Style
+    PrimaryLight: Style
+    PrimaryFlat: Style
+    PrimaryOutline: Style
+    PrimarySolid: Style
+    PrimaryOutlineBold: Style
+    PrimarySolidBold: Style
+    PrimaryOutlineLight: Style
+    PrimarySolidLight: Style
+    PrimaryDashed: Style
+    PrimaryDashedBold: Style
+    PrimaryDashedLight: Style
+
+    Secondary: Style
+    SecondaryBordered: Style
+    SecondaryBold: Style
+    SecondaryLight: Style
+    SecondaryFlat: Style
+    SecondaryOutline: Style
+    SecondarySolid: Style
+    SecondaryOutlineBold: Style
+    SecondarySolidBold: Style
+    SecondaryOutlineLight: Style
+    SecondarySolidLight: Style
+    SecondaryDashed: Style
+    SecondaryDashedBold: Style
+    SecondaryDashedLight: Style
+
+    Accent: Style
+    AccentBordered: Style
+    AccentBold: Style
+    AccentLight: Style
+    AccentFlat: Style
+    AccentOutline: Style
+    AccentSolid: Style
+    AccentOutlineBold: Style
+    AccentSolidBold: Style
+    AccentOutlineLight: Style
+    AccentSolidLight: Style
+    AccentDashed: Style
+    AccentDashedBold: Style
+    AccentDashedLight: Style
+
+    Muted: Style
+    MutedBordered: Style
+    MutedBold: Style
+    MutedLight: Style
+    MutedFlat: Style
+    MutedOutline: Style
+    MutedSolid: Style
+    MutedOutlineBold: Style
+    MutedSolidBold: Style
+    MutedOutlineLight: Style
+    MutedSolidLight: Style
+    MutedDashed: Style
+    MutedDashedBold: Style
+    MutedDashedLight: Style
+
+    Light: Style
+    LightBordered: Style
+    LightBold: Style
+    LightLight: Style
+    LightFlat: Style
+    LightOutline: Style
+    LightSolid: Style
+    LightOutlineBold: Style
+    LightSolidBold: Style
+    LightOutlineLight: Style
+    LightSolidLight: Style
+    LightDashed: Style
+    LightDashedBold: Style
+    LightDashedLight: Style
+
+    Dark: Style
+    DarkBordered: Style
+    DarkBold: Style
+    DarkLight: Style
+    DarkFlat: Style
+    DarkOutline: Style
+    DarkSolid: Style
+    DarkOutlineBold: Style
+    DarkSolidBold: Style
+    DarkOutlineLight: Style
+    DarkSolidLight: Style
+    DarkDashed: Style
+    DarkDashedBold: Style
+    DarkDashedLight: Style
+
+    Canvas: Style
+    CanvasFlat: Style
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize preset styles instance.
@@ -467,7 +551,7 @@ class MonochromeStyles(BaseStyles):
             AttributeError: If accessing an unsupported danger or success style.
         """
         val = super().__getattribute__(name)
-        if (name.startswith("danger") or name.startswith("success")) and val is None:
+        if (name.startswith("Danger") or name.startswith("Success")) and val is None:
             raise AttributeError(f"{self.__class__.__name__} has no {name} style.")
         return val
 
@@ -540,12 +624,12 @@ def _create_monochrome_styles() -> MonochromeStyles:
     )
 
     role_variants = {
-        "primary": p_v,
-        "secondary": s_v,
-        "accent": a_v,
-        "muted": m_v,
-        "light": l_v,
-        "dark": d_v,
+        "Primary": p_v,
+        "Secondary": s_v,
+        "Accent": a_v,
+        "Muted": m_v,
+        "Light": l_v,
+        "Dark": d_v,
     }
 
     styles_dict: dict[str, Any] = {
@@ -555,51 +639,54 @@ def _create_monochrome_styles() -> MonochromeStyles:
         "colors": MonochromeColors,
         "background_color": (255, 255, 255, 1.0),
         "sourcecode_font": FontSourceCode.SOURCECODEPRO,
-        "canvas": Style(supports={"shape"}, shape_fill_color=white, shape_line_color=white, shape_line_width=0.0),
-        "canvas_flat": Style(supports={"shape"}, shape_fill_color=white, shape_line_color=white, shape_line_width=0.0),
+        "Canvas": Style(supports={"shape"}, shape_fill_color=white, shape_line_color=white, shape_line_width=0.0),
+        "CanvasFlat": Style(supports={"shape"}, shape_fill_color=white, shape_line_color=white, shape_line_width=0.0),
     }
 
     for role_name, v in role_variants.items():
         styles_dict[role_name] = v["normal"]
-        styles_dict[f"{role_name}_bordered"] = v["bordered"]
-        styles_dict[f"{role_name}_bold"] = v["bold"]
-        styles_dict[f"{role_name}_light"] = v["light"]
-        styles_dict[f"{role_name}_flat"] = v["flat"]
-        styles_dict[f"{role_name}_outline"] = v["outline"]
-        styles_dict[f"{role_name}_outline_bold"] = v["outline_bold"]
-        styles_dict[f"{role_name}_outline_light"] = v["outline_light"]
-        styles_dict[f"{role_name}_dashed"] = v["dashed"]
-        styles_dict[f"{role_name}_dashed_bold"] = v["dashed_bold"]
-        styles_dict[f"{role_name}_dashed_light"] = v["dashed_light"]
+        styles_dict[f"{role_name}Bordered"] = v["bordered"]
+        styles_dict[f"{role_name}Bold"] = v["bold"]
+        styles_dict[f"{role_name}Light"] = v["light"]
+        styles_dict[f"{role_name}Flat"] = v["flat"]
+        styles_dict[f"{role_name}Outline"] = v["outline"]
+        styles_dict[f"{role_name}Solid"] = v["solid"]
+        styles_dict[f"{role_name}OutlineBold"] = v["outline_bold"]
+        styles_dict[f"{role_name}SolidBold"] = v["solid_bold"]
+        styles_dict[f"{role_name}OutlineLight"] = v["outline_light"]
+        styles_dict[f"{role_name}SolidLight"] = v["solid_light"]
+        styles_dict[f"{role_name}Dashed"] = v["dashed"]
+        styles_dict[f"{role_name}DashedBold"] = v["dashed_bold"]
+        styles_dict[f"{role_name}DashedLight"] = v["dashed_light"]
 
     color_variants = {
-        "white": _make_variants(white, border_color=black, default_text_color=black),
-        "gray1": _make_variants(gray1, border_color=gray5, default_text_color=gray5),
-        "gray2": _make_variants(gray2, border_color=gray5, default_text_color=gray5),
-        "gray3": _make_variants(gray3, border_color=gray6, default_text_color=black),
-        "gray4": _make_variants(gray4, border_color=black, default_text_color=white),
-        "gray5": _make_variants(gray5, border_color=black, default_text_color=white),
-        "gray6": _make_variants(gray6, border_color=black, default_text_color=white),
-        "gray7": _make_variants(gray7, border_color=black, default_text_color=white),
-        "gray8": _make_variants(gray8, border_color=black, default_text_color=white),
-        "black": _make_variants(black, border_color=black, default_text_color=white),
+        "White": _make_variants(white, border_color=black, default_text_color=black),
+        "Gray1": _make_variants(gray1, border_color=gray5, default_text_color=gray5),
+        "Gray2": _make_variants(gray2, border_color=gray5, default_text_color=gray5),
+        "Gray3": _make_variants(gray3, border_color=gray6, default_text_color=black),
+        "Gray4": _make_variants(gray4, border_color=black, default_text_color=white),
+        "Gray5": _make_variants(gray5, border_color=black, default_text_color=white),
+        "Gray6": _make_variants(gray6, border_color=black, default_text_color=white),
+        "Gray7": _make_variants(gray7, border_color=black, default_text_color=white),
+        "Gray8": _make_variants(gray8, border_color=black, default_text_color=white),
+        "Black": _make_variants(black, border_color=black, default_text_color=white),
     }
 
     for cname, v in color_variants.items():
         styles_dict[cname] = v["normal"]
-        styles_dict[f"{cname}_bordered"] = v["bordered"]
-        styles_dict[f"{cname}_bold"] = v["bold"]
-        styles_dict[f"{cname}_light"] = v["light"]
-        styles_dict[f"{cname}_flat"] = v["flat"]
-        styles_dict[f"{cname}_outline"] = v["outline"]
-        styles_dict[f"{cname}_solid"] = v["solid"]
-        styles_dict[f"{cname}_outline_bold"] = v["outline_bold"]
-        styles_dict[f"{cname}_solid_bold"] = v["solid_bold"]
-        styles_dict[f"{cname}_outline_light"] = v["outline_light"]
-        styles_dict[f"{cname}_solid_light"] = v["solid_light"]
-        styles_dict[f"{cname}_dashed"] = v["dashed"]
-        styles_dict[f"{cname}_dashed_bold"] = v["dashed_bold"]
-        styles_dict[f"{cname}_dashed_light"] = v["dashed_light"]
+        styles_dict[f"{cname}Bordered"] = v["bordered"]
+        styles_dict[f"{cname}Bold"] = v["bold"]
+        styles_dict[f"{cname}Light"] = v["light"]
+        styles_dict[f"{cname}Flat"] = v["flat"]
+        styles_dict[f"{cname}Outline"] = v["outline"]
+        styles_dict[f"{cname}Solid"] = v["solid"]
+        styles_dict[f"{cname}OutlineBold"] = v["outline_bold"]
+        styles_dict[f"{cname}SolidBold"] = v["solid_bold"]
+        styles_dict[f"{cname}OutlineLight"] = v["outline_light"]
+        styles_dict[f"{cname}SolidLight"] = v["solid_light"]
+        styles_dict[f"{cname}Dashed"] = v["dashed"]
+        styles_dict[f"{cname}DashedBold"] = v["dashed_bold"]
+        styles_dict[f"{cname}DashedLight"] = v["dashed_light"]
 
     return MonochromeStyles(**styles_dict)
 

@@ -23,22 +23,22 @@ cycle = Cycle(
     arrow_width=1.5,
     arrow_head_width=4.0,
     arrow_color_mode="match_source",
-    default_textstyle=Styles.white_bold.patch(text_size=9),
-    default_description_style=Styles.white.patch(text_size=7),
-    default_arrow_style=Styles.solid,
+    default_textstyle=Styles.WhiteBold.patch(text_size=9),
+    default_description_style=Styles.White.patch(text_size=7),
+    default_arrow_style=Styles.PrimarySolid,
     description_placement="inside",
 )
-cycle.append("1. Plan", description="Sprint Goal", style=Styles.primary_flat)
-cycle.append("2. Do", description="Build Feature", style=Styles.accent_flat)
-cycle.append("3. Check", description="Code Review", style=Styles.secondary_flat)
-cycle.append("4. Act", description="Retro & Deploy", style=Styles.success_flat)
+cycle.append("1. Plan", description="Sprint Goal", style=Styles.PrimaryFlat)
+cycle.append("2. Do", description="Build Feature", style=Styles.AccentFlat)
+cycle.append("3. Check", description="Code Review", style=Styles.SecondaryFlat)
+cycle.append("4. Act", description="Retro & Deploy", style=Styles.SuccessFlat)
 
 cycle.set_center(
     text="Agile",
     description="Loop",
     radius=10.0,
-    style=Styles.muted_flat,
-    textstyle=Styles.bold.patch(text_size=10),
+    style=Styles.MutedFlat,
+    textstyle=Styles.PrimaryBold.patch(text_size=10),
 )
 
 cycle.draw(xy=(50, 45), radius=28.0)

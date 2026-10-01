@@ -13,7 +13,7 @@ Scaffold a documentation website using `drawlib init`:
 drawlib init site my_docs/
 
 # With custom theme and language:
-drawlib init site my_docs/ --css google --lang en
+drawlib init site my_docs/ --style google --lang en
 ```
 
 ---

@@ -22,7 +22,7 @@ icon_thin = Styles.Primary.patch(icon_style="thin")
 
 
 def main():
-    setup(width=100, height=60, color=Colors.canvas)
+    setup(width=100, height=60, color=Colors.Canvas)
     draw_icon()
     draw_image()
     draw_line()
@@ -67,7 +67,7 @@ def draw_line():
     text((x1, y), "Line", style=title_style)
     line((30, y - 4), (30, y + 4), style=Styles.Primary)
     line((40, y - 4), (40, y + 4), arrowhead="->", style=Styles.Primary)
-    line((50, y - 4), (50, y + 4), style=Styles.Dashed.patch(line_color=Colors.Red))
+    line((50, y - 4), (50, y + 4), style=Styles.PrimaryDashed.patch(line_color=Colors.Red))
     line(
         (60, y - 4),
         (60, y + 4),

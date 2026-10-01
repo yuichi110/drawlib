@@ -45,11 +45,11 @@ from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=100, height=40)
-line((15, 27), (85, 27), arrowhead="->", style=Styles.primary_bold)
-text((50, 32), "Forward (->)", style=Styles.primary)
+line((15, 27), (85, 27), arrowhead="->", style=Styles.PrimaryBold)
+text((50, 32), "Forward (->)", style=Styles.Primary)
 
-line((15, 12), (85, 12), arrowhead="<->", style=Styles.secondary_bold)
-text((50, 17), "Bidirectional (<->)", style=Styles.secondary)
+line((15, 12), (85, 12), arrowhead="<->", style=Styles.SecondaryBold)
+text((50, 17), "Bidirectional (<->)", style=Styles.Secondary)
 save()
 ```
 
@@ -73,12 +73,12 @@ from drawlib.text import text
 
 setup(width=100, height=45)
 # Negative bend curves upward in Cartesian space
-line_curved((15, 22), (85, 22), bend=-0.35, arrowhead="->", style=Styles.primary_bold)
-text((50, 40), "bend=-0.35 (upward)", style=Styles.primary)
+line_curved((15, 22), (85, 22), bend=-0.35, arrowhead="->", style=Styles.PrimaryBold)
+text((50, 40), "bend=-0.35 (upward)", style=Styles.Primary)
 
 # Positive bend curves downward in Cartesian space
-line_curved((15, 22), (85, 22), bend=0.35, arrowhead="->", style=Styles.accent_bold)
-text((50, 6), "bend=0.35 (downward)", style=Styles.accent)
+line_curved((15, 22), (85, 22), bend=0.35, arrowhead="->", style=Styles.AccentBold)
+text((50, 6), "bend=0.35 (downward)", style=Styles.Accent)
 save()
 ```
 
@@ -105,13 +105,13 @@ p1, p2 = (15, 15), (85, 15)
 cp = (50, 40)
 
 # Control point tangent guides
-line(p1, cp, style=Styles.muted_dashed)
-line(cp, p2, style=Styles.muted_dashed)
-circle(cp, radius=2, style=Styles.danger_flat)
-text((50, 45), "Control Point (cp)", style=Styles.danger)
+line(p1, cp, style=Styles.MutedDashed)
+line(cp, p2, style=Styles.MutedDashed)
+circle(cp, radius=2, style=Styles.DangerFlat)
+text((50, 45), "Control Point (cp)", style=Styles.Danger)
 
 # Quadratic Bézier curve
-line_bezier1(p1, p2, cp=cp, arrowhead="->", style=Styles.secondary_bold)
+line_bezier1(p1, p2, cp=cp, arrowhead="->", style=Styles.SecondaryBold)
 save()
 ```
 
@@ -138,15 +138,15 @@ p1, p2 = (15, 25), (85, 25)
 cp1, cp2 = (35, 42), (65, 8)
 
 # Tangent guides for both control points
-line(p1, cp1, style=Styles.muted_dashed)
-line(p2, cp2, style=Styles.muted_dashed)
-circle(cp1, radius=2, style=Styles.danger_flat)
-text((35, 46), "cp1", style=Styles.danger)
-circle(cp2, radius=2, style=Styles.danger_flat)
-text((65, 4), "cp2", style=Styles.danger)
+line(p1, cp1, style=Styles.MutedDashed)
+line(p2, cp2, style=Styles.MutedDashed)
+circle(cp1, radius=2, style=Styles.DangerFlat)
+text((35, 46), "cp1", style=Styles.Danger)
+circle(cp2, radius=2, style=Styles.DangerFlat)
+text((65, 4), "cp2", style=Styles.Danger)
 
 # Cubic Bézier S-curve
-line_bezier2(p1, p2, cp1=cp1, cp2=cp2, arrowhead="->", style=Styles.primary_bold)
+line_bezier2(p1, p2, cp1=cp1, cp2=cp2, arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 
@@ -175,11 +175,11 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=45)
-rectangle((20, 30), width=24, height=14, style=Styles.primary_flat, text="Client", textstyle=Styles.white_bold)
-rectangle((80, 15), width=24, height=14, style=Styles.secondary_flat, text="Worker", textstyle=Styles.white_bold)
+rectangle((20, 30), width=24, height=14, style=Styles.PrimaryFlat, text="Client", textstyle=Styles.WhiteBold)
+rectangle((80, 15), width=24, height=14, style=Styles.SecondaryFlat, text="Worker", textstyle=Styles.WhiteBold)
 
 # L-shaped connection: horizontal from Client, then downward to Worker
-lines([(32, 30), (80, 30), (80, 22)], arrowhead="->", style=Styles.bold)
+lines([(32, 30), (80, 30), (80, 22)], arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 
@@ -201,12 +201,12 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=45)
-rectangle((20, 32), width=24, height=14, style=Styles.primary_flat, text="Service A", textstyle=Styles.white_bold)
-rectangle((80, 14), width=24, height=14, style=Styles.accent_flat, text="Service B", textstyle=Styles.white_bold)
+rectangle((20, 32), width=24, height=14, style=Styles.PrimaryFlat, text="Service A", textstyle=Styles.WhiteBold)
+rectangle((80, 14), width=24, height=14, style=Styles.AccentFlat, text="Service B", textstyle=Styles.WhiteBold)
 
 # Z-shaped dogleg connection across midpoint x_mid = 50
 x_mid = 50
-lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrowhead="->", style=Styles.bold)
+lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 

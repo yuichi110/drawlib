@@ -36,34 +36,34 @@ from drawlib.styles import Colors, Styles
 Every style token is composed of a **Semantic Role** (or color name) and an optional **Visual Variant**:
 
 ### Semantic Roles:
-- **`primary`**: Main structural components and key architectural blocks.
-- **`secondary`**: Secondary supporting services and auxiliary nodes.
-- **`accent`**: Emphasized focal points and action triggers.
-- **`success`**: Healthy statuses, successful states, and completed steps.
-- **`danger`**: Error conditions, security threats, and terminating gates.
-- **`warning`**: Warnings, deprecations, and pending queues.
-- **`muted`**: Background boundaries, subtle partitions, and inactive states.
+- **`Primary`**: Main structural components and key architectural blocks.
+- **`Secondary`**: Secondary supporting services and auxiliary nodes.
+- **`Accent`**: Emphasized focal points and action triggers.
+- **`Success`**: Healthy statuses, successful states, and completed steps.
+- **`Danger`**: Error conditions, security threats, and terminating gates.
+- **`Warning`**: Warnings, deprecations, and pending queues.
+- **`Muted`**: Background boundaries, subtle partitions, and inactive states.
 
 ### Common Variants:
 | Variant Suffix | Example | Visual Appearance |
 | :--- | :--- | :--- |
-| `_flat` | `Styles.primary_flat` | Solid fill color without border lines. |
-| `_bordered` | `Styles.primary_bordered` | Standard fill with a contrasting border. |
-| `_bold` | `Styles.primary_bold` | Heavy stroke for lines and borders. |
-| `_light` | `Styles.primary_light` | Soft, pastel fill color. |
-| `_outline` | `Styles.primary_outline` | Transparent fill with a colored border line. |
-| `_dashed` | `Styles.muted_dashed` | Dashed border stroke (ideal for VPCs and clusters). |
+| `Flat` | `Styles.PrimaryFlat` | Solid fill color without border lines. |
+| `Bordered` | `Styles.PrimaryBordered` | Standard fill with a contrasting border. |
+| `Bold` | `Styles.PrimaryBold` | Heavy stroke for lines and borders. |
+| `Light` | `Styles.PrimaryLight` | Soft, pastel fill color. |
+| `Outline` | `Styles.PrimaryOutline` | Transparent fill with a colored border line. |
+| `Dashed` | `Styles.MutedDashed` | Dashed border stroke (ideal for VPCs and clusters). |
 
 ---
 
-## 4. Systematic String Shorthands
+## 4. Typography & Icon Styles
 
-Instead of importing `Styles`, you can use string shortcuts directly in drawing functions:
+Preset styles are also applied to text labels and icons:
 
 ```python
-# Shorthand string is resolved dynamically
-rectangle((50, 25), width=30, height=20, style="blue_flat")
-line((20, 25), (80, 25), arrowhead="->", style="bold")
+# Use WhiteBold for text inside filled dark containers
+rectangle((50, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Server", textstyle=Styles.WhiteBold)
+line((20, 25), (80, 25), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ---
@@ -77,7 +77,7 @@ from drawlib.styles import Styles
 from drawlib.preset_colors import CssColors
 
 # Derive a custom card style with a custom border and fill
-custom_card = Styles.primary.patch(
+custom_card = Styles.Primary.patch(
     shape_fill_color=CssColors.AliceBlue,
     shape_line_color=CssColors.DodgerBlue,
     shape_line_width=2.5,

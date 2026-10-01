@@ -49,7 +49,7 @@ def test_cli_build_html_directory_default(tmp_path) -> None:
 ```drawlib
 from drawlib.styles import Styles
 from drawlib.shapes import circle
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -92,7 +92,7 @@ def test_cli_build_html_single_file(tmp_path) -> None:
 ```drawlib
 from drawlib.styles import Styles
 from drawlib.shapes import rectangle
-rectangle((50, 50), width=40, height=20, style=Styles.primary)
+rectangle((50, 50), width=40, height=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -125,7 +125,7 @@ def test_cli_build_html_webp_format(tmp_path) -> None:
 ```drawlib
 from drawlib.styles import Styles
 from drawlib.shapes import circle
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -159,7 +159,7 @@ def test_cli_build_markdown_single_file(tmp_path) -> None:
 ```drawlib
 from drawlib.styles import Styles
 from drawlib.shapes import circle
-circle((50, 50), radius=10, style=Styles.primary)
+circle((50, 50), radius=10, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -193,7 +193,7 @@ from drawlib.styles import Styles as default_styles
 from drawlib.shapes import circle
 
 styles = default_styles
-circle((50, 50), radius=10, style=styles.primary)
+circle((50, 50), radius=10, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -232,7 +232,7 @@ from drawlib.styles import Styles as default_styles
 from drawlib.shapes import circle
 
 styles = default_styles
-circle((50, 50), radius=10, style=styles.primary)
+circle((50, 50), radius=10, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -243,7 +243,7 @@ from drawlib.styles import Styles as default_styles
 from drawlib.shapes import circle
 
 styles = default_styles
-circle((30, 30), radius=10, style=styles.primary)
+circle((30, 30), radius=10, style=styles.Primary)
 save()
 """,
         encoding="utf-8",
@@ -271,7 +271,7 @@ from drawlib.styles import Styles as default_styles
 from drawlib.shapes import circle
 
 styles = default_styles
-circle((50, 50), radius=15, style=styles.primary)
+circle((50, 50), radius=15, style=styles.Primary)
 save()
 """,
         encoding="utf-8",

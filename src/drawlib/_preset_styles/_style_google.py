@@ -32,2304 +32,2304 @@ class GoogleStyles(BaseStyles):
     """Google preset styles with complete typing for IDE autocompletion."""
 
     # Primary
-    primary: Style
-    primary_bordered: Style
-    primary_bold: Style
-    primary_light: Style
-    primary_flat: Style
-    primary_outline: Style
-    primary_solid: Style
-    primary_outline_bold: Style
-    primary_solid_bold: Style
-    primary_outline_light: Style
-    primary_solid_light: Style
-    primary_dashed: Style
-    primary_dashed_bold: Style
-    primary_dashed_light: Style
+    Primary: Style
+    PrimaryBordered: Style
+    PrimaryBold: Style
+    PrimaryLight: Style
+    PrimaryFlat: Style
+    PrimaryOutline: Style
+    PrimarySolid: Style
+    PrimaryOutlineBold: Style
+    PrimarySolidBold: Style
+    PrimaryOutlineLight: Style
+    PrimarySolidLight: Style
+    PrimaryDashed: Style
+    PrimaryDashedBold: Style
+    PrimaryDashedLight: Style
 
     # Secondary
-    secondary: Style
-    secondary_bordered: Style
-    secondary_bold: Style
-    secondary_light: Style
-    secondary_flat: Style
-    secondary_outline: Style
-    secondary_solid: Style
-    secondary_outline_bold: Style
-    secondary_solid_bold: Style
-    secondary_outline_light: Style
-    secondary_solid_light: Style
-    secondary_dashed: Style
-    secondary_dashed_bold: Style
-    secondary_dashed_light: Style
+    Secondary: Style
+    SecondaryBordered: Style
+    SecondaryBold: Style
+    SecondaryLight: Style
+    SecondaryFlat: Style
+    SecondaryOutline: Style
+    SecondarySolid: Style
+    SecondaryOutlineBold: Style
+    SecondarySolidBold: Style
+    SecondaryOutlineLight: Style
+    SecondarySolidLight: Style
+    SecondaryDashed: Style
+    SecondaryDashedBold: Style
+    SecondaryDashedLight: Style
 
     # Accent
-    accent: Style
-    accent_bordered: Style
-    accent_bold: Style
-    accent_light: Style
-    accent_flat: Style
-    accent_outline: Style
-    accent_solid: Style
-    accent_outline_bold: Style
-    accent_solid_bold: Style
-    accent_outline_light: Style
-    accent_solid_light: Style
-    accent_dashed: Style
-    accent_dashed_bold: Style
-    accent_dashed_light: Style
+    Accent: Style
+    AccentBordered: Style
+    AccentBold: Style
+    AccentLight: Style
+    AccentFlat: Style
+    AccentOutline: Style
+    AccentSolid: Style
+    AccentOutlineBold: Style
+    AccentSolidBold: Style
+    AccentOutlineLight: Style
+    AccentSolidLight: Style
+    AccentDashed: Style
+    AccentDashedBold: Style
+    AccentDashedLight: Style
 
     # Muted
-    muted: Style
-    muted_bordered: Style
-    muted_bold: Style
-    muted_light: Style
-    muted_flat: Style
-    muted_outline: Style
-    muted_solid: Style
-    muted_outline_bold: Style
-    muted_solid_bold: Style
-    muted_outline_light: Style
-    muted_solid_light: Style
-    muted_dashed: Style
-    muted_dashed_bold: Style
-    muted_dashed_light: Style
+    Muted: Style
+    MutedBordered: Style
+    MutedBold: Style
+    MutedLight: Style
+    MutedFlat: Style
+    MutedOutline: Style
+    MutedSolid: Style
+    MutedOutlineBold: Style
+    MutedSolidBold: Style
+    MutedOutlineLight: Style
+    MutedSolidLight: Style
+    MutedDashed: Style
+    MutedDashedBold: Style
+    MutedDashedLight: Style
 
     # Light
-    light: Style
-    light_bordered: Style
-    light_bold: Style
-    light_light: Style
-    light_flat: Style
-    light_outline: Style
-    light_solid: Style
-    light_outline_bold: Style
-    light_solid_bold: Style
-    light_outline_light: Style
-    light_solid_light: Style
-    light_dashed: Style
-    light_dashed_bold: Style
-    light_dashed_light: Style
+    Light: Style
+    LightBordered: Style
+    LightBold: Style
+    LightLight: Style
+    LightFlat: Style
+    LightOutline: Style
+    LightSolid: Style
+    LightOutlineBold: Style
+    LightSolidBold: Style
+    LightOutlineLight: Style
+    LightSolidLight: Style
+    LightDashed: Style
+    LightDashedBold: Style
+    LightDashedLight: Style
 
     # Dark
-    dark: Style
-    dark_bordered: Style
-    dark_bold: Style
-    dark_light: Style
-    dark_flat: Style
-    dark_outline: Style
-    dark_solid: Style
-    dark_outline_bold: Style
-    dark_solid_bold: Style
-    dark_outline_light: Style
-    dark_solid_light: Style
-    dark_dashed: Style
-    dark_dashed_bold: Style
-    dark_dashed_light: Style
+    Dark: Style
+    DarkBordered: Style
+    DarkBold: Style
+    DarkLight: Style
+    DarkFlat: Style
+    DarkOutline: Style
+    DarkSolid: Style
+    DarkOutlineBold: Style
+    DarkSolidBold: Style
+    DarkOutlineLight: Style
+    DarkSolidLight: Style
+    DarkDashed: Style
+    DarkDashedBold: Style
+    DarkDashedLight: Style
 
     # Danger
-    danger: Style
-    danger_bordered: Style
-    danger_bold: Style
-    danger_light: Style
-    danger_flat: Style
-    danger_outline: Style
-    danger_solid: Style
-    danger_outline_bold: Style
-    danger_solid_bold: Style
-    danger_outline_light: Style
-    danger_solid_light: Style
-    danger_dashed: Style
-    danger_dashed_bold: Style
-    danger_dashed_light: Style
+    Danger: Style
+    DangerBordered: Style
+    DangerBold: Style
+    DangerLight: Style
+    DangerFlat: Style
+    DangerOutline: Style
+    DangerSolid: Style
+    DangerOutlineBold: Style
+    DangerSolidBold: Style
+    DangerOutlineLight: Style
+    DangerSolidLight: Style
+    DangerDashed: Style
+    DangerDashedBold: Style
+    DangerDashedLight: Style
 
     # Success
-    success: Style
-    success_bordered: Style
-    success_bold: Style
-    success_light: Style
-    success_flat: Style
-    success_outline: Style
-    success_solid: Style
-    success_outline_bold: Style
-    success_solid_bold: Style
-    success_outline_light: Style
-    success_solid_light: Style
-    success_dashed: Style
-    success_dashed_bold: Style
-    success_dashed_light: Style
+    Success: Style
+    SuccessBordered: Style
+    SuccessBold: Style
+    SuccessLight: Style
+    SuccessFlat: Style
+    SuccessOutline: Style
+    SuccessSolid: Style
+    SuccessOutlineBold: Style
+    SuccessSolidBold: Style
+    SuccessOutlineLight: Style
+    SuccessSolidLight: Style
+    SuccessDashed: Style
+    SuccessDashedBold: Style
+    SuccessDashedLight: Style
 
     # =========================================================================
     # Numbered Semantic Roles
     # =========================================================================
 
     # primary1
-    primary1: Style
-    primary1_bordered: Style
-    primary1_bold: Style
-    primary1_light: Style
-    primary1_flat: Style
-    primary1_outline: Style
-    primary1_solid: Style
-    primary1_outline_bold: Style
-    primary1_solid_bold: Style
-    primary1_outline_light: Style
-    primary1_solid_light: Style
-    primary1_dashed: Style
-    primary1_dashed_bold: Style
-    primary1_dashed_light: Style
+    Primary1: Style
+    Primary1Bordered: Style
+    Primary1Bold: Style
+    Primary1Light: Style
+    Primary1Flat: Style
+    Primary1Outline: Style
+    Primary1Solid: Style
+    Primary1OutlineBold: Style
+    Primary1SolidBold: Style
+    Primary1OutlineLight: Style
+    Primary1SolidLight: Style
+    Primary1Dashed: Style
+    Primary1DashedBold: Style
+    Primary1DashedLight: Style
 
     # primary2
-    primary2: Style
-    primary2_bordered: Style
-    primary2_bold: Style
-    primary2_light: Style
-    primary2_flat: Style
-    primary2_outline: Style
-    primary2_solid: Style
-    primary2_outline_bold: Style
-    primary2_solid_bold: Style
-    primary2_outline_light: Style
-    primary2_solid_light: Style
-    primary2_dashed: Style
-    primary2_dashed_bold: Style
-    primary2_dashed_light: Style
+    Primary2: Style
+    Primary2Bordered: Style
+    Primary2Bold: Style
+    Primary2Light: Style
+    Primary2Flat: Style
+    Primary2Outline: Style
+    Primary2Solid: Style
+    Primary2OutlineBold: Style
+    Primary2SolidBold: Style
+    Primary2OutlineLight: Style
+    Primary2SolidLight: Style
+    Primary2Dashed: Style
+    Primary2DashedBold: Style
+    Primary2DashedLight: Style
 
     # primary3
-    primary3: Style
-    primary3_bordered: Style
-    primary3_bold: Style
-    primary3_light: Style
-    primary3_flat: Style
-    primary3_outline: Style
-    primary3_solid: Style
-    primary3_outline_bold: Style
-    primary3_solid_bold: Style
-    primary3_outline_light: Style
-    primary3_solid_light: Style
-    primary3_dashed: Style
-    primary3_dashed_bold: Style
-    primary3_dashed_light: Style
+    Primary3: Style
+    Primary3Bordered: Style
+    Primary3Bold: Style
+    Primary3Light: Style
+    Primary3Flat: Style
+    Primary3Outline: Style
+    Primary3Solid: Style
+    Primary3OutlineBold: Style
+    Primary3SolidBold: Style
+    Primary3OutlineLight: Style
+    Primary3SolidLight: Style
+    Primary3Dashed: Style
+    Primary3DashedBold: Style
+    Primary3DashedLight: Style
 
     # primary4
-    primary4: Style
-    primary4_bordered: Style
-    primary4_bold: Style
-    primary4_light: Style
-    primary4_flat: Style
-    primary4_outline: Style
-    primary4_solid: Style
-    primary4_outline_bold: Style
-    primary4_solid_bold: Style
-    primary4_outline_light: Style
-    primary4_solid_light: Style
-    primary4_dashed: Style
-    primary4_dashed_bold: Style
-    primary4_dashed_light: Style
+    Primary4: Style
+    Primary4Bordered: Style
+    Primary4Bold: Style
+    Primary4Light: Style
+    Primary4Flat: Style
+    Primary4Outline: Style
+    Primary4Solid: Style
+    Primary4OutlineBold: Style
+    Primary4SolidBold: Style
+    Primary4OutlineLight: Style
+    Primary4SolidLight: Style
+    Primary4Dashed: Style
+    Primary4DashedBold: Style
+    Primary4DashedLight: Style
 
     # primary5
-    primary5: Style
-    primary5_bordered: Style
-    primary5_bold: Style
-    primary5_light: Style
-    primary5_flat: Style
-    primary5_outline: Style
-    primary5_solid: Style
-    primary5_outline_bold: Style
-    primary5_solid_bold: Style
-    primary5_outline_light: Style
-    primary5_solid_light: Style
-    primary5_dashed: Style
-    primary5_dashed_bold: Style
-    primary5_dashed_light: Style
+    Primary5: Style
+    Primary5Bordered: Style
+    Primary5Bold: Style
+    Primary5Light: Style
+    Primary5Flat: Style
+    Primary5Outline: Style
+    Primary5Solid: Style
+    Primary5OutlineBold: Style
+    Primary5SolidBold: Style
+    Primary5OutlineLight: Style
+    Primary5SolidLight: Style
+    Primary5Dashed: Style
+    Primary5DashedBold: Style
+    Primary5DashedLight: Style
 
     # primary6
-    primary6: Style
-    primary6_bordered: Style
-    primary6_bold: Style
-    primary6_light: Style
-    primary6_flat: Style
-    primary6_outline: Style
-    primary6_solid: Style
-    primary6_outline_bold: Style
-    primary6_solid_bold: Style
-    primary6_outline_light: Style
-    primary6_solid_light: Style
-    primary6_dashed: Style
-    primary6_dashed_bold: Style
-    primary6_dashed_light: Style
+    Primary6: Style
+    Primary6Bordered: Style
+    Primary6Bold: Style
+    Primary6Light: Style
+    Primary6Flat: Style
+    Primary6Outline: Style
+    Primary6Solid: Style
+    Primary6OutlineBold: Style
+    Primary6SolidBold: Style
+    Primary6OutlineLight: Style
+    Primary6SolidLight: Style
+    Primary6Dashed: Style
+    Primary6DashedBold: Style
+    Primary6DashedLight: Style
 
     # secondary1
-    secondary1: Style
-    secondary1_bordered: Style
-    secondary1_bold: Style
-    secondary1_light: Style
-    secondary1_flat: Style
-    secondary1_outline: Style
-    secondary1_solid: Style
-    secondary1_outline_bold: Style
-    secondary1_solid_bold: Style
-    secondary1_outline_light: Style
-    secondary1_solid_light: Style
-    secondary1_dashed: Style
-    secondary1_dashed_bold: Style
-    secondary1_dashed_light: Style
+    Secondary1: Style
+    Secondary1Bordered: Style
+    Secondary1Bold: Style
+    Secondary1Light: Style
+    Secondary1Flat: Style
+    Secondary1Outline: Style
+    Secondary1Solid: Style
+    Secondary1OutlineBold: Style
+    Secondary1SolidBold: Style
+    Secondary1OutlineLight: Style
+    Secondary1SolidLight: Style
+    Secondary1Dashed: Style
+    Secondary1DashedBold: Style
+    Secondary1DashedLight: Style
 
     # secondary2
-    secondary2: Style
-    secondary2_bordered: Style
-    secondary2_bold: Style
-    secondary2_light: Style
-    secondary2_flat: Style
-    secondary2_outline: Style
-    secondary2_solid: Style
-    secondary2_outline_bold: Style
-    secondary2_solid_bold: Style
-    secondary2_outline_light: Style
-    secondary2_solid_light: Style
-    secondary2_dashed: Style
-    secondary2_dashed_bold: Style
-    secondary2_dashed_light: Style
+    Secondary2: Style
+    Secondary2Bordered: Style
+    Secondary2Bold: Style
+    Secondary2Light: Style
+    Secondary2Flat: Style
+    Secondary2Outline: Style
+    Secondary2Solid: Style
+    Secondary2OutlineBold: Style
+    Secondary2SolidBold: Style
+    Secondary2OutlineLight: Style
+    Secondary2SolidLight: Style
+    Secondary2Dashed: Style
+    Secondary2DashedBold: Style
+    Secondary2DashedLight: Style
 
     # secondary3
-    secondary3: Style
-    secondary3_bordered: Style
-    secondary3_bold: Style
-    secondary3_light: Style
-    secondary3_flat: Style
-    secondary3_outline: Style
-    secondary3_solid: Style
-    secondary3_outline_bold: Style
-    secondary3_solid_bold: Style
-    secondary3_outline_light: Style
-    secondary3_solid_light: Style
-    secondary3_dashed: Style
-    secondary3_dashed_bold: Style
-    secondary3_dashed_light: Style
+    Secondary3: Style
+    Secondary3Bordered: Style
+    Secondary3Bold: Style
+    Secondary3Light: Style
+    Secondary3Flat: Style
+    Secondary3Outline: Style
+    Secondary3Solid: Style
+    Secondary3OutlineBold: Style
+    Secondary3SolidBold: Style
+    Secondary3OutlineLight: Style
+    Secondary3SolidLight: Style
+    Secondary3Dashed: Style
+    Secondary3DashedBold: Style
+    Secondary3DashedLight: Style
 
     # secondary4
-    secondary4: Style
-    secondary4_bordered: Style
-    secondary4_bold: Style
-    secondary4_light: Style
-    secondary4_flat: Style
-    secondary4_outline: Style
-    secondary4_solid: Style
-    secondary4_outline_bold: Style
-    secondary4_solid_bold: Style
-    secondary4_outline_light: Style
-    secondary4_solid_light: Style
-    secondary4_dashed: Style
-    secondary4_dashed_bold: Style
-    secondary4_dashed_light: Style
+    Secondary4: Style
+    Secondary4Bordered: Style
+    Secondary4Bold: Style
+    Secondary4Light: Style
+    Secondary4Flat: Style
+    Secondary4Outline: Style
+    Secondary4Solid: Style
+    Secondary4OutlineBold: Style
+    Secondary4SolidBold: Style
+    Secondary4OutlineLight: Style
+    Secondary4SolidLight: Style
+    Secondary4Dashed: Style
+    Secondary4DashedBold: Style
+    Secondary4DashedLight: Style
 
     # secondary5
-    secondary5: Style
-    secondary5_bordered: Style
-    secondary5_bold: Style
-    secondary5_light: Style
-    secondary5_flat: Style
-    secondary5_outline: Style
-    secondary5_solid: Style
-    secondary5_outline_bold: Style
-    secondary5_solid_bold: Style
-    secondary5_outline_light: Style
-    secondary5_solid_light: Style
-    secondary5_dashed: Style
-    secondary5_dashed_bold: Style
-    secondary5_dashed_light: Style
+    Secondary5: Style
+    Secondary5Bordered: Style
+    Secondary5Bold: Style
+    Secondary5Light: Style
+    Secondary5Flat: Style
+    Secondary5Outline: Style
+    Secondary5Solid: Style
+    Secondary5OutlineBold: Style
+    Secondary5SolidBold: Style
+    Secondary5OutlineLight: Style
+    Secondary5SolidLight: Style
+    Secondary5Dashed: Style
+    Secondary5DashedBold: Style
+    Secondary5DashedLight: Style
 
     # secondary6
-    secondary6: Style
-    secondary6_bordered: Style
-    secondary6_bold: Style
-    secondary6_light: Style
-    secondary6_flat: Style
-    secondary6_outline: Style
-    secondary6_solid: Style
-    secondary6_outline_bold: Style
-    secondary6_solid_bold: Style
-    secondary6_outline_light: Style
-    secondary6_solid_light: Style
-    secondary6_dashed: Style
-    secondary6_dashed_bold: Style
-    secondary6_dashed_light: Style
+    Secondary6: Style
+    Secondary6Bordered: Style
+    Secondary6Bold: Style
+    Secondary6Light: Style
+    Secondary6Flat: Style
+    Secondary6Outline: Style
+    Secondary6Solid: Style
+    Secondary6OutlineBold: Style
+    Secondary6SolidBold: Style
+    Secondary6OutlineLight: Style
+    Secondary6SolidLight: Style
+    Secondary6Dashed: Style
+    Secondary6DashedBold: Style
+    Secondary6DashedLight: Style
 
     # accent1
-    accent1: Style
-    accent1_bordered: Style
-    accent1_bold: Style
-    accent1_light: Style
-    accent1_flat: Style
-    accent1_outline: Style
-    accent1_solid: Style
-    accent1_outline_bold: Style
-    accent1_solid_bold: Style
-    accent1_outline_light: Style
-    accent1_solid_light: Style
-    accent1_dashed: Style
-    accent1_dashed_bold: Style
-    accent1_dashed_light: Style
+    Accent1: Style
+    Accent1Bordered: Style
+    Accent1Bold: Style
+    Accent1Light: Style
+    Accent1Flat: Style
+    Accent1Outline: Style
+    Accent1Solid: Style
+    Accent1OutlineBold: Style
+    Accent1SolidBold: Style
+    Accent1OutlineLight: Style
+    Accent1SolidLight: Style
+    Accent1Dashed: Style
+    Accent1DashedBold: Style
+    Accent1DashedLight: Style
 
     # accent2
-    accent2: Style
-    accent2_bordered: Style
-    accent2_bold: Style
-    accent2_light: Style
-    accent2_flat: Style
-    accent2_outline: Style
-    accent2_solid: Style
-    accent2_outline_bold: Style
-    accent2_solid_bold: Style
-    accent2_outline_light: Style
-    accent2_solid_light: Style
-    accent2_dashed: Style
-    accent2_dashed_bold: Style
-    accent2_dashed_light: Style
+    Accent2: Style
+    Accent2Bordered: Style
+    Accent2Bold: Style
+    Accent2Light: Style
+    Accent2Flat: Style
+    Accent2Outline: Style
+    Accent2Solid: Style
+    Accent2OutlineBold: Style
+    Accent2SolidBold: Style
+    Accent2OutlineLight: Style
+    Accent2SolidLight: Style
+    Accent2Dashed: Style
+    Accent2DashedBold: Style
+    Accent2DashedLight: Style
 
     # accent3
-    accent3: Style
-    accent3_bordered: Style
-    accent3_bold: Style
-    accent3_light: Style
-    accent3_flat: Style
-    accent3_outline: Style
-    accent3_solid: Style
-    accent3_outline_bold: Style
-    accent3_solid_bold: Style
-    accent3_outline_light: Style
-    accent3_solid_light: Style
-    accent3_dashed: Style
-    accent3_dashed_bold: Style
-    accent3_dashed_light: Style
+    Accent3: Style
+    Accent3Bordered: Style
+    Accent3Bold: Style
+    Accent3Light: Style
+    Accent3Flat: Style
+    Accent3Outline: Style
+    Accent3Solid: Style
+    Accent3OutlineBold: Style
+    Accent3SolidBold: Style
+    Accent3OutlineLight: Style
+    Accent3SolidLight: Style
+    Accent3Dashed: Style
+    Accent3DashedBold: Style
+    Accent3DashedLight: Style
 
     # accent4
-    accent4: Style
-    accent4_bordered: Style
-    accent4_bold: Style
-    accent4_light: Style
-    accent4_flat: Style
-    accent4_outline: Style
-    accent4_solid: Style
-    accent4_outline_bold: Style
-    accent4_solid_bold: Style
-    accent4_outline_light: Style
-    accent4_solid_light: Style
-    accent4_dashed: Style
-    accent4_dashed_bold: Style
-    accent4_dashed_light: Style
+    Accent4: Style
+    Accent4Bordered: Style
+    Accent4Bold: Style
+    Accent4Light: Style
+    Accent4Flat: Style
+    Accent4Outline: Style
+    Accent4Solid: Style
+    Accent4OutlineBold: Style
+    Accent4SolidBold: Style
+    Accent4OutlineLight: Style
+    Accent4SolidLight: Style
+    Accent4Dashed: Style
+    Accent4DashedBold: Style
+    Accent4DashedLight: Style
 
     # accent5
-    accent5: Style
-    accent5_bordered: Style
-    accent5_bold: Style
-    accent5_light: Style
-    accent5_flat: Style
-    accent5_outline: Style
-    accent5_solid: Style
-    accent5_outline_bold: Style
-    accent5_solid_bold: Style
-    accent5_outline_light: Style
-    accent5_solid_light: Style
-    accent5_dashed: Style
-    accent5_dashed_bold: Style
-    accent5_dashed_light: Style
+    Accent5: Style
+    Accent5Bordered: Style
+    Accent5Bold: Style
+    Accent5Light: Style
+    Accent5Flat: Style
+    Accent5Outline: Style
+    Accent5Solid: Style
+    Accent5OutlineBold: Style
+    Accent5SolidBold: Style
+    Accent5OutlineLight: Style
+    Accent5SolidLight: Style
+    Accent5Dashed: Style
+    Accent5DashedBold: Style
+    Accent5DashedLight: Style
 
     # accent6
-    accent6: Style
-    accent6_bordered: Style
-    accent6_bold: Style
-    accent6_light: Style
-    accent6_flat: Style
-    accent6_outline: Style
-    accent6_solid: Style
-    accent6_outline_bold: Style
-    accent6_solid_bold: Style
-    accent6_outline_light: Style
-    accent6_solid_light: Style
-    accent6_dashed: Style
-    accent6_dashed_bold: Style
-    accent6_dashed_light: Style
+    Accent6: Style
+    Accent6Bordered: Style
+    Accent6Bold: Style
+    Accent6Light: Style
+    Accent6Flat: Style
+    Accent6Outline: Style
+    Accent6Solid: Style
+    Accent6OutlineBold: Style
+    Accent6SolidBold: Style
+    Accent6OutlineLight: Style
+    Accent6SolidLight: Style
+    Accent6Dashed: Style
+    Accent6DashedBold: Style
+    Accent6DashedLight: Style
 
     # muted1
-    muted1: Style
-    muted1_bordered: Style
-    muted1_bold: Style
-    muted1_light: Style
-    muted1_flat: Style
-    muted1_outline: Style
-    muted1_solid: Style
-    muted1_outline_bold: Style
-    muted1_solid_bold: Style
-    muted1_outline_light: Style
-    muted1_solid_light: Style
-    muted1_dashed: Style
-    muted1_dashed_bold: Style
-    muted1_dashed_light: Style
+    Muted1: Style
+    Muted1Bordered: Style
+    Muted1Bold: Style
+    Muted1Light: Style
+    Muted1Flat: Style
+    Muted1Outline: Style
+    Muted1Solid: Style
+    Muted1OutlineBold: Style
+    Muted1SolidBold: Style
+    Muted1OutlineLight: Style
+    Muted1SolidLight: Style
+    Muted1Dashed: Style
+    Muted1DashedBold: Style
+    Muted1DashedLight: Style
 
     # muted2
-    muted2: Style
-    muted2_bordered: Style
-    muted2_bold: Style
-    muted2_light: Style
-    muted2_flat: Style
-    muted2_outline: Style
-    muted2_solid: Style
-    muted2_outline_bold: Style
-    muted2_solid_bold: Style
-    muted2_outline_light: Style
-    muted2_solid_light: Style
-    muted2_dashed: Style
-    muted2_dashed_bold: Style
-    muted2_dashed_light: Style
+    Muted2: Style
+    Muted2Bordered: Style
+    Muted2Bold: Style
+    Muted2Light: Style
+    Muted2Flat: Style
+    Muted2Outline: Style
+    Muted2Solid: Style
+    Muted2OutlineBold: Style
+    Muted2SolidBold: Style
+    Muted2OutlineLight: Style
+    Muted2SolidLight: Style
+    Muted2Dashed: Style
+    Muted2DashedBold: Style
+    Muted2DashedLight: Style
 
     # muted3
-    muted3: Style
-    muted3_bordered: Style
-    muted3_bold: Style
-    muted3_light: Style
-    muted3_flat: Style
-    muted3_outline: Style
-    muted3_solid: Style
-    muted3_outline_bold: Style
-    muted3_solid_bold: Style
-    muted3_outline_light: Style
-    muted3_solid_light: Style
-    muted3_dashed: Style
-    muted3_dashed_bold: Style
-    muted3_dashed_light: Style
+    Muted3: Style
+    Muted3Bordered: Style
+    Muted3Bold: Style
+    Muted3Light: Style
+    Muted3Flat: Style
+    Muted3Outline: Style
+    Muted3Solid: Style
+    Muted3OutlineBold: Style
+    Muted3SolidBold: Style
+    Muted3OutlineLight: Style
+    Muted3SolidLight: Style
+    Muted3Dashed: Style
+    Muted3DashedBold: Style
+    Muted3DashedLight: Style
 
     # muted4
-    muted4: Style
-    muted4_bordered: Style
-    muted4_bold: Style
-    muted4_light: Style
-    muted4_flat: Style
-    muted4_outline: Style
-    muted4_solid: Style
-    muted4_outline_bold: Style
-    muted4_solid_bold: Style
-    muted4_outline_light: Style
-    muted4_solid_light: Style
-    muted4_dashed: Style
-    muted4_dashed_bold: Style
-    muted4_dashed_light: Style
+    Muted4: Style
+    Muted4Bordered: Style
+    Muted4Bold: Style
+    Muted4Light: Style
+    Muted4Flat: Style
+    Muted4Outline: Style
+    Muted4Solid: Style
+    Muted4OutlineBold: Style
+    Muted4SolidBold: Style
+    Muted4OutlineLight: Style
+    Muted4SolidLight: Style
+    Muted4Dashed: Style
+    Muted4DashedBold: Style
+    Muted4DashedLight: Style
 
     # muted5
-    muted5: Style
-    muted5_bordered: Style
-    muted5_bold: Style
-    muted5_light: Style
-    muted5_flat: Style
-    muted5_outline: Style
-    muted5_solid: Style
-    muted5_outline_bold: Style
-    muted5_solid_bold: Style
-    muted5_outline_light: Style
-    muted5_solid_light: Style
-    muted5_dashed: Style
-    muted5_dashed_bold: Style
-    muted5_dashed_light: Style
+    Muted5: Style
+    Muted5Bordered: Style
+    Muted5Bold: Style
+    Muted5Light: Style
+    Muted5Flat: Style
+    Muted5Outline: Style
+    Muted5Solid: Style
+    Muted5OutlineBold: Style
+    Muted5SolidBold: Style
+    Muted5OutlineLight: Style
+    Muted5SolidLight: Style
+    Muted5Dashed: Style
+    Muted5DashedBold: Style
+    Muted5DashedLight: Style
 
     # muted6
-    muted6: Style
-    muted6_bordered: Style
-    muted6_bold: Style
-    muted6_light: Style
-    muted6_flat: Style
-    muted6_outline: Style
-    muted6_solid: Style
-    muted6_outline_bold: Style
-    muted6_solid_bold: Style
-    muted6_outline_light: Style
-    muted6_solid_light: Style
-    muted6_dashed: Style
-    muted6_dashed_bold: Style
-    muted6_dashed_light: Style
+    Muted6: Style
+    Muted6Bordered: Style
+    Muted6Bold: Style
+    Muted6Light: Style
+    Muted6Flat: Style
+    Muted6Outline: Style
+    Muted6Solid: Style
+    Muted6OutlineBold: Style
+    Muted6SolidBold: Style
+    Muted6OutlineLight: Style
+    Muted6SolidLight: Style
+    Muted6Dashed: Style
+    Muted6DashedBold: Style
+    Muted6DashedLight: Style
 
     # danger1
-    danger1: Style
-    danger1_bordered: Style
-    danger1_bold: Style
-    danger1_light: Style
-    danger1_flat: Style
-    danger1_outline: Style
-    danger1_solid: Style
-    danger1_outline_bold: Style
-    danger1_solid_bold: Style
-    danger1_outline_light: Style
-    danger1_solid_light: Style
-    danger1_dashed: Style
-    danger1_dashed_bold: Style
-    danger1_dashed_light: Style
+    Danger1: Style
+    Danger1Bordered: Style
+    Danger1Bold: Style
+    Danger1Light: Style
+    Danger1Flat: Style
+    Danger1Outline: Style
+    Danger1Solid: Style
+    Danger1OutlineBold: Style
+    Danger1SolidBold: Style
+    Danger1OutlineLight: Style
+    Danger1SolidLight: Style
+    Danger1Dashed: Style
+    Danger1DashedBold: Style
+    Danger1DashedLight: Style
 
     # danger2
-    danger2: Style
-    danger2_bordered: Style
-    danger2_bold: Style
-    danger2_light: Style
-    danger2_flat: Style
-    danger2_outline: Style
-    danger2_solid: Style
-    danger2_outline_bold: Style
-    danger2_solid_bold: Style
-    danger2_outline_light: Style
-    danger2_solid_light: Style
-    danger2_dashed: Style
-    danger2_dashed_bold: Style
-    danger2_dashed_light: Style
+    Danger2: Style
+    Danger2Bordered: Style
+    Danger2Bold: Style
+    Danger2Light: Style
+    Danger2Flat: Style
+    Danger2Outline: Style
+    Danger2Solid: Style
+    Danger2OutlineBold: Style
+    Danger2SolidBold: Style
+    Danger2OutlineLight: Style
+    Danger2SolidLight: Style
+    Danger2Dashed: Style
+    Danger2DashedBold: Style
+    Danger2DashedLight: Style
 
     # danger3
-    danger3: Style
-    danger3_bordered: Style
-    danger3_bold: Style
-    danger3_light: Style
-    danger3_flat: Style
-    danger3_outline: Style
-    danger3_solid: Style
-    danger3_outline_bold: Style
-    danger3_solid_bold: Style
-    danger3_outline_light: Style
-    danger3_solid_light: Style
-    danger3_dashed: Style
-    danger3_dashed_bold: Style
-    danger3_dashed_light: Style
+    Danger3: Style
+    Danger3Bordered: Style
+    Danger3Bold: Style
+    Danger3Light: Style
+    Danger3Flat: Style
+    Danger3Outline: Style
+    Danger3Solid: Style
+    Danger3OutlineBold: Style
+    Danger3SolidBold: Style
+    Danger3OutlineLight: Style
+    Danger3SolidLight: Style
+    Danger3Dashed: Style
+    Danger3DashedBold: Style
+    Danger3DashedLight: Style
 
     # danger4
-    danger4: Style
-    danger4_bordered: Style
-    danger4_bold: Style
-    danger4_light: Style
-    danger4_flat: Style
-    danger4_outline: Style
-    danger4_solid: Style
-    danger4_outline_bold: Style
-    danger4_solid_bold: Style
-    danger4_outline_light: Style
-    danger4_solid_light: Style
-    danger4_dashed: Style
-    danger4_dashed_bold: Style
-    danger4_dashed_light: Style
+    Danger4: Style
+    Danger4Bordered: Style
+    Danger4Bold: Style
+    Danger4Light: Style
+    Danger4Flat: Style
+    Danger4Outline: Style
+    Danger4Solid: Style
+    Danger4OutlineBold: Style
+    Danger4SolidBold: Style
+    Danger4OutlineLight: Style
+    Danger4SolidLight: Style
+    Danger4Dashed: Style
+    Danger4DashedBold: Style
+    Danger4DashedLight: Style
 
     # danger5
-    danger5: Style
-    danger5_bordered: Style
-    danger5_bold: Style
-    danger5_light: Style
-    danger5_flat: Style
-    danger5_outline: Style
-    danger5_solid: Style
-    danger5_outline_bold: Style
-    danger5_solid_bold: Style
-    danger5_outline_light: Style
-    danger5_solid_light: Style
-    danger5_dashed: Style
-    danger5_dashed_bold: Style
-    danger5_dashed_light: Style
+    Danger5: Style
+    Danger5Bordered: Style
+    Danger5Bold: Style
+    Danger5Light: Style
+    Danger5Flat: Style
+    Danger5Outline: Style
+    Danger5Solid: Style
+    Danger5OutlineBold: Style
+    Danger5SolidBold: Style
+    Danger5OutlineLight: Style
+    Danger5SolidLight: Style
+    Danger5Dashed: Style
+    Danger5DashedBold: Style
+    Danger5DashedLight: Style
 
     # danger6
-    danger6: Style
-    danger6_bordered: Style
-    danger6_bold: Style
-    danger6_light: Style
-    danger6_flat: Style
-    danger6_outline: Style
-    danger6_solid: Style
-    danger6_outline_bold: Style
-    danger6_solid_bold: Style
-    danger6_outline_light: Style
-    danger6_solid_light: Style
-    danger6_dashed: Style
-    danger6_dashed_bold: Style
-    danger6_dashed_light: Style
+    Danger6: Style
+    Danger6Bordered: Style
+    Danger6Bold: Style
+    Danger6Light: Style
+    Danger6Flat: Style
+    Danger6Outline: Style
+    Danger6Solid: Style
+    Danger6OutlineBold: Style
+    Danger6SolidBold: Style
+    Danger6OutlineLight: Style
+    Danger6SolidLight: Style
+    Danger6Dashed: Style
+    Danger6DashedBold: Style
+    Danger6DashedLight: Style
 
     # success1
-    success1: Style
-    success1_bordered: Style
-    success1_bold: Style
-    success1_light: Style
-    success1_flat: Style
-    success1_outline: Style
-    success1_solid: Style
-    success1_outline_bold: Style
-    success1_solid_bold: Style
-    success1_outline_light: Style
-    success1_solid_light: Style
-    success1_dashed: Style
-    success1_dashed_bold: Style
-    success1_dashed_light: Style
+    Success1: Style
+    Success1Bordered: Style
+    Success1Bold: Style
+    Success1Light: Style
+    Success1Flat: Style
+    Success1Outline: Style
+    Success1Solid: Style
+    Success1OutlineBold: Style
+    Success1SolidBold: Style
+    Success1OutlineLight: Style
+    Success1SolidLight: Style
+    Success1Dashed: Style
+    Success1DashedBold: Style
+    Success1DashedLight: Style
 
     # success2
-    success2: Style
-    success2_bordered: Style
-    success2_bold: Style
-    success2_light: Style
-    success2_flat: Style
-    success2_outline: Style
-    success2_solid: Style
-    success2_outline_bold: Style
-    success2_solid_bold: Style
-    success2_outline_light: Style
-    success2_solid_light: Style
-    success2_dashed: Style
-    success2_dashed_bold: Style
-    success2_dashed_light: Style
+    Success2: Style
+    Success2Bordered: Style
+    Success2Bold: Style
+    Success2Light: Style
+    Success2Flat: Style
+    Success2Outline: Style
+    Success2Solid: Style
+    Success2OutlineBold: Style
+    Success2SolidBold: Style
+    Success2OutlineLight: Style
+    Success2SolidLight: Style
+    Success2Dashed: Style
+    Success2DashedBold: Style
+    Success2DashedLight: Style
 
     # success3
-    success3: Style
-    success3_bordered: Style
-    success3_bold: Style
-    success3_light: Style
-    success3_flat: Style
-    success3_outline: Style
-    success3_solid: Style
-    success3_outline_bold: Style
-    success3_solid_bold: Style
-    success3_outline_light: Style
-    success3_solid_light: Style
-    success3_dashed: Style
-    success3_dashed_bold: Style
-    success3_dashed_light: Style
+    Success3: Style
+    Success3Bordered: Style
+    Success3Bold: Style
+    Success3Light: Style
+    Success3Flat: Style
+    Success3Outline: Style
+    Success3Solid: Style
+    Success3OutlineBold: Style
+    Success3SolidBold: Style
+    Success3OutlineLight: Style
+    Success3SolidLight: Style
+    Success3Dashed: Style
+    Success3DashedBold: Style
+    Success3DashedLight: Style
 
     # success4
-    success4: Style
-    success4_bordered: Style
-    success4_bold: Style
-    success4_light: Style
-    success4_flat: Style
-    success4_outline: Style
-    success4_solid: Style
-    success4_outline_bold: Style
-    success4_solid_bold: Style
-    success4_outline_light: Style
-    success4_solid_light: Style
-    success4_dashed: Style
-    success4_dashed_bold: Style
-    success4_dashed_light: Style
+    Success4: Style
+    Success4Bordered: Style
+    Success4Bold: Style
+    Success4Light: Style
+    Success4Flat: Style
+    Success4Outline: Style
+    Success4Solid: Style
+    Success4OutlineBold: Style
+    Success4SolidBold: Style
+    Success4OutlineLight: Style
+    Success4SolidLight: Style
+    Success4Dashed: Style
+    Success4DashedBold: Style
+    Success4DashedLight: Style
 
     # success5
-    success5: Style
-    success5_bordered: Style
-    success5_bold: Style
-    success5_light: Style
-    success5_flat: Style
-    success5_outline: Style
-    success5_solid: Style
-    success5_outline_bold: Style
-    success5_solid_bold: Style
-    success5_outline_light: Style
-    success5_solid_light: Style
-    success5_dashed: Style
-    success5_dashed_bold: Style
-    success5_dashed_light: Style
+    Success5: Style
+    Success5Bordered: Style
+    Success5Bold: Style
+    Success5Light: Style
+    Success5Flat: Style
+    Success5Outline: Style
+    Success5Solid: Style
+    Success5OutlineBold: Style
+    Success5SolidBold: Style
+    Success5OutlineLight: Style
+    Success5SolidLight: Style
+    Success5Dashed: Style
+    Success5DashedBold: Style
+    Success5DashedLight: Style
 
     # success6
-    success6: Style
-    success6_bordered: Style
-    success6_bold: Style
-    success6_light: Style
-    success6_flat: Style
-    success6_outline: Style
-    success6_solid: Style
-    success6_outline_bold: Style
-    success6_solid_bold: Style
-    success6_outline_light: Style
-    success6_solid_light: Style
-    success6_dashed: Style
-    success6_dashed_bold: Style
-    success6_dashed_light: Style
+    Success6: Style
+    Success6Bordered: Style
+    Success6Bold: Style
+    Success6Light: Style
+    Success6Flat: Style
+    Success6Outline: Style
+    Success6Solid: Style
+    Success6OutlineBold: Style
+    Success6SolidBold: Style
+    Success6OutlineLight: Style
+    Success6SolidLight: Style
+    Success6Dashed: Style
+    Success6DashedBold: Style
+    Success6DashedLight: Style
 
     # White
-    white: Style
-    white_bordered: Style
-    white_bold: Style
-    white_light: Style
-    white_flat: Style
-    white_outline: Style
-    white_solid: Style
-    white_outline_bold: Style
-    white_solid_bold: Style
-    white_outline_light: Style
-    white_solid_light: Style
-    white_dashed: Style
-    white_dashed_bold: Style
-    white_dashed_light: Style
+    White: Style
+    WhiteBordered: Style
+    WhiteBold: Style
+    WhiteLight: Style
+    WhiteFlat: Style
+    WhiteOutline: Style
+    WhiteSolid: Style
+    WhiteOutlineBold: Style
+    WhiteSolidBold: Style
+    WhiteOutlineLight: Style
+    WhiteSolidLight: Style
+    WhiteDashed: Style
+    WhiteDashedBold: Style
+    WhiteDashedLight: Style
 
     # Gray1
-    gray1: Style
-    gray1_bordered: Style
-    gray1_bold: Style
-    gray1_light: Style
-    gray1_flat: Style
-    gray1_outline: Style
-    gray1_solid: Style
-    gray1_outline_bold: Style
-    gray1_solid_bold: Style
-    gray1_outline_light: Style
-    gray1_solid_light: Style
-    gray1_dashed: Style
-    gray1_dashed_bold: Style
-    gray1_dashed_light: Style
+    Gray1: Style
+    Gray1Bordered: Style
+    Gray1Bold: Style
+    Gray1Light: Style
+    Gray1Flat: Style
+    Gray1Outline: Style
+    Gray1Solid: Style
+    Gray1OutlineBold: Style
+    Gray1SolidBold: Style
+    Gray1OutlineLight: Style
+    Gray1SolidLight: Style
+    Gray1Dashed: Style
+    Gray1DashedBold: Style
+    Gray1DashedLight: Style
 
     # Gray2
-    gray2: Style
-    gray2_bordered: Style
-    gray2_bold: Style
-    gray2_light: Style
-    gray2_flat: Style
-    gray2_outline: Style
-    gray2_solid: Style
-    gray2_outline_bold: Style
-    gray2_solid_bold: Style
-    gray2_outline_light: Style
-    gray2_solid_light: Style
-    gray2_dashed: Style
-    gray2_dashed_bold: Style
-    gray2_dashed_light: Style
+    Gray2: Style
+    Gray2Bordered: Style
+    Gray2Bold: Style
+    Gray2Light: Style
+    Gray2Flat: Style
+    Gray2Outline: Style
+    Gray2Solid: Style
+    Gray2OutlineBold: Style
+    Gray2SolidBold: Style
+    Gray2OutlineLight: Style
+    Gray2SolidLight: Style
+    Gray2Dashed: Style
+    Gray2DashedBold: Style
+    Gray2DashedLight: Style
 
     # Gray3
-    gray3: Style
-    gray3_bordered: Style
-    gray3_bold: Style
-    gray3_light: Style
-    gray3_flat: Style
-    gray3_outline: Style
-    gray3_solid: Style
-    gray3_outline_bold: Style
-    gray3_solid_bold: Style
-    gray3_outline_light: Style
-    gray3_solid_light: Style
-    gray3_dashed: Style
-    gray3_dashed_bold: Style
-    gray3_dashed_light: Style
+    Gray3: Style
+    Gray3Bordered: Style
+    Gray3Bold: Style
+    Gray3Light: Style
+    Gray3Flat: Style
+    Gray3Outline: Style
+    Gray3Solid: Style
+    Gray3OutlineBold: Style
+    Gray3SolidBold: Style
+    Gray3OutlineLight: Style
+    Gray3SolidLight: Style
+    Gray3Dashed: Style
+    Gray3DashedBold: Style
+    Gray3DashedLight: Style
 
     # Gray4
-    gray4: Style
-    gray4_bordered: Style
-    gray4_bold: Style
-    gray4_light: Style
-    gray4_flat: Style
-    gray4_outline: Style
-    gray4_solid: Style
-    gray4_outline_bold: Style
-    gray4_solid_bold: Style
-    gray4_outline_light: Style
-    gray4_solid_light: Style
-    gray4_dashed: Style
-    gray4_dashed_bold: Style
-    gray4_dashed_light: Style
+    Gray4: Style
+    Gray4Bordered: Style
+    Gray4Bold: Style
+    Gray4Light: Style
+    Gray4Flat: Style
+    Gray4Outline: Style
+    Gray4Solid: Style
+    Gray4OutlineBold: Style
+    Gray4SolidBold: Style
+    Gray4OutlineLight: Style
+    Gray4SolidLight: Style
+    Gray4Dashed: Style
+    Gray4DashedBold: Style
+    Gray4DashedLight: Style
 
     # Gray5
-    gray5: Style
-    gray5_bordered: Style
-    gray5_bold: Style
-    gray5_light: Style
-    gray5_flat: Style
-    gray5_outline: Style
-    gray5_solid: Style
-    gray5_outline_bold: Style
-    gray5_solid_bold: Style
-    gray5_outline_light: Style
-    gray5_solid_light: Style
-    gray5_dashed: Style
-    gray5_dashed_bold: Style
-    gray5_dashed_light: Style
+    Gray5: Style
+    Gray5Bordered: Style
+    Gray5Bold: Style
+    Gray5Light: Style
+    Gray5Flat: Style
+    Gray5Outline: Style
+    Gray5Solid: Style
+    Gray5OutlineBold: Style
+    Gray5SolidBold: Style
+    Gray5OutlineLight: Style
+    Gray5SolidLight: Style
+    Gray5Dashed: Style
+    Gray5DashedBold: Style
+    Gray5DashedLight: Style
 
     # Gray6
-    gray6: Style
-    gray6_bordered: Style
-    gray6_bold: Style
-    gray6_light: Style
-    gray6_flat: Style
-    gray6_outline: Style
-    gray6_solid: Style
-    gray6_outline_bold: Style
-    gray6_solid_bold: Style
-    gray6_outline_light: Style
-    gray6_solid_light: Style
-    gray6_dashed: Style
-    gray6_dashed_bold: Style
-    gray6_dashed_light: Style
+    Gray6: Style
+    Gray6Bordered: Style
+    Gray6Bold: Style
+    Gray6Light: Style
+    Gray6Flat: Style
+    Gray6Outline: Style
+    Gray6Solid: Style
+    Gray6OutlineBold: Style
+    Gray6SolidBold: Style
+    Gray6OutlineLight: Style
+    Gray6SolidLight: Style
+    Gray6Dashed: Style
+    Gray6DashedBold: Style
+    Gray6DashedLight: Style
 
     # Gray7
-    gray7: Style
-    gray7_bordered: Style
-    gray7_bold: Style
-    gray7_light: Style
-    gray7_flat: Style
-    gray7_outline: Style
-    gray7_solid: Style
-    gray7_outline_bold: Style
-    gray7_solid_bold: Style
-    gray7_outline_light: Style
-    gray7_solid_light: Style
-    gray7_dashed: Style
-    gray7_dashed_bold: Style
-    gray7_dashed_light: Style
+    Gray7: Style
+    Gray7Bordered: Style
+    Gray7Bold: Style
+    Gray7Light: Style
+    Gray7Flat: Style
+    Gray7Outline: Style
+    Gray7Solid: Style
+    Gray7OutlineBold: Style
+    Gray7SolidBold: Style
+    Gray7OutlineLight: Style
+    Gray7SolidLight: Style
+    Gray7Dashed: Style
+    Gray7DashedBold: Style
+    Gray7DashedLight: Style
 
     # Gray8
-    gray8: Style
-    gray8_bordered: Style
-    gray8_bold: Style
-    gray8_light: Style
-    gray8_flat: Style
-    gray8_outline: Style
-    gray8_solid: Style
-    gray8_outline_bold: Style
-    gray8_solid_bold: Style
-    gray8_outline_light: Style
-    gray8_solid_light: Style
-    gray8_dashed: Style
-    gray8_dashed_bold: Style
-    gray8_dashed_light: Style
+    Gray8: Style
+    Gray8Bordered: Style
+    Gray8Bold: Style
+    Gray8Light: Style
+    Gray8Flat: Style
+    Gray8Outline: Style
+    Gray8Solid: Style
+    Gray8OutlineBold: Style
+    Gray8SolidBold: Style
+    Gray8OutlineLight: Style
+    Gray8SolidLight: Style
+    Gray8Dashed: Style
+    Gray8DashedBold: Style
+    Gray8DashedLight: Style
 
     # Black
-    black: Style
-    black_bordered: Style
-    black_bold: Style
-    black_light: Style
-    black_flat: Style
-    black_outline: Style
-    black_solid: Style
-    black_outline_bold: Style
-    black_solid_bold: Style
-    black_outline_light: Style
-    black_solid_light: Style
-    black_dashed: Style
-    black_dashed_bold: Style
-    black_dashed_light: Style
+    Black: Style
+    BlackBordered: Style
+    BlackBold: Style
+    BlackLight: Style
+    BlackFlat: Style
+    BlackOutline: Style
+    BlackSolid: Style
+    BlackOutlineBold: Style
+    BlackSolidBold: Style
+    BlackOutlineLight: Style
+    BlackSolidLight: Style
+    BlackDashed: Style
+    BlackDashedBold: Style
+    BlackDashedLight: Style
 
     # --- CornflowerBlue Tones ---
 
     # CornflowerBlue1
-    cornflower_blue1: Style
-    cornflower_blue1_bordered: Style
-    cornflower_blue1_bold: Style
-    cornflower_blue1_light: Style
-    cornflower_blue1_flat: Style
-    cornflower_blue1_outline: Style
-    cornflower_blue1_solid: Style
-    cornflower_blue1_outline_bold: Style
-    cornflower_blue1_solid_bold: Style
-    cornflower_blue1_outline_light: Style
-    cornflower_blue1_solid_light: Style
-    cornflower_blue1_dashed: Style
-    cornflower_blue1_dashed_bold: Style
-    cornflower_blue1_dashed_light: Style
+    CornflowerBlue1: Style
+    CornflowerBlue1Bordered: Style
+    CornflowerBlue1Bold: Style
+    CornflowerBlue1Light: Style
+    CornflowerBlue1Flat: Style
+    CornflowerBlue1Outline: Style
+    CornflowerBlue1Solid: Style
+    CornflowerBlue1OutlineBold: Style
+    CornflowerBlue1SolidBold: Style
+    CornflowerBlue1OutlineLight: Style
+    CornflowerBlue1SolidLight: Style
+    CornflowerBlue1Dashed: Style
+    CornflowerBlue1DashedBold: Style
+    CornflowerBlue1DashedLight: Style
 
     # CornflowerBlue2
-    cornflower_blue2: Style
-    cornflower_blue2_bordered: Style
-    cornflower_blue2_bold: Style
-    cornflower_blue2_light: Style
-    cornflower_blue2_flat: Style
-    cornflower_blue2_outline: Style
-    cornflower_blue2_solid: Style
-    cornflower_blue2_outline_bold: Style
-    cornflower_blue2_solid_bold: Style
-    cornflower_blue2_outline_light: Style
-    cornflower_blue2_solid_light: Style
-    cornflower_blue2_dashed: Style
-    cornflower_blue2_dashed_bold: Style
-    cornflower_blue2_dashed_light: Style
+    CornflowerBlue2: Style
+    CornflowerBlue2Bordered: Style
+    CornflowerBlue2Bold: Style
+    CornflowerBlue2Light: Style
+    CornflowerBlue2Flat: Style
+    CornflowerBlue2Outline: Style
+    CornflowerBlue2Solid: Style
+    CornflowerBlue2OutlineBold: Style
+    CornflowerBlue2SolidBold: Style
+    CornflowerBlue2OutlineLight: Style
+    CornflowerBlue2SolidLight: Style
+    CornflowerBlue2Dashed: Style
+    CornflowerBlue2DashedBold: Style
+    CornflowerBlue2DashedLight: Style
 
     # CornflowerBlue3
-    cornflower_blue3: Style
-    cornflower_blue3_bordered: Style
-    cornflower_blue3_bold: Style
-    cornflower_blue3_light: Style
-    cornflower_blue3_flat: Style
-    cornflower_blue3_outline: Style
-    cornflower_blue3_solid: Style
-    cornflower_blue3_outline_bold: Style
-    cornflower_blue3_solid_bold: Style
-    cornflower_blue3_outline_light: Style
-    cornflower_blue3_solid_light: Style
-    cornflower_blue3_dashed: Style
-    cornflower_blue3_dashed_bold: Style
-    cornflower_blue3_dashed_light: Style
+    CornflowerBlue3: Style
+    CornflowerBlue3Bordered: Style
+    CornflowerBlue3Bold: Style
+    CornflowerBlue3Light: Style
+    CornflowerBlue3Flat: Style
+    CornflowerBlue3Outline: Style
+    CornflowerBlue3Solid: Style
+    CornflowerBlue3OutlineBold: Style
+    CornflowerBlue3SolidBold: Style
+    CornflowerBlue3OutlineLight: Style
+    CornflowerBlue3SolidLight: Style
+    CornflowerBlue3Dashed: Style
+    CornflowerBlue3DashedBold: Style
+    CornflowerBlue3DashedLight: Style
 
     # CornflowerBlue4
-    cornflower_blue4: Style
-    cornflower_blue4_bordered: Style
-    cornflower_blue4_bold: Style
-    cornflower_blue4_light: Style
-    cornflower_blue4_flat: Style
-    cornflower_blue4_outline: Style
-    cornflower_blue4_solid: Style
-    cornflower_blue4_outline_bold: Style
-    cornflower_blue4_solid_bold: Style
-    cornflower_blue4_outline_light: Style
-    cornflower_blue4_solid_light: Style
-    cornflower_blue4_dashed: Style
-    cornflower_blue4_dashed_bold: Style
-    cornflower_blue4_dashed_light: Style
+    CornflowerBlue4: Style
+    CornflowerBlue4Bordered: Style
+    CornflowerBlue4Bold: Style
+    CornflowerBlue4Light: Style
+    CornflowerBlue4Flat: Style
+    CornflowerBlue4Outline: Style
+    CornflowerBlue4Solid: Style
+    CornflowerBlue4OutlineBold: Style
+    CornflowerBlue4SolidBold: Style
+    CornflowerBlue4OutlineLight: Style
+    CornflowerBlue4SolidLight: Style
+    CornflowerBlue4Dashed: Style
+    CornflowerBlue4DashedBold: Style
+    CornflowerBlue4DashedLight: Style
 
     # CornflowerBlue5
-    cornflower_blue5: Style
-    cornflower_blue5_bordered: Style
-    cornflower_blue5_bold: Style
-    cornflower_blue5_light: Style
-    cornflower_blue5_flat: Style
-    cornflower_blue5_outline: Style
-    cornflower_blue5_solid: Style
-    cornflower_blue5_outline_bold: Style
-    cornflower_blue5_solid_bold: Style
-    cornflower_blue5_outline_light: Style
-    cornflower_blue5_solid_light: Style
-    cornflower_blue5_dashed: Style
-    cornflower_blue5_dashed_bold: Style
-    cornflower_blue5_dashed_light: Style
+    CornflowerBlue5: Style
+    CornflowerBlue5Bordered: Style
+    CornflowerBlue5Bold: Style
+    CornflowerBlue5Light: Style
+    CornflowerBlue5Flat: Style
+    CornflowerBlue5Outline: Style
+    CornflowerBlue5Solid: Style
+    CornflowerBlue5OutlineBold: Style
+    CornflowerBlue5SolidBold: Style
+    CornflowerBlue5OutlineLight: Style
+    CornflowerBlue5SolidLight: Style
+    CornflowerBlue5Dashed: Style
+    CornflowerBlue5DashedBold: Style
+    CornflowerBlue5DashedLight: Style
 
     # CornflowerBlue6
-    cornflower_blue6: Style
-    cornflower_blue6_bordered: Style
-    cornflower_blue6_bold: Style
-    cornflower_blue6_light: Style
-    cornflower_blue6_flat: Style
-    cornflower_blue6_outline: Style
-    cornflower_blue6_solid: Style
-    cornflower_blue6_outline_bold: Style
-    cornflower_blue6_solid_bold: Style
-    cornflower_blue6_outline_light: Style
-    cornflower_blue6_solid_light: Style
-    cornflower_blue6_dashed: Style
-    cornflower_blue6_dashed_bold: Style
-    cornflower_blue6_dashed_light: Style
+    CornflowerBlue6: Style
+    CornflowerBlue6Bordered: Style
+    CornflowerBlue6Bold: Style
+    CornflowerBlue6Light: Style
+    CornflowerBlue6Flat: Style
+    CornflowerBlue6Outline: Style
+    CornflowerBlue6Solid: Style
+    CornflowerBlue6OutlineBold: Style
+    CornflowerBlue6SolidBold: Style
+    CornflowerBlue6OutlineLight: Style
+    CornflowerBlue6SolidLight: Style
+    CornflowerBlue6Dashed: Style
+    CornflowerBlue6DashedBold: Style
+    CornflowerBlue6DashedLight: Style
 
     # --- Blue Tones ---
 
     # Blue1
-    blue1: Style
-    blue1_bordered: Style
-    blue1_bold: Style
-    blue1_light: Style
-    blue1_flat: Style
-    blue1_outline: Style
-    blue1_solid: Style
-    blue1_outline_bold: Style
-    blue1_solid_bold: Style
-    blue1_outline_light: Style
-    blue1_solid_light: Style
-    blue1_dashed: Style
-    blue1_dashed_bold: Style
-    blue1_dashed_light: Style
+    Blue1: Style
+    Blue1Bordered: Style
+    Blue1Bold: Style
+    Blue1Light: Style
+    Blue1Flat: Style
+    Blue1Outline: Style
+    Blue1Solid: Style
+    Blue1OutlineBold: Style
+    Blue1SolidBold: Style
+    Blue1OutlineLight: Style
+    Blue1SolidLight: Style
+    Blue1Dashed: Style
+    Blue1DashedBold: Style
+    Blue1DashedLight: Style
 
     # Blue2
-    blue2: Style
-    blue2_bordered: Style
-    blue2_bold: Style
-    blue2_light: Style
-    blue2_flat: Style
-    blue2_outline: Style
-    blue2_solid: Style
-    blue2_outline_bold: Style
-    blue2_solid_bold: Style
-    blue2_outline_light: Style
-    blue2_solid_light: Style
-    blue2_dashed: Style
-    blue2_dashed_bold: Style
-    blue2_dashed_light: Style
+    Blue2: Style
+    Blue2Bordered: Style
+    Blue2Bold: Style
+    Blue2Light: Style
+    Blue2Flat: Style
+    Blue2Outline: Style
+    Blue2Solid: Style
+    Blue2OutlineBold: Style
+    Blue2SolidBold: Style
+    Blue2OutlineLight: Style
+    Blue2SolidLight: Style
+    Blue2Dashed: Style
+    Blue2DashedBold: Style
+    Blue2DashedLight: Style
 
     # Blue3
-    blue3: Style
-    blue3_bordered: Style
-    blue3_bold: Style
-    blue3_light: Style
-    blue3_flat: Style
-    blue3_outline: Style
-    blue3_solid: Style
-    blue3_outline_bold: Style
-    blue3_solid_bold: Style
-    blue3_outline_light: Style
-    blue3_solid_light: Style
-    blue3_dashed: Style
-    blue3_dashed_bold: Style
-    blue3_dashed_light: Style
+    Blue3: Style
+    Blue3Bordered: Style
+    Blue3Bold: Style
+    Blue3Light: Style
+    Blue3Flat: Style
+    Blue3Outline: Style
+    Blue3Solid: Style
+    Blue3OutlineBold: Style
+    Blue3SolidBold: Style
+    Blue3OutlineLight: Style
+    Blue3SolidLight: Style
+    Blue3Dashed: Style
+    Blue3DashedBold: Style
+    Blue3DashedLight: Style
 
     # Blue4
-    blue4: Style
-    blue4_bordered: Style
-    blue4_bold: Style
-    blue4_light: Style
-    blue4_flat: Style
-    blue4_outline: Style
-    blue4_solid: Style
-    blue4_outline_bold: Style
-    blue4_solid_bold: Style
-    blue4_outline_light: Style
-    blue4_solid_light: Style
-    blue4_dashed: Style
-    blue4_dashed_bold: Style
-    blue4_dashed_light: Style
+    Blue4: Style
+    Blue4Bordered: Style
+    Blue4Bold: Style
+    Blue4Light: Style
+    Blue4Flat: Style
+    Blue4Outline: Style
+    Blue4Solid: Style
+    Blue4OutlineBold: Style
+    Blue4SolidBold: Style
+    Blue4OutlineLight: Style
+    Blue4SolidLight: Style
+    Blue4Dashed: Style
+    Blue4DashedBold: Style
+    Blue4DashedLight: Style
 
     # Blue5
-    blue5: Style
-    blue5_bordered: Style
-    blue5_bold: Style
-    blue5_light: Style
-    blue5_flat: Style
-    blue5_outline: Style
-    blue5_solid: Style
-    blue5_outline_bold: Style
-    blue5_solid_bold: Style
-    blue5_outline_light: Style
-    blue5_solid_light: Style
-    blue5_dashed: Style
-    blue5_dashed_bold: Style
-    blue5_dashed_light: Style
+    Blue5: Style
+    Blue5Bordered: Style
+    Blue5Bold: Style
+    Blue5Light: Style
+    Blue5Flat: Style
+    Blue5Outline: Style
+    Blue5Solid: Style
+    Blue5OutlineBold: Style
+    Blue5SolidBold: Style
+    Blue5OutlineLight: Style
+    Blue5SolidLight: Style
+    Blue5Dashed: Style
+    Blue5DashedBold: Style
+    Blue5DashedLight: Style
 
     # Blue6
-    blue6: Style
-    blue6_bordered: Style
-    blue6_bold: Style
-    blue6_light: Style
-    blue6_flat: Style
-    blue6_outline: Style
-    blue6_solid: Style
-    blue6_outline_bold: Style
-    blue6_solid_bold: Style
-    blue6_outline_light: Style
-    blue6_solid_light: Style
-    blue6_dashed: Style
-    blue6_dashed_bold: Style
-    blue6_dashed_light: Style
+    Blue6: Style
+    Blue6Bordered: Style
+    Blue6Bold: Style
+    Blue6Light: Style
+    Blue6Flat: Style
+    Blue6Outline: Style
+    Blue6Solid: Style
+    Blue6OutlineBold: Style
+    Blue6SolidBold: Style
+    Blue6OutlineLight: Style
+    Blue6SolidLight: Style
+    Blue6Dashed: Style
+    Blue6DashedBold: Style
+    Blue6DashedLight: Style
 
     # --- Red Tones ---
 
     # Red1
-    red1: Style
-    red1_bordered: Style
-    red1_bold: Style
-    red1_light: Style
-    red1_flat: Style
-    red1_outline: Style
-    red1_solid: Style
-    red1_outline_bold: Style
-    red1_solid_bold: Style
-    red1_outline_light: Style
-    red1_solid_light: Style
-    red1_dashed: Style
-    red1_dashed_bold: Style
-    red1_dashed_light: Style
+    Red1: Style
+    Red1Bordered: Style
+    Red1Bold: Style
+    Red1Light: Style
+    Red1Flat: Style
+    Red1Outline: Style
+    Red1Solid: Style
+    Red1OutlineBold: Style
+    Red1SolidBold: Style
+    Red1OutlineLight: Style
+    Red1SolidLight: Style
+    Red1Dashed: Style
+    Red1DashedBold: Style
+    Red1DashedLight: Style
 
     # Red2
-    red2: Style
-    red2_bordered: Style
-    red2_bold: Style
-    red2_light: Style
-    red2_flat: Style
-    red2_outline: Style
-    red2_solid: Style
-    red2_outline_bold: Style
-    red2_solid_bold: Style
-    red2_outline_light: Style
-    red2_solid_light: Style
-    red2_dashed: Style
-    red2_dashed_bold: Style
-    red2_dashed_light: Style
+    Red2: Style
+    Red2Bordered: Style
+    Red2Bold: Style
+    Red2Light: Style
+    Red2Flat: Style
+    Red2Outline: Style
+    Red2Solid: Style
+    Red2OutlineBold: Style
+    Red2SolidBold: Style
+    Red2OutlineLight: Style
+    Red2SolidLight: Style
+    Red2Dashed: Style
+    Red2DashedBold: Style
+    Red2DashedLight: Style
 
     # Red3
-    red3: Style
-    red3_bordered: Style
-    red3_bold: Style
-    red3_light: Style
-    red3_flat: Style
-    red3_outline: Style
-    red3_solid: Style
-    red3_outline_bold: Style
-    red3_solid_bold: Style
-    red3_outline_light: Style
-    red3_solid_light: Style
-    red3_dashed: Style
-    red3_dashed_bold: Style
-    red3_dashed_light: Style
+    Red3: Style
+    Red3Bordered: Style
+    Red3Bold: Style
+    Red3Light: Style
+    Red3Flat: Style
+    Red3Outline: Style
+    Red3Solid: Style
+    Red3OutlineBold: Style
+    Red3SolidBold: Style
+    Red3OutlineLight: Style
+    Red3SolidLight: Style
+    Red3Dashed: Style
+    Red3DashedBold: Style
+    Red3DashedLight: Style
 
     # Red4
-    red4: Style
-    red4_bordered: Style
-    red4_bold: Style
-    red4_light: Style
-    red4_flat: Style
-    red4_outline: Style
-    red4_solid: Style
-    red4_outline_bold: Style
-    red4_solid_bold: Style
-    red4_outline_light: Style
-    red4_solid_light: Style
-    red4_dashed: Style
-    red4_dashed_bold: Style
-    red4_dashed_light: Style
+    Red4: Style
+    Red4Bordered: Style
+    Red4Bold: Style
+    Red4Light: Style
+    Red4Flat: Style
+    Red4Outline: Style
+    Red4Solid: Style
+    Red4OutlineBold: Style
+    Red4SolidBold: Style
+    Red4OutlineLight: Style
+    Red4SolidLight: Style
+    Red4Dashed: Style
+    Red4DashedBold: Style
+    Red4DashedLight: Style
 
     # Red5
-    red5: Style
-    red5_bordered: Style
-    red5_bold: Style
-    red5_light: Style
-    red5_flat: Style
-    red5_outline: Style
-    red5_solid: Style
-    red5_outline_bold: Style
-    red5_solid_bold: Style
-    red5_outline_light: Style
-    red5_solid_light: Style
-    red5_dashed: Style
-    red5_dashed_bold: Style
-    red5_dashed_light: Style
+    Red5: Style
+    Red5Bordered: Style
+    Red5Bold: Style
+    Red5Light: Style
+    Red5Flat: Style
+    Red5Outline: Style
+    Red5Solid: Style
+    Red5OutlineBold: Style
+    Red5SolidBold: Style
+    Red5OutlineLight: Style
+    Red5SolidLight: Style
+    Red5Dashed: Style
+    Red5DashedBold: Style
+    Red5DashedLight: Style
 
     # Red6
-    red6: Style
-    red6_bordered: Style
-    red6_bold: Style
-    red6_light: Style
-    red6_flat: Style
-    red6_outline: Style
-    red6_solid: Style
-    red6_outline_bold: Style
-    red6_solid_bold: Style
-    red6_outline_light: Style
-    red6_solid_light: Style
-    red6_dashed: Style
-    red6_dashed_bold: Style
-    red6_dashed_light: Style
+    Red6: Style
+    Red6Bordered: Style
+    Red6Bold: Style
+    Red6Light: Style
+    Red6Flat: Style
+    Red6Outline: Style
+    Red6Solid: Style
+    Red6OutlineBold: Style
+    Red6SolidBold: Style
+    Red6OutlineLight: Style
+    Red6SolidLight: Style
+    Red6Dashed: Style
+    Red6DashedBold: Style
+    Red6DashedLight: Style
 
     # --- RedBerry Tones ---
 
     # RedBerry1
-    red_berry1: Style
-    red_berry1_bordered: Style
-    red_berry1_bold: Style
-    red_berry1_light: Style
-    red_berry1_flat: Style
-    red_berry1_outline: Style
-    red_berry1_solid: Style
-    red_berry1_outline_bold: Style
-    red_berry1_solid_bold: Style
-    red_berry1_outline_light: Style
-    red_berry1_solid_light: Style
-    red_berry1_dashed: Style
-    red_berry1_dashed_bold: Style
-    red_berry1_dashed_light: Style
+    RedBerry1: Style
+    RedBerry1Bordered: Style
+    RedBerry1Bold: Style
+    RedBerry1Light: Style
+    RedBerry1Flat: Style
+    RedBerry1Outline: Style
+    RedBerry1Solid: Style
+    RedBerry1OutlineBold: Style
+    RedBerry1SolidBold: Style
+    RedBerry1OutlineLight: Style
+    RedBerry1SolidLight: Style
+    RedBerry1Dashed: Style
+    RedBerry1DashedBold: Style
+    RedBerry1DashedLight: Style
 
     # RedBerry2
-    red_berry2: Style
-    red_berry2_bordered: Style
-    red_berry2_bold: Style
-    red_berry2_light: Style
-    red_berry2_flat: Style
-    red_berry2_outline: Style
-    red_berry2_solid: Style
-    red_berry2_outline_bold: Style
-    red_berry2_solid_bold: Style
-    red_berry2_outline_light: Style
-    red_berry2_solid_light: Style
-    red_berry2_dashed: Style
-    red_berry2_dashed_bold: Style
-    red_berry2_dashed_light: Style
+    RedBerry2: Style
+    RedBerry2Bordered: Style
+    RedBerry2Bold: Style
+    RedBerry2Light: Style
+    RedBerry2Flat: Style
+    RedBerry2Outline: Style
+    RedBerry2Solid: Style
+    RedBerry2OutlineBold: Style
+    RedBerry2SolidBold: Style
+    RedBerry2OutlineLight: Style
+    RedBerry2SolidLight: Style
+    RedBerry2Dashed: Style
+    RedBerry2DashedBold: Style
+    RedBerry2DashedLight: Style
 
     # RedBerry3
-    red_berry3: Style
-    red_berry3_bordered: Style
-    red_berry3_bold: Style
-    red_berry3_light: Style
-    red_berry3_flat: Style
-    red_berry3_outline: Style
-    red_berry3_solid: Style
-    red_berry3_outline_bold: Style
-    red_berry3_solid_bold: Style
-    red_berry3_outline_light: Style
-    red_berry3_solid_light: Style
-    red_berry3_dashed: Style
-    red_berry3_dashed_bold: Style
-    red_berry3_dashed_light: Style
+    RedBerry3: Style
+    RedBerry3Bordered: Style
+    RedBerry3Bold: Style
+    RedBerry3Light: Style
+    RedBerry3Flat: Style
+    RedBerry3Outline: Style
+    RedBerry3Solid: Style
+    RedBerry3OutlineBold: Style
+    RedBerry3SolidBold: Style
+    RedBerry3OutlineLight: Style
+    RedBerry3SolidLight: Style
+    RedBerry3Dashed: Style
+    RedBerry3DashedBold: Style
+    RedBerry3DashedLight: Style
 
     # RedBerry4
-    red_berry4: Style
-    red_berry4_bordered: Style
-    red_berry4_bold: Style
-    red_berry4_light: Style
-    red_berry4_flat: Style
-    red_berry4_outline: Style
-    red_berry4_solid: Style
-    red_berry4_outline_bold: Style
-    red_berry4_solid_bold: Style
-    red_berry4_outline_light: Style
-    red_berry4_solid_light: Style
-    red_berry4_dashed: Style
-    red_berry4_dashed_bold: Style
-    red_berry4_dashed_light: Style
+    RedBerry4: Style
+    RedBerry4Bordered: Style
+    RedBerry4Bold: Style
+    RedBerry4Light: Style
+    RedBerry4Flat: Style
+    RedBerry4Outline: Style
+    RedBerry4Solid: Style
+    RedBerry4OutlineBold: Style
+    RedBerry4SolidBold: Style
+    RedBerry4OutlineLight: Style
+    RedBerry4SolidLight: Style
+    RedBerry4Dashed: Style
+    RedBerry4DashedBold: Style
+    RedBerry4DashedLight: Style
 
     # RedBerry5
-    red_berry5: Style
-    red_berry5_bordered: Style
-    red_berry5_bold: Style
-    red_berry5_light: Style
-    red_berry5_flat: Style
-    red_berry5_outline: Style
-    red_berry5_solid: Style
-    red_berry5_outline_bold: Style
-    red_berry5_solid_bold: Style
-    red_berry5_outline_light: Style
-    red_berry5_solid_light: Style
-    red_berry5_dashed: Style
-    red_berry5_dashed_bold: Style
-    red_berry5_dashed_light: Style
+    RedBerry5: Style
+    RedBerry5Bordered: Style
+    RedBerry5Bold: Style
+    RedBerry5Light: Style
+    RedBerry5Flat: Style
+    RedBerry5Outline: Style
+    RedBerry5Solid: Style
+    RedBerry5OutlineBold: Style
+    RedBerry5SolidBold: Style
+    RedBerry5OutlineLight: Style
+    RedBerry5SolidLight: Style
+    RedBerry5Dashed: Style
+    RedBerry5DashedBold: Style
+    RedBerry5DashedLight: Style
 
     # RedBerry6
-    red_berry6: Style
-    red_berry6_bordered: Style
-    red_berry6_bold: Style
-    red_berry6_light: Style
-    red_berry6_flat: Style
-    red_berry6_outline: Style
-    red_berry6_solid: Style
-    red_berry6_outline_bold: Style
-    red_berry6_solid_bold: Style
-    red_berry6_outline_light: Style
-    red_berry6_solid_light: Style
-    red_berry6_dashed: Style
-    red_berry6_dashed_bold: Style
-    red_berry6_dashed_light: Style
+    RedBerry6: Style
+    RedBerry6Bordered: Style
+    RedBerry6Bold: Style
+    RedBerry6Light: Style
+    RedBerry6Flat: Style
+    RedBerry6Outline: Style
+    RedBerry6Solid: Style
+    RedBerry6OutlineBold: Style
+    RedBerry6SolidBold: Style
+    RedBerry6OutlineLight: Style
+    RedBerry6SolidLight: Style
+    RedBerry6Dashed: Style
+    RedBerry6DashedBold: Style
+    RedBerry6DashedLight: Style
 
     # --- Green Tones ---
 
     # Green1
-    green1: Style
-    green1_bordered: Style
-    green1_bold: Style
-    green1_light: Style
-    green1_flat: Style
-    green1_outline: Style
-    green1_solid: Style
-    green1_outline_bold: Style
-    green1_solid_bold: Style
-    green1_outline_light: Style
-    green1_solid_light: Style
-    green1_dashed: Style
-    green1_dashed_bold: Style
-    green1_dashed_light: Style
+    Green1: Style
+    Green1Bordered: Style
+    Green1Bold: Style
+    Green1Light: Style
+    Green1Flat: Style
+    Green1Outline: Style
+    Green1Solid: Style
+    Green1OutlineBold: Style
+    Green1SolidBold: Style
+    Green1OutlineLight: Style
+    Green1SolidLight: Style
+    Green1Dashed: Style
+    Green1DashedBold: Style
+    Green1DashedLight: Style
 
     # Green2
-    green2: Style
-    green2_bordered: Style
-    green2_bold: Style
-    green2_light: Style
-    green2_flat: Style
-    green2_outline: Style
-    green2_solid: Style
-    green2_outline_bold: Style
-    green2_solid_bold: Style
-    green2_outline_light: Style
-    green2_solid_light: Style
-    green2_dashed: Style
-    green2_dashed_bold: Style
-    green2_dashed_light: Style
+    Green2: Style
+    Green2Bordered: Style
+    Green2Bold: Style
+    Green2Light: Style
+    Green2Flat: Style
+    Green2Outline: Style
+    Green2Solid: Style
+    Green2OutlineBold: Style
+    Green2SolidBold: Style
+    Green2OutlineLight: Style
+    Green2SolidLight: Style
+    Green2Dashed: Style
+    Green2DashedBold: Style
+    Green2DashedLight: Style
 
     # Green3
-    green3: Style
-    green3_bordered: Style
-    green3_bold: Style
-    green3_light: Style
-    green3_flat: Style
-    green3_outline: Style
-    green3_solid: Style
-    green3_outline_bold: Style
-    green3_solid_bold: Style
-    green3_outline_light: Style
-    green3_solid_light: Style
-    green3_dashed: Style
-    green3_dashed_bold: Style
-    green3_dashed_light: Style
+    Green3: Style
+    Green3Bordered: Style
+    Green3Bold: Style
+    Green3Light: Style
+    Green3Flat: Style
+    Green3Outline: Style
+    Green3Solid: Style
+    Green3OutlineBold: Style
+    Green3SolidBold: Style
+    Green3OutlineLight: Style
+    Green3SolidLight: Style
+    Green3Dashed: Style
+    Green3DashedBold: Style
+    Green3DashedLight: Style
 
     # Green4
-    green4: Style
-    green4_bordered: Style
-    green4_bold: Style
-    green4_light: Style
-    green4_flat: Style
-    green4_outline: Style
-    green4_solid: Style
-    green4_outline_bold: Style
-    green4_solid_bold: Style
-    green4_outline_light: Style
-    green4_solid_light: Style
-    green4_dashed: Style
-    green4_dashed_bold: Style
-    green4_dashed_light: Style
+    Green4: Style
+    Green4Bordered: Style
+    Green4Bold: Style
+    Green4Light: Style
+    Green4Flat: Style
+    Green4Outline: Style
+    Green4Solid: Style
+    Green4OutlineBold: Style
+    Green4SolidBold: Style
+    Green4OutlineLight: Style
+    Green4SolidLight: Style
+    Green4Dashed: Style
+    Green4DashedBold: Style
+    Green4DashedLight: Style
 
     # Green5
-    green5: Style
-    green5_bordered: Style
-    green5_bold: Style
-    green5_light: Style
-    green5_flat: Style
-    green5_outline: Style
-    green5_solid: Style
-    green5_outline_bold: Style
-    green5_solid_bold: Style
-    green5_outline_light: Style
-    green5_solid_light: Style
-    green5_dashed: Style
-    green5_dashed_bold: Style
-    green5_dashed_light: Style
+    Green5: Style
+    Green5Bordered: Style
+    Green5Bold: Style
+    Green5Light: Style
+    Green5Flat: Style
+    Green5Outline: Style
+    Green5Solid: Style
+    Green5OutlineBold: Style
+    Green5SolidBold: Style
+    Green5OutlineLight: Style
+    Green5SolidLight: Style
+    Green5Dashed: Style
+    Green5DashedBold: Style
+    Green5DashedLight: Style
 
     # Green6
-    green6: Style
-    green6_bordered: Style
-    green6_bold: Style
-    green6_light: Style
-    green6_flat: Style
-    green6_outline: Style
-    green6_solid: Style
-    green6_outline_bold: Style
-    green6_solid_bold: Style
-    green6_outline_light: Style
-    green6_solid_light: Style
-    green6_dashed: Style
-    green6_dashed_bold: Style
-    green6_dashed_light: Style
+    Green6: Style
+    Green6Bordered: Style
+    Green6Bold: Style
+    Green6Light: Style
+    Green6Flat: Style
+    Green6Outline: Style
+    Green6Solid: Style
+    Green6OutlineBold: Style
+    Green6SolidBold: Style
+    Green6OutlineLight: Style
+    Green6SolidLight: Style
+    Green6Dashed: Style
+    Green6DashedBold: Style
+    Green6DashedLight: Style
 
     # --- Yellow Tones ---
 
     # Yellow1
-    yellow1: Style
-    yellow1_bordered: Style
-    yellow1_bold: Style
-    yellow1_light: Style
-    yellow1_flat: Style
-    yellow1_outline: Style
-    yellow1_solid: Style
-    yellow1_outline_bold: Style
-    yellow1_solid_bold: Style
-    yellow1_outline_light: Style
-    yellow1_solid_light: Style
-    yellow1_dashed: Style
-    yellow1_dashed_bold: Style
-    yellow1_dashed_light: Style
+    Yellow1: Style
+    Yellow1Bordered: Style
+    Yellow1Bold: Style
+    Yellow1Light: Style
+    Yellow1Flat: Style
+    Yellow1Outline: Style
+    Yellow1Solid: Style
+    Yellow1OutlineBold: Style
+    Yellow1SolidBold: Style
+    Yellow1OutlineLight: Style
+    Yellow1SolidLight: Style
+    Yellow1Dashed: Style
+    Yellow1DashedBold: Style
+    Yellow1DashedLight: Style
 
     # Yellow2
-    yellow2: Style
-    yellow2_bordered: Style
-    yellow2_bold: Style
-    yellow2_light: Style
-    yellow2_flat: Style
-    yellow2_outline: Style
-    yellow2_solid: Style
-    yellow2_outline_bold: Style
-    yellow2_solid_bold: Style
-    yellow2_outline_light: Style
-    yellow2_solid_light: Style
-    yellow2_dashed: Style
-    yellow2_dashed_bold: Style
-    yellow2_dashed_light: Style
+    Yellow2: Style
+    Yellow2Bordered: Style
+    Yellow2Bold: Style
+    Yellow2Light: Style
+    Yellow2Flat: Style
+    Yellow2Outline: Style
+    Yellow2Solid: Style
+    Yellow2OutlineBold: Style
+    Yellow2SolidBold: Style
+    Yellow2OutlineLight: Style
+    Yellow2SolidLight: Style
+    Yellow2Dashed: Style
+    Yellow2DashedBold: Style
+    Yellow2DashedLight: Style
 
     # Yellow3
-    yellow3: Style
-    yellow3_bordered: Style
-    yellow3_bold: Style
-    yellow3_light: Style
-    yellow3_flat: Style
-    yellow3_outline: Style
-    yellow3_solid: Style
-    yellow3_outline_bold: Style
-    yellow3_solid_bold: Style
-    yellow3_outline_light: Style
-    yellow3_solid_light: Style
-    yellow3_dashed: Style
-    yellow3_dashed_bold: Style
-    yellow3_dashed_light: Style
+    Yellow3: Style
+    Yellow3Bordered: Style
+    Yellow3Bold: Style
+    Yellow3Light: Style
+    Yellow3Flat: Style
+    Yellow3Outline: Style
+    Yellow3Solid: Style
+    Yellow3OutlineBold: Style
+    Yellow3SolidBold: Style
+    Yellow3OutlineLight: Style
+    Yellow3SolidLight: Style
+    Yellow3Dashed: Style
+    Yellow3DashedBold: Style
+    Yellow3DashedLight: Style
 
     # Yellow4
-    yellow4: Style
-    yellow4_bordered: Style
-    yellow4_bold: Style
-    yellow4_light: Style
-    yellow4_flat: Style
-    yellow4_outline: Style
-    yellow4_solid: Style
-    yellow4_outline_bold: Style
-    yellow4_solid_bold: Style
-    yellow4_outline_light: Style
-    yellow4_solid_light: Style
-    yellow4_dashed: Style
-    yellow4_dashed_bold: Style
-    yellow4_dashed_light: Style
+    Yellow4: Style
+    Yellow4Bordered: Style
+    Yellow4Bold: Style
+    Yellow4Light: Style
+    Yellow4Flat: Style
+    Yellow4Outline: Style
+    Yellow4Solid: Style
+    Yellow4OutlineBold: Style
+    Yellow4SolidBold: Style
+    Yellow4OutlineLight: Style
+    Yellow4SolidLight: Style
+    Yellow4Dashed: Style
+    Yellow4DashedBold: Style
+    Yellow4DashedLight: Style
 
     # Yellow5
-    yellow5: Style
-    yellow5_bordered: Style
-    yellow5_bold: Style
-    yellow5_light: Style
-    yellow5_flat: Style
-    yellow5_outline: Style
-    yellow5_solid: Style
-    yellow5_outline_bold: Style
-    yellow5_solid_bold: Style
-    yellow5_outline_light: Style
-    yellow5_solid_light: Style
-    yellow5_dashed: Style
-    yellow5_dashed_bold: Style
-    yellow5_dashed_light: Style
+    Yellow5: Style
+    Yellow5Bordered: Style
+    Yellow5Bold: Style
+    Yellow5Light: Style
+    Yellow5Flat: Style
+    Yellow5Outline: Style
+    Yellow5Solid: Style
+    Yellow5OutlineBold: Style
+    Yellow5SolidBold: Style
+    Yellow5OutlineLight: Style
+    Yellow5SolidLight: Style
+    Yellow5Dashed: Style
+    Yellow5DashedBold: Style
+    Yellow5DashedLight: Style
 
     # Yellow6
-    yellow6: Style
-    yellow6_bordered: Style
-    yellow6_bold: Style
-    yellow6_light: Style
-    yellow6_flat: Style
-    yellow6_outline: Style
-    yellow6_solid: Style
-    yellow6_outline_bold: Style
-    yellow6_solid_bold: Style
-    yellow6_outline_light: Style
-    yellow6_solid_light: Style
-    yellow6_dashed: Style
-    yellow6_dashed_bold: Style
-    yellow6_dashed_light: Style
+    Yellow6: Style
+    Yellow6Bordered: Style
+    Yellow6Bold: Style
+    Yellow6Light: Style
+    Yellow6Flat: Style
+    Yellow6Outline: Style
+    Yellow6Solid: Style
+    Yellow6OutlineBold: Style
+    Yellow6SolidBold: Style
+    Yellow6OutlineLight: Style
+    Yellow6SolidLight: Style
+    Yellow6Dashed: Style
+    Yellow6DashedBold: Style
+    Yellow6DashedLight: Style
 
     # --- Orange Tones ---
 
     # Orange1
-    orange1: Style
-    orange1_bordered: Style
-    orange1_bold: Style
-    orange1_light: Style
-    orange1_flat: Style
-    orange1_outline: Style
-    orange1_solid: Style
-    orange1_outline_bold: Style
-    orange1_solid_bold: Style
-    orange1_outline_light: Style
-    orange1_solid_light: Style
-    orange1_dashed: Style
-    orange1_dashed_bold: Style
-    orange1_dashed_light: Style
+    Orange1: Style
+    Orange1Bordered: Style
+    Orange1Bold: Style
+    Orange1Light: Style
+    Orange1Flat: Style
+    Orange1Outline: Style
+    Orange1Solid: Style
+    Orange1OutlineBold: Style
+    Orange1SolidBold: Style
+    Orange1OutlineLight: Style
+    Orange1SolidLight: Style
+    Orange1Dashed: Style
+    Orange1DashedBold: Style
+    Orange1DashedLight: Style
 
     # Orange2
-    orange2: Style
-    orange2_bordered: Style
-    orange2_bold: Style
-    orange2_light: Style
-    orange2_flat: Style
-    orange2_outline: Style
-    orange2_solid: Style
-    orange2_outline_bold: Style
-    orange2_solid_bold: Style
-    orange2_outline_light: Style
-    orange2_solid_light: Style
-    orange2_dashed: Style
-    orange2_dashed_bold: Style
-    orange2_dashed_light: Style
+    Orange2: Style
+    Orange2Bordered: Style
+    Orange2Bold: Style
+    Orange2Light: Style
+    Orange2Flat: Style
+    Orange2Outline: Style
+    Orange2Solid: Style
+    Orange2OutlineBold: Style
+    Orange2SolidBold: Style
+    Orange2OutlineLight: Style
+    Orange2SolidLight: Style
+    Orange2Dashed: Style
+    Orange2DashedBold: Style
+    Orange2DashedLight: Style
 
     # Orange3
-    orange3: Style
-    orange3_bordered: Style
-    orange3_bold: Style
-    orange3_light: Style
-    orange3_flat: Style
-    orange3_outline: Style
-    orange3_solid: Style
-    orange3_outline_bold: Style
-    orange3_solid_bold: Style
-    orange3_outline_light: Style
-    orange3_solid_light: Style
-    orange3_dashed: Style
-    orange3_dashed_bold: Style
-    orange3_dashed_light: Style
+    Orange3: Style
+    Orange3Bordered: Style
+    Orange3Bold: Style
+    Orange3Light: Style
+    Orange3Flat: Style
+    Orange3Outline: Style
+    Orange3Solid: Style
+    Orange3OutlineBold: Style
+    Orange3SolidBold: Style
+    Orange3OutlineLight: Style
+    Orange3SolidLight: Style
+    Orange3Dashed: Style
+    Orange3DashedBold: Style
+    Orange3DashedLight: Style
 
     # Orange4
-    orange4: Style
-    orange4_bordered: Style
-    orange4_bold: Style
-    orange4_light: Style
-    orange4_flat: Style
-    orange4_outline: Style
-    orange4_solid: Style
-    orange4_outline_bold: Style
-    orange4_solid_bold: Style
-    orange4_outline_light: Style
-    orange4_solid_light: Style
-    orange4_dashed: Style
-    orange4_dashed_bold: Style
-    orange4_dashed_light: Style
+    Orange4: Style
+    Orange4Bordered: Style
+    Orange4Bold: Style
+    Orange4Light: Style
+    Orange4Flat: Style
+    Orange4Outline: Style
+    Orange4Solid: Style
+    Orange4OutlineBold: Style
+    Orange4SolidBold: Style
+    Orange4OutlineLight: Style
+    Orange4SolidLight: Style
+    Orange4Dashed: Style
+    Orange4DashedBold: Style
+    Orange4DashedLight: Style
 
     # Orange5
-    orange5: Style
-    orange5_bordered: Style
-    orange5_bold: Style
-    orange5_light: Style
-    orange5_flat: Style
-    orange5_outline: Style
-    orange5_solid: Style
-    orange5_outline_bold: Style
-    orange5_solid_bold: Style
-    orange5_outline_light: Style
-    orange5_solid_light: Style
-    orange5_dashed: Style
-    orange5_dashed_bold: Style
-    orange5_dashed_light: Style
+    Orange5: Style
+    Orange5Bordered: Style
+    Orange5Bold: Style
+    Orange5Light: Style
+    Orange5Flat: Style
+    Orange5Outline: Style
+    Orange5Solid: Style
+    Orange5OutlineBold: Style
+    Orange5SolidBold: Style
+    Orange5OutlineLight: Style
+    Orange5SolidLight: Style
+    Orange5Dashed: Style
+    Orange5DashedBold: Style
+    Orange5DashedLight: Style
 
     # Orange6
-    orange6: Style
-    orange6_bordered: Style
-    orange6_bold: Style
-    orange6_light: Style
-    orange6_flat: Style
-    orange6_outline: Style
-    orange6_solid: Style
-    orange6_outline_bold: Style
-    orange6_solid_bold: Style
-    orange6_outline_light: Style
-    orange6_solid_light: Style
-    orange6_dashed: Style
-    orange6_dashed_bold: Style
-    orange6_dashed_light: Style
+    Orange6: Style
+    Orange6Bordered: Style
+    Orange6Bold: Style
+    Orange6Light: Style
+    Orange6Flat: Style
+    Orange6Outline: Style
+    Orange6Solid: Style
+    Orange6OutlineBold: Style
+    Orange6SolidBold: Style
+    Orange6OutlineLight: Style
+    Orange6SolidLight: Style
+    Orange6Dashed: Style
+    Orange6DashedBold: Style
+    Orange6DashedLight: Style
 
     # --- Cyan Tones ---
 
     # Cyan1
-    cyan1: Style
-    cyan1_bordered: Style
-    cyan1_bold: Style
-    cyan1_light: Style
-    cyan1_flat: Style
-    cyan1_outline: Style
-    cyan1_solid: Style
-    cyan1_outline_bold: Style
-    cyan1_solid_bold: Style
-    cyan1_outline_light: Style
-    cyan1_solid_light: Style
-    cyan1_dashed: Style
-    cyan1_dashed_bold: Style
-    cyan1_dashed_light: Style
+    Cyan1: Style
+    Cyan1Bordered: Style
+    Cyan1Bold: Style
+    Cyan1Light: Style
+    Cyan1Flat: Style
+    Cyan1Outline: Style
+    Cyan1Solid: Style
+    Cyan1OutlineBold: Style
+    Cyan1SolidBold: Style
+    Cyan1OutlineLight: Style
+    Cyan1SolidLight: Style
+    Cyan1Dashed: Style
+    Cyan1DashedBold: Style
+    Cyan1DashedLight: Style
 
     # Cyan2
-    cyan2: Style
-    cyan2_bordered: Style
-    cyan2_bold: Style
-    cyan2_light: Style
-    cyan2_flat: Style
-    cyan2_outline: Style
-    cyan2_solid: Style
-    cyan2_outline_bold: Style
-    cyan2_solid_bold: Style
-    cyan2_outline_light: Style
-    cyan2_solid_light: Style
-    cyan2_dashed: Style
-    cyan2_dashed_bold: Style
-    cyan2_dashed_light: Style
+    Cyan2: Style
+    Cyan2Bordered: Style
+    Cyan2Bold: Style
+    Cyan2Light: Style
+    Cyan2Flat: Style
+    Cyan2Outline: Style
+    Cyan2Solid: Style
+    Cyan2OutlineBold: Style
+    Cyan2SolidBold: Style
+    Cyan2OutlineLight: Style
+    Cyan2SolidLight: Style
+    Cyan2Dashed: Style
+    Cyan2DashedBold: Style
+    Cyan2DashedLight: Style
 
     # Cyan3
-    cyan3: Style
-    cyan3_bordered: Style
-    cyan3_bold: Style
-    cyan3_light: Style
-    cyan3_flat: Style
-    cyan3_outline: Style
-    cyan3_solid: Style
-    cyan3_outline_bold: Style
-    cyan3_solid_bold: Style
-    cyan3_outline_light: Style
-    cyan3_solid_light: Style
-    cyan3_dashed: Style
-    cyan3_dashed_bold: Style
-    cyan3_dashed_light: Style
+    Cyan3: Style
+    Cyan3Bordered: Style
+    Cyan3Bold: Style
+    Cyan3Light: Style
+    Cyan3Flat: Style
+    Cyan3Outline: Style
+    Cyan3Solid: Style
+    Cyan3OutlineBold: Style
+    Cyan3SolidBold: Style
+    Cyan3OutlineLight: Style
+    Cyan3SolidLight: Style
+    Cyan3Dashed: Style
+    Cyan3DashedBold: Style
+    Cyan3DashedLight: Style
 
     # Cyan4
-    cyan4: Style
-    cyan4_bordered: Style
-    cyan4_bold: Style
-    cyan4_light: Style
-    cyan4_flat: Style
-    cyan4_outline: Style
-    cyan4_solid: Style
-    cyan4_outline_bold: Style
-    cyan4_solid_bold: Style
-    cyan4_outline_light: Style
-    cyan4_solid_light: Style
-    cyan4_dashed: Style
-    cyan4_dashed_bold: Style
-    cyan4_dashed_light: Style
+    Cyan4: Style
+    Cyan4Bordered: Style
+    Cyan4Bold: Style
+    Cyan4Light: Style
+    Cyan4Flat: Style
+    Cyan4Outline: Style
+    Cyan4Solid: Style
+    Cyan4OutlineBold: Style
+    Cyan4SolidBold: Style
+    Cyan4OutlineLight: Style
+    Cyan4SolidLight: Style
+    Cyan4Dashed: Style
+    Cyan4DashedBold: Style
+    Cyan4DashedLight: Style
 
     # Cyan5
-    cyan5: Style
-    cyan5_bordered: Style
-    cyan5_bold: Style
-    cyan5_light: Style
-    cyan5_flat: Style
-    cyan5_outline: Style
-    cyan5_solid: Style
-    cyan5_outline_bold: Style
-    cyan5_solid_bold: Style
-    cyan5_outline_light: Style
-    cyan5_solid_light: Style
-    cyan5_dashed: Style
-    cyan5_dashed_bold: Style
-    cyan5_dashed_light: Style
+    Cyan5: Style
+    Cyan5Bordered: Style
+    Cyan5Bold: Style
+    Cyan5Light: Style
+    Cyan5Flat: Style
+    Cyan5Outline: Style
+    Cyan5Solid: Style
+    Cyan5OutlineBold: Style
+    Cyan5SolidBold: Style
+    Cyan5OutlineLight: Style
+    Cyan5SolidLight: Style
+    Cyan5Dashed: Style
+    Cyan5DashedBold: Style
+    Cyan5DashedLight: Style
 
     # Cyan6
-    cyan6: Style
-    cyan6_bordered: Style
-    cyan6_bold: Style
-    cyan6_light: Style
-    cyan6_flat: Style
-    cyan6_outline: Style
-    cyan6_solid: Style
-    cyan6_outline_bold: Style
-    cyan6_solid_bold: Style
-    cyan6_outline_light: Style
-    cyan6_solid_light: Style
-    cyan6_dashed: Style
-    cyan6_dashed_bold: Style
-    cyan6_dashed_light: Style
+    Cyan6: Style
+    Cyan6Bordered: Style
+    Cyan6Bold: Style
+    Cyan6Light: Style
+    Cyan6Flat: Style
+    Cyan6Outline: Style
+    Cyan6Solid: Style
+    Cyan6OutlineBold: Style
+    Cyan6SolidBold: Style
+    Cyan6OutlineLight: Style
+    Cyan6SolidLight: Style
+    Cyan6Dashed: Style
+    Cyan6DashedBold: Style
+    Cyan6DashedLight: Style
 
     # --- Purple Tones ---
 
     # Purple1
-    purple1: Style
-    purple1_bordered: Style
-    purple1_bold: Style
-    purple1_light: Style
-    purple1_flat: Style
-    purple1_outline: Style
-    purple1_solid: Style
-    purple1_outline_bold: Style
-    purple1_solid_bold: Style
-    purple1_outline_light: Style
-    purple1_solid_light: Style
-    purple1_dashed: Style
-    purple1_dashed_bold: Style
-    purple1_dashed_light: Style
+    Purple1: Style
+    Purple1Bordered: Style
+    Purple1Bold: Style
+    Purple1Light: Style
+    Purple1Flat: Style
+    Purple1Outline: Style
+    Purple1Solid: Style
+    Purple1OutlineBold: Style
+    Purple1SolidBold: Style
+    Purple1OutlineLight: Style
+    Purple1SolidLight: Style
+    Purple1Dashed: Style
+    Purple1DashedBold: Style
+    Purple1DashedLight: Style
 
     # Purple2
-    purple2: Style
-    purple2_bordered: Style
-    purple2_bold: Style
-    purple2_light: Style
-    purple2_flat: Style
-    purple2_outline: Style
-    purple2_solid: Style
-    purple2_outline_bold: Style
-    purple2_solid_bold: Style
-    purple2_outline_light: Style
-    purple2_solid_light: Style
-    purple2_dashed: Style
-    purple2_dashed_bold: Style
-    purple2_dashed_light: Style
+    Purple2: Style
+    Purple2Bordered: Style
+    Purple2Bold: Style
+    Purple2Light: Style
+    Purple2Flat: Style
+    Purple2Outline: Style
+    Purple2Solid: Style
+    Purple2OutlineBold: Style
+    Purple2SolidBold: Style
+    Purple2OutlineLight: Style
+    Purple2SolidLight: Style
+    Purple2Dashed: Style
+    Purple2DashedBold: Style
+    Purple2DashedLight: Style
 
     # Purple3
-    purple3: Style
-    purple3_bordered: Style
-    purple3_bold: Style
-    purple3_light: Style
-    purple3_flat: Style
-    purple3_outline: Style
-    purple3_solid: Style
-    purple3_outline_bold: Style
-    purple3_solid_bold: Style
-    purple3_outline_light: Style
-    purple3_solid_light: Style
-    purple3_dashed: Style
-    purple3_dashed_bold: Style
-    purple3_dashed_light: Style
+    Purple3: Style
+    Purple3Bordered: Style
+    Purple3Bold: Style
+    Purple3Light: Style
+    Purple3Flat: Style
+    Purple3Outline: Style
+    Purple3Solid: Style
+    Purple3OutlineBold: Style
+    Purple3SolidBold: Style
+    Purple3OutlineLight: Style
+    Purple3SolidLight: Style
+    Purple3Dashed: Style
+    Purple3DashedBold: Style
+    Purple3DashedLight: Style
 
     # Purple4
-    purple4: Style
-    purple4_bordered: Style
-    purple4_bold: Style
-    purple4_light: Style
-    purple4_flat: Style
-    purple4_outline: Style
-    purple4_solid: Style
-    purple4_outline_bold: Style
-    purple4_solid_bold: Style
-    purple4_outline_light: Style
-    purple4_solid_light: Style
-    purple4_dashed: Style
-    purple4_dashed_bold: Style
-    purple4_dashed_light: Style
+    Purple4: Style
+    Purple4Bordered: Style
+    Purple4Bold: Style
+    Purple4Light: Style
+    Purple4Flat: Style
+    Purple4Outline: Style
+    Purple4Solid: Style
+    Purple4OutlineBold: Style
+    Purple4SolidBold: Style
+    Purple4OutlineLight: Style
+    Purple4SolidLight: Style
+    Purple4Dashed: Style
+    Purple4DashedBold: Style
+    Purple4DashedLight: Style
 
     # Purple5
-    purple5: Style
-    purple5_bordered: Style
-    purple5_bold: Style
-    purple5_light: Style
-    purple5_flat: Style
-    purple5_outline: Style
-    purple5_solid: Style
-    purple5_outline_bold: Style
-    purple5_solid_bold: Style
-    purple5_outline_light: Style
-    purple5_solid_light: Style
-    purple5_dashed: Style
-    purple5_dashed_bold: Style
-    purple5_dashed_light: Style
+    Purple5: Style
+    Purple5Bordered: Style
+    Purple5Bold: Style
+    Purple5Light: Style
+    Purple5Flat: Style
+    Purple5Outline: Style
+    Purple5Solid: Style
+    Purple5OutlineBold: Style
+    Purple5SolidBold: Style
+    Purple5OutlineLight: Style
+    Purple5SolidLight: Style
+    Purple5Dashed: Style
+    Purple5DashedBold: Style
+    Purple5DashedLight: Style
 
     # Purple6
-    purple6: Style
-    purple6_bordered: Style
-    purple6_bold: Style
-    purple6_light: Style
-    purple6_flat: Style
-    purple6_outline: Style
-    purple6_solid: Style
-    purple6_outline_bold: Style
-    purple6_solid_bold: Style
-    purple6_outline_light: Style
-    purple6_solid_light: Style
-    purple6_dashed: Style
-    purple6_dashed_bold: Style
-    purple6_dashed_light: Style
+    Purple6: Style
+    Purple6Bordered: Style
+    Purple6Bold: Style
+    Purple6Light: Style
+    Purple6Flat: Style
+    Purple6Outline: Style
+    Purple6Solid: Style
+    Purple6OutlineBold: Style
+    Purple6SolidBold: Style
+    Purple6OutlineLight: Style
+    Purple6SolidLight: Style
+    Purple6Dashed: Style
+    Purple6DashedBold: Style
+    Purple6DashedLight: Style
 
     # --- Magenta Tones ---
 
     # Magenta1
-    magenta1: Style
-    magenta1_bordered: Style
-    magenta1_bold: Style
-    magenta1_light: Style
-    magenta1_flat: Style
-    magenta1_outline: Style
-    magenta1_solid: Style
-    magenta1_outline_bold: Style
-    magenta1_solid_bold: Style
-    magenta1_outline_light: Style
-    magenta1_solid_light: Style
-    magenta1_dashed: Style
-    magenta1_dashed_bold: Style
-    magenta1_dashed_light: Style
+    Magenta1: Style
+    Magenta1Bordered: Style
+    Magenta1Bold: Style
+    Magenta1Light: Style
+    Magenta1Flat: Style
+    Magenta1Outline: Style
+    Magenta1Solid: Style
+    Magenta1OutlineBold: Style
+    Magenta1SolidBold: Style
+    Magenta1OutlineLight: Style
+    Magenta1SolidLight: Style
+    Magenta1Dashed: Style
+    Magenta1DashedBold: Style
+    Magenta1DashedLight: Style
 
     # Magenta2
-    magenta2: Style
-    magenta2_bordered: Style
-    magenta2_bold: Style
-    magenta2_light: Style
-    magenta2_flat: Style
-    magenta2_outline: Style
-    magenta2_solid: Style
-    magenta2_outline_bold: Style
-    magenta2_solid_bold: Style
-    magenta2_outline_light: Style
-    magenta2_solid_light: Style
-    magenta2_dashed: Style
-    magenta2_dashed_bold: Style
-    magenta2_dashed_light: Style
+    Magenta2: Style
+    Magenta2Bordered: Style
+    Magenta2Bold: Style
+    Magenta2Light: Style
+    Magenta2Flat: Style
+    Magenta2Outline: Style
+    Magenta2Solid: Style
+    Magenta2OutlineBold: Style
+    Magenta2SolidBold: Style
+    Magenta2OutlineLight: Style
+    Magenta2SolidLight: Style
+    Magenta2Dashed: Style
+    Magenta2DashedBold: Style
+    Magenta2DashedLight: Style
 
     # Magenta3
-    magenta3: Style
-    magenta3_bordered: Style
-    magenta3_bold: Style
-    magenta3_light: Style
-    magenta3_flat: Style
-    magenta3_outline: Style
-    magenta3_solid: Style
-    magenta3_outline_bold: Style
-    magenta3_solid_bold: Style
-    magenta3_outline_light: Style
-    magenta3_solid_light: Style
-    magenta3_dashed: Style
-    magenta3_dashed_bold: Style
-    magenta3_dashed_light: Style
+    Magenta3: Style
+    Magenta3Bordered: Style
+    Magenta3Bold: Style
+    Magenta3Light: Style
+    Magenta3Flat: Style
+    Magenta3Outline: Style
+    Magenta3Solid: Style
+    Magenta3OutlineBold: Style
+    Magenta3SolidBold: Style
+    Magenta3OutlineLight: Style
+    Magenta3SolidLight: Style
+    Magenta3Dashed: Style
+    Magenta3DashedBold: Style
+    Magenta3DashedLight: Style
 
     # Magenta4
-    magenta4: Style
-    magenta4_bordered: Style
-    magenta4_bold: Style
-    magenta4_light: Style
-    magenta4_flat: Style
-    magenta4_outline: Style
-    magenta4_solid: Style
-    magenta4_outline_bold: Style
-    magenta4_solid_bold: Style
-    magenta4_outline_light: Style
-    magenta4_solid_light: Style
-    magenta4_dashed: Style
-    magenta4_dashed_bold: Style
-    magenta4_dashed_light: Style
+    Magenta4: Style
+    Magenta4Bordered: Style
+    Magenta4Bold: Style
+    Magenta4Light: Style
+    Magenta4Flat: Style
+    Magenta4Outline: Style
+    Magenta4Solid: Style
+    Magenta4OutlineBold: Style
+    Magenta4SolidBold: Style
+    Magenta4OutlineLight: Style
+    Magenta4SolidLight: Style
+    Magenta4Dashed: Style
+    Magenta4DashedBold: Style
+    Magenta4DashedLight: Style
 
     # Magenta5
-    magenta5: Style
-    magenta5_bordered: Style
-    magenta5_bold: Style
-    magenta5_light: Style
-    magenta5_flat: Style
-    magenta5_outline: Style
-    magenta5_solid: Style
-    magenta5_outline_bold: Style
-    magenta5_solid_bold: Style
-    magenta5_outline_light: Style
-    magenta5_solid_light: Style
-    magenta5_dashed: Style
-    magenta5_dashed_bold: Style
-    magenta5_dashed_light: Style
+    Magenta5: Style
+    Magenta5Bordered: Style
+    Magenta5Bold: Style
+    Magenta5Light: Style
+    Magenta5Flat: Style
+    Magenta5Outline: Style
+    Magenta5Solid: Style
+    Magenta5OutlineBold: Style
+    Magenta5SolidBold: Style
+    Magenta5OutlineLight: Style
+    Magenta5SolidLight: Style
+    Magenta5Dashed: Style
+    Magenta5DashedBold: Style
+    Magenta5DashedLight: Style
 
     # Magenta6
-    magenta6: Style
-    magenta6_bordered: Style
-    magenta6_bold: Style
-    magenta6_light: Style
-    magenta6_flat: Style
-    magenta6_outline: Style
-    magenta6_solid: Style
-    magenta6_outline_bold: Style
-    magenta6_solid_bold: Style
-    magenta6_outline_light: Style
-    magenta6_solid_light: Style
-    magenta6_dashed: Style
-    magenta6_dashed_bold: Style
-    magenta6_dashed_light: Style
+    Magenta6: Style
+    Magenta6Bordered: Style
+    Magenta6Bold: Style
+    Magenta6Light: Style
+    Magenta6Flat: Style
+    Magenta6Outline: Style
+    Magenta6Solid: Style
+    Magenta6OutlineBold: Style
+    Magenta6SolidBold: Style
+    Magenta6OutlineLight: Style
+    Magenta6SolidLight: Style
+    Magenta6Dashed: Style
+    Magenta6DashedBold: Style
+    Magenta6DashedLight: Style
 
     # --- Primaries (Unnumbered) ---
 
     # CornflowerBlue
-    cornflower_blue: Style
-    cornflower_blue_bordered: Style
-    cornflower_blue_bold: Style
-    cornflower_blue_light: Style
-    cornflower_blue_flat: Style
-    cornflower_blue_outline: Style
-    cornflower_blue_solid: Style
-    cornflower_blue_outline_bold: Style
-    cornflower_blue_solid_bold: Style
-    cornflower_blue_outline_light: Style
-    cornflower_blue_solid_light: Style
-    cornflower_blue_dashed: Style
-    cornflower_blue_dashed_bold: Style
-    cornflower_blue_dashed_light: Style
+    CornflowerBlue: Style
+    CornflowerBlueBordered: Style
+    CornflowerBlueBold: Style
+    CornflowerBlueLight: Style
+    CornflowerBlueFlat: Style
+    CornflowerBlueOutline: Style
+    CornflowerBlueSolid: Style
+    CornflowerBlueOutlineBold: Style
+    CornflowerBlueSolidBold: Style
+    CornflowerBlueOutlineLight: Style
+    CornflowerBlueSolidLight: Style
+    CornflowerBlueDashed: Style
+    CornflowerBlueDashedBold: Style
+    CornflowerBlueDashedLight: Style
 
     # Blue
-    blue: Style
-    blue_bordered: Style
-    blue_bold: Style
-    blue_light: Style
-    blue_flat: Style
-    blue_outline: Style
-    blue_solid: Style
-    blue_outline_bold: Style
-    blue_solid_bold: Style
-    blue_outline_light: Style
-    blue_solid_light: Style
-    blue_dashed: Style
-    blue_dashed_bold: Style
-    blue_dashed_light: Style
+    Blue: Style
+    BlueBordered: Style
+    BlueBold: Style
+    BlueLight: Style
+    BlueFlat: Style
+    BlueOutline: Style
+    BlueSolid: Style
+    BlueOutlineBold: Style
+    BlueSolidBold: Style
+    BlueOutlineLight: Style
+    BlueSolidLight: Style
+    BlueDashed: Style
+    BlueDashedBold: Style
+    BlueDashedLight: Style
 
     # Red
-    red: Style
-    red_bordered: Style
-    red_bold: Style
-    red_light: Style
-    red_flat: Style
-    red_outline: Style
-    red_solid: Style
-    red_outline_bold: Style
-    red_solid_bold: Style
-    red_outline_light: Style
-    red_solid_light: Style
-    red_dashed: Style
-    red_dashed_bold: Style
-    red_dashed_light: Style
+    Red: Style
+    RedBordered: Style
+    RedBold: Style
+    RedLight: Style
+    RedFlat: Style
+    RedOutline: Style
+    RedSolid: Style
+    RedOutlineBold: Style
+    RedSolidBold: Style
+    RedOutlineLight: Style
+    RedSolidLight: Style
+    RedDashed: Style
+    RedDashedBold: Style
+    RedDashedLight: Style
 
     # RedBerry
-    red_berry: Style
-    red_berry_bordered: Style
-    red_berry_bold: Style
-    red_berry_light: Style
-    red_berry_flat: Style
-    red_berry_outline: Style
-    red_berry_solid: Style
-    red_berry_outline_bold: Style
-    red_berry_solid_bold: Style
-    red_berry_outline_light: Style
-    red_berry_solid_light: Style
-    red_berry_dashed: Style
-    red_berry_dashed_bold: Style
-    red_berry_dashed_light: Style
+    RedBerry: Style
+    RedBerryBordered: Style
+    RedBerryBold: Style
+    RedBerryLight: Style
+    RedBerryFlat: Style
+    RedBerryOutline: Style
+    RedBerrySolid: Style
+    RedBerryOutlineBold: Style
+    RedBerrySolidBold: Style
+    RedBerryOutlineLight: Style
+    RedBerrySolidLight: Style
+    RedBerryDashed: Style
+    RedBerryDashedBold: Style
+    RedBerryDashedLight: Style
 
     # Green
-    green: Style
-    green_bordered: Style
-    green_bold: Style
-    green_light: Style
-    green_flat: Style
-    green_outline: Style
-    green_solid: Style
-    green_outline_bold: Style
-    green_solid_bold: Style
-    green_outline_light: Style
-    green_solid_light: Style
-    green_dashed: Style
-    green_dashed_bold: Style
-    green_dashed_light: Style
+    Green: Style
+    GreenBordered: Style
+    GreenBold: Style
+    GreenLight: Style
+    GreenFlat: Style
+    GreenOutline: Style
+    GreenSolid: Style
+    GreenOutlineBold: Style
+    GreenSolidBold: Style
+    GreenOutlineLight: Style
+    GreenSolidLight: Style
+    GreenDashed: Style
+    GreenDashedBold: Style
+    GreenDashedLight: Style
 
     # Yellow
-    yellow: Style
-    yellow_bordered: Style
-    yellow_bold: Style
-    yellow_light: Style
-    yellow_flat: Style
-    yellow_outline: Style
-    yellow_solid: Style
-    yellow_outline_bold: Style
-    yellow_solid_bold: Style
-    yellow_outline_light: Style
-    yellow_solid_light: Style
-    yellow_dashed: Style
-    yellow_dashed_bold: Style
-    yellow_dashed_light: Style
+    Yellow: Style
+    YellowBordered: Style
+    YellowBold: Style
+    YellowLight: Style
+    YellowFlat: Style
+    YellowOutline: Style
+    YellowSolid: Style
+    YellowOutlineBold: Style
+    YellowSolidBold: Style
+    YellowOutlineLight: Style
+    YellowSolidLight: Style
+    YellowDashed: Style
+    YellowDashedBold: Style
+    YellowDashedLight: Style
 
     # Orange
-    orange: Style
-    orange_bordered: Style
-    orange_bold: Style
-    orange_light: Style
-    orange_flat: Style
-    orange_outline: Style
-    orange_solid: Style
-    orange_outline_bold: Style
-    orange_solid_bold: Style
-    orange_outline_light: Style
-    orange_solid_light: Style
-    orange_dashed: Style
-    orange_dashed_bold: Style
-    orange_dashed_light: Style
+    Orange: Style
+    OrangeBordered: Style
+    OrangeBold: Style
+    OrangeLight: Style
+    OrangeFlat: Style
+    OrangeOutline: Style
+    OrangeSolid: Style
+    OrangeOutlineBold: Style
+    OrangeSolidBold: Style
+    OrangeOutlineLight: Style
+    OrangeSolidLight: Style
+    OrangeDashed: Style
+    OrangeDashedBold: Style
+    OrangeDashedLight: Style
 
     # Cyan
-    cyan: Style
-    cyan_bordered: Style
-    cyan_bold: Style
-    cyan_light: Style
-    cyan_flat: Style
-    cyan_outline: Style
-    cyan_solid: Style
-    cyan_outline_bold: Style
-    cyan_solid_bold: Style
-    cyan_outline_light: Style
-    cyan_solid_light: Style
-    cyan_dashed: Style
-    cyan_dashed_bold: Style
-    cyan_dashed_light: Style
+    Cyan: Style
+    CyanBordered: Style
+    CyanBold: Style
+    CyanLight: Style
+    CyanFlat: Style
+    CyanOutline: Style
+    CyanSolid: Style
+    CyanOutlineBold: Style
+    CyanSolidBold: Style
+    CyanOutlineLight: Style
+    CyanSolidLight: Style
+    CyanDashed: Style
+    CyanDashedBold: Style
+    CyanDashedLight: Style
 
     # Purple
-    purple: Style
-    purple_bordered: Style
-    purple_bold: Style
-    purple_light: Style
-    purple_flat: Style
-    purple_outline: Style
-    purple_solid: Style
-    purple_outline_bold: Style
-    purple_solid_bold: Style
-    purple_outline_light: Style
-    purple_solid_light: Style
-    purple_dashed: Style
-    purple_dashed_bold: Style
-    purple_dashed_light: Style
+    Purple: Style
+    PurpleBordered: Style
+    PurpleBold: Style
+    PurpleLight: Style
+    PurpleFlat: Style
+    PurpleOutline: Style
+    PurpleSolid: Style
+    PurpleOutlineBold: Style
+    PurpleSolidBold: Style
+    PurpleOutlineLight: Style
+    PurpleSolidLight: Style
+    PurpleDashed: Style
+    PurpleDashedBold: Style
+    PurpleDashedLight: Style
 
     # Magenta
-    magenta: Style
-    magenta_bordered: Style
-    magenta_bold: Style
-    magenta_light: Style
-    magenta_flat: Style
-    magenta_outline: Style
-    magenta_solid: Style
-    magenta_outline_bold: Style
-    magenta_solid_bold: Style
-    magenta_outline_light: Style
-    magenta_solid_light: Style
-    magenta_dashed: Style
-    magenta_dashed_bold: Style
-    magenta_dashed_light: Style
+    Magenta: Style
+    MagentaBordered: Style
+    MagentaBold: Style
+    MagentaLight: Style
+    MagentaFlat: Style
+    MagentaOutline: Style
+    MagentaSolid: Style
+    MagentaOutlineBold: Style
+    MagentaSolidBold: Style
+    MagentaOutlineLight: Style
+    MagentaSolidLight: Style
+    MagentaDashed: Style
+    MagentaDashedBold: Style
+    MagentaDashedLight: Style
 
     # Pink
-    pink: Style
-    pink_bordered: Style
-    pink_bold: Style
-    pink_light: Style
-    pink_flat: Style
-    pink_outline: Style
-    pink_solid: Style
-    pink_outline_bold: Style
-    pink_solid_bold: Style
-    pink_outline_light: Style
-    pink_solid_light: Style
-    pink_dashed: Style
-    pink_dashed_bold: Style
-    pink_dashed_light: Style
+    Pink: Style
+    PinkBordered: Style
+    PinkBold: Style
+    PinkLight: Style
+    PinkFlat: Style
+    PinkOutline: Style
+    PinkSolid: Style
+    PinkOutlineBold: Style
+    PinkSolidBold: Style
+    PinkOutlineLight: Style
+    PinkSolidLight: Style
+    PinkDashed: Style
+    PinkDashedBold: Style
+    PinkDashedLight: Style
 
     # Lime
-    lime: Style
-    lime_bordered: Style
-    lime_bold: Style
-    lime_light: Style
-    lime_flat: Style
-    lime_outline: Style
-    lime_solid: Style
-    lime_outline_bold: Style
-    lime_solid_bold: Style
-    lime_outline_light: Style
-    lime_solid_light: Style
-    lime_dashed: Style
-    lime_dashed_bold: Style
-    lime_dashed_light: Style
+    Lime: Style
+    LimeBordered: Style
+    LimeBold: Style
+    LimeLight: Style
+    LimeFlat: Style
+    LimeOutline: Style
+    LimeSolid: Style
+    LimeOutlineBold: Style
+    LimeSolidBold: Style
+    LimeOutlineLight: Style
+    LimeSolidLight: Style
+    LimeDashed: Style
+    LimeDashedBold: Style
+    LimeDashedLight: Style
 
     # Teal
-    teal: Style
-    teal_bordered: Style
-    teal_bold: Style
-    teal_light: Style
-    teal_flat: Style
-    teal_outline: Style
-    teal_solid: Style
-    teal_outline_bold: Style
-    teal_solid_bold: Style
-    teal_outline_light: Style
-    teal_solid_light: Style
-    teal_dashed: Style
-    teal_dashed_bold: Style
-    teal_dashed_light: Style
+    Teal: Style
+    TealBordered: Style
+    TealBold: Style
+    TealLight: Style
+    TealFlat: Style
+    TealOutline: Style
+    TealSolid: Style
+    TealOutlineBold: Style
+    TealSolidBold: Style
+    TealOutlineLight: Style
+    TealSolidLight: Style
+    TealDashed: Style
+    TealDashedBold: Style
+    TealDashedLight: Style
 
     # Navy
-    navy: Style
-    navy_bordered: Style
-    navy_bold: Style
-    navy_light: Style
-    navy_flat: Style
-    navy_outline: Style
-    navy_solid: Style
-    navy_outline_bold: Style
-    navy_solid_bold: Style
-    navy_outline_light: Style
-    navy_solid_light: Style
-    navy_dashed: Style
-    navy_dashed_bold: Style
-    navy_dashed_light: Style
+    Navy: Style
+    NavyBordered: Style
+    NavyBold: Style
+    NavyLight: Style
+    NavyFlat: Style
+    NavyOutline: Style
+    NavySolid: Style
+    NavyOutlineBold: Style
+    NavySolidBold: Style
+    NavyOutlineLight: Style
+    NavySolidLight: Style
+    NavyDashed: Style
+    NavyDashedBold: Style
+    NavyDashedLight: Style
 
     # Olive
-    olive: Style
-    olive_bordered: Style
-    olive_bold: Style
-    olive_light: Style
-    olive_flat: Style
-    olive_outline: Style
-    olive_solid: Style
-    olive_outline_bold: Style
-    olive_solid_bold: Style
-    olive_outline_light: Style
-    olive_solid_light: Style
-    olive_dashed: Style
-    olive_dashed_bold: Style
-    olive_dashed_light: Style
+    Olive: Style
+    OliveBordered: Style
+    OliveBold: Style
+    OliveLight: Style
+    OliveFlat: Style
+    OliveOutline: Style
+    OliveSolid: Style
+    OliveOutlineBold: Style
+    OliveSolidBold: Style
+    OliveOutlineLight: Style
+    OliveSolidLight: Style
+    OliveDashed: Style
+    OliveDashedBold: Style
+    OliveDashedLight: Style
 
     # Brown
-    brown: Style
-    brown_bordered: Style
-    brown_bold: Style
-    brown_light: Style
-    brown_flat: Style
-    brown_outline: Style
-    brown_solid: Style
-    brown_outline_bold: Style
-    brown_solid_bold: Style
-    brown_outline_light: Style
-    brown_solid_light: Style
-    brown_dashed: Style
-    brown_dashed_bold: Style
-    brown_dashed_light: Style
+    Brown: Style
+    BrownBordered: Style
+    BrownBold: Style
+    BrownLight: Style
+    BrownFlat: Style
+    BrownOutline: Style
+    BrownSolid: Style
+    BrownOutlineBold: Style
+    BrownSolidBold: Style
+    BrownOutlineLight: Style
+    BrownSolidLight: Style
+    BrownDashed: Style
+    BrownDashedBold: Style
+    BrownDashedLight: Style
 
     # Gold
-    gold: Style
-    gold_bordered: Style
-    gold_bold: Style
-    gold_light: Style
-    gold_flat: Style
-    gold_outline: Style
-    gold_solid: Style
-    gold_outline_bold: Style
-    gold_solid_bold: Style
-    gold_outline_light: Style
-    gold_solid_light: Style
-    gold_dashed: Style
-    gold_dashed_bold: Style
-    gold_dashed_light: Style
+    Gold: Style
+    GoldBordered: Style
+    GoldBold: Style
+    GoldLight: Style
+    GoldFlat: Style
+    GoldOutline: Style
+    GoldSolid: Style
+    GoldOutlineBold: Style
+    GoldSolidBold: Style
+    GoldOutlineLight: Style
+    GoldSolidLight: Style
+    GoldDashed: Style
+    GoldDashedBold: Style
+    GoldDashedLight: Style
 
     # Aqua
-    aqua: Style
-    aqua_bordered: Style
-    aqua_bold: Style
-    aqua_light: Style
-    aqua_flat: Style
-    aqua_outline: Style
-    aqua_solid: Style
-    aqua_outline_bold: Style
-    aqua_solid_bold: Style
-    aqua_outline_light: Style
-    aqua_solid_light: Style
-    aqua_dashed: Style
-    aqua_dashed_bold: Style
-    aqua_dashed_light: Style
+    Aqua: Style
+    AquaBordered: Style
+    AquaBold: Style
+    AquaLight: Style
+    AquaFlat: Style
+    AquaOutline: Style
+    AquaSolid: Style
+    AquaOutlineBold: Style
+    AquaSolidBold: Style
+    AquaOutlineLight: Style
+    AquaSolidLight: Style
+    AquaDashed: Style
+    AquaDashedBold: Style
+    AquaDashedLight: Style
 
     # GreenYellow
-    green_yellow: Style
-    green_yellow_bordered: Style
-    green_yellow_bold: Style
-    green_yellow_light: Style
-    green_yellow_flat: Style
-    green_yellow_outline: Style
-    green_yellow_solid: Style
-    green_yellow_outline_bold: Style
-    green_yellow_solid_bold: Style
-    green_yellow_outline_light: Style
-    green_yellow_solid_light: Style
-    green_yellow_dashed: Style
-    green_yellow_dashed_bold: Style
-    green_yellow_dashed_light: Style
+    GreenYellow: Style
+    GreenYellowBordered: Style
+    GreenYellowBold: Style
+    GreenYellowLight: Style
+    GreenYellowFlat: Style
+    GreenYellowOutline: Style
+    GreenYellowSolid: Style
+    GreenYellowOutlineBold: Style
+    GreenYellowSolidBold: Style
+    GreenYellowOutlineLight: Style
+    GreenYellowSolidLight: Style
+    GreenYellowDashed: Style
+    GreenYellowDashedBold: Style
+    GreenYellowDashedLight: Style
 
     # Ivory
-    ivory: Style
-    ivory_bordered: Style
-    ivory_bold: Style
-    ivory_light: Style
-    ivory_flat: Style
-    ivory_outline: Style
-    ivory_solid: Style
-    ivory_outline_bold: Style
-    ivory_solid_bold: Style
-    ivory_outline_light: Style
-    ivory_solid_light: Style
-    ivory_dashed: Style
-    ivory_dashed_bold: Style
-    ivory_dashed_light: Style
+    Ivory: Style
+    IvoryBordered: Style
+    IvoryBold: Style
+    IvoryLight: Style
+    IvoryFlat: Style
+    IvoryOutline: Style
+    IvorySolid: Style
+    IvoryOutlineBold: Style
+    IvorySolidBold: Style
+    IvoryOutlineLight: Style
+    IvorySolidLight: Style
+    IvoryDashed: Style
+    IvoryDashedBold: Style
+    IvoryDashedLight: Style
 
     # Steel
-    steel: Style
-    steel_bordered: Style
-    steel_bold: Style
-    steel_light: Style
-    steel_flat: Style
-    steel_outline: Style
-    steel_solid: Style
-    steel_outline_bold: Style
-    steel_solid_bold: Style
-    steel_outline_light: Style
-    steel_solid_light: Style
-    steel_dashed: Style
-    steel_dashed_bold: Style
-    steel_dashed_light: Style
+    Steel: Style
+    SteelBordered: Style
+    SteelBold: Style
+    SteelLight: Style
+    SteelFlat: Style
+    SteelOutline: Style
+    SteelSolid: Style
+    SteelOutlineBold: Style
+    SteelSolidBold: Style
+    SteelOutlineLight: Style
+    SteelSolidLight: Style
+    SteelDashed: Style
+    SteelDashedBold: Style
+    SteelDashedLight: Style
 
     # --- Google Brand Colors ---
 
     # GoogleBlue
-    google_blue: Style
-    google_blue_bordered: Style
-    google_blue_bold: Style
-    google_blue_light: Style
-    google_blue_flat: Style
-    google_blue_outline: Style
-    google_blue_solid: Style
-    google_blue_outline_bold: Style
-    google_blue_solid_bold: Style
-    google_blue_outline_light: Style
-    google_blue_solid_light: Style
-    google_blue_dashed: Style
-    google_blue_dashed_bold: Style
-    google_blue_dashed_light: Style
+    GoogleBlue: Style
+    GoogleBlueBordered: Style
+    GoogleBlueBold: Style
+    GoogleBlueLight: Style
+    GoogleBlueFlat: Style
+    GoogleBlueOutline: Style
+    GoogleBlueSolid: Style
+    GoogleBlueOutlineBold: Style
+    GoogleBlueSolidBold: Style
+    GoogleBlueOutlineLight: Style
+    GoogleBlueSolidLight: Style
+    GoogleBlueDashed: Style
+    GoogleBlueDashedBold: Style
+    GoogleBlueDashedLight: Style
 
     # GoogleRed
-    google_red: Style
-    google_red_bordered: Style
-    google_red_bold: Style
-    google_red_light: Style
-    google_red_flat: Style
-    google_red_outline: Style
-    google_red_solid: Style
-    google_red_outline_bold: Style
-    google_red_solid_bold: Style
-    google_red_outline_light: Style
-    google_red_solid_light: Style
-    google_red_dashed: Style
-    google_red_dashed_bold: Style
-    google_red_dashed_light: Style
+    GoogleRed: Style
+    GoogleRedBordered: Style
+    GoogleRedBold: Style
+    GoogleRedLight: Style
+    GoogleRedFlat: Style
+    GoogleRedOutline: Style
+    GoogleRedSolid: Style
+    GoogleRedOutlineBold: Style
+    GoogleRedSolidBold: Style
+    GoogleRedOutlineLight: Style
+    GoogleRedSolidLight: Style
+    GoogleRedDashed: Style
+    GoogleRedDashedBold: Style
+    GoogleRedDashedLight: Style
 
     # GoogleYellow
-    google_yellow: Style
-    google_yellow_bordered: Style
-    google_yellow_bold: Style
-    google_yellow_light: Style
-    google_yellow_flat: Style
-    google_yellow_outline: Style
-    google_yellow_solid: Style
-    google_yellow_outline_bold: Style
-    google_yellow_solid_bold: Style
-    google_yellow_outline_light: Style
-    google_yellow_solid_light: Style
-    google_yellow_dashed: Style
-    google_yellow_dashed_bold: Style
-    google_yellow_dashed_light: Style
+    GoogleYellow: Style
+    GoogleYellowBordered: Style
+    GoogleYellowBold: Style
+    GoogleYellowLight: Style
+    GoogleYellowFlat: Style
+    GoogleYellowOutline: Style
+    GoogleYellowSolid: Style
+    GoogleYellowOutlineBold: Style
+    GoogleYellowSolidBold: Style
+    GoogleYellowOutlineLight: Style
+    GoogleYellowSolidLight: Style
+    GoogleYellowDashed: Style
+    GoogleYellowDashedBold: Style
+    GoogleYellowDashedLight: Style
 
     # GoogleGreen
-    google_green: Style
-    google_green_bordered: Style
-    google_green_bold: Style
-    google_green_light: Style
-    google_green_flat: Style
-    google_green_outline: Style
-    google_green_solid: Style
-    google_green_outline_bold: Style
-    google_green_solid_bold: Style
-    google_green_outline_light: Style
-    google_green_solid_light: Style
-    google_green_dashed: Style
-    google_green_dashed_bold: Style
-    google_green_dashed_light: Style
+    GoogleGreen: Style
+    GoogleGreenBordered: Style
+    GoogleGreenBold: Style
+    GoogleGreenLight: Style
+    GoogleGreenFlat: Style
+    GoogleGreenOutline: Style
+    GoogleGreenSolid: Style
+    GoogleGreenOutlineBold: Style
+    GoogleGreenSolidBold: Style
+    GoogleGreenOutlineLight: Style
+    GoogleGreenSolidLight: Style
+    GoogleGreenDashed: Style
+    GoogleGreenDashedBold: Style
+    GoogleGreenDashedLight: Style
 
     # GoogleOrange
-    google_orange: Style
-    google_orange_bordered: Style
-    google_orange_bold: Style
-    google_orange_light: Style
-    google_orange_flat: Style
-    google_orange_outline: Style
-    google_orange_solid: Style
-    google_orange_outline_bold: Style
-    google_orange_solid_bold: Style
-    google_orange_outline_light: Style
-    google_orange_solid_light: Style
-    google_orange_dashed: Style
-    google_orange_dashed_bold: Style
-    google_orange_dashed_light: Style
+    GoogleOrange: Style
+    GoogleOrangeBordered: Style
+    GoogleOrangeBold: Style
+    GoogleOrangeLight: Style
+    GoogleOrangeFlat: Style
+    GoogleOrangeOutline: Style
+    GoogleOrangeSolid: Style
+    GoogleOrangeOutlineBold: Style
+    GoogleOrangeSolidBold: Style
+    GoogleOrangeOutlineLight: Style
+    GoogleOrangeSolidLight: Style
+    GoogleOrangeDashed: Style
+    GoogleOrangeDashedBold: Style
+    GoogleOrangeDashedLight: Style
 
     # GooglePurple
-    google_purple: Style
-    google_purple_bordered: Style
-    google_purple_bold: Style
-    google_purple_light: Style
-    google_purple_flat: Style
-    google_purple_outline: Style
-    google_purple_solid: Style
-    google_purple_outline_bold: Style
-    google_purple_solid_bold: Style
-    google_purple_outline_light: Style
-    google_purple_solid_light: Style
-    google_purple_dashed: Style
-    google_purple_dashed_bold: Style
-    google_purple_dashed_light: Style
+    GooglePurple: Style
+    GooglePurpleBordered: Style
+    GooglePurpleBold: Style
+    GooglePurpleLight: Style
+    GooglePurpleFlat: Style
+    GooglePurpleOutline: Style
+    GooglePurpleSolid: Style
+    GooglePurpleOutlineBold: Style
+    GooglePurpleSolidBold: Style
+    GooglePurpleOutlineLight: Style
+    GooglePurpleSolidLight: Style
+    GooglePurpleDashed: Style
+    GooglePurpleDashedBold: Style
+    GooglePurpleDashedLight: Style
 
     # GoogleGray
-    google_gray: Style
-    google_gray_bordered: Style
-    google_gray_bold: Style
-    google_gray_light: Style
-    google_gray_flat: Style
-    google_gray_outline: Style
-    google_gray_solid: Style
-    google_gray_outline_bold: Style
-    google_gray_solid_bold: Style
-    google_gray_outline_light: Style
-    google_gray_solid_light: Style
-    google_gray_dashed: Style
-    google_gray_dashed_bold: Style
-    google_gray_dashed_light: Style
+    GoogleGray: Style
+    GoogleGrayBordered: Style
+    GoogleGrayBold: Style
+    GoogleGrayLight: Style
+    GoogleGrayFlat: Style
+    GoogleGrayOutline: Style
+    GoogleGraySolid: Style
+    GoogleGrayOutlineBold: Style
+    GoogleGraySolidBold: Style
+    GoogleGrayOutlineLight: Style
+    GoogleGraySolidLight: Style
+    GoogleGrayDashed: Style
+    GoogleGrayDashedBold: Style
+    GoogleGrayDashedLight: Style
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize preset styles instance.
@@ -4364,176 +4364,176 @@ def _create_google_styles() -> GoogleStyles:
 
     # 1. Semantic roles
     semantic_map = {
-        "primary": col.Primary,
-        "secondary": col.Secondary,
-        "accent": col.Accent,
-        "muted": col.Muted,
-        "light": col.Light,
-        "dark": col.Dark,
-        "danger": col.Danger,
-        "success": col.Success,
+        "Primary": col.Primary,
+        "Secondary": col.Secondary,
+        "Accent": col.Accent,
+        "Muted": col.Muted,
+        "Light": col.Light,
+        "Dark": col.Dark,
+        "Danger": col.Danger,
+        "Success": col.Success,
     }
     for role_name, color in semantic_map.items():
         v = _make_variants(color, border_color=border_color)
         styles_dict[role_name] = v["normal"]
-        styles_dict[f"{role_name}_bordered"] = v["bordered"]
-        styles_dict[f"{role_name}_bold"] = v["bold"]
-        styles_dict[f"{role_name}_light"] = v["light"]
-        styles_dict[f"{role_name}_flat"] = v["flat"]
-        styles_dict[f"{role_name}_outline"] = v["outline"]
-        styles_dict[f"{role_name}_solid"] = v["solid"]
-        styles_dict[f"{role_name}_outline_bold"] = v["outline_bold"]
-        styles_dict[f"{role_name}_solid_bold"] = v["solid_bold"]
-        styles_dict[f"{role_name}_outline_light"] = v["outline_light"]
-        styles_dict[f"{role_name}_solid_light"] = v["solid_light"]
-        styles_dict[f"{role_name}_dashed"] = v["dashed"]
-        styles_dict[f"{role_name}_dashed_bold"] = v["dashed_bold"]
-        styles_dict[f"{role_name}_dashed_light"] = v["dashed_light"]
+        styles_dict[f"{role_name}Bordered"] = v["bordered"]
+        styles_dict[f"{role_name}Bold"] = v["bold"]
+        styles_dict[f"{role_name}Light"] = v["light"]
+        styles_dict[f"{role_name}Flat"] = v["flat"]
+        styles_dict[f"{role_name}Outline"] = v["outline"]
+        styles_dict[f"{role_name}Solid"] = v["solid"]
+        styles_dict[f"{role_name}OutlineBold"] = v["outline_bold"]
+        styles_dict[f"{role_name}SolidBold"] = v["solid_bold"]
+        styles_dict[f"{role_name}OutlineLight"] = v["outline_light"]
+        styles_dict[f"{role_name}SolidLight"] = v["solid_light"]
+        styles_dict[f"{role_name}Dashed"] = v["dashed"]
+        styles_dict[f"{role_name}DashedBold"] = v["dashed_bold"]
+        styles_dict[f"{role_name}DashedLight"] = v["dashed_light"]
 
     # 2. Neutrals
     neutrals_map = {
-        "white": col.White,
-        "gray1": col.Gray1,
-        "gray2": col.Gray2,
-        "gray3": col.Gray3,
-        "gray4": col.Gray4,
-        "gray5": col.Gray5,
-        "gray6": col.Gray6,
-        "gray7": col.Gray7,
-        "gray8": col.Gray8,
-        "black": col.Black,
+        "White": col.White,
+        "Gray1": col.Gray1,
+        "Gray2": col.Gray2,
+        "Gray3": col.Gray3,
+        "Gray4": col.Gray4,
+        "Gray5": col.Gray5,
+        "Gray6": col.Gray6,
+        "Gray7": col.Gray7,
+        "Gray8": col.Gray8,
+        "Black": col.Black,
     }
 
     # 3. Tones (10 hues x 6 tones)
     tones_map: dict[str, Color] = {}
-    tones_map["cornflower_blue1"] = getattr(col, "CornflowerBlue1")
-    tones_map["cornflower_blue2"] = getattr(col, "CornflowerBlue2")
-    tones_map["cornflower_blue3"] = getattr(col, "CornflowerBlue3")
-    tones_map["cornflower_blue4"] = getattr(col, "CornflowerBlue4")
-    tones_map["cornflower_blue5"] = getattr(col, "CornflowerBlue5")
-    tones_map["cornflower_blue6"] = getattr(col, "CornflowerBlue6")
-    tones_map["blue1"] = getattr(col, "Blue1")
-    tones_map["blue2"] = getattr(col, "Blue2")
-    tones_map["blue3"] = getattr(col, "Blue3")
-    tones_map["blue4"] = getattr(col, "Blue4")
-    tones_map["blue5"] = getattr(col, "Blue5")
-    tones_map["blue6"] = getattr(col, "Blue6")
-    tones_map["red1"] = getattr(col, "Red1")
-    tones_map["red2"] = getattr(col, "Red2")
-    tones_map["red3"] = getattr(col, "Red3")
-    tones_map["red4"] = getattr(col, "Red4")
-    tones_map["red5"] = getattr(col, "Red5")
-    tones_map["red6"] = getattr(col, "Red6")
-    tones_map["red_berry1"] = getattr(col, "RedBerry1")
-    tones_map["red_berry2"] = getattr(col, "RedBerry2")
-    tones_map["red_berry3"] = getattr(col, "RedBerry3")
-    tones_map["red_berry4"] = getattr(col, "RedBerry4")
-    tones_map["red_berry5"] = getattr(col, "RedBerry5")
-    tones_map["red_berry6"] = getattr(col, "RedBerry6")
-    tones_map["green1"] = getattr(col, "Green1")
-    tones_map["green2"] = getattr(col, "Green2")
-    tones_map["green3"] = getattr(col, "Green3")
-    tones_map["green4"] = getattr(col, "Green4")
-    tones_map["green5"] = getattr(col, "Green5")
-    tones_map["green6"] = getattr(col, "Green6")
-    tones_map["yellow1"] = getattr(col, "Yellow1")
-    tones_map["yellow2"] = getattr(col, "Yellow2")
-    tones_map["yellow3"] = getattr(col, "Yellow3")
-    tones_map["yellow4"] = getattr(col, "Yellow4")
-    tones_map["yellow5"] = getattr(col, "Yellow5")
-    tones_map["yellow6"] = getattr(col, "Yellow6")
-    tones_map["orange1"] = getattr(col, "Orange1")
-    tones_map["orange2"] = getattr(col, "Orange2")
-    tones_map["orange3"] = getattr(col, "Orange3")
-    tones_map["orange4"] = getattr(col, "Orange4")
-    tones_map["orange5"] = getattr(col, "Orange5")
-    tones_map["orange6"] = getattr(col, "Orange6")
-    tones_map["cyan1"] = getattr(col, "Cyan1")
-    tones_map["cyan2"] = getattr(col, "Cyan2")
-    tones_map["cyan3"] = getattr(col, "Cyan3")
-    tones_map["cyan4"] = getattr(col, "Cyan4")
-    tones_map["cyan5"] = getattr(col, "Cyan5")
-    tones_map["cyan6"] = getattr(col, "Cyan6")
-    tones_map["purple1"] = getattr(col, "Purple1")
-    tones_map["purple2"] = getattr(col, "Purple2")
-    tones_map["purple3"] = getattr(col, "Purple3")
-    tones_map["purple4"] = getattr(col, "Purple4")
-    tones_map["purple5"] = getattr(col, "Purple5")
-    tones_map["purple6"] = getattr(col, "Purple6")
-    tones_map["magenta1"] = getattr(col, "Magenta1")
-    tones_map["magenta2"] = getattr(col, "Magenta2")
-    tones_map["magenta3"] = getattr(col, "Magenta3")
-    tones_map["magenta4"] = getattr(col, "Magenta4")
-    tones_map["magenta5"] = getattr(col, "Magenta5")
-    tones_map["magenta6"] = getattr(col, "Magenta6")
+    tones_map["CornflowerBlue1"] = getattr(col, "CornflowerBlue1")
+    tones_map["CornflowerBlue2"] = getattr(col, "CornflowerBlue2")
+    tones_map["CornflowerBlue3"] = getattr(col, "CornflowerBlue3")
+    tones_map["CornflowerBlue4"] = getattr(col, "CornflowerBlue4")
+    tones_map["CornflowerBlue5"] = getattr(col, "CornflowerBlue5")
+    tones_map["CornflowerBlue6"] = getattr(col, "CornflowerBlue6")
+    tones_map["Blue1"] = getattr(col, "Blue1")
+    tones_map["Blue2"] = getattr(col, "Blue2")
+    tones_map["Blue3"] = getattr(col, "Blue3")
+    tones_map["Blue4"] = getattr(col, "Blue4")
+    tones_map["Blue5"] = getattr(col, "Blue5")
+    tones_map["Blue6"] = getattr(col, "Blue6")
+    tones_map["Red1"] = getattr(col, "Red1")
+    tones_map["Red2"] = getattr(col, "Red2")
+    tones_map["Red3"] = getattr(col, "Red3")
+    tones_map["Red4"] = getattr(col, "Red4")
+    tones_map["Red5"] = getattr(col, "Red5")
+    tones_map["Red6"] = getattr(col, "Red6")
+    tones_map["RedBerry1"] = getattr(col, "RedBerry1")
+    tones_map["RedBerry2"] = getattr(col, "RedBerry2")
+    tones_map["RedBerry3"] = getattr(col, "RedBerry3")
+    tones_map["RedBerry4"] = getattr(col, "RedBerry4")
+    tones_map["RedBerry5"] = getattr(col, "RedBerry5")
+    tones_map["RedBerry6"] = getattr(col, "RedBerry6")
+    tones_map["Green1"] = getattr(col, "Green1")
+    tones_map["Green2"] = getattr(col, "Green2")
+    tones_map["Green3"] = getattr(col, "Green3")
+    tones_map["Green4"] = getattr(col, "Green4")
+    tones_map["Green5"] = getattr(col, "Green5")
+    tones_map["Green6"] = getattr(col, "Green6")
+    tones_map["Yellow1"] = getattr(col, "Yellow1")
+    tones_map["Yellow2"] = getattr(col, "Yellow2")
+    tones_map["Yellow3"] = getattr(col, "Yellow3")
+    tones_map["Yellow4"] = getattr(col, "Yellow4")
+    tones_map["Yellow5"] = getattr(col, "Yellow5")
+    tones_map["Yellow6"] = getattr(col, "Yellow6")
+    tones_map["Orange1"] = getattr(col, "Orange1")
+    tones_map["Orange2"] = getattr(col, "Orange2")
+    tones_map["Orange3"] = getattr(col, "Orange3")
+    tones_map["Orange4"] = getattr(col, "Orange4")
+    tones_map["Orange5"] = getattr(col, "Orange5")
+    tones_map["Orange6"] = getattr(col, "Orange6")
+    tones_map["Cyan1"] = getattr(col, "Cyan1")
+    tones_map["Cyan2"] = getattr(col, "Cyan2")
+    tones_map["Cyan3"] = getattr(col, "Cyan3")
+    tones_map["Cyan4"] = getattr(col, "Cyan4")
+    tones_map["Cyan5"] = getattr(col, "Cyan5")
+    tones_map["Cyan6"] = getattr(col, "Cyan6")
+    tones_map["Purple1"] = getattr(col, "Purple1")
+    tones_map["Purple2"] = getattr(col, "Purple2")
+    tones_map["Purple3"] = getattr(col, "Purple3")
+    tones_map["Purple4"] = getattr(col, "Purple4")
+    tones_map["Purple5"] = getattr(col, "Purple5")
+    tones_map["Purple6"] = getattr(col, "Purple6")
+    tones_map["Magenta1"] = getattr(col, "Magenta1")
+    tones_map["Magenta2"] = getattr(col, "Magenta2")
+    tones_map["Magenta3"] = getattr(col, "Magenta3")
+    tones_map["Magenta4"] = getattr(col, "Magenta4")
+    tones_map["Magenta5"] = getattr(col, "Magenta5")
+    tones_map["Magenta6"] = getattr(col, "Magenta6")
 
     # 4. Primaries
     primaries_map: dict[str, Color] = {}
-    primaries_map["cornflower_blue"] = getattr(col, "CornflowerBlue")
-    primaries_map["blue"] = getattr(col, "Blue")
-    primaries_map["red"] = getattr(col, "Red")
-    primaries_map["red_berry"] = getattr(col, "RedBerry")
-    primaries_map["green"] = getattr(col, "Green")
-    primaries_map["yellow"] = getattr(col, "Yellow")
-    primaries_map["orange"] = getattr(col, "Orange")
-    primaries_map["cyan"] = getattr(col, "Cyan")
-    primaries_map["purple"] = getattr(col, "Purple")
-    primaries_map["magenta"] = getattr(col, "Magenta")
-    primaries_map["pink"] = getattr(col, "Pink")
-    primaries_map["lime"] = getattr(col, "Lime")
-    primaries_map["teal"] = getattr(col, "Teal")
-    primaries_map["navy"] = getattr(col, "Navy")
-    primaries_map["olive"] = getattr(col, "Olive")
-    primaries_map["brown"] = getattr(col, "Brown")
-    primaries_map["gold"] = getattr(col, "Gold")
-    primaries_map["aqua"] = getattr(col, "Aqua")
-    primaries_map["green_yellow"] = getattr(col, "GreenYellow")
-    primaries_map["ivory"] = getattr(col, "Ivory")
-    primaries_map["steel"] = getattr(col, "Steel")
+    primaries_map["CornflowerBlue"] = getattr(col, "CornflowerBlue")
+    primaries_map["Blue"] = getattr(col, "Blue")
+    primaries_map["Red"] = getattr(col, "Red")
+    primaries_map["RedBerry"] = getattr(col, "RedBerry")
+    primaries_map["Green"] = getattr(col, "Green")
+    primaries_map["Yellow"] = getattr(col, "Yellow")
+    primaries_map["Orange"] = getattr(col, "Orange")
+    primaries_map["Cyan"] = getattr(col, "Cyan")
+    primaries_map["Purple"] = getattr(col, "Purple")
+    primaries_map["Magenta"] = getattr(col, "Magenta")
+    primaries_map["Pink"] = getattr(col, "Pink")
+    primaries_map["Lime"] = getattr(col, "Lime")
+    primaries_map["Teal"] = getattr(col, "Teal")
+    primaries_map["Navy"] = getattr(col, "Navy")
+    primaries_map["Olive"] = getattr(col, "Olive")
+    primaries_map["Brown"] = getattr(col, "Brown")
+    primaries_map["Gold"] = getattr(col, "Gold")
+    primaries_map["Aqua"] = getattr(col, "Aqua")
+    primaries_map["GreenYellow"] = getattr(col, "GreenYellow")
+    primaries_map["Ivory"] = getattr(col, "Ivory")
+    primaries_map["Steel"] = getattr(col, "Steel")
 
     # 5. Brand
     brand_map: dict[str, Color] = {}
-    brand_map["google_blue"] = getattr(col, "GoogleBlue")
-    brand_map["google_red"] = getattr(col, "GoogleRed")
-    brand_map["google_yellow"] = getattr(col, "GoogleYellow")
-    brand_map["google_green"] = getattr(col, "GoogleGreen")
-    brand_map["google_orange"] = getattr(col, "GoogleOrange")
-    brand_map["google_purple"] = getattr(col, "GooglePurple")
-    brand_map["google_gray"] = getattr(col, "GoogleGray")
+    brand_map["GoogleBlue"] = getattr(col, "GoogleBlue")
+    brand_map["GoogleRed"] = getattr(col, "GoogleRed")
+    brand_map["GoogleYellow"] = getattr(col, "GoogleYellow")
+    brand_map["GoogleGreen"] = getattr(col, "GoogleGreen")
+    brand_map["GoogleOrange"] = getattr(col, "GoogleOrange")
+    brand_map["GooglePurple"] = getattr(col, "GooglePurple")
+    brand_map["GoogleGray"] = getattr(col, "GoogleGray")
 
     # 6. Semantic Tones (6 roles x 6 tones)
     semantic_tones_map: dict[str, Color] = {}
     for r in ["primary", "secondary", "accent", "muted", "danger", "success"]:
         for i in range(1, 7):
-            semantic_tones_map[f"{r}{i}"] = getattr(col, f"{r.capitalize()}{i}")
+            semantic_tones_map[f"{r.capitalize()}{i}"] = getattr(col, f"{r.capitalize()}{i}")
 
     all_colors: dict[str, Color] = {**neutrals_map, **tones_map, **primaries_map, **brand_map, **semantic_tones_map}
     for cname, color in all_colors.items():
         v = _make_variants(color, border_color=border_color)
         styles_dict[cname] = v["normal"]
-        styles_dict[f"{cname}_bordered"] = v["bordered"]
-        styles_dict[f"{cname}_bold"] = v["bold"]
-        styles_dict[f"{cname}_light"] = v["light"]
-        styles_dict[f"{cname}_flat"] = v["flat"]
-        styles_dict[f"{cname}_outline"] = v["outline"]
-        styles_dict[f"{cname}_solid"] = v["solid"]
-        styles_dict[f"{cname}_outline_bold"] = v["outline_bold"]
-        styles_dict[f"{cname}_solid_bold"] = v["solid_bold"]
-        styles_dict[f"{cname}_outline_light"] = v["outline_light"]
-        styles_dict[f"{cname}_solid_light"] = v["solid_light"]
-        styles_dict[f"{cname}_dashed"] = v["dashed"]
-        styles_dict[f"{cname}_dashed_bold"] = v["dashed_bold"]
-        styles_dict[f"{cname}_dashed_light"] = v["dashed_light"]
+        styles_dict[f"{cname}Bordered"] = v["bordered"]
+        styles_dict[f"{cname}Bold"] = v["bold"]
+        styles_dict[f"{cname}Light"] = v["light"]
+        styles_dict[f"{cname}Flat"] = v["flat"]
+        styles_dict[f"{cname}Outline"] = v["outline"]
+        styles_dict[f"{cname}Solid"] = v["solid"]
+        styles_dict[f"{cname}OutlineBold"] = v["outline_bold"]
+        styles_dict[f"{cname}SolidBold"] = v["solid_bold"]
+        styles_dict[f"{cname}OutlineLight"] = v["outline_light"]
+        styles_dict[f"{cname}SolidLight"] = v["solid_light"]
+        styles_dict[f"{cname}Dashed"] = v["dashed"]
+        styles_dict[f"{cname}DashedBold"] = v["dashed_bold"]
+        styles_dict[f"{cname}DashedLight"] = v["dashed_light"]
 
     # Canvas shape style
     canvas_col = col.Canvas
-    styles_dict["canvas"] = Style(
+    styles_dict["Canvas"] = Style(
         supports={"shape"},
         shape_fill_color=canvas_col,
         shape_line_color=canvas_col,
         shape_line_width=0.0,
     )
-    styles_dict["canvas_flat"] = Style(
+    styles_dict["CanvasFlat"] = Style(
         supports={"shape"},
         shape_fill_color=canvas_col,
         shape_line_color=canvas_col,

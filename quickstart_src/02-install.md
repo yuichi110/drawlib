@@ -46,18 +46,18 @@ from drawlib.text import text
 setup(width=120, height=44)
 
 layers = [
-    (18, phosphor.terminal, "Developer Environment", "Python 3.11+\nuv / pip / git", Styles.primary_flat),
-    (52, phosphor.package, "Drawlib Core", "Prims, Styles, Icons\nSmartArts, Diagrams", Styles.secondary_flat),
-    (86, phosphor.gear, "Compilation Engine", "HTML Builder\nPlaywright PDF\nSQLite Cache", Styles.accent_flat),
-    (110, phosphor.file_arrow_down, "Outputs", "PNG / WebP\nHTML Site\nPrint PDF", Styles.success_flat),
+    (18, phosphor.terminal, "Developer Environment", "Python 3.11+\nuv / pip / git", Styles.PrimaryFlat),
+    (52, phosphor.package, "Drawlib Core", "Prims, Styles, Icons\nSmartArts, Diagrams", Styles.SecondaryFlat),
+    (86, phosphor.gear, "Compilation Engine", "HTML Builder\nPlaywright PDF\nSQLite Cache", Styles.AccentFlat),
+    (110, phosphor.file_arrow_down, "Outputs", "PNG / WebP\nHTML Site\nPrint PDF", Styles.SuccessFlat),
 ]
 
 for idx, (x, icon_fn, title, desc, st) in enumerate(layers):
-    rectangle(xy=(x, 22), width=22, height=36, r=2.5, style=Styles.muted_dashed)
+    rectangle(xy=(x, 22), width=22, height=36, r=2.5, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=6, style=st)
-    text(xy=(x, 26), text=title, style=Styles.bold, size=8)
-    text(xy=(x, 14), text=desc, style=Styles.primary, size=7)
+    text(xy=(x, 26), text=title, style=Styles.PrimaryBold, size=8)
+    text(xy=(x, 14), text=desc, style=Styles.Primary, size=7)
     if idx < len(layers) - 1:
         next_x = layers[idx + 1][0]
-        line((x + 11, 22), (next_x - 11, 22), arrowhead="->", style=Styles.bold)
+        line((x + 11, 22), (next_x - 11, 22), arrowhead="->", style=Styles.PrimaryBold)
 ```

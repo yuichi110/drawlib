@@ -3,7 +3,7 @@ from drawlib.shapes import circle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=100, height=50, grid_only=True, color=Colors.canvas)
+setup(width=100, height=50, grid_only=True, color=Colors.Canvas)
 circle(
     xy=(25, 25),
     radius=10,

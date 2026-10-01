@@ -27,53 +27,53 @@ Drawlib structures diagram color schemes around **6 fundamental semantic roles**
 ┌────────────────────────────────────────────────────────┐
 │ Muted (Structural Foundation)                          │
 │ Canvas background, group boundaries, subnets, clusters │
-│ (Styles.muted, Styles.muted_dashed, Styles.muted_flat) │
+│ (Styles.Muted, Styles.MutedDashed, Styles.MutedFlat) │
 │                                                        │
 │  ┌───────────────────────┐   ┌──────────────────────┐  │
 │  │ Primary (Visual Core) │──>│ Secondary / Accent   │  │
 │  │ Core services & flows │   │ Auxiliary, events, DB│  │
-│  │ (Styles.primary)      │   │ (secondary, accent)  │  │
+│  │ (Styles.Primary)      │   │ (secondary, accent)  │  │
 │  └───────────┬───────────┘   └──────────────────────┘  │
 │              │                                         │
 │              ▼                                         │
 │  ┌───────────────────────┐   ┌──────────────────────┐  │
 │  │ Success (Valid Path)  │   │ Danger (Alert/Risk)  │  │
 │  │ Healthy, target output│   │ Errors, failure paths│  │
-│  │ (Styles.success)      │   │ (Styles.danger)      │  │
+│  │ (Styles.Success)      │   │ (Styles.Danger)      │  │
 │  └───────────────────────┘   └──────────────────────┘  │
 └────────────────────────────────────────────────────────┘
 ```
 
 ### Core Color Principles:
 1. **Primary as the Visual Anchor**:
-   - `Styles.primary` serves as the primary focal point, core services, and central workflow spine.
+   - `Styles.Primary` serves as the primary focal point, core services, and central workflow spine.
    - Using `primary` consistently anchors the eye and gives the diagram a unified, recognizable identity.
 2. **Active, Equal-Standing Role Usage (No Artificial Frequency Restrictions)**:
    - Technical diagrams require rich classification to distinguish multiple services, databases, external systems, and states.
    - Unlike generic web layout rules that suppress secondary colors or relegate accent/alert colors to rare appearances, Drawlib treats all 6 colors as active, functional design assets.
    - `secondary`, `accent`, `danger`, and `success` operate on equal standing without artificial percentage quotas. Use each color wherever its functional meaning naturally applies.
 3. **Muted for Calm Structural Grounding**:
-   - `Styles.muted` (`muted_dashed`, `muted_outline`, `muted_flat`) provides containers, grouping boundaries, and network subnets without competing for attention with functional nodes.
+   - `Styles.Muted` (`Styles.MutedDashed`, `Styles.MutedOutline`, `Styles.MutedFlat`) provides containers, grouping boundaries, and network subnets without competing for attention with functional nodes.
 
 ---
 
 ## 3. Semantic Roles & Visual Intent
 
 Drawlib presets organize styles into semantic roles with 10 orthogonal visual variants:
-- **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **6 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`, `danger`, `success`).
-- **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes danger/success.
+- **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **6 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Muted`, `Danger`, `Success`).
+- **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Muted`) — Grayscale excludes Danger/Success.
 
 ### Semantic Roles:
-- **`Styles.primary`**: Core application logic, microservices, main processing components.
-- **`Styles.secondary`**: Databases, caches, message queues, auxiliary services, background workers.
-- **`Styles.accent`**: Clients, external users, entry gateways, triggers, scheduled jobs.
-- **`Styles.muted`**: Structural boundaries (VPCs, Kubernetes namespaces, clusters, subnets).
-- **`Styles.danger`** *(Color presets only)*: Errors, failure paths, alert thresholds, security risks.
-- **`Styles.success`** *(Color presets only)*: Successful outcomes, healthy status, verified states.
+- **`Styles.Primary`**: Core application logic, microservices, main processing components.
+- **`Styles.Secondary`**: Databases, caches, message queues, auxiliary services, background workers.
+- **`Styles.Accent`**: Clients, external users, entry gateways, triggers, scheduled jobs.
+- **`Styles.Muted`**: Structural boundaries (VPCs, Kubernetes namespaces, clusters, subnets).
+- **`Styles.Danger`** *(Color presets only)*: Errors, failure paths, alert thresholds, security risks.
+- **`Styles.Success`** *(Color presets only)*: Successful outcomes, healthy status, verified states.
 
 ### When to Use Raw Palette Colors:
-- **`Styles.yellow` / `Styles.orange`**: Warnings, transient states, pending queues.
-- **Palette Colors (`Styles.blue`, `Styles.purple`, etc.)**: Multi-brand differentiation or distinct architectural layers.
+- **`Styles.Yellow` / `Styles.Orange`**: Warnings, transient states, pending queues.
+- **Palette Colors (`Styles.Blue`, `Styles.Purple`, etc.)**: Multi-brand differentiation or distinct architectural layers.
 
 > **Import Best Practice**: Always import `Styles` and `Colors` from `drawlib.styles` (`from drawlib.styles import Colors, Styles`) rather than importing from `drawlib.preset_styles`. **Always use uppercase PascalCase `Styles` and `Colors`** (never lowercase `styles` or `colors`). This allows project-wide theme switching and font configuration via `styles.py` (or `--styles custom_theme.py`) while preventing module shadowing.
 
@@ -91,24 +91,24 @@ from drawlib.styles import Styles
 setup(width=140, height=70)
 
 # 1. Structural Boundary / Subnet Container (Muted)
-rectangle((70, 35), width=124, height=52, style=Styles.muted_dashed)
+rectangle((70, 35), width=124, height=52, style=Styles.MutedDashed)
 
 # 2. External Client Entrypoint (Accent)
-rectangle((24, 35), width=24, height=18, style=Styles.accent_flat, text="Client App", textstyle=Styles.white_bold)
+rectangle((24, 35), width=24, height=18, style=Styles.AccentFlat, text="Client App", textstyle=Styles.WhiteBold)
 
 # 3. Core Processing Service (Primary Anchor)
-rectangle((60, 35), width=26, height=18, style=Styles.primary_flat, text="API Gateway", textstyle=Styles.white_bold)
+rectangle((60, 35), width=26, height=18, style=Styles.PrimaryFlat, text="API Gateway", textstyle=Styles.WhiteBold)
 
 # 4. Auxiliary Microservice (Secondary)
-rectangle((96, 45), width=24, height=14, style=Styles.secondary_flat, text="Auth Service", textstyle=Styles.white_bold)
+rectangle((96, 45), width=24, height=14, style=Styles.SecondaryFlat, text="Auth Service", textstyle=Styles.WhiteBold)
 
 # 5. Verified Data Sink (Success)
-rectangle((96, 25), width=24, height=14, style=Styles.success_flat, text="Audit Log", textstyle=Styles.white_bold)
+rectangle((96, 25), width=24, height=14, style=Styles.SuccessFlat, text="Audit Log", textstyle=Styles.WhiteBold)
 
 # 6. Connectors with semantic line styles
-line((36, 35), (47, 35), arrowhead="->", style=Styles.bold)
-line((73, 40), (84, 45), arrowhead="->", style=Styles.bold)
-line((73, 30), (84, 25), arrowhead="->", style=Styles.bold)
+line((36, 35), (47, 35), arrowhead="->", style=Styles.PrimaryBold)
+line((73, 40), (84, 45), arrowhead="->", style=Styles.PrimaryBold)
+line((73, 30), (84, 25), arrowhead="->", style=Styles.PrimaryBold)
 ```
 ````
 
@@ -135,12 +135,12 @@ Styles = Styles.patch_font(
 
 # 2. Patch specific styles or color tokens project-wide
 Styles = Styles.patch(
-    primary=Styles.primary.patch(
+    Primary=Styles.Primary.patch(
         shape_fill_color=Colors.Blue.patch(alpha=0.15),
         shape_line_color=Colors.Blue,
         shape_line_width=2.0,
     ),
-    bold=Styles.bold.patch(
+    PrimaryBold=Styles.PrimaryBold.patch(
         line_width=2.5,
     ),
 )
@@ -202,7 +202,7 @@ gap = (total_w - (margin_x * 2) - (box_w * n)) / (n - 1)
 
 for i in range(n):
     cx = margin_x + (box_w / 2) + i * (box_w + gap)
-    rectangle((cx, y), width=box_w, height=box_h, style=Styles.primary_flat, text=f"Node {i+1}", textstyle=Styles.white_bold)
+    rectangle((cx, y), width=box_w, height=box_h, style=Styles.PrimaryFlat, text=f"Node {i+1}", textstyle=Styles.WhiteBold)
 
 save()
 ```
@@ -238,20 +238,20 @@ gateway_xy = (65, 30)
 db_xy      = (105, 30)
 
 # 2. Render shapes using coordinate variables
-rectangle(client_xy,  width=box_w, height=box_h, style=Styles.accent_flat,  text="Client", textstyle=Styles.white_bold)
-rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.primary_flat, text="Gateway", textstyle=Styles.white_bold)
-rectangle(db_xy,      width=box_w, height=box_h, style=Styles.secondary_flat, text="Database", textstyle=Styles.white_bold)
+rectangle(client_xy,  width=box_w, height=box_h, style=Styles.AccentFlat,  text="Client", textstyle=Styles.WhiteBold)
+rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.PrimaryFlat, text="Gateway", textstyle=Styles.WhiteBold)
+rectangle(db_xy,      width=box_w, height=box_h, style=Styles.SecondaryFlat, text="Database", textstyle=Styles.WhiteBold)
 
 # 3. Connect nodes by referencing the same coordinates
-line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrowhead="->", style=Styles.bold)
-line((gateway_xy[0] + box_w/2, gateway_xy[1]), (db_xy[0] - box_w/2,      db_xy[1]),      arrowhead="->", style=Styles.bold)
+line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrowhead="->", style=Styles.PrimaryBold)
+line((gateway_xy[0] + box_w/2, gateway_xy[1]), (db_xy[0] - box_w/2,      db_xy[1]),      arrowhead="->", style=Styles.PrimaryBold)
 
 save()
 ```
 
 ### 5.7 Z-Order & Layering Pipeline
 Execute drawing calls in a disciplined "back-to-front" sequence to prevent lines intersecting node text or container fills masking child elements:
-1. **Layer 1: Structural Boundaries**: Background canvas fills, VPC/subnet boundary boxes (`Styles.muted_dashed`).
+1. **Layer 1: Structural Boundaries**: Background canvas fills, VPC/subnet boundary boxes (`Styles.MutedDashed`).
 2. **Layer 2: Connections & Lines**: Inter-service arrows and communication links (`lines`, `lines_curved`). Placing connectors before nodes prevents line strokes from cutting across shape borders or embedded text.
 3. **Layer 3: Node Containers**: Service cards, databases, client endpoints (`rectangle`, `circle`).
 4. **Layer 4: Foreground Details**: Protocol badges (`HTTPS: 443`), status icons, and floating callout text.
@@ -264,10 +264,10 @@ Establish a clear typographical scale:
 
 | Level | Size (`text_size`) | Recommended Style | Usage |
 | :--- | :--- | :--- | :--- |
-| **Diagram Title** | 18 – 22 | `Styles.bold.patch(text_size=20)` | Top of canvas diagram titles. |
-| **Section Header**| 14 – 16 | `Styles.bold` | Subsystem containers, VPC group headers. |
-| **Primary Node** | 11 – 13 | `Styles.bold` / `Styles.white_bold` | Service names, entity titles, actions. |
-| **Metadata / Note**| 8 – 10 | `Styles.light` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
+| **Diagram Title** | 18 – 22 | `Styles.PrimaryBold.patch(text_size=20)` | Top of canvas diagram titles. |
+| **Section Header**| 14 – 16 | `Styles.PrimaryBold` | Subsystem containers, VPC group headers. |
+| **Primary Node** | 11 – 13 | `Styles.PrimaryBold` / `Styles.WhiteBold` | Service names, entity titles, actions. |
+| **Metadata / Note**| 8 – 10 | `Styles.Light` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
 
 Drawlib automatically ensures optimal luminance contrast when text is embedded inside shapes. If using standalone `text()`, ensure dark text on light backgrounds and light text on dark containers.
 
@@ -282,7 +282,7 @@ Lines and arrows guide the viewer's eyes through the diagram:
    - `<->`: Bidirectional sync, continuous handshake, WebSocket connection.
    - `-`: Structural link, un-directed relationship, database association.
 2. **Consistent Line Weights**:
-   - Use `Styles.bold` (line_width ~2) or `Styles.primary` consistently.
+   - Use `Styles.PrimaryBold` (line_width ~2) or `Styles.Primary` consistently.
    - Reserve extra-thick lines strictly for highlighting critical paths or primary data flows.
 3. **Smooth Curved Bends**:
    - When using `line_curved`, maintain moderate curvature: `bend=0.2 ~ 0.3`.
@@ -295,15 +295,15 @@ Lines and arrows guide the viewer's eyes through the diagram:
    - **Bottom Port**: `(cx, cy - h/2)`
 5. **Orthogonal Waypoint Routing (`lines()` & `lines_curved()`)**:
    Avoid diagonal lines cutting across unrelated components (Line Spaghetti). Use multi-segment routing through intermediate waypoints:
-   - **`lines(xys=[...], arrowhead="->", style=Styles.bold)`**: Renders a clean $90^\circ$ Manhattan route in a single call, attaching the arrowhead strictly to the final segment:
+   - **`lines(xys=[...], arrowhead="->", style=Styles.PrimaryBold)`**: Renders a clean $90^\circ$ Manhattan route in a single call, attaching the arrowhead strictly to the final segment:
      ```python
      # L-shaped routing through an intermediate right-angle corner:
      src_port = (gateway_xy[0], gateway_xy[1] - box_h / 2)   # Bottom port
      dst_port = (db_xy[0] - box_w / 2, db_xy[1])             # Left port
      waypoint = (src_port[0], dst_port[1])                  # 90° corner waypoint
-     lines([src_port, waypoint, dst_port], arrowhead="->", style=Styles.bold)
+     lines([src_port, waypoint, dst_port], arrowhead="->", style=Styles.PrimaryBold)
      ```
-   - **`lines_curved(xys=[...], r=3.0, arrowhead="->", style=Styles.bold)`**: Smoothly fillets right-angle corners with radius `r`, producing professional cloud architecture network topologies.
+   - **`lines_curved(xys=[...], r=3.0, arrowhead="->", style=Styles.PrimaryBold)`**: Smoothly fillets right-angle corners with radius `r`, producing professional cloud architecture network topologies.
 
 ---
 

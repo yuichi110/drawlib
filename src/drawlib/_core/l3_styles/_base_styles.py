@@ -11,7 +11,6 @@
 
 from __future__ import annotations
 
-import re
 from typing import Any, Generator, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
@@ -38,37 +37,11 @@ def _resolve_target_font(
     Returns:
         FontBase | FontFile | None: Target font to apply.
     """
-    if field_name == "bold" or field_name.endswith("_bold"):
+    if field_name == "Bold" or field_name.endswith("Bold"):
         return bold if bold is not None else regular
-    if field_name.endswith("_light"):
+    if field_name.endswith("Light"):
         return light if light is not None else regular
     return regular
-
-
-def _pascal_to_snake(name: str) -> str:
-    """Convert PascalCase string to snake_case.
-
-    Args:
-        name (str): Identifier in PascalCase.
-
-    Returns:
-        str: Converted identifier in snake_case.
-    """
-    s = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1_\2", name)
-    s = re.sub(r"([a-z\d])([A-Z])", r"\1_\2", s)
-    return s.lower()
-
-
-def _snake_to_pascal(name: str) -> str:
-    """Convert snake_case string to PascalCase.
-
-    Args:
-        name (str): Identifier in snake_case.
-
-    Returns:
-        str: Converted identifier in PascalCase.
-    """
-    return "".join(word.capitalize() for word in name.split("_"))
 
 
 def _resolve_style_field_name(cls: type[BaseStyles], name: str, value: Any = None) -> str:  # noqa: ANN401
@@ -83,19 +56,13 @@ def _resolve_style_field_name(cls: type[BaseStyles], name: str, value: Any = Non
         str: Resolved field name matching cls.model_fields if found, else original name.
     """
     lower = name.lower()
-    if lower in {"bg_color", "background", "background_color"}:
+    if lower in {"bg_color", "background", "background_color", "backgroundcolor"}:
         return "background_color"
-    if lower == "colors":
-        return "colors"
+    if lower in {"width", "height", "dpi", "sourcecode_font", "colors"}:
+        return lower
     fields = getattr(cls, "model_fields", {})
     if name in fields:
         return name
-    snake_name = _pascal_to_snake(name)
-    if snake_name in fields:
-        return snake_name
-    for f in fields:
-        if f.lower() == lower:
-            return f
     return name
 
 
@@ -144,13 +111,8 @@ class _BaseStylesMeta(type(BaseModel)):
         if inst is not None:
             if name in cls.model_fields:
                 return getattr(inst, name)
-            snake_name = _pascal_to_snake(name)
-            if snake_name in cls.model_fields:
-                return getattr(inst, snake_name)
             if hasattr(inst, name):
                 return getattr(inst, name)
-            if snake_name != name and hasattr(inst, snake_name):
-                return getattr(inst, snake_name)
         raise AttributeError(f"type object '{cls.__name__}' has no attribute '{name}'")
 
     def __getitem__(cls, key: str) -> Style:
@@ -163,7 +125,6 @@ class _BaseStylesMeta(type(BaseModel)):
         attrs = set(super().__dir__())
         for field in cls.model_fields:
             attrs.add(field)
-            attrs.add(_snake_to_pascal(field))
         return sorted(attrs)
 
 
@@ -213,181 +174,131 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
             super().__init__(**normalized)
 
     # 4 Universal semantic roles available across all preset catalogs including monochrome (10 variants each)
-    primary: Style
-    primary_bordered: Style | None = None
-    primary_bold: Style | None = None
-    primary_light: Style | None = None
-    primary_flat: Style | None = None
-    primary_outline: Style | None = None
-    primary_outline_bold: Style | None = None
-    primary_outline_light: Style | None = None
-    primary_dashed: Style | None = None
-    primary_dashed_bold: Style | None = None
-    primary_dashed_light: Style | None = None
+    Primary: Style
+    PrimaryBordered: Style | None = None
+    PrimaryBold: Style | None = None
+    PrimaryLight: Style | None = None
+    PrimaryFlat: Style | None = None
+    PrimaryOutline: Style | None = None
+    PrimarySolid: Style | None = None
+    PrimaryOutlineBold: Style | None = None
+    PrimarySolidBold: Style | None = None
+    PrimaryOutlineLight: Style | None = None
+    PrimarySolidLight: Style | None = None
+    PrimaryDashed: Style | None = None
+    PrimaryDashedBold: Style | None = None
+    PrimaryDashedLight: Style | None = None
 
-    secondary: Style | None = None
-    secondary_bordered: Style | None = None
-    secondary_bold: Style | None = None
-    secondary_light: Style | None = None
-    secondary_flat: Style | None = None
-    secondary_outline: Style | None = None
-    secondary_outline_bold: Style | None = None
-    secondary_outline_light: Style | None = None
-    secondary_dashed: Style | None = None
-    secondary_dashed_bold: Style | None = None
-    secondary_dashed_light: Style | None = None
+    Secondary: Style | None = None
+    SecondaryBordered: Style | None = None
+    SecondaryBold: Style | None = None
+    SecondaryLight: Style | None = None
+    SecondaryFlat: Style | None = None
+    SecondaryOutline: Style | None = None
+    SecondarySolid: Style | None = None
+    SecondaryOutlineBold: Style | None = None
+    SecondarySolidBold: Style | None = None
+    SecondaryOutlineLight: Style | None = None
+    SecondarySolidLight: Style | None = None
+    SecondaryDashed: Style | None = None
+    SecondaryDashedBold: Style | None = None
+    SecondaryDashedLight: Style | None = None
 
-    accent: Style | None = None
-    accent_bordered: Style | None = None
-    accent_bold: Style | None = None
-    accent_light: Style | None = None
-    accent_flat: Style | None = None
-    accent_outline: Style | None = None
-    accent_outline_bold: Style | None = None
-    accent_outline_light: Style | None = None
-    accent_dashed: Style | None = None
-    accent_dashed_bold: Style | None = None
-    accent_dashed_light: Style | None = None
+    Accent: Style | None = None
+    AccentBordered: Style | None = None
+    AccentBold: Style | None = None
+    AccentLight: Style | None = None
+    AccentFlat: Style | None = None
+    AccentOutline: Style | None = None
+    AccentSolid: Style | None = None
+    AccentOutlineBold: Style | None = None
+    AccentSolidBold: Style | None = None
+    AccentOutlineLight: Style | None = None
+    AccentSolidLight: Style | None = None
+    AccentDashed: Style | None = None
+    AccentDashedBold: Style | None = None
+    AccentDashedLight: Style | None = None
 
-    muted: Style | None = None
-    muted_bordered: Style | None = None
-    muted_bold: Style | None = None
-    muted_light: Style | None = None
-    muted_flat: Style | None = None
-    muted_outline: Style | None = None
-    muted_outline_bold: Style | None = None
-    muted_outline_light: Style | None = None
-    muted_dashed: Style | None = None
-    muted_dashed_bold: Style | None = None
-    muted_dashed_light: Style | None = None
+    Muted: Style | None = None
+    MutedBordered: Style | None = None
+    MutedBold: Style | None = None
+    MutedLight: Style | None = None
+    MutedFlat: Style | None = None
+    MutedOutline: Style | None = None
+    MutedSolid: Style | None = None
+    MutedOutlineBold: Style | None = None
+    MutedSolidBold: Style | None = None
+    MutedOutlineLight: Style | None = None
+    MutedSolidLight: Style | None = None
+    MutedDashed: Style | None = None
+    MutedDashedBold: Style | None = None
+    MutedDashedLight: Style | None = None
 
     # Extended semantic roles (10 variants each):
     # - danger & success: Provided for color presets (giving 6 action/status roles total; excluded in monochrome)
     # - light & dark: Surface backgrounds and high-contrast typography
-    light: Style | None = None
-    light_bordered: Style | None = None
-    light_bold: Style | None = None
-    light_light: Style | None = None
-    light_flat: Style | None = None
-    light_outline: Style | None = None
-    light_outline_bold: Style | None = None
-    light_outline_light: Style | None = None
-    light_dashed: Style | None = None
-    light_dashed_bold: Style | None = None
-    light_dashed_light: Style | None = None
+    Light: Style | None = None
+    LightBordered: Style | None = None
+    LightBold: Style | None = None
+    LightLight: Style | None = None
+    LightFlat: Style | None = None
+    LightOutline: Style | None = None
+    LightSolid: Style | None = None
+    LightOutlineBold: Style | None = None
+    LightSolidBold: Style | None = None
+    LightOutlineLight: Style | None = None
+    LightSolidLight: Style | None = None
+    LightDashed: Style | None = None
+    LightDashedBold: Style | None = None
+    LightDashedLight: Style | None = None
 
-    dark: Style | None = None
-    dark_bordered: Style | None = None
-    dark_bold: Style | None = None
-    dark_light: Style | None = None
-    dark_flat: Style | None = None
-    dark_outline: Style | None = None
-    dark_outline_bold: Style | None = None
-    dark_outline_light: Style | None = None
-    dark_dashed: Style | None = None
-    dark_dashed_bold: Style | None = None
-    dark_dashed_light: Style | None = None
+    Dark: Style | None = None
+    DarkBordered: Style | None = None
+    DarkBold: Style | None = None
+    DarkLight: Style | None = None
+    DarkFlat: Style | None = None
+    DarkOutline: Style | None = None
+    DarkSolid: Style | None = None
+    DarkOutlineBold: Style | None = None
+    DarkSolidBold: Style | None = None
+    DarkOutlineLight: Style | None = None
+    DarkSolidLight: Style | None = None
+    DarkDashed: Style | None = None
+    DarkDashedBold: Style | None = None
+    DarkDashedLight: Style | None = None
 
-    danger: Style | None = None
-    danger_bordered: Style | None = None
-    danger_bold: Style | None = None
-    danger_light: Style | None = None
-    danger_flat: Style | None = None
-    danger_outline: Style | None = None
-    danger_outline_bold: Style | None = None
-    danger_outline_light: Style | None = None
-    danger_dashed: Style | None = None
-    danger_dashed_bold: Style | None = None
-    danger_dashed_light: Style | None = None
+    Danger: Style | None = None
+    DangerBordered: Style | None = None
+    DangerBold: Style | None = None
+    DangerLight: Style | None = None
+    DangerFlat: Style | None = None
+    DangerOutline: Style | None = None
+    DangerSolid: Style | None = None
+    DangerOutlineBold: Style | None = None
+    DangerSolidBold: Style | None = None
+    DangerOutlineLight: Style | None = None
+    DangerSolidLight: Style | None = None
+    DangerDashed: Style | None = None
+    DangerDashedBold: Style | None = None
+    DangerDashedLight: Style | None = None
 
-    success: Style | None = None
-    success_bordered: Style | None = None
-    success_bold: Style | None = None
-    success_light: Style | None = None
-    success_flat: Style | None = None
-    success_outline: Style | None = None
-    success_outline_bold: Style | None = None
-    success_outline_light: Style | None = None
-    success_dashed: Style | None = None
-    success_dashed_bold: Style | None = None
-    success_dashed_light: Style | None = None
+    Success: Style | None = None
+    SuccessBordered: Style | None = None
+    SuccessBold: Style | None = None
+    SuccessLight: Style | None = None
+    SuccessFlat: Style | None = None
+    SuccessOutline: Style | None = None
+    SuccessSolid: Style | None = None
+    SuccessOutlineBold: Style | None = None
+    SuccessSolidBold: Style | None = None
+    SuccessOutlineLight: Style | None = None
+    SuccessSolidLight: Style | None = None
+    SuccessDashed: Style | None = None
+    SuccessDashedBold: Style | None = None
+    SuccessDashedLight: Style | None = None
 
-    canvas: Style | None = None
-    canvas_flat: Style | None = None
-
-    @property
-    def bold(self) -> Style:
-        """Backwards compatibility alias for primary_bold."""
-        if self.primary_bold is not None:
-            return self.primary_bold
-        if self.__pydantic_extra__ and "bold" in self.__pydantic_extra__:
-            val = self.__pydantic_extra__["bold"]
-            if isinstance(val, Style):
-                return val
-        return self.primary
-
-    @property
-    def flat(self) -> Style:
-        """Backwards compatibility alias for primary_flat."""
-        if self.primary_flat is not None:
-            return self.primary_flat
-        if self.__pydantic_extra__ and "flat" in self.__pydantic_extra__:
-            val = self.__pydantic_extra__["flat"]
-            if isinstance(val, Style):
-                return val
-        return self.primary
-
-    @property
-    def solid(self) -> Style:
-        """Backwards compatibility alias for primary_outline."""
-        if self.primary_outline is not None:
-            return self.primary_outline
-        if self.__pydantic_extra__ and "solid" in self.__pydantic_extra__:
-            val = self.__pydantic_extra__["solid"]
-            if isinstance(val, Style):
-                return val
-        return self.primary
-
-    @property
-    def dashed(self) -> Style:
-        """Backwards compatibility alias for primary_dashed."""
-        if self.primary_dashed is not None:
-            return self.primary_dashed
-        if self.__pydantic_extra__ and "dashed" in self.__pydantic_extra__:
-            val = self.__pydantic_extra__["dashed"]
-            if isinstance(val, Style):
-                return val
-        return self.primary
-
-    @property
-    def primary_solid(self) -> Style:
-        """Backwards compatibility alias for primary_outline."""
-        return self.solid
-
-    @property
-    def secondary_solid(self) -> Style | None:
-        """Backwards compatibility alias for secondary_outline."""
-        return self.secondary_outline
-
-    @property
-    def accent_solid(self) -> Style | None:
-        """Backwards compatibility alias for accent_outline."""
-        return self.accent_outline
-
-    @property
-    def muted_solid(self) -> Style | None:
-        """Backwards compatibility alias for muted_outline."""
-        return self.muted_outline
-
-    @property
-    def danger_solid(self) -> Style | None:
-        """Backwards compatibility alias for danger_outline."""
-        return self.danger_outline
-
-    @property
-    def success_solid(self) -> Style | None:
-        """Backwards compatibility alias for success_outline."""
-        return self.success_outline
+    Canvas: Style | None = None
+    CanvasFlat: Style | None = None
 
     def __iter__(self) -> Generator[tuple[str, Any], None, None]:
         """Yield (field_name, field_value) pairs for all fields in the preset style model.
@@ -420,38 +331,24 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
                 val = getattr(self, key)
                 if val is not None:
                     return val
-            snake_key = _pascal_to_snake(key)
-            if hasattr(self, snake_key):
-                val = getattr(self, snake_key)
-                if val is not None:
-                    return val
         except AttributeError:
             pass
         raise KeyError(f'Style "{key}" is not found in {self.__class__.__name__}.')
 
     def __getattr__(self, name: str) -> Any:  # noqa: ANN401
-        """Allow fallback resolution for PascalCase style names and extra fields on instances."""
+        """Allow fallback resolution for extra fields on instances."""
         if name.startswith("__"):
             raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
         extra = getattr(self, "__pydantic_extra__", None)
         if extra is not None and name in extra:
             return extra[name]
-        snake_name = _pascal_to_snake(name)
-        if snake_name != name:
-            if hasattr(self.__class__, snake_name):
-                return getattr(self, snake_name)
-            if snake_name in self.__class__.model_fields:
-                return getattr(self, snake_name)
-            if extra is not None and snake_name in extra:
-                return extra[snake_name]
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
 
     def __dir__(self) -> list[str]:
-        """Include both snake_case and PascalCase style attribute names."""
+        """Include style attribute names."""
         attrs = set(super().__dir__())
         for field in self.__class__.model_fields:
             attrs.add(field)
-            attrs.add(_snake_to_pascal(field))
         return sorted(attrs)
 
     def get(self, key: str, default: Any = None) -> Any:  # noqa: ANN401
@@ -515,8 +412,8 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
             regular (FontBase | FontFile | None): Default baseline font applied to all styles.
                 If provided without explicit bold/light overrides, it is also applied as fallback
                 for bold and light variants.
-            bold (FontBase | FontFile | None): Font override for bold style variants ('bold', '*_bold').
-            light (FontBase | FontFile | None): Font override for light style variants ('light', '*_light').
+            bold (FontBase | FontFile | None): Font override for bold style variants ('Bold', '*Bold').
+            light (FontBase | FontFile | None): Font override for light style variants ('Light', '*Light').
             sourcecode (FontSourceCode | None): Monospace source code font override.
 
         Returns:

@@ -17,7 +17,7 @@ When tasked with generating technical illustrations, AI agents typically struggl
 1. **High-Level Declarative Abstractions**:  
    Instead of drawing raw boxes and wires, an agent simply writes `ArchitectureDiagram`, `ERDiagram`, or `FlowDiagram`. The library handles orthogonal routing, padding, and marker styling automatically.
 2. **Built-in Visual Harmony**:  
-   Predefined semantic styles (`Styles.primary_flat`, `Styles.accent_flat`) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.
+   Predefined semantic styles (`Styles.PrimaryFlat`, `Styles.AccentFlat`) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.
 3. **On-Demand Rule Injection**:  
    Drawlib includes a complete built-in manual that agents can query via the CLI at runtime (`drawlib rules show <topic>`), eliminating context-window bloat and outdated training data.
 

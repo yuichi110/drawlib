@@ -143,9 +143,9 @@ from drawlib.shapes import rectangle
 
 setup(width=100, height=50)
 
-rectangle((25, 25), width=30, height=20, style=Styles.primary_flat, text="Client", textstyle=Styles.white_bold)
-rectangle((75, 25), width=30, height=20, style=Styles.secondary_flat, text="Server", textstyle=Styles.white_bold)
-line((40, 25), (60, 25), arrowhead="->", style=Styles.bold)
+rectangle((25, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Client", textstyle=Styles.WhiteBold)
+rectangle((75, 25), width=30, height=20, style=Styles.SecondaryFlat, text="Server", textstyle=Styles.WhiteBold)
+line((40, 25), (60, 25), arrowhead="->", style=Styles.PrimaryBold)
 ```
 ````
 

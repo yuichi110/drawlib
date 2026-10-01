@@ -172,7 +172,7 @@ Embedded shape text rotates alongside the shape by default, maintaining its rela
 
 ### 1.6 The Unified Styling System (`Style`)
 
-Shape styling is driven by Drawlib's core `Style` model directly imported from `drawlib.styles.Styles` (e.g., `Styles.primary`, `Styles.secondary_flat`, `Styles.accent_bold`) or custom `Style` instances.
+Shape styling is driven by Drawlib's core `Style` model directly imported from `drawlib.styles.Styles` (e.g., `Styles.Primary`, `Styles.SecondaryFlat`, `Styles.AccentBold`) or custom `Style` instances.
 
 ```python
 from drawlib.preset_colors import CssColors
@@ -297,21 +297,21 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Solid status node with embedded label
-circle((30, 25), radius=14, style=Styles.green_flat, text="OK", textstyle=Styles.white_bold.patch(text_size=14))
+circle((30, 25), radius=14, style=Styles.GreenFlat, text="OK", textstyle=Styles.WhiteBold.patch(text_size=14))
 
 # 2. Semi-transparent dashed boundary zone with rotated label
 circle(
     (70, 25),
     radius=18,
     angle=35,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.DeepSkyBlue,
         shape_fill_alpha=0.3,
         shape_line_style="dashed",
         shape_line_width=2,
     ),
     text="Zone B",
-    textstyle=Styles.primary.patch(text_color=CssColors.Navy, text_size=12),
+    textstyle=Styles.Primary.patch(text_color=CssColors.Navy, text_size=12),
 )
 save()
 ```
@@ -366,18 +366,18 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Thin status indicator ring
-donuts((30, 22), radius=15, width=4, style=Styles.muted_flat, text="Base")
+donuts((30, 22), radius=15, width=4, style=Styles.MutedFlat, text="Base")
 
 # 2. KPI ring badge with custom fill and styled percentage label
 donuts(
     (70, 22),
     radius=17,
     width=6,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.Purple, shape_line_color=CssColors.Indigo, shape_line_width=2
     ),
     text="78%",
-    textstyle=Styles.white_bold.patch(text_size=14, text_color=CssColors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=14, text_color=CssColors.White),
 )
 save()
 ```
@@ -432,7 +432,7 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Database schema entity
-ellipse((30, 22), width=36, height=20, style=Styles.yellow_flat, text="users_tbl")
+ellipse((30, 22), width=36, height=20, style=Styles.YellowFlat, text="users_tbl")
 
 # 2. Rotated processing stage node with dashed boundary
 ellipse(
@@ -440,14 +440,14 @@ ellipse(
     width=38,
     height=18,
     angle=335,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.AliceBlue,
         shape_line_color=CssColors.SteelBlue,
         shape_line_style="dashed",
         shape_line_width=2,
     ),
     text="In-Flight Job",
-    textstyle=Styles.primary.patch(text_size=11, text_color=CssColors.Navy),
+    textstyle=Styles.Primary.patch(text_size=11, text_color=CssColors.Navy),
 )
 save()
 ```
@@ -506,7 +506,7 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Quarter gauge ring slice with thickness
-wedge((30, 22), radius=18, angle_start=0, angle_end=90, width=5, style=Styles.blue_flat, text="Q1")
+wedge((30, 22), radius=18, angle_start=0, angle_end=90, width=5, style=Styles.BlueFlat, text="Q1")
 
 # 2. Rotated multi-segment slice with border stroke
 wedge(
@@ -516,11 +516,11 @@ wedge(
     angle_end=225,
     width=6,
     angle=15,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.Orange, shape_line_color=CssColors.DarkRed, shape_line_width=1.5
     ),
     text="60%",
-    textstyle=Styles.white_bold.patch(text_size=11, text_color=CssColors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=11, text_color=CssColors.White),
 )
 save()
 ```
@@ -582,7 +582,7 @@ fan(
     radius=25,
     angle_start=30,
     angle_end=150,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightGreen,
         shape_fill_alpha=0.4,
         shape_line_color=CssColors.ForestGreen,
@@ -592,7 +592,7 @@ fan(
 )
 
 # 2. Semi-circle gauge backdrop
-fan((75, 15), radius=22, angle_start=0, angle_end=180, style=Styles.blue_flat, text="Upper Range")
+fan((75, 15), radius=22, angle_start=0, angle_end=180, style=Styles.BlueFlat, text="Upper Range")
 save()
 ```
 
@@ -655,7 +655,7 @@ arc(
     height=20,
     angle_start=30,
     angle_end=150,
-    style=Styles.bold.patch(line_color=CssColors.Navy, line_width=3),
+    style=Styles.PrimaryBold.patch(line_color=CssColors.Navy, line_width=3),
 )
 
 # 2. Dashed orbit path with centered status label
@@ -666,9 +666,9 @@ arc(
     angle_start=315,
     angle_end=225,
     angle=15,
-    style=Styles.bold.patch(line_color=CssColors.Crimson, line_width=2, line_style="dashed"),
+    style=Styles.PrimaryBold.patch(line_color=CssColors.Crimson, line_width=2, line_style="dashed"),
     text="Orbit A",
-    textstyle=Styles.primary.patch(text_size=10, text_color=CssColors.Crimson),
+    textstyle=Styles.Primary.patch(text_size=10, text_color=CssColors.Crimson),
 )
 save()
 ```
@@ -740,7 +740,7 @@ from drawlib.styles import Styles
 setup(width=100, height=50)
 
 # 1. API gateway block with sharp corners
-rectangle((28, 25), width=35, height=20, style=Styles.blue_flat, text="API Gateway", textstyle=Styles.white_bold.patch(text_size=11))
+rectangle((28, 25), width=35, height=20, style=Styles.BlueFlat, text="API Gateway", textstyle=Styles.WhiteBold.patch(text_size=11))
 
 # 2. Rounded worker card with dashed border
 rectangle(
@@ -748,14 +748,14 @@ rectangle(
     width=35,
     height=20,
     r=4,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.GhostWhite,
         shape_line_color=CssColors.SlateGray,
         shape_line_width=2,
         shape_line_style="dashed",
     ),
     text="Worker Node",
-    textstyle=Styles.primary.patch(text_color=CssColors.MidnightBlue, text_size=11),
+    textstyle=Styles.Primary.patch(text_color=CssColors.MidnightBlue, text_size=11),
 )
 save()
 ```
@@ -811,7 +811,7 @@ from drawlib.styles import Styles
 setup(width=100, height=50)
 
 # 1. Flowchart I/O block
-parallelogram((28, 25), width=35, height=20, corner_angle=70, style=Styles.blue_flat, text="Read Input")
+parallelogram((28, 25), width=35, height=20, corner_angle=70, style=Styles.BlueFlat, text="Read Input")
 
 # 2. Rotated event stream block
 parallelogram(
@@ -820,11 +820,11 @@ parallelogram(
     height=20,
     corner_angle=65,
     angle=15,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightYellow, shape_line_color=CssColors.GoldenRod, shape_line_width=2
     ),
     text="Kafka Stream",
-    textstyle=Styles.primary.patch(text_size=10, text_color=CssColors.SaddleBrown),
+    textstyle=Styles.Primary.patch(text_size=10, text_color=CssColors.SaddleBrown),
 )
 save()
 ```
@@ -882,9 +882,9 @@ rhombus(
     (28, 25),
     width=32,
     height=24,
-    style=Styles.yellow_flat,
+    style=Styles.YellowFlat,
     text="Is Valid?",
-    textstyle=Styles.bold.patch(text_size=10),
+    textstyle=Styles.PrimaryBold.patch(text_size=10),
 )
 
 # 2. Rotated status checkpoint
@@ -893,11 +893,11 @@ rhombus(
     width=32,
     height=24,
     angle=20,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.MistyRose, shape_line_color=CssColors.Crimson, shape_line_width=2
     ),
     text="Audit",
-    textstyle=Styles.primary.patch(text_size=11, text_color=CssColors.DarkRed),
+    textstyle=Styles.Primary.patch(text_size=11, text_color=CssColors.DarkRed),
 )
 save()
 ```
@@ -961,9 +961,9 @@ trapezoid(
     height=20,
     bottomedge_width=36,
     topedge_width=22,
-    style=Styles.green_flat,
+    style=Styles.GreenFlat,
     text="MaxPool2D",
-    textstyle=Styles.white_bold.patch(text_size=10),
+    textstyle=Styles.WhiteBold.patch(text_size=10),
 )
 
 # 2. Right-angled projection layer
@@ -973,11 +973,11 @@ trapezoid(
     bottomedge_width=36,
     topedge_width=18,
     topedge_x=0,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.Lavender, shape_line_color=CssColors.Indigo, shape_line_width=2
     ),
     text="Proj",
-    textstyle=Styles.primary.patch(text_size=10, text_color=CssColors.Indigo),
+    textstyle=Styles.Primary.patch(text_size=10, text_color=CssColors.Indigo),
 )
 save()
 ```
@@ -1038,15 +1038,15 @@ triangle(
     (28, 25),
     width=30,
     height=26,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.Gold, shape_line_color=CssColors.DarkGoldenRod, shape_line_width=2
     ),
     text="!",
-    textstyle=Styles.primary.patch(text_size=16, text_color=CssColors.Black, text_xy_shift=(0, -3)),
+    textstyle=Styles.Primary.patch(text_size=16, text_color=CssColors.Black, text_xy_shift=(0, -3)),
 )
 
 # 2. Right-angle ramp element
-triangle((72, 25), width=32, height=26, topvertex_x=0, style=Styles.blue_flat, text="Ramp")
+triangle((72, 25), width=32, height=26, topvertex_x=0, style=Styles.BlueFlat, text="Ramp")
 save()
 ```
 
@@ -1099,7 +1099,7 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Hexagon (Kubernetes Pod / Microservice)
-regularpolygon((30, 22), num_vertex=6, radius=18, style=Styles.blue_flat, text="Pod A")
+regularpolygon((30, 22), num_vertex=6, radius=18, style=Styles.BlueFlat, text="Pod A")
 
 # 2. Octagon (Security Firewall Boundary)
 regularpolygon(
@@ -1107,11 +1107,11 @@ regularpolygon(
     num_vertex=8,
     radius=18,
     angle=22.5,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.Tomato, shape_line_color=CssColors.DarkRed, shape_line_width=2
     ),
     text="WAF",
-    textstyle=Styles.white_bold.patch(text_size=12, text_color=CssColors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=12, text_color=CssColors.White),
 )
 save()
 ```
@@ -1161,7 +1161,7 @@ from drawlib.styles import Styles
 # 1. Irregular network partition boundary
 polygon(
     [(10, 15), (25, 35), (45, 30), (40, 10), (20, 8)],
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.AliceBlue, shape_line_color=CssColors.SteelBlue, shape_line_width=2
     ),
     text="VLAN 1",
@@ -1170,7 +1170,7 @@ polygon(
 # 2. Custom 5-point chevron-like boundary
 polygon(
     [(55, 10), (75, 10), (85, 22), (75, 34), (55, 34), (65, 22)],
-    style=Styles.green_flat,
+    style=Styles.GreenFlat,
     text="Route B",
 )
 save()
@@ -1227,7 +1227,7 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. 5-pointed award / milestone badge
-star((30, 22), num_vertex=5, radius_ext=18, radius_int=8, style=Styles.yellow_flat, text="Star")
+star((30, 22), num_vertex=5, radius_ext=18, radius_int=8, style=Styles.YellowFlat, text="Star")
 
 # 2. 8-pointed spark / security alert icon
 star(
@@ -1236,11 +1236,11 @@ star(
     radius_ext=18,
     radius_int=10,
     angle=22.5,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightCoral, shape_line_color=CssColors.FireBrick, shape_line_width=2
     ),
     text="ALERT",
-    textstyle=Styles.primary.patch(text_size=9, text_color=CssColors.DarkRed),
+    textstyle=Styles.Primary.patch(text_size=9, text_color=CssColors.DarkRed),
 )
 save()
 ```
@@ -1312,9 +1312,9 @@ shape(
         (30, 8),
         (15, 0),
     ],
-    style=Styles.blue_flat,
+    style=Styles.BlueFlat,
     text="Shield",
-    textstyle=Styles.white_bold.patch(text_size=10, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=10, text_color=Colors.White),
 )
 
 # 2. Smooth symmetric wave tab (Cubic Bezier)
@@ -1326,7 +1326,7 @@ shape(
         ((10, 25), (20, 5), (30, 15)),      # Cubic wave
         (30, 0),
     ],
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.Lavender, shape_line_color=CssColors.Purple, shape_line_width=1.5
     ),
 )
@@ -1408,7 +1408,7 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Straight transaction flow arrow with shaft text
-arrow((10, 25), (45, 25), tail_width=3, head_width=8, head_length=6, style=Styles.blue_flat, text="POST /order")
+arrow((10, 25), (45, 25), tail_width=3, head_width=8, head_length=6, style=Styles.BlueFlat, text="POST /order")
 
 # 2. Angled response arrow with custom styling
 arrow(
@@ -1417,11 +1417,11 @@ arrow(
     tail_width=2.5,
     head_width=7,
     head_length=5,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightGreen, shape_line_color=CssColors.ForestGreen, shape_line_width=1.5
     ),
     text="200 OK",
-    textstyle=Styles.primary.patch(text_size=9, text_color=CssColors.DarkGreen),
+    textstyle=Styles.Primary.patch(text_size=9, text_color=CssColors.DarkGreen),
 )
 save()
 ```
@@ -1477,7 +1477,7 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Orthogonal L-routing pipe
-arrow_l((25, 25), width=30, height=25, tail_width=3, head_width=8, head_length=6, style=Styles.blue_flat)
+arrow_l((25, 25), width=30, height=25, tail_width=3, head_width=8, head_length=6, style=Styles.BlueFlat)
 
 # 2. Rounded elbow L-arrow with custom border
 arrow_l(
@@ -1488,7 +1488,7 @@ arrow_l(
     head_width=10,
     head_length=7,
     r=5,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.MistyRose, shape_line_color=CssColors.Crimson, shape_line_width=2
     ),
 )
@@ -1546,7 +1546,7 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Feedback loop return arrow
-arrow_u((25, 25), width=25, height=30, tail_width=3, head_width=8, head_length=6, style=Styles.green_flat)
+arrow_u((25, 25), width=25, height=30, tail_width=3, head_width=8, head_length=6, style=Styles.GreenFlat)
 
 # 2. Rotated turnaround retry arrow
 arrow_u(
@@ -1558,7 +1558,7 @@ arrow_u(
     head_length=7,
     r=4,
     angle=90,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.Lavender, shape_line_color=CssColors.Purple, shape_line_width=1.5
     ),
 )
@@ -1618,7 +1618,7 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Circular process cycle arrow (90 to 0 degrees)
-arrow_arc((30, 25), width=30, height=30, angle_start=90, angle_end=0, tail_width=3, head_width=8, style=Styles.blue_flat)
+arrow_arc((30, 25), width=30, height=30, angle_start=90, angle_end=0, tail_width=3, head_width=8, style=Styles.BlueFlat)
 
 # 2. Semi-circular feedback return arrow
 arrow_arc(
@@ -1629,7 +1629,7 @@ arrow_arc(
     angle_end=0,
     tail_width=3,
     head_width=8,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.Gold, shape_line_color=CssColors.DarkGoldenRod, shape_line_width=1.5
     ),
 )
@@ -1687,7 +1687,7 @@ arrow_polyline(
     head_width=8,
     head_length=6,
     r=3,
-    style=Styles.blue_flat,
+    style=Styles.BlueFlat,
 )
 
 # 2. Multi-segment bypass route
@@ -1697,7 +1697,7 @@ arrow_polyline(
     head_width=7,
     head_length=5,
     r=2,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightGreen, shape_line_color=CssColors.ForestGreen, shape_line_width=1.5
     ),
 )
@@ -1753,10 +1753,10 @@ from drawlib.styles import Styles
 setup(width=100, height=50)
 
 # 1. CI/CD pipeline stage 1
-chevron((35, 25), width=30, height=22, corner_angle=60, style=Styles.blue_flat, text="Build")
+chevron((35, 25), width=30, height=22, corner_angle=60, style=Styles.BlueFlat, text="Build")
 
 # 2. Consecutive interlocking pipeline stage 2
-chevron((68, 25), width=30, height=22, corner_angle=60, style=Styles.green_flat, text="Test")
+chevron((68, 25), width=30, height=22, corner_angle=60, style=Styles.GreenFlat, text="Test")
 save()
 ```
 
@@ -1783,27 +1783,27 @@ rectangle(
     width=140,
     height=80,
     r=4,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.GhostWhite,
         shape_line_color=CssColors.RoyalBlue,
         shape_line_width=2,
         shape_line_style="dashed",
     ),
     text="VPC (10.0.0.0/16)",
-    textstyle=Styles.primary.patch(text_size=12, text_color=CssColors.RoyalBlue, text_xy_shift=(-45, 34)),
+    textstyle=Styles.Primary.patch(text_size=12, text_color=CssColors.RoyalBlue, text_xy_shift=(-45, 34)),
 )
 
 # 2. Internet Gateway
 circle(
     (20, 45),
     radius=7,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.MediumPurple,
         shape_line_color=CssColors.Indigo,
         shape_line_width=1.5,
     ),
     text="IGW",
-    textstyle=Styles.white_bold.patch(text_size=10, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=10, text_color=Colors.White),
 )
 
 # 3. Public Web Subnet
@@ -1812,31 +1812,31 @@ rectangle(
     width=48,
     height=32,
     r=3,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.HoneyDew,
         shape_line_color=CssColors.ForestGreen,
         shape_line_width=1.5,
     ),
     text="Public Subnet (DMZ)",
-    textstyle=Styles.primary.patch(text_size=10, text_color=CssColors.ForestGreen, text_xy_shift=(-6, 12)),
+    textstyle=Styles.Primary.patch(text_size=10, text_color=CssColors.ForestGreen, text_xy_shift=(-6, 12)),
 )
 rectangle(
     (48, 60),
     width=18,
     height=14,
     r=2,
-    style=Styles.blue_flat,
+    style=Styles.BlueFlat,
     text="ALB",
-    textstyle=Styles.white_bold.patch(text_size=10, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=10, text_color=Colors.White),
 )
 rectangle(
     (72, 60),
     width=18,
     height=14,
     r=2,
-    style=Styles.blue_flat,
+    style=Styles.BlueFlat,
     text="Nginx",
-    textstyle=Styles.white_bold.patch(text_size=10, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=10, text_color=Colors.White),
 )
 
 # 4. Private App Subnet
@@ -1845,31 +1845,31 @@ rectangle(
     width=48,
     height=32,
     r=3,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.AliceBlue,
         shape_line_color=CssColors.SteelBlue,
         shape_line_width=1.5,
     ),
     text="Private App Subnet",
-    textstyle=Styles.primary.patch(text_size=10, text_color=CssColors.SteelBlue, text_xy_shift=(-8, 12)),
+    textstyle=Styles.Primary.patch(text_size=10, text_color=CssColors.SteelBlue, text_xy_shift=(-8, 12)),
 )
 rectangle(
     (48, 24),
     width=18,
     height=14,
     r=2,
-    style=Styles.green_flat,
+    style=Styles.GreenFlat,
     text="Auth\nSvc",
-    textstyle=Styles.white_bold.patch(text_size=9, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=9, text_color=Colors.White),
 )
 rectangle(
     (72, 24),
     width=18,
     height=14,
     r=2,
-    style=Styles.green_flat,
+    style=Styles.GreenFlat,
     text="Order\nSvc",
-    textstyle=Styles.white_bold.patch(text_size=9, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=9, text_color=Colors.White),
 )
 
 # 5. Database Tier
@@ -1878,44 +1878,44 @@ rectangle(
     width=45,
     height=60,
     r=3,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.MistyRose,
         shape_line_color=CssColors.IndianRed,
         shape_line_width=1.5,
     ),
     text="Database Tier (Multi-AZ)",
-    textstyle=Styles.primary.patch(text_size=10, text_color=CssColors.DarkRed, text_xy_shift=(0, 25)),
+    textstyle=Styles.Primary.patch(text_size=10, text_color=CssColors.DarkRed, text_xy_shift=(0, 25)),
 )
 ellipse(
     (118, 58),
     width=30,
     height=14,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightGoldenRodYellow,
         shape_line_color=CssColors.GoldenRod,
         shape_line_width=2,
     ),
     text="Postgres Primary",
-    textstyle=Styles.primary.patch(text_size=9, text_color=Colors.Black),
+    textstyle=Styles.Primary.patch(text_size=9, text_color=Colors.Black),
 )
 ellipse(
     (118, 32),
     width=30,
     height=14,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.WhiteSmoke,
         shape_line_color=CssColors.DimGray,
         shape_line_width=1.5,
     ),
     text="Read Replica",
-    textstyle=Styles.primary.patch(text_size=9, text_color=Colors.Black),
+    textstyle=Styles.Primary.patch(text_size=9, text_color=Colors.Black),
 )
 
 # 6. Connecting Arrows
-arrow((27, 45), (39, 58), tail_width=2, head_width=5, head_length=4, style=Styles.muted_flat)
-arrow((57, 60), (63, 60), tail_width=2, head_width=5, head_length=4, style=Styles.muted_flat)
-arrow((72, 53), (72, 31), tail_width=2, head_width=5, head_length=4, style=Styles.muted_flat)
-arrow((81, 24), (102, 58), tail_width=2, head_width=5, head_length=4, style=Styles.muted_flat)
+arrow((27, 45), (39, 58), tail_width=2, head_width=5, head_length=4, style=Styles.MutedFlat)
+arrow((57, 60), (63, 60), tail_width=2, head_width=5, head_length=4, style=Styles.MutedFlat)
+arrow((72, 53), (72, 31), tail_width=2, head_width=5, head_length=4, style=Styles.MutedFlat)
+arrow((81, 24), (102, 58), tail_width=2, head_width=5, head_length=4, style=Styles.MutedFlat)
 
 save()
 ```
@@ -1941,9 +1941,9 @@ rectangle(
     width=24,
     height=20,
     r=3,
-    style=Styles.blue_flat,
+    style=Styles.BlueFlat,
     text="Order\nProducer",
-    textstyle=Styles.white_bold.patch(text_size=11, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=11, text_color=Colors.White),
 )
 
 # Event Bus / Kafka Stream Topic (Parallelogram)
@@ -1952,11 +1952,11 @@ parallelogram(
     width=40,
     height=28,
     corner_angle=70,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightSteelBlue, shape_line_color=CssColors.SteelBlue, shape_line_width=2
     ),
     text="orders.events\n(Kafka Topic)",
-    textstyle=Styles.primary.patch(text_size=11, text_color=CssColors.MidnightBlue),
+    textstyle=Styles.Primary.patch(text_size=11, text_color=CssColors.MidnightBlue),
 )
 
 # Consumer Group
@@ -1965,18 +1965,18 @@ rectangle(
     width=32,
     height=18,
     r=3,
-    style=Styles.green_flat,
+    style=Styles.GreenFlat,
     text="Payment Worker",
-    textstyle=Styles.white_bold.patch(text_size=10, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=10, text_color=Colors.White),
 )
 rectangle(
     (115, 20),
     width=32,
     height=18,
     r=3,
-    style=Styles.green_flat,
+    style=Styles.GreenFlat,
     text="Inventory Worker",
-    textstyle=Styles.white_bold.patch(text_size=10, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=10, text_color=Colors.White),
 )
 
 # Dead Letter Queue (Donuts)
@@ -1984,24 +1984,24 @@ donuts(
     (64, 9),
     radius=6,
     width=2,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.IndianRed, shape_line_color=CssColors.DarkRed, shape_line_width=1.5
     ),
     text="DLQ",
-    textstyle=Styles.primary.patch(text_size=8, text_color=CssColors.DarkRed),
+    textstyle=Styles.Primary.patch(text_size=8, text_color=CssColors.DarkRed),
 )
 
 # Event Flow Arrows
-arrow((32, 32.5), (44, 32.5), tail_width=3, head_width=7, head_length=5, style=Styles.blue_flat)
-arrow((84, 38), (99, 45), tail_width=2.5, head_width=6, head_length=4, style=Styles.green_flat)
-arrow((84, 27), (99, 20), tail_width=2.5, head_width=6, head_length=4, style=Styles.green_flat)
+arrow((32, 32.5), (44, 32.5), tail_width=3, head_width=7, head_length=5, style=Styles.BlueFlat)
+arrow((84, 38), (99, 45), tail_width=2.5, head_width=6, head_length=4, style=Styles.GreenFlat)
+arrow((84, 27), (99, 20), tail_width=2.5, head_width=6, head_length=4, style=Styles.GreenFlat)
 arrow(
     (99, 15),
     (71, 9),
     tail_width=2,
     head_width=5,
     head_length=4,
-    style=Styles.red_dashed,
+    style=Styles.RedDashed,
 )
 
 save()
@@ -2027,11 +2027,11 @@ rectangle(
     (16, 25),
     width=18,
     height=22,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightGray, shape_line_color=CssColors.DimGray, shape_line_width=1.5
     ),
     text="Input\n3x224x224",
-    textstyle=Styles.primary.patch(text_size=8, text_color=Colors.Black),
+    textstyle=Styles.Primary.patch(text_size=8, text_color=Colors.Black),
 )
 
 # Conv2D Layer
@@ -2040,9 +2040,9 @@ rectangle(
     width=20,
     height=28,
     r=2,
-    style=Styles.blue_flat,
+    style=Styles.BlueFlat,
     text="Conv2D\n64 filters",
-    textstyle=Styles.white_bold.patch(text_size=9, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=9, text_color=Colors.White),
 )
 
 # Batch Norm & ReLU
@@ -2051,9 +2051,9 @@ rectangle(
     width=18,
     height=22,
     r=2,
-    style=Styles.green_flat,
+    style=Styles.GreenFlat,
     text="BN +\nReLU",
-    textstyle=Styles.white_bold.patch(text_size=9, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=9, text_color=Colors.White),
 )
 
 # Conv2D Layer 2
@@ -2062,22 +2062,22 @@ rectangle(
     width=20,
     height=28,
     r=2,
-    style=Styles.blue_flat,
+    style=Styles.BlueFlat,
     text="Conv2D\n64 filters",
-    textstyle=Styles.white_bold.patch(text_size=9, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=9, text_color=Colors.White),
 )
 
 # Residual Elementwise Add Node
 circle(
     (114, 25),
     radius=4.5,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightGoldenRodYellow,
         shape_line_color=CssColors.GoldenRod,
         shape_line_width=1.5,
     ),
     text="+",
-    textstyle=Styles.primary.patch(text_size=12, text_color=Colors.Black),
+    textstyle=Styles.Primary.patch(text_size=12, text_color=Colors.Black),
 )
 
 # Max Pooling (Trapezoid)
@@ -2086,17 +2086,17 @@ trapezoid(
     height=20,
     bottomedge_width=22,
     topedge_width=14,
-    style=Styles.red_flat,
+    style=Styles.RedFlat,
     text="Pool\n/2",
-    textstyle=Styles.white_bold.patch(text_size=8, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=8, text_color=Colors.White),
 )
 
 # Forward Feed Connections
-arrow((25, 25), (32, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
-arrow((52, 25), (59, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
-arrow((77, 25), (82, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
-arrow((102, 25), (109.5, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
-arrow((118.5, 25), (123, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
+arrow((25, 25), (32, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
+arrow((52, 25), (59, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
+arrow((77, 25), (82, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
+arrow((102, 25), (109.5, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
+arrow((118.5, 25), (123, 25), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
 
 # ResNet Residual Skip Connection (arrow_polyline)
 arrow_polyline(
@@ -2105,7 +2105,7 @@ arrow_polyline(
     head_width=4,
     head_length=3,
     r=3,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.DarkOrange, shape_line_color=CssColors.DarkOrange
     ),
 )
@@ -2129,7 +2129,7 @@ from drawlib.types import Style
 setup(width=150, height=60)
 
 # Initial State
-circle((15, 30), radius=5, style=Styles.primary.patch(shape_fill_color=Colors.Black, shape_line_width=0))
+circle((15, 30), radius=5, style=Styles.Primary.patch(shape_fill_color=Colors.Black, shape_line_width=0))
 
 # State 1: Draft
 rectangle(
@@ -2137,13 +2137,13 @@ rectangle(
     width=26,
     height=20,
     r=5,
-    style=Styles.blue_flat,
+    style=Styles.BlueFlat,
     text="DRAFT",
-    textstyle=Styles.white_bold.patch(text_size=10, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=10, text_color=Colors.White),
 )
 
 # Choice Decision Pseudostate (Rhombus)
-rhombus((70, 30), width=18, height=18, style=Styles.yellow_flat)
+rhombus((70, 30), width=18, height=18, style=Styles.YellowFlat)
 
 # State 2: Published
 rectangle(
@@ -2151,9 +2151,9 @@ rectangle(
     width=26,
     height=18,
     r=5,
-    style=Styles.green_flat,
+    style=Styles.GreenFlat,
     text="PUBLISHED",
-    textstyle=Styles.white_bold.patch(text_size=9, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=9, text_color=Colors.White),
 )
 
 # State 3: Rejected
@@ -2162,9 +2162,9 @@ rectangle(
     width=26,
     height=18,
     r=5,
-    style=Styles.red_flat,
+    style=Styles.RedFlat,
     text="REJECTED",
-    textstyle=Styles.white_bold.patch(text_size=9, text_color=Colors.White),
+    textstyle=Styles.WhiteBold.patch(text_size=9, text_color=Colors.White),
 )
 
 # Terminal State (Bullseye / Donut with inner circle)
@@ -2172,13 +2172,13 @@ donuts(
     (136, 30),
     radius=6,
     width=1.5,
-    style=Styles.primary.patch(shape_fill_color=Colors.Black, shape_line_width=0),
+    style=Styles.Primary.patch(shape_fill_color=Colors.Black, shape_line_width=0),
 )
-circle((136, 30), radius=3.5, style=Styles.primary.patch(shape_fill_color=Colors.Black, shape_line_width=0))
+circle((136, 30), radius=3.5, style=Styles.Primary.patch(shape_fill_color=Colors.Black, shape_line_width=0))
 
 # Transitions
-arrow((20, 30), (27, 30), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
-arrow((53, 30), (61, 30), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
+arrow((20, 30), (27, 30), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
+arrow((53, 30), (61, 30), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
 arrow(
     (78, 35),
     (91, 43),
@@ -2186,8 +2186,8 @@ arrow(
     head_width=4,
     head_length=3,
     text="Valid",
-    textstyle=Styles.bold.patch(text_size=8),
-    style=Styles.green_flat,
+    textstyle=Styles.PrimaryBold.patch(text_size=8),
+    style=Styles.GreenFlat,
 )
 arrow(
     (78, 25),
@@ -2196,11 +2196,11 @@ arrow(
     head_width=4,
     head_length=3,
     text="Invalid",
-    textstyle=Styles.bold.patch(text_size=8),
-    style=Styles.red_flat,
+    textstyle=Styles.PrimaryBold.patch(text_size=8),
+    style=Styles.RedFlat,
 )
-arrow((117, 43), (130, 33), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
-arrow((117, 17), (130, 27), tail_width=1.5, head_width=4, head_length=3, style=Styles.muted_flat)
+arrow((117, 43), (130, 33), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
+arrow((117, 17), (130, 27), tail_width=1.5, head_width=4, head_length=3, style=Styles.MutedFlat)
 
 save()
 ```
@@ -2226,7 +2226,7 @@ rectangle(
     width=130,
     height=65,
     r=4,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.WhiteSmoke, shape_line_color=CssColors.LightGray, shape_line_width=1.5
     ),
 )
@@ -2237,11 +2237,11 @@ rectangle(
     width=36,
     height=50,
     r=3,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=Colors.White, shape_line_color=CssColors.Gainsboro, shape_line_width=1
     ),
     text="CPU LOAD\n\n42%",
-    textstyle=Styles.primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
+    textstyle=Styles.Primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
 )
 arc(
     (28, 48),
@@ -2249,7 +2249,7 @@ arc(
     height=20,
     angle_start=0,
     angle_end=220,
-    style=Styles.bold.patch(line_color=CssColors.DodgerBlue, line_width=3),
+    style=Styles.PrimaryBold.patch(line_color=CssColors.DodgerBlue, line_width=3),
 )
 
 # KPI Card 2: Memory Usage
@@ -2258,11 +2258,11 @@ rectangle(
     width=36,
     height=50,
     r=3,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=Colors.White, shape_line_color=CssColors.Gainsboro, line_width=1
     ),
     text="MEMORY\n\n78%",
-    textstyle=Styles.primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
+    textstyle=Styles.Primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
 )
 arc(
     (70, 48),
@@ -2270,7 +2270,7 @@ arc(
     height=20,
     angle_start=0,
     angle_end=280,
-    style=Styles.bold.patch(line_color=CssColors.MediumSeaGreen, line_width=3),
+    style=Styles.PrimaryBold.patch(line_color=CssColors.MediumSeaGreen, line_width=3),
 )
 
 # KPI Card 3: Network Status
@@ -2279,16 +2279,16 @@ rectangle(
     width=36,
     height=50,
     r=3,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=Colors.White, shape_line_color=CssColors.Gainsboro, line_width=1
     ),
     text="NETWORK\n\nActive",
-    textstyle=Styles.primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
+    textstyle=Styles.Primary.patch(text_size=12, text_color=CssColors.DarkSlateGray, text_xy_shift=(0, -8)),
 )
 circle(
     (112, 48),
     radius=6,
-    style=Styles.primary.patch(
+    style=Styles.Primary.patch(
         shape_fill_color=CssColors.PaleGreen, shape_line_color=CssColors.ForestGreen, shape_line_width=2
     ),
 )

@@ -21,17 +21,17 @@ from drawlib.text import text
 setup(width=120, height=48)
 
 templates = [
-    (18, phosphor.browsers, "Site Template", "Multi-page docs\nnavbar.md sidebar\nHTML + GitHub MD", Styles.primary_flat),
-    (46, phosphor.file_text, "Simple Template", "Single RFC / Spec\ndoc.md -> doc.html\nStandalone memo", Styles.secondary_flat),
-    (74, phosphor.book, "PDF Template", "Multi-chapter book\n00-cover, 01-intro\nAuto-index page", Styles.accent_flat),
-    (102, phosphor.image, "Image Template", "Python scripts only\nimages_src/*.py\nBatch PNG export", Styles.success_flat),
+    (18, phosphor.browsers, "Site Template", "Multi-page docs\nnavbar.md sidebar\nHTML + GitHub MD", Styles.PrimaryFlat),
+    (46, phosphor.file_text, "Simple Template", "Single RFC / Spec\ndoc.md -> doc.html\nStandalone memo", Styles.SecondaryFlat),
+    (74, phosphor.book, "PDF Template", "Multi-chapter book\n00-cover, 01-intro\nAuto-index page", Styles.AccentFlat),
+    (102, phosphor.image, "Image Template", "Python scripts only\nimages_src/*.py\nBatch PNG export", Styles.SuccessFlat),
 ]
 
 for x, icon_fn, title, desc, st in templates:
-    rectangle(xy=(x, 24), width=24, height=36, r=2.5, style=Styles.muted_dashed)
+    rectangle(xy=(x, 24), width=24, height=36, r=2.5, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=7, style=st)
-    text(xy=(x, 25), text=title, style=Styles.bold, size=8.5)
-    text(xy=(x, 14), text=desc, style=Styles.primary, size=7.5)
+    text(xy=(x, 25), text=title, style=Styles.PrimaryBold, size=8.5)
+    text(xy=(x, 14), text=desc, style=Styles.Primary, size=7.5)
 ```
 
 ## Standard Project Directory Architecture

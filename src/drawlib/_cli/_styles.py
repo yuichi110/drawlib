@@ -80,49 +80,44 @@ _PRESET_MAP: dict[str, tuple[BaseStyles, str]] = {
 }
 
 _COL_HEADERS = [
-    "bordered",
-    "bold",
-    "light",
-    "flat",
-    "outline",
-    "outline_bold",
-    "outline_light",
-    "dashed",
-    "dashed_bold",
-    "dashed_light",
+    "Bordered",
+    "Bold",
+    "Light",
+    "Flat",
+    "Outline",
+    "OutlineBold",
+    "OutlineLight",
+    "Dashed",
+    "DashedBold",
+    "DashedLight",
 ]
 _VARIANTS = [
-    "bordered",
-    "bold",
-    "light",
-    "flat",
-    "outline",
-    "solid",
-    "outline_bold",
-    "solid_bold",
-    "outline_light",
-    "solid_light",
-    "dashed",
-    "dashed_bold",
-    "dashed_light",
+    "Bordered",
+    "Bold",
+    "Light",
+    "Flat",
+    "Outline",
+    "Solid",
+    "OutlineBold",
+    "SolidBold",
+    "OutlineLight",
+    "SolidLight",
+    "Dashed",
+    "DashedBold",
+    "DashedLight",
 ]
-_SEMANTIC_ROLES = ["primary", "secondary", "accent", "muted", "danger", "success"]
+_SEMANTIC_ROLES = ["Primary", "Secondary", "Accent", "Muted", "Danger", "Success", "Light", "Dark"]
 _SYSTEM_FIELDS = {
+    "width",
+    "height",
+    "dpi",
+    "colors",
     "background_color",
     "sourcecode_font",
+    "Canvas",
+    "CanvasFlat",
     *_SEMANTIC_ROLES,
-    *(f"{role}_{v}" for role in _SEMANTIC_ROLES for v in _VARIANTS),
-    "light",
-    "bold",
-    "flat",
-    "solid",
-    "dashed",
-    "primary_solid",
-    "secondary_solid",
-    "accent_solid",
-    "muted_solid",
-    "danger_solid",
-    "success_solid",
+    *(f"{role}{v}" for role in _SEMANTIC_ROLES for v in _VARIANTS),
 }
 
 
@@ -136,22 +131,22 @@ def _get_row_keys(styles: BaseStyles, base: str) -> list[str | None]:
             return False
 
     return [
-        base if _has_key(base) else (f"{base}_bordered" if _has_key(f"{base}_bordered") else None),
-        f"{base}_bold" if _has_key(f"{base}_bold") else None,
-        f"{base}_light" if _has_key(f"{base}_light") else None,
-        f"{base}_flat" if _has_key(f"{base}_flat") else None,
-        f"{base}_outline"
-        if _has_key(f"{base}_outline")
-        else (f"{base}_solid" if _has_key(f"{base}_solid") else None),
-        f"{base}_outline_bold"
-        if _has_key(f"{base}_outline_bold")
-        else (f"{base}_solid_bold" if _has_key(f"{base}_solid_bold") else None),
-        f"{base}_outline_light"
-        if _has_key(f"{base}_outline_light")
-        else (f"{base}_solid_light" if _has_key(f"{base}_solid_light") else None),
-        f"{base}_dashed" if _has_key(f"{base}_dashed") else None,
-        f"{base}_dashed_bold" if _has_key(f"{base}_dashed_bold") else None,
-        f"{base}_dashed_light" if _has_key(f"{base}_dashed_light") else None,
+        base if _has_key(base) else (f"{base}Bordered" if _has_key(f"{base}Bordered") else None),
+        f"{base}Bold" if _has_key(f"{base}Bold") else None,
+        f"{base}Light" if _has_key(f"{base}Light") else None,
+        f"{base}Flat" if _has_key(f"{base}Flat") else None,
+        f"{base}Outline"
+        if _has_key(f"{base}Outline")
+        else (f"{base}Solid" if _has_key(f"{base}Solid") else None),
+        f"{base}OutlineBold"
+        if _has_key(f"{base}OutlineBold")
+        else (f"{base}SolidBold" if _has_key(f"{base}SolidBold") else None),
+        f"{base}OutlineLight"
+        if _has_key(f"{base}OutlineLight")
+        else (f"{base}SolidLight" if _has_key(f"{base}SolidLight") else None),
+        f"{base}Dashed" if _has_key(f"{base}Dashed") else None,
+        f"{base}DashedBold" if _has_key(f"{base}DashedBold") else None,
+        f"{base}DashedLight" if _has_key(f"{base}DashedLight") else None,
     ]
 
 
@@ -191,10 +186,10 @@ def _extract_base_colors(styles: BaseStyles, filter_color: str | None = None) ->
             continue
         base = field_name
         for v in sorted_variants:
-            if field_name.endswith(f"_{v}"):
-                base = field_name[: -len(f"_{v}")]
+            if field_name.endswith(v):
+                base = field_name[: -len(v)]
                 break
-        if base not in base_colors:
+        if base and base not in base_colors:
             base_colors.append(base)
 
     if filter_color is not None:
@@ -254,7 +249,7 @@ def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> Non
         style=Style(text_size=8.5, text_font=Font.SANSSERIF_BOLD, text_color=Color(80, 80, 80)),
     )
 
-    st_sample = styles.primary
+    st_sample = styles.Primary
     fill_c = Color(st_sample.shape_fill_color or (255, 255, 255))
     lum = (fill_c.r * 299 + fill_c.g * 587 + fill_c.b * 114) / 1000
     legend_text_color = Color(0, 0, 0) if lum > 140 else Color(255, 255, 255)
@@ -348,7 +343,7 @@ def _draw_swatch(
         )
         return
 
-    if "outline" in key or "dashed" in key or "solid" in key:
+    if "outline" in key.lower() or "dashed" in key.lower() or "solid" in key.lower():
         line_c = Color(st.line_color or (50, 50, 50))
         l_lum = (line_c.r * 299 + line_c.g * 587 + line_c.b * 114) / 1000
         text_c = line_c if l_lum < 160 else Color(40, 40, 40)
@@ -390,8 +385,8 @@ def _get_semantic_rows(styles: BaseStyles, filter_color: str | None) -> list[tup
             has_role = False
         if not has_role:
             continue
-        label = f"{role} (theme)" if role == "primary" else role
-        if filter_color is None or any(s in filter_color.lower() for s in (role, "theme", "semantic")):
+        label = f"{role} (theme)" if role == "Primary" else role
+        if filter_color is None or any(s in filter_color.lower() for s in (role.lower(), "theme", "semantic")):
             rows.append((label, _get_row_keys(styles, role)))
     return rows
 

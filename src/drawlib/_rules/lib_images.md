@@ -84,7 +84,7 @@ from drawlib.canvas import setup
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 setup(width=50, height=50)
-circle((25, 25), radius=20, style=Styles.primary_flat, text="Pod")
+circle((25, 25), radius=20, style=Styles.PrimaryFlat, text="Pod")
 """
 sub_image = get_dimage_from_code(sub_code)
 
@@ -114,34 +114,34 @@ from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 setup(width=40, height=40)
-circle((20, 20), radius=16, style=Styles.accent_flat, text="UI")
+circle((20, 20), radius=16, style=Styles.AccentFlat, text="UI")
 """
 api_code = """
 from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 setup(width=40, height=40)
-circle((20, 20), radius=16, style=Styles.primary_flat, text="API")
+circle((20, 20), radius=16, style=Styles.PrimaryFlat, text="API")
 """
 
 img_frontend = get_dimage_from_code(frontend_code)
 img_api = get_dimage_from_code(api_code)
 
 # Service container cards
-rectangle((35, 30), width=36, height=36, r=3, style=Styles.muted_dashed)
-rectangle((105, 30), width=36, height=36, r=3, style=Styles.muted_dashed)
+rectangle((35, 30), width=36, height=36, r=3, style=Styles.MutedDashed)
+rectangle((105, 30), width=36, height=36, r=3, style=Styles.MutedDashed)
 
 # Embed sub-diagram images
 image((35, 30), width=22, image=img_frontend)
 image((105, 30), width=22, image=img_api)
 
 # Card titles
-text((35, 52), "Client Application", style=Styles.bold)
-text((105, 52), "Microservice API", style=Styles.bold)
+text((35, 52), "Client Application", style=Styles.PrimaryBold)
+text((105, 52), "Microservice API", style=Styles.PrimaryBold)
 
 # Connecting arrow with payload label
-line((53, 30), (87, 30), arrowhead="->", style=Styles.bold)
-text((70, 35), "JSON / HTTPS", style=Styles.primary)
+line((53, 30), (87, 30), arrowhead="->", style=Styles.PrimaryBold)
+text((70, 35), "JSON / HTTPS", style=Styles.Primary)
 save()
 ```
 
@@ -162,17 +162,17 @@ from drawlib.canvas import setup
 from drawlib.shapes import star
 from drawlib.styles import Styles
 setup(width=30, height=30)
-star((15, 15), num_vertex=5, radius_ext=12, radius_int=6, style=Styles.primary_flat)
+star((15, 15), num_vertex=5, radius_ext=12, radius_int=6, style=Styles.PrimaryFlat)
 """
 badge_img = get_dimage_from_code(badge_code)
 
 # Solid border backdrop
-rectangle((50, 25), width=80, height=36, r=4, style=Styles.muted_dashed)
+rectangle((50, 25), width=80, height=36, r=4, style=Styles.MutedDashed)
 
 # Place image with alpha transparency
-image_style = Styles.primary.patch(image_alpha=0.6)
+image_style = Styles.Primary.patch(image_alpha=0.6)
 image((50, 25), width=20, image=badge_img, style=image_style)
-text((50, 12), "Watermarked Badge", style=Styles.bold)
+text((50, 12), "Watermarked Badge", style=Styles.PrimaryBold)
 save()
 ```
 

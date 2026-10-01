@@ -15,11 +15,11 @@ from drawlib.styles import Styles
 setup(width=100, height=45)
 
 # Standard shapes drawn with primitive functions
-rectangle((25, 22.5), width=28, height=18, style=Styles.primary_flat, text="Client App", textstyle=Styles.white_bold)
-rectangle((75, 22.5), width=28, height=18, style=Styles.accent_flat, text="Backend API", textstyle=Styles.white_bold)
+rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="Client App", textstyle=Styles.WhiteBold)
+rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Backend API", textstyle=Styles.WhiteBold)
 
 # Connecting line with arrow
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.bold)
+line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 ```
 
 ## 2. Advanced Overview (Utilities & Assets)
@@ -36,8 +36,8 @@ setup(width=110, height=52)
 
 # Service nodes drawn using reusable helper from utils.py
 service_card((20, 24), title="Web Client", subtitle="Browser / App")
-service_card((55, 24), title="Linux Server", subtitle="Ubuntu / Nginx", style=Styles.accent_flat)
-service_card((90, 24), title="Database", subtitle="PostgreSQL", style=Styles.secondary_flat)
+service_card((55, 24), title="Linux Server", subtitle="Ubuntu / Nginx", style=Styles.AccentFlat)
+service_card((90, 24), title="Database", subtitle="PostgreSQL", style=Styles.SecondaryFlat)
 
 # Connections with protocol labels
 connect((32, 24), (43, 24), label="HTTPS")

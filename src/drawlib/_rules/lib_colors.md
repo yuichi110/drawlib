@@ -152,12 +152,12 @@ from drawlib.styles import Colors, Styles
 setup(width=140, height=60)
 
 # Define custom semantic styles
-cloud_style = Styles.primary.patch(
+cloud_style = Styles.Primary.patch(
     shape_fill_color=Colors.Blue.patch(alpha=0.15),
     shape_line_color=Colors.Blue,
     shape_line_width=2,
 )
-db_style = Styles.primary.patch(
+db_style = Styles.Primary.patch(
     shape_fill_color=Colors.Orange.patch(alpha=0.2),
     shape_line_color=Colors.Orange,
     shape_line_width=2,
@@ -170,15 +170,15 @@ rectangle(
     height=50,
     style=cloud_style,
     text="Kubernetes Cluster",
-    textstyle=Styles.primary.patch(text_valign="top", text_color=Colors.Blue),
+    textstyle=Styles.Primary.patch(text_valign="top", text_color=Colors.Blue),
 )
 
 # Service nodes
-rectangle((40, 26), width=32, height=18, style=Styles.blue_flat, text="Web Service", textstyle=Styles.white_bold)
-rectangle((100, 26), width=32, height=18, style=db_style, text="Database", textstyle=Styles.white_bold)
+rectangle((40, 26), width=32, height=18, style=Styles.BlueFlat, text="Web Service", textstyle=Styles.WhiteBold)
+rectangle((100, 26), width=32, height=18, style=db_style, text="Database", textstyle=Styles.WhiteBold)
 
 # Data connection
-line((56, 26), (84, 26), arrowhead="->", style=Styles.bold)
+line((56, 26), (84, 26), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 
@@ -193,15 +193,15 @@ from drawlib.styles import Styles
 
 setup(width=120, height=50)
 
-box_style = Styles.primary.patch(
+box_style = Styles.Primary.patch(
     shape_fill_color=MonochromeColors.Gray3,
     shape_line_color=MonochromeColors.Black,
     shape_line_width=2,
 )
 
-rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=Styles.bold)
-rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=Styles.bold)
-line((45, 25), (75, 25), arrowhead="->", style=Styles.bold)
+rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=Styles.PrimaryBold)
+rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=Styles.PrimaryBold)
+line((45, 25), (75, 25), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
 

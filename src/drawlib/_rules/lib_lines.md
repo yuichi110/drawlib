@@ -61,7 +61,7 @@ def line(
 | :--- | :--- | :--- | :--- |
 | `xy1` | `tuple[float, float]` | *Required* | Starting coordinate `(x1, y1)` in virtual canvas units. |
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `(x2, y2)` in virtual canvas units. |
-| `style` | `Style` | *Required* | Active `Style` object (e.g. `Styles.bold`, `Styles.primary`). Keyword-only argument. |
+| `style` | `Style` | *Required* | Active `Style` object (e.g. `Styles.PrimaryBold`, `Styles.Primary`). Keyword-only argument. |
 | `width` | `float \| None` | `None` | Stroke width override in points. If omitted, uses `style.line_width` (default: `1.0`). |
 | `arrowhead` | `str` | `""` | Terminal arrowhead style: `""` (none), `"->"` (forward), `"<-"` (reverse), `"<->"` (both). |
 
@@ -102,25 +102,25 @@ from drawlib.types import Style
 setup(width=120, height=60)
 
 # 1. Tier boundary lines
-tier_style = Styles.bold.patch(line_color=Colors.Gray5, line_style="dashed", line_width=1.0)
+tier_style = Styles.PrimaryBold.patch(line_color=Colors.Gray5, line_style="dashed", line_width=1.0)
 line((10, 40), (110, 40), style=tier_style)
 line((10, 20), (110, 20), style=tier_style)
 
 # Tier labels
-text((12, 42), "Presentation Tier", style=Styles.primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
-text((12, 22), "Application Tier", style=Styles.primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
-text((12, 2), "Persistence Tier", style=Styles.primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
+text((12, 42), "Presentation Tier", style=Styles.Primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
+text((12, 22), "Application Tier", style=Styles.Primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
+text((12, 2), "Persistence Tier", style=Styles.Primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
 
 # 2. Service nodes
-rectangle((30, 48), width=24, height=10, style=Styles.blue_flat, text="Web Client", textstyle=Styles.white_bold)
-rectangle((30, 28), width=24, height=10, style=Styles.green_flat, text="API Gateway", textstyle=Styles.white_bold)
-rectangle((75, 28), width=24, height=10, style=Styles.green_flat, text="Order Service", textstyle=Styles.white_bold)
-rectangle((75, 8), width=24, height=10, style=Styles.purple_flat, text="Postgres DB", textstyle=Styles.white_bold)
+rectangle((30, 48), width=24, height=10, style=Styles.BlueFlat, text="Web Client", textstyle=Styles.WhiteBold)
+rectangle((30, 28), width=24, height=10, style=Styles.GreenFlat, text="API Gateway", textstyle=Styles.WhiteBold)
+rectangle((75, 28), width=24, height=10, style=Styles.GreenFlat, text="Order Service", textstyle=Styles.WhiteBold)
+rectangle((75, 8), width=24, height=10, style=Styles.PurpleFlat, text="Postgres DB", textstyle=Styles.WhiteBold)
 
 # 3. Direct straight connections
-line((30, 43), (30, 33), arrowhead="->", style=Styles.bold)
-line((42, 28), (63, 28), arrowhead="->", style=Styles.bold)
-line((75, 23), (75, 13), arrowhead="->", style=Styles.bold)
+line((30, 43), (30, 33), arrowhead="->", style=Styles.PrimaryBold)
+line((42, 28), (63, 28), arrowhead="->", style=Styles.PrimaryBold)
+line((75, 23), (75, 13), arrowhead="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -176,8 +176,8 @@ Internally, Drawlib configures Matplotlib's `matplotlib.patches.ConnectionStyle.
 
 ### 3.3. Bidirectional Request-Response Separation
 When two architectural services exchange synchronous requests and responses, straight lines overlap and create visual confusion. `line_curved()` solves this cleanly:
-- **Forward Request (`A -> B`)**: `line_curved(pos_a, pos_b, bend=0.25, arrowhead="->", style=Styles.bold)`
-- **Return Response (`B -> A`)**: `line_curved(pos_b, pos_a, bend=0.25, arrowhead="->", style=Styles.bold)`
+- **Forward Request (`A -> B`)**: `line_curved(pos_a, pos_b, bend=0.25, arrowhead="->", style=Styles.PrimaryBold)`
+- **Return Response (`B -> A`)**: `line_curved(pos_b, pos_a, bend=0.25, arrowhead="->", style=Styles.PrimaryBold)`
 Because the travel direction is reversed in the second call, both lines bow outward in opposite directions, creating a clean symmetrical ellipse with space for labels in between.
 
 ### 3.4. Code Example: Microservice Request-Response Cycle & Bypass Path
@@ -192,17 +192,17 @@ from drawlib.types import Style
 setup(width=120, height=60)
 
 # Nodes
-circle((25, 30), radius=10, style=Styles.blue_flat, text="Service A", textstyle=Styles.white_bold)
-rectangle((60, 30), width=18, height=14, style=Styles.muted_flat, text="Proxy", textstyle=Styles.bold.patch(text_color=Colors.Black))
-circle((95, 30), radius=10, style=Styles.green_flat, text="Service B", textstyle=Styles.white_bold)
+circle((25, 30), radius=10, style=Styles.BlueFlat, text="Service A", textstyle=Styles.WhiteBold)
+rectangle((60, 30), width=18, height=14, style=Styles.MutedFlat, text="Proxy", textstyle=Styles.PrimaryBold.patch(text_color=Colors.Black))
+circle((95, 30), radius=10, style=Styles.GreenFlat, text="Service B", textstyle=Styles.WhiteBold)
 
 # 1. Forward request (A -> B, curving above the Proxy)
-line_curved((35, 33), (85, 33), bend=0.35, arrowhead="->", style=Styles.blue_bold)
-text((60, 48), "HTTPS POST (Direct Bypass)", style=Styles.primary.patch(text_size=9, text_color=Colors.Blue))
+line_curved((35, 33), (85, 33), bend=0.35, arrowhead="->", style=Styles.BlueBold)
+text((60, 48), "HTTPS POST (Direct Bypass)", style=Styles.Primary.patch(text_size=9, text_color=Colors.Blue))
 
 # 2. Reverse asynchronous callback (B -> A, curving below the Proxy)
-line_curved((85, 27), (35, 27), bend=0.35, arrowhead="->", style=Styles.green_dashed)
-text((60, 12), "gRPC Stream Event (Ack)", style=Styles.primary.patch(text_size=9, text_color=Colors.Green))
+line_curved((85, 27), (35, 27), bend=0.35, arrowhead="->", style=Styles.GreenDashed)
+text((60, 12), "gRPC Stream Event (Ack)", style=Styles.Primary.patch(text_size=9, text_color=Colors.Green))
 
 save()
 ```
@@ -231,7 +231,7 @@ def line_bezier1(
 
 > [!IMPORTANT]
 > **Positional Argument Ordering**: The positional signature is `(xy1, xy2, cp)`. If arguments are passed positionally without names, the control point is the **third** argument. To prevent accidental bugs, always use explicit keyword arguments:
-> `line_bezier1(xy1=(...), cp=(...), xy2=(...), style=Styles.bold)`
+> `line_bezier1(xy1=(...), cp=(...), xy2=(...), style=Styles.PrimaryBold)`
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -283,7 +283,7 @@ def line_bezier2(
 ```
 
 > [!IMPORTANT]
-> **Positional Argument Ordering**: The positional signature is `(xy1, xy2, cp1, cp2)`. Use keyword arguments `line_bezier2(xy1=..., cp1=..., cp2=..., xy2=..., style=Styles.bold)` to maintain clear parameter identification.
+> **Positional Argument Ordering**: The positional signature is `(xy1, xy2, cp1, cp2)`. Use keyword arguments `line_bezier2(xy1=..., cp1=..., cp2=..., xy2=..., style=Styles.PrimaryBold)` to maintain clear parameter identification.
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -324,10 +324,10 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # Pipeline stages
-rectangle((15, 45), width=20, height=12, style=Styles.blue_flat, text="Ingest", textstyle=Styles.white_bold)
-rectangle((60, 45), width=20, height=12, style=Styles.blue_flat, text="Filter A", textstyle=Styles.white_bold)
-rectangle((60, 15), width=20, height=12, style=Styles.purple_flat, text="Filter B", textstyle=Styles.white_bold)
-rectangle((105, 30), width=20, height=12, style=Styles.green_flat, text="Sink", textstyle=Styles.white_bold)
+rectangle((15, 45), width=20, height=12, style=Styles.BlueFlat, text="Ingest", textstyle=Styles.WhiteBold)
+rectangle((60, 45), width=20, height=12, style=Styles.BlueFlat, text="Filter A", textstyle=Styles.WhiteBold)
+rectangle((60, 15), width=20, height=12, style=Styles.PurpleFlat, text="Filter B", textstyle=Styles.WhiteBold)
+rectangle((105, 30), width=20, height=12, style=Styles.GreenFlat, text="Sink", textstyle=Styles.WhiteBold)
 
 # 1. Quadratic curve: branch down to Filter B
 line_bezier1(
@@ -335,7 +335,7 @@ line_bezier1(
     cp=(45, 15),
     xy2=(50, 15),
     arrowhead="->",
-    style=Styles.purple_bold,
+    style=Styles.PurpleBold,
 )
 
 # 2. Cubic S-curve: converge Filter B into Sink with horizontal tangents
@@ -348,7 +348,7 @@ line_bezier2(
     cp2=(x2 - dx * 0.5, y2),
     xy2=(x2, y2),
     arrowhead="->",
-    style=Styles.green_bold,
+    style=Styles.GreenBold,
 )
 
 save()
@@ -419,25 +419,25 @@ from drawlib.types import Style
 setup(width=120, height=60)
 
 # Central message bus spine (horizontal trunk)
-line((15, 30), (105, 30), style=Styles.bold.patch(line_width=3.0, line_color=Colors.Navy))
+line((15, 30), (105, 30), style=Styles.PrimaryBold.patch(line_width=3.0, line_color=Colors.Navy))
 
 # Producer nodes (top tier)
-rectangle((25, 48), width=20, height=10, style=Styles.blue_flat, text="Sensor A", textstyle=Styles.white_bold)
-rectangle((55, 48), width=20, height=10, style=Styles.blue_flat, text="Sensor B", textstyle=Styles.white_bold)
-rectangle((85, 48), width=20, height=10, style=Styles.blue_flat, text="Sensor C", textstyle=Styles.white_bold)
+rectangle((25, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor A", textstyle=Styles.WhiteBold)
+rectangle((55, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor B", textstyle=Styles.WhiteBold)
+rectangle((85, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor C", textstyle=Styles.WhiteBold)
 
 # Consumer nodes (bottom tier)
-rectangle((40, 12), width=22, height=10, style=Styles.green_flat, text="Analytics", textstyle=Styles.white_bold)
-rectangle((75, 12), width=22, height=10, style=Styles.purple_flat, text="Storage", textstyle=Styles.white_bold)
+rectangle((40, 12), width=22, height=10, style=Styles.GreenFlat, text="Analytics", textstyle=Styles.WhiteBold)
+rectangle((75, 12), width=22, height=10, style=Styles.PurpleFlat, text="Storage", textstyle=Styles.WhiteBold)
 
 # Vertical bus taps from producers to trunk
-lines([(25, 43), (25, 30)], arrowhead="->", style=Styles.blue_bold)
-lines([(55, 43), (55, 30)], arrowhead="->", style=Styles.blue_bold)
-lines([(85, 43), (85, 30)], arrowhead="->", style=Styles.blue_bold)
+lines([(25, 43), (25, 30)], arrowhead="->", style=Styles.BlueBold)
+lines([(55, 43), (55, 30)], arrowhead="->", style=Styles.BlueBold)
+lines([(85, 43), (85, 30)], arrowhead="->", style=Styles.BlueBold)
 
 # Dogleg taps from trunk to consumers
-lines([(40, 30), (40, 17)], arrowhead="->", style=Styles.green_bold)
-lines([(75, 30), (75, 17)], arrowhead="->", style=Styles.purple_bold)
+lines([(40, 30), (40, 17)], arrowhead="->", style=Styles.GreenBold)
+lines([(75, 30), (75, 17)], arrowhead="->", style=Styles.PurpleBold)
 
 save()
 ```
@@ -521,8 +521,8 @@ from drawlib.styles import Styles
 
 setup(width=120, height=60)
 
-circle((15, 15), radius=5, style=Styles.blue_flat, text="IN", textstyle=Styles.white_bold)
-circle((105, 45), radius=5, style=Styles.green_flat, text="OUT", textstyle=Styles.white_bold)
+circle((15, 15), radius=5, style=Styles.BlueFlat, text="IN", textstyle=Styles.WhiteBold)
+circle((105, 45), radius=5, style=Styles.GreenFlat, text="OUT", textstyle=Styles.WhiteBold)
 
 # 1. Smoothly rounded Manhattan circuit trace
 track_points = [
@@ -534,7 +534,7 @@ track_points = [
     (100, 25),
     (100, 45),
 ]
-lines_curved(track_points, r=6.0, arrowhead="->", style=Styles.blue_bold)
+lines_curved(track_points, r=6.0, arrowhead="->", style=Styles.BlueBold)
 
 # 2. Mixed path: straight run -> cubic S-bend -> straight run
 mixed_path = [
@@ -542,7 +542,7 @@ mixed_path = [
     ((60, 10), (60, 35), (75, 35)),                 # cubic S-curve to (75, 35)
     (95, 35),                                       # straight to (95, 35)
 ]
-lines_bezier((20, 10), path_points=mixed_path, arrowhead="->", style=Styles.purple_dashed)
+lines_bezier((20, 10), path_points=mixed_path, arrowhead="->", style=Styles.PurpleDashed)
 
 save()
 ```
@@ -613,11 +613,11 @@ from drawlib.styles import Styles
 
 setup(width=100, height=60)
 
-rectangle((30, 30), width=24, height=14, style=Styles.blue_flat, text="Processor", textstyle=Styles.white_bold)
-rectangle((75, 30), width=24, height=14, style=Styles.green_flat, text="Consumer", textstyle=Styles.white_bold)
+rectangle((30, 30), width=24, height=14, style=Styles.BlueFlat, text="Processor", textstyle=Styles.WhiteBold)
+rectangle((75, 30), width=24, height=14, style=Styles.GreenFlat, text="Consumer", textstyle=Styles.WhiteBold)
 
 # Direct pipeline line
-line((42, 30), (63, 30), arrowhead="->", style=Styles.bold)
+line((42, 30), (63, 30), arrowhead="->", style=Styles.PrimaryBold)
 
 # 1. Self-loop retry arc (Processor retries itself on failure)
 line_arc(
@@ -628,10 +628,10 @@ line_arc(
     angle_end=320,
     linewidth=1.5,
     arrowhead="->",
-    style=Styles.red_dashed,
+    style=Styles.RedDashed,
     ccw=False,
 )
-text((30, 53), "Retry (3x)", style=Styles.red)
+text((30, 53), "Retry (3x)", style=Styles.Red)
 
 # 2. Large feedback arc (Consumer sends feedback to Processor)
 line_arc(
@@ -642,10 +642,10 @@ line_arc(
     angle_end=180,
     linewidth=1.5,
     arrowhead="->",
-    style=Styles.purple_dashed,
+    style=Styles.PurpleDashed,
     ccw=False,
 )
-text((52.5, 12), "Negative ACK / Backpressure", style=Styles.purple)
+text((52.5, 12), "Negative ACK / Backpressure", style=Styles.Purple)
 
 save()
 ```
@@ -691,29 +691,29 @@ from drawlib.styles import Styles
 setup(width=120, height=70)
 
 # 1. Unfilled / Stick arrowheads (default)
-text((15, 60), "Stick -> (scale=20)", style=Styles.bold)
-line((55, 60), (105, 60), arrowhead="->", style=Styles.bold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+text((15, 60), "Stick -> (scale=20)", style=Styles.PrimaryBold)
+line((55, 60), (105, 60), arrowhead="->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
-text((15, 50), "Stick <- (scale=20)", style=Styles.bold)
-line((55, 50), (105, 50), arrowhead="<-", style=Styles.bold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+text((15, 50), "Stick <- (scale=20)", style=Styles.PrimaryBold)
+line((55, 50), (105, 50), arrowhead="<-", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
-text((15, 40), "Stick <-> (scale=20)", style=Styles.bold)
-line((55, 40), (105, 40), arrowhead="<->", style=Styles.bold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+text((15, 40), "Stick <-> (scale=20)", style=Styles.PrimaryBold)
+line((55, 40), (105, 40), arrowhead="<->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
 # 2. Filled triangular arrowheads
-text((15, 30), "Filled -|> (scale=20)", style=Styles.bold)
-line((55, 30), (105, 30), arrowhead="->", style=Styles.bold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
+text((15, 30), "Filled -|> (scale=20)", style=Styles.PrimaryBold)
+line((55, 30), (105, 30), arrowhead="->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
 
-text((15, 20), "Filled <|-|> (scale=20)", style=Styles.bold)
-line((55, 20), (105, 20), arrowhead="<->", style=Styles.bold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
+text((15, 20), "Filled <|-|> (scale=20)", style=Styles.PrimaryBold)
+line((55, 20), (105, 20), arrowhead="<->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
 
 # 3. Scaling variations
-text((15, 10), "Large Scale (scale=35)", style=Styles.bold)
+text((15, 10), "Large Scale (scale=35)", style=Styles.PrimaryBold)
 line(
     (55, 10),
     (105, 10),
     arrowhead="->",
-    style=Styles.bold.patch(line_arrow_head_fill=True, line_arrow_head_scale=35, line_width=2.5),
+    style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=35, line_width=2.5),
 )
 
 save()
@@ -731,7 +731,7 @@ The universal `Style` dataclass supports these line-specific attributes:
 from drawlib.types import Style
 from drawlib.styles import Colors, Styles
 
-custom_style = Styles.primary.patch(
+custom_style = Styles.Primary.patch(
     line_color=Colors.Red,        # Stroke color (RGB/RGBA tuple, Colors.*, or hex)
     line_width=2.5,               # Stroke width in points (default: 1.0)
     line_style="dashed",          # Stroke pattern: "solid" | "dashed" | "dotted" | "dashdot"
@@ -755,19 +755,19 @@ The `line_style` attribute accepts four standardized patterns:
   dashdot:  ───  ·  ───  ·  ───  ·  ───  ·  ───  ·  ───
 ```
 
-### 9.3. Preset String Naming Syntax
-Drawlib includes built-in preset strings following the convention:
-$$\text{<color>}\_\text{<type>}\_\text{<weight>}$$
-- **`<color>`**: `"red"`, `"blue"`, `"green"`, `"gray"`, `"black"`, `"purple"`, etc.
-- **`<type>`** (optional): `"solid"` (default), `"dashed"`.
-- **`<weight>`** (optional): `"light"` (half width), `"bold"` (double width).
+### 9.3. Preset Style Naming Syntax
+Drawlib includes built-in preset line styles on `Styles` following the convention:
+$$\text{Styles.<Color><Type><Weight>}$$
+- **`<Color>`**: `Blue`, `Red`, `Green`, `Gray`, `Black`, `Purple`, `Primary`, etc.
+- **`<Type>`** (optional): `Solid` (default), `Dashed`.
+- **`<Weight>`** (optional): `Light` (half width), `Bold` (double width).
 
 Examples of valid presets:
-- `"blue"`: Solid blue line of regular width.
-- `"red_dashed"`: Dashed red line of regular width.
-- `"green_bold"`: Solid green line of double thickness.
-- `"gray_light"`: Solid subtle gray line for grids and boundaries.
-- `"bold"`: Standard black line of double thickness.
+- `Styles.Blue`: Solid blue line of regular width.
+- `Styles.RedDashed`: Dashed red line of regular width.
+- `Styles.GreenBold`: Solid green line of double thickness.
+- `Styles.GrayLight`: Solid subtle gray line for grids and boundaries.
+- `Styles.PrimaryBold`: Standard primary line of double thickness.
 
 ### 9.4. Semantic Conventions for Software Architecture Lines
 Aligning visual stroke properties with architectural meanings makes diagrams instantly intuitive:
@@ -799,12 +799,12 @@ protocols = [
 
 for i, (label, color_name, pattern, thickness, arrow) in enumerate(protocols):
     y = 45 - i * 11
-    text((10, y), label, style=Styles.primary.patch(text_size=11, text_halign="left"))
+    text((10, y), label, style=Styles.Primary.patch(text_size=11, text_halign="left"))
     line(
         (70, y),
         (110, y),
         arrowhead=arrow,
-        style=Styles.bold.patch(line_color=color_name, line_style=pattern, line_width=thickness),
+        style=Styles.PrimaryBold.patch(line_color=color_name, line_style=pattern, line_width=thickness),
     )
 
 save()
@@ -828,7 +828,7 @@ To place a label at the center of a line segment:
 ### 10.2. Text Masking via Background Boxes
 Placing text directly on top of a line stroke can make the letters illegible. Drawlib's `Style` provides background bounding box controls that automatically mask the line underneath:
 ```python
-badge_style = Styles.primary.patch(
+badge_style = Styles.Primary.patch(
     text_size=10,
     text_color=Colors.Navy,
     text_bg_fill_color=Colors.White,    # Masks the underlying line stroke
@@ -873,7 +873,7 @@ def draw_labeled_line(
     line(xy1, xy2, arrowhead=arrowhead, style=line_style)
     mx = (xy1[0] + xy2[0]) / 2
     my = (xy1[1] + xy2[1]) / 2
-    badge = Styles.primary.patch(
+    badge = Styles.Primary.patch(
         text_size=9,
         text_color=color,
         text_bg_fill_color=Colors.White,
@@ -885,11 +885,11 @@ def draw_labeled_line(
     text((mx, my), label, style=badge)
 
 setup(width=120, height=50)
-rectangle((20, 25), width=24, height=14, style=Styles.blue_flat, text="Client", textstyle=Styles.white_bold)
-rectangle((100, 25), width=24, height=14, style=Styles.green_flat, text="Service", textstyle=Styles.white_bold)
+rectangle((20, 25), width=24, height=14, style=Styles.BlueFlat, text="Client", textstyle=Styles.WhiteBold)
+rectangle((100, 25), width=24, height=14, style=Styles.GreenFlat, text="Service", textstyle=Styles.WhiteBold)
 
-draw_labeled_line((32, 29), (88, 29), "POST /api/checkout", arrowhead="->", line_style=Styles.blue_bold, color=Colors.Blue)
-draw_labeled_line((88, 21), (32, 21), "201 Created (45ms)", arrowhead="->", line_style=Styles.green_dashed, color=Colors.Green)
+draw_labeled_line((32, 29), (88, 29), "POST /api/checkout", arrowhead="->", line_style=Styles.BlueBold, color=Colors.Blue)
+draw_labeled_line((88, 21), (32, 21), "201 Created (45ms)", arrowhead="->", line_style=Styles.GreenDashed, color=Colors.Green)
 
 save()
 ```
@@ -909,11 +909,11 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=120, height=50)
-rectangle((20, 25), width=20, height=16, style=Styles.navy_flat, text="API Gateway", textstyle=Styles.white_bold)
+rectangle((20, 25), width=20, height=16, style=Styles.NavyFlat, text="API Gateway", textstyle=Styles.WhiteBold)
 
 for name, y in [("Users", 40), ("Orders", 25), ("Payments", 10)]:
-    rectangle((95, y), width=22, height=10, style=Styles.green_flat, text=name, textstyle=Styles.white_bold)
-    lines([(30, 25), (55, 25), (55, y), (84, y)], arrowhead="->", style=Styles.bold)
+    rectangle((95, y), width=22, height=10, style=Styles.GreenFlat, text=name, textstyle=Styles.WhiteBold)
+    lines([(30, 25), (55, 25), (55, y), (84, y)], arrowhead="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -931,7 +931,7 @@ pitch, base_r = 2.0, 4.0
 for i in range(4):
     offset = i * pitch
     path = [(15, 12 + offset), (45 + offset, 12 + offset), (45 + offset, 38 - offset), (105, 38 - offset)]
-    lines_curved(path, r=base_r + offset, arrowhead="->", style=Styles.blue_bold)
+    lines_curved(path, r=base_r + offset, arrowhead="->", style=Styles.BlueBold)
 
 save()
 ```
@@ -945,15 +945,15 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=120, height=60)
-rectangle((60, 30), width=90, height=8, style=Styles.purple_flat, text="Kafka Event Log", textstyle=Styles.white_bold)
+rectangle((60, 30), width=90, height=8, style=Styles.PurpleFlat, text="Kafka Event Log", textstyle=Styles.WhiteBold)
 
 for name, x in [("Auth Svc", 30), ("Order Svc", 60), ("Payment Svc", 90)]:
-    rectangle((x, 50), width=20, height=10, style=Styles.blue_flat, text=name, textstyle=Styles.white_bold)
-    lines([(x, 45), (x, 34)], arrowhead="->", style=Styles.blue_bold)
+    rectangle((x, 50), width=20, height=10, style=Styles.BlueFlat, text=name, textstyle=Styles.WhiteBold)
+    lines([(x, 45), (x, 34)], arrowhead="->", style=Styles.BlueBold)
 
 for name, x in [("Email Worker", 40), ("Audit Log", 80)]:
-    rectangle((x, 10), width=22, height=10, style=Styles.green_flat, text=name, textstyle=Styles.white_bold)
-    lines([(x, 26), (x, 15)], arrowhead="->", style=Styles.green_bold)
+    rectangle((x, 10), width=22, height=10, style=Styles.GreenFlat, text=name, textstyle=Styles.WhiteBold)
+    lines([(x, 26), (x, 15)], arrowhead="->", style=Styles.GreenBold)
 
 save()
 ```
@@ -969,19 +969,19 @@ from drawlib.text import text
 from drawlib.types import Style
 
 setup(width=120, height=50)
-line((60, 5), (60, 45), style=Styles.bold.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5))
-text((58, 43), "Public DMZ", style=Styles.primary.patch(text_size=9, text_halign="right", text_color=Colors.Gray5))
-text((62, 43), "Private Subnet", style=Styles.primary.patch(text_size=9, text_halign="left", text_color=Colors.Gray5))
+line((60, 5), (60, 45), style=Styles.PrimaryBold.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5))
+text((58, 43), "Public DMZ", style=Styles.Primary.patch(text_size=9, text_halign="right", text_color=Colors.Gray5))
+text((62, 43), "Private Subnet", style=Styles.Primary.patch(text_size=9, text_halign="left", text_color=Colors.Gray5))
 
-rectangle((25, 25), width=22, height=12, style=Styles.blue_flat, text="Reverse Proxy", textstyle=Styles.white_bold)
-rectangle((95, 25), width=22, height=12, style=Styles.green_flat, text="App Backend", textstyle=Styles.white_bold)
+rectangle((25, 25), width=22, height=12, style=Styles.BlueFlat, text="Reverse Proxy", textstyle=Styles.WhiteBold)
+rectangle((95, 25), width=22, height=12, style=Styles.GreenFlat, text="App Backend", textstyle=Styles.WhiteBold)
 line(
     (36, 25),
     (84, 25),
     arrowhead="->",
-    style=Styles.bold.patch(line_color=Colors.Red, line_style="dashdot", line_width=2.0),
+    style=Styles.PrimaryBold.patch(line_color=Colors.Red, line_style="dashdot", line_width=2.0),
 )
-text((60, 28), "mTLS (Port 8443)", style=Styles.primary.patch(text_size=9, text_bg_fill_color=Colors.White, text_bg_line_width=0.5))
+text((60, 28), "mTLS (Port 8443)", style=Styles.Primary.patch(text_size=9, text_bg_fill_color=Colors.White, text_bg_line_width=0.5))
 
 save()
 ```
@@ -1046,13 +1046,13 @@ from drawlib.styles import Styles
 setup(width=120, height=50)
 
 start, end, obs = (15, 25), (105, 25), (60, 25)
-rectangle(start, width=16, height=12, style=Styles.blue_flat, text="Client", textstyle=Styles.white_bold)
-rectangle(obs, width=30, height=18, style=Styles.red_flat, text="Firewall / WAF", textstyle=Styles.white_bold)
-rectangle(end, width=16, height=12, style=Styles.green_flat, text="Server", textstyle=Styles.white_bold)
+rectangle(start, width=16, height=12, style=Styles.BlueFlat, text="Client", textstyle=Styles.WhiteBold)
+rectangle(obs, width=30, height=18, style=Styles.RedFlat, text="Firewall / WAF", textstyle=Styles.WhiteBold)
+rectangle(end, width=16, height=12, style=Styles.GreenFlat, text="Server", textstyle=Styles.WhiteBold)
 
 bypass = [(23, 25), (38, 25), (38, 40), (82, 40), (82, 25), (97, 25)]
-lines_curved(bypass, r=4.0, arrowhead="->", style=Styles.blue_bold)
-text((60, 44), "Authorized Bypass Channel", style=Styles.blue)
+lines_curved(bypass, r=4.0, arrowhead="->", style=Styles.BlueBold)
+text((60, 44), "Authorized Bypass Channel", style=Styles.Blue)
 
 save()
 ```

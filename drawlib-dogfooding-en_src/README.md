@@ -62,13 +62,14 @@ Styles = Styles.patch_font(
 Define reusable drawing functions and constants in `utils.py`:
 ```python
 from drawlib.shapes import rectangle
+from drawlib.styles import Styles
 from drawlib.text import text
 
 REPORT_VERSION = "v1.0.0"
 
 def chapter_banner(xy: tuple[float, float], title: str) -> None:
-    rectangle(xy, width=100, height=12, style="blue_flat")
-    text(xy, title, style="white_bold")
+    rectangle(xy, width=100, height=12, style=Styles.BlueFlat)
+    text(xy, title, style=Styles.WhiteBold)
 ```
 Consume inside embedded ````drawlib```` blocks:
 ```python

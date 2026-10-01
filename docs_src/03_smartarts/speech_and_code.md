@@ -17,7 +17,7 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # 1. BubbleSpeech Callout pointing to an entity
-circle((25, 20), radius=10, style=Styles.secondary_flat, text="DB Server", textstyle=Styles.white_bold)
+circle((25, 20), radius=10, style=Styles.SecondaryFlat, text="DB Server", textstyle=Styles.WhiteBold)
 
 bubblespeech(
     xy=(15, 38),
@@ -27,9 +27,9 @@ bubblespeech(
     tail_start_ratio=0.3,
     tail_end_ratio=0.6,
     tail_vertex_xy=(25, 30),
-    style=Styles.danger_flat,
+    style=Styles.DangerFlat,
     text="High Memory\nUsage Alert!",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 
 # 2. Syntax-highlighted SourceCode container

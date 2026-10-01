@@ -49,7 +49,7 @@ from drawlib.text import text_vertical
 
 setup(width=50, height=60)
 
-text_vertical((25, 48), "設計仕様書", style=Styles.primary_bold.patch(text_size=18))
+text_vertical((25, 48), "設計仕様書", style=Styles.PrimaryBold.patch(text_size=18))
 
 save()
 ```
@@ -87,13 +87,13 @@ from drawlib.text import text
 setup(width=100, height=35)
 
 # Anchor pin at (30, 17.5)
-circle((30, 17.5), radius=2, style=Styles.danger_flat)
+circle((30, 17.5), radius=2, style=Styles.DangerFlat)
 
 # Align text neatly to the right of the pin
 text(
     (35, 17.5),
     "Aligned Label",
-    style=Styles.bold.patch(text_halign="left", text_valign="center"),
+    style=Styles.PrimaryBold.patch(text_halign="left", text_valign="center"),
 )
 
 save()
@@ -139,7 +139,7 @@ setup(width=100, height=35)
 text(
     (50, 17.5),
     "SELECT * FROM users;",
-    style=Styles.primary_bold.patch(text_font=FontSourceCode.SOURCECODEPRO, text_size=15),
+    style=Styles.PrimaryBold.patch(text_font=FontSourceCode.SOURCECODEPRO, text_size=15),
 )
 
 save()

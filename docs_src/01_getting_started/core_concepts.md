@@ -25,20 +25,20 @@ from drawlib.styles import Styles
 setup(width=100, height=60, grid=True)
 
 # Origin marker
-circle((0, 0), radius=2, style=Styles.danger_flat)
-text((8, 5), "(0, 0) Bottom-Left Origin", style=Styles.danger_bold)
+circle((0, 0), radius=2, style=Styles.DangerFlat)
+text((8, 5), "(0, 0) Bottom-Left Origin", style=Styles.DangerBold)
 
 # Center-based element
-rectangle((55, 32), width=44, height=20, style=Styles.primary_flat, text="Centered at (55, 32)", textstyle=Styles.white_bold)
-circle((55, 32), radius=1.5, style=Styles.accent_flat)
+rectangle((55, 32), width=44, height=20, style=Styles.PrimaryFlat, text="Centered at (55, 32)", textstyle=Styles.WhiteBold)
+circle((55, 32), radius=1.5, style=Styles.AccentFlat)
 
 # Y-axis
-line((4, 8), (4, 52), arrowhead="->", style=Styles.bold)
-text((8, 50), "+Y (Upwards)", style=Styles.bold)
+line((4, 8), (4, 52), arrowhead="->", style=Styles.PrimaryBold)
+text((8, 50), "+Y (Upwards)", style=Styles.PrimaryBold)
 
 # X-axis
-line((8, 4), (45, 4), arrowhead="->", style=Styles.bold)
-text((32, 7), "+X (Rightwards)", style=Styles.bold)
+line((8, 4), (45, 4), arrowhead="->", style=Styles.PrimaryBold)
+text((32, 7), "+X (Rightwards)", style=Styles.PrimaryBold)
 ```
 
 ---
@@ -61,7 +61,7 @@ Choose dimensions that match the natural aspect ratio of your diagram:
 A common mistake when generating diagrams is placing elements too close to the canvas edges.
 
 - **Keep 5%–10% Margin**: Leave breathing room around all four borders. For a canvas with `width=100` and `height=60`, avoid placing text or shape boundaries below `x=5`, above `x=95`, below `y=5`, or above `y=55`.
-- **Containers Before Components**: Draw boundary containers (e.g. `rectangle(..., style=Styles.muted_dashed)`) to establish visual scopes before positioning child components.
+- **Containers Before Components**: Draw boundary containers (e.g. `rectangle(..., style=Styles.MutedDashed)`) to establish visual scopes before positioning child components.
 
 ---
 
@@ -77,30 +77,30 @@ from drawlib.styles import Styles
 setup(width=150, height=35)
 
 # Neutral Foundation / Subnet Boundary (Muted)
-rectangle((75, 17.5), width=146, height=30, style=Styles.muted_dashed)
+rectangle((75, 17.5), width=146, height=30, style=Styles.MutedDashed)
 
 # Primary Anchor (Core Microservice)
-rectangle((18, 17.5), width=22, height=18, style=Styles.primary_flat, text="Primary\n(Core)", textstyle=Styles.white_bold)
+rectangle((18, 17.5), width=22, height=18, style=Styles.PrimaryFlat, text="Primary\n(Core)", textstyle=Styles.WhiteBold)
 
 # Secondary (Database / Auxiliary)
-rectangle((44, 17.5), width=22, height=18, style=Styles.secondary_flat, text="Secondary\n(Service)", textstyle=Styles.white_bold)
+rectangle((44, 17.5), width=22, height=18, style=Styles.SecondaryFlat, text="Secondary\n(Service)", textstyle=Styles.WhiteBold)
 
 # Accent (Events / Gateway)
-rectangle((70, 17.5), width=22, height=18, style=Styles.accent_flat, text="Accent\n(Trigger)", textstyle=Styles.white_bold)
+rectangle((70, 17.5), width=22, height=18, style=Styles.AccentFlat, text="Accent\n(Trigger)", textstyle=Styles.WhiteBold)
 
 # Danger (Alert / Error Path)
-rectangle((96, 17.5), width=22, height=18, style=Styles.danger_flat, text="Danger\n(Alert)", textstyle=Styles.white_bold)
+rectangle((96, 17.5), width=22, height=18, style=Styles.DangerFlat, text="Danger\n(Alert)", textstyle=Styles.WhiteBold)
 
 # Success (Verified Outcome)
-rectangle((122, 17.5), width=22, height=18, style=Styles.success_flat, text="Success\n(Audit)", textstyle=Styles.white_bold)
+rectangle((122, 17.5), width=22, height=18, style=Styles.SuccessFlat, text="Success\n(Audit)", textstyle=Styles.WhiteBold)
 ```
 
-1. **Primary Anchor (`Styles.primary`)**:
+1. **Primary Anchor (`Styles.Primary`)**:
    Central workflow spine, core microservices, and primary subject matter.
-2. **Functional Semantics (`Styles.secondary`, `Styles.accent`, `Styles.danger`, `Styles.success`)**:
+2. **Functional Semantics (`Styles.Secondary`, `Styles.Accent`, `Styles.Danger`, `Styles.Success`)**:
    Auxiliary services, events, databases, alerts, and verified deliverables. Used actively across the diagram according to their functional intent without artificial percentage caps.
-3. **Muted Structural Base (`Styles.muted`)**:
-   Neutral containers, group boundaries, subnets, and grouping boxes (`Styles.muted_flat`, `Styles.muted_dashed`).
+3. **Muted Structural Base (`Styles.Muted`)**:
+   Neutral containers, group boundaries, subnets, and grouping boxes (`Styles.MutedFlat`, `Styles.MutedDashed`).
 
 ---
 

@@ -26,7 +26,7 @@ class TestBulletPoints:
         """Verify BulletPoints rendering with multi-level indents."""
         clear()
         styles = default_styles
-        b = BulletPoints(default_style=styles.black, vertical_margin=4, indent_width=4)
+        b = BulletPoints(default_style=styles.Black, vertical_margin=4, indent_width=4)
         b.add("level 0")
         b.set_indent(1)
         b.add("level 1-1")
@@ -43,7 +43,7 @@ class TestBulletPoints:
         """Verify BulletPoints rendering using Japanese text at multiple levels."""
         clear()
         styles = default_styles
-        b = BulletPoints(default_style=styles.black, vertical_margin=4, indent_width=4)
+        b = BulletPoints(default_style=styles.Black, vertical_margin=4, indent_width=4)
         b.add("レベル 0")
         b.set_indent(1)
         b.add("レベル 1-1")

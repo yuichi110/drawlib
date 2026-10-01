@@ -41,7 +41,7 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
         "from drawlib.shapes import circle\n"
         "from drawlib.styles import Styles\n"
         "setup(50, 50)\n"
-        "circle((25, 25), 10, style=Styles.primary)\n"
+        "circle((25, 25), 10, style=Styles.Primary)\n"
         "save()\n```\n",
         encoding="utf-8",
     )
@@ -102,7 +102,7 @@ def test_image_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     (src / "__init__.py").write_text("# init\n", encoding="utf-8")
     (src / "diagram.py").write_text(
         "from drawlib.canvas import setup, save\nfrom drawlib.styles import Styles\n"
-        "from drawlib.shapes import circle\nsetup(50, 50)\ncircle((25, 25), 10, style=Styles.primary)\nsave()\n",
+        "from drawlib.shapes import circle\nsetup(50, 50)\ncircle((25, 25), 10, style=Styles.Primary)\nsave()\n",
         encoding="utf-8",
     )
 

@@ -10,7 +10,7 @@ Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, 
 
 - **Seamless Canvas Coexistence**: Charts can share the same canvas with architecture schemas, callout bubbles, and icons.
 - **Deterministic Layouts**: All margins, tick spaces, and legend boxes are mathematically computed from explicit canvas dimensions (`width`, `height`).
-- **Consistent Visual Theming**: Chart elements—bars, areas, gridlines, axes, labels, and legends—automatically adapt to Drawlib's active styling presets (`Styles.primary_flat`, `Styles.accent_flat`, etc.).
+- **Consistent Visual Theming**: Chart elements—bars, areas, gridlines, axes, labels, and legends—automatically adapt to Drawlib's active styling presets (`Styles.PrimaryFlat`, `Styles.AccentFlat`, etc.).
 
 ```drawlib 650px center caption:"Declarative Multi-Series Bar Chart"
 from drawlib.canvas import setup
@@ -25,8 +25,8 @@ chart = BarChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
     title="Quarterly Revenue ($M)",
 )
-chart.add_series("2025", [12.5, 18.2, 22.0, 31.4], color=Colors.primary)
-chart.add_series("2026", [15.0, 24.5, 29.8, 38.0], color=Colors.accent)
+chart.add_series("2025", [12.5, 18.2, 22.0, 31.4], color=Colors.Primary)
+chart.add_series("2026", [15.0, 24.5, 29.8, 38.0], color=Colors.Accent)
 
 chart.draw(xy=(10, 8))
 ```

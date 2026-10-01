@@ -26,9 +26,9 @@ class TestBoxList:
         """Verify BoxList drawing with default horizontal alignment starting from left."""
         clear()
         styles = default_styles
-        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
+        b = BoxList(default_box_style=styles.PrimarySolid, default_text_style=styles.PrimaryBold)
         b.extend(["1", "2"])
-        b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
+        b.append("3", box_style=styles.RedSolid, text_style=styles.RedBold)
         b.append("4")
         b.draw((10, 10), 8, 6)
         save(f"{OUTPUT_DIR}test_boxlist_left.png")
@@ -37,9 +37,9 @@ class TestBoxList:
         """Verify BoxList drawing with horizontal alignment starting from right."""
         clear()
         styles = default_styles
-        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
+        b = BoxList(default_box_style=styles.PrimarySolid, default_text_style=styles.PrimaryBold)
         b.extend(["1", "2"])
-        b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
+        b.append("3", box_style=styles.RedSolid, text_style=styles.RedBold)
         b.append("4")
         b.draw((90, 10), 8, 6, "right")
         save(f"{OUTPUT_DIR}test_boxlist_right.png")
@@ -48,9 +48,9 @@ class TestBoxList:
         """Verify BoxList drawing with vertical alignment starting from bottom."""
         clear()
         styles = default_styles
-        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
+        b = BoxList(default_box_style=styles.PrimarySolid, default_text_style=styles.PrimaryBold)
         b.extend(["1", "2"])
-        b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
+        b.append("3", box_style=styles.RedSolid, text_style=styles.RedBold)
         b.append("4")
         b.draw((10, 10), 8, 6, "bottom")
         save(f"{OUTPUT_DIR}test_boxlist_bottom.png")
@@ -59,9 +59,9 @@ class TestBoxList:
         """Verify BoxList drawing with vertical alignment starting from top."""
         clear()
         styles = default_styles
-        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
+        b = BoxList(default_box_style=styles.PrimarySolid, default_text_style=styles.PrimaryBold)
         b.extend(["1", "2"])
-        b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
+        b.append("3", box_style=styles.RedSolid, text_style=styles.RedBold)
         b.append("4")
         b.draw((10, 90), 8, 6, "top")
         save(f"{OUTPUT_DIR}test_boxlist_top.png")
@@ -69,7 +69,7 @@ class TestBoxList:
     def test_boxlist_item_operations(self) -> None:
         """Verify item manipulation methods (append, insert, extend) work properly."""
         styles = default_styles
-        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
+        b = BoxList(default_box_style=styles.PrimarySolid, default_text_style=styles.PrimaryBold)
         b.append("item1")
         assert len(b._list) == 1
         assert b._list[0].text == "item1"
@@ -80,7 +80,7 @@ class TestBoxList:
         assert b._list[1].text == "item2"
         assert b._list[2].text == "item3"
 
-        b.insert(1, "inserted", box_style=styles.red_solid, text_style=styles.red_bold)
+        b.insert(1, "inserted", box_style=styles.RedSolid, text_style=styles.RedBold)
         assert len(b._list) == 4
         assert b._list[1].text == "inserted"
         assert b._list[1].is_custom_style
@@ -94,6 +94,6 @@ class TestBoxList:
         with pytest.raises(ValueError, match="Neither 'default_box_style' nor 'box_style' was provided"):
             b_empty.append("item1")
 
-        b_no_text = BoxList(default_box_style=styles.solid)
+        b_no_text = BoxList(default_box_style=styles.PrimarySolid)
         with pytest.raises(ValueError, match="Neither 'default_text_style' nor 'text_style' was provided"):
             b_no_text.append("item1")

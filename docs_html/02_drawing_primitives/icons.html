@@ -350,8 +350,8 @@ from drawlib.text import text
 setup(width=60, height=50)
 
 # Solid filled bell icon
-phosphor.bell((30, 28), width=14, style=Styles.accent.patch(icon_style=&quot;fill&quot;))
-text((30, 12), &quot;Alert Badge&quot;, style=Styles.accent_bold)
+phosphor.bell((30, 28), width=14, style=Styles.Accent.patch(icon_style=&quot;fill&quot;))
+text((30, 12), &quot;Alert Badge&quot;, style=Styles.AccentBold)
 
 save()
 </code></pre>
@@ -369,11 +369,11 @@ from drawlib.text import text
 
 setup(width=100, height=45)
 
-gcp.compute_engine((30, 26), width=14, style=Styles.primary)
-text((30, 10), &quot;Compute Engine&quot;, style=Styles.bold)
+gcp.compute_engine((30, 26), width=14, style=Styles.Primary)
+text((30, 10), &quot;Compute Engine&quot;, style=Styles.PrimaryBold)
 
-gcp.cloud_storage((70, 26), width=14, style=Styles.primary)
-text((70, 10), &quot;Cloud Storage&quot;, style=Styles.bold)
+gcp.cloud_storage((70, 26), width=14, style=Styles.Primary)
+text((70, 10), &quot;Cloud Storage&quot;, style=Styles.PrimaryBold)
 
 save()
 </code></pre>
@@ -396,7 +396,7 @@ font_icon(
     xy=(50, 50),
     icon=&quot;fa-brands fa-github&quot;,
     width=12,
-    style=Styles.primary_bold,
+    style=Styles.PrimaryBold,
 )
 </code></pre>
 <blockquote>

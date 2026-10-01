@@ -341,7 +341,7 @@ Drawlib maps these coordinate units to high-resolution display pixels automatica
 <p>A common mistake when generating diagrams is placing elements too close to the canvas edges.</p>
 <ul>
 <li><strong>Keep 5%–10% Margin</strong>: Leave breathing room around all four borders. For a canvas with <code>width=100</code> and <code>height=60</code>, avoid placing text or shape boundaries below <code>x=5</code>, above <code>x=95</code>, below <code>y=5</code>, or above <code>y=55</code>.</li>
-<li><strong>Containers Before Components</strong>: Draw boundary containers (e.g. <code>rectangle(..., style=Styles.muted_dashed)</code>) to establish visual scopes before positioning child components.</li>
+<li><strong>Containers Before Components</strong>: Draw boundary containers (e.g. <code>rectangle(..., style=Styles.MutedDashed)</code>) to establish visual scopes before positioning child components.</li>
 </ul>
 <hr />
 <h2>4. The 6-Color Semantic Design System</h2>
@@ -351,12 +351,12 @@ Drawlib maps these coordinate units to high-resolution display pixels automatica
   <figcaption class="drawlib-caption">The 6-Color Semantic System</figcaption>
 </figure>
 <ol>
-<li><strong>Primary Anchor (<code>Styles.primary</code>)</strong>:
+<li><strong>Primary Anchor (<code>Styles.Primary</code>)</strong>:
 Central workflow spine, core microservices, and primary subject matter.</li>
-<li><strong>Functional Semantics (<code>Styles.secondary</code>, <code>Styles.accent</code>, <code>Styles.danger</code>, <code>Styles.success</code>)</strong>:
+<li><strong>Functional Semantics (<code>Styles.Secondary</code>, <code>Styles.Accent</code>, <code>Styles.Danger</code>, <code>Styles.Success</code>)</strong>:
 Auxiliary services, events, databases, alerts, and verified deliverables. Used actively across the diagram according to their functional intent without artificial percentage caps.</li>
-<li><strong>Muted Structural Base (<code>Styles.muted</code>)</strong>:
-Neutral containers, group boundaries, subnets, and grouping boxes (<code>Styles.muted_flat</code>, <code>Styles.muted_dashed</code>).</li>
+<li><strong>Muted Structural Base (<code>Styles.Muted</code>)</strong>:
+Neutral containers, group boundaries, subnets, and grouping boxes (<code>Styles.MutedFlat</code>, <code>Styles.MutedDashed</code>).</li>
 </ol>
 <hr />
 <h2>5. Development Overlay: Coordinate Grids</h2>

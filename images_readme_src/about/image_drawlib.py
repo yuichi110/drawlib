@@ -17,7 +17,7 @@ from drawlib.smartarts import SourceCode
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(height=60, dpi=200, color=Colors.canvas)
+setup(height=60, dpi=200, color=Colors.Canvas)
 INNER_CODE = """from drawlib.canvas import save
 from drawlib.shapes import circle
 from drawlib.styles import Colors, Styles
@@ -25,7 +25,7 @@ from drawlib.styles import Colors, Styles
 circle(
     xy=(50, 50),
     radius=30,
-    style=Styles.Dashed.patch(
+    style=Styles.PrimaryDashed.patch(
         shape_line_color=Colors.Blue,
         shape_line_width=5,
         shape_fill_color=Colors.Teal,
@@ -62,7 +62,7 @@ def middle():
     sc = SourceCode(style="default", font=FontSourceCode.ROBOTO_MONO)
     sc.draw((25, image_y), width=40, code=INNER_CODE, style=style)
 
-    arrow((50, arrow_y), (60, arrow_y), tail_width=5, head_width=10, head_length=5, head="->", style=Styles.Solid)
+    arrow((50, arrow_y), (60, arrow_y), tail_width=5, head_width=10, head_length=5, head="->", style=Styles.PrimarySolid)
 
     inner_dimage = get_dimage_from_code(INNER_CODE)
     image((80, image_y), width=31.5, image=inner_dimage, style=style)

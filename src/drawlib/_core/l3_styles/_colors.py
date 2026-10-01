@@ -47,11 +47,12 @@ class _BaseColorsMeta(type(BaseModel)):
         attr = super().__getattribute__(name)
         if isinstance(attr, property):
             cap_name = name.capitalize()
-            fields = cls.__dict__.get("__pydantic_fields__", {})
-            if cap_name in fields and fields[cap_name].default is not None:
-                return fields[cap_name].default
-            if hasattr(cls, cap_name):
-                return getattr(cls, cap_name)
+            if cap_name != name:
+                fields = cls.__dict__.get("__pydantic_fields__", {})
+                if cap_name in fields and fields[cap_name].default is not None:
+                    return fields[cap_name].default
+                if hasattr(cls, cap_name):
+                    return getattr(cls, cap_name)
         return attr
 
     def __getattr__(cls, name: str) -> Any:  # noqa: ANN401

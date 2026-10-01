@@ -12,58 +12,58 @@ from drawlib.text import text
 
 setup(width=142, height=54)
 
-header_ts = Styles.white_bold.patch(text_size=9.5)
-ts_pri_body = Styles.primary.patch(text_size=7.5, text_halign="left")
-ts_acc_body = Styles.accent.patch(text_size=7.5, text_halign="left")
-ts_suc_body = Styles.success.patch(text_size=7.5, text_halign="left")
+header_ts = Styles.WhiteBold.patch(text_size=9.5)
+ts_pri_body = Styles.Primary.patch(text_size=7.5, text_halign="left")
+ts_acc_body = Styles.Accent.patch(text_size=7.5, text_halign="left")
+ts_suc_body = Styles.Success.patch(text_size=7.5, text_halign="left")
 
 # 1. Drawlib (CLI & Knowledge Base)
-rectangle((22.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.primary_outline)
-rectangle((22.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.primary_flat, text="Drawlib (CLI & Rules)", textstyle=header_ts)
+rectangle((22.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
+rectangle((22.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="Drawlib (CLI & Rules)", textstyle=header_ts)
 
-phosphor.book_bookmark(xy=(9.5, 31.0), width=4.5, style=Styles.primary)
+phosphor.book_bookmark(xy=(9.5, 31.0), width=4.5, style=Styles.Primary)
 text((13.5, 31.0), text="drawlib rules show\nOn-demand API specs & rules", style=ts_pri_body)
 
-phosphor.terminal_window(xy=(9.5, 21.5), width=4.5, style=Styles.primary)
+phosphor.terminal_window(xy=(9.5, 21.5), width=4.5, style=Styles.Primary)
 text((13.5, 21.5), text="drawlib show -g\nMillimeter grid output for QA", style=ts_pri_body)
 
-phosphor.gear(xy=(9.5, 12.0), width=4.5, style=Styles.primary)
+phosphor.gear(xy=(9.5, 12.0), width=4.5, style=Styles.Primary)
 text((13.5, 12.0), text="drawlib build\nAutomated PDF / HTML engine", style=ts_pri_body)
 
 # 2. AI Agent (Cursor / Claude / Gemini)
-rectangle((71.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.accent_outline)
-rectangle((71.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.accent_flat, text="AI Agent (Autonomous)", textstyle=header_ts)
+rectangle((71.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.AccentOutline)
+rectangle((71.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="AI Agent (Autonomous)", textstyle=header_ts)
 
-phosphor.chats(xy=(58.5, 31.0), width=4.5, style=Styles.accent)
+phosphor.chats(xy=(58.5, 31.0), width=4.5, style=Styles.Accent)
 text((62.5, 31.0), text="1. Query Knowledge Base\nInspect signatures via CLI rules", style=ts_acc_body)
 
-phosphor.code(xy=(58.5, 21.5), width=4.5, style=Styles.accent)
+phosphor.code(xy=(58.5, 21.5), width=4.5, style=Styles.Accent)
 text((62.5, 21.5), text="2. Prototype in Scratch\nSafe sandbox at .drawlib/scratch/", style=ts_acc_body)
 
-phosphor.eye(xy=(58.5, 12.0), width=4.5, style=Styles.accent)
+phosphor.eye(xy=(58.5, 12.0), width=4.5, style=Styles.Accent)
 text((62.5, 12.0), text="3. Multimodal Inspection\nAuto-detect & fix layout issues", style=ts_acc_body)
 
 # 3. Docs / Illustration (Deliverables)
-rectangle((120.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.success_outline)
-rectangle((120.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.success_flat, text="Docs / Illustration", textstyle=header_ts)
+rectangle((120.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.SuccessOutline)
+rectangle((120.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.SuccessFlat, text="Docs / Illustration", textstyle=header_ts)
 
-phosphor.file_text(xy=(107.5, 31.0), width=4.5, style=Styles.success)
+phosphor.file_text(xy=(107.5, 31.0), width=4.5, style=Styles.Success)
 text((111.5, 31.0), text="*.md Technical Specs\nInline ```drawlib``` integration", style=ts_suc_body)
 
-phosphor.file_pdf(xy=(107.5, 21.5), width=4.5, style=Styles.success)
+phosphor.file_pdf(xy=(107.5, 21.5), width=4.5, style=Styles.Success)
 text((111.5, 21.5), text="*.pdf / Web Site\nPolished, illustrated reports", style=ts_suc_body)
 
-phosphor.git_branch(xy=(107.5, 12.0), width=4.5, style=Styles.success)
+phosphor.git_branch(xy=(107.5, 12.0), width=4.5, style=Styles.Success)
 text((111.5, 12.0), text="Git Version Control\nReview diagrams as code diffs", style=ts_suc_body)
 
 # Connectors
-line((39.5, 24.0), (53.5, 24.0), arrowhead="<->", style=Styles.bold)
-text((46.5, 28.5), text="Rules & Queries", style=Styles.primary_bold, size=7.5)
-text((46.5, 19.5), text="APIs / Grid Images", style=Styles.accent_bold, size=7.2)
+line((39.5, 24.0), (53.5, 24.0), arrowhead="<->", style=Styles.PrimaryBold)
+text((46.5, 28.5), text="Rules & Queries", style=Styles.PrimaryBold, size=7.5)
+text((46.5, 19.5), text="APIs / Grid Images", style=Styles.AccentBold, size=7.2)
 
-line((88.5, 24.0), (102.5, 24.0), arrowhead="->", style=Styles.bold)
-text((95.5, 28.5), text="Verified Code", style=Styles.success_bold, size=7.5)
-text((95.5, 19.5), text="Document Sync", style=Styles.muted_bold, size=7.2)
+line((88.5, 24.0), (102.5, 24.0), arrowhead="->", style=Styles.PrimaryBold)
+text((95.5, 28.5), text="Verified Code", style=Styles.SuccessBold, size=7.5)
+text((95.5, 19.5), text="Document Sync", style=Styles.MutedBold, size=7.2)
 ```
 
 ## 6.1 Using the Built-In Rule System (`drawlib rules`)

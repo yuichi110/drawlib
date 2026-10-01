@@ -40,9 +40,9 @@ class TestChevronProcessUnit:
         """Test adding items via append and extend."""
         styles = default_styles
         cp = ChevronProcess(
-            default_style=styles.solid,
-            default_textstyle=styles.white_bold,
-            default_description_style=styles.white,
+            default_style=styles.PrimarySolid,
+            default_textstyle=styles.WhiteBold,
+            default_description_style=styles.White,
         )
         cp.append("Step 1", description="Init scope")
         assert len(cp.items) == 1
@@ -60,9 +60,9 @@ class TestChevronProcessUnit:
         """Test inserting item at specific index."""
         styles = default_styles
         cp = ChevronProcess(
-            default_style=styles.solid,
-            default_textstyle=styles.white_bold,
-            default_description_style=styles.white,
+            default_style=styles.PrimarySolid,
+            default_textstyle=styles.WhiteBold,
+            default_description_style=styles.White,
         )
         cp.append("Step 1")
         cp.append("Step 3")
@@ -81,11 +81,11 @@ class TestChevronProcessUnit:
             cp.append("Step 1")
 
         styles = default_styles
-        cp_no_text = ChevronProcess(default_style=styles.solid)
+        cp_no_text = ChevronProcess(default_style=styles.PrimarySolid)
         with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
             cp_no_text.append("Step 1")
 
-        cp_no_desc = ChevronProcess(default_style=styles.solid, default_textstyle=styles.bold)
+        cp_no_desc = ChevronProcess(default_style=styles.PrimarySolid, default_textstyle=styles.PrimaryBold)
         with pytest.raises(
             ValueError, match="Neither 'default_description_style' nor 'description_style' was provided"
         ):
@@ -103,8 +103,8 @@ class TestChevronProcessRendering:
 
             styles = default_styles
             cp = ChevronProcess(
-                default_style=styles.solid,
-                default_textstyle=styles.white_bold,
+                default_style=styles.PrimarySolid,
+                default_textstyle=styles.WhiteBold,
             )
             cp.append("Requirements")
             cp.append("Design")
@@ -126,9 +126,9 @@ class TestChevronProcessRendering:
 
             styles = default_styles
             cp = ChevronProcess(
-                default_style=styles.solid,
-                default_textstyle=styles.white_bold,
-                default_description_style=styles.white,
+                default_style=styles.PrimarySolid,
+                default_textstyle=styles.WhiteBold,
+                default_description_style=styles.White,
                 corner_angle=50.0,
                 spacing=2.0,
             )
@@ -150,8 +150,8 @@ class TestChevronProcessRendering:
 
             styles = default_styles
             cp = ChevronProcess(
-                default_style=styles.solid,
-                default_textstyle=styles.white_bold,
+                default_style=styles.PrimarySolid,
+                default_textstyle=styles.WhiteBold,
                 flat_left_end=True,
                 spacing=1.2,
             )
@@ -173,12 +173,12 @@ class TestChevronProcessRendering:
             palette: list[ColorType] = [(59, 130, 246), (16, 185, 129), (245, 158, 11)]
             cp = ChevronProcess(
                 palette=palette,
-                default_textstyle=styles.white_bold,
+                default_textstyle=styles.WhiteBold,
             )
             cp.append("Alpha")
             cp.append(
                 "Beta",
-                style=styles.primary.patch(shape_fill_color=(239, 68, 68, 1.0), shape_line_width=1.5),
+                style=styles.Primary.patch(shape_fill_color=(239, 68, 68, 1.0), shape_line_width=1.5),
             )
             cp.append("GA")
 

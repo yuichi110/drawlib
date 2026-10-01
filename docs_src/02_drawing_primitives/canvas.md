@@ -57,11 +57,11 @@ from drawlib.shapes import rectangle, circle
 from drawlib.styles import Colors, Styles
 
 # Custom background color (Muted tone 1) and coordinate grid
-setup(width=100, height=50, background_color=Colors.muted1, grid=True)
+setup(width=100, height=50, background_color=Colors.Muted1, grid=True)
 
-rectangle((50, 25), width=60, height=25, style=Styles.primary_flat, text="Custom Canvas Setup", textstyle=Styles.white_bold)
-circle((20, 25), radius=8, style=Styles.accent_flat)
-circle((80, 25), radius=8, style=Styles.success_flat)
+rectangle((50, 25), width=60, height=25, style=Styles.PrimaryFlat, text="Custom Canvas Setup", textstyle=Styles.WhiteBold)
+circle((20, 25), radius=8, style=Styles.AccentFlat)
+circle((80, 25), radius=8, style=Styles.SuccessFlat)
 ```
 
 ---

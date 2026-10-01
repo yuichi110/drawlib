@@ -19,17 +19,17 @@ from drawlib.text import text
 setup(width=120, height=45)
 
 # Phosphor icons with semantic styles
-phosphor.browser((20, 25), width=14, style=Styles.accent_flat)
-text((20, 10), "Browser", style=Styles.bold)
+phosphor.browser((20, 25), width=14, style=Styles.AccentFlat)
+text((20, 10), "Browser", style=Styles.PrimaryBold)
 
-phosphor.cpu((50, 25), width=14, style=Styles.primary_flat)
-text((50, 10), "API Server", style=Styles.bold)
+phosphor.cpu((50, 25), width=14, style=Styles.PrimaryFlat)
+text((50, 10), "API Server", style=Styles.PrimaryBold)
 
-phosphor.database((80, 25), width=14, style=Styles.secondary_flat)
-text((80, 10), "Database", style=Styles.bold)
+phosphor.database((80, 25), width=14, style=Styles.SecondaryFlat)
+text((80, 10), "Database", style=Styles.PrimaryBold)
 
-phosphor.cloud((105, 25), width=14, style=Styles.success_flat)
-text((105, 10), "Cloud", style=Styles.bold)
+phosphor.cloud((105, 25), width=14, style=Styles.SuccessFlat)
+text((105, 10), "Cloud", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -73,8 +73,8 @@ from drawlib.text import text
 setup(width=60, height=50)
 
 # Solid filled bell icon
-phosphor.bell((30, 28), width=14, style=Styles.accent.patch(icon_style="fill"))
-text((30, 12), "Alert Badge", style=Styles.accent_bold)
+phosphor.bell((30, 28), width=14, style=Styles.Accent.patch(icon_style="fill"))
+text((30, 12), "Alert Badge", style=Styles.AccentBold)
 
 save()
 ```
@@ -93,11 +93,11 @@ from drawlib.text import text
 
 setup(width=100, height=45)
 
-gcp.compute_engine((30, 26), width=14, style=Styles.primary)
-text((30, 10), "Compute Engine", style=Styles.bold)
+gcp.compute_engine((30, 26), width=14, style=Styles.Primary)
+text((30, 10), "Compute Engine", style=Styles.PrimaryBold)
 
-gcp.cloud_storage((70, 26), width=14, style=Styles.primary)
-text((70, 10), "Cloud Storage", style=Styles.bold)
+gcp.cloud_storage((70, 26), width=14, style=Styles.Primary)
+text((70, 10), "Cloud Storage", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -120,7 +120,7 @@ font_icon(
     xy=(50, 50),
     icon="fa-brands fa-github",
     width=12,
-    style=Styles.primary_bold,
+    style=Styles.PrimaryBold,
 )
 ```
 

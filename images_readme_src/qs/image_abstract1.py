@@ -5,7 +5,7 @@ from drawlib.shapes import circle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-setup(width=100, height=100, color=Colors.canvas)
+setup(width=100, height=100, color=Colors.Canvas)
 line((10, 10), (90, 90), style=Styles.Primary)
 circle((25, 75), radius=20, style=Styles.Primary)
 image((75, 25), width=30, image="../_assets/python.png")

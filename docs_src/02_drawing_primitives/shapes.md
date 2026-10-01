@@ -33,16 +33,16 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # Row 1: Circle-like & Radial
-circle((20, 45), radius=10, style=Styles.primary_flat, text="circle", textstyle=Styles.white_bold)
-donuts((50, 45), radius=10, width=4, style=Styles.accent_flat, text="donuts", textstyle=Styles.white_bold)
-regularpolygon((80, 45), radius=10, num_vertex=6, style=Styles.secondary_flat, text="hexagon", textstyle=Styles.white_bold)
-star((105, 45), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.danger_flat)
+circle((20, 45), radius=10, style=Styles.PrimaryFlat, text="circle", textstyle=Styles.WhiteBold)
+donuts((50, 45), radius=10, width=4, style=Styles.AccentFlat, text="donuts", textstyle=Styles.WhiteBold)
+regularpolygon((80, 45), radius=10, num_vertex=6, style=Styles.SecondaryFlat, text="hexagon", textstyle=Styles.WhiteBold)
+star((105, 45), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.DangerFlat)
 
 # Row 2: Rectangles & Polygons
-rectangle((20, 18), width=24, height=14, r=2, style=Styles.primary_flat, text="rounded", textstyle=Styles.white_bold)
-rhombus((50, 18), width=22, height=16, style=Styles.accent_flat, text="rhombus", textstyle=Styles.white_bold)
-trapezoid((70, 11), height=14, bottomedge_width=22, topedge_width=12, style=Styles.secondary_flat, text="trapezoid", textstyle=Styles.white_bold)
-triangle((105, 18), width=18, height=14, style=Styles.success_flat, text="tri", textstyle=Styles.white_bold)
+rectangle((20, 18), width=24, height=14, r=2, style=Styles.PrimaryFlat, text="rounded", textstyle=Styles.WhiteBold)
+rhombus((50, 18), width=22, height=16, style=Styles.AccentFlat, text="rhombus", textstyle=Styles.WhiteBold)
+trapezoid((70, 11), height=14, bottomedge_width=22, topedge_width=12, style=Styles.SecondaryFlat, text="trapezoid", textstyle=Styles.WhiteBold)
+triangle((105, 18), width=18, height=14, style=Styles.SuccessFlat, text="tri", textstyle=Styles.WhiteBold)
 
 save()
 ```
@@ -60,9 +60,9 @@ from drawlib.styles import Styles
 
 setup(width=110, height=45)
 
-circle((20, 22.5), radius=12, style=Styles.primary_flat, text="circle", textstyle=Styles.white_bold)
-donuts((55, 22.5), radius=12, width=4.5, style=Styles.accent_flat, text="donuts", textstyle=Styles.white_bold)
-ellipse((90, 22.5), width=24, height=16, style=Styles.secondary_flat, text="ellipse", textstyle=Styles.white_bold)
+circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text="circle", textstyle=Styles.WhiteBold)
+donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text="donuts", textstyle=Styles.WhiteBold)
+ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text="ellipse", textstyle=Styles.WhiteBold)
 
 save()
 ```
@@ -89,7 +89,7 @@ from drawlib.styles import Styles
 
 setup(width=100, height=50)
 
-rectangle((50, 25), width=50, height=26, r=4, style=Styles.primary_flat, text="Service Card", textstyle=Styles.white_bold)
+rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text="Service Card", textstyle=Styles.WhiteBold)
 
 save()
 ```
@@ -118,9 +118,9 @@ setup(width=100, height=60)
 shape(
     (50, 30),
     path_points=[(0, 0), (20, 0), (30, 15), (10, 25), (-5, 10)],
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
     text="Custom Path",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 
 save()

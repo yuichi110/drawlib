@@ -85,7 +85,7 @@ class TestCanvasBase:
         """Verify drawing a basic polygon with different styles and text."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         # No style
         polygon(xys=[(10, 10), (10, 50), (80, 30)], style=s_def)
@@ -120,7 +120,7 @@ class TestCanvasBase:
         shape(
             xy=(50, 50),
             path_points=[(0, 0), (10, 0), (10, 10), (0, 10)],
-            style=styles.primary.patch(shape_fill_color=Colors.Blue),
+            style=styles.Primary.patch(shape_fill_color=Colors.Blue),
             text="Shape",
         )
         save(f"{OUTPUT_DIR}test_shape.png")
@@ -129,7 +129,7 @@ class TestCanvasBase:
         """Verify rectangle drawing with regular corners, rounded corners, alignments, and text."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         # Default
         rectangle((50, 50), 40, 20, text="Rectangle", style=s_def)

@@ -22,8 +22,8 @@ chart = LineChart(
     smooth=True,
     show_points=True,
 )
-chart.add_series("2025", [45, 52, 58, 65, 72, 80], color=Colors.primary, line_width=2.5)
-chart.add_series("2026", [60, 75, 88, 110, 135, 160], color=Colors.accent, line_width=2.5)
+chart.add_series("2025", [45, 52, 58, 65, 72, 80], color=Colors.Primary, line_width=2.5)
+chart.add_series("2026", [60, 75, 88, 110, 135, 160], color=Colors.Accent, line_width=2.5)
 
 chart.draw(xy=(10, 8))
 ```

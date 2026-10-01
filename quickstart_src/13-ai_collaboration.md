@@ -23,26 +23,26 @@ from drawlib.text import text
 setup(width=120, height=52)
 
 steps = [
-    (15, phosphor.magnifying_glass, "1. Inspect Context", "Examine models\n& API specs", Styles.primary_flat),
-    (42, phosphor.code, "2. Prototype", ".drawlib/scratch/\nor MD block", Styles.secondary_flat),
-    (69, phosphor.grid_four, "3. Render Grid", "drawlib show -g\nExport PNG", Styles.accent_flat),
-    (96, phosphor.eye, "4. Vision Review", "Check overflow\n& spacing", Styles.success_flat),
+    (15, phosphor.magnifying_glass, "1. Inspect Context", "Examine models\n& API specs", Styles.PrimaryFlat),
+    (42, phosphor.code, "2. Prototype", ".drawlib/scratch/\nor MD block", Styles.SecondaryFlat),
+    (69, phosphor.grid_four, "3. Render Grid", "drawlib show -g\nExport PNG", Styles.AccentFlat),
+    (96, phosphor.eye, "4. Vision Review", "Check overflow\n& spacing", Styles.SuccessFlat),
 ]
 
 for x, icon_fn, title, desc, st in steps:
-    rectangle((x, 32), width=23, height=28, r=2, style=Styles.muted_dashed)
+    rectangle((x, 32), width=23, height=28, r=2, style=Styles.MutedDashed)
     icon_fn(xy=(x, 38), width=6, style=st)
-    text(xy=(x, 29), text=title, style=Styles.bold, size=8)
-    text(xy=(x, 21), text=desc, style=Styles.primary, size=7)
+    text(xy=(x, 29), text=title, style=Styles.PrimaryBold, size=8)
+    text(xy=(x, 21), text=desc, style=Styles.Primary, size=7)
 
 # Forward connectors
-line((26.5, 32), (30.5, 32), arrowhead="->", style=Styles.bold)
-line((53.5, 32), (57.5, 32), arrowhead="->", style=Styles.bold)
-line((80.5, 32), (84.5, 32), arrowhead="->", style=Styles.bold)
+line((26.5, 32), (30.5, 32), arrowhead="->", style=Styles.PrimaryBold)
+line((53.5, 32), (57.5, 32), arrowhead="->", style=Styles.PrimaryBold)
+line((80.5, 32), (84.5, 32), arrowhead="->", style=Styles.PrimaryBold)
 
 # Self-Correction Feedback Loop
-line_curved((96, 17), (42, 17), bend=-0.3, arrowhead="->", style=Styles.danger_dashed_bold)
-text((69, 5), "5. Issues Found? Auto-adjust coordinates & retry", style=Styles.danger_bold, size=8)
+line_curved((96, 17), (42, 17), bend=-0.3, arrowhead="->", style=Styles.DangerDashedBold)
+text((69, 5), "5. Issues Found? Auto-adjust coordinates & retry", style=Styles.DangerBold, size=8)
 ```
 
 ### Self-Review Checklist for Agents

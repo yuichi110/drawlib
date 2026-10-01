@@ -73,8 +73,8 @@ chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0, m
 chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0, max_value=200)
 
 # 1. Annotated Milestone Points
-chart.add(xy=(100.0, 18.0), radius=1.6, label="v1.0 Baseline", style=Styles.muted_flat)
-chart.add(xy=(730.0, 35.0), radius=2.2, label="v2.5 Release", style=Styles.success_flat)
+chart.add(xy=(100.0, 18.0), radius=1.6, label="v1.0 Baseline", style=Styles.MutedFlat)
+chart.add(xy=(730.0, 35.0), radius=2.2, label="v2.5 Release", style=Styles.SuccessFlat)
 
 # 2. Multi-Series Experimental Runs
 chart.add_series(

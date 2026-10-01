@@ -428,7 +428,7 @@ backend = d.add_group(
     ParticipantGroup(
         title="Google Cloud VPC",
         padding=4.0,
-        style=Styles.primary.patch(shape_fill_color=(242, 246, 255, 0.4), shape_line_color=Colors.Gray5, shape_line_style="dashed"),
+        style=Styles.Primary.patch(shape_fill_color=(242, 246, 255, 0.4), shape_line_color=Colors.Gray5, shape_line_style="dashed"),
     )
 )
 api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))

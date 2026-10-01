@@ -32,7 +32,7 @@ class TestCanvasText:
         """Verify horizontal text rendering, size overrides, background blocks, and custom fonts."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         # Simple text
         text((30, 30), "Hello World", style=s_def)
@@ -72,7 +72,7 @@ class TestCanvasText:
         """Verify vertical text layout rendering with custom fonts, sizes, and borders."""
         clear()
         styles = default_styles
-        s_def = styles.primary
+        s_def = styles.Primary
 
         # Standard vertical text
         text_vertical((30, 30), "Hello World. あいうえお", style=s_def)

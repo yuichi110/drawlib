@@ -127,7 +127,7 @@ def test_build_html_markdown_with_external_css(tmp_path) -> None:
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=20, style=Styles.primary, text="Core Engine")
+circle((50, 50), radius=20, style=Styles.Primary, text="Core Engine")
 ```
 """,
         encoding="utf-8",
@@ -159,7 +159,7 @@ def test_build_html_webp_format(tmp_path) -> None:
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=20, style=Styles.primary)
+circle((50, 50), radius=20, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -186,7 +186,7 @@ def test_build_html_from_html_drawlib(tmp_path) -> None:
 <script type="text/drawlib" file="my_fig.png">
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=15, style=Styles.primary)
+circle((50, 50), radius=15, style=Styles.Primary)
 </script>
 </body>
 </html>
@@ -235,7 +235,7 @@ def test_build_markdown_format(tmp_path) -> None:
 ```drawlib
 from drawlib.lines import line
 from drawlib.styles import Styles
-line((0, 0), (100, 100), style=Styles.primary)
+line((0, 0), (100, 100), style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -346,7 +346,7 @@ def test_build_pdf_multi_document_merge(tmp_path) -> None:
 ```drawlib
 from drawlib.shapes import circle
 from drawlib.styles import Styles
-circle((50, 50), radius=15, style=Styles.primary)
+circle((50, 50), radius=15, style=Styles.Primary)
 ```
 """,
         encoding="utf-8",
@@ -552,8 +552,8 @@ def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:
     _setup_template_and_css(tmp_path)
     doc = tmp_path / "guide.md"
     doc.write_text(
-        "# Guide\n```drawlib file:same.png\ncircle((50, 50), 10, style=Styles.primary)\n```\n"
-        "```drawlib file:same.png\ncircle((50, 50), 20, style=Styles.primary)\n```\n",
+        "# Guide\n```drawlib file:same.png\ncircle((50, 50), 10, style=Styles.Primary)\n```\n"
+        "```drawlib file:same.png\ncircle((50, 50), 20, style=Styles.Primary)\n```\n",
         encoding="utf-8",
     )
     out = tmp_path / "guide.html"

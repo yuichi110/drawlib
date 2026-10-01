@@ -15,11 +15,11 @@ Drawlib は、"Illustrated Documentation as Code" を支える統合描画・ド
 
 Drawlib では、作図のたびに RGB 値を迷う必要はありません。洗練された **セマンティック 6 色パレット** とスタイル命名規則が標準で組み込まれています。
 
-- **`Styles.primary`**: システムの中核ノードや主動線（青系）
-- **`Styles.secondary`**: 外部システムやクライアント（スレート・インディゴ系）
-- **`Styles.accent`**: 注目させたいハイライトや補助サービス（アンバー・ティール系）
-- **`Styles.muted`**: 境界枠や補助注記、背景コンテナ（薄いグレー系）
-- **`Styles.success` / `Styles.warning` / `Styles.error`**: 正常・警告・異常ステータス
+- **`Styles.Primary`**: システムの中核ノードや主動線（青系）
+- **`Styles.Secondary`**: 外部システムやクライアント（スレート・インディゴ系）
+- **`Styles.Accent`**: 注目させたいハイライトや補助サービス（アンバー・ティール系）
+- **`Styles.Muted`**: 境界枠や補助注記、背景コンテナ（薄いグレー系）
+- **`Styles.Success` / `Styles.Warning` / `Styles.Error`**: 正常・警告・異常ステータス
 
 各カラーには `_flat`（塗りつぶし）、`_outline`（枠線）、`_bold`（太線）、`_dashed`（破線）などのバリアントが用意されています。
 

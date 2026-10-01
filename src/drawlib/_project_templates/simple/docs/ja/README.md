@@ -64,13 +64,14 @@ Styles = Styles.patch_font(
 繰り返し利用する図面コンポーネントや定数を定義します:
 ```python
 from drawlib.shapes import rectangle
+from drawlib.styles import Styles
 from drawlib.text import text
 
 PROJECT_NAME = "システム設計仕様書"
 
 def node(xy: tuple[float, float], label: str) -> None:
-    rectangle(xy, width=24, height=14, r=1, style="blue_flat")
-    text(xy, label, style="white_bold")
+    rectangle(xy, width=24, height=14, r=1, style=Styles.BlueFlat)
+    text(xy, label, style=Styles.WhiteBold)
 ```
 Markdown 内の ````drawlib```` コードブロックから利用する例:
 ```python

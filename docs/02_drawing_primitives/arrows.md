@@ -37,9 +37,9 @@ arrow(
     head_width=13,
     head_length=10,
     head="->",  # "->", "<-", or "<->"
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
     text="Data Ingestion",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 save()
 ```
@@ -73,9 +73,9 @@ chevron(
     width=40,
     height=20,
     corner_angle=60,  # Tip acute angle
-    style=Styles.accent_flat,
+    style=Styles.AccentFlat,
     text="Stage 1",
-    textstyle=Styles.white_bold,
+    textstyle=Styles.WhiteBold,
 )
 save()
 ```
@@ -113,7 +113,7 @@ arrow_l(
     head_width=11,
     head_length=8,
     r=5,  # Corner rounding radius
-    style=Styles.secondary_flat,
+    style=Styles.SecondaryFlat,
 )
 save()
 ```
@@ -144,7 +144,7 @@ arrow_u(
     head_width=11,
     head_length=8,
     r=6,  # Corner rounding radius
-    style=Styles.danger_flat,
+    style=Styles.DangerFlat,
 )
 save()
 ```
@@ -179,7 +179,7 @@ arrow_arc(
     angle_end=0,
     tail_width=4,
     head_width=11,
-    style=Styles.success_flat,
+    style=Styles.SuccessFlat,
 )
 save()
 ```
@@ -208,7 +208,7 @@ arrow_polyline(
     head_width=11,
     head_length=8,
     r=4,
-    style=Styles.primary_flat,
+    style=Styles.PrimaryFlat,
 )
 save()
 ```

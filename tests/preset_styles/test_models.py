@@ -7,6 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+import pytest
 from pydantic import BaseModel
 
 from drawlib._core.l3_fonts import FontSourceCode
@@ -38,55 +39,61 @@ class TestPresetStyles:
         assert isinstance(preset, BaseModel)
         assert isinstance(preset, BaseStyles)
         assert isinstance(preset, DefaultStyles)
-        assert isinstance(preset.primary, Style)
-        assert isinstance(preset.light, Style)
-        assert isinstance(preset.bold, Style)
-        assert isinstance(preset.flat, Style)
-        assert isinstance(preset.solid, Style)
-        assert isinstance(preset.dashed, Style)
+        assert isinstance(preset.Primary, Style)
+        assert isinstance(preset.PrimaryLight, Style)
+        assert isinstance(preset.PrimaryBold, Style)
+        assert isinstance(preset.PrimaryFlat, Style)
+        assert isinstance(preset.PrimarySolid, Style)
+        assert isinstance(preset.PrimaryDashed, Style)
         assert preset.background_color == (255, 255, 255, 1.0)
         assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
+
+        # Verify snake_case raises AttributeError
+        with pytest.raises(AttributeError):
+            _ = preset.primary
+        with pytest.raises(AttributeError):
+            _ = preset.primary_flat
 
     def test_default_styles_completeness(self) -> None:
         """Verifies DefaultStyles provides all variants across all colors without omission."""
         preset = default_styles
         assert len(preset.styles()) == 1696
-        variants = ["flat", "solid", "dashed", "bold", "light"]
+        variants = ["Flat", "Solid", "Dashed", "Bold", "Light"]
         colors = [
-            "red",
-            "green",
-            "blue",
-            "yellow",
-            "purple",
-            "orange",
-            "navy",
-            "pink",
-            "cyan",
-            "magenta",
-            "lime",
-            "teal",
-            "olive",
-            "brown",
-            "gold",
-            "aqua",
-            "green_yellow",
-            "ivory",
-            "steel",
-            "white",
-            "gray1",
-            "gray2",
-            "gray3",
-            "gray4",
-            "gray5",
-            "gray6",
-            "gray7",
-            "gray8",
-            "black",
+            "Red",
+            "Green",
+            "Blue",
+            "Yellow",
+            "Purple",
+            "Orange",
+            "Navy",
+            "Pink",
+            "Cyan",
+            "Magenta",
+            "Lime",
+            "Teal",
+            "Olive",
+            "Brown",
+            "Gold",
+            "Aqua",
+            "GreenYellow",
+            "Ivory",
+            "Steel",
+            "White",
+            "Gray1",
+            "Gray2",
+            "Gray3",
+            "Gray4",
+            "Gray5",
+            "Gray6",
+            "Gray7",
+            "Gray8",
+            "Black",
         ]
         for c in colors:
             assert isinstance(getattr(preset, c), Style)
             for v in variants:
-                assert isinstance(getattr(preset, f"{c}_{v}"), Style)
+                assert isinstance(getattr(preset, f"{c}{v}"), Style)
 
     def test_google_styles_instantiation(self) -> None:
         """Verifies GoogleStyles provides valid styles, properties, and Google Sheets palette."""
@@ -95,26 +102,32 @@ class TestPresetStyles:
         assert isinstance(preset, BaseModel)
         assert isinstance(preset, BaseStyles)
         assert isinstance(preset, GoogleStyles)
-        assert isinstance(preset.primary, Style)
-        assert isinstance(preset.light, Style)
-        assert isinstance(preset.bold, Style)
-        assert isinstance(preset.flat, Style)
-        assert isinstance(preset.solid, Style)
-        assert isinstance(preset.dashed, Style)
+        assert isinstance(preset.Primary, Style)
+        assert isinstance(preset.PrimaryLight, Style)
+        assert isinstance(preset.PrimaryBold, Style)
+        assert isinstance(preset.PrimaryFlat, Style)
+        assert isinstance(preset.PrimarySolid, Style)
+        assert isinstance(preset.PrimaryDashed, Style)
         assert preset.background_color == (255, 255, 255, 1.0)
         assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
 
         # Verify Google palette colors & variants
-        assert isinstance(preset.cornflower_blue, Style)
-        assert isinstance(preset.cornflower_blue_flat, Style)
-        assert isinstance(preset.blue1, Style)
-        assert isinstance(preset.blue1_flat, Style)
-        assert isinstance(preset.green5, Style)
-        assert isinstance(preset.red_berry, Style)
-        assert isinstance(preset.gray8, Style)
-        assert isinstance(preset.google_blue, Style)
-        assert isinstance(preset.teal, Style)
-        assert isinstance(preset.cornflower_blue3, Style)
+        assert isinstance(preset.CornflowerBlue, Style)
+        assert isinstance(preset.CornflowerBlueFlat, Style)
+        assert isinstance(preset.Blue1, Style)
+        assert isinstance(preset.Blue1Flat, Style)
+        assert isinstance(preset.Green5, Style)
+        assert isinstance(preset.RedBerry, Style)
+        assert isinstance(preset.Gray8, Style)
+        assert isinstance(preset.GoogleBlue, Style)
+        assert isinstance(preset.Teal, Style)
+        assert isinstance(preset.CornflowerBlue3, Style)
+
+        # Verify snake_case raises AttributeError
+        with pytest.raises(AttributeError):
+            _ = preset.google_blue
+        with pytest.raises(AttributeError):
+            _ = preset.cornflower_blue_flat
 
     def test_iteration_and_dict_access(self) -> None:
         """Verifies iteration, dictionary access, and styles helper on preset style models."""
@@ -122,31 +135,37 @@ class TestPresetStyles:
 
         # __iter__ test
         items = dict(preset)
-        assert "primary" in items
-        assert items["primary"] == preset.primary
-        assert "primary_light" in items
-        assert items["primary_light"] == preset.primary_light
+        assert "Primary" in items
+        assert items["Primary"] == preset.Primary
+        assert "PrimaryLight" in items
+        assert items["PrimaryLight"] == preset.PrimaryLight
         assert "background_color" in items
 
         # __getitem__ test
-        assert preset["primary"] == preset.primary
-        assert preset["light"] == preset.light
+        assert preset["Primary"] == preset.Primary
+        assert preset["PrimaryLight"] == preset.PrimaryLight
 
         # get test
-        assert preset.get("primary") == preset.primary
+        assert preset.get("Primary") == preset.Primary
         assert preset.get("unknown_key", "default_val") == "default_val"
 
         # styles() test (only Style instances)
         styles_dict = preset.styles()
-        assert "primary" in styles_dict
+        assert "Primary" in styles_dict
         assert "background_color" not in styles_dict
+
+        # Verify snake_case raises KeyError
+        with pytest.raises(KeyError):
+            _ = preset["primary"]
+        with pytest.raises(KeyError):
+            _ = preset["primary_flat"]
 
     def test_custom_user_defined_styles(self) -> None:
         """Verifies that users can define arbitrary style fields with full autocomplete and iteration."""
 
         class MyCloudStyles(BaseStyles):
-            vpc: Style
-            subnet: Style
+            Vpc: Style
+            Subnet: Style
             custom_note: str = "production"
 
         base = default_styles
@@ -155,20 +174,20 @@ class TestPresetStyles:
 
         my_styles = MyCloudStyles(
             **base.model_dump(),
-            vpc=vpc_style,
-            subnet=subnet_style,
+            Vpc=vpc_style,
+            Subnet=subnet_style,
         )
 
-        assert my_styles.vpc == vpc_style
-        assert my_styles.subnet == subnet_style
+        assert my_styles.Vpc == vpc_style
+        assert my_styles.Subnet == subnet_style
         assert my_styles.custom_note == "production"
 
         style_map = dict(my_styles)
-        assert style_map["vpc"] == vpc_style
-        assert style_map["subnet"] == subnet_style
+        assert style_map["Vpc"] == vpc_style
+        assert style_map["Subnet"] == subnet_style
         assert style_map["custom_note"] == "production"
-        assert my_styles["vpc"] == vpc_style
-        assert my_styles.get("subnet") == subnet_style
+        assert my_styles["Vpc"] == vpc_style
+        assert my_styles.get("Subnet") == subnet_style
 
     def test_import_from_types(self) -> None:
         """Verifies that BaseStyles can be imported from drawlib.types."""
@@ -178,17 +197,16 @@ class TestPresetStyles:
         """Verifies that preset style classes can be instantiated without arguments."""
         d = DefaultStyles()
         assert isinstance(d, DefaultStyles)
-        assert d.primary is not None
-        assert d.Primary == d.primary
+        assert d.Primary is not None
 
         g = GoogleStyles()
         assert isinstance(g, GoogleStyles)
-        assert g.primary is not None
-        assert g.GoogleBlue == g.google_blue
+        assert g.Primary is not None
+        assert g.GoogleBlue is not None
 
         m = MonochromeStyles()
         assert isinstance(m, MonochromeStyles)
-        assert m.primary is not None
+        assert m.Primary is not None
 
     def test_styles_patch_instance_method(self) -> None:
         """Verifies that patch on preset style instances creates updated instances."""
@@ -196,21 +214,19 @@ class TestPresetStyles:
         custom_primary = Style(line_color=(1, 2, 3, 1.0))
         p = d.patch(Primary=custom_primary, Width=200, BackgroundColor=(240, 240, 240))
         assert isinstance(p, DefaultStyles)
-        assert p.primary == custom_primary
         assert p.Primary == custom_primary
         assert p.width == 200
         assert p.background_color == (240, 240, 240, 1.0)
-        assert d.primary != custom_primary
+        assert d.Primary != custom_primary
 
         g = GoogleStyles()
         custom_blue = Style(line_color=(4, 5, 6, 1.0))
         gp = g.patch(GoogleBlue=custom_blue)
         assert isinstance(gp, GoogleStyles)
-        assert gp.google_blue == custom_blue
         assert gp.GoogleBlue == custom_blue
 
         m = MonochromeStyles()
         custom_white = Style(line_color=(7, 8, 9, 1.0))
         mp = m.patch(White=custom_white)
         assert isinstance(mp, MonochromeStyles)
-        assert mp.white == custom_white
+        assert mp.White == custom_white

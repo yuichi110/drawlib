@@ -12,9 +12,9 @@ from drawlib.utils import connect, service_card
 setup(width=120, height=60)
 
 # utils.py で定義したカスタムコンポーネントによるサービス描画
-service_card((30, 42), title="フロントエンド UI", subtitle="Single Page App", width=34, height=18, style=Styles.primary_flat)
-service_card((30, 18), title="認証サービス", subtitle="OAuth 2.0 / JWT", width=34, height=18, style=Styles.accent_flat)
-service_card((90, 30), title="バックエンド", subtitle="マイクロサービス群", width=36, height=36, style=Styles.secondary_flat)
+service_card((30, 42), title="フロントエンド UI", subtitle="Single Page App", width=34, height=18, style=Styles.PrimaryFlat)
+service_card((30, 18), title="認証サービス", subtitle="OAuth 2.0 / JWT", width=34, height=18, style=Styles.AccentFlat)
+service_card((90, 30), title="バックエンド", subtitle="マイクロサービス群", width=36, height=36, style=Styles.SecondaryFlat)
 
 # プロトコルラベル付き接続線
 connect((47, 42), (72, 35), label="HTTPS")
