@@ -356,7 +356,7 @@ $ uv run drawlib rules show agent-instruction
 </tr>
 <tr>
 <td><strong>Render Grid Preview</strong></td>
-<td><code>uv run drawlib show &lt;path&gt; -g -o scratch/test.png</code></td>
+<td><code>uv run drawlib show &lt;path&gt; -g -o .drawlib/scratch/test.png</code></td>
 </tr>
 <tr>
 <td><strong>Build Full Docs</strong></td>
@@ -373,9 +373,9 @@ $ uv run drawlib rules show agent-instruction
 </figure>
 <ol>
 <li><strong>Inspect Context</strong>: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.</li>
-<li><strong>Draft Illustration</strong>: The agent writes drawing code in a temporary scratch script (<code>scratch/test.py</code>) or embedded Markdown block.</li>
+<li><strong>Draft Illustration</strong>: The agent writes drawing prototype code in an isolated scratch script (<code>.drawlib/scratch/test.py</code>) or embedded Markdown block. Do not pollute the root directory; ensure <code>.drawlib/</code> is in <code>.gitignore</code>.</li>
 <li><strong>Render Image with Grid (<code>-g</code>)</strong>:<br />
-<code>uv run drawlib show scratch/test.py -g -o scratch/test.png</code></li>
+<code>uv run drawlib show .drawlib/scratch/test.py -g -o .drawlib/scratch/test.png</code></li>
 <li><strong>Multimodal Self-Review</strong>: The agent inspects the rendered PNG with its vision/file viewing tool, checking for:
 <ul>
 <li>Label overflow or text clipping outside boxes.</li>

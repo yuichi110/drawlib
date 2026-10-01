@@ -20,14 +20,14 @@ Drawlib is engineered specifically to empower this autonomous self-correction lo
 ### Stage 1: Inspect Context
 Rather than imagining an architecture from thin air, the agent inspects real repository source code (`models.py`, API routes, microservice configurations).
 
-### Stage 2: Prototype in Scratch
-The agent drafts the drawing code in an isolated scratch file (`scratch/test_diagram.py`) or tests a specific block instead of altering production assets blindly.
+### Stage 2: Prototype in Isolated Scratch Space (`.drawlib/scratch/`)
+The agent drafts the drawing prototype code in an isolated scratch file (`.drawlib/scratch/test_diagram.py`) or tests a specific block instead of altering production assets blindly. Do NOT pollute the project root; ensure `.drawlib/` is in `.gitignore`.
 
 ### Stage 3: Headless Render with Coordinate Grid (`-g`)
 The agent executes `drawlib show` with the `-g` flag to render the image overlaid with coordinate axes, millimeter tick marks, and numeric coordinate labels:
 
 ```bash
-uv run drawlib show scratch/test_diagram.py -g -o scratch/test_diagram.png
+uv run drawlib show .drawlib/scratch/test_diagram.py -g -o .drawlib/scratch/test_diagram.png
 ```
 
 ### Stage 4: Multimodal Inspection

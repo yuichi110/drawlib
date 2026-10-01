@@ -21,9 +21,9 @@ drawlib init pdf my_report/                                # Scaffold multi-chap
 drawlib init image my_images/                              # Scaffold standalone image project
 
 # Inspection & Preview
-drawlib show doc.md 1 -o scratch/fig1.png                 # Headless extraction of block 1
-drawlib show doc.md 1 -g -o scratch/fig1_grid.png         # Export block 1 with coordinate grid
-drawlib show script.py -o scratch/fig.png                 # Export standalone Python script
+drawlib show doc.md 1 -o .drawlib/scratch/fig1.png                 # Headless extraction of block 1
+drawlib show doc.md 1 -g -o .drawlib/scratch/fig1_grid.png         # Export block 1 with coordinate grid
+drawlib show script.py -o .drawlib/scratch/fig.png                 # Export standalone Python script
 
 # Local Server & Verification
 drawlib serve docs_html/                                   # Local preview on http://localhost:8000
@@ -108,7 +108,7 @@ Previews diagrams in a desktop GUI window, or exports them directly to an image 
 
 ```bash
 # Export block 1 with coordinate grid:
-drawlib show docs_src/overview.md 1 -g -o scratch/fig1.png
+drawlib show docs_src/overview.md 1 -g -o .drawlib/scratch/fig1.png
 
 # Preview standalone Python script in GUI window:
 drawlib show my_drawing.py

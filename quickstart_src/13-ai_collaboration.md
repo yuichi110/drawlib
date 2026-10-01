@@ -24,7 +24,7 @@ setup(width=120, height=52)
 
 steps = [
     (15, phosphor.magnifying_glass, "1. Inspect Context", "Examine models\n& API specs", Styles.primary_flat),
-    (42, phosphor.code, "2. Prototype", "scratch/test.py\nor MD block", Styles.secondary_flat),
+    (42, phosphor.code, "2. Prototype", ".drawlib/scratch/\nor MD block", Styles.secondary_flat),
     (69, phosphor.grid_four, "3. Render Grid", "drawlib show -g\nExport PNG", Styles.accent_flat),
     (96, phosphor.eye, "4. Vision Review", "Check overflow\n& spacing", Styles.success_flat),
 ]

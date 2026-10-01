@@ -83,5 +83,5 @@ Do not run a full site build to verify minor coordinate changes. Inspect individ
 
 ```bash
 # Preview block #1 of docs_src/my_doc.md with coordinate grid:
-uv run drawlib show docs_src/my_doc.md 1 -g -o scratch/preview.png
+uv run drawlib show docs_src/my_doc.md 1 -g -o .drawlib/scratch/preview.png
 ```

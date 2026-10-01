@@ -48,7 +48,7 @@ Ensure your agent knows how to query rules and preview drawings:
 |---|---|
 | **Query Module Syntax** | `uv run drawlib rules show <topic>` (e.g. `lib-diagrams`, `lib-smartarts`) |
 | **List Available Rules** | `uv run drawlib rules list` |
-| **Render Grid Preview** | `uv run drawlib show <path> -g -o scratch/test.png` |
+| **Render Grid Preview** | `uv run drawlib show <path> -g -o .drawlib/scratch/test.png` |
 | **Build Full Docs** | `./build.sh` or `uv run drawlib build html docs_src/ -o docs_html/` |
 
 ---
@@ -67,9 +67,9 @@ Teach your agent to follow Drawlib's autonomous self-correction loop when creati
 
 
 1. **Inspect Context**: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.
-2. **Draft Illustration**: The agent writes drawing code in a temporary scratch script (`scratch/test.py`) or embedded Markdown block.
+2. **Draft Illustration**: The agent writes drawing prototype code in an isolated scratch script (`.drawlib/scratch/test.py`) or embedded Markdown block. Do not pollute the root directory; ensure `.drawlib/` is in `.gitignore`.
 3. **Render Image with Grid (`-g`)**:  
-   `uv run drawlib show scratch/test.py -g -o scratch/test.png`
+   `uv run drawlib show .drawlib/scratch/test.py -g -o .drawlib/scratch/test.png`
 4. **Multimodal Self-Review**: The agent inspects the rendered PNG with its vision/file viewing tool, checking for:
    - Label overflow or text clipping outside boxes.
    - Overlapping arrow lines or awkward elbow routings.

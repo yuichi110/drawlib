@@ -316,11 +316,11 @@
 </code></pre>
 <h3>Stage 1: Inspect Context</h3>
 <p>Rather than imagining an architecture from thin air, the agent inspects real repository source code (<code>models.py</code>, API routes, microservice configurations).</p>
-<h3>Stage 2: Prototype in Scratch</h3>
-<p>The agent drafts the drawing code in an isolated scratch file (<code>scratch/test_diagram.py</code>) or tests a specific block instead of altering production assets blindly.</p>
+<h3>Stage 2: Prototype in Isolated Scratch Space (<code>.drawlib/scratch/</code>)</h3>
+<p>The agent drafts the drawing prototype code in an isolated scratch file (<code>.drawlib/scratch/test_diagram.py</code>) or tests a specific block instead of altering production assets blindly. Do NOT pollute the project root; ensure <code>.drawlib/</code> is in <code>.gitignore</code>.</p>
 <h3>Stage 3: Headless Render with Coordinate Grid (<code>-g</code>)</h3>
 <p>The agent executes <code>drawlib show</code> with the <code>-g</code> flag to render the image overlaid with coordinate axes, millimeter tick marks, and numeric coordinate labels:</p>
-<pre><code class="language-bash">uv run drawlib show scratch/test_diagram.py -g -o scratch/test_diagram.png
+<pre><code class="language-bash">uv run drawlib show .drawlib/scratch/test_diagram.py -g -o .drawlib/scratch/test_diagram.png
 </code></pre>
 <h3>Stage 4: Multimodal Inspection</h3>
 <p>Using vision inspection tools (such as <code>view_file</code> or image viewer), the agent examines the rendered output for four common visual defects:</p>

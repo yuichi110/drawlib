@@ -39,8 +39,8 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
    - For icons and architecture nodes, coordinates define the CENTER of the icon.
 
 3. The Multimodal Self-Correction Loop:
-   - Write diagram code in `scratch/test_diagram.py`.
-   - Render headless with grid: `uv run drawlib show scratch/test_diagram.py -g -o scratch/test_diagram.png`.
+   - Write diagram prototype in `.drawlib/scratch/test_diagram.py` (ensure `.drawlib/` is in `.gitignore`).
+   - Render headless with grid: `uv run drawlib show .drawlib/scratch/test_diagram.py -g -o .drawlib/scratch/test_diagram.png`.
    - Multimodal review: Inspect the image for label clipping, line overlaps, or missing margins.
    - Fix coordinates, re-render, and present to user.
 

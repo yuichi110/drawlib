@@ -309,7 +309,7 @@
 <h3>Symptom: Shapes or Text Clipped at Canvas Edges</h3>
 <ul>
 <li><strong>Cause</strong>: In Drawlib's Cartesian coordinate system, <code>(0, 0)</code> is at the bottom-left. Elements placed with coordinates or radii extending beyond <code>width</code> or <code>height</code> are cropped.</li>
-<li><strong>Diagnosis</strong>: Run <code>drawlib show</code> with the <code>-g</code> / <code>--grid</code> flag:<pre><code class="language-bash">uv run drawlib show docs_src/doc.md 1 -g -o scratch/debug_grid.png
+<li><strong>Diagnosis</strong>: Run <code>drawlib show</code> with the <code>-g</code> / <code>--grid</code> flag:<pre><code class="language-bash">uv run drawlib show docs_src/doc.md 1 -g -o .drawlib/scratch/debug_grid.png
 </code></pre>
 The coordinate grid reveals immediately if coordinates exceed <code>setup(width=..., height=...)</code>.</li>
 <li><strong>Solution</strong>:

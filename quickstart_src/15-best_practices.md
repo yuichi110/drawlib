@@ -61,4 +61,4 @@ Before merging illustrations into production documentation:
 - [ ] **Aspect Ratio**: Is the canvas `width` and `height` proportioned to the diagram contents without wasted letterbox space?
 - [ ] **Contrast Verification**: Is text easily readable across dark and light backgrounds?
 - [ ] **Connected Flows**: Do connecting lines have directional arrowheads indicating data flow direction?
-- [ ] **Incremental Verification**: Has the block been tested with `uv run drawlib show <file> <name.png> -g -o scratch/test.png`?
+- [ ] **Incremental Verification**: Has the block been tested with `uv run drawlib show <file> <name.png> -g -o .drawlib/scratch/test.png`?

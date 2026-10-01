@@ -10,7 +10,7 @@ This guide provides solutions for common rendering errors, coordinate clipping, 
 - **Cause**: In Drawlib's Cartesian coordinate system, `(0, 0)` is at the bottom-left. Elements placed with coordinates or radii extending beyond `width` or `height` are cropped.
 - **Diagnosis**: Run `drawlib show` with the `-g` / `--grid` flag:
   ```bash
-  uv run drawlib show docs_src/doc.md 1 -g -o scratch/debug_grid.png
+  uv run drawlib show docs_src/doc.md 1 -g -o .drawlib/scratch/debug_grid.png
   ```
   The coordinate grid reveals immediately if coordinates exceed `setup(width=..., height=...)`.
 - **Solution**:
