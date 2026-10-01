@@ -78,13 +78,16 @@ The canvas operates in a Cartesian coordinate space with the origin `(0, 0)` loc
 | `get_dimage()` | None | Returns the current canvas as an in-memory `Dimage` object. |
 | `canvas` | Singleton | Global canvas context object. |
 
-```python
-from drawlib.canvas import setup, save, clear
+```drawlib show-code file:canvas_lifecycle.png
+from drawlib.canvas import setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
 
-setup(width=120, height=80)
-# ... drawing code ...
-save("output.png")
-clear()
+# 1. Initialize canvas dimensions (width=100, height=45)
+setup(width=100, height=45)
+
+# 2. Draw canvas content
+rectangle((50, 22), width=80, height=26, style=Styles.primary_flat, text="Canvas (100x45)", textstyle=Styles.white_bold)
 ```
 
 ---
@@ -109,8 +112,8 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `rhombus(xy, width, height, ...)` | `width, height`, `angle: float = 0` | Diamond / rhombus shape. |
 | `regularpolygon(xy, radius, num_edges, ...)` | `radius, num_edges: int`, `angle: float = 0` | Regular N-sided polygon (pentagon, hexagon, etc.). |
 | `polygon(points, ...)` | `points: list[tuple[float, float]]` | Arbitrary closed polygon from coordinate list. |
-| `star(xy, radius_outer, radius_inner, num_vertices, ...)` | `radius_outer, radius_inner, num_vertices: int`, `angle: float = 0` | Multi-pointed star shape. |
-| `chevron(xy, width, height, shift=..., ...)` | `width, height`, `shift: float`, `angle: float = 0` | Process chevron arrow shape. |
+| `star(xy, num_vertex, radius_ext, radius_int, ...)` | `num_vertex: int`, `radius_ext: float`, `radius_int: float`, `angle: float = 0` | Multi-pointed star shape. |
+| `chevron(xy, width, height, corner_angle, ...)` | `width, height, corner_angle: float`, `mirror: bool = False`, `angle: float = 0` | Process chevron arrow shape (xy is bottom-left). |
 | `arrow(xy, width, height, ...)` | `width, height`, `angle: float = 0` | Block arrow shape pointing right (or rotated). |
 | `arrow_l(xy, width, height, ...)` | `width, height`, `angle: float = 0` | L-shaped bent block arrow. |
 | `arrow_u(xy, width, height, ...)` | `width, height`, `angle: float = 0` | U-turn block arrow. |
@@ -118,15 +121,17 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `arrow_polyline(points, width, ...)` | `points: list[tuple[float, float]]`, `width: float` | Polyline-following block arrow. |
 | `shape(points, ...)` | `points: list[tuple[float, float]]` | Custom path shape. |
 
-```python
-from drawlib.shapes import rectangle, circle, chevron
+```drawlib show-code file:shapes_primitives.png
+from drawlib.canvas import setup
+from drawlib.shapes import chevron, circle, rectangle, star
 from drawlib.styles import Styles
 
-# Center-positioned rectangle with label
-rectangle((50, 25), width=40, height=20, style=Styles.primary_flat, text="App Server", textstyle=Styles.white_bold)
+setup(width=120, height=40)
 
-# Circle
-circle((80, 25), radius=10, style=Styles.accent_flat)
+rectangle((20, 20), width=28, height=18, style=Styles.primary_flat, text="Rectangle", textstyle=Styles.white_bold)
+circle((50, 20), radius=10, style=Styles.secondary_flat, text="Circle", textstyle=Styles.white_bold)
+chevron((68, 11), width=24, height=18, corner_angle=45, style=Styles.accent_flat, text="Chevron", textstyle=Styles.white_bold)
+star((106, 20), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.success_flat)
 ```
 
 ---
@@ -137,24 +142,30 @@ Lines connect coordinates and support arrowheads: `"-"` (none), `"->"` (forward)
 
 | Function | Signature | Description |
 | :--- | :--- | :--- |
-| `line(xy1, xy2, ...)` | `(xy1, xy2, *, arrowhead="-", style=None, text="", textstyle=None)` | Straight line between two points. |
-| `lines(points, ...)` | `(points, *, arrowhead="-", style=None, text="", textstyle=None)` | Multi-segment chained polyline (orthogonal routing). |
-| `line_curved(xy1, xy2, ...)` | `(xy1, xy2, curve_angle=30, *, arrowhead="-", style=None, ...)` | Smooth circular arc curve between two points. |
-| `lines_curved(points, ...)` | `(points, *, arrowhead="-", style=None, ...)` | Continuous curve passing smoothly through points. |
-| `line_bezier1(xy1, xy2, cp, ...)` | `(xy1, xy2, cp, *, arrowhead="-", style=None, ...)` | Quadratic Bezier curve with 1 control point `cp`. |
-| `line_bezier2(xy1, xy2, cp1, cp2, ...)`| `(xy1, xy2, cp1, cp2, *, arrowhead="-", style=None, ...)` | Cubic Bezier curve with 2 control points `cp1, cp2`. |
-| `lines_bezier(points_and_controls, ...)`| `(points_and_controls, *, arrowhead="-", style=None, ...)` | Chained multi-segment Bezier spline. |
-| `line_arc(xy, radius, angle1, angle2, ...)`| `(xy, radius, angle1, angle2, *, arrowhead="-", style=None, ...)` | Arc segment line from `angle1` to `angle2`. |
+| `line(xy1, xy2, ...)` | `(xy1, xy2, *, style=None, arrowhead="-", width=None)` | Straight line between two points. |
+| `lines(points, ...)` | `(points, *, style=None, arrowhead="-", width=None)` | Multi-segment chained polyline (orthogonal routing). |
+| `line_curved(xy1, xy2, ...)` | `(xy1, xy2, *, style=None, bend=0.0, arrowhead="-", width=None)` | Smooth circular arc curve between two points (`bend` controls curvature). |
+| `lines_curved(points, r, ...)` | `(points, r, *, style=None, arrowhead="-", width=None)` | Continuous curve passing smoothly through points with corner radius `r`. |
+| `line_bezier1(xy1, xy2, cp, ...)` | `(xy1, xy2, cp, *, style=None, arrowhead="-", width=None)` | Quadratic Bezier curve with 1 control point `cp`. |
+| `line_bezier2(xy1, xy2, cp1, cp2, ...)`| `(xy1, xy2, cp1, cp2, *, style=None, arrowhead="-", width=None)` | Cubic Bezier curve with 2 control points `cp1, cp2`. |
+| `lines_bezier(xy, path_points, ...)`| `(xy, path_points, *, style=None, arrowhead="-", width=None)` | Chained multi-segment Bezier spline. |
+| `line_arc(xy, width, height, ...)`| `(xy, width, height, *, style=None, angle_start=0, angle_end=180, ...)` | Elliptical arc segment line. |
 
-```python
-from drawlib.lines import line, lines
+```drawlib show-code file:lines_connectors.png
+from drawlib.canvas import setup
+from drawlib.lines import line, line_curved, lines
 from drawlib.styles import Styles
 
-# Straight connector
-line((30, 20), (50, 20), arrowhead="->", style=Styles.bold)
+setup(width=120, height=40)
 
-# Orthogonal stepped connector via lines()
-lines([(30, 20), (40, 20), (40, 35), (60, 35)], arrowhead="->", style=Styles.bold)
+# 1. Straight connector
+line((10, 20), (35, 20), arrowhead="->", style=Styles.bold)
+
+# 2. Curved arc connector
+line_curved((45, 12), (75, 12), bend=0.3, arrowhead="<->", style=Styles.accent_bold)
+
+# 3. Orthogonal stepped connector via lines()
+lines([(85, 12), (98, 12), (98, 28), (115, 28)], arrowhead="->", style=Styles.primary_bold)
 ```
 
 ---
@@ -165,21 +176,28 @@ Renders single-line or multi-line strings with explicit anchor alignments.
 
 | Function | Parameters | Description |
 | :--- | :--- | :--- |
-| `text(xy, text, ...)` | `xy: tuple[float, float]`, `text: str`, `angle: float = 0`, `halign: str = "center"`, `valign: str = "center"`, `style: Style \| None = None` | Standard horizontal text string. |
-| `text_vertical(xy, text, ...)` | `xy: tuple[float, float]`, `text: str`, `halign: str = "center"`, `valign: str = "center"`, `style: Style \| None = None` | Vertically stacked characters (ideal for East Asian scripts or vertical axis labels). |
+| `text(xy, text, ...)` | `(xy, text, *, style, size=None, angle=0.0)` | Standard horizontal text string. Alignments controlled via `style.text_halign` / `style.text_valign`. |
+| `text_vertical(xy, text, ...)` | `(xy, text, *, style, size=None, angle=0.0)` | Vertically stacked characters (ideal for East Asian scripts or vertical axis labels). |
 
-- **`halign` Options**: `"left"`, `"center"`, `"right"`
-- **`valign` Options**: `"bottom"`, `"center"`, `"top"`
+- **`style.text_halign` Options**: `"left"`, `"center"`, `"right"`
+- **`style.text_valign` Options**: `"bottom"`, `"center"`, `"top"`
 
-```python
-from drawlib.text import text
+```drawlib show-code file:text_typography.png
+from drawlib.canvas import setup
 from drawlib.styles import Styles
+from drawlib.text import text, text_vertical
 
-# Centered title
-text((50, 90), "System Overview", style=Styles.primary_bold)
+setup(width=120, height=45)
 
-# Left-aligned note
-text((10, 10), "Note: All connections use TLS 1.3", halign="left", valign="bottom", style=Styles.muted_thin)
+# Centered main title
+text((60, 36), "System Architecture", style=Styles.primary_bold)
+
+# Left-aligned and right-aligned annotations using style.patch()
+text((15, 20), "Left Aligned", style=Styles.secondary_bold.patch(text_halign="left"))
+text((105, 20), "Right Aligned", style=Styles.accent_bold.patch(text_halign="right"))
+
+# Vertical text
+text_vertical((60, 16), "STATUS", style=Styles.muted_bold)
 ```
 
 ---
@@ -193,7 +211,7 @@ text((10, 10), "Note: All connections use TLS 1.3", halign="left", valign="botto
 ### 6.2 Preset Style Families (`Styles.<color>_<variant>`)
 Styles are systematically constructed as `<color>_<variant>`:
 
-- **6 Semantic Colors**: `primary`, `secondary`, `accent`, `support`, `success`, `danger`  
+- **Semantic Roles**: `primary`, `secondary`, `accent`, `muted`, `light`, `dark`, `danger`, `success`  
   *(Plus utility shades: `muted`, `light`, `dark`, `white`, `black`, `blue`, `green`, `red`, `purple`, etc.)*
 - **10 Structural Variants**:
   - `_flat`: Filled background with subtle outline.
@@ -210,21 +228,23 @@ Styles are systematically constructed as `<color>_<variant>`:
 
 ### 6.3 Custom Style and Color Construction
 
-```python
+```drawlib show-code file:custom_style.png
+from drawlib.canvas import setup
+from drawlib.shapes import rectangle
 from drawlib.types import Color, Style
 
-# Custom Color (RGBA: values 0-255 for RGB, 0.0-1.0 for Alpha)
-my_color = Color(33, 150, 243, 0.9)
+setup(width=100, height=45)
 
-# Custom Style Model
 custom_style = Style(
-    color=my_color,           # Primary shape fill / line color
-    lcolor=Color(20, 20, 20), # Line / border color
-    lwidth=2.5,               # Border stroke width
-    lstyle="dashed",          # "solid", "dashed", "dotted"
-    tcolor=Color(255, 255, 255), # Text color
-    tsize=14,                 # Text font size
+    shape_fill_color=Color(33, 150, 243, alpha=0.2), # Translucent blue fill
+    shape_line_color=Color(33, 150, 243),             # Solid blue border
+    shape_line_width=2.5,
+    shape_line_style="dashed",
+    text_color=Color(20, 20, 20),
+    text_size=14,
 )
+
+rectangle((50, 22), width=80, height=28, style=custom_style, text="Custom Style Container")
 ```
 
 ---
@@ -236,45 +256,45 @@ Always prefer high-level diagrams over manually drawing raw rectangles and conne
 ### 7.1 Architecture Diagram (`drawlib.diagrams.architecture`)
 Builds cloud topologies, microservice meshes, VPC boundaries, and icon-annotated infrastructure.
 
-```python
-from drawlib.canvas import setup, save
-from drawlib.diagrams.architecture import ArchitectureDiagram
+```drawlib show-code file:diagram_architecture.png
+from drawlib.canvas import setup
+from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 
-setup(width=120, height=80)
+setup(width=120, height=60)
 diag = ArchitectureDiagram()
 
 # 1. Container Boundaries / Groups
-vpc = diag.add_group((10, 10), width=100, height=60, label="Production VPC")
+group = diag.add(NodeGroup(title="Production VPC", width=100, height=44), (10, 8))
 
 # 2. Nodes with Built-in Cloud / Phosphor Icons
-client = diag.add_node((25, 40), label="Web Client", icon="phosphor.globe")
-gateway = diag.add_node((60, 40), label="API Gateway", icon="gcp.api_gateway")
-db = diag.add_node((95, 40), label="Cloud SQL", icon="gcp.cloud_sql")
+client = diag.add(Node(text="Web Client", icon=PhosphorIcon.GLOBE), (25, 30))
+gateway = diag.add(Node(text="API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY), (60, 30))
+db = diag.add(Node(text="Cloud SQL", icon=GcpIcon.CLOUD_SQL), (95, 30))
 
 # 3. Smart Boundary-Clipping Edges
-diag.add_edge(client, gateway, label="HTTPS", arrowhead="->")
-diag.add_edge(gateway, db, label="TCP 5432", arrowhead="->")
+diag.connect(client, gateway, label="HTTPS")
+diag.connect(gateway, db, label="TCP 5432")
 
 diag.draw()
-save("architecture.png")
 ```
 
 ### 7.2 Flow Diagram (`drawlib.diagrams.flow`)
 Constructs ISO 5807 flowcharts with decision gates, processes, start/stop terminals, and cross-lane routing.
 
-```python
-from drawlib.diagrams.flow import FlowDiagram
+```drawlib show-code file:diagram_flow.png
+from drawlib.canvas import setup
+from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 
+setup(width=100, height=65)
 flow = FlowDiagram()
-start = flow.add_terminal((50, 90), label="Start")
-proc = flow.add_process((50, 70), label="Execute Job")
-gate = flow.add_decision((50, 45), label="Success?")
-end = flow.add_terminal((50, 15), label="End")
+start = flow.add(Start("Start"), (50, 56))
+proc = flow.add(Process("Execute Job"), (50, 40))
+gate = flow.add(Decision("Success?"), (50, 24))
+end = flow.add(End("End"), (50, 8))
 
-flow.add_edge(start, proc, arrowhead="->")
-flow.add_edge(proc, gate, arrowhead="->")
-flow.add_edge(gate, end, label="Yes", arrowhead="->")
-flow.add_edge(gate, proc, label="No (Retry)", routing="orthogonal", arrowhead="->")
+flow.connect(start, proc)
+flow.connect(proc, gate)
+flow.connect(gate, end, label="Yes")
 
 flow.draw()
 ```
@@ -282,18 +302,20 @@ flow.draw()
 ### 7.3 Sequence Diagram (`drawlib.diagrams.sequence`)
 Generates lifelines, synchronous/asynchronous request-response messages, activations, and note boxes.
 
-```python
-from drawlib.diagrams.sequence import SequenceDiagram
+```drawlib show-code file:diagram_sequence.png
+from drawlib.canvas import setup
+from drawlib.diagrams.sequence import Participant, SequenceDiagram
 
+setup(width=100, height=60)
 seq = SequenceDiagram()
-user = seq.add_lifeline("User")
-auth = seq.add_lifeline("Auth API")
-db = seq.add_lifeline("Database")
+user = seq.add(Participant("User"))
+auth = seq.add(Participant("Auth API"))
+db = seq.add(Participant("Database"))
 
-seq.add_message(user, auth, label="POST /login", arrowhead="->")
-seq.add_message(auth, db, label="SELECT user WHERE ...", arrowhead="->")
-seq.add_message(db, auth, label="UserRecord", style="dashed", arrowhead="->")
-seq.add_message(auth, user, label="200 OK (JWT)", style="dashed", arrowhead="->")
+seq.request(user, auth, label="POST /login")
+seq.request(auth, db, label="SELECT user")
+seq.reply(db, auth, label="UserRecord")
+seq.reply(auth, user, label="200 OK")
 
 seq.draw()
 ```
@@ -309,31 +331,33 @@ seq.draw()
 
 High-level automated components for business and technical concepts:
 
-| Component | Anchor | Typical Use Case | Primary Constructor |
+| Component | Anchor | Typical Use Case | Primary Usage |
 | :--- | :--- | :--- | :--- |
-| `Table` | Top-Left `(x, y)` | Comparison matrix, data schemas | `Table(xy, data, col_widths, row_heights, headers=...)` |
+| `Table` | Top-Left `(x, y)` | Comparison matrix, data schemas | `t = Table(...); t.draw(xy, width, height)` |
 | `TreeNode` | Top-Left `(x, y)` | Directory trees, org charts | `node = TreeNode("Root", children=[...]); node.draw(xy)` |
 | `MindMapNode` | Center `(x, y)` | Radial concept maps | `root = MindMapNode("Topic", children=[...]); root.draw(xy)` |
-| `ChevronProcess` | Bottom-Left `(x, y)` | Linear pipelines & phases | `ChevronProcess(stages, xy=..., width=..., height=...)` |
-| `Cycle` | Center `(x, y)` | Feedback loops, CI/CD cycles | `Cycle(items, xy=..., radius=...)` |
-| `GridLayout` | Bottom-Left `(x, y)` | Component matrices, layer decks | `GridLayout(items, xy=..., width=..., height=..., cols=...)` |
-| `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `Pyramid(levels, xy=..., width=..., height=...)` |
-| `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `BoxList(items, xy=..., width=..., height=...)` |
-| `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `BulletPoints(items, xy=..., width=..., height=...)` |
-| `SourceCode` | Bottom-Left `(x, y)` | Highlighted code snippets | `SourceCode(code, xy=..., width=..., height=..., language="python")` |
+| `ChevronProcess` | Bottom-Left `(x, y)` | Linear pipelines & phases | `p = ChevronProcess(...); p.append(...); p.draw(xy, width, height)` |
+| `Cycle` | Center `(x, y)` | Feedback loops, CI/CD cycles | `c = Cycle(...); c.draw(xy, radius)` |
+| `GridLayout` | Bottom-Left `(x, y)` | Component matrices, layer decks | `g = GridLayout(...); g.draw(xy, width, height)` |
+| `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `p = Pyramid(...); p.draw(xy, width, height)` |
+| `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.draw(xy, width, height)` |
+| `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.draw(xy, width, height)` |
+| `SourceCode` | Bottom-Left `(x, y)` | Highlighted code snippets | `s = SourceCode(...); s.draw(xy, width, height)` |
 | `bubblespeech` | Bounding Box `(x, y)` | Callout speech bubbles | `bubblespeech(xy, width, height, tail_xy, text=...)` |
 
-```python
+```drawlib show-code file:smartarts_chevron.png
+from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 
-ChevronProcess(
-    stages=["1. Ingest", "2. Transform", "3. Validate", "4. Export"],
-    xy=(10, 30),
-    width=100,
-    height=20,
-    style=Styles.primary_flat,
-)
+setup(width=120, height=35)
+
+process = ChevronProcess(default_style=Styles.primary_flat, default_textstyle=Styles.white_bold)
+process.append("1. Ingest")
+process.append("2. Transform")
+process.append("3. Validate")
+process.append("4. Export")
+process.draw((10, 8), width=100, height=18)
 ```
 
 ---
@@ -342,34 +366,24 @@ ChevronProcess(
 
 Drawlib charts render directly into the unified vector canvas alongside architectural diagrams:
 
-```python
-# Bar Chart
-from drawlib.charts.bar import BarChart, Series
-chart = BarChart(xy=(10, 10), width=80, height=50, title="Quarterly Revenue")
-chart.set_categories(["Q1", "Q2", "Q3", "Q4"])
-chart.add_series(Series(name="Cloud", data=[45, 52, 68, 85]))
-chart.draw()
+```drawlib show-code file:charts_example.png
+from drawlib.canvas import setup
+from drawlib.charts.bar import BarChart
+from drawlib.charts.pie import PieChart
 
-# Line Chart
-from drawlib.charts.line import LineChart, Series
-line_chart = LineChart(xy=(10, 10), width=80, height=50, title="Latency Trends")
-line_chart.add_series(Series(name="p99", data=[120, 115, 95, 88, 80]))
-line_chart.draw()
+setup(width=120, height=55)
 
-# Pie / Donut Chart
-from drawlib.charts.pie import PieChart, Slice
-pie = PieChart(xy=(50, 50), radius=30, is_donut=True)
-pie.add_slice(Slice("Compute", 45))
-pie.add_slice(Slice("Storage", 35))
-pie.add_slice(Slice("Network", 20))
-pie.draw()
+# 1. Bar Chart on the left
+bar_chart = BarChart(width=50, height=40, title="Quarterly Sales", categories=["Q1", "Q2", "Q3", "Q4"])
+bar_chart.add_series(name="Cloud", values=[45, 52, 68, 85])
+bar_chart.draw((10, 8))
 
-# Gantt Project Schedule
-from drawlib.charts.gantt import GanttChart, Task
-gantt = GanttChart(xy=(10, 10), width=100, height=60, title="Sprint Plan")
-gantt.add_task(Task("Design Spec", start="2026-10-01", end="2026-10-05"))
-gantt.add_task(Task("Implementation", start="2026-10-06", end="2026-10-20"))
-gantt.draw()
+# 2. Donut Chart on the right
+pie = PieChart(radius=15, hole_ratio=0.5, title="Resource Usage")
+pie.add_slice("Compute", 45)
+pie.add_slice("Storage", 35)
+pie.add_slice("Network", 20)
+pie.draw((90, 28))
 ```
 
 ---
@@ -379,24 +393,62 @@ gantt.draw()
 ### 10.1 Icons
 Drawlib integrates Phosphor vector icons and Google Cloud official architecture icons:
 
-```python
-from drawlib.icons import phosphor, gcp
+```drawlib show-code file:icons_example.png
+from drawlib.canvas import setup
+from drawlib.icons import gcp, phosphor
+from drawlib.styles import Styles
+
+setup(width=100, height=40)
 
 # Vector Phosphor Icon
-phosphor.database((30, 40), width=12, height=12, style=Styles.primary_flat)
+phosphor.database((30, 20), width=14, style=Styles.primary_flat)
 
 # Official GCP Architecture Icon
-gcp.compute_engine((70, 40), width=14, height=14)
+gcp.compute_engine((70, 20), width=16, style=Styles.primary_flat)
 ```
 
 ### 10.2 Images & Dimage
-Embed bitmap/vector images or convert canvases in memory:
+Embed bitmap/vector images from `_assets/` or manipulate them in memory with `Dimage`:
 
-```python
-from drawlib.images import image, Dimage
+```drawlib show-code file:images_example.png
+from drawlib.canvas import setup
+from drawlib.images import Dimage, image
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
 
-# Draw an external image onto canvas
-image((50, 50), "assets/logo.png", width=30, height=20, angle=0)
+setup(width=100, height=45)
+
+# Background container
+rectangle((50, 22), width=85, height=36, style=Styles.light_flat)
+
+# 1. Original bitmap image loaded from _rules/_assets/
+image((32, 22), width=24, image="_assets/linux.png")
+
+# 2. Image manipulated with Dimage effect (grayscale)
+image((68, 22), width=24, image=Dimage("_assets/linux.png").grayscale())
+```
+
+### 10.3 Custom Typography & Fonts (`drawlib.fonts`)
+Embed custom local TTF/OTF font files with `FontFile` or use universal typography presets:
+
+```drawlib show-code file:fonts_example.png
+from drawlib.canvas import setup
+from drawlib.fonts import FontFile, FontRoboto
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=45)
+
+# Background container
+rectangle((50, 22), width=85, height=36, style=Styles.light_flat)
+
+# 1. Built-in universal typography preset
+text((50, 29), "Roboto Regular Preset", style=Styles.primary_bold.patch(text_font=FontRoboto.ROBOTO_REGULAR, text_size=16))
+
+# 2. Custom local TTF font loaded from _rules/_assets/
+avenger_style = Styles.accent_bold.patch(text_font=FontFile("_assets/avenger/regular.ttf"), text_size=18)
+text((50, 15), "AVENGER FONT", style=avenger_style)
 ```
 
 ---

@@ -80,10 +80,12 @@ def get_script_path() -> str:
         file = frame.filename
         if not os.path.isfile(file):
             continue
-        if "site-packages" in file:
-            continue
-        if is_path_under(package_root, file):
-            continue
+        is_document = file.lower().endswith((".md", ".markdown", ".html", ".htm"))
+        if not is_document:
+            if "site-packages" in file:
+                continue
+            if is_path_under(package_root, file):
+                continue
         script_path = file
         break
 
