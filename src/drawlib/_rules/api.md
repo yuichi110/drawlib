@@ -497,5 +497,5 @@ broken = scan_broken_links("docs_html")
 5. **Headless Verification with Coordinate Grid**:
    For terminal/agent workflows, always use headless export:
    ```bash
-   uv run drawlib show docs_src/doc.md file_name.png -g -o scratch/preview.png
+   uv run drawlib show docs_src/doc.md file_name.png -g -o .drawlib/scratch/preview.png
    ```

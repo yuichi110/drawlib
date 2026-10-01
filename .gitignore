@@ -21,6 +21,7 @@ tests/**/*.png
 tests/**/*.webp
 
 # others
+.drawlib/
 sandbox/*
 scratch/
 test_build_target/**/*.png

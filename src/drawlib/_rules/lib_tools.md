@@ -113,7 +113,7 @@ from drawlib.builder import export_block
 export_block(
     file_path="docs_src/architecture.md",
     target="1",                      # 1-based index or target filename (e.g. "arch.png")
-    output_path="scratch/arch.png",
+    output_path=".drawlib/scratch/arch.png",
     grid=True,                       # Overlay coordinate grid lines (-g)
     styles_path="styles.py",
     utils_path="utils.py",
@@ -121,8 +121,8 @@ export_block(
 
 # Export directly from a standalone Python script:
 export_block(
-    file_path="scratch/my_diagram.py",
-    output_path="scratch/output.png",
+    file_path=".drawlib/scratch/my_diagram.py",
+    output_path=".drawlib/scratch/output.png",
     grid=False,
 )
 ```

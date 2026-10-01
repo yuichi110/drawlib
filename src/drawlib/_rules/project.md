@@ -219,12 +219,12 @@ drawlib serve docs_html/ --check
 When creating or modifying documentation:
 1. **Rapid Diagram Iteration**:
    Do **not** rebuild the entire documentation site to test a single diagram!
-   Export and inspect individual diagrams instantly using `drawlib show`:
+   Export and inspect individual diagrams instantly into the isolated `.drawlib/scratch/` directory using `drawlib show` (ensure `.drawlib/` is in `.gitignore`):
    ```bash
-   uv run drawlib show docs_src/architecture/index.md 1 -g -o scratch/test.png
+   uv run drawlib show docs_src/architecture/index.md 1 -g -o .drawlib/scratch/test.png
    ```
 2. **Multimodal Verification**:
-   Inspect `scratch/test.png` with your image viewing tool (`view_file`). Check spatial alignment, text clipping, and margin breathing room.
+   Inspect `.drawlib/scratch/test.png` with your image viewing tool (`view_file`). Check spatial alignment, text clipping, and margin breathing room.
 3. **Full Site Build**:
    Once code blocks are verified, compile the complete project:
    ```bash

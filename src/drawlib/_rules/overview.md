@@ -151,7 +151,7 @@ Estimating pixel-perfect coordinates by trial-and-error wastes developer time. D
   ```
 - Or run CLI headless export with `--grid` / `-g`:
   ```bash
-  drawlib show my_drawing.py -g -o scratch/debug_grid.png
+  drawlib show my_drawing.py -g -o .drawlib/scratch/debug_grid.png
   ```
 The grid overlays major coordinate lines, 10-unit numeric labels, and 5-unit subdivisions to make element placement intuitive.
 
@@ -360,7 +360,7 @@ save()
 
 # Preview or test a specific diagram block by name with coordinate grid (Recommended):
 # (Always pass -o <path> in headless environments to write images to disk for AI inspection)
-drawlib show docs_src/index.md system_architecture.png -g -o scratch/test.png
+drawlib show docs_src/index.md system_architecture.png -g -o .drawlib/scratch/test.png
 
 # Or compile manually via CLI:
 drawlib build html docs_src/ -o docs_html/ -s styles.py -u utils.py
@@ -384,7 +384,7 @@ from drawlib.tools import build_html, build_markdown, export_block
 image_path = export_block(
     file_path="docs_src/architecture.md",
     target="system_architecture.png",
-    output_path="scratch/preview.png",
+    output_path=".drawlib/scratch/preview.png",
     grid=True,
 )
 
@@ -435,7 +435,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```bash
   drawlib build html docs_src/ -o docs_html/
-  drawlib show script.py -g -o scratch/preview.png
+  drawlib show script.py -g -o .drawlib/scratch/preview.png
   drawlib init site --here
   ```
 - **When to read**: Refer to this rule when automating build pipelines, setting up CI/CD, configuring custom themes/templates, or debugging CLI flags.
@@ -711,10 +711,10 @@ Never deliver unverified drawing code to the user. Always execute the autonomous
 3. **Step 3: Headless Image Render with Coordinate Grid (`-g`)**: Render the canvas immediately to a temporary location using Drawlib's fast show command with `-o`:
    ```bash
    # For a standalone Python script:
-   uv run drawlib show scratch/preview.py -g -o scratch/preview.png
+   uv run drawlib show .drawlib/scratch/preview.py -g -o .drawlib/scratch/preview.png
 
    # For embedded block 1 in a Markdown document:
-   uv run drawlib show docs_src/my_doc.md 1 -g -o scratch/preview.png
+   uv run drawlib show docs_src/my_doc.md 1 -g -o .drawlib/scratch/preview.png
    ```
 4. **Step 4: Multimodal Self-Review (`view_file`)**: Use your image inspection capability to check the rendered grid image. Check for:
    - Overlapping shapes, clipped text boxes, or text colliding with borders.
@@ -729,9 +729,10 @@ Never deliver unverified drawing code to the user. Always execute the autonomous
 
 If your environment or chat interface supports presenting images directly to the user (e.g. via artifact embedding, Markdown image links, or UI previews):
 
-1. **Work in Temporary / Scratch Workspace First**:
-   - Create a scratch prototype script (e.g. `scratch/test_diagram.py`) rather than immediately editing production files or documentation sources.
-   - Execute the script to generate an image (e.g. `scratch/test_diagram.png`).
+1. **Work in Isolated Scratch Workspace First (`.drawlib/scratch/`)**:
+   - Create a scratch prototype script (e.g. `.drawlib/scratch/test_diagram.py`) rather than immediately editing production files or documentation sources.
+   - Execute the script to generate an image (e.g. `.drawlib/scratch/test_diagram.png`).
+   - Do NOT pollute the project root with temporary files; ensure `.drawlib/` is in `.gitignore`.
 2. **Show the Rendered Image to the User**:
    - Present the rendered visual illustration directly to the user along with your explanation.
    - Inspecting an image is 10x faster and clearer for the user than reading raw 2D coordinate code.

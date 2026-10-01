@@ -23,10 +23,10 @@ drawlib init pdf my_report/                                # Create multi-chapte
 drawlib init site --here                                   # Scaffold directly into current directory
 
 # Inspection, visual preview, and extraction
-drawlib show doc.md arch.png -o scratch/arch.png            # Export named block to file without GUI (Recommended)
-drawlib show doc.md arch.png -g -o scratch/arch_grid.png    # Export block with coordinate grid for review
-drawlib show script.py -o scratch/script.png                # Render standalone Python script to image
-drawlib show script.py -g -o scratch/script_grid.png        # Render script with coordinate grid
+drawlib show doc.md arch.png -o .drawlib/scratch/arch.png            # Export named block to file without GUI (Recommended)
+drawlib show doc.md arch.png -g -o .drawlib/scratch/arch_grid.png    # Export block with coordinate grid for review
+drawlib show script.py -o .drawlib/scratch/script.png                # Render standalone Python script to image
+drawlib show script.py -g -o .drawlib/scratch/script_grid.png        # Render script with coordinate grid
 drawlib show doc.md arch.png                                # Open desktop GUI preview (interactive only)
 
 # Local preview server and link verification
@@ -464,22 +464,22 @@ When `-o` / `--output` is provided, `drawlib show` automatically suppresses the 
 
 ```bash
 # Export block by explicit image filename (Recommended):
-drawlib show docs_src/architecture.md db.png -o scratch/db.png
+drawlib show docs_src/architecture.md db.png -o .drawlib/scratch/db.png
 
 # Export block with coordinate grid overlay for alignment verification:
-drawlib show docs_src/architecture.md db.png -g -o scratch/db_grid.png
+drawlib show docs_src/architecture.md db.png -g -o .drawlib/scratch/db_grid.png
 
 # Export block by index to file:
-drawlib show docs_src/architecture.md 1 -o scratch/fig1.png
+drawlib show docs_src/architecture.md 1 -o .drawlib/scratch/fig1.png
 
 # Export the last block in the document using negative index:
-drawlib show docs_src/architecture.md -1 -o scratch/last_fig.png
+drawlib show docs_src/architecture.md -1 -o .drawlib/scratch/last_fig.png
 
 # Export with custom styles script:
-drawlib show docs_src/architecture.md db.png -s styles.py -o scratch/db.png
+drawlib show docs_src/architecture.md db.png -s styles.py -o .drawlib/scratch/db.png
 
 # Export from a standalone Python script:
-drawlib show my_drawing.py -o scratch/my_drawing.png
+drawlib show my_drawing.py -o .drawlib/scratch/my_drawing.png
 ```
 
 ---

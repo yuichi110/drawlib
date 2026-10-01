@@ -42,18 +42,18 @@ Always execute this self-correction loop when creating or modifying diagrams:
 ```
 
 1. **Inspect Context**: Check real repository files (`models.py`, API routes, configurations) so diagrams accurately reflect actual code.
-2. **Prototype in Scratch**: Write drawing code in `scratch/test_diagram.py` or test a specific embedded block. **Define semantic coordinate variables** (e.g. `client_xy`, `gateway_xy`) and **calculate spacing mathematically** (`gap = (width - margins - total_node_width) / (n - 1)`) or use high-level components (`smartarts`, `diagrams`) rather than scattering ad-hoc tuples or list indices.
+2. **Prototype in Isolated Scratch Space (`.drawlib/scratch/`)**: Write drawing prototype code in `.drawlib/scratch/test_diagram.py` or test a specific embedded block. **Never pollute the project root or source directories with temporary test scripts or preview images**. All intermediate artifacts must reside in `.drawlib/scratch/` (ensure `.drawlib/` is in `.gitignore`). **Define semantic coordinate variables** (e.g. `client_xy`, `gateway_xy`) and **calculate spacing mathematically** (`gap = (width - margins - total_node_width) / (n - 1)`) or use high-level components (`smartarts`, `diagrams`) rather than scattering ad-hoc tuples or list indices.
 3. **Render Immediately with Coordinate Grid (`-g`)**:
    ```bash
-   uv run drawlib show scratch/test_diagram.py -g -o scratch/test_diagram.png
+   uv run drawlib show .drawlib/scratch/test_diagram.py -g -o .drawlib/scratch/test_diagram.png
    # Or for Markdown embedded block by name (Recommended - prevents off-by-one errors):
-   uv run drawlib show docs_src/doc.md event_microservices.png -g -o scratch/test_diagram.png
+   uv run drawlib show docs_src/doc.md event_microservices.png -g -o .drawlib/scratch/test_diagram.png
    # (Avoid using index numbers like '1' or '2' because inserting or reordering blocks shifts numbering)
    ```
    > **Headless Export (`-o`) is Mandatory for AI Agents**:
    > By default, `drawlib show` attempts to open an interactive desktop GUI window. In headless AI environments, **always specify `-o <path>` to write the image directly to disk**. Without `-o`, no file is generated and multimodal review (`view_file`) in Step 4 cannot proceed.
 4. **Multimodal Self-Review (`view_file`)**:
-   Inspect `scratch/test_diagram.png` with your image viewing tool (`view_file`). Check for:
+   Inspect `.drawlib/scratch/test_diagram.png` with your image viewing tool (`view_file`). Check for:
    - Text clipping or label overflow outside shapes.
    - Uneven margins or right-edge squishing (elements running out of canvas room).
    - Arrowhead misalignment or awkward line overlaps.
