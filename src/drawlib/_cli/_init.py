@@ -65,18 +65,6 @@ def _resolve_base_name(output: Optional[str], selected_type: str) -> str:
     return "images" if selected_type == "image" else "docs"
 
 
-def _print_build_summary(selected_type: str, out_dir: str, out_html: str, out_pdf: str) -> None:
-    """Print completed initial build artifacts."""
-    print("\nInitial build completed:")
-    if selected_type in {"site", "simple"}:
-        print(f"  - Markdown: {out_dir}/")
-        print(f"  - HTML:     {out_html}/")
-    elif selected_type == "pdf":
-        print(f"  - PDF report: {out_pdf}")
-    elif selected_type == "image":
-        print(f"  - Images: {out_dir}/")
-
-
 def _print_init_success(
     selected_type: str,
     dest_str: str,
@@ -84,7 +72,6 @@ def _print_init_success(
     dest_path: Path,
     output: Optional[str] = None,
     here: bool = False,
-    no_build: bool = False,
 ) -> None:
     """Print initialization success message and next steps.
 
@@ -95,16 +82,13 @@ def _print_init_success(
         dest_path: Destination path object.
         output: Custom output name or None.
         here: If True, deployed directly into destination.
-        no_build: If True, initial build was skipped.
     """
     resolved_dest = dest_path.resolve()
     rel_display = dest_str if dest_str != "." else "."
 
     base_name = _resolve_base_name(output, selected_type)
     src_dir = "." if here else f"{base_name}_src"
-    out_dir = base_name
     out_html = f"{base_name}_html"
-    out_pdf = f"{base_name}.pdf"
 
     print(f"Initialized '{selected_type}' project in {rel_display}\n")
     print("Project files created:")
@@ -115,20 +99,17 @@ def _print_init_success(
         except ValueError:
             print(f"  - {file_path}")
 
-    if not no_build:
-        _print_build_summary(selected_type, out_dir, out_html, out_pdf)
-
     print("\nNext steps:")
     if dest_str != ".":
         print(f"  cd {dest_str}")
-
-    if selected_type == "site" and not no_build:
-        print(f"  drawlib serve {out_html}/")
 
     if here:
         print("  ./build.sh")
     else:
         print(f"  ./{src_dir}/build.sh")
+
+    if selected_type == "site":
+        print(f"  drawlib serve {out_html}/")
 
 
 def cmd_init(
@@ -151,7 +132,10 @@ def cmd_init(
         typer.Option(
             "-o",
             "--output",
-            help="Output project/artifact name (source folder will be <name>_src).",
+            help=(
+                "Base project/artifact name (e.g. '-o rbac' sets source folder to 'rbac_src' and output to "
+                "'rbac.pdf' or 'rbac_html')."
+            ),
         ),
     ] = None,
     here: Annotated[
@@ -159,13 +143,6 @@ def cmd_init(
         typer.Option(
             "--here",
             help="Initialize directly into the current directory.",
-        ),
-    ] = False,
-    no_build: Annotated[
-        bool,
-        typer.Option(
-            "--no-build",
-            help="Skip running the initial build after scaffolding.",
         ),
     ] = False,
     lang: Annotated[
@@ -176,11 +153,15 @@ def cmd_init(
             help="Language code for starter templates and font config ('en', 'ja', 'zh-cn', 'ko', 'th', 'hi', etc.).",
         ),
     ] = "en",
-    css: Annotated[
+    style: Annotated[
         Optional[str],
         typer.Option(
-            "--css",
-            help="CSS preset theme ('default', 'google', 'github', 'minimal', 'monochrome', etc.) or file path.",
+            "-s",
+            "--style",
+            help=(
+                "Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS path. "
+                "Synchronously configures both style.css and styles.py."
+            ),
         ),
     ] = None,
     force: Annotated[
@@ -188,7 +169,7 @@ def cmd_init(
         typer.Option(
             "-f",
             "--force",
-            help="Overwrite existing files and output directories.",
+            help="Overwrite existing files in destination directory.",
         ),
     ] = False,
 ) -> None:
@@ -199,9 +180,8 @@ def cmd_init(
         destination: Target directory path (defaults to current directory).
         output: Output project/artifact name.
         here: If True, initialize directly into current directory.
-        no_build: If True, skip running initial build.
         lang: Starter template language code ('en', 'ja', 'zh-cn', 'zh-tw', 'ko', 'th', 'hi', etc.).
-        css: CSS theme preset name or custom stylesheet file path.
+        style: Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS path.
         force: If True, overwrite existing files in destination directory.
     """
     types = list_project_types()
@@ -225,9 +205,8 @@ def cmd_init(
             output=output,
             force=force,
             here=here,
-            no_build=no_build,
             lang=lang,
-            css=css,
+            style=style,
         )
     except FileExistsError as exc:
         print(f"Error: {exc}", file=sys.stderr)
@@ -243,5 +222,4 @@ def cmd_init(
         dest_path=dest_path,
         output=output,
         here=here,
-        no_build=no_build,
     )

@@ -20,17 +20,20 @@ drawlib init <type> [destination]
 # Scaffold directly into the current directory (no wrapper subfolder):
 drawlib init <type> --here
 
-# Custom output project name (source will be <name>_src):
-drawlib init <type> -o mybook
+# Custom output project name (e.g. source is rbac_src/, output is rbac.pdf):
+drawlib init pdf my_report/ -o rbac -s google
 ```
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<name>` | `docs` / `images` | Base project name for source and output folders. |
-| `--here` | | flag | `False` | Scaffold directly in current working directory. |
-| `--no-build` | | flag | `False` | Skip initial post-scaffolding build verification. |
+| `--output` | `-o` | `<name>` | `docs` / `images` | Base project and artifact name. Sets source folder to `<name>_src` and output to `<name>.pdf` (for `pdf`) or `<name>_html` (for `site`/`simple`). E.g. `-o rbac` creates `rbac_src/` and targets `rbac.pdf`. |
+| `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`, etc.) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
+| `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). |
+| `--here` | | flag | `False` | Scaffold directly in current working directory without a wrapper folder. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if directory is not empty. |
+
+> **Pure Scaffolding Principle**: `drawlib init` only scaffolds template and configuration files; it never runs compilation automatically. To build your project, run `./build.sh` (or `./<src_dir>/build.sh`).
 
 ---
 

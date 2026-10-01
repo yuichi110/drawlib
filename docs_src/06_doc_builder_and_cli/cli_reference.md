@@ -94,11 +94,11 @@ drawlib init <TYPE> [DESTINATION] [OPTIONS]
 ```
 
 - `<TYPE>`: `site`, `simple`, `pdf`, `image`, or `list`.
-- `-o`, `--output <name>`: Custom output artifact prefix (source becomes `<name>_src`).
+- `-o`, `--output <name>`: Base project/artifact name (sets source folder to `<name>_src` and output to `<name>.pdf` or `<name>_html`).
+- `-s`, `--style <theme>`: Style preset theme (`default`, `google`, `monochrome`, etc.) configuring both `style.css` and `styles.py`.
 - `--here`: Scaffold directly in the current working directory without a wrapper folder.
 - `--force`: Overwrite existing files if directory is not empty.
-- `--css <preset>`: Scaffolds with a built-in theme (`google`, `github`, `monochrome`, `minimal`).
-- `--lang <en|ja>`: Starter content language (`en` or `ja`).
+- `--lang <code/alias>`: Starter content language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.).
 
 ---
 

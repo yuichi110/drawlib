@@ -21,12 +21,14 @@ from drawlib._langs._models import (
     StyleFontConfig,
 )
 from drawlib._langs._patch import (
+    THEME_PRESET_MAP,
     get_font_replacements,
     get_language_config,
     get_styles_font_imports,
     get_styles_font_patch,
     list_supported_languages,
     normalize_language,
+    resolve_style_preset,
 )
 from drawlib._langs._registry import LANGUAGE_ALIASES, LANGUAGES
 
@@ -40,10 +42,12 @@ __all__ = [
     "LanguageConfig",
     "STYLE_FONT_MAP",
     "StyleFontConfig",
+    "THEME_PRESET_MAP",
     "get_font_replacements",
     "get_language_config",
     "get_styles_font_imports",
     "get_styles_font_patch",
     "list_supported_languages",
     "normalize_language",
+    "resolve_style_preset",
 ]

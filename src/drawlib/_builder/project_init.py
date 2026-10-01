@@ -12,18 +12,12 @@
 from __future__ import annotations
 
 import importlib.resources
-import logging
-import os
 from importlib.resources.abc import Traversable
 from pathlib import Path
-from typing import Final, Literal, Optional
+from typing import Final, Optional
 
-from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
 from drawlib._builder.doc_builder.exporter_html import get_default_css
-from drawlib._builder.image_builder import build_image
 from drawlib._langs import get_font_replacements, normalize_language
-
-logger = logging.getLogger(__name__)
 
 PROJECT_TYPES: Final[dict[str, str]] = {
     "site": "Multi-page documentation website with sidebar navigation.",
@@ -44,19 +38,15 @@ def list_project_types() -> dict[str, str]:
 
 def _validate_conflicts(
     src_path: Path,
-    expected_outputs: list[Path],
     force: bool,
     here: bool,
-    no_build: bool,
 ) -> None:
-    """Validate that neither the source folder nor expected output targets conflict.
+    """Validate that target source folder or destination files do not conflict.
 
     Args:
         src_path: Resolved target source directory path.
-        expected_outputs: List of expected build output destinations.
         force: Whether to overwrite existing files.
         here: If True, deploy directly into destination without creating subfolder.
-        no_build: If True, initial build outputs will not be generated.
 
     Raises:
         FileExistsError: If destination contains conflicting files and force is False.
@@ -86,13 +76,6 @@ def _validate_conflicts(
         raise FileExistsError(
             f"Target source directory '{src_path}' already exists. Use force=True / --force to overwrite."
         )
-
-    if not no_build:
-        for out_path in expected_outputs:
-            if out_path.exists():
-                raise FileExistsError(
-                    f"Build output destination '{out_path}' already exists. Use force=True / --force to overwrite."
-                )
 
 
 def _copy_item_with_substitutions(
@@ -143,8 +126,8 @@ def _resolve_project_paths(
     output: Optional[str],
     destination: str | Path,
     here: bool,
-) -> tuple[Path, Path, str, str, str, str, list[Path]]:
-    """Resolve project directory names and expected output paths."""
+) -> tuple[Path, Path, str, str, str, str]:
+    """Resolve project directory names and output paths."""
     if output is not None and output.strip():
         base_name = output.strip().rstrip("/\\")
         if base_name.endswith("_src"):
@@ -164,14 +147,6 @@ def _resolve_project_paths(
     out_html_dir_name = f"{base_name}_html"
     out_pdf_name = f"{base_name}.pdf"
 
-    expected_outputs: list[Path] = []
-    if selected_type in {"site", "simple"}:
-        expected_outputs = [parent_dest / out_html_dir_name, parent_dest / out_dir_name]
-    elif selected_type == "pdf":
-        expected_outputs = [parent_dest / out_pdf_name]
-    elif selected_type == "image":
-        expected_outputs = [parent_dest / out_dir_name]
-
     return (
         parent_dest,
         src_path,
@@ -179,7 +154,6 @@ def _resolve_project_paths(
         out_dir_name,
         out_html_dir_name,
         out_pdf_name,
-        expected_outputs,
     )
 
 
@@ -197,7 +171,7 @@ def _copy_shared_assets(
 def _deploy_stylesheet(
     selected_type: str,
     src_path: Path,
-    css: Optional[str],
+    style: Optional[str],
     created_files: list[Path],
     lang: str = "en",
 ) -> None:
@@ -206,7 +180,7 @@ def _deploy_stylesheet(
         return
 
     target = "pdf" if selected_type == "pdf" else "html"
-    css_content = get_default_css(custom_css_path=css or "default", target=target, lang=lang)
+    css_content = get_default_css(custom_css_path=style or "default", target=target, lang=lang)
     style_css_target = src_path / "style.css"
     style_css_target.write_text(css_content, encoding="utf-8")
     if style_css_target not in created_files:
@@ -294,28 +268,30 @@ def init_project(
     output: Optional[str] = None,
     force: bool = False,
     here: bool = False,
+    lang: str = "en",
+    style: Optional[str] = None,
     no_build: bool = False,
-    lang: Literal["en", "ja"] | str = "en",
     css: Optional[str] = None,
 ) -> list[Path]:
-    """Scaffold a starter drawlib project and optionally run initial compilation.
+    """Scaffold a starter drawlib project.
 
     Args:
         project_type: Project type ('site', 'simple', 'pdf', 'image').
         destination: Parent destination directory path (defaults to current directory).
-        output: Custom artifact/project name (defaults to 'docs' or 'images').
+        output: Base project/artifact name (e.g. 'rbac' creates 'rbac_src' and targets 'rbac.pdf').
         force: If True, overwrite existing files and directories.
         here: If True, deploy directly into destination without creating <name>_src subfolder.
-        no_build: If True, skip executing initial build after scaffolding.
-        lang: Language for starter templates ('en' or 'ja'). Defaults to 'en'.
-        css: CSS preset theme ('default', 'google', 'github', etc.) or custom CSS file path.
+        lang: Language for starter templates ('en', 'ja', 'zh-cn', 'ko', etc.). Defaults to 'en'.
+        style: Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS file path.
+        no_build: Deprecated; initial build is no longer run automatically during init.
+        css: Deprecated alias for style parameter.
 
     Returns:
         list[Path]: List of created project file paths.
 
     Raises:
-        ValueError: If project_type, lang, or css is invalid.
-        FileExistsError: If destination directory or output targets conflict and force is False.
+        ValueError: If project_type, lang, or style is invalid.
+        FileExistsError: If destination directory contains conflicting files and force is False.
         FileNotFoundError: If template resources for the project type cannot be found.
     """
     selected_type = project_type.strip().lower()
@@ -324,23 +300,21 @@ def init_project(
         raise ValueError(f"Unknown project type '{project_type}'. Available types: {types_str}")
 
     selected_lang = normalize_language(lang)
+    resolved_style = (style or css or "default").strip()
 
     (
-        parent_dest,
+        _parent_dest,
         src_path,
         src_dir_name,
         out_dir_name,
         out_html_dir_name,
         out_pdf_name,
-        expected_outputs,
     ) = _resolve_project_paths(selected_type, output, destination, here)
 
     _validate_conflicts(
         src_path=src_path,
-        expected_outputs=expected_outputs,
         force=force,
         here=here,
-        no_build=no_build,
     )
 
     templates_base = importlib.resources.files("drawlib._project_templates")
@@ -353,7 +327,7 @@ def init_project(
         "__OUT_DIR__": out_dir_name,
         "__OUT_HTML_DIR__": out_html_dir_name,
         "__OUT_PDF__": out_pdf_name,
-        **get_font_replacements(selected_lang),
+        **get_font_replacements(selected_lang, style_theme=resolved_style),
     }
 
     created_files: list[Path] = []
@@ -361,61 +335,6 @@ def init_project(
     _deploy_type_root_files(type_root, src_path, replacements, created_files)
     _deploy_localized_docs(type_root, src_path, selected_lang, replacements, created_files)
     _copy_shared_assets(src_path, replacements, created_files)
-    _deploy_stylesheet(selected_type, src_path, css, created_files, lang=selected_lang)
-
-    if not no_build:
-        _run_initial_build(
-            project_type=selected_type,
-            src_path=src_path,
-            parent_dest=parent_dest,
-            out_dir_name=out_dir_name,
-            out_html_dir_name=out_html_dir_name,
-            out_pdf_name=out_pdf_name,
-        )
+    _deploy_stylesheet(selected_type, src_path, resolved_style, created_files, lang=selected_lang)
 
     return sorted(created_files)
-
-
-def _run_initial_build(
-    project_type: str,
-    src_path: Path,
-    parent_dest: Path,
-    out_dir_name: str,
-    out_html_dir_name: str,
-    out_pdf_name: str,
-) -> None:
-    """Execute initial compilation for the scaffolded project.
-
-    Args:
-        project_type: Project type ('site', 'simple', 'pdf', 'image').
-        src_path: Target source directory.
-        parent_dest: Destination parent directory.
-        out_dir_name: Base output directory name.
-        out_html_dir_name: HTML output directory name.
-        out_pdf_name: PDF output file name.
-    """
-    orig_cwd = os.getcwd()
-    try:
-        os.chdir(str(parent_dest))
-        src_str = str(src_path.resolve())
-
-        if project_type == "site":
-            build_markdown(input_path=src_str, output=out_dir_name, no_cache=True)
-            build_html(input_path=src_str, output=out_html_dir_name, no_cache=True)
-        elif project_type == "simple":
-            doc_file = os.path.join(src_str, "doc.md")
-            if os.path.isfile(doc_file):
-                build_markdown(input_path=doc_file, output=os.path.join(out_dir_name, "doc.md"), no_cache=True)
-                build_html(input_path=doc_file, output=os.path.join(out_html_dir_name, "doc.html"), no_cache=True)
-            else:
-                build_markdown(input_path=src_str, output=out_dir_name, no_cache=True)
-                build_html(input_path=src_str, output=out_html_dir_name, no_cache=True)
-        elif project_type == "pdf":
-            try:
-                build_pdf(inputs=src_str, output=out_pdf_name, generate_index=True, no_cache=True)
-            except Exception as exc:
-                logger.warning(f"Initial PDF build skipped (PDF engine issue): {exc}")
-        elif project_type == "image":
-            build_image(inputs=src_str, output=out_dir_name, no_cache=True)
-    finally:
-        os.chdir(orig_cwd)

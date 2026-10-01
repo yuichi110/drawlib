@@ -114,27 +114,47 @@ def test_get_font_replacements() -> None:
 
 def test_get_styles_font_patch() -> None:
     """Test get_styles_font_patch and get_styles_font_imports generate expected Python code."""
-    # English needs no active patch, returns commented guidance
-    assert get_styles_font_imports("en") == ""
+    # English default theme
+    imports_en = get_styles_font_imports("en")
+    assert "from drawlib.preset_colors import DefaultColors" in imports_en
+    assert "from drawlib.preset_styles import DefaultStyles" in imports_en
     patch_en = get_styles_font_patch("en")
-    assert "# To customize default drawing fonts, uncomment and configure:" in patch_en
-    assert "# from drawlib.fonts import FontRoboto" in patch_en
-    assert "# Styles = DefaultStyles().patch_font(" in patch_en
+    assert "Colors = DefaultColors()" in patch_en
+    assert "Styles = DefaultStyles()" in patch_en
 
-    # Japanese needs FontJapanese imports and patch
+    # Japanese default theme
     imports_ja = get_styles_font_imports("ja")
     assert "from drawlib.fonts import FontJapanese" in imports_ja
+    assert "from drawlib.preset_colors import DefaultColors" in imports_ja
     assert "from drawlib.preset_styles import DefaultStyles" in imports_ja
     patch_ja = get_styles_font_patch("ja")
+    assert "Colors = DefaultColors()" in patch_ja
     assert "Styles = DefaultStyles().patch_font(" in patch_ja
     assert "regular=FontJapanese.SANSSERIF_REGULAR," in patch_ja
     assert "bold=FontJapanese.SANSSERIF_BOLD," in patch_ja
 
-    # Thai needs FontThai imports and patch
+    # Thai default theme
     imports_th = get_styles_font_imports("th")
     assert "from drawlib.fonts import FontThai" in imports_th
     patch_th = get_styles_font_patch("th")
     assert "regular=FontThai.SANSSERIF_REGULAR," in patch_th
+
+    # English google theme
+    imports_google_en = get_styles_font_imports("en", style_theme="google")
+    assert "from drawlib.preset_colors import GoogleColors" in imports_google_en
+    assert "from drawlib.preset_styles import GoogleStyles" in imports_google_en
+    patch_google_en = get_styles_font_patch("en", style_theme="google")
+    assert "Colors = GoogleColors()" in patch_google_en
+    assert "Styles = GoogleStyles()" in patch_google_en
+
+    # Japanese google theme
+    imports_google_ja = get_styles_font_imports("ja", style_theme="google")
+    assert "from drawlib.fonts import FontJapanese" in imports_google_ja
+    assert "from drawlib.preset_colors import GoogleColors" in imports_google_ja
+    assert "from drawlib.preset_styles import GoogleStyles" in imports_google_ja
+    patch_google_ja = get_styles_font_patch("ja", style_theme="google")
+    assert "Colors = GoogleColors()" in patch_google_ja
+    assert "Styles = GoogleStyles().patch_font(" in patch_google_ja
 
 
 def test_maps_consistency() -> None:

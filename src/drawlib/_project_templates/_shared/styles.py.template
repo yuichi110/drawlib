@@ -16,12 +16,17 @@ __RTD_STYLES_IMPORTS__
 #
 # All variables defined here will automatically override or extend drawlib.styles.
 #
-# Example (customizing default theme):
+# Available style presets:
+# - DefaultStyles / DefaultColors (Default theme, variants 1-6 available)
+# - GoogleStyles / GoogleColors (Google Slides/Docs palette & style)
+# - MonochromeStyles / MonochromeColors (Black & white printing style)
 #
-# from drawlib.preset_colors import DefaultColors
-# from drawlib.preset_styles import DefaultStyles
+# Example (switching or extending theme):
 #
-# Colors = DefaultColors()
-# Styles = DefaultStyles()
+# from drawlib.preset_colors import GoogleColors
+# from drawlib.preset_styles import GoogleStyles
+#
+# Colors = GoogleColors()
+# Styles = GoogleStyles()
 
 __RTD_STYLES_FONT_PATCH__

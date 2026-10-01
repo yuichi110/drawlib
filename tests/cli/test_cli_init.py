@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-# ruff: noqa: S404, S603
+# ruff: noqa: S404, S603, S607
 
 """Integration tests for drawlib init CLI command and project scaffolding API."""
 
@@ -60,7 +60,7 @@ def test_cli_init_unknown_type(tmp_path: Path) -> None:
 
 
 def test_cli_init_simple(tmp_path: Path) -> None:
-    """Test scaffolding a simple project with initial build."""
+    """Test scaffolding a simple project without automatic build."""
     dest = tmp_path / "my_simple"
     res = run_drawlib_cli(["init", "simple", str(dest)], cwd=str(tmp_path))
     assert res.returncode == 0
@@ -77,13 +77,13 @@ def test_cli_init_simple(tmp_path: Path) -> None:
     assert build_sh.is_file()
     assert os.stat(build_sh).st_mode & 0o111 != 0
 
-    # Initial build outputs
-    assert (dest / "docs" / "doc.md").is_file()
-    assert (dest / "docs_html" / "doc.html").is_file()
+    # No automatic initial build outputs
+    assert not (dest / "docs").exists()
+    assert not (dest / "docs_html").exists()
 
 
 def test_cli_init_site(tmp_path: Path) -> None:
-    """Test scaffolding a documentation site project with initial build."""
+    """Test scaffolding a documentation site project."""
     dest = tmp_path / "my_site"
     res = run_drawlib_cli(["init", "site", str(dest)], cwd=str(tmp_path))
     assert res.returncode == 0
@@ -100,11 +100,9 @@ def test_cli_init_site(tmp_path: Path) -> None:
     assert (dest / "docs_src" / "workflow" / "index.md").is_file()
     assert (dest / "docs_src" / "_assets" / "linux.png").is_file()
 
-    # Initial build outputs
-    assert (dest / "docs_html" / "index.html").is_file()
-    assert (dest / "docs_html" / "architecture" / "index.html").is_file()
-    assert (dest / "docs_html" / "workflow" / "index.html").is_file()
-    assert (dest / "docs" / "index.md").is_file()
+    # No automatic initial build outputs
+    assert not (dest / "docs_html").exists()
+    assert not (dest / "docs").exists()
 
 
 def test_cli_init_pdf(tmp_path: Path) -> None:
@@ -122,11 +120,13 @@ def test_cli_init_pdf(tmp_path: Path) -> None:
     assert (dest / "doc_src" / "01_overview.md").is_file()
     assert (dest / "doc_src" / "02_design.md").is_file()
     assert (dest / "doc_src" / "_assets" / "linux.png").is_file()
-    assert (dest / "doc.pdf").is_file()
+
+    # No automatic initial build
+    assert not (dest / "doc.pdf").exists()
 
 
 def test_cli_init_image(tmp_path: Path) -> None:
-    """Test scaffolding an image project with initial build."""
+    """Test scaffolding an image project."""
     dest = tmp_path / "my_images"
     res = run_drawlib_cli(["init", "image", str(dest)], cwd=str(tmp_path))
     assert res.returncode == 0
@@ -141,9 +141,8 @@ def test_cli_init_image(tmp_path: Path) -> None:
     assert (dest / "images_src" / "sample2.py").is_file()
     assert (dest / "images_src" / "_assets" / "linux.png").is_file()
 
-    # Initial build output
-    assert (dest / "images" / "sample1.png").is_file()
-    assert (dest / "images" / "sample2.png").is_file()
+    # No automatic initial build output
+    assert not (dest / "images").exists()
 
 
 def test_cli_init_custom_output(tmp_path: Path) -> None:
@@ -159,19 +158,30 @@ def test_cli_init_custom_output(tmp_path: Path) -> None:
     assert "manual_src" in build_sh_content
     assert "manual_html" in build_sh_content
 
-    # Output folder is manual_html/
-    assert (dest / "manual_html" / "index.html").is_file()
+    # Output folder not yet built
+    assert not (dest / "manual_html").exists()
 
 
-def test_cli_init_no_build(tmp_path: Path) -> None:
-    """Test --no-build flag skips running initial compilation."""
-    dest = tmp_path / "my_no_build"
-    res = run_drawlib_cli(["init", "simple", str(dest), "--no-build"], cwd=str(tmp_path))
+def test_cli_init_run_build_sh(tmp_path: Path) -> None:
+    """Test executing the scaffolded build.sh script compiles the documentation."""
+    dest = tmp_path / "my_built_simple"
+    res = run_drawlib_cli(["init", "simple", str(dest)], cwd=str(tmp_path))
     assert res.returncode == 0
 
-    assert (dest / "docs_src" / "doc.md").is_file()
-    assert not (dest / "docs").exists()
-    assert not (dest / "docs_html").exists()
+    build_sh = dest / "docs_src" / "build.sh"
+    assert build_sh.is_file()
+
+    # Execute build.sh
+    build_res = subprocess.run(
+        ["bash", str(build_sh)],
+        cwd=str(dest / "docs_src"),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert build_res.returncode == 0
+    assert (dest / "docs" / "doc.md").is_file()
+    assert (dest / "docs_html" / "doc.html").is_file()
 
 
 def test_cli_init_conflict_and_force(tmp_path: Path) -> None:
@@ -180,7 +190,7 @@ def test_cli_init_conflict_and_force(tmp_path: Path) -> None:
     res1 = run_drawlib_cli(["init", "simple", str(dest)], cwd=str(tmp_path))
     assert res1.returncode == 0
 
-    # Second run without force triggers FileExistsError because docs_src and docs exist
+    # Second run without force triggers FileExistsError because docs_src exists
     res2 = run_drawlib_cli(["init", "simple", str(dest)], cwd=str(tmp_path))
     assert res2.returncode == 1
     assert "already exists" in res2.stderr
@@ -241,7 +251,7 @@ def test_python_api_init(tmp_path: Path) -> None:
 
 def test_cli_init_lang_ja(tmp_path: Path) -> None:
     """Test `drawlib init site --lang ja` generates Japanese template assets."""
-    res = run_drawlib_cli(["init", "site", "--lang", "ja", "--no-build"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "site", "--lang", "ja"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project" in res.stdout
 
@@ -255,12 +265,14 @@ def test_cli_init_lang_ja(tmp_path: Path) -> None:
 
     config_content = (src_dir / "styles.py").read_text(encoding="utf-8")
     assert "FontJapanese" in config_content
+    assert "DefaultStyles" in config_content
+    assert "DefaultColors" in config_content
     assert "patch_font" in config_content
 
 
-def test_cli_init_css_option(tmp_path: Path) -> None:
-    """Test `drawlib init site --css google` generates custom CSS stylesheet."""
-    res = run_drawlib_cli(["init", "site", "--css", "google", "--no-build"], cwd=str(tmp_path))
+def test_cli_init_style_option_google(tmp_path: Path) -> None:
+    """Test `drawlib init site --style google` configures both style.css and styles.py."""
+    res = run_drawlib_cli(["init", "site", "--style", "google"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project" in res.stdout
 
@@ -268,13 +280,45 @@ def test_cli_init_css_option(tmp_path: Path) -> None:
     style_file = src_dir / "style.css"
     assert style_file.is_file()
     content = style_file.read_text(encoding="utf-8")
-    # Verify google theme font or palette is present
     assert "Google Sans" in content or "#1a73e8" in content or "google" in content.lower()
+
+    styles_py = (src_dir / "styles.py").read_text(encoding="utf-8")
+    assert "from drawlib.preset_styles import GoogleStyles" in styles_py
+    assert "from drawlib.preset_colors import GoogleColors" in styles_py
+    assert "Styles = GoogleStyles()" in styles_py
+    assert "Colors = GoogleColors()" in styles_py
+
+
+def test_cli_init_style_option_monochrome(tmp_path: Path) -> None:
+    """Test `drawlib init site -s monochrome` configures Monochrome styles."""
+    res = run_drawlib_cli(["init", "site", "-s", "monochrome"], cwd=str(tmp_path))
+    assert res.returncode == 0
+
+    src_dir = tmp_path / "docs_src"
+    styles_py = (src_dir / "styles.py").read_text(encoding="utf-8")
+    assert "from drawlib.preset_styles import MonochromeStyles" in styles_py
+    assert "from drawlib.preset_colors import MonochromeColors" in styles_py
+    assert "Styles = MonochromeStyles()" in styles_py
+    assert "Colors = MonochromeColors()" in styles_py
+
+
+def test_cli_init_lang_ja_style_google(tmp_path: Path) -> None:
+    """Test `drawlib init site --lang ja -s google` applies font patch to GoogleStyles."""
+    res = run_drawlib_cli(["init", "site", "--lang", "ja", "-s", "google"], cwd=str(tmp_path))
+    assert res.returncode == 0
+
+    src_dir = tmp_path / "docs_src"
+    styles_py = (src_dir / "styles.py").read_text(encoding="utf-8")
+    assert "from drawlib.fonts import FontJapanese" in styles_py
+    assert "from drawlib.preset_styles import GoogleStyles" in styles_py
+    assert "from drawlib.preset_colors import GoogleColors" in styles_py
+    assert "Colors = GoogleColors()" in styles_py
+    assert "Styles = GoogleStyles().patch_font(" in styles_py
 
 
 def test_cli_init_lang_th(tmp_path: Path) -> None:
     """Test `drawlib init site --lang th` injects Thai font and falls back gracefully."""
-    res = run_drawlib_cli(["init", "site", "--lang", "th", "--no-build"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "site", "--lang", "th"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project" in res.stdout
 
@@ -289,6 +333,6 @@ def test_cli_init_lang_th(tmp_path: Path) -> None:
 
 def test_cli_init_lang_invalid(tmp_path: Path) -> None:
     """Test `drawlib init site --lang invalid` fails with helpful error."""
-    res = run_drawlib_cli(["init", "site", "--lang", "unknown_lang", "--no-build"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "site", "--lang", "unknown_lang"], cwd=str(tmp_path))
     assert res.returncode != 0
     assert "Unsupported language 'unknown_lang'" in res.stderr

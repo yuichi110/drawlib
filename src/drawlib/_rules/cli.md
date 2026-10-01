@@ -19,7 +19,7 @@ drawlib build image scripts/ -o assets/ -g                 # Batch Python illust
 drawlib init list                                          # List available starter project templates
 drawlib init site my_site/                                 # Create multi-page website project
 drawlib init simple my_doc/                                # Create single-page document project
-drawlib init pdf my_report/                                # Create multi-chapter PDF book project
+drawlib init pdf my_report/ -o rbac -s google              # Scaffold PDF report with custom name & theme
 drawlib init site --here                                   # Scaffold directly into current directory
 
 # Inspection, visual preview, and extraction
@@ -301,12 +301,13 @@ drawlib init list
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<name>` | `None` | Custom output/artifact name (source directory becomes `<name>_src`). |
-| `--css` | | `<preset>` | `default` | Built-in CSS theme preset (`google`, `github`, `monochrome`, etc.) or custom CSS path. |
-| `--lang` | | `en \| ja` | `en` | Starter content and font configuration language (`en` or `ja`). |
+| `--output` | `-o` | `<name>` | `None` | Base project and artifact name. Sets source directory to `<name>_src` and build output to `<name>.pdf` (for `pdf`) or `<name>_html` (for `site`/`simple`). E.g. `-o rbac` creates `rbac_src/` and targets `rbac.pdf`. |
+| `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`, etc.) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
+| `--lang` | `-l` | `<lang>` | `en` | Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). |
 | `--here` | | flag | `False` | Initialize directly into current directory without creating a subfolder. |
-| `--no-build` | | flag | `False` | Skip initial compilation after scaffolding files. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
+
+> **Note on Initial Build**: `drawlib init` is dedicated to pure, deterministic scaffolding and does not run compilation automatically. To build the scaffolded project, run `./build.sh` (or `./<src_dir>/build.sh`).
 
 ---
 
@@ -320,7 +321,7 @@ my_site/
 │   ├── index.md               # [MANDATORY] Root landing page
 │   ├── navbar.md              # [MANDATORY] Sidebar categories and links definition
 │   ├── template.html          # [MANDATORY] Jinja2 HTML layout template
-│   ├── style.css              # [MANDATORY] Site stylesheet (from --css preset)
+│   ├── style.css              # [MANDATORY] Site stylesheet (from --style preset)
 │   ├── styles.py              # Global custom styles and theme presets
 │   ├── utils.py               # Custom helper drawing functions
 │   ├── build.sh               # Executable build script (Markdown + HTML)
@@ -377,14 +378,14 @@ images/
 
 ### Scaffolding Examples:
 ```bash
-drawlib init list                    # List available project types
-drawlib init site my_docs/           # Scaffold a multi-page documentation website
-drawlib init site --css google       # Scaffold site using Google CSS theme preset
-drawlib init site --lang ja          # Scaffold site with Japanese starter content & fonts
-drawlib init site --here             # Scaffold a documentation site directly in current repo
-drawlib init simple my_doc/ --force  # Force scaffolding in a non-empty directory
-drawlib init pdf my_whitepaper/      # Scaffold a multi-chapter PDF report
-drawlib init image my_diagrams/      # Scaffold standalone image script project
+drawlib init list                              # List available project types
+drawlib init site my_docs/                     # Scaffold a multi-page documentation website
+drawlib init site my_docs/ -s google           # Scaffold site with Google theme (style.css & styles.py)
+drawlib init site my_docs/ --lang ja           # Scaffold site with Japanese starter content & fonts
+drawlib init pdf my_report/ -o rbac -s google  # Scaffold PDF: creates rbac_src/ and targets rbac.pdf
+drawlib init site --here                       # Scaffold a documentation site directly in current repo
+drawlib init simple my_doc/ --force            # Force scaffolding in a non-empty directory
+drawlib init image my_diagrams/ -s monochrome  # Scaffold image project with monochrome styling
 ```
 
 ---

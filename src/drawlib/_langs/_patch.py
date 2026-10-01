@@ -11,8 +11,43 @@
 
 from __future__ import annotations
 
+from typing import Final, Optional
+
 from drawlib._langs._models import LanguageConfig
 from drawlib._langs._registry import LANGUAGE_ALIASES, LANGUAGES
+
+THEME_PRESET_MAP: Final[dict[str, tuple[str, str]]] = {
+    "default": ("DefaultStyles", "DefaultColors"),
+    "default-dark": ("DefaultStyles", "DefaultColors"),
+    "default-auto": ("DefaultStyles", "DefaultColors"),
+    "google": ("GoogleStyles", "GoogleColors"),
+    "google-dark": ("GoogleStyles", "GoogleColors"),
+    "google-auto": ("GoogleStyles", "GoogleColors"),
+    "monochrome": ("MonochromeStyles", "MonochromeColors"),
+    "github": ("DefaultStyles", "DefaultColors"),
+    "minimal": ("DefaultStyles", "DefaultColors"),
+    "default1": ("DefaultStyles1", "DefaultColors1"),
+    "default2": ("DefaultStyles2", "DefaultColors2"),
+    "default3": ("DefaultStyles3", "DefaultColors3"),
+    "default4": ("DefaultStyles4", "DefaultColors4"),
+    "default5": ("DefaultStyles5", "DefaultColors5"),
+    "default6": ("DefaultStyles6", "DefaultColors6"),
+}
+
+
+def resolve_style_preset(style_theme: Optional[str]) -> tuple[str, str]:
+    """Resolve style theme name to (styles_class_name, colors_class_name).
+
+    Args:
+        style_theme: Style preset name (e.g. 'default', 'google', 'monochrome').
+
+    Returns:
+        tuple[str, str]: Tuple of (StyleClassName, ColorClassName).
+    """
+    if not style_theme:
+        return ("DefaultStyles", "DefaultColors")
+    clean = style_theme.strip().lower()
+    return THEME_PRESET_MAP.get(clean, ("DefaultStyles", "DefaultColors"))
 
 
 def list_supported_languages() -> list[str]:
@@ -60,60 +95,61 @@ def get_language_config(lang: str) -> LanguageConfig:
     return LANGUAGES[canonical_key]
 
 
-def get_styles_font_imports(lang: str) -> str:
+def get_styles_font_imports(lang: str, style_theme: str = "default") -> str:
     """Generate Python import statements for styles.py.
 
     Args:
         lang: Language code or alias.
+        style_theme: Style preset name ('default', 'google', 'monochrome', etc.).
 
     Returns:
-        str: Python import statements or empty string if no patch is needed.
+        str: Python import statements.
     """
     cfg = get_language_config(lang)
+    style_cls, color_cls = resolve_style_preset(style_theme)
+
+    lines: list[str] = []
     if cfg.activate_patch:
-        return f"from drawlib.fonts import {cfg.drawlib_font_module}\nfrom drawlib.preset_styles import DefaultStyles\n"
-    return ""
+        lines.append(f"from drawlib.fonts import {cfg.drawlib_font_module}")
+    lines.append(f"from drawlib.preset_colors import {color_cls}")
+    lines.append(f"from drawlib.preset_styles import {style_cls}")
+    return "\n".join(lines) + "\n"
 
 
-def get_styles_font_patch(lang: str) -> str:
-    """Generate Python code snippet for styles.py to patch DefaultStyles font.
+def get_styles_font_patch(lang: str, style_theme: str = "default") -> str:
+    """Generate Python code snippet for styles.py to configure Styles and Colors.
 
     Args:
         lang: Language code or alias.
+        style_theme: Style preset name ('default', 'google', 'monochrome', etc.).
 
     Returns:
-        str: Python code snippet configuring Styles.
+        str: Python code snippet configuring Styles and Colors.
     """
     cfg = get_language_config(lang)
+    style_cls, color_cls = resolve_style_preset(style_theme)
+
     if cfg.activate_patch:
+        theme_name = "default" if style_theme in {"default", ""} else style_theme
         return (
-            f"# Apply {cfg.name} fonts to default drawing styles\n"
-            "Styles = DefaultStyles().patch_font(\n"
+            f"Colors = {color_cls}()\n"
+            f"# Apply {cfg.name} fonts to {theme_name} drawing styles\n"
+            f"Styles = {style_cls}().patch_font(\n"
             f"    regular={cfg.font_regular_attr},\n"
             f"    bold={cfg.font_bold_attr},\n"
             f"    light={cfg.font_light_attr},\n"
             ")"
         )
 
-    return (
-        "# To customize default drawing fonts, uncomment and configure:\n"
-        "#\n"
-        f"# from drawlib.fonts import {cfg.drawlib_font_module}\n"
-        "# from drawlib.preset_styles import DefaultStyles\n"
-        "#\n"
-        "# Styles = DefaultStyles().patch_font(\n"
-        f"#     regular={cfg.font_regular_attr},\n"
-        f"#     bold={cfg.font_bold_attr},\n"
-        f"#     light={cfg.font_light_attr},\n"
-        "# )"
-    )
+    return f"Colors = {color_cls}()\nStyles = {style_cls}()"
 
 
-def get_font_replacements(lang_code: str) -> dict[str, str]:
-    """Generate substitution mapping for templates and stylesheets based on language.
+def get_font_replacements(lang_code: str, style_theme: str = "default") -> dict[str, str]:
+    """Generate substitution mapping for templates and stylesheets based on language and style.
 
     Args:
         lang_code: Language code or alias (e.g. 'en', 'ja', 'th').
+        style_theme: Style preset name (e.g. 'default', 'google', 'monochrome').
 
     Returns:
         dict[str, str]: Placeholder replacements dictionary.
@@ -125,6 +161,6 @@ def get_font_replacements(lang_code: str) -> dict[str, str]:
         "__RTD_MONO_FONT_FAMILY__": f"{cfg.mono_font_family}, " if cfg.mono_font_family else "",
         "__RTD_HTML_LANG__": cfg.code,
         "__RTD_HTML_DIR__": cfg.direction,
-        "__RTD_STYLES_IMPORTS__": get_styles_font_imports(lang_code),
-        "__RTD_STYLES_FONT_PATCH__": get_styles_font_patch(lang_code),
+        "__RTD_STYLES_IMPORTS__": get_styles_font_imports(lang_code, style_theme=style_theme),
+        "__RTD_STYLES_FONT_PATCH__": get_styles_font_patch(lang_code, style_theme=style_theme),
     }
