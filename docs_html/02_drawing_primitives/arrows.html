@@ -308,24 +308,34 @@ Block arrows are closed 2D polygons with customizable tail widths, arrowhead dim
 <hr />
 <h2>1. Overview of Block Arrow Functions</h2>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="arrows_images/1.png" alt="arrows_1" style="width: 650px; max-width: 100%;" />
+  <img src="arrows_images/arrow_overview.png" alt="arrows_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Overview of Drawlib Block Arrow Primitives</figcaption>
 </figure>
 <hr />
 <h2>2. Straight Block Arrow (<code>arrow</code>)</h2>
 <p>Draws a directed block arrow between two arbitrary coordinates <code>xy1</code> and <code>xy2</code>.</p>
-<pre><code class="language-python">arrow(
-    xy1=(10, 20),
-    xy2=(60, 20),
-    tail_width=4,
-    head_width=10,
-    head_length=8,
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.shapes import arrow
+from drawlib.styles import Styles
+
+setup(width=100, height=40)
+arrow(
+    (15, 20),
+    (85, 20),
+    tail_width=5,
+    head_width=13,
+    head_length=10,
     head=&quot;-&gt;&quot;,  # &quot;-&gt;&quot;, &quot;&lt;-&quot;, or &quot;&lt;-&gt;&quot;
     style=Styles.primary_flat,
     text=&quot;Data Ingestion&quot;,
     textstyle=Styles.white_bold,
 )
+save()
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="arrows_images/arrow_straight.png" alt="arrows_2" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Straight Block Arrow with Centered Label</figcaption>
+</figure>
 <ul>
 <li><strong><code>head</code></strong>: Supports single forward (<code>&quot;-&gt;&quot;</code>), backward (<code>&quot;&lt;-&quot;</code>), or bidirectional (<code>&quot;&lt;-&gt;&quot;</code>) arrowheads.</li>
 <li><strong><code>text</code></strong>: Automatically centers a label within the arrow shaft.</li>
@@ -333,16 +343,26 @@ Block arrows are closed 2D polygons with customizable tail widths, arrowhead dim
 <hr />
 <h2>3. Process Chevron (<code>chevron</code>)</h2>
 <p>Draws an interlocking arrowhead-shaped block with an indented rear notch, ideal for sequential stage diagrams:</p>
-<pre><code class="language-python">chevron(
-    xy=(50, 25),
-    width=30,
-    height=16,
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.shapes import chevron
+from drawlib.styles import Styles
+
+setup(width=100, height=40)
+chevron(
+    (50, 20),
+    width=40,
+    height=20,
     corner_angle=60,  # Tip acute angle
     style=Styles.accent_flat,
     text=&quot;Stage 1&quot;,
     textstyle=Styles.white_bold,
 )
+save()
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="arrows_images/arrow_chevron.png" alt="arrows_3" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Sequential Process Chevron</figcaption>
+</figure>
 <blockquote>
 <p>[!TIP]
 For chained multi-stage chevron pipelines, consider using the high-level <strong><a href="../03_smartarts/chevron_process.html"><code>ChevronProcess</code></a></strong> component, which calculates automatic spacing and themes.</p>
@@ -351,56 +371,96 @@ For chained multi-stage chevron pipelines, consider using the high-level <strong
 <h2>4. Orthogonal Routed Arrows</h2>
 <h3>L-Shaped Corner Arrow (<code>arrow_l</code>)</h3>
 <p>Draws a 90-degree right-angled block arrow within a bounding box <code>(width, height)</code>.</p>
-<pre><code class="language-python">arrow_l(
-    xy=(40, 30),
-    width=30,
-    height=25,
-    tail_width=3,
-    head_width=8,
-    head_length=6,
-    r=4,  # Corner rounding radius
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.shapes import arrow_l
+from drawlib.styles import Styles
+
+setup(width=100, height=60)
+arrow_l(
+    (50, 30),
+    width=40,
+    height=35,
+    tail_width=4,
+    head_width=11,
+    head_length=8,
+    r=5,  # Corner rounding radius
     style=Styles.secondary_flat,
 )
+save()
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="arrows_images/arrow_l.png" alt="arrows_4" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Right-Angled Corner Arrow</figcaption>
+</figure>
 <h3>U-Turn Feedback Arrow (<code>arrow_u</code>)</h3>
 <p>Draws a 180-degree turnaround block arrow, typically used for retry mechanisms or feedback loops.</p>
-<pre><code class="language-python">arrow_u(
-    xy=(60, 30),
-    width=25,
-    height=30,
-    tail_width=3,
-    head_width=8,
-    head_length=6,
-    r=5,
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.shapes import arrow_u
+from drawlib.styles import Styles
+
+setup(width=100, height=60)
+arrow_u(
+    (50, 30),
+    width=35,
+    height=40,
+    tail_width=4,
+    head_width=11,
+    head_length=8,
+    r=6,  # Corner rounding radius
     style=Styles.danger_flat,
 )
+save()
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="arrows_images/arrow_u.png" alt="arrows_5" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">180-Degree U-Turn Arrow</figcaption>
+</figure>
 <hr />
 <h2>5. Circular &amp; Multi-Point Arrows</h2>
 <h3>Circular Arc Arrow (<code>arrow_arc</code>)</h3>
 <p>Draws an elliptical arc block arrow between <code>angle_start</code> and <code>angle_end</code>.</p>
-<pre><code class="language-python">arrow_arc(
-    xy=(50, 50),
-    width=30,
-    height=30,
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.shapes import arrow_arc
+from drawlib.styles import Styles
+
+setup(width=100, height=35)
+arrow_arc(
+    (50, 26),
+    width=45,
+    height=32,
     angle_start=180,
     angle_end=0,
-    tail_width=3,
-    head_width=8,
+    tail_width=4,
+    head_width=11,
     style=Styles.success_flat,
 )
+save()
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="arrows_images/arrow_arc.png" alt="arrows_6" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Circular Arc Arrow</figcaption>
+</figure>
 <h3>Multi-Point Polyline Arrow (<code>arrow_polyline</code>)</h3>
 <p>Draws a complex routed block arrow passing through an arbitrary list of waypoint coordinates <code>[(x1, y1), (x2, y2), ...]</code>.</p>
-<pre><code class="language-python">arrow_polyline(
-    xys=[(10, 10), (40, 10), (40, 35), (70, 35)],
-    tail_width=3,
-    head_width=8,
-    head_length=6,
-    r=3,
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.shapes import arrow_polyline
+from drawlib.styles import Styles
+
+setup(width=100, height=60)
+arrow_polyline(
+    [(15, 15), (50, 15), (50, 45), (85, 45)],
+    tail_width=4,
+    head_width=11,
+    head_length=8,
+    r=4,
     style=Styles.primary_flat,
 )
+save()
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="arrows_images/arrow_polyline.png" alt="arrows_7" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Multi-Point Polyline Arrow</figcaption>
+</figure>
 
             </main>
         </div>

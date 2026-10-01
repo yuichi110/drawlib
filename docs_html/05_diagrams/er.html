@@ -320,16 +320,26 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Entity Definition</h2>
-<pre><code class="language-python">from drawlib.diagrams.er import ERDiagram, Entity
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.diagrams.er import ERDiagram, Entity
 
-er = ERDiagram(title=&quot;Relational Schema&quot;)
+setup(width=50, height=45)
+
+er = ERDiagram(title=&quot;User Schema&quot;)
 
 # Create entity table
-users = er.add(Entity(name=&quot;users&quot;, width=30.0), xy=(20.0, 45.0))
+users = er.add(Entity(name=&quot;users&quot;, width=30.0), xy=(25.0, 18.0))
 users.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
 users.add_column(&quot;email&quot;, type=&quot;VARCHAR(255)&quot;, nullable=False)
 users.add_column(&quot;created_at&quot;, type=&quot;TIMESTAMP&quot;)
+
+er.draw(xy=(0.0, 0.0))
+save()
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="er_images/er_basic_entity.png" alt="er_1" style="width: 550px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Basic Entity Table</figcaption>
+</figure>
 <h3>Parameter Reference</h3>
 <h4><code>Entity</code> Class</h4>
 <table>
@@ -471,7 +481,7 @@ users.add_column(&quot;created_at&quot;, type=&quot;TIMESTAMP&quot;)
 <h2>4. E-Commerce Relational Schema with Column Anchors</h2>
 <p>The following example anchors connections directly to the exact foreign and primary key rows:</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="er_images/1.png" alt="er_1" style="width: 650px; max-width: 100%;" />
+  <img src="er_images/er_ecommerce_schema.png" alt="er_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">E-Commerce Relational Database Schema</figcaption>
 </figure>
 <hr />

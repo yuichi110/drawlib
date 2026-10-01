@@ -328,20 +328,30 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Class Definition</h2>
-<pre><code class="language-python">from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+
+setup(width=90, height=45)
 
 cd = ClassDiagram(title=&quot;Domain Model&quot;)
 
 # Class with attributes and methods
-user = cd.add(ClassNode(name=&quot;User&quot;, width=26.0), xy=(20.0, 50.0))
+user = cd.add(ClassNode(name=&quot;User&quot;, width=26.0), xy=(25.0, 18.0))
 user.add_attribute(&quot;id&quot;, type=&quot;int&quot;, is_public=True)
 user.add_attribute(&quot;password_hash&quot;, type=&quot;str&quot;, is_public=False)
 user.add_method(&quot;login&quot;, params=&quot;password: str&quot;, return_type=&quot;bool&quot;)
 
 # Interface with stereotype
-gateway = cd.add(ClassNode(name=&quot;PaymentGateway&quot;, stereotype=&quot;interface&quot;, width=28.0), xy=(60.0, 50.0))
+gateway = cd.add(ClassNode(name=&quot;PaymentGateway&quot;, stereotype=&quot;interface&quot;, width=28.0), xy=(65.0, 18.0))
 gateway.add_method(&quot;charge&quot;, params=&quot;amount: float&quot;, return_type=&quot;bool&quot;)
+
+cd.draw(xy=(0.0, 0.0))
+save()
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="class_diagram_images/class_diagram_basic_node.png" alt="class_diagram_1" style="width: 550px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Basic Class and Interface Nodes</figcaption>
+</figure>
 <hr />
 <h2>3. The 6 UML Relationship Verbs</h2>
 <p>Drawlib provides dedicated semantic methods for the 6 core UML relationships instead of generic line drawing:</p>
@@ -405,14 +415,14 @@ gateway.add_method(&quot;charge&quot;, params=&quot;amount: float&quot;, return_
 <h2>4. E-Commerce Domain Model</h2>
 <p>The following example combines inheritance, composition, and interface dependency:</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="class_diagram_images/1.png" alt="class_diagram_1" style="width: 650px; max-width: 100%;" />
+  <img src="class_diagram_images/class_diagram_ecommerce_domain.png" alt="class_diagram_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">E-Commerce Domain Class Hierarchy</figcaption>
 </figure>
 <hr />
 <h2>5. Design Pattern Modeling: Observer Pattern</h2>
 <p>Class diagrams excel at illustrating software design patterns such as the Observer pattern:</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="class_diagram_images/2.png" alt="class_diagram_2" style="width: 650px; max-width: 100%;" />
+  <img src="class_diagram_images/class_diagram_observer_pattern.png" alt="class_diagram_3" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">UML Observer Design Pattern</figcaption>
 </figure>
 <hr />

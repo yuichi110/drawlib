@@ -7,11 +7,11 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
 
 ## 1. Overview of Text Rendering
 
-```drawlib 650px center caption:"Text Alignment, Rotation, and Vertical Typography"
-from drawlib.canvas import setup
-from drawlib.text import text, text_vertical
+```drawlib 650px center file:text_overview.png caption:"Text Alignment, Rotation, and Vertical Typography"
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles
+from drawlib.text import text, text_vertical
 
 setup(width=120, height=50)
 
@@ -30,6 +30,8 @@ text((75, 25), "Rotated 45°", angle=45, style=Styles.accent_bold)
 
 # 3. Japanese Vertical text
 text_vertical((105, 40), "縦書き日本語", style=Styles.secondary_bold)
+
+save()
 ```
 
 ---
@@ -56,11 +58,16 @@ text(
 
 Renders East Asian characters (Japanese, Chinese) in traditional top-to-bottom vertical layout:
 
-```python
-from drawlib.text import text_vertical
+```drawlib show-code 500px center file:text_vertical.png caption:"Vertical Japanese Typography"
+from drawlib.canvas import save, setup
 from drawlib.styles import Styles
+from drawlib.text import text_vertical
 
-text_vertical((10, 80), "設計仕様書", style=Styles.primary_bold)
+setup(width=50, height=60)
+
+text_vertical((25, 48), "設計仕様書", style=Styles.primary_bold.patch(text_size=18))
+
+save()
 ```
 
 ---
@@ -78,13 +85,25 @@ By default, text is centered horizontally and vertically at `xy`. You can alter 
   - `"top"`: Top edge touches `y`.
   - `"bottom"`: Baseline touches `y`.
 
-```python
-# Align text neatly to the right of an icon or pin
+```drawlib show-code 600px center file:text_alignment.png caption:"Custom Horizontal and Vertical Text Alignment"
+from drawlib.canvas import save, setup
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=35)
+
+# Anchor pin at (30, 17.5)
+circle((30, 17.5), radius=2, style=Styles.danger_flat)
+
+# Align text neatly to the right of the pin
 text(
-    (55, 30),
+    (35, 17.5),
     "Aligned Label",
     style=Styles.bold.patch(text_halign="left", text_valign="center"),
 )
+
+save()
 ```
 
 ---
@@ -106,15 +125,20 @@ Drawlib bundles high-quality, open-source Google Noto and Roboto fonts with univ
 
 ### Applying Fonts to Styles
 
-```python
+```drawlib show-code 600px center file:text_monospace_font.png caption:"Monospace Code Typography with FontSourceCode"
+from drawlib.canvas import save, setup
 from drawlib.fonts import FontSourceCode
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=35)
 
 # Monospace code label
 text(
-    (50, 20),
+    (50, 17.5),
     "SELECT * FROM users;",
-    style=Styles.bold.patch(text_font=FontSourceCode.SOURCECODEPRO_REGULAR, text_size=14),
+    style=Styles.primary_bold.patch(text_font=FontSourceCode.SOURCECODEPRO, text_size=15),
 )
+
+save()
 ```

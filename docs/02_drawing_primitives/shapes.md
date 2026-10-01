@@ -25,7 +25,7 @@ All shape primitives share consistent keyword arguments:
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_images/1.png" alt="shapes_1" style="width: 650px; max-width: 100%;" />
+  <img src="shapes_images/shapes_overview.png" alt="shapes_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Overview of Drawlib Core Shape Primitives</figcaption>
 </figure>
 
@@ -35,29 +35,36 @@ All shape primitives share consistent keyword arguments:
 
 ## 3. Circle-like & Radial Shapes
 
-### `circle(xy, radius, ...)`
-Draws a standard circle centered at `xy`.
+Drawlib provides a suite of radial geometries centered at `xy`:
+
+
+
 ```python
-circle((50, 50), radius=15, style=Styles.primary_flat, text="Node A")
+from drawlib.canvas import save, setup
+from drawlib.shapes import circle, donuts, ellipse
+from drawlib.styles import Styles
+
+setup(width=110, height=45)
+
+circle((20, 22.5), radius=12, style=Styles.primary_flat, text="circle", textstyle=Styles.white_bold)
+donuts((55, 22.5), radius=12, width=4.5, style=Styles.accent_flat, text="donuts", textstyle=Styles.white_bold)
+ellipse((90, 22.5), width=24, height=16, style=Styles.secondary_flat, text="ellipse", textstyle=Styles.white_bold)
+
+save()
 ```
 
-### `donuts(xy, radius, width, ...)`
-Draws a concentric ring with an outer `radius` and wall thickness `width`.
-```python
-donuts((50, 50), radius=20, width=5, style=Styles.accent_flat)
-```
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_images/shapes_radial.png" alt="shapes_2" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Radial Shapes (Circle, Donuts, Ellipse)</figcaption>
+</figure>
 
-### `ellipse(xy, width, height, angle=0.0, ...)`
-Draws an oval / ellipse with independent horizontal and vertical dimensions.
-```python
-ellipse((50, 50), width=30, height=16, style=Styles.secondary_flat)
-```
 
-### `fan(xy, radius, angle_start, angle_end, ...)`
-Draws a circular pie sector bounded by angles (e.g. `angle_start=0`, `angle_end=90`).
 
-### `wedge(xy, radius, width, angle_start, angle_end, ...)`
-Draws an angular donut slice between `angle_start` and `angle_end`.
+- **`circle(xy, radius, ...)`**: Draws a standard circle centered at `xy`.
+- **`donuts(xy, radius, width, ...)`**: Draws a concentric ring with an outer `radius` and wall thickness `width`.
+- **`ellipse(xy, width, height, angle=0.0, ...)`**: Draws an oval / ellipse with independent dimensions.
+- **`fan(xy, radius, angle_start, angle_end, ...)`**: Draws a circular pie sector bounded by angles.
+- **`wedge(xy, radius, width, angle_start, angle_end, ...)`**: Draws an angular donut slice.
 
 ---
 
@@ -65,29 +72,36 @@ Draws an angular donut slice between `angle_start` and `angle_end`.
 
 ### `rectangle(xy, width, height, r=0.0, angle=0.0, ...)`
 Draws a rectangle centered at `xy`. 
-- Set `r` to create smooth **rounded corners** (e.g., `r=2.0`).
+- Set `r` to create smooth **rounded corners** (e.g., `r=4.0`).
 - Use `angle` to rotate around the geometric center.
+
+
+
 ```python
-rectangle((60, 30), width=40, height=20, r=3, style=Styles.primary_flat, text="Service Card")
+from drawlib.canvas import save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=100, height=50)
+
+rectangle((50, 25), width=50, height=26, r=4, style=Styles.primary_flat, text="Service Card", textstyle=Styles.white_bold)
+
+save()
 ```
 
-### `rhombus(xy, width, height, ...)`
-Draws a symmetric diamond / rhombus centered at `xy` (commonly used for decision nodes).
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_images/shapes_rectangle.png" alt="shapes_3" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Rounded Rectangle Service Card</figcaption>
+</figure>
 
-### `triangle(xy, width, height, angle=0.0, ...)`
-Draws an isosceles triangle pointing upwards (or rotated via `angle`).
 
-### `trapezoid(xy, height, bottomedge_width, topedge_width, topedge_x=None, ...)`
-Draws a symmetric or skewed trapezoid anchored at the bottom-left coordinate `xy`.
 
-### `regularpolygon(xy, radius, num_vertex, angle=0.0, ...)`
-Draws an equilateral regular polygon with $N$ vertices (pentagon $N=5$, hexagon $N=6$, octagon $N=8$).
-
-### `star(xy, num_vertex, radius_ext, radius_int, angle=0.0, ...)`
-Draws an $N$-pointed symmetric star with outer radius `radius_ext` and inner valley radius `radius_int`.
-
-### `polygon(points, ...)`
-Connects an arbitrary sequence of absolute coordinates `[(x1, y1), (x2, y2), ...]` into a closed polygon.
+- **`rhombus(xy, width, height, ...)`**: Symmetric diamond centered at `xy` (common for decision gates).
+- **`triangle(xy, width, height, angle=0.0, ...)`**: Isosceles triangle pointing upwards (or rotated).
+- **`trapezoid(xy, height, bottomedge_width, topedge_width, ...)`**: Symmetrical or skewed trapezoid.
+- **`regularpolygon(xy, radius, num_vertex, angle=0.0, ...)`**: Equilateral polygon ($N$ vertices).
+- **`star(xy, num_vertex, radius_ext, radius_int, angle=0.0, ...)`**: Symmetrical multi-pointed star.
+- **`polygon(points, ...)`**: Arbitrary closed polygon from coordinate list `[(x1, y1), (x2, y2), ...]`.
 
 ---
 
@@ -95,18 +109,33 @@ Connects an arbitrary sequence of absolute coordinates `[(x1, y1), (x2, y2), ...
 
 For irregular geometries that do not match predefined primitives, `shape` allows you to construct custom vector polygons using **local path coordinates**:
 
+
+
 ```python
+from drawlib.canvas import save, setup
 from drawlib.shapes import shape
 from drawlib.styles import Styles
 
-# Anchor at (40, 20), define local vertices relative to anchor
+setup(width=100, height=60)
+
+# Anchor at (50, 30), define local vertices relative to anchor
 shape(
-    xy=(40, 20),
+    (50, 30),
     path_points=[(0, 0), (20, 0), (30, 15), (10, 25), (-5, 10)],
     style=Styles.primary_flat,
     text="Custom Path",
+    textstyle=Styles.white_bold,
 )
+
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_images/shapes_custom_path.png" alt="shapes_4" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Custom Vector Shape via Local Path Points</figcaption>
+</figure>
+
+
 
 ---
 

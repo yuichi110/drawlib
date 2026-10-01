@@ -7,12 +7,12 @@ You can combine raster graphics (company logos, cloud service icons, application
 
 ## 1. Overview of Image Placement
 
-```drawlib 650px center caption:"Embedding External Assets and In-Memory Dimages"
-from drawlib.canvas import setup
+```drawlib 650px center file:images_overview.png caption:"Embedding External Assets and In-Memory Dimages"
+from drawlib.canvas import save, setup
 from drawlib.images import image, Dimage
 from drawlib.shapes import rectangle
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
 
 setup(width=120, height=50)
 
@@ -26,6 +26,8 @@ rectangle((85, 25), width=45, height=36, r=3, style=Styles.secondary_dashed)
 dimg = Dimage("../_assets/python.png")
 image((85, 28), width=18, image=dimg)
 text((85, 12), "Python Dimage", style=Styles.bold)
+
+save()
 ```
 
 ---
@@ -91,23 +93,31 @@ copy_dimg = dimg.copy()
 Drawlib can execute a snippet of Drawlib drawing code dynamically and return the rendered result directly as an in-memory `Dimage`.  
 This enables recursive nesting and reusable sub-diagram templates:
 
-```python
+```drawlib show-code 600px center file:image_get_dimage_from_code.png caption:"Dynamic Sub-Diagram Rendering via get_dimage_from_code"
+from drawlib.canvas import save, setup
 from drawlib.images import get_dimage_from_code, image
-from drawlib.canvas import setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
 
-# Render a sub-component in-memory
+# 1. Render a sub-component in-memory
 sub_code = """
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 
 setup(width=40, height=40)
-circle((20, 20), radius=15, style=Styles.accent_flat, text="Pod")
+circle((20, 20), radius=15, style=Styles.accent_flat, text="Pod", textstyle=Styles.white_bold.patch(text_size=36))
+save()
 """
 
 sub_diagram = get_dimage_from_code(sub_code)
 
-# Embed the sub-diagram onto the primary canvas
+# 2. Embed the sub-diagram onto the primary canvas
 setup(width=100, height=50)
-image((50, 25), width=25, image=sub_diagram)
+rectangle((50, 25), width=70, height=36, style=Styles.muted_dashed)
+image((50, 26), width=28, image=sub_diagram)
+text((50, 11), "Host Canvas with Embedded Sub-Diagram", style=Styles.bold)
+
+save()
 ```

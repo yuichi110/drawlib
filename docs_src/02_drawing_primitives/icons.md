@@ -10,11 +10,11 @@ Drawlib bundles two production-grade icon libraries via `drawlib.icons`:
 
 ## 1. Overview of Icons
 
-```drawlib 650px center caption:"Phosphor Vector Icons with Semantic Themes"
-from drawlib.canvas import setup
+```drawlib 650px center file:icons_overview.png caption:"Phosphor Vector Icons with Semantic Themes"
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
 
 setup(width=120, height=45)
 
@@ -30,6 +30,8 @@ text((80, 10), "Database", style=Styles.bold)
 
 phosphor.cloud((105, 25), width=14, style=Styles.success_flat)
 text((105, 10), "Cloud", style=Styles.bold)
+
+save()
 ```
 
 ---
@@ -62,12 +64,19 @@ Phosphor icons support 5 distinct weights controlled via `Style(icon_style="..."
 - `"bold"`: Prominent heavy stroke for primary entities.
 - `"fill"`: Solid filled silhouette for active states or alert badges.
 
-```python
+```drawlib show-code 500px center file:icons_phosphor_fill.png caption:"Phosphor Icon with Solid Fill Weight"
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=60, height=50)
 
 # Solid filled bell icon
-phosphor.bell((30, 30), width=10, style=Styles.accent.patch(icon_style="fill"))
+phosphor.bell((30, 28), width=14, style=Styles.accent.patch(icon_style="fill"))
+text((30, 12), "Alert Badge", style=Styles.accent_bold)
+
+save()
 ```
 
 ---
@@ -76,12 +85,21 @@ phosphor.bell((30, 30), width=10, style=Styles.accent.patch(icon_style="fill"))
 
 For cloud topology illustrations, Drawlib provides official Google Cloud graphics:
 
-```python
+```drawlib show-code 600px center file:icons_gcp_services.png caption:"Official Google Cloud Architecture Icons"
+from drawlib.canvas import save, setup
 from drawlib.icons import gcp
+from drawlib.styles import Styles
+from drawlib.text import text
 
-# Renders official GCP Compute Engine and Cloud Storage icons
-gcp.compute_engine((30, 50), width=12)
-gcp.cloud_storage((70, 50), width=12)
+setup(width=100, height=45)
+
+gcp.compute_engine((30, 26), width=14, style=Styles.primary)
+text((30, 10), "Compute Engine", style=Styles.bold)
+
+gcp.cloud_storage((70, 26), width=14, style=Styles.primary)
+text((70, 10), "Cloud Storage", style=Styles.bold)
+
+save()
 ```
 
 Key features:

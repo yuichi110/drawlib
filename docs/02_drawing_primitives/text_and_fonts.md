@@ -10,7 +10,7 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="text_and_fonts_images/1.png" alt="text_and_fonts_1" style="width: 650px; max-width: 100%;" />
+  <img src="text_and_fonts_images/text_overview.png" alt="text_and_fonts_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Text Alignment, Rotation, and Vertical Typography</figcaption>
 </figure>
 
@@ -40,12 +40,26 @@ text(
 
 Renders East Asian characters (Japanese, Chinese) in traditional top-to-bottom vertical layout:
 
-```python
-from drawlib.text import text_vertical
-from drawlib.styles import Styles
 
-text_vertical((10, 80), "設計仕様書", style=Styles.primary_bold)
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.styles import Styles
+from drawlib.text import text_vertical
+
+setup(width=50, height=60)
+
+text_vertical((25, 48), "設計仕様書", style=Styles.primary_bold.patch(text_size=18))
+
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="text_and_fonts_images/text_vertical.png" alt="text_and_fonts_2" style="width: 500px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Vertical Japanese Typography</figcaption>
+</figure>
+
+
 
 ---
 
@@ -62,14 +76,35 @@ By default, text is centered horizontally and vertically at `xy`. You can alter 
   - `"top"`: Top edge touches `y`.
   - `"bottom"`: Baseline touches `y`.
 
+
+
 ```python
-# Align text neatly to the right of an icon or pin
+from drawlib.canvas import save, setup
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=35)
+
+# Anchor pin at (30, 17.5)
+circle((30, 17.5), radius=2, style=Styles.danger_flat)
+
+# Align text neatly to the right of the pin
 text(
-    (55, 30),
+    (35, 17.5),
     "Aligned Label",
     style=Styles.bold.patch(text_halign="left", text_valign="center"),
 )
+
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="text_and_fonts_images/text_alignment.png" alt="text_and_fonts_3" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Custom Horizontal and Vertical Text Alignment</figcaption>
+</figure>
+
+
 
 ---
 
@@ -90,15 +125,29 @@ Drawlib bundles high-quality, open-source Google Noto and Roboto fonts with univ
 
 ### Applying Fonts to Styles
 
+
+
 ```python
+from drawlib.canvas import save, setup
 from drawlib.fonts import FontSourceCode
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=35)
 
 # Monospace code label
 text(
-    (50, 20),
+    (50, 17.5),
     "SELECT * FROM users;",
-    style=Styles.bold.patch(text_font=FontSourceCode.SOURCECODEPRO_REGULAR, text_size=14),
+    style=Styles.primary_bold.patch(text_font=FontSourceCode.SOURCECODEPRO, text_size=15),
 )
+
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="text_and_fonts_images/text_monospace_font.png" alt="text_and_fonts_4" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Monospace Code Typography with FontSourceCode</figcaption>
+</figure>
+
+

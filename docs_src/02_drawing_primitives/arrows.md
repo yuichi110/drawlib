@@ -7,9 +7,9 @@ Block arrows are closed 2D polygons with customizable tail widths, arrowhead dim
 
 ## 1. Overview of Block Arrow Functions
 
-```drawlib 650px center caption:"Overview of Drawlib Block Arrow Primitives"
-from drawlib.canvas import setup
-from drawlib.shapes import arrow, arrow_l, arrow_u, arrow_arc, chevron
+```drawlib 650px center file:arrow_overview.png caption:"Overview of Drawlib Block Arrow Primitives"
+from drawlib.canvas import save, setup
+from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_u, chevron
 from drawlib.styles import Styles
 
 setup(width=120, height=60)
@@ -28,6 +28,8 @@ arrow_l((30, 20), width=25, height=20, tail_width=3, head_width=8, head_length=6
 
 # 5. U-turn Arrow
 arrow_u((75, 20), width=25, height=22, tail_width=3, head_width=8, head_length=6, style=Styles.danger_flat)
+
+save()
 ```
 
 ---
@@ -36,18 +38,24 @@ arrow_u((75, 20), width=25, height=22, tail_width=3, head_width=8, head_length=6
 
 Draws a directed block arrow between two arbitrary coordinates `xy1` and `xy2`.
 
-```python
+```drawlib show-code 600px center file:arrow_straight.png caption:"Straight Block Arrow with Centered Label"
+from drawlib.canvas import save, setup
+from drawlib.shapes import arrow
+from drawlib.styles import Styles
+
+setup(width=100, height=40)
 arrow(
-    xy1=(10, 20),
-    xy2=(60, 20),
-    tail_width=4,
-    head_width=10,
-    head_length=8,
+    (15, 20),
+    (85, 20),
+    tail_width=5,
+    head_width=13,
+    head_length=10,
     head="->",  # "->", "<-", or "<->"
     style=Styles.primary_flat,
     text="Data Ingestion",
     textstyle=Styles.white_bold,
 )
+save()
 ```
 
 - **`head`**: Supports single forward (`"->"`), backward (`"<-"`), or bidirectional (`"<->"`) arrowheads.
@@ -59,16 +67,22 @@ arrow(
 
 Draws an interlocking arrowhead-shaped block with an indented rear notch, ideal for sequential stage diagrams:
 
-```python
+```drawlib show-code 600px center file:arrow_chevron.png caption:"Sequential Process Chevron"
+from drawlib.canvas import save, setup
+from drawlib.shapes import chevron
+from drawlib.styles import Styles
+
+setup(width=100, height=40)
 chevron(
-    xy=(50, 25),
-    width=30,
-    height=16,
+    (50, 20),
+    width=40,
+    height=20,
     corner_angle=60,  # Tip acute angle
     style=Styles.accent_flat,
     text="Stage 1",
     textstyle=Styles.white_bold,
 )
+save()
 ```
 
 > [!TIP]
@@ -81,33 +95,45 @@ chevron(
 ### L-Shaped Corner Arrow (`arrow_l`)
 Draws a 90-degree right-angled block arrow within a bounding box `(width, height)`.
 
-```python
+```drawlib show-code 600px center file:arrow_l.png caption:"Right-Angled Corner Arrow"
+from drawlib.canvas import save, setup
+from drawlib.shapes import arrow_l
+from drawlib.styles import Styles
+
+setup(width=100, height=60)
 arrow_l(
-    xy=(40, 30),
-    width=30,
-    height=25,
-    tail_width=3,
-    head_width=8,
-    head_length=6,
-    r=4,  # Corner rounding radius
+    (50, 30),
+    width=40,
+    height=35,
+    tail_width=4,
+    head_width=11,
+    head_length=8,
+    r=5,  # Corner rounding radius
     style=Styles.secondary_flat,
 )
+save()
 ```
 
 ### U-Turn Feedback Arrow (`arrow_u`)
 Draws a 180-degree turnaround block arrow, typically used for retry mechanisms or feedback loops.
 
-```python
+```drawlib show-code 600px center file:arrow_u.png caption:"180-Degree U-Turn Arrow"
+from drawlib.canvas import save, setup
+from drawlib.shapes import arrow_u
+from drawlib.styles import Styles
+
+setup(width=100, height=60)
 arrow_u(
-    xy=(60, 30),
-    width=25,
-    height=30,
-    tail_width=3,
-    head_width=8,
-    head_length=6,
-    r=5,
+    (50, 30),
+    width=35,
+    height=40,
+    tail_width=4,
+    head_width=11,
+    head_length=8,
+    r=6,  # Corner rounding radius
     style=Styles.danger_flat,
 )
+save()
 ```
 
 ---
@@ -116,29 +142,42 @@ arrow_u(
 
 ### Circular Arc Arrow (`arrow_arc`)
 Draws an elliptical arc block arrow between `angle_start` and `angle_end`.
-```python
+
+```drawlib show-code 600px center file:arrow_arc.png caption:"Circular Arc Arrow"
+from drawlib.canvas import save, setup
+from drawlib.shapes import arrow_arc
+from drawlib.styles import Styles
+
+setup(width=100, height=35)
 arrow_arc(
-    xy=(50, 50),
-    width=30,
-    height=30,
+    (50, 26),
+    width=45,
+    height=32,
     angle_start=180,
     angle_end=0,
-    tail_width=3,
-    head_width=8,
+    tail_width=4,
+    head_width=11,
     style=Styles.success_flat,
 )
+save()
 ```
 
 ### Multi-Point Polyline Arrow (`arrow_polyline`)
 Draws a complex routed block arrow passing through an arbitrary list of waypoint coordinates `[(x1, y1), (x2, y2), ...]`.
 
-```python
+```drawlib show-code 600px center file:arrow_polyline.png caption:"Multi-Point Polyline Arrow"
+from drawlib.canvas import save, setup
+from drawlib.shapes import arrow_polyline
+from drawlib.styles import Styles
+
+setup(width=100, height=60)
 arrow_polyline(
-    xys=[(10, 10), (40, 10), (40, 35), (70, 35)],
-    tail_width=3,
-    head_width=8,
-    head_length=6,
-    r=3,
+    [(15, 15), (50, 15), (50, 45), (85, 45)],
+    tail_width=4,
+    head_width=11,
+    head_length=8,
+    r=4,
     style=Styles.primary_flat,
 )
+save()
 ```

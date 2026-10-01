@@ -31,21 +31,36 @@
 
 ## 2. Constructor & Class Definition
 
+
+
 ```python
+from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+
+setup(width=90, height=45)
 
 cd = ClassDiagram(title="Domain Model")
 
 # Class with attributes and methods
-user = cd.add(ClassNode(name="User", width=26.0), xy=(20.0, 50.0))
+user = cd.add(ClassNode(name="User", width=26.0), xy=(25.0, 18.0))
 user.add_attribute("id", type="int", is_public=True)
 user.add_attribute("password_hash", type="str", is_public=False)
 user.add_method("login", params="password: str", return_type="bool")
 
 # Interface with stereotype
-gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0), xy=(60.0, 50.0))
+gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0), xy=(65.0, 18.0))
 gateway.add_method("charge", params="amount: float", return_type="bool")
+
+cd.draw(xy=(0.0, 0.0))
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="class_diagram_images/class_diagram_basic_node.png" alt="class_diagram_1" style="width: 550px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Basic Class and Interface Nodes</figcaption>
+</figure>
+
+
 
 ---
 
@@ -73,7 +88,7 @@ The following example combines inheritance, composition, and interface dependenc
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="class_diagram_images/1.png" alt="class_diagram_1" style="width: 650px; max-width: 100%;" />
+  <img src="class_diagram_images/class_diagram_ecommerce_domain.png" alt="class_diagram_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">E-Commerce Domain Class Hierarchy</figcaption>
 </figure>
 
@@ -88,7 +103,7 @@ Class diagrams excel at illustrating software design patterns such as the Observ
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="class_diagram_images/2.png" alt="class_diagram_2" style="width: 650px; max-width: 100%;" />
+  <img src="class_diagram_images/class_diagram_observer_pattern.png" alt="class_diagram_3" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">UML Observer Design Pattern</figcaption>
 </figure>
 

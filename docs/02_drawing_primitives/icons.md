@@ -13,7 +13,7 @@ Drawlib bundles two production-grade icon libraries via `drawlib.icons`:
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="icons_images/1.png" alt="icons_1" style="width: 650px; max-width: 100%;" />
+  <img src="icons_images/icons_overview.png" alt="icons_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Phosphor Vector Icons with Semantic Themes</figcaption>
 </figure>
 
@@ -49,13 +49,29 @@ Phosphor icons support 5 distinct weights controlled via `Style(icon_style="..."
 - `"bold"`: Prominent heavy stroke for primary entities.
 - `"fill"`: Solid filled silhouette for active states or alert badges.
 
+
+
 ```python
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=60, height=50)
 
 # Solid filled bell icon
-phosphor.bell((30, 30), width=10, style=Styles.accent.patch(icon_style="fill"))
+phosphor.bell((30, 28), width=14, style=Styles.accent.patch(icon_style="fill"))
+text((30, 12), "Alert Badge", style=Styles.accent_bold)
+
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="icons_images/icons_phosphor_fill.png" alt="icons_2" style="width: 500px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Phosphor Icon with Solid Fill Weight</figcaption>
+</figure>
+
+
 
 ---
 
@@ -63,13 +79,31 @@ phosphor.bell((30, 30), width=10, style=Styles.accent.patch(icon_style="fill"))
 
 For cloud topology illustrations, Drawlib provides official Google Cloud graphics:
 
-```python
-from drawlib.icons import gcp
 
-# Renders official GCP Compute Engine and Cloud Storage icons
-gcp.compute_engine((30, 50), width=12)
-gcp.cloud_storage((70, 50), width=12)
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.icons import gcp
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=45)
+
+gcp.compute_engine((30, 26), width=14, style=Styles.primary)
+text((30, 10), "Compute Engine", style=Styles.bold)
+
+gcp.cloud_storage((70, 26), width=14, style=Styles.primary)
+text((70, 10), "Cloud Storage", style=Styles.bold)
+
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="icons_images/icons_gcp_services.png" alt="icons_3" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Official Google Cloud Architecture Icons</figcaption>
+</figure>
+
+
 
 Key features:
 - **Official Multicolor Graphics**: Renders authentic Google Cloud service colors out of the box.

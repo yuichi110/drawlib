@@ -48,7 +48,7 @@ Using `get_center_and_size()`, you can calculate the exact boundary of a cluster
 
 
 ```python
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
@@ -75,10 +75,11 @@ rectangle(
 # 4. Render nodes
 for i, (x, y) in enumerate(nodes, start=1):
     circle((x, y), radius=7, style=Styles.primary_flat, text=f"Pod {i}", textstyle=Styles.white_bold)
+save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="math_and_layout_images/1.png" alt="math_and_layout_1" style="width: 650px; max-width: 100%;" />
+  <img src="math_and_layout_images/math_dynamic_grouping_box.png" alt="math_and_layout_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Automated Grouping Box via get_center_and_size()</figcaption>
 </figure>
 
@@ -94,7 +95,7 @@ To distribute $N$ worker nodes symmetrically around a central hub:
 
 ```python
 import math
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.math import get_angle, get_distance
 from drawlib.shapes import circle
@@ -120,10 +121,11 @@ for i in range(num_clients):
     
     line(hub, node_xy, style=Styles.bold)
     circle(node_xy, radius=6, style=Styles.secondary_flat, text=f"N{i+1}", textstyle=Styles.white_bold)
+save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="math_and_layout_images/2.png" alt="math_and_layout_2" style="width: 650px; max-width: 100%;" />
+  <img src="math_and_layout_images/math_radial_distribution.png" alt="math_and_layout_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Radial Topology with Polar Math Distribution</figcaption>
 </figure>
 
@@ -135,22 +137,35 @@ for i in range(num_clients):
 
 Align text labels parallel to angled lines using `get_angle()`:
 
+
+
 ```python
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.math import get_angle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-p1 = (30, 20)
-p2 = (90, 60)
+setup(width=120, height=80)
+
+p1 = (25, 25)
+p2 = (95, 60)
 
 # Draw slanted wire
 line(p1, p2, arrowhead="->", style=Styles.bold)
 
 # Calculate rotation angle and midpoint
 angle = get_angle(p1, p2)
-midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 3)
+midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 4)
 
 # Render rotated text parallel to the connection
-text(midpoint, "Telemetry Stream (33.7°)", angle=angle, style=Styles.bold)
+text(midpoint, f"Telemetry Stream ({angle:.1f}°)", angle=angle, style=Styles.bold)
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="math_and_layout_images/math_slanted_line_text.png" alt="math_and_layout_3" style="width: 550px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Parallel Text on Angled Line</figcaption>
+</figure>
+
+

@@ -23,16 +23,22 @@
 
 ## 2. Constructor & Entity Definition
 
-```python
+```drawlib show-code 550px center file:er_basic_entity.png caption:"Basic Entity Table"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 
-er = ERDiagram(title="Relational Schema")
+setup(width=50, height=45)
+
+er = ERDiagram(title="User Schema")
 
 # Create entity table
-users = er.add(Entity(name="users", width=30.0), xy=(20.0, 45.0))
+users = er.add(Entity(name="users", width=30.0), xy=(25.0, 18.0))
 users.add_column("id", type="INT", pk=True)
 users.add_column("email", type="VARCHAR(255)", nullable=False)
 users.add_column("created_at", type="TIMESTAMP")
+
+er.draw(xy=(0.0, 0.0))
+save()
 ```
 
 ### Parameter Reference
@@ -74,12 +80,11 @@ users.add_column("created_at", type="TIMESTAMP")
 
 The following example anchors connections directly to the exact foreign and primary key rows:
 
-```drawlib 650px center caption:"E-Commerce Relational Database Schema"
-from drawlib import canvas
+```drawlib 650px center file:er_ecommerce_schema.png caption:"E-Commerce Relational Database Schema"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.clear()
-canvas.setup(width=110, height=80)
+setup(width=110, height=80)
 
 er = ERDiagram(title="E-Commerce Relational Database Schema")
 
@@ -107,6 +112,7 @@ users.connect(
 )
 
 er.draw(xy=(0.0, 0.0))
+save()
 ```
 
 ---

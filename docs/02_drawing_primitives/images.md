@@ -10,7 +10,7 @@ You can combine raster graphics (company logos, cloud service icons, application
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="images_images/1.png" alt="images_1" style="width: 650px; max-width: 100%;" />
+  <img src="images_images/images_overview.png" alt="images_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Embedding External Assets and In-Memory Dimages</figcaption>
 </figure>
 
@@ -79,23 +79,40 @@ copy_dimg = dimg.copy()
 Drawlib can execute a snippet of Drawlib drawing code dynamically and return the rendered result directly as an in-memory `Dimage`.  
 This enables recursive nesting and reusable sub-diagram templates:
 
-```python
-from drawlib.images import get_dimage_from_code, image
-from drawlib.canvas import setup
 
-# Render a sub-component in-memory
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.images import get_dimage_from_code, image
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+# 1. Render a sub-component in-memory
 sub_code = """
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 
 setup(width=40, height=40)
-circle((20, 20), radius=15, style=Styles.accent_flat, text="Pod")
+circle((20, 20), radius=15, style=Styles.accent_flat, text="Pod", textstyle=Styles.white_bold.patch(text_size=36))
+save()
 """
 
 sub_diagram = get_dimage_from_code(sub_code)
 
-# Embed the sub-diagram onto the primary canvas
+# 2. Embed the sub-diagram onto the primary canvas
 setup(width=100, height=50)
-image((50, 25), width=25, image=sub_diagram)
+rectangle((50, 25), width=70, height=36, style=Styles.muted_dashed)
+image((50, 26), width=28, image=sub_diagram)
+text((50, 11), "Host Canvas with Embedded Sub-Diagram", style=Styles.bold)
+
+save()
 ```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="images_images/image_get_dimage_from_code.png" alt="images_2" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Dynamic Sub-Diagram Rendering via get_dimage_from_code</figcaption>
+</figure>
+
+

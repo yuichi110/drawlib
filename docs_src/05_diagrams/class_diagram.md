@@ -31,20 +31,26 @@
 
 ## 2. Constructor & Class Definition
 
-```python
+```drawlib show-code 550px center file:class_diagram_basic_node.png caption:"Basic Class and Interface Nodes"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+
+setup(width=90, height=45)
 
 cd = ClassDiagram(title="Domain Model")
 
 # Class with attributes and methods
-user = cd.add(ClassNode(name="User", width=26.0), xy=(20.0, 50.0))
+user = cd.add(ClassNode(name="User", width=26.0), xy=(25.0, 18.0))
 user.add_attribute("id", type="int", is_public=True)
 user.add_attribute("password_hash", type="str", is_public=False)
 user.add_method("login", params="password: str", return_type="bool")
 
 # Interface with stereotype
-gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0), xy=(60.0, 50.0))
+gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0), xy=(65.0, 18.0))
 gateway.add_method("charge", params="amount: float", return_type="bool")
+
+cd.draw(xy=(0.0, 0.0))
+save()
 ```
 
 ---
@@ -70,12 +76,11 @@ All relationship methods accept `start_side`, `end_side`, `start_multiplicity` (
 
 The following example combines inheritance, composition, and interface dependency:
 
-```drawlib 650px center caption:"E-Commerce Domain Class Hierarchy"
-from drawlib import canvas
+```drawlib 650px center file:class_diagram_ecommerce_domain.png caption:"E-Commerce Domain Class Hierarchy"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
-canvas.clear()
-canvas.setup(width=110, height=85)
+setup(width=110, height=85)
 
 cd = ClassDiagram(title="E-Commerce Domain Class Model")
 
@@ -111,6 +116,7 @@ customer.composite(
 order.depend(iface, start_side="top", end_side="bottom", label="uses")
 
 cd.draw(xy=(0.0, 0.0))
+save()
 ```
 
 ---
@@ -119,12 +125,11 @@ cd.draw(xy=(0.0, 0.0))
 
 Class diagrams excel at illustrating software design patterns such as the Observer pattern:
 
-```drawlib 650px center caption:"UML Observer Design Pattern"
-from drawlib import canvas
+```drawlib 650px center file:class_diagram_observer_pattern.png caption:"UML Observer Design Pattern"
+from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
-canvas.clear()
-canvas.setup(width=105, height=80)
+setup(width=105, height=80)
 
 cd = ClassDiagram(title="UML Observer Design Pattern")
 
@@ -155,6 +160,7 @@ subj_iface.aggregate(
 )
 
 cd.draw(xy=(0.0, 0.0))
+save()
 ```
 
 ---

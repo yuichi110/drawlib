@@ -45,8 +45,8 @@ Computes the geometric midpoint and outer bounding box dimensions for an arbitra
 
 Using `get_center_and_size()`, you can calculate the exact boundary of a cluster of service nodes and draw an encompassing card behind them:
 
-```drawlib 650px center show-code caption:"Automated Grouping Box via get_center_and_size()"
-from drawlib.canvas import setup
+```drawlib 650px center show-code file:math_dynamic_grouping_box.png caption:"Automated Grouping Box via get_center_and_size()"
+from drawlib.canvas import save, setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
@@ -73,6 +73,7 @@ rectangle(
 # 4. Render nodes
 for i, (x, y) in enumerate(nodes, start=1):
     circle((x, y), radius=7, style=Styles.primary_flat, text=f"Pod {i}", textstyle=Styles.white_bold)
+save()
 ```
 
 ---
@@ -81,9 +82,9 @@ for i, (x, y) in enumerate(nodes, start=1):
 
 To distribute $N$ worker nodes symmetrically around a central hub:
 
-```drawlib 650px center show-code caption:"Radial Topology with Polar Math Distribution"
+```drawlib 650px center show-code file:math_radial_distribution.png caption:"Radial Topology with Polar Math Distribution"
 import math
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.math import get_angle, get_distance
 from drawlib.shapes import circle
@@ -109,6 +110,7 @@ for i in range(num_clients):
     
     line(hub, node_xy, style=Styles.bold)
     circle(node_xy, radius=6, style=Styles.secondary_flat, text=f"N{i+1}", textstyle=Styles.white_bold)
+save()
 ```
 
 ---
@@ -117,22 +119,26 @@ for i in range(num_clients):
 
 Align text labels parallel to angled lines using `get_angle()`:
 
-```python
+```drawlib show-code 550px center file:math_slanted_line_text.png caption:"Parallel Text on Angled Line"
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.math import get_angle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-p1 = (30, 20)
-p2 = (90, 60)
+setup(width=120, height=80)
+
+p1 = (25, 25)
+p2 = (95, 60)
 
 # Draw slanted wire
 line(p1, p2, arrowhead="->", style=Styles.bold)
 
 # Calculate rotation angle and midpoint
 angle = get_angle(p1, p2)
-midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 3)
+midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 4)
 
 # Render rotated text parallel to the connection
-text(midpoint, "Telemetry Stream (33.7°)", angle=angle, style=Styles.bold)
+text(midpoint, f"Telemetry Stream ({angle:.1f}°)", angle=angle, style=Styles.bold)
+save()
 ```
