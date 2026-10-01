@@ -7,11 +7,11 @@ The `drawlib.lines` module provides straight lines, smooth circular arcs, Bézie
 
 ## 1. Overview of Line Primitives
 
-```drawlib 650px center caption:"Overview of Drawlib Line Connectors"
-from drawlib.canvas import setup
-from drawlib.lines import line, line_curved, line_bezier1, lines
-from drawlib.text import text
+```drawlib 650px center file:lines_overview.png caption:"Overview of Drawlib Line Connectors"
+from drawlib.canvas import save, setup
+from drawlib.lines import line, line_bezier1, line_curved, lines
 from drawlib.styles import Styles
+from drawlib.text import text
 
 setup(width=120, height=60)
 
@@ -20,8 +20,8 @@ line((15, 45), (45, 45), arrowhead="->", style=Styles.primary_bold)
 text((30, 48), "line()", style=Styles.bold)
 
 # 2. Curved Line (arc with bend)
-line_curved((65, 45), (95, 45), bend=0.4, arrowhead="->", style=Styles.accent_bold)
-text((80, 52), "line_curved(bend=0.4)", style=Styles.bold)
+line_curved((65, 45), (95, 45), bend=-0.4, arrowhead="->", style=Styles.accent_bold)
+text((80, 52), "line_curved(bend=-0.4)", style=Styles.bold)
 
 # 3. Bézier Curve
 line_bezier1((15, 15), (45, 15), cp=(30, 32), arrowhead="->", style=Styles.secondary_bold)
@@ -30,6 +30,8 @@ text((30, 22), "line_bezier1()", style=Styles.bold)
 # 4. Multi-point Orthogonal Routing (Manhattan)
 lines([(65, 15), (85, 15), (85, 30), (105, 30)], arrowhead="->", style=Styles.success_bold)
 text((85, 33), "lines(orthogonal)", style=Styles.bold)
+
+save()
 ```
 
 ---
@@ -52,54 +54,92 @@ All line functions accept the `arrowhead` keyword argument:
 ### 3.1. Straight Line (`line`)
 Connects two coordinates `xy1` and `xy2` with a direct straight segment.
 
-```python
-line(
-    xy1=(20, 30),
-    xy2=(80, 30),
-    arrowhead="->",
-    style=Styles.primary_bold,
-)
+```drawlib 500px center show-code file:lines_straight.png
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=40)
+line((15, 27), (85, 27), arrowhead="->", style=Styles.primary_bold)
+text((50, 32), "Forward (->)", style=Styles.primary)
+
+line((15, 12), (85, 12), arrowhead="<->", style=Styles.secondary_bold)
+text((50, 17), "Bidirectional (<->)", style=Styles.secondary)
+save()
 ```
 
 ### 3.2. Smooth Arc Curve (`line_curved`)
 Draws a single circular arc between `xy1` and `xy2`. 
-- **`bend`**: Controls the degree of curvature ($0.0$ = flat line, positive = bend left/upwards, negative = bend right/downwards). Defaults to `0.2`.
+- **`bend`**: Controls the degree of curvature ($0.0$ = flat line, negative = bend upward, positive = bend downward). Defaults to `0.2`.
 
-```python
-line_curved(
-    xy1=(30, 20),
-    xy2=(70, 20),
-    bend=0.35,  # Higher value produces a deeper arc
-    arrowhead="->",
-    style=Styles.accent_bold,
-)
+```drawlib 500px center show-code file:lines_curved.png
+from drawlib.canvas import save, setup
+from drawlib.lines import line_curved
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=45)
+# Negative bend curves upward in Cartesian space
+line_curved((15, 22), (85, 22), bend=-0.35, arrowhead="->", style=Styles.primary_bold)
+text((50, 40), "bend=-0.35 (upward)", style=Styles.primary)
+
+# Positive bend curves downward in Cartesian space
+line_curved((15, 22), (85, 22), bend=0.35, arrowhead="->", style=Styles.accent_bold)
+text((50, 6), "bend=0.35 (downward)", style=Styles.accent)
+save()
 ```
 
 ### 3.3. Quadratic Bézier Curve (`line_bezier1`)
 Connects `xy1` to `xy2` controlled by a single control point `cp` that pulls the curve tangentially:
 
-```python
-line_bezier1(
-    xy1=(20, 20),
-    xy2=(80, 20),
-    cp=(50, 45),  # Apex attractor point
-    arrowhead="->",
-    style=Styles.secondary_bold,
-)
+```drawlib 500px center show-code file:lines_bezier1.png
+from drawlib.canvas import save, setup
+from drawlib.lines import line, line_bezier1
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=50)
+p1, p2 = (15, 15), (85, 15)
+cp = (50, 40)
+
+# Control point tangent guides
+line(p1, cp, style=Styles.muted_dashed)
+line(cp, p2, style=Styles.muted_dashed)
+circle(cp, radius=2, style=Styles.danger_flat)
+text((50, 45), "Control Point (cp)", style=Styles.danger)
+
+# Quadratic Bézier curve
+line_bezier1(p1, p2, cp=cp, arrowhead="->", style=Styles.secondary_bold)
+save()
 ```
 
 ### 3.4. Cubic Bézier Curve (`line_bezier2`)
-Connects `xy1` to `xy2` with two independent control points `cp1` and `cp2`, enabling S-curves and asymmetric waves.
+Connects `xy1` to `xy2` with two independent control points `cp1` and `cp2`, enabling S-curves and asymmetric waves:
 
-```python
-line_bezier2(
-    xy1=(20, 20),
-    xy2=(80, 40),
-    cp1=(40, 50),
-    cp2=(60, 10),
-    arrowhead="->",
-    style=Styles.bold,
-)
+```drawlib 500px center show-code file:lines_bezier2.png
+from drawlib.canvas import save, setup
+from drawlib.lines import line, line_bezier2
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=100, height=50)
+p1, p2 = (15, 25), (85, 25)
+cp1, cp2 = (35, 42), (65, 8)
+
+# Tangent guides for both control points
+line(p1, cp1, style=Styles.muted_dashed)
+line(p2, cp2, style=Styles.muted_dashed)
+circle(cp1, radius=2, style=Styles.danger_flat)
+text((35, 46), "cp1", style=Styles.danger)
+circle(cp2, radius=2, style=Styles.danger_flat)
+text((65, 4), "cp2", style=Styles.danger)
+
+# Cubic Bézier S-curve
+line_bezier2(p1, p2, cp1=cp1, cp2=cp2, arrowhead="->", style=Styles.primary_bold)
+save()
 ```
 
 ---
@@ -107,22 +147,43 @@ line_bezier2(
 ## 4. Multi-Point & Orthogonal Routing (`lines`)
 
 The `lines` function connects a sequence of two or more coordinates `[(x0, y0), (x1, y1), ...]`. 
-In software architectures and circuit schematics, **orthogonal (Manhattan) routing** is standard:
+In software architectures and circuit schematics, **orthogonal (Manhattan) routing** is standard for clean, non-overlapping bus lines:
 
-### L-Routing (Single 90° Turn)
+### 4.1. L-Routing (Single 90° Turn)
 Connects two entities horizontally first, then vertically:
-```python
-lines([(20, 20), (60, 20), (60, 50)], arrowhead="->", style=Styles.bold)
+
+```drawlib 500px center show-code file:lines_l_routing.png
+from drawlib.canvas import save, setup
+from drawlib.lines import lines
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=100, height=45)
+rectangle((20, 30), width=24, height=14, style=Styles.primary_flat, text="Client", textstyle=Styles.white_bold)
+rectangle((80, 15), width=24, height=14, style=Styles.secondary_flat, text="Worker", textstyle=Styles.white_bold)
+
+# L-shaped connection: horizontal from Client, then downward to Worker
+lines([(32, 30), (80, 30), (80, 22)], arrowhead="->", style=Styles.bold)
+save()
 ```
 
-### Z-Routing / Dogleg (Two 90° Turns)
+### 4.2. Z-Routing / Dogleg (Two 90° Turns)
 Connects two offset components across a shared mid-channel $x_{\text{mid}}$:
-```python
-x1, y1 = 20, 20
-x2, y2 = 80, 50
-x_mid = (x1 + x2) / 2
 
-lines([(x1, y1), (x_mid, y1), (x_mid, y2), (x2, y2)], arrowhead="->", style=Styles.bold)
+```drawlib 500px center show-code file:lines_z_routing.png
+from drawlib.canvas import save, setup
+from drawlib.lines import lines
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=100, height=45)
+rectangle((20, 32), width=24, height=14, style=Styles.primary_flat, text="Service A", textstyle=Styles.white_bold)
+rectangle((80, 14), width=24, height=14, style=Styles.accent_flat, text="Service B", textstyle=Styles.white_bold)
+
+# Z-shaped dogleg connection across midpoint x_mid = 50
+x_mid = 50
+lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrowhead="->", style=Styles.bold)
+save()
 ```
 
 > [!NOTE]
