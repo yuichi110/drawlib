@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import datetime
 import os
 import re
@@ -109,7 +110,13 @@ def export_html_to_pdf(html_content: str, output_path: str, timestamp: bool = Fa
     try:
         with sync_playwright() as p:
             try:
-                browser = p.chromium.launch(headless=True)
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=[
+                        "--font-render-hinting=medium",
+                        "--enable-font-antialiasing",
+                    ],
+                )
             except Exception as err:
                 err_str = str(err)
                 if "Executable doesn't exist" in err_str or "playwright install" in err_str:
@@ -128,6 +135,9 @@ def export_html_to_pdf(html_content: str, output_path: str, timestamp: bool = Fa
             try:
                 page = browser.new_page()
                 page.set_content(html_content, wait_until="networkidle")
+                # Wait for all WebFonts (e.g. Noto Sans JP) to be fully loaded and decoded before rendering PDF
+                with contextlib.suppress(Exception):
+                    page.evaluate("() => document.fonts.ready")
                 page.pdf(
                     path=abs_output,
                     format="A4",

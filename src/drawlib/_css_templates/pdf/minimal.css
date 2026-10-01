@@ -23,7 +23,7 @@
 }
 
 html, body {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: Georgia, "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
     font-size: 14.5px;
     line-height: 1.7;
     color: #222222;
@@ -37,7 +37,7 @@ hr {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Noto Sans", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic", Meiryo, system-ui, "Noto Sans", Helvetica, Arial, sans-serif;
     color: #111111;
     margin-top: 1.5rem;
     margin-bottom: 0.7rem;
@@ -45,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 code, pre {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Noto Sans Mono CJK JP", monospace;
 }
 
 pre {

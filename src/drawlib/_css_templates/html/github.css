@@ -16,8 +16,8 @@
     --rtd-inline-code-color: #24292f;
     --rtd-note-bg: #ddf4ff;
     --rtd-note-border: #0969da;
-    --rtd-font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Noto Sans", Helvetica, Arial, sans-serif;
-    --rtd-mono-font: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --rtd-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic", Meiryo, system-ui, "Noto Sans", Helvetica, Arial, sans-serif;
+    --rtd-mono-font: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Noto Sans Mono CJK JP", "Liberation Mono", monospace;
     --sidebar-width: 280px;
 }
 

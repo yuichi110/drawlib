@@ -26,9 +26,9 @@
     --rtd-inline-code-color: #8ab4f8;
     --rtd-note-bg: #282a2d;
     --rtd-note-border: #8ab4f8;
-    --rtd-font: "Google Sans", "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Noto Sans", Arial, sans-serif;
-    --rtd-body-font: "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Noto Sans", Arial, sans-serif;
-    --rtd-mono-font: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --rtd-font: "Google Sans", "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic", Meiryo, sans-serif;
+    --rtd-body-font: "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic", Meiryo, sans-serif;
+    --rtd-mono-font: "Roboto Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Noto Sans Mono CJK JP", monospace;
 }
 
 @page {

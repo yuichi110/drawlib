@@ -16,8 +16,8 @@
     --rtd-inline-code-color: #262626;
     --rtd-note-bg: #fafafa;
     --rtd-note-border: #737373;
-    --rtd-font: -apple-system, BlinkMacSystemFont, "Georgia", serif;
-    --rtd-mono-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --rtd-font: -apple-system, BlinkMacSystemFont, "Georgia", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+    --rtd-mono-font: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Noto Sans Mono CJK JP", monospace;
     --sidebar-width: 260px;
 }
 
