@@ -183,7 +183,13 @@ Align node center coordinates `(x, y)` to clean increments:
 ### 5.4 Equidistant Spacing via Formulas (Preventing Right-Edge Crowding)
 Never guess or hardcode absolute coordinates one by one from left to right. When placing a sequence of $N$ nodes across a canvas, **always calculate the gap dynamically** using Python math to ensure exact bilateral symmetry:
 
-```python
+```drawlib show-code 600px center file:style_equidistant_spacing.png caption:"Dynamic Equidistant Spacing via Formulas"
+from drawlib.canvas import save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=120, height=50)
+
 # Distribute N elements evenly between canvas margins:
 total_w = 120
 margin_x = 12
@@ -196,7 +202,9 @@ gap = (total_w - (margin_x * 2) - (box_w * n)) / (n - 1)
 
 for i in range(n):
     cx = margin_x + (box_w / 2) + i * (box_w + gap)
-    rectangle((cx, y), width=box_w, height=box_h, style=Styles.primary_flat)
+    rectangle((cx, y), width=box_w, height=box_h, style=Styles.primary_flat, text=f"Node {i+1}", textstyle=Styles.white_bold)
+
+save()
 ```
 
 ### 5.5 Favor High-Level Components over Manual Assembly
@@ -215,7 +223,14 @@ Never use opaque list indexing (`points[0]`, `a[1]`) or scatter magic literal tu
 2. **Self-Documenting Connections**: Connecting lines read clearly (`line(client_xy, gateway_xy)`), eliminating guesswork and AI hallucinations.
 3. **Clean Separation of Concerns**: Divides drawing code into (1) Layout Geometry, (2) Node Rendering, and (3) Connectors.
 
-```python
+```drawlib show-code 600px center file:style_semantic_coordinates.png caption:"Semantic Coordinate Variables Architecture"
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=130, height=60)
+
 # 1. Define layout geometry & semantic coordinates
 box_w, box_h = 24, 16
 client_xy  = (25, 30)
@@ -230,6 +245,8 @@ rectangle(db_xy,      width=box_w, height=box_h, style=Styles.secondary_flat, te
 # 3. Connect nodes by referencing the same coordinates
 line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrowhead="->", style=Styles.bold)
 line((gateway_xy[0] + box_w/2, gateway_xy[1]), (db_xy[0] - box_w/2,      db_xy[1]),      arrowhead="->", style=Styles.bold)
+
+save()
 ```
 
 ### 5.7 Z-Order & Layering Pipeline

@@ -88,11 +88,14 @@ for i in range(total_nodes):
 ### 3.2. Slanted Line Text Annotation
 Align text perfectly parallel to a connecting line between points `p1` and `p2`:
 
-```python
-from drawlib.styles import Styles
+```drawlib show-code 600px center file:math_slanted_line_text.png caption:"Slanted Line Annotation with get_angle()"
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.math import get_angle
+from drawlib.styles import Styles
 from drawlib.text import text
+
+setup(width=120, height=80)
 
 p1 = (30, 20)
 p2 = (90, 60)
@@ -102,10 +105,12 @@ line(p1, p2, arrowhead="->", style=Styles.bold)
 
 # Calculate angle and midpoint
 angle = get_angle(p1, p2)
-midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 3)
+midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 4)
 
 # Rotate text along the line
-text(midpoint, "Data Sync (60°)", angle=angle, style=Styles.bold)
+text(midpoint, f"Data Sync ({angle:.1f}°)", angle=angle, style=Styles.bold)
+
+save()
 ```
 
 ---
