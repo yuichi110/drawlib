@@ -307,7 +307,7 @@
 <hr />
 <h2>1. Basic Code Fence Syntax</h2>
 <p>Embedded drawing blocks use the <code>drawlib</code> language identifier:</p>
-<pre><code class="language-python">from drawlib.canvas import setup
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
 from drawlib.styles import Styles
@@ -316,6 +316,7 @@ setup(width=100, height=40)
 rectangle((25, 20), width=30, height=18, style=Styles.accent_flat, text=&quot;Publisher&quot;, textstyle=Styles.white_bold)
 rectangle((75, 20), width=30, height=18, style=Styles.primary_flat, text=&quot;Consumer&quot;, textstyle=Styles.white_bold)
 line((40, 20), (60, 20), arrowhead=&quot;-&gt;&quot;, style=Styles.bold)
+save()
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="code_blocks_images/1.png" alt="code_blocks_1" style="width: 650px; max-width: 100%;" />
@@ -370,6 +371,11 @@ line((40, 20), (60, 20), arrowhead=&quot;-&gt;&quot;, style=Styles.bold)
 <li><strong>Caption</strong>: <code>caption:&quot;Description of diagram&quot;</code> wraps the rendered figure in semantic HTML <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements with clean typography.</li>
 <li><strong>Custom Filename</strong>: By default, Drawlib numbers companion images sequentially (<code>1.png</code>, <code>2.png</code>). Specify <code>file:my_diagram.png</code> to set an explicit filename in the output directory.</li>
 </ul>
+<blockquote>
+<p>[!TIP]
+<strong>Best Practice for AI &amp; Automation</strong>:
+Always specify an explicit <code>file:&lt;name&gt;.png</code> attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via <code>drawlib show &lt;file&gt; &lt;image_name.png&gt;</code>.</p>
+</blockquote>
 <hr />
 <h2>3. Working Directory &amp; Path Resolution</h2>
 <p>When compiling embedded code blocks:</p>
@@ -383,6 +389,7 @@ line((40, 20), (60, 20), arrowhead=&quot;-&gt;&quot;, style=Styles.bold)
 <ul>
 <li><strong>Automatic Clear</strong>: Drawlib invokes <code>canvas.clear()</code> before executing each embedded code block. State, shapes, and settings from a preceding diagram will never contaminate subsequent blocks.</li>
 <li><strong>Explicit Imports</strong>: Embedded drawing blocks require explicit imports (e.g. <code>from drawlib.shapes import circle</code>, <code>from drawlib.styles import Styles</code>). This guarantees clean namespace boundaries, full IDE autocompletion support, and self-contained reproducibility.</li>
+<li><strong>Automatic Capture &amp; <code>save()</code> Handling</strong>: The Document Builder automatically captures the canvas and renders the companion image to disk when a block finishes execution. Calling <code>save()</code> within a block is optional; if present, the engine safely overrides it as a no-op to prevent duplicate file writes or collisions. In complete examples, including <code>save()</code> (without arguments) is recommended to maintain 100% copy-paste portability with standalone Python scripts.</li>
 </ul>
 <hr />
 <h2>5. Rapid Verification Workflow</h2>

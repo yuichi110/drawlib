@@ -106,7 +106,7 @@ Write diagrams inline within your Markdown documents using the ````drawlib```` c
 The system communicates via asynchronous message queues:
 
 ```drawlib 600px center file:event_microservices.png caption:"Event-Driven Microservices"
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
 from drawlib.styles import Styles
@@ -115,6 +115,7 @@ setup(width=100, height=40)
 rectangle((25, 20), width=30, height=18, style=Styles.primary_flat, text="Publisher", textstyle=Styles.white_bold)
 rectangle((75, 20), width=30, height=18, style=Styles.secondary_flat, text="Consumer", textstyle=Styles.white_bold)
 line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
+save()
 ```
 ````
 
@@ -123,6 +124,7 @@ line((40, 20), (60, 20), arrowhead="->", style=Styles.bold)
 - **Dimensions & Alignment**: `600px`, `100%`, `center` *(default)*, `left`, `right`.
 - **Caption & Asset Name**: `caption:"Description"` (renders `<figcaption>`), `file:custom_name.png`. **Always specify `file:<name>.png`** for every embedded block to ensure deterministic referencing and clean asset management. Avoid relying on auto-generated index filenames (`0.png`, `1.png`).
 - **Explicit Imports & PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles`. **Always use uppercase `Styles` and `Colors`** (e.g. `style=Styles.primary_flat`, `Colors.Blue`). Never rename or lowercase them to `styles` or `colors` to avoid shadowing module `drawlib.styles`.
+- **Lifecycle & `save()`**: Calling `save()` in embedded blocks is optional as the build engine automatically captures the canvas (and calls to `save()` are safely treated as no-ops). However, including `save()` (without arguments) in complete examples is recommended to ensure 100% copy-paste portability with standalone `.py` scripts.
 
 ### 4.2. Standard Project Scaffolding (`drawlib init`)
 Never create documentation project structures manually. Always scaffold them with `drawlib init`:

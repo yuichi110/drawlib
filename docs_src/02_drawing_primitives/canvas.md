@@ -118,7 +118,8 @@ save(
 - **`format`**: File format (`"png"`, `"svg"`, `"pdf"`, `"webp"`). If omitted, inferred from the filename extension or defaults to `"png"`.
 
 > [!NOTE]
-> In Markdown embedded code blocks (` ```drawlib `), you do **not** need to call `save()`. The Document Builder captures the canvas automatically.
+> **Handling `save()` in Markdown Blocks**:
+> In Markdown embedded code blocks (` ```drawlib `), calling `save()` is optional because the Document Builder captures the canvas automatically. If `save()` is called within an embedded block, the engine treats it safely as a no-op to prevent duplicate writes or collisions. However, explicitly including `save()` (without arguments) in complete examples is recommended for 100% copy-paste compatibility with standalone `.py` scripts.
 
 ---
 

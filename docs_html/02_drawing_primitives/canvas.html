@@ -458,7 +458,8 @@ If you generate multiple illustrations in a single Python script, always call <c
 </ul>
 <blockquote>
 <p>[!NOTE]
-In Markdown embedded code blocks (<code>```drawlib</code>), you do <strong>not</strong> need to call <code>save()</code>. The Document Builder captures the canvas automatically.</p>
+<strong>Handling <code>save()</code> in Markdown Blocks</strong>:
+In Markdown embedded code blocks (<code>```drawlib</code>), calling <code>save()</code> is optional because the Document Builder captures the canvas automatically. If <code>save()</code> is called within an embedded block, the engine treats it safely as a no-op to prevent duplicate writes or collisions. However, explicitly including <code>save()</code> (without arguments) in complete examples is recommended for 100% copy-paste compatibility with standalone <code>.py</code> scripts.</p>
 </blockquote>
 <hr />
 <h3>3.3. <code>show()</code></h3>

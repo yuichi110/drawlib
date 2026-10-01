@@ -385,7 +385,7 @@ text((50, 30), &quot;REST API&quot;, style=Styles.bold)
 <h2>3. Key Rules for Smooth Drawing</h2>
 <ol>
 <li><strong><code>setup()</code> is Mandatory</strong>: Always call <code>setup(width=..., height=...)</code> at the start of your drawing block.</li>
-<li><strong>Omit <code>save()</code> in Markdown Blocks</strong>: In Markdown embedded blocks, Drawlib captures the canvas automatically. Calling <code>save()</code> is only required for standalone <code>.py</code> scripts.</li>
+<li><strong>Handling <code>save()</code> in Markdown Blocks</strong>: In Markdown embedded blocks, calling <code>save()</code> is optional because Drawlib captures the canvas automatically (and calls to <code>save()</code> are safely treated as no-ops). However, writing <code>save()</code> (without arguments) in complete examples is recommended for 100% copy-paste compatibility with standalone <code>.py</code> scripts.</li>
 <li><strong>Use Semantic Styles</strong>: Avoid hardcoding RGB values like <code>(255, 0, 0)</code>. Leverage <code>Styles.primary_flat</code>, <code>Styles.accent_flat</code>, and <code>Styles.bold</code> to maintain clean visual harmony.</li>
 </ol>
 

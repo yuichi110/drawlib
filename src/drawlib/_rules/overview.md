@@ -328,7 +328,7 @@ In Markdown source files under `docs_src/`, embed illustrations using the ````dr
 
 ````markdown
 ```drawlib 600px center show-code file:system_architecture.png caption:"System Architecture Overview"
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.styles import Styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -337,6 +337,7 @@ setup(width=120, height=50)
 rectangle((25, 25), width=30, height=20, style=Styles.primary_flat, text="Client", textstyle=Styles.white_bold)
 rectangle((95, 25), width=30, height=20, style=Styles.secondary_flat, text="Service", textstyle=Styles.white_bold)
 line((40, 25), (80, 25), arrowhead="->", style=Styles.bold)
+save()
 ```
 ````
 
@@ -345,6 +346,10 @@ line((40, 25), (80, 25), arrowhead="->", style=Styles.bold)
 - **Dimensions**: `400px`, `600px`, `100%` (width tokens).
 - **Alignment**: `center`, `left`, `right`.
 - **Caption & Filename**: `caption:"Figure Title"`, `file:custom_name.png`. **Always specify `file:<name>.png`** so blocks are uniquely addressable by name across builds and prevent off-by-one errors from content shifts.
+
+**Handling `save()` in Embedded Blocks**:
+- **Tolerant Execution Engine**: The build engine automatically captures the canvas and renders the companion image to disk upon block completion. Calling `save()` is optional. If `save()` is explicitly called within an embedded block, the engine treats it safely as a no-op to prevent duplicate file writes or collisions.
+- **Authoring Best Practice**: In complete, runnable drawing examples, it is strongly recommended to include `save()` (without arguments) so that code blocks remain 100% copy-paste compatible with standalone Python scripts (`.py`).
 
 **Explicit Imports**: All embedded drawing blocks require explicit Python imports (e.g. `from drawlib.shapes import rectangle`, `from drawlib.lines import line`, `from drawlib.styles import Colors, Styles`). **Always use uppercase `Styles` and `Colors`** (never lowercase `styles` or `colors`) to avoid shadowing module `drawlib.styles`. This ensures clean namespace isolation and deterministic AI code generation.
 

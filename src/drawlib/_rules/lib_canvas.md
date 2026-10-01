@@ -129,6 +129,11 @@ save(
   - Supports absolute paths or relative paths.
 - **`format`**: File format (`"png"`, `"jpg"`, `"webp"`, `"pdf"`). If omitted, inferred from the filename extension or defaults to `"png"`.
 
+> [!NOTE]
+> **Handling `save()` in Markdown Embedded Blocks (` ```drawlib `)**:
+> - **Engine Behavior**: In Markdown embedded blocks, the build engine automatically captures the canvas and saves the output image, so `save()` is not strictly required. If `save()` is called within the block, the engine safely treats it as a no-op to prevent duplicate writes or collisions.
+> - **Recommended Practice**: In complete, runnable examples, explicitly writing `save()` (without arguments) is recommended so that snippets are 100% copy-paste compatible with standalone `.py` scripts.
+
 ### 3.3. `show()`
 Opens an interactive desktop GUI window showing the rendered illustration.  
 - In headless environments (CI/CD, Docker, remote AI sessions), use `save()` or CLI `drawlib show -o` instead.

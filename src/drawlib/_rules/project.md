@@ -159,6 +159,7 @@ line((40, 25), (60, 25), arrowhead="->", style=Styles.bold)
 ### Auto-Injected Globals & Sandbox:
 - Common Drawlib modules (`canvas`, `shapes`, `lines`, `text`, `icons`, `smartarts`, `charts`, `colors`, `styles`) are pre-injected into globals for concise code blocks.
 - The canvas lifecycle (`clear()`) automatically resets between consecutive code blocks to prevent image bleeding.
+- **Handling `save()`**: The build engine automatically captures and saves the canvas upon block completion. Calling `save()` is optional (and safely treated as a no-op if present). Including `save()` in complete examples is recommended for standalone `.py` portability.
 
 ---
 
