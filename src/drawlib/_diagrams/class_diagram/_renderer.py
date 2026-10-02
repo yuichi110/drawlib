@@ -12,9 +12,11 @@
 from __future__ import annotations
 
 import math
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from drawlib._core.fonts import Font
+from drawlib._core.l3_math import Side as MathSide
+from drawlib._core.l3_math import compute_orthogonal_path
 from drawlib._core.lines import line as canvas_line
 from drawlib._core.lines import lines as canvas_lines
 from drawlib._core.shapes import polygon as canvas_polygon
@@ -336,66 +338,6 @@ def _intersect_rect(
     return (ix, iy), side
 
 
-def _compute_orthogonal_path(
-    start_pt: tuple[float, float],
-    end_pt: tuple[float, float],
-    start_side: Side,
-    end_side: Side,
-    routing: RoutingType,
-) -> list[tuple[float, float]]:
-    """Compute 2D polyline waypoints connecting start and end anchors."""
-    if routing == "direct" or abs(start_pt[0] - end_pt[0]) < 1e-4 or abs(start_pt[1] - end_pt[1]) < 1e-4:
-        return [start_pt, end_pt]
-
-    sx, sy = start_pt
-    ex, ey = end_pt
-
-    # Horizontal exit to Horizontal entry (e.g. right -> left)
-    if start_side in {"left", "right"} and end_side in {"left", "right"}:
-        if (start_side == "right" and ex > sx) or (start_side == "left" and ex < sx):
-            mid_x = (sx + ex) / 2.0
-            path = [start_pt, (mid_x, sy), (mid_x, ey), end_pt]
-        else:
-            offset_s = 3.0 if start_side == "right" else -3.0
-            offset_e = 3.0 if end_side == "right" else -3.0
-            mid_y = (sy + ey) / 2.0
-            path = [
-                start_pt,
-                (sx + offset_s, sy),
-                (sx + offset_s, mid_y),
-                (ex + offset_e, mid_y),
-                (ex + offset_e, ey),
-                end_pt,
-            ]
-    # Vertical exit to Vertical entry (e.g. bottom -> top)
-    elif start_side in {"top", "bottom"} and end_side in {"top", "bottom"}:
-        if (start_side == "top" and ey > sy) or (start_side == "bottom" and ey < sy):
-            mid_y = (sy + ey) / 2.0
-            path = [start_pt, (sx, mid_y), (ex, mid_y), end_pt]
-        else:
-            offset_s = 3.0 if start_side == "top" else -3.0
-            offset_e = 3.0 if end_side == "top" else -3.0
-            mid_x = (sx + ex) / 2.0
-            path = [
-                start_pt,
-                (sx, sy + offset_s),
-                (mid_x, sy + offset_s),
-                (mid_x, ey + offset_e),
-                (ex, ey + offset_e),
-                end_pt,
-            ]
-    # Horizontal exit to Vertical entry
-    elif start_side in {"left", "right"} and end_side in {"top", "bottom"}:
-        path = [start_pt, (ex, sy), end_pt]
-    # Vertical exit to Horizontal entry
-    elif start_side in {"top", "bottom"} and end_side in {"left", "right"}:
-        path = [start_pt, (sx, ey), end_pt]
-    else:
-        path = [start_pt, (ex, sy), end_pt]
-
-    return path
-
-
 def _render_triangle_marker(
     tip: tuple[float, float],
     u: tuple[float, float],
@@ -519,7 +461,13 @@ def _compute_relationship_path(
 
     start_anchor = _get_canvas_anchor(start_node, (scx, scy), start_side)
     end_anchor = _get_canvas_anchor(end_node, (ecx, ecy), end_side)
-    return _compute_orthogonal_path(start_anchor, end_anchor, start_side, end_side, rel.routing)
+    return compute_orthogonal_path(
+        start_anchor,
+        end_anchor,
+        cast(MathSide, start_side),
+        cast(MathSide, end_side),
+        rel.routing,
+    )
 
 
 def _apply_padding(

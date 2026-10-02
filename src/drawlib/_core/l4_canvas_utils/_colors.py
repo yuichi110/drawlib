@@ -151,3 +151,59 @@ class ColorUtil:
             raise ValueError("Invalid hex color code format")
 
         return (r, g, b, a)
+
+    @staticmethod
+    def get_luminance(
+        rgb_or_rgba: ColorType,
+    ) -> float:
+        """Calculate relative luminance (0.0 to 1.0) using standard ITU-R BT.601 weights.
+
+        Args:
+            rgb_or_rgba: Color specification (Color instance, hex string, or RGB/RGBA tuple).
+
+        Returns:
+            float: Relative luminance value in range [0.0, 1.0].
+        """
+        rgba = ColorUtil.get_mplot_rgba(rgb_or_rgba)
+        return 0.299 * rgba[0] + 0.587 * rgba[1] + 0.114 * rgba[2]
+
+    @staticmethod
+    def get_contrast_text_color(
+        bg_color: ColorType | None,
+        bg_alpha: float | None = None,
+        *,
+        dark_color: ColorType = (40, 40, 40, 1.0),
+        light_color: ColorType = (255, 255, 255, 1.0),
+        transparent_color: ColorType | None = None,
+        threshold: float = 0.6,
+        alpha_threshold: float = 0.3,
+    ) -> ColorType:
+        """Determine contrasting text color (dark or light) based on background luminance.
+
+        Returns transparent_color (or dark_color if transparent_color is None) when the background
+        is None, fully transparent, or has alpha below alpha_threshold.
+        Otherwise calculates ITU-R BT.601 luminance and compares with threshold.
+
+        Args:
+            bg_color: Background color specification, or None if transparent.
+            bg_alpha: Optional alpha override for the background.
+            dark_color: Color to return against bright backgrounds. Defaults to (40, 40, 40, 1.0).
+            light_color: Color to return against dark backgrounds. Defaults to (255, 255, 255, 1.0).
+            transparent_color: Optional color to return when background is transparent.
+                If None, dark_color is returned.
+            threshold: Luminance threshold (0.0 to 1.0) above which dark_color is selected. Defaults to 0.6.
+            alpha_threshold: Alpha threshold below which background is treated as transparent. Defaults to 0.3.
+
+        Returns:
+            ColorType: The contrasting text color.
+        """
+        fallback_transparent = transparent_color if transparent_color is not None else dark_color
+        if bg_color is None:
+            return fallback_transparent
+
+        rgba = ColorUtil.get_mplot_rgba(bg_color, bg_alpha)
+        if rgba[3] < alpha_threshold or rgba == (0.0, 0.0, 0.0, 0.0):
+            return fallback_transparent
+
+        lum = 0.299 * rgba[0] + 0.587 * rgba[1] + 0.114 * rgba[2]
+        return dark_color if lum > threshold else light_color

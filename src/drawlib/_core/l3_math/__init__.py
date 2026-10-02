@@ -7,14 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Layer 5: canvas utils module."""
+"""Math and geometry calculations for drawlib core."""
 
-from drawlib._core.l4_canvas_utils._colors import ColorUtil
-from drawlib._core.l4_canvas_utils._image import ImageUtil
-from drawlib._core.l4_canvas_utils._line import LineUtil
-from drawlib._core.l4_canvas_utils._shape import ShapeUtil
-from drawlib._core.l4_canvas_utils._text import TextUtil
-from drawlib._core.l4_canvas_utils._utils import (
+from drawlib._core.l3_math._geometry import (
     get_angle,
     get_center_and_size,
     get_distance,
@@ -25,14 +20,16 @@ from drawlib._core.l4_canvas_utils._utils import (
     plus_2points,
     rotate_point,
 )
+from drawlib._core.l3_math._routing import (
+    RoutingType,
+    Side,
+    compute_orthogonal_path,
+)
 
 __all__ = [
-    "ColorUtil",
-    "ImageUtil",
-    "LineUtil",
-    "ShapeUtil",
-    "TextUtil",
-    # _utils.py
+    "RoutingType",
+    "Side",
+    "compute_orthogonal_path",
     "get_angle",
     "get_center_and_size",
     "get_distance",

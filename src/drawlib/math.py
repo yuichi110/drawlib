@@ -9,14 +9,32 @@
 
 """Public math and geometry module for drawlib."""
 
-from drawlib._utils._canvas import (
+from drawlib._core.l3_math import (
+    RoutingType,
+    Side,
+    compute_orthogonal_path,
     get_angle,
     get_center_and_size,
     get_distance,
+    get_point_on_ellipse,
+    get_rotated_path_points,
+    get_rotated_points,
+    minus_2points,
+    plus_2points,
+    rotate_point,
 )
 
 __all__ = [
+    "RoutingType",
+    "Side",
+    "compute_orthogonal_path",
     "get_angle",
     "get_center_and_size",
     "get_distance",
+    "get_point_on_ellipse",
+    "get_rotated_path_points",
+    "get_rotated_points",
+    "minus_2points",
+    "plus_2points",
+    "rotate_point",
 ]

@@ -27,7 +27,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas_utils import ShapeUtil, TextUtil
+from drawlib._core.l4_canvas_utils import ShapeUtil, TextUtil, rotate_point
 
 
 class CanvasOriginalPolygonFeature(CanvasBase):
@@ -339,22 +339,6 @@ class CanvasOriginalPolygonFeature(CanvasBase):
         if radius_ext < radius_int:
             raise ValueError("radius_ext must be bigger than radius_int.")
 
-        # helper
-
-        def get_rotate_point(
-            x: float,
-            y: float,
-            angle: float | None,
-            move_x: float,
-            move_y: float,
-        ) -> Coordinate:
-            if angle is None:
-                angle = 0.0
-            angle_rad = math.radians(angle)
-            x_rotated = x * math.cos(angle_rad) - y * math.sin(angle_rad)
-            y_rotated = x * math.sin(angle_rad) + y * math.cos(angle_rad)
-            return x_rotated + move_x, y_rotated + move_y
-
         # calculate points
 
         points = []
@@ -387,10 +371,11 @@ class CanvasOriginalPolygonFeature(CanvasBase):
 
         cx = x + width / 2
         cy = y + height / 2
+        effective_angle = angle if angle is not None else 0.0
         points2 = []
         for pp in points:
-            x1, y1 = get_rotate_point(x=pp[0], y=pp[1], angle=angle, move_x=cx, move_y=cy)
-            points2.append((x1, y1))
+            rx, ry = rotate_point(pp, angle=effective_angle)
+            points2.append((rx + cx, ry + cy))
 
         # create Path
 

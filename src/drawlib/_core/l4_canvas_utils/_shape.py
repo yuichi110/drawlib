@@ -19,7 +19,10 @@ from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._text import TextUtil
-from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
+from drawlib._core.l4_canvas_utils._utils import (
+    get_dict_value_none_keys_removed,
+    rotate_point,
+)
 
 
 class ShapeUtil:
@@ -82,25 +85,11 @@ class ShapeUtil:
         # Automatic contrast resolution
         fill_color = shape_style.shape_fill_color
         fill_alpha = shape_style.shape_fill_alpha
-
-        if fill_color is None:
-            is_transparent = True
-            fill_rgba = (0.0, 0.0, 0.0, 0.0)
-        else:
-            fill_rgba = ColorUtil.get_mplot_rgba(fill_color, fill_alpha)
-            is_transparent = fill_rgba[3] < 0.3 or fill_rgba == (0.0, 0.0, 0.0, 0.0)
-
-        if is_transparent:
-            if shape_style.shape_line_color is not None:
-                text_col = shape_style.shape_line_color
-            else:
-                text_col = (40, 40, 40, 1.0)
-        else:
-            luminance = 0.299 * fill_rgba[0] + 0.587 * fill_rgba[1] + 0.114 * fill_rgba[2]
-            if luminance > 0.6:
-                text_col = (40, 40, 40, 1.0)
-            else:
-                text_col = (255, 255, 255, 1.0)
+        text_col = ColorUtil.get_contrast_text_color(
+            fill_color,
+            fill_alpha,
+            transparent_color=shape_style.shape_line_color,
+        )
 
         size = (
             textsize
@@ -235,11 +224,9 @@ class ShapeUtil:
                 x += x_shift
                 y += y_shift
             else:
-                angle_rad = math.radians(shape_angle)
-                rotated_x_shift = x_shift * math.cos(angle_rad) - y_shift * math.sin(angle_rad)
-                rotated_y_shift = x_shift * math.sin(angle_rad) + y_shift * math.cos(angle_rad)
-                x += rotated_x_shift
-                y += rotated_y_shift
+                rx_shift, ry_shift = rotate_point((x_shift, y_shift), angle=shape_angle)
+                x += rx_shift
+                y += ry_shift
 
         if style.text_xy_abs_shift is not None:
             x += style.text_xy_abs_shift[0]

@@ -35,10 +35,12 @@ from drawlib._core.l4_canvas_utils import (
     get_angle,
     get_center_and_size,
     get_distance,
+    get_point_on_ellipse,
     get_rotated_path_points,
     get_rotated_points,
     minus_2points,
     plus_2points,
+    rotate_point,
 )
 
 __all__ = [
@@ -59,6 +61,7 @@ __all__ = [
     "get_angle",
     "get_center_and_size",
     "get_distance",
+    "get_point_on_ellipse",
     "get_rotated_path_points",
     "get_rotated_points",
     "get_script_path",
@@ -67,4 +70,5 @@ __all__ = [
     "minus_2points",
     "plus_2points",
     "purge_font_cache",
+    "rotate_point",
 ]

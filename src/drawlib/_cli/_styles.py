@@ -28,6 +28,7 @@ from drawlib._builder.doc_builder.build_cache import CliImageCache, hash_text
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.fonts import Font
 from drawlib._core.images import Dimage
+from drawlib._core.l4_canvas_utils import ColorUtil
 from drawlib._core.styles import Color, Style
 from drawlib._preset_styles import (
     BaseStyles,
@@ -251,17 +252,20 @@ def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> Non
 
     st_sample = styles.Primary
     fill_c = Color(st_sample.shape_fill_color or (255, 255, 255))
-    lum = (fill_c.r * 299 + fill_c.g * 587 + fill_c.b * 114) / 1000
-    legend_text_color = Color(0, 0, 0) if lum > 140 else Color(255, 255, 255)
+    legend_text_color = ColorUtil.get_contrast_text_color(
+        fill_c,
+        dark_color=Color(0, 0, 0),
+        light_color=Color(255, 255, 255),
+    )
 
     txt_c = Color(st_sample.text_color or (40, 40, 40))
-    txt_lum = (txt_c.r * 299 + txt_c.g * 587 + txt_c.b * 114) / 1000
-    legend_txt_sample_color = Color(40, 40, 40) if txt_lum > 200 else txt_c
+    txt_lum = ColorUtil.get_luminance(txt_c)
+    legend_txt_sample_color = Color(40, 40, 40) if txt_lum > 0.78 else txt_c
 
     line_c = Color(st_sample.line_color or (40, 40, 40))
-    line_lum = (line_c.r * 299 + line_c.g * 587 + line_c.b * 114) / 1000
+    line_lum = ColorUtil.get_luminance(line_c)
     legend_arrow_style = (
-        Style(line_color=Color(40, 40, 40), line_width=1.5) if line_lum > 200 else st_sample
+        Style(line_color=Color(40, 40, 40), line_width=1.5) if line_lum > 0.78 else st_sample
     )
 
     rectangle(

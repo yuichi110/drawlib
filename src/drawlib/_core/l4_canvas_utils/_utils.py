@@ -8,221 +8,44 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 
-"""Utility module for converting drawlib data to matplotlib data."""
+"""Utility module for canvas math and geometry operations."""
 
-import math
-from typing import Any, Callable, Literal
+from typing import Any
 
-from matplotlib.font_manager import FontProperties
-from matplotlib.text import Text
-from pydantic import validate_call
-
-from drawlib._core.l2_types import (
-    Angle,
-    ArrowHead,
-    ColorRGBA,
-    ColorType,
-    Coordinate,
-    Coordinates,
-    PathPoints,
+from drawlib._core.l3_math import (
+    get_angle,
+    get_center_and_size,
+    get_distance,
+    get_point_on_ellipse,
+    get_rotated_path_points,
+    get_rotated_points,
+    minus_2points,
+    plus_2points,
+    rotate_point,
 )
-from drawlib._core.l3_external import download_if_not_exist
-from drawlib._core.l3_fonts import get_font_metadata
-from drawlib._core.l3_styles import (
-    Style,
-)
-
-
-def get_rotated_points(
-    xys: Coordinates,
-    center: Coordinate,
-    angle: Angle,
-) -> Coordinates:
-    """
-    Rotate a list of points around a given center by a given angle.
-
-    Args:
-        xys (list of tuples): List of (x, y) points to rotate.
-        center (tuple): The (x, y) coordinates of the center point.
-        angle (float): The angle to rotate the points by, in degrees.
-
-    Returns:
-    list of tuples: The rotated points.
-    """
-    angle = math.radians(angle)
-    cos_theta = math.cos(angle)
-    sin_theta = math.sin(angle)
-
-    rotated_points = []
-    cx, cy = center
-
-    for x, y in xys:
-        # Translate point to origin
-        translated_x = x - cx
-        translated_y = y - cy
-        # Rotate point
-        rotated_x = translated_x * cos_theta - translated_y * sin_theta
-        rotated_y = translated_x * sin_theta + translated_y * cos_theta
-        # Translate point back
-        final_x = rotated_x + cx
-        final_y = rotated_y + cy
-        rotated_points.append((final_x, final_y))
-
-    return rotated_points
-
-
-def get_rotated_path_points(
-    path_points: PathPoints,
-    center: Coordinate,
-    angle: Angle,
-) -> PathPoints:
-    """
-    Rotate a list of points around a given center by a given angle.
-
-    Args:
-        path_points (list of tuples): List of (x, y) points to rotate.
-        center (tuple): The (x, y) coordinates of the center point.
-        angle (float): The angle to rotate the points by, in degrees.
-
-    Returns:
-    list of tuples: The rotated points.
-    """
-    angle = math.radians(angle)
-    cos_theta = math.cos(angle)
-    sin_theta = math.sin(angle)
-
-    rotated_path_points: PathPoints = []
-    cx, cy = center
-
-    for t in path_points:
-        # Translate point to origin
-        if not isinstance(t[0], tuple):
-            x: float = t[0]
-            y: float = t[1]  # type: ignore
-            translated_x = x - cx
-            translated_y = y - cy
-            # Rotate point
-            rotated_x = translated_x * cos_theta - translated_y * sin_theta
-            rotated_y = translated_x * sin_theta + translated_y * cos_theta
-            # Translate point back
-            final_x = rotated_x + cx
-            final_y = rotated_y + cy
-            rotated_path_points.append((final_x, final_y))
-
-        else:
-            new_path_point = []
-            for xy in t:
-                x: float = xy[0]  # type: ignore
-                y: float = xy[1]  # type: ignore
-                translated_x = x - cx
-                translated_y = y - cy
-                # Rotate point
-                rotated_x = translated_x * cos_theta - translated_y * sin_theta
-                rotated_y = translated_x * sin_theta + translated_y * cos_theta
-                # Translate point back
-                final_x = rotated_x + cx
-                final_y = rotated_y + cy
-                new_path_point.append((final_x, final_y))
-            rotated_path_points.append(tuple(new_path_point))
-
-    return rotated_path_points
-
-
-@validate_call
-def get_angle(xy1: Coordinate, xy2: Coordinate) -> Angle:
-    """Calculate the angle in degrees between two points.
-
-    Args:
-        xy1: Tuple of floats (x1, y1) representing the coordinates of the first point.
-        xy2: Tuple of floats (x2, y2) representing the coordinates of the second point.
-
-    Returns:
-        float: Angle in degrees between the points (xy1 to xy2).
-
-    """
-    x1, y1 = xy1
-    x2, y2 = xy2
-    dx = x2 - x1
-    dy = y2 - y1
-    angle_rad = math.atan2(dy, dx)
-    angle_deg = math.degrees(angle_rad)
-    return (angle_deg + 360) % 360
-
-
-@validate_call
-def get_distance(xy1: Coordinate, xy2: Coordinate) -> float:
-    """Calculate the Euclidean distance between two points.
-
-    Args:
-        xy1: Tuple of floats (x1, y1) representing the coordinates of the first point.
-        xy2: Tuple of floats (x2, y2) representing the coordinates of the second point.
-
-    Returns:
-        float: Euclidean distance between the points (xy1 to xy2).
-
-    """
-    x1, y1 = xy1
-    x2, y2 = xy2
-    return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-
-
-@validate_call
-def get_center_and_size(
-    xys: Coordinates,
-) -> tuple[Coordinate, Coordinate]:
-    """Calculate the center coordinates and size of a group of points.
-
-    Args:
-        xys: List of tuples [(x1, y1), (x2, y2), ...] representing the coordinates of points.
-
-    Returns:
-        Tuple[Tuple[float, float], Tuple[float, float]]: Tuple containing:
-            - Center coordinates (center_x, center_y).
-            - Size as width and height (maxx - minx, maxy - miny).
-
-    """
-    minx = xys[0][0]
-    maxx = xys[0][0]
-    miny = xys[0][1]
-    maxy = xys[0][1]
-    for x, y in xys:
-        minx = min(minx, x)
-        maxx = max(maxx, x)
-        miny = min(miny, y)
-        maxy = max(maxy, y)
-    center_x = (minx + maxx) / 2
-    center_y = (miny + maxy) / 2
-
-    return ((center_x, center_y), (maxx - minx, maxy - miny))
-
-
-def plus_2points(xy1: Coordinate, xy2: Coordinate) -> Coordinate:
-    """Add two points (vectors).
-
-    Args:
-        xy1: Tuple of floats (x1, y1) representing the coordinates of the first point.
-        xy2: Tuple of floats (x2, y2) representing the coordinates of the second point.
-
-    Returns:
-        Tuple[float, float]: Resultant point coordinates (x1 + x2, y1 + y2).
-
-    """
-    return (xy1[0] + xy2[0], xy1[1] + xy2[1])
-
-
-def minus_2points(xy1: Coordinate, xy2: Coordinate) -> Coordinate:
-    """Subtract one point (vector) from another.
-
-    Args:
-        xy1: Tuple of floats (x1, y1) representing the coordinates of the first point.
-        xy2: Tuple of floats (x2, y2) representing the coordinates of the second point.
-
-    Returns:
-        Tuple[float, float]: Resultant point coordinates (x1 - x2, y1 - y2).
-
-    """
-    return (xy1[0] - xy2[0], xy1[1] - xy2[1])
 
 
 def get_dict_value_none_keys_removed(options: dict[str, Any]) -> dict[str, Any]:
+    """Return dictionary with None values filtered out.
+
+    Args:
+        options: Input dictionary.
+
+    Returns:
+        dict[str, Any]: Dictionary without None value entries.
+    """
     return {key: value for key, value in options.items() if value is not None}
+
+
+__all__ = [
+    "get_angle",
+    "get_center_and_size",
+    "get_dict_value_none_keys_removed",
+    "get_distance",
+    "get_point_on_ellipse",
+    "get_rotated_path_points",
+    "get_rotated_points",
+    "minus_2points",
+    "plus_2points",
+    "rotate_point",
+]

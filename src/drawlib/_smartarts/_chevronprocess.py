@@ -274,24 +274,13 @@ class ChevronProcess:
 
         fill_color = c_style.shape_fill_color
         fill_alpha = c_style.shape_fill_alpha
-        if fill_color is None:
-            is_transparent = True
-            fill_rgba = (0.0, 0.0, 0.0, 0.0)
-        else:
-            fill_rgba = ColorUtil.get_mplot_rgba(fill_color, fill_alpha)
-            is_transparent = fill_rgba[3] < 0.3 or fill_rgba == (0.0, 0.0, 0.0, 0.0)
-
-        if is_transparent:
-            def_title_col = (40, 40, 40, 1.0)
-            def_desc_col = (80, 80, 80, 1.0)
-        else:
-            lum = 0.299 * fill_rgba[0] + 0.587 * fill_rgba[1] + 0.114 * fill_rgba[2]
-            if lum > 0.6:
-                def_title_col = (40, 40, 40, 1.0)
-                def_desc_col = (80, 80, 80, 1.0)
-            else:
-                def_title_col = (255, 255, 255, 1.0)
-                def_desc_col = (255, 255, 255, 0.9)
+        def_title_col = ColorUtil.get_contrast_text_color(fill_color, fill_alpha)
+        def_desc_col = ColorUtil.get_contrast_text_color(
+            fill_color,
+            fill_alpha,
+            dark_color=(80, 80, 80, 1.0),
+            light_color=(255, 255, 255, 0.9),
+        )
 
         if has_desc:
             title_y = cy + h * 0.16

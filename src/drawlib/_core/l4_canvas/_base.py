@@ -45,6 +45,7 @@ from drawlib._core.l4_canvas_utils import (
     TextUtil,
     get_center_and_size,
     minus_2points,
+    rotate_point,
 )
 
 
@@ -315,16 +316,6 @@ class CanvasBase:
             textstyle,
         )
 
-        # helper
-
-        def get_rotate_point(xy: Coordinate, angle: float, move_x: float, move_y: float) -> Coordinate:
-            x = xy[0]
-            y = xy[1]
-            angle_rad = math.radians(angle)
-            x_rotated = x * math.cos(angle_rad) - y * math.sin(angle_rad)
-            y_rotated = x * math.sin(angle_rad) + y * math.cos(angle_rad)
-            return x_rotated + move_x, y_rotated + move_y
-
         # shift to center (0, 0)
         points_without_cp = []
         for pp in path_points:
@@ -376,20 +367,26 @@ class CanvasBase:
         for pp in path_points2:
             # (x, y)
             if not isinstance(pp[0], tuple):
-                xy1 = get_rotate_point(pp, angle=angle, move_x=cx, move_y=cy)
-                path_points3.append(xy1)
+                rx, ry = rotate_point(pp, angle=angle)
+                path_points3.append((rx + cx, ry + cy))
                 continue
 
             # ((x1, y1), (x2, y2))
-            xy1 = get_rotate_point(pp[0], angle=angle, move_x=cx, move_y=cy)
-            xy2 = get_rotate_point(pp[1], angle=angle, move_x=cx, move_y=cy)
+            rx1, ry1 = rotate_point(pp[0], angle=angle)
+            rx2, ry2 = rotate_point(pp[1], angle=angle)
             if len(pp) == 2:
-                path_points3.append((xy1, xy2))
+                path_points3.append(((rx1 + cx, ry1 + cy), (rx2 + cx, ry2 + cy)))
                 continue
 
             # ((x1, y1), (x2, y2), (x3, y3))
-            xy3 = get_rotate_point(pp[2], angle=angle, move_x=cx, move_y=cy)
-            path_points3.append((xy1, xy2, xy3))
+            rx3, ry3 = rotate_point(pp[2], angle=angle)
+            path_points3.append(
+                (
+                    (rx1 + cx, ry1 + cy),
+                    (rx2 + cx, ry2 + cy),
+                    (rx3 + cx, ry3 + cy),
+                )
+            )
 
         # create Path
         vertices = [path_points3[0]]

@@ -471,23 +471,20 @@ class Cycle:
 
     def _resolve_node_text_colors(
         self, node_style: Style
-    ) -> tuple[tuple[int, int, int, float], tuple[int, int, int, float]]:
+    ) -> tuple[ColorType, ColorType]:
         """Resolve default title and description colors based on node fill luminance."""
+        if self._node_shape == "none":
+            return (40, 40, 40, 1.0), (80, 80, 80, 1.0)
         fill_color = node_style.shape_fill_color
         fill_alpha = node_style.shape_fill_alpha
-        if fill_color is None or self._node_shape == "none":
-            is_transparent = True
-            fill_rgba = (0.0, 0.0, 0.0, 0.0)
-        else:
-            fill_rgba = ColorUtil.get_mplot_rgba(fill_color, fill_alpha)
-            is_transparent = fill_rgba[3] < 0.3 or fill_rgba == (0.0, 0.0, 0.0, 0.0)
-
-        if is_transparent:
-            return (40, 40, 40, 1.0), (80, 80, 80, 1.0)
-        lum = 0.299 * fill_rgba[0] + 0.587 * fill_rgba[1] + 0.114 * fill_rgba[2]
-        if lum > 0.6:
-            return (40, 40, 40, 1.0), (80, 80, 80, 1.0)
-        return (255, 255, 255, 1.0), (255, 255, 255, 0.92)
+        title_color = ColorUtil.get_contrast_text_color(fill_color, fill_alpha)
+        desc_color = ColorUtil.get_contrast_text_color(
+            fill_color,
+            fill_alpha,
+            dark_color=(80, 80, 80, 1.0),
+            light_color=(255, 255, 255, 0.92),
+        )
+        return title_color, desc_color
 
     def _draw_item_texts(
         self,
@@ -596,24 +593,18 @@ class Cycle:
 
         fill_color = c_style.shape_fill_color
         fill_alpha = c_style.shape_fill_alpha
-        if fill_color is None:
-            is_transparent = True
-            fill_rgba = (0.0, 0.0, 0.0, 0.0)
-        else:
-            fill_rgba = ColorUtil.get_mplot_rgba(fill_color, fill_alpha)
-            is_transparent = fill_rgba[3] < 0.3 or fill_rgba == (0.0, 0.0, 0.0, 0.0)
-
-        if is_transparent:
-            def_center_title_col = (50, 60, 80, 1.0)
-            def_center_desc_col = (90, 100, 120, 1.0)
-        else:
-            lum = 0.299 * fill_rgba[0] + 0.587 * fill_rgba[1] + 0.114 * fill_rgba[2]
-            if lum > 0.6:
-                def_center_title_col = (50, 60, 80, 1.0)
-                def_center_desc_col = (90, 100, 120, 1.0)
-            else:
-                def_center_title_col = (255, 255, 255, 1.0)
-                def_center_desc_col = (255, 255, 255, 0.92)
+        def_center_title_col = ColorUtil.get_contrast_text_color(
+            fill_color,
+            fill_alpha,
+            dark_color=(50, 60, 80, 1.0),
+            light_color=(255, 255, 255, 1.0),
+        )
+        def_center_desc_col = ColorUtil.get_contrast_text_color(
+            fill_color,
+            fill_alpha,
+            dark_color=(90, 100, 120, 1.0),
+            light_color=(255, 255, 255, 0.92),
+        )
 
         has_desc = bool(self._center_description.strip())
         t_style = self._center_textstyle or Style(
