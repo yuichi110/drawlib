@@ -27,11 +27,11 @@ TreeNode.register_drawing_item(
 
 root = TreeNode(
     "src/",
-    default_textstyle=Styles.PrimaryBold,
-    default_linestyle=Styles.PrimaryBold,
-    default_line_horizontal_margin=3.0,
-    default_line_horizontal_length=3.0,
-    default_line_vertical_margin=6.0,
+    text_style=Styles.PrimaryBold,
+    line_style=Styles.PrimaryBold,
+    line_horizontal_margin=3.0,
+    line_horizontal_length=3.0,
+    line_vertical_margin=6.0,
     children=[
         TreeNode("components/", children=[
             TreeNode("Button.py").set_drawing_item("file"),
@@ -50,11 +50,13 @@ root.draw(xy=(10, 50))
 
 - **Top-Left Anchor `(x, y)`**: The coordinate passed to `root.draw(xy=...)` represents the **top-left corner** of the root node text.
 - **Downward & Rightward Flow**: Sub-directories and files branch downward and indent horizontally to the right.
-- **Root Node Margin Requirements**:  
-  When instantiating the root `TreeNode`, three layout spacing arguments must be configured:
-  - `default_line_horizontal_margin`: Horizontal gap between parent label and vertical connector line.
-  - `default_line_horizontal_length`: Length of the horizontal tick connecting to child nodes.
-  - `default_line_vertical_margin`: Vertical row spacing between adjacent items.
+- **Root Node Style & Margin Requirements**:  
+  When instantiating the root `TreeNode`, both styles and all three layout spacing arguments must be configured (child nodes inherit them automatically via cascading):
+  - `text_style`: Default text style for node labels.
+  - `line_style`: Default line style for tree branch connectors.
+  - `line_horizontal_margin`: Horizontal gap between parent label and vertical connector line.
+  - `line_horizontal_length`: Length of the horizontal tick connecting to child nodes.
+  - `line_vertical_margin`: Vertical row spacing between adjacent items.
 
 ---
 

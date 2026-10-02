@@ -10,6 +10,7 @@
 """Unit and integration tests for Pyramid smart art."""
 
 import pytest
+from pydantic import ValidationError
 
 from drawlib.canvas import clear, save
 from drawlib.smartarts import Pyramid
@@ -26,7 +27,7 @@ class TestPyramid:
         """Verify basic Pyramid drawing with default vertex order and reversed base-to-vertex order."""
         clear()
         styles = default_styles
-        p = Pyramid(default_style=styles.PrimarySolid, default_textstyle=styles.PrimaryBold)
+        p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -38,7 +39,7 @@ class TestPyramid:
         """Verify Pyramid drawing aligned bottom."""
         clear()
         styles = default_styles
-        p = Pyramid(default_style=styles.PrimarySolid, default_textstyle=styles.PrimaryBold)
+        p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -50,7 +51,7 @@ class TestPyramid:
         """Verify Pyramid drawing aligned top."""
         clear()
         styles = default_styles
-        p = Pyramid(default_style=styles.PrimarySolid, default_textstyle=styles.PrimaryBold)
+        p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -62,7 +63,7 @@ class TestPyramid:
         """Verify Pyramid drawing aligned left."""
         clear()
         styles = default_styles
-        p = Pyramid(default_style=styles.PrimarySolid, default_textstyle=styles.PrimaryBold)
+        p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -74,7 +75,7 @@ class TestPyramid:
         """Verify Pyramid drawing aligned right."""
         clear()
         styles = default_styles
-        p = Pyramid(default_style=styles.PrimarySolid, default_textstyle=styles.PrimaryBold)
+        p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -83,12 +84,22 @@ class TestPyramid:
         save(f"{OUTPUT_DIR}test_pyramid_align_right.png")
 
     def test_pyramid_missing_style_raises_error(self) -> None:
-        """Verify that missing default_style or default_textstyle raises ValueError on add."""
-        p_no_style = Pyramid()
-        with pytest.raises(ValueError, match="Neither 'default_style' nor 'style' was provided"):
-            p_no_style.add(text="Hello")
+        """Verify that missing style or text_style raises ValidationError on __init__."""
+        with pytest.raises(ValidationError):
+            Pyramid()  # type: ignore
 
         styles = default_styles
-        p_no_textstyle = Pyramid(default_style=styles.PrimarySolid)
-        with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
-            p_no_textstyle.add(text="Hello")
+        with pytest.raises(ValidationError):
+            Pyramid(style=styles.PrimarySolid)  # type: ignore
+
+        with pytest.raises(ValidationError):
+            Pyramid(text_style=styles.PrimaryBold)  # type: ignore
+
+    def test_pyramid_item_override_style(self) -> None:
+        """Verify adding item with custom style override."""
+        styles = default_styles
+        p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
+        p.add(text="Custom", style=styles.SecondarySolid, text_style=styles.WhiteBold)
+        assert len(p._items) == 1
+        assert p._items[0].style == styles.SecondarySolid
+        assert p._items[0].text_style == styles.WhiteBold

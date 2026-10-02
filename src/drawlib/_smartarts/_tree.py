@@ -44,56 +44,32 @@ class TreeNode:
     def __init__(
         self,
         text: str,
-        textstyle: Style | None = None,
-        linestyle: Style | None = None,
+        *,
+        text_style: Style | None = None,
+        line_style: Style | None = None,
         line_horizontal_margin: PosFloat | None = None,
         line_horizontal_length: PosFloat | None = None,
         line_vertical_margin: PosFloat | None = None,
         children: list[TreeNode] | None = None,
-        default_textstyle: Style | None = None,
-        default_linestyle: Style | None = None,
-        default_line_horizontal_margin: PosFloat | None = None,
-        default_line_horizontal_length: PosFloat | None = None,
-        default_line_vertical_margin: PosFloat | None = None,
     ) -> None:
         """Initializes a TreeNode instance with specific text, styles, and optional children.
 
-        Styles are mandatory for root node. Optional for child nodes.
-
         Args:
             text: The text content for the tree node.
-            textstyle: The text style for the node.
-            linestyle: The line style for the node.
-            line_horizontal_margin: The margin for horizontal lines. Defaults to None.
-            line_horizontal_length: The length of horizontal lines. Defaults to None.
-            line_vertical_margin: The margin for vertical lines. Defaults to None.
+            text_style: The text style for the node. Inherited by child nodes if not overridden.
+            line_style: The line style for connecting lines. Inherited by child nodes if not overridden.
+            line_horizontal_margin: Horizontal margin between node and connector line. Inherited if not overridden.
+            line_horizontal_length: Length of horizontal connector line. Inherited if not overridden.
+            line_vertical_margin: Vertical margin between child nodes. Inherited if not overridden.
             children: A list of child nodes connected to this node. Defaults to None.
-            default_textstyle: The default text style for child nodes. Defaults to None.
-            default_linestyle: The default line style for child nodes. Defaults to None.
-            default_line_horizontal_margin: The default horizontal margin for lines of child nodes. Defaults to None.
-            default_line_horizontal_length: The default horizontal length for lines of child nodes. Defaults to None.
-            default_line_vertical_margin: The default vertical margin for lines of child nodes. Defaults to None.
         """
         self._text = text
-        self._textstyle = textstyle
-        self._linestyle = linestyle
-
+        self._text_style = text_style
+        self._line_style = line_style
         self._line_horizontal_margin = line_horizontal_margin
         self._line_horizontal_length = line_horizontal_length
         self._line_vertical_margin = line_vertical_margin
-
-        if children is None:
-            self._children: list[TreeNode] = []
-        else:
-            self._children: list[TreeNode] = children
-
-        self._default_textstyle: Style | None = default_textstyle
-        self._default_linestyle: Style | None = default_linestyle
-
-        self._default_line_horizontal_margin: float | None = default_line_horizontal_margin
-        self._default_line_horizontal_length: float | None = default_line_horizontal_length
-        self._default_line_vertical_margin: float | None = default_line_vertical_margin
-
+        self._children: list[TreeNode] = children if children is not None else []
         self._drawing_item_name: str | None = None
 
     @classmethod
@@ -156,85 +132,69 @@ class TreeNode:
         """Draw the tree node and its children.
 
         Args:
-            xy (Tuple[float, float]): The coordinates to start drawing.
+            xy: The coordinates to start drawing.
 
         Raises:
-            ValueError: If any of the default styles or margins are None.
+            ValueError: If any required style or margin is missing on the root node.
         """
-        if self._default_textstyle is None:
-            raise ValueError('Root of TreeNode must be initialized with arg "default_textstyle".')
-        if self._default_linestyle is None:
-            raise ValueError('Root of TreeNode must be initialized with arg "default_linestyle".')
-        if self._default_line_horizontal_margin is None:
-            raise ValueError('Root of TreeNode must be initialized with arg "default_line_horizontal_margin".')
-        if self._default_line_horizontal_length is None:
-            raise ValueError('Root of TreeNode must be initialized with arg "default_line_horizontal_length".')
-        if self._default_line_vertical_margin is None:
-            raise ValueError('Root of TreeNode must be initialized with arg "default_line_vertical_margin".')
+        if self._text_style is None:
+            raise ValueError('Root of TreeNode must be initialized with "text_style".')
+        if self._line_style is None:
+            raise ValueError('Root of TreeNode must be initialized with "line_style".')
+        if self._line_horizontal_margin is None:
+            raise ValueError('Root of TreeNode must be initialized with "line_horizontal_margin".')
+        if self._line_horizontal_length is None:
+            raise ValueError('Root of TreeNode must be initialized with "line_horizontal_length".')
+        if self._line_vertical_margin is None:
+            raise ValueError('Root of TreeNode must be initialized with "line_vertical_margin".')
 
         self._draw(
             xy=xy,
-            default_textstyle=self._default_textstyle,
-            default_linestyle=self._default_linestyle,
-            default_line_horizontal_margin=self._default_line_horizontal_margin,
-            default_line_horizontal_length=self._default_line_horizontal_length,
-            default_line_vertical_margin=self._default_line_vertical_margin,
+            effective_text_style=self._text_style,
+            effective_line_style=self._line_style,
+            effective_line_horizontal_margin=self._line_horizontal_margin,
+            effective_line_horizontal_length=self._line_horizontal_length,
+            effective_line_vertical_margin=self._line_vertical_margin,
         )
 
     def _draw(  # noqa: C901
         self,
         xy: Coordinate,
-        default_textstyle: Style,
-        default_linestyle: Style,
-        default_line_horizontal_margin: PosFloat,
-        default_line_horizontal_length: PosFloat,
-        default_line_vertical_margin: PosFloat,
+        effective_text_style: Style,
+        effective_line_style: Style,
+        effective_line_horizontal_margin: PosFloat,
+        effective_line_horizontal_length: PosFloat,
+        effective_line_vertical_margin: PosFloat,
     ) -> float:
         """Draw the tree node and its children (internal method).
 
         Args:
-            xy (Tuple[float, float]): The coordinates to start drawing.
-            default_textstyle (Style): The default text style.
-            default_linestyle (Style): The default line style.
-            default_line_horizontal_margin (float): The default horizontal line margin.
-            default_line_horizontal_length (float): The default horizontal line length.
-            default_line_vertical_margin (float): The default vertical line margin.
+            xy: The coordinates to start drawing.
+            effective_text_style: The effective text style inherited from parent.
+            effective_line_style: The effective line style inherited from parent.
+            effective_line_horizontal_margin: The effective horizontal line margin inherited from parent.
+            effective_line_horizontal_length: The effective horizontal line length inherited from parent.
+            effective_line_vertical_margin: The effective vertical line margin inherited from parent.
 
         Returns:
             float: The y-coordinate after drawing the node and its children.
         """
-        # update default values
-        if self._default_textstyle is not None:
-            default_textstyle = self._default_textstyle
-        if self._default_linestyle is not None:
-            default_linestyle = self._default_linestyle
-        if self._default_line_horizontal_margin is not None:
-            default_line_horizontal_margin = self._default_line_horizontal_margin
-        if self._default_line_horizontal_length is not None:
-            default_line_horizontal_length = self._default_line_horizontal_length
-        if self._default_line_vertical_margin is not None:
-            default_line_vertical_margin = self._default_line_vertical_margin
-
-        # update values
-        textstyle = self._textstyle if self._textstyle is not None else default_textstyle
-        linestyle = self._linestyle if self._linestyle is not None else default_linestyle
+        # Cascade overrides: if this node specified a value, it overrides for this node and descendants
+        if self._text_style is not None:
+            effective_text_style = self._text_style
+        if self._line_style is not None:
+            effective_line_style = self._line_style
         if self._line_horizontal_margin is not None:
-            line_horizontal_margin = self._line_horizontal_margin
-        else:
-            line_horizontal_margin = default_line_horizontal_margin
+            effective_line_horizontal_margin = self._line_horizontal_margin
         if self._line_horizontal_length is not None:
-            line_horizontal_length = self._line_horizontal_length
-        else:
-            line_horizontal_length = default_line_horizontal_length
+            effective_line_horizontal_length = self._line_horizontal_length
         if self._line_vertical_margin is not None:
-            line_vertical_margin = self._line_vertical_margin
-        else:
-            line_vertical_margin = default_line_vertical_margin
+            effective_line_vertical_margin = self._line_vertical_margin
 
         # draw text
-        textstyle = textstyle.patch(text_halign="left")
+        patched_text_style = effective_text_style.patch(text_halign="left")
         if self._drawing_item_name is None:
-            text(xy=xy, text=self._text, style=textstyle)
+            text(xy=xy, text=self._text, style=patched_text_style)
 
         else:
             drawing_item = self._drawing_item_map[self._drawing_item_name]
@@ -245,10 +205,10 @@ class TreeNode:
                 args["style"] = drawing_item.style
                 drawing_item.function(**args)
 
-                text(xy=(xy[0] + drawing_item.padding_width, xy[1]), text=self._text, style=textstyle)
+                text(xy=(xy[0] + drawing_item.padding_width, xy[1]), text=self._text, style=patched_text_style)
 
             else:
-                text(xy=xy, text=self._text, style=textstyle)
+                text(xy=xy, text=self._text, style=patched_text_style)
 
                 args = drawing_item.args
                 args["xy"] = (xy[0] + drawing_item.padding_width, xy[1])
@@ -256,34 +216,34 @@ class TreeNode:
                 drawing_item.function(**args)
 
         # draw children
-        horizontal_line_x1 = xy[0] + line_horizontal_margin
-        horizontal_line_x2 = horizontal_line_x1 + line_horizontal_length * 2 / 3
-        child_x = horizontal_line_x1 + line_horizontal_margin
+        horizontal_line_x1 = xy[0] + effective_line_horizontal_margin
+        horizontal_line_x2 = horizontal_line_x1 + effective_line_horizontal_length * 2 / 3
+        child_x = horizontal_line_x1 + effective_line_horizontal_margin
         child_y = xy[1]
         child_y_previous = child_y
         for child in self._children:
-            child_y -= line_vertical_margin
+            child_y -= effective_line_vertical_margin
             # draw child horizontal line
             line(
                 xy1=(horizontal_line_x1, child_y),
                 xy2=(horizontal_line_x2, child_y),
-                style=linestyle,
+                style=effective_line_style,
             )
             # draw child
             child_y_previous = child_y
             child_y = child._draw(
                 xy=(child_x, child_y),
-                default_textstyle=default_textstyle,
-                default_linestyle=default_linestyle,
-                default_line_horizontal_margin=default_line_horizontal_margin,
-                default_line_horizontal_length=default_line_horizontal_length,
-                default_line_vertical_margin=default_line_vertical_margin,
+                effective_text_style=effective_text_style,
+                effective_line_style=effective_line_style,
+                effective_line_horizontal_margin=effective_line_horizontal_margin,
+                effective_line_horizontal_length=effective_line_horizontal_length,
+                effective_line_vertical_margin=effective_line_vertical_margin,
             )
         # draw children vertical line
         if xy[1] != child_y_previous:
             line(
-                (horizontal_line_x1, xy[1] - line_vertical_margin / 2),
+                (horizontal_line_x1, xy[1] - effective_line_vertical_margin / 2),
                 (horizontal_line_x1, child_y_previous),
-                style=linestyle,
+                style=effective_line_style,
             )
         return child_y

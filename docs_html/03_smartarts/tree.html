@@ -316,12 +316,14 @@ It automates vertical branch alignment, indentation levels, and tree connector l
 <ul>
 <li><strong>Top-Left Anchor <code>(x, y)</code></strong>: The coordinate passed to <code>root.draw(xy=...)</code> represents the <strong>top-left corner</strong> of the root node text.</li>
 <li><strong>Downward &amp; Rightward Flow</strong>: Sub-directories and files branch downward and indent horizontally to the right.</li>
-<li><strong>Root Node Margin Requirements</strong>:<br />
-When instantiating the root <code>TreeNode</code>, three layout spacing arguments must be configured:
+<li><strong>Root Node Style &amp; Margin Requirements</strong>:<br />
+When instantiating the root <code>TreeNode</code>, both styles and all three layout spacing arguments must be configured (child nodes inherit them automatically via cascading):
 <ul>
-<li><code>default_line_horizontal_margin</code>: Horizontal gap between parent label and vertical connector line.</li>
-<li><code>default_line_horizontal_length</code>: Length of the horizontal tick connecting to child nodes.</li>
-<li><code>default_line_vertical_margin</code>: Vertical row spacing between adjacent items.</li>
+<li><code>text_style</code>: Default text style for node labels.</li>
+<li><code>line_style</code>: Default line style for tree branch connectors.</li>
+<li><code>line_horizontal_margin</code>: Horizontal gap between parent label and vertical connector line.</li>
+<li><code>line_horizontal_length</code>: Length of the horizontal tick connecting to child nodes.</li>
+<li><code>line_vertical_margin</code>: Vertical row spacing between adjacent items.</li>
 </ul>
 </li>
 </ul>

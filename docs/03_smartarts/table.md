@@ -30,10 +30,10 @@ The `Table` component renders 2D tabular data, comparison matrices, and database
 ## 3. Styling API Reference
 
 ### Cell Styling Methods
-- **`set_style_cell_header(background_color, textstyle)`**: Applies style exclusively to the header row (row 0).
-- **`set_style_cell_rowheader(background_color, textstyle)`**: Applies style exclusively to the row header column (column 0).
-- **`set_style_cell_evenodd(even_color, even_textstyle, odd_color, odd_textstyle)`**: Alternating zebra-stripe styles for even and odd data rows.
-- **`set_style_cell(background_color, textstyle, rows=None, columns=None)`**: Applies styling to specific rows or columns.
+- **`set_style_cell_header(background_color, text_style)`**: Applies style exclusively to the header row (row 0).
+- **`set_style_cell_rowheader(background_color, text_style)`**: Applies style exclusively to the row header column (column 0).
+- **`set_style_cell_evenodd(even_color, even_text_style, odd_color, odd_text_style)`**: Alternating zebra-stripe styles for even and odd data rows.
+- **`set_style_cell(background_color, text_style, rows=None, columns=None)`**: Applies styling to specific rows or columns.
 
 ### Border Styling Methods
 - **`set_style_border(top=None, top2=None, bottom=None, left=None, right=None, between_columns=None, between_rows=None)`**:

@@ -9,6 +9,8 @@
 
 """Unit and integration tests for TreeNode smart art hierarchical rendering."""
 
+import pytest
+
 from drawlib.canvas import clear, save
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
@@ -28,11 +30,11 @@ class TestTree:
         tn = TreeNode
         t = tn(
             "Root",
-            default_textstyle=styles.Primary,
-            default_linestyle=styles.PrimaryLight,
-            default_line_horizontal_margin=2,
-            default_line_horizontal_length=2,
-            default_line_vertical_margin=5,
+            text_style=styles.Primary,
+            line_style=styles.PrimaryLight,
+            line_horizontal_margin=2,
+            line_horizontal_length=2,
+            line_vertical_margin=5,
             children=[
                 tn(
                     "Child1",
@@ -43,12 +45,12 @@ class TestTree:
                                 tn("Child1-1-1"),
                             ],
                         ),
-                        tn("Child1-2", textstyle=styles.Primary.patch(text_color=(255, 0, 0, 1.0))),
+                        tn("Child1-2", text_style=styles.Primary.patch(text_color=(255, 0, 0, 1.0))),
                     ],
                 ),
                 tn(
                     text="Child2",
-                    default_textstyle=styles.Primary.patch(text_color=(0, 0, 255, 1.0)),
+                    text_style=styles.Primary.patch(text_color=(0, 0, 255, 1.0)),
                     children=[
                         tn("Child2-1"),
                         tn("Child2-2"),
@@ -76,11 +78,11 @@ class TestTree:
 
         t = tn(
             "Root",
-            default_textstyle=styles.Primary,
-            default_linestyle=styles.PrimarySolid,
-            default_line_horizontal_margin=2,
-            default_line_horizontal_length=2,
-            default_line_vertical_margin=5,
+            text_style=styles.Primary,
+            line_style=styles.PrimarySolid,
+            line_horizontal_margin=2,
+            line_horizontal_length=2,
+            line_vertical_margin=5,
             children=[
                 tn(
                     "Child1",
@@ -103,3 +105,36 @@ class TestTree:
 
         t.draw((10, 80))
         save(f"{OUTPUT_DIR}test_tree_icon.png")
+
+    def test_tree_missing_root_style_raises_error(self) -> None:
+        """Verify that root TreeNode without required styles or margins raises ValueError on draw."""
+        styles = default_styles
+        t1 = TreeNode(
+            "Root",
+            line_style=styles.Primary,
+            line_horizontal_margin=2,
+            line_horizontal_length=2,
+            line_vertical_margin=5,
+        )
+        with pytest.raises(ValueError, match='Root of TreeNode must be initialized with "text_style"'):
+            t1.draw((10, 80))
+
+        t2 = TreeNode(
+            "Root",
+            text_style=styles.Primary,
+            line_horizontal_margin=2,
+            line_horizontal_length=2,
+            line_vertical_margin=5,
+        )
+        with pytest.raises(ValueError, match='Root of TreeNode must be initialized with "line_style"'):
+            t2.draw((10, 80))
+
+        t3 = TreeNode(
+            "Root",
+            text_style=styles.Primary,
+            line_style=styles.Primary,
+            line_horizontal_length=2,
+            line_vertical_margin=5,
+        )
+        with pytest.raises(ValueError, match='Root of TreeNode must be initialized with "line_horizontal_margin"'):
+            t3.draw((10, 80))

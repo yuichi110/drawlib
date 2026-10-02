@@ -30,10 +30,10 @@ proc.draw(xy=(10, 42), width=100, height=12)
 
 # 2. Table: Structured comparison and schema datasets
 tbl = Table(
+    cell_style=Styles.MutedFlat,
+    text_style=Styles.PrimaryBold,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
-    default_cell_style=Styles.MutedFlat,
-    default_text_style=Styles.PrimaryBold,
     border_style=Styles.PrimaryBold,
 )
 data = [

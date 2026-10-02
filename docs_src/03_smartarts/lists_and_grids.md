@@ -25,7 +25,7 @@ grid.add(position=(1, 0), width=1, height=1, text="Order Service", style=Styles.
 grid.draw(xy=(10, 10), width=50, height=40, margin=1.5)
 
 # 2. Pyramid: Software Testing Pyramid
-pyramid = Pyramid(default_textstyle=Styles.WhiteBold.patch(text_size=9))
+pyramid = Pyramid(style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=9))
 pyramid.add("E2E UI (10%)", style=Styles.DangerFlat)
 pyramid.add("Integration (30%)", style=Styles.AccentFlat)
 pyramid.add("Unit Tests (60%)", style=Styles.SuccessFlat)

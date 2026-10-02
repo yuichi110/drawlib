@@ -94,23 +94,25 @@ Every SmartArt accepts:
 ### 3.2 Constructor & Style Methods
 ```python
 table = Table(
-    default_text_style=Styles.Primary,
-    header_text_style=Styles.PrimaryBold,
+    cell_style=Styles.White,
+    text_style=Styles.Primary,
     header_cell_style=Styles.PrimaryLight,
+    header_text_style=Styles.PrimaryBold,
     border_style=Styles.MutedLight,
+    has_header=True,
 )
 ```
 
-- `Table(*, default_cell_style=None, default_text_style=None, header_cell_style=None, header_text_style=None, border_style=None)`:
-  Initializes table. If no styles are provided and no cell styles are configured via `set_style_*()`, drawing will raise `ValueError`.
-- `clear_styles()`: Resets all registered cell and border style overrides.
+- `Table(*, cell_style, text_style, header_cell_style, header_text_style, border_style, has_header=True)`:
+  Initializes table with mandatory styles for cell background, text, header cells, header text, and borders.
+- `reset_styles()`: Resets all cell and border style overrides back to initial settings.
 
 #### Cell Styling Methods
-- `set_style_cell_headers(background_color, textstyle)`: Applies background and text style to both row 0 and column 0.
-- `set_style_cell_header(background_color, textstyle)`: Applies style exclusively to column headers (row 0).
-- `set_style_cell_rowheader(background_color, textstyle)`: Applies style exclusively to row headers (column 0).
-- `set_style_cell_evenodd(even_color, even_textstyle, odd_color, odd_textstyle)`: Alternating styles for even/odd data rows.
-- `set_style_cell(background_color, textstyle, rows=None, columns=None)`: Targets specific rows or columns (0-indexed indices).
+- `set_style_cell_headers(background_color, text_style)`: Applies background and text style to both row 0 and column 0.
+- `set_style_cell_header(background_color, text_style)`: Applies style exclusively to column headers (row 0).
+- `set_style_cell_rowheader(background_color, text_style)`: Applies style exclusively to row headers (column 0).
+- `set_style_cell_evenodd(even_color, even_text_style, odd_color, odd_text_style)`: Alternating styles for even/odd data rows.
+- `set_style_cell(background_color, text_style, rows=None, columns=None)`: Targets specific rows or columns (0-indexed indices).
 
 #### Border Styling Methods
 - `set_style_border(top=None, top2=None, bottom=None, left=None, left2=None, right=None, between_columns=None, between_rows=None)`:
@@ -130,20 +132,24 @@ from drawlib.types import Style
 
 setup(width=120, height=65)
 
-table = Table()
-table.clear_styles()
+table = Table(
+    cell_style=Styles.White,
+    text_style=Styles.Primary.patch(text_color=Colors.Dark, text_size=10),
+    header_cell_style=Styles.Primary.patch(shape_fill_color=Colors.Dark),
+    header_text_style=Styles.WhiteBold,
+    border_style=Styles.Primary.patch(line_color=Colors.Dark, line_width=1.5),
+)
 
-table.set_style_cell_header(background_color=Colors.Dark, textstyle=Styles.WhiteBold)
 table.set_style_cell_evenodd(
     even_color=Colors.Light,
-    even_textstyle=Styles.Primary.patch(text_color=Colors.Dark, text_size=10),
+    even_text_style=Styles.Primary.patch(text_color=Colors.Dark, text_size=10),
     odd_color=Colors.White,
-    odd_textstyle=Styles.Primary.patch(text_color=Colors.Dark, text_size=10),
+    odd_text_style=Styles.Primary.patch(text_color=Colors.Dark, text_size=10),
 )
 # SLA highlight (Row 2, Column 3)
 table.set_style_cell(
     background_color=CssColors.PaleGreen,
-    textstyle=Styles.Primary.patch(text_color=CssColors.ForestGreen, text_size=10),
+    text_style=Styles.Primary.patch(text_color=CssColors.ForestGreen, text_size=10),
     rows=[2],
     columns=[3],
 )
@@ -172,23 +178,19 @@ save()
 
 ### 4.1 Architecture & Geometry
 - **Anchor**: Top-Left coordinate `xy=(x, y)`. Root text is drawn at `xy`, and descendant branches step downward: `child_y = current_y - line_vertical_margin`.
-- **Root Node Requirement**: Root `TreeNode` must define default propagation settings: `default_textstyle`, `default_linestyle`, `default_line_horizontal_margin`, `default_line_horizontal_length`, and `default_line_vertical_margin`.
+- **Root Node Requirement**: Root `TreeNode` must define settings for propagation: `text_style`, `line_style`, `line_horizontal_margin`, `line_horizontal_length`, and `line_vertical_margin`. Child nodes inherit these settings automatically via cascading unless individually overridden.
 
 ### 4.2 Constructor Parameters
 ```python
 TreeNode(
     text: str,
-    textstyle: str | Style | None = None,
-    linestyle: str | Style | None = None,
+    *,
+    text_style: Style | None = None,
+    line_style: Style | None = None,
     line_horizontal_margin: float | None = None,
     line_horizontal_length: float | None = None,
     line_vertical_margin: float | None = None,
     children: list[TreeNode] | None = None,
-    default_textstyle: str | Style | None = None,
-    default_linestyle: str | Style | None = None,
-    default_line_horizontal_margin: float | None = None,
-    default_line_horizontal_length: float | None = None,
-    default_line_vertical_margin: float | None = None,
 )
 ```
 
@@ -228,11 +230,11 @@ TreeNode.register_drawing_item(
 
 tree_root = TreeNode(
     "monorepo-root/",
-    default_textstyle=Styles.Primary.patch(text_size=11),
-    default_linestyle=Styles.Primary.patch(line_color=Colors.Muted, line_width=1.0),
-    default_line_horizontal_margin=3.0,
-    default_line_horizontal_length=3.0,
-    default_line_vertical_margin=6.0,
+    text_style=Styles.Primary.patch(text_size=11),
+    line_style=Styles.Primary.patch(line_color=Colors.Muted, line_width=1.0),
+    line_horizontal_margin=3.0,
+    line_horizontal_length=3.0,
+    line_vertical_margin=6.0,
     children=[
         TreeNode(
             "services/",
@@ -659,10 +661,11 @@ save()
 ### 10.2 Constructor & Item Addition
 ```python
 Pyramid(
-    default_style: str | Style | None = None,
-    default_textstyle: str | Style | None = None,
-    default_textangle: float | None = None,
-    default_text_xy_shift: tuple[float, float] | None = None,
+    *,
+    style: Style,
+    text_style: Style,
+    text_angle: float = 0.0,
+    text_xy_shift: tuple[float, float] | None = None,
 )
 ```
 
@@ -670,9 +673,10 @@ Adding tiers:
 ```python
 pyramid.add(
     text: str,
-    style: str | Style | None = None,
-    textstyle: str | Style | None = None,
-    textangle: float | None = None,
+    *,
+    style: Style | None = None,
+    text_style: Style | None = None,
+    text_angle: float | None = None,
     text_xy_shift: tuple[float, float] | None = None,
 )
 ```
@@ -692,8 +696,8 @@ from drawlib.types import Style
 
 setup(width=100, height=65)
 
-test_pyramid = Pyramid(default_textstyle=Styles.WhiteBold.patch(text_size=10))
-test_pyramid.add("Manual (1%)", style=Styles.RedFlat, textstyle=Styles.WhiteBold.patch(text_size=8.5))
+test_pyramid = Pyramid(style=Styles.GreenFlat, text_style=Styles.WhiteBold.patch(text_size=10))
+test_pyramid.add("Manual (1%)", style=Styles.RedFlat, text_style=Styles.WhiteBold.patch(text_size=8.5))
 test_pyramid.add("End-to-End UI Tests (9%)", style=Styles.OrangeFlat)
 test_pyramid.add("Integration & Contract Tests (20%)", style=Styles.BlueFlat)
 test_pyramid.add("Unit Tests (70%)", style=Styles.GreenFlat)
@@ -999,9 +1003,10 @@ pipeline.draw(xy=(10, 62), width=100, height=12)
 
 # 2. Bottom-Left Section: Service Matrix Table
 table = Table(
+    cell_style=Styles.White,
+    text_style=Styles.Primary,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
-    default_text_style=Styles.Primary,
     border_style=Styles.MutedLight,
 )
 table.draw(
