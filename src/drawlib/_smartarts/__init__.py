@@ -17,7 +17,12 @@ from drawlib._smartarts._cycle import Cycle
 from drawlib._smartarts._gridlayout import GridLayout
 from drawlib._smartarts._mindmap import MindMapNode
 from drawlib._smartarts._pyramid import Pyramid
-from drawlib._smartarts._sourcecode import SourceCode
+from drawlib._smartarts._sourcecode import (
+    SourceCode,
+    SourceCodeStyles,
+    get_source_code_styles,
+    sourcecode,
+)
 from drawlib._smartarts._table import Table
 from drawlib._smartarts._tree import TreeNode
 
@@ -30,7 +35,10 @@ __all__ = [
     "MindMapNode",
     "Pyramid",
     "SourceCode",
+    "SourceCodeStyles",
     "Table",
     "TreeNode",
     "bubblespeech",
+    "get_source_code_styles",
+    "sourcecode",
 ]

@@ -18,9 +18,12 @@ from drawlib._smartarts import (
     MindMapNode,
     Pyramid,
     SourceCode,
+    SourceCodeStyles,
     Table,
     TreeNode,
     bubblespeech,
+    get_source_code_styles,
+    sourcecode,
 )
 
 __all__ = [
@@ -32,7 +35,10 @@ __all__ = [
     "MindMapNode",
     "Pyramid",
     "SourceCode",
+    "SourceCodeStyles",
     "Table",
     "TreeNode",
     "bubblespeech",
+    "get_source_code_styles",
+    "sourcecode",
 ]

@@ -76,7 +76,7 @@ Every SmartArt accepts:
 | `GridLayout` | Bottom-Left `(x, y)` | Matrix grid cells | `add()`, `draw()`, `draw_flexible()` | Multi-tier architecture layers, dashboard panels |
 | `Pyramid` | Bottom-Left `(x, y)` | Stacked layers | `add()`, `draw()`, `draw_flexible()` | Defense-in-depth, testing pyramid, memory hierarchies |
 | `BulletPoints` | Top-Left `(x, y)` | Downward list | `set_indent()`, `set_bullet_style()`, `draw()` | Architecture takeaways, RFC summaries, feature lists |
-| `SourceCode` | Top-Left `(x, y)` | Raster code block | `get_image()`, `get_text()`, `draw()` | Embedded configuration, code samples, API payloads |
+| `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw()`, `get_text()` | Embedded configuration, code samples, API payloads |
 | `bubblespeech` | Bottom-Left `(x, y)` | Vector speech box | Direct function call | Bottleneck callouts, architectural migration notes |
 
 ---
@@ -779,37 +779,44 @@ save()
 ---
 ## 12. Component 10: SourceCode (Syntax-Highlighted Code Containers)
 
-`SourceCode` integrates the Pygments syntax highlighter with PIL image rendering to embed code snippets directly onto the canvas with syntax coloring, custom fonts, and line numbers.
+`SourceCode` renders syntax-highlighted code snippets directly as sharp vector shapes and text.
+Unlike stateful SmartArts (`Table`, `TreeNode`), `SourceCode` is stateless: you draw code directly via `SourceCode.draw(...)` or the `sourcecode(...)` function alias.
 
 ### 12.1 Supported Languages & Themes
-- **Languages (`language`)**:
+- **Code Languages (`code_lang`)**:
   `"python"`, `"bash"`, `"go"`, `"rust"`, `"typescript"`, `"javascript"`, `"json"`, `"yaml"`, `"sql"`, `"docker"`, `"toml"`, `"c"`, `"c++"`, `"c#"`, `"java"`, `"kotlin"`, `"swift"`, `"html"`, `"css"`, `"protobuf"`, `"markdown"`, etc. Passing `None` enables automatic syntax guessing via Pygments.
-- **Themes (`style`)**:
-  `"monokai"`, `"github-dark"`, `"xcode"`, `"default"`, `"lightbulb"`, `"bw"`, `"sas"`, `"staroffice"`, `"rrt"`.
+- **Font Languages (`font_lang`)**:
+  `"en"`, `"ja"`, `"zh-cn"`, `"zh-tw"`, `"ko"`, etc. Passing `"ja"` automatically applies `FontSourceCode.SOURCEHANCODEJP` to all tokens and line numbers, preventing tofu for CJK comments and strings.
+- **Themes (`styles`)**:
+  `"default"`, `"monochrome"`, `"dark"`, `"monokai"`, `"google"`.
 
-### 12.2 Constructor Parameters
+### 12.2 Signature
 ```python
-SourceCode(
-    language: str | None = None,
-    style: str = "default",
-    font: FontSourceCode | FontFile | None = None,
-    show_linenum: bool = False,
-    linenum_textcolor: tuple[int, int, int] = (136, 136, 102),
-    linenum_bgcolor: tuple[int, int, int] = (238, 238, 221),
+SourceCode.draw(
+    xy: tuple[float, float],           # Top-left corner (x, y) of the code container
+    width: float,                      # Total container width
+    code: str | None = None,           # Code string to render (or use `file`)
+    *,
+    styles: SourceCodeStyles,          # Required style configuration
+    file: str | None = None,           # Path to code file (alternative to `code`)
+    code_lang: str | None = None,      # Language: "python", "json", "yaml", "sql", etc.
+    show_linenum: bool = False,        # Whether to show line numbers in a gutter
+    r: float = 1.5,                    # Corner radius of the container box
 )
 ```
 
-### 12.3 Key Methods
-- `draw(xy, width, code, style=None)`: Renders code block onto canvas. `xy` anchors code image, and `width` controls its display width.
-- `get_image(code: str) -> Dimage`: Returns rendered raster image object directly.
-- `get_text(file: str, strip: bool = True) -> str`: Static utility to load source code from an external file relative to script location.
+### 12.3 Style Management (`SourceCodeStyles`)
+Styles are configured via `SourceCodeStyles.get(...)` (or `get_source_code_styles(...)`) and can be patched via `.patch()`:
+```python
+styles = SourceCodeStyles.get("dark", font_lang="en", textsize=11.0)
+custom = styles.patch(keyword=Styles.PrimaryBold, comment=Styles.MutedItalic)
+```
 
 ### 12.4 Production Example: Embedded Configuration Block
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
-from drawlib.smartarts import SourceCode
-from drawlib.types import Style
+from drawlib.smartarts import SourceCode, SourceCodeStyles
 from drawlib.styles import Styles
 
 setup(width=110, height=105)
@@ -843,8 +850,8 @@ spec:
       - name: auth
         image: gcr.io/company/auth:v1.4.2"""
 
-sc = SourceCode(language="yaml", style="monokai", show_linenum=True)
-sc.draw(xy=(55, 45), width=88, code=k8s_yaml)
+code_styles = SourceCodeStyles.get("dark", font_lang="en", textsize=10.0)
+SourceCode.draw(xy=(11, 86), width=88, code=k8s_yaml, styles=code_styles, code_lang="yaml", show_linenum=True)
 save()
 ```
 
@@ -971,14 +978,13 @@ top_left_y = bottom_y + H
 ### 14.2 Multi-Component Dashboard Integration Example
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.smartarts import ChevronProcess, SourceCode, Table
+from drawlib.smartarts import ChevronProcess, SourceCode, SourceCodeStyles, Table
 from drawlib.styles import Styles
 
 setup(width=120, height=80)
 
 # 1. Top Section: Pipeline Status
 pipeline = ChevronProcess(
-    default_style=Styles.PrimarySolid,
     corner_angle=60.0,
     spacing=1.5,
     flat_left_end=True,
@@ -987,6 +993,7 @@ pipeline = ChevronProcess(
 )
 pipeline.extend(
     texts=["1. Plan", "2. Build", "3. Test", "4. Deploy"],
+    styles=Styles.PrimarySolid,
     descriptions=["Arch Review", "Docker Image", "E2E Verified", "Production"],
 )
 pipeline.draw(xy=(10, 62), width=100, height=12)
@@ -1017,8 +1024,8 @@ def handle_event(ctx):
     ctx.metrics.inc("migrated")
     return ctx.forward()"""
 
-sc = SourceCode(language="python", style="monokai", show_linenum=True)
-sc.draw(xy=(92, 32), width=44, code=snippet)
+code_styles = SourceCodeStyles.get("dark", font_lang="en", textsize=9.0)
+SourceCode.draw(xy=(66, 45), width=48, code=snippet, styles=code_styles, code_lang="python", show_linenum=True)
 
 save()
 ```

@@ -11,9 +11,15 @@
 
 import pytest
 
-from drawlib.canvas import clear, save
+from drawlib.canvas import clear, save, setup
 from drawlib.fonts import FontSourceCode
-from drawlib.smartarts import SourceCode
+from drawlib.smartarts import (
+    SourceCode,
+    SourceCodeStyles,
+    get_source_code_styles,
+    sourcecode,
+)
+from drawlib.styles import Style
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/sourcecode/"
 
@@ -27,6 +33,15 @@ print(example_function(5))
 
 class Hello:
     ...
+""".strip()
+
+japanese_code = """
+def greet(name: str) -> str:
+    # ユーザーに対する挨拶メッセージを作成
+    msg = f"こんにちは, {name}!"
+    return msg
+
+print(greet("世界"))
 """.strip()
 
 init_content = """
@@ -44,79 +59,82 @@ init_content = """
 class TestSourceCode:
     """Tests for the SourceCode class drawing and syntax highlighting operations."""
 
+    def test_instantiation_raises(self) -> None:
+        """Verify SourceCode cannot be instantiated directly."""
+        with pytest.raises(TypeError, match="SourceCode cannot be instantiated directly"):
+            SourceCode()
+
     def test_sourcecode_default(self) -> None:
         """Verify SourceCode rendering with default style and python syntax."""
         clear()
-        sc = SourceCode(
-            language="python",
-            style="default",
+        setup(width=100, height=80)
+        styles = SourceCodeStyles.get("default", font_lang="en")
+        SourceCode.draw(
+            xy=(10, 70),
+            width=80,
+            code=code_snippet,
+            styles=styles,
+            code_lang="python",
+            show_linenum=True,
         )
-        sc.draw(xy=(20, 20), width=30, code=code_snippet)
         save(f"{OUTPUT_DIR}test_sourcecode_default.png")
 
-    @pytest.mark.image_threshold(97.0)
-    def test_sourcecode_styles(self) -> None:
-        """Verify SourceCode rendering with different Pygments themes and Roboto Mono font."""
+    def test_sourcecode_themes(self) -> None:
+        """Verify SourceCode rendering with different themes."""
         clear()
-        for x, y, style in [
-            (5, 5, "bw"),
-            (5, 35, "sas"),
-            (5, 60, "staroffice"),
-            (40, 5, "xcode"),
-            (40, 35, "default"),
-            (40, 60, "monokai"),
-            (70, 5, "lightbulb"),
-            (70, 35, "github-dark"),
-            (70, 60, "rrt"),
+        setup(width=120, height=120)
+        for x, y, theme in [
+            (10, 110, "default"),
+            (65, 110, "monochrome"),
+            (10, 50, "dark"),
+            (65, 50, "google"),
         ]:
-            sc = SourceCode(
-                language="python",
-                style=style,  # type: ignore
-                font=FontSourceCode.ROBOTO_MONO,
+            st = get_source_code_styles(theme, font_lang="en", textsize=10.0)
+            SourceCode.draw(
+                xy=(x, y),
+                width=50,
+                code=code_snippet,
+                styles=st,
+                code_lang="python",
+                show_linenum=True,
             )
-            sc.draw(xy=(x, y), width=25, code=code_snippet)
-        save(f"{OUTPUT_DIR}test_sourcecode_styles.png")
+        save(f"{OUTPUT_DIR}test_sourcecode_themes.png")
 
-    def test_sourcecode_grayscale_styles(self) -> None:
-        """Verify SourceCode rendering with grayscale Pygments themes."""
+    def test_sourcecode_japanese(self) -> None:
+        """Verify SourceCode rendering with Japanese font_lang avoiding tofu."""
         clear()
-        for x, y, style in [
-            (5, 5, "algol"),
-            (5, 35, "algol_nu"),
-            (5, 65, "friendly_grayscale"),
-        ]:
-            sc = SourceCode(
-                language="python",
-                style=style,  # type: ignore
-                font=FontSourceCode.ROBOTO_MONO,
-            )
-            sc.draw(xy=(x, y), width=25, code=code_snippet)
-        save(f"{OUTPUT_DIR}test_sourcecode_grayscale_styles.png")
+        setup(width=100, height=70)
+        styles = SourceCodeStyles.get("default", font_lang="ja", textsize=11.0)
+        SourceCode.draw(
+            xy=(10, 60),
+            width=80,
+            code=japanese_code,
+            styles=styles,
+            code_lang="python",
+            show_linenum=True,
+        )
+        save(f"{OUTPUT_DIR}test_sourcecode_japanese.png")
 
-    @pytest.mark.image_threshold(97.0)
-    def test_sourcecode_font_courier(self) -> None:
-        """Verify SourceCode rendering with Courier font style."""
+    def test_sourcecode_patch(self) -> None:
+        """Verify SourceCodeStyles patching capability."""
         clear()
-        for x, y, style in [
-            (5, 5, "bw"),
-            (5, 35, "sas"),
-            (5, 60, "staroffice"),
-            (40, 5, "xcode"),
-            (40, 35, "default"),
-            (40, 60, "monokai"),
-            (70, 5, "lightbulb"),
-            (70, 35, "github-dark"),
-            (70, 60, "rrt"),
-        ]:
-            sc = SourceCode(
-                language="python",
-                style=style,  # type: ignore
-                font=FontSourceCode.COURIER,
-            )
-            sc.draw(xy=(x, y), width=25, code=code_snippet)
-        save(f"{OUTPUT_DIR}test_sourcecode_courier.png")
+        setup(width=100, height=70)
+        base = SourceCodeStyles.get("default", font_lang="en")
+        custom = base.patch(
+            keyword=Style(text_color=(236, 72, 153), text_font=FontSourceCode.SOURCECODEPRO, text_size=11.0),
+            box_style=Style(shape_fill_color=(240, 249, 255), shape_line_color=(2, 132, 199), shape_line_width=2.0),
+        )
+        sourcecode(
+            xy=(10, 60),
+            width=80,
+            code=code_snippet,
+            styles=custom,
+            code_lang="python",
+            show_linenum=False,
+        )
+        save(f"{OUTPUT_DIR}test_sourcecode_patch.png")
 
     def test_sourcecode_get_text(self) -> None:
         """Verify static method get_text reads local files correctly relative to execution context."""
-        text = SourceCode.get_text("__init__.py").strip()
-        assert text == init_content
+        text_content = SourceCode.get_text("__init__.py").strip()
+        assert text_content == init_content

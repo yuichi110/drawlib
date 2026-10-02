@@ -2,15 +2,15 @@
 
 Drawlib provides specialized components for embedding contextual annotations and syntax-highlighted source code:
 - **`bubblespeech`**: Creates comic callouts and speech bubbles with precise tail pointers.
-- **`SourceCode`**: Embeds syntax-colored code snippets using Pygments and PIL.
+- **`SourceCode`**: Embeds vector-rendered, syntax-highlighted code snippets with unified styling and language font support.
 
 ---
 
 ## 1. Quick Example: Alert Callout & Code Snippet
 
-```drawlib 650px center caption:"Speech Callout and Syntax-Highlighted Code Container"
+```drawlib 650px center file:speech_and_code_overview.png caption:"Speech Callout and Syntax-Highlighted Code Container"
 from drawlib.canvas import setup
-from drawlib.smartarts import bubblespeech, SourceCode
+from drawlib.smartarts import bubblespeech, SourceCode, SourceCodeStyles
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 
@@ -37,8 +37,15 @@ code_snippet = """def fetch_user(user_id: int):
     # Query database
     return db.query(user_id)"""
 
-sc = SourceCode(language="python", style="monokai", show_linenum=True)
-sc.draw(xy=(85, 30), width=55, code=code_snippet)
+styles = SourceCodeStyles.get("dark", font_lang="en", textsize=10.0)
+SourceCode.draw(
+    xy=(58, 48),
+    width=58,
+    code=code_snippet,
+    styles=styles,
+    code_lang="python",
+    show_linenum=True,
+)
 ```
 
 ---
@@ -69,19 +76,53 @@ bubblespeech(
 
 ## 3. Syntax-Highlighted Code Blocks (`SourceCode`)
 
-`SourceCode` leverages the Pygments syntax engine to render code snippets with professional theme palettes:
+`SourceCode` renders syntax-highlighted code snippets directly as sharp vector shapes and text.
+Unlike stateful SmartArts (`Table`, `TreeNode`), `SourceCode` is stateless: you draw code directly via `SourceCode.draw(...)` or the `sourcecode(...)` function alias.
 
-### Constructor
+### Drawing Method
 ```python
-SourceCode(
-    language: str | None = None,     # "python", "yaml", "json", "sql", "bash", etc.
-    style: str = "default",           # "monokai", "github-dark", "xcode", "default"
-    show_linenum: bool = False,       # Displays line numbers
-    font: FontSourceCode | None = None,
+SourceCode.draw(
+    xy: tuple[float, float],           # Top-left corner (x, y) of the code container
+    width: float,                      # Total container width
+    code: str | None = None,           # Code string to render (or use `file`)
+    *,
+    styles: SourceCodeStyles,          # Required style configuration
+    file: str | None = None,           # Path to code file (alternative to `code`)
+    code_lang: str | None = None,      # Language: "python", "json", "yaml", "sql", etc.
+    show_linenum: bool = False,        # Whether to show line numbers in a gutter
+    r: float = 1.5,                    # Corner radius of the container box
 )
 ```
 
-### Methods
-- **`draw(xy, width, code)`**: Renders code image on the canvas centered at `xy`.
-- **`get_image(code) -> Dimage`**: Returns the rendered code as an in-memory `Dimage`.
-- **`get_text(file)`**: Static helper to read source code from an external file on disk.
+### Style Management (`SourceCodeStyles`)
+Styles are configured via `SourceCodeStyles.get(...)` (or `get_source_code_styles(...)`) and can be patched via `.patch()`:
+
+```python
+from drawlib.smartarts import SourceCodeStyles
+from drawlib.styles import Styles
+
+# 1. Standard theme with Japanese CJK font (tofu prevention)
+styles = SourceCodeStyles.get("default", font_lang="ja", textsize=11.0)
+
+# 2. Built-in themes: "default", "monochrome", "dark", "google"
+dark_styles = SourceCodeStyles.get("dark", font_lang="en")
+
+# 3. Patch specific token styles
+custom_styles = dark_styles.patch(
+    keyword=Styles.PrimaryBold,
+    comment=Styles.MutedItalic,
+    box_style=Styles.MutedDashed,
+)
+```
+
+### Reading External Files
+You can load code directly using `file="path/to/script.py"` or retrieve the text via `SourceCode.get_text()`:
+
+```python
+# Direct rendering from file
+SourceCode.draw((10, 80), width=80, file="src/main.py", styles=styles, show_linenum=True)
+
+# Helper function
+code_text = SourceCode.get_text("src/main.py")
+```
+

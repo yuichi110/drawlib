@@ -39,7 +39,7 @@ from drawlib.diagrams.er import ERDiagram
 # 5. SmartArts Structured Components
 from drawlib.smartarts import (
     BoxList, BulletPoints, ChevronProcess, Cycle, GridLayout,
-    MindMapNode, Pyramid, SourceCode, Table, TreeNode, bubblespeech,
+    MindMapNode, Pyramid, SourceCode, SourceCodeStyles, Table, TreeNode, bubblespeech,
 )
 
 # 6. Statistical & Project Charts
@@ -345,7 +345,7 @@ High-level automated components for business and technical concepts:
 | `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `p = Pyramid(...); p.draw(xy, width, height)` |
 | `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.draw(xy, width, height)` |
 | `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.draw(xy, width, height)` |
-| `SourceCode` | Bottom-Left `(x, y)` | Highlighted code snippets | `s = SourceCode(...); s.draw(xy, width, height)` |
+| `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=...)` |
 | `bubblespeech` | Bounding Box `(x, y)` | Callout speech bubbles | `bubblespeech(xy, width, height, tail_xy, text=...)` |
 
 ```drawlib show-code file:smartarts_chevron.png
