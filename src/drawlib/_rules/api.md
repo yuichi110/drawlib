@@ -352,11 +352,11 @@ from drawlib.styles import Styles
 
 setup(width=120, height=35)
 
-process = ChevronProcess(default_style=Styles.PrimaryFlat, default_textstyle=Styles.WhiteBold)
-process.append("1. Ingest")
-process.append("2. Transform")
-process.append("3. Validate")
-process.append("4. Export")
+process = ChevronProcess(default_textstyle=Styles.WhiteBold)
+process.append("1. Ingest", style=Styles.PrimaryFlat)
+process.append("2. Transform", style=Styles.PrimaryFlat)
+process.append("3. Validate", style=Styles.PrimaryFlat)
+process.append("4. Export", style=Styles.PrimaryFlat)
 process.draw((10, 8), width=100, height=18)
 ```
 

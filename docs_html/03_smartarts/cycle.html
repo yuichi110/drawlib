@@ -341,18 +341,24 @@ $$\theta_i = \text{start_angle} \mp \left(i \cdot \frac{360^\circ}{N}\right)$$</
     arrow_head_width: float = 4.5,
     arrow_color_mode: Literal[&quot;monochrome&quot;, &quot;match_source&quot;, &quot;match_target&quot;] = &quot;match_source&quot;,
     arrow_gap: float = 2.5,
-    default_style: str | Style | None = None,
-    default_textstyle: str | Style | None = None,
-    default_description_style: str | Style | None = None,
-    default_arrow_style: str | Style | None = None,
-    palette: Sequence[tuple[int, int, int]] | None = None,
+    default_textstyle: Style | None = None,
+    default_description_style: Style | None = None,
+    default_arrow_style: Style | None = None,
+    center_text: str = &quot;&quot;,
+    center_description: str = &quot;&quot;,
+    center_radius: float = 10.0,
+    center_style: Style | None = None,
+    center_textstyle: Style | None = None,
+    center_description_style: Style | None = None,
 )
 </code></pre>
 <h3>Adding Steps and Center Hub</h3>
 <ul>
-<li><strong><code>append(text, description=&quot;&quot;, style=None, textstyle=None, description_style=None)</code></strong>:<br />
-Appends a step to the circular perimeter.</li>
-<li><strong><code>set_center(text, description=&quot;&quot;, radius=None, style=None, textstyle=None)</code></strong>:<br />
+<li><strong><code>append(text, style, description=&quot;&quot;, textstyle=None, description_style=None, arrow_style=None)</code></strong>:<br />
+Appends a step with its mandatory <code>style</code> to the circular perimeter.</li>
+<li><strong><code>extend(texts, styles, descriptions=None)</code></strong>:<br />
+Appends multiple steps with a single shared <code>Style</code> or a list of <code>Style</code> objects matching <code>texts</code>.</li>
+<li><strong><code>set_center(text, style=None, description=&quot;&quot;, radius=None, textstyle=None, description_style=None)</code></strong>:<br />
 Adds an optional central focal node to create a radial cycle.</li>
 </ul>
 <h3>Drawing</h3>

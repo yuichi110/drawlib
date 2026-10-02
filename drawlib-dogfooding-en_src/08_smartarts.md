@@ -21,7 +21,6 @@ setup(width=110, height=65)
 
 # 1. Pipeline Definition (ChevronProcess)
 pipeline = ChevronProcess(
-    default_style=Styles.PrimaryFlat,
     corner_angle=60.0,
     spacing=1.5,
     flat_left_end=True,
@@ -30,6 +29,7 @@ pipeline = ChevronProcess(
 )
 pipeline.extend(
     texts=["1. Spec", "2. Develop", "3. Test", "4. Deploy"],
+    styles=Styles.PrimaryFlat,
     descriptions=["Task triage", "AI pair-prog", "pytest verify", "CI delivery"],
 )
 pipeline.draw(xy=(8, 48), width=94, height=12)

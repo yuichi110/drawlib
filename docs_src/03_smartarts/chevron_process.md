@@ -49,20 +49,18 @@ ChevronProcess(
     corner_angle: float = 60.0,
     spacing: float = 1.5,
     flat_left_end: bool = False,
-    default_style: str | Style | None = None,
-    default_textstyle: str | Style | None = None,
-    default_description_style: str | Style | None = None,
-    palette: Sequence[tuple[int, int, int]] | None = None,
+    default_textstyle: Style | None = None,
+    default_description_style: Style | None = None,
 )
 ```
 
 ### Adding Steps
-- **`append(text, description="", style=None, textstyle=None, description_style=None)`**:  
-  Adds a new process stage. If `style` is omitted, Drawlib assigns colors automatically from `palette`.
-- **`extend(texts, descriptions=None)`**:  
-  Appends multiple stage titles at once.
-- **`insert(index, text, description="", ...)`**:  
-  Inserts a stage at a specified index.
+- **`append(text, style, description="", textstyle=None, description_style=None)`**:  
+  Adds a new process stage with its mandatory `style`.
+- **`extend(texts, styles, descriptions=None)`**:  
+  Appends multiple stage titles with a single shared `Style` or a list of `Style` objects matching `texts`.
+- **`insert(index, text, style, description="", textstyle=None, description_style=None)`**:  
+  Inserts a stage at a specified index with its mandatory `style`.
 
 ### Drawing
 - **`draw(xy, width=90.0, height=12.0, item_width=None)`**:  

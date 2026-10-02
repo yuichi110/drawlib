@@ -12,18 +12,16 @@
 from __future__ import annotations
 
 import math
-from collections.abc import Sequence
 
 from pydantic import validate_call
 
 from drawlib._core.l2_types import Angle90, Coordinate, PosFloat
-from drawlib._core.l3_colors import ColorType, ColorUtil
+from drawlib._core.l3_colors import ColorUtil
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import chevron as canvas_chevron
 from drawlib._core.l4_canvas import polygon as canvas_polygon
 from drawlib._core.l4_canvas import text as canvas_text
-from drawlib._smartarts._common import DEFAULT_SMARTART_PALETTE
 
 
 class _ChevronItem:
@@ -32,14 +30,14 @@ class _ChevronItem:
     def __init__(
         self,
         text: str,
+        style: Style,
         description: str = "",
-        style: Style | None = None,
         textstyle: Style | None = None,
         description_style: Style | None = None,
     ) -> None:
         self.text = text
-        self.description = description
         self.style = style
+        self.description = description
         self.textstyle = textstyle
         self.description_style = description_style
 
@@ -51,33 +49,27 @@ class ChevronProcess:
     def __init__(
         self,
         *,
-        default_style: Style | None = None,
-        default_textstyle: Style | None = None,
-        default_description_style: Style | None = None,
         corner_angle: Angle90 = 60.0,
         spacing: PosFloat = 1.5,
         flat_left_end: bool = False,
-        palette: Sequence[ColorType] | None = None,
+        default_textstyle: Style | None = None,
+        default_description_style: Style | None = None,
     ) -> None:
         """Initialize ChevronProcess.
 
         Args:
-            default_style: Default background style for chevrons. If None, colors from palette are used.
-            default_textstyle: Default style for primary step text (titles).
-            default_description_style: Default style for secondary description text.
             corner_angle: Angle of the arrowhead point in degrees (between 10.0 and 80.0). Defaults to 60.0.
             spacing: Horizontal gap between consecutive chevrons. Defaults to 1.5.
             flat_left_end: Whether the first chevron has a flat vertical left edge instead of an indent.
                 Defaults to False.
-            palette: Optional sequence of colors to automatically style consecutive steps.
+            default_textstyle: Default style for primary step text (titles).
+            default_description_style: Default style for secondary description text.
         """
         self._corner_angle = float(corner_angle)
         self._spacing = float(spacing)
         self._flat_left_end = bool(flat_left_end)
-        self._default_style = default_style
         self._default_textstyle = default_textstyle
         self._default_description_style = default_description_style
-        self._palette = list(palette) if palette is not None else None
         self._items: list[_ChevronItem] = []
 
     @property
@@ -89,8 +81,8 @@ class ChevronProcess:
     def append(
         self,
         text: str,
+        style: Style,
         description: str = "",
-        style: Style | None = None,
         textstyle: Style | None = None,
         description_style: Style | None = None,
     ) -> None:
@@ -98,16 +90,16 @@ class ChevronProcess:
 
         Args:
             text: Primary step title text.
+            style: Mandatory Style for this chevron block.
             description: Optional supporting description text displayed below the title.
-            style: Custom Style for this chevron block.
             textstyle: Custom Style for the title text.
             description_style: Custom Style for the description text.
         """
         self.insert(
             len(self._items),
             text=text,
-            description=description,
             style=style,
+            description=description,
             textstyle=textstyle,
             description_style=description_style,
         )
@@ -116,25 +108,36 @@ class ChevronProcess:
     def extend(
         self,
         texts: list[str],
+        styles: list[Style] | Style,
         descriptions: list[str] | None = None,
     ) -> None:
-        """Extend the process with multiple step titles.
+        """Extend the process with multiple step titles and styles.
 
         Args:
             texts: List of step title texts.
+            styles: A single Style applied to all steps or a list of Styles matching texts length.
             descriptions: Optional list of corresponding descriptions.
         """
+        if isinstance(styles, Style):
+            style_list = [styles] * len(texts)
+        elif len(styles) != len(texts):
+            raise ValueError(
+                f"Length of 'styles' ({len(styles)}) must match length of 'texts' ({len(texts)})."
+            )
+        else:
+            style_list = list(styles)
+
         for i, text in enumerate(texts):
             desc = descriptions[i] if descriptions and i < len(descriptions) else ""
-            self.append(text=text, description=desc)
+            self.append(text=text, style=style_list[i], description=desc)
 
     @validate_call
     def insert(
         self,
         index: int,
         text: str,
+        style: Style,
         description: str = "",
-        style: Style | None = None,
         textstyle: Style | None = None,
         description_style: Style | None = None,
     ) -> None:
@@ -143,14 +146,11 @@ class ChevronProcess:
         Args:
             index: Position index to insert the step.
             text: Primary step title text.
+            style: Mandatory Style for this chevron block.
             description: Optional supporting description text.
-            style: Custom Style for this chevron block.
             textstyle: Custom Style for the title text.
             description_style: Custom Style for the description text.
         """
-        if style is None and self._default_style is None and self._palette is None:
-            raise ValueError(f"Neither 'default_style', 'palette', nor 'style' was provided for item '{text}'.")
-
         if textstyle is None and self._default_textstyle is None:
             raise ValueError(f"Neither 'default_textstyle' nor 'textstyle' was provided for item '{text}'.")
 
@@ -162,8 +162,8 @@ class ChevronProcess:
 
         item = _ChevronItem(
             text=text,
-            description=description,
             style=style,
+            description=description,
             textstyle=textstyle,
             description_style=description_style,
         )
@@ -211,7 +211,7 @@ class ChevronProcess:
             cx_0 = x0 + total_w / 2.0
             for i, item in enumerate(self._items):
                 cx = cx_0 + i * (w_item + self._spacing)
-                c_style = self._resolve_item_style(item, i)
+                c_style = item.style
                 canvas_chevron(
                     xy=(cx, cy),
                     width=w_item,
@@ -223,7 +223,7 @@ class ChevronProcess:
         else:
             # First item is a flat-backed pentagon, subsequent items are chevrons
             for i, item in enumerate(self._items):
-                c_style = self._resolve_item_style(item, i)
+                c_style = item.style
                 if i == 0:
                     points = [
                         (x0, y0),
@@ -245,22 +245,6 @@ class ChevronProcess:
                         style=c_style,
                     )
                 self._draw_item_texts(item, c_style, cx, cy, h)
-
-    def _resolve_item_style(self, item: _ChevronItem, index: int) -> Style:
-        """Determine the final Style for a chevron shape."""
-        if item.style is not None:
-            return item.style
-        if self._default_style is not None:
-            return self._default_style
-
-        palette = self._palette if self._palette is not None else DEFAULT_SMARTART_PALETTE
-        color = palette[index % len(palette)]
-        return Style(
-            shape_fill_color=color,
-            shape_line_color=(255, 255, 255, 0.9),
-            shape_line_width=1.0,
-            shape_line_style="solid",
-        )
 
     def _draw_item_texts(
         self,

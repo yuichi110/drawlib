@@ -17,8 +17,6 @@ from pathlib import Path
 import pytest
 
 from drawlib import canvas
-from drawlib._core.l3_colors import ColorType
-from drawlib._core.l3_styles import Style
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 
@@ -40,16 +38,15 @@ class TestChevronProcessUnit:
         """Test adding items via append and extend."""
         styles = default_styles
         cp = ChevronProcess(
-            default_style=styles.PrimarySolid,
             default_textstyle=styles.WhiteBold,
             default_description_style=styles.White,
         )
-        cp.append("Step 1", description="Init scope")
+        cp.append("Step 1", style=styles.PrimarySolid, description="Init scope")
         assert len(cp.items) == 1
         assert cp.items[0].text == "Step 1"
         assert cp.items[0].description == "Init scope"
 
-        cp.extend(["Step 2", "Step 3"], descriptions=["Dev", "QA"])
+        cp.extend(["Step 2", "Step 3"], styles=styles.PrimarySolid, descriptions=["Dev", "QA"])
         assert len(cp.items) == 3
         assert cp.items[1].text == "Step 2"
         assert cp.items[1].description == "Dev"
@@ -60,13 +57,12 @@ class TestChevronProcessUnit:
         """Test inserting item at specific index."""
         styles = default_styles
         cp = ChevronProcess(
-            default_style=styles.PrimarySolid,
             default_textstyle=styles.WhiteBold,
             default_description_style=styles.White,
         )
-        cp.append("Step 1")
-        cp.append("Step 3")
-        cp.insert(1, "Step 2", description="Middle step")
+        cp.append("Step 1", style=styles.PrimarySolid)
+        cp.append("Step 3", style=styles.PrimarySolid)
+        cp.insert(1, "Step 2", style=styles.PrimarySolid, description="Middle step")
 
         assert len(cp.items) == 3
         assert cp.items[0].text == "Step 1"
@@ -75,42 +71,41 @@ class TestChevronProcessUnit:
         assert cp.items[2].text == "Step 3"
 
     def test_missing_style_raises_error(self) -> None:
-        """Verify that missing default_style and default_textstyle raises ValueError."""
+        """Verify that missing style and textstyle raises appropriate errors."""
         cp = ChevronProcess()
-        with pytest.raises(ValueError, match="Neither 'default_style', 'palette', nor 'style' was provided"):
-            cp.append("Step 1")
+        with pytest.raises((TypeError, ValueError)):
+            getattr(cp, "append")("Step 1")
 
         styles = default_styles
-        cp_no_text = ChevronProcess(default_style=styles.PrimarySolid)
+        cp_no_text = ChevronProcess()
         with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
-            cp_no_text.append("Step 1")
+            cp_no_text.append("Step 1", style=styles.PrimarySolid)
 
-        cp_no_desc = ChevronProcess(default_style=styles.PrimarySolid, default_textstyle=styles.PrimaryBold)
+        cp_no_desc = ChevronProcess(default_textstyle=styles.PrimaryBold)
         with pytest.raises(
             ValueError, match="Neither 'default_description_style' nor 'description_style' was provided"
         ):
-            cp_no_desc.append("Step 1", description="detail")
+            cp_no_desc.append("Step 1", style=styles.PrimarySolid, description="detail")
 
 
 class TestChevronProcessRendering:
     """Integration tests verifying full canvas rendering of ChevronProcess."""
 
     def test_render_basic_process(self) -> None:
-        """Test rendering basic sequential chevrons with auto palette."""
+        """Test rendering basic sequential chevrons."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "chevron_basic.png"
             canvas.clear()
 
             styles = default_styles
             cp = ChevronProcess(
-                default_style=styles.PrimarySolid,
                 default_textstyle=styles.WhiteBold,
             )
-            cp.append("Requirements")
-            cp.append("Design")
-            cp.append("Implementation")
-            cp.append("Verification")
-            cp.append("Deployment")
+            cp.append("Requirements", style=styles.PrimarySolid)
+            cp.append("Design", style=styles.PrimarySolid)
+            cp.append("Implementation", style=styles.PrimarySolid)
+            cp.append("Verification", style=styles.PrimarySolid)
+            cp.append("Deployment", style=styles.PrimarySolid)
 
             cp.draw(xy=(5.0, 40.0), width=90.0, height=14.0)
 
@@ -126,15 +121,14 @@ class TestChevronProcessRendering:
 
             styles = default_styles
             cp = ChevronProcess(
-                default_style=styles.PrimarySolid,
                 default_textstyle=styles.WhiteBold,
                 default_description_style=styles.White,
                 corner_angle=50.0,
                 spacing=2.0,
             )
-            cp.append("Phase 1: Planning", description="Scope & Specs")
-            cp.append("Phase 2: Build", description="Core & Unit Tests")
-            cp.append("Phase 3: Ship", description="Canary Release")
+            cp.append("Phase 1: Planning", style=styles.PrimarySolid, description="Scope & Specs")
+            cp.append("Phase 2: Build", style=styles.PrimarySolid, description="Core & Unit Tests")
+            cp.append("Phase 3: Ship", style=styles.PrimarySolid, description="Canary Release")
 
             cp.draw(xy=(10.0, 40.0), width=80.0, height=16.0)
 
@@ -150,12 +144,11 @@ class TestChevronProcessRendering:
 
             styles = default_styles
             cp = ChevronProcess(
-                default_style=styles.PrimarySolid,
                 default_textstyle=styles.WhiteBold,
                 flat_left_end=True,
                 spacing=1.2,
             )
-            cp.extend(["Step 1", "Step 2", "Step 3"])
+            cp.extend(["Step 1", "Step 2", "Step 3"], styles=styles.PrimarySolid)
 
             cp.draw(xy=(5.0, 40.0), width=90.0, height=12.0)
 
@@ -163,24 +156,22 @@ class TestChevronProcessRendering:
             assert out_file.exists()
             assert out_file.stat().st_size > 0
 
-    def test_render_custom_styles_and_palette(self) -> None:
-        """Test rendering with explicit style and custom palette."""
+    def test_render_custom_styles(self) -> None:
+        """Test rendering with explicit styles for each step."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "chevron_custom.png"
             canvas.clear()
 
             styles = default_styles
-            palette: list[ColorType] = [(59, 130, 246), (16, 185, 129), (245, 158, 11)]
             cp = ChevronProcess(
-                palette=palette,
                 default_textstyle=styles.WhiteBold,
             )
-            cp.append("Alpha")
+            cp.append("Alpha", style=styles.PrimaryFlat)
             cp.append(
                 "Beta",
                 style=styles.Primary.patch(shape_fill_color=(239, 68, 68, 1.0), shape_line_width=1.5),
             )
-            cp.append("GA")
+            cp.append("GA", style=styles.SuccessFlat)
 
             cp.draw(xy=(10.0, 45.0), width=80.0, height=12.0, item_width=22.0)
 

@@ -430,17 +430,15 @@ ChevronProcess(
     corner_angle: float = 60.0,
     spacing: float = 1.5,
     flat_left_end: bool = False,
-    default_style: str | Style | None = None,
-    default_textstyle: str | Style | None = None,
-    default_description_style: str | Style | None = None,
-    palette: Sequence[tuple[int, int, int]] | None = None,
+    default_textstyle: Style | None = None,
+    default_description_style: Style | None = None,
 )
 ```
 
 ### 7.3 Step Management & Drawing
-- `append(text, description="", style=None, textstyle=None, description_style=None)`: Appends an individual step.
-- `extend(texts, descriptions=None)`: Appends multiple step titles with optional descriptions.
-- `insert(index, text, description="", style=None, textstyle=None, description_style=None)`: Inserts a step at a given position.
+- `append(text, style, description="", textstyle=None, description_style=None)`: Appends an individual step with mandatory `style`.
+- `extend(texts, styles, descriptions=None)`: Appends multiple step titles with a shared `Style` or list of `Style` objects.
+- `insert(index, text, style, description="", textstyle=None, description_style=None)`: Inserts a step at a given position.
 - `draw(xy, width=90.0, height=12.0, item_width=None)`:
   - `width`: Total bounding width allocated; individual block widths are computed automatically:
     $$\text{item\_width} = \frac{\text{width} - (\text{num\_items} - 1) \cdot \text{spacing} - x_{\text{indent}}}{\text{num\_items}}$$
@@ -505,24 +503,24 @@ Cycle(
     arrow_head_width: float = 4.5,
     arrow_color_mode: Literal["monochrome", "match_source", "match_target"] = "match_source",
     arrow_gap: float = 2.5,
-    default_style: str | Style | None = None,
-    default_textstyle: str | Style | None = None,
-    default_description_style: str | Style | None = None,
-    default_arrow_style: str | Style | None = None,
-    palette: Sequence[tuple[int, int, int]] | None = None,
+    default_textstyle: Style | None = None,
+    default_description_style: Style | None = None,
+    default_arrow_style: Style | None = None,
     center_text: str = "",
     center_description: str = "",
     center_radius: float = 10.0,
-    center_style: str | Style | None = None,
-    center_textstyle: str | Style | None = None,
-    center_description_style: str | Style | None = None,
+    center_style: Style | None = None,
+    center_textstyle: Style | None = None,
+    center_description_style: Style | None = None,
 )
 ```
 
 ### 8.3 Key Configuration Options
 - `arrow_color_mode`: `"match_source"` (matches preceding node), `"match_target"` (matches succeeding node), `"monochrome"`.
 - `description_placement`: `"inside"` (inside node body) or `"outside"` (radiates outward).
-- `set_center(text, description="", radius=None, style=None, textstyle=None, description_style=None)`: Configures central hub node.
+- `append(text, style, description="", textstyle=None, description_style=None, arrow_style=None)`: Appends an individual step with mandatory `style`.
+- `extend(texts, styles, descriptions=None)`: Appends multiple step titles with a shared `Style` or list of `Style` objects.
+- `set_center(text, style=None, description="", radius=None, textstyle=None, description_style=None)`: Configures central hub node.
 
 ### 8.4 Production Example: SRE Incident Response Lifecycle
 ```drawlib show-code

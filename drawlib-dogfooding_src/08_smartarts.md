@@ -21,7 +21,6 @@ setup(width=110, height=65)
 
 # 1. パイプラインの定義 (ChevronProcess)
 pipeline = ChevronProcess(
-    default_style=Styles.PrimaryFlat,
     corner_angle=60.0,
     spacing=1.5,
     flat_left_end=True,
@@ -30,6 +29,7 @@ pipeline = ChevronProcess(
 )
 pipeline.extend(
     texts=["1. 要件定義", "2. 実装", "3. テスト", "4. デプロイ"],
+    styles=Styles.PrimaryFlat,
     descriptions=["Issue 整理", "AI ペアプロ", "pytest 検証", "CI 自動配信"],
 )
 pipeline.draw(xy=(8, 48), width=94, height=12)
