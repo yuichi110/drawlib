@@ -10,8 +10,10 @@
 """Color utility module for style and canvas operations."""
 
 from drawlib._core.l2_types import (
-    Color,
     ColorRGBA,
+)
+from drawlib._core.l3_colors._color import (
+    Color,
     ColorType,
 )
 

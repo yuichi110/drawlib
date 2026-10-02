@@ -17,8 +17,8 @@ from collections.abc import Sequence
 from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.l2_types import Angle90, ColorType, Coordinate, PosFloat
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l2_types import Angle90, Coordinate, PosFloat
+from drawlib._core.l3_colors import ColorType, ColorUtil
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import chevron as canvas_chevron

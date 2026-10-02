@@ -13,8 +13,7 @@ from __future__ import annotations
 
 from typing import Any, Self
 
-from drawlib._core.l2_types import ColorType
-from drawlib._core.l3_colors import BaseColors
+from drawlib._core.l3_colors import BaseColors, ColorType
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import BaseStyles, Style
 from drawlib._preset_colors import MonochromeColors

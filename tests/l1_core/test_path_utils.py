@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for _utils.py module."""
+"""Unit tests for _path_utils.py module."""
 
 import os
 import typing
@@ -15,7 +15,7 @@ from unittest.mock import patch
 
 import pytest
 
-from drawlib._core.l1_core._utils import (
+from drawlib._core.l1_core._path_utils import (
     get_package_root_path,
     get_script_path,
     get_script_relative_path,
@@ -76,13 +76,13 @@ class TestGetScriptPath:
         path = get_script_path()
         assert os.path.exists(path)
         assert os.path.isabs(path)
-        assert path.endswith("test_utils.py")
+        assert path.endswith("test_path_utils.py")
 
     def test_get_script_path_failure(self):
         """Test that get_script_path raises FileNotFoundError when no calling frame is found outside drawlib."""
         with (
             patch(
-                "drawlib._core.l1_core._utils.get_package_root_path",
+                "drawlib._core.l1_core._path_utils.get_package_root_path",
                 return_value="/Users/yuichi/GitHub/drawlib/src/drawlib",
             ),
             patch("inspect.stack", return_value=[]),

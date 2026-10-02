@@ -12,7 +12,7 @@
 import pytest
 
 import drawlib.styles as ds
-from drawlib._core.l2_types import Color
+from drawlib._core.l3_colors import Color
 from drawlib._core.l3_styles import Style
 from drawlib._preset_colors import (
     DefaultColors,

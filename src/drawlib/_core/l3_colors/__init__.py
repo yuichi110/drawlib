@@ -9,7 +9,10 @@
 
 """Package for core color base and utilities."""
 
-from drawlib._core.l2_types import Color
+from drawlib._core.l3_colors._color import (
+    Color,
+    ColorType,
+)
 from drawlib._core.l3_colors._color_util import (
     ColorUtil,
 )
@@ -18,10 +21,11 @@ from drawlib._core.l3_colors._colors import (
 )
 
 __all__ = [
+    # _color.py
+    "Color",
+    "ColorType",
     # _color_util.py
     "ColorUtil",
     # _colors.py
     "BaseColors",
-    # l2_types re-export
-    "Color",
 ]

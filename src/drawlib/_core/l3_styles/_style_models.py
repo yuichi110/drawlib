@@ -18,7 +18,6 @@ from pydantic import BaseModel, ConfigDict, ValidationError
 from drawlib._core.l2_types import (
     Alpha,
     Angle,
-    ColorType,
     Coordinate,
     Font,
     HAlign,
@@ -28,6 +27,7 @@ from drawlib._core.l2_types import (
     Size,
     VAlign,
 )
+from drawlib._core.l3_colors import ColorType
 
 SupportType = Literal["shape", "line", "text", "icon", "image"]
 ALL_SUPPORTS: frozenset[SupportType] = frozenset({"shape", "line", "text", "icon", "image"})

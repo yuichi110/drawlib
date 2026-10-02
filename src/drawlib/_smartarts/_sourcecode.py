@@ -26,8 +26,8 @@ from pygments.lexers import (
 from pygments.lexers.special import TextLexer
 from pygments.styles import get_style_by_name
 
-from drawlib._core.l2_types import ColorType, Coordinate, FilePath, PosFloat
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l2_types import Coordinate, FilePath, PosFloat
+from drawlib._core.l3_colors import ColorType, ColorUtil
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontFile, FontSourceCode, get_font_metadata
 from drawlib._core.l3_images import Dimage

@@ -14,8 +14,7 @@ from __future__ import annotations
 import warnings
 from typing import Any, Self
 
-from drawlib._core.l2_types import ColorType
-from drawlib._core.l3_colors import BaseColors, Color
+from drawlib._core.l3_colors import BaseColors, Color, ColorType
 
 warnings.filterwarnings(
     "ignore",

@@ -15,7 +15,7 @@ from typing import Any, Callable, ClassVar, Concatenate, Generator, Generic, Par
 
 from pydantic import BaseModel, ConfigDict
 
-from drawlib._core.l2_types import Color, ColorType
+from drawlib._core.l3_colors._color import Color, ColorType
 
 
 def _resolve_color_field_name(cls: type[BaseColors], name: str) -> str:

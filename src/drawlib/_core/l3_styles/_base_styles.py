@@ -15,7 +15,8 @@ from typing import Any, Generator, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
-from drawlib._core.l2_types import Color, ColorType, FontBase, FontFile
+from drawlib._core.l2_types import FontBase, FontFile
+from drawlib._core.l3_colors import Color, ColorType
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles._style_models import Style
 

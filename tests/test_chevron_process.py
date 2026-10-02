@@ -17,7 +17,7 @@ from pathlib import Path
 import pytest
 
 from drawlib import canvas
-from drawlib._core.l2_types import ColorType
+from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_styles import Style
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles

@@ -13,14 +13,10 @@ import pytest
 from pydantic import TypeAdapter, ValidationError
 
 from drawlib._core.l2_types._style import (
-    Alpha,
     Angle,
     Angle90,
     ArrowHead,
     Bend,
-    ColorRGB,
-    ColorRGBA,
-    ColorType,
     HAlign,
     IconStyle,
     LineStyle,
@@ -33,14 +29,7 @@ from drawlib._core.l2_types._style import (
 class TestStyleTypes:
     """Test cases for style type validation using TypeAdapter."""
 
-    def test_type_alpha(self):
-        """Test Alpha validation."""
-        adapter: TypeAdapter[Alpha] = TypeAdapter(Alpha)
-        assert adapter.validate_python(0.5) == 0.5
-        with pytest.raises(ValidationError):
-            adapter.validate_python(-0.1)
-
-    def test_type_angle(self):
+    def test_type_angle(self) -> None:
         """Test Angle validation and normalization."""
         adapter: TypeAdapter[Angle] = TypeAdapter(Angle)
         assert adapter.validate_python(180.0) == 180.0
@@ -52,7 +41,7 @@ class TestStyleTypes:
         with pytest.raises(ValidationError):
             adapter.validate_python("invalid")
 
-    def test_type_angle_90(self):
+    def test_type_angle_90(self) -> None:
         """Test Angle90 validation and normalization."""
         adapter: TypeAdapter[Angle90] = TypeAdapter(Angle90)
         assert adapter.validate_python(45.0) == 45.0
@@ -65,41 +54,12 @@ class TestStyleTypes:
         with pytest.raises(ValidationError):
             adapter.validate_python("invalid")
 
-    def test_type_bend(self):
+    def test_type_bend(self) -> None:
         """Test Bend validation."""
         adapter: TypeAdapter[Bend] = TypeAdapter(Bend)
         assert adapter.validate_python(1.0) == 1.0
         with pytest.raises(ValidationError):
             adapter.validate_python(2.0)
-
-    def test_type_color_rgb(self):
-        """Test ColorRGB validation."""
-        adapter: TypeAdapter[ColorRGB] = TypeAdapter(ColorRGB)
-        assert adapter.validate_python((255, 0, 128)) == (255, 0, 128)
-        with pytest.raises(ValidationError):
-            adapter.validate_python((255, 0, 128, 0.5))
-
-    def test_type_color_rgba(self):
-        """Test ColorRGBA validation."""
-        adapter: TypeAdapter[ColorRGBA] = TypeAdapter(ColorRGBA)
-        assert adapter.validate_python((255, 0, 128, 0.5)) == (255, 0, 128, 0.5)
-        with pytest.raises(ValidationError):
-            adapter.validate_python((255, 0, 128))
-
-    def test_type_color(self):
-        """Test ColorType validation and normalization."""
-        adapter: TypeAdapter[ColorType] = TypeAdapter(ColorType)
-        # RGB is normalized to RGBA with alpha=1.0
-        assert adapter.validate_python((255, 0, 128)) == (255, 0, 128, 1.0)
-        assert adapter.validate_python([255, 0, 128]) == (255, 0, 128, 1.0)
-        # RGBA is preserved
-        assert adapter.validate_python((255, 0, 128, 0.5)) == (255, 0, 128, 0.5)
-        # Hex string is converted to RGBA
-        assert adapter.validate_python("#ff0000") == (255, 0, 0, 1.0)
-        with pytest.raises(ValidationError):
-            adapter.validate_python((255, 0))
-        with pytest.raises(ValidationError):
-            adapter.validate_python("not-a-color")
 
 
 class TestStyleLiterals:

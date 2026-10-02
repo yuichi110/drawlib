@@ -29,15 +29,17 @@ from pydantic import ConfigDict, TypeAdapter, validate_call
 from drawlib._core.l2_types import (
     Alpha,
     Angle,
-    Color,
     ColorRGB,
-    ColorType,
     ExistingFilePath,
     FilePath,
     ImageQuality,
     ImageResample,
     PosFloat,
     PosInt,
+)
+from drawlib._core.l3_colors import (
+    Color,
+    ColorType,
 )
 
 list_ = list

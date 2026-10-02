@@ -16,11 +16,11 @@ from drawlib._core.l1_core._const import (
     RULES_DIR_PATH,
 )
 from drawlib._core.l1_core._logging import logger
-from drawlib._core.l1_core._settings import dutil_settings
-from drawlib._core.l1_core._utils import (
+from drawlib._core.l1_core._path_utils import (
     get_script_path,
     get_script_relative_path,
 )
+from drawlib._core.l1_core._settings import dutil_settings
 
 __all__ = [
     # _const.py
@@ -32,7 +32,7 @@ __all__ = [
     "logger",
     # _settings.py
     "dutil_settings",
-    # _utils.py
+    # _path_utils.py
     "get_script_path",
     "get_script_relative_path",
 ]

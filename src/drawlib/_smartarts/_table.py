@@ -14,7 +14,8 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.l2_types import ColorType, Coordinate, PosFloat, PosInt
+from drawlib._core.l2_types import Coordinate, PosFloat, PosInt
+from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line, rectangle
 

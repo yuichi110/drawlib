@@ -13,14 +13,6 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BeforeValidator, Field
 
-from drawlib._core.l2_types._color import (
-    Alpha,
-    Color,
-    ColorRGB,
-    ColorRGBA,
-    ColorType,
-    RGBChannel,
-)
 from drawlib._core.l2_types._primitive import PosFloat, _normalize_str
 
 
@@ -89,19 +81,13 @@ Size = (
 )
 
 __all__ = [
-    "Alpha",
     "Angle",
     "Angle90",
     "ArrowHead",
     "Bend",
-    "Color",
-    "ColorRGB",
-    "ColorRGBA",
-    "ColorType",
     "HAlign",
     "IconStyle",
     "LineStyle",
-    "RGBChannel",
     "Size",
     "TailEdge",
     "VAlign",

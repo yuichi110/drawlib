@@ -23,12 +23,14 @@ from pydantic import validate_call
 from drawlib._core.l2_types import (
     Alpha,
     Angle,
-    ColorType,
     Coordinate,
     ImageZoom,
     PosFloat,
     PosInt,
     Size,
+)
+from drawlib._core.l3_colors import (
+    ColorType,
 )
 from drawlib._core.l3_styles import (
     Style,

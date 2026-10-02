@@ -11,10 +11,8 @@
 
 from drawlib._core.l2_types._color import (
     Alpha,
-    Color,
     ColorRGB,
     ColorRGBA,
-    ColorType,
     RGBChannel,
 )
 from drawlib._core.l2_types._font import (
@@ -70,10 +68,8 @@ __all__ = [
     "Bend",
     "Bezier2",
     "Bezier3",
-    "Color",
     "ColorRGB",
     "ColorRGBA",
-    "ColorType",
     "Coordinate",
     "Coordinates",
     "ExistingFilePath",

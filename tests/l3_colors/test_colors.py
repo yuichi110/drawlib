@@ -12,7 +12,7 @@
 import pytest
 from pydantic import BaseModel, ValidationError
 
-from drawlib._core.l2_types import Color
+from drawlib._core.l3_colors import Color
 from drawlib._preset_colors import (
     BaseColors,
     CssColors,

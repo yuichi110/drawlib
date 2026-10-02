@@ -10,9 +10,9 @@
 """Unit tests for Color class."""
 
 import pytest
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, TypeAdapter, ValidationError
 
-from drawlib._core.l2_types import Color
+from drawlib._core.l3_colors import Color, ColorType
 
 
 class TestColorInstantiation:
@@ -293,3 +293,30 @@ class TestColorPydanticIntegration:
         assert dump == {"r": 255, "g": 128, "b": 0, "alpha": 0.5}
         json_str = c.model_dump_json()
         assert '"r":255' in json_str or '"r": 255' in json_str
+
+
+class TestColorType:
+    """Test cases for ColorType validation using TypeAdapter."""
+
+    def test_type_color(self) -> None:
+        """Test ColorType validation and normalization."""
+        adapter: TypeAdapter[ColorType] = TypeAdapter(ColorType)
+        # RGB is normalized to Color
+        c1 = adapter.validate_python((255, 0, 128))
+        assert isinstance(c1, Color)
+        assert c1 == (255, 0, 128, 1.0)
+        c2 = adapter.validate_python([255, 0, 128])
+        assert isinstance(c2, Color)
+        assert c2 == (255, 0, 128, 1.0)
+        # RGBA is preserved
+        c3 = adapter.validate_python((255, 0, 128, 0.5))
+        assert isinstance(c3, Color)
+        assert c3 == (255, 0, 128, 0.5)
+        # Hex string is converted to Color
+        c4 = adapter.validate_python("#ff0000")
+        assert isinstance(c4, Color)
+        assert c4 == (255, 0, 0, 1.0)
+        with pytest.raises(ValidationError):
+            adapter.validate_python((255, 0))
+        with pytest.raises(ValidationError):
+            adapter.validate_python("not-a-color")
