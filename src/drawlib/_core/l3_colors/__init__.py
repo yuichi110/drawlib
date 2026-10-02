@@ -7,26 +7,21 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public types module for drawlib."""
+"""Package for core color base and utilities."""
 
-from drawlib._core.l2_types import (
-    FontBase,
+from drawlib._core.l2_types import Color
+from drawlib._core.l3_colors._color_util import (
+    ColorUtil,
 )
-from drawlib._core.l3_colors import (
+from drawlib._core.l3_colors._colors import (
     BaseColors,
-    Color,
-)
-from drawlib._core.l3_styles import (
-    BaseStyles,
-    Style,
 )
 
 __all__ = [
-    # Base Classes
+    # _color_util.py
+    "ColorUtil",
+    # _colors.py
     "BaseColors",
-    "BaseStyles",
-    "FontBase",
-    # Styling Models
+    # l2_types re-export
     "Color",
-    "Style",
 ]

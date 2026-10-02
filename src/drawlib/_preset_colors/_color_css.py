@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._core.l3_styles import BaseColors, Color
+from drawlib._core.l3_colors import BaseColors, Color
 
 
 class CssColors(BaseColors):

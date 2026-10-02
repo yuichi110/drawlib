@@ -25,8 +25,9 @@ from drawlib._core.l2_types import (
     ImageZoom,
     PosFloat,
 )
+from drawlib._core.l3_colors import BaseColors
 from drawlib._core.l3_images import Dimage
-from drawlib._core.l3_styles import BaseColors, Style
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
 
 logger = logging.getLogger(__name__)

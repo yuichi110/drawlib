@@ -23,13 +23,14 @@ from drawlib._core.l2_types import (
     PathPoints,
     Size,
 )
+from drawlib._core.l3_colors import ColorUtil
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_math import (
     get_center_and_size,
     minus_2points,
     rotate_point,
 )
-from drawlib._core.l3_styles import ColorUtil, Style
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._text_util import TextUtil
 
 

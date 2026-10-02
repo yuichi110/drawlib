@@ -9,7 +9,7 @@
 
 """Private preset colors package for drawlib."""
 
-from drawlib._core.l3_styles import BaseColors
+from drawlib._core.l3_colors import BaseColors
 from drawlib._preset_colors._color_css import CssColors
 from drawlib._preset_colors._color_default import (
     DefaultColors,

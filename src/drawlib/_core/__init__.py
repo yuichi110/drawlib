@@ -12,6 +12,7 @@
 This package contains internal drawing layers:
 - l1_core: Low-level engine utilities, logging, and settings.
 - l2_types: Core type definitions and validators.
+- l3_colors: Color base models and color conversion utilities.
 - l3_fonts: Font models, loaders, and font caches.
 - l3_images: Image processing and Dimage representation.
 - l3_math: Geometric calculation utilities.

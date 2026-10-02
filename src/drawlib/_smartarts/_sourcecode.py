@@ -27,10 +27,11 @@ from pygments.lexers.special import TextLexer
 from pygments.styles import get_style_by_name
 
 from drawlib._core.l2_types import ColorType, Coordinate, FilePath, PosFloat
+from drawlib._core.l3_colors import ColorUtil
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontFile, FontSourceCode, get_font_metadata
 from drawlib._core.l3_images import Dimage
-from drawlib._core.l3_styles import ColorUtil, Style
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image
 
 PYGMENTS_LINENUM_TEXT_COLOR: Final[ColorType] = (136, 136, 102)

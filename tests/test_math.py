@@ -18,6 +18,7 @@ import pytest
 
 import drawlib.math as dmath
 from drawlib._core.l2_types import Bezier2, PathPoints
+from drawlib._core.l3_colors import ColorUtil
 from drawlib._core.l3_math import (
     RoutingType,
     Side,
@@ -32,7 +33,6 @@ from drawlib._core.l3_math import (
     plus_2points,
     rotate_point,
 )
-from drawlib._core.l3_styles import ColorUtil
 
 
 class TestGeometryMath:

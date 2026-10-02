@@ -26,8 +26,8 @@ from drawlib._core.l1_core import (
 from drawlib._core.l2_types import (
     ImageFormat,
 )
+from drawlib._core.l3_colors import ColorUtil
 from drawlib._core.l3_images import Dimage
-from drawlib._core.l3_styles import ColorUtil
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas._images import CanvasImageFeature
 from drawlib._core.l4_canvas._lines import CanvasLineFeature

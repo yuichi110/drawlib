@@ -13,6 +13,10 @@ from typing import Any
 
 from matplotlib.font_manager import FontProperties
 
+from drawlib._core.l3_colors import (
+    BaseColors,
+    ColorUtil,
+)
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import (
     FontBase,
@@ -20,8 +24,6 @@ from drawlib._core.l3_fonts import (
     get_font_metadata,
 )
 from drawlib._core.l3_styles import (
-    BaseColors,
-    ColorUtil,
     Style,
 )
 

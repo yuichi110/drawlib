@@ -12,7 +12,8 @@
 from typing import Any
 
 from drawlib._core.l2_types import ArrowHead
-from drawlib._core.l3_styles import ColorUtil, Style
+from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_styles import Style
 
 
 class LineUtil:
