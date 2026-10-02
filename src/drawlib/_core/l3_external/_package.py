@@ -21,7 +21,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-import drawlib._assets
+from drawlib._core.l1_core._const import ASSETS_DIR_PATH
 
 
 class ReleaseAssetPackage(BaseModel):
@@ -84,7 +84,7 @@ class ReleaseAssetPackage(BaseModel):
         Returns:
             Path: Local directory path, e.g. '.../drawlib/_assets/fonts/roboto'.
         """
-        base_dir = Path(drawlib._assets.__file__).parent
+        base_dir = Path(ASSETS_DIR_PATH)
         return base_dir / self.target_rel_path
 
     def is_downloaded(self) -> bool:
