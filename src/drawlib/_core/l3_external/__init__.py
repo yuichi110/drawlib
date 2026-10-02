@@ -18,6 +18,13 @@ from drawlib._core.l3_external._font import (
     download_all_icons,
     purge_font_cache,
 )
+from drawlib._core.l3_external._package import (
+    AssetManifest,
+    AssetManifestItem,
+    BaseReleaseAssetPackages,
+    ReleaseAssetPackage,
+    create_deterministic_zip_bytes,
+)
 
 __all__ = [
     # _download.py
@@ -27,4 +34,10 @@ __all__ = [
     "download_all_fonts",
     "download_all_icons",
     "purge_font_cache",
+    # _package.py
+    "AssetManifest",
+    "AssetManifestItem",
+    "BaseReleaseAssetPackages",
+    "ReleaseAssetPackage",
+    "create_deterministic_zip_bytes",
 ]

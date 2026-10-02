@@ -87,7 +87,7 @@ def list_local_packages() -> None:
     for pkg in packages:
         files_str = f"{len(pkg.files)} files"
         sha_short = f"{pkg.archive_sha256[:12]}...{pkg.archive_sha256[-8:]}"
-        table.add_row(pkg.name.value, pkg.category, pkg.archive_name, files_str, sha_short)
+        table.add_row(str(pkg.name), pkg.category, pkg.archive_name, files_str, sha_short)
 
     console.print()
     console.print(table)
@@ -225,16 +225,16 @@ def inspect_remote(
     for pkg in packages:
         asset = remote_assets.get(pkg.archive_name)
         if asset is None:
-            table.add_row(pkg.name.value, pkg.archive_name, "-", "[red]Missing on remote[/red]")
+            table.add_row(str(pkg.name), pkg.archive_name, "-", "[red]Missing on remote[/red]")
         else:
             size_kb = f"{asset.get('size', 0) / 1024:.1f} KB"
             manifest_item = remote_manifest.assets.get(pkg.archive_name) if remote_manifest else None
             if manifest_item and manifest_item.sha256 == pkg.archive_sha256:
-                table.add_row(pkg.name.value, pkg.archive_name, size_kb, "[green]Synchronized (hash matches)[/green]")
+                table.add_row(str(pkg.name), pkg.archive_name, size_kb, "[green]Synchronized (hash matches)[/green]")
             elif manifest_item:
-                table.add_row(pkg.name.value, pkg.archive_name, size_kb, "[yellow]Hash mismatch[/yellow]")
+                table.add_row(str(pkg.name), pkg.archive_name, size_kb, "[yellow]Hash mismatch[/yellow]")
             else:
-                table.add_row(pkg.name.value, pkg.archive_name, size_kb, "[blue]Uploaded (no manifest)[/blue]")
+                table.add_row(str(pkg.name), pkg.archive_name, size_kb, "[blue]Uploaded (no manifest)[/blue]")
 
     console.print()
     console.print(table)

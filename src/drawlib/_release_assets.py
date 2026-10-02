@@ -15,17 +15,16 @@ archive structures, and contained files for fonts and icons.
 
 from __future__ import annotations
 
-import hashlib
-import io
-import urllib.request
-import zipfile
 from enum import StrEnum
-from pathlib import Path
-from typing import Final, Literal
+from typing import Final
 
-from pydantic import BaseModel, ConfigDict, Field
-
-import drawlib._assets
+from drawlib._core.l3_external._package import (
+    AssetManifest,
+    AssetManifestItem,
+    BaseReleaseAssetPackages,
+    ReleaseAssetPackage,
+    create_deterministic_zip_bytes,
+)
 
 DEFAULT_RELEASE_TAG: Final[str] = "v0.3"
 
@@ -83,160 +82,12 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_GCP = "icon_gcp"
 
 
-class ReleaseAssetPackage(BaseModel):
-    """Data model representing a downloadable release asset package.
-
-    Attributes:
-        name: Unique package identifier, e.g. 'font_roboto'.
-        category: Category of the asset package ('font' or 'icon').
-        archive_name: ZIP archive file name, e.g. 'font_roboto.zip'.
-        archive_sha256: SHA-256 hex digest of the ZIP archive file.
-        source_rel_path: Relative path within release_assets/<ver>/, e.g. 'fonts/roboto'.
-        target_rel_path: Relative path where the asset is extracted locally.
-        files: List of file names contained within this asset package.
-    """
-
-    model_config = ConfigDict(frozen=True)
-
-    name: ReleaseAssetPackageName = Field(description="Unique package identifier, e.g. 'font_roboto'.")
-    category: Literal["font", "icon"] = Field(
-        description="Category of the asset package ('font' or 'icon').",
-    )
-    archive_name: str = Field(description="ZIP archive file name, e.g. 'font_roboto.zip'.")
-    archive_sha256: str = Field(description="SHA-256 hex digest of the ZIP archive file.")
-    source_rel_path: str = Field(
-        description="Relative path within release_assets/<ver>/, e.g. 'fonts/roboto'.",
-    )
-    target_rel_path: str = Field(
-        description="Relative path where the asset is extracted locally, e.g. 'fonts/roboto'.",
-    )
-    files: list[str] = Field(
-        description="List of file names contained within this asset package.",
-    )
-
-    @property
-    def sha256(self) -> str:
-        """Alias for archive_sha256."""
-        return self.archive_sha256
-
-    def get_download_url(
-        self,
-        repo_owner: str = "yuichi110",
-        repo_name: str = "drawlib",
-        tag: str = "v0.3",
-    ) -> str:
-        """Construct the GitHub Releases download URL for this package.
-
-        Args:
-            repo_owner: Repository owner on GitHub. Defaults to 'yuichi110'.
-            repo_name: Repository name on GitHub. Defaults to 'drawlib'.
-            tag: Release tag name, e.g. 'v0.3'.
-
-        Returns:
-            str: Absolute download URL from GitHub Releases.
-        """
-        return f"https://github.com/{repo_owner}/{repo_name}/releases/download/{tag}/{self.archive_name}"
-
-    def get_local_dir(self) -> Path:
-        """Get the absolute local destination directory for this package in drawlib._assets.
-
-        Returns:
-            Path: Local directory path, e.g. '.../drawlib/_assets/fonts/roboto'.
-        """
-        base_dir = Path(drawlib._assets.__file__).parent
-        return base_dir / self.target_rel_path
-
-    def is_downloaded(self) -> bool:
-        """Check if all files in this package are already downloaded and present locally.
-
-        Returns:
-            bool: True if all files exist, False otherwise.
-        """
-        local_dir = self.get_local_dir()
-        if not local_dir.is_dir():
-            return False
-        return all((local_dir / fname).is_file() for fname in self.files)
-
-    def download_and_extract(
-        self,
-        tag: str = DEFAULT_RELEASE_TAG,
-        force: bool = False,
-    ) -> None:
-        """Download package archive from GitHub Releases, verify SHA-256, and extract files.
-
-        Args:
-            tag: GitHub release tag name. Defaults to DEFAULT_RELEASE_TAG.
-            force: If True, re-download and re-extract even if files already exist.
-
-        Raises:
-            RuntimeError: If download fails, SHA-256 does not match, or extraction fails.
-        """
-        if not force and self.is_downloaded():
-            return
-
-        url = self.get_download_url(tag=tag)
-        req = urllib.request.Request(url, headers={"User-Agent": "drawlib"})  # noqa: S310
-        try:
-            with urllib.request.urlopen(req) as resp:  # noqa: S310
-                data: bytes = resp.read()
-        except Exception as e:
-            msg = f"Failed to download asset package '{self.name}' from '{url}': {e}"
-            raise RuntimeError(msg) from e
-
-        actual_sha256 = hashlib.sha256(data).hexdigest()
-        if actual_sha256.lower() != self.archive_sha256.lower():
-            msg = f"Checksum mismatch for '{self.archive_name}': expected {self.archive_sha256}, got {actual_sha256}"
-            raise RuntimeError(msg)
-
-        local_dir = self.get_local_dir()
-        local_dir.mkdir(parents=True, exist_ok=True)
-        try:
-            with zipfile.ZipFile(io.BytesIO(data)) as zf:
-                zf.extractall(local_dir)
-        except Exception as e:
-            msg = f"Failed to extract asset package '{self.archive_name}' to '{local_dir}': {e}"
-            raise RuntimeError(msg) from e
-
-
-class AssetManifestItem(BaseModel):
-    """Metadata item for a single release asset in the manifest.
-
-    Attributes:
-        archive_name: Archive file name, e.g. 'font_roboto.zip'.
-        sha256: Cryptographic SHA-256 hex digest of the archive file.
-        size: File size in bytes.
-    """
-
-    model_config = ConfigDict(frozen=True)
-
-    archive_name: str = Field(description="Archive file name.")
-    sha256: str = Field(description="SHA-256 hex digest of the archive file.")
-    size: int = Field(description="File size in bytes.")
-
-
-class AssetManifest(BaseModel):
-    """Release asset manifest mapping archive names to their metadata.
-
-    Attributes:
-        version: Drawlib release version tag, e.g. 'v0.3'.
-        assets: Dictionary mapping archive_name to its AssetManifestItem.
-    """
-
-    version: str = Field(default="v0.3", description="Drawlib release version tag, e.g. 'v0.3'.")
-    assets: dict[str, AssetManifestItem] = Field(
-        default_factory=dict,
-        description="Dictionary mapping archive_name to its AssetManifestItem.",
-    )
-
-
-class ReleaseAssetPackages(BaseModel):
+class ReleaseAssetPackages(BaseReleaseAssetPackages):
     """Container holding all release asset package definitions with full IDE type completion.
 
     Each package is exposed as a typed field for IDE autocompletion, while also
     providing dict-like item access, iteration, and lookup utilities.
     """
-
-    model_config = ConfigDict(frozen=True)
 
     font_arabic_noto_kufi: ReleaseAssetPackage
     font_arabic_noto_naskh: ReleaseAssetPackage
@@ -286,99 +137,6 @@ class ReleaseAssetPackages(BaseModel):
     font_thai_noto_serif: ReleaseAssetPackage
     icon_phosphor: ReleaseAssetPackage
     icon_gcp: ReleaseAssetPackage
-
-    def __getitem__(self, key: str | ReleaseAssetPackageName) -> ReleaseAssetPackage:
-        """Access package by its identifier string or enum.
-
-        Args:
-            key: Package identifier string or ReleaseAssetPackageName enum.
-
-        Returns:
-            ReleaseAssetPackage: The requested asset package.
-
-        Raises:
-            KeyError: If key does not correspond to a known asset package.
-        """
-        key_str = key.value if isinstance(key, ReleaseAssetPackageName) else str(key)
-        if key_str in self.__class__.model_fields:
-            val = getattr(self, key_str)
-            if isinstance(val, ReleaseAssetPackage):
-                return val
-        raise KeyError(f"Asset package '{key_str}' not found.")
-
-    def __contains__(self, key: object) -> bool:
-        """Check if a package identifier or enum exists.
-
-        Args:
-            key: Package identifier or enum.
-
-        Returns:
-            bool: True if package exists, False otherwise.
-        """
-        if isinstance(key, ReleaseAssetPackageName):
-            return key.value in self.__class__.model_fields
-        if isinstance(key, str):
-            return key in self.__class__.model_fields
-        return False
-
-    def __len__(self) -> int:
-        """Return the number of registered asset packages.
-
-        Returns:
-            int: Number of asset packages.
-        """
-        return len(self.__class__.model_fields)
-
-    def keys(self) -> list[str]:
-        """Return a list of all package identifier strings.
-
-        Returns:
-            list[str]: Package identifiers.
-        """
-        return list(self.__class__.model_fields.keys())
-
-    def values(self) -> list[ReleaseAssetPackage]:
-        """Return a list of all ReleaseAssetPackage instances.
-
-        Returns:
-            list[ReleaseAssetPackage]: All asset packages.
-        """
-        return [getattr(self, name) for name in self.__class__.model_fields]
-
-    def items(self) -> list[tuple[str, ReleaseAssetPackage]]:
-        """Return identifier and package pairs.
-
-        Returns:
-            list[tuple[str, ReleaseAssetPackage]]: List of (name, package) tuples.
-        """
-        return [(name, getattr(self, name)) for name in self.__class__.model_fields]
-
-    def get(
-        self,
-        key: str | ReleaseAssetPackageName,
-        default: ReleaseAssetPackage | None = None,
-    ) -> ReleaseAssetPackage | None:
-        """Safely retrieve an asset package by identifier or enum.
-
-        Args:
-            key: Package identifier string or enum.
-            default: Fallback value if package is not found. Defaults to None.
-
-        Returns:
-            ReleaseAssetPackage | None: The matching package if found, otherwise default.
-        """
-        try:
-            return self[key]
-        except KeyError:
-            return default
-
-    def all(self) -> list[ReleaseAssetPackage]:
-        """Return all asset packages as a list.
-
-        Returns:
-            list[ReleaseAssetPackage]: All package definitions.
-        """
-        return self.values()
 
 
 # ==============================================================================
@@ -1094,30 +852,6 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
 )
 
 
-def create_deterministic_zip_bytes(source_dir: Path, files: list[str]) -> bytes:
-    """Build a deterministic, byte-reproducible ZIP archive from specified files.
-
-    Normalizes file ordering, modification timestamps, and permissions so that
-    identical content yields bit-identical archives and SHA-256 digests.
-
-    Args:
-        source_dir: Directory containing the asset files.
-        files: List of file names to include in the archive.
-
-    Returns:
-        bytes: Binary content of the generated ZIP archive.
-    """
-    buf = io.BytesIO()
-    with zipfile.ZipFile(buf, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
-        for fname in sorted(files):
-            fpath = source_dir / fname
-            data = fpath.read_bytes()
-            zinfo = zipfile.ZipInfo(filename=fname, date_time=(2026, 1, 1, 0, 0, 0))
-            zinfo.external_attr = 0o644 << 16
-            zf.writestr(zinfo, data)
-    return buf.getvalue()
-
-
 def get_all_release_asset_packages() -> list[ReleaseAssetPackage]:
     """Retrieve all defined release asset packages.
 
@@ -1260,3 +994,23 @@ def get_release_asset_manifest(tag: str = DEFAULT_RELEASE_TAG) -> AssetManifest:
         for pkg in RELEASE_ASSET_PACKAGES.values()
     }
     return AssetManifest(version=tag, assets=assets)
+
+
+__all__ = [
+    "DEFAULT_RELEASE_TAG",
+    "AssetManifest",
+    "AssetManifestItem",
+    "BaseReleaseAssetPackages",
+    "ReleaseAssetPackage",
+    "ReleaseAssetPackageName",
+    "ReleaseAssetPackages",
+    "RELEASE_ASSET_PACKAGES",
+    "create_deterministic_zip_bytes",
+    "download_all_release_assets",
+    "ensure_asset_available",
+    "find_package_for_font_path",
+    "find_package_for_icon_path",
+    "find_package_for_resource_path",
+    "get_all_release_asset_packages",
+    "get_release_asset_manifest",
+]

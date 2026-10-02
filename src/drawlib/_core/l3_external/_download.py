@@ -13,7 +13,8 @@ import hashlib
 import os
 
 from drawlib._core.l1_core import logger
-from drawlib._release_assets import ReleaseAssetPackage, find_package_for_resource_path
+from drawlib._core.l3_external._package import ReleaseAssetPackage
+from drawlib._release_assets import find_package_for_resource_path
 
 
 def _find_package_for_file_path(file_path: str) -> ReleaseAssetPackage | None:
