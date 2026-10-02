@@ -33,13 +33,14 @@ from drawlib._core.l3_math import (
     get_rotated_points,
 )
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas._line import LineArcHelper, LineUtil
-from drawlib._core.l4_canvas._shape import ShapeUtil
+from drawlib._core.l4_canvas._line_util import LineUtil
+from drawlib._core.l4_canvas._lines import LineArcHelper
+from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
+from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
-class CanvasOriginalArrowFeature(CanvasBase):
-    """Canvas's original arrow feature implementation module.
+class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
+    """Canvas arrow shape feature implementation module.
 
     This class provides methods to draw single-headed and double-headed arrows
     on a canvas. The arrows can be customized with various styles for the tail,
@@ -47,12 +48,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
     """
 
     def __init__(self) -> None:
-        """Initialize CanvasOriginalArrowFeature.
-
-        This initializes the CanvasOriginalArrowFeature class, inheriting from
-        CanvasBase. It sets up the basic canvas features required for drawing
-        original arrow shapes.
-        """
+        """Initialize CanvasShapeArrowFeature."""
         super().__init__()
 
     @validate_call
@@ -694,3 +690,12 @@ class ArrowPolylineHelper:
         points.append(last_point)
 
         return points
+
+
+# Backward compatibility alias
+CanvasOriginalArrowFeature = CanvasShapeArrowFeature
+
+__all__ = [
+    "CanvasOriginalArrowFeature",
+    "CanvasShapeArrowFeature",
+]

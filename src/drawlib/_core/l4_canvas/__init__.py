@@ -51,8 +51,8 @@ from drawlib._core.l4_canvas._canvas import (
     triangle,
     wedge,
 )
-from drawlib._core.l4_canvas._line import LineUtil
-from drawlib._core.l4_canvas._shape import ShapeUtil
+from drawlib._core.l4_canvas._line_util import LineUtil
+from drawlib._core.l4_canvas._shapes import ShapeUtil
 from drawlib._core.l4_canvas._text_util import TextUtil
 
 __all__ = [

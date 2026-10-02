@@ -10,7 +10,7 @@
 import pytest
 
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._line import LineUtil
+from drawlib._core.l4_canvas._line_util import LineUtil
 
 
 class TestLineUtil:

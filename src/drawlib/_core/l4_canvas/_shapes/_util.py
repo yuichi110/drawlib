@@ -9,7 +9,6 @@
 
 """Shape utility module for canvas operations."""
 
-import math
 from typing import Any
 
 from matplotlib.text import Text

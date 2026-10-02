@@ -55,7 +55,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 21 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._base`, `_patches`, `_polygon`, and `_arrow`).
+The `drawlib.shapes` module re-exports 21 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (

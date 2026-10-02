@@ -28,21 +28,19 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import ColorUtil
-from drawlib._core.l4_canvas._arrow import CanvasOriginalArrowFeature
-from drawlib._core.l4_canvas._image import CanvasImageFeature
-from drawlib._core.l4_canvas._line import CanvasLineFeature
-from drawlib._core.l4_canvas._patches import CanvasPatchesFeature
-from drawlib._core.l4_canvas._polygon import CanvasOriginalPolygonFeature
+from drawlib._core.l4_canvas._base import CanvasBase
+from drawlib._core.l4_canvas._images import CanvasImageFeature
+from drawlib._core.l4_canvas._lines import CanvasLineFeature
+from drawlib._core.l4_canvas._shapes import CanvasShapeFeature
 from drawlib._core.l4_canvas._text import CanvasTextFeature
 
 
 class Canvas(
-    CanvasImageFeature,
+    CanvasShapeFeature,
     CanvasLineFeature,
-    CanvasOriginalPolygonFeature,
-    CanvasOriginalArrowFeature,
-    CanvasPatchesFeature,
     CanvasTextFeature,
+    CanvasImageFeature,
+    CanvasBase,
 ):
     """Drawlib's canvas class.
 
@@ -55,9 +53,8 @@ class Canvas(
         """Initializes a Canvas object.
 
         Initializes an instance of Canvas by calling the constructors of its
-        superclass features: CanvasImageFeature, CanvasLineFeature,
-        CanvasOriginalPolygonFeature, CanvasOriginalArrowFeature,
-        CanvasPatchesFeature, and CanvasTextFeature.
+        superclass features: CanvasShapeFeature, CanvasLineFeature,
+        CanvasTextFeature, CanvasImageFeature, and CanvasBase.
         """
         super().__init__()
 

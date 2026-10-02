@@ -19,7 +19,7 @@ from drawlib._core.l4_canvas import (
     lines_bezier,
     lines_curved,
 )
-from drawlib._core.l4_canvas._line import LineArcHelper
+from drawlib._core.l4_canvas._lines import LineArcHelper
 
 __all__ = [
     "LineArcHelper",

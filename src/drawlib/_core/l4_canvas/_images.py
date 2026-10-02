@@ -27,12 +27,12 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import BaseColors, Style
-from drawlib._core.l4_canvas._base import CanvasBase
+from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
 
 logger = logging.getLogger(__name__)
 
 
-class CanvasImageFeature(CanvasBase):
+class CanvasImageFeature(CanvasShapeBasicFeature):
     """Canvas image feature class."""
 
     def __init__(self) -> None:
@@ -167,3 +167,6 @@ class CanvasImageFeature(CanvasBase):
             shape_fill_alpha=style.image_alpha,
         )
         self.rectangle(xy=xy, width=width, height=height, angle=angle, style=shapestyle)
+
+
+__all__ = ["CanvasImageFeature"]

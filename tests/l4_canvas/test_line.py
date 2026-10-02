@@ -11,7 +11,7 @@
 
 import pytest
 
-from drawlib._core.l4_canvas._line import LineArcHelper
+from drawlib._core.l4_canvas._lines import LineArcHelper
 from drawlib.canvas import clear, save
 from drawlib.lines import line, line_arc, line_bezier1, line_bezier2, line_curved, lines, lines_bezier, lines_curved
 from drawlib.shapes import circle, ellipse

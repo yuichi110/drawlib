@@ -27,12 +27,12 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_math import rotate_point
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas._shape import ShapeUtil
+from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
+from drawlib._core.l4_canvas._shapes._util import ShapeUtil
 
 
-class CanvasOriginalPolygonFeature(CanvasBase):
-    """Canvas's original shape feature implementation module.
+class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
+    """Canvas polygon shape feature implementation module.
 
     This class provides methods to draw various polygonal shapes such as
     triangles, parallelograms, trapezoids, rhombuses, chevrons, and stars
@@ -40,11 +40,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     """
 
     def __init__(self) -> None:
-        """Initializes a CanvasOriginalPolygonFeature object.
-
-        Initializes an instance of CanvasOriginalPolygonFeature by calling the
-        constructor of its superclass, CanvasBase.
-        """
+        """Initializes a CanvasShapePolygonFeature object."""
         super().__init__()
 
     @validate_call
@@ -404,3 +400,12 @@ class CanvasOriginalPolygonFeature(CanvasBase):
                     style=effective_textstyle,
                 )
             )
+
+
+# Backward compatibility alias
+CanvasOriginalPolygonFeature = CanvasShapePolygonFeature
+
+__all__ = [
+    "CanvasOriginalPolygonFeature",
+    "CanvasShapePolygonFeature",
+]

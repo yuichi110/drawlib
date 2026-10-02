@@ -8,7 +8,7 @@ This document serves as the comprehensive, production-grade technical manual for
 
 ## 1. Module Architecture & Core Imports
 
-All line-drawing functionality is implemented in the internal canvas engine (`drawlib._core.l4_canvas._line.CanvasLineFeature`) and re-exported through the public domain module `drawlib.lines`.
+All line-drawing functionality is implemented in the internal canvas engine (`drawlib._core.l4_canvas._lines.CanvasLineFeature`) and re-exported through the public domain module `drawlib.lines`.
 
 ### 1.1. Public Domain Functions
 ```python
