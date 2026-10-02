@@ -14,8 +14,7 @@ All shape primitives share consistent keyword arguments:
 | `xy` | `tuple[float, float]` | *Required* | Coordinate anchor point `(x, y)` (geometric center for most shapes). |
 | `style` | `Style` | *Required* | Visual style defining fill color, border line style, and border width. |
 | `text` | `str` | `""` | Embedded text label centered inside the shape. |
-| `textstyle` | `Style` | `None` | Text styling (color, font, weight). Defaults to active theme text style. |
-| `textsize` | `float` | `None` | Font size of the embedded label in points. |
+| `text_style` | `Style` | `None` | Text styling (color, font, weight). Defaults to active theme text style. |
 | `angle` | `float` | `0.0` | Rotation angle in degrees (counter-clockwise). |
 
 ---
@@ -46,9 +45,9 @@ from drawlib.styles import Styles
 
 setup(width=110, height=45)
 
-circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text="circle", textstyle=Styles.WhiteBold)
-donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text="donuts", textstyle=Styles.WhiteBold)
-ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text="ellipse", textstyle=Styles.WhiteBold)
+circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text="circle", text_style=Styles.WhiteBold)
+donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text="donuts", text_style=Styles.WhiteBold)
+ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text="ellipse", text_style=Styles.WhiteBold)
 
 save()
 ```
@@ -84,7 +83,7 @@ from drawlib.styles import Styles
 
 setup(width=100, height=50)
 
-rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text="Service Card", textstyle=Styles.WhiteBold)
+rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text="Service Card", text_style=Styles.WhiteBold)
 
 save()
 ```
@@ -124,7 +123,7 @@ shape(
     path_points=[(0, 0), (20, 0), (30, 15), (10, 25), (-5, 10)],
     style=Styles.PrimaryFlat,
     text="Custom Path",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 
 save()

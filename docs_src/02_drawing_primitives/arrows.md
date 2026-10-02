@@ -15,10 +15,10 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # 1. Straight Block Arrow
-arrow((15, 45), (45, 45), tail_width=4, head_width=10, head_length=8, style=Styles.PrimaryFlat, text="arrow", textstyle=Styles.WhiteBold)
+arrow((15, 45), (45, 45), tail_width=4, head_width=10, head_length=8, style=Styles.PrimaryFlat, text="arrow", text_style=Styles.WhiteBold)
 
 # 2. Chevron
-chevron((75, 45), width=24, height=14, corner_angle=60, style=Styles.AccentFlat, text="chevron", textstyle=Styles.WhiteBold)
+chevron((75, 45), width=24, height=14, corner_angle=60, style=Styles.AccentFlat, text="chevron", text_style=Styles.WhiteBold)
 
 # 3. Arrow Arc (Circular flow)
 arrow_arc((105, 45), width=20, height=20, angle_start=180, angle_end=0, tail_width=3, head_width=8, style=Styles.SuccessFlat)
@@ -53,7 +53,7 @@ arrow(
     head="->",  # "->", "<-", or "<->"
     style=Styles.PrimaryFlat,
     text="Data Ingestion",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 save()
 ```
@@ -80,7 +80,7 @@ chevron(
     corner_angle=60,  # Tip acute angle
     style=Styles.AccentFlat,
     text="Stage 1",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 save()
 ```

@@ -452,8 +452,8 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=45)
-rectangle((20, 30), width=24, height=14, style=Styles.PrimaryFlat, text=&quot;Client&quot;, textstyle=Styles.WhiteBold)
-rectangle((80, 15), width=24, height=14, style=Styles.SecondaryFlat, text=&quot;Worker&quot;, textstyle=Styles.WhiteBold)
+rectangle((20, 30), width=24, height=14, style=Styles.PrimaryFlat, text=&quot;Client&quot;, text_style=Styles.WhiteBold)
+rectangle((80, 15), width=24, height=14, style=Styles.SecondaryFlat, text=&quot;Worker&quot;, text_style=Styles.WhiteBold)
 
 # L-shaped connection: horizontal from Client, then downward to Worker
 lines([(32, 30), (80, 30), (80, 22)], arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
@@ -470,8 +470,8 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=45)
-rectangle((20, 32), width=24, height=14, style=Styles.PrimaryFlat, text=&quot;Service A&quot;, textstyle=Styles.WhiteBold)
-rectangle((80, 14), width=24, height=14, style=Styles.AccentFlat, text=&quot;Service B&quot;, textstyle=Styles.WhiteBold)
+rectangle((20, 32), width=24, height=14, style=Styles.PrimaryFlat, text=&quot;Service A&quot;, text_style=Styles.WhiteBold)
+rectangle((80, 14), width=24, height=14, style=Styles.AccentFlat, text=&quot;Service B&quot;, text_style=Styles.WhiteBold)
 
 # Z-shaped dogleg connection across midpoint x_mid = 50
 x_mid = 50

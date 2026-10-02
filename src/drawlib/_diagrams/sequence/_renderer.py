@@ -403,7 +403,11 @@ def _render_participant_header(
     if not participant.text:
         return
 
-    font_size = participant.text_size if participant.text_size is not None else 12.0
+    font_size = (
+        float(participant.text_style.text_size)
+        if participant.text_style and participant.text_style.text_size is not None
+        else 12.0
+    )
     text_color = card_style.text_color or (35, 35, 40, 1.0)
     text_style = Style(
         text_size=font_size,
@@ -413,8 +417,8 @@ def _render_participant_header(
         text_valign="center",
         text_angle=participant.text_angle,
     )
-    if participant.textstyle:
-        text_style = text_style.patch(participant.textstyle)
+    if participant.text_style:
+        text_style = text_style.patch(participant.text_style)
 
     if participant.icon is None:
         canvas_text(xy=(cx, cy), text=participant.text, style=text_style)
@@ -483,8 +487,8 @@ def _render_groups(
                 text_halign="left",
                 text_valign="bottom",
             )
-            if group.textstyle:
-                title_style = title_style.patch(group.textstyle)
+            if group.text_style:
+                title_style = title_style.patch(group.text_style)
             canvas_text(xy=(min_x + 2.0, box_cy + max_h / 2.0 + 1.0), text=group.title, style=title_style)
 
 
@@ -521,7 +525,7 @@ def _render_single_message(  # noqa: C901
 
     if message.label:
         display_text = f"{message.number}. {message.label}" if message.number is not None else message.label
-        _render_message_label(lx, ly, display_text, message.textstyle)
+        _render_message_label(lx, ly, display_text, message.text_style)
 
 
 def _draw_horizontal_message(
@@ -565,7 +569,7 @@ def _draw_self_call(
     canvas_lines(xys=pts, arrowhead=arrowhead, style=style)
 
 
-def _render_message_label(lx: float, ly: float, text: str, custom_textstyle: Style | None) -> None:
+def _render_message_label(lx: float, ly: float, text: str, custom_text_style: Style | None) -> None:
     """Draw message label with clear semi-transparent background backplate."""
     label_style = Style(
         text_size=11,
@@ -577,8 +581,8 @@ def _render_message_label(lx: float, ly: float, text: str, custom_textstyle: Sty
         text_halign="center",
         text_valign="center",
     )
-    if custom_textstyle:
-        label_style = label_style.patch(custom_textstyle)
+    if custom_text_style:
+        label_style = label_style.patch(custom_text_style)
     canvas_text(xy=(lx, ly), text=text, style=label_style)
 
 
@@ -618,8 +622,8 @@ def _render_note(
         text_halign="center",
         text_valign="center",
     )
-    if note.textstyle:
-        text_style = text_style.patch(note.textstyle)
+    if note.text_style:
+        text_style = text_style.patch(note.text_style)
     canvas_text(xy=(cx, y), text=note.text, style=text_style)
 
 
@@ -676,16 +680,19 @@ def _render_blocks(
                 shape_line_width=1.0,
             ),
         )
+        block_text_style = Style(
+            text_size=9,
+            text_font=Font.SANSSERIF_BOLD,
+            text_color=(60, 70, 90, 1.0),
+            text_halign="center",
+            text_valign="center",
+        )
+        if block.text_style:
+            block_text_style = block_text_style.patch(block.text_style)
         canvas_text(
             xy=(tab_cx, tab_cy),
             text=tag,
-            style=Style(
-                text_size=9,
-                text_font=Font.SANSSERIF_BOLD,
-                text_color=(60, 70, 90, 1.0),
-                text_halign="center",
-                text_valign="center",
-            ),
+            style=block_text_style,
         )
 
 

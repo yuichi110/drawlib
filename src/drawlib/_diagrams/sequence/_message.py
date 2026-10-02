@@ -33,7 +33,7 @@ class Message:
         is_async: bool = False,
         arrow: ArrowType = "->",
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
         padding: PaddingType = 0.0,
     ) -> None:
         """Initialize Message.
@@ -46,7 +46,7 @@ class Message:
             is_async: Whether this message is asynchronous (renders open stick arrow). Defaults to False.
             arrow: Arrowhead directionality ("->", "<->", "-"). Defaults to "->".
             style: Optional line Style (color, width, dash).
-            textstyle: Optional text Style for label.
+            text_style: Optional text Style for label.
             padding: Gap clearance between lifeline and line endpoints. Defaults to 0.0.
         """
         self.source = source
@@ -56,7 +56,7 @@ class Message:
         self.is_async = is_async
         self.arrow = arrow
         self.style = style
-        self.textstyle = textstyle
+        self.text_style = text_style
         self.padding = padding
         self.number: int | None = None
         self._diagram: SequenceDiagram | None = None
@@ -126,16 +126,16 @@ class Message:
         self.style = style
         return self
 
-    def set_textstyle(self, textstyle: Style) -> Message:
+    def set_text_style(self, text_style: Style) -> Message:
         """Set message label text style.
 
         Args:
-            textstyle: Style object for label text.
+            text_style: Style object for label text.
 
         Returns:
             Message: self for method chaining.
         """
-        self.textstyle = textstyle
+        self.text_style = text_style
         return self
 
     def set_padding(self, padding: PaddingType) -> Message:

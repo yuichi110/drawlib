@@ -142,12 +142,12 @@ rectangle(
     r=4,
     style=Styles.MutedDashed,
     text="Kubernetes Worker Nodes",
-    textstyle=Styles.PrimaryBold.patch(text_valign="top"),
+    text_style=Styles.PrimaryBold.patch(text_valign="top"),
 )
 
 # Render nodes on top
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f"Pod {i}", textstyle=Styles.WhiteBold)
+    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f"Pod {i}", text_style=Styles.WhiteBold)
 
 save()
 ```
@@ -170,7 +170,7 @@ radius = 26
 num_clients = 5
 
 # Central Hub (radius=12)
-circle(hub, radius=12, style=Styles.PrimaryFlat, text="Leader", textstyle=Styles.WhiteBold)
+circle(hub, radius=12, style=Styles.PrimaryFlat, text="Leader", text_style=Styles.WhiteBold)
 
 # Surrounding Worker Nodes (radius=6)
 for i in range(num_clients):
@@ -190,7 +190,7 @@ for i in range(num_clients):
     label_xy = ((hub_edge[0] + node_edge[0]) / 2, (hub_edge[1] + node_edge[1]) / 2 + 2)
     text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=Styles.Primary.patch(text_size=7))
     
-    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f"N{i+1}", textstyle=Styles.WhiteBold)
+    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f"N{i+1}", text_style=Styles.WhiteBold)
 
 save()
 ```

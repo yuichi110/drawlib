@@ -165,19 +165,23 @@ def _render_lanes(
             )
 
             # Header text
-            text_size = lane.textsize or 12.0
-            default_header_textstyle = Style(
+            text_size = 12.0
+            if lane.text_style and lane.text_style.text_size is not None:
+                text_size = float(lane.text_style.text_size)
+            default_header_text_style = Style(
                 text_size=text_size,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=(30, 41, 59, 1.0),
                 text_halign="center",
                 text_valign="center",
             )
-            header_textstyle = default_header_textstyle.patch(lane.textstyle)
+            header_text_style = (
+                default_header_text_style.patch(lane.text_style) if lane.text_style else default_header_text_style
+            )
             canvas_text(
                 xy=(cur_x + lane_w / 2.0, header_y + header_h / 2.0),
                 text=lane.title,
-                style=header_textstyle,
+                style=header_text_style,
             )
 
             cur_x += lane_w
@@ -220,19 +224,23 @@ def _render_lanes(
             )
 
             # Header text
-            text_size = lane.textsize or 12.0
-            default_header_textstyle = Style(
+            text_size = 12.0
+            if lane.text_style and lane.text_style.text_size is not None:
+                text_size = float(lane.text_style.text_size)
+            default_header_text_style = Style(
                 text_size=text_size,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=(30, 41, 59, 1.0),
                 text_halign="center",
                 text_valign="center",
             )
-            header_textstyle = default_header_textstyle.patch(lane.textstyle)
+            header_text_style = (
+                default_header_text_style.patch(lane.text_style) if lane.text_style else default_header_text_style
+            )
             canvas_text(
                 xy=(bx + header_w / 2.0, lane_y + lane_h / 2.0),
                 text=lane.title,
-                style=header_textstyle,
+                style=header_text_style,
             )
 
             cur_y -= lane_h
@@ -502,8 +510,8 @@ def _render_edges(
                 text_halign="center",
                 text_valign="center",
             )
-            if edge.textstyle:
-                label_style = label_style.patch(edge.textstyle)
+            if edge.text_style:
+                label_style = label_style.patch(edge.text_style)
 
             canvas_text(xy=(lx, ly), text=edge.label, style=label_style)
 
@@ -520,7 +528,12 @@ def _render_nodes(
 
         applied_style = default_node_style.patch(node.style) if node.style is not None else default_node_style
 
-        text_size = node.textsize or 12.0
+        text_size = 12.0
+        if node.text_style and node.text_style.text_size is not None:
+            text_size = float(node.text_style.text_size)
+        elif applied_style.text_size is not None:
+            text_size = float(applied_style.text_size)
+
         text_color = applied_style.text_color or (30, 41, 59, 1.0)
         text_style = Style(
             text_size=text_size,
@@ -529,8 +542,8 @@ def _render_nodes(
             text_halign="center",
             text_valign="center",
         )
-        if node.textstyle:
-            text_style = text_style.patch(node.textstyle)
+        if node.text_style:
+            text_style = text_style.patch(node.text_style)
 
         if node.shape_type == "process":
             canvas_rectangle(
@@ -541,8 +554,7 @@ def _render_nodes(
                 angle=node.angle,
                 style=applied_style,
                 text=node.text,
-                textsize=text_size,
-                textstyle=text_style,
+                text_style=text_style,
             )
         elif node.shape_type == "decision":
             canvas_rhombus(
@@ -552,8 +564,7 @@ def _render_nodes(
                 angle=node.angle,
                 style=applied_style,
                 text=node.text,
-                textsize=text_size,
-                textstyle=text_style,
+                text_style=text_style,
             )
         elif node.shape_type in {"start", "end"}:
             # Stadium/pill shape
@@ -566,8 +577,7 @@ def _render_nodes(
                 angle=node.angle,
                 style=applied_style,
                 text=node.text,
-                textsize=text_size,
-                textstyle=text_style,
+                text_style=text_style,
             )
         elif node.shape_type == "data":
             canvas_parallelogram(
@@ -578,8 +588,7 @@ def _render_nodes(
                 angle=node.angle,
                 style=applied_style,
                 text=node.text,
-                textsize=text_size,
-                textstyle=text_style,
+                text_style=text_style,
             )
         else:
             canvas_rectangle(
@@ -590,6 +599,5 @@ def _render_nodes(
                 angle=node.angle,
                 style=applied_style,
                 text=node.text,
-                textsize=text_size,
-                textstyle=text_style,
+                text_style=text_style,
             )

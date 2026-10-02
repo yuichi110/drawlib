@@ -34,11 +34,10 @@ class Participant:
         icon_size: float = 8.0,
         text_position: TextPosition = "bottom",
         text_margin: float = 2.0,
-        text_size: float | None = None,
         text_angle: float = 0.0,
         style: Style | None = None,
         icon_style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
         lifeline_style: Style | None = None,
     ) -> None:
         """Initialize Participant.
@@ -49,11 +48,10 @@ class Participant:
             icon_size: Size of icon in coordinate units. Defaults to 8.0.
             text_position: Placement of label relative to icon ("bottom", "top", "left", "right").
             text_margin: Clearance between icon boundary and label text. Defaults to 2.0.
-            text_size: Font size in pt. If None, uses default 12.
             text_angle: Rotation angle of label text in degrees. Defaults to 0.0.
             style: Style for participant header card.
             icon_style: Style for participant icon.
-            textstyle: Style for label text.
+            text_style: Style for label text.
             lifeline_style: Style for vertical lifeline.
         """
         self.text = text
@@ -61,11 +59,10 @@ class Participant:
         self.icon_size = float(icon_size)
         self.text_position: TextPosition = text_position
         self.text_margin = float(text_margin)
-        self.text_size = float(text_size) if text_size is not None else None
         self.text_angle = float(text_angle)
         self.style = style
         self.icon_style = icon_style
-        self.textstyle = textstyle
+        self.text_style = text_style
         self.lifeline_style = lifeline_style
 
         self._fixed_x: float | None = None
@@ -188,7 +185,11 @@ class Participant:
 
     def get_header_size(self) -> tuple[float, float]:
         """Estimate width and height of the participant's header card."""
-        font_size = self.text_size if self.text_size is not None else 12.0
+        font_size = (
+            float(self.text_style.text_size)
+            if self.text_style is not None and self.text_style.text_size is not None
+            else 12.0
+        )
         # Text dimension approximations
         lines = self.text.split("\n") if self.text else []
         max_line_len = max((len(line) for line in lines), default=0)

@@ -89,7 +89,7 @@ class TestSourceCode:
             (10, 50, "dark"),
             (65, 50, "google"),
         ]:
-            st = get_source_code_styles(theme, font_lang="en", textsize=10.0)
+            st = get_source_code_styles(theme, font_lang="en", text_size=10.0)
             SourceCode.draw(
                 xy=(x, y),
                 width=50,
@@ -104,7 +104,7 @@ class TestSourceCode:
         """Verify SourceCode rendering with Japanese font_lang avoiding tofu."""
         clear()
         setup(width=100, height=70)
-        styles = SourceCodeStyles.get("default", font_lang="ja", textsize=11.0)
+        styles = SourceCodeStyles.get("default", font_lang="ja", text_size=11.0)
         SourceCode.draw(
             xy=(10, 60),
             width=80,
@@ -123,7 +123,11 @@ class TestSourceCode:
         custom = base.patch(
             keyword=Style(text_color=(236, 72, 153), text_font=FontSourceCode.SOURCECODEPRO, text_size=11.0),
             box_style=Style(shape_fill_color=(240, 249, 255), shape_line_color=(2, 132, 199), shape_line_width=2.0),
+            text_size=14.0,
         )
+        assert custom.default.text_size == 14.0
+        assert custom.linenum_style.text_size == 14.0
+        assert custom.keyword.text_size == 14.0
         sourcecode(
             xy=(10, 60),
             width=80,

@@ -40,12 +40,11 @@ class Node:
         icon: IconType = None,
         icon_size: float = 8.0,
         icon_style: Style | None = None,
-        style: Style | None = None,
         text_position: TextPosition = "bottom",
         text_margin: float = 1.5,
         text_angle: float = 0.0,
-        text_size: float | None = None,
-        textstyle: Style | None = None,
+        style: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize Node.
 
@@ -54,12 +53,11 @@ class Node:
             icon: Icon enumeration, CustomIcon, Dimage, file path, or drawing function.
             icon_size: Width/size of the icon.
             icon_style: Optional Style object for the icon.
-            style: Optional Style object for the node background/card.
             text_position: Alignment of label relative to the icon ("bottom", "top", "left", "right").
             text_margin: Margin between icon and label.
             text_angle: Rotation angle in degrees for the label text.
-            text_size: Font size for the label.
-            textstyle: Optional Style object for the label text.
+            style: Optional Style object for the node background/card.
+            text_style: Optional Style object for the label text.
         """
         self.text = text
         self.icon = icon
@@ -69,8 +67,7 @@ class Node:
         self.text_position = text_position
         self.text_margin = float(text_margin)
         self.text_angle = float(text_angle)
-        self.text_size = text_size
-        self.textstyle = textstyle
+        self.text_style = text_style
 
         self._local_xy: tuple[float, float] = (0.0, 0.0)
         self._diagram: ArchitectureDiagram | None = None
@@ -95,10 +92,8 @@ class Node:
         max_len = max(len(line) for line in lines) if lines else 0
 
         font_size = 14.0
-        if self.text_size is not None:
-            font_size = float(self.text_size)
-        elif self.textstyle is not None and self.textstyle.text_size is not None:
-            font_size = float(self.textstyle.text_size)
+        if self.text_style is not None and self.text_style.text_size is not None:
+            font_size = float(self.text_style.text_size)
 
         line_height = font_size * 0.18
         char_width = font_size * 0.065

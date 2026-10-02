@@ -54,8 +54,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         *,
         style: Style,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a triangle on the canvas.
 
@@ -67,12 +66,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text or None.
+            text_style: Style object for text or None.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         if topvertex_x is None:
@@ -86,8 +84,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
     @validate_call
@@ -101,8 +98,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         *,
         style: Style,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a parallelogram on the canvas.
 
@@ -114,12 +110,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text or None.
+            text_style: Style object for text or None.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         def calculate_parallelogram_lefttop_coordinate() -> Coordinate:
@@ -138,8 +133,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
     @validate_call
@@ -154,8 +148,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         *,
         style: Style,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a trapezoid on the canvas.
 
@@ -168,12 +161,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text or None.
+            text_style: Style object for text or None.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         if topedge_x is None:
@@ -189,8 +181,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
     @validate_call
@@ -203,8 +194,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         *,
         style: Style,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a rhombus on the canvas.
 
@@ -215,12 +205,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text or None.
+            text_style: Style object for text or None.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         p1 = (0, height / 2)
@@ -234,8 +223,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
     @validate_call
@@ -250,8 +238,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         *,
         style: Style,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a chevron (arrow-head block) shape on the canvas.
 
@@ -264,12 +251,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text or None.
+            text_style: Style object for text or None.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         def calculate_p2_coordinate(h: float) -> Coordinate:
@@ -297,8 +283,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
     @validate_call
@@ -312,8 +297,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         *,
         style: Style,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a star shape on the canvas.
 
@@ -325,12 +309,11 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text or None.
+            text_style: Style object for text or None.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         if radius_ext < radius_int:
@@ -391,13 +374,13 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         self._artists.append(PathPatch(path=path, **options))
 
         if text:
-            effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
             self._artists.append(
                 ShapeUtil.get_shape_text(
                     xy=(cx, cy),
                     text=text,
                     angle=angle,
-                    style=effective_textstyle,
+                    style=effective_text_style,
                 )
             )
 

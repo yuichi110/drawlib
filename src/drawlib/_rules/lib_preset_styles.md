@@ -417,7 +417,7 @@ Not every visual property applies to every drawing element. For example, lines d
    - Suffixes `solid`, `dashed`, `light`, `bold` work seamlessly.
    - Applying `flat` to a line is an anti-pattern because `flat` sets `line_width=0`, making the line invisible.
 
-3. **Text (`text`, `text_vertical`, shape `textstyle`)**:
+3. **Text (`text`, `text_vertical`, shape `text_style`)**:
    - Text elements only extract `text_color`, `text_size`, and `text_font`.
    - The `<color>` token controls `text_color`.
    - Weight tokens `light` and `bold` automatically select corresponding typography fonts:
@@ -888,16 +888,16 @@ from drawlib.text import text
 setup(width=100, height=60)
 
 # 1. Preset style usage
-rectangle((25, 36), width=20, height=20, style=Styles.BlueFlat, text="Flat", textstyle=Styles.WhiteBold)
-rectangle((50, 36), width=20, height=20, style=Styles.GreenBold, text="Solid", textstyle=Styles.GreenBold)
-circle((75, 36), radius=10, style=Styles.RedDashed, text="Dashed", textstyle=Styles.RedBold)
+rectangle((25, 36), width=20, height=20, style=Styles.BlueFlat, text="Flat", text_style=Styles.WhiteBold)
+rectangle((50, 36), width=20, height=20, style=Styles.GreenBold, text="Solid", text_style=Styles.GreenBold)
+circle((75, 36), radius=10, style=Styles.RedDashed, text="Dashed", text_style=Styles.RedBold)
 
 # 2. Dynamic style retrieval via key lookup
 accent_style = DefaultStyles["TealFlat"]
 circle((85, 48), radius=5, style=accent_style)
 
 # 3. Dedicated monochrome catalog retrieval
-rectangle((50, 12), width=80, height=12, style=MonochromeStyles.PrimaryFlat, text="Monochrome Catalog Banner", textstyle=MonochromeStyles.WhiteBold)
+rectangle((50, 12), width=80, height=12, style=MonochromeStyles.PrimaryFlat, text="Monochrome Catalog Banner", text_style=MonochromeStyles.WhiteBold)
 
 save()
 ```

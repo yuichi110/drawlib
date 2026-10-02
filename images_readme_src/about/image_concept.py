@@ -22,7 +22,7 @@ def left():
         radius=8,
         text="Circle",
         style=Styles.MutedOutline,
-        textstyle=Styles.Primary.patch(text_size=18),
+        text_style=Styles.Primary.patch(text_size=18),
     )
     text((x, 15), text="Content", style=Styles.Primary.patch(text_size=24))
 
@@ -39,7 +39,7 @@ def center():
         style=Styles.Green,
         text="Apply Styles",
         textsize=20,
-        textstyle=Styles.White,
+        text_style=Styles.White,
     )
 
 
@@ -50,21 +50,21 @@ def right():
         radius=8,
         style=Styles.Primary,
         text="Circle",
-        textstyle=Styles.White.patch(text_size=18),
+        text_style=Styles.White.patch(text_size=18),
     )
     circle(
         (x, 30),
         radius=8,
         text="Circle",
         style=Styles.BlueFlat,
-        textstyle=Styles.White.patch(text_size=18),
+        text_style=Styles.White.patch(text_size=18),
     )
     circle(
         (x, 11),
         radius=8,
         text="Circle",
         style=Styles.RedBold,
-        textstyle=Styles.White.patch(text_size=18),
+        text_style=Styles.White.patch(text_size=18),
     )
 
 

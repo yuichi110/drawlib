@@ -45,7 +45,7 @@ targets = [
 
 for y_pos, label, st in targets:
     line((69, 24), (82, y_pos), arrowhead="->", style=Styles.PrimaryBold)
-    rectangle(xy=(101, y_pos), width=36, height=10, r=1.5, style=st, text=label, textstyle=Styles.WhiteBold)
+    rectangle(xy=(101, y_pos), width=36, height=10, r=1.5, style=st, text=label, text_style=Styles.WhiteBold)
 ```
 
 ## High-Performance Incremental Build Cache

@@ -357,8 +357,8 @@ def _draw_single_edge(
         text_halign="center",
         text_valign="center",
     )
-    if edge.textstyle:
-        label_style = label_style.patch(edge.textstyle)
+    if edge.text_style:
+        label_style = label_style.patch(edge.text_style)
 
     canvas_text(xy=(lx, ly), text=edge.label, style=label_style)
 
@@ -405,8 +405,8 @@ def _render_groups(
                 text_halign="left",
                 text_valign="top",
             )
-            if group.textstyle:
-                title_style = title_style.patch(group.textstyle)
+            if group.text_style:
+                title_style = title_style.patch(group.text_style)
 
             tx = gx + min_x + 2.5
             ty = gy + max_y - 2.0
@@ -447,7 +447,7 @@ def _render_node_label(node: Node, nx: float, ny: float, default_node_style: Sty
         halign = "center"
         valign = "top"
 
-    font_size = node.text_size if node.text_size is not None else 13
+    font_size = float(node.text_style.text_size) if node.text_style and node.text_style.text_size is not None else 13.0
     text_color = default_node_style.text_color or (30, 30, 30, 1.0)
     text_style = Style(
         text_size=font_size,
@@ -457,8 +457,8 @@ def _render_node_label(node: Node, nx: float, ny: float, default_node_style: Sty
         text_valign=valign,
         text_angle=node.text_angle,
     )
-    if node.textstyle:
-        text_style = text_style.patch(node.textstyle)
+    if node.text_style:
+        text_style = text_style.patch(node.text_style)
 
     canvas_text(xy=(tx, ty), text=node.text, style=text_style)
 

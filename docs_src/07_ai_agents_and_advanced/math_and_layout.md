@@ -67,12 +67,12 @@ rectangle(
     r=4,
     style=Styles.MutedDashed,
     text="Kubernetes Worker Cluster",
-    textstyle=Styles.PrimaryBold,
+    text_style=Styles.PrimaryBold,
 )
 
 # 4. Render nodes
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f"Pod {i}", textstyle=Styles.WhiteBold)
+    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f"Pod {i}", text_style=Styles.WhiteBold)
 save()
 ```
 
@@ -97,7 +97,7 @@ radius = 26
 num_clients = 5
 
 # Central Hub
-circle(hub, radius=12, style=Styles.PrimaryFlat, text="Master", textstyle=Styles.WhiteBold)
+circle(hub, radius=12, style=Styles.PrimaryFlat, text="Master", text_style=Styles.WhiteBold)
 
 # Surrounding Worker Nodes
 for i in range(num_clients):
@@ -109,7 +109,7 @@ for i in range(num_clients):
     angle_deg = get_angle(hub, node_xy)
     
     line(hub, node_xy, style=Styles.PrimaryBold)
-    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f"N{i+1}", textstyle=Styles.WhiteBold)
+    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f"N{i+1}", text_style=Styles.WhiteBold)
 save()
 ```
 

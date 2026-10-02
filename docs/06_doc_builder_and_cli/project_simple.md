@@ -55,9 +55,9 @@ This document outlines the migration from synchronous HTTP checkout to event-dri
 from drawlib import canvas, shapes, lines, styles
 
 canvas.setup(width=100, height=45)
-shapes.rectangle((20, 22.5), width=25, height=18, style=styles.Styles.AccentFlat, text="Client", textstyle=styles.Styles.WhiteBold)
-shapes.rectangle((50, 22.5), width=25, height=18, style=styles.Styles.PrimaryFlat, text="Ingest Gateway", textstyle=styles.Styles.WhiteBold)
-shapes.rectangle((80, 22.5), width=25, height=18, style=styles.Styles.SecondaryFlat, text="Kafka Queue", textstyle=styles.Styles.WhiteBold)
+shapes.rectangle((20, 22.5), width=25, height=18, style=styles.Styles.AccentFlat, text="Client", text_style=styles.Styles.WhiteBold)
+shapes.rectangle((50, 22.5), width=25, height=18, style=styles.Styles.PrimaryFlat, text="Ingest Gateway", text_style=styles.Styles.WhiteBold)
+shapes.rectangle((80, 22.5), width=25, height=18, style=styles.Styles.SecondaryFlat, text="Kafka Queue", text_style=styles.Styles.WhiteBold)
 
 lines.line((32.5, 22.5), (37.5, 22.5), arrowhead="->", style=styles.Styles.PrimaryBold)
 lines.line((62.5, 22.5), (67.5, 22.5), arrowhead="->", style=styles.Styles.PrimaryBold)

@@ -27,7 +27,7 @@ class ParticipantGroup:
         title: str = "",
         padding: float = 4.0,
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize ParticipantGroup.
 
@@ -35,12 +35,12 @@ class ParticipantGroup:
             title: Group title text.
             padding: Padding around enclosed participant header cards. Defaults to 4.0.
             style: Optional Style object for the boundary box.
-            textstyle: Optional Style object for the title text.
+            text_style: Optional Style object for the title text.
         """
         self.title = title
         self.padding = float(padding)
         self.style = style
-        self.textstyle = textstyle
+        self.text_style = text_style
         self._participants: list[Participant] = []
         self._diagram: SequenceDiagram | None = None
 

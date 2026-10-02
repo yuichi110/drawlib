@@ -812,7 +812,7 @@ SourceCode.draw(
 ### 12.3 Style Management (`SourceCodeStyles`)
 Styles are configured via `SourceCodeStyles.get(...)` (or `get_source_code_styles(...)`) and can be patched via `.patch()`:
 ```python
-styles = SourceCodeStyles.get("dark", font_lang="en", textsize=11.0)
+styles = SourceCodeStyles.get("dark", font_lang="en", text_size=11.0)
 custom = styles.patch(keyword=Styles.PrimaryBold, comment=Styles.MutedItalic)
 ```
 
@@ -835,7 +835,7 @@ rectangle(
     r=2,
     style=Styles.DarkFlat,
     text="Kubernetes Deployment Spec (v1)",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 
 k8s_yaml = """apiVersion: apps/v1
@@ -854,7 +854,7 @@ spec:
       - name: auth
         image: gcr.io/company/auth:v1.4.2"""
 
-code_styles = SourceCodeStyles.get("dark", font_lang="en", textsize=10.0)
+code_styles = SourceCodeStyles.get("dark", font_lang="en", text_size=10.0)
 SourceCode.draw(xy=(11, 86), width=88, code=k8s_yaml, styles=code_styles, code_lang="yaml", show_linenum=True)
 save()
 ```
@@ -922,7 +922,7 @@ rectangle(
     r=1.5,
     style=Styles.RedFlat,
     text="Legacy RDBMS\n(Bottleneck)",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 
 bubblespeech(
@@ -1027,7 +1027,7 @@ def handle_event(ctx):
     ctx.metrics.inc("migrated")
     return ctx.forward()"""
 
-code_styles = SourceCodeStyles.get("dark", font_lang="en", textsize=9.0)
+code_styles = SourceCodeStyles.get("dark", font_lang="en", text_size=9.0)
 SourceCode.draw(xy=(66, 45), width=48, code=snippet, styles=code_styles, code_lang="python", show_linenum=True)
 
 save()

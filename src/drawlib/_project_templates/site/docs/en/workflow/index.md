@@ -13,9 +13,9 @@ from drawlib.utils import connect, service_card
 setup(width=100, height=40)
 
 # Process stages
-circle((18, 20), radius=9, style=Styles.PrimaryFlat, text="Start", textstyle=Styles.WhiteBold)
+circle((18, 20), radius=9, style=Styles.PrimaryFlat, text="Start", text_style=Styles.WhiteBold)
 service_card((50, 20), title="Process", subtitle="Worker Job", width=26, height=16, style=Styles.AccentFlat)
-circle((82, 20), radius=9, style=Styles.SecondaryFlat, text="Finish", textstyle=Styles.WhiteBold)
+circle((82, 20), radius=9, style=Styles.SecondaryFlat, text="Finish", text_style=Styles.WhiteBold)
 
 # Transitions
 connect((27, 20), (37, 20))

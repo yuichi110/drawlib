@@ -460,7 +460,7 @@ class Table:
                         shape_fill_color=bg_color,
                     ),
                     text=text,
-                    textstyle=text_style,
+                    text_style=text_style,
                 )
 
     def _draw_border_lines(  # noqa: C901

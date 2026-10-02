@@ -85,7 +85,7 @@ class Junction:
         start_side: Side = "auto",
         end_side: Side = "auto",
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
         padding: PaddingType = 0.0,
     ) -> FlowEdge:
         """Connect this junction to a target element.
@@ -98,7 +98,7 @@ class Junction:
             start_side: Exit side on junction.
             end_side: Entry side on target.
             style: Optional Style object for the line.
-            textstyle: Optional Style object for label text.
+            text_style: Optional Style object for label text.
             padding: Gap distance between elements and line ends.
 
         Returns:
@@ -113,7 +113,7 @@ class Junction:
             start_side=start_side,
             end_side=end_side,
             style=style,
-            textstyle=textstyle,
+            text_style=text_style,
             padding=padding,
         )
         if self._diagram is not None:

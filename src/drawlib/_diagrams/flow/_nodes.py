@@ -30,8 +30,7 @@ class Process(FlowNode):
         r: float = 0.0,
         angle: float = 0.0,
         style: Style | None = None,
-        textstyle: Style | None = None,
-        textsize: float | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize Process.
 
@@ -42,8 +41,7 @@ class Process(FlowNode):
             r: Corner radius for rounded corners. Defaults to 0.0.
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
-            textstyle: Optional Style for label text.
-            textsize: Font size shortcut.
+            text_style: Optional Style for label text.
         """
         super().__init__(
             text=text,
@@ -52,8 +50,7 @@ class Process(FlowNode):
             r=r,
             angle=angle,
             style=style,
-            textstyle=textstyle,
-            textsize=textsize,
+            text_style=text_style,
             shape_type="process",
         )
 
@@ -68,8 +65,7 @@ class Decision(FlowNode):
         height: float = 14.0,
         angle: float = 0.0,
         style: Style | None = None,
-        textstyle: Style | None = None,
-        textsize: float | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize Decision.
 
@@ -79,8 +75,7 @@ class Decision(FlowNode):
             height: Height of the diamond. Defaults to 14.0.
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
-            textstyle: Optional Style for label text.
-            textsize: Font size shortcut.
+            text_style: Optional Style for label text.
         """
         super().__init__(
             text=text,
@@ -89,8 +84,7 @@ class Decision(FlowNode):
             r=0.0,
             angle=angle,
             style=style,
-            textstyle=textstyle,
-            textsize=textsize,
+            text_style=text_style,
             shape_type="decision",
         )
 
@@ -106,8 +100,7 @@ class Start(FlowNode):
         r: float = 5.0,
         angle: float = 0.0,
         style: Style | None = None,
-        textstyle: Style | None = None,
-        textsize: float | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize Start.
 
@@ -118,8 +111,7 @@ class Start(FlowNode):
             r: Corner radius. Defaults to 5.0 (half height for full stadium curve).
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
-            textstyle: Optional Style for label text.
-            textsize: Font size shortcut.
+            text_style: Optional Style for label text.
         """
         super().__init__(
             text=text,
@@ -128,8 +120,7 @@ class Start(FlowNode):
             r=r,
             angle=angle,
             style=style,
-            textstyle=textstyle,
-            textsize=textsize,
+            text_style=text_style,
             shape_type="start",
         )
 
@@ -145,8 +136,7 @@ class End(FlowNode):
         r: float = 5.0,
         angle: float = 0.0,
         style: Style | None = None,
-        textstyle: Style | None = None,
-        textsize: float | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize End.
 
@@ -157,8 +147,7 @@ class End(FlowNode):
             r: Corner radius. Defaults to 5.0 (half height for full stadium curve).
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
-            textstyle: Optional Style for label text.
-            textsize: Font size shortcut.
+            text_style: Optional Style for label text.
         """
         super().__init__(
             text=text,
@@ -167,8 +156,7 @@ class End(FlowNode):
             r=r,
             angle=angle,
             style=style,
-            textstyle=textstyle,
-            textsize=textsize,
+            text_style=text_style,
             shape_type="end",
         )
 
@@ -183,8 +171,7 @@ class Data(FlowNode):
         height: float = 12.0,
         angle: float = 0.0,
         style: Style | None = None,
-        textstyle: Style | None = None,
-        textsize: float | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize Data.
 
@@ -194,8 +181,7 @@ class Data(FlowNode):
             height: Height of the parallelogram. Defaults to 12.0.
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
-            textstyle: Optional Style for label text.
-            textsize: Font size shortcut.
+            text_style: Optional Style for label text.
         """
         super().__init__(
             text=text,
@@ -204,7 +190,6 @@ class Data(FlowNode):
             r=0.0,
             angle=angle,
             style=style,
-            textstyle=textstyle,
-            textsize=textsize,
+            text_style=text_style,
             shape_type="data",
         )

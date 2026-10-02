@@ -30,7 +30,7 @@ pipeline = ChevronProcess(
     corner_angle=60.0,
     spacing=1.8,
     flat_left_end=True,
-    default_textstyle=Styles.WhiteBold.patch(text_size=10),
+    default_text_style=Styles.WhiteBold.patch(text_size=10),
     default_description_style=Styles.White.patch(text_size=8),
 )
 
@@ -62,9 +62,9 @@ table = Table(
 
 table.set_style_cell_evenodd(
     even_color=Colors.White,
-    even_textstyle=Styles.Primary.patch(text_size=9),
+    even_text_style=Styles.Primary.patch(text_size=9),
     odd_color=Colors.Light,
-    odd_textstyle=Styles.Primary.patch(text_size=9),
+    odd_text_style=Styles.Primary.patch(text_size=9),
 )
 
 table.draw(

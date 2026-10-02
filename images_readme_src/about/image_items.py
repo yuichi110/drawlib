@@ -89,7 +89,7 @@ def draw_shape():
     text((x1, y), "Shape", style=title_style)
     circle((30, y), radius=w / 2, style=Styles.Primary)
     ellipse((40, y), width=w / 2, height=w, style=Styles.RedDashed)
-    rectangle((50, y), width=7, height=7, text="rect", style=Styles.Primary, textstyle=Styles.White)
+    rectangle((50, y), width=7, height=7, text="rect", style=Styles.Primary, text_style=Styles.White)
     rectangle((60, y), width=7, height=4, angle=315, r=2, style=Styles.RedSolid)
     star((70, y), 5, 4, 2, style=Styles.Primary)
     arrow((80, y - 4), (80, y + 4), tail_width=3, head_width=6, head_length=3, style=Styles.RedFlat)

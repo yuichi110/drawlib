@@ -162,9 +162,9 @@ from drawlib.styles import Styles
 setup(width=140, height=60, background_color=(248, 249, 250))
 
 # Service nodes
-rectangle((30, 30), width=32, height=18, style=Styles.AccentFlat, text="Web Frontend", textstyle=Styles.WhiteBold)
-rectangle((75, 30), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", textstyle=Styles.WhiteBold)
-rectangle((120, 30), width=32, height=18, style=Styles.SecondaryFlat, text="Auth Service", textstyle=Styles.WhiteBold)
+rectangle((30, 30), width=32, height=18, style=Styles.AccentFlat, text="Web Frontend", text_style=Styles.WhiteBold)
+rectangle((75, 30), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
+rectangle((120, 30), width=32, height=18, style=Styles.SecondaryFlat, text="Auth Service", text_style=Styles.WhiteBold)
 
 # Connecting lines with arrowheads
 line((46, 30), (59, 30), arrowhead="->", style=Styles.PrimaryBold)
@@ -193,7 +193,7 @@ rectangle(
     r=11,
     style=Styles.SuccessFlat,
     text="DEPLOYED - v2.4.0",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 save()
 ```

@@ -50,10 +50,10 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # Layers
-rectangle((60, 50), width=110, height=11, style=Styles.PrimaryFlat, text="Layer 4: Document Builder & CLI (HTML, Markdown, PDF)", textstyle=Styles.WhiteBold)
-rectangle((60, 37), width=110, height=11, style=Styles.AccentFlat, text="Layer 3: High-Level Visualizations (Diagrams, Charts, SmartArts)", textstyle=Styles.WhiteBold)
-rectangle((60, 24), width=110, height=11, style=Styles.SecondaryFlat, text="Layer 2: Drawing Primitives (Shapes, Lines, Text, Icons, Images)", textstyle=Styles.WhiteBold)
-rectangle((60, 11), width=110, height=11, style=Styles.SuccessFlat, text="Layer 1: Core Engine (Canvas, Coordinates, Theming, Fonts)", textstyle=Styles.WhiteBold)
+rectangle((60, 50), width=110, height=11, style=Styles.PrimaryFlat, text="Layer 4: Document Builder & CLI (HTML, Markdown, PDF)", text_style=Styles.WhiteBold)
+rectangle((60, 37), width=110, height=11, style=Styles.AccentFlat, text="Layer 3: High-Level Visualizations (Diagrams, Charts, SmartArts)", text_style=Styles.WhiteBold)
+rectangle((60, 24), width=110, height=11, style=Styles.SecondaryFlat, text="Layer 2: Drawing Primitives (Shapes, Lines, Text, Icons, Images)", text_style=Styles.WhiteBold)
+rectangle((60, 11), width=110, height=11, style=Styles.SuccessFlat, text="Layer 1: Core Engine (Canvas, Coordinates, Theming, Fonts)", text_style=Styles.WhiteBold)
 ```
 
 1. **Layer 1: Core Engine (`drawlib.canvas`, `drawlib.styles`)**  

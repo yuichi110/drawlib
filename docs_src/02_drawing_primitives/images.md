@@ -107,7 +107,7 @@ from drawlib.shapes import circle
 from drawlib.styles import Styles
 
 setup(width=40, height=40)
-circle((20, 20), radius=15, style=Styles.AccentFlat, text="Pod", textstyle=Styles.WhiteBold.patch(text_size=36))
+circle((20, 20), radius=15, style=Styles.AccentFlat, text="Pod", text_style=Styles.WhiteBold.patch(text_size=36))
 save()
 """
 

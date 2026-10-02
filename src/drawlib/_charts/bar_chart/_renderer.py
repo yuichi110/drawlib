@@ -106,7 +106,7 @@ def draw_bar_chart(chart: BarChart, xy: tuple[float, float]) -> None:
         position=chart.legend_position,
         plot_bounds=plot_bounds,
         chart_bounds=chart_bounds,
-        textstyle=chart.legend_style,
+        text_style=chart.legend_style,
     )
 
     # 6. Gather and scale data

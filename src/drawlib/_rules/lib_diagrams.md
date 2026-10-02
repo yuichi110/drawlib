@@ -295,8 +295,7 @@ All flow nodes inherit from `FlowNode` and accept standard geometric customizati
 - `width` / `height`: Boundary dimensions in canvas units.
 - `r`: Corner rounding radius.
 - `style`: Fill color, border stroke color, line width, and line style.
-- `textstyle`: Typography style for the centered text.
-- `textsize`: Direct font size shortcut.
+- `text_style`: Typography style for the centered text.
 
 ### 4.4 Swimlane Architecture & Global Coordinates
 In `FlowDiagram`, swimlanes provide a structured visual background and column/row headers without trapping nodes inside isolated local coordinates.  

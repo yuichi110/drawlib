@@ -291,7 +291,7 @@ class MindMapNode:
                 r=r_val,
                 style=node_style,
                 text=self._text,
-                textstyle=text_style,
+                text_style=text_style,
             )
         elif shape == "oval":
             ellipse(
@@ -300,7 +300,7 @@ class MindMapNode:
                 height=bh,
                 style=node_style,
                 text=self._text,
-                textstyle=text_style,
+                text_style=text_style,
             )
         else:  # shape == "none" (transparent box)
             transparent_style = node_style.patch(
@@ -315,7 +315,7 @@ class MindMapNode:
                 height=bh,
                 style=transparent_style,
                 text=self._text,
-                textstyle=text_style,
+                text_style=text_style,
             )
 
         if not self._children:

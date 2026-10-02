@@ -78,8 +78,8 @@ setup(width=120, height=50)
 rectangle((60, 25), width=108, height=38, style=Styles.MutedDashed)
 
 # 2. Main Services
-rectangle((30, 25), width=32, height=18, style=Styles.AccentFlat, text="Client App", textstyle=Styles.WhiteBold)
-rectangle((90, 25), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", textstyle=Styles.WhiteBold)
+rectangle((30, 25), width=32, height=18, style=Styles.AccentFlat, text="Client App", text_style=Styles.WhiteBold)
+rectangle((90, 25), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
 
 # 3. Connection
 line((46, 25), (74, 25), arrowhead="->", style=Styles.PrimaryBold)
@@ -108,8 +108,8 @@ from drawlib.lines import line
 from drawlib.styles import Styles
 
 setup(width=100, height=40)
-rectangle((25, 20), width=30, height=18, style=Styles.PrimaryFlat, text="Publisher", textstyle=Styles.WhiteBold)
-rectangle((75, 20), width=30, height=18, style=Styles.SecondaryFlat, text="Consumer", textstyle=Styles.WhiteBold)
+rectangle((25, 20), width=30, height=18, style=Styles.PrimaryFlat, text="Publisher", text_style=Styles.WhiteBold)
+rectangle((75, 20), width=30, height=18, style=Styles.SecondaryFlat, text="Consumer", text_style=Styles.WhiteBold)
 line((40, 20), (60, 20), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```

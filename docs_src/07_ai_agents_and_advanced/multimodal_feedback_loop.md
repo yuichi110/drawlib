@@ -53,6 +53,6 @@ When performing a multimodal self-review, check off each item in this matrix:
 |---|---|---|
 | **Canvas Padding** | Outer nodes touching canvas perimeter | Increase canvas dimensions or add 10–15 units of margin (`setup(width=..., height=...)`). |
 | **Node Alignment** | Jagged, misaligned connection lines | Ensure horizontally aligned nodes share the exact same `y` coordinate. |
-| **Label Breathing Room** | Text touching card borders | Increase box `width` / `height` or adjust `textsize`. |
+| **Label Breathing Room** | Text touching card borders | Increase box `width` / `height` or adjust `text_size` via `text_style`. |
 | **Arrowhead Visibility** | Arrowhead clipped inside target node | Add `padding=1.5` or `padding=2.0` on connection edge calls. |
 | **Color Semantic Roles** | Confusing multi-color rainbow | Use 6-color semantic system: anchor around primary (`Styles.PrimaryFlat`), with neutral grouping (`Styles.MutedFlat`/`Styles.MutedDashed`), and functional roles (`Styles.SecondaryFlat`, `Styles.AccentFlat`, `Styles.SuccessFlat`, `Styles.DangerFlat`). |

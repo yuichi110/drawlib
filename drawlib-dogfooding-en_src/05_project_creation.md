@@ -36,7 +36,7 @@ ts_acc_body = Styles.Accent.patch(text_size=7.8, text_halign="left")
 
 # 1. Scaffold: drawlib init
 rectangle((23.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.MutedDashed)
-rectangle((23.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.SecondaryFlat, text="1. drawlib init", textstyle=header_ts)
+rectangle((23.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.SecondaryFlat, text="1. drawlib init", text_style=header_ts)
 
 phosphor.terminal_window(xy=(11.0, 31.0), width=5.0, style=Styles.Secondary)
 text((16.0, 31.0), text="-o report\nSynchronized name & path", style=ts_sec_body)
@@ -53,7 +53,7 @@ text((45.5, 27.5), text="Scaffold", style=Styles.SecondaryBold, size=8.5)
 
 # 2. Source Directory: report_src/ (Source of Truth)
 rectangle((67.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
-rectangle((67.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="2. report_src/ (Source)", textstyle=header_ts)
+rectangle((67.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="2. report_src/ (Source)", text_style=header_ts)
 
 phosphor.file_text(xy=(55.0, 31.0), width=5.0, style=Styles.Primary)
 text((60.0, 31.0), text="00_cover.md, 01_*.md\nMarkdown + embedded code", style=ts_body)
@@ -70,7 +70,7 @@ text((89.5, 27.5), text="build.sh", style=Styles.PrimaryBold, size=8.5)
 
 # 3. Deliverable: report.pdf
 rectangle((111.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.AccentOutline)
-rectangle((111.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="3. report.pdf (Output)", textstyle=header_ts)
+rectangle((111.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="3. report.pdf (Output)", text_style=header_ts)
 
 phosphor.file_pdf(xy=(99.0, 31.0), width=5.0, style=Styles.Accent)
 text((104.0, 31.0), text="A4 Print Optimization\nChromium rendering engine", style=ts_acc_body)

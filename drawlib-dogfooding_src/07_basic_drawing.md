@@ -23,15 +23,15 @@ from drawlib.text import text
 setup(width=105, height=42)
 
 # クライアントノード
-rectangle((20, 21), width=24, height=18, r=1.5, style=Styles.SecondaryFlat, text="Client App", textstyle=Styles.WhiteBold)
+rectangle((20, 21), width=24, height=18, r=1.5, style=Styles.SecondaryFlat, text="Client App", text_style=Styles.WhiteBold)
 phosphor.device_mobile(xy=(20, 34), width=6, style=Styles.Secondary)
 
 # API Gateway ノード
-rectangle((55, 21), width=26, height=20, r=1.5, style=Styles.PrimaryFlat, text="API Gateway", textstyle=Styles.WhiteBold)
+rectangle((55, 21), width=26, height=20, r=1.5, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
 phosphor.cloud(xy=(55, 35), width=6, style=Styles.Primary)
 
 # データベースノード
-circle((88, 21), radius=9, style=Styles.AccentFlat, text="DB Cluster", textstyle=Styles.WhiteBold)
+circle((88, 21), radius=9, style=Styles.AccentFlat, text="DB Cluster", text_style=Styles.WhiteBold)
 phosphor.database(xy=(88, 34), width=6, style=Styles.Accent)
 
 # 接続線と矢印

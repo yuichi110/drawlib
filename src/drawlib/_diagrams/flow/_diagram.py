@@ -133,8 +133,7 @@ class FlowDiagram:
         width: float | None = None,
         height: float | None = None,
         style: Style | None = None,
-        textstyle: Style | None = None,
-        textsize: float | None = None,
+        text_style: Style | None = None,
         header_size: float = 6.0,
         header_style: Style | None = None,
     ) -> Lane:
@@ -146,8 +145,7 @@ class FlowDiagram:
             width: Width of the lane (alternative alias when lane_orientation is vertical).
             height: Height of the lane (alternative alias when lane_orientation is horizontal).
             style: Style for the lane background fill and boundary stroke.
-            textstyle: Style for the header title text.
-            textsize: Font size shortcut for header text.
+            text_style: Style for the header title text.
             header_size: Size of the header area (height for vertical, width for horizontal).
             header_style: Optional specific Style for the header card background.
 
@@ -165,8 +163,7 @@ class FlowDiagram:
             title=title,
             size=resolved_size,
             style=style,
-            textstyle=textstyle,
-            textsize=textsize,
+            text_style=text_style,
             header_size=header_size,
             header_style=header_style,
         )
@@ -183,7 +180,7 @@ class FlowDiagram:
         start_side: Side = "auto",
         end_side: Side = "auto",
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
         padding: PaddingType = 0.0,
     ) -> FlowEdge:
         """Create and register an edge between two connectables.
@@ -197,7 +194,7 @@ class FlowDiagram:
             start_side: Attachment side on start node ("left", "right", "top", "bottom", "auto").
             end_side: Attachment side on end node ("left", "right", "top", "bottom", "auto").
             style: Optional Style object for the line.
-            textstyle: Optional Style object for label text.
+            text_style: Optional Style object for label text.
             padding: Gap distance between nodes and line ends.
 
         Returns:
@@ -212,7 +209,7 @@ class FlowDiagram:
             start_side=start_side,
             end_side=end_side,
             style=style,
-            textstyle=textstyle,
+            text_style=text_style,
             padding=padding,
         )
         self.add_edge(edge)

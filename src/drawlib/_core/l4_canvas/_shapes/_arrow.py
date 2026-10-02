@@ -63,8 +63,7 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         *,
         style: Style,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a straight arrow between two coordinates.
 
@@ -77,12 +76,11 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head: Arrow head type ("->", "<-", "<->").
             style: Style object.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text or None.
+            text_style: Style object for text or None.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         x1, y1 = xy1
@@ -131,8 +129,7 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
     @validate_call
@@ -214,7 +211,7 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             parallel_xys1.append(ahp4)
 
         parallel_xys1.extend(parallel_xys2)
-        self.polygon(xys=parallel_xys1, style=style, text="", textstyle=None)
+        self.polygon(xys=parallel_xys1, style=style, text="", text_style=None)
 
     @validate_call
     def arrow_arc(

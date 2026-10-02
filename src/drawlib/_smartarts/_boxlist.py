@@ -198,5 +198,5 @@ class BoxList:
             height=box_height,
             style=style,
             text=text,
-            textstyle=text_style,
+            text_style=text_style,
         )

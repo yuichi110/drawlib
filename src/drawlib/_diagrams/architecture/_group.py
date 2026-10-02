@@ -32,7 +32,7 @@ class NodeGroup:
         height: float | None = None,
         padding: float = 5.0,
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize NodeGroup.
 
@@ -42,14 +42,14 @@ class NodeGroup:
             height: Optional fixed height. If None, auto-computed from members + padding.
             padding: Padding around member components when auto-calculating bounds.
             style: Style object for the boundary box (border, background color).
-            textstyle: Style object for the title text.
+            text_style: Style object for the title text.
         """
         self.title = title
         self.width = float(width) if width is not None else None
         self.height = float(height) if height is not None else None
         self.padding = float(padding)
         self.style = style
-        self.textstyle = textstyle
+        self.text_style = text_style
 
         self._items: list[tuple[DiagramItem, tuple[float, float]]] = []
         self._local_xy: tuple[float, float] = (0.0, 0.0)

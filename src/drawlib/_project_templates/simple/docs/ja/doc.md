@@ -15,8 +15,8 @@ from drawlib.styles import Styles
 setup(width=100, height=45)
 
 # 基本図形描画関数を使用したサービスノード
-rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="クライアント", textstyle=Styles.WhiteBold)
-rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="バックエンド API", textstyle=Styles.WhiteBold)
+rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="クライアント", text_style=Styles.WhiteBold)
+rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="バックエンド API", text_style=Styles.WhiteBold)
 
 # 矢印付き接続線
 line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)

@@ -14,8 +14,7 @@ All shape primitives share consistent keyword arguments:
 | `xy` | `tuple[float, float]` | *Required* | Coordinate anchor point `(x, y)` (geometric center for most shapes). |
 | `style` | `Style` | *Required* | Visual style defining fill color, border line style, and border width. |
 | `text` | `str` | `""` | Embedded text label centered inside the shape. |
-| `textstyle` | `Style` | `None` | Text styling (color, font, weight). Defaults to active theme text style. |
-| `textsize` | `float` | `None` | Font size of the embedded label in points. |
+| `text_style` | `Style` | `None` | Text styling (color, font, weight). Defaults to active theme text style. |
 | `angle` | `float` | `0.0` | Rotation angle in degrees (counter-clockwise). |
 
 ---
@@ -33,16 +32,16 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # Row 1: Circle-like & Radial
-circle((20, 45), radius=10, style=Styles.PrimaryFlat, text="circle", textstyle=Styles.WhiteBold)
-donuts((50, 45), radius=10, width=4, style=Styles.AccentFlat, text="donuts", textstyle=Styles.WhiteBold)
-regularpolygon((80, 45), radius=10, num_vertex=6, style=Styles.SecondaryFlat, text="hexagon", textstyle=Styles.WhiteBold)
+circle((20, 45), radius=10, style=Styles.PrimaryFlat, text="circle", text_style=Styles.WhiteBold)
+donuts((50, 45), radius=10, width=4, style=Styles.AccentFlat, text="donuts", text_style=Styles.WhiteBold)
+regularpolygon((80, 45), radius=10, num_vertex=6, style=Styles.SecondaryFlat, text="hexagon", text_style=Styles.WhiteBold)
 star((105, 45), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.DangerFlat)
 
 # Row 2: Rectangles & Polygons
-rectangle((20, 18), width=24, height=14, r=2, style=Styles.PrimaryFlat, text="rounded", textstyle=Styles.WhiteBold)
-rhombus((50, 18), width=22, height=16, style=Styles.AccentFlat, text="rhombus", textstyle=Styles.WhiteBold)
-trapezoid((70, 11), height=14, bottomedge_width=22, topedge_width=12, style=Styles.SecondaryFlat, text="trapezoid", textstyle=Styles.WhiteBold)
-triangle((105, 18), width=18, height=14, style=Styles.SuccessFlat, text="tri", textstyle=Styles.WhiteBold)
+rectangle((20, 18), width=24, height=14, r=2, style=Styles.PrimaryFlat, text="rounded", text_style=Styles.WhiteBold)
+rhombus((50, 18), width=22, height=16, style=Styles.AccentFlat, text="rhombus", text_style=Styles.WhiteBold)
+trapezoid((70, 11), height=14, bottomedge_width=22, topedge_width=12, style=Styles.SecondaryFlat, text="trapezoid", text_style=Styles.WhiteBold)
+triangle((105, 18), width=18, height=14, style=Styles.SuccessFlat, text="tri", text_style=Styles.WhiteBold)
 
 save()
 ```
@@ -60,9 +59,9 @@ from drawlib.styles import Styles
 
 setup(width=110, height=45)
 
-circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text="circle", textstyle=Styles.WhiteBold)
-donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text="donuts", textstyle=Styles.WhiteBold)
-ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text="ellipse", textstyle=Styles.WhiteBold)
+circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text="circle", text_style=Styles.WhiteBold)
+donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text="donuts", text_style=Styles.WhiteBold)
+ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text="ellipse", text_style=Styles.WhiteBold)
 
 save()
 ```
@@ -89,7 +88,7 @@ from drawlib.styles import Styles
 
 setup(width=100, height=50)
 
-rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text="Service Card", textstyle=Styles.WhiteBold)
+rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text="Service Card", text_style=Styles.WhiteBold)
 
 save()
 ```
@@ -120,7 +119,7 @@ shape(
     path_points=[(0, 0), (20, 0), (30, 15), (10, 25), (-5, 10)],
     style=Styles.PrimaryFlat,
     text="Custom Path",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 
 save()

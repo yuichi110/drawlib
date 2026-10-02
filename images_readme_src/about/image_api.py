@@ -14,8 +14,8 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
-textstyle_bold = Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
-shapetextstyle_bold = Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+text_style_bold = Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+shapetext_style_bold = Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
 setup(width=100, height=60, color=Colors.Canvas)
 
 
@@ -27,7 +27,7 @@ def bottom():
         r=2,
         style=Styles.MutedOutline,
         text="Canvas and coordinate system, theme etc.",
-        textstyle=shapetextstyle_bold,
+        text_style=shapetext_style_bold,
     )
 
 
@@ -42,7 +42,7 @@ def middle(x, width, name, functions, style_items):
         ),
     )
     tx = x + width / 2
-    text((tx, 42), name, style=textstyle_bold)
+    text((tx, 42), name, style=text_style_bold)
 
     for i, function in enumerate(functions):
         text(
@@ -69,7 +69,7 @@ def top():
         r=2,
         style=Styles.MutedOutline,
         text="Advanced topics, handle many files etc.",
-        textstyle=shapetextstyle_bold,
+        text_style=shapetext_style_bold,
     )
 
 

@@ -35,8 +35,8 @@ setup(width=100, height=50)
 rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
 
 # Step 4: Draw main entities and connectors
-circle((25, 25), radius=12, style=Styles.AccentFlat, text="Client", textstyle=Styles.WhiteBold)
-rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", textstyle=Styles.WhiteBold)
+circle((25, 25), radius=12, style=Styles.AccentFlat, text="Client", text_style=Styles.WhiteBold)
+rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
 
 # Connection line with arrowhead
 line((37, 25), (63, 25), arrowhead="->", style=Styles.PrimaryBold)
@@ -86,8 +86,8 @@ from drawlib.styles import Styles
 setup(width=100, height=50)
 
 rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
-circle((25, 25), radius=12, style=Styles.AccentFlat, text="Client", textstyle=Styles.WhiteBold)
-rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", textstyle=Styles.WhiteBold)
+circle((25, 25), radius=12, style=Styles.AccentFlat, text="Client", text_style=Styles.WhiteBold)
+rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
 line((37, 25), (63, 25), arrowhead="->", style=Styles.PrimaryBold)
 text((50, 30), "REST API", style=Styles.PrimaryBold)
 ```
@@ -105,8 +105,8 @@ from drawlib.styles import Styles
 setup(width=100, height=50)
 
 rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
-circle((25, 25), radius=12, style=Styles.AccentFlat, text="Client", textstyle=Styles.WhiteBold)
-rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", textstyle=Styles.WhiteBold)
+circle((25, 25), radius=12, style=Styles.AccentFlat, text="Client", text_style=Styles.WhiteBold)
+rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
 line((37, 25), (63, 25), arrowhead="->", style=Styles.PrimaryBold)
 text((50, 30), "REST API", style=Styles.PrimaryBold)
 ```

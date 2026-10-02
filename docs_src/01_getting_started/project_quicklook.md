@@ -17,14 +17,14 @@ from drawlib.styles import Styles
 setup(width=120, height=45)
 
 # Source folder
-rectangle((24, 22.5), width=32, height=24, style=Styles.PrimaryFlat, text="Source of Truth\n\ndocs_src/\n(Markdown + Code)", textstyle=Styles.WhiteBold)
+rectangle((24, 22.5), width=32, height=24, style=Styles.PrimaryFlat, text="Source of Truth\n\ndocs_src/\n(Markdown + Code)", text_style=Styles.WhiteBold)
 
 # Build engine
-rectangle((60, 22.5), width=24, height=16, style=Styles.AccentFlat, text="drawlib\nbuild", textstyle=Styles.WhiteBold)
+rectangle((60, 22.5), width=24, height=16, style=Styles.AccentFlat, text="drawlib\nbuild", text_style=Styles.WhiteBold)
 
 # Outputs
-rectangle((98, 31), width=28, height=12, style=Styles.SuccessFlat, text="docs_html/ (Site)", textstyle=Styles.WhiteBold)
-rectangle((98, 14), width=28, height=12, style=Styles.SecondaryFlat, text="docs/ (GitHub MD)", textstyle=Styles.WhiteBold)
+rectangle((98, 31), width=28, height=12, style=Styles.SuccessFlat, text="docs_html/ (Site)", text_style=Styles.WhiteBold)
+rectangle((98, 14), width=28, height=12, style=Styles.SecondaryFlat, text="docs/ (GitHub MD)", text_style=Styles.WhiteBold)
 
 # Lines
 line((40, 22.5), (48, 22.5), arrowhead="->", style=Styles.PrimaryBold)

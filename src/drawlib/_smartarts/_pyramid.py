@@ -207,7 +207,7 @@ class Pyramid:
                     height=item_height,
                     style=style,
                     text=text,
-                    textstyle=text_style,
+                    text_style=text_style,
                 )
                 continue
 
@@ -223,7 +223,7 @@ class Pyramid:
                 topedge_width=top_width,
                 style=style,
                 text=text,
-                textstyle=text_style,
+                text_style=text_style,
             )
             current_height += item_height + margins[i]
 
@@ -257,7 +257,7 @@ class Pyramid:
                     height=item_height,
                     style=style,
                     text=text,
-                    textstyle=text_style,
+                    text_style=text_style,
                     angle=180,
                 )
                 continue
@@ -275,7 +275,7 @@ class Pyramid:
                 topedge_width=bottom_width,
                 style=style,
                 text=text,
-                textstyle=text_style,
+                text_style=text_style,
             )
             current_height += item_height + margins[i]
 
@@ -309,7 +309,7 @@ class Pyramid:
                     height=item_height,
                     style=style,
                     text=text,
-                    textstyle=text_style,
+                    text_style=text_style,
                     angle=270,
                 )
                 continue
@@ -327,7 +327,7 @@ class Pyramid:
                 topedge_width=top_width,
                 style=style,
                 text=text,
-                textstyle=text_style,
+                text_style=text_style,
                 angle=270,
             )
             current_height += item_height + margins[i]
@@ -362,7 +362,7 @@ class Pyramid:
                     height=item_height,
                     style=style,
                     text=text,
-                    textstyle=text_style,
+                    text_style=text_style,
                     angle=90,
                 )
                 continue
@@ -380,7 +380,7 @@ class Pyramid:
                 topedge_width=top_width,
                 style=style,
                 text=text,
-                textstyle=text_style,
+                text_style=text_style,
                 angle=90,
             )
             current_height += item_height + margins[i]

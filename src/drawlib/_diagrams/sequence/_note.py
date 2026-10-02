@@ -31,7 +31,7 @@ class Note:
         over: list[Participant] | None = None,
         pos: NotePosition = "right",
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize Note.
 
@@ -41,14 +41,14 @@ class Note:
             over: List of participants to span note across.
             pos: Position relative to lifeline ("left", "right", "over"). Defaults to "right".
             style: Style for the note background card.
-            textstyle: Style for the note text.
+            text_style: Style for the note text.
         """
         self.text = text
         self.on = on
         self.over = list(over) if over is not None else None
         self.pos = pos
         self.style = style
-        self.textstyle = textstyle
+        self.text_style = text_style
         self._diagram: SequenceDiagram | None = None
 
     def set_text(self, text: str) -> Note:
@@ -75,14 +75,14 @@ class Note:
         self.style = style
         return self
 
-    def set_textstyle(self, textstyle: Style) -> Note:
+    def set_text_style(self, text_style: Style) -> Note:
         """Set text style.
 
         Args:
-            textstyle: Style object for text.
+            text_style: Style object for text.
 
         Returns:
             Note: self for method chaining.
         """
-        self.textstyle = textstyle
+        self.text_style = text_style
         return self

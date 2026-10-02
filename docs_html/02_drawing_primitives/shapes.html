@@ -337,16 +337,10 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <td style="text-align:left">Embedded text label centered inside the shape.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>textstyle</code></td>
+<td style="text-align:left"><code>text_style</code></td>
 <td style="text-align:left"><code>Style</code></td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">Text styling (color, font, weight). Defaults to active theme text style.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>textsize</code></td>
-<td style="text-align:left"><code>float</code></td>
-<td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Font size of the embedded label in points.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>angle</code></td>
@@ -371,9 +365,9 @@ from drawlib.styles import Styles
 
 setup(width=110, height=45)
 
-circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text=&quot;circle&quot;, textstyle=Styles.WhiteBold)
-donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text=&quot;donuts&quot;, textstyle=Styles.WhiteBold)
-ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text=&quot;ellipse&quot;, textstyle=Styles.WhiteBold)
+circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text=&quot;circle&quot;, text_style=Styles.WhiteBold)
+donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text=&quot;donuts&quot;, text_style=Styles.WhiteBold)
+ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text=&quot;ellipse&quot;, text_style=Styles.WhiteBold)
 
 save()
 </code></pre>
@@ -402,7 +396,7 @@ from drawlib.styles import Styles
 
 setup(width=100, height=50)
 
-rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text=&quot;Service Card&quot;, textstyle=Styles.WhiteBold)
+rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text=&quot;Service Card&quot;, text_style=Styles.WhiteBold)
 
 save()
 </code></pre>
@@ -433,7 +427,7 @@ shape(
     path_points=[(0, 0), (20, 0), (30, 15), (10, 25), (-5, 10)],
     style=Styles.PrimaryFlat,
     text=&quot;Custom Path&quot;,
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 
 save()

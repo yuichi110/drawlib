@@ -76,7 +76,7 @@ def render_legend(
     position: LegendPosition,
     plot_bounds: tuple[float, float, float, float],
     chart_bounds: tuple[float, float, float, float],
-    textstyle: Style | None = None,
+    text_style: Style | None = None,
 ) -> None:
     """Render the legend items onto the canvas.
 
@@ -86,7 +86,7 @@ def render_legend(
         position: Legend position.
         plot_bounds: (plot_min_x, plot_min_y, plot_max_x, plot_max_y).
         chart_bounds: (chart_min_x, chart_min_y, chart_max_x, chart_max_y).
-        textstyle: Optional custom text style for labels.
+        text_style: Optional custom text style for labels.
     """
     resolved = resolve_legend_position(position, len(names))
     if resolved == "none" or not names:
@@ -108,8 +108,8 @@ def render_legend(
         text_halign="left",
         text_valign="center",
     )
-    if textstyle is not None:
-        label_style = label_style.patch(textstyle)
+    if text_style is not None:
+        label_style = label_style.patch(text_style)
 
     if resolved == "top":
         legend_y = p_max_y + 2.0

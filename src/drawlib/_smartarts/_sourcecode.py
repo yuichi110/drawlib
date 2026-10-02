@@ -80,6 +80,7 @@ class SourceCodeStyles:
         type_: Style | None = None,
         type: Style | None = None,
         operator: Style | None = None,
+        text_size: float | None = None,
     ) -> SourceCodeStyles:
         """Create a new SourceCodeStyles instance with specified styles updated.
 
@@ -95,22 +96,45 @@ class SourceCodeStyles:
             type_: Optional updated type/class style.
             type: Alias for type_.
             operator: Optional updated operator style.
+            text_size: Optional updated font size applied to all text styles.
 
         Returns:
             SourceCodeStyles: A new instance with patched styles.
         """
         resolved_type = type if type is not None else type_
+        b_style = box_style.model_copy() if box_style is not None else self.box_style.model_copy()
+        ln_style = linenum_style.model_copy() if linenum_style is not None else self.linenum_style.model_copy()
+        d_style = default.model_copy() if default is not None else self.default.model_copy()
+        k_style = keyword.model_copy() if keyword is not None else self.keyword.model_copy()
+        s_style = string.model_copy() if string is not None else self.string.model_copy()
+        c_style = comment.model_copy() if comment is not None else self.comment.model_copy()
+        n_style = number.model_copy() if number is not None else self.number.model_copy()
+        f_style = function.model_copy() if function is not None else self.function.model_copy()
+        t_style = resolved_type.model_copy() if resolved_type is not None else self.type_.model_copy()
+        op_style = operator.model_copy() if operator is not None else self.operator.model_copy()
+
+        if text_size is not None:
+            ln_style = ln_style.patch(text_size=text_size)
+            d_style = d_style.patch(text_size=text_size)
+            k_style = k_style.patch(text_size=text_size)
+            s_style = s_style.patch(text_size=text_size)
+            c_style = c_style.patch(text_size=text_size)
+            n_style = n_style.patch(text_size=text_size)
+            f_style = f_style.patch(text_size=text_size)
+            t_style = t_style.patch(text_size=text_size)
+            op_style = op_style.patch(text_size=text_size)
+
         return SourceCodeStyles(
-            box_style=box_style.model_copy() if box_style is not None else self.box_style.model_copy(),
-            linenum_style=linenum_style.model_copy() if linenum_style is not None else self.linenum_style.model_copy(),
-            default=default.model_copy() if default is not None else self.default.model_copy(),
-            keyword=keyword.model_copy() if keyword is not None else self.keyword.model_copy(),
-            string=string.model_copy() if string is not None else self.string.model_copy(),
-            comment=comment.model_copy() if comment is not None else self.comment.model_copy(),
-            number=number.model_copy() if number is not None else self.number.model_copy(),
-            function=function.model_copy() if function is not None else self.function.model_copy(),
-            type_=resolved_type.model_copy() if resolved_type is not None else self.type_.model_copy(),
-            operator=operator.model_copy() if operator is not None else self.operator.model_copy(),
+            box_style=b_style,
+            linenum_style=ln_style,
+            default=d_style,
+            keyword=k_style,
+            string=s_style,
+            comment=c_style,
+            number=n_style,
+            function=f_style,
+            type_=t_style,
+            operator=op_style,
         )
 
     @classmethod
@@ -120,7 +144,7 @@ class SourceCodeStyles:
         font_lang: str = "en",
         *,
         font: FontSourceCode | FontFile | None = None,
-        textsize: float = 12.0,
+        text_size: float = 12.0,
     ) -> SourceCodeStyles:
         """Create a SourceCodeStyles instance based on theme and language.
 
@@ -128,7 +152,7 @@ class SourceCodeStyles:
             styles: Theme name ('default', 'monochrome', 'dark', 'monokai', 'google').
             font_lang: Natural language code ('en', 'ja', 'zh-cn', 'ko', etc.) for font selection.
             font: Optional font override. If None, font is resolved from font_lang.
-            textsize: Base font size for code and line numbers.
+            text_size: Base font size for code and line numbers.
 
         Returns:
             SourceCodeStyles: Preconfigured style model.
@@ -142,15 +166,15 @@ class SourceCodeStyles:
 
         theme = styles.lower().strip()
         if theme == "monochrome":
-            return cls._get_monochrome(resolved_font, textsize)
+            return cls._get_monochrome(resolved_font, text_size)
         if theme in {"dark", "monokai", "github-dark"}:
-            return cls._get_dark(resolved_font, textsize)
+            return cls._get_dark(resolved_font, text_size)
         if theme == "google":
-            return cls._get_google(resolved_font, textsize)
-        return cls._get_default(resolved_font, textsize)
+            return cls._get_google(resolved_font, text_size)
+        return cls._get_default(resolved_font, text_size)
 
     @classmethod
-    def _get_default(cls, font: FontBase | FontFile, textsize: float) -> SourceCodeStyles:
+    def _get_default(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
         return cls(
             box_style=Style(
                 shape_fill_color=(248, 250, 252),
@@ -160,70 +184,70 @@ class SourceCodeStyles:
             linenum_style=Style(
                 text_color=(148, 163, 184),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="right",
                 text_valign="center",
             ),
             default=Style(
                 text_color=(15, 23, 42),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             keyword=Style(
                 text_color=(37, 99, 235),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             string=Style(
                 text_color=(22, 163, 74),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             comment=Style(
                 text_color=(100, 116, 139),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             number=Style(
                 text_color=(217, 119, 6),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             function=Style(
                 text_color=(220, 38, 38),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             type_=Style(
                 text_color=(147, 51, 234),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             operator=Style(
                 text_color=(71, 85, 105),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
         )
 
     @classmethod
-    def _get_monochrome(cls, font: FontBase | FontFile, textsize: float) -> SourceCodeStyles:
+    def _get_monochrome(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
         return cls(
             box_style=Style(
                 shape_fill_color=(255, 255, 255),
@@ -233,70 +257,70 @@ class SourceCodeStyles:
             linenum_style=Style(
                 text_color=(150, 150, 150),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="right",
                 text_valign="center",
             ),
             default=Style(
                 text_color=(0, 0, 0),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             keyword=Style(
                 text_color=(0, 0, 0),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             string=Style(
                 text_color=(80, 80, 80),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             comment=Style(
                 text_color=(130, 130, 130),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             number=Style(
                 text_color=(60, 60, 60),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             function=Style(
                 text_color=(0, 0, 0),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             type_=Style(
                 text_color=(40, 40, 40),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             operator=Style(
                 text_color=(100, 100, 100),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
         )
 
     @classmethod
-    def _get_dark(cls, font: FontBase | FontFile, textsize: float) -> SourceCodeStyles:
+    def _get_dark(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
         return cls(
             box_style=Style(
                 shape_fill_color=(39, 40, 34),
@@ -306,70 +330,70 @@ class SourceCodeStyles:
             linenum_style=Style(
                 text_color=(120, 120, 120),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="right",
                 text_valign="center",
             ),
             default=Style(
                 text_color=(248, 248, 242),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             keyword=Style(
                 text_color=(249, 38, 114),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             string=Style(
                 text_color=(230, 219, 116),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             comment=Style(
                 text_color=(117, 113, 94),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             number=Style(
                 text_color=(174, 129, 255),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             function=Style(
                 text_color=(166, 226, 46),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             type_=Style(
                 text_color=(102, 217, 239),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             operator=Style(
                 text_color=(249, 38, 114),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
         )
 
     @classmethod
-    def _get_google(cls, font: FontBase | FontFile, textsize: float) -> SourceCodeStyles:
+    def _get_google(cls, font: FontBase | FontFile, text_size: float) -> SourceCodeStyles:
         return cls(
             box_style=Style(
                 shape_fill_color=(255, 255, 255),
@@ -379,63 +403,63 @@ class SourceCodeStyles:
             linenum_style=Style(
                 text_color=(128, 134, 139),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="right",
                 text_valign="center",
             ),
             default=Style(
                 text_color=(32, 33, 36),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             keyword=Style(
                 text_color=(26, 115, 232),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             string=Style(
                 text_color=(30, 142, 62),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             comment=Style(
                 text_color=(128, 134, 139),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             number=Style(
                 text_color=(249, 171, 0),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             function=Style(
                 text_color=(217, 48, 37),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             type_=Style(
                 text_color=(175, 56, 196),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
             operator=Style(
                 text_color=(95, 99, 104),
                 text_font=font,
-                text_size=textsize,
+                text_size=text_size,
                 text_halign="left",
                 text_valign="center",
             ),
@@ -706,7 +730,7 @@ def get_source_code_styles(
     font_lang: str = "en",
     *,
     font: FontSourceCode | FontFile | None = None,
-    textsize: float = 12.0,
+    text_size: float = 12.0,
 ) -> SourceCodeStyles:
     """Get SourceCodeStyles configured for a theme and language.
 
@@ -716,7 +740,7 @@ def get_source_code_styles(
         styles: Theme name ('default', 'monochrome', 'dark', 'monokai', 'google').
         font_lang: Natural language code ('en', 'ja', 'zh-cn', 'ko', etc.) for font selection.
         font: Optional font override. If None, font is resolved from font_lang.
-        textsize: Base font size for code and line numbers.
+        text_size: Base font size for code and line numbers.
 
     Returns:
         SourceCodeStyles: Configured style model.
@@ -725,5 +749,5 @@ def get_source_code_styles(
         styles=styles,
         font_lang=font_lang,
         font=font,
-        textsize=textsize,
+        text_size=text_size,
     )

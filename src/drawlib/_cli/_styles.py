@@ -275,7 +275,7 @@ def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> Non
         r=0.6,
         style=st_sample,
         text="Shape",
-        textstyle=Style(text_size=7.2, text_font=Font.SANSSERIF_BOLD, text_color=legend_text_color),
+        text_style=Style(text_size=7.2, text_font=Font.SANSSERIF_BOLD, text_color=legend_text_color),
     )
     text(
         (legend_cx - 21.0, legend_y),
@@ -339,7 +339,7 @@ def _draw_swatch(
                 shape_line_style="dashed",
             ),
             text="-",
-            textstyle=Style(
+            text_style=Style(
                 text_size=8,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=Color(210, 210, 210),

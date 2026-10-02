@@ -44,7 +44,7 @@ def font_icon(
     font_size = get_fontsize_from_charwidth(width)
 
     # convert Style to Style for text rendering
-    textstyle = Style(
+    text_style = Style(
         text_color=style_obj.icon_color,
         text_size=font_size,
         text_font=FontFile(file),
@@ -53,4 +53,4 @@ def font_icon(
     )
 
     # draw icon as text
-    text(xy=xy, text=code, angle=angle, style=textstyle)
+    text(xy=xy, text=code, angle=angle, style=text_style)

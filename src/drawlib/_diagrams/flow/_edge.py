@@ -35,7 +35,7 @@ class FlowEdge:
         start_side: Side = "auto",
         end_side: Side = "auto",
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
         padding: PaddingType = 0.0,
     ) -> None:
         """Initialize FlowEdge.
@@ -49,7 +49,7 @@ class FlowEdge:
             start_side: Attachment side on start element ("left", "right", "top", "bottom", "auto").
             end_side: Attachment side on end element ("left", "right", "top", "bottom", "auto").
             style: Style object for the line (color, width, dash style).
-            textstyle: Style object for the label text.
+            text_style: Style object for the label text.
             padding: Gap distance between elements and line ends (float or (start, end) tuple).
         """
         if arrow is None:
@@ -79,7 +79,7 @@ class FlowEdge:
         self.start_side = start_side
         self.end_side = end_side
         self.style = style
-        self.textstyle = textstyle
+        self.text_style = text_style
         self.padding = padding
         self._waypoints: list[tuple[float, float]] = []
         self._diagram: FlowDiagram | None = None

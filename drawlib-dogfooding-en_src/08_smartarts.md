@@ -24,7 +24,7 @@ pipeline = ChevronProcess(
     corner_angle=60.0,
     spacing=1.5,
     flat_left_end=True,
-    default_textstyle=Styles.WhiteBold,
+    default_text_style=Styles.WhiteBold,
     default_description_style=Styles.Muted,
 )
 pipeline.extend(

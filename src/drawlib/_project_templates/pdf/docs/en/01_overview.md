@@ -13,8 +13,8 @@ from drawlib.styles import Styles
 setup(width=100, height=45)
 
 # Standard shapes drawn with primitive functions
-rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="Client App", textstyle=Styles.WhiteBold)
-rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Cloud Backend", textstyle=Styles.WhiteBold)
+rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="Client App", text_style=Styles.WhiteBold)
+rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Cloud Backend", text_style=Styles.WhiteBold)
 
 # Connecting line with arrow
 line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)

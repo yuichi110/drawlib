@@ -39,7 +39,7 @@ arrow(
     head="->",  # "->", "<-", or "<->"
     style=Styles.PrimaryFlat,
     text="Data Ingestion",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 save()
 ```
@@ -75,7 +75,7 @@ chevron(
     corner_angle=60,  # Tip acute angle
     style=Styles.AccentFlat,
     text="Stage 1",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 save()
 ```

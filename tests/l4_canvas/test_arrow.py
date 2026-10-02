@@ -81,7 +81,7 @@ class TestCanvasArrow:
             head_length=10,
             text="Hello Drawlib",
             style=s_def,
-            textstyle=s_def.patch(text_flip=True),
+            text_style=s_def.patch(text_flip=True),
         )
         text((5, 50), "text (shift)", style=s_lbl)
         arrow(
@@ -93,7 +93,7 @@ class TestCanvasArrow:
             head="->",
             text="Hello Drawlib",
             style=s_def,
-            textstyle=s_def.patch(text_xy_shift=(2.5, 2.5)),
+            text_style=s_def.patch(text_xy_shift=(2.5, 2.5)),
         )
 
         # Other heads
@@ -130,7 +130,7 @@ class TestCanvasArrow:
             head="->",
             style=styles_default.Blue,
             text="Hello Drawlib",
-            textstyle=styles_default.White.patch(text_color=Colors.White),
+            text_style=styles_default.White.patch(text_color=Colors.White),
         )
         save(f"{OUTPUT_DIR}test_arrow.png")
 

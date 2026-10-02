@@ -25,8 +25,7 @@ class Lane:
         title: str,
         size: float,
         style: Style | None = None,
-        textstyle: Style | None = None,
-        textsize: float | None = None,
+        text_style: Style | None = None,
         header_size: float = 6.0,
         header_style: Style | None = None,
     ) -> None:
@@ -36,15 +35,13 @@ class Lane:
             title: Header title of the swimlane (e.g. role, department, actor).
             size: Width of the lane (vertical orientation) or height (horizontal orientation).
             style: Style for the lane background fill and boundary stroke.
-            textstyle: Style for the header title text.
-            textsize: Font size shortcut for header text.
+            text_style: Style for the header title text.
             header_size: Height of the header section in vertical mode (or width in horizontal mode). Defaults to 6.0.
             header_style: Optional specific Style for the header card background.
         """
         self.title = title
         self.size = float(size)
         self.style = style
-        self.textstyle = textstyle
-        self.textsize = float(textsize) if textsize is not None else None
+        self.text_style = text_style
         self.header_size = float(header_size)
         self.header_style = header_style

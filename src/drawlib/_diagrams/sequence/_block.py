@@ -31,7 +31,7 @@ class Block:
         label: str = "",
         diagram: SequenceDiagram | None = None,
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize Block.
 
@@ -40,13 +40,13 @@ class Block:
             label: Text description shown in the frame header.
             diagram: Parent SequenceDiagram instance.
             style: Optional Style object for the boundary box.
-            textstyle: Optional Style object for the label text.
+            text_style: Optional Style object for the label text.
         """
         self.block_type = block_type
         self.label = label
         self.diagram = diagram
         self.style = style
-        self.textstyle = textstyle
+        self.text_style = text_style
         self.start_event_idx: int = -1
         self.end_event_idx: int = -1
         self.involved_participants: set[Participant] = set()

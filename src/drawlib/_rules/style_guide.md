@@ -94,16 +94,16 @@ setup(width=140, height=70)
 rectangle((70, 35), width=124, height=52, style=Styles.MutedDashed)
 
 # 2. External Client Entrypoint (Accent)
-rectangle((24, 35), width=24, height=18, style=Styles.AccentFlat, text="Client App", textstyle=Styles.WhiteBold)
+rectangle((24, 35), width=24, height=18, style=Styles.AccentFlat, text="Client App", text_style=Styles.WhiteBold)
 
 # 3. Core Processing Service (Primary Anchor)
-rectangle((60, 35), width=26, height=18, style=Styles.PrimaryFlat, text="API Gateway", textstyle=Styles.WhiteBold)
+rectangle((60, 35), width=26, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
 
 # 4. Auxiliary Microservice (Secondary)
-rectangle((96, 45), width=24, height=14, style=Styles.SecondaryFlat, text="Auth Service", textstyle=Styles.WhiteBold)
+rectangle((96, 45), width=24, height=14, style=Styles.SecondaryFlat, text="Auth Service", text_style=Styles.WhiteBold)
 
 # 5. Verified Data Sink (Success)
-rectangle((96, 25), width=24, height=14, style=Styles.SuccessFlat, text="Audit Log", textstyle=Styles.WhiteBold)
+rectangle((96, 25), width=24, height=14, style=Styles.SuccessFlat, text="Audit Log", text_style=Styles.WhiteBold)
 
 # 6. Connectors with semantic line styles
 line((36, 35), (47, 35), arrowhead="->", style=Styles.PrimaryBold)
@@ -202,7 +202,7 @@ gap = (total_w - (margin_x * 2) - (box_w * n)) / (n - 1)
 
 for i in range(n):
     cx = margin_x + (box_w / 2) + i * (box_w + gap)
-    rectangle((cx, y), width=box_w, height=box_h, style=Styles.PrimaryFlat, text=f"Node {i+1}", textstyle=Styles.WhiteBold)
+    rectangle((cx, y), width=box_w, height=box_h, style=Styles.PrimaryFlat, text=f"Node {i+1}", text_style=Styles.WhiteBold)
 
 save()
 ```
@@ -238,9 +238,9 @@ gateway_xy = (65, 30)
 db_xy      = (105, 30)
 
 # 2. Render shapes using coordinate variables
-rectangle(client_xy,  width=box_w, height=box_h, style=Styles.AccentFlat,  text="Client", textstyle=Styles.WhiteBold)
-rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.PrimaryFlat, text="Gateway", textstyle=Styles.WhiteBold)
-rectangle(db_xy,      width=box_w, height=box_h, style=Styles.SecondaryFlat, text="Database", textstyle=Styles.WhiteBold)
+rectangle(client_xy,  width=box_w, height=box_h, style=Styles.AccentFlat,  text="Client", text_style=Styles.WhiteBold)
+rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.PrimaryFlat, text="Gateway", text_style=Styles.WhiteBold)
+rectangle(db_xy,      width=box_w, height=box_h, style=Styles.SecondaryFlat, text="Database", text_style=Styles.WhiteBold)
 
 # 3. Connect nodes by referencing the same coordinates
 line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrowhead="->", style=Styles.PrimaryBold)

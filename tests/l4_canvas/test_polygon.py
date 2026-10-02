@@ -88,7 +88,7 @@ class TestCanvasOriginalPolygon:
             60,
             text="hello",
             style=s_primary,
-            textstyle=s_red_text,
+            text_style=s_red_text,
         )
 
         # Corner angles
@@ -96,7 +96,7 @@ class TestCanvasOriginalPolygon:
         parallelogram((50, 50), 30, 20, 75, style=s_primary)
 
         # Rotation angles
-        parallelogram((50, 50), 30, 20, 60, angle=45, text="hello", style=s_primary, textstyle=s_red_text)
+        parallelogram((50, 50), 30, 20, 60, angle=45, text="hello", style=s_primary, text_style=s_red_text)
 
         save(f"{OUTPUT_DIR}test_parallelogram.png")
 
@@ -211,7 +211,7 @@ class TestCanvasOriginalPolygon:
             corner_angle=60,
             text="hello",
             style=s_primary,
-            textstyle=s_primary.patch(text_color=Colors.Red, text_size=28),
+            text_style=s_primary.patch(text_color=Colors.Red, text_size=28),
         )
 
         # Mirroring and angles

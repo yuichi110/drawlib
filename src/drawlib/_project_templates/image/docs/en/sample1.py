@@ -26,7 +26,7 @@ rectangle(
     height=18,
     style=Styles.PrimaryFlat,
     text="Client App",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 rectangle(
     (75, 22.5),
@@ -34,7 +34,7 @@ rectangle(
     height=18,
     style=Styles.AccentFlat,
     text="Backend API",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 
 # Connecting line with arrow

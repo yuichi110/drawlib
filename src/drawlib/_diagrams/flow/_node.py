@@ -34,8 +34,7 @@ class FlowNode:
         r: float = 0.0,
         angle: float = 0.0,
         style: Style | None = None,
-        textstyle: Style | None = None,
-        textsize: float | None = None,
+        text_style: Style | None = None,
         shape_type: ShapeType = "process",
     ) -> None:
         """Initialize FlowNode.
@@ -47,8 +46,7 @@ class FlowNode:
             r: Corner radius for rounded corners. Defaults to 0.0.
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Style object for the shape (fill color, border color/width).
-            textstyle: Style object for the label text.
-            textsize: Font size shortcut for label text.
+            text_style: Style object for the label text.
             shape_type: Shape type ("process", "decision", "start", "end", "data").
         """
         self.text = text
@@ -57,8 +55,7 @@ class FlowNode:
         self.r = float(r)
         self.angle = float(angle)
         self.style = style
-        self.textstyle = textstyle
-        self.textsize = float(textsize) if textsize is not None else None
+        self.text_style = text_style
         self.shape_type: ShapeType = shape_type
 
         self._local_xy: tuple[float, float] = (0.0, 0.0)
@@ -134,7 +131,7 @@ class FlowNode:
         start_side: Side = "auto",
         end_side: Side = "auto",
         style: Style | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
         padding: PaddingType = 0.0,
     ) -> FlowEdge:
         """Connect this node to a target element.
@@ -147,7 +144,7 @@ class FlowNode:
             start_side: Attachment side on start node ("left", "right", "top", "bottom", "auto").
             end_side: Attachment side on end element ("left", "right", "top", "bottom", "auto").
             style: Optional Style object for the line.
-            textstyle: Optional Style object for the label text.
+            text_style: Optional Style object for the label text.
             padding: Gap distance between elements and line ends.
 
         Returns:
@@ -162,7 +159,7 @@ class FlowNode:
             start_side=start_side,
             end_side=end_side,
             style=style,
-            textstyle=textstyle,
+            text_style=text_style,
             padding=padding,
         )
         if self._diagram is not None:

@@ -14,24 +14,24 @@ from drawlib.styles import Styles
 setup(width=120, height=45)
 
 # 1. Rounded Rectangle
-rectangle((15, 23), width=20, height=22, r=2, style=Styles.PrimaryFlat, text="Rounded\nBox", textstyle=Styles.WhiteBold)
+rectangle((15, 23), width=20, height=22, r=2, style=Styles.PrimaryFlat, text="Rounded\nBox", text_style=Styles.WhiteBold)
 
 # 2. Circle
-circle((38, 23), radius=10, style=Styles.SecondaryFlat, text="Circle", textstyle=Styles.WhiteBold)
+circle((38, 23), radius=10, style=Styles.SecondaryFlat, text="Circle", text_style=Styles.WhiteBold)
 
 # 3. Donut Ring
-donuts((60, 23), radius=10, width=4, style=Styles.AccentFlat, text="Ring", textstyle=Styles.WhiteBold)
+donuts((60, 23), radius=10, width=4, style=Styles.AccentFlat, text="Ring", text_style=Styles.WhiteBold)
 
 # 4. Rhombus / Decision Diamond
-rhombus((80, 23), width=18, height=20, style=Styles.DangerFlat, text="Decision", textstyle=Styles.WhiteBold)
+rhombus((80, 23), width=18, height=20, style=Styles.DangerFlat, text="Decision", text_style=Styles.WhiteBold)
 
 # 5. Process Chevron
-chevron((102, 23), width=18, height=18, corner_angle=60, style=Styles.SuccessFlat, text="Stage", textstyle=Styles.WhiteBold)
+chevron((102, 23), width=18, height=18, corner_angle=60, style=Styles.SuccessFlat, text="Stage", text_style=Styles.WhiteBold)
 ```
 
 ### Direct Text Integration in Shapes
 
-In traditional plotting tools, placing a centered label inside a box requires calculating coordinates and issuing separate text calls. In Drawlib, shapes accept `text` and `textstyle` directly:
+In traditional plotting tools, placing a centered label inside a box requires calculating coordinates and issuing separate text calls. In Drawlib, shapes accept `text` and `text_style` directly:
 
 ```python
 from drawlib.shapes import rectangle
@@ -44,7 +44,7 @@ rectangle(
     r=2,
     style=Styles.PrimaryFlat,
     text="Worker Node\n(Active)",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 ```
 
@@ -69,9 +69,9 @@ from drawlib.text import text
 setup(width=120, height=45)
 
 # Nodes
-circle((20, 23), radius=8, style=Styles.PrimaryFlat, text="A", textstyle=Styles.WhiteBold)
-circle((60, 35), radius=8, style=Styles.SecondaryFlat, text="B", textstyle=Styles.WhiteBold)
-circle((100, 23), radius=8, style=Styles.AccentFlat, text="C", textstyle=Styles.WhiteBold)
+circle((20, 23), radius=8, style=Styles.PrimaryFlat, text="A", text_style=Styles.WhiteBold)
+circle((60, 35), radius=8, style=Styles.SecondaryFlat, text="B", text_style=Styles.WhiteBold)
+circle((100, 23), radius=8, style=Styles.AccentFlat, text="C", text_style=Styles.WhiteBold)
 
 # 1. Straight Line A -> B
 line((28, 25), (52, 33), arrowhead="->", style=Styles.PrimaryBold)

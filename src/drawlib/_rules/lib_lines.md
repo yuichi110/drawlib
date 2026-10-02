@@ -112,10 +112,10 @@ text((12, 22), "Application Tier", style=Styles.Primary.patch(text_size=10, text
 text((12, 2), "Persistence Tier", style=Styles.Primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
 
 # 2. Service nodes
-rectangle((30, 48), width=24, height=10, style=Styles.BlueFlat, text="Web Client", textstyle=Styles.WhiteBold)
-rectangle((30, 28), width=24, height=10, style=Styles.GreenFlat, text="API Gateway", textstyle=Styles.WhiteBold)
-rectangle((75, 28), width=24, height=10, style=Styles.GreenFlat, text="Order Service", textstyle=Styles.WhiteBold)
-rectangle((75, 8), width=24, height=10, style=Styles.PurpleFlat, text="Postgres DB", textstyle=Styles.WhiteBold)
+rectangle((30, 48), width=24, height=10, style=Styles.BlueFlat, text="Web Client", text_style=Styles.WhiteBold)
+rectangle((30, 28), width=24, height=10, style=Styles.GreenFlat, text="API Gateway", text_style=Styles.WhiteBold)
+rectangle((75, 28), width=24, height=10, style=Styles.GreenFlat, text="Order Service", text_style=Styles.WhiteBold)
+rectangle((75, 8), width=24, height=10, style=Styles.PurpleFlat, text="Postgres DB", text_style=Styles.WhiteBold)
 
 # 3. Direct straight connections
 line((30, 43), (30, 33), arrowhead="->", style=Styles.PrimaryBold)
@@ -192,9 +192,9 @@ from drawlib.types import Style
 setup(width=120, height=60)
 
 # Nodes
-circle((25, 30), radius=10, style=Styles.BlueFlat, text="Service A", textstyle=Styles.WhiteBold)
-rectangle((60, 30), width=18, height=14, style=Styles.MutedFlat, text="Proxy", textstyle=Styles.PrimaryBold.patch(text_color=Colors.Black))
-circle((95, 30), radius=10, style=Styles.GreenFlat, text="Service B", textstyle=Styles.WhiteBold)
+circle((25, 30), radius=10, style=Styles.BlueFlat, text="Service A", text_style=Styles.WhiteBold)
+rectangle((60, 30), width=18, height=14, style=Styles.MutedFlat, text="Proxy", text_style=Styles.PrimaryBold.patch(text_color=Colors.Black))
+circle((95, 30), radius=10, style=Styles.GreenFlat, text="Service B", text_style=Styles.WhiteBold)
 
 # 1. Forward request (A -> B, curving above the Proxy)
 line_curved((35, 33), (85, 33), bend=0.35, arrowhead="->", style=Styles.BlueBold)
@@ -324,10 +324,10 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # Pipeline stages
-rectangle((15, 45), width=20, height=12, style=Styles.BlueFlat, text="Ingest", textstyle=Styles.WhiteBold)
-rectangle((60, 45), width=20, height=12, style=Styles.BlueFlat, text="Filter A", textstyle=Styles.WhiteBold)
-rectangle((60, 15), width=20, height=12, style=Styles.PurpleFlat, text="Filter B", textstyle=Styles.WhiteBold)
-rectangle((105, 30), width=20, height=12, style=Styles.GreenFlat, text="Sink", textstyle=Styles.WhiteBold)
+rectangle((15, 45), width=20, height=12, style=Styles.BlueFlat, text="Ingest", text_style=Styles.WhiteBold)
+rectangle((60, 45), width=20, height=12, style=Styles.BlueFlat, text="Filter A", text_style=Styles.WhiteBold)
+rectangle((60, 15), width=20, height=12, style=Styles.PurpleFlat, text="Filter B", text_style=Styles.WhiteBold)
+rectangle((105, 30), width=20, height=12, style=Styles.GreenFlat, text="Sink", text_style=Styles.WhiteBold)
 
 # 1. Quadratic curve: branch down to Filter B
 line_bezier1(
@@ -422,13 +422,13 @@ setup(width=120, height=60)
 line((15, 30), (105, 30), style=Styles.PrimaryBold.patch(line_width=3.0, line_color=Colors.Navy))
 
 # Producer nodes (top tier)
-rectangle((25, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor A", textstyle=Styles.WhiteBold)
-rectangle((55, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor B", textstyle=Styles.WhiteBold)
-rectangle((85, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor C", textstyle=Styles.WhiteBold)
+rectangle((25, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor A", text_style=Styles.WhiteBold)
+rectangle((55, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor B", text_style=Styles.WhiteBold)
+rectangle((85, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor C", text_style=Styles.WhiteBold)
 
 # Consumer nodes (bottom tier)
-rectangle((40, 12), width=22, height=10, style=Styles.GreenFlat, text="Analytics", textstyle=Styles.WhiteBold)
-rectangle((75, 12), width=22, height=10, style=Styles.PurpleFlat, text="Storage", textstyle=Styles.WhiteBold)
+rectangle((40, 12), width=22, height=10, style=Styles.GreenFlat, text="Analytics", text_style=Styles.WhiteBold)
+rectangle((75, 12), width=22, height=10, style=Styles.PurpleFlat, text="Storage", text_style=Styles.WhiteBold)
 
 # Vertical bus taps from producers to trunk
 lines([(25, 43), (25, 30)], arrowhead="->", style=Styles.BlueBold)
@@ -521,8 +521,8 @@ from drawlib.styles import Styles
 
 setup(width=120, height=60)
 
-circle((15, 15), radius=5, style=Styles.BlueFlat, text="IN", textstyle=Styles.WhiteBold)
-circle((105, 45), radius=5, style=Styles.GreenFlat, text="OUT", textstyle=Styles.WhiteBold)
+circle((15, 15), radius=5, style=Styles.BlueFlat, text="IN", text_style=Styles.WhiteBold)
+circle((105, 45), radius=5, style=Styles.GreenFlat, text="OUT", text_style=Styles.WhiteBold)
 
 # 1. Smoothly rounded Manhattan circuit trace
 track_points = [
@@ -613,8 +613,8 @@ from drawlib.styles import Styles
 
 setup(width=100, height=60)
 
-rectangle((30, 30), width=24, height=14, style=Styles.BlueFlat, text="Processor", textstyle=Styles.WhiteBold)
-rectangle((75, 30), width=24, height=14, style=Styles.GreenFlat, text="Consumer", textstyle=Styles.WhiteBold)
+rectangle((30, 30), width=24, height=14, style=Styles.BlueFlat, text="Processor", text_style=Styles.WhiteBold)
+rectangle((75, 30), width=24, height=14, style=Styles.GreenFlat, text="Consumer", text_style=Styles.WhiteBold)
 
 # Direct pipeline line
 line((42, 30), (63, 30), arrowhead="->", style=Styles.PrimaryBold)
@@ -885,8 +885,8 @@ def draw_labeled_line(
     text((mx, my), label, style=badge)
 
 setup(width=120, height=50)
-rectangle((20, 25), width=24, height=14, style=Styles.BlueFlat, text="Client", textstyle=Styles.WhiteBold)
-rectangle((100, 25), width=24, height=14, style=Styles.GreenFlat, text="Service", textstyle=Styles.WhiteBold)
+rectangle((20, 25), width=24, height=14, style=Styles.BlueFlat, text="Client", text_style=Styles.WhiteBold)
+rectangle((100, 25), width=24, height=14, style=Styles.GreenFlat, text="Service", text_style=Styles.WhiteBold)
 
 draw_labeled_line((32, 29), (88, 29), "POST /api/checkout", arrowhead="->", line_style=Styles.BlueBold, color=Colors.Blue)
 draw_labeled_line((88, 21), (32, 21), "201 Created (45ms)", arrowhead="->", line_style=Styles.GreenDashed, color=Colors.Green)
@@ -909,10 +909,10 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=120, height=50)
-rectangle((20, 25), width=20, height=16, style=Styles.NavyFlat, text="API Gateway", textstyle=Styles.WhiteBold)
+rectangle((20, 25), width=20, height=16, style=Styles.NavyFlat, text="API Gateway", text_style=Styles.WhiteBold)
 
 for name, y in [("Users", 40), ("Orders", 25), ("Payments", 10)]:
-    rectangle((95, y), width=22, height=10, style=Styles.GreenFlat, text=name, textstyle=Styles.WhiteBold)
+    rectangle((95, y), width=22, height=10, style=Styles.GreenFlat, text=name, text_style=Styles.WhiteBold)
     lines([(30, 25), (55, 25), (55, y), (84, y)], arrowhead="->", style=Styles.PrimaryBold)
 
 save()
@@ -945,14 +945,14 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=120, height=60)
-rectangle((60, 30), width=90, height=8, style=Styles.PurpleFlat, text="Kafka Event Log", textstyle=Styles.WhiteBold)
+rectangle((60, 30), width=90, height=8, style=Styles.PurpleFlat, text="Kafka Event Log", text_style=Styles.WhiteBold)
 
 for name, x in [("Auth Svc", 30), ("Order Svc", 60), ("Payment Svc", 90)]:
-    rectangle((x, 50), width=20, height=10, style=Styles.BlueFlat, text=name, textstyle=Styles.WhiteBold)
+    rectangle((x, 50), width=20, height=10, style=Styles.BlueFlat, text=name, text_style=Styles.WhiteBold)
     lines([(x, 45), (x, 34)], arrowhead="->", style=Styles.BlueBold)
 
 for name, x in [("Email Worker", 40), ("Audit Log", 80)]:
-    rectangle((x, 10), width=22, height=10, style=Styles.GreenFlat, text=name, textstyle=Styles.WhiteBold)
+    rectangle((x, 10), width=22, height=10, style=Styles.GreenFlat, text=name, text_style=Styles.WhiteBold)
     lines([(x, 26), (x, 15)], arrowhead="->", style=Styles.GreenBold)
 
 save()
@@ -973,8 +973,8 @@ line((60, 5), (60, 45), style=Styles.PrimaryBold.patch(line_color=Colors.Red, li
 text((58, 43), "Public DMZ", style=Styles.Primary.patch(text_size=9, text_halign="right", text_color=Colors.Gray5))
 text((62, 43), "Private Subnet", style=Styles.Primary.patch(text_size=9, text_halign="left", text_color=Colors.Gray5))
 
-rectangle((25, 25), width=22, height=12, style=Styles.BlueFlat, text="Reverse Proxy", textstyle=Styles.WhiteBold)
-rectangle((95, 25), width=22, height=12, style=Styles.GreenFlat, text="App Backend", textstyle=Styles.WhiteBold)
+rectangle((25, 25), width=22, height=12, style=Styles.BlueFlat, text="Reverse Proxy", text_style=Styles.WhiteBold)
+rectangle((95, 25), width=22, height=12, style=Styles.GreenFlat, text="App Backend", text_style=Styles.WhiteBold)
 line(
     (36, 25),
     (84, 25),
@@ -1046,9 +1046,9 @@ from drawlib.styles import Styles
 setup(width=120, height=50)
 
 start, end, obs = (15, 25), (105, 25), (60, 25)
-rectangle(start, width=16, height=12, style=Styles.BlueFlat, text="Client", textstyle=Styles.WhiteBold)
-rectangle(obs, width=30, height=18, style=Styles.RedFlat, text="Firewall / WAF", textstyle=Styles.WhiteBold)
-rectangle(end, width=16, height=12, style=Styles.GreenFlat, text="Server", textstyle=Styles.WhiteBold)
+rectangle(start, width=16, height=12, style=Styles.BlueFlat, text="Client", text_style=Styles.WhiteBold)
+rectangle(obs, width=30, height=18, style=Styles.RedFlat, text="Firewall / WAF", text_style=Styles.WhiteBold)
+rectangle(end, width=16, height=12, style=Styles.GreenFlat, text="Server", text_style=Styles.WhiteBold)
 
 bypass = [(23, 25), (38, 25), (38, 40), (82, 40), (82, 25), (97, 25)]
 lines_curved(bypass, r=4.0, arrowhead="->", style=Styles.BlueBold)

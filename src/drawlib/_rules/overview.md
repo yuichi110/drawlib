@@ -39,7 +39,7 @@ start_x, y, gap = 15, 20, 10
 
 for i, name in enumerate(services):
     x = start_x + i * (box_w + gap) + (box_w / 2)
-    rectangle((x, y), width=box_w, height=box_h, style=Styles.BlueFlat, text=name, textstyle=Styles.WhiteBold)
+    rectangle((x, y), width=box_w, height=box_h, style=Styles.BlueFlat, text=name, text_style=Styles.WhiteBold)
     if i > 0:
         prev_right = start_x + (i - 1) * (box_w + gap) + box_w
         curr_left = start_x + i * (box_w + gap)
@@ -62,14 +62,14 @@ nodes = ["Ingest", "Transform", "Validate", "Store", "Index", "Serve"]
 n = len(nodes)
 
 # Central hub
-circle((center_x, center_y), radius=12, style=Styles.PurpleFlat, text="Data Hub", textstyle=Styles.WhiteBold)
+circle((center_x, center_y), radius=12, style=Styles.PurpleFlat, text="Data Hub", text_style=Styles.WhiteBold)
 
 # Satellite nodes
 for i, label in enumerate(nodes):
     angle = (2 * math.pi / n) * i
     x = center_x + radius * math.cos(angle)
     y = center_y + radius * math.sin(angle)
-    circle((x, y), radius=8, style=Styles.GreenFlat, text=label, textstyle=Styles.WhiteBold)
+    circle((x, y), radius=8, style=Styles.GreenFlat, text=label, text_style=Styles.WhiteBold)
 
     # Connect hub edge to satellite edge without cutting through nodes
     lx1 = center_x + 13 * math.cos(angle)
@@ -207,7 +207,7 @@ rectangle(
     height=bh,
     style=Styles.Light,
     text="Subsystem Boundary",
-    textstyle=Styles.PrimaryBold.patch(text_xy_shift=(0, bh / 2 - 4)),
+    text_style=Styles.PrimaryBold.patch(text_xy_shift=(0, bh / 2 - 4)),
 )
 
 for xy in nodes:
@@ -334,8 +334,8 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 
 setup(width=120, height=50)
-rectangle((25, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Client", textstyle=Styles.WhiteBold)
-rectangle((95, 25), width=30, height=20, style=Styles.SecondaryFlat, text="Service", textstyle=Styles.WhiteBold)
+rectangle((25, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Client", text_style=Styles.WhiteBold)
+rectangle((95, 25), width=30, height=20, style=Styles.SecondaryFlat, text="Service", text_style=Styles.WhiteBold)
 line((40, 25), (80, 25), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```
@@ -538,7 +538,7 @@ drawlib rules show <topic> --rebuild
   # Tip: Prefer importing styles from drawlib.styles if themes might be customized via --styles
   from drawlib.styles import Styles
 
-  rectangle((30, 30), width=20, height=10, style=Styles.PurpleFlat, textstyle=Styles.WhiteBold)
+  rectangle((30, 30), width=20, height=10, style=Styles.PurpleFlat, text_style=Styles.WhiteBold)
   ```
 - **When to read**: Refer to this rule to maintain visual consistency, pick matching foreground/background colors, or define reusable corporate themes across a team.
 
@@ -768,6 +768,6 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 ### 6.4. Implementation Checklist
 
 - [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
-- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import Styles` (e.g. `style=Styles.BlueFlat`, `textstyle=Styles.WhiteBold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
+- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import Styles` (e.g. `style=Styles.BlueFlat`, `text_style=Styles.WhiteBold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
 - [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.
 - [ ] **Clean Separation of Concerns**: Decouple data lists/dictionaries from drawing loops for maintainability.

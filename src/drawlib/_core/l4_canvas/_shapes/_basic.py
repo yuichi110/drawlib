@@ -53,8 +53,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         style: Style,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
         is_default_center: bool = False,
     ) -> None:
         """Draw basic shape on the canvas.
@@ -65,16 +64,15 @@ class CanvasShapeBasicFeature(CanvasBase):
             style: Style of the shape (required).
             angle (float, optional): Rotation angle of the shape.
             text (str, optional): Text to display along with the shape.
-            textsize (float | None, optional): Size of the text.
-            textstyle (Style | None, optional): Style of the text.
+            text_style (Style | None, optional): Style of the text.
             is_default_center (bool, optional): Whether to place (xy) at the center of the shape.
 
         Raises:
             ValueError: If invalid path points are provided.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         transformed_points, (cx, cy), effective_style = ShapeUtil.transform_shape_path_points(
@@ -90,13 +88,13 @@ class CanvasShapeBasicFeature(CanvasBase):
         self._artists.append(PathPatch(path=path, **options))
 
         if text:
-            effective_textstyle = ShapeUtil.resolve_embedded_text_style(effective_style, textstyle, textsize)
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(effective_style, text_style)
             self._artists.append(
                 ShapeUtil.get_shape_text(
                     xy=(cx, cy),
                     text=text,
                     angle=angle,
-                    style=effective_textstyle,
+                    style=effective_text_style,
                 )
             )
 
@@ -111,8 +109,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         r: PosFloat = 0.0,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a rectangle on the canvas.
 
@@ -124,15 +121,14 @@ class CanvasShapeBasicFeature(CanvasBase):
             r (float, optional): Radius for rounded corners (default is 0.0).
             angle (int | float, optional): Rotation angle of the rectangle.
             text (str, optional): Text to display within the rectangle.
-            textsize (float | None, optional): Size of the text.
-            textstyle (Style | None, optional): Style of the text.
+            text_style (Style | None, optional): Style of the text.
 
         Raises:
             ValueError: If invalid path points are provided.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         if r == 0:
@@ -146,8 +142,7 @@ class CanvasShapeBasicFeature(CanvasBase):
                 angle=angle,
                 style=style,
                 text=text,
-                textsize=textsize,
-                textstyle=textstyle,
+                text_style=text_style,
             )
             return
 
@@ -176,8 +171,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
     @validate_call
@@ -187,8 +181,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         *,
         style: Style,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a polygon on the canvas.
 
@@ -196,15 +189,14 @@ class CanvasShapeBasicFeature(CanvasBase):
             xys: List of vertices [(x1, y1), ...(x_n, y_n)].
             style: Style of the polygon (required).
             text (optional): Text shown at the center of the polygon.
-            textsize (optional): Font size of the text.
-            textstyle (optional): Style of the text.
+            text_style (optional): Style of the text.
 
         Returns:
             None
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         style = style.patch(text_halign=None, text_valign=None)
@@ -213,14 +205,14 @@ class CanvasShapeBasicFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
+        effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
         center, (_, _) = get_center_and_size(xys)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 center,
                 text=text,
                 angle=0,
-                style=effective_textstyle,
+                style=effective_text_style,
             ),
         )
 
@@ -236,8 +228,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         angle_end: Angle = 360.0,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw an arc on the canvas.
 
@@ -250,12 +241,11 @@ class CanvasShapeBasicFeature(CanvasBase):
             angle_end: Ending angle in degrees.
             angle: Rotation angle in degrees.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text.
+            text_style: Style object for text.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         xy, style = ShapeUtil.apply_alignment(xy, width, height, angle, style, is_default_center=True)
@@ -274,13 +264,13 @@ class CanvasShapeBasicFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
+        effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
                 text=text,
                 angle=angle,
-                style=effective_textstyle,
+                style=effective_text_style,
             ),
         )
 
@@ -293,8 +283,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         style: Style,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a circle on the canvas.
 
@@ -304,12 +293,11 @@ class CanvasShapeBasicFeature(CanvasBase):
             style: Style object (required).
             angle: Rotation angle in degrees.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text.
+            text_style: Style object for text.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         width = radius * 2
@@ -326,13 +314,13 @@ class CanvasShapeBasicFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
+        effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
                 text=text,
                 angle=angle,
-                style=effective_textstyle,
+                style=effective_text_style,
             ),
         )
 
@@ -346,8 +334,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         style: Style,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw an ellipse on the canvas.
 
@@ -358,12 +345,11 @@ class CanvasShapeBasicFeature(CanvasBase):
             angle (optional): Rotation angle of the ellipse in degrees.
             style: Style of the ellipse (required).
             text (optional): Text to display inside the ellipse.
-            textsize (optional): Font size of the text.
-            textstyle (optional): Style of the text.
+            text_style (optional): Style of the text.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         xy, style = ShapeUtil.apply_alignment(
@@ -388,13 +374,13 @@ class CanvasShapeBasicFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
+        effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
                 text=text,
                 angle=angle,
-                style=effective_textstyle,
+                style=effective_text_style,
             ),
         )
 
@@ -408,8 +394,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         style: Style,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a regular polygon on the canvas.
 
@@ -420,12 +405,11 @@ class CanvasShapeBasicFeature(CanvasBase):
             angle (optional): Rotation angle of the polygon in degrees.
             style: Style of the polygon (required).
             text (optional): Text to display inside the polygon.
-            textsize (optional): Font size of the text.
-            textstyle (optional): Style of the text.
+            text_style (optional): Style of the text.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         xy, style = ShapeUtil.apply_alignment(
@@ -451,13 +435,13 @@ class CanvasShapeBasicFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
+        effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
                 text=text,
                 angle=angle,
-                style=effective_textstyle,
+                style=effective_text_style,
             ),
         )
 
@@ -473,8 +457,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         angle_end: Angle = 360,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a wedge shape on the canvas.
 
@@ -487,12 +470,11 @@ class CanvasShapeBasicFeature(CanvasBase):
             angle_end: Ending theta angle in degrees.
             angle: Rotation angle in degrees.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text.
+            text_style: Style object for text.
         """
-        style, textstyle = ShapeUtil.format_styles(
+        style, text_style = ShapeUtil.format_styles(
             style,
-            textstyle,
+            text_style,
         )
 
         ext_width = radius * 2
@@ -512,13 +494,13 @@ class CanvasShapeBasicFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
+        effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
                 text=text,
                 angle=angle,
-                style=effective_textstyle,
+                style=effective_text_style,
             ),
         )
 
@@ -532,8 +514,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         width: PosFloat | None = None,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a donut shape on the canvas.
 
@@ -544,8 +525,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             width: Width of the donut ring.
             angle: Rotation angle in degrees.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text.
+            text_style: Style object for text.
         """
         self.wedge(
             xy=xy,
@@ -554,8 +534,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
     @validate_call
@@ -569,8 +548,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         angle_end: Angle = 180,
         angle: Angle = 0.0,
         text: str = "",
-        textsize: Size | None = None,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Draw a fan shape on the canvas.
 
@@ -582,8 +560,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             angle_end: Ending theta angle in degrees.
             angle: Rotation angle in degrees.
             text: Text to display inside shape.
-            textsize: Font size of text.
-            textstyle: Style object for text.
+            text_style: Style object for text.
         """
         self.wedge(
             xy=xy,
@@ -594,8 +571,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             angle=angle,
             style=style,
             text=text,
-            textsize=textsize,
-            textstyle=textstyle,
+            text_style=text_style,
         )
 
 

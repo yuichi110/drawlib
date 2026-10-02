@@ -179,8 +179,8 @@ setup(width=120, height=50)
 
 cjk_bold = Styles.WhiteBold.patch(text_font=Font.SANSSERIF_BOLD, text_size=13)
 
-rectangle((30, 25), width=32, height=18, style=Styles.BlueFlat, text="ユーザー認証\n(Auth)", textstyle=cjk_bold)
-rectangle((90, 25), width=32, height=18, style=Styles.PurpleFlat, text="決済ゲートウェイ\n(Gateway)", textstyle=cjk_bold)
+rectangle((30, 25), width=32, height=18, style=Styles.BlueFlat, text="ユーザー認証\n(Auth)", text_style=cjk_bold)
+rectangle((90, 25), width=32, height=18, style=Styles.PurpleFlat, text="決済ゲートウェイ\n(Gateway)", text_style=cjk_bold)
 line((46, 25), (74, 25), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```

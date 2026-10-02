@@ -355,7 +355,7 @@ rectangle(
     height=16,
     style=Styles.BlueFlat,
     text="Gateway API",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 
 circle(
@@ -363,7 +363,7 @@ circle(
     radius=10,
     style=Styles.GreenFlat,
     text="Worker Node\n(Active)",
-    textstyle=Styles.WhiteBold,
+    text_style=Styles.WhiteBold,
 )
 
 save()
@@ -371,7 +371,7 @@ save()
 
 ### Shape Text Parameters:
 - **`text` (str)**: Content string (supports `\n`).
-- **`textstyle` (Style | None)**: Pre-defined style (e.g. `Styles.WhiteBold`, `Styles.PrimaryBold`) or custom `Style`.
+- **`text_style` (Style | None)**: Pre-defined style (e.g. `Styles.WhiteBold`, `Styles.PrimaryBold`) or custom `Style`.
 - **`fontsize` (float | None)**: Direct font size override.
 - **`fontcolor` (tuple | str | None)**: Direct font color override.
 
@@ -383,7 +383,7 @@ When adding text to Drawlib illustrations:
 
 1. **Hierarchy First**:
    - Diagram titles: `size=20–24`, `style=Styles.PrimaryBold`, `halign="center"` at canvas top.
-   - Container / node headers: `size=12–14`, `textstyle=Styles.WhiteBold` (or `Styles.PrimaryBold`).
+   - Container / node headers: `size=12–14`, `text_style=Styles.WhiteBold` (or `Styles.PrimaryBold`).
    - Metadata / annotations: `size=9–11`, `style=Styles.Muted`.
 2. **Avoid Hardcoding Hex Colors**:
    - Prefer style presets (`Styles.PrimaryBold`, `Styles.BlueBold`, `Styles.WhiteBold`) over explicit `#RRGGBB` strings to maintain harmony across light/dark themes.
@@ -391,4 +391,4 @@ When adding text to Drawlib illustrations:
    - Allow at least 2 coordinate units of margin between shape boundaries and text borders.
    - For long labels, insert explicit `\n` line breaks rather than letting text overflow the shape width.
 4. **Use Shape Text Integration**:
-   - Embed labels directly into `rectangle(..., text="...", textstyle=Styles.WhiteBold)` instead of manually calculating midpoints for a separate `text()` call.
+   - Embed labels directly into `rectangle(..., text="...", text_style=Styles.WhiteBold)` instead of manually calculating midpoints for a separate `text()` call.

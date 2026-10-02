@@ -49,27 +49,22 @@ class ShapeUtil:
     @staticmethod
     def resolve_embedded_text_style(
         shape_style: Style,
-        textstyle: Style | None = None,
-        textsize: Size | None = None,
+        text_style: Style | None = None,
     ) -> Style:
         """Resolve effective text style for embedded text in shapes with automatic contrast.
 
         Args:
             shape_style: The container shape's Style instance.
-            textstyle: Optional explicit textstyle provided by the caller.
-            textsize: Optional font size override.
+            text_style: Optional explicit text_style provided by the caller.
 
         Returns:
             Style: Validated, complete text style for drawing embedded text.
         """
-        if textstyle is not None:
-            if not isinstance(textstyle, Style):
-                raise TypeError(f'Arg "textstyle" must be Style, but {type(textstyle)} given.')
-            effective = textstyle
-            if textsize is not None:
-                effective = effective.patch(text_size=textsize)
-            TextUtil.validate_text_style(effective)
-            return effective
+        if text_style is not None:
+            if not isinstance(text_style, Style):
+                raise TypeError(f'Arg "text_style" must be Style, but {type(text_style)} given.')
+            TextUtil.validate_text_style(text_style)
+            return text_style
 
         # Automatic contrast resolution
         fill_color = shape_style.shape_fill_color
@@ -80,11 +75,7 @@ class ShapeUtil:
             transparent_color=shape_style.shape_line_color,
         )
 
-        size = (
-            textsize
-            if textsize is not None
-            else (shape_style.text_size if shape_style.text_size is not None else 16)
-        )
+        size = shape_style.text_size if shape_style.text_size is not None else 16
         font = shape_style.text_font if shape_style.text_font is not None else Font.SANSSERIF_REGULAR
         halign = shape_style.text_halign if shape_style.text_halign is not None else "center"
         valign = shape_style.text_valign if shape_style.text_valign is not None else "center"
@@ -101,17 +92,17 @@ class ShapeUtil:
     @staticmethod
     def format_styles(
         style: Style,
-        textstyle: Style | None = None,
+        text_style: Style | None = None,
     ) -> tuple[Style, Style | None]:
-        """Validate and return shape style and optional embedded textstyle."""
+        """Validate and return shape style and optional embedded text_style."""
         if not isinstance(style, Style):
             raise TypeError(f'Arg "style" must be Style, but {type(style)} given.')
         style.validate_for("shape")
-        if textstyle is not None:
-            if not isinstance(textstyle, Style):
-                raise TypeError(f'Arg "textstyle" must be Style, but {type(textstyle)} given.')
-            textstyle.validate_for("text")
-        return (style, textstyle)
+        if text_style is not None:
+            if not isinstance(text_style, Style):
+                raise TypeError(f'Arg "text_style" must be Style, but {type(text_style)} given.')
+            text_style.validate_for("text")
+        return (style, text_style)
 
     @staticmethod
     def apply_alignment(

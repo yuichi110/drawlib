@@ -170,12 +170,12 @@ rectangle(
     height=50,
     style=cloud_style,
     text="Kubernetes Cluster",
-    textstyle=Styles.Primary.patch(text_valign="top", text_color=Colors.Blue),
+    text_style=Styles.Primary.patch(text_valign="top", text_color=Colors.Blue),
 )
 
 # Service nodes
-rectangle((40, 26), width=32, height=18, style=Styles.BlueFlat, text="Web Service", textstyle=Styles.WhiteBold)
-rectangle((100, 26), width=32, height=18, style=db_style, text="Database", textstyle=Styles.WhiteBold)
+rectangle((40, 26), width=32, height=18, style=Styles.BlueFlat, text="Web Service", text_style=Styles.WhiteBold)
+rectangle((100, 26), width=32, height=18, style=db_style, text="Database", text_style=Styles.WhiteBold)
 
 # Data connection
 line((56, 26), (84, 26), arrowhead="->", style=Styles.PrimaryBold)
@@ -199,8 +199,8 @@ box_style = Styles.Primary.patch(
     shape_line_width=2,
 )
 
-rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=Styles.PrimaryBold)
-rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=Styles.PrimaryBold)
+rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", text_style=Styles.PrimaryBold)
+rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", text_style=Styles.PrimaryBold)
 line((45, 25), (75, 25), arrowhead="->", style=Styles.PrimaryBold)
 save()
 ```

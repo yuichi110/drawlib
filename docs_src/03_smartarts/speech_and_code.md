@@ -17,7 +17,7 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # 1. BubbleSpeech Callout pointing to an entity
-circle((25, 20), radius=10, style=Styles.SecondaryFlat, text="DB Server", textstyle=Styles.WhiteBold)
+circle((25, 20), radius=10, style=Styles.SecondaryFlat, text="DB Server", text_style=Styles.WhiteBold)
 
 bubblespeech(
     xy=(15, 38),
@@ -37,7 +37,7 @@ code_snippet = """def fetch_user(user_id: int):
     # Query database
     return db.query(user_id)"""
 
-styles = SourceCodeStyles.get("dark", font_lang="en", textsize=10.0)
+styles = SourceCodeStyles.get("dark", font_lang="en", text_size=10.0)
 SourceCode.draw(
     xy=(58, 48),
     width=58,
@@ -103,7 +103,7 @@ from drawlib.smartarts import SourceCodeStyles
 from drawlib.styles import Styles
 
 # 1. Standard theme with Japanese CJK font (tofu prevention)
-styles = SourceCodeStyles.get("default", font_lang="ja", textsize=11.0)
+styles = SourceCodeStyles.get("default", font_lang="ja", text_size=11.0)
 
 # 2. Built-in themes: "default", "monochrome", "dark", "google"
 dark_styles = SourceCodeStyles.get("dark", font_lang="en")

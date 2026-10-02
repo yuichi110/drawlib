@@ -29,7 +29,7 @@ circle((0, 0), radius=2, style=Styles.DangerFlat)
 text((8, 5), "(0, 0) Bottom-Left Origin", style=Styles.DangerBold)
 
 # Center-based element
-rectangle((55, 32), width=44, height=20, style=Styles.PrimaryFlat, text="Centered at (55, 32)", textstyle=Styles.WhiteBold)
+rectangle((55, 32), width=44, height=20, style=Styles.PrimaryFlat, text="Centered at (55, 32)", text_style=Styles.WhiteBold)
 circle((55, 32), radius=1.5, style=Styles.AccentFlat)
 
 # Y-axis
@@ -80,19 +80,19 @@ setup(width=150, height=35)
 rectangle((75, 17.5), width=146, height=30, style=Styles.MutedDashed)
 
 # Primary Anchor (Core Microservice)
-rectangle((18, 17.5), width=22, height=18, style=Styles.PrimaryFlat, text="Primary\n(Core)", textstyle=Styles.WhiteBold)
+rectangle((18, 17.5), width=22, height=18, style=Styles.PrimaryFlat, text="Primary\n(Core)", text_style=Styles.WhiteBold)
 
 # Secondary (Database / Auxiliary)
-rectangle((44, 17.5), width=22, height=18, style=Styles.SecondaryFlat, text="Secondary\n(Service)", textstyle=Styles.WhiteBold)
+rectangle((44, 17.5), width=22, height=18, style=Styles.SecondaryFlat, text="Secondary\n(Service)", text_style=Styles.WhiteBold)
 
 # Accent (Events / Gateway)
-rectangle((70, 17.5), width=22, height=18, style=Styles.AccentFlat, text="Accent\n(Trigger)", textstyle=Styles.WhiteBold)
+rectangle((70, 17.5), width=22, height=18, style=Styles.AccentFlat, text="Accent\n(Trigger)", text_style=Styles.WhiteBold)
 
 # Danger (Alert / Error Path)
-rectangle((96, 17.5), width=22, height=18, style=Styles.DangerFlat, text="Danger\n(Alert)", textstyle=Styles.WhiteBold)
+rectangle((96, 17.5), width=22, height=18, style=Styles.DangerFlat, text="Danger\n(Alert)", text_style=Styles.WhiteBold)
 
 # Success (Verified Outcome)
-rectangle((122, 17.5), width=22, height=18, style=Styles.SuccessFlat, text="Success\n(Audit)", textstyle=Styles.WhiteBold)
+rectangle((122, 17.5), width=22, height=18, style=Styles.SuccessFlat, text="Success\n(Audit)", text_style=Styles.WhiteBold)
 ```
 
 1. **Primary Anchor (`Styles.Primary`)**:

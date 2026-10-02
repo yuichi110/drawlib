@@ -22,7 +22,7 @@ rectangle(
     angle=45,
     text="Hello!",
     style=Styles.Primary,
-    textstyle=Styles.Primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+    text_style=Styles.Primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()

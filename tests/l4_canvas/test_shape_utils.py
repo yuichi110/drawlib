@@ -24,16 +24,16 @@ class TestShapeUtil:
     """Unit tests for the ShapeUtil static helper class."""
 
     def test_format_styles(self) -> None:
-        """Verifies format_styles validates shape style and embedded textstyle."""
+        """Verifies format_styles validates shape style and embedded text_style."""
         shape_s = Style(shape_fill_color=(255, 0, 0), shape_line_color=(0, 0, 0), shape_line_width=1.0)
         text_s = Style(text_color=(0, 0, 0), text_size=12, text_font=Font.SANSSERIF_REGULAR)
 
-        # 1. With textstyle
+        # 1. With text_style
         s, t = ShapeUtil.format_styles(shape_s, text_s)
         assert s == shape_s
         assert t == text_s
 
-        # 2. Without textstyle (returns None for textstyle)
+        # 2. Without text_style (returns None for text_style)
         s, t = ShapeUtil.format_styles(shape_s, None)
         assert s == shape_s
         assert t is None
@@ -83,9 +83,9 @@ class TestShapeUtil:
         resolved_trans = ShapeUtil.resolve_embedded_text_style(trans_style)
         assert resolved_trans.text_color == (255, 0, 0)
 
-        # 4. Explicit textstyle override
+        # 4. Explicit text_style override
         explicit_text = Style(text_color=(0, 255, 0), text_size=20, text_font=Font.SANSSERIF_BOLD)
-        resolved_explicit = ShapeUtil.resolve_embedded_text_style(dark_style, textstyle=explicit_text)
+        resolved_explicit = ShapeUtil.resolve_embedded_text_style(dark_style, text_style=explicit_text)
         assert resolved_explicit.text_color == (0, 255, 0)
         assert resolved_explicit.text_size == 20
 

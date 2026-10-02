@@ -522,7 +522,7 @@ Except for arrow() and polygon(), all functions can accept an angle parameter.
 Shapes can also be styled using the ``Style`` class:
 
 - ``style``: for basic shape styling such as line width, line color, and fill color
-- ``textstyle``: for styling text within a shape
+- ``text_style``: for styling text within a shape
 
 The ``Style`` object allows you to specify parameters like color, size, font, and more. 
 When styling text within a shape, it also offers ``text_xy_shift`` and ``text_angle`` options. 
@@ -550,7 +550,7 @@ rectangle(
     height=20,
     angle=45,
     text="Hello!",
-    textstyle=Style(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+    text_style=Style(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()
@@ -565,7 +565,7 @@ In the left example, we configure ``Style`` to add style to the rectangle.
 If you don't require a shape border line, simply set ``line_width=0``, and if you don't need a fill color, set ``fill_color=Colors.Transparent``. 
 Notice how the text angle follows the shape angle by default.
 
-In the right example, we configure ``Style`` for the text within the rectangle via ``textstyle``. 
+In the right example, we configure ``Style`` for the text within the rectangle via ``text_style``. 
 Parameters like ``text_color``, ``text_size``, ``text_font`` control typography, while options like ``text_xy_shift`` and ``text_angle`` adjust placement.
 
 When you specify ``text_xy_shift``, you can move the center point of the text. 

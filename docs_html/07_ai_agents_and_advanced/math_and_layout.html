@@ -364,12 +364,12 @@ rectangle(
     r=4,
     style=Styles.MutedDashed,
     text=&quot;Kubernetes Worker Cluster&quot;,
-    textstyle=Styles.PrimaryBold,
+    text_style=Styles.PrimaryBold,
 )
 
 # 4. Render nodes
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f&quot;Pod {i}&quot;, textstyle=Styles.WhiteBold)
+    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f&quot;Pod {i}&quot;, text_style=Styles.WhiteBold)
 save()
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
@@ -393,7 +393,7 @@ radius = 26
 num_clients = 5
 
 # Central Hub
-circle(hub, radius=12, style=Styles.PrimaryFlat, text=&quot;Master&quot;, textstyle=Styles.WhiteBold)
+circle(hub, radius=12, style=Styles.PrimaryFlat, text=&quot;Master&quot;, text_style=Styles.WhiteBold)
 
 # Surrounding Worker Nodes
 for i in range(num_clients):
@@ -405,7 +405,7 @@ for i in range(num_clients):
     angle_deg = get_angle(hub, node_xy)
     
     line(hub, node_xy, style=Styles.PrimaryBold)
-    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f&quot;N{i+1}&quot;, textstyle=Styles.WhiteBold)
+    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f&quot;N{i+1}&quot;, text_style=Styles.WhiteBold)
 save()
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">

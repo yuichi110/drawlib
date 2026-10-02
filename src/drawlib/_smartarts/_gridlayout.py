@@ -272,5 +272,5 @@ class GridLayout:
                 r=r,
                 style=style,
                 text=text,
-                textstyle=text_style,
+                text_style=text_style,
             )

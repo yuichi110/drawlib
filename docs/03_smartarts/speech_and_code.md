@@ -72,7 +72,7 @@ from drawlib.smartarts import SourceCodeStyles
 from drawlib.styles import Styles
 
 # 1. Standard theme with Japanese CJK font (tofu prevention)
-styles = SourceCodeStyles.get("default", font_lang="ja", textsize=11.0)
+styles = SourceCodeStyles.get("default", font_lang="ja", text_size=11.0)
 
 # 2. Built-in themes: "default", "monochrome", "dark", "google"
 dark_styles = SourceCodeStyles.get("dark", font_lang="en")

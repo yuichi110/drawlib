@@ -26,9 +26,9 @@ setup(width=120, height=45)
 rectangle((60, 22.5), width=116, height=38, style=Styles.MutedDashed)
 
 # Pipeline stages
-rectangle((25, 22.5), width=30, height=18, style=Styles.PrimaryFlat, text="AI Agent / Dev\n(Python Script)", textstyle=Styles.WhiteBold)
-rectangle((62, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Markdown\n(```drawlib)", textstyle=Styles.WhiteBold)
-circle((98, 22.5), radius=10, style=Styles.SuccessFlat, text="HTML, PDF\n& Markdown", textstyle=Styles.WhiteBold)
+rectangle((25, 22.5), width=30, height=18, style=Styles.PrimaryFlat, text="AI Agent / Dev\n(Python Script)", text_style=Styles.WhiteBold)
+rectangle((62, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Markdown\n(```drawlib)", text_style=Styles.WhiteBold)
+circle((98, 22.5), radius=10, style=Styles.SuccessFlat, text="HTML, PDF\n& Markdown", text_style=Styles.WhiteBold)
 
 # Connectors
 line((40, 22.5), (48, 22.5), arrowhead="->", style=Styles.PrimaryBold)

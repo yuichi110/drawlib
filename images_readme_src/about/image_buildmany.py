@@ -153,7 +153,7 @@ arrow(
     head_length=3,
     style=Styles.RedFlat,
     text="Drawlib",
-    textstyle=Styles.Primary.patch(
+    text_style=Styles.Primary.patch(
         text_size=14,
         text_color=Colors.White,
         text_font=FontRoboto.ROBOTO_BOLD,

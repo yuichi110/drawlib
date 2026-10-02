@@ -87,14 +87,14 @@ from drawlib.styles import Styles
 setup(width=100, height=45)
 
 # 2. Draw canvas content
-rectangle((50, 22), width=80, height=26, style=Styles.PrimaryFlat, text="Canvas (100x45)", textstyle=Styles.WhiteBold)
+rectangle((50, 22), width=80, height=26, style=Styles.PrimaryFlat, text="Canvas (100x45)", text_style=Styles.WhiteBold)
 ```
 
 ---
 
 ## 3. Geometric Shapes Primitives (`drawlib.shapes`)
 
-All shape primitives accept `style: Style | None = None`, `text: str = ""`, and `textstyle: Style | None = None`.  
+All shape primitives accept `style: Style | None = None`, `text: str = ""`, and `text_style: Style | None = None`.  
 Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted.
 
 | Function | Geometric Parameters | Description |
@@ -128,9 +128,9 @@ from drawlib.styles import Styles
 
 setup(width=120, height=40)
 
-rectangle((20, 20), width=28, height=18, style=Styles.PrimaryFlat, text="Rectangle", textstyle=Styles.WhiteBold)
-circle((50, 20), radius=10, style=Styles.SecondaryFlat, text="Circle", textstyle=Styles.WhiteBold)
-chevron((68, 11), width=24, height=18, corner_angle=45, style=Styles.AccentFlat, text="Chevron", textstyle=Styles.WhiteBold)
+rectangle((20, 20), width=28, height=18, style=Styles.PrimaryFlat, text="Rectangle", text_style=Styles.WhiteBold)
+circle((50, 20), radius=10, style=Styles.SecondaryFlat, text="Circle", text_style=Styles.WhiteBold)
+chevron((68, 11), width=24, height=18, corner_angle=45, style=Styles.AccentFlat, text="Chevron", text_style=Styles.WhiteBold)
 star((106, 20), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.SuccessFlat)
 ```
 
