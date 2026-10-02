@@ -15,7 +15,7 @@ Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, 
 ```drawlib 650px center caption:"Declarative Multi-Series Bar Chart"
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
-from drawlib.styles import Colors
+from drawlib.styles import Styles
 
 setup(width=100, height=60)
 
@@ -25,8 +25,8 @@ chart = BarChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
     title="Quarterly Revenue ($M)",
 )
-chart.add_series("2025", [12.5, 18.2, 22.0, 31.4], color=Colors.Primary)
-chart.add_series("2026", [15.0, 24.5, 29.8, 38.0], color=Colors.Accent)
+chart.add_series("2025", [12.5, 18.2, 22.0, 31.4], style=Styles.PrimaryFlat)
+chart.add_series("2026", [15.0, 24.5, 29.8, 38.0], style=Styles.AccentFlat)
 
 chart.draw(xy=(10, 8))
 ```
@@ -60,10 +60,10 @@ chart = BarChart(width=90, height=50, categories=[...], title="Performance Metri
 ```
 
 ### 2. Adding Data Series
-Add data series directly using intuitive methods:
+Add data series directly with explicit styles:
 ```python
-chart.add_series("US Region", [120, 180, 240])
-chart.add_series("EU Region", [90, 150, 210])
+chart.add_series("US Region", [120, 180, 240], style=Styles.PrimaryFlat)
+chart.add_series("EU Region", [90, 150, 210], style=Styles.SecondaryFlat)
 ```
 
 ### 3. Rendering via Bottom-Left Anchor

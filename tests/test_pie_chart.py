@@ -25,20 +25,19 @@ class TestPieSlice:
 
     def test_slice_initialization(self) -> None:
         """Test initialization and default attributes of Slice."""
-        s = Slice("Mobile", 45.0)
+        style = Style(shape_fill_color=(100, 150, 200, 1.0))
+        s = Slice("Mobile", 45.0, style=style)
         assert s.name == "Mobile"
         assert s.value == 45.0
-        assert s.color is None
-        assert s.style is None
+        assert s.style is style
         assert s.explode == 0.0
 
     def test_slice_custom_attributes(self) -> None:
-        """Test custom color, style, and explode on Slice."""
+        """Test custom style and explode on Slice."""
         style = Style(shape_fill_color=(100, 150, 200, 1.0))
-        s = Slice("Desktop", 55.0, color=(200, 100, 50), style=style, explode=2.5)
+        s = Slice("Desktop", 55.0, style=style, explode=2.5)
         assert s.name == "Desktop"
         assert s.value == 55.0
-        assert s.color == (200, 100, 50)
         assert s.style is style
         assert s.explode == 2.5
 
@@ -68,8 +67,8 @@ class TestPieChartConstruction:
     def test_add_slice(self) -> None:
         """Test adding slices and retrieving slice list."""
         chart = PieChart()
-        s1 = chart.add_slice("Chrome", 65.0)
-        s2 = chart.add_slice("Safari", 20.0, explode=1.5)
+        s1 = chart.add_slice("Chrome", 65.0, style=Style(shape_fill_color=(50, 100, 200)))
+        s2 = chart.add_slice("Safari", 20.0, style=Style(shape_fill_color=(100, 150, 250)), explode=1.5)
         assert len(chart.slices) == 2
         assert chart.slices[0] is s1
         assert chart.slices[1] is s2
@@ -119,10 +118,10 @@ class TestPieChartRendering:
             canvas.clear()
 
             chart = PieChart(radius=22.0, title="Browser Market Share")
-            chart.add_slice("Chrome", 65.0)
-            chart.add_slice("Safari", 20.0)
-            chart.add_slice("Edge", 10.0)
-            chart.add_slice("Firefox", 5.0)
+            chart.add_slice("Chrome", 65.0, style=Style(shape_fill_color=(50, 100, 200)))
+            chart.add_slice("Safari", 20.0, style=Style(shape_fill_color=(100, 150, 250)))
+            chart.add_slice("Edge", 10.0, style=Style(shape_fill_color=(200, 100, 50)))
+            chart.add_slice("Firefox", 5.0, style=Style(shape_fill_color=(250, 150, 100)))
             chart.draw(xy=(15.0, 15.0))
 
             canvas.save(str(out_file))
@@ -141,9 +140,9 @@ class TestPieChartRendering:
                 center_text="100%\nTotal",
                 title="Revenue by Division",
             )
-            chart.add_slice("Cloud", 120.0)
-            chart.add_slice("Hardware", 80.0)
-            chart.add_slice("Services", 50.0)
+            chart.add_slice("Cloud", 120.0, style=Style(shape_fill_color=(50, 100, 200)))
+            chart.add_slice("Hardware", 80.0, style=Style(shape_fill_color=(100, 150, 250)))
+            chart.add_slice("Services", 50.0, style=Style(shape_fill_color=(200, 100, 50)))
             chart.draw(xy=(10.0, 10.0))
 
             canvas.save(str(out_file))
@@ -157,9 +156,9 @@ class TestPieChartRendering:
             canvas.clear()
 
             chart = PieChart(radius=20.0, title="Campaign Status")
-            chart.add_slice("Won", 55.0, explode=2.0)
-            chart.add_slice("Lost", 30.0)
-            chart.add_slice("Pending", 15.0)
+            chart.add_slice("Won", 55.0, style=Style(shape_fill_color=(50, 100, 200)), explode=2.0)
+            chart.add_slice("Lost", 30.0, style=Style(shape_fill_color=(200, 100, 50)))
+            chart.add_slice("Pending", 15.0, style=Style(shape_fill_color=(100, 150, 250)))
             chart.draw(xy=(15.0, 15.0))
 
             canvas.save(str(out_file))

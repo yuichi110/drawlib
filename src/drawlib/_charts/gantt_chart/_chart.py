@@ -13,7 +13,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._types import ColorType
 from drawlib._charts.gantt_chart import _renderer as _renderer_module
 from drawlib._charts.gantt_chart._item import (
     Dependency,
@@ -42,8 +41,6 @@ class GanttChart:
         title_style: Style | None = None,
         header_style: Style | None = None,
         grid_style: Style | None = None,
-        task_style: Style | None = None,
-        section_style: Style | None = None,
         show_vertical_grid: bool = True,
         show_zebra: bool = True,
         bar_radius: float = 0.8,
@@ -61,8 +58,6 @@ class GanttChart:
             title_style: Optional Style overriding title typography.
             header_style: Optional Style overriding header cells.
             grid_style: Optional Style overriding vertical grid divider lines.
-            task_style: Optional default Style for task bars.
-            section_style: Optional default Style for section divider rows.
             show_vertical_grid: Whether to draw vertical column boundary lines. Defaults to True.
             show_zebra: Whether to alternate row background colors. Defaults to True.
             bar_radius: Corner rounding radius for task bars. Defaults to 0.8.
@@ -83,8 +78,6 @@ class GanttChart:
         self.title_style: Style | None = title_style
         self.header_style: Style | None = header_style
         self.grid_style: Style | None = grid_style
-        self.task_style: Style | None = task_style
-        self.section_style: Style | None = section_style
         self.show_vertical_grid = show_vertical_grid
         self.show_zebra = show_zebra
         self.bar_radius = float(bar_radius)
@@ -118,9 +111,8 @@ class GanttChart:
         name: str,
         start: str | float,
         end: str | float,
+        style: Style,
         progress: float = 0.0,
-        color: ColorType | None = None,
-        style: Style | None = None,
         show_progress_text: bool = True,
     ) -> Task:
         """Add a scheduled task to the chart.
@@ -129,9 +121,8 @@ class GanttChart:
             name: Task name displayed in the left label column.
             start: Start column name or numerical index.
             end: End column name or numerical index.
+            style: Style defining task bar appearance.
             progress: Progress ratio from 0.0 to 1.0. Defaults to 0.0.
-            color: Task bar fill color.
-            style: Optional Style overriding task bar appearance.
             show_progress_text: Whether to print progress percentage. Defaults to True.
 
         Returns:
@@ -141,9 +132,8 @@ class GanttChart:
             name=name,
             start=start,
             end=end,
+            style=style,
             progress=progress,
-            color=color,
-            style=style or self.task_style,
             show_progress_text=show_progress_text,
         )
         self._items.append(task)
@@ -165,7 +155,7 @@ class GanttChart:
         """
         section = Section(
             name=name,
-            style=style or self.section_style,
+            style=style,
         )
         self._items.append(section)
         return section
@@ -174,16 +164,14 @@ class GanttChart:
         self,
         name: str,
         at: str | float,
-        color: ColorType | None = None,
-        style: Style | None = None,
+        style: Style,
     ) -> Milestone:
         """Add a milestone marker event.
 
         Args:
             name: Milestone title displayed in the label column.
             at: Column name or numerical index where the diamond is anchored.
-            color: Diamond marker color.
-            style: Optional Style overriding diamond appearance.
+            style: Style defining diamond marker appearance.
 
         Returns:
             Milestone: The newly registered milestone item.
@@ -191,7 +179,6 @@ class GanttChart:
         milestone = Milestone(
             name=name,
             at=at,
-            color=color,
             style=style,
         )
         self._items.append(milestone)
@@ -200,26 +187,23 @@ class GanttChart:
     def add_marker(
         self,
         at: str | float,
+        style: Style,
         label: str = "",
-        color: ColorType | None = None,
-        style: Style | None = None,
     ) -> Marker:
         """Add a vertical reference highlight line (e.g. today).
 
         Args:
             at: Column name or numerical index where the line is anchored.
+            style: Style defining line appearance.
             label: Badge text displayed above the line. Defaults to "".
-            color: Line color.
-            style: Optional Style overriding line appearance.
 
         Returns:
             Marker: The newly registered marker item.
         """
         marker = Marker(
             at=at,
-            label=label,
-            color=color,
             style=style,
+            label=label,
         )
         self._markers.append(marker)
         return marker
@@ -228,7 +212,6 @@ class GanttChart:
         self,
         from_task: Task,
         to_task: Task,
-        color: ColorType | None = None,
         style: Style | None = None,
     ) -> Dependency:
         """Add an orthogonal dependency arrow connecting two tasks.
@@ -236,7 +219,6 @@ class GanttChart:
         Args:
             from_task: Source task.
             to_task: Target task.
-            color: Arrow line color.
             style: Optional Style overriding arrow appearance.
 
         Returns:
@@ -245,7 +227,6 @@ class GanttChart:
         dep = Dependency(
             from_task=from_task,
             to_task=to_task,
-            color=color,
             style=style,
         )
         self._dependencies.append(dep)

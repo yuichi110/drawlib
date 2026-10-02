@@ -14,6 +14,8 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Literal, Union
 
+from drawlib._core.l3_colors import Color, ColorType
+
 # Primary orientation of the chart
 Orientation = Literal["vertical", "horizontal"]
 
@@ -28,9 +30,6 @@ ScaleType = Literal["linear", "log"]
 
 # Value label and tick formatter
 FormatterType = Union[str, Callable[[float], str], None]
-
-# Color specification type: RGB or RGBA tuple
-ColorType = Union[tuple[int, int, int], tuple[int, int, int, float]]
 
 # Data point marker shape
 PointShape = Literal["circle", "square", "rhombus", "triangle", "none"]

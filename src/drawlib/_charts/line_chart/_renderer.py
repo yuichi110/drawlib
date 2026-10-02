@@ -17,8 +17,8 @@ from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, 
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, LineStyle
 from drawlib._charts.area_chart._series import Series as AreaSeries
-from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._charts.line_chart._series import Series as LineSeries
+from drawlib._core.l3_colors import Color
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
@@ -42,17 +42,16 @@ _DEFAULT_AXIS_COLOR = (148, 163, 184, 1.0)
 
 def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
     """Return an RGBA color tuple replacing alpha with given ratio."""
-    return (int(color[0]), int(color[1]), int(color[2]), float(alpha))
+    c = color if isinstance(color, Color) else Color(color)
+    return (c.r, c.g, c.b, float(alpha))
 
 
 def _resolve_series_colors(series_list: list[LineSeries] | list[AreaSeries]) -> list[ColorType]:
     """Resolve fill/stroke colors for all series."""
     colors: list[ColorType] = []
-    for i, s in enumerate(series_list):
-        if s.color is not None:
-            colors.append(s.color)
-        else:
-            colors.append(DEFAULT_CHART_PALETTE[i % len(DEFAULT_CHART_PALETTE)])
+    for s in series_list:
+        color = s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0)
+        colors.append(color)
     return colors
 
 

@@ -13,7 +13,6 @@ from __future__ import annotations
 
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import (
-    ColorType,
     LegendPosition,
     PointShape,
     ScaleType,
@@ -26,7 +25,6 @@ from drawlib._charts.scatter_chart import (
 
 __all__ = [
     "Axis",
-    "ColorType",
     "LegendPosition",
     "Point",
     "PointShape",

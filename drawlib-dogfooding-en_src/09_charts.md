@@ -9,6 +9,7 @@ Visualize sprint schedules, milestones, and task dependencies with automated arr
 ```drawlib 620px center file:fig_gantt_roadmap.png caption:"Figure 9.1: Core Platform Engineering Roadmap"
 from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
+from drawlib.styles import Styles
 
 setup(width=108, height=58)
 
@@ -23,17 +24,17 @@ chart = GanttChart(
 )
 
 chart.add_section("1. Core Infrastructure")
-t1 = chart.add_task("Architecture & Specs", start="Apr", end=0.9, progress=1.0)
-t2 = chart.add_task("Core Engine Implementation", start=0.7, end=2.2, progress=0.8)
+t1 = chart.add_task("Architecture & Specs", start="Apr", end=0.9, style=Styles.PrimaryFlat, progress=1.0)
+t2 = chart.add_task("Core Engine Implementation", start=0.7, end=2.2, style=Styles.PrimaryFlat, progress=0.8)
 
 chart.add_section("2. Integration & Release")
-t3 = chart.add_task("E2E Tests & Dogfooding", start=2.0, end=3.2, progress=0.4)
-t4 = chart.add_task("Production Deployment", start=3.0, end=3.9, progress=0.0)
+t3 = chart.add_task("E2E Tests & Dogfooding", start=2.0, end=3.2, style=Styles.SecondaryFlat, progress=0.4)
+t4 = chart.add_task("Production Deployment", start=3.0, end=3.9, style=Styles.SecondaryFlat, progress=0.0)
 
 chart.add_dependency(t1, t2)
 chart.add_dependency(t2, t3)
-chart.add_milestone("Alpha Milestone", at=2.0)
-chart.add_marker(at=1.8, label="Current Sprint")
+chart.add_milestone("Alpha Milestone", at=2.0, style=Styles.AccentFlat)
+chart.add_marker(at=1.8, style=Styles.AccentFlat, label="Current Sprint")
 
 chart.draw(xy=(6.0, 5.0))
 ```

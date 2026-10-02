@@ -14,12 +14,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._types import ColorType
-from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._charts.gantt_chart._item import (
     Milestone,
     Section,
     Task,
 )
+from drawlib._core.l3_colors import Color
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line as canvas_line
@@ -44,7 +44,8 @@ _DEFAULT_MARKER_COLOR = (239, 68, 68, 1.0)
 
 def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
     """Return an RGBA color tuple with updated alpha ratio."""
-    return (int(color[0]), int(color[1]), int(color[2]), float(alpha))
+    c = color if isinstance(color, Color) else Color(color)
+    return (c.r, c.g, c.b, float(alpha))
 
 
 def _resolve_time(chart: GanttChart, val: str | float, is_end: bool = False) -> float:
@@ -264,7 +265,7 @@ def _draw_task_row(
     bar_w = max(0.5, bx2 - bx1)
     bar_h = chart.row_height * 0.58
     bar_cx = (bx1 + bx2) / 2.0
-    color = task.color or DEFAULT_CHART_PALETTE[idx % len(DEFAULT_CHART_PALETTE)]
+    color = task.style.shape_fill_color or task.style.line_color or task.style.shape_line_color or _DEFAULT_TEXT_COLOR
 
     if task.progress <= 0.0:
         # Solid scheduled bar
@@ -367,7 +368,12 @@ def _draw_milestone_row(
     mx = x_tl_start + at_t * col_w
     milestone._cached_at_x = mx
 
-    color = milestone.color or _DEFAULT_MILESTONE_COLOR
+    color = (
+        milestone.style.shape_fill_color
+        or milestone.style.line_color
+        or milestone.style.shape_line_color
+        or _DEFAULT_MILESTONE_COLOR
+    )
     d_size = chart.row_height * 0.65
     default_m_style = Style(
         shape_fill_color=color,
@@ -409,9 +415,8 @@ def _draw_dependencies(chart: GanttChart, x_tl_start: float, col_w: float) -> No
         if x1 <= 0 or x2 <= 0:
             continue
 
-        color = dep.color or _DEFAULT_MUTED_TEXT
         style = dep.style or Style(
-            line_color=color,
+            line_color=_DEFAULT_MUTED_TEXT,
             line_width=1.2,
         )
 
@@ -463,7 +468,12 @@ def _draw_markers(
     for mark in chart.markers:
         at_t = _resolve_point_time(chart, mark.at)
         mx = x_tl_start + at_t * col_w
-        color = mark.color or _DEFAULT_MARKER_COLOR
+        color = (
+            mark.style.line_color
+            or mark.style.shape_line_color
+            or mark.style.shape_fill_color
+            or _DEFAULT_MARKER_COLOR
+        )
         default_style = Style(
             line_color=color,
             line_width=1.5,

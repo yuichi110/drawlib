@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._types import ColorType, FormatterType, LegendPosition
+from drawlib._charts._common._types import FormatterType, LegendPosition
 from drawlib._charts.pie_chart import _renderer as _renderer_module
 from drawlib._charts.pie_chart._slice import Slice
 
@@ -85,8 +85,7 @@ class PieChart:
         self,
         name: str,
         value: float,
-        color: ColorType | None = None,
-        style: Style | None = None,
+        style: Style,
         explode: float = 0.0,
     ) -> Slice:
         """Add a new slice to the pie chart.
@@ -94,14 +93,13 @@ class PieChart:
         Args:
             name: Slice label shown in legend.
             value: Numerical magnitude of this slice.
-            color: Slice fill color.
-            style: Optional Style overriding slice appearance.
+            style: Style defining wedge appearance.
             explode: Outward offset distance from center. Defaults to 0.0.
 
         Returns:
             Slice: The newly created and registered slice.
         """
-        s = Slice(name=name, value=value, color=color, style=style, explode=explode)
+        s = Slice(name=name, value=value, style=style, explode=explode)
         self._slices.append(s)
         return s
 

@@ -16,7 +16,6 @@ from typing import TYPE_CHECKING
 
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, FormatterType
-from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import text as canvas_text
@@ -31,14 +30,11 @@ _DEFAULT_WHITE_TEXT = (255, 255, 255, 1.0)
 
 
 def _resolve_slice_colors(slices: list[Slice]) -> list[ColorType]:
-    """Resolve fill colors for all slices."""
-    colors: list[ColorType] = []
-    for i, s in enumerate(slices):
-        if s.color is not None:
-            colors.append(s.color)
-        else:
-            colors.append(DEFAULT_CHART_PALETTE[i % len(DEFAULT_CHART_PALETTE)])
-    return colors
+    """Resolve fill colors for all slices from their styles."""
+    return [
+        s.style.shape_fill_color or s.style.line_color or s.style.shape_line_color or _DEFAULT_TEXT_COLOR
+        for s in slices
+    ]
 
 
 def _format_slice_label(fmt: FormatterType, pct: float, value: float) -> str:

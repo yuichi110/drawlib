@@ -124,20 +124,16 @@ chart.configure_y_axis(
 )
 ```
 
-### 2.3 Default Color Palette
-When series colors are left as `None`, Drawlib selects colors sequentially from the built-in categorical palette:
+### 2.3 Explicit Styling Requirement (`style: Style`)
+All chart elements—series, slices, points, tasks, milestones, and markers—require an explicit `style: Style` argument.
+Drawlib strictly enforces explicit design tokens (`Styles.PrimaryFlat`, `Styles.SecondaryFlat`, `Styles.AccentFlat`, `Styles.MutedFlat`, `Styles.SuccessFlat`, etc.) or custom `Style(...)` instances:
 
 ```python
-DEFAULT_CHART_PALETTE: list[ColorType] = [
-    (59, 130, 246, 1.0),   # Blue
-    (16, 185, 129, 1.0),   # Emerald Green
-    (245, 158, 11, 1.0),   # Amber
-    (244, 63, 94, 1.0),    # Rose Red
-    (99, 102, 241, 1.0),   # Indigo
-    (6, 182, 212, 1.0),    # Cyan
-    (168, 85, 247, 1.0),   # Purple
-    (249, 115, 22, 1.0),   # Orange
-]
+from drawlib.styles import Styles
+
+# Design tokens ensure cohesive aesthetics across all diagrams and charts
+chart.add_series("Series 1", [10, 20, 30], style=Styles.PrimaryFlat)
+chart.add_series("Series 2", [15, 25, 35], style=Styles.SecondaryFlat)
 ```
 
 ---
@@ -177,12 +173,12 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 | `style` | `Style \| None` | `None` | Base style fallback for chart elements. |
 
 ### 3.3 Methods & Data Model
-- `add_series(name: str, values: list[float], color: ColorType | None = None, style: Style | None = None) -> Series`
+- `add_series(name: str, values: list[float], style: Style) -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical axis (value axis for vertical, category axis for horizontal).
 - `configure_x_axis(...) -> Axis`: Configures horizontal axis (category axis for vertical, value axis for horizontal).
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Renders chart at bottom-left position `xy`.
 
-`Series` encapsulates `name: str`, `values: list[float]`, `color: ColorType | None`, and `style: Style | None`.
+`Series` encapsulates `name: str`, `values: list[float]`, and `style: Style`.
 
 ### 3.4 Production Examples
 
@@ -190,6 +186,7 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
+from drawlib.styles import Styles
 
 setup(width=100, height=80)
 
@@ -206,8 +203,8 @@ chart = BarChart(
     value_format="{:.1f}M",
     legend_position="top",
 )
-chart.add_series("SaaS Subscriptions", [45.2, 58.0, 72.5, 91.0])
-chart.add_series("Professional Services", [22.0, 24.5, 21.0, 19.5])
+chart.add_series("SaaS Subscriptions", [45.2, 58.0, 72.5, 91.0], style=Styles.PrimaryFlat)
+chart.add_series("Professional Services", [22.0, 24.5, 21.0, 19.5], style=Styles.SecondaryFlat)
 chart.configure_y_axis(unit="$", label="Revenue (USD Millions)", show_grid=True)
 chart.draw(xy=(10.0, 15.0))
 ```
@@ -216,6 +213,7 @@ chart.draw(xy=(10.0, 15.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
+from drawlib.styles import Styles
 
 setup(width=105, height=75)
 
@@ -232,9 +230,9 @@ chart = BarChart(
     value_format="{:.0f}%",
     legend_position="right",
 )
-chart.add_series("CPU", [35.0, 55.0, 80.0, 45.0])
-chart.add_series("Memory", [40.0, 30.0, 15.0, 35.0])
-chart.add_series("Storage I/O", [25.0, 15.0, 5.0, 20.0])
+chart.add_series("CPU", [35.0, 55.0, 80.0, 45.0], style=Styles.PrimaryFlat)
+chart.add_series("Memory", [40.0, 30.0, 15.0, 35.0], style=Styles.SecondaryFlat)
+chart.add_series("Storage I/O", [25.0, 15.0, 5.0, 20.0], style=Styles.AccentFlat)
 chart.configure_x_axis(min_value=0.0, max_value=100.0, tick_step=20.0, unit="%", show_grid=True)
 chart.draw(xy=(10.0, 15.0))
 ```
@@ -243,6 +241,7 @@ chart.draw(xy=(10.0, 15.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
+from drawlib.styles import Styles
 
 setup(width=100, height=75)
 
@@ -254,7 +253,7 @@ chart = BarChart(
     show_values=True,
     value_format="{:g} ns",
 )
-chart.add_series("Access Time", [1.0, 100.0, 150000.0, 150000000.0])
+chart.add_series("Access Time", [1.0, 100.0, 150000.0, 150000000.0], style=Styles.PrimaryFlat)
 chart.configure_y_axis(scale="log", unit="ns", label="Nanoseconds (log10)", show_grid=True)
 chart.draw(xy=(10.0, 12.0))
 ```
@@ -290,12 +289,12 @@ chart.draw(xy=(10.0, 12.0))
 | `show_values` | `bool` | `False` | Whether to print numerical values above markers. |
 
 ### 4.3 Methods & Data Model
-- `add_series(name: str, values: list[float], color=None, style=None, line_width=2.0, line_style="solid", point_shape=None, point_size=None) -> Series`
+- `add_series(name: str, values: list[float], style: Style, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None) -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical value axis scale, ticks, and gridlines.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
 
-`Series` captures `name`, `values`, `color`, `style`, `line_width`, `line_style`, `point_shape`, and `point_size`.
+`Series` captures `name`, `values`, `style`, `line_width`, `line_style`, `point_shape`, and `point_size`.
 
 ### 4.4 Production Examples
 
@@ -303,6 +302,7 @@ chart.draw(xy=(10.0, 12.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
+from drawlib.styles import Styles
 
 setup(width=100, height=80)
 
@@ -316,8 +316,8 @@ chart = LineChart(
     show_values=True,
     legend_position="top",
 )
-chart.add_series("2025 Baseline", [120.0, 140.0, 175.0, 210.0, 260.0, 310.0], line_style="dashed")
-chart.add_series("2026 Accelerated", [150.0, 195.0, 270.0, 380.0, 520.0, 690.0], line_width=2.5)
+chart.add_series("2025 Baseline", [120.0, 140.0, 175.0, 210.0, 260.0, 310.0], style=Styles.SecondaryFlat, line_style="dashed")
+chart.add_series("2026 Accelerated", [150.0, 195.0, 270.0, 380.0, 520.0, 690.0], style=Styles.PrimaryFlat, line_width=2.5)
 chart.configure_y_axis(unit="k", label="Active Users (Thousands)", show_grid=True)
 chart.draw(xy=(10.0, 15.0))
 ```
@@ -326,6 +326,7 @@ chart.draw(xy=(10.0, 15.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
+from drawlib.styles import Styles
 
 setup(width=100, height=75)
 
@@ -339,8 +340,8 @@ chart = LineChart(
     point_shape="square",
     point_size=0.8,
 )
-chart.add_series("Node-A (Primary)", [22.0, 18.0, 65.0, 88.0, 74.0, 40.0])
-chart.add_series("Node-B (Replica)", [15.0, 12.0, 42.0, 60.0, 52.0, 28.0], line_style="dotted")
+chart.add_series("Node-A (Primary)", [22.0, 18.0, 65.0, 88.0, 74.0, 40.0], style=Styles.PrimaryFlat)
+chart.add_series("Node-B (Replica)", [15.0, 12.0, 42.0, 60.0, 52.0, 28.0], style=Styles.SecondaryFlat, line_style="dotted")
 chart.configure_y_axis(min_value=0.0, max_value=100.0, tick_step=25.0, unit="%", show_grid=True)
 chart.draw(xy=(10.0, 15.0))
 ```
@@ -379,12 +380,12 @@ chart.draw(xy=(10.0, 15.0))
 | `legend_position` | `LegendPosition` | `"auto"` | Position of the legend box. |
 
 ### 5.3 Methods & Data Model
-- `add_series(name: str, values: list[float], color=None, style=None, fill_alpha=None, line_width=2.0, line_style="solid", point_shape=None, point_size=None) -> Series`
+- `add_series(name: str, values: list[float], style: Style, fill_alpha: float | None = None, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None) -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical value axis scale, ticks, and gridlines.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
 
-`Series` tracks `name`, `values`, `color`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, and `point_size`.
+`Series` tracks `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, and `point_size`.
 
 ### 5.4 Production Examples
 
@@ -392,6 +393,7 @@ chart.draw(xy=(10.0, 15.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.area import AreaChart
+from drawlib.styles import Styles
 
 setup(width=100, height=80)
 
@@ -404,9 +406,9 @@ chart = AreaChart(
     fill_alpha=0.65,
     legend_position="top",
 )
-chart.add_series("Enterprise Cloud", [40.0, 70.0, 110.0, 160.0, 225.0])
-chart.add_series("SaaS Products", [25.0, 38.0, 52.0, 68.0, 85.0])
-chart.add_series("Support & Advisory", [15.0, 18.0, 22.0, 24.0, 26.0])
+chart.add_series("Enterprise Cloud", [40.0, 70.0, 110.0, 160.0, 225.0], style=Styles.PrimaryFlat)
+chart.add_series("SaaS Products", [25.0, 38.0, 52.0, 68.0, 85.0], style=Styles.SecondaryFlat)
+chart.add_series("Support & Advisory", [15.0, 18.0, 22.0, 24.0, 26.0], style=Styles.AccentFlat)
 chart.configure_y_axis(unit="M$", label="Gross Revenue (USD Millions)", show_grid=True)
 chart.draw(xy=(10.0, 15.0))
 ```
@@ -415,6 +417,7 @@ chart.draw(xy=(10.0, 15.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.area import AreaChart
+from drawlib.styles import Styles
 
 setup(width=100, height=75)
 
@@ -429,8 +432,8 @@ chart = AreaChart(
     point_shape="circle",
     point_size=0.6,
 )
-chart.add_series("Ingress Traffic", [120.0, 180.0, 650.0, 920.0, 780.0, 310.0])
-chart.add_series("Egress Traffic", [80.0, 110.0, 420.0, 610.0, 530.0, 220.0])
+chart.add_series("Ingress Traffic", [120.0, 180.0, 650.0, 920.0, 780.0, 310.0], style=Styles.PrimaryFlat)
+chart.add_series("Egress Traffic", [80.0, 110.0, 420.0, 610.0, 530.0, 220.0], style=Styles.SecondaryFlat)
 chart.configure_y_axis(unit="Gbps", show_grid=True)
 chart.draw(xy=(10.0, 15.0))
 ```
@@ -471,11 +474,11 @@ chart.draw(xy=(10.0, 15.0))
 | `width` / `height` | `float \| None` | `None` | Optional container dimension overrides. |
 
 ### 6.3 Methods & Data Model
-- `add_slice(name: str, value: float, color: ColorType | None = None, style: Style | None = None, explode: float = 0.0) -> Slice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
+- `add_slice(name: str, value: float, style: Style, explode: float = 0.0) -> Slice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
 - `get_size() -> tuple[float, float]`: Computes required bounding box dimensions based on radius, title, and legend.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
 
-`Slice` encapsulates `name: str`, `value: float`, `color: ColorType | None`, `style: Style | None`, and `explode: float`.
+`Slice` encapsulates `name: str`, `value: float`, `style: Style`, and `explode: float`.
 
 ### 6.4 Production Examples
 
@@ -483,6 +486,7 @@ chart.draw(xy=(10.0, 15.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
+from drawlib.styles import Styles
 
 setup(width=95, height=75)
 
@@ -493,10 +497,10 @@ chart = PieChart(
     title="Revenue Contribution by Product Line",
     legend_position="right",
 )
-chart.add_slice("Cloud Infrastructure", 620.0)
-chart.add_slice("AI Developer Tools", 340.0)
-chart.add_slice("Security Suite", 180.0)
-chart.add_slice("Legacy Support", 60.0)
+chart.add_slice("Cloud Infrastructure", 620.0, style=Styles.PrimaryFlat)
+chart.add_slice("AI Developer Tools", 340.0, style=Styles.SecondaryFlat)
+chart.add_slice("Security Suite", 180.0, style=Styles.AccentFlat)
+chart.add_slice("Legacy Support", 60.0, style=Styles.MutedFlat)
 chart.draw(xy=(10.0, 10.0))
 ```
 
@@ -504,6 +508,7 @@ chart.draw(xy=(10.0, 10.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
+from drawlib.styles import Styles
 
 setup(width=90, height=80)
 
@@ -512,10 +517,10 @@ chart = PieChart(
     title="R&D Budget Allocation (2026)",
     legend_position="bottom",
 )
-chart.add_slice("Generative AI Models", 48.0, explode=3.0)
-chart.add_slice("Core Infrastructure", 24.0)
-chart.add_slice("DevOps & Tooling", 16.0)
-chart.add_slice("Compliance & Security", 12.0)
+chart.add_slice("Generative AI Models", 48.0, style=Styles.PrimaryFlat, explode=3.0)
+chart.add_slice("Core Infrastructure", 24.0, style=Styles.SecondaryFlat)
+chart.add_slice("DevOps & Tooling", 16.0, style=Styles.AccentFlat)
+chart.add_slice("Compliance & Security", 12.0, style=Styles.MutedFlat)
 chart.draw(xy=(15.0, 10.0))
 ```
 
@@ -558,11 +563,11 @@ chart.draw(xy=(15.0, 10.0))
 | `value_format` | `FormatterType` | `None` | Formatter for vertex values. |
 
 ### 7.3 Methods & Data Model
-- `add_series(name: str, values: list[float], color=None, fill_alpha=0.25, line_width=2.0, line_style="solid", show_points=True, point_shape="circle", point_size=0.8, style=None) -> Series`
+- `add_series(name: str, values: list[float], style: Style, fill_alpha: float = 0.25, line_width: float = 2.0, line_style: LineStyle = "solid", show_points: bool = True, point_shape: PointShape = "circle", point_size: float = 0.8) -> Series`
 - `get_size() -> tuple[float, float]`: Returns total computed bounding dimensions.
 - `draw(xy=(0.0, 0.0))`: Renders radar chart on canvas.
 
-`Series` maintains `name`, `values`, `color`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, `point_size`, and `style`.
+`Series` maintains `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, and `point_size`.
 
 ### 7.4 Production Examples
 
@@ -570,6 +575,7 @@ chart.draw(xy=(15.0, 10.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.radar import RadarChart
+from drawlib.styles import Styles
 
 setup(width=105, height=88)
 
@@ -585,8 +591,8 @@ chart = RadarChart(
     show_values=True,
     value_format="{:.0f}",
 )
-chart.add_series("Microservices Architecture", [95, 80, 75, 85, 60], fill_alpha=0.3)
-chart.add_series("Monolithic Architecture", [60, 90, 85, 70, 95], fill_alpha=0.3, line_style="dashed")
+chart.add_series("Microservices Architecture", [95, 80, 75, 85, 60], style=Styles.PrimaryFlat, fill_alpha=0.3)
+chart.add_series("Monolithic Architecture", [60, 90, 85, 70, 95], style=Styles.SecondaryFlat, fill_alpha=0.3, line_style="dashed")
 chart.draw(xy=(5.0, 5.0))
 ```
 
@@ -594,6 +600,7 @@ chart.draw(xy=(5.0, 5.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.radar import RadarChart
+from drawlib.styles import Styles
 
 setup(width=95, height=75)
 
@@ -605,8 +612,8 @@ chart = RadarChart(
     title="Flagship Smartphone Benchmark",
     legend_position="bottom",
 )
-chart.add_series("Device Pro Max", [9.2, 9.5, 8.8, 9.6, 9.0, 6.5])
-chart.add_series("Device Ultra", [8.5, 9.2, 9.4, 9.2, 8.2, 7.8])
+chart.add_series("Device Pro Max", [9.2, 9.5, 8.8, 9.6, 9.0, 6.5], style=Styles.PrimaryFlat)
+chart.add_series("Device Ultra", [8.5, 9.2, 9.4, 9.2, 8.2, 7.8], style=Styles.SecondaryFlat)
 chart.draw(xy=(15.0, 8.0))
 ```
 
@@ -639,14 +646,14 @@ chart.draw(xy=(15.0, 8.0))
 | `show_labels` | `bool` | `True` | Whether to display text annotation labels next to points. |
 
 ### 8.3 Methods & Data Models
-- `add(xy, radius=None, style=None, shape=None, label="", label_style=None) -> Point`: Adds an individual standalone point.
-- `add_series(name, data, radius=None, style=None, shape=None) -> Series`: Adds a named series of `(x, y)` or `(x, y, radius)` points.
+- `add(xy: tuple[float, float], style: Style, radius: float | None = None, shape: PointShape | None = None, label: str = "", label_style: Style | None = None) -> Point`: Adds an individual standalone point.
+- `add_series(name: str, data: list[tuple[float, float]] | list[tuple[float, float, float]], style: Style, radius: float | None = None, shape: PointShape | None = None) -> Series`: Adds a named series of `(x, y)` or `(x, y, radius)` points.
 - `configure_x_axis(...) -> Axis`: Configures the continuous numerical horizontal axis.
 - `configure_y_axis(...) -> Axis`: Configures the continuous numerical vertical axis.
 - `get_size() -> tuple[float, float]`: Returns container dimensions.
 - `draw(xy)`: Renders scatter chart at bottom-left coordinate `xy`.
 
-`Point` represents `xy`, `radius`, `style`, `shape`, and `label`. `Series` groups member points under `name`.
+`Point` represents `xy`, `style`, `radius`, `shape`, and `label`. `Series` groups member points under `name`.
 
 ### 8.4 Production Examples
 
@@ -654,6 +661,7 @@ chart.draw(xy=(15.0, 8.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.scatter import ScatterChart
+from drawlib.styles import Styles
 from drawlib.types import Style
 
 setup(width=105, height=75)
@@ -666,17 +674,19 @@ chart = ScatterChart(
 chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0, max_value=1000)
 chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0, max_value=200)
 
-chart.add(xy=(100.0, 18.0), radius=1.6, label="v1.0 Baseline", style=Style(shape_fill_color=(100, 116, 139, 0.9)))
-chart.add(xy=(730.0, 35.0), radius=2.2, label="v2.5 Release", style=Style(shape_fill_color=(16, 185, 129, 0.9)))
+chart.add(xy=(100.0, 18.0), style=Style(shape_fill_color=(100, 116, 139, 0.9)), radius=1.6, label="v1.0 Baseline")
+chart.add(xy=(730.0, 35.0), style=Style(shape_fill_color=(16, 185, 129, 0.9)), radius=2.2, label="v2.5 Release")
 
 chart.add_series(
     name="Async Rust Engine",
     data=[(300, 18.0), (500, 19.5), (700, 21.0), (950, 24.0)],
+    style=Styles.PrimaryFlat,
     shape="circle",
 )
 chart.add_series(
     name="Legacy Threadpool",
     data=[(150, 40.0), (300, 65.0), (450, 110.0), (600, 165.0)],
+    style=Styles.SecondaryFlat,
     shape="square",
 )
 chart.draw(xy=(10.0, 12.0))
@@ -686,6 +696,7 @@ chart.draw(xy=(10.0, 12.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.scatter import ScatterChart
+from drawlib.styles import Styles
 
 setup(width=105, height=75)
 
@@ -701,11 +712,13 @@ chart.configure_y_axis(label="Job Execution Time (sec)", unit=" s", min_value=0,
 chart.add_series(
     name="Serverless Functions",
     data=[(1.0, 48.0, 1.2), (2.0, 28.0, 1.6), (4.0, 16.0, 2.4), (8.0, 10.0, 3.8)],
+    style=Styles.PrimaryFlat,
     shape="circle",
 )
 chart.add_series(
     name="Dedicated Kubernetes Pods",
     data=[(4.0, 22.0, 2.2), (8.0, 14.0, 3.2), (16.0, 8.5, 4.8), (32.0, 5.0, 6.5)],
+    style=Styles.SecondaryFlat,
     shape="square",
 )
 chart.draw(xy=(10.0, 15.0))
@@ -745,11 +758,11 @@ chart.draw(xy=(10.0, 15.0))
 | `bar_radius` | `float` | `0.8` | Corner rounding radius for task bars. |
 
 ### 9.3 Methods & Schedule Models
-- `add_task(name, start, end, progress=0.0, color=None, style=None, show_progress_text=True) -> Task`
+- `add_task(name: str, start: str | float, end: str | float, style: Style, progress: float = 0.0, show_progress_text: bool = True) -> Task`
 - `add_section(name: str, style: Style | None = None) -> Section`
-- `add_milestone(name: str, at: str | float, color=None, style=None) -> Milestone`
-- `add_marker(at: str | float, label="", color=None, style=None) -> Marker`
-- `add_dependency(from_task: Task, to_task: Task, color=None, style=None) -> Dependency`
+- `add_milestone(name: str, at: str | float, style: Style) -> Milestone`
+- `add_marker(at: str | float, style: Style, label: str = "") -> Marker`
+- `add_dependency(from_task: Task, to_task: Task, style: Style | None = None) -> Dependency`
 - `get_size() -> tuple[float, float]`: Returns total computed dimensions.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
 
@@ -761,6 +774,7 @@ Data models include `Task`, `Section`, `Milestone`, `Marker`, and `Dependency`.
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
+from drawlib.styles import Styles
 
 setup(width=110, height=85)
 
@@ -775,21 +789,21 @@ chart = GanttChart(
 )
 
 chart.add_section("1. Architecture & Core Services")
-t1 = chart.add_task("Spec & Protocol Definition", start="Apr", end=0.8, progress=1.0)
-t2 = chart.add_task("Storage Engine Overhaul", start=0.6, end=2.2, progress=0.85)
-t3 = chart.add_task("Distributed Consensus Protocol", start=1.5, end=3.2, progress=0.4)
+t1 = chart.add_task("Spec & Protocol Definition", start="Apr", end=0.8, style=Styles.PrimaryFlat, progress=1.0)
+t2 = chart.add_task("Storage Engine Overhaul", start=0.6, end=2.2, style=Styles.PrimaryFlat, progress=0.85)
+t3 = chart.add_task("Distributed Consensus Protocol", start=1.5, end=3.2, style=Styles.PrimaryFlat, progress=0.4)
 
 chart.add_section("2. APIs & Observability")
-t4 = chart.add_task("gRPC & HTTP/3 Gateway", start=2.5, end=4.0, progress=0.2)
-t5 = chart.add_task("Distributed Tracing Exporter", start=3.2, end=4.8, progress=0.0)
+t4 = chart.add_task("gRPC & HTTP/3 Gateway", start=2.5, end=4.0, style=Styles.SecondaryFlat, progress=0.2)
+t5 = chart.add_task("Distributed Tracing Exporter", start=3.2, end=4.8, style=Styles.SecondaryFlat, progress=0.0)
 
-chart.add_milestone("Alpha Architecture Freeze", at="Jun")
-chart.add_milestone("Public Beta Launch", at=4.0)
+chart.add_milestone("Alpha Architecture Freeze", at="Jun", style=Styles.AccentFlat)
+chart.add_milestone("Public Beta Launch", at=4.0, style=Styles.AccentFlat)
 
 chart.add_dependency(t1, t2)
 chart.add_dependency(t2, t4)
 chart.add_dependency(t3, t4)
-chart.add_marker(at=1.7, label="Today (Mid-May)")
+chart.add_marker(at=1.7, style=Styles.AccentFlat, label="Today (Mid-May)")
 chart.draw(xy=(8.0, 10.0))
 ```
 
@@ -797,6 +811,7 @@ chart.draw(xy=(8.0, 10.0))
 ```drawlib show-code
 from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
+from drawlib.styles import Styles
 
 setup(width=100, height=70)
 
@@ -809,12 +824,12 @@ chart = GanttChart(
     bar_radius=1.2,
 )
 
-s1 = chart.add_task("Auth Microservice", start=0.0, end=1.8, progress=1.0, color=(59, 130, 246))
-s2 = chart.add_task("Payment Gateway", start=1.2, end=3.0, progress=0.6, color=(16, 185, 129))
-s3 = chart.add_task("Load Testing & Tuning", start=2.5, end=4.0, progress=0.1, color=(245, 158, 11))
+s1 = chart.add_task("Auth Microservice", start=0.0, end=1.8, style=Styles.PrimaryFlat, progress=1.0)
+s2 = chart.add_task("Payment Gateway", start=1.2, end=3.0, style=Styles.SecondaryFlat, progress=0.6)
+s3 = chart.add_task("Load Testing & Tuning", start=2.5, end=4.0, style=Styles.AccentFlat, progress=0.1)
 
 chart.add_dependency(s1, s2)
-chart.add_milestone("Feature Complete", at=3.0)
+chart.add_milestone("Feature Complete", at=3.0, style=Styles.AccentFlat)
 chart.draw(xy=(6.0, 15.0))
 ```
 

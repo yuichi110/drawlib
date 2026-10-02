@@ -14,7 +14,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._types import (
-    ColorType,
     FormatterType,
     GridShape,
     LegendPosition,
@@ -118,28 +117,26 @@ class RadarChart:
         self,
         name: str,
         values: list[float],
-        color: ColorType | None = None,
+        style: Style,
         fill_alpha: float = 0.25,
         line_width: float = 2.0,
         line_style: LineStyle = "solid",
         show_points: bool = True,
         point_shape: PointShape = "circle",
         point_size: float = 0.8,
-        style: Style | None = None,
     ) -> Series:
         """Add a new data series to the radar chart.
 
         Args:
             name: Series name displayed in legend.
             values: Numeric values for each category.
-            color: Series fill and stroke color.
+            style: Style defining polygon outline, fill, and marker appearance.
             fill_alpha: Transparency of polygon fill (0.0 to 1.0). Defaults to 0.25.
             line_width: Perimeter stroke width. Defaults to 2.0.
             line_style: Perimeter stroke pattern. Defaults to "solid".
             show_points: Whether to render vertex markers. Defaults to True.
             point_shape: Marker shape. Defaults to "circle".
             point_size: Marker radius. Defaults to 0.8.
-            style: Optional Style overriding series appearance.
 
         Returns:
             Series: The newly created and registered series.
@@ -147,14 +144,13 @@ class RadarChart:
         s = Series(
             name=name,
             values=values,
-            color=color,
+            style=style,
             fill_alpha=fill_alpha,
             line_width=line_width,
             line_style=line_style,
             show_points=show_points,
             point_shape=point_shape,
             point_size=point_size,
-            style=style,
         )
         self._series.append(s)
         return s

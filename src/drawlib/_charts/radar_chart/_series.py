@@ -11,12 +11,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
-from drawlib._charts._common._types import ColorType, LineStyle, PointShape
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._charts._common._types import LineStyle, PointShape
+from drawlib._core.l3_styles import Style
 
 
 class Series:
@@ -26,36 +22,33 @@ class Series:
         self,
         name: str,
         values: list[float],
-        color: ColorType | None = None,
+        style: Style,
         fill_alpha: float = 0.25,
         line_width: float = 2.0,
         line_style: LineStyle = "solid",
         show_points: bool = True,
         point_shape: PointShape = "circle",
         point_size: float = 0.8,
-        style: Style | None = None,
     ) -> None:
         """Initialize Series.
 
         Args:
             name: Series label displayed in the legend.
             values: Numerical values corresponding to each radar axis/category.
-            color: Primary color for polygon fill and line stroke.
+            style: Style defining polygon outline, fill, and marker appearance.
             fill_alpha: Transparency of the filled polygon (0.0 to 1.0). Defaults to 0.25.
             line_width: Width of the bounding polygon perimeter line. Defaults to 2.0.
             line_style: Line stroke pattern ("solid", "dashed", "dotted", "dashdot"). Defaults to "solid".
             show_points: Whether to render markers at category vertices. Defaults to True.
             point_shape: Marker shape ("circle", "square", "none"). Defaults to "circle".
             point_size: Radius or half-width of the vertex markers. Defaults to 0.8.
-            style: Optional custom Style overriding polygon appearance.
         """
         self.name = name
         self.values = [float(v) for v in values]
-        self.color: ColorType | None = color
+        self.style: Style = style
         self.fill_alpha = float(fill_alpha)
         self.line_width = float(line_width)
         self.line_style: LineStyle = line_style
         self.show_points = show_points
         self.point_shape: PointShape = point_shape
         self.point_size = float(point_size)
-        self.style: Style | None = style

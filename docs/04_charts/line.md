@@ -51,7 +51,7 @@ LineChart(
 chart.add_series(
     name: str,
     values: list[float],
-    color: ColorType | None = None,
+    style: Style,
     line_width: float = 2.0,
     line_style: LineStyle = "solid",
     point_shape: PointShape | None = None,

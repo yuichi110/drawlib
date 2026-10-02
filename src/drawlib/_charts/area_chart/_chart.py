@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._types import AreaMode, ColorType, LegendPosition, LineStyle, PointShape
+from drawlib._charts._common._types import AreaMode, LegendPosition, LineStyle, PointShape
 from drawlib._charts.area_chart._series import Series
 from drawlib._charts.line_chart import _renderer as _renderer_module
 from drawlib._charts.line_chart._base import CartesianChartBase
@@ -87,8 +87,7 @@ class AreaChart(CartesianChartBase):
         self,
         name: str,
         values: list[float],
-        color: ColorType | None = None,
-        style: Style | None = None,
+        style: Style,
         fill_alpha: float | None = None,
         line_width: float = 2.0,
         line_style: LineStyle = "solid",
@@ -100,8 +99,7 @@ class AreaChart(CartesianChartBase):
         Args:
             name: Series label shown in legend.
             values: Numerical values corresponding to categories.
-            color: Area fill and stroke color.
-            style: Optional Style overriding area and boundary appearance.
+            style: Style defining area polygon fill, outline, and marker appearance.
             fill_alpha: Transparency ratio for this series polygon.
             line_width: Stroke thickness of upper boundary line. Defaults to 2.0.
             line_style: Stroke pattern ("solid", "dashed", etc.). Defaults to "solid".
@@ -117,7 +115,6 @@ class AreaChart(CartesianChartBase):
         s = Series(
             name=name,
             values=values,
-            color=color,
             style=style,
             fill_alpha=alpha,
             line_width=line_width,

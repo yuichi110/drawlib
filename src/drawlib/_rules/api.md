@@ -370,19 +370,20 @@ Drawlib charts render directly into the unified vector canvas alongside architec
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.charts.pie import PieChart
+from drawlib.styles import Styles
 
 setup(width=120, height=55)
 
 # 1. Bar Chart on the left
 bar_chart = BarChart(width=50, height=40, title="Quarterly Sales", categories=["Q1", "Q2", "Q3", "Q4"])
-bar_chart.add_series(name="Cloud", values=[45, 52, 68, 85])
+bar_chart.add_series(name="Cloud", values=[45, 52, 68, 85], style=Styles.PrimaryFlat)
 bar_chart.draw((10, 8))
 
 # 2. Donut Chart on the right
 pie = PieChart(radius=15, hole_ratio=0.5, title="Resource Usage")
-pie.add_slice("Compute", 45)
-pie.add_slice("Storage", 35)
-pie.add_slice("Network", 20)
+pie.add_slice("Compute", 45, style=Styles.PrimaryFlat)
+pie.add_slice("Storage", 35, style=Styles.SecondaryFlat)
+pie.add_slice("Network", 20, style=Styles.AccentFlat)
 pie.draw((90, 28))
 ```
 

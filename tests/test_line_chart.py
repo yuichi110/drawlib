@@ -39,7 +39,8 @@ class TestLineChartModel:
     def test_add_series(self) -> None:
         """Verify adding LineSeries to LineChart."""
         chart = LineChart(categories=["A", "B", "C"])
-        s1 = chart.add_series("Series 1", [10.0, 25.0, 40.0], line_width=2.5, line_style="dashed")
+        style = Style(line_color=(50, 100, 200))
+        s1 = chart.add_series("Series 1", [10.0, 25.0, 40.0], style=style, line_width=2.5, line_style="dashed")
         assert isinstance(s1, LineSeries)
         assert len(chart.series) == 1
         assert chart.series[0].name == "Series 1"
@@ -65,7 +66,8 @@ class TestAreaChartModel:
     def test_add_series(self) -> None:
         """Verify adding AreaSeries to AreaChart."""
         chart = AreaChart(categories=["X", "Y"])
-        s = chart.add_series("Bandwidth", [100.0, 200.0], fill_alpha=0.5)
+        style = Style(shape_fill_color=(50, 100, 200))
+        s = chart.add_series("Bandwidth", [100.0, 200.0], style=style, fill_alpha=0.5)
         assert isinstance(s, AreaSeries)
         assert len(chart.series) == 1
         assert chart.series[0].name == "Bandwidth"
@@ -90,8 +92,10 @@ class TestLineAndAreaRendering:
                 show_points=True,
                 show_values=True,
             )
-            chart.add_series("Project A", [12.0, 18.0, 29.0, 45.0])
-            chart.add_series("Project B", [20.0, 22.0, 25.0, 28.0], line_style="dashed")
+            chart.add_series("Project A", [12.0, 18.0, 29.0, 45.0], style=Style(line_color=(50, 100, 200)))
+            chart.add_series(
+                "Project B", [20.0, 22.0, 25.0, 28.0], style=Style(line_color=(200, 100, 50)), line_style="dashed"
+            )
             chart.configure_y_axis(unit="k", show_grid=True)
             chart.draw(xy=(10.0, 20.0))
 
@@ -113,7 +117,7 @@ class TestLineAndAreaRendering:
                 smooth=True,
                 point_shape="square",
             )
-            chart.add_series("Core 0", [25.0, 45.0, 30.0, 70.0, 55.0])
+            chart.add_series("Core 0", [25.0, 45.0, 30.0, 70.0, 55.0], style=Style(line_color=(50, 100, 200)))
             chart.configure_y_axis(unit="%", show_grid=True)
             chart.draw(xy=(10.0, 20.0))
 
@@ -135,8 +139,8 @@ class TestLineAndAreaRendering:
                 mode="overlap",
                 fill_alpha=0.3,
             )
-            chart.add_series("Inbound", [100.0, 350.0, 800.0, 450.0])
-            chart.add_series("Outbound", [80.0, 200.0, 520.0, 310.0])
+            chart.add_series("Inbound", [100.0, 350.0, 800.0, 450.0], style=Style(shape_fill_color=(50, 100, 200)))
+            chart.add_series("Outbound", [80.0, 200.0, 520.0, 310.0], style=Style(shape_fill_color=(200, 100, 50)))
             chart.configure_y_axis(unit="MB/s", show_grid=True)
             chart.draw(xy=(10.0, 20.0))
 
@@ -158,9 +162,11 @@ class TestLineAndAreaRendering:
                 mode="stack",
                 fill_alpha=0.6,
             )
-            chart.add_series("Subscription", [30.0, 45.0, 60.0, 80.0])
-            chart.add_series("Services", [20.0, 25.0, 30.0, 35.0])
-            chart.add_series("Hardware", [15.0, 12.0, 10.0, 8.0])
+            chart.add_series(
+                "Subscription", [30.0, 45.0, 60.0, 80.0], style=Style(shape_fill_color=(50, 100, 200))
+            )
+            chart.add_series("Services", [20.0, 25.0, 30.0, 35.0], style=Style(shape_fill_color=(100, 150, 250)))
+            chart.add_series("Hardware", [15.0, 12.0, 10.0, 8.0], style=Style(shape_fill_color=(200, 100, 50)))
             chart.configure_y_axis(unit="M$", show_grid=True)
             chart.draw(xy=(10.0, 20.0))
 

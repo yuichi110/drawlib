@@ -64,6 +64,7 @@ Stacked area charts are ideal for displaying total aggregate metrics and showing
 ```drawlib 650px center caption:"Cumulative Stacked Revenue Streams"
 from drawlib import canvas
 from drawlib.charts.area import AreaChart
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=100, height=80)
@@ -77,9 +78,9 @@ chart = AreaChart(
     fill_alpha=0.65,
     legend_position="top",
 )
-chart.add_series("Enterprise Cloud", [40.0, 70.0, 110.0, 160.0, 225.0])
-chart.add_series("SaaS Products", [25.0, 38.0, 52.0, 68.0, 85.0])
-chart.add_series("Support & Advisory", [15.0, 18.0, 22.0, 24.0, 26.0])
+chart.add_series("Enterprise Cloud", [40.0, 70.0, 110.0, 160.0, 225.0], style=Styles.PrimaryFlat)
+chart.add_series("SaaS Products", [25.0, 38.0, 52.0, 68.0, 85.0], style=Styles.SecondaryFlat)
+chart.add_series("Support & Advisory", [15.0, 18.0, 22.0, 24.0, 26.0], style=Styles.AccentFlat)
 
 chart.configure_y_axis(unit="M$", label="Gross Revenue (USD Millions)", show_grid=True)
 chart.draw(xy=(10.0, 15.0))
@@ -94,6 +95,7 @@ When comparing independent metrics that share the same scale (such as network in
 ```drawlib 650px center caption:"Gateway Ingress vs Egress Traffic"
 from drawlib import canvas
 from drawlib.charts.area import AreaChart
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=100, height=75)
@@ -110,8 +112,8 @@ chart = AreaChart(
     point_size=0.6,
     legend_position="top",
 )
-chart.add_series("Ingress Traffic", [120.0, 180.0, 650.0, 920.0, 780.0, 310.0])
-chart.add_series("Egress Traffic", [80.0, 110.0, 420.0, 610.0, 530.0, 220.0])
+chart.add_series("Ingress Traffic", [120.0, 180.0, 650.0, 920.0, 780.0, 310.0], style=Styles.PrimaryFlat)
+chart.add_series("Egress Traffic", [80.0, 110.0, 420.0, 610.0, 530.0, 220.0], style=Styles.SecondaryFlat)
 
 chart.configure_y_axis(unit="Gbps", label="Throughput (Gbps)", show_grid=True)
 chart.draw(xy=(10.0, 15.0))

@@ -9,6 +9,7 @@
 ```drawlib 620px center file:fig_gantt_roadmap.png caption:"図 9.1: エンジニアリング開発ロードマップ"
 from drawlib.canvas import setup
 from drawlib.charts.gantt import GanttChart
+from drawlib.styles import Styles
 
 setup(width=108, height=58)
 
@@ -23,17 +24,17 @@ chart = GanttChart(
 )
 
 chart.add_section("1. 基盤開発")
-t1 = chart.add_task("要件定義 & アーキテクチャ", start="4月", end=0.9, progress=1.0)
-t2 = chart.add_task("コアエンジン実装", start=0.7, end=2.2, progress=0.8)
+t1 = chart.add_task("要件定義 & アーキテクチャ", start="4月", end=0.9, style=Styles.PrimaryFlat, progress=1.0)
+t2 = chart.add_task("コアエンジン実装", start=0.7, end=2.2, style=Styles.PrimaryFlat, progress=0.8)
 
 chart.add_section("2. 結合 & リリース")
-t3 = chart.add_task("E2E テスト & ドッグフード", start=2.0, end=3.2, progress=0.4)
-t4 = chart.add_task("本番環境デプロイ", start=3.0, end=3.9, progress=0.0)
+t3 = chart.add_task("E2E テスト & ドッグフード", start=2.0, end=3.2, style=Styles.SecondaryFlat, progress=0.4)
+t4 = chart.add_task("本番環境デプロイ", start=3.0, end=3.9, style=Styles.SecondaryFlat, progress=0.0)
 
 chart.add_dependency(t1, t2)
 chart.add_dependency(t2, t3)
-chart.add_milestone("Alpha 版完了", at=2.0)
-chart.add_marker(at=1.8, label="現在地")
+chart.add_milestone("Alpha 版完了", at=2.0, style=Styles.AccentFlat)
+chart.add_marker(at=1.8, style=Styles.AccentFlat, label="現在地")
 
 chart.draw(xy=(6.0, 5.0))
 ```

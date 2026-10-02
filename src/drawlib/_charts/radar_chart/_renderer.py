@@ -17,7 +17,7 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._axis import _get_nice_step
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, FormatterType
-from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
+from drawlib._core.l3_colors import Color
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
@@ -40,18 +40,16 @@ _DEFAULT_SPOKE_COLOR = (203, 213, 225, 1.0)
 
 def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
     """Return an RGBA color tuple replacing alpha with given ratio."""
-    return (int(color[0]), int(color[1]), int(color[2]), float(alpha))
+    c = color if isinstance(color, Color) else Color(color)
+    return (c.r, c.g, c.b, float(alpha))
 
 
 def _resolve_series_colors(series_list: list[Series]) -> list[ColorType]:
     """Resolve fill/stroke colors for all series."""
-    colors: list[ColorType] = []
-    for i, s in enumerate(series_list):
-        if s.color is not None:
-            colors.append(s.color)
-        else:
-            colors.append(DEFAULT_CHART_PALETTE[i % len(DEFAULT_CHART_PALETTE)])
-    return colors
+    return [
+        s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or _DEFAULT_TEXT_COLOR
+        for s in series_list
+    ]
 
 
 def _format_value(fmt: FormatterType, value: float) -> str:

@@ -16,7 +16,6 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType
-from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line as canvas_line
@@ -72,8 +71,8 @@ def draw_bar_chart(chart: BarChart, xy: tuple[float, float]) -> None:
     # 3. Resolve series colors
     series_names = [s.name for s in chart.series]
     series_colors = [
-        s.color if s.color is not None else DEFAULT_CHART_PALETTE[i % len(DEFAULT_CHART_PALETTE)]
-        for i, s in enumerate(chart.series)
+        s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0)
+        for s in chart.series
     ]
 
     # 4. Legend size & Margins

@@ -50,10 +50,10 @@ chart = BarChart(width=90, height=50, categories=[...], title="Performance Metri
 ```
 
 ### 2. Adding Data Series
-Add data series directly using intuitive methods:
+Add data series directly with explicit styles:
 ```python
-chart.add_series("US Region", [120, 180, 240])
-chart.add_series("EU Region", [90, 150, 210])
+chart.add_series("US Region", [120, 180, 240], style=Styles.PrimaryFlat)
+chart.add_series("EU Region", [90, 150, 210], style=Styles.SecondaryFlat)
 ```
 
 ### 3. Rendering via Bottom-Left Anchor

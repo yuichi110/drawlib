@@ -68,6 +68,7 @@ Donut charts are the preferred choice for enterprise dashboards and executive pr
 ```drawlib 650px center caption:"Revenue Contribution Donut Chart"
 from drawlib import canvas
 from drawlib.charts.pie import PieChart
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=95, height=75)
@@ -79,10 +80,10 @@ chart = PieChart(
     title="Revenue Contribution by Product Line",
     legend_position="right",
 )
-chart.add_slice("Cloud Infrastructure", 620.0)
-chart.add_slice("AI Developer Tools", 340.0)
-chart.add_slice("Security Suite", 180.0)
-chart.add_slice("Legacy Support", 60.0)
+chart.add_slice("Cloud Infrastructure", 620.0, style=Styles.PrimaryFlat)
+chart.add_slice("AI Developer Tools", 340.0, style=Styles.SecondaryFlat)
+chart.add_slice("Security Suite", 180.0, style=Styles.AccentFlat)
+chart.add_slice("Legacy Support", 60.0, style=Styles.MutedFlat)
 
 chart.draw(xy=(10.0, 10.0))
 ```
@@ -96,6 +97,7 @@ Setting `explode > 0.0` radially displaces a slice away from the center origin, 
 ```drawlib 650px center caption:"Budget Allocation with Exploded Slice"
 from drawlib import canvas
 from drawlib.charts.pie import PieChart
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=90, height=80)
@@ -105,10 +107,10 @@ chart = PieChart(
     title="R&D Budget Allocation (2026)",
     legend_position="bottom",
 )
-chart.add_slice("Generative AI Models", 48.0, explode=3.0)
-chart.add_slice("Core Infrastructure", 24.0)
-chart.add_slice("DevOps & Tooling", 16.0)
-chart.add_slice("Compliance & Security", 12.0)
+chart.add_slice("Generative AI Models", 48.0, style=Styles.PrimaryFlat, explode=3.0)
+chart.add_slice("Core Infrastructure", 24.0, style=Styles.SecondaryFlat)
+chart.add_slice("DevOps & Tooling", 16.0, style=Styles.AccentFlat)
+chart.add_slice("Compliance & Security", 12.0, style=Styles.MutedFlat)
 
 chart.draw(xy=(15.0, 10.0))
 ```

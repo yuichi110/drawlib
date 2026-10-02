@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING
 
 import drawlib._charts.bar_chart._renderer as _renderer_module
 from drawlib._charts._common._axis import Axis
-from drawlib._charts._common._types import BarMode, ColorType, FormatterType, LegendPosition, Orientation, ScaleType
+from drawlib._charts._common._types import BarMode, FormatterType, LegendPosition, Orientation, ScaleType
 from drawlib._charts.bar_chart._series import Series
 
 if TYPE_CHECKING:
@@ -101,21 +101,19 @@ class BarChart:
         self,
         name: str,
         values: list[float],
-        color: ColorType | None = None,
-        style: Style | None = None,
+        style: Style,
     ) -> Series:
         """Add a data series to the chart.
 
         Args:
             name: Series label shown in the legend.
             values: Numerical values corresponding to categories.
-            color: Bar fill color.
-            style: Optional Style object to override bar appearance.
+            style: Style object defining bar outline and fill.
 
         Returns:
             Series: The newly created and registered series.
         """
-        s = Series(name=name, values=values, color=color, style=style)
+        s = Series(name=name, values=values, style=style)
         self._series.append(s)
         return s
 

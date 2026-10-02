@@ -27,42 +27,40 @@ class TestRadarSeries:
 
     def test_series_initialization(self) -> None:
         """Test default attributes of Series."""
-        s = Series("Warrior", [80.0, 90.0, 70.0, 60.0, 85.0])
+        style = Style(line_color=(50, 100, 200))
+        s = Series("Warrior", [80.0, 90.0, 70.0, 60.0, 85.0], style=style)
         assert s.name == "Warrior"
         assert s.values == [80.0, 90.0, 70.0, 60.0, 85.0]
-        assert s.color is None
+        assert s.style is style
         assert s.fill_alpha == 0.25
         assert s.line_width == 2.0
         assert s.line_style == "solid"
         assert s.show_points is True
         assert s.point_shape == "circle"
         assert s.point_size == 0.8
-        assert s.style is None
 
     def test_series_custom_attributes(self) -> None:
         """Test customized attributes on Series."""
-        custom_style = Style(line_width=3.0)
+        custom_style = Style(line_width=3.0, line_color=(120, 80, 220))
         s = Series(
             name="Mage",
             values=[30.0, 20.0, 95.0, 80.0, 40.0],
-            color=(120, 80, 220),
+            style=custom_style,
             fill_alpha=0.4,
             line_width=2.5,
             line_style="dashed",
             show_points=False,
             point_shape="square",
             point_size=1.2,
-            style=custom_style,
         )
         assert s.name == "Mage"
-        assert s.color == (120, 80, 220)
+        assert s.style is custom_style
         assert s.fill_alpha == 0.4
         assert s.line_width == 2.5
         assert s.line_style == "dashed"
         assert s.show_points is False
         assert s.point_shape == "square"
         assert s.point_size == 1.2
-        assert s.style is custom_style
 
 
 class TestRadarChartConstruction:
@@ -88,13 +86,13 @@ class TestRadarChartConstruction:
     def test_add_series(self) -> None:
         """Test registering series with RadarChart."""
         chart = RadarChart(categories=["Attack", "Defense", "Speed"])
-        s1 = chart.add_series("P1", [80, 70, 90])
-        s2 = chart.add_series("P2", [60, 85, 75], color=(255, 100, 50))
+        s1 = chart.add_series("P1", [80, 70, 90], style=Style(line_color=(50, 100, 200)))
+        s2 = chart.add_series("P2", [60, 85, 75], style=Style(line_color=(255, 100, 50)))
         assert len(chart.series) == 2
         assert chart.series[0] is s1
         assert chart.series[1] is s2
         assert s1.name == "P1"
-        assert s2.color == (255, 100, 50)
+        assert s2.style.line_color == (255, 100, 50)
 
     def test_get_size_auto_and_custom(self) -> None:
         """Test auto dimension calculations and explicit dimensions."""
@@ -144,8 +142,8 @@ class TestRadarChartRendering:
                 title="Character Attributes Comparison",
                 legend_position="right",
             )
-            chart.add_series("Warrior", [85, 90, 80, 60, 75])
-            chart.add_series("Rogue", [95, 65, 50, 95, 70])
+            chart.add_series("Warrior", [85, 90, 80, 60, 75], style=Style(line_color=(50, 100, 200)))
+            chart.add_series("Rogue", [95, 65, 50, 95, 70], style=Style(line_color=(200, 50, 100)))
             chart.draw(xy=(10.0, 10.0))
 
             canvas.save(str(out_file))
@@ -168,8 +166,10 @@ class TestRadarChartRendering:
                 legend_position="bottom",
                 show_values=True,
             )
-            chart.add_series("Product A", [90, 85, 95, 80, 75])
-            chart.add_series("Product B", [70, 95, 80, 90, 85], line_style="dashed")
+            chart.add_series("Product A", [90, 85, 95, 80, 75], style=Style(line_color=(50, 100, 200)))
+            chart.add_series(
+                "Product B", [70, 95, 80, 90, 85], style=Style(line_color=(200, 50, 100)), line_style="dashed"
+            )
             chart.draw(xy=(15.0, 8.0))
 
             canvas.save(str(out_file))

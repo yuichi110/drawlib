@@ -84,17 +84,17 @@ In `GanttChart`, time coordinates can be passed as:
 
 ```python
 # Task starts at column index 0 ("Apr") and runs until 80% through "Apr"
-t1 = chart.add_task("Quick Task", start="Apr", end=0.8)
+t1 = chart.add_task("Quick Task", start="Apr", end=0.8, style=Styles.PrimaryFlat)
 
 # Task starts halfway through month 2 and ends at month 4
-t2 = chart.add_task("Longer Task", start=1.5, end=4.0)
+t2 = chart.add_task("Longer Task", start=1.5, end=4.0, style=Styles.SecondaryFlat)
 ```
 
 ---
 
 ## 5. Agile Sprint Schedule with Custom Palette
 
-Tasks can also accept explicit colors to designate project phases, teams, or status:
+Tasks can also accept explicit styles to designate project phases, teams, or status:
 
 
 

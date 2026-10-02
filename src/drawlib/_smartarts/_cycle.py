@@ -17,7 +17,6 @@ from typing import Literal
 
 from pydantic import validate_call
 
-from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.l2_types import Angle, Coordinate, PosFloat
 from drawlib._core.l3_colors import ColorType, ColorUtil
 from drawlib._core.l3_fonts import Font
@@ -27,6 +26,7 @@ from drawlib._core.l4_canvas import circle as canvas_circle
 from drawlib._core.l4_canvas import line_arc as canvas_line_arc
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._smartarts._common import DEFAULT_SMARTART_PALETTE
 
 
 class _CycleItem:
@@ -429,7 +429,7 @@ class Cycle:
         if self._default_style is not None:
             return self._default_style
 
-        palette = self._palette if self._palette is not None else DEFAULT_CHART_PALETTE
+        palette = self._palette if self._palette is not None else DEFAULT_SMARTART_PALETTE
         color = palette[index % len(palette)]
         return Style(
             shape_fill_color=color,
@@ -446,7 +446,7 @@ class Cycle:
         if self._default_arrow_style is not None:
             return self._default_arrow_style
 
-        palette = self._palette if self._palette is not None else DEFAULT_CHART_PALETTE
+        palette = self._palette if self._palette is not None else DEFAULT_SMARTART_PALETTE
 
         if self._arrow_color_mode == "match_source":
             from_style = self._resolve_item_style(item, from_idx)

@@ -373,9 +373,9 @@
 <pre><code class="language-python">chart = BarChart(width=90, height=50, categories=[...], title=&quot;Performance Metrics&quot;)
 </code></pre>
 <h3>2. Adding Data Series</h3>
-<p>Add data series directly using intuitive methods:</p>
-<pre><code class="language-python">chart.add_series(&quot;US Region&quot;, [120, 180, 240])
-chart.add_series(&quot;EU Region&quot;, [90, 150, 210])
+<p>Add data series directly with explicit styles:</p>
+<pre><code class="language-python">chart.add_series(&quot;US Region&quot;, [120, 180, 240], style=Styles.PrimaryFlat)
+chart.add_series(&quot;EU Region&quot;, [90, 150, 210], style=Styles.SecondaryFlat)
 </code></pre>
 <h3>3. Rendering via Bottom-Left Anchor</h3>
 <p>All charts are anchored by their <strong>bottom-left corner</strong> via <code>draw(xy=(x, y))</code>:</p>

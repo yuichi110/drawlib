@@ -10,7 +10,7 @@ It supports straight line segments, smoothed spline curves, custom point marker 
 ```drawlib 600px center caption:"User Growth Trends with LineChart"
 from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
-from drawlib.styles import Colors
+from drawlib.styles import Styles
 
 setup(width=100, height=60)
 
@@ -22,8 +22,8 @@ chart = LineChart(
     smooth=True,
     show_points=True,
 )
-chart.add_series("2025", [45, 52, 58, 65, 72, 80], color=Colors.Primary, line_width=2.5)
-chart.add_series("2026", [60, 75, 88, 110, 135, 160], color=Colors.Accent, line_width=2.5)
+chart.add_series("2025", [45, 52, 58, 65, 72, 80], style=Styles.PrimaryFlat, line_width=2.5)
+chart.add_series("2026", [60, 75, 88, 110, 135, 160], style=Styles.AccentFlat, line_width=2.5)
 
 chart.draw(xy=(10, 8))
 ```
@@ -63,7 +63,7 @@ LineChart(
 chart.add_series(
     name: str,
     values: list[float],
-    color: ColorType | None = None,
+    style: Style,
     line_width: float = 2.0,
     line_style: LineStyle = "solid",
     point_shape: PointShape | None = None,

@@ -34,19 +34,19 @@ class TestGanttItems:
 
     def test_task_initialization(self) -> None:
         """Test default and clamped attributes of Task."""
-        t1 = Task("Task A", start="Apr", end="May", progress=0.6)
+        style = Style(shape_fill_color=(50, 100, 200))
+        t1 = Task("Task A", start="Apr", end="May", style=style, progress=0.6)
         assert t1.name == "Task A"
         assert t1.start == "Apr"
         assert t1.end == "May"
         assert t1.progress == 0.6
-        assert t1.color is None
-        assert t1.style is None
+        assert t1.style is style
         assert t1.show_progress_text is True
 
-        t2 = Task("Task B", start=0.0, end=2.0, progress=1.5)
+        t2 = Task("Task B", start=0.0, end=2.0, style=style, progress=1.5)
         assert t2.progress == 1.0  # Clamped
 
-        t3 = Task("Task C", start=0.0, end=1.0, progress=-0.5)
+        t3 = Task("Task C", start=0.0, end=1.0, style=style, progress=-0.5)
         assert t3.progress == 0.0  # Clamped
 
     def test_section_initialization(self) -> None:
@@ -57,21 +57,24 @@ class TestGanttItems:
 
     def test_milestone_initialization(self) -> None:
         """Test attributes of Milestone."""
-        m = Milestone("Launch", at="Jun", color=(255, 200, 0))
+        style = Style(shape_fill_color=(255, 200, 0))
+        m = Milestone("Launch", at="Jun", style=style)
         assert m.name == "Launch"
         assert m.at == "Jun"
-        assert m.color == (255, 200, 0)
+        assert m.style is style
 
     def test_marker_and_dependency(self) -> None:
         """Test attributes of Marker and Dependency."""
-        t1 = Task("T1", "W1", "W2")
-        t2 = Task("T2", "W2", "W3")
-        dep = Dependency(from_task=t1, to_task=t2, color=(100, 100, 100))
+        style = Style(shape_fill_color=(50, 100, 200))
+        t1 = Task("T1", "W1", "W2", style=style)
+        t2 = Task("T2", "W2", "W3", style=style)
+        dep = Dependency(from_task=t1, to_task=t2, style=Style(line_color=(100, 100, 100)))
         assert dep.from_task is t1
         assert dep.to_task is t2
-        assert dep.color == (100, 100, 100)
+        assert dep.style is not None
+        assert dep.style.line_color == (100, 100, 100)
 
-        marker = Marker(at="W2", label="Today")
+        marker = Marker(at="W2", style=Style(line_color=(200, 50, 50)), label="Today")
         assert marker.at == "W2"
         assert marker.label == "Today"
 
@@ -88,9 +91,9 @@ class TestGanttChartConstruction:
         """Test registering various items in GanttChart."""
         chart = GanttChart(columns=["Jan", "Feb", "Mar"])
         sec = chart.add_section("Planning")
-        t1 = chart.add_task("Spec", start="Jan", end="Feb")
-        m1 = chart.add_milestone("Alpha", at="Mar")
-        mark = chart.add_marker(at="Feb", label="Now")
+        t1 = chart.add_task("Spec", start="Jan", end="Feb", style=Style(shape_fill_color=(50, 100, 200)))
+        m1 = chart.add_milestone("Alpha", at="Mar", style=Style(shape_fill_color=(255, 200, 0)))
+        mark = chart.add_marker(at="Feb", style=Style(line_color=(200, 50, 50)), label="Now")
         dep = chart.add_dependency(t1, t1)
 
         assert len(chart.items) == 3
@@ -105,8 +108,8 @@ class TestGanttChartConstruction:
     def test_get_size_auto_and_custom(self) -> None:
         """Test dimension calculation."""
         c1 = GanttChart(columns=["Q1", "Q2"], width=100.0, row_height=5.0, header_height=6.0)
-        c1.add_task("T1", "Q1", "Q2")
-        c1.add_task("T2", "Q2", "Q2")
+        c1.add_task("T1", "Q1", "Q2", style=Style(shape_fill_color=(50, 100, 200)))
+        c1.add_task("T2", "Q2", "Q2", style=Style(shape_fill_color=(50, 100, 200)))
         w1, h1 = c1.get_size()
         assert w1 == 100.0
         assert h1 == 6.0 + 2 * 5.0 + 6.0
@@ -169,18 +172,32 @@ class TestGanttChartRendering:
             )
 
             chart.add_section("Planning & Architecture")
-            t1 = chart.add_task("Requirements Spec", start="Apr", end=0.75, progress=1.0)
-            t2 = chart.add_task("System Architecture", start=1.25, end=1.9, progress=0.7)
+            t1 = chart.add_task(
+                "Requirements Spec", start="Apr", end=0.75, style=Style(shape_fill_color=(50, 100, 200)), progress=1.0
+            )
+            t2 = chart.add_task(
+                "System Architecture",
+                start=1.25,
+                end=1.9,
+                style=Style(shape_fill_color=(100, 150, 250)),
+                progress=0.7,
+            )
 
             chart.add_section("Implementation & QA")
-            t3 = chart.add_task("Frontend UI", start=2.25, end=3.75, progress=0.4)
-            chart.add_task("Backend Services", start=2.1, end=3.6, progress=0.5)
-            chart.add_task("Integration & QA", start=3.85, end="Aug", progress=0.0)
+            t3 = chart.add_task(
+                "Frontend UI", start=2.25, end=3.75, style=Style(shape_fill_color=(50, 100, 200)), progress=0.4
+            )
+            chart.add_task(
+                "Backend Services", start=2.1, end=3.6, style=Style(shape_fill_color=(100, 150, 250)), progress=0.5
+            )
+            chart.add_task(
+                "Integration & QA", start=3.85, end="Aug", style=Style(shape_fill_color=(200, 100, 50)), progress=0.0
+            )
 
-            chart.add_milestone("Alpha Release", at="Jul")
+            chart.add_milestone("Alpha Release", at="Jul", style=Style(shape_fill_color=(255, 200, 0)))
             chart.add_dependency(t1, t2)
             chart.add_dependency(t2, t3)
-            chart.add_marker(at=1.5, label="Current (Mid-May)")
+            chart.add_marker(at=1.5, style=Style(line_color=(239, 68, 68)), label="Current (Mid-May)")
 
             chart.draw(xy=(5.0, 20.0))
 
@@ -201,9 +218,11 @@ class TestGanttChartRendering:
                 show_zebra=False,
                 bar_radius=1.5,
             )
-            c_style = Style(line_width=1.5)
-            chart.add_task("Design", start="W1", end="W2", color=(100, 180, 240), style=c_style)
-            chart.add_task("Build", start="W2", end="W4", progress=0.5, color=(40, 200, 120))
+            c_style = Style(line_width=1.5, shape_fill_color=(100, 180, 240))
+            chart.add_task("Design", start="W1", end="W2", style=c_style)
+            chart.add_task(
+                "Build", start="W2", end="W4", style=Style(shape_fill_color=(40, 200, 120)), progress=0.5
+            )
             chart.draw(xy=(10.0, 10.0))
 
             canvas.save(str(out_file))

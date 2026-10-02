@@ -10,7 +10,7 @@ It supports multi-series grouping, stacked bars, custom corner radii, value anno
 ```drawlib 600px center caption:"Stacked Resource Allocation with BarChart"
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
-from drawlib.styles import Colors
+from drawlib.styles import Styles
 
 setup(width=100, height=60)
 
@@ -23,8 +23,8 @@ chart = BarChart(
     r=1.0,
     show_values=True,
 )
-chart.add_series("Allocated", [4.0, 16.0, 64.0], color=Colors.Primary)
-chart.add_series("Burst Buffer", [2.0, 8.0, 32.0], color=Colors.Accent)
+chart.add_series("Allocated", [4.0, 16.0, 64.0], style=Styles.PrimaryFlat)
+chart.add_series("Burst Buffer", [2.0, 8.0, 32.0], style=Styles.AccentFlat)
 
 chart.draw(xy=(10, 8))
 ```
@@ -63,7 +63,7 @@ BarChart(
 ```
 
 ### Adding Data
-- **`add_series(name: str, values: list[float], color=None, style=None)`**:  
+- **`add_series(name: str, values: list[float], style: Style)`**:  
   Registers a series. `values` must align with the length of `categories`.
 - **`configure_y_axis(min_value=None, max_value=None, ticks=None, unit=None)`**:  
   Customizes numerical axis scaling and units.

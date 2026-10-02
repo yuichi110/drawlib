@@ -50,7 +50,7 @@ BarChart(
 ```
 
 ### Adding Data
-- **`add_series(name: str, values: list[float], color=None, style=None)`**:  
+- **`add_series(name: str, values: list[float], style: Style)`**:  
   Registers a series. `values` must align with the length of `categories`.
 - **`configure_y_axis(min_value=None, max_value=None, ticks=None, unit=None)`**:  
   Customizes numerical axis scaling and units.

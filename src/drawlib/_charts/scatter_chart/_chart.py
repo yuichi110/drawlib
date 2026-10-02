@@ -160,8 +160,8 @@ class ScatterChart:
     def add(
         self,
         xy: tuple[float, float],
+        style: Style,
         radius: float | None = None,
-        style: Style | None = None,
         shape: PointShape | None = None,
         label: str = "",
         label_style: Style | None = None,
@@ -170,8 +170,8 @@ class ScatterChart:
 
         Args:
             xy: Numerical data coordinate tuple (x, y).
+            style: Style defining marker outline and fill.
             radius: Radius of the point marker (bubble size). If None, defaults to default_radius.
-            style: Custom Style object or None.
             shape: Custom marker shape ("circle", "square", "rhombus", "triangle").
             label: Optional text label displayed next to the point.
             label_style: Optional Style for the label text.
@@ -179,14 +179,13 @@ class ScatterChart:
         Returns:
             Point: The newly created and registered point.
         """
-        resolved_style = style
         eff_radius = float(radius) if radius is not None else self.default_radius
         eff_shape = shape if shape is not None else self.default_shape
 
         point = Point(
             xy=xy,
+            style=style,
             radius=eff_radius,
-            style=resolved_style,
             shape=eff_shape,
             label=label,
             label_style=label_style,
@@ -198,8 +197,8 @@ class ScatterChart:
         self,
         name: str,
         data: list[tuple[float, float]] | list[tuple[float, float, float]],
+        style: Style,
         radius: float | None = None,
-        style: Style | None = None,
         shape: PointShape | None = None,
     ) -> Series:
         """Add a named group of points to the scatter chart.
@@ -207,14 +206,13 @@ class ScatterChart:
         Args:
             name: Series name displayed in chart legend.
             data: List of (x, y) or (x, y, radius) tuples.
-            radius: Default radius for points in this series.
             style: Style applied to points in this series.
+            radius: Default radius for points in this series.
             shape: Shape for points in this series.
 
         Returns:
             Series: The newly created and registered series.
         """
-        resolved_style = style
         eff_radius = float(radius) if radius is not None else self.default_radius
         eff_shape = shape if shape is not None else self.default_shape
 
@@ -231,8 +229,8 @@ class ScatterChart:
             points.append(
                 Point(
                     xy=(x_val, y_val),
+                    style=style,
                     radius=pt_r,
-                    style=resolved_style,
                     shape=eff_shape,
                 )
             )
@@ -240,7 +238,7 @@ class ScatterChart:
         series_obj = Series(
             name=name,
             points=points,
-            style=resolved_style,
+            style=style,
             radius=eff_radius,
             shape=eff_shape,
         )

@@ -127,12 +127,13 @@ class TestBarChartModel:
     def test_add_series(self) -> None:
         """Verify adding series to BarChart."""
         chart = BarChart(categories=["A", "B"])
-        s1 = chart.add_series("Product 1", [10.0, 20.0], color=(50, 100, 200))
+        style = Style(shape_fill_color=(50, 100, 200))
+        s1 = chart.add_series("Product 1", [10.0, 20.0], style=style)
         assert isinstance(s1, Series)
         assert len(chart.series) == 1
         assert chart.series[0].name == "Product 1"
         assert chart.series[0].values == [10.0, 20.0]
-        assert chart.series[0].color == (50, 100, 200)
+        assert chart.series[0].style.shape_fill_color == (50, 100, 200)
 
     def test_configure_axes(self) -> None:
         """Verify configure_y_axis and configure_x_axis methods."""
@@ -169,8 +170,8 @@ class TestBarChartRendering:
                 title="Revenue by Division",
                 show_values=True,
             )
-            chart.add_series("Hardware", [45.0, 52.0, 60.0])
-            chart.add_series("Software", [30.0, 48.0, 75.0])
+            chart.add_series("Hardware", [45.0, 52.0, 60.0], style=Style(shape_fill_color=(50, 100, 200)))
+            chart.add_series("Software", [30.0, 48.0, 75.0], style=Style(shape_fill_color=(100, 150, 250)))
             chart.configure_y_axis(unit="M$", show_grid=True)
             chart.draw(xy=(10.0, 15.0))
 
@@ -193,9 +194,9 @@ class TestBarChartRendering:
                 title="Task Distribution",
                 show_values=True,
             )
-            chart.add_series("Completed", [12.0, 18.0, 15.0])
-            chart.add_series("In Progress", [8.0, 5.0, 10.0])
-            chart.add_series("Pending", [4.0, 7.0, 2.0])
+            chart.add_series("Completed", [12.0, 18.0, 15.0], style=Style(shape_fill_color=(50, 100, 200)))
+            chart.add_series("In Progress", [8.0, 5.0, 10.0], style=Style(shape_fill_color=(100, 150, 250)))
+            chart.add_series("Pending", [4.0, 7.0, 2.0], style=Style(shape_fill_color=(200, 100, 50)))
             chart.configure_x_axis(unit="pts")
             chart.draw(xy=(10.0, 15.0))
 
@@ -215,7 +216,7 @@ class TestBarChartRendering:
                 height=50,
                 title="Database Latency (Log Scale)",
             )
-            chart.add_series("Latency", [2.5, 45.0, 3200.0])
+            chart.add_series("Latency", [2.5, 45.0, 3200.0], style=Style(shape_fill_color=(50, 100, 200)))
             chart.configure_y_axis(scale="log", unit="ms")
             chart.draw(xy=(10.0, 15.0))
 

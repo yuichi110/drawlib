@@ -16,8 +16,8 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, LegendPosition, PointShape
-from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._charts.scatter_chart._point import Point
+from drawlib._core.l3_colors import Color
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
@@ -38,7 +38,8 @@ _DEFAULT_AXIS_COLOR = (148, 163, 184, 1.0)
 
 def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
     """Return an RGBA color tuple replacing alpha with given ratio."""
-    return (int(color[0]), int(color[1]), int(color[2]), float(alpha))
+    c = color if isinstance(color, Color) else Color(color)
+    return (c.r, c.g, c.b, float(alpha))
 
 
 def _calculate_plot_bounds(
@@ -236,9 +237,10 @@ def _collect_all_points(
     series_colors: list[ColorType] = []
 
     # Standalone points
-    for i, pt in enumerate(chart.points):
+    for pt in chart.points:
+        pt_color = pt.style.shape_fill_color or pt.style.line_color or pt.style.shape_line_color or _DEFAULT_TEXT_COLOR
         base_style = Style(
-            shape_fill_color=DEFAULT_CHART_PALETTE[i % len(DEFAULT_CHART_PALETTE)],
+            shape_fill_color=pt_color,
             shape_line_color=(255, 255, 255, 0.9),
             shape_line_width=0.8,
         )
@@ -246,8 +248,8 @@ def _collect_all_points(
         all_points.append((pt, p_style, pt.shape))
 
     # Series points
-    for k, s in enumerate(chart.series):
-        s_color = DEFAULT_CHART_PALETTE[(len(chart.points) + k) % len(DEFAULT_CHART_PALETTE)]
+    for s in chart.series:
+        s_color = s.style.shape_fill_color or s.style.line_color or s.style.shape_line_color or _DEFAULT_TEXT_COLOR
         series_colors.append(s_color)
         base_s_style = Style(
             shape_fill_color=s_color,

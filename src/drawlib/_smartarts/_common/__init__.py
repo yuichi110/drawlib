@@ -7,18 +7,10 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public pie and donut charts module."""
+"""Common utilities, types, and palettes for smart arts."""
 
-from __future__ import annotations
-
-from drawlib._charts._common._types import FormatterType
-from drawlib._charts.pie_chart import (
-    PieChart,
-    Slice,
-)
+from drawlib._smartarts._common._palette import DEFAULT_SMARTART_PALETTE
 
 __all__ = [
-    "FormatterType",
-    "PieChart",
-    "Slice",
+    "DEFAULT_SMARTART_PALETTE",
 ]

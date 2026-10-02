@@ -563,9 +563,10 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.charts.bar import BarChart
+  from drawlib.styles import Styles
 
   chart = BarChart(categories=["Q1", "Q2", "Q3"], width=80, height=60)
-  chart.add_series("Revenue", [100, 140, 180], color="blue")
+  chart.add_series("Revenue", [100, 140, 180], style=Styles.PrimaryFlat)
   chart.draw((10, 10))
   ```
 - **When to read**: Refer to this rule when plotting quantitative metrics, project management schedules, comparison radars, or trend analyses.

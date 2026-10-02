@@ -19,8 +19,6 @@ from drawlib._core.l3_styles import Style
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
 
-default_styles = Styles
-
 
 class TestScatterChartUnit:
     """Unit tests for ScatterChart container and points."""
@@ -38,13 +36,13 @@ class TestScatterChartUnit:
     def test_add_point(self) -> None:
         """Test adding individual data points via add()."""
         chart = ScatterChart()
-        p1 = chart.add(xy=(10.5, 25.0), radius=1.5, label="Point A")
+        p1 = chart.add(xy=(10.5, 25.0), style=Styles.PrimaryFlat, radius=1.5, label="Point A")
         assert p1.xy == (10.5, 25.0)
         assert p1.radius == 1.5
         assert p1.label == "Point A"
         assert p1.shape == "circle"
 
-        p2 = chart.add(xy=(30.0, 45.0), shape="square")
+        p2 = chart.add(xy=(30.0, 45.0), style=Styles.SecondaryFlat, shape="square")
         assert p2.shape == "square"
         assert len(chart.points) == 2
 
@@ -54,6 +52,7 @@ class TestScatterChartUnit:
         s1 = chart.add_series(
             name="Alpha",
             data=[(10.0, 20.0), (30.0, 40.0)],
+            style=Styles.PrimaryFlat,
             radius=1.2,
             shape="triangle",
         )
@@ -65,6 +64,7 @@ class TestScatterChartUnit:
         s2 = chart.add_series(
             name="Beta (Bubble)",
             data=[(15.0, 25.0, 3.5), (35.0, 55.0, 5.0)],
+            style=Styles.SecondaryFlat,
         )
         assert len(s2.points) == 2
         assert s2.points[0].radius == 3.5
@@ -105,20 +105,21 @@ class TestScatterChartRendering:
             chart.configure_y_axis(label="Response Time (ms)", min_value=0)
 
             # Standalone points with labels
-            styles = default_styles
-            chart.add(xy=(100, 15.0), radius=1.2, label="v1.0 Baseline")
-            chart.add(xy=(500, 28.0), radius=1.8, style=styles.RedFlat, label="v1.5")
-            chart.add(xy=(900, 19.5), radius=2.2, style=styles.BlueFlat, label="v2.0")
+            chart.add(xy=(100, 15.0), style=Styles.BlueFlat, radius=1.2, label="v1.0 Baseline")
+            chart.add(xy=(500, 28.0), style=Styles.RedFlat, radius=1.8, label="v1.5")
+            chart.add(xy=(900, 19.5), style=Styles.OrangeFlat, radius=2.2, label="v2.0")
 
             # Named series
             chart.add_series(
                 name="Cluster A",
                 data=[(200, 22.0), (400, 35.0), (700, 60.0)],
+                style=Styles.GreenFlat,
                 shape="square",
             )
             chart.add_series(
                 name="Cluster B",
                 data=[(150, 18.0), (350, 26.0), (600, 42.0)],
+                style=Styles.BlueFlat,
                 shape="rhombus",
             )
 
@@ -145,10 +146,12 @@ class TestScatterChartRendering:
             chart.add_series(
                 name="Tech",
                 data=[(20.0, 15.0, 1.5), (50.0, 35.0, 3.2), (80.0, 20.0, 4.5)],
+                style=Styles.PrimaryFlat,
             )
             chart.add_series(
                 name="Finance",
                 data=[(30.0, 10.0, 2.0), (60.0, 18.0, 3.8), (90.0, 8.0, 5.2)],
+                style=Styles.SecondaryFlat,
             )
 
             chart.draw(xy=(10.0, 20.0))
@@ -164,10 +167,12 @@ class TestScatterChartRendering:
             canvas.clear()
 
             chart = ScatterChart(width=70.0, height=45.0)
-            c_style = Style(shape_line_width=1.5, shape_fill_color=(16, 185, 129, 0.7), shape_line_color=(0, 0, 0, 1.0))
-            chart.add(xy=(1, 2), shape="triangle", style=c_style, radius=2.0)
-            chart.add(xy=(3, 4), shape="rhombus", radius=2.0)
-            chart.add(xy=(5, 6), shape="square", radius=2.0)
+            c_style = Style(
+                shape_line_width=1.5, shape_fill_color=(16, 185, 129, 0.7), shape_line_color=(0, 0, 0, 1.0)
+            )
+            chart.add(xy=(1, 2), style=c_style, shape="triangle", radius=2.0)
+            chart.add(xy=(3, 4), style=Styles.AccentFlat, shape="rhombus", radius=2.0)
+            chart.add(xy=(5, 6), style=Styles.PrimaryFlat, shape="square", radius=2.0)
 
             chart.draw(xy=(10.0, 10.0))
 

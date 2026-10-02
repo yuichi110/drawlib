@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._types import ColorType, LegendPosition, LineStyle, PointShape
+from drawlib._charts._common._types import LegendPosition, LineStyle, PointShape
 from drawlib._charts.line_chart import _renderer as _renderer_module
 from drawlib._charts.line_chart._base import CartesianChartBase
 from drawlib._charts.line_chart._series import Series
@@ -81,8 +81,7 @@ class LineChart(CartesianChartBase):
         self,
         name: str,
         values: list[float],
-        color: ColorType | None = None,
-        style: Style | None = None,
+        style: Style,
         line_width: float = 2.0,
         line_style: LineStyle = "solid",
         point_shape: PointShape | None = None,
@@ -93,8 +92,7 @@ class LineChart(CartesianChartBase):
         Args:
             name: Series label shown in legend.
             values: Numerical values corresponding to categories.
-            color: Line and marker color.
-            style: Optional Style overriding line and marker appearance.
+            style: Style defining line stroke and marker appearance.
             line_width: Stroke thickness. Defaults to 2.0.
             line_style: Stroke pattern ("solid", "dashed", etc.). Defaults to "solid".
             point_shape: Custom marker shape or inherited from chart defaults.
@@ -108,7 +106,6 @@ class LineChart(CartesianChartBase):
         s = Series(
             name=name,
             values=values,
-            color=color,
             style=style,
             line_width=line_width,
             line_style=line_style,

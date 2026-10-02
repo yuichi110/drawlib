@@ -11,12 +11,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from drawlib._charts._common._types import PointShape
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class Point:
@@ -25,8 +21,8 @@ class Point:
     def __init__(
         self,
         xy: tuple[float, float],
+        style: Style,
         radius: float = 1.0,
-        style: Style | None = None,
         shape: PointShape = "circle",
         label: str = "",
         label_style: Style | None = None,
@@ -35,15 +31,15 @@ class Point:
 
         Args:
             xy: Numerical data coordinate tuple (x, y).
+            style: Style defining marker outline and fill.
             radius: Visual radius of the point marker. Defaults to 1.0.
-            style: Optional Style overriding marker appearance.
             shape: Marker shape ("circle", "square", "rhombus", "triangle"). Defaults to "circle".
             label: Optional text label displayed next to the point.
             label_style: Optional Style for the label text.
         """
         self.xy: tuple[float, float] = (float(xy[0]), float(xy[1]))
+        self.style: Style = style
         self.radius: float = float(radius)
-        self.style: Style | None = style
         self.shape: PointShape = shape
         self.label: str = label
         self.label_style: Style | None = label_style
@@ -56,7 +52,7 @@ class Series:
         self,
         name: str,
         points: list[Point],
-        style: Style | None = None,
+        style: Style,
         radius: float = 1.0,
         shape: PointShape = "circle",
     ) -> None:
@@ -65,12 +61,12 @@ class Series:
         Args:
             name: Group name displayed in chart legend.
             points: List of Point instances belonging to this series.
-            style: Optional Style applied to points in this series.
+            style: Style applied to points in this series.
             radius: Default radius for points in this series. Defaults to 1.0.
             shape: Default shape for points in this series. Defaults to "circle".
         """
         self.name: str = name
         self.points: list[Point] = points
-        self.style: Style | None = style
+        self.style: Style = style
         self.radius: float = float(radius)
         self.shape: PointShape = shape

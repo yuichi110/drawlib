@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._types import ColorType, LineStyle, PointShape
+from drawlib._charts._common._types import LineStyle, PointShape
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -26,8 +26,7 @@ class Series:
         self,
         name: str,
         values: list[float],
-        color: ColorType | None = None,
-        style: Style | None = None,
+        style: Style,
         line_width: float = 2.0,
         line_style: LineStyle = "solid",
         point_shape: PointShape = "circle",
@@ -38,8 +37,7 @@ class Series:
         Args:
             name: Series name displayed in legend.
             values: Numerical values corresponding to categories.
-            color: Primary stroke and point color.
-            style: Optional Style overriding line and marker appearance.
+            style: Style defining line stroke and marker appearance.
             line_width: Stroke width for the series polyline. Defaults to 2.0.
             line_style: Stroke style ("solid", "dashed", "dotted"). Defaults to "solid".
             point_shape: Marker shape ("circle", "square", "none"). Defaults to "circle".
@@ -47,8 +45,7 @@ class Series:
         """
         self.name = name
         self.values: list[float] = [float(v) for v in values]
-        self.color: ColorType | None = color
-        self.style: Style | None = style
+        self.style: Style = style
         self.line_width: float = float(line_width)
         self.line_style: LineStyle = line_style
         self.point_shape: PointShape = point_shape

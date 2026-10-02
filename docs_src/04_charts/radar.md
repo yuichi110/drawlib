@@ -72,6 +72,7 @@ Polygonal gridlines align precisely with spokes, making it easy to gauge relativ
 ```drawlib 650px center caption:"System Architecture Non-Functional Analysis"
 from drawlib import canvas
 from drawlib.charts.radar import RadarChart
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=105, height=88)
@@ -88,8 +89,8 @@ chart = RadarChart(
     show_values=True,
     value_format="{:.0f}",
 )
-chart.add_series("Microservices Architecture", [95, 80, 75, 85, 60], fill_alpha=0.3)
-chart.add_series("Monolithic Architecture", [60, 90, 85, 70, 95], fill_alpha=0.3, line_style="dashed")
+chart.add_series("Microservices Architecture", [95, 80, 75, 85, 60], style=Styles.PrimaryFlat, fill_alpha=0.3)
+chart.add_series("Monolithic Architecture", [60, 90, 85, 70, 95], style=Styles.SecondaryFlat, fill_alpha=0.3, line_style="dashed")
 
 chart.draw(xy=(5.0, 5.0))
 ```
@@ -103,6 +104,7 @@ Using `grid_shape="circle"` renders smooth concentric circles, ideal for scoring
 ```drawlib 650px center caption:"Device Feature Matrix with Circular Contours"
 from drawlib import canvas
 from drawlib.charts.radar import RadarChart
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=95, height=75)
@@ -115,8 +117,8 @@ chart = RadarChart(
     title="Flagship Smartphone Benchmark",
     legend_position="bottom",
 )
-chart.add_series("Device Pro Max", [9.2, 9.5, 8.8, 9.6, 9.0, 6.5])
-chart.add_series("Device Ultra", [8.5, 9.2, 9.4, 9.2, 8.2, 7.8])
+chart.add_series("Device Pro Max", [9.2, 9.5, 8.8, 9.6, 9.0, 6.5], style=Styles.PrimaryFlat)
+chart.add_series("Device Ultra", [8.5, 9.2, 9.4, 9.2, 8.2, 7.8], style=Styles.SecondaryFlat)
 
 chart.draw(xy=(15.0, 8.0))
 ```

@@ -11,12 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
-from drawlib._charts._common._types import ColorType
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class Task:
@@ -27,9 +22,8 @@ class Task:
         name: str,
         start: str | float,
         end: str | float,
+        style: Style,
         progress: float = 0.0,
-        color: ColorType | None = None,
-        style: Style | None = None,
         show_progress_text: bool = True,
     ) -> None:
         """Initialize Task.
@@ -38,17 +32,15 @@ class Task:
             name: Label displayed on the left column.
             start: Start column name or numerical time index.
             end: End column name or numerical time index.
+            style: Style defining task bar appearance.
             progress: Completion ratio from 0.0 to 1.0. Defaults to 0.0.
-            color: Base color for task bar fill.
-            style: Optional Style overriding task bar appearance.
             show_progress_text: Whether to print progress percentage on bar. Defaults to True.
         """
         self.name = name
         self.start = start
         self.end = end
+        self.style: Style = style
         self.progress = max(0.0, min(1.0, float(progress)))
-        self.color: ColorType | None = color
-        self.style: Style | None = style
         self.show_progress_text = show_progress_text
 
         # Layout cache populated during rendering
@@ -85,21 +77,18 @@ class Milestone:
         self,
         name: str,
         at: str | float,
-        color: ColorType | None = None,
-        style: Style | None = None,
+        style: Style,
     ) -> None:
         """Initialize Milestone.
 
         Args:
             name: Milestone title displayed in the label column.
             at: Column name or numerical time index where diamond is placed.
-            color: Marker color.
-            style: Optional Style overriding diamond appearance.
+            style: Style defining diamond marker appearance.
         """
         self.name = name
         self.at = at
-        self.color: ColorType | None = color
-        self.style: Style | None = style
+        self.style: Style = style
 
         # Layout cache
         self._cached_at_x: float = 0.0
@@ -112,22 +101,19 @@ class Marker:
     def __init__(
         self,
         at: str | float,
+        style: Style,
         label: str = "",
-        color: ColorType | None = None,
-        style: Style | None = None,
     ) -> None:
         """Initialize Marker.
 
         Args:
             at: Column name or numerical time index where line is placed.
-            label: Text badge rendered above or next to the line.
-            color: Vertical line color.
-            style: Optional Style overriding marker appearance.
+            style: Style defining marker line appearance.
+            label: Text badge rendered above or next to the line. Defaults to "".
         """
         self.at = at
+        self.style: Style = style
         self.label = label
-        self.color: ColorType | None = color
-        self.style: Style | None = style
 
 
 class Dependency:
@@ -137,7 +123,6 @@ class Dependency:
         self,
         from_task: Task,
         to_task: Task,
-        color: ColorType | None = None,
         style: Style | None = None,
     ) -> None:
         """Initialize Dependency.
@@ -145,10 +130,8 @@ class Dependency:
         Args:
             from_task: Predecessor task whose completion triggers to_task.
             to_task: Successor task whose start depends on from_task.
-            color: Arrow line stroke color.
             style: Optional Style overriding link appearance.
         """
         self.from_task = from_task
         self.to_task = to_task
-        self.color: ColorType | None = color
         self.style: Style | None = style
