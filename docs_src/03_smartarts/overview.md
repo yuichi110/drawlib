@@ -15,8 +15,14 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # 1. ChevronProcess: Automatic stage spacing and interlocking angles
-proc = ChevronProcess(flat_left_end=True, spacing=2.0, default_textstyle=Styles.WhiteBold)
-proc.append("Plan", style=Styles.PrimaryFlat)
+proc = ChevronProcess(
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold,
+    description_style=Styles.White,
+    flat_left_end=True,
+    spacing=2.0,
+)
+proc.append("Plan")
 proc.append("Code", style=Styles.AccentFlat)
 proc.append("Test", style=Styles.SecondaryFlat)
 proc.append("Deploy", style=Styles.SuccessFlat)

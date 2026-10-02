@@ -32,21 +32,23 @@ It is the premier component for CI/CD delivery pipelines, phased development mil
 ### Constructor
 ```python
 ChevronProcess(
+    *,
+    style: Style,
+    text_style: Style,
+    description_style: Style,
     corner_angle: float = 60.0,
     spacing: float = 1.5,
     flat_left_end: bool = False,
-    default_textstyle: Style | None = None,
-    default_description_style: Style | None = None,
 )
 ```
 
 ### Adding Steps
-- **`append(text, style, description="", textstyle=None, description_style=None)`**:  
-  Adds a new process stage with its mandatory `style`.
-- **`extend(texts, styles, descriptions=None)`**:  
-  Appends multiple stage titles with a single shared `Style` or a list of `Style` objects matching `texts`.
-- **`insert(index, text, style, description="", textstyle=None, description_style=None)`**:  
-  Inserts a stage at a specified index with its mandatory `style`.
+- **`append(text, *, description="", style=None, text_style=None, description_style=None)`**:  
+  Appends a new process stage. If styles are omitted, constructor defaults are used.
+- **`extend(texts, *, descriptions=None, styles=None, text_styles=None, description_styles=None)`**:  
+  Appends multiple stage titles. Styles default to constructor defaults or can be overridden with a shared `Style` or list of `Style` objects.
+- **`insert(index, text, *, description="", style=None, text_style=None, description_style=None)`**:  
+  Inserts a stage at a specified index with optional style overrides.
 
 ### Drawing
 - **`draw(xy, width=90.0, height=12.0, item_width=None)`**:  

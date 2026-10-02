@@ -323,21 +323,23 @@ It is the premier component for CI/CD delivery pipelines, phased development mil
 <h2>3. Class API Reference</h2>
 <h3>Constructor</h3>
 <pre><code class="language-python">ChevronProcess(
+    *,
+    style: Style,
+    text_style: Style,
+    description_style: Style,
     corner_angle: float = 60.0,
     spacing: float = 1.5,
     flat_left_end: bool = False,
-    default_textstyle: Style | None = None,
-    default_description_style: Style | None = None,
 )
 </code></pre>
 <h3>Adding Steps</h3>
 <ul>
-<li><strong><code>append(text, style, description=&quot;&quot;, textstyle=None, description_style=None)</code></strong>:<br />
-Adds a new process stage with its mandatory <code>style</code>.</li>
-<li><strong><code>extend(texts, styles, descriptions=None)</code></strong>:<br />
-Appends multiple stage titles with a single shared <code>Style</code> or a list of <code>Style</code> objects matching <code>texts</code>.</li>
-<li><strong><code>insert(index, text, style, description=&quot;&quot;, textstyle=None, description_style=None)</code></strong>:<br />
-Inserts a stage at a specified index with its mandatory <code>style</code>.</li>
+<li><strong><code>append(text, *, description=&quot;&quot;, style=None, text_style=None, description_style=None)</code></strong>:<br />
+Appends a new process stage. If styles are omitted, constructor defaults are used.</li>
+<li><strong><code>extend(texts, *, descriptions=None, styles=None, text_styles=None, description_styles=None)</code></strong>:<br />
+Appends multiple stage titles. Styles default to constructor defaults or can be overridden with a shared <code>Style</code> or list of <code>Style</code> objects.</li>
+<li><strong><code>insert(index, text, *, description=&quot;&quot;, style=None, text_style=None, description_style=None)</code></strong>:<br />
+Inserts a stage at a specified index with optional style overrides.</li>
 </ul>
 <h3>Drawing</h3>
 <ul>

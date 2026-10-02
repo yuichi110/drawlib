@@ -15,16 +15,17 @@ from drawlib.styles import Styles
 setup(width=130, height=45)
 
 pipeline = ChevronProcess(
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10),
+    description_style=Styles.White.patch(text_size=7.5),
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
-    default_textstyle=Styles.WhiteBold.patch(text_size=10),
-    default_description_style=Styles.White.patch(text_size=7.5),
 )
-pipeline.append("1. Commit", description="Lint & Tests", style=Styles.PrimaryFlat)
-pipeline.append("2. Build", description="Docker Image", style=Styles.PrimaryFlat)
+pipeline.append("1. Commit", description="Lint & Tests")
+pipeline.append("2. Build", description="Docker Image")
 pipeline.append("3. Security", description="Vulnerability Scan", style=Styles.AccentFlat)
-pipeline.append("4. Staging", description="E2E Validation", style=Styles.PrimaryFlat)
+pipeline.append("4. Staging", description="E2E Validation")
 pipeline.append("5. Production", description="Canary Release", style=Styles.SuccessFlat)
 
 pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
@@ -46,21 +47,23 @@ pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 ### Constructor
 ```python
 ChevronProcess(
+    *,
+    style: Style,
+    text_style: Style,
+    description_style: Style,
     corner_angle: float = 60.0,
     spacing: float = 1.5,
     flat_left_end: bool = False,
-    default_textstyle: Style | None = None,
-    default_description_style: Style | None = None,
 )
 ```
 
 ### Adding Steps
-- **`append(text, style, description="", textstyle=None, description_style=None)`**:  
-  Adds a new process stage with its mandatory `style`.
-- **`extend(texts, styles, descriptions=None)`**:  
-  Appends multiple stage titles with a single shared `Style` or a list of `Style` objects matching `texts`.
-- **`insert(index, text, style, description="", textstyle=None, description_style=None)`**:  
-  Inserts a stage at a specified index with its mandatory `style`.
+- **`append(text, *, description="", style=None, text_style=None, description_style=None)`**:  
+  Appends a new process stage. If styles are omitted, constructor defaults are used.
+- **`extend(texts, *, descriptions=None, styles=None, text_styles=None, description_styles=None)`**:  
+  Appends multiple stage titles. Styles default to constructor defaults or can be overridden with a shared `Style` or list of `Style` objects.
+- **`insert(index, text, *, description="", style=None, text_style=None, description_style=None)`**:  
+  Inserts a stage at a specified index with optional style overrides.
 
 ### Drawing
 - **`draw(xy, width=90.0, height=12.0, item_width=None)`**:  

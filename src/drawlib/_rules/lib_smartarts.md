@@ -427,18 +427,20 @@ save()
 ### 7.2 Constructor Parameters
 ```python
 ChevronProcess(
+    *,
+    style: Style,
+    text_style: Style,
+    description_style: Style,
     corner_angle: float = 60.0,
     spacing: float = 1.5,
     flat_left_end: bool = False,
-    default_textstyle: Style | None = None,
-    default_description_style: Style | None = None,
 )
 ```
 
 ### 7.3 Step Management & Drawing
-- `append(text, style, description="", textstyle=None, description_style=None)`: Appends an individual step with mandatory `style`.
-- `extend(texts, styles, descriptions=None)`: Appends multiple step titles with a shared `Style` or list of `Style` objects.
-- `insert(index, text, style, description="", textstyle=None, description_style=None)`: Inserts a step at a given position.
+- `append(text, *, description="", style=None, text_style=None, description_style=None)`: Appends an individual step with optional style overrides.
+- `extend(texts, *, descriptions=None, styles=None, text_styles=None, description_styles=None)`: Appends multiple step titles with optional descriptions and shared/list styles.
+- `insert(index, text, *, description="", style=None, text_style=None, description_style=None)`: Inserts a step at a given position.
 - `draw(xy, width=90.0, height=12.0, item_width=None)`:
   - `width`: Total bounding width allocated; individual block widths are computed automatically:
     $$\text{item\_width} = \frac{\text{width} - (\text{num\_items} - 1) \cdot \text{spacing} - x_{\text{indent}}}{\text{num\_items}}$$
@@ -455,23 +457,22 @@ from drawlib.types import Style
 setup(width=130, height=45)
 
 pipeline = ChevronProcess(
+    style=Styles.BlueFlat,
+    text_style=Styles.WhiteBold.patch(text_size=9.5),
+    description_style=Styles.White.patch(text_size=8),
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
-    default_textstyle=Styles.WhiteBold.patch(text_size=9.5),
-    default_description_style=Styles.White.patch(text_size=8),
 )
 pipeline.append("1. Commit", description="Lint / Hooks", style=Styles.MutedFlat)
-pipeline.append("2. Build", description="Docker Image", style=Styles.BlueFlat)
+pipeline.append("2. Build", description="Docker Image")
 # Active Stage Highlight
 pipeline.append(
     text="3. Security",
     description="SAST & CVE",
     style=Styles.Primary.patch(shape_fill_color=CssColors.Crimson, shape_line_color=Colors.Dark, shape_line_width=1.5),
-    textstyle=Styles.WhiteBold.patch(text_size=9.5),
-    description_style=Styles.White.patch(text_size=8),
 )
-pipeline.append("4. Staging", description="Integration", style=Styles.BlueFlat)
+pipeline.append("4. Staging", description="Integration")
 pipeline.append("5. Production", description="Canary Deploy", style=Styles.GreenFlat)
 pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 save()
@@ -985,15 +986,15 @@ setup(width=120, height=80)
 
 # 1. Top Section: Pipeline Status
 pipeline = ChevronProcess(
+    style=Styles.PrimarySolid,
+    text_style=Styles.WhiteBold,
+    description_style=Styles.Light,
     corner_angle=60.0,
     spacing=1.5,
     flat_left_end=True,
-    default_textstyle=Styles.WhiteBold,
-    default_description_style=Styles.Light,
 )
 pipeline.extend(
     texts=["1. Plan", "2. Build", "3. Test", "4. Deploy"],
-    styles=Styles.PrimarySolid,
     descriptions=["Arch Review", "Docker Image", "E2E Verified", "Production"],
 )
 pipeline.draw(xy=(10, 62), width=100, height=12)

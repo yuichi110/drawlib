@@ -550,7 +550,10 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.smartarts import ChevronProcess, Table
-  ChevronProcess((10, 20), width=80, height=15, items=["Plan", "Build", "Deploy"]).draw()
+  from drawlib.styles import Styles
+  cp = ChevronProcess(style=Styles.PrimaryFlat, text_style=Styles.WhiteBold, description_style=Styles.White)
+  cp.extend(["Plan", "Build", "Deploy"])
+  cp.draw((10, 20), width=80, height=15)
   Table((10, 50), data=[["Header A", "Header B"], ["Val 1", "Val 2"]]).draw()
   ```
 - **When to read**: Refer to this rule when presenting structured data, comparison tables, step-by-step lifecycles, organizational trees, or formatted code snippets without manual geometry math.
