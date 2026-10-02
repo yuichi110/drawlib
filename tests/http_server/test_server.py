@@ -15,22 +15,30 @@ import urllib.request
 
 import pytest
 
-from drawlib._http_server.server import run_server, scan_broken_links
+from drawlib._http_server import scan_broken_links, serve_docs
 
 
-def test_run_server_invalid_directory() -> None:
-    """Test that run_server raises ValueError if target directory does not exist."""
+def test_serve_docs_invalid_directory() -> None:
+    """Test that serve_docs raises ValueError if target directory does not exist."""
     with pytest.raises(ValueError, match="does not exist"):
-        run_server(directory="/path/that/does/not/exist/drawlib_test", port=9999, open_browser=False)
+        serve_docs(directory="/path/that/does/not/exist/drawlib_test", port=9999, open_browser=False)
 
 
-def test_run_server_serves_files(tmp_path) -> None:
-    """Test that run_server serves files correctly over HTTP."""
+def test_serve_docs_path_is_file(tmp_path) -> None:
+    """Test that serve_docs raises ValueError if target path is a file, not a directory."""
+    file_path = tmp_path / "test.html"
+    file_path.write_text("<h1>Hello</h1>", encoding="utf-8")
+    with pytest.raises(ValueError, match="is a file, not a directory"):
+        serve_docs(directory=str(file_path), port=9999, open_browser=False)
+
+
+def test_serve_docs_serves_files(tmp_path) -> None:
+    """Test that serve_docs serves files correctly over HTTP."""
     (tmp_path / "index.html").write_text("<h1>Server Test Page</h1>", encoding="utf-8")
 
     port = 8877
     server_thread = threading.Thread(
-        target=run_server,
+        target=serve_docs,
         kwargs={"directory": str(tmp_path), "port": port, "open_browser": False},
         daemon=True,
     )
@@ -81,13 +89,25 @@ def test_scan_broken_links(tmp_path) -> None:
     assert "missing.css" in broken_targets
 
 
-def test_run_server_check_only_success(tmp_path, capsys) -> None:
-    """Test run_server with check_only=True and no broken links exits cleanly."""
+def test_serve_docs_check_only_success(tmp_path, capsys) -> None:
+    """Test serve_docs with check_only=True and no broken links exits cleanly."""
     (tmp_path / "index.html").write_text("<html><body>Hello</body></html>", encoding="utf-8")
 
     with pytest.raises(SystemExit) as exc_info:
-        run_server(directory=str(tmp_path), open_browser=False, check_only=True)
+        serve_docs(directory=str(tmp_path), open_browser=False, check_only=True)
 
     assert exc_info.value.code == 0
     captured = capsys.readouterr()
     assert "[Link Check] Verified 1 HTML file(s)" in captured.out
+
+
+def test_serve_docs_check_only_broken_links(tmp_path, capsys) -> None:
+    """Test serve_docs with check_only=True and broken links exits with code 1."""
+    (tmp_path / "index.html").write_text('<a href="missing.html">Broken</a>', encoding="utf-8")
+
+    with pytest.raises(SystemExit) as exc_info:
+        serve_docs(directory=str(tmp_path), open_browser=False, check_only=True)
+
+    assert exc_info.value.code == 1
+    captured = capsys.readouterr()
+    assert "Found 1 broken link(s)" in captured.err

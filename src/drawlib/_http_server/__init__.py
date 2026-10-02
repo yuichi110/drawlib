@@ -9,8 +9,7 @@
 
 """HTTP server package for drawlib documentation preview."""
 
-from drawlib._http_server.server import run_server, scan_broken_links
+from drawlib._http_server._link_scanner import scan_broken_links
+from drawlib._http_server._server import serve_docs
 
-serve_docs = run_server
-
-__all__ = ["run_server", "scan_broken_links", "serve_docs"]
+__all__ = ["scan_broken_links", "serve_docs"]

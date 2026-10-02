@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import sys
 import traceback
-from typing import Annotated, Optional
+from typing import Annotated
 
 import typer
 
@@ -32,9 +32,12 @@ def _handle_serve_error(prefix: str, exc: Exception) -> None:
 
 def cmd_serve(
     directory: Annotated[
-        Optional[str],
-        typer.Argument(help="Directory to serve (default: auto-detect docs_html, docs, or current directory)."),
-    ] = None,
+        str,
+        typer.Argument(
+            metavar="DIRECTORY",
+            help="Directory containing built HTML documentation to serve (e.g. docs_html/).",
+        ),
+    ],
     port: Annotated[
         int,
         typer.Option("-p", "--port", help="Port to run the HTTP server on."),

@@ -27,6 +27,7 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     (src / "styles.py").write_text("# styles\n", encoding="utf-8")
     (src / "utils.py").write_text("# utils\n", encoding="utf-8")
     (src / "build.sh").write_text("#!/bin/bash\necho build\n", encoding="utf-8")
+    (src / "serve.sh").write_text("#!/bin/bash\necho serve\n", encoding="utf-8")
     (src / "README.md").write_text("# Internal Guide\nDo not build this.\n", encoding="utf-8")
     (src / "style.css").write_text("/* custom-css-marker */\nbody { background: #123456; }\n", encoding="utf-8")
     (src / "template.html").write_text(
@@ -57,6 +58,7 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     assert not (out_html / "README.html").exists()
     assert not (out_html / "README.md").exists()
     assert not (out_html / "build.sh").exists()
+    assert not (out_html / "serve.sh").exists()
     assert not (out_html / "styles.py").exists()
     assert not (out_html / "utils.py").exists()
     assert not (out_html / "template.html").exists()
@@ -68,6 +70,7 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     assert (out_md / "guide.md").is_file()
     assert not (out_md / "README.md").exists()
     assert not (out_md / "build.sh").exists()
+    assert not (out_md / "serve.sh").exists()
     assert not (out_md / "styles.py").exists()
     assert not (out_md / "utils.py").exists()
     assert not (out_md / "style.css").exists()

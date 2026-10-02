@@ -77,6 +77,10 @@ def test_cli_init_simple(tmp_path: Path) -> None:
     assert build_sh.is_file()
     assert os.stat(build_sh).st_mode & 0o111 != 0
 
+    serve_sh = dest / "docs_src" / "serve.sh"
+    assert serve_sh.is_file()
+    assert os.stat(serve_sh).st_mode & 0o111 != 0
+
     # No automatic initial build outputs
     assert not (dest / "docs").exists()
     assert not (dest / "docs_html").exists()
@@ -94,6 +98,7 @@ def test_cli_init_site(tmp_path: Path) -> None:
     assert (dest / "docs_src" / "styles.py").is_file()
     assert (dest / "docs_src" / "utils.py").is_file()
     assert (dest / "docs_src" / "build.sh").is_file()
+    assert (dest / "docs_src" / "serve.sh").is_file()
     assert (dest / "docs_src" / "index.md").is_file()
     assert (dest / "docs_src" / "navbar.md").is_file()
     assert (dest / "docs_src" / "architecture" / "index.md").is_file()
@@ -215,6 +220,7 @@ def test_cli_init_here(tmp_path: Path) -> None:
 
     # Template files deployed into repo_dir
     assert (repo_dir / "build.sh").is_file()
+    assert (repo_dir / "serve.sh").is_file()
     assert (repo_dir / "styles.py").is_file()
     assert (repo_dir / "index.md").is_file()
 

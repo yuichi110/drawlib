@@ -88,7 +88,6 @@ def _print_init_success(
 
     base_name = _resolve_base_name(output, selected_type)
     src_dir = "." if here else f"{base_name}_src"
-    out_html = f"{base_name}_html"
 
     print(f"Initialized '{selected_type}' project in {rel_display}\n")
     print("Project files created:")
@@ -108,8 +107,11 @@ def _print_init_success(
     else:
         print(f"  ./{src_dir}/build.sh")
 
-    if selected_type == "site":
-        print(f"  drawlib serve {out_html}/")
+    if selected_type in {"site", "simple"}:
+        if here:
+            print("  ./serve.sh")
+        else:
+            print(f"  ./{src_dir}/serve.sh")
 
 
 def cmd_init(

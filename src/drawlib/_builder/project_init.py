@@ -57,6 +57,7 @@ def _validate_conflicts(
     if here:
         critical_items = [
             src_path / "build.sh",
+            src_path / "serve.sh",
             src_path / "styles.py",
             src_path / "utils.py",
             src_path / "README.md",
@@ -270,8 +271,6 @@ def init_project(
     here: bool = False,
     lang: str = "en",
     style: Optional[str] = None,
-    no_build: bool = False,
-    css: Optional[str] = None,
 ) -> list[Path]:
     """Scaffold a starter drawlib project.
 
@@ -283,8 +282,6 @@ def init_project(
         here: If True, deploy directly into destination without creating <name>_src subfolder.
         lang: Language for starter templates ('en', 'ja', 'zh-cn', 'ko', etc.). Defaults to 'en'.
         style: Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS file path.
-        no_build: Deprecated; initial build is no longer run automatically during init.
-        css: Deprecated alias for style parameter.
 
     Returns:
         list[Path]: List of created project file paths.
@@ -300,7 +297,7 @@ def init_project(
         raise ValueError(f"Unknown project type '{project_type}'. Available types: {types_str}")
 
     selected_lang = normalize_language(lang)
-    resolved_style = (style or css or "default").strip()
+    resolved_style = (style or "default").strip()
 
     (
         _parent_dest,

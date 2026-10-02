@@ -25,10 +25,5 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
     fi
 fi
 
-echo "Using Drawlib command: $DRAWLIB_CMD"
-
-echo "Building images..."
-$DRAWLIB_CMD build image __SRC_DIR__/ -o __OUT_DIR__/
-
-echo "Build complete!"
-echo "  - Images: __OUT_DIR__/"
+echo "Starting local preview server on __OUT_HTML_DIR__/ ..."
+$DRAWLIB_CMD serve __OUT_HTML_DIR__/ "$@"

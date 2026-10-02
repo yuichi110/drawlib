@@ -18,6 +18,8 @@ import sys
 import time
 import urllib.request
 
+from tests.cli.common import run_drawlib_cli
+
 
 def test_cli_serve_command(tmp_path) -> None:
     """Test drawlib serve subcommand via subprocess."""
@@ -72,3 +74,30 @@ def test_cli_serve_command(tmp_path) -> None:
     finally:
         proc.terminate()
         proc.wait(timeout=2)
+
+
+def test_cli_serve_missing_directory_fails() -> None:
+    """Test that `drawlib serve` without directory argument fails with non-zero exit code."""
+    res = run_drawlib_cli(["serve"])
+    assert res.exit_code != 0
+    output = res.stdout + res.stderr
+    assert "Missing argument" in output or "DIRECTORY" in output
+
+
+def test_cli_serve_invalid_directory_fails() -> None:
+    """Test that `drawlib serve <nonexistent>` fails with exit code 1."""
+    res = run_drawlib_cli(["serve", "/path/that/does/not/exist/drawlib_preview"])
+    assert res.exit_code == 1
+    output = res.stdout + res.stderr
+    assert "does not exist" in output
+
+
+def test_cli_serve_check_flag(tmp_path) -> None:
+    """Test `drawlib serve <directory> --check` validates links and exits without starting server."""
+    doc_dir = tmp_path / "html"
+    doc_dir.mkdir()
+    (doc_dir / "index.html").write_text("<h1>Valid Docs</h1>", encoding="utf-8")
+
+    res = run_drawlib_cli(["serve", str(doc_dir), "--check"])
+    assert res.exit_code == 0
+    assert "Verified 1 HTML file(s)" in (res.stdout + res.stderr)

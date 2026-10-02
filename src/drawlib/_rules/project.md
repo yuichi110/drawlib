@@ -61,6 +61,7 @@ my_project/
 │   ├── styles.py              # Project-wide styling themes and color overrides
 │   ├── utils.py               # Custom helper drawing functions
 │   ├── build.sh               # Executable shell build script
+│   ├── serve.sh               # Local preview server script
 │   ├── README.md              # Project instructions
 │   └── architecture/          # Chapter / section subdirectories
 │       └── index.md
@@ -205,7 +206,10 @@ Drawlib strictly prevents accidental source loss: `drawlib build` refuses to run
 Preview the generated static HTML site with built-in asset and broken-link scanning:
 
 ```bash
-# Start local development server (default port 8000, opens browser):
+# Preview using scaffolded script inside source directory or project root:
+./serve.sh
+
+# Or start local development server directly (default port 8000, opens browser):
 drawlib serve docs_html/
 
 # Start server on custom port without opening browser:

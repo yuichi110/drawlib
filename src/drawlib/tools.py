@@ -20,7 +20,7 @@ from drawlib._css_templates import (
     list_html_css,
     list_pdf_css,
 )
-from drawlib._http_server import run_server, scan_broken_links, serve_docs
+from drawlib._http_server import scan_broken_links, serve_docs
 
 __all__ = [
     "clear_cache",
@@ -33,7 +33,6 @@ __all__ = [
     "list_html_css",
     "list_pdf_css",
     "list_project_types",
-    "run_server",
     "scan_broken_links",
     "serve_docs",
 ]

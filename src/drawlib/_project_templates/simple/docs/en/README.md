@@ -16,6 +16,7 @@ This directory contains a single Markdown document with embedded Drawlib illustr
 
 - `__SRC_DIR__/`: Source Markdown document and illustrations (**Source of Truth**).
   - `build.sh`: Build script to compile documents into Markdown and HTML.
+  - `serve.sh`: Local preview server script.
   - `styles.py`: Global styles script (themes, styles, font presets).
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
   - `style.css`: Custom CSS stylesheet for standalone HTML output.
@@ -27,12 +28,20 @@ This directory contains a single Markdown document with embedded Drawlib illustr
 
 ---
 
-## 2. Building Documents
+## 2. Building & Previewing Documents
 
 ### Using the Build Script
 Run the automated build script from the project root or inside this directory:
 ```bash
 ./build.sh
+```
+
+### Previewing the HTML Document Locally
+Start the built-in development HTTP server to preview your document:
+```bash
+./serve.sh
+# Or using drawlib directly:
+drawlib serve __OUT_HTML_DIR__/
 ```
 
 ### Using the Drawlib CLI Directly

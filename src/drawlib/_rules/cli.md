@@ -491,18 +491,18 @@ Starts a zero-dependency local development HTTP server to preview built HTML doc
 
 ### Syntax:
 ```bash
-drawlib serve [DIRECTORY] [OPTIONS]
+drawlib serve DIRECTORY [OPTIONS]
 ```
 
 ### Arguments:
-- `[DIRECTORY]`: Directory path to serve. If omitted, Drawlib auto-detects `docs_html/`, `docs/`, or the current directory in that order.
+- `DIRECTORY`: Target directory path containing built HTML documentation to serve (required, e.g. `docs_html/`).
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--port` | `-p` | `<int>` | `8000` | Port number to bind the HTTP server to. |
 | `--no-browser` | | flag | `False` | Do not open default web browser automatically upon startup. |
-| `--check`, `--check-only` | | flag | `False` | Check for broken links/missing assets and exit immediately without serving. |
+| `--check` | | flag | `False` | Check for broken links/missing assets and exit immediately without serving. |
 | `--skip-check` | | flag | `False` | Start the server immediately without running pre-flight link checks. |
 
 ---
@@ -523,8 +523,8 @@ If broken links or missing assets are discovered, Drawlib outputs a diagnostic r
 
 ### Server Usage Examples:
 ```bash
-# Preview default docs_html/ directory on port 8000 (opens browser automatically):
-drawlib serve
+# Preview docs_html/ directory on port 8000 (opens browser automatically):
+drawlib serve docs_html/
 
 # Serve custom directory on port 8080 without opening browser:
 drawlib serve my_site/ -p 8080 --no-browser

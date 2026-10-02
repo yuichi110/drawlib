@@ -19,6 +19,7 @@ from typing import Optional, Set
 
 EXCLUDED_ASSET_NAMES: set[str] = {
     "build.sh",
+    "serve.sh",
     "styles.py",
     "utils.py",
     "style.css",

@@ -16,6 +16,7 @@
 
 - `__SRC_DIR__/`: Markdown ソースドキュメントおよび図面コード (**正本**)。
   - `build.sh`: Markdown および HTML サイトを一括ビルドするスクリプト。
+  - `serve.sh`: ローカルプレビュー用 HTTP サーバースクリプト。
   - `styles.py`: 全体描画テーマ、パレット、日本語フォント設定スクリプト。
   - `utils.py`: 再利用可能な描画ヘルパー関数、マクロ、プロジェクト共通定数。
   - `style.css`: HTML サイト用カスタム CSS スタイルシート。
@@ -50,6 +51,8 @@ drawlib build markdown __SRC_DIR__/ -o __OUT_DIR__/
 ### HTML サイトのローカルプレビュー
 組み込みの開発用 HTTP サーバーでサイトをローカル確認します:
 ```bash
+./serve.sh
+# または drawlib コマンドを直接実行:
 drawlib serve __OUT_HTML_DIR__/
 ```
 
