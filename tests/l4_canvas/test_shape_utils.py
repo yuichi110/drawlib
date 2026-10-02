@@ -8,9 +8,13 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 # pyright: reportUnknownMemberType=false
+from typing import Any
+
 import pytest
+from matplotlib.path import Path
 from matplotlib.text import Text
 
+from drawlib._core.l2_types import PathPoints
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes import ShapeUtil
@@ -156,3 +160,70 @@ class TestShapeUtil:
         assert options["edgecolor"] == (1.0, 0.0, 0.0, 1.0)
         assert options["facecolor"] == (0.0, 1.0, 0.0, 0.5)
         assert options["alpha"] == 0.8
+
+    def test_build_matplotlib_path(self) -> None:
+        """Verifies build_matplotlib_path converts path points into closed matplotlib Path."""
+        # 1. Straight lines polygon
+        points: PathPoints = [(0.0, 0.0), (10.0, 0.0), (10.0, 10.0), (0.0, 10.0)]
+        path = ShapeUtil.build_matplotlib_path(points)
+        assert isinstance(path, Path)
+        assert path.codes is not None
+        codes: list[Any] = list(path.codes)  # type: ignore
+        assert codes == [
+            Path.MOVETO,
+            Path.LINETO,
+            Path.LINETO,
+            Path.LINETO,
+            Path.CLOSEPOLY,
+        ]
+
+        # 2. Bezier curves
+        bezier_points: PathPoints = [
+            (0.0, 0.0),
+            ((5.0, 10.0), (10.0, 0.0)),
+            ((15.0, -10.0), (20.0, 10.0), (25.0, 0.0)),
+        ]
+        b_path = ShapeUtil.build_matplotlib_path(bezier_points)
+        assert b_path.codes is not None
+        b_codes: list[Any] = list(b_path.codes)  # type: ignore
+        assert b_codes == [
+            Path.MOVETO,
+            Path.CURVE3,
+            Path.CURVE3,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CLOSEPOLY,
+        ]
+
+        # 3. Empty points raise ValueError
+        with pytest.raises(ValueError, match="Path points cannot be empty"):
+            ShapeUtil.build_matplotlib_path([])
+
+    def test_transform_shape_path_points(self) -> None:
+        """Verifies transform_shape_path_points centers, aligns, rotates, and places points."""
+        style = Style(text_halign="center", text_valign="center")
+        points: PathPoints = [(0.0, 0.0), (10.0, 0.0), (10.0, 10.0), (0.0, 10.0)]
+
+        # Center placement at (50, 50) with default center
+        transformed, center_xy, eff_style = ShapeUtil.transform_shape_path_points(
+            xy=(50.0, 50.0),
+            path_points=points,
+            angle=0.0,
+            style=style,
+            is_default_center=True,
+        )
+        assert center_xy == (50.0, 50.0)
+        assert transformed[0] == (45.0, 45.0)
+        assert transformed[2] == (55.0, 55.0)
+        assert eff_style.text_halign == "center"
+
+        # Empty points raise ValueError
+        empty_points: PathPoints = []
+        with pytest.raises(ValueError, match="Path points cannot be empty"):
+            ShapeUtil.transform_shape_path_points(
+                xy=(0.0, 0.0),
+                path_points=empty_points,
+                angle=0.0,
+                style=style,
+            )

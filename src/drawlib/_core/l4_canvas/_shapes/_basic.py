@@ -20,7 +20,6 @@ from matplotlib.patches import (
     RegularPolygon,
     Wedge,
 )
-from matplotlib.path import Path
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (
@@ -32,11 +31,7 @@ from drawlib._core.l2_types import (
     PosFloat,
     Size,
 )
-from drawlib._core.l3_math import (
-    get_center_and_size,
-    minus_2points,
-    rotate_point,
-)
+from drawlib._core.l3_math import get_center_and_size
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas._shapes._util import ShapeUtil
@@ -50,7 +45,7 @@ class CanvasShapeBasicFeature(CanvasBase):
         super().__init__()
 
     @validate_call
-    def shape(  # noqa: C901
+    def shape(
         self,
         xy: Coordinate,
         path_points: PathPoints,
@@ -82,109 +77,20 @@ class CanvasShapeBasicFeature(CanvasBase):
             textstyle,
         )
 
-        # shift to center (0, 0)
-        points_without_cp = []
-        for pp in path_points:
-            if not isinstance(pp[0], tuple):
-                points_without_cp.append(pp)
-            else:
-                points_without_cp.append(pp[0])
-            center, (width, height) = get_center_and_size(points_without_cp)
-
-        path_points2 = []
-        for pp in path_points:
-            # (x, y)
-            if not isinstance(pp[0], tuple):
-                xy1 = minus_2points(pp, center)  # type: ignore
-                path_points2.append(xy1)
-                continue
-
-            # ((x1, y1), (x2, y2))
-            xy1 = minus_2points(pp[0], center)
-            xy2 = minus_2points(pp[1], center)  # type: ignore
-            if len(pp) == 2:
-                path_points2.append((xy1, xy2))
-                continue
-
-            # ((x1, y1), (x2, y2), (x3, y3))
-            xy3 = minus_2points(pp[2], center)  # type: ignore
-            path_points2.append((xy1, xy2, xy3))
-
-        # alignment
-        if is_default_center:
-            # move to center
-            x, y = xy
-            x -= width / 2
-            y -= height / 2
-            xy = (x, y)
-        ((x, y), style) = ShapeUtil.apply_alignment(
-            xy,
-            width,
-            height,
-            angle,
-            style,
+        transformed_points, (cx, cy), effective_style = ShapeUtil.transform_shape_path_points(
+            xy=xy,
+            path_points=path_points,
+            angle=angle,
+            style=style,
             is_default_center=is_default_center,
         )
 
-        # rotate and move
-        cx = x + width / 2
-        cy = y + height / 2
-        path_points3 = []
-        for pp in path_points2:
-            # (x, y)
-            if not isinstance(pp[0], tuple):
-                rx, ry = rotate_point(pp, angle=angle)
-                path_points3.append((rx + cx, ry + cy))
-                continue
-
-            # ((x1, y1), (x2, y2))
-            rx1, ry1 = rotate_point(pp[0], angle=angle)
-            rx2, ry2 = rotate_point(pp[1], angle=angle)
-            if len(pp) == 2:
-                path_points3.append(((rx1 + cx, ry1 + cy), (rx2 + cx, ry2 + cy)))
-                continue
-
-            # ((x1, y1), (x2, y2), (x3, y3))
-            rx3, ry3 = rotate_point(pp[2], angle=angle)
-            path_points3.append(
-                (
-                    (rx1 + cx, ry1 + cy),
-                    (rx2 + cx, ry2 + cy),
-                    (rx3 + cx, ry3 + cy),
-                )
-            )
-
-        # create Path
-        vertices = [path_points3[0]]
-        codes = [Path.MOVETO]
-        for p in path_points3[1:]:
-            length = len(p)
-            if length not in {2, 3}:
-                raise ValueError()
-
-            if not isinstance(p[0], tuple):
-                vertices.append(p)
-                codes.append(Path.LINETO)
-
-            elif length == 2:
-                vertices.extend([p[0], p[1]])
-                codes.extend([Path.CURVE3] * 2)
-
-            else:
-                vertices.extend([p[0], p[1], p[2]])
-                codes.extend([Path.CURVE4] * 3)
-
-        vertices.append(path_points3[0])
-        codes.append(Path.CLOSEPOLY)
-        path = Path(vertices=vertices, codes=codes)
-
-        # create PathPatch
-        options = ShapeUtil.get_shape_options(style)
+        path = ShapeUtil.build_matplotlib_path(transformed_points)
+        options = ShapeUtil.get_shape_options(effective_style)
         self._artists.append(PathPatch(path=path, **options))
 
-        # create Text
         if text:
-            effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
+            effective_textstyle = ShapeUtil.resolve_embedded_text_style(effective_style, textstyle, textsize)
             self._artists.append(
                 ShapeUtil.get_shape_text(
                     xy=(cx, cy),

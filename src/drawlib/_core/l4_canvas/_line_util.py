@@ -28,27 +28,21 @@ class LineUtil:
         return [v for i, v in enumerate(xys) if i == 0 or v != xys[i - 1]]
 
     @staticmethod
-    def _merge_straight_lines(xys: list[tuple[float, float]]) -> list[tuple[float, float]]:  # noqa: C901
-        """Merge consecutive points that form a straight line."""
+    def _merge_straight_lines(xys: list[tuple[float, float]]) -> list[tuple[float, float]]:
+        """Merge consecutive intermediate points that form a straight horizontal or vertical line."""
         if len(xys) < 3:
             return xys
 
-        points: list[tuple[float, float]] = []
-        skip_next = False
-        for i in range(len(xys) - 1):
-            if skip_next:
-                skip_next = False
-                continue
-
-            if i == 0:
-                points.append(xys[i])
-                continue
-
+        points: list[tuple[float, float]] = [xys[0]]
+        for i in range(1, len(xys) - 1):
             p_prev = points[-1]
             p_curr = xys[i]
             p_next = xys[i + 1]
 
-            if p_prev[0] == p_curr[0] == p_next[0] or p_prev[1] == p_curr[1] == p_next[1]:
+            # Skip intermediate points on straight horizontal or vertical segments
+            is_vertical = p_prev[0] == p_curr[0] == p_next[0]
+            is_horizontal = p_prev[1] == p_curr[1] == p_next[1]
+            if is_vertical or is_horizontal:
                 continue
 
             points.append(p_curr)

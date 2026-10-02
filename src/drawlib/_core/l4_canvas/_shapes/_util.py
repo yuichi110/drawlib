@@ -9,13 +9,26 @@
 
 """Shape utility module for canvas operations."""
 
-from typing import Any
+from typing import Any, cast
 
+from matplotlib.path import Path
 from matplotlib.text import Text
 
-from drawlib._core.l2_types import Size
+from drawlib._core.l2_types import (
+    Angle,
+    Bezier2,
+    Bezier3,
+    Coordinate,
+    PathPoint,
+    PathPoints,
+    Size,
+)
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_math import rotate_point
+from drawlib._core.l3_math import (
+    get_center_and_size,
+    minus_2points,
+    rotate_point,
+)
 from drawlib._core.l3_styles import ColorUtil, Style
 from drawlib._core.l4_canvas._text_util import TextUtil
 
@@ -100,7 +113,7 @@ class ShapeUtil:
         return (style, textstyle)
 
     @staticmethod
-    def apply_alignment(  # noqa: C901
+    def apply_alignment(
         xy: tuple[float, float],
         width: float,
         height: float,
@@ -122,46 +135,177 @@ class ShapeUtil:
             tuple[tuple[float, float], Style]: Adjusted coordinates and updated Style object.
         """
         x, y = xy
-        text_halign = style.text_halign
-        text_valign = style.text_valign
+        is_centered_mode = is_default_center or angle is not None
+        default_halign = "center" if is_centered_mode else "left"
+        default_valign = "center" if is_centered_mode else "bottom"
 
-        if angle is None:
-            if is_default_center:
-                if text_halign is None:
-                    text_halign = "center"
-                if text_valign is None:
-                    text_valign = "center"
-            else:
-                if text_halign is None:
-                    text_halign = "left"
-                if text_valign is None:
-                    text_valign = "bottom"
-        else:
-            if text_halign is None:
-                text_halign = "center"
-            if text_valign is None:
-                text_valign = "center"
+        text_halign = style.text_halign if style.text_halign is not None else default_halign
+        text_valign = style.text_valign if style.text_valign is not None else default_valign
 
         if is_default_center:
-            if text_halign == "left":
-                x += width / 2
-            if text_halign == "right":
-                x -= width / 2
-            if text_valign == "bottom":
-                y += height / 2
-            if text_valign == "top":
-                y -= height / 2
+            h_shifts = {"left": width / 2.0, "right": -width / 2.0}
+            v_shifts = {"bottom": height / 2.0, "top": -height / 2.0}
         else:
-            if text_halign == "center":
-                x -= width / 2
-            if text_halign == "right":
-                x -= width
-            if text_valign == "center":
-                y -= height / 2
-            if text_valign == "top":
-                y -= height
+            h_shifts = {"center": -width / 2.0, "right": -width}
+            v_shifts = {"center": -height / 2.0, "top": -height}
+
+        x += h_shifts.get(text_halign, 0.0)
+        y += v_shifts.get(text_valign, 0.0)
 
         return (x, y), style.patch(text_halign=text_halign, text_valign=text_valign)
+
+    @staticmethod
+    def build_matplotlib_path(path_points: PathPoints) -> Path:
+        """Construct a closed Matplotlib Path from transformed path points.
+
+        Args:
+            path_points: List of path points including straight lines and Bezier control points.
+
+        Returns:
+            Path: Closed Matplotlib Path object.
+
+        Raises:
+            ValueError: If path_points is empty or any item has invalid length.
+        """
+        if not path_points:
+            raise ValueError("Path points cannot be empty.")
+
+        # First point is always the initial MOVETO point
+        first_pt = path_points[0]
+        start_coord: Coordinate
+        if isinstance(first_pt[0], (int, float)):
+            start_coord = cast(Coordinate, first_pt)
+        else:
+            start_coord = cast(Bezier2 | Bezier3, first_pt)[0]
+
+        vertices: list[Coordinate] = [start_coord]
+        codes: list[Any] = [Path.MOVETO]
+
+        for p in path_points[1:]:
+            if isinstance(p[0], (int, float)):
+                coord = cast(Coordinate, p)
+                vertices.append(coord)
+                codes.append(Path.LINETO)
+            elif len(p) == 2:
+                b2 = cast(Bezier2, p)
+                vertices.extend([b2[0], b2[1]])
+                codes.extend([Path.CURVE3, Path.CURVE3])
+            elif len(p) == 3:
+                b3 = cast(Bezier3, p)
+                vertices.extend([b3[0], b3[1], b3[2]])
+                codes.extend([Path.CURVE4, Path.CURVE4, Path.CURVE4])
+            else:
+                raise ValueError(f"Invalid path point length: {len(p)}. Must be 2 or 3.")
+
+        vertices.append(start_coord)
+        codes.append(Path.CLOSEPOLY)
+        return Path(vertices=vertices, codes=codes)
+
+    @staticmethod
+    def _shift_path_point(p: PathPoint, offset: Coordinate) -> PathPoint:
+        """Translate a single PathPoint by subtracting the given offset."""
+        if isinstance(p[0], (int, float)):
+            return minus_2points(cast(Coordinate, p), offset)
+        if len(p) == 2:
+            b2 = cast(Bezier2, p)
+            return (
+                minus_2points(b2[0], offset),
+                minus_2points(b2[1], offset),
+            )
+        if len(p) == 3:
+            b3 = cast(Bezier3, p)
+            return (
+                minus_2points(b3[0], offset),
+                minus_2points(b3[1], offset),
+                minus_2points(b3[2], offset),
+            )
+        raise ValueError(f"Invalid path point length: {len(p)}.")
+
+    @staticmethod
+    def _rotate_and_place_path_point(
+        p: PathPoint,
+        angle: Angle,
+        center: Coordinate,
+    ) -> PathPoint:
+        """Rotate a single PathPoint around (0, 0) and translate to target center."""
+        cx, cy = center
+        if isinstance(p[0], (int, float)):
+            coord = cast(Coordinate, p)
+            rx, ry = rotate_point(coord, angle=angle)
+            return (rx + cx, ry + cy)
+        if len(p) == 2:
+            b2 = cast(Bezier2, p)
+            rx1, ry1 = rotate_point(b2[0], angle=angle)
+            rx2, ry2 = rotate_point(b2[1], angle=angle)
+            return ((rx1 + cx, ry1 + cy), (rx2 + cx, ry2 + cy))
+        if len(p) == 3:
+            b3 = cast(Bezier3, p)
+            rx1, ry1 = rotate_point(b3[0], angle=angle)
+            rx2, ry2 = rotate_point(b3[1], angle=angle)
+            rx3, ry3 = rotate_point(b3[2], angle=angle)
+            return (
+                (rx1 + cx, ry1 + cy),
+                (rx2 + cx, ry2 + cy),
+                (rx3 + cx, ry3 + cy),
+            )
+        raise ValueError(f"Invalid path point length: {len(p)}.")
+
+    @staticmethod
+    def transform_shape_path_points(
+        xy: Coordinate,
+        path_points: PathPoints,
+        angle: Angle,
+        style: Style,
+        is_default_center: bool = False,
+    ) -> tuple[PathPoints, Coordinate, Style]:
+        """Center, align, rotate, and translate path points to target canvas coordinates.
+
+        Args:
+            xy: Anchor coordinate for positioning the shape.
+            path_points: Raw input path points.
+            angle: Rotation angle in degrees.
+            style: Shape style with alignment attributes.
+            is_default_center: Whether xy is the shape center.
+
+        Returns:
+            tuple containing:
+                - PathPoints: Transformed path points ready for Path construction.
+                - Coordinate: Center point (cx, cy) of the shape.
+                - Style: Updated Style object with effective alignments.
+        """
+        if not path_points:
+            raise ValueError("Path points cannot be empty.")
+
+        # 1. Determine bounding box and original center using anchor points
+        anchor_points = [
+            cast(Coordinate, p) if isinstance(p[0], (int, float)) else cast(Bezier2 | Bezier3, p)[0]
+            for p in path_points
+        ]
+        orig_center, (width, height) = get_center_and_size(anchor_points)
+
+        # 2. Shift points relative to center (0, 0)
+        centered_points = [ShapeUtil._shift_path_point(p, orig_center) for p in path_points]
+
+        # 3. Apply alignment
+        align_xy = (xy[0] - width / 2.0, xy[1] - height / 2.0) if is_default_center else xy
+        (adj_x, adj_y), effective_style = ShapeUtil.apply_alignment(
+            align_xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=is_default_center,
+        )
+
+        # 4. Center coordinates for target placement
+        center_xy = (adj_x + width / 2.0, adj_y + height / 2.0)
+
+        # 5. Rotate and place at canvas center
+        transformed_points = [
+            ShapeUtil._rotate_and_place_path_point(p, angle, center_xy) for p in centered_points
+        ]
+
+        return transformed_points, center_xy, effective_style
 
     @staticmethod
     def get_shape_text(
