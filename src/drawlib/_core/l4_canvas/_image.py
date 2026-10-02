@@ -28,7 +28,6 @@ from drawlib._core.l2_types import (
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import BaseColors, Style
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas_utils import ImageUtil
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +59,8 @@ class CanvasImageFeature(CanvasBase):
             angle (int | float, optional): Rotation angle in degrees (default is 0.0).
             style (Style | None, optional): Style of the image. Defaults to None.
         """
-        style = ImageUtil.format_style(style)
+        if style is None:
+            style = Style(image_border_width=0)
 
         x, y = xy
         dimg = Dimage(image, copy=True)

@@ -123,7 +123,7 @@ def test_monochrome_line_lightbold() -> None:
     line((x3 - 5, y1), (x3 + 5, y1), style=styles.PrimaryBold)
 
     line((x1 - 5, y2), (x1 + 5, y2), style=styles.PrimarySolid)
-    with pytest.raises(ValueError, match="Style cannot be used for lines"):
+    with pytest.raises(ValueError, match="Style cannot be used for line"):
         line((x2 - 5, y2), (x2 + 5, y2), style=styles.PrimaryFlat)
     line((x3 - 5, y2), (x3 + 5, y2), style=styles.PrimaryDashed)
 

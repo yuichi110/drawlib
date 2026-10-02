@@ -32,7 +32,7 @@ from drawlib._core.l3_math import (
     plus_2points,
     rotate_point,
 )
-from drawlib._core.l4_canvas_utils import ColorUtil
+from drawlib._core.l3_styles import ColorUtil
 
 
 class TestGeometryMath:

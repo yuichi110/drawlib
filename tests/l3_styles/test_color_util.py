@@ -9,7 +9,7 @@
 
 import pytest
 
-from drawlib._core.l4_canvas_utils._colors import ColorUtil
+from drawlib._core.l3_styles import ColorUtil
 
 
 class TestColorUtil:

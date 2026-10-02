@@ -26,12 +26,7 @@ from drawlib._core.l3_external import (
     download_if_not_exist,
     purge_font_cache,
 )
-from drawlib._core.l4_canvas_utils import (
-    ColorUtil,
-    ImageUtil,
-    LineUtil,
-    ShapeUtil,
-    TextUtil,
+from drawlib._core.l3_math import (
     get_angle,
     get_center_and_size,
     get_distance,
@@ -42,13 +37,20 @@ from drawlib._core.l4_canvas_utils import (
     plus_2points,
     rotate_point,
 )
+from drawlib._core.l3_styles import (
+    ColorUtil,
+)
+from drawlib._core.l4_canvas import (
+    LineUtil,
+    ShapeUtil,
+    TextUtil,
+)
 
 __all__ = [
     "ColorUtil",
     "FONT_DIR_PATH",
     "FONT_ICON_DIR_PATH",
     "ICON_DIR_PATH",
-    "ImageUtil",
     "LineUtil",
     "RULES_DIR_PATH",
     "ShapeUtil",

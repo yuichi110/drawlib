@@ -10,7 +10,7 @@
 import pytest
 
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas_utils._line import LineUtil
+from drawlib._core.l4_canvas._line import LineUtil
 
 
 class TestLineUtil:
@@ -67,14 +67,12 @@ class TestLineUtil:
         assert formatted_obj.line_color == (255, 0, 0, 1.0)
 
         # 2. Test unsupported / missing required properties raises ValueError
-        with pytest.raises(ValueError, match="Style cannot be used for lines"):
+        with pytest.raises(ValueError, match="Style cannot be used for line"):
             LineUtil.format_style(Style(line_width=8.0))
-        with pytest.raises(ValueError, match="Style cannot be used for lines"):
+        with pytest.raises(ValueError, match="Style cannot be used for line"):
             LineUtil.format_style(Style(line_color=(255, 0, 0, 1.0)))
-        with pytest.raises(ValueError, match="Line drawing requires attributes"):
-            LineUtil.validate_line_style(
-                Style.model_construct(supports=frozenset({"line"}), line_color=None, line_width=None)
-            )
+        with pytest.raises(ValueError, match="Style cannot be used for line"):
+            LineUtil.validate_line_style(Style(line_width=8.0))
 
         # 3. Test invalid style types raise TypeError
         with pytest.raises(TypeError):

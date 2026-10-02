@@ -99,6 +99,17 @@ class TestStyleSupports:
         with pytest.raises(ValueError, match="Style declares 'line' support, but required attributes"):
             Style(supports={"line"}, line_width=2.0)
 
+    def test_validate_for(self):
+        """Test validate_for raises ValueError if target is not supported."""
+        line_s = Style(line_color=Colors.Red, line_width=1.0)
+        line_s.validate_for("line")
+
+        with pytest.raises(ValueError, match="Style cannot be used for shape"):
+            line_s.validate_for("shape")
+
+        with pytest.raises(ValueError, match="Style cannot be used for text"):
+            line_s.validate_for("text")
+
     def test_text_invariants_missing_attributes(self):
         """Test that declaring text support without required attributes raises ValueError."""
         with pytest.raises(ValueError, match="Style declares 'text' support, but required attributes"):

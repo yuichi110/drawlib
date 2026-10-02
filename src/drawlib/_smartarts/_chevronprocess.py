@@ -18,7 +18,7 @@ from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.fonts import Font
-from drawlib._core.l4_canvas_utils._colors import ColorUtil
+from drawlib._core.l3_styles import ColorUtil
 from drawlib._core.shapes import chevron as canvas_chevron
 from drawlib._core.shapes import polygon as canvas_polygon
 from drawlib._core.text import text as canvas_text

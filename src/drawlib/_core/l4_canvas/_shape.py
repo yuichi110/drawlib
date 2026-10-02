@@ -16,13 +16,9 @@ from matplotlib.text import Text
 
 from drawlib._core.l2_types import Size
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas_utils._colors import ColorUtil
-from drawlib._core.l4_canvas_utils._text import TextUtil
-from drawlib._core.l4_canvas_utils._utils import (
-    get_dict_value_none_keys_removed,
-    rotate_point,
-)
+from drawlib._core.l3_math import rotate_point
+from drawlib._core.l3_styles import ColorUtil, Style
+from drawlib._core.l4_canvas._text_util import TextUtil
 
 
 class ShapeUtil:
@@ -34,28 +30,8 @@ class ShapeUtil:
 
     @staticmethod
     def validate_shape_style(style: Style) -> None:
-        """Validate that the required shape properties are set in Style.
-
-        Args:
-            style: The Style instance to validate.
-
-        Raises:
-            ValueError: If style does not support shapes or any required shape property is None.
-        """
-        if "shape" not in style.supports:
-            raise ValueError(f"Style cannot be used for shapes. Declared supports: {set(style.supports)}.")
-        missing: list[str] = []
-        if style.shape_fill_color is None:
-            missing.append("shape_fill_color")
-        if style.shape_line_color is None:
-            missing.append("shape_line_color")
-        if style.shape_line_width is None:
-            missing.append("shape_line_width")
-
-        if missing:
-            raise ValueError(
-                f"Shape drawing requires attributes {missing}, but they are None in the provided Style."
-            )
+        """Validate that the Style supports shape drawing."""
+        style.validate_for("shape")
 
     @staticmethod
     def resolve_embedded_text_style(
@@ -114,29 +90,14 @@ class ShapeUtil:
         style: Style,
         textstyle: Style | None = None,
     ) -> tuple[Style, Style | None]:
-        """Validate and format shape style and embedded textstyle.
-
-        Args:
-            style: Style object for the shape (must have shape_* core properties).
-            textstyle: Optional Style object for embedded text.
-
-        Returns:
-            tuple[Style, Style | None]: Tuple of (shape_style, text_style).
-
-        Raises:
-            TypeError: If style or textstyle is not a Style instance.
-            ValueError: If required core properties are missing.
-        """
+        """Validate and return shape style and optional embedded textstyle."""
         if not isinstance(style, Style):
             raise TypeError(f'Arg "style" must be Style, but {type(style)} given.')
-
-        ShapeUtil.validate_shape_style(style)
-
+        style.validate_for("shape")
         if textstyle is not None:
             if not isinstance(textstyle, Style):
                 raise TypeError(f'Arg "textstyle" must be Style, but {type(textstyle)} given.')
-            TextUtil.validate_text_style(textstyle)
-
+            textstyle.validate_for("text")
         return (style, textstyle)
 
     @staticmethod
@@ -266,4 +227,7 @@ class ShapeUtil:
             "alpha": style.shape_fill_alpha,
         }
 
-        return get_dict_value_none_keys_removed(options)
+        return {k: v for k, v in options.items() if v is not None}
+
+
+__all__ = ["ShapeUtil"]

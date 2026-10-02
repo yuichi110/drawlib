@@ -37,16 +37,15 @@ from drawlib._core.l2_types import (
     PosInt,
     Size,
 )
-from drawlib._core.l3_styles import (
-    Style,
-)
-from drawlib._core.l4_canvas_utils import (
-    ShapeUtil,
-    TextUtil,
+from drawlib._core.l3_math import (
     get_center_and_size,
     minus_2points,
     rotate_point,
 )
+from drawlib._core.l3_styles import (
+    Style,
+)
+from drawlib._core.l4_canvas._shape import ShapeUtil
 
 
 class CanvasBase:

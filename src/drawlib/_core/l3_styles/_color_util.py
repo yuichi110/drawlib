@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Color utility module for canvas operations."""
+"""Color utility module for style and canvas operations."""
 
 from drawlib._core.l2_types import (
     Color,
@@ -207,3 +207,6 @@ class ColorUtil:
 
         lum = 0.299 * rgba[0] + 0.587 * rgba[1] + 0.114 * rgba[2]
         return dark_color if lum > threshold else light_color
+
+
+__all__ = ["ColorUtil"]

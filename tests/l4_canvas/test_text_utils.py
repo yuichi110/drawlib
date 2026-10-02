@@ -15,7 +15,7 @@ from matplotlib.font_manager import FontProperties
 from drawlib._core.l2_types import FontFile
 from drawlib._core.l3_fonts import FontSansSerif
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas_utils._text import TextUtil
+from drawlib._core.l4_canvas._text_util import TextUtil
 from drawlib.styles import Colors
 
 
@@ -34,15 +34,8 @@ class TestTextUtil:
         with pytest.raises(ValueError, match="Style cannot be used for text"):
             TextUtil.format_style(Style(text_size=32.0))
 
-        with pytest.raises(ValueError, match="Text drawing requires attributes"):
-            TextUtil.validate_text_style(
-                Style.model_construct(
-                    supports=frozenset({"text"}),
-                    text_color=None,
-                    text_size=None,
-                    text_font=None,
-                )
-            )
+        with pytest.raises(ValueError, match="Style cannot be used for text"):
+            TextUtil.validate_text_style(Style(text_size=32.0))
 
         # 3. Invalid types raise TypeError
         with pytest.raises(TypeError):

@@ -13,7 +13,7 @@ from matplotlib.text import Text
 
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas_utils._shape import ShapeUtil
+from drawlib._core.l4_canvas._shape import ShapeUtil
 
 
 class TestShapeUtil:
@@ -35,18 +35,11 @@ class TestShapeUtil:
         assert t is None
 
         # 3. Unsupported shape style raises ValueError
-        with pytest.raises(ValueError, match="Style cannot be used for shapes"):
+        with pytest.raises(ValueError, match="Style cannot be used for shape"):
             ShapeUtil.format_styles(Style(shape_fill_color=(255, 0, 0)))
 
-        with pytest.raises(ValueError, match="Shape drawing requires attributes"):
-            ShapeUtil.validate_shape_style(
-                Style.model_construct(
-                    supports=frozenset({"shape"}),
-                    shape_fill_color=None,
-                    shape_line_color=None,
-                    shape_line_width=None,
-                )
-            )
+        with pytest.raises(ValueError, match="Style cannot be used for shape"):
+            ShapeUtil.validate_shape_style(Style(shape_fill_color=(255, 0, 0)))
 
         # 4. Invalid types raise TypeError
         with pytest.raises(TypeError):

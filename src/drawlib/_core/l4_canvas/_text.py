@@ -20,7 +20,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas_utils import TextUtil
+from drawlib._core.l4_canvas._text_util import TextUtil
 
 
 class CanvasTextFeature(CanvasBase):
@@ -49,7 +49,7 @@ class CanvasTextFeature(CanvasBase):
             size (optional): Font size of the text override.
             angle (optional): Rotation angle of the text (in degrees).
         """
-        style = TextUtil.format_style(style)
+        style.validate_for("text")
         if size is not None:
             style = style.patch(text_size=size)
 
@@ -89,7 +89,7 @@ class CanvasTextFeature(CanvasBase):
             size (optional): Font size of the text override.
             angle (optional): Rotation angle of the text (in degrees).
         """
-        style = TextUtil.format_style(style)
+        style.validate_for("text")
 
         if style.text_halign != "center":
             logger.warning("Style.halign must be center on text_vertical(). Fix halign.")

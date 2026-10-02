@@ -29,7 +29,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas_utils import ShapeUtil, TextUtil
+from drawlib._core.l4_canvas._shape import ShapeUtil
 
 
 class CanvasPatchesFeature(CanvasBase):

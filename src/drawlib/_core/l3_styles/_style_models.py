@@ -285,6 +285,18 @@ class Style(BaseModel):
                 merged["supports"] = inferred
         return Style(**merged)
 
+    def validate_for(self, target: SupportType) -> None:
+        """Validate that this Style supports the specified drawing target.
+
+        Args:
+            target: Drawing target to validate against ('shape', 'line', 'text', 'icon', 'image').
+
+        Raises:
+            ValueError: If target is not in self.supports.
+        """
+        if target not in self.supports:
+            raise ValueError(f"Style cannot be used for {target}. Declared supports: {set(self.supports)}.")
+
 
 __all__ = [
     "ALL_SUPPORTS",

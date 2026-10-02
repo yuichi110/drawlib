@@ -26,17 +26,16 @@ from drawlib._core.l2_types import (
     PosFloat,
     Size,
 )
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib._core.l4_canvas._line import LineArcHelper
-from drawlib._core.l4_canvas_utils import (
-    LineUtil,
-    ShapeUtil,
+from drawlib._core.l3_math import (
     get_angle,
     get_distance,
     get_rotated_path_points,
     get_rotated_points,
 )
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas._base import CanvasBase
+from drawlib._core.l4_canvas._line import LineArcHelper, LineUtil
+from drawlib._core.l4_canvas._shape import ShapeUtil
 
 
 class CanvasOriginalArrowFeature(CanvasBase):

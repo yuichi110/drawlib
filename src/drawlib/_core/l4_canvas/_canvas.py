@@ -27,13 +27,13 @@ from drawlib._core.l2_types import (
     ImageFormat,
 )
 from drawlib._core.l3_images import Dimage
+from drawlib._core.l3_styles import ColorUtil
 from drawlib._core.l4_canvas._arrow import CanvasOriginalArrowFeature
 from drawlib._core.l4_canvas._image import CanvasImageFeature
 from drawlib._core.l4_canvas._line import CanvasLineFeature
 from drawlib._core.l4_canvas._patches import CanvasPatchesFeature
 from drawlib._core.l4_canvas._polygon import CanvasOriginalPolygonFeature
 from drawlib._core.l4_canvas._text import CanvasTextFeature
-from drawlib._core.l4_canvas_utils import ColorUtil
 
 
 class Canvas(

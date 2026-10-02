@@ -12,6 +12,9 @@
 from drawlib._core.l3_styles._base_styles import (
     BaseStyles,
 )
+from drawlib._core.l3_styles._color_util import (
+    ColorUtil,
+)
 from drawlib._core.l3_styles._colors import (
     BaseColors,
 )
@@ -22,6 +25,8 @@ from drawlib._core.l3_styles._style_models import (
 __all__ = [
     # _base_styles.py
     "BaseStyles",
+    # _color_util.py
+    "ColorUtil",
     # _colors.py
     "BaseColors",
     # _style_models.py

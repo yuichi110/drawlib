@@ -21,10 +21,9 @@ from drawlib._core.l3_fonts import (
 )
 from drawlib._core.l3_styles import (
     BaseColors,
+    ColorUtil,
     Style,
 )
-from drawlib._core.l4_canvas_utils._colors import ColorUtil
-from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
 
 
 class TextUtil:
@@ -36,47 +35,15 @@ class TextUtil:
 
     @staticmethod
     def validate_text_style(style: Style) -> None:
-        """Validate that the required text properties are set in Style.
-
-        Args:
-            style: The Style instance to validate.
-
-        Raises:
-            ValueError: If style does not support text or any required text property is None.
-        """
-        if "text" not in style.supports:
-            raise ValueError(f"Style cannot be used for text. Declared supports: {set(style.supports)}.")
-        missing: list[str] = []
-        if style.text_color is None:
-            missing.append("text_color")
-        if style.text_size is None:
-            missing.append("text_size")
-        if style.text_font is None:
-            missing.append("text_font")
-
-        if missing:
-            raise ValueError(
-                f"Text drawing requires attributes {missing}, but they are None in the provided Style."
-            )
+        """Validate that the Style supports text drawing."""
+        style.validate_for("text")
 
     @staticmethod
     def format_style(style: Style) -> Style:
-        """Validate and format text style.
-
-        Args:
-            style: The Style instance for text drawing.
-
-        Returns:
-            Style: Validated Style instance.
-
-        Raises:
-            TypeError: If style is not a Style instance.
-            ValueError: If required core properties are missing.
-        """
+        """Validate and return text style."""
         if not isinstance(style, Style):
             raise TypeError(f'Arg "style" must be Style, but {type(style)} given.')
-
-        TextUtil.validate_text_style(style)
+        style.validate_for("text")
         return style
 
     @staticmethod
@@ -94,7 +61,7 @@ class TextUtil:
             "verticalalignment": style.text_valign if style.text_valign is not None else "center",
         }
 
-        return get_dict_value_none_keys_removed(options)
+        return {k: v for k, v in options.items() if v is not None}
 
     @staticmethod
     def get_font_properties(
@@ -151,4 +118,4 @@ class TextUtil:
             "alpha": style.text_bg_fill_alpha,
         }
 
-        return get_dict_value_none_keys_removed(bbox_dict)
+        return {k: v for k, v in bbox_dict.items() if v is not None}

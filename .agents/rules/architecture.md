@@ -9,7 +9,7 @@ This document describes the project structure and architectural principles of th
 ## 1. Project Root Structure
 - `src/drawlib/`: The main source code directory.
   - Public domain modules: `canvas.py`, `shapes.py`, `lines.py`, `text.py`, `preset_colors.py`, `preset_styles.py`, `styles.py`, `utils.py`, `icons.py`, `fonts.py`, `types.py`, `images.py`, `charts/`, `diagrams/`, `smartarts.py`, `math.py`, `builder.py`, `tools.py`.
-  - `_core/`: Core drawing engine implementation details (`l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_canvas`, `l4_canvas_utils`).
+  - `_core/`: Core drawing engine implementation details (`l1_core`, `l2_types`, `l3_fonts`, `l3_images`, `l3_math`, `l3_styles`, `l4_canvas`).
   - `_preset_styles/`, `_charts/`, `_diagrams/`, `_smartarts/`, `_icons/`, `_css_templates/`, `_project_templates/`: Domain implementations and styling/template assets.
   - `_cli/`, `_builder/`, `_http_server/`: CLI entrypoint, doc & image build engines, and local preview server.
 - `docs_src/`: Source of truth for documentation and technical guides written in Markdown.
@@ -33,7 +33,7 @@ This document describes the project structure and architectural principles of th
 
 ### 3.2. Core Implementation (`_core/`)
 The `_core/` directory contains internal drawing logic and is not meant to be accessed directly by users.
-- **Layered Structure**: `l1_core`, `l2_types`, `l3_fonts`, `l3_images`, `l3_styles`, `l4_canvas`, `l4_canvas_utils`. (Domain features like `_preset_styles`, `_icons`, `_charts`, `_diagrams`, and `_smartarts` reside at package level).
+- **Layered Structure**: `l1_core`, `l2_types`, `l3_fonts`, `l3_images`, `l3_math`, `l3_styles`, `l4_canvas`. (Domain features like `_preset_styles`, `_icons`, `_charts`, `_diagrams`, and `_smartarts` reside at package level).
 
 ### 3.3. Document and Image Builder (`_builder/`)
 - Handles Markdown parsing, `drawlib` code block execution, HTML/PDF/Markdown compilation, image building, and cache management.

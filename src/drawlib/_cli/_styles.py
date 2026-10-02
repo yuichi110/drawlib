@@ -28,7 +28,7 @@ from drawlib._builder.doc_builder.build_cache import CliImageCache, hash_text
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.fonts import Font
 from drawlib._core.images import Dimage
-from drawlib._core.l4_canvas_utils import ColorUtil
+from drawlib._core.l3_styles import ColorUtil
 from drawlib._core.styles import Color, Style
 from drawlib._preset_styles import (
     BaseStyles,

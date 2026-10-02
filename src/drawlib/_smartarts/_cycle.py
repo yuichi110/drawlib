@@ -19,7 +19,7 @@ from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.fonts import Font
-from drawlib._core.l4_canvas_utils._colors import ColorUtil
+from drawlib._core.l3_styles import ColorUtil
 from drawlib._core.lines import line_arc as canvas_line_arc
 from drawlib._core.shapes import arrow_arc as canvas_arrow_arc
 from drawlib._core.shapes import circle as canvas_circle
