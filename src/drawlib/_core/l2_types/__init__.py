@@ -46,6 +46,7 @@ from drawlib._core.l2_types._primitive import (
     NumVertex,
     PosFloat,
     PosInt,
+    Ratio,
 )
 from drawlib._core.l2_types._style import (
     Angle,
@@ -93,6 +94,7 @@ __all__ = [
     "PathPoints",
     "PosFloat",
     "PosInt",
+    "Ratio",
     "Size",
     "TailEdge",
     "VAlign",

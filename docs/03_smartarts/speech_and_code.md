@@ -32,9 +32,10 @@ bubblespeech(
     tail_start_ratio: float,          # Float in [0.0, 1.0] along edge
     tail_end_ratio: float,            # Float in [0.0, 1.0] along edge
     tail_vertex_xy: tuple[float, float], # Exact target point coordinate
+    *,
     style: Style,
     text: str = "",
-    textstyle: Style | None = None,
+    text_style: Style | None = None,
 )
 ```
 

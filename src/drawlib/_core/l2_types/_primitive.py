@@ -28,3 +28,4 @@ NumVertex = Annotated[int, Field(ge=3)]
 
 PosFloat = Annotated[float, Field(ge=0.0)]
 NegFloat = Annotated[float, Field(le=0.0)]
+Ratio = Annotated[float, Field(ge=0.0, le=1.0)]

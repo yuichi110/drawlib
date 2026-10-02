@@ -896,8 +896,7 @@ bubblespeech(
     *,
     style: Style,
     text: str = "",
-    textsize: float | None = None,
-    textstyle: Style | None = None,
+    text_style: Style | None = None,
 )
 ```
 
@@ -937,8 +936,7 @@ bubblespeech(
         shape_line_width=1.5,
     ),
     text="ACTION REQUIRED:\nExceeding IOPS threshold.\nMigrate read replicas to AWS Aurora.",
-    textsize=9,
-    textstyle=Styles.Primary.patch(
+    text_style=Styles.Primary.patch(
         text_color=CssColors.DarkRed,
         text_font=Font.SANSSERIF_BOLD,
         text_size=9,
