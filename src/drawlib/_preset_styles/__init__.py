@@ -9,7 +9,7 @@
 
 """Private preset_styles package for drawlib."""
 
-from drawlib._core.styles import (
+from drawlib._core.l3_styles import (
     BaseStyles,
 )
 from drawlib._preset_styles._style_default import (

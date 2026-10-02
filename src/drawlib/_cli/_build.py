@@ -21,7 +21,7 @@ from rich.console import Console
 from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
 from drawlib._builder.image_builder import build_image
 from drawlib._cli._help import HELP_EPILOG
-from drawlib._core.utils import dutil_settings
+from drawlib._core.l1_core import dutil_settings
 
 build_app = typer.Typer(
     name="build",

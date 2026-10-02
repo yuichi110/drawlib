@@ -27,9 +27,9 @@ from rich.table import Table
 from drawlib import LIB_VERSION
 from drawlib._builder.doc_builder.build_cache import CliImageCache, hash_text
 from drawlib._cli._help import HELP_EPILOG
-from drawlib._core.fonts import Font
-from drawlib._core.images import Dimage
-from drawlib._core.styles import BaseColors, Color, Style
+from drawlib._core.l3_fonts import Font
+from drawlib._core.l3_images import Dimage
+from drawlib._core.l3_styles import BaseColors, Color, Style
 from drawlib._preset_colors import (
     CssColors,
     DefaultColors,

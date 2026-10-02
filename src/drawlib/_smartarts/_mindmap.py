@@ -15,10 +15,9 @@ from typing import Literal
 
 from pydantic import validate_call
 
-from drawlib._core.lines import line
-from drawlib._core.shapes import ellipse, rectangle
-from drawlib._core.text import get_charwidth_from_fontsize
-from drawlib._core.types import Coordinate, Style
+from drawlib._core.l2_types import Coordinate
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import ellipse, get_charwidth_from_fontsize, line, rectangle
 
 
 class MindMapNode:

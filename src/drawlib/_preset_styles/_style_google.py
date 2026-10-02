@@ -14,10 +14,9 @@ from __future__ import annotations
 import warnings
 from typing import Any, Self
 
-from drawlib._core.fonts import FontSourceCode
 from drawlib._core.l2_types import ColorType
-from drawlib._core.styles import BaseColors, BaseStyles, Color
-from drawlib._core.types import Style
+from drawlib._core.l3_fonts import FontSourceCode
+from drawlib._core.l3_styles import BaseColors, BaseStyles, Color, Style
 from drawlib._preset_colors import GoogleColors
 from drawlib._preset_styles._utils import _make_variants
 

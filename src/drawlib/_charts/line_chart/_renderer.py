@@ -19,15 +19,15 @@ from drawlib._charts._common._types import ColorType, LineStyle
 from drawlib._charts.area_chart._series import Series as AreaSeries
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._charts.line_chart._series import Series as LineSeries
-from drawlib._core.fonts import Font
-from drawlib._core.lines import line as canvas_line
-from drawlib._core.lines import lines as canvas_lines
-from drawlib._core.lines import lines_curved as canvas_lines_curved
-from drawlib._core.shapes import circle as canvas_circle
-from drawlib._core.shapes import polygon as canvas_polygon
-from drawlib._core.shapes import rectangle as canvas_rectangle
-from drawlib._core.text import text as canvas_text
-from drawlib._core.types import Style
+from drawlib._core.l3_fonts import Font
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import circle as canvas_circle
+from drawlib._core.l4_canvas import line as canvas_line
+from drawlib._core.l4_canvas import lines as canvas_lines
+from drawlib._core.l4_canvas import lines_curved as canvas_lines_curved
+from drawlib._core.l4_canvas import polygon as canvas_polygon
+from drawlib._core.l4_canvas import rectangle as canvas_rectangle
+from drawlib._core.l4_canvas import text as canvas_text
 from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:

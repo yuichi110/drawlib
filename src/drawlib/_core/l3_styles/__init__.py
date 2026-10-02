@@ -9,6 +9,7 @@
 
 """Package for core styles and colors base."""
 
+from drawlib._core.l2_types import Color
 from drawlib._core.l3_styles._base_styles import (
     BaseStyles,
 )
@@ -30,5 +31,6 @@ __all__ = [
     # _colors.py
     "BaseColors",
     # _style_models.py
+    "Color",
     "Style",
 ]

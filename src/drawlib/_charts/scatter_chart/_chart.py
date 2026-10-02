@@ -19,7 +19,7 @@ from drawlib._charts.scatter_chart import _renderer as _renderer_module
 from drawlib._charts.scatter_chart._point import Point, Series
 
 if TYPE_CHECKING:
-    from drawlib._core.types import Style
+    from drawlib._core.l3_styles import Style
 
 
 class ScatterChart:

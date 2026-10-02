@@ -9,7 +9,7 @@
 
 """Public shapes module for drawlib."""
 
-from drawlib._core.shapes import (
+from drawlib._core.l4_canvas import (
     arc,
     arrow,
     arrow_arc,

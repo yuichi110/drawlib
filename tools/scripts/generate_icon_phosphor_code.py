@@ -42,7 +42,8 @@ PHOSPHOR_HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 
 from __future__ import annotations
 
-from drawlib._core.types import Angle, Coordinate, PosFloat, Style
+from drawlib._core.l2_types import Angle, Coordinate, PosFloat
+from drawlib._core.l3_styles import Style
 from drawlib._icons.font_icons.phosphor._base import _write
 '''
 

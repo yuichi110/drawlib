@@ -13,8 +13,7 @@
 
 from pydantic import validate_call
 
-from drawlib._core.canvas import clear
-from drawlib._core.utils import get_angle, get_center_and_size, get_distance
+from drawlib._core.l3_math import get_angle, get_center_and_size, get_distance
 
 __all__ = [
     "get_angle",

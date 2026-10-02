@@ -9,7 +9,7 @@
 
 """Package for dutil modules."""
 
-from drawlib._core.utils import dutil_settings
+from drawlib._core.l1_core import dutil_settings
 from drawlib._utils import _canvas as dutil_canvas
 from drawlib._utils import _color as dutil_color
 from drawlib._utils import _image as dutil_image

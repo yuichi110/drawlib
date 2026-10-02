@@ -20,12 +20,12 @@ from drawlib._charts.gantt_chart._item import (
     Section,
     Task,
 )
-from drawlib._core.fonts import Font
-from drawlib._core.lines import line as canvas_line
-from drawlib._core.shapes import rectangle as canvas_rectangle
-from drawlib._core.shapes import rhombus as canvas_rhombus
-from drawlib._core.text import text as canvas_text
-from drawlib._core.types import Style
+from drawlib._core.l3_fonts import Font
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import line as canvas_line
+from drawlib._core.l4_canvas import rectangle as canvas_rectangle
+from drawlib._core.l4_canvas import rhombus as canvas_rhombus
+from drawlib._core.l4_canvas import text as canvas_text
 from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:

@@ -15,8 +15,9 @@ from pathlib import Path
 
 from pydantic import validate_call
 
-from drawlib._core.images import image
-from drawlib._core.types import Angle, Coordinate, PosFloat, Style
+from drawlib._core.l2_types import Angle, Coordinate, PosFloat
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import image
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES, ReleaseAssetPackage, ensure_asset_available
 
 

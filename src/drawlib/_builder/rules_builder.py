@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Final, Sequence
 
 from drawlib._builder.doc_builder import build_markdown
-from drawlib._core.utils import RULES_DIR_PATH
+from drawlib._core.l1_core import RULES_DIR_PATH
 
 AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "agent-instruction",

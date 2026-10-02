@@ -9,7 +9,7 @@
 
 """Public preset_styles module for drawlib."""
 
-from drawlib._core.styles import Style
+from drawlib._core.l3_styles import Style
 from drawlib._preset_styles import (
     DefaultStyles,
     DefaultStyles1,

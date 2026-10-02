@@ -20,18 +20,19 @@ import re
 import runpy
 import sys
 import traceback
+import warnings
 from typing import Any, Callable, List, Literal, Optional, Sequence, Tuple, Union
 
 from pydantic import validate_call
 
-import drawlib._core.canvas
+import drawlib._core.l4_canvas
 import drawlib.canvas
 from drawlib._builder.doc_builder.build_cache import BuildImageCache, hash_file
 from drawlib._builder.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
 from drawlib._builder.doc_builder.styles_utils import load_styles_and_utils
-from drawlib._core.canvas import clear
+from drawlib._core.l1_core import dutil_settings, get_script_relative_path, logger
+from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas._canvas import Canvas
-from drawlib._core.utils import dutil_settings, get_script_relative_path, logger
 from drawlib._utils import dutil_canvas
 
 
@@ -494,16 +495,16 @@ class DrawlibExecuter:
         if self._grid:
             dutil_settings.set_force_grid(True)
 
-        canvas_inst = drawlib._core.canvas.canvas
+        canvas_inst = drawlib._core.l4_canvas.canvas
         orig_canvas_save = canvas_inst.save
-        orig_core_save = drawlib._core.canvas.save
+        orig_core_save = drawlib._core.l4_canvas.save
         orig_canvas_mod_save = getattr(drawlib.canvas, "save", None)
         self._runtime_seen_outputs.clear()
 
         try:
             wrapped = self._create_wrapped_save(orig_canvas_save, canvas_inst)
             canvas_inst.save = wrapped  # ty: ignore
-            drawlib._core.canvas.save = wrapped  # ty: ignore
+            drawlib._core.l4_canvas.save = wrapped  # ty: ignore
             drawlib.canvas.save = wrapped  # ty: ignore
 
             path = get_script_relative_path(file_or_directory)
@@ -513,7 +514,7 @@ class DrawlibExecuter:
             self._execute_target_path(path)
         finally:
             canvas_inst.save = orig_canvas_save  # ty: ignore
-            drawlib._core.canvas.save = orig_core_save  # type: ignore[assignment]
+            drawlib._core.l4_canvas.save = orig_core_save  # type: ignore[assignment]
             if orig_canvas_mod_save is not None:
                 drawlib.canvas.save = orig_canvas_mod_save  # type: ignore[assignment]
             if self._grid:
@@ -624,11 +625,13 @@ class DrawlibExecuter:
             self._prepare_canvas_for_module()
             if self._current_progress is None:
                 logger.info(f"    - {file_path}")
-            if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
-                with contextlib.redirect_stdout(io.StringIO()):
+            with warnings.catch_warnings():
+                if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
+                    warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        mspec.loader.exec_module(module)
+                else:
                     mspec.loader.exec_module(module)
-            else:
-                mspec.loader.exec_module(module)
             sys.modules[name] = module
 
         except Exception as e:

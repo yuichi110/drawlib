@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING, Union
 from drawlib._diagrams.class_diagram._types import RelationshipType, RoutingType, Side
 
 if TYPE_CHECKING:
-    from drawlib._core.types import Style
+    from drawlib._core.l3_styles import Style
     from drawlib._diagrams.class_diagram._class_node import ClassNode
     from drawlib._diagrams.class_diagram._diagram import ClassDiagram
 

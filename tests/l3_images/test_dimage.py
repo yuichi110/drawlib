@@ -14,7 +14,7 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from drawlib._core.images import Dimage
+from drawlib._core.l3_images import Dimage
 from drawlib.canvas import save
 from drawlib.images import image
 

@@ -26,7 +26,7 @@ from drawlib._builder.doc_builder import show_code_block as show_block
 from drawlib._builder.rules_builder import _normalize_topic
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._cli._rules import cmd_rules_show
-from drawlib._core.utils import dutil_settings
+from drawlib._core.l1_core import dutil_settings
 from drawlib._css_templates import (
     BUILTIN_HTML_CSS_PRESETS,
     BUILTIN_PDF_CSS_PRESETS,

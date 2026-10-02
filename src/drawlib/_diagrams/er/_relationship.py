@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING, Union
 from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
 
 if TYPE_CHECKING:
-    from drawlib._core.types import Style
+    from drawlib._core.l3_styles import Style
     from drawlib._diagrams.er._diagram import ERDiagram
     from drawlib._diagrams.er._entity import Entity
 

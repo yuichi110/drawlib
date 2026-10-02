@@ -17,12 +17,12 @@ from collections.abc import Sequence
 from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.fonts import Font
-from drawlib._core.l3_styles import ColorUtil
-from drawlib._core.shapes import chevron as canvas_chevron
-from drawlib._core.shapes import polygon as canvas_polygon
-from drawlib._core.text import text as canvas_text
-from drawlib._core.types import Angle90, ColorType, Coordinate, PosFloat, Style
+from drawlib._core.l2_types import Angle90, ColorType, Coordinate, PosFloat
+from drawlib._core.l3_fonts import Font
+from drawlib._core.l3_styles import ColorUtil, Style
+from drawlib._core.l4_canvas import chevron as canvas_chevron
+from drawlib._core.l4_canvas import polygon as canvas_polygon
+from drawlib._core.l4_canvas import text as canvas_text
 
 
 class _ChevronItem:

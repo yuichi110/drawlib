@@ -18,9 +18,10 @@ from pydantic import validate_call
 
 import drawlib._assets
 from drawlib import ASSET_VERSION
-from drawlib._core.fonts import FontMetadata, FontResource
-from drawlib._core.types import Angle, Coordinate, IconStyle, PosFloat, Style
-from drawlib._core.utils import download_if_not_exist
+from drawlib._core.l2_types import Angle, Coordinate, IconStyle, PosFloat
+from drawlib._core.l3_external import download_if_not_exist
+from drawlib._core.l3_fonts import FontMetadata, FontResource
+from drawlib._core.l3_styles import Style
 from drawlib._icons._utils import IconUtil
 from drawlib._icons.font_icons._font_icon import font_icon
 

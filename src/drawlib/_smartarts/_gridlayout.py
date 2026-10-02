@@ -12,8 +12,9 @@
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.shapes import rectangle
-from drawlib._core.types import Angle, Coordinate, PosFloat, PosInt, Style
+from drawlib._core.l2_types import Angle, Coordinate, PosFloat, PosInt
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import rectangle
 
 
 class _GridLayoutItem(BaseModel):

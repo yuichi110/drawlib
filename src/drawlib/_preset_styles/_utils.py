@@ -11,8 +11,9 @@
 
 from __future__ import annotations
 
-from drawlib._core.fonts import Font, FontBase, FontFile
-from drawlib._core.types import Color, ColorType, IconStyle, LineStyle, Style
+from drawlib._core.l2_types import Color, ColorType, IconStyle, LineStyle
+from drawlib._core.l3_fonts import Font, FontBase, FontFile
+from drawlib._core.l3_styles import Style
 from drawlib._preset_colors import DefaultColors as Colors
 
 _DEFAULT_BORDER_COLOR: Color = Color(39, 39, 39)

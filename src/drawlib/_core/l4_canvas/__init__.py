@@ -52,10 +52,15 @@ from drawlib._core.l4_canvas._canvas import (
     wedge,
 )
 from drawlib._core.l4_canvas._line_util import LineUtil
+from drawlib._core.l4_canvas._lines import LineArcHelper
 from drawlib._core.l4_canvas._shapes import ShapeUtil
 from drawlib._core.l4_canvas._text_util import TextUtil
 
 __all__ = [
+    "LineArcHelper",
+    "LineUtil",
+    "ShapeUtil",
+    "TextUtil",
     "arc",
     "arrow",
     "arrow_arc",
@@ -96,8 +101,4 @@ __all__ = [
     "trapezoid",
     "triangle",
     "wedge",
-    # Utils
-    "LineUtil",
-    "ShapeUtil",
-    "TextUtil",
 ]

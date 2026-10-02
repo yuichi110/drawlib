@@ -7,33 +7,14 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Drawlib core drawing engine facade.
+"""Drawlib core drawing engine package.
 
-This module re-exports domain facades of the core drawing engine.
-External packages should import from `drawlib._core.<domain>` (e.g. shapes, lines, types, canvas, etc.)
-rather than accessing lower-level implementation details directly.
+This package contains internal drawing layers:
+- l1_core: Low-level engine utilities, logging, and settings.
+- l2_types: Core type definitions and validators.
+- l3_fonts: Font models, loaders, and font caches.
+- l3_images: Image processing and Dimage representation.
+- l3_math: Geometric calculation utilities.
+- l3_styles: Style models, theming, and palette systems.
+- l4_canvas: Canvas drawing API, Matplotlib wrappers, and shape primitives.
 """
-
-from drawlib._core import (
-    canvas,
-    fonts,
-    images,
-    lines,
-    shapes,
-    styles,
-    text,
-    types,
-    utils,
-)
-
-__all__ = [
-    "canvas",
-    "fonts",
-    "images",
-    "lines",
-    "shapes",
-    "styles",
-    "text",
-    "types",
-    "utils",
-]

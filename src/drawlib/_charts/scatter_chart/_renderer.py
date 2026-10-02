@@ -18,14 +18,14 @@ from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, LegendPosition, PointShape
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._charts.scatter_chart._point import Point
-from drawlib._core.fonts import Font
-from drawlib._core.lines import line as canvas_line
-from drawlib._core.shapes import circle as canvas_circle
-from drawlib._core.shapes import rectangle as canvas_rectangle
-from drawlib._core.shapes import rhombus as canvas_rhombus
-from drawlib._core.shapes import triangle as canvas_triangle
-from drawlib._core.text import text as canvas_text
-from drawlib._core.types import Style
+from drawlib._core.l3_fonts import Font
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import circle as canvas_circle
+from drawlib._core.l4_canvas import line as canvas_line
+from drawlib._core.l4_canvas import rectangle as canvas_rectangle
+from drawlib._core.l4_canvas import rhombus as canvas_rhombus
+from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._core.l4_canvas import triangle as canvas_triangle
 
 if TYPE_CHECKING:
     from drawlib._charts.scatter_chart._chart import ScatterChart

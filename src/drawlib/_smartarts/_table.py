@@ -14,9 +14,9 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.lines import line
-from drawlib._core.shapes import rectangle
-from drawlib._core.types import ColorType, Coordinate, PosFloat, PosInt, Style
+from drawlib._core.l2_types import ColorType, Coordinate, PosFloat, PosInt
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import line, rectangle
 
 
 class _CellStyleOrder(BaseModel):

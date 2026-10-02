@@ -9,7 +9,7 @@
 
 """Public text module for drawlib."""
 
-from drawlib._core.text import (
+from drawlib._core.l4_canvas import (
     text,
     text_vertical,
 )

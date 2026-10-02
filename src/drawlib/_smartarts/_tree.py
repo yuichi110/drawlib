@@ -16,9 +16,9 @@ from typing import Callable, Literal, Self
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.lines import line
-from drawlib._core.text import text
-from drawlib._core.types import Coordinate, PosFloat, Style
+from drawlib._core.l2_types import Coordinate, PosFloat
+from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import line, text
 
 
 class _TreeNodeDrawingItem(BaseModel):

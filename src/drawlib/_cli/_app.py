@@ -24,7 +24,7 @@ from drawlib._cli._help import HELP_EPILOG
 from drawlib._cli._init import cmd_init
 from drawlib._cli._rules import rules_app
 from drawlib._cli._styles import styles_app
-from drawlib._core.utils import dutil_settings, logger
+from drawlib._core.l1_core import dutil_settings, logger
 
 app = typer.Typer(
     name="drawlib",

@@ -18,14 +18,14 @@ from typing import Literal
 from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.fonts import Font
-from drawlib._core.l3_styles import ColorUtil
-from drawlib._core.lines import line_arc as canvas_line_arc
-from drawlib._core.shapes import arrow_arc as canvas_arrow_arc
-from drawlib._core.shapes import circle as canvas_circle
-from drawlib._core.shapes import rectangle as canvas_rectangle
-from drawlib._core.text import text as canvas_text
-from drawlib._core.types import Angle, ColorType, Coordinate, PosFloat, Style
+from drawlib._core.l2_types import Angle, ColorType, Coordinate, PosFloat
+from drawlib._core.l3_fonts import Font
+from drawlib._core.l3_styles import ColorUtil, Style
+from drawlib._core.l4_canvas import arrow_arc as canvas_arrow_arc
+from drawlib._core.l4_canvas import circle as canvas_circle
+from drawlib._core.l4_canvas import line_arc as canvas_line_arc
+from drawlib._core.l4_canvas import rectangle as canvas_rectangle
+from drawlib._core.l4_canvas import text as canvas_text
 
 
 class _CycleItem:

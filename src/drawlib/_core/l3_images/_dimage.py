@@ -29,6 +29,7 @@ from pydantic import ConfigDict, TypeAdapter, validate_call
 from drawlib._core.l2_types import (
     Alpha,
     Angle,
+    Color,
     ColorRGB,
     ColorType,
     ExistingFilePath,
@@ -38,7 +39,6 @@ from drawlib._core.l2_types import (
     PosFloat,
     PosInt,
 )
-from drawlib._core.styles import Color
 
 list_ = list
 _existing_file_path_adapter: TypeAdapter[ExistingFilePath] = TypeAdapter(ExistingFilePath)

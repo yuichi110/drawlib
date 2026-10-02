@@ -9,7 +9,7 @@
 
 """Public preset colors module for drawlib."""
 
-from drawlib._core.styles import Color
+from drawlib._core.l3_styles import Color
 from drawlib._preset_colors import (
     CssColors,
     DefaultColors,

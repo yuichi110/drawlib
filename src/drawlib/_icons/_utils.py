@@ -9,7 +9,8 @@
 
 """Icon utility module for canvas operations."""
 
-from drawlib._core.types import IconStyle, Style
+from drawlib._core.l2_types import IconStyle
+from drawlib._core.l3_styles import Style
 
 
 class IconUtil:

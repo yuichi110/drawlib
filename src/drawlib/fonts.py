@@ -9,7 +9,7 @@
 
 """Public fonts module for drawlib."""
 
-from drawlib._core.fonts import (
+from drawlib._core.l3_fonts import (
     Font,
     FontArabic,
     FontBase,
