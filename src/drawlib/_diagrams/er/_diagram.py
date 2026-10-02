@@ -15,10 +15,10 @@ from typing import TYPE_CHECKING, Union
 
 import drawlib._diagrams.er._relationship as _relationship_module
 import drawlib._diagrams.er._renderer as _renderer_module
+from drawlib._core.l3_styles import Style
 from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
     from drawlib._diagrams.er._entity import Entity
     from drawlib._diagrams.er._relationship import Relationship
 
@@ -30,19 +30,40 @@ class ERDiagram:
 
     def __init__(
         self,
+        node_style: Style,
+        edge_style: Style,
         title: str = "",
         width: float | None = None,
         height: float | None = None,
         style: Style | None = None,
+        header_style: Style | None = None,
     ) -> None:
         """Initialize ERDiagram.
 
         Args:
+            node_style: Mandatory base Style object for entity cards in the diagram.
+            edge_style: Mandatory base Style object for relationship edges in the diagram.
             title: Optional diagram title.
             width: Optional fixed width of the diagram.
             height: Optional fixed height of the diagram.
             style: Optional Style object for the diagram background.
+            header_style: Optional Style overriding entity card header compartments.
+
+        Raises:
+            TypeError: If node_style or edge_style is not a Style instance.
         """
+        if not isinstance(node_style, Style):
+            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
+        if not isinstance(edge_style, Style):
+            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
+        if style is not None and not isinstance(style, Style):
+            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
+        if header_style is not None and not isinstance(header_style, Style):
+            raise TypeError(f"header_style must be a Style instance, got {type(header_style).__name__}")
+
+        self.node_style = node_style
+        self.edge_style = edge_style
+        self.header_style = header_style
         self.title = title
         self.width = float(width) if width is not None else None
         self.height = float(height) if height is not None else None

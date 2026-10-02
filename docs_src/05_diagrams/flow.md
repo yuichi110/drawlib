@@ -52,11 +52,18 @@ The following example illustrates a multi-department expense reimbursement proce
 ```drawlib 650px center caption:"Cross-Department Reimbursement Approval Workflow"
 from drawlib import canvas
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=110, height=95)
 
-flow = FlowDiagram(title="Expense Reimbursement Approval Workflow", width=100.0, height=90.0)
+flow = FlowDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Expense Reimbursement Approval Workflow",
+    width=100.0,
+    height=90.0,
+)
 
 # 1. Define vertical department lanes (columns from left to right)
 flow.add_lane("Employee", width=30.0)
@@ -98,11 +105,14 @@ By specifying `lane_orientation="horizontal"`, lanes are laid out as stacked hor
 ```drawlib 650px center caption:"Fulfillment Logistics Horizontal Pipeline"
 from drawlib import canvas
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=130, height=80)
 
 flow = FlowDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
     title="Fulfillment Logistics Pipeline",
     lane_orientation="horizontal",
     width=115.0,

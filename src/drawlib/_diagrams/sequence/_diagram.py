@@ -17,10 +17,10 @@ import drawlib._diagrams.sequence._block as _block_module
 import drawlib._diagrams.sequence._message as _message_module
 import drawlib._diagrams.sequence._note as _note_module
 import drawlib._diagrams.sequence._renderer as _renderer_module
+from drawlib._core.l3_styles import Style
 from drawlib._diagrams.sequence._types import ArrowType, DiagramPadding, NotePosition
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
     from drawlib._diagrams.sequence._block import Block
     from drawlib._diagrams.sequence._group import ParticipantGroup
     from drawlib._diagrams.sequence._message import Message
@@ -33,6 +33,8 @@ class SequenceDiagram:
 
     def __init__(
         self,
+        node_style: Style,
+        edge_style: Style,
         title: str = "",
         autonumber: bool = False,
         width: float | None = None,
@@ -46,6 +48,8 @@ class SequenceDiagram:
         """Initialize SequenceDiagram.
 
         Args:
+            node_style: Mandatory base Style object for participant headers in the diagram.
+            edge_style: Mandatory base Style object for message arrows in the diagram.
             title: Diagram title.
             autonumber: Whether to automatically number message arrows (1, 2, 3...).
             width: Optional fixed width of the diagram canvas area.
@@ -55,7 +59,21 @@ class SequenceDiagram:
             padding: Margin clearance (float or (top, right, bottom, left) tuple). Defaults to 5.0.
             style: Style for diagram background.
             title_style: Style for title text.
+
+        Raises:
+            TypeError: If node_style or edge_style is not a Style instance.
         """
+        if not isinstance(node_style, Style):
+            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
+        if not isinstance(edge_style, Style):
+            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
+        if style is not None and not isinstance(style, Style):
+            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
+        if title_style is not None and not isinstance(title_style, Style):
+            raise TypeError(f"title_style must be a Style instance, got {type(title_style).__name__}")
+
+        self.node_style = node_style
+        self.edge_style = edge_style
         self.title = title
         self.autonumber = autonumber
         self.width = float(width) if width is not None else None

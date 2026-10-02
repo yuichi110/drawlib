@@ -31,7 +31,7 @@ from drawlib.diagrams.architecture import (
 )
 from drawlib.diagrams.architecture import icons as arch_icons
 from drawlib.images import Dimage
-from drawlib.styles import Colors
+from drawlib.styles import Colors, Styles
 
 
 class TestArchitectureIcons:
@@ -187,7 +187,7 @@ class TestArchitectureJunctionAndEdge:
 
     def test_edge_add_point(self) -> None:
         """Verify edge.add_point adds waypoint and returns connected Junction."""
-        d = ArchitectureDiagram()
+        d = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         n1 = d.add(Node(text="A"), (0.0, 0.0))
         n2 = d.add(Node(text="B"), (50.0, 0.0))
         edge = d.connect(n1, n2)
@@ -209,7 +209,7 @@ class TestArchitectureJunctionAndEdge:
 
     def test_connect_methods_propagate_padding(self) -> None:
         """Verify all connect methods forward the padding argument to Edge."""
-        d = ArchitectureDiagram()
+        d = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         n1 = d.add(Node(text="A"), (10.0, 10.0))
         n2 = d.add(Node(text="B"), (30.0, 10.0))
         grp = d.add(NodeGroup(title="G"), (50.0, 10.0))
@@ -250,7 +250,7 @@ class TestArchitectureJunctionAndEdge:
 
     def test_node_fork(self) -> None:
         """Verify node.fork creates junction and multiple connecting edges."""
-        d = ArchitectureDiagram()
+        d = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         src = d.add(Node(text="Client"), (10.0, 50.0))
         t1 = d.add(Node(text="API 1"), (60.0, 70.0))
         t2 = d.add(Node(text="API 2"), (60.0, 30.0))
@@ -266,11 +266,22 @@ class TestArchitectureJunctionAndEdge:
 class TestArchitectureDiagramEndToEnd:
     """End-to-end rendering and canvas integration tests."""
 
+    def test_architecture_diagram_style_validation(self) -> None:
+        """Verify TypeError raised when node_style or edge_style is invalid."""
+        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+            ArchitectureDiagram(node_style=cast(Any, "invalid"), edge_style=Styles.Primary)
+
+        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+            ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=cast(Any, "invalid"))
+
+        with pytest.raises(TypeError, match="style must be a Style instance"):
+            ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style=cast(Any, "invalid"))
+
     def test_diagram_rendering_scenario_a_gcp_vpc(self) -> None:
         """Verify rendering complete GCP VPC architecture diagram on canvas."""
         canvas.clear()
 
-        d = ArchitectureDiagram(title="GCP Architecture")
+        d = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="GCP Architecture")
         vpc = d.add(NodeGroup(title="VPC Network", padding=6.0), (10.0, 10.0))
         subnet = vpc.add(NodeGroup(title="us-central1 Subnet", padding=4.0), (5.0, 5.0))
 
@@ -298,7 +309,7 @@ class TestArchitectureDiagramEndToEnd:
         pil_img = Image.new("RGBA", (64, 64), (100, 150, 200, 255))
         custom_icon = CustomIcon(pil_img)
 
-        d = ArchitectureDiagram(title="Microservices")
+        d = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Microservices")
         client = d.add(Node("Browser", icon=PhosphorIcon.BROWSER, icon_size=8.0), (15.0, 50.0))
         gateway = d.add(
             Node(
@@ -325,7 +336,7 @@ class TestArchitectureDiagramEndToEnd:
     def test_diagram_rendering_with_edge_padding(self) -> None:
         """Verify diagram rendering with edge padding succeeds without errors."""
         canvas.clear()
-        d = ArchitectureDiagram()
+        d = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         n1 = d.add(Node("A", icon=PhosphorIcon.BROWSER), (20.0, 50.0))
         n2 = d.add(Node("B", icon=PhosphorIcon.DATABASE), (80.0, 50.0))
         d.connect(n1, n2, padding=3.0)

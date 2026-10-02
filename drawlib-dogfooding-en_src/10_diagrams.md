@@ -9,10 +9,15 @@ Easily define boundary groups (`NodeGroup`), cloud service nodes (`Node`), and o
 ```drawlib 640px center file:fig_architecture_diagram.png caption:"Figure 10.1: Cloud Microservices Architecture Topology"
 from drawlib.canvas import setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
 setup(width=115, height=65)
 
-diag = ArchitectureDiagram(title="Cloud Microservices Architecture")
+diag = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Cloud Microservices Architecture",
+)
 
 # VPC Boundary Group
 vpc = diag.add(

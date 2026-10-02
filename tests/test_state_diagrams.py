@@ -29,7 +29,7 @@ from drawlib.diagrams.state_diagram import (
     StateDiagram,
     StateTransition,
 )
-from drawlib.styles import Colors
+from drawlib.styles import Colors, Styles
 
 
 class TestStateNode:
@@ -244,7 +244,7 @@ class TestStateDiagram:
 
     def test_diagram_add_and_connect(self) -> None:
         """Verify adding nodes and connecting them with .to()."""
-        sd = StateDiagram(title="Test FSM")
+        sd = StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Test FSM")
 
         s1 = sd.add(State("Start"), xy=(10.0, 20.0))
         s2 = sd.add(State("End"), xy=(40.0, 20.0))
@@ -262,7 +262,7 @@ class TestStateDiagram:
 
     def test_diagram_bounds_and_size(self) -> None:
         """Verify diagram bounding box and canvas sizing."""
-        sd = StateDiagram(margin=10.0)
+        sd = StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, margin=10.0)
         sd.add(State("A", width=20.0, height=10.0), xy=(0.0, 0.0))
         sd.add(State("B", width=20.0, height=10.0), xy=(50.0, 0.0))
 
@@ -277,8 +277,19 @@ class TestStateDiagram:
 
     def test_diagram_custom_size(self) -> None:
         """Verify custom width and height override."""
-        sd = StateDiagram(width=150.0, height=100.0)
+        sd = StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, width=150.0, height=100.0)
         assert sd.get_size() == (150.0, 100.0)
+
+    def test_state_diagram_style_validation(self) -> None:
+        """Verify TypeError when invalid styles are supplied."""
+        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+            StateDiagram(node_style="invalid", edge_style=Styles.Primary)  # type: ignore
+
+        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+            StateDiagram(node_style=Styles.PrimaryFlat, edge_style="invalid")  # type: ignore
+
+        with pytest.raises(TypeError, match="style must be a Style instance"):
+            StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
 
 
 class TestStateDiagramRendering:
@@ -288,7 +299,7 @@ class TestStateDiagramRendering:
         """Render a comprehensive state diagram exercising all shapes, pseudo-states, and transitions."""
         canvas.setup(width=160, height=110)
 
-        sd = StateDiagram(title="Turnstile & Auth FSM")
+        sd = StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Turnstile & Auth FSM")
 
         # 1. Pseudo-states & States
         init = sd.add(InitialState(), xy=(20.0, 75.0))

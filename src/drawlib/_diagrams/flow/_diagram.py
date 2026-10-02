@@ -17,6 +17,7 @@ import drawlib._diagrams.flow._edge as _edge_module
 import drawlib._diagrams.flow._junction as _junction_module
 import drawlib._diagrams.flow._lane as _lane_module
 import drawlib._diagrams.flow._renderer as _renderer_module
+from drawlib._core.l3_styles import Style
 from drawlib._diagrams.flow._types import (
     ArrowType,
     Connectable,
@@ -29,7 +30,6 @@ from drawlib._diagrams.flow._types import (
 )
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
     from drawlib._diagrams.flow._edge import FlowEdge
     from drawlib._diagrams.flow._junction import Junction
     from drawlib._diagrams.flow._lane import Lane
@@ -40,6 +40,8 @@ class FlowDiagram:
 
     def __init__(
         self,
+        node_style: Style,
+        edge_style: Style,
         title: str = "",
         width: float | None = None,
         height: float | None = None,
@@ -49,12 +51,26 @@ class FlowDiagram:
         """Initialize FlowDiagram.
 
         Args:
+            node_style: Mandatory base Style object for nodes in the diagram.
+            edge_style: Mandatory base Style object for edges in the diagram.
             title: Optional diagram title.
             width: Optional fixed width of the diagram canvas.
             height: Optional fixed height of the diagram canvas.
             style: Optional Style object for the diagram background.
             lane_orientation: Orientation of swimlanes ("vertical" or "horizontal"). Defaults to "vertical".
+
+        Raises:
+            TypeError: If node_style or edge_style is not a Style instance.
         """
+        if not isinstance(node_style, Style):
+            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
+        if not isinstance(edge_style, Style):
+            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
+        if style is not None and not isinstance(style, Style):
+            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
+
+        self.node_style = node_style
+        self.edge_style = edge_style
         self.title = title
         self.width = float(width) if width is not None else None
         self.height = float(height) if height is not None else None

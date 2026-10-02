@@ -31,18 +31,6 @@ if TYPE_CHECKING:
     from drawlib._diagrams.er._entity import Entity
     from drawlib._diagrams.er._relationship import Relationship
 
-# Default palette
-_DEFAULT_BORDER_COLOR = (71, 85, 105, 1.0)  # Slate-600
-_DEFAULT_HEADER_BG = (30, 41, 59, 1.0)  # Slate-800
-_DEFAULT_HEADER_TEXT_COLOR = (255, 255, 255, 1.0)  # White
-_DEFAULT_BODY_BG = (255, 255, 255, 1.0)  # White
-_DEFAULT_SEPARATOR_COLOR = (226, 232, 240, 1.0)  # Slate-200
-_DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)  # Slate-800
-_DEFAULT_MUTED_TEXT_COLOR = (100, 116, 139, 1.0)  # Slate-500
-_DEFAULT_PK_COLOR = (217, 119, 6, 1.0)  # Amber-600
-_DEFAULT_FK_COLOR = (37, 99, 235, 1.0)  # Blue-600
-_DEFAULT_RELATION_LINE_COLOR = (71, 85, 105, 1.0)  # Slate-600
-
 
 def draw_er_diagram(diagram: ERDiagram, base_xy: tuple[float, float]) -> None:
     """Render the complete ER diagram at the given base canvas coordinate.
@@ -68,10 +56,11 @@ def draw_er_diagram(diagram: ERDiagram, base_xy: tuple[float, float]) -> None:
     if diagram.title:
         dw, dh = diagram.get_size()
         bx, by = base_xy
+        title_color = diagram.node_style.text_color or (30, 41, 59, 1.0)
         title_style = Style(
             text_size=18,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_HEADER_BG,
+            text_color=title_color,
             text_halign="center",
             text_valign="bottom",
         )
@@ -79,12 +68,12 @@ def draw_er_diagram(diagram: ERDiagram, base_xy: tuple[float, float]) -> None:
 
     # 3. Render Relationships (Edges & Crow's Foot markers)
     for rel in diagram.relationships:
-        _render_relationship(rel, canvas_xy_map)
+        _render_relationship(rel, canvas_xy_map, diagram.edge_style)
 
     # 4. Render Entities (Cards, Headers, Columns)
     for entity, _ in diagram._entities:
         ent_canvas_xy = canvas_xy_map[entity]
-        _render_entity(entity, ent_canvas_xy)
+        _render_entity(entity, ent_canvas_xy, diagram.node_style, diagram.header_style)
 
 
 def _resolve_coordinates(
@@ -104,12 +93,19 @@ def _resolve_coordinates(
     return {entity: (bx + ex, by + ey) for entity, (ex, ey) in diagram._entities}
 
 
-def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
+def _render_entity(
+    entity: Entity,
+    canvas_xy: tuple[float, float],
+    default_node_style: Style,
+    default_header_style: Style | None = None,
+) -> None:
     """Render a single entity box on the canvas.
 
     Args:
         entity: Entity instance to draw.
         canvas_xy: Center coordinate (cx, cy) on the canvas.
+        default_node_style: Base Style for entity nodes.
+        default_header_style: Optional base Style for entity headers.
     """
     cx, cy = canvas_xy
     w = entity.width
@@ -118,28 +114,28 @@ def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
     half_h = h / 2.0
 
     # 1. Main Background and Outer Box
-    box_style = Style(
-        shape_fill_color=_DEFAULT_BODY_BG,
-        shape_line_color=_DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
-    )
-    if entity.style is not None:
-        box_style = box_style.patch(entity.style)
+    box_style = default_node_style.patch(entity.style) if entity.style is not None else default_node_style
+    border_color = box_style.shape_line_color or (71, 85, 105, 1.0)
     canvas_rectangle(xy=(cx, cy), width=w, height=h, style=box_style)
 
     # 2. Header Box & Title Text
     hh = entity.header_height
     header_cy = cy + half_h - hh / 2.0
-    header_box_style = Style(
-        shape_fill_color=_DEFAULT_HEADER_BG,
-        shape_line_color=_DEFAULT_HEADER_BG,
-        shape_line_width=1.0,
-    )
     if entity.header_style is not None:
-        header_box_style = header_box_style.patch(entity.header_style)
+        header_base = default_header_style if default_header_style is not None else default_node_style
+        header_box_style = header_base.patch(entity.header_style)
+    elif default_header_style is not None:
+        header_box_style = default_header_style
+    else:
+        header_box_style = Style(
+            shape_fill_color=border_color,
+            shape_line_color=border_color,
+            shape_line_width=1.0,
+            text_color=Colors.White,
+        )
     canvas_rectangle(xy=(cx, header_cy), width=w, height=hh, style=header_box_style)
 
-    header_text_color = header_box_style.text_color or _DEFAULT_HEADER_TEXT_COLOR
+    header_text_color = header_box_style.text_color or Colors.White
     header_text_style = Style(
         text_size=13,
         text_font=Font.SANSSERIF_BOLD,
@@ -154,16 +150,17 @@ def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
     canvas_line(
         xy1=(cx - half_w, divider_y),
         xy2=(cx + half_w, divider_y),
-        style=Style(line_color=_DEFAULT_BORDER_COLOR, line_width=1.5),
+        style=Style(line_color=border_color, line_width=1.5),
     )
 
     # 3. Columns Rendering
     rh = entity.row_height
     start_y = divider_y
     separator_style = Style(
-        line_color=_DEFAULT_SEPARATOR_COLOR,
+        line_color=(226, 232, 240, 1.0),
         line_width=0.8,
     )
+    body_text_color = box_style.text_color or (30, 41, 59, 1.0)
 
     for idx, col in enumerate(entity.columns):
         row_cy = start_y - (idx + 0.5) * rh
@@ -178,16 +175,16 @@ def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
 
         # Key badge (PK / FK)
         badge_text = ""
-        badge_color = _DEFAULT_TEXT_COLOR
+        badge_color = body_text_color
         if col.pk and col.fk:
             badge_text = "PK,FK"
-            badge_color = _DEFAULT_PK_COLOR
+            badge_color = (217, 119, 6, 1.0)
         elif col.pk:
             badge_text = "PK"
-            badge_color = _DEFAULT_PK_COLOR
+            badge_color = (217, 119, 6, 1.0)
         elif col.fk:
             badge_text = "FK"
-            badge_color = _DEFAULT_FK_COLOR
+            badge_color = (37, 99, 235, 1.0)
 
         if badge_text:
             badge_x = cx - half_w + 1.2
@@ -212,7 +209,7 @@ def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
             style=Style(
                 text_size=9.5,
                 text_font=col_font,
-                text_color=_DEFAULT_TEXT_COLOR,
+                text_color=body_text_color,
                 text_halign="left",
                 text_valign="center",
             ),
@@ -227,7 +224,7 @@ def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
                 style=Style(
                     text_size=8.5,
                     text_font=Font.SANSSERIF_REGULAR,
-                    text_color=_DEFAULT_MUTED_TEXT_COLOR,
+                    text_color=(100, 116, 139, 1.0),
                     text_halign="right",
                     text_valign="center",
                 ),
@@ -241,8 +238,8 @@ def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
         style=Style(
             shape_fill_color=Colors.Transparent,
             shape_fill_alpha=0.0,
-            shape_line_color=_DEFAULT_BORDER_COLOR,
-            shape_line_width=1.5,
+            shape_line_color=border_color,
+            shape_line_width=box_style.shape_line_width or 1.5,
         ),
     )
 
@@ -269,12 +266,14 @@ def _determine_auto_sides(
 def _render_relationship(
     rel: Relationship,
     canvas_xy_map: dict[Entity, tuple[float, float]],
+    default_edge_style: Style,
 ) -> None:
     """Render a relationship edge with Crow's Foot markers and label.
 
     Args:
         rel: Relationship instance.
         canvas_xy_map: Mapping of Entity to canvas center coordinates.
+        default_edge_style: Base Style for relationship edges.
     """
     start_ent = rel.start
     end_ent = rel.end
@@ -305,12 +304,7 @@ def _render_relationship(
     )
 
     # Edge Style
-    line_style = Style(
-        line_color=_DEFAULT_RELATION_LINE_COLOR,
-        line_width=1.5,
-    )
-    if rel.style is not None:
-        line_style = line_style.patch(rel.style)
+    line_style = default_edge_style.patch(rel.style) if rel.style is not None else default_edge_style
 
     # Draw main line path
     canvas_lines(xys=path, style=line_style)
@@ -344,7 +338,7 @@ def _render_relationship(
 
     # Render Label if provided
     if rel.label:
-        _render_relationship_label(path, rel.label)
+        _render_relationship_label(path, rel.label, line_style)
 
 
 def _get_canvas_anchor(
@@ -397,12 +391,12 @@ def _render_crows_foot_marker(
     fork_width = 0.9
     circle_radius = 0.45
 
-    color = line_style.line_color or _DEFAULT_RELATION_LINE_COLOR
+    color = line_style.line_color or (71, 85, 105, 1.0)
     lwidth = line_style.line_width or 1.5
 
     marker_style = Style(line_color=color, line_width=lwidth)
     circle_style = Style(
-        shape_fill_color=_DEFAULT_BODY_BG,
+        shape_fill_color=Colors.White,
         shape_line_color=color,
         shape_line_width=lwidth,
     )
@@ -449,6 +443,7 @@ def _render_crows_foot_marker(
 def _render_relationship_label(
     path: list[tuple[float, float]],
     label_text: str,
+    line_style: Style,
 ) -> None:
     """Draw text label near the midpoint of the relationship line path."""
     if not path:
@@ -461,13 +456,14 @@ def _render_relationship_label(
     mx = (p1[0] + p2[0]) / 2.0
     my = (p1[1] + p2[1]) / 2.0
 
+    label_text_color = line_style.text_color or (30, 41, 59, 1.0)
     label_style = Style(
         text_size=9.5,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=_DEFAULT_TEXT_COLOR,
-        text_bg_fill_color=_DEFAULT_BODY_BG,
+        text_color=label_text_color,
+        text_bg_fill_color=Colors.White,
         text_bg_fill_alpha=0.9,
-        text_bg_line_color=_DEFAULT_SEPARATOR_COLOR,
+        text_bg_line_color=(226, 232, 240, 1.0),
         text_bg_line_width=0.5,
         text_halign="center",
         text_valign="center",

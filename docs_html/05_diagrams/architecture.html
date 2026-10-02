@@ -325,10 +325,70 @@
 <hr />
 <h2>2. Constructor &amp; Core Classes</h2>
 <pre><code class="language-python">from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
-d = ArchitectureDiagram(title=&quot;Production Multi-Tier Cloud VPC&quot;)
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title=&quot;Production Multi-Tier Cloud VPC&quot;,
+)
 </code></pre>
 <h3>Parameter Reference</h3>
+<h4><code>ArchitectureDiagram</code> Class</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node_style</code></td>
+<td><code>Style</code></td>
+<td><em>(Required)</em></td>
+<td>Default style for nodes and card backgrounds.</td>
+</tr>
+<tr>
+<td><code>edge_style</code></td>
+<td><code>Style</code></td>
+<td><em>(Required)</em></td>
+<td>Default style for connection lines and arrowheads.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Optional banner title for the diagram.</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Explicit diagram canvas width, or <code>None</code> for auto-fit.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Explicit diagram canvas height, or <code>None</code> for auto-fit.</td>
+</tr>
+<tr>
+<td><code>margin</code></td>
+<td><code>float</code></td>
+<td><code>5.0</code></td>
+<td>Outer margin around all elements.</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Overall diagram background and border style.</td>
+</tr>
+</tbody>
+</table>
 <h4><code>Node</code> Class</h4>
 <table>
 <thead>

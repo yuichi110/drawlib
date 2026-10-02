@@ -40,8 +40,11 @@ from drawlib.diagrams.sequence import (
     PhosphorIcon,
     SequenceDiagram,
 )
+from drawlib.styles import Styles
 
 d = SequenceDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
     title="Checkout Transaction Pipeline",
     autonumber=True,            # Auto-number messages (1., 2., 3., ...)
 )

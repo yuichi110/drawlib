@@ -330,10 +330,15 @@
 <h2>2. Constructor &amp; Class Definition</h2>
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.styles import Styles
 
 setup(width=90, height=45)
 
-cd = ClassDiagram(title=&quot;Domain Model&quot;)
+cd = ClassDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title=&quot;Domain Model&quot;,
+)
 
 # Class with attributes and methods
 user = cd.add(ClassNode(name=&quot;User&quot;, width=26.0), xy=(25.0, 18.0))

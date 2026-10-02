@@ -9,10 +9,15 @@ In a `SequenceDiagram`, participants and lifelines are defined as Python objects
 ```drawlib 640px center caption:"Figure 10.1: Declarative Sequence Diagram with Phosphor Icons"
 from drawlib.canvas import setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
+from drawlib.styles import Styles
 
 setup(width=120, height=65)
 
-d = SequenceDiagram(title="OAuth 2.0 Token Exchange Sequence")
+d = SequenceDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="OAuth 2.0 Token Exchange Sequence",
+)
 
 client = d.add(Participant("Client App", icon=PhosphorIcon.DESKTOP, icon_size=7.0))
 gateway = d.add(Participant("API Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.0))
@@ -36,10 +41,15 @@ d.draw(xy=(5.0, 5.0))
 ```drawlib 640px center caption:"Figure 10.2: Request Authentication Flow with Branching Logic"
 from drawlib.canvas import setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
+from drawlib.styles import Styles
 
 setup(width=120, height=65)
 
-f = FlowDiagram(title="Incoming Request Authorization Gate")
+f = FlowDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Incoming Request Authorization Gate",
+)
 
 start = f.add(Start("HTTP Request"), xy=(15, 32))
 parse_jwt = f.add(Process("Parse JWT"), xy=(42, 32))

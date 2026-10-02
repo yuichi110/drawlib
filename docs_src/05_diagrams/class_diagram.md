@@ -34,10 +34,15 @@
 ```drawlib show-code 550px center file:class_diagram_basic_node.png caption:"Basic Class and Interface Nodes"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.styles import Styles
 
 setup(width=90, height=45)
 
-cd = ClassDiagram(title="Domain Model")
+cd = ClassDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Domain Model",
+)
 
 # Class with attributes and methods
 user = cd.add(ClassNode(name="User", width=26.0), xy=(25.0, 18.0))
@@ -79,10 +84,15 @@ The following example combines inheritance, composition, and interface dependenc
 ```drawlib 650px center file:class_diagram_ecommerce_domain.png caption:"E-Commerce Domain Class Hierarchy"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.styles import Styles
 
 setup(width=110, height=85)
 
-cd = ClassDiagram(title="E-Commerce Domain Class Model")
+cd = ClassDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="E-Commerce Domain Class Model",
+)
 
 # 1. Define classes
 user = cd.add(ClassNode(name="User", width=26.0), xy=(22.0, 60.0))
@@ -128,10 +138,15 @@ Class diagrams excel at illustrating software design patterns such as the Observ
 ```drawlib 650px center file:class_diagram_observer_pattern.png caption:"UML Observer Design Pattern"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.styles import Styles
 
 setup(width=105, height=80)
 
-cd = ClassDiagram(title="UML Observer Design Pattern")
+cd = ClassDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="UML Observer Design Pattern",
+)
 
 subj_iface = cd.add(ClassNode(name="Subject", stereotype="interface", width=28.0), xy=(25.0, 58.0))
 subj_iface.add_method("attach", params="o: Observer", return_type="void")

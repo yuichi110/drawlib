@@ -29,11 +29,27 @@
 
 ```python
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
-d = ArchitectureDiagram(title="Production Multi-Tier Cloud VPC")
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Production Multi-Tier Cloud VPC",
+)
 ```
 
 ### Parameter Reference
+
+#### `ArchitectureDiagram` Class
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `node_style` | `Style` | *(Required)* | Default style for nodes and card backgrounds. |
+| `edge_style` | `Style` | *(Required)* | Default style for connection lines and arrowheads. |
+| `title` | `str` | `""` | Optional banner title for the diagram. |
+| `width` | `float \| None` | `None` | Explicit diagram canvas width, or `None` for auto-fit. |
+| `height` | `float \| None` | `None` | Explicit diagram canvas height, or `None` for auto-fit. |
+| `margin` | `float` | `5.0` | Outer margin around all elements. |
+| `style` | `Style \| None` | `None` | Overall diagram background and border style. |
 
 #### `Node` Class
 | Parameter | Type | Default | Description |

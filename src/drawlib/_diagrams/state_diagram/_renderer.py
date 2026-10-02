@@ -42,14 +42,6 @@ if TYPE_CHECKING:
     from drawlib._diagrams.state_diagram._diagram import StateDiagram
     from drawlib._diagrams.state_diagram._transition import StateTransition
 
-# Default color palette (Slate)
-_DEFAULT_BORDER_COLOR = (71, 85, 105, 1.0)  # Slate-600
-_DEFAULT_FILL_COLOR = (248, 250, 252, 1.0)  # Slate-50
-_DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)  # Slate-800
-_DEFAULT_MUTED_TEXT_COLOR = (100, 116, 139, 1.0)  # Slate-500
-_DEFAULT_SOLID_COLOR = (30, 41, 59, 1.0)  # Slate-800
-_DEFAULT_EDGE_COLOR = (71, 85, 105, 1.0)  # Slate-600
-
 
 def draw_state_diagram(diagram: StateDiagram, base_xy: tuple[float, float]) -> None:
     """Render the complete state diagram at the given base canvas coordinate.
@@ -83,10 +75,11 @@ def draw_state_diagram(diagram: StateDiagram, base_xy: tuple[float, float]) -> N
     # 2. Title
     if diagram.title:
         title_y = max(c_max_y, center_y + diag_h / 2.0) + 2.0
+        title_color = diagram.node_style.text_color or (30, 41, 59, 1.0)
         title_style = Style(
             text_size=16,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_SOLID_COLOR,
+            text_color=title_color,
             text_halign="center",
             text_valign="bottom",
         )
@@ -94,12 +87,12 @@ def draw_state_diagram(diagram: StateDiagram, base_xy: tuple[float, float]) -> N
 
     # 3. Transitions
     for trans in diagram.transitions:
-        _render_transition(trans, canvas_xy_map)
+        _render_transition(trans, canvas_xy_map, diagram.edge_style)
 
     # 4. State Nodes
     for node in diagram.states:
         node_canvas_xy = canvas_xy_map[node]
-        _render_node(node, node_canvas_xy)
+        _render_node(node, node_canvas_xy, diagram.node_style)
 
 
 def _resolve_coordinates(
@@ -121,61 +114,61 @@ def _resolve_coordinates(
     return xy_map
 
 
-def _render_node(node: StateNodeBase, center_xy: tuple[float, float]) -> None:
+def _render_node(node: StateNodeBase, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Dispatch rendering for a state node or pseudo-state.
 
     Args:
         node: StateNodeBase instance to render.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     if isinstance(node, State):
-        _render_state_node(node, center_xy)
+        _render_state_node(node, center_xy, default_node_style)
     elif isinstance(node, InitialState):
-        _render_initial_state(node, center_xy)
+        _render_initial_state(node, center_xy, default_node_style)
     elif isinstance(node, FinalState):
-        _render_final_state(node, center_xy)
+        _render_final_state(node, center_xy, default_node_style)
     elif isinstance(node, ChoiceState):
-        _render_choice_state(node, center_xy)
+        _render_choice_state(node, center_xy, default_node_style)
     elif isinstance(node, ForkJoinState):
-        _render_fork_join_state(node, center_xy)
+        _render_fork_join_state(node, center_xy, default_node_style)
 
 
-def _render_state_node(node: State, center_xy: tuple[float, float]) -> None:
+def _render_state_node(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a State instance based on its shape type.
 
     Args:
         node: State instance.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     if node.shape == "box":
-        _render_box_state(node, center_xy)
+        _render_box_state(node, center_xy, default_node_style)
     elif node.shape == "oval":
-        _render_oval_state(node, center_xy)
+        _render_oval_state(node, center_xy, default_node_style)
     elif node.shape == "circle":
-        _render_circle_state(node, center_xy)
+        _render_circle_state(node, center_xy, default_node_style)
     elif node.shape == "double_circle":
-        _render_double_circle_state(node, center_xy)
+        _render_double_circle_state(node, center_xy, default_node_style)
     elif node.shape == "text_only":
-        _render_text_only_state(node, center_xy)
+        _render_text_only_state(node, center_xy, default_node_style)
 
 
-def _render_box_state(node: State, center_xy: tuple[float, float]) -> None:
+def _render_box_state(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a rounded box state node with optional actions.
 
     Args:
         node: State instance with shape='box'.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
     w = node.effective_width
     h = node.effective_height
 
-    base_style = Style(
-        shape_fill_color=_DEFAULT_FILL_COLOR,
-        shape_line_color=_DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
-    )
-    style = base_style.patch(node.style)
+    style = default_node_style.patch(node.style) if node.style is not None else default_node_style
+    border_color = style.shape_line_color or (71, 85, 105, 1.0)
+    text_color = style.text_color or (30, 41, 59, 1.0)
     canvas_rectangle(xy=(cx, cy), width=w, height=h, r=node.r, style=style)
 
     if not node.actions:
@@ -183,11 +176,11 @@ def _render_box_state(node: State, center_xy: tuple[float, float]) -> None:
         text_style = Style(
             text_size=11,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_TEXT_COLOR,
+            text_color=text_color,
             text_halign="center",
             text_valign="center",
         )
-        if node.style is not None:
+        if node.style is not None and node.style.text_color is not None:
             text_style = text_style.patch(node.style)
         canvas_text(xy=(cx, cy), text=node.name, style=text_style)
         return
@@ -202,17 +195,17 @@ def _render_box_state(node: State, center_xy: tuple[float, float]) -> None:
     name_style = Style(
         text_size=11,
         text_font=Font.SANSSERIF_BOLD,
-        text_color=_DEFAULT_TEXT_COLOR,
+        text_color=text_color,
         text_halign="center",
         text_valign="center",
     )
-    if node.style is not None:
+    if node.style is not None and node.style.text_color is not None:
         name_style = name_style.patch(node.style)
     canvas_text(xy=(cx, header_cy), text=node.name, style=name_style)
 
     # Divider line
     div_style = Style(
-        line_color=style.shape_line_color if style.shape_line_color is not None else _DEFAULT_BORDER_COLOR,
+        line_color=border_color,
         line_width=1.0,
     )
     canvas_line(xy1=(cx - w / 2.0, div_y), xy2=(cx + w / 2.0, div_y), style=div_style)
@@ -223,7 +216,7 @@ def _render_box_state(node: State, center_xy: tuple[float, float]) -> None:
     action_style = Style(
         text_size=9,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=_DEFAULT_MUTED_TEXT_COLOR,
+        text_color=(100, 116, 139, 1.0),
         text_halign="left",
         text_valign="center",
     )
@@ -232,93 +225,90 @@ def _render_box_state(node: State, center_xy: tuple[float, float]) -> None:
         canvas_text(xy=(act_x, act_y), text=action.display_text, style=action_style)
 
 
-def _render_oval_state(node: State, center_xy: tuple[float, float]) -> None:
+def _render_oval_state(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render an oval (capsule/ellipse) state node.
 
     Args:
         node: State instance with shape='oval'.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
     w = node.effective_width
     h = node.effective_height
 
-    base_style = Style(
-        shape_fill_color=_DEFAULT_FILL_COLOR,
-        shape_line_color=_DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
-    )
-    style = base_style.patch(node.style)
+    style = default_node_style.patch(node.style) if node.style is not None else default_node_style
     canvas_ellipse(xy=(cx, cy), width=w, height=h, style=style)
 
+    text_color = style.text_color or (30, 41, 59, 1.0)
     text_style = Style(
         text_size=11,
         text_font=Font.SANSSERIF_BOLD,
-        text_color=_DEFAULT_TEXT_COLOR,
+        text_color=text_color,
         text_halign="center",
         text_valign="center",
     )
-    if node.style is not None:
+    if node.style is not None and node.style.text_color is not None:
         text_style = text_style.patch(node.style)
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
 
-def _render_circle_state(node: State, center_xy: tuple[float, float]) -> None:
+def _render_circle_state(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a circle state node (transparent background by default).
 
     Args:
         node: State instance with shape='circle'.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
     radius = node.effective_width / 2.0
 
-    # Default background is transparent unless overridden by user style
+    border_color = default_node_style.shape_line_color or (71, 85, 105, 1.0)
     base_style = Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=_DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
+        shape_line_color=border_color,
+        shape_line_width=default_node_style.shape_line_width or 1.5,
     )
-    style = base_style.patch(node.style)
+    style = base_style.patch(node.style) if node.style is not None else base_style
     canvas_circle(xy=(cx, cy), radius=radius, style=style)
 
+    text_color = style.text_color or default_node_style.text_color or (30, 41, 59, 1.0)
     text_style = Style(
         text_size=10.5,
         text_font=Font.SANSSERIF_BOLD,
-        text_color=_DEFAULT_TEXT_COLOR,
+        text_color=text_color,
         text_halign="center",
         text_valign="center",
     )
-    if node.style is not None:
+    if node.style is not None and node.style.text_color is not None:
         text_style = text_style.patch(node.style)
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
 
-def _render_double_circle_state(node: State, center_xy: tuple[float, float]) -> None:
+def _render_double_circle_state(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a double circle state node (FSM accepting state).
 
     Args:
         node: State instance with shape='double_circle'.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
     r_outer = node.effective_width / 2.0
     r_inner = max(r_outer - 1.2, 0.5)
 
-    # Outer circle: transparent background by default unless overridden
+    border_color = default_node_style.shape_line_color or (71, 85, 105, 1.0)
     outer_base = Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=_DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
+        shape_line_color=border_color,
+        shape_line_width=default_node_style.shape_line_width or 1.5,
     )
-    outer_style = outer_base.patch(node.style)
+    outer_style = outer_base.patch(node.style) if node.style is not None else outer_base
     canvas_circle(xy=(cx, cy), radius=r_outer, style=outer_style)
 
-    # Inner ring: transparent fill, border matches outer line color
-    inner_line_color = (
-        outer_style.shape_line_color if outer_style.shape_line_color is not None else _DEFAULT_BORDER_COLOR
-    )
-    inner_line_width = outer_style.shape_line_width if outer_style.shape_line_width is not None else 1.5
+    inner_line_color = outer_style.shape_line_color or border_color
+    inner_line_width = outer_style.shape_line_width or 1.5
     inner_style = Style(
         shape_fill_color=Colors.Transparent,
         shape_line_color=inner_line_color,
@@ -326,87 +316,94 @@ def _render_double_circle_state(node: State, center_xy: tuple[float, float]) -> 
     )
     canvas_circle(xy=(cx, cy), radius=r_inner, style=inner_style)
 
+    text_color = outer_style.text_color or default_node_style.text_color or (30, 41, 59, 1.0)
     text_style = Style(
         text_size=10.0,
         text_font=Font.SANSSERIF_BOLD,
-        text_color=_DEFAULT_TEXT_COLOR,
+        text_color=text_color,
         text_halign="center",
         text_valign="center",
     )
-    if node.style is not None:
+    if node.style is not None and node.style.text_color is not None:
         text_style = text_style.patch(node.style)
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
 
-def _render_text_only_state(node: State, center_xy: tuple[float, float]) -> None:
+def _render_text_only_state(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a text-only state node without border.
 
     Args:
         node: State instance with shape='text_only'.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
+    text_color = (
+        node.style.text_color if node.style and node.style.text_color is not None else default_node_style.text_color
+    ) or (30, 41, 59, 1.0)
     text_style = Style(
         text_size=11,
         text_font=Font.SANSSERIF_BOLD,
-        text_color=_DEFAULT_TEXT_COLOR,
+        text_color=text_color,
         text_halign="center",
         text_valign="center",
     )
-    if node.style is not None:
-        text_style = text_style.patch(node.style)
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
 
-def _render_initial_state(node: InitialState, center_xy: tuple[float, float]) -> None:
+def _render_initial_state(node: InitialState, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render an InitialState pseudo-state (filled solid circle).
 
     Args:
         node: InitialState instance.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
+    solid_color = default_node_style.shape_line_color or default_node_style.shape_fill_color or (30, 41, 59, 1.0)
     base_style = Style(
-        shape_fill_color=_DEFAULT_SOLID_COLOR,
-        shape_line_color=_DEFAULT_SOLID_COLOR,
+        shape_fill_color=solid_color,
+        shape_line_color=solid_color,
         shape_line_width=1.0,
     )
-    style = base_style.patch(node.style)
+    style = base_style.patch(node.style) if node.style is not None else base_style
     canvas_circle(xy=(cx, cy), radius=node.radius, style=style)
 
     if node.name:
         label_style = Style(
             text_size=9,
             text_font=Font.SANSSERIF_REGULAR,
-            text_color=_DEFAULT_MUTED_TEXT_COLOR,
+            text_color=(100, 116, 139, 1.0),
             text_halign="center",
             text_valign="top",
         )
         canvas_text(xy=(cx, cy - node.radius - 1.0), text=node.name, style=label_style)
 
 
-def _render_final_state(node: FinalState, center_xy: tuple[float, float]) -> None:
+def _render_final_state(node: FinalState, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a FinalState pseudo-state (bullseye circle).
 
     Args:
         node: FinalState instance.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
     r_outer = node.radius
     r_inner = r_outer * 0.65
 
+    solid_color = default_node_style.shape_line_color or default_node_style.shape_fill_color or (30, 41, 59, 1.0)
     outer_base = Style(
         shape_fill_color=Colors.Transparent,
-        shape_line_color=_DEFAULT_SOLID_COLOR,
+        shape_line_color=solid_color,
         shape_line_width=1.5,
     )
-    outer_style = outer_base.patch(node.style)
+    outer_style = outer_base.patch(node.style) if node.style is not None else outer_base
     canvas_circle(xy=(cx, cy), radius=r_outer, style=outer_style)
 
     inner_style = Style(
-        shape_fill_color=_DEFAULT_SOLID_COLOR,
-        shape_line_color=_DEFAULT_SOLID_COLOR,
+        shape_fill_color=solid_color,
+        shape_line_color=solid_color,
         shape_line_width=1.0,
     )
     canvas_circle(xy=(cx, cy), radius=r_inner, style=inner_style)
@@ -415,61 +412,59 @@ def _render_final_state(node: FinalState, center_xy: tuple[float, float]) -> Non
         label_style = Style(
             text_size=9,
             text_font=Font.SANSSERIF_REGULAR,
-            text_color=_DEFAULT_MUTED_TEXT_COLOR,
+            text_color=(100, 116, 139, 1.0),
             text_halign="center",
             text_valign="top",
         )
         canvas_text(xy=(cx, cy - r_outer - 1.0), text=node.name, style=label_style)
 
 
-def _render_choice_state(node: ChoiceState, center_xy: tuple[float, float]) -> None:
+def _render_choice_state(node: ChoiceState, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a ChoiceState pseudo-state (diamond).
 
     Args:
         node: ChoiceState instance.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
-    base_style = Style(
-        shape_fill_color=_DEFAULT_FILL_COLOR,
-        shape_line_color=_DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
-    )
-    style = base_style.patch(node.style)
+    style = default_node_style.patch(node.style) if node.style is not None else default_node_style
     canvas_rhombus(xy=(cx, cy), width=node.size, height=node.size, style=style)
 
     if node.name:
         label_style = Style(
             text_size=9,
             text_font=Font.SANSSERIF_REGULAR,
-            text_color=_DEFAULT_MUTED_TEXT_COLOR,
+            text_color=(100, 116, 139, 1.0),
             text_halign="center",
             text_valign="bottom",
         )
         canvas_text(xy=(cx, cy + node.size / 2.0 + 1.0), text=node.name, style=label_style)
 
 
-def _render_fork_join_state(node: ForkJoinState, center_xy: tuple[float, float]) -> None:
+def _render_fork_join_state(node: ForkJoinState, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a ForkJoinState pseudo-state (solid sync bar).
 
     Args:
         node: ForkJoinState instance.
         center_xy: Center coordinate (cx, cy) on canvas.
+        default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
+    solid_color = default_node_style.shape_line_color or default_node_style.shape_fill_color or (30, 41, 59, 1.0)
     base_style = Style(
-        shape_fill_color=_DEFAULT_SOLID_COLOR,
-        shape_line_color=_DEFAULT_SOLID_COLOR,
+        shape_fill_color=solid_color,
+        shape_line_color=solid_color,
         shape_line_width=1.0,
     )
-    style = base_style.patch(node.style)
+    style = base_style.patch(node.style) if node.style is not None else base_style
     canvas_rectangle(xy=(cx, cy), width=node.width, height=node.height, r=0.4, style=style)
 
     if node.name:
         label_style = Style(
             text_size=9,
             text_font=Font.SANSSERIF_REGULAR,
-            text_color=_DEFAULT_MUTED_TEXT_COLOR,
+            text_color=(100, 116, 139, 1.0),
             text_halign="center",
             text_valign="bottom",
         )
@@ -479,17 +474,20 @@ def _render_fork_join_state(node: ForkJoinState, center_xy: tuple[float, float])
 def _render_transition(
     trans: StateTransition,
     canvas_xy_map: dict[StateNodeBase, tuple[float, float]],
+    default_edge_style: Style,
 ) -> None:
     """Render a transition edge.
 
     Args:
         trans: StateTransition instance.
         canvas_xy_map: Mapping of state nodes to canvas coordinates.
+        default_edge_style: Base Style for transition edges.
     """
+    edge_style = default_edge_style.patch(trans.style) if trans.style is not None else default_edge_style
     if trans.is_self_transition:
-        _render_self_transition(trans, canvas_xy_map)
+        _render_self_transition(trans, canvas_xy_map, edge_style)
     else:
-        _render_normal_transition(trans, canvas_xy_map)
+        _render_normal_transition(trans, canvas_xy_map, edge_style)
 
 
 _LOOP_SIDE_CONFIG: dict[
@@ -576,12 +574,14 @@ def _compute_loop_geometry(
 def _render_self_transition(
     trans: StateTransition,
     canvas_xy_map: dict[StateNodeBase, tuple[float, float]],
+    edge_style: Style,
 ) -> None:
     """Render a self-transition loop curving along a side or corner using an ellipse arc.
 
     Args:
         trans: StateTransition instance where start is end or is_loop is True.
         canvas_xy_map: Mapping of state nodes to canvas coordinates.
+        edge_style: Style for the transition edge.
     """
     node = trans.start
     center = canvas_xy_map[node]
@@ -614,9 +614,6 @@ def _render_self_transition(
         ratio=ratio,
     )
 
-    base_style = Style(line_color=_DEFAULT_EDGE_COLOR, line_width=1.5)
-    edge_style = base_style.patch(trans.style)
-
     gap_deg = (1.0 - ratio) * 360.0
     base_angle = center_angle - 180.0
     a_start = base_angle + gap_deg / 2.0
@@ -627,10 +624,11 @@ def _render_self_transition(
 
     label = trans.effective_label
     if label:
+        label_text_color = edge_style.text_color or (30, 41, 59, 1.0)
         label_style = Style(
             text_size=8.5,
             text_font=Font.SANSSERIF_REGULAR,
-            text_color=_DEFAULT_TEXT_COLOR,
+            text_color=label_text_color,
             text_halign=text_halign,
             text_valign=text_valign,
         )
@@ -640,12 +638,14 @@ def _render_self_transition(
 def _render_normal_transition(
     trans: StateTransition,
     canvas_xy_map: dict[StateNodeBase, tuple[float, float]],
+    edge_style: Style,
 ) -> None:
     """Render a transition between two distinct states.
 
     Args:
         trans: StateTransition instance.
         canvas_xy_map: Mapping of state nodes to canvas coordinates.
+        edge_style: Style for the transition edge.
     """
     start_c = canvas_xy_map[trans.start]
     end_c = canvas_xy_map[trans.end]
@@ -655,9 +655,6 @@ def _render_normal_transition(
 
     xy1 = _get_node_border_point(trans.start, start_c, end_c, trans.start_side, pad_start)
     xy2 = _get_node_border_point(trans.end, end_c, start_c, trans.end_side, pad_end)
-
-    base_style = Style(line_color=_DEFAULT_EDGE_COLOR, line_width=1.5)
-    edge_style = base_style.patch(trans.style)
 
     if trans.routing == "orthogonal":
         _render_orthogonal_transition(xy1, xy2, trans, edge_style)
@@ -687,10 +684,11 @@ def _render_orthogonal_transition(
 
     label = trans.effective_label
     if label:
+        label_text_color = edge_style.text_color or (30, 41, 59, 1.0)
         label_style = Style(
             text_size=8.5,
             text_font=Font.SANSSERIF_REGULAR,
-            text_color=_DEFAULT_TEXT_COLOR,
+            text_color=label_text_color,
             text_halign="center",
             text_valign="bottom",
         )
@@ -722,10 +720,11 @@ def _render_curved_or_direct_transition(
     if not label:
         return
 
+    label_text_color = edge_style.text_color or (30, 41, 59, 1.0)
     label_style = Style(
         text_size=8.5,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=_DEFAULT_TEXT_COLOR,
+        text_color=label_text_color,
         text_halign="center",
         text_valign="center",
     )

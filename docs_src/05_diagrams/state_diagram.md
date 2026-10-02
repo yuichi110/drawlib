@@ -41,8 +41,13 @@ from drawlib.diagrams.state_diagram import (
     State,
     StateDiagram,
 )
+from drawlib.styles import Styles
 
-sd = StateDiagram(title="Session Lifecycle State Machine")
+sd = StateDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Session Lifecycle State Machine",
+)
 
 # State with action compartments
 active = sd.add(
@@ -64,11 +69,16 @@ The following complete example showcases pseudo-states, choice diamonds, action 
 ```drawlib 650px center caption:"User Session Lifecycle State Machine"
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import ChoiceState, FinalState, InitialState, State, StateDiagram
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=135, height=75)
 
-sd = StateDiagram(title="User Session Lifecycle State Machine")
+sd = StateDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="User Session Lifecycle State Machine",
+)
 
 # 1. Pseudo-states and state nodes
 init = sd.add(InitialState(), xy=(12.0, 38.0))
@@ -109,11 +119,16 @@ Use `ForkJoinState` to represent concurrent parallel threads:
 ```drawlib 650px center caption:"Concurrent Task Synchronization with Fork and Join"
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import FinalState, ForkJoinState, InitialState, State, StateDiagram
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=115, height=75)
 
-sd = StateDiagram(title="Concurrent Task Fork and Join")
+sd = StateDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Concurrent Task Fork and Join",
+)
 
 init = sd.add(InitialState(), xy=(10.0, 37.5))
 fork = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(25.0, 37.5))

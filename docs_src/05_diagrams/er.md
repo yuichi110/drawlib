@@ -26,10 +26,15 @@
 ```drawlib show-code 550px center file:er_basic_entity.png caption:"Basic Entity Table"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
+from drawlib.styles import Styles
 
 setup(width=50, height=45)
 
-er = ERDiagram(title="User Schema")
+er = ERDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="User Schema",
+)
 
 # Create entity table
 users = er.add(Entity(name="users", width=30.0), xy=(25.0, 18.0))
@@ -83,10 +88,15 @@ The following example anchors connections directly to the exact foreign and prim
 ```drawlib 650px center file:er_ecommerce_schema.png caption:"E-Commerce Relational Database Schema"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
+from drawlib.styles import Styles
 
 setup(width=110, height=80)
 
-er = ERDiagram(title="E-Commerce Relational Database Schema")
+er = ERDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="E-Commerce Relational Database Schema",
+)
 
 users = er.add(Entity(name="users", width=30.0), xy=(20.0, 45.0))
 users.add_column("id", type="INT", pk=True)

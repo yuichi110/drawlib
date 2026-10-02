@@ -144,8 +144,11 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 #### `ArchitectureDiagram` Class:
 | Parameter | Type | Default | Description |
 |---|---|---|---|
+| `node_style` | `Style` | *(Required)* | Default style for nodes and card backgrounds. |
+| `edge_style` | `Style` | *(Required)* | Default style for connection lines and arrowheads. |
 | `title` | `str` | `""` | Diagram title text rendered at top. |
 | `width` / `height` | `float \| None` | `None` | Optional canvas bounding dimensions override. |
+| `margin` | `float` | `5.0` | Outer margin around all elements. |
 | `style` | `Style \| None` | `None` | Optional Style for container background card. |
 
 - `d.add(item, xy) -> Node | NodeGroup`: Places a node or group.
@@ -185,11 +188,16 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=115, height=95)
 
-d = ArchitectureDiagram(title="Production Multi-Tier Cloud VPC")
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Production Multi-Tier Cloud VPC",
+)
 
 # Outer VPC Network boundary
 vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(10.0, 8.0))
@@ -222,11 +230,16 @@ d.draw(xy=(5.0, 5.0))
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=105, height=75)
 
-d = ArchitectureDiagram(title="Event-Driven Message Streaming Topology")
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Event-Driven Message Streaming Topology",
+)
 
 cluster = d.add(NodeGroup(title="Streaming Event Mesh", padding=6.0), xy=(15.0, 10.0))
 broker1 = cluster.add(Node("Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(20.0, 45.0))
@@ -297,11 +310,18 @@ In `FlowDiagram`, swimlanes provide a structured visual background and column/ro
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=110, height=95)
 
-flow = FlowDiagram(title="Expense Reimbursement Approval Workflow", width=100.0, height=90.0)
+flow = FlowDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Expense Reimbursement Approval Workflow",
+    width=100.0,
+    height=90.0,
+)
 
 # 1. Define vertical department lanes (columns from left to right)
 flow.add_lane("Employee", width=30.0)
@@ -338,11 +358,19 @@ flow.draw(xy=(5.0, 5.0))
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=130, height=80)
 
-flow = FlowDiagram(title="Fulfillment Logistics Pipeline", lane_orientation="horizontal", width=115.0, height=65.0)
+flow = FlowDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Fulfillment Logistics Pipeline",
+    lane_orientation="horizontal",
+    width=115.0,
+    height=65.0,
+)
 
 flow.add_lane("Sales Platform", height=32.5, header_size=22.0)
 flow.add_lane("Distribution Center", height=32.5, header_size=22.0)
@@ -386,7 +414,7 @@ from drawlib.diagrams.sequence import Block, Message, Note, Participant, Partici
 ```
 
 #### Constructor & Participant Management:
-- `SequenceDiagram(title="", width=None, height=None, autonumber=False, style=None)`
+- `SequenceDiagram(node_style, edge_style, title="", width=None, height=None, autonumber=False, style=None)`
 - `d.add(Participant(name, icon=None, icon_size=8.0, style=None)) -> Participant`
 - `d.add_group(ParticipantGroup(title="", padding=4.0, style=None)) -> ParticipantGroup`
 
@@ -421,7 +449,12 @@ from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, Ph
 canvas.clear()
 canvas.setup(width=115, height=135)
 
-d = SequenceDiagram(title="Microservices Distributed Transaction Pipeline", autonumber=True)
+d = SequenceDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Microservices Distributed Transaction Pipeline",
+    autonumber=True,
+)
 
 # Participant boundary group for internal cluster
 backend = d.add_group(
@@ -468,11 +501,16 @@ d.draw(xy=(5.0, 5.0))
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=65, height=80)
 
-d = SequenceDiagram(title="WebSocket Real-Time Live Sync")
+d = SequenceDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="WebSocket Real-Time Live Sync",
+)
 
 app = d.add(Participant("Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
 gateway = d.add(Participant("WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5))
@@ -545,11 +583,16 @@ d.draw(xy=(5.0, 5.0))
 ```drawlib show-code file:diagram_state_lifecycle.png
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import ChoiceState, FinalState, InitialState, State, StateDiagram
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=135, height=75)
 
-sd = StateDiagram(title="User Session Lifecycle State Machine")
+sd = StateDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="User Session Lifecycle State Machine",
+)
 
 # 1. Pseudo-states and state nodes
 init = sd.add(InitialState(), xy=(12.0, 38.0))
@@ -585,11 +628,16 @@ sd.draw(xy=(0.0, 0.0))
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import FinalState, ForkJoinState, InitialState, State, StateDiagram
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=115, height=75)
 
-sd = StateDiagram(title="Concurrent Task Fork and Join")
+sd = StateDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Concurrent Task Fork and Join",
+)
 
 init = sd.add(InitialState(), xy=(10.0, 37.5))
 fork = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(25.0, 37.5))
@@ -659,11 +707,16 @@ All relationship methods support `start_multiplicity` (`"1"`, `"0..1"`), `end_mu
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=110, height=85)
 
-cd = ClassDiagram(title="E-Commerce Domain Class Model")
+cd = ClassDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="E-Commerce Domain Class Model",
+)
 
 # 1. Define classes
 user = cd.add(ClassNode(name="User", width=26.0), xy=(22.0, 60.0))
@@ -703,11 +756,16 @@ cd.draw(xy=(0.0, 0.0))
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=105, height=80)
 
-cd = ClassDiagram(title="UML Observer Design Pattern")
+cd = ClassDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="UML Observer Design Pattern",
+)
 
 subj_iface = cd.add(ClassNode(name="Subject", stereotype="interface", width=28.0), xy=(25.0, 58.0))
 subj_iface.add_method("attach", params="o: Observer", return_type="void")
@@ -798,11 +856,16 @@ users.connect(
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=115, height=85)
 
-erd = ERDiagram(title="E-Commerce Relational Database Schema")
+erd = ERDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="E-Commerce Relational Database Schema",
+)
 
 # 1. Define entities
 users = erd.add(Entity(name="users", width=26.0), xy=(20.0, 50.0))
@@ -848,11 +911,16 @@ erd.draw(xy=(0.0, 0.0))
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=110, height=80)
 
-erd = ERDiagram(title="Multi-Tenant RBAC Authorization Schema")
+erd = ERDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Multi-Tenant RBAC Authorization Schema",
+)
 
 tenants = erd.add(Entity(name="tenants", width=24.0), xy=(20.0, 48.0))
 tenants.add_column("id", type="UUID", pk=True)

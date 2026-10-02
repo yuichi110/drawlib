@@ -346,10 +346,11 @@ def _draw_single_edge(
     lx = (pts[mid_idx - 1][0] + pts[mid_idx][0]) / 2.0
     ly = (pts[mid_idx - 1][1] + pts[mid_idx][1]) / 2.0
 
+    label_color = default_edge_style.text_color or (50, 50, 50, 1.0)
     label_style = Style(
         text_size=11,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=(50, 50, 50, 1.0),
+        text_color=label_color,
         text_bg_fill_color=(255, 255, 255, 0.9),
         text_bg_line_color=None,
         text_bg_line_width=0,
@@ -366,13 +367,9 @@ def _draw_edges(
     edges: list[Edge],
     canvas_xy_map: dict[Connectable, tuple[float, float]],
     base_xy: tuple[float, float],
+    default_edge_style: Style,
 ) -> None:
     """Draw all connections in Layer 1."""
-    default_edge_style = Style(
-        line_color=(70, 70, 70, 1.0),
-        line_width=1.5,
-        line_style="solid",
-    )
     for edge in edges:
         _draw_single_edge(edge, canvas_xy_map, base_xy, default_edge_style)
 
@@ -416,7 +413,7 @@ def _render_groups(
             canvas_text(xy=(tx, ty), text=group.title, style=title_style)
 
 
-def _render_node_label(node: Node, nx: float, ny: float) -> None:
+def _render_node_label(node: Node, nx: float, ny: float, default_node_style: Style) -> None:
     """Render label text for a node."""
     if not node.text:
         return
@@ -451,10 +448,11 @@ def _render_node_label(node: Node, nx: float, ny: float) -> None:
         valign = "top"
 
     font_size = node.text_size if node.text_size is not None else 13
+    text_color = default_node_style.text_color or (30, 30, 30, 1.0)
     text_style = Style(
         text_size=font_size,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=(30, 30, 30, 1.0),
+        text_color=text_color,
         text_halign=halign,
         text_valign=valign,
         text_angle=node.text_angle,
@@ -468,6 +466,7 @@ def _render_node_label(node: Node, nx: float, ny: float) -> None:
 def _render_nodes(
     nodes: list[Node],
     canvas_xy_map: dict[Connectable, tuple[float, float]],
+    default_node_style: Style,
 ) -> None:
     """Draw Layer 2: Nodes (cards, icons, labels)."""
     for node in nodes:
@@ -478,10 +477,18 @@ def _render_nodes(
             nh = max_y - min_y
             cx = nx + (min_x + max_x) / 2.0
             cy = ny + (min_y + max_y) / 2.0
-            canvas_rectangle(xy=(cx, cy), width=nw, height=nh, style=node.style)
+            applied_card = default_node_style.patch(node.style)
+            canvas_rectangle(xy=(cx, cy), width=nw, height=nh, style=applied_card)
 
-        _draw_icon(node.icon, (nx, ny), node.icon_size, node.icon_style)
-        _render_node_label(node, nx, ny)
+        default_icon_style = Style(
+            icon_color=default_node_style.icon_color or default_node_style.shape_line_color or (50, 50, 50, 1.0),
+            image_border_width=0,
+        )
+        applied_icon_style = (
+            default_icon_style.patch(node.icon_style) if node.icon_style is not None else default_icon_style
+        )
+        _draw_icon(node.icon, (nx, ny), node.icon_size, applied_icon_style)
+        _render_node_label(node, nx, ny, default_node_style)
 
 
 def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> None:
@@ -504,15 +511,16 @@ def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0
         )
 
     _render_groups(all_groups, canvas_xy_map)
-    _draw_edges(diagram._edges, canvas_xy_map, base_xy)
-    _render_nodes(all_nodes, canvas_xy_map)
+    _draw_edges(diagram._edges, canvas_xy_map, base_xy, diagram.edge_style)
+    _render_nodes(all_nodes, canvas_xy_map, diagram.node_style)
 
     if diagram.title:
         _, dh = diagram.get_size()
+        title_color = diagram.node_style.text_color or (40, 40, 45, 1.0)
         title_style = Style(
             text_size=15,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=(40, 40, 45, 1.0),
+            text_color=title_color,
             text_halign="left",
             text_valign="bottom",
         )

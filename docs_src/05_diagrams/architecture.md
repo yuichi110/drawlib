@@ -29,11 +29,27 @@
 
 ```python
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
-d = ArchitectureDiagram(title="Production Multi-Tier Cloud VPC")
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Production Multi-Tier Cloud VPC",
+)
 ```
 
 ### Parameter Reference
+
+#### `ArchitectureDiagram` Class
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `node_style` | `Style` | *(Required)* | Default style for nodes and card backgrounds. |
+| `edge_style` | `Style` | *(Required)* | Default style for connection lines and arrowheads. |
+| `title` | `str` | `""` | Optional banner title for the diagram. |
+| `width` | `float \| None` | `None` | Explicit diagram canvas width, or `None` for auto-fit. |
+| `height` | `float \| None` | `None` | Explicit diagram canvas height, or `None` for auto-fit. |
+| `margin` | `float` | `5.0` | Outer margin around all elements. |
+| `style` | `Style \| None` | `None` | Overall diagram background and border style. |
 
 #### `Node` Class
 | Parameter | Type | Default | Description |
@@ -60,11 +76,16 @@ The following complete example demonstrates public and private subnets, load bal
 ```drawlib 650px center caption:"Production Multi-Tier Cloud VPC Topology"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=115, height=95)
 
-d = ArchitectureDiagram(title="Production Multi-Tier Cloud VPC")
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Production Multi-Tier Cloud VPC",
+)
 
 # 1. Outer VPC Network Boundary
 vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(10.0, 8.0))
@@ -102,11 +123,16 @@ You can also use general architecture icons from `PhosphorIcon` to model messagi
 ```drawlib 650px center caption:"Event-Driven Message Streaming Topology"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=105, height=75)
 
-d = ArchitectureDiagram(title="Event-Driven Message Streaming Topology")
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Event-Driven Message Streaming Topology",
+)
 
 cluster = d.add(NodeGroup(title="Streaming Event Mesh", padding=6.0), xy=(15.0, 10.0))
 broker1 = cluster.add(Node("Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(20.0, 45.0))

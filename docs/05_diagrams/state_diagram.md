@@ -41,8 +41,13 @@ from drawlib.diagrams.state_diagram import (
     State,
     StateDiagram,
 )
+from drawlib.styles import Styles
 
-sd = StateDiagram(title="Session Lifecycle State Machine")
+sd = StateDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Session Lifecycle State Machine",
+)
 
 # State with action compartments
 active = sd.add(

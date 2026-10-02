@@ -36,10 +36,15 @@
 ```python
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.styles import Styles
 
 setup(width=90, height=45)
 
-cd = ClassDiagram(title="Domain Model")
+cd = ClassDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Domain Model",
+)
 
 # Class with attributes and methods
 user = cd.add(ClassNode(name="User", width=26.0), xy=(25.0, 18.0))

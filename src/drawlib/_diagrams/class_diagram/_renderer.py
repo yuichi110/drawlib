@@ -31,17 +31,6 @@ if TYPE_CHECKING:
     from drawlib._diagrams.class_diagram._diagram import ClassDiagram
     from drawlib._diagrams.class_diagram._relationship import ClassRelationship
 
-# Default palette
-_DEFAULT_BORDER_COLOR = (71, 85, 105, 1.0)  # Slate-600
-_DEFAULT_HEADER_BG = (30, 41, 59, 1.0)  # Slate-800
-_DEFAULT_HEADER_TEXT_COLOR = (255, 255, 255, 1.0)  # White
-_DEFAULT_STEREOTYPE_COLOR = (203, 213, 225, 1.0)  # Slate-300
-_DEFAULT_BODY_BG = (255, 255, 255, 1.0)  # White
-_DEFAULT_SEPARATOR_COLOR = (226, 232, 240, 1.0)  # Slate-200
-_DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)  # Slate-800
-_DEFAULT_MUTED_TEXT_COLOR = (100, 116, 139, 1.0)  # Slate-500
-_DEFAULT_RELATION_LINE_COLOR = (71, 85, 105, 1.0)  # Slate-600
-
 
 def draw_class_diagram(diagram: ClassDiagram, base_xy: tuple[float, float]) -> None:
     """Render the complete class diagram at the given base canvas coordinate.
@@ -75,10 +64,11 @@ def draw_class_diagram(diagram: ClassDiagram, base_xy: tuple[float, float]) -> N
     # 2. Render Diagram Title if specified
     if diagram.title:
         title_y = max(c_max_y, center_y + diag_h / 2.0) + 2.0
+        title_color = diagram.node_style.text_color or (30, 41, 59, 1.0)
         title_style = Style(
             text_size=16,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_HEADER_BG,
+            text_color=title_color,
             text_halign="center",
             text_valign="bottom",
         )
@@ -86,12 +76,12 @@ def draw_class_diagram(diagram: ClassDiagram, base_xy: tuple[float, float]) -> N
 
     # 3. Render Relationships (Edges, UML markers, labels)
     for rel in diagram.relationships:
-        _render_relationship(rel, canvas_xy_map)
+        _render_relationship(rel, canvas_xy_map, diagram.edge_style)
 
     # 4. Render Class Nodes (Cards, Header, Compartments)
     for c in diagram.classes:
         class_canvas_xy = canvas_xy_map[c]
-        _render_class_node(c, class_canvas_xy)
+        _render_class_node(c, class_canvas_xy, diagram.node_style, diagram.header_style)
 
 
 def _resolve_coordinates(
@@ -111,12 +101,19 @@ def _resolve_coordinates(
     return {c: (bx + c._local_xy[0], by + c._local_xy[1]) for c in diagram.classes}
 
 
-def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
+def _render_class_node(
+    node: ClassNode,
+    canvas_xy: tuple[float, float],
+    default_node_style: Style,
+    default_header_style: Style | None = None,
+) -> None:
     """Render a single class card on the canvas.
 
     Args:
         node: ClassNode instance to draw.
         canvas_xy: Center coordinate (cx, cy) on the canvas.
+        default_node_style: Mandatory default Style for class card nodes.
+        default_header_style: Optional default Style for class headers.
     """
     cx, cy = canvas_xy
     w = node.width
@@ -126,28 +123,28 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
     top_y = cy + half_h
 
     # 1. Main Background and Outer Box
-    box_style = Style(
-        shape_fill_color=_DEFAULT_BODY_BG,
-        shape_line_color=_DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
-    )
-    if node.style is not None:
-        box_style = box_style.patch(node.style)
+    box_style = default_node_style.patch(node.style) if node.style is not None else default_node_style
+    border_color = box_style.shape_line_color or (71, 85, 105, 1.0)
     canvas_rectangle(xy=(cx, cy), width=w, height=h, r=1.0, style=box_style)
 
     # 2. Header Box & Title Text
     hh = node.header_height
     header_cy = top_y - hh / 2.0
-    header_box_style = Style(
-        shape_fill_color=_DEFAULT_HEADER_BG,
-        shape_line_color=box_style.shape_line_color or _DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
-    )
     if node.header_style is not None:
-        header_box_style = header_box_style.patch(node.header_style)
+        header_base = default_header_style if default_header_style is not None else default_node_style
+        header_box_style = header_base.patch(node.header_style)
+    elif default_header_style is not None:
+        header_box_style = default_header_style
+    else:
+        header_box_style = Style(
+            shape_fill_color=border_color,
+            shape_line_color=border_color,
+            shape_line_width=1.5,
+            text_color=(255, 255, 255, 1.0),
+        )
     canvas_rectangle(xy=(cx, header_cy), width=w, height=hh, r=1.0, style=header_box_style)
 
-    header_text_color = header_box_style.text_color or _DEFAULT_HEADER_TEXT_COLOR
+    header_text_color = header_box_style.text_color or (255, 255, 255, 1.0)
     header_font = Font.SANSSERIF_BOLD
 
     effective_stereotype = node.stereotype
@@ -161,7 +158,7 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
             style=Style(
                 text_size=7.5,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=_DEFAULT_STEREOTYPE_COLOR,
+                text_color=(203, 213, 225, 1.0),
                 text_halign="center",
                 text_valign="center",
             ),
@@ -196,7 +193,7 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
         xy1=(cx - half_w, divider_y),
         xy2=(cx + half_w, divider_y),
         style=Style(
-            line_color=box_style.shape_line_color or _DEFAULT_BORDER_COLOR,
+            line_color=border_color,
             line_width=1.5,
         ),
     )
@@ -204,6 +201,7 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
     # 3. Attributes Section
     curr_y = divider_y
     left_x = cx - half_w + 1.8
+    body_text_color = box_style.text_color or (30, 41, 59, 1.0)
     if node.attributes:
         curr_y -= 0.8
         for attr in node.attributes:
@@ -214,7 +212,7 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
                 style=Style(
                     text_size=8.5,
                     text_font=Font.SANSSERIF_REGULAR,
-                    text_color=_DEFAULT_TEXT_COLOR,
+                    text_color=body_text_color,
                     text_halign="left",
                     text_valign="center",
                 ),
@@ -228,7 +226,7 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
             xy1=(cx - half_w, curr_y),
             xy2=(cx + half_w, curr_y),
             style=Style(
-                line_color=_DEFAULT_SEPARATOR_COLOR,
+                line_color=(226, 232, 240, 1.0),
                 line_width=1.0,
             ),
         )
@@ -244,7 +242,7 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
                 style=Style(
                     text_size=8.5,
                     text_font=Font.SANSSERIF_REGULAR,
-                    text_color=_DEFAULT_TEXT_COLOR,
+                    text_color=body_text_color,
                     text_halign="left",
                     text_valign="center",
                 ),
@@ -260,7 +258,7 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
         style=Style(
             shape_fill_color=Colors.Transparent,
             shape_fill_alpha=0.0,
-            shape_line_color=box_style.shape_line_color or _DEFAULT_BORDER_COLOR,
+            shape_line_color=border_color,
             shape_line_width=1.5,
         ),
     )
@@ -357,11 +355,11 @@ def _render_triangle_marker(
     v1 = (p_base[0] + tri_half_w * nx, p_base[1] + tri_half_w * ny)
     v2 = (p_base[0] - tri_half_w * nx, p_base[1] - tri_half_w * ny)
 
-    color = line_style.line_color or _DEFAULT_RELATION_LINE_COLOR
+    color = line_style.line_color or (71, 85, 105, 1.0)
     lwidth = line_style.line_width or 1.5
 
     tri_style = Style(
-        shape_fill_color=_DEFAULT_BODY_BG,
+        shape_fill_color=(255, 255, 255, 1.0),
         shape_line_color=color,
         shape_line_width=lwidth,
     )
@@ -390,9 +388,9 @@ def _render_diamond_marker(
     v1 = (mid[0] + diamond_half_w * nx, mid[1] + diamond_half_w * ny)
     v2 = (mid[0] - diamond_half_w * nx, mid[1] - diamond_half_w * ny)
 
-    color = line_style.line_color or _DEFAULT_RELATION_LINE_COLOR
+    color = line_style.line_color or (71, 85, 105, 1.0)
     lwidth = line_style.line_width or 1.5
-    fill_color = color if is_composition else _DEFAULT_BODY_BG
+    fill_color = color if is_composition else (255, 255, 255, 1.0)
 
     d_style = Style(
         shape_fill_color=fill_color,
@@ -417,7 +415,7 @@ def _render_open_arrow_marker(
     w1 = (tip[0] - arrow_len * ux + arrow_half_w * nx, tip[1] - arrow_len * uy + arrow_half_w * ny)
     w2 = (tip[0] - arrow_len * ux - arrow_half_w * nx, tip[1] - arrow_len * uy - arrow_half_w * ny)
 
-    color = line_style.line_color or _DEFAULT_RELATION_LINE_COLOR
+    color = line_style.line_color or (71, 85, 105, 1.0)
     lwidth = line_style.line_width or 1.5
 
     arrow_style = Style(
@@ -544,6 +542,7 @@ def _render_start_annotations(
     rel: ClassRelationship,
     p0: tuple[float, float],
     p1: tuple[float, float],
+    line_style: Style,
 ) -> None:
     """Render start multiplicity and role label near start anchor."""
     if not (rel.start_multiplicity or rel.start_role):
@@ -560,6 +559,9 @@ def _render_start_annotations(
     offset_dist = 4.0 if rel.relationship_type in {"composition", "aggregation"} else 2.8
     anchor = (p0[0] + offset_dist * u[0], p0[1] + offset_dist * u[1])
 
+    text_color = line_style.text_color or (30, 41, 59, 1.0)
+    muted_color = (100, 116, 139, 1.0)
+
     if rel.start_multiplicity:
         canvas_text(
             xy=(anchor[0] + 1.4 * n[0], anchor[1] + 1.4 * n[1]),
@@ -567,7 +569,7 @@ def _render_start_annotations(
             style=Style(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=_DEFAULT_TEXT_COLOR,
+                text_color=text_color,
                 text_halign="center",
                 text_valign="center",
             ),
@@ -579,7 +581,7 @@ def _render_start_annotations(
             style=Style(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=_DEFAULT_MUTED_TEXT_COLOR,
+                text_color=muted_color,
                 text_halign="center",
                 text_valign="center",
             ),
@@ -590,6 +592,7 @@ def _render_end_annotations(
     rel: ClassRelationship,
     p_last: tuple[float, float],
     p_prev: tuple[float, float],
+    line_style: Style,
 ) -> None:
     """Render end multiplicity and role label near end anchor."""
     if not (rel.end_multiplicity or rel.end_role):
@@ -606,6 +609,9 @@ def _render_end_annotations(
     offset_dist = 4.0 if rel.relationship_type in {"inheritance", "realization"} or rel.directed else 2.8
     anchor = (p_last[0] + offset_dist * u[0], p_last[1] + offset_dist * u[1])
 
+    text_color = line_style.text_color or (30, 41, 59, 1.0)
+    muted_color = (100, 116, 139, 1.0)
+
     if rel.end_multiplicity:
         canvas_text(
             xy=(anchor[0] - 1.4 * n[0], anchor[1] - 1.4 * n[1]),
@@ -613,7 +619,7 @@ def _render_end_annotations(
             style=Style(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=_DEFAULT_TEXT_COLOR,
+                text_color=text_color,
                 text_halign="center",
                 text_valign="center",
             ),
@@ -625,7 +631,7 @@ def _render_end_annotations(
             style=Style(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=_DEFAULT_MUTED_TEXT_COLOR,
+                text_color=muted_color,
                 text_halign="center",
                 text_valign="center",
             ),
@@ -635,13 +641,14 @@ def _render_end_annotations(
 def _render_relationship_annotations(
     rel: ClassRelationship,
     path: list[tuple[float, float]],
+    line_style: Style,
 ) -> None:
     """Render multiplicities, roles, and center label for a relationship."""
     if len(path) < 2:
         return
 
-    _render_start_annotations(rel, path[0], path[1])
-    _render_end_annotations(rel, path[-1], path[-2])
+    _render_start_annotations(rel, path[0], path[1], line_style)
+    _render_end_annotations(rel, path[-1], path[-2], line_style)
 
     # Center label
     if rel.label:
@@ -650,16 +657,17 @@ def _render_relationship_annotations(
         p2 = path[mid_idx + 1]
         mx = (p1[0] + p2[0]) / 2.0
         my = (p1[1] + p2[1]) / 2.0
+        label_text_color = line_style.text_color or (30, 41, 59, 1.0)
         canvas_text(
             xy=(mx, my),
             text=rel.label,
             style=Style(
                 text_size=8.5,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=_DEFAULT_TEXT_COLOR,
-                text_bg_fill_color=_DEFAULT_BODY_BG,
+                text_color=label_text_color,
+                text_bg_fill_color=(255, 255, 255, 0.9),
                 text_bg_fill_alpha=0.9,
-                text_bg_line_color=_DEFAULT_SEPARATOR_COLOR,
+                text_bg_line_color=(226, 232, 240, 1.0),
                 text_bg_line_width=0.5,
                 text_halign="center",
                 text_valign="center",
@@ -670,12 +678,14 @@ def _render_relationship_annotations(
 def _render_relationship(
     rel: ClassRelationship,
     canvas_xy_map: dict[ClassNode, tuple[float, float]],
+    default_edge_style: Style,
 ) -> None:
     """Render a relationship edge connecting two class nodes with markers and labels.
 
     Args:
         rel: ClassRelationship instance.
         canvas_xy_map: Mapping of ClassNode to canvas center coordinates.
+        default_edge_style: Mandatory default Style for relationship edges.
     """
     path = _compute_relationship_path(rel, canvas_xy_map)
 
@@ -683,14 +693,9 @@ def _render_relationship(
         path = _apply_padding(path, rel.padding)
 
     is_dashed = rel.relationship_type in {"realization", "dependency"}
-    line_style = Style(
-        line_color=_DEFAULT_RELATION_LINE_COLOR,
-        line_width=1.5,
-        line_style="dashed" if is_dashed else "solid",
-    )
-    if rel.style is not None:
-        line_style = line_style.patch(rel.style)
+    base_style = default_edge_style.patch(line_style="dashed") if is_dashed else default_edge_style
+    line_style = base_style.patch(rel.style) if rel.style is not None else base_style
 
     trimmed_path = _render_relationship_markers(rel, path, line_style)
     canvas_lines(xys=trimmed_path, style=line_style)
-    _render_relationship_annotations(rel, path)
+    _render_relationship_annotations(rel, path, line_style)

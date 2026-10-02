@@ -14,11 +14,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, TypeVar
 
 import drawlib._diagrams.state_diagram._renderer as _renderer_module
+from drawlib._core.l3_styles import Style
 from drawlib._diagrams.state_diagram._state_node import State, StateNodeBase
 from drawlib._diagrams.state_diagram._transition import StateTransition
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
 
 NodeT = TypeVar("NodeT", bound=StateNodeBase)
 
@@ -28,6 +26,8 @@ class StateDiagram:
 
     def __init__(
         self,
+        node_style: Style,
+        edge_style: Style,
         title: str = "",
         style: Style | None = None,
         width: float | None = None,
@@ -37,12 +37,26 @@ class StateDiagram:
         """Initialize StateDiagram.
 
         Args:
+            node_style: Mandatory base Style object for state nodes in the diagram.
+            edge_style: Mandatory base Style object for transition edges in the diagram.
             title: Optional title displayed above the diagram.
             style: Optional Style overriding diagram background.
             width: Optional fixed canvas width. If None, auto-calculated from content.
             height: Optional fixed canvas height. If None, auto-calculated from content.
             margin: Outer margin padding surrounding all states (default: 5.0).
+
+        Raises:
+            TypeError: If node_style or edge_style is not a Style instance.
         """
+        if not isinstance(node_style, Style):
+            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
+        if not isinstance(edge_style, Style):
+            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
+        if style is not None and not isinstance(style, Style):
+            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
+
+        self.node_style = node_style
+        self.edge_style = edge_style
         self.title = title
         self.style = style
         self.custom_width = float(width) if width is not None else None

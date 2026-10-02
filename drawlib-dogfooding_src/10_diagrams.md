@@ -9,10 +9,15 @@ VPC やサブネットなどの境界グループ（`NodeGroup`）、コンポ�
 ```drawlib 640px center file:fig_architecture_diagram.png caption:"図 10.1: クラウドマイクロサービス構成図"
 from drawlib.canvas import setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
 setup(width=115, height=65)
 
-diag = ArchitectureDiagram(title="クラウドマイクロサービス構成図")
+diag = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="クラウドマイクロサービス構成図",
+)
 
 # VPC 境界グループ
 vpc = diag.add(

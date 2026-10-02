@@ -257,15 +257,17 @@ def _handle_tuple_event(
     block_ends: dict[Block, float],
 ) -> float:
     """Handle spacer and block boundary timeline events."""
+    if not event:
+        return rel_y
     tag = event[0]
     if tag == "space" and len(event) > 1 and isinstance(event[1], (int, float)):
         return rel_y + float(event[1])
-    if tag == "block_start":
+    if tag == "block_start" and len(event) > 1:
         blk = event[1]
         if isinstance(blk, Block):
             block_starts[blk] = rel_y
         return rel_y + 3.0
-    if tag == "block_end":
+    if tag == "block_end" and len(event) > 1:
         blk = event[1]
         if isinstance(blk, Block):
             block_ends[blk] = rel_y
@@ -388,15 +390,11 @@ def _render_participant_header(
     canvas_xy: tuple[float, float],
     header_w: float,
     header_h: float,
+    default_node_style: Style,
 ) -> None:
     """Render a participant's top card, icon, and label."""
     cx, cy = canvas_xy
-    default_card_style = Style(
-        shape_fill_color=(255, 255, 255, 1.0),
-        shape_line_color=(150, 155, 165, 1.0),
-        shape_line_width=1.2,
-    )
-    card_style = default_card_style.patch(participant.style)
+    card_style = default_node_style.patch(participant.style) if participant.style is not None else default_node_style
     canvas_rectangle(xy=(cx, cy), width=header_w, height=header_h, style=card_style)
 
     if participant.icon is not None:
@@ -406,10 +404,11 @@ def _render_participant_header(
         return
 
     font_size = participant.text_size if participant.text_size is not None else 12.0
+    text_color = card_style.text_color or (35, 35, 40, 1.0)
     text_style = Style(
         text_size=font_size,
         text_font=Font.SANSSERIF_BOLD if participant.icon is None else Font.SANSSERIF_REGULAR,
-        text_color=(35, 35, 40, 1.0),
+        text_color=text_color,
         text_halign="center",
         text_valign="center",
         text_angle=participant.text_angle,
@@ -434,13 +433,14 @@ def _render_headers(
     participant_x_map: dict[Participant, float],
     header_cy: float,
     base_xy: tuple[float, float],
+    default_node_style: Style,
 ) -> None:
     """Draw all participant headers."""
     bx, by = base_xy
     for participant in participants:
         nx = bx + participant_x_map[participant]
         hw, hh = participant.get_header_size()
-        _render_participant_header(participant, (nx, by + header_cy), hw, hh)
+        _render_participant_header(participant, (nx, by + header_cy), hw, hh, default_node_style)
 
 
 def _render_groups(
@@ -729,7 +729,7 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
     _render_activation_bars(diagram.participants, participant_x_map, resolved_acts, y_origin_top, (bx, by))
 
     # Layer 5: Messages and Notes
-    default_msg_style = Style(line_color=(60, 60, 65, 1.0), line_width=1.5)
+    default_msg_style = diagram.edge_style
     for event in diagram.events:
         if isinstance(event, Message):
             rel_y = event_y_map[event]
@@ -741,14 +741,15 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
             _render_note(event, abs_y, participant_x_map, (bx, by))
 
     # Layer 6: Participant Headers
-    _render_headers(diagram.participants, participant_x_map, header_cy, (bx, by))
+    _render_headers(diagram.participants, participant_x_map, header_cy, (bx, by), diagram.node_style)
 
     # Layer 7: Diagram Title
     if diagram.title:
+        title_color = diagram.node_style.text_color or (35, 35, 45, 1.0)
         title_style = Style(
             text_size=15,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=(35, 35, 45, 1.0),
+            text_color=title_color,
             text_halign="left",
             text_valign="bottom",
         )

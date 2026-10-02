@@ -579,11 +579,13 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.diagrams.flow import FlowDiagram
-  flow = FlowDiagram((10, 10), width=80, height=60)
+  from drawlib.styles import Styles
+
+  flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, width=80, height=60)
   start = flow.node("Start", shape="circle")
   step = flow.node("Process", shape="rectangle")
   flow.edge(start, step, label="execute")
-  flow.draw()
+  flow.draw((10, 10))
   ```
 - **When to read**: Refer to this rule when modeling UML designs, entity relationships, protocol handshakes, state machines, or distributed system microservices.
 

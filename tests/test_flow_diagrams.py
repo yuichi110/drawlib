@@ -31,7 +31,7 @@ from drawlib.diagrams.flow import (
     Process,
     Start,
 )
-from drawlib.styles import Colors
+from drawlib.styles import Colors, Styles
 
 
 class TestFlowNodes:
@@ -75,7 +75,7 @@ class TestFlowNodes:
 
     def test_node_anchors_and_bounds(self) -> None:
         """Verify anchor coordinates relative to placed center."""
-        flow = FlowDiagram()
+        flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         node = flow.add(Process("Task", width=20.0, height=10.0), xy=(50.0, 50.0))
 
         assert node.center == (50.0, 50.0)
@@ -96,7 +96,7 @@ class TestJunction:
 
     def test_junction_properties(self) -> None:
         """Verify Junction coordinate and anchor consistency."""
-        flow = FlowDiagram()
+        flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         j = flow.junction(xy=(30.0, 40.0))
 
         assert j.xy == (30.0, 40.0)
@@ -128,7 +128,7 @@ class TestFlowEdge:
 
     def test_edge_waypoints_and_add_point(self) -> None:
         """Verify waypoints specification and branching add_point."""
-        flow = FlowDiagram()
+        flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         p1 = flow.add(Process("P1"), xy=(10.0, 50.0))
         p2 = flow.add(Process("P2"), xy=(80.0, 50.0))
 
@@ -143,7 +143,7 @@ class TestFlowEdge:
 
     def test_edge_default_arrow_to_junction(self) -> None:
         """Verify connecting to a Junction defaults to arrow='-' while connecting to node defaults to '->'."""
-        flow = FlowDiagram()
+        flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         dec = flow.add(Decision("Branch?"), xy=(50.0, 80.0))
         j = flow.junction(xy=(50.0, 60.0))
         proc = flow.add(Process("Task"), xy=(30.0, 40.0))
@@ -156,7 +156,7 @@ class TestFlowEdge:
 
     def test_node_fork(self) -> None:
         """Verify fork branching method."""
-        flow = FlowDiagram()
+        flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         root = flow.add(Decision("Branch"), xy=(50.0, 80.0))
         b1 = flow.add(Process("Path 1"), xy=(30.0, 40.0))
         b2 = flow.add(Process("Path 2"), xy=(70.0, 40.0))
@@ -178,11 +178,11 @@ class TestSwimlane:
 
     def test_diagram_add_lane_aliases(self) -> None:
         """Verify add_lane with width and height aliases."""
-        flow_v = FlowDiagram(lane_orientation="vertical")
+        flow_v = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, lane_orientation="vertical")
         lane1 = flow_v.add_lane("Client", width=35.0)
         assert lane1.size == 35.0
 
-        flow_h = FlowDiagram(lane_orientation="horizontal")
+        flow_h = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, lane_orientation="horizontal")
         lane2 = flow_h.add_lane("Server", height=45.0)
         assert lane2.size == 45.0
 
@@ -190,11 +190,22 @@ class TestSwimlane:
 class TestFlowDiagramIntegration:
     """Integration and rendering tests for FlowDiagram."""
 
+    def test_flow_diagram_style_validation(self) -> None:
+        """Verify TypeError raised when node_style or edge_style is invalid."""
+        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+            FlowDiagram(node_style=cast(Any, "invalid"), edge_style=Styles.Primary)
+
+        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+            FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=cast(Any, "invalid"))
+
+        with pytest.raises(TypeError, match="style must be a Style instance"):
+            FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style=cast(Any, "invalid"))
+
     def test_basic_flow_render(self) -> None:
         """Verify basic flow diagram rendering and file output."""
         canvas.clear()
 
-        flow = FlowDiagram(title="Basic Registration Flow")
+        flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Basic Registration Flow")
         start = flow.add(Start("Start"), xy=(50.0, 90.0))
         input_data = flow.add(Data("User Info"), xy=(50.0, 75.0))
         decision = flow.add(Decision("Valid?"), xy=(50.0, 55.0))
@@ -222,6 +233,8 @@ class TestFlowDiagramIntegration:
         canvas.clear()
 
         flow = FlowDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
             title="Cross-Functional Approval Workflow",
             width=100.0,
             height=100.0,
@@ -261,6 +274,8 @@ class TestFlowDiagramIntegration:
         canvas.clear()
 
         flow = FlowDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
             title="Horizontal Order Pipeline",
             lane_orientation="horizontal",
             width=100.0,

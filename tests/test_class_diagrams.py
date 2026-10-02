@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import tempfile
 from pathlib import Path
+from typing import Any, cast
 
 import pytest
 
@@ -27,7 +28,7 @@ from drawlib.diagrams.class_diagram import (
     RelationshipType,
     Side,
 )
-from drawlib.styles import Colors
+from drawlib.styles import Colors, Styles
 
 
 class TestClassNode:
@@ -255,9 +256,23 @@ class TestClassRelationship:
 class TestClassDiagram:
     """Unit tests for ClassDiagram container."""
 
+    def test_class_diagram_style_validation(self) -> None:
+        """Verify TypeError raised when node_style or edge_style is invalid."""
+        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+            ClassDiagram(node_style=cast(Any, "invalid"), edge_style=Styles.Primary)
+
+        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+            ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=cast(Any, "invalid"))
+
+        with pytest.raises(TypeError, match="header_style must be a Style instance"):
+            ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, header_style=cast(Any, "invalid"))
+
+        with pytest.raises(TypeError, match="style must be a Style instance"):
+            ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style=cast(Any, "invalid"))
+
     def test_diagram_add_and_connect(self) -> None:
         """Verify adding classes and relationships."""
-        cd = ClassDiagram(title="UML Diagram")
+        cd = ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="UML Diagram")
         c1 = cd.add(ClassNode("User"), xy=(20.0, 50.0))
         c2 = cd.add(ClassNode("Profile"), xy=(60.0, 50.0))
 
@@ -273,10 +288,10 @@ class TestClassDiagram:
 
     def test_get_size(self) -> None:
         """Verify automatic and custom diagram dimensions."""
-        cd_fixed = ClassDiagram(width=150.0, height=120.0)
+        cd_fixed = ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, width=150.0, height=120.0)
         assert cd_fixed.get_size() == (150.0, 120.0)
 
-        cd_auto = ClassDiagram(margin=5.0)
+        cd_auto = ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, margin=5.0)
         cd_auto.add(ClassNode("NodeA", width=20.0, height=10.0), xy=(20.0, 20.0))
         cd_auto.add(ClassNode("NodeB", width=20.0, height=10.0), xy=(60.0, 60.0))
         # bounds: min_x = 20 - 10 = 10, max_x = 60 + 10 = 70. span_x = 60 (+ 2 * 5.0 = 70.0)
@@ -293,7 +308,7 @@ class TestClassDiagramRendering:
         """Verify basic class diagram rendering and image export."""
         canvas.clear()
 
-        cd = ClassDiagram(title="E-Commerce Domain Model")
+        cd = ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="E-Commerce Domain Model")
         user = cd.add(ClassNode(name="User", width=28.0), xy=(25.0, 65.0))
         user.add_attribute("id", type="int", is_public=True)
         user.add_attribute("email", type="str", is_public=True)
@@ -335,7 +350,7 @@ class TestClassDiagramRendering:
         """Verify rendering all 6 UML relationship types."""
         canvas.clear()
 
-        cd = ClassDiagram(title="UML Relationship Gallery")
+        cd = ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="UML Relationship Gallery")
         types: list[RelationshipType] = [
             "inheritance",
             "realization",
@@ -373,6 +388,8 @@ class TestClassDiagramRendering:
         canvas.clear()
 
         cd = ClassDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
             title="Payment Processing",
             style=Style(shape_fill_color=Colors.White),
         )

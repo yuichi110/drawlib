@@ -259,9 +259,10 @@ Builds cloud topologies, microservice meshes, VPC boundaries, and icon-annotated
 ```drawlib show-code file:diagram_architecture.png
 from drawlib.canvas import setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
 
 setup(width=120, height=60)
-diag = ArchitectureDiagram()
+diag = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
 
 # 1. Container Boundaries / Groups
 group = diag.add(NodeGroup(title="Production VPC", width=100, height=44), (10, 8))
@@ -284,9 +285,10 @@ Constructs ISO 5807 flowcharts with decision gates, processes, start/stop termin
 ```drawlib show-code file:diagram_flow.png
 from drawlib.canvas import setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
+from drawlib.styles import Styles
 
 setup(width=100, height=65)
-flow = FlowDiagram()
+flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
 start = flow.add(Start("Start"), (50, 56))
 proc = flow.add(Process("Execute Job"), (50, 40))
 gate = flow.add(Decision("Success?"), (50, 24))
@@ -305,9 +307,10 @@ Generates lifelines, synchronous/asynchronous request-response messages, activat
 ```drawlib show-code file:diagram_sequence.png
 from drawlib.canvas import setup
 from drawlib.diagrams.sequence import Participant, SequenceDiagram
+from drawlib.styles import Styles
 
 setup(width=100, height=60)
-seq = SequenceDiagram()
+seq = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
 user = seq.add(Participant("User"))
 auth = seq.add(Participant("Auth API"))
 db = seq.add(Participant("Database"))

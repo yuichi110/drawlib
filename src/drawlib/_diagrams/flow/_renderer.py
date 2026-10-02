@@ -33,12 +33,6 @@ if TYPE_CHECKING:
     from drawlib._diagrams.flow._diagram import FlowDiagram
     from drawlib._diagrams.flow._edge import FlowEdge
 
-# Default colors
-_DEFAULT_BORDER_COLOR = (71, 85, 105, 1.0)  # Slate-600
-_DEFAULT_FILL_COLOR = (248, 250, 252, 1.0)  # Slate-50
-_DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)  # Slate-800
-_DEFAULT_EDGE_COLOR = (71, 85, 105, 1.0)  # Slate-600
-
 _DEFAULT_LANE_BG = (248, 250, 252, 0.5)
 _DEFAULT_LANE_ALT_BG = (241, 245, 249, 0.5)
 _DEFAULT_LANE_BORDER = (203, 213, 225, 1.0)  # Slate-300
@@ -76,17 +70,18 @@ def draw_diagram(diagram: FlowDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> 
         _render_lanes(diagram.lanes, diagram.lane_orientation, base_xy, dw, dh)
 
     # Layer 2: Flow Edges
-    _render_edges(diagram.edges, canvas_xy_map, base_xy)
+    _render_edges(diagram.edges, canvas_xy_map, base_xy, diagram.edge_style)
 
     # Layer 3: Flow Nodes & Junctions
-    _render_nodes(all_nodes, canvas_xy_map)
+    _render_nodes(all_nodes, canvas_xy_map, diagram.node_style)
 
     # Layer 4: Title
     if diagram.title:
+        title_color = diagram.node_style.text_color or (30, 41, 59, 1.0)
         title_style = Style(
             text_size=16,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_TEXT_COLOR,
+            text_color=title_color,
             text_halign="center",
             text_valign="bottom",
         )
@@ -174,7 +169,7 @@ def _render_lanes(
             default_header_textstyle = Style(
                 text_size=text_size,
                 text_font=Font.SANSSERIF_BOLD,
-                text_color=_DEFAULT_TEXT_COLOR,
+                text_color=(30, 41, 59, 1.0),
                 text_halign="center",
                 text_valign="center",
             )
@@ -229,7 +224,7 @@ def _render_lanes(
             default_header_textstyle = Style(
                 text_size=text_size,
                 text_font=Font.SANSSERIF_BOLD,
-                text_color=_DEFAULT_TEXT_COLOR,
+                text_color=(30, 41, 59, 1.0),
                 text_halign="center",
                 text_valign="center",
             )
@@ -447,13 +442,9 @@ def _render_edges(
     edges: list[FlowEdge],
     canvas_xy_map: dict[Connectable, tuple[float, float]],
     base_xy: tuple[float, float],
+    default_edge_style: Style,
 ) -> None:
     """Render all FlowEdge connections."""
-    default_edge_style = Style(
-        line_color=_DEFAULT_EDGE_COLOR,
-        line_width=1.5,
-    )
-
     for edge in edges:
         if edge.start not in canvas_xy_map or edge.end not in canvas_xy_map:
             continue
@@ -470,7 +461,7 @@ def _render_edges(
             edge.end_side,
         )
 
-        applied_style = default_edge_style.patch(edge.style)
+        applied_style = default_edge_style.patch(edge.style) if edge.style is not None else default_edge_style
         pts = _compute_edge_points(
             start_pt,
             end_pt,
@@ -500,10 +491,11 @@ def _render_edges(
             lx = (pts[mid_idx - 1][0] + pts[mid_idx][0]) / 2.0
             ly = (pts[mid_idx - 1][1] + pts[mid_idx][1]) / 2.0
 
+            label_text_color = default_edge_style.text_color or (30, 41, 59, 1.0)
             label_style = Style(
                 text_size=11,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=_DEFAULT_TEXT_COLOR,
+                text_color=label_text_color,
                 text_bg_fill_color=(255, 255, 255, 0.9),
                 text_bg_line_color=None,
                 text_bg_line_width=0,
@@ -519,25 +511,21 @@ def _render_edges(
 def _render_nodes(
     nodes: list[FlowNode],
     canvas_xy_map: dict[Connectable, tuple[float, float]],
+    default_node_style: Style,
 ) -> None:
     """Render all FlowNodes."""
-    default_node_style = Style(
-        shape_fill_color=_DEFAULT_FILL_COLOR,
-        shape_line_color=_DEFAULT_BORDER_COLOR,
-        shape_line_width=1.5,
-    )
-
     for node in nodes:
         cx, cy = canvas_xy_map[node]
         w, h = node.width, node.height
 
-        applied_style = default_node_style.patch(node.style)
+        applied_style = default_node_style.patch(node.style) if node.style is not None else default_node_style
 
         text_size = node.textsize or 12.0
+        text_color = applied_style.text_color or (30, 41, 59, 1.0)
         text_style = Style(
             text_size=text_size,
             text_font=Font.SANSSERIF_REGULAR,
-            text_color=_DEFAULT_TEXT_COLOR,
+            text_color=text_color,
             text_halign="center",
             text_valign="center",
         )

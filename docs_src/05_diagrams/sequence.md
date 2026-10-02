@@ -40,8 +40,11 @@ from drawlib.diagrams.sequence import (
     PhosphorIcon,
     SequenceDiagram,
 )
+from drawlib.styles import Styles
 
 d = SequenceDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
     title="Checkout Transaction Pipeline",
     autonumber=True,            # Auto-number messages (1., 2., 3., ...)
 )
@@ -69,7 +72,12 @@ from drawlib.styles import Styles
 canvas.clear()
 canvas.setup(width=115, height=135)
 
-d = SequenceDiagram(title="Microservices Distributed Transaction Pipeline", autonumber=True)
+d = SequenceDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="Microservices Distributed Transaction Pipeline",
+    autonumber=True,
+)
 
 # 1. Clustered Backend Participant Group
 backend = d.add_group(
@@ -121,11 +129,16 @@ For real-time bidirectional streams, use `connect()` with `arrow="<->"`:
 ```drawlib 650px center caption:"WebSocket Full-Duplex Telemetry Stream"
 from drawlib import canvas
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
+from drawlib.styles import Styles
 
 canvas.clear()
 canvas.setup(width=65, height=80)
 
-d = SequenceDiagram(title="WebSocket Real-Time Live Sync")
+d = SequenceDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="WebSocket Real-Time Live Sync",
+)
 
 app = d.add(Participant("Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
 gateway = d.add(Participant("WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5))

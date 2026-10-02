@@ -28,10 +28,15 @@
 ```python
 from drawlib.canvas import save, setup
 from drawlib.diagrams.er import ERDiagram, Entity
+from drawlib.styles import Styles
 
 setup(width=50, height=45)
 
-er = ERDiagram(title="User Schema")
+er = ERDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    title="User Schema",
+)
 
 # Create entity table
 users = er.add(Entity(name="users", width=30.0), xy=(25.0, 18.0))

@@ -12,6 +12,7 @@
 import tempfile
 from pathlib import Path
 
+import pytest
 from PIL import Image
 
 from drawlib import canvas
@@ -27,7 +28,7 @@ from drawlib.diagrams.sequence import (
     PhosphorIcon,
     SequenceDiagram,
 )
-from drawlib.styles import Colors
+from drawlib.styles import Colors, Styles
 
 
 class TestSequenceParticipantAndMessage:
@@ -123,7 +124,7 @@ class TestSequenceNoteAndBlock:
 
     def test_block_context_manager(self) -> None:
         """Verify Block context manager records boundary events in Diagram."""
-        d = SequenceDiagram()
+        d = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         client = d.add(Participant("Client"))
         server = d.add(Participant("Server"))
 
@@ -142,7 +143,7 @@ class TestSequenceNoteAndBlock:
 
     def test_participant_group(self) -> None:
         """Verify ParticipantGroup clustering box."""
-        d = SequenceDiagram()
+        d = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         group = d.add_group(ParticipantGroup("Internal Cluster", padding=6.0))
         p1 = group.add(Participant("Service Alpha"))
         p2 = group.add(Participant("Service Beta"))
@@ -158,7 +159,7 @@ class TestSequenceDiagramLifecycle:
 
     def test_autonumbering(self) -> None:
         """Verify automatic sequential numbering of message arrows."""
-        d = SequenceDiagram(autonumber=True)
+        d = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, autonumber=True)
         p1 = d.add(Participant("A"))
         p2 = d.add(Participant("B"))
 
@@ -172,7 +173,7 @@ class TestSequenceDiagramLifecycle:
 
     def test_activations(self) -> None:
         """Verify participant lifeline activation tracking."""
-        d = SequenceDiagram()
+        d = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         client = d.add(Participant("Client"))
         server = d.add(Participant("Server"))
 
@@ -188,6 +189,20 @@ class TestSequenceDiagramLifecycle:
         assert end is not None
         assert end > start
 
+    def test_sequence_diagram_style_validation(self) -> None:
+        """Verify TypeError when invalid styles are supplied."""
+        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+            SequenceDiagram(node_style="invalid", edge_style=Styles.Primary)  # type: ignore
+
+        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+            SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style="invalid")  # type: ignore
+
+        with pytest.raises(TypeError, match="style must be a Style instance"):
+            SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
+
+        with pytest.raises(TypeError, match="title_style must be a Style instance"):
+            SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title_style="invalid")  # type: ignore
+
 
 class TestSequenceDiagramRenderingEndToEnd:
     """End-to-end rendering and canvas integration tests."""
@@ -196,7 +211,12 @@ class TestSequenceDiagramRenderingEndToEnd:
         """Verify full sequence diagram rendering to canvas and saving as PNG."""
         canvas.clear()
 
-        d = SequenceDiagram(title="OAuth2 Authentication Flow", autonumber=True)
+        d = SequenceDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            title="OAuth2 Authentication Flow",
+            autonumber=True,
+        )
 
         user = d.add(Participant("User", icon=PhosphorIcon.USER, icon_size=8.0))
         client = d.add(Participant("SPA Client", icon=PhosphorIcon.BROWSER, icon_size=8.0))
@@ -238,7 +258,11 @@ class TestSequenceDiagramRenderingEndToEnd:
         pil_img = Image.new("RGBA", (64, 64), (80, 140, 220, 255))
         custom_icon = CustomIcon(pil_img)
 
-        d = SequenceDiagram(title="Microservices Event Stream")
+        d = SequenceDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            title="Microservices Event Stream",
+        )
 
         backend = d.add_group(
             ParticipantGroup(

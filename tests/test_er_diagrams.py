@@ -19,7 +19,7 @@ import pytest
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
 from drawlib.diagrams.er import Cardinality, ColumnInfo, Entity, ERDiagram, Relationship, Side
-from drawlib.styles import Colors
+from drawlib.styles import Colors, Styles
 
 
 class TestEntity:
@@ -177,7 +177,7 @@ class TestERDiagram:
 
     def test_diagram_add_and_connect(self) -> None:
         """Verify adding entities and connecting them."""
-        erd = ERDiagram(title="Test Diagram")
+        erd = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Test Diagram")
         u = Entity("users")
         o = Entity("orders")
 
@@ -196,10 +196,10 @@ class TestERDiagram:
 
     def test_get_size(self) -> None:
         """Verify automatic and fixed diagram size."""
-        erd_fixed = ERDiagram(width=200.0, height=100.0)
+        erd_fixed = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, width=200.0, height=100.0)
         assert erd_fixed.get_size() == (200.0, 100.0)
 
-        erd_auto = ERDiagram()
+        erd_auto = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
         u = Entity("users", width=20.0, height=10.0)
         erd_auto.add(u, xy=(50.0, 50.0))
         # max_x = 50 + 10 = 60 (+10 margin = 70.0)
@@ -207,6 +207,20 @@ class TestERDiagram:
         w, h = erd_auto.get_size()
         assert w == 70.0
         assert h == 65.0
+
+    def test_er_diagram_style_validation(self) -> None:
+        """Verify TypeError when invalid styles are supplied."""
+        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+            ERDiagram(node_style="invalid", edge_style=Styles.Primary)  # type: ignore
+
+        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+            ERDiagram(node_style=Styles.PrimaryFlat, edge_style="invalid")  # type: ignore
+
+        with pytest.raises(TypeError, match="style must be a Style instance"):
+            ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
+
+        with pytest.raises(TypeError, match="header_style must be a Style instance"):
+            ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, header_style="invalid")  # type: ignore
 
 
 class TestERDiagramRendering:
@@ -216,7 +230,7 @@ class TestERDiagramRendering:
         """Verify basic ER diagram rendering and image file export."""
         canvas.clear()
 
-        erd = ERDiagram(title="Customer Order System")
+        erd = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Customer Order System")
         users = erd.add(Entity(name="users", width=25.0), xy=(25.0, 60.0))
         users.add_column("id", type="INT", pk=True)
         users.add_column("email", type="VARCHAR(255)", nullable=False)
@@ -259,7 +273,7 @@ class TestERDiagramRendering:
             "*:*",
         ]
 
-        erd = ERDiagram(title="Cardinalities Gallery")
+        erd = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Cardinalities Gallery")
         for idx, card in enumerate(cardinalities):
             y = 85.0 - idx * 12.0
             e1 = erd.add(Entity(name=f"Src_{idx}", width=18.0, height=8.0), xy=(20.0, y))
@@ -283,6 +297,8 @@ class TestERDiagramRendering:
         canvas.clear()
 
         erd = ERDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
             title="Styled ERD",
             style=Style(shape_fill_color=Colors.White),
         )
