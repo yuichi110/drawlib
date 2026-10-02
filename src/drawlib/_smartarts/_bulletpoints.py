@@ -36,39 +36,31 @@ class _BulletPointsText(BaseModel):
 
 
 class BulletPoints:
-    """A class to draw a list of bullet points with customizable styles and indentation.
-
-    Args:
-        vertical_margin (float): The vertical space between bullet points.
-        indent_width (float): The width of the indentation for each level.
-        default_style (Style, optional): The default text style for the bullet points.
-    """
+    """A class to draw a list of bullet points with customizable styles and indentation."""
 
     @validate_call
     def __init__(
         self,
         *,
+        text_style: Style,
         vertical_margin: PosFloat,
         indent_width: PosFloat,
-        default_style: Style | None = None,
     ) -> None:
         """Initialize BulletPoints.
 
         Args:
-            vertical_margin (float): The vertical space between bullet points.
-            indent_width (float): The width of the indentation for each level.
-            default_style (Style, optional): The default text style for the bullet points.
+            text_style: The default text style for the bullet points.
+            vertical_margin: The vertical space between bullet points.
+            indent_width: The width of the indentation for each level.
         """
+        self._text_style = text_style
         self._vertical_margin = vertical_margin
         self._indent_width = indent_width
-        self._default_style = default_style
 
         self._indent_level = 0
         self._bullet_texts: list[_BulletPointsText] = []
         self._bullet_shape_map: dict[int, _BulletPointsShape] = {}
-
-        if default_style is not None:
-            self._ensure_default_bullets(default_style)
+        self._ensure_default_bullets(text_style)
 
     def _ensure_default_bullets(self, ref_style: Style) -> None:
         """Register default circle bullet shapes using text color."""
@@ -82,6 +74,11 @@ class BulletPoints:
 
     @validate_call
     def set_indent(self, level: int) -> None:
+        """Set the current indentation level.
+
+        Args:
+            level: The indentation level (0 for top-level, 1 for first sub-bullet, etc.).
+        """
         self._indent_level = level
 
     @validate_call
@@ -92,6 +89,14 @@ class BulletPoints:
         style: Style,
         args: dict,
     ) -> None:
+        """Configure bullet shape style for a specific indent level.
+
+        Args:
+            indent_level: Indent level to assign the bullet shape to.
+            function: Shape drawing function (e.g. circle, rectangle).
+            style: Style for the bullet shape.
+            args: Additional arguments passed to the drawing function.
+        """
         style = style.patch(text_halign="center", text_valign="center")
 
         item = _BulletPointsShape(
@@ -106,12 +111,16 @@ class BulletPoints:
     def add(
         self,
         text: str,
-        style: Style | None = None,
+        *,
+        text_style: Style | None = None,
     ) -> None:
-        style_resolved = style if style is not None else self._default_style
-        if style_resolved is None:
-            raise ValueError(f"Neither 'default_style' nor 'style' was provided for item '{text}'.")
+        """Add a bullet point text item.
 
+        Args:
+            text: Text to display for this bullet point.
+            text_style: Custom style for this bullet point text. If None, default text_style is used.
+        """
+        style_resolved = text_style if text_style is not None else self._text_style
         self._ensure_default_bullets(style_resolved)
         style_resolved = style_resolved.patch(text_halign="left", text_valign="center")
 
@@ -131,19 +140,19 @@ class BulletPoints:
         """Draws the list of bullet points starting from the specified location.
 
         Args:
-            xy (Tuple[float, float]): The starting point (x, y) to draw the bullet points.
+            xy: The starting point (x, y) to draw the bullet points.
         """
         y = xy[1]
         for bullet_text in self._bullet_texts:
             indent = bullet_text.indent
             text_ = bullet_text.text
-            textstyle = bullet_text.style
+            text_style = bullet_text.style
 
             x = xy[0] + self._indent_width * indent
             text(
                 xy=(x, y),
                 text=text_,
-                style=textstyle,
+                style=text_style,
             )
 
             if indent == 0:

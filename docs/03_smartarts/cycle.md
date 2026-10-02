@@ -27,7 +27,7 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
 - **Arrow Color Mode**:
   - `"match_source"` *(default)*: Each connector arrow adopts the theme color of its originating step.
   - `"match_target"`: Connectors match the destination step color.
-  - `"monochrome"`: Connectors use a uniform line style (`default_arrow_style`).
+  - `"monochrome"`: Connectors use a uniform line style (`arrow_style`).
 
 ---
 
@@ -36,6 +36,11 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
 ### Constructor
 ```python
 Cycle(
+    *,
+    style: Style,
+    text_style: Style,
+    description_style: Style | None = None,
+    arrow_style: Style | None = None,
     clockwise: bool = True,
     start_angle: float = 90.0,
     node_shape: Literal["circle", "rectangle", "none"] = "circle",
@@ -47,24 +52,21 @@ Cycle(
     arrow_head_width: float = 4.5,
     arrow_color_mode: Literal["monochrome", "match_source", "match_target"] = "match_source",
     arrow_gap: float = 2.5,
-    default_textstyle: Style | None = None,
-    default_description_style: Style | None = None,
-    default_arrow_style: Style | None = None,
     center_text: str = "",
     center_description: str = "",
     center_radius: float = 10.0,
     center_style: Style | None = None,
-    center_textstyle: Style | None = None,
+    center_text_style: Style | None = None,
     center_description_style: Style | None = None,
 )
 ```
 
 ### Adding Steps and Center Hub
-- **`append(text, style, description="", textstyle=None, description_style=None, arrow_style=None)`**:  
-  Appends a step with its mandatory `style` to the circular perimeter.
-- **`extend(texts, styles, descriptions=None)`**:  
-  Appends multiple steps with a single shared `Style` or a list of `Style` objects matching `texts`.
-- **`set_center(text, style=None, description="", radius=None, textstyle=None, description_style=None)`**:  
+- **`append(text, *, description="", style=None, text_style=None, description_style=None, arrow_style=None)`**:  
+  Appends a step to the circular perimeter.
+- **`extend(texts, *, styles=None, text_styles=None, descriptions=None, description_styles=None, arrow_styles=None)`**:  
+  Appends multiple steps with shared or per-item styles.
+- **`set_center(text, *, description="", radius=None, style=None, text_style=None, description_style=None)`**:  
   Adds an optional central focal node to create a radial cycle.
 
 ### Drawing

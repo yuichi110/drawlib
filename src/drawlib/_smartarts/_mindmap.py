@@ -15,7 +15,7 @@ from typing import Literal
 
 from pydantic import validate_call
 
-from drawlib._core.l2_types import Coordinate
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import ellipse, get_charwidth_from_fontsize, line, rectangle
 
@@ -31,29 +31,19 @@ class MindMapNode:
     def __init__(  # noqa: PLR0913
         self,
         text: str,
+        *,
         branch: Literal["bottom", "top", "left", "right"] | None = None,
         shape: Literal["rectangle", "oval", "none"] | None = None,
-        size: tuple[float, float] | None = None,
+        size: tuple[PosFloat, PosFloat] | None = None,
         style: Style | None = None,
-        r: float | None = None,
-        textstyle: Style | None = None,
-        linestyle: Style | None = None,
-        horizontal_margin: float | None = None,
-        vertical_margin: float | None = None,
-        line_length: float | None = None,
-        xy_shift: tuple[float, float] | None = None,
+        r: PosFloat | None = None,
+        text_style: Style | None = None,
+        line_style: Style | None = None,
+        horizontal_margin: PosFloat | None = None,
+        vertical_margin: PosFloat | None = None,
+        line_length: PosFloat | None = None,
+        xy_shift: Coordinate | None = None,
         children: list[MindMapNode] | None = None,
-        # Default options inherited by descendant nodes
-        default_branch: Literal["bottom", "top", "left", "right"] | None = None,
-        default_shape: Literal["rectangle", "oval", "none"] | None = None,
-        default_size: tuple[float, float] | None = None,
-        default_style: Style | None = None,
-        default_r: float | None = None,
-        default_textstyle: Style | None = None,
-        default_linestyle: Style | None = None,
-        default_horizontal_margin: float | None = None,
-        default_vertical_margin: float | None = None,
-        default_line_length: float | None = None,
     ) -> None:
         """Initialize MindMapNode.
 
@@ -64,23 +54,13 @@ class MindMapNode:
             size: Size of the node as (width, height).
             style: Shape style object.
             r: Corner radius when shape is "rectangle".
-            textstyle: Style object for text.
-            linestyle: Style object for connecting lines.
+            text_style: Style object for text.
+            line_style: Style object for connecting lines.
             horizontal_margin: Horizontal margin between sibling subtrees.
             vertical_margin: Vertical margin between sibling subtrees.
             line_length: Distance between parent and child hierarchy levels.
             xy_shift: Optional coordinate shift (dx, dy) to fine-tune this node's position.
             children: List of child MindMapNode instances.
-            default_branch: Default branch direction for descendant nodes.
-            default_shape: Default shape for descendant nodes.
-            default_size: Default size for descendant nodes.
-            default_style: Default style for descendant nodes.
-            default_r: Default corner radius for descendant nodes.
-            default_textstyle: Default text style for descendant nodes.
-            default_linestyle: Default line style for descendant nodes.
-            default_horizontal_margin: Default horizontal margin for descendant nodes.
-            default_vertical_margin: Default vertical margin for descendant nodes.
-            default_line_length: Default line length for descendant nodes.
         """
         self._text = text
         self._branch = branch
@@ -88,25 +68,13 @@ class MindMapNode:
         self._size = size
         self._style = style
         self._r = r
-        self._textstyle = textstyle
-        self._linestyle = linestyle
+        self._text_style = text_style
+        self._line_style = line_style
         self._horizontal_margin = horizontal_margin
         self._vertical_margin = vertical_margin
         self._line_length = line_length
         self._xy_shift = xy_shift
         self._children: list[MindMapNode] = [] if children is None else children
-
-        # Default options
-        self._default_branch = default_branch
-        self._default_shape = default_shape
-        self._default_size = default_size
-        self._default_style = default_style
-        self._default_r = default_r
-        self._default_textstyle = default_textstyle
-        self._default_linestyle = default_linestyle
-        self._default_horizontal_margin = default_horizontal_margin
-        self._default_vertical_margin = default_vertical_margin
-        self._default_line_length = default_line_length
 
         # Internal layout computation attributes
         self._resolved_w: float = 0.0
@@ -127,47 +95,37 @@ class MindMapNode:
         Args:
             xy: Center coordinates (x, y) of the root node.
             branch: Default branch direction for child nodes ("bottom", "top", "left", "right").
+
+        Raises:
+            ValueError: If root node is missing mandatory style, text_style, or line_style.
         """
-        root_branch = self._branch or self._default_branch or branch
+        if self._style is None:
+            raise ValueError('Root of MindMapNode must be initialized with "style".')
+        if self._text_style is None:
+            raise ValueError('Root of MindMapNode must be initialized with "text_style".')
+        if self._line_style is None:
+            raise ValueError('Root of MindMapNode must be initialized with "line_style".')
 
-        # Baseline defaults
-        def_shape: Literal["rectangle", "oval", "none"] = self._default_shape or "rectangle"
-        def_size = self._default_size or (20.0, 8.0)
-        if self._default_style is not None:
-            def_style = self._default_style
-        elif self._style is not None:
-            def_style = self._style
-        else:
-            raise ValueError('Root of MindMapNode must have "default_style" or "style" specified.')
+        root_branch = self._branch if self._branch is not None else branch
 
-        def_r = 0.0 if self._default_r is None else self._default_r
-
-        if self._default_textstyle is not None:
-            def_textstyle = self._default_textstyle
-        else:
-            def_textstyle = None
-
-        if self._default_linestyle is not None:
-            def_linestyle = self._default_linestyle
-        elif self._linestyle is not None:
-            def_linestyle = self._linestyle
-        else:
-            raise ValueError('Root of MindMapNode must have "default_linestyle" or "linestyle" specified.')
-
-        def_h_margin = 4.0 if self._default_horizontal_margin is None else self._default_horizontal_margin
-        def_v_margin = 4.0 if self._default_vertical_margin is None else self._default_vertical_margin
-        def_line_len = 10.0 if self._default_line_length is None else self._default_line_length
+        # Baseline defaults for root if not explicitly provided
+        root_shape = self._shape if self._shape is not None else "rectangle"
+        root_size = self._size if self._size is not None else (20.0, 8.0)
+        root_r = self._r if self._r is not None else 0.0
+        root_h_margin = self._horizontal_margin if self._horizontal_margin is not None else 4.0
+        root_v_margin = self._vertical_margin if self._vertical_margin is not None else 4.0
+        root_line_len = self._line_length if self._line_length is not None else 10.0
 
         # Pass 1: Measure subtree extents bottom-up
         self._measure_pass(
             current_branch=root_branch,
-            default_shape=def_shape,
-            default_size=def_size,
-            default_style=def_style,
-            default_textstyle=def_textstyle,
-            default_h_margin=def_h_margin,
-            default_v_margin=def_v_margin,
-            default_line_len=def_line_len,
+            parent_shape=root_shape,
+            parent_size=root_size,
+            parent_style=self._style,
+            parent_text_style=self._text_style,
+            parent_h_margin=root_h_margin,
+            parent_v_margin=root_v_margin,
+            parent_line_len=root_line_len,
         )
 
         # Pass 2: Layout and draw top-down starting from root center xy
@@ -178,15 +136,15 @@ class MindMapNode:
         self._layout_and_draw(
             center_xy=(root_cx, root_cy),
             current_branch=root_branch,
-            default_shape=def_shape,
-            default_size=def_size,
-            default_style=def_style,
-            default_r=def_r,
-            default_textstyle=def_textstyle,
-            default_linestyle=def_linestyle,
-            default_h_margin=def_h_margin,
-            default_v_margin=def_v_margin,
-            default_line_len=def_line_len,
+            parent_shape=root_shape,
+            parent_size=root_size,
+            parent_style=self._style,
+            parent_r=root_r,
+            parent_text_style=self._text_style,
+            parent_line_style=self._line_style,
+            parent_h_margin=root_h_margin,
+            parent_v_margin=root_v_margin,
+            parent_line_len=root_line_len,
         )
 
     def _get_children_by_branch(
@@ -200,25 +158,25 @@ class MindMapNode:
             "right": [],
         }
         for child in self._children:
-            b = child._branch or child._default_branch or current_branch
+            b = child._branch if child._branch is not None else current_branch
             groups[b].append(child)
         return groups
 
     def _measure_pass(  # noqa: PLR0913
         self,
         current_branch: Literal["bottom", "top", "left", "right"],
-        default_shape: Literal["rectangle", "oval", "none"],
-        default_size: tuple[float, float],
-        default_style: Style,
-        default_textstyle: Style | None,
-        default_h_margin: float,
-        default_v_margin: float,
-        default_line_len: float,
+        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_size: tuple[float, float],
+        parent_style: Style,
+        parent_text_style: Style,
+        parent_h_margin: float,
+        parent_v_margin: float,
+        parent_line_len: float,
     ) -> None:
-        shape = self._shape or self._default_shape or default_shape
-        size = self._size or self._default_size or default_size
-        node_style = self._style or self._default_style or default_style
-        text_style = self._textstyle or self._default_textstyle or default_textstyle or node_style
+        shape = self._shape if self._shape is not None else parent_shape
+        size = self._size if self._size is not None else parent_size
+        node_style = self._style if self._style is not None else parent_style
+        text_style = self._text_style if self._text_style is not None else parent_text_style
 
         if shape == "none":
             # Auto-calculate bounding box with padding using canvas-scaled character width
@@ -236,18 +194,9 @@ class MindMapNode:
         self._resolved_w = w
         self._resolved_h = h
 
-        h_margin = self._horizontal_margin or self._default_horizontal_margin or default_h_margin
-        v_margin = self._vertical_margin or self._default_vertical_margin or default_v_margin
-        line_len = self._line_length or self._default_line_length or default_line_len
-
-        # Cascaded defaults for children
-        new_def_shape = self._default_shape or default_shape
-        new_def_size = self._default_size or default_size
-        new_def_style = self._default_style or default_style
-        new_def_textstyle = self._default_textstyle or default_textstyle
-        new_def_h_margin = self._default_horizontal_margin or default_h_margin
-        new_def_v_margin = self._default_vertical_margin or default_v_margin
-        new_def_line_len = self._default_line_length or default_line_len
+        h_margin = self._horizontal_margin if self._horizontal_margin is not None else parent_h_margin
+        v_margin = self._vertical_margin if self._vertical_margin is not None else parent_v_margin
+        line_len = self._line_length if self._line_length is not None else parent_line_len
 
         child_groups = self._get_children_by_branch(current_branch)
 
@@ -255,13 +204,13 @@ class MindMapNode:
             for child in group:
                 child._measure_pass(
                     current_branch=b,
-                    default_shape=new_def_shape,
-                    default_size=new_def_size,
-                    default_style=new_def_style,
-                    default_textstyle=new_def_textstyle,
-                    default_h_margin=new_def_h_margin,
-                    default_v_margin=new_def_v_margin,
-                    default_line_len=new_def_line_len,
+                    parent_shape=shape,
+                    parent_size=size,
+                    parent_style=node_style,
+                    parent_text_style=text_style,
+                    parent_h_margin=h_margin,
+                    parent_v_margin=v_margin,
+                    parent_line_len=line_len,
                 )
 
         # Compute subtree extents along the direction
@@ -291,51 +240,45 @@ class MindMapNode:
         self,
         center_xy: tuple[float, float],
         current_branch: Literal["bottom", "top", "left", "right"],
-        default_shape: Literal["rectangle", "oval", "none"],
-        default_size: tuple[float, float],
-        default_style: Style,
-        default_r: float,
-        default_textstyle: Style | None,
-        default_linestyle: Style,
-        default_h_margin: float,
-        default_v_margin: float,
-        default_line_len: float,
+        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_size: tuple[float, float],
+        parent_style: Style,
+        parent_r: float,
+        parent_text_style: Style,
+        parent_line_style: Style,
+        parent_h_margin: float,
+        parent_v_margin: float,
+        parent_line_len: float,
     ) -> None:
         cx, cy = center_xy
 
-        shape = self._shape or self._default_shape or default_shape
-        node_style = self._style or self._default_style or default_style
-        r_val = self._r if self._r is not None else (self._default_r if self._default_r is not None else default_r)
-        explicit_textstyle = self._textstyle or self._default_textstyle or default_textstyle
-        text_style: Style | None
-        if explicit_textstyle is not None:
-            text_style = explicit_textstyle
-        elif "text" in node_style.supports:
-            text_style = node_style
+        shape = self._shape if self._shape is not None else parent_shape
+        size = self._size if self._size is not None else parent_size
+        node_style = self._style if self._style is not None else parent_style
+        r_val = self._r if self._r is not None else parent_r
+        base_text_style = self._text_style if self._text_style is not None else parent_text_style
+        line_style = self._line_style if self._line_style is not None else parent_line_style
+
+        text_style = base_text_style
+        # Smart contrast adjustment
+        if shape != "none":
             if (
-                shape != "none"
-                and node_style.shape_fill_color is not None
+                node_style.shape_fill_color is not None
+                and text_style.text_color is not None
                 and node_style.shape_fill_color == text_style.text_color
             ):
                 text_style = text_style.patch(text_color=(255, 255, 255))
-        else:
-            text_style = None
-        line_style = self._linestyle or self._default_linestyle or default_linestyle
+        # For shape="none", if text is white (inherited from a solid root),
+        # fall back to node_style / line_style text color so text is visible on canvas
+        elif text_style.text_color in {(255, 255, 255), (255, 255, 255, 1.0)}:
+            if node_style.text_color and node_style.text_color not in {(255, 255, 255), (255, 255, 255, 1.0)}:
+                text_style = text_style.patch(text_color=node_style.text_color)
+            elif line_style.line_color and line_style.line_color not in {(255, 255, 255), (255, 255, 255, 1.0)}:
+                text_style = text_style.patch(text_color=line_style.line_color)
 
-        h_margin = self._horizontal_margin or self._default_horizontal_margin or default_h_margin
-        v_margin = self._vertical_margin or self._default_vertical_margin or default_v_margin
-        line_len = self._line_length or self._default_line_length or default_line_len
-
-        # Cascaded defaults for children
-        new_def_shape = self._default_shape or default_shape
-        new_def_size = self._default_size or default_size
-        new_def_style = self._default_style or default_style
-        new_def_r = self._default_r if self._default_r is not None else default_r
-        new_def_textstyle = self._default_textstyle or default_textstyle
-        new_def_linestyle = self._default_linestyle or default_linestyle
-        new_def_h_margin = self._default_horizontal_margin or default_h_margin
-        new_def_v_margin = self._default_vertical_margin or default_v_margin
-        new_def_line_len = self._default_line_length or default_line_len
+        h_margin = self._horizontal_margin if self._horizontal_margin is not None else parent_h_margin
+        v_margin = self._vertical_margin if self._vertical_margin is not None else parent_v_margin
+        line_len = self._line_length if self._line_length is not None else parent_line_len
 
         bw, bh = self._resolved_w, self._resolved_h
 
@@ -394,15 +337,15 @@ class MindMapNode:
                     line_len=line_len,
                     h_margin=h_margin,
                     line_style=line_style,
-                    new_def_shape=new_def_shape,
-                    new_def_size=new_def_size,
-                    new_def_style=new_def_style,
-                    new_def_r=new_def_r,
-                    new_def_textstyle=new_def_textstyle,
-                    new_def_linestyle=new_def_linestyle,
-                    new_def_h_margin=new_def_h_margin,
-                    new_def_v_margin=new_def_v_margin,
-                    new_def_line_len=new_def_line_len,
+                    parent_shape=shape,
+                    parent_size=size,
+                    parent_style=node_style,
+                    parent_r=r_val,
+                    parent_text_style=base_text_style,
+                    parent_line_style=line_style,
+                    parent_h_margin=h_margin,
+                    parent_v_margin=v_margin,
+                    parent_line_len=line_len,
                 )
             elif b == "top":
                 self._connect_and_layout_top(
@@ -413,15 +356,15 @@ class MindMapNode:
                     line_len=line_len,
                     h_margin=h_margin,
                     line_style=line_style,
-                    new_def_shape=new_def_shape,
-                    new_def_size=new_def_size,
-                    new_def_style=new_def_style,
-                    new_def_r=new_def_r,
-                    new_def_textstyle=new_def_textstyle,
-                    new_def_linestyle=new_def_linestyle,
-                    new_def_h_margin=new_def_h_margin,
-                    new_def_v_margin=new_def_v_margin,
-                    new_def_line_len=new_def_line_len,
+                    parent_shape=shape,
+                    parent_size=size,
+                    parent_style=node_style,
+                    parent_r=r_val,
+                    parent_text_style=base_text_style,
+                    parent_line_style=line_style,
+                    parent_h_margin=h_margin,
+                    parent_v_margin=v_margin,
+                    parent_line_len=line_len,
                 )
             elif b == "right":
                 self._connect_and_layout_right(
@@ -432,15 +375,15 @@ class MindMapNode:
                     line_len=line_len,
                     v_margin=v_margin,
                     line_style=line_style,
-                    new_def_shape=new_def_shape,
-                    new_def_size=new_def_size,
-                    new_def_style=new_def_style,
-                    new_def_r=new_def_r,
-                    new_def_textstyle=new_def_textstyle,
-                    new_def_linestyle=new_def_linestyle,
-                    new_def_h_margin=new_def_h_margin,
-                    new_def_v_margin=new_def_v_margin,
-                    new_def_line_len=new_def_line_len,
+                    parent_shape=shape,
+                    parent_size=size,
+                    parent_style=node_style,
+                    parent_r=r_val,
+                    parent_text_style=base_text_style,
+                    parent_line_style=line_style,
+                    parent_h_margin=h_margin,
+                    parent_v_margin=v_margin,
+                    parent_line_len=line_len,
                 )
             else:  # "left"
                 self._connect_and_layout_left(
@@ -451,15 +394,15 @@ class MindMapNode:
                     line_len=line_len,
                     v_margin=v_margin,
                     line_style=line_style,
-                    new_def_shape=new_def_shape,
-                    new_def_size=new_def_size,
-                    new_def_style=new_def_style,
-                    new_def_r=new_def_r,
-                    new_def_textstyle=new_def_textstyle,
-                    new_def_linestyle=new_def_linestyle,
-                    new_def_h_margin=new_def_h_margin,
-                    new_def_v_margin=new_def_v_margin,
-                    new_def_line_len=new_def_line_len,
+                    parent_shape=shape,
+                    parent_size=size,
+                    parent_style=node_style,
+                    parent_r=r_val,
+                    parent_text_style=base_text_style,
+                    parent_line_style=line_style,
+                    parent_h_margin=h_margin,
+                    parent_v_margin=v_margin,
+                    parent_line_len=line_len,
                 )
 
     @staticmethod
@@ -471,15 +414,15 @@ class MindMapNode:
         line_len: float,
         h_margin: float,
         line_style: Style,
-        new_def_shape: Literal["rectangle", "oval", "none"],
-        new_def_size: tuple[float, float],
-        new_def_style: Style,
-        new_def_r: float,
-        new_def_textstyle: Style | None,
-        new_def_linestyle: Style,
-        new_def_h_margin: float,
-        new_def_v_margin: float,
-        new_def_line_len: float,
+        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_size: tuple[float, float],
+        parent_style: Style,
+        parent_r: float,
+        parent_text_style: Style,
+        parent_line_style: Style,
+        parent_h_margin: float,
+        parent_v_margin: float,
+        parent_line_len: float,
     ) -> None:
         parent_pt = (cx, cy - bh / 2.0)
         junction_y = cy - bh / 2.0 - line_len / 2.0
@@ -517,15 +460,15 @@ class MindMapNode:
             child._layout_and_draw(
                 center_xy=(child_cx, child_cy),
                 current_branch="bottom",
-                default_shape=new_def_shape,
-                default_size=new_def_size,
-                default_style=new_def_style,
-                default_r=new_def_r,
-                default_textstyle=new_def_textstyle,
-                default_linestyle=new_def_linestyle,
-                default_h_margin=new_def_h_margin,
-                default_v_margin=new_def_v_margin,
-                default_line_len=new_def_line_len,
+                parent_shape=parent_shape,
+                parent_size=parent_size,
+                parent_style=parent_style,
+                parent_r=parent_r,
+                parent_text_style=parent_text_style,
+                parent_line_style=parent_line_style,
+                parent_h_margin=parent_h_margin,
+                parent_v_margin=parent_v_margin,
+                parent_line_len=parent_line_len,
             )
 
     @staticmethod
@@ -537,15 +480,15 @@ class MindMapNode:
         line_len: float,
         h_margin: float,
         line_style: Style,
-        new_def_shape: Literal["rectangle", "oval", "none"],
-        new_def_size: tuple[float, float],
-        new_def_style: Style,
-        new_def_r: float,
-        new_def_textstyle: Style | None,
-        new_def_linestyle: Style,
-        new_def_h_margin: float,
-        new_def_v_margin: float,
-        new_def_line_len: float,
+        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_size: tuple[float, float],
+        parent_style: Style,
+        parent_r: float,
+        parent_text_style: Style,
+        parent_line_style: Style,
+        parent_h_margin: float,
+        parent_v_margin: float,
+        parent_line_len: float,
     ) -> None:
         parent_pt = (cx, cy + bh / 2.0)
         junction_y = cy + bh / 2.0 + line_len / 2.0
@@ -583,15 +526,15 @@ class MindMapNode:
             child._layout_and_draw(
                 center_xy=(child_cx, child_cy),
                 current_branch="top",
-                default_shape=new_def_shape,
-                default_size=new_def_size,
-                default_style=new_def_style,
-                default_r=new_def_r,
-                default_textstyle=new_def_textstyle,
-                default_linestyle=new_def_linestyle,
-                default_h_margin=new_def_h_margin,
-                default_v_margin=new_def_v_margin,
-                default_line_len=new_def_line_len,
+                parent_shape=parent_shape,
+                parent_size=parent_size,
+                parent_style=parent_style,
+                parent_r=parent_r,
+                parent_text_style=parent_text_style,
+                parent_line_style=parent_line_style,
+                parent_h_margin=parent_h_margin,
+                parent_v_margin=parent_v_margin,
+                parent_line_len=parent_line_len,
             )
 
     @staticmethod
@@ -603,15 +546,15 @@ class MindMapNode:
         line_len: float,
         v_margin: float,
         line_style: Style,
-        new_def_shape: Literal["rectangle", "oval", "none"],
-        new_def_size: tuple[float, float],
-        new_def_style: Style,
-        new_def_r: float,
-        new_def_textstyle: Style | None,
-        new_def_linestyle: Style,
-        new_def_h_margin: float,
-        new_def_v_margin: float,
-        new_def_line_len: float,
+        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_size: tuple[float, float],
+        parent_style: Style,
+        parent_r: float,
+        parent_text_style: Style,
+        parent_line_style: Style,
+        parent_h_margin: float,
+        parent_v_margin: float,
+        parent_line_len: float,
     ) -> None:
         parent_pt = (cx + bw / 2.0, cy)
         junction_x = cx + bw / 2.0 + line_len / 2.0
@@ -649,15 +592,15 @@ class MindMapNode:
             child._layout_and_draw(
                 center_xy=(child_cx, child_cy),
                 current_branch="right",
-                default_shape=new_def_shape,
-                default_size=new_def_size,
-                default_style=new_def_style,
-                default_r=new_def_r,
-                default_textstyle=new_def_textstyle,
-                default_linestyle=new_def_linestyle,
-                default_h_margin=new_def_h_margin,
-                default_v_margin=new_def_v_margin,
-                default_line_len=new_def_line_len,
+                parent_shape=parent_shape,
+                parent_size=parent_size,
+                parent_style=parent_style,
+                parent_r=parent_r,
+                parent_text_style=parent_text_style,
+                parent_line_style=parent_line_style,
+                parent_h_margin=parent_h_margin,
+                parent_v_margin=parent_v_margin,
+                parent_line_len=parent_line_len,
             )
 
     @staticmethod
@@ -669,15 +612,15 @@ class MindMapNode:
         line_len: float,
         v_margin: float,
         line_style: Style,
-        new_def_shape: Literal["rectangle", "oval", "none"],
-        new_def_size: tuple[float, float],
-        new_def_style: Style,
-        new_def_r: float,
-        new_def_textstyle: Style | None,
-        new_def_linestyle: Style,
-        new_def_h_margin: float,
-        new_def_v_margin: float,
-        new_def_line_len: float,
+        parent_shape: Literal["rectangle", "oval", "none"],
+        parent_size: tuple[float, float],
+        parent_style: Style,
+        parent_r: float,
+        parent_text_style: Style,
+        parent_line_style: Style,
+        parent_h_margin: float,
+        parent_v_margin: float,
+        parent_line_len: float,
     ) -> None:
         parent_pt = (cx - bw / 2.0, cy)
         junction_x = cx - bw / 2.0 - line_len / 2.0
@@ -715,13 +658,13 @@ class MindMapNode:
             child._layout_and_draw(
                 center_xy=(child_cx, child_cy),
                 current_branch="left",
-                default_shape=new_def_shape,
-                default_size=new_def_size,
-                default_style=new_def_style,
-                default_r=new_def_r,
-                default_textstyle=new_def_textstyle,
-                default_linestyle=new_def_linestyle,
-                default_h_margin=new_def_h_margin,
-                default_v_margin=new_def_v_margin,
-                default_line_len=new_def_line_len,
+                parent_shape=parent_shape,
+                parent_size=parent_size,
+                parent_style=parent_style,
+                parent_r=parent_r,
+                parent_text_style=parent_text_style,
+                parent_line_style=parent_line_style,
+                parent_h_margin=parent_h_margin,
+                parent_v_margin=parent_v_margin,
+                parent_line_len=parent_line_len,
             )

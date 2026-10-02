@@ -18,7 +18,7 @@ from drawlib.styles import Styles
 setup(width=130, height=60)
 
 # 1. GridLayout: Cloud Architecture Layers
-grid = GridLayout(num_column=2, num_row=2, default_r=1.5, default_textstyle=Styles.WhiteBold)
+grid = GridLayout(num_column=2, num_row=2, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold, r=1.5)
 grid.add(position=(0, 1), width=2, height=1, text="API Gateway Layer", style=Styles.PrimaryFlat)
 grid.add(position=(0, 0), width=1, height=1, text="Auth Service", style=Styles.AccentFlat)
 grid.add(position=(1, 0), width=1, height=1, text="Order Service", style=Styles.SecondaryFlat)
@@ -47,7 +47,7 @@ from drawlib.smartarts import GridLayout
 from drawlib.styles import Styles
 
 setup(width=110, height=75)
-grid = GridLayout(num_column=3, num_row=3, default_r=2.0, default_textstyle=Styles.WhiteBold)
+grid = GridLayout(num_column=3, num_row=3, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold, r=2.0)
 grid.add(position=(0, 2), width=3, height=1, text="Top Header Span", style=Styles.PrimaryFlat)
 grid.add(position=(0, 0), width=1, height=2, text="Sidebar", style=Styles.SecondaryFlat)
 grid.add(position=(1, 0), width=2, height=2, text="Main Content", style=Styles.AccentFlat)
@@ -78,9 +78,9 @@ from drawlib.smartarts import BoxList
 from drawlib.styles import Styles
 
 setup(width=110, height=35)
-bl = BoxList(default_box_style=Styles.PrimaryFlat, default_text_style=Styles.WhiteBold)
+bl = BoxList(style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
 bl.append("Step 1")
-bl.append("Step 2", box_style=Styles.AccentFlat)  # Highlighted step
+bl.append("Step 2", style=Styles.AccentFlat)  # Highlighted step
 bl.append("Step 3")
 bl.draw(xy=(17, 10), box_width=25, box_height=15, align="left")
 save()
@@ -98,7 +98,7 @@ from drawlib.smartarts import BulletPoints
 from drawlib.styles import Styles
 
 setup(width=100, height=45)
-bp = BulletPoints(vertical_margin=8.0, indent_width=5.0, default_style=Styles.PrimaryBold)
+bp = BulletPoints(text_style=Styles.PrimaryBold, vertical_margin=8.0, indent_width=5.0)
 bp.set_indent(1)
 bp.add("First architectural requirement")
 bp.add("Second architectural requirement")

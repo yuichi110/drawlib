@@ -10,6 +10,7 @@
 """Unit and integration tests for BulletPoints smart art."""
 
 import pytest
+from pydantic import ValidationError
 
 from drawlib.canvas import clear, save
 from drawlib.smartarts import BulletPoints
@@ -26,7 +27,7 @@ class TestBulletPoints:
         """Verify BulletPoints rendering with multi-level indents."""
         clear()
         styles = default_styles
-        b = BulletPoints(default_style=styles.Black, vertical_margin=4, indent_width=4)
+        b = BulletPoints(text_style=styles.Black, vertical_margin=4, indent_width=4)
         b.add("level 0")
         b.set_indent(1)
         b.add("level 1-1")
@@ -43,7 +44,7 @@ class TestBulletPoints:
         """Verify BulletPoints rendering using Japanese text at multiple levels."""
         clear()
         styles = default_styles
-        b = BulletPoints(default_style=styles.Black, vertical_margin=4, indent_width=4)
+        b = BulletPoints(text_style=styles.Black, vertical_margin=4, indent_width=4)
         b.add("レベル 0")
         b.set_indent(1)
         b.add("レベル 1-1")
@@ -57,7 +58,6 @@ class TestBulletPoints:
         save(f"{OUTPUT_DIR}test_bulletpoints_japanese.png")
 
     def test_bulletpoints_missing_style_raises_error(self) -> None:
-        """Verify that missing default_style and item style raises ValueError on add."""
-        b = BulletPoints(vertical_margin=4, indent_width=4)
-        with pytest.raises(ValueError, match="Neither 'default_style' nor 'style' was provided"):
-            b.add("level 0")
+        """Verify that missing text_style raises ValidationError on __init__."""
+        with pytest.raises(ValidationError):
+            BulletPoints(vertical_margin=4, indent_width=4)  # type: ignore

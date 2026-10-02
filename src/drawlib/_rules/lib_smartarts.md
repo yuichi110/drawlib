@@ -272,10 +272,10 @@ save()
   - `"top"`: Cards stack downward (`-y`).
 
 ### 5.2 BoxList Methods
-- `BoxList(default_box_style=None, default_text_style=None)`: Initializes defaults.
-- `append(text, box_style=None, text_style=None)`: Appends a card with optional custom style override.
-- `insert(index, text, box_style=None, text_style=None)`: Inserts a card at a specified index.
-- `extend(texts, box_style=None, text_style=None)`: Batches multiple cards using default or uniform custom styles.
+- `BoxList(*, style: Style, text_style: Style)`: Initializes mandatory default box and text styles.
+- `append(text, *, style=None, text_style=None)`: Appends a card with optional custom style override.
+- `insert(index, text, *, style=None, text_style=None)`: Inserts a card at a specified index.
+- `extend(texts, *, style=None, text_style=None)`: Batches multiple cards using default or uniform custom styles.
 - `draw(xy, box_width, box_height, align="left")`: Renders all cards in specified orientation.
 
 ### 5.3 Production Example: Horizontal Service Pipeline & Status Cards
@@ -289,22 +289,22 @@ from drawlib.types import Style
 setup(width=110, height=50)
 
 pipeline = BoxList(
-    default_box_style=Styles.Primary,
-    default_text_style=Styles.WhiteBold.patch(text_size=10),
+    style=Styles.Primary,
+    text_style=Styles.WhiteBold.patch(text_size=10),
 )
 pipeline.append("1. Ingestion")
 pipeline.append("2. Validation")
 # Highlighted degraded step
 pipeline.append(
     "3. ML Inference",
-    box_style=Styles.Primary.patch(shape_fill_color=CssColors.Crimson, shape_line_color=CssColors.DarkRed, shape_line_width=1.5),
+    style=Styles.Primary.patch(shape_fill_color=CssColors.Crimson, shape_line_color=CssColors.DarkRed, shape_line_width=1.5),
     text_style=Styles.WhiteBold.patch(text_size=10),
 )
 pipeline.append("4. Persistence")
 pipeline.append("5. Dispatch")
 pipeline.draw(xy=(8, 30), box_width=18, box_height=10, align="left")
 
-status_list = BoxList(default_box_style=Styles.MutedFlat, default_text_style=Styles.WhiteBold)
+status_list = BoxList(style=Styles.MutedFlat, text_style=Styles.WhiteBold)
 status_list.extend(["Cluster A: OK", "Cluster B: OK", "Cluster C: WARN"])
 status_list.draw(xy=(8, 5), box_width=25, box_height=6, align="left")
 save()
@@ -324,28 +324,19 @@ save()
 ```python
 MindMapNode(
     text: str,
+    *,
     branch: Literal["bottom", "top", "left", "right"] | None = None,
     shape: Literal["rectangle", "oval", "none"] | None = None,
     size: tuple[float, float] | None = None,
-    style: str | Style | None = None,
+    style: Style | None = None,
     r: float | None = None,
-    textstyle: str | Style | None = None,
-    linestyle: str | Style | None = None,
+    text_style: Style | None = None,
+    line_style: Style | None = None,
     horizontal_margin: float | None = None,
     vertical_margin: float | None = None,
     line_length: float | None = None,
     xy_shift: tuple[float, float] | None = None,
     children: list[MindMapNode] | None = None,
-    default_branch: Literal["bottom", "top", "left", "right"] | None = None,
-    default_shape: Literal["rectangle", "oval", "none"] | None = None,
-    default_size: tuple[float, float] | None = None,
-    default_style: str | Style | None = None,
-    default_r: float | None = None,
-    default_textstyle: str | Style | None = None,
-    default_linestyle: str | Style | None = None,
-    default_horizontal_margin: float | None = None,
-    default_vertical_margin: float | None = None,
-    default_line_length: float | None = None,
 )
 ```
 
@@ -353,6 +344,7 @@ MindMapNode(
 - `shape`: `"rectangle"` (rounded via `r`), `"oval"`, or `"none"` (clean text label).
 - `branch`: `"bottom"` (top-down), `"top"` (bottom-up), `"right"` (left-to-right), `"left"` (right-to-left), or multi-directional.
 - `xy_shift`: Relative `(dx, dy)` offset applied after layout calculation to fine-tune placement or avoid label collisions.
+- Cascading: Children automatically inherit unassigned style, size, shape, margins, and line styles from parent nodes. Root requires `style`, `text_style`, and `line_style`.
 
 ### 6.4 Production Example: Multi-Directional Architecture Overview
 ```drawlib show-code
@@ -373,40 +365,40 @@ root = MindMapNode(
     shape="oval",
     size=(28, 12),
     style=Styles.DarkFlat,
-    textstyle=txt_white,
-    default_linestyle=Styles.Primary,
-    default_line_length=12.0,
-    default_horizontal_margin=4.0,
-    default_vertical_margin=4.0,
+    text_style=txt_white,
+    line_style=Styles.Primary,
+    line_length=12.0,
+    horizontal_margin=4.0,
+    vertical_margin=4.0,
     children=[
         MindMapNode(
-            "Client Traffic", branch="left", shape="rectangle", size=(22, 8), style=Styles.BlueFlat, textstyle=txt_white,
+            "Client Traffic", branch="left", shape="rectangle", size=(22, 8), style=Styles.BlueFlat, text_style=txt_white,
             children=[
-                MindMapNode("Web App (SPA)", shape="none", textstyle=txt_leaf),
-                MindMapNode("Mobile Apps", shape="none", textstyle=txt_leaf),
-                MindMapNode("Public REST API", shape="none", textstyle=txt_leaf),
+                MindMapNode("Web App (SPA)", shape="none", text_style=txt_leaf),
+                MindMapNode("Mobile Apps", shape="none", text_style=txt_leaf),
+                MindMapNode("Public REST API", shape="none", text_style=txt_leaf),
             ],
         ),
         MindMapNode(
-            "Internal Services", branch="right", shape="rectangle", size=(24, 8), style=Styles.GreenFlat, textstyle=txt_white,
+            "Internal Services", branch="right", shape="rectangle", size=(24, 8), style=Styles.GreenFlat, text_style=txt_white,
             children=[
-                MindMapNode("Auth Service", shape="rectangle", size=(22, 6), style=Styles.Light, textstyle=txt_child),
-                MindMapNode("Billing Engine", shape="rectangle", size=(22, 6), style=Styles.Light, textstyle=txt_child),
-                MindMapNode("Notification Hub", shape="rectangle", size=(22, 6), style=Styles.Light, textstyle=txt_child),
+                MindMapNode("Auth Service", shape="rectangle", size=(22, 6), style=Styles.Light, text_style=txt_child),
+                MindMapNode("Billing Engine", shape="rectangle", size=(22, 6), style=Styles.Light, text_style=txt_child),
+                MindMapNode("Notification Hub", shape="rectangle", size=(22, 6), style=Styles.Light, text_style=txt_child),
             ],
         ),
         MindMapNode(
-            "Telemetry Stack", branch="top", shape="rectangle", size=(24, 8), style=Styles.PurpleFlat, textstyle=txt_white,
+            "Telemetry Stack", branch="top", shape="rectangle", size=(24, 8), style=Styles.PurpleFlat, text_style=txt_white,
             children=[
-                MindMapNode("Prometheus Metrics", shape="none", textstyle=txt_leaf),
-                MindMapNode("OpenTelemetry Traces", shape="none", textstyle=txt_leaf),
+                MindMapNode("Prometheus Metrics", shape="none", text_style=txt_leaf),
+                MindMapNode("OpenTelemetry Traces", shape="none", text_style=txt_leaf),
             ],
         ),
         MindMapNode(
-            "Persistence Tier", branch="bottom", shape="rectangle", size=(24, 8), style=Styles.OrangeFlat, textstyle=txt_white,
+            "Persistence Tier", branch="bottom", shape="rectangle", size=(24, 8), style=Styles.OrangeFlat, text_style=txt_white,
             children=[
-                MindMapNode("PostgreSQL Primary", shape="none", textstyle=txt_leaf),
-                MindMapNode("Redis Cache Cluster", shape="none", textstyle=txt_leaf),
+                MindMapNode("PostgreSQL Primary", shape="none", text_style=txt_leaf),
+                MindMapNode("Redis Cache Cluster", shape="none", text_style=txt_leaf),
             ],
         ),
     ],
@@ -495,6 +487,11 @@ save()
 ### 8.2 Constructor Parameters
 ```python
 Cycle(
+    *,
+    style: Style,
+    text_style: Style,
+    description_style: Style | None = None,
+    arrow_style: Style | None = None,
     clockwise: bool = True,
     start_angle: float = 90.0,
     node_shape: Literal["circle", "rectangle", "none"] = "circle",
@@ -506,14 +503,11 @@ Cycle(
     arrow_head_width: float = 4.5,
     arrow_color_mode: Literal["monochrome", "match_source", "match_target"] = "match_source",
     arrow_gap: float = 2.5,
-    default_textstyle: Style | None = None,
-    default_description_style: Style | None = None,
-    default_arrow_style: Style | None = None,
     center_text: str = "",
     center_description: str = "",
     center_radius: float = 10.0,
     center_style: Style | None = None,
-    center_textstyle: Style | None = None,
+    center_text_style: Style | None = None,
     center_description_style: Style | None = None,
 )
 ```
@@ -521,9 +515,9 @@ Cycle(
 ### 8.3 Key Configuration Options
 - `arrow_color_mode`: `"match_source"` (matches preceding node), `"match_target"` (matches succeeding node), `"monochrome"`.
 - `description_placement`: `"inside"` (inside node body) or `"outside"` (radiates outward).
-- `append(text, style, description="", textstyle=None, description_style=None, arrow_style=None)`: Appends an individual step with mandatory `style`.
-- `extend(texts, styles, descriptions=None)`: Appends multiple step titles with a shared `Style` or list of `Style` objects.
-- `set_center(text, style=None, description="", radius=None, textstyle=None, description_style=None)`: Configures central hub node.
+- `append(text, *, style=None, text_style=None, description="", description_style=None, arrow_style=None)`: Appends an individual step.
+- `extend(texts, *, styles=None, text_styles=None, descriptions=None, description_styles=None, arrow_styles=None)`: Appends multiple step titles.
+- `set_center(text, *, style=None, text_style=None, description="", radius=None, description_style=None)`: Configures central hub node.
 
 ### 8.4 Production Example: SRE Incident Response Lifecycle
 ```drawlib show-code
@@ -536,6 +530,10 @@ from drawlib.types import Style
 setup(width=100, height=90)
 
 incident_cycle = Cycle(
+    style=Styles.RedFlat,
+    text_style=Styles.WhiteBold.patch(text_size=9),
+    description_style=Styles.White.patch(text_size=7),
+    arrow_style=Styles.PrimarySolid,
     clockwise=True,
     start_angle=90.0,
     node_shape="circle",
@@ -544,9 +542,6 @@ incident_cycle = Cycle(
     arrow_width=1.5,
     arrow_head_width=4.0,
     arrow_color_mode="match_source",
-    default_textstyle=Styles.WhiteBold.patch(text_size=9),
-    default_description_style=Styles.White.patch(text_size=7),
-    default_arrow_style=Styles.PrimarySolid,
     description_placement="inside",
 )
 incident_cycle.append("1. Detect", description="Alert Fires", style=Styles.RedFlat)
@@ -560,7 +555,7 @@ incident_cycle.set_center(
     description="Command",
     radius=11.0,
     style=Styles.DarkFlat,
-    textstyle=Styles.WhiteBold.patch(text_size=12),
+    text_style=Styles.WhiteBold.patch(text_size=12),
     description_style=Styles.White.patch(text_color=CssColors.LightGray, text_size=8),
 )
 incident_cycle.draw(xy=(50, 45), radius=32.0, align="center")
@@ -581,12 +576,14 @@ save()
 ### 9.2 Constructor & Item Addition
 ```python
 GridLayout(
+    *,
     num_column: int,
     num_row: int,
-    default_r: float = 0,
-    default_style: str | Style | None = None,
-    default_textstyle: str | Style | None = None,
-    default_textangle: float | None = None,
+    style: Style,
+    text_style: Style,
+    r: float = 0.0,
+    text_angle: float = 0.0,
+    text_xy_shift: tuple[float, float] | None = None,
 )
 ```
 
@@ -596,11 +593,12 @@ grid.add(
     position: tuple[int, int],  # (column_start, row_start)
     width: int,                 # Number of columns spanned
     height: int,                # Number of rows spanned
+    *,
     r: float | None = None,
-    style: str | Style | None = None,
+    style: Style | None = None,
     text: str = "",
-    textstyle: str | Style | None = None,
-    textangle: float | None = None,
+    text_style: Style | None = None,
+    text_angle: float | None = None,
     text_xy_shift: tuple[float, float] | None = None,
 )
 ```
@@ -619,7 +617,7 @@ from drawlib.types import Style
 
 setup(width=110, height=75)
 
-grid = GridLayout(num_column=4, num_row=4, default_r=1.5, default_style=Styles.PrimarySolid, default_textstyle=Styles.WhiteBold)
+grid = GridLayout(num_column=4, num_row=4, style=Styles.PrimarySolid, text_style=Styles.WhiteBold, r=1.5)
 
 # Row 3 (Top): Client & CDN Ingress
 grid.add(position=(0, 3), width=4, height=1, text="Edge Ingress: Cloudflare CDN & WAF Gateway", style=Styles.PurpleFlat)
@@ -722,15 +720,16 @@ save()
 ### 11.2 Constructor & Methods
 ```python
 BulletPoints(
+    *,
+    text_style: Style,
     vertical_margin: float,
     indent_width: float,
-    default_style: Style | None = None,
 )
 ```
 
 - `set_indent(level: int)`: Changes active indent level for all subsequent `add()` calls.
 - `set_bullet_style(indent_level: int, function: Callable, style: Style, args: dict)`: Overrides bullet marker shape for a specific indent level (e.g. `circle`, `rectangle`, or Phosphor icon functions).
-- `add(text: str, style: Style | None = None)`: Appends an item at current active indent level.
+- `add(text: str, *, text_style: Style | None = None)`: Appends an item at current active indent level.
 - `draw(xy: tuple[float, float])`: Renders bullet points starting from `xy`.
 
 ### 11.3 Production Example: Architecture Decision RFC Summary
@@ -746,9 +745,9 @@ from drawlib.types import Style
 setup(width=110, height=65)
 
 bp = BulletPoints(
+    text_style=Styles.Primary.patch(text_size=10, text_color=Colors.Dark),
     vertical_margin=4.5,
     indent_width=5.0,
-    default_style=Styles.Primary.patch(text_size=10, text_color=Colors.Dark),
 )
 bp.set_bullet_style(
     indent_level=1,
@@ -1044,14 +1043,14 @@ save()
   - `Table` takes `(x, y)` as **top-left** point. Providing `(10, 10)` on an $80$-tall canvas causes it to draw downward past bottom boundary ($y = 10 \to y = -35$). Use `(10, 70)`.
   - `GridLayout` takes `(x, y)` as **bottom-left** point, and `row=0` is at bottom.
 
-### 2. Missing TreeNode Defaults on Root
-- **Problem**: Calling `tree_root.draw(xy)` raises `ValueError: Root of TreeNode must be initialized with arg "default_textstyle"`.
-- **Cause**: Root `TreeNode` requires default values to propagate down to descendants that do not specify explicit styles.
-- **Resolution**: Always supply `default_textstyle`, `default_linestyle`, `default_line_horizontal_margin`, `default_line_horizontal_length`, and `default_line_vertical_margin` on root node instance.
+### 2. Missing TreeNode Styles on Root
+- **Problem**: Calling `tree_root.draw(xy)` raises `ValueError: Root of TreeNode must be initialized with "text_style"`.
+- **Cause**: Root `TreeNode` requires default style and margin values to propagate down to descendants that do not specify explicit styles.
+- **Resolution**: Always supply `text_style`, `line_style`, `line_horizontal_margin`, `line_horizontal_length`, and `line_vertical_margin` on the root node instance.
 
 ### 3. Subtree Overlaps in MindMapNode
 - **Problem**: Sibling subtrees collide or overlap when branching in same direction.
-- **Resolution**: Increase `default_horizontal_margin` (for `"bottom"` or `"top"` branches) or `default_vertical_margin` (for `"left"` or `"right"` branches). You can also apply localized `xy_shift=(dx, dy)` on problematic child nodes.
+- **Resolution**: Increase `horizontal_margin` (for `"bottom"` or `"top"` branches) or `vertical_margin` (for `"left"` or `"right"` branches). You can also apply localized `xy_shift=(dx, dy)` on problematic child nodes.
 
 ### 4. bubblespeech Ratio Assertions
 - **Problem**: `ValueError: tail_start_ratio must be smaller than tail_end_ratio`.

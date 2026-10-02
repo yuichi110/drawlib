@@ -15,6 +15,7 @@ import tempfile
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 
 from drawlib import canvas
 from drawlib.smartarts import Cycle
@@ -28,7 +29,8 @@ class TestCycleUnit:
 
     def test_initialization(self) -> None:
         """Test default parameters of Cycle."""
-        c = Cycle()
+        styles = default_styles
+        c = Cycle(style=styles.PrimarySolid, text_style=styles.WhiteBold)
         assert c._clockwise is True
         assert c._start_angle == 90.0
         assert c._node_shape == "circle"
@@ -40,9 +42,10 @@ class TestCycleUnit:
         """Test adding items via append and extend."""
         styles = default_styles
         c = Cycle(
-            default_textstyle=styles.WhiteBold,
-            default_description_style=styles.White,
-            default_arrow_style=styles.PrimarySolid,
+            style=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            description_style=styles.White,
+            arrow_style=styles.PrimarySolid,
         )
         c.append("Plan", style=styles.PrimarySolid, description="Define goals")
         assert len(c.items) == 1
@@ -62,9 +65,10 @@ class TestCycleUnit:
         """Test inserting item at specific index."""
         styles = default_styles
         c = Cycle(
-            default_textstyle=styles.WhiteBold,
-            default_description_style=styles.White,
-            default_arrow_style=styles.PrimarySolid,
+            style=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            description_style=styles.White,
+            arrow_style=styles.PrimarySolid,
         )
         c.append("Plan", style=styles.PrimarySolid)
         c.append("Act", style=styles.PrimarySolid)
@@ -79,35 +83,41 @@ class TestCycleUnit:
     def test_set_center(self) -> None:
         """Test configuring center node for Radial Cycle."""
         styles = default_styles
-        c = Cycle()
+        c = Cycle(style=styles.PrimarySolid, text_style=styles.WhiteBold)
         c.set_center(text="Core", style=styles.PrimarySolid, description="Central Hub", radius=12.0)
         assert c._center_text == "Core"
         assert c._center_description == "Central Hub"
         assert c._center_radius == 12.0
 
     def test_cycle_missing_style_raises_error(self) -> None:
-        """Verify that missing style, textstyle, etc. raises appropriate errors."""
-        c = Cycle()
-        with pytest.raises((TypeError, ValueError)):
-            getattr(c, "append")("Plan")
+        """Verify that missing mandatory styles raises ValidationError on __init__."""
+        with pytest.raises(ValidationError):
+            Cycle()  # type: ignore
 
         styles = default_styles
-        c_no_text = Cycle()
-        with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
-            c_no_text.append("Plan", style=styles.PrimarySolid)
+        with pytest.raises(ValidationError):
+            Cycle(style=styles.PrimarySolid)  # type: ignore
 
-        c_no_arrow = Cycle(default_textstyle=styles.WhiteBold, arrow_color_mode="monochrome")
-        with pytest.raises(ValueError, match="Neither 'default_arrow_style' nor 'arrow_style' was provided"):
-            c_no_arrow.append("Plan", style=styles.PrimarySolid)
+        with pytest.raises(ValidationError):
+            Cycle(text_style=styles.WhiteBold)  # type: ignore
+
+        c_no_arrow = Cycle(
+            style=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            arrow_color_mode="monochrome",
+        )
+        with pytest.raises(ValueError, match="Neither default 'arrow_style' nor item 'arrow_style' was provided"):
+            c_no_arrow.append("Plan")
 
         c_no_desc = Cycle(
-            default_textstyle=styles.WhiteBold,
-            default_arrow_style=styles.PrimarySolid,
+            style=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            arrow_style=styles.PrimarySolid,
         )
         with pytest.raises(
-            ValueError, match="Neither 'default_description_style' nor 'description_style' was provided"
+            ValueError, match="Neither default 'description_style' nor item 'description_style' was provided"
         ):
-            c_no_desc.append("Plan", style=styles.PrimarySolid, description="Detail")
+            c_no_desc.append("Plan", description="Detail")
 
 
 class TestCycleRendering:
@@ -121,9 +131,10 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_description_style=styles.White,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                description_style=styles.White,
+                arrow_style=styles.PrimarySolid,
             )
             c.append("Plan", style=styles.PrimarySolid, description="Define objectives")
             c.append("Do", style=styles.PrimarySolid, description="Implement plan")
@@ -144,13 +155,14 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                arrow_style=styles.PrimarySolid,
                 center_text="PDCA",
                 center_description="Loop",
                 center_radius=11.0,
                 center_style=styles.PrimarySolid,
-                center_textstyle=styles.WhiteBold,
+                center_text_style=styles.WhiteBold,
                 center_description_style=styles.White,
             )
             c.extend(["Plan", "Do", "Check", "Act"], styles=styles.PrimarySolid)
@@ -169,9 +181,10 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_description_style=styles.Black,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                description_style=styles.Black,
+                arrow_style=styles.PrimarySolid,
                 description_placement="outside",
                 node_radius=7.0,
             )
@@ -194,9 +207,10 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_description_style=styles.White,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                description_style=styles.White,
+                arrow_style=styles.PrimarySolid,
                 node_shape="rectangle",
                 node_size=(20.0, 10.0),
                 arrow_color_mode="monochrome",
@@ -221,8 +235,9 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                arrow_style=styles.PrimarySolid,
                 arrow_type="line",
                 arrow_width=2.5,
             )
@@ -242,8 +257,9 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                arrow_style=styles.PrimarySolid,
                 clockwise=False,
             )
             c.extend(["A", "B", "C"], styles=styles.PrimarySolid)
@@ -262,9 +278,10 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_description_style=styles.White,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                description_style=styles.White,
+                arrow_style=styles.PrimarySolid,
             )
             c.append("Input", style=styles.PrimarySolid, description="Feedback")
             c.append("Output", style=styles.PrimarySolid, description="Response")
@@ -283,15 +300,18 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
                 center_text="Empty Hub",
                 center_style=styles.PrimarySolid,
-                center_textstyle=styles.WhiteBold,
+                center_text_style=styles.WhiteBold,
             )
             c.draw(xy=(50.0, 50.0))
 
             c2 = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                arrow_style=styles.PrimarySolid,
             )
             c2.append("Solo", style=styles.PrimarySolid)
             c2.draw(xy=(50.0, 50.0))
@@ -308,8 +328,9 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                default_textstyle=styles.WhiteBold,
-                default_arrow_style=styles.PrimarySolid,
+                style=styles.PrimarySolid,
+                text_style=styles.WhiteBold,
+                arrow_style=styles.PrimarySolid,
             )
             c.extend(["Alpha", "Beta", "Gamma"], styles=[styles.GreenFlat, styles.BlueFlat, styles.RedFlat])
 

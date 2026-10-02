@@ -25,21 +25,11 @@ class _GridLayoutItem(BaseModel):
     r: PosFloat
     style: Style
     text: str
-    textstyle: Style
+    text_style: Style
 
 
 class GridLayout:
-    """Class for rendering multiple rectangles which fit to grid.
-
-    Args:
-        num_column (int): The number of columns in the grid.
-        num_row (int): The number of rows in the grid.
-        default_r (int, optional): The default radius for the rectangles. Defaults to 0.
-        default_style (Style, optional): The default style for the rectangles. Defaults to None.
-        default_textstyle (Style, optional): The default text style for the rectangles. Defaults to None.
-        default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
-            If None, no angle is applied. Defaults to None.
-    """
+    """Class for rendering multiple rectangles which fit to grid."""
 
     @validate_call
     def __init__(
@@ -47,28 +37,30 @@ class GridLayout:
         *,
         num_column: PosInt,
         num_row: PosInt,
-        default_r: PosFloat = 0,
-        default_style: Style | None = None,
-        default_textstyle: Style | None = None,
-        default_textangle: Angle | None = None,
+        style: Style,
+        text_style: Style,
+        r: PosFloat = 0.0,
+        text_angle: Angle = 0.0,
+        text_xy_shift: Coordinate | None = None,
     ) -> None:
         """Initializes a GridLayout instance.
 
         Args:
-            num_column (int): The number of columns in the grid.
-            num_row (int): The number of rows in the grid.
-            default_r (int, optional): The default radius for the rectangles. Defaults to 0.
-            default_style (Style, optional): The default style for the rectangles. Defaults to None.
-            default_textstyle (Style, optional): The default text style for the rectangles. Defaults to None.
-            default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
-                If None, no angle is applied. Defaults to None.
+            num_column: The number of columns in the grid.
+            num_row: The number of rows in the grid.
+            style: The default style for the cell rectangles.
+            text_style: The default text style for the cell text.
+            r: The default radius for the rectangles. Defaults to 0.0.
+            text_angle: The default angle for the text inside the rectangles. Defaults to 0.0.
+            text_xy_shift: The default (x, y) offset shift for the text. Defaults to None.
         """
         self._num_column = num_column
         self._num_row = num_row
-        self._default_r = default_r
-        self._default_style = default_style
-        self._default_textstyle = default_textstyle
-        self._default_textangle = default_textangle
+        self._r = r
+        self._style = style
+        self._text_style = text_style
+        self._text_angle = text_angle
+        self._text_xy_shift = text_xy_shift
 
         self._items: list[_GridLayoutItem] = []
 
@@ -78,13 +70,30 @@ class GridLayout:
         position: tuple[PosInt, PosInt],
         width: PosInt,
         height: PosInt,
+        *,
         r: PosFloat | None = None,
         style: Style | None = None,
         text: str = "",
-        textstyle: Style | None = None,
-        textangle: Angle | None = None,
+        text_style: Style | None = None,
+        text_angle: Angle | None = None,
         text_xy_shift: Coordinate | None = None,
     ) -> None:
+        """Add a cell spanning one or more grid positions.
+
+        Args:
+            position: Starting (column, row) coordinate for the cell.
+            width: Number of columns this cell spans.
+            height: Number of rows this cell spans.
+            r: Corner radius for the cell rectangle. If None, default r is used.
+            style: Style for the cell rectangle. If None, default style is used.
+            text: Text to display inside the cell.
+            text_style: Style for the text. If None, default text_style is used.
+            text_angle: Angle for the text. If None, default text_angle is used.
+            text_xy_shift: (x, y) offset shift for the text. If None, default text_xy_shift is used.
+
+        Raises:
+            ValueError: If width/height < 1 or position is out of grid bounds.
+        """
         if width < 1:
             raise ValueError("Grid cell must have 1+ columns")
         if height < 1:
@@ -103,39 +112,29 @@ class GridLayout:
         if row_end >= self._num_row:
             raise ValueError("Grid cell's row start position must be between 0 ~ last-column.")
 
-        if r is None:
-            r = self._default_r
-        resolved_style = style if style is not None else self._default_style
-        if resolved_style is None:
-            raise ValueError(f"Neither 'default_style' nor 'style' was provided for grid cell at {position}.")
+        cell_r = r if r is not None else self._r
+        resolved_style = style if style is not None else self._style
         resolved_style = resolved_style.patch(text_halign="left", text_valign="bottom")
 
-        resolved_textstyle = textstyle if textstyle is not None else self._default_textstyle
-        if bool(text.strip()) and resolved_textstyle is None:
-            raise ValueError(
-                "Neither 'default_textstyle' nor 'textstyle' was provided "
-                f"for text '{text}' in grid cell at {position}."
-            )
-        resolved_textstyle = resolved_textstyle or Style()
-
-        if textangle is None:
-            textangle = self._default_textangle
+        resolved_text_style = text_style if text_style is not None else self._text_style
+        resolved_angle = text_angle if text_angle is not None else self._text_angle
+        resolved_shift = text_xy_shift if text_xy_shift is not None else self._text_xy_shift
 
         patch_kwargs: dict = {}
-        if textangle is not None:
-            patch_kwargs["text_angle"] = textangle
-        if text_xy_shift is not None:
-            patch_kwargs["text_xy_shift"] = text_xy_shift
+        if resolved_angle != 0.0:
+            patch_kwargs["text_angle"] = resolved_angle
+        if resolved_shift is not None:
+            patch_kwargs["text_xy_shift"] = resolved_shift
         if patch_kwargs:
-            resolved_textstyle = resolved_textstyle.patch(**patch_kwargs)
+            resolved_text_style = resolved_text_style.patch(**patch_kwargs)
 
         item = _GridLayoutItem(
             column_range=(column_start, column_end),
             row_range=(row_start, row_end),
-            r=r,
+            r=cell_r,
             text=text,
             style=resolved_style,
-            textstyle=resolved_textstyle,
+            text_style=resolved_text_style,
         )
         self._items.append(item)
 
@@ -219,7 +218,7 @@ class GridLayout:
         if outer_style is not None:
             outer_style = outer_style.patch(text_halign="left", text_valign="bottom")
             if outer_r is None:
-                outer_r = self._default_r
+                outer_r = self._r
 
             rectangle(
                 xy=xy,
@@ -250,7 +249,7 @@ class GridLayout:
             r = item.r
             style = item.style
             text = item.text
-            textstyle = item.textstyle
+            text_style = item.text_style
 
             cr0 = column_range[0]
             cr1 = column_range[1]
@@ -273,5 +272,5 @@ class GridLayout:
                 r=r,
                 style=style,
                 text=text,
-                textstyle=textstyle,
+                textstyle=text_style,
             )

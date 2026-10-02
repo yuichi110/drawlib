@@ -47,12 +47,12 @@ class TestMindMapNode:
             shape="rectangle",
             size=(22.0, 8.0),
             style=styles.PrimarySolid,
-            default_size=(18.0, 7.0),
-            default_style=styles.PrimarySolid,
-            default_linestyle=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            line_style=styles.PrimarySolid,
             children=[
                 MindMapNode(
                     "CTO",
+                    size=(18.0, 7.0),
                     children=[
                         MindMapNode("Dev Team", shape="none"),
                         MindMapNode("QA Team", shape="none"),
@@ -60,6 +60,7 @@ class TestMindMapNode:
                 ),
                 MindMapNode(
                     "CFO",
+                    size=(18.0, 7.0),
                     children=[
                         MindMapNode("Accounting", shape="none"),
                     ],
@@ -77,8 +78,9 @@ class TestMindMapNode:
             "Root",
             shape="rectangle",
             size=(20.0, 8.0),
-            default_style=styles.PrimarySolid,
-            default_linestyle=styles.PrimarySolid,
+            style=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            line_style=styles.PrimarySolid,
             children=[
                 MindMapNode("Leaf A"),
                 MindMapNode("Leaf B"),
@@ -95,8 +97,9 @@ class TestMindMapNode:
             "Topic",
             shape="oval",
             size=(20.0, 10.0),
-            default_style=styles.PrimarySolid,
-            default_linestyle=styles.PrimarySolid,
+            style=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            line_style=styles.PrimarySolid,
             children=[
                 MindMapNode("Sub 1", shape="rectangle"),
                 MindMapNode("Sub 2", shape="none"),
@@ -113,8 +116,9 @@ class TestMindMapNode:
             "Topic",
             shape="oval",
             size=(20.0, 10.0),
-            default_style=styles.PrimarySolid,
-            default_linestyle=styles.PrimarySolid,
+            style=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            line_style=styles.PrimarySolid,
             children=[
                 MindMapNode("Sub 1", shape="rectangle"),
                 MindMapNode("Sub 2", shape="none"),
@@ -132,14 +136,15 @@ class TestMindMapNode:
             shape="oval",
             size=(26.0, 12.0),
             style=styles.PrimaryBold,
-            default_style=styles.PrimarySolid,
-            default_linestyle=styles.PrimarySolid,
+            text_style=styles.Primary,
+            line_style=styles.PrimarySolid,
             children=[
                 # Right branch
                 MindMapNode(
                     "Pros",
                     branch="right",
                     shape="rectangle",
+                    size=(20.0, 8.0),
                     style=styles.PrimarySolid,
                     children=[
                         MindMapNode("Speed", shape="none"),
@@ -151,6 +156,7 @@ class TestMindMapNode:
                     "Cons",
                     branch="left",
                     shape="rectangle",
+                    size=(20.0, 8.0),
                     style=styles.PrimarySolid,
                     children=[
                         MindMapNode("Complexity", shape="none"),
@@ -161,6 +167,7 @@ class TestMindMapNode:
                     "Goals",
                     branch="top",
                     shape="rectangle",
+                    size=(20.0, 8.0),
                     style=styles.PrimarySolid,
                 ),
                 # Bottom branch
@@ -168,6 +175,7 @@ class TestMindMapNode:
                     "Next Steps",
                     branch="bottom",
                     shape="rectangle",
+                    size=(20.0, 8.0),
                     style=styles.PrimarySolid,
                     xy_shift=(0.0, -2.0),
                 ),
@@ -177,14 +185,16 @@ class TestMindMapNode:
         save(f"{OUTPUT_DIR}test_mindmap_multi.png")
 
     def test_mindmap_missing_style_raises_error(self) -> None:
-        """Verify that root without style/linestyle raises ValueError on draw."""
+        """Verify that root without style/text_style/line_style raises ValueError on draw."""
+        styles = default_styles
         root_no_style = MindMapNode("Root")
-        with pytest.raises(ValueError, match='Root of MindMapNode must have "default_style" or "style" specified.'):
+        with pytest.raises(ValueError, match='Root of MindMapNode must be initialized with "style".'):
             root_no_style.draw(xy=(50.0, 50.0))
 
-        styles = default_styles
-        root_no_linestyle = MindMapNode("Root", style=styles.PrimarySolid)
-        with pytest.raises(
-            ValueError, match='Root of MindMapNode must have "default_linestyle" or "linestyle" specified.'
-        ):
-            root_no_linestyle.draw(xy=(50.0, 50.0))
+        root_no_text_style = MindMapNode("Root", style=styles.PrimarySolid)
+        with pytest.raises(ValueError, match='Root of MindMapNode must be initialized with "text_style".'):
+            root_no_text_style.draw(xy=(50.0, 50.0))
+
+        root_no_line_style = MindMapNode("Root", style=styles.PrimarySolid, text_style=styles.WhiteBold)
+        with pytest.raises(ValueError, match='Root of MindMapNode must be initialized with "line_style".'):
+            root_no_line_style.draw(xy=(50.0, 50.0))

@@ -10,6 +10,7 @@
 """Unit and integration tests for GridLayout smart art."""
 
 import pytest
+from pydantic import ValidationError
 
 from drawlib.canvas import clear, save
 from drawlib.smartarts import GridLayout
@@ -29,9 +30,9 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=3,
             num_row=3,
-            default_r=2,
-            default_style=styles.PrimarySolid,
-            default_textstyle=styles.PrimaryBold,
+            r=2,
+            style=styles.PrimarySolid,
+            text_style=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
@@ -48,12 +49,12 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=3,
             num_row=3,
-            default_r=2,
-            default_style=styles.PrimarySolid,
-            default_textstyle=styles.PrimaryBold,
+            r=2,
+            style=styles.PrimarySolid,
+            text_style=styles.PrimaryBold,
         )
-        gl.add((0, 0), 1, 1, text="A", textangle=270)
-        gl.add((0, 1), 1, 1, text="B", textangle=90)
+        gl.add((0, 0), 1, 1, text="A", text_angle=270)
+        gl.add((0, 1), 1, 1, text="B", text_angle=90)
         gl.add((0, 2), 1, 1, text="C")
         gl.add((1, 0), 1, 3, text="D")
         gl.add((2, 0), 1, 1, text="E")
@@ -67,9 +68,9 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=3,
             num_row=3,
-            default_r=2,
-            default_style=styles.PrimarySolid,
-            default_textstyle=styles.PrimaryBold,
+            r=2,
+            style=styles.PrimarySolid,
+            text_style=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A", text_xy_shift=(3, 3))
         gl.add((0, 1), 1, 1, text="B", text_xy_shift=(-3, -3))
@@ -86,9 +87,9 @@ class TestGridLayout:
         gl = GridLayout(
             num_column=3,
             num_row=3,
-            default_r=2,
-            default_style=styles.PrimarySolid,
-            default_textstyle=styles.PrimaryBold,
+            r=2,
+            style=styles.PrimarySolid,
+            text_style=styles.PrimaryBold,
         )
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
@@ -100,12 +101,13 @@ class TestGridLayout:
         save(f"{OUTPUT_DIR}test_gridlayout_outerstyle.png")
 
     def test_gridlayout_missing_style_raises_error(self) -> None:
-        """Verify that missing default_style or default_textstyle raises ValueError on add."""
-        gl_no_style = GridLayout(num_column=2, num_row=2)
-        with pytest.raises(ValueError, match="Neither 'default_style' nor 'style' was provided"):
-            gl_no_style.add((0, 0), 1, 1)
-
+        """Verify that missing default styles raises ValidationError on __init__."""
         styles = default_styles
-        gl_no_textstyle = GridLayout(num_column=2, num_row=2, default_style=styles.PrimarySolid)
-        with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
-            gl_no_textstyle.add((0, 0), 1, 1, text="Test")
+        with pytest.raises(ValidationError):
+            GridLayout(num_column=2, num_row=2)  # type: ignore
+
+        with pytest.raises(ValidationError):
+            GridLayout(num_column=2, num_row=2, style=styles.PrimarySolid)  # type: ignore
+
+        with pytest.raises(ValidationError):
+            GridLayout(num_column=2, num_row=2, text_style=styles.PrimaryBold)  # type: ignore

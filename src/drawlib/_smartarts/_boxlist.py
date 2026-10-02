@@ -25,7 +25,7 @@ class _Item(BaseModel):
     """Internal item class for BoxList."""
 
     text: str
-    box_style: Style
+    style: Style
     text_style: Style
     is_custom_style: bool
 
@@ -37,44 +37,43 @@ class BoxList:
     def __init__(
         self,
         *,
-        default_box_style: Style | None = None,
-        default_text_style: Style | None = None,
+        style: Style,
+        text_style: Style,
     ) -> None:
         """Initialize BoxList.
 
         Args:
-            default_box_style: The default style for the boxes.
-            default_text_style: The default style for the text inside the boxes.
+            style: The default style for the boxes.
+            text_style: The default style for the text inside the boxes.
         """
-        if default_box_style is not None:
-            default_box_style = default_box_style.patch(text_halign="center", text_valign="center")
-        self._default_box_style = default_box_style
-        self._default_text_style = default_text_style
-
+        self._style = style.patch(text_halign="center", text_valign="center")
+        self._text_style = text_style
         self._list: list[_Item] = []
 
     @validate_call
     def append(
         self,
         text: str,
-        box_style: Style | None = None,
+        *,
+        style: Style | None = None,
         text_style: Style | None = None,
     ) -> None:
         """Append a box item to the list.
 
         Args:
             text: Text to display in the box.
-            box_style: Style for the box.
-            text_style: Style for the text inside the box.
+            style: Style for the box. If None, default style is used.
+            text_style: Style for the text inside the box. If None, default text_style is used.
         """
-        self.extend([text], box_style=box_style, text_style=text_style)
+        self.extend([text], style=style, text_style=text_style)
 
     @validate_call
     def insert(
         self,
         index: int,
         text: str,
-        box_style: Style | None = None,
+        *,
+        style: Style | None = None,
         text_style: Style | None = None,
     ) -> None:
         """Insert a box item at the specified index.
@@ -82,29 +81,25 @@ class BoxList:
         Args:
             index: Index where the item should be inserted.
             text: Text to display in the box.
-            box_style: Style for the box.
-            text_style: Style for the text inside the box.
+            style: Style for the box. If None, default style is used.
+            text_style: Style for the text inside the box. If None, default text_style is used.
         """
-        is_custom_style = box_style is not None or text_style is not None
+        is_custom_style = style is not None or text_style is not None
 
-        if box_style is not None:
-            box_style_resolved = box_style.patch(text_halign="center", text_valign="center")
-        elif self._default_box_style is not None:
-            box_style_resolved = self._default_box_style
+        if style is not None:
+            resolved_style = style.patch(text_halign="center", text_valign="center")
         else:
-            raise ValueError(f"Neither 'default_box_style' nor 'box_style' was provided for item '{text}'.")
+            resolved_style = self._style
 
         if text_style is not None:
-            text_style_resolved = text_style
-        elif self._default_text_style is not None:
-            text_style_resolved = self._default_text_style
+            resolved_text_style = text_style
         else:
-            raise ValueError(f"Neither 'default_text_style' nor 'text_style' was provided for item '{text}'.")
+            resolved_text_style = self._text_style
 
         item = _Item(
             text=text,
-            box_style=box_style_resolved,
-            text_style=text_style_resolved,
+            style=resolved_style,
+            text_style=resolved_text_style,
             is_custom_style=is_custom_style,
         )
         self._list.insert(index, item)
@@ -113,18 +108,19 @@ class BoxList:
     def extend(
         self,
         texts: list[str],
-        box_style: Style | None = None,
+        *,
+        style: Style | None = None,
         text_style: Style | None = None,
     ) -> None:
         """Extend the list with multiple box items.
 
         Args:
             texts: List of text strings to add as boxes.
-            box_style: Style for the boxes.
-            text_style: Style for the text inside the boxes.
+            style: Style for the boxes. If None, default style is used.
+            text_style: Style for the text inside the boxes. If None, default text_style is used.
         """
         for text in texts:
-            self.insert(len(self._list), text, box_style=box_style, text_style=text_style)
+            self.insert(len(self._list), text, style=style, text_style=text_style)
 
     @validate_call
     def draw(
@@ -152,7 +148,7 @@ class BoxList:
                 text=item.text,
                 box_width=box_width,
                 box_height=box_height,
-                box_style=item.box_style,
+                style=item.style,
                 text_style=item.text_style,
                 align=align,
             )
@@ -167,7 +163,7 @@ class BoxList:
                 text=item.text,
                 box_width=box_width,
                 box_height=box_height,
-                box_style=item.box_style,
+                style=item.style,
                 text_style=item.text_style,
                 align=align,
             )
@@ -179,7 +175,7 @@ class BoxList:
         text: str,
         box_width: PosFloat,
         box_height: PosFloat,
-        box_style: Style,
+        style: Style,
         text_style: Style,
         align: Literal["left", "right", "bottom", "top"],
     ) -> None:
@@ -200,7 +196,7 @@ class BoxList:
             xy=(x, y),
             width=box_width,
             height=box_height,
-            style=box_style,
+            style=style,
             text=text,
             textstyle=text_style,
         )
