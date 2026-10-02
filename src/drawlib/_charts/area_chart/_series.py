@@ -32,6 +32,7 @@ class Series:
         line_style: LineStyle = "solid",
         point_shape: PointShape = "none",
         point_size: float = 1.0,
+        legend_text_style: Style | None = None,
     ) -> None:
         """Initialize Series.
 
@@ -44,6 +45,7 @@ class Series:
             line_style: Stroke style ("solid", "dashed", "dotted"). Defaults to "solid".
             point_shape: Marker shape at data vertices. Defaults to "none".
             point_size: Marker radius. Defaults to 1.0.
+            legend_text_style: Optional custom text style for this series in legend.
         """
         self.name = name
         self.values: list[float] = [float(v) for v in values]
@@ -53,3 +55,4 @@ class Series:
         self.line_style: LineStyle = line_style
         self.point_shape: PointShape = point_shape
         self.point_size: float = float(point_size)
+        self.legend_text_style: Style | None = legend_text_style

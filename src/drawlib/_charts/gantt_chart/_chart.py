@@ -32,34 +32,40 @@ class GanttChart:
     def __init__(
         self,
         columns: list[str],
+        axis_line_style: Style,
+        axis_text_style: Style | None = None,
+        header_style: Style | None = None,
+        grid_style: Style | None = None,
+        zebra_style: Style | None = None,
+        progress_text_style: Style | None = None,
+        background_style: Style | None = None,
+        title: str = "",
+        title_style: Style | None = None,
         width: float = 90.0,
         height: float | None = None,
         row_height: float = 4.5,
         header_height: float = 5.5,
         label_width: float = 24.0,
-        title: str = "",
-        title_style: Style | None = None,
-        header_style: Style | None = None,
-        grid_style: Style | None = None,
-        show_vertical_grid: bool = True,
-        show_zebra: bool = True,
         bar_radius: float = 0.8,
     ) -> None:
         """Initialize GanttChart.
 
         Args:
             columns: Ordered sequence of timeline interval names (e.g. months, weeks, sprints).
+            axis_line_style: Required Style for header dividing lines and table axis lines.
+            axis_text_style: Optional Style for column header and task label typography.
+            header_style: Optional Style overriding header row background card.
+            grid_style: Optional Style for vertical timeline gridlines. If None, vertical lines are omitted.
+            zebra_style: Optional Style for alternating row backgrounds. If None, zebra striping is omitted.
+            progress_text_style: Optional Style for progress percentage text on task bars.
+            background_style: Optional Style for chart background card.
+            title: Title text displayed at the top. Defaults to "".
+            title_style: Optional Style overriding title typography.
             width: Overall chart bounding box width. Defaults to 90.0.
             height: Overall chart bounding box height. If None, calculated from row count.
             row_height: Vertical height per task or section row. Defaults to 4.5.
             header_height: Height of the column header band. Defaults to 5.5.
             label_width: Horizontal width allocated for the left task label column. Defaults to 24.0.
-            title: Title text displayed at the top. Defaults to "".
-            title_style: Optional Style overriding title typography.
-            header_style: Optional Style overriding header cells.
-            grid_style: Optional Style overriding vertical grid divider lines.
-            show_vertical_grid: Whether to draw vertical column boundary lines. Defaults to True.
-            show_zebra: Whether to alternate row background colors. Defaults to True.
             bar_radius: Corner rounding radius for task bars. Defaults to 0.8.
 
         Raises:
@@ -69,17 +75,21 @@ class GanttChart:
             raise ValueError("GanttChart requires at least 1 column.")
 
         self._columns = list(columns)
+        self.axis_line_style: Style = axis_line_style
+        self.axis_text_style: Style | None = axis_text_style
+        self.header_style: Style | None = header_style
+        self.grid_style: Style | None = grid_style
+        self.zebra_style: Style | None = zebra_style
+        self.progress_text_style: Style | None = progress_text_style
+        self.background_style: Style | None = background_style
+        self.title = title
+        self.title_style: Style | None = title_style
+
         self.width = float(width)
         self.height = float(height) if height is not None else None
         self.row_height = float(row_height)
         self.header_height = float(header_height)
         self.label_width = float(label_width)
-        self.title = title
-        self.title_style: Style | None = title_style
-        self.header_style: Style | None = header_style
-        self.grid_style: Style | None = grid_style
-        self.show_vertical_grid = show_vertical_grid
-        self.show_zebra = show_zebra
         self.bar_radius = float(bar_radius)
 
         self._items: list[Task | Section | Milestone] = []
@@ -113,7 +123,7 @@ class GanttChart:
         end: str | float,
         style: Style,
         progress: float = 0.0,
-        show_progress_text: bool = True,
+        progress_text_style: Style | None = None,
     ) -> Task:
         """Add a scheduled task to the chart.
 
@@ -123,7 +133,7 @@ class GanttChart:
             end: End column name or numerical index.
             style: Style defining task bar appearance.
             progress: Progress ratio from 0.0 to 1.0. Defaults to 0.0.
-            show_progress_text: Whether to print progress percentage. Defaults to True.
+            progress_text_style: Optional Style for progress percentage text.
 
         Returns:
             Task: The newly registered task item.
@@ -134,7 +144,7 @@ class GanttChart:
             end=end,
             style=style,
             progress=progress,
-            show_progress_text=show_progress_text,
+            progress_text_style=progress_text_style,
         )
         self._items.append(task)
         return task
@@ -143,12 +153,14 @@ class GanttChart:
         self,
         name: str,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> Section:
         """Add a category section divider row.
 
         Args:
             name: Section label text.
             style: Optional Style overriding section banner appearance.
+            text_style: Optional Style overriding section text typography.
 
         Returns:
             Section: The newly registered section item.
@@ -156,6 +168,7 @@ class GanttChart:
         section = Section(
             name=name,
             style=style,
+            text_style=text_style,
         )
         self._items.append(section)
         return section
@@ -189,6 +202,7 @@ class GanttChart:
         at: str | float,
         style: Style,
         label: str = "",
+        label_style: Style | None = None,
     ) -> Marker:
         """Add a vertical reference highlight line (e.g. today).
 
@@ -196,6 +210,7 @@ class GanttChart:
             at: Column name or numerical index where the line is anchored.
             style: Style defining line appearance.
             label: Badge text displayed above the line. Defaults to "".
+            label_style: Optional Style for marker label text.
 
         Returns:
             Marker: The newly registered marker item.
@@ -204,6 +219,7 @@ class GanttChart:
             at=at,
             style=style,
             label=label,
+            label_style=label_style,
         )
         self._markers.append(marker)
         return marker
@@ -237,7 +253,7 @@ class GanttChart:
         if self.height is not None:
             return (self.width, self.height)
 
-        title_h = 7.0 if self.title else 0.0
+        title_h = 7.0 if (self.title and self.title_style is not None) else 0.0
         padding_y = 6.0
         calculated_h = title_h + self.header_height + len(self._items) * self.row_height + padding_y
         return (self.width, max(20.0, calculated_h))

@@ -26,34 +26,23 @@ Area charts support two core operational modes:
 
 ```python
 from drawlib.charts.area import AreaChart
+from drawlib.styles import Styles
 
 chart = AreaChart(
+    axis_line_style=Styles.MutedDashed,
     categories=["2021", "2022", "2023", "2024", "2025"],
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
     width=80.0,
     height=55.0,
     title="Cumulative Revenue Streams",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     mode="stack",               # "stack" or "overlap"
     fill_alpha=0.65,            # Polygon fill opacity (0.0 to 1.0)
     smooth=False,               # Smooth spline curve or straight lines
     show_points=False,          # Draw vertex markers
-    legend_position="top",      # "top", "bottom", "right", "none", "auto"
 )
 ```
-
-### Parameter Reference
-
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `categories` | `list[str]` | Required | Category labels along the horizontal X-axis. |
-| `width` / `height` | `float` | `80.0` / `50.0` | Bounding box dimensions on the canvas. |
-| `title` | `str` | `""` | Chart title displayed at the top. |
-| `mode` | `"overlap"` \| `"stack"` | `"overlap"` | Cumulative stacked or overlapping volume. |
-| `fill_alpha` | `float` | `0.35` | Transparency opacity of the area fill polygon. |
-| `smooth` | `bool` | `False` | When `True`, renders smooth cubic-like curves. |
-| `show_points` | `bool` | `False` | Whether to draw marker points at vertex coordinates. |
-| `point_shape` | `"circle"` \| `"square"` \| `"none"` | `"none"` | Shape of vertex markers. |
-| `point_size` | `float` | `1.0` | Radius or half-width of vertex markers. |
-| `legend_position` | `LegendPosition` | `"auto"` | Position of the legend box. |
 
 ---
 
@@ -84,11 +73,3 @@ When comparing independent metrics that share the same scale (such as network in
 </figure>
 
 
-
----
-
-## 5. Best Practices & Guidelines
-
-1. **Alpha Selection in Overlap Mode**: Keep `fill_alpha` between `0.25` and `0.45` when overlapping 2–3 series. Higher opacity makes back layers invisible.
-2. **Order of Series in Stack Mode**: Define the most stable, foundational series first (it anchors the bottom of the stack), and place fluctuating series higher up.
-3. **Axis Anchoring**: Area charts must always anchor the value axis to zero (`min_value=0.0`) so proportional visual areas represent accurate relative quantities.

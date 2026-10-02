@@ -18,8 +18,9 @@
 ```
 
 - **Dual Continuous Axes**: Unlike categorical charts where the X-axis represents discrete bins, `ScatterChart` computes independent numerical scales for both axes using linear or logarithmic scaling.
-- **Annotated Individual Points**: Use `chart.add()` to place highlighted reference points with dedicated text callouts (e.g., benchmark baselines or SLA targets).
-- **Multidimensional Bubble Plots**: Passing 3-tuples `(x, y, radius)` to `add_series()` scales point sizes dynamically to communicate a third dimension (such as cost, memory footprint, or cluster size).
+- **Annotated Individual Points**: Use `chart.add()` to place highlighted reference points with dedicated text callouts.
+- **Multidimensional Bubble Plots**: Passing 3-tuples `(x, y, radius)` to `add_series()` scales point sizes dynamically to communicate a third dimension.
+- **Decoupled Legend**: Render series legends anywhere on the canvas via `draw_legend(...)`.
 
 ---
 
@@ -27,28 +28,20 @@
 
 ```python
 from drawlib.charts.scatter import ScatterChart
+from drawlib.styles import Styles
 
 chart = ScatterChart(
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
     width=85.0,                 # Total chart bounding width
     height=52.0,                # Total chart bounding height
     title="Service Throughput vs Latency",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     default_radius=1.0,         # Default radius for points
     default_shape="circle",     # "circle", "square", "rhombus", "triangle"
-    legend_position="auto",     # "top", "bottom", "right", "none", "auto"
-    show_labels=True,           # Display text annotation labels
 )
 ```
-
-### Parameter Reference
-
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `width` / `height` | `float` | `88.0` / `55.0` | Overall container dimensions in canvas units. |
-| `title` | `str` | `""` | Chart title displayed at the top. |
-| `default_radius` | `float` | `1.0` | Default radius for point markers when unspecified. |
-| `default_shape` | `PointShape` | `"circle"` | Marker shape (`"circle"`, `"square"`, `"rhombus"`, `"triangle"`). |
-| `legend_position` | `LegendPosition` | `"auto"` | Location of series legend box. |
-| `show_labels` | `bool` | `True` | Whether to display text annotation labels next to points. |
 
 ---
 
@@ -79,11 +72,3 @@ By providing 3-tuples `(x, y, radius)` in series data, the radius reflects a 3rd
 </figure>
 
 
-
----
-
-## 5. Best Practices & Guidelines
-
-1. **Explicit Axis Bounds**: Specifying `min_value` and `max_value` on both axes ensures consistent coordinate framing across comparative diagrams.
-2. **Bubble Scaling**: Keep marker radii between `1.0` and `6.0` canvas coordinate units to prevent bubbles from occluding neighbouring points.
-3. **Logarithmic Scaling**: If throughput or latency spans multiple orders of magnitude, set `scale="log"` on the respective axis via `chart.configure_x_axis(scale="log")`.

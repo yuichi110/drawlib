@@ -317,72 +317,27 @@
 </code></pre>
 <ul>
 <li><strong>Dual Continuous Axes</strong>: Unlike categorical charts where the X-axis represents discrete bins, <code>ScatterChart</code> computes independent numerical scales for both axes using linear or logarithmic scaling.</li>
-<li><strong>Annotated Individual Points</strong>: Use <code>chart.add()</code> to place highlighted reference points with dedicated text callouts (e.g., benchmark baselines or SLA targets).</li>
-<li><strong>Multidimensional Bubble Plots</strong>: Passing 3-tuples <code>(x, y, radius)</code> to <code>add_series()</code> scales point sizes dynamically to communicate a third dimension (such as cost, memory footprint, or cluster size).</li>
+<li><strong>Annotated Individual Points</strong>: Use <code>chart.add()</code> to place highlighted reference points with dedicated text callouts.</li>
+<li><strong>Multidimensional Bubble Plots</strong>: Passing 3-tuples <code>(x, y, radius)</code> to <code>add_series()</code> scales point sizes dynamically to communicate a third dimension.</li>
+<li><strong>Decoupled Legend</strong>: Render series legends anywhere on the canvas via <code>draw_legend(...)</code>.</li>
 </ul>
 <hr />
 <h2>2. Constructor &amp; Configuration</h2>
 <pre><code class="language-python">from drawlib.charts.scatter import ScatterChart
+from drawlib.styles import Styles
 
 chart = ScatterChart(
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
     width=85.0,                 # Total chart bounding width
     height=52.0,                # Total chart bounding height
     title=&quot;Service Throughput vs Latency&quot;,
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     default_radius=1.0,         # Default radius for points
     default_shape=&quot;circle&quot;,     # &quot;circle&quot;, &quot;square&quot;, &quot;rhombus&quot;, &quot;triangle&quot;
-    legend_position=&quot;auto&quot;,     # &quot;top&quot;, &quot;bottom&quot;, &quot;right&quot;, &quot;none&quot;, &quot;auto&quot;
-    show_labels=True,           # Display text annotation labels
 )
 </code></pre>
-<h3>Parameter Reference</h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>width</code> / <code>height</code></td>
-<td><code>float</code></td>
-<td><code>88.0</code> / <code>55.0</code></td>
-<td>Overall container dimensions in canvas units.</td>
-</tr>
-<tr>
-<td><code>title</code></td>
-<td><code>str</code></td>
-<td><code>&quot;&quot;</code></td>
-<td>Chart title displayed at the top.</td>
-</tr>
-<tr>
-<td><code>default_radius</code></td>
-<td><code>float</code></td>
-<td><code>1.0</code></td>
-<td>Default radius for point markers when unspecified.</td>
-</tr>
-<tr>
-<td><code>default_shape</code></td>
-<td><code>PointShape</code></td>
-<td><code>&quot;circle&quot;</code></td>
-<td>Marker shape (<code>&quot;circle&quot;</code>, <code>&quot;square&quot;</code>, <code>&quot;rhombus&quot;</code>, <code>&quot;triangle&quot;</code>).</td>
-</tr>
-<tr>
-<td><code>legend_position</code></td>
-<td><code>LegendPosition</code></td>
-<td><code>&quot;auto&quot;</code></td>
-<td>Location of series legend box.</td>
-</tr>
-<tr>
-<td><code>show_labels</code></td>
-<td><code>bool</code></td>
-<td><code>True</code></td>
-<td>Whether to display text annotation labels next to points.</td>
-</tr>
-</tbody>
-</table>
 <hr />
 <h2>3. Benchmark Scatter Plot with Baseline Callouts</h2>
 <p>Combining series with individually annotated baseline points makes system performance reports immediately actionable:</p>
@@ -397,13 +352,6 @@ chart = ScatterChart(
   <img src="scatter_images/2.png" alt="scatter_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Compute Workload Multidimensional Bubble Plot</figcaption>
 </figure>
-<hr />
-<h2>5. Best Practices &amp; Guidelines</h2>
-<ol>
-<li><strong>Explicit Axis Bounds</strong>: Specifying <code>min_value</code> and <code>max_value</code> on both axes ensures consistent coordinate framing across comparative diagrams.</li>
-<li><strong>Bubble Scaling</strong>: Keep marker radii between <code>1.0</code> and <code>6.0</code> canvas coordinate units to prevent bubbles from occluding neighbouring points.</li>
-<li><strong>Logarithmic Scaling</strong>: If throughput or latency spans multiple orders of magnitude, set <code>scale=&quot;log&quot;</code> on the respective axis via <code>chart.configure_x_axis(scale=&quot;log&quot;)</code>.</li>
-</ol>
 
             </main>
         </div>

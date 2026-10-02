@@ -303,7 +303,7 @@
             </header>
             <main class="main-content">
                 <h1>PieChart: Proportional Compositions &amp; Donut Badges</h1>
-<p><code>PieChart</code> visualizes proportional compositions where slices represent parts of a whole ($100%$). It supports classic solid pie charts, modern donut rings with center KPI badges, and outward slice explosion for emphasizing key figures.</p>
+<p><code>PieChart</code> visualizes proportional compositions where slices represent parts of a whole ($100%$). It supports classic solid pie charts, modern donut rings with center KPI badges, outward slice explosion, and decoupled legend rendering.</p>
 <hr />
 <h2>1. Overview &amp; Topologies</h2>
 <pre><code class="language-text">        Standard Pie Chart                          Donut Chart with Center KPI
@@ -322,96 +322,26 @@
 <li><strong>Solid Pie (<code>hole_ratio=0.0</code>)</strong>: Traditional full sector representation.</li>
 <li><strong>Donut Chart (<code>hole_ratio=0.5</code> to <code>0.7</code>)</strong>: Modern ring layout that provides central canvas real estate for large numeric key indicators (<code>center_text</code>).</li>
 <li><strong>Exploded Slices (<code>explode &gt; 0.0</code>)</strong>: Displaces a specific wedge radially outwards from the center for visual emphasis.</li>
+<li><strong>Decoupled Legend</strong>: Render slice legends anywhere on the canvas via <code>chart.draw_legend(...)</code>.</li>
 </ul>
 <hr />
 <h2>2. Constructor &amp; Configuration</h2>
 <pre><code class="language-python">from drawlib.charts.pie import PieChart
+from drawlib.styles import Styles
 
 chart = PieChart(
     radius=26.0,                # Outer radius in canvas coordinate units
     hole_ratio=0.62,            # Inner hole ratio (0.0 for pie, 0.6+ for donut)
     center_text=&quot;$1.2B\nARR&quot;,   # Center badge text (supports multiline)
+    center_text_style=Styles.BlackBold.patch(text_size=11.0),
     title=&quot;Revenue by Product&quot;, # Top title text
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     start_angle=90.0,           # Starting angle in degrees (90.0 = 12 o'clock)
     clockwise=True,             # Clockwise slice progression
-    show_values=True,           # Display percentage labels on slices
+    value_text_style=Styles.WhiteBold.patch(text_size=9.0),  # Percentage labels on slices
     value_format=&quot;{:.1f}%&quot;,     # Formatter for percentage badges
-    legend_position=&quot;right&quot;,    # &quot;right&quot;, &quot;bottom&quot;, &quot;top&quot;, &quot;none&quot;
 )
 </code></pre>
-<h3>Parameter Reference</h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>radius</code></td>
-<td><code>float</code></td>
-<td><code>20.0</code></td>
-<td>Outer radius of the pie circle in canvas units.</td>
-</tr>
-<tr>
-<td><code>title</code></td>
-<td><code>str</code></td>
-<td><code>&quot;&quot;</code></td>
-<td>Chart title displayed at the top.</td>
-</tr>
-<tr>
-<td><code>hole_ratio</code></td>
-<td><code>float</code></td>
-<td><code>0.0</code></td>
-<td>Inner hole ratio (0.0 for solid pie; 0.1 to 0.9 for donut ring).</td>
-</tr>
-<tr>
-<td><code>center_text</code></td>
-<td><code>str</code></td>
-<td><code>&quot;&quot;</code></td>
-<td>Text rendered in center hole of donut (supports <code>\n</code>).</td>
-</tr>
-<tr>
-<td><code>start_angle</code></td>
-<td><code>float</code></td>
-<td><code>90.0</code></td>
-<td>Starting radial angle in degrees (90.0 is 12 o'clock).</td>
-</tr>
-<tr>
-<td><code>clockwise</code></td>
-<td><code>bool</code></td>
-<td><code>True</code></td>
-<td>Whether slices are ordered clockwise.</td>
-</tr>
-<tr>
-<td><code>show_values</code></td>
-<td><code>bool</code></td>
-<td><code>True</code></td>
-<td>Whether to display percentage labels on slices ($\ge 4%$).</td>
-</tr>
-<tr>
-<td><code>value_format</code></td>
-<td><code>FormatterType</code></td>
-<td><code>&quot;{:.1f}%&quot;</code></td>
-<td>String format or function converting proportional ratio.</td>
-</tr>
-<tr>
-<td><code>legend_position</code></td>
-<td><code>LegendPosition</code></td>
-<td><code>&quot;right&quot;</code></td>
-<td>Legend box placement (<code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;none&quot;</code>).</td>
-</tr>
-<tr>
-<td><code>width</code> / <code>height</code></td>
-<td><code>float | None</code></td>
-<td><code>None</code></td>
-<td>Optional container dimension overrides.</td>
-</tr>
-</tbody>
-</table>
 <hr />
 <h2>3. Donut Chart with Center KPI Badge</h2>
 <p>Donut charts are the preferred choice for enterprise dashboards and executive presentations.</p>
@@ -426,13 +356,6 @@ chart = PieChart(
   <img src="pie_images/2.png" alt="pie_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Budget Allocation with Exploded Slice</figcaption>
 </figure>
-<hr />
-<h2>5. Best Practices &amp; Guidelines</h2>
-<ol>
-<li><strong>Category Count</strong>: Keep total slices between 3 and 7. More than 7 slices makes comparison difficult; consider grouping smaller items into an <code>&quot;Others&quot;</code> category.</li>
-<li><strong>Small Slice Suppression</strong>: Drawlib automatically suppresses percentage labels for slices with $&lt; 4%$ share to prevent label collisions. Rely on the legend for small items.</li>
-<li><strong>Canvas Bounds</strong>: Since the pie chart radius extends equally in all radial directions, ensure sufficient canvas padding on all four sides (<code>canvas.setup(width=95, height=75)</code> with <code>radius=26</code>).</li>
-</ol>
 
             </main>
         </div>

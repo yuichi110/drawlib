@@ -54,7 +54,7 @@ class TestPieChartConstruction:
         assert chart.center_text == ""
         assert chart.start_angle == 90.0
         assert chart.clockwise is True
-        assert chart.show_values is True
+        assert chart.value_text_style is None
         assert chart.slices == []
 
     def test_hole_ratio_clamping(self) -> None:
@@ -77,15 +77,15 @@ class TestPieChartConstruction:
 
     def test_get_size_auto_and_custom(self) -> None:
         """Test auto dimension calculations and explicit dimensions."""
-        c1 = PieChart(radius=25.0, legend_position="right")
+        c1 = PieChart(radius=25.0)
         w1, h1 = c1.get_size()
-        assert w1 == 50.0 + 20.0  # diameter + 20
+        assert w1 == 50.0 + 8.0
         assert h1 == 50.0 + 8.0
 
-        c2 = PieChart(radius=20.0, legend_position="bottom", title="Market Share")
+        c2 = PieChart(radius=20.0, title="Market Share", title_style=Style(text_size=12))
         w2, h2 = c2.get_size()
         assert w2 == 40.0 + 8.0
-        assert h2 == 40.0 + 6.0 + 10.0
+        assert h2 == 40.0 + 8.0 + 6.0
 
         c3 = PieChart(radius=20.0, width=100.0, height=80.0)
         assert c3.get_size() == (100.0, 80.0)
@@ -117,12 +117,18 @@ class TestPieChartRendering:
             out_file = Path(tmpdir) / "pie_standard.png"
             canvas.clear()
 
-            chart = PieChart(radius=22.0, title="Browser Market Share")
+            chart = PieChart(
+                radius=22.0,
+                title="Browser Market Share",
+                title_style=Style(text_size=12, text_color=(30, 41, 59)),
+                value_text_style=Style(text_size=9, text_color=(255, 255, 255)),
+            )
             chart.add_slice("Chrome", 65.0, style=Style(shape_fill_color=(50, 100, 200)))
             chart.add_slice("Safari", 20.0, style=Style(shape_fill_color=(100, 150, 250)))
             chart.add_slice("Edge", 10.0, style=Style(shape_fill_color=(200, 100, 50)))
             chart.add_slice("Firefox", 5.0, style=Style(shape_fill_color=(250, 150, 100)))
             chart.draw(xy=(15.0, 15.0))
+            chart.draw_legend(xy=(65.0, 35.0), text_style=Style(text_size=10, text_color=(30, 41, 59)))
 
             canvas.save(str(out_file))
             assert out_file.exists()
@@ -138,7 +144,9 @@ class TestPieChartRendering:
                 radius=25.0,
                 hole_ratio=0.6,
                 center_text="100%\nTotal",
+                center_text_style=Style(text_size=11, text_color=(30, 41, 59)),
                 title="Revenue by Division",
+                title_style=Style(text_size=12, text_color=(30, 41, 59)),
             )
             chart.add_slice("Cloud", 120.0, style=Style(shape_fill_color=(50, 100, 200)))
             chart.add_slice("Hardware", 80.0, style=Style(shape_fill_color=(100, 150, 250)))
@@ -155,7 +163,11 @@ class TestPieChartRendering:
             out_file = Path(tmpdir) / "pie_explode.png"
             canvas.clear()
 
-            chart = PieChart(radius=20.0, title="Campaign Status")
+            chart = PieChart(
+                radius=20.0,
+                title="Campaign Status",
+                title_style=Style(text_size=12, text_color=(30, 41, 59)),
+            )
             chart.add_slice("Won", 55.0, style=Style(shape_fill_color=(50, 100, 200)), explode=2.0)
             chart.add_slice("Lost", 30.0, style=Style(shape_fill_color=(200, 100, 50)))
             chart.add_slice("Pending", 15.0, style=Style(shape_fill_color=(100, 150, 250)))

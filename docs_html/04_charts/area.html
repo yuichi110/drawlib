@@ -322,92 +322,23 @@
 <hr />
 <h2>2. Constructor &amp; Configuration</h2>
 <pre><code class="language-python">from drawlib.charts.area import AreaChart
+from drawlib.styles import Styles
 
 chart = AreaChart(
+    axis_line_style=Styles.MutedDashed,
     categories=[&quot;2021&quot;, &quot;2022&quot;, &quot;2023&quot;, &quot;2024&quot;, &quot;2025&quot;],
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
     width=80.0,
     height=55.0,
     title=&quot;Cumulative Revenue Streams&quot;,
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     mode=&quot;stack&quot;,               # &quot;stack&quot; or &quot;overlap&quot;
     fill_alpha=0.65,            # Polygon fill opacity (0.0 to 1.0)
     smooth=False,               # Smooth spline curve or straight lines
     show_points=False,          # Draw vertex markers
-    legend_position=&quot;top&quot;,      # &quot;top&quot;, &quot;bottom&quot;, &quot;right&quot;, &quot;none&quot;, &quot;auto&quot;
 )
 </code></pre>
-<h3>Parameter Reference</h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>categories</code></td>
-<td><code>list[str]</code></td>
-<td>Required</td>
-<td>Category labels along the horizontal X-axis.</td>
-</tr>
-<tr>
-<td><code>width</code> / <code>height</code></td>
-<td><code>float</code></td>
-<td><code>80.0</code> / <code>50.0</code></td>
-<td>Bounding box dimensions on the canvas.</td>
-</tr>
-<tr>
-<td><code>title</code></td>
-<td><code>str</code></td>
-<td><code>&quot;&quot;</code></td>
-<td>Chart title displayed at the top.</td>
-</tr>
-<tr>
-<td><code>mode</code></td>
-<td><code>&quot;overlap&quot;</code> | <code>&quot;stack&quot;</code></td>
-<td><code>&quot;overlap&quot;</code></td>
-<td>Cumulative stacked or overlapping volume.</td>
-</tr>
-<tr>
-<td><code>fill_alpha</code></td>
-<td><code>float</code></td>
-<td><code>0.35</code></td>
-<td>Transparency opacity of the area fill polygon.</td>
-</tr>
-<tr>
-<td><code>smooth</code></td>
-<td><code>bool</code></td>
-<td><code>False</code></td>
-<td>When <code>True</code>, renders smooth cubic-like curves.</td>
-</tr>
-<tr>
-<td><code>show_points</code></td>
-<td><code>bool</code></td>
-<td><code>False</code></td>
-<td>Whether to draw marker points at vertex coordinates.</td>
-</tr>
-<tr>
-<td><code>point_shape</code></td>
-<td><code>&quot;circle&quot;</code> | <code>&quot;square&quot;</code> | <code>&quot;none&quot;</code></td>
-<td><code>&quot;none&quot;</code></td>
-<td>Shape of vertex markers.</td>
-</tr>
-<tr>
-<td><code>point_size</code></td>
-<td><code>float</code></td>
-<td><code>1.0</code></td>
-<td>Radius or half-width of vertex markers.</td>
-</tr>
-<tr>
-<td><code>legend_position</code></td>
-<td><code>LegendPosition</code></td>
-<td><code>&quot;auto&quot;</code></td>
-<td>Position of the legend box.</td>
-</tr>
-</tbody>
-</table>
 <hr />
 <h2>3. Cumulative Stacked Area Chart</h2>
 <p>Stacked area charts are ideal for displaying total aggregate metrics and showing the proportional contribution of each stream over time.</p>
@@ -422,13 +353,6 @@ chart = AreaChart(
   <img src="area_images/2.png" alt="area_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Gateway Ingress vs Egress Traffic</figcaption>
 </figure>
-<hr />
-<h2>5. Best Practices &amp; Guidelines</h2>
-<ol>
-<li><strong>Alpha Selection in Overlap Mode</strong>: Keep <code>fill_alpha</code> between <code>0.25</code> and <code>0.45</code> when overlapping 2–3 series. Higher opacity makes back layers invisible.</li>
-<li><strong>Order of Series in Stack Mode</strong>: Define the most stable, foundational series first (it anchors the bottom of the stack), and place fluctuating series higher up.</li>
-<li><strong>Axis Anchoring</strong>: Area charts must always anchor the value axis to zero (<code>min_value=0.0</code>) so proportional visual areas represent accurate relative quantities.</li>
-</ol>
 
             </main>
         </div>

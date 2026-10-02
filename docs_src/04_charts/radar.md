@@ -22,9 +22,10 @@
                     Dimension 3
 ```
 
-- **Symmetric Spoke Rays**: Each category forms a radial ray extending from `min_value` at the center to `max_value` at the outer perimeter.
-- **Concentric Grid Contours**: Configured with `grid_shape="polygon"` (faceted polygon rings matching the vertex count) or `grid_shape="circle"` (smooth circular concentric rings).
+- **Symmetric Spoke Rays**: Each category forms a radial ray extending from `min_value` at the center to `max_value` at the outer perimeter (anchored by `axis_line_style`).
+- **Concentric Grid Contours**: Rendered if `grid_style` is provided, configured with `grid_shape="polygon"` or `grid_shape="circle"`.
 - **Semi-transparent Series Volumes**: Multiple series overlay each other using semi-transparent polygon fills (`fill_alpha=0.2` to `0.4`) and distinct contour line styles (`solid`, `dashed`).
+- **Decoupled Legend**: Render series legends anywhere on the canvas via `draw_legend(...)`.
 
 ---
 
@@ -32,36 +33,25 @@
 
 ```python
 from drawlib.charts.radar import RadarChart
+from drawlib.styles import Styles
 
 chart = RadarChart(
     categories=["Scalability", "Reliability", "Security", "Maintainability", "Latency"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.BlackBold.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
+    scale_text_style=Styles.Muted.patch(text_size=8.5),
+    value_text_style=Styles.BlackBold.patch(text_size=8.5),
     radius=24.0,                # Outer boundary spoke radius
     min_value=0.0,              # Value at center origin
     max_value=100.0,            # Scale value at outer ring (None = auto)
     levels=5,                   # Number of concentric grid contours
     grid_shape="polygon",       # "polygon" or "circle"
     title="System Architecture Trade-offs",
-    legend_position="right",    # "right", "bottom", "top", "none"
-    show_values=True,           # Display numeric values near vertices
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     value_format="{:.0f}",
 )
 ```
-
-### Parameter Reference
-
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `categories` | `list[str]` | Required | Names of radial dimensions (minimum 3 required). |
-| `radius` | `float` | `25.0` | Radius of the outer boundary spoke circle. |
-| `min_value` | `float` | `0.0` | Data value at the central origin point. |
-| `max_value` | `float \| None` | `None` | Scale value at outer ring. If `None`, computed automatically. |
-| `levels` | `int` | `5` | Number of concentric grid contours. |
-| `grid_shape` | `"polygon"` \| `"circle"` | `"polygon"` | Shape of concentric gridlines (regular polygon or circles). |
-| `show_grid_labels` | `bool` | `True` | Whether to print numeric scale ticks along reference spoke. |
-| `grid_label_format` | `FormatterType` | `None` | Formatter string or function for scale levels. |
-| `legend_position` | `LegendPosition` | `"right"` | Position of the legend box. |
-| `show_values` | `bool` | `False` | Whether to print numeric data values next to series vertices. |
-| `value_format` | `FormatterType` | `None` | Formatter for vertex values. |
 
 ---
 
@@ -79,20 +69,24 @@ canvas.setup(width=105, height=88)
 
 chart = RadarChart(
     categories=["Scalability", "Reliability", "Security", "Maintainability", "Latency"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.BlackBold.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
+    value_text_style=Styles.BlackBold.patch(text_size=8.5),
     radius=24.0,
     min_value=0.0,
     max_value=100.0,
     levels=5,
     grid_shape="polygon",
     title="System Architecture Trade-off Analysis",
-    legend_position="right",
-    show_values=True,
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     value_format="{:.0f}",
 )
-chart.add_series("Microservices Architecture", [95, 80, 75, 85, 60], style=Styles.PrimaryFlat, fill_alpha=0.3)
-chart.add_series("Monolithic Architecture", [60, 90, 85, 70, 95], style=Styles.SecondaryFlat, fill_alpha=0.3, line_style="dashed")
+chart.add_series("Microservices", [95, 80, 75, 85, 60], style=Styles.PrimaryFlat, fill_alpha=0.3)
+chart.add_series("Monolith", [60, 90, 85, 70, 95], style=Styles.SecondaryFlat, fill_alpha=0.3, line_style="dashed")
 
-chart.draw(xy=(5.0, 5.0))
+chart.draw(xy=(8.0, 8.0))
+chart.draw_legend(xy=(72.0, 55.0), text_style=Styles.Black.patch(text_size=9.0))
 ```
 
 ---
@@ -107,26 +101,23 @@ from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=95, height=75)
+canvas.setup(width=100, height=85)
 
 chart = RadarChart(
     categories=["UX Design", "Performance", "Battery Life", "Camera Quality", "Ecosystem", "Price"],
-    radius=26.0,
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.BlackBold.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
+    scale_text_style=Styles.Muted.patch(text_size=8.5),
+    radius=24.0,
     levels=4,
     grid_shape="circle",
     title="Flagship Smartphone Benchmark",
-    legend_position="bottom",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
 )
 chart.add_series("Device Pro Max", [9.2, 9.5, 8.8, 9.6, 9.0, 6.5], style=Styles.PrimaryFlat)
 chart.add_series("Device Ultra", [8.5, 9.2, 9.4, 9.2, 8.2, 7.8], style=Styles.SecondaryFlat)
 
-chart.draw(xy=(15.0, 8.0))
+chart.draw(xy=(13.0, 15.0))
+chart.draw_legend(xy=(24.0, 10.0), text_style=Styles.Black.patch(text_size=9.0), orientation="horizontal")
 ```
-
----
-
-## 5. Best Practices & Guidelines
-
-1. **Category Limit**: For best legibility, use between 4 and 8 dimensions. More than 8 categories makes spoke labels crowded.
-2. **Normalized Dimensions**: Ensure all radial metrics share a similar range (e.g. 0 to 10 or 0% to 100%). Mixing incompatible units (e.g., latency in ms with availability in %) can mislead readers without normalization.
-3. **Alpha Blending**: Keep `fill_alpha` around `0.2` to `0.35` so overlapping series do not obscure inner boundaries.

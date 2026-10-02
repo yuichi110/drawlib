@@ -13,8 +13,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._axis import Axis
-from drawlib._charts._common._types import FormatterType, LegendPosition, ScaleType
+from drawlib._charts._common._types import FormatterType, Orientation, ScaleType
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -25,39 +26,79 @@ class CartesianChartBase:
 
     def __init__(
         self,
+        axis_line_style: Style,
         categories: list[str],
         width: float = 80.0,
         height: float = 50.0,
+        axis_text_style: Style | None = None,
+        grid_style: Style | None = None,
+        value_text_style: Style | None = None,
+        background_style: Style | None = None,
         title: str = "",
         title_style: Style | None = None,
-        legend_position: LegendPosition = "auto",
-        show_values: bool = False,
-        value_label_style: Style | None = None,
     ) -> None:
         """Initialize CartesianChartBase.
 
         Args:
+            axis_line_style: Style defining baseline coordinate axis lines.
             categories: Category labels along horizontal axis.
             width: Total width of chart container. Defaults to 80.0.
             height: Total height of chart container. Defaults to 50.0.
+            axis_text_style: Optional Style for axis tick labels and category names.
+            grid_style: Optional Style for background gridlines.
+            value_text_style: Optional Style for value labels on data points.
+            background_style: Optional Style for the chart background card.
             title: Title text displayed at top of chart. Defaults to "".
             title_style: Optional Style overriding chart title typography.
-            legend_position: Legend location ("auto", "top", "bottom", "right", "none").
-            show_values: Whether to print numeric values at data points. Defaults to False.
-            value_label_style: Optional Style for value labels.
         """
+        self.axis_line_style: Style = axis_line_style
         self.categories: list[str] = list(categories)
         self.width: float = float(width)
         self.height: float = float(height)
+        self.axis_text_style: Style | None = axis_text_style
+        self.grid_style: Style | None = grid_style
+        self.value_text_style: Style | None = value_text_style
+        self.background_style: Style | None = background_style
         self.title: str = title
         self.title_style: Style | None = title_style
-        self.legend_position: LegendPosition = legend_position
-        self.show_values: bool = show_values
-        self.value_label_style: Style | None = value_label_style
 
         # Value axis (Y) and Category axis (X)
         self.y_axis = Axis()
         self.x_axis = Axis(show_grid=False, show_axis_line=True)
+
+    def draw_legend(
+        self,
+        xy: tuple[float, float],
+        text_style: Style,
+        orientation: Orientation = "vertical",
+        swatch_size: tuple[float, float] = (2.4, 1.2),
+        item_gap: float = 4.0,
+    ) -> None:
+        """Render legend for series at coordinate xy.
+
+        Args:
+            xy: Starting placement coordinate (x, y).
+            text_style: Base Style for legend text labels.
+            orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
+            swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
+            item_gap: Spacing between consecutive legend items. Defaults to 4.0.
+        """
+        items = [
+            (
+                s.name,
+                s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
+                getattr(s, "legend_text_style", None),
+            )
+            for s in getattr(self, "_series", [])
+        ]
+        _legend_module.draw_legend(
+            items=items,
+            xy=xy,
+            text_style=text_style,
+            orientation=orientation,
+            swatch_size=swatch_size,
+            item_gap=item_gap,
+        )
 
     def configure_y_axis(
         self,

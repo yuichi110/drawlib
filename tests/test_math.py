@@ -137,9 +137,7 @@ class TestOrthogonalRouting:
 
     def test_horizontal_backward_routing_with_offset(self) -> None:
         # Right exit to Left entry but target is behind (ex < sx)
-        path = compute_orthogonal_path(
-            (30.0, 10.0), (10.0, 30.0), start_side="right", end_side="left", offset=5.0
-        )
+        path = compute_orthogonal_path((30.0, 10.0), (10.0, 30.0), start_side="right", end_side="left", offset=5.0)
         assert len(path) == 6
         assert path[0] == (30.0, 10.0)
         assert path[1] == (35.0, 10.0)

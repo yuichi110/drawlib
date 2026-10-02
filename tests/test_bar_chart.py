@@ -16,9 +16,14 @@ from pathlib import Path
 
 from drawlib import canvas
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
-from drawlib._charts._common._legend import get_legend_size, resolve_legend_position
+from drawlib._charts._common._legend import draw_legend
+from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib.charts.bar import BarChart, Series
+
+_DEFAULT_AXIS_LINE = Style(line_color=(148, 163, 184, 1.0), line_width=1.0)
+_DEFAULT_TEXT = Style(text_size=10.0, text_color=(30, 41, 59, 1.0), text_font=Font.SANSSERIF_REGULAR)
+_DEFAULT_GRID = Style(line_color=(226, 232, 240, 1.0), line_width=0.8, line_style="dashed")
 
 
 class TestAxisCalculation:
@@ -86,28 +91,17 @@ class TestAxisCalculation:
 
 
 class TestLegendLayout:
-    """Unit tests for automatic legend position and size resolution."""
+    """Unit tests for legend rendering function."""
 
-    def test_auto_single_series(self) -> None:
-        """Verify legend is omitted for single-series charts in auto mode."""
-        pos = resolve_legend_position("auto", series_count=1)
-        assert pos == "none"
-        w_margin, h_margin = get_legend_size(pos, ["Series A"], series_count=1)
-        assert w_margin == 0.0
-        assert h_margin == 0.0
-
-    def test_auto_multiple_series(self) -> None:
-        """Verify legend is automatically shown at top for multi-series charts."""
-        pos = resolve_legend_position("auto", series_count=2)
-        assert pos == "top"
-        _, h_margin = get_legend_size(pos, ["A", "B"], series_count=2)
-        assert h_margin > 0.0
-
-    def test_explicit_right_position(self) -> None:
-        """Verify legend margin when placed on the right."""
-        w_margin, h_margin = get_legend_size("right", ["A", "B"], series_count=2)
-        assert w_margin > 0.0
-        assert h_margin == 0.0
+    def test_draw_legend_invocation(self) -> None:
+        """Verify draw_legend executes without error."""
+        canvas.clear()
+        items = [
+            ("Series A", (50, 100, 200, 1.0), None),
+            ("Series B", (100, 150, 250, 1.0), None),
+        ]
+        draw_legend(items, xy=(10.0, 10.0), text_style=_DEFAULT_TEXT, orientation="horizontal")
+        draw_legend(items, xy=(10.0, 20.0), text_style=_DEFAULT_TEXT, orientation="vertical")
 
 
 class TestBarChartModel:
@@ -115,29 +109,37 @@ class TestBarChartModel:
 
     def test_barchart_initialization(self) -> None:
         """Verify default properties of BarChart."""
-        chart = BarChart(categories=["Q1", "Q2", "Q3", "Q4"], width=80.0, height=50.0)
+        chart = BarChart(
+            axis_line_style=_DEFAULT_AXIS_LINE,
+            categories=["Q1", "Q2", "Q3", "Q4"],
+            width=80.0,
+            height=50.0,
+        )
         assert chart.categories == ["Q1", "Q2", "Q3", "Q4"]
         assert chart.width == 80.0
         assert chart.height == 50.0
         assert chart.orientation == "vertical"
         assert chart.bar_mode == "group"
-        assert chart.legend_position == "auto"
         assert len(chart.series) == 0
 
     def test_add_series(self) -> None:
         """Verify adding series to BarChart."""
-        chart = BarChart(categories=["A", "B"])
-        style = Style(shape_fill_color=(50, 100, 200))
+        chart = BarChart(axis_line_style=_DEFAULT_AXIS_LINE, categories=["A", "B"])
+        style = Style(
+            shape_fill_color=(50, 100, 200, 1.0),
+            shape_line_color=(0, 0, 0, 0.0),
+            shape_line_width=0.0,
+        )
         s1 = chart.add_series("Product 1", [10.0, 20.0], style=style)
         assert isinstance(s1, Series)
         assert len(chart.series) == 1
         assert chart.series[0].name == "Product 1"
         assert chart.series[0].values == [10.0, 20.0]
-        assert chart.series[0].style.shape_fill_color == (50, 100, 200)
+        assert chart.series[0].style.shape_fill_color == (50, 100, 200, 1.0)
 
     def test_configure_axes(self) -> None:
         """Verify configure_y_axis and configure_x_axis methods."""
-        chart = BarChart(categories=["X", "Y"])
+        chart = BarChart(axis_line_style=_DEFAULT_AXIS_LINE, categories=["X", "Y"])
         chart.configure_y_axis(
             scale="log",
             min_value=1.0,
@@ -164,16 +166,27 @@ class TestBarChartRendering:
             canvas.clear()
 
             chart = BarChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
+                axis_text_style=_DEFAULT_TEXT,
+                grid_style=_DEFAULT_GRID,
+                value_text_style=_DEFAULT_TEXT,
                 categories=["2021", "2022", "2023"],
                 width=80,
                 height=50,
                 title="Revenue by Division",
-                show_values=True,
+                title_style=_DEFAULT_TEXT,
             )
-            chart.add_series("Hardware", [45.0, 52.0, 60.0], style=Style(shape_fill_color=(50, 100, 200)))
-            chart.add_series("Software", [30.0, 48.0, 75.0], style=Style(shape_fill_color=(100, 150, 250)))
+            bar_style_1 = Style(
+                shape_fill_color=(50, 100, 200, 1.0), shape_line_color=(0, 0, 0, 0.0), shape_line_width=0.0
+            )
+            bar_style_2 = Style(
+                shape_fill_color=(100, 150, 250, 1.0), shape_line_color=(0, 0, 0, 0.0), shape_line_width=0.0
+            )
+            chart.add_series("Hardware", [45.0, 52.0, 60.0], style=bar_style_1)
+            chart.add_series("Software", [30.0, 48.0, 75.0], style=bar_style_2)
             chart.configure_y_axis(unit="M$", show_grid=True)
             chart.draw(xy=(10.0, 15.0))
+            chart.draw_legend(xy=(10.0, 68.0), text_style=_DEFAULT_TEXT, orientation="horizontal")
 
             canvas.save(str(out_file))
             assert out_file.exists()
@@ -186,17 +199,30 @@ class TestBarChartRendering:
             canvas.clear()
 
             chart = BarChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
+                axis_text_style=_DEFAULT_TEXT,
+                grid_style=_DEFAULT_GRID,
+                value_text_style=_DEFAULT_TEXT,
                 categories=["Team Alpha", "Team Beta", "Team Gamma"],
                 width=80,
                 height=50,
                 orientation="horizontal",
                 bar_mode="stack",
                 title="Task Distribution",
-                show_values=True,
+                title_style=_DEFAULT_TEXT,
             )
-            chart.add_series("Completed", [12.0, 18.0, 15.0], style=Style(shape_fill_color=(50, 100, 200)))
-            chart.add_series("In Progress", [8.0, 5.0, 10.0], style=Style(shape_fill_color=(100, 150, 250)))
-            chart.add_series("Pending", [4.0, 7.0, 2.0], style=Style(shape_fill_color=(200, 100, 50)))
+            s_style_1 = Style(
+                shape_fill_color=(50, 100, 200, 1.0), shape_line_color=(0, 0, 0, 0.0), shape_line_width=0.0
+            )
+            s_style_2 = Style(
+                shape_fill_color=(100, 150, 250, 1.0), shape_line_color=(0, 0, 0, 0.0), shape_line_width=0.0
+            )
+            s_style_3 = Style(
+                shape_fill_color=(200, 100, 50, 1.0), shape_line_color=(0, 0, 0, 0.0), shape_line_width=0.0
+            )
+            chart.add_series("Completed", [12.0, 18.0, 15.0], style=s_style_1)
+            chart.add_series("In Progress", [8.0, 5.0, 10.0], style=s_style_2)
+            chart.add_series("Pending", [4.0, 7.0, 2.0], style=s_style_3)
             chart.configure_x_axis(unit="pts")
             chart.draw(xy=(10.0, 15.0))
 
@@ -211,12 +237,16 @@ class TestBarChartRendering:
             canvas.clear()
 
             chart = BarChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
+                axis_text_style=_DEFAULT_TEXT,
                 categories=["Query A", "Query B", "Query C"],
                 width=80,
                 height=50,
                 title="Database Latency (Log Scale)",
+                title_style=_DEFAULT_TEXT,
             )
-            chart.add_series("Latency", [2.5, 45.0, 3200.0], style=Style(shape_fill_color=(50, 100, 200)))
+            s_style = Style(shape_fill_color=(50, 100, 200, 1.0), shape_line_color=(0, 0, 0, 0.0), shape_line_width=0.0)
+            chart.add_series("Latency", [2.5, 45.0, 3200.0], style=s_style)
             chart.configure_y_axis(scale="log", unit="ms")
             chart.draw(xy=(10.0, 15.0))
 
@@ -236,6 +266,7 @@ class TestBarChartRendering:
                 shape_line_width=1.5,
             )
             chart = BarChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
                 categories=["Mon", "Tue", "Wed"],
                 width=70,
                 height=45,

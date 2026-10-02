@@ -41,7 +41,7 @@ class TestGanttItems:
         assert t1.end == "May"
         assert t1.progress == 0.6
         assert t1.style is style
-        assert t1.show_progress_text is True
+        assert t1.progress_text_style is None
 
         t2 = Task("Task B", start=0.0, end=2.0, style=style, progress=1.5)
         assert t2.progress == 1.0  # Clamped
@@ -85,11 +85,12 @@ class TestGanttChartConstruction:
     def test_empty_columns_validation(self) -> None:
         """Test that empty columns list raises ValueError."""
         with pytest.raises(ValueError, match="at least 1 column"):
-            GanttChart(columns=[])
+            GanttChart(columns=[], axis_line_style=Style(line_color=(200, 200, 200)))
 
     def test_add_items(self) -> None:
         """Test registering various items in GanttChart."""
-        chart = GanttChart(columns=["Jan", "Feb", "Mar"])
+        axis_line_style = Style(line_color=(200, 200, 200))
+        chart = GanttChart(columns=["Jan", "Feb", "Mar"], axis_line_style=axis_line_style)
         sec = chart.add_section("Planning")
         t1 = chart.add_task("Spec", start="Jan", end="Feb", style=Style(shape_fill_color=(50, 100, 200)))
         m1 = chart.add_milestone("Alpha", at="Mar", style=Style(shape_fill_color=(255, 200, 0)))
@@ -107,14 +108,21 @@ class TestGanttChartConstruction:
 
     def test_get_size_auto_and_custom(self) -> None:
         """Test dimension calculation."""
-        c1 = GanttChart(columns=["Q1", "Q2"], width=100.0, row_height=5.0, header_height=6.0)
+        axis_line_style = Style(line_color=(200, 200, 200))
+        c1 = GanttChart(
+            columns=["Q1", "Q2"],
+            axis_line_style=axis_line_style,
+            width=100.0,
+            row_height=5.0,
+            header_height=6.0,
+        )
         c1.add_task("T1", "Q1", "Q2", style=Style(shape_fill_color=(50, 100, 200)))
         c1.add_task("T2", "Q2", "Q2", style=Style(shape_fill_color=(50, 100, 200)))
         w1, h1 = c1.get_size()
         assert w1 == 100.0
         assert h1 == 6.0 + 2 * 5.0 + 6.0
 
-        c2 = GanttChart(columns=["Q1"], width=80.0, height=45.0)
+        c2 = GanttChart(columns=["Q1"], axis_line_style=axis_line_style, width=80.0, height=45.0)
         assert c2.get_size() == (80.0, 45.0)
 
 
@@ -123,33 +131,31 @@ class TestGanttTimeResolution:
 
     def test_resolve_time_string(self) -> None:
         """Test string column resolution for start and end."""
-        chart = GanttChart(columns=["Sprint 1", "Sprint 2", "Sprint 3"])
-        # Start at Sprint 1 is 0.0
+        axis_line_style = Style(line_color=(200, 200, 200))
+        chart = GanttChart(columns=["Sprint 1", "Sprint 2", "Sprint 3"], axis_line_style=axis_line_style)
         assert _resolve_time(chart, "Sprint 1", is_end=False) == 0.0
-        # End at Sprint 1 is 1.0 (covers the whole sprint)
         assert _resolve_time(chart, "Sprint 1", is_end=True) == 1.0
-        # End at Sprint 2 is 2.0
         assert _resolve_time(chart, "Sprint 2", is_end=True) == 2.0
 
     def test_resolve_time_float(self) -> None:
         """Test numerical float time resolution."""
-        chart = GanttChart(columns=["Sprint 1", "Sprint 2"])
+        axis_line_style = Style(line_color=(200, 200, 200))
+        chart = GanttChart(columns=["Sprint 1", "Sprint 2"], axis_line_style=axis_line_style)
         assert _resolve_time(chart, 1.5, is_end=False) == 1.5
         assert _resolve_time(chart, 2.3, is_end=True) == 2.3
 
     def test_resolve_point_time(self) -> None:
         """Test point event (milestone/marker) resolution."""
-        chart = GanttChart(columns=["Jan", "Feb", "Mar"])
-        # Midpoint of Jan (index 0) is 0.5
+        axis_line_style = Style(line_color=(200, 200, 200))
+        chart = GanttChart(columns=["Jan", "Feb", "Mar"], axis_line_style=axis_line_style)
         assert _resolve_point_time(chart, "Jan") == 0.5
-        # Midpoint of Feb (index 1) is 1.5
         assert _resolve_point_time(chart, "Feb") == 1.5
-        # Float is preserved
         assert _resolve_point_time(chart, 1.8) == 1.8
 
     def test_invalid_column_error(self) -> None:
         """Test error raised when invalid column is specified."""
-        chart = GanttChart(columns=["Jan", "Feb"])
+        axis_line_style = Style(line_color=(200, 200, 200))
+        chart = GanttChart(columns=["Jan", "Feb"], axis_line_style=axis_line_style)
         with pytest.raises(ValueError, match="not found in GanttChart columns"):
             _resolve_time(chart, "Unknown")
 
@@ -163,15 +169,29 @@ class TestGanttChartRendering:
             out_file = Path(tmpdir) / "gantt_full.png"
             canvas.clear()
 
+            axis_line_style = Style(line_color=(203, 213, 225), line_width=1.0)
+            axis_text_style = Style(text_size=9.5, text_color=(30, 41, 59))
+            grid_style = Style(line_color=(226, 232, 240), line_width=0.8, line_style="dotted")
+            header_style = Style(shape_fill_color=(241, 245, 249), shape_line_width=0)
+            zebra_style = Style(shape_fill_color=(248, 250, 252), shape_line_width=0)
+            progress_text_style = Style(text_size=8.0, text_color=(255, 255, 255))
+
             chart = GanttChart(
                 columns=["Apr", "May", "Jun", "Jul", "Aug"],
+                axis_line_style=axis_line_style,
+                axis_text_style=axis_text_style,
+                header_style=header_style,
+                grid_style=grid_style,
+                zebra_style=zebra_style,
+                progress_text_style=progress_text_style,
                 width=90.0,
                 height=55.0,
                 title="Engineering Roadmap (2026)",
+                title_style=Style(text_size=12.0, text_color=(30, 41, 59)),
                 header_height=6.0,
             )
 
-            chart.add_section("Planning & Architecture")
+            chart.add_section("Planning & Architecture", style=Style(shape_fill_color=(226, 232, 240, 0.7)))
             t1 = chart.add_task(
                 "Requirements Spec", start="Apr", end=0.75, style=Style(shape_fill_color=(50, 100, 200)), progress=1.0
             )
@@ -183,7 +203,7 @@ class TestGanttChartRendering:
                 progress=0.7,
             )
 
-            chart.add_section("Implementation & QA")
+            chart.add_section("Implementation & QA", style=Style(shape_fill_color=(226, 232, 240, 0.7)))
             t3 = chart.add_task(
                 "Frontend UI", start=2.25, end=3.75, style=Style(shape_fill_color=(50, 100, 200)), progress=0.4
             )
@@ -197,7 +217,9 @@ class TestGanttChartRendering:
             chart.add_milestone("Alpha Release", at="Jul", style=Style(shape_fill_color=(255, 200, 0)))
             chart.add_dependency(t1, t2)
             chart.add_dependency(t2, t3)
-            chart.add_marker(at=1.5, style=Style(line_color=(239, 68, 68)), label="Current (Mid-May)")
+            chart.add_marker(
+                at=1.5, style=Style(line_color=(239, 68, 68), line_style="dashed"), label="Current (Mid-May)"
+            )
 
             chart.draw(xy=(5.0, 20.0))
 
@@ -213,16 +235,15 @@ class TestGanttChartRendering:
 
             chart = GanttChart(
                 columns=["W1", "W2", "W3", "W4"],
+                axis_line_style=Style(line_color=(200, 200, 200)),
+                axis_text_style=Style(text_size=9.0),
                 width=80.0,
                 height=40.0,
-                show_zebra=False,
                 bar_radius=1.5,
             )
             c_style = Style(line_width=1.5, shape_fill_color=(100, 180, 240))
             chart.add_task("Design", start="W1", end="W2", style=c_style)
-            chart.add_task(
-                "Build", start="W2", end="W4", style=Style(shape_fill_color=(40, 200, 120)), progress=0.5
-            )
+            chart.add_task("Build", start="W2", end="W4", style=Style(shape_fill_color=(40, 200, 120)), progress=0.5)
             chart.draw(xy=(10.0, 10.0))
 
             canvas.save(str(out_file))
@@ -235,7 +256,7 @@ class TestGanttChartRendering:
             out_file = Path(tmpdir) / "gantt_empty.png"
             canvas.clear()
 
-            chart = GanttChart(columns=["S1", "S2"])
+            chart = GanttChart(columns=["S1", "S2"], axis_line_style=Style(line_color=(200, 200, 200)))
             chart.draw(xy=(10.0, 10.0))
 
             canvas.save(str(out_file))

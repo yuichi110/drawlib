@@ -35,9 +35,9 @@ class TestRadarSeries:
         assert s.fill_alpha == 0.25
         assert s.line_width == 2.0
         assert s.line_style == "solid"
-        assert s.show_points is True
         assert s.point_shape == "circle"
         assert s.point_size == 0.8
+        assert s.legend_text_style is None
 
     def test_series_custom_attributes(self) -> None:
         """Test customized attributes on Series."""
@@ -49,18 +49,18 @@ class TestRadarSeries:
             fill_alpha=0.4,
             line_width=2.5,
             line_style="dashed",
-            show_points=False,
             point_shape="square",
             point_size=1.2,
+            legend_text_style=Style(text_size=11),
         )
         assert s.name == "Mage"
         assert s.style is custom_style
         assert s.fill_alpha == 0.4
         assert s.line_width == 2.5
         assert s.line_style == "dashed"
-        assert s.show_points is False
         assert s.point_shape == "square"
         assert s.point_size == 1.2
+        assert s.legend_text_style is not None
 
 
 class TestRadarChartConstruction:
@@ -69,23 +69,26 @@ class TestRadarChartConstruction:
     def test_minimum_categories_validation(self) -> None:
         """Test that fewer than 3 categories raises ValueError."""
         with pytest.raises(ValueError, match="at least 3 categories"):
-            RadarChart(categories=["Speed", "Power"])
+            RadarChart(categories=["Speed", "Power"], axis_line_style=Style(line_color=(200, 200, 200)))
 
     def test_default_construction(self) -> None:
         """Test default values of RadarChart."""
-        chart = RadarChart(categories=["A", "B", "C", "D"])
+        axis_line_style = Style(line_color=(200, 200, 200))
+        chart = RadarChart(categories=["A", "B", "C", "D"], axis_line_style=axis_line_style)
         assert chart.categories == ["A", "B", "C", "D"]
+        assert chart.axis_line_style is axis_line_style
         assert chart.radius == 25.0
         assert chart.min_value == 0.0
         assert chart.max_value is None
         assert chart.levels == 5
         assert chart.grid_shape == "polygon"
-        assert chart.show_grid_labels is True
+        assert chart.axis_text_style is None
+        assert chart.grid_style is None
         assert chart.series == []
 
     def test_add_series(self) -> None:
         """Test registering series with RadarChart."""
-        chart = RadarChart(categories=["Attack", "Defense", "Speed"])
+        chart = RadarChart(categories=["Attack", "Defense", "Speed"], axis_line_style=Style(line_color=(200, 200, 200)))
         s1 = chart.add_series("P1", [80, 70, 90], style=Style(line_color=(50, 100, 200)))
         s2 = chart.add_series("P2", [60, 85, 75], style=Style(line_color=(255, 100, 50)))
         assert len(chart.series) == 2
@@ -96,17 +99,35 @@ class TestRadarChartConstruction:
 
     def test_get_size_auto_and_custom(self) -> None:
         """Test auto dimension calculations and explicit dimensions."""
-        c1 = RadarChart(categories=["A", "B", "C"], radius=20.0, legend_position="right")
+        c1 = RadarChart(
+            categories=["A", "B", "C"],
+            axis_line_style=Style(line_color=(200, 200, 200)),
+            axis_text_style=Style(text_size=10),
+            radius=20.0,
+        )
         w1, h1 = c1.get_size()
-        assert w1 == 40.0 + 26.0
+        assert w1 == 40.0 + 16.0
         assert h1 == 40.0 + 16.0
 
-        c2 = RadarChart(categories=["A", "B", "C"], radius=20.0, legend_position="bottom", title="Skills")
+        c2 = RadarChart(
+            categories=["A", "B", "C"],
+            axis_line_style=Style(line_color=(200, 200, 200)),
+            axis_text_style=Style(text_size=10),
+            radius=20.0,
+            title="Skills",
+            title_style=Style(text_size=12),
+        )
         w2, h2 = c2.get_size()
         assert w2 == 40.0 + 16.0
-        assert h2 == 40.0 + 8.0 + 14.0 + 16.0
+        assert h2 == 40.0 + 16.0 + 6.0
 
-        c3 = RadarChart(categories=["A", "B", "C"], radius=20.0, width=90.0, height=75.0)
+        c3 = RadarChart(
+            categories=["A", "B", "C"],
+            axis_line_style=Style(line_color=(200, 200, 200)),
+            radius=20.0,
+            width=90.0,
+            height=75.0,
+        )
         assert c3.get_size() == (90.0, 75.0)
 
 
@@ -138,13 +159,17 @@ class TestRadarChartRendering:
 
             chart = RadarChart(
                 categories=["Speed", "Power", "Defense", "Agility", "Stamina"],
+                axis_line_style=Style(line_color=(203, 213, 225), line_width=1.0),
+                axis_text_style=Style(text_size=10, text_color=(30, 41, 59)),
+                grid_style=Style(line_color=(226, 232, 240), line_width=1.0),
                 radius=25.0,
                 title="Character Attributes Comparison",
-                legend_position="right",
+                title_style=Style(text_size=12, text_color=(30, 41, 59)),
             )
             chart.add_series("Warrior", [85, 90, 80, 60, 75], style=Style(line_color=(50, 100, 200)))
             chart.add_series("Rogue", [95, 65, 50, 95, 70], style=Style(line_color=(200, 50, 100)))
             chart.draw(xy=(10.0, 10.0))
+            chart.draw_legend(xy=(70.0, 35.0), text_style=Style(text_size=10, text_color=(30, 41, 59)))
 
             canvas.save(str(out_file))
             assert out_file.exists()
@@ -158,13 +183,17 @@ class TestRadarChartRendering:
 
             chart = RadarChart(
                 categories=["Usability", "Performance", "Security", "Reliability", "Maintainability"],
+                axis_line_style=Style(line_color=(203, 213, 225), line_width=1.0),
+                axis_text_style=Style(text_size=10, text_color=(30, 41, 59)),
+                grid_style=Style(line_color=(226, 232, 240), line_width=1.0),
+                scale_text_style=Style(text_size=8, text_color=(148, 163, 184)),
+                value_text_style=Style(text_size=9, text_color=(30, 41, 59)),
                 radius=26.0,
                 grid_shape="circle",
                 levels=4,
                 max_value=100.0,
                 title="System Evaluation",
-                legend_position="bottom",
-                show_values=True,
+                title_style=Style(text_size=12, text_color=(30, 41, 59)),
             )
             chart.add_series("Product A", [90, 85, 95, 80, 75], style=Style(line_color=(50, 100, 200)))
             chart.add_series(
@@ -184,6 +213,7 @@ class TestRadarChartRendering:
 
             chart = RadarChart(
                 categories=["A", "B", "C", "D"],
+                axis_line_style=Style(line_color=(203, 213, 225)),
                 radius=20.0,
             )
             chart.draw(xy=(10.0, 10.0))

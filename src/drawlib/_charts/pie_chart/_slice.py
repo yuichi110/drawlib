@@ -22,6 +22,7 @@ class Slice:
         value: float,
         style: Style,
         explode: float = 0.0,
+        legend_text_style: Style | None = None,
     ) -> None:
         """Initialize Slice.
 
@@ -30,8 +31,10 @@ class Slice:
             value: Numerical value determining slice proportion.
             style: Style defining wedge fill, outline, and appearance.
             explode: Distance to shift the slice outward from center. Defaults to 0.0.
+            legend_text_style: Optional custom text style for this slice in legend.
         """
         self.name = name
         self.value = float(value)
         self.style: Style = style
         self.explode = float(explode)
+        self.legend_text_style: Style | None = legend_text_style

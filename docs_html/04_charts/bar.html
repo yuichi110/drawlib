@@ -304,7 +304,7 @@
             <main class="main-content">
                 <h1>Bar Chart</h1>
 <p>The <code>BarChart</code> component renders vertical or horizontal bar charts for comparing categorical metrics.
-It supports multi-series grouping, stacked bars, custom corner radii, value annotations, and automatic legend placement.</p>
+It supports multi-series grouping, stacked bars, custom corner radii, value annotations, and decoupled legend rendering.</p>
 <hr />
 <h2>1. Quick Example: Stacked Resource Allocation</h2>
 <figure class="drawlib-image" style="text-align: center;">
@@ -327,30 +327,37 @@ It supports multi-series grouping, stacked bars, custom corner radii, value anno
 </ul>
 </li>
 <li><strong><code>r</code></strong>: Corner rounding radius applied to the outer edges of the bars.</li>
-<li><strong><code>show_values</code></strong>: Automatically displays numerical values directly on top of or inside the bars.</li>
+<li><strong><code>value_text_style</code></strong>: When provided (not <code>None</code>), numerical values are automatically printed directly on the bars.</li>
+<li><strong><code>draw_legend</code></strong>: Decoupled legend rendering at any coordinate on the canvas.</li>
 </ul>
 <hr />
 <h2>3. Class API Reference</h2>
 <h3>Constructor</h3>
 <pre><code class="language-python">BarChart(
+    categories: list[str],
+    axis_line_style: Style,
+    axis_text_style: Style | None = None,
+    grid_style: Style | None = None,
+    value_text_style: Style | None = None,
+    background_style: Style | None = None,
     title: str = &quot;&quot;,
-    categories: list[str] | None = None,
+    title_style: Style | None = None,
     width: float = 60.0,
     height: float = 40.0,
     orientation: Literal[&quot;vertical&quot;, &quot;horizontal&quot;] = &quot;vertical&quot;,
     bar_mode: Literal[&quot;group&quot;, &quot;stack&quot;] = &quot;group&quot;,
     bar_width_ratio: float = 0.7,
     r: float = 0.0,
-    show_values: bool = False,
-    legend_position: Literal[&quot;top&quot;, &quot;bottom&quot;, &quot;right&quot;, &quot;none&quot;, &quot;auto&quot;] = &quot;auto&quot;,
 )
 </code></pre>
-<h3>Adding Data</h3>
+<h3>Adding Data &amp; Rendering</h3>
 <ul>
-<li><strong><code>add_series(name: str, values: list[float], style: Style)</code></strong>:<br />
+<li><strong><code>add_series(name: str, values: list[float], style: Style, legend_text_style: Style | None = None)</code></strong>:<br />
 Registers a series. <code>values</code> must align with the length of <code>categories</code>.</li>
-<li><strong><code>configure_y_axis(min_value=None, max_value=None, ticks=None, unit=None)</code></strong>:<br />
-Customizes numerical axis scaling and units.</li>
+<li><strong><code>draw(xy=(0.0, 0.0))</code></strong>:<br />
+Renders the chart body anchored at bottom-left <code>xy</code>.</li>
+<li><strong><code>draw_legend(xy, text_style, orientation=&quot;vertical&quot;, swatch_size=(2.4, 1.2), item_gap=4.0)</code></strong>:<br />
+Renders the series legend at coordinate <code>xy</code>.</li>
 </ul>
 
             </main>

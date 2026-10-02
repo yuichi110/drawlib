@@ -11,10 +11,10 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal, Sequence
 
-from drawlib._charts._common._types import ColorType, LegendPosition
-from drawlib._core.l3_fonts import Font
+from drawlib._charts._common._style_utils import ensure_text_style
+from drawlib._charts._common._types import ColorType, Orientation
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
@@ -23,155 +23,40 @@ from drawlib._preset_colors import DefaultColors as Colors
 if TYPE_CHECKING:
     pass
 
-_DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)
 
-
-def resolve_legend_position(position: LegendPosition, series_count: int) -> LegendPosition:
-    """Determine whether and where the legend should be rendered.
-
-    Args:
-        position: Configured LegendPosition preference.
-        series_count: Number of series in chart.
-
-    Returns:
-        Resolved LegendPosition ("top", "bottom", "right", or "none").
-    """
-    if position == "none":
-        return "none"
-    if position == "auto":
-        return "top" if series_count >= 2 else "none"
-    return position
-
-
-def get_legend_size(
-    position: LegendPosition,
-    series_names: list[str],  # noqa: ARG001
-    series_count: int,
-) -> tuple[float, float]:
-    """Calculate the margin dimensions (width, height) reserved for the legend.
-
-    Args:
-        position: LegendPosition preference.
-        series_names: List of series names.
-        series_count: Number of series.
-
-    Returns:
-        Tuple of (width_margin, height_margin) to subtract from plot area.
-    """
-    resolved = resolve_legend_position(position, series_count)
-    if resolved == "none":
-        return (0.0, 0.0)
-    if resolved in {"top", "bottom"}:
-        # Reserve height at top or bottom for horizontal legend
-        return (0.0, 4.0)
-    if resolved == "right":
-        # Reserve width on the right
-        return (14.0, 0.0)
-    return (0.0, 0.0)
-
-
-def render_legend(
-    names: list[str],
-    colors: list[ColorType],
-    position: LegendPosition,
-    plot_bounds: tuple[float, float, float, float],
-    chart_bounds: tuple[float, float, float, float],
-    text_style: Style | None = None,
+def draw_legend(
+    items: Sequence[tuple[str, ColorType, Style | None]],
+    xy: tuple[float, float],
+    text_style: Style,
+    orientation: Orientation | Literal["vertical", "horizontal"] = "vertical",
+    swatch_size: tuple[float, float] = (2.4, 1.2),
+    item_gap: float = 4.0,
 ) -> None:
-    """Render the legend items onto the canvas.
+    """Render legend items onto the canvas at coordinate xy.
 
     Args:
-        names: List of series names.
-        colors: List of series colors.
-        position: Legend position.
-        plot_bounds: (plot_min_x, plot_min_y, plot_max_x, plot_max_y).
-        chart_bounds: (chart_min_x, chart_min_y, chart_max_x, chart_max_y).
-        text_style: Optional custom text style for labels.
+        items: List of (name, color, optional_item_text_style) tuples.
+        xy: Starting placement coordinate (x, y). For vertical orientation, this is top-left.
+            For horizontal orientation, this is middle-left.
+        text_style: Base text style for legend labels.
+        orientation: "vertical" or "horizontal". Defaults to "vertical".
+        swatch_size: (width, height) of the color swatch rectangle. Defaults to (2.4, 1.2).
+        item_gap: Spacing between consecutive legend items. Defaults to 4.0.
     """
-    resolved = resolve_legend_position(position, len(names))
-    if resolved == "none" or not names:
+    if not items:
         return
 
-    p_min_x, p_min_y, p_max_x, p_max_y = plot_bounds
-    _, _, c_max_x, _ = chart_bounds
-
-    swatch_w = 2.4
-    swatch_h = 1.2
+    swatch_w, swatch_h = float(swatch_size[0]), float(swatch_size[1])
     swatch_r = 0.3
-    item_gap = 4.0
-    text_offset = 1.8
+    text_offset = 0.8
+    start_x, start_y = float(xy[0]), float(xy[1])
 
-    label_style = Style(
-        text_size=10.0,
-        text_font=Font.SANSSERIF_REGULAR,
-        text_color=_DEFAULT_TEXT_COLOR,
-        text_halign="left",
-        text_valign="center",
-    )
-    if text_style is not None:
-        label_style = label_style.patch(text_style)
-
-    if resolved == "top":
-        legend_y = p_max_y + 2.0
-        # Estimate total width to center the legend items
-        # Roughly 1.5 units per character + swatch
-        item_widths = [swatch_w + text_offset + (len(name) * 1.5) for name in names]
-        total_w = sum(item_widths) + item_gap * (len(names) - 1)
-        plot_center_x = (p_min_x + p_max_x) / 2.0
-        cur_x = plot_center_x - total_w / 2.0
-
-        for name, color, item_w in zip(names, colors, item_widths, strict=False):
-            # Swatch
-            swatch_cx = cur_x + swatch_w / 2.0
-            canvas_rectangle(
-                xy=(swatch_cx, legend_y),
-                width=swatch_w,
-                height=swatch_h,
-                r=swatch_r,
-                style=Style(
-                    shape_fill_color=color,
-                    shape_line_color=Colors.Transparent,
-                    shape_line_width=0,
-                ),
-            )
-            # Label
-            text_x = cur_x + swatch_w + 0.8
-            canvas_text(xy=(text_x, legend_y), text=name, style=label_style)
-            cur_x += item_w + item_gap
-
-    elif resolved == "bottom":
-        legend_y = p_min_y - 4.5
-        item_widths = [swatch_w + text_offset + (len(name) * 1.5) for name in names]
-        total_w = sum(item_widths) + item_gap * (len(names) - 1)
-        plot_center_x = (p_min_x + p_max_x) / 2.0
-        cur_x = plot_center_x - total_w / 2.0
-
-        for name, color, item_w in zip(names, colors, item_widths, strict=False):
-            swatch_cx = cur_x + swatch_w / 2.0
-            canvas_rectangle(
-                xy=(swatch_cx, legend_y),
-                width=swatch_w,
-                height=swatch_h,
-                r=swatch_r,
-                style=Style(
-                    shape_fill_color=color,
-                    shape_line_color=Colors.Transparent,
-                    shape_line_width=0,
-                ),
-            )
-            text_x = cur_x + swatch_w + 0.8
-            canvas_text(xy=(text_x, legend_y), text=name, style=label_style)
-            cur_x += item_w + item_gap
-
-    elif resolved == "right":
-        cur_x = p_max_x + 3.0
-        # Stack vertically from top
-        start_y = p_max_y - 2.0
-        step_y = 3.5
-
-        for i, (name, color) in enumerate(zip(names, colors, strict=False)):
+    if orientation == "vertical":
+        base_size = float(text_style.text_size) if text_style.text_size is not None else 10.0
+        step_y = max(swatch_h + 1.5, base_size * 0.35, 3.5)
+        for i, (name, color, custom_text_style) in enumerate(items):
             item_y = start_y - (i * step_y)
-            swatch_cx = cur_x + swatch_w / 2.0
+            swatch_cx = start_x + swatch_w / 2.0
             canvas_rectangle(
                 xy=(swatch_cx, item_y),
                 width=swatch_w,
@@ -183,5 +68,36 @@ def render_legend(
                     shape_line_width=0,
                 ),
             )
-            text_x = cur_x + swatch_w + 0.8
-            canvas_text(xy=(text_x, item_y), text=name, style=label_style)
+            raw_style = text_style.patch(custom_text_style) if custom_text_style is not None else text_style
+            item_style = ensure_text_style(raw_style, halign="left", valign="center")
+            canvas_text(
+                xy=(start_x + swatch_w + text_offset, item_y),
+                text=name,
+                style=item_style,
+            )
+    else:
+        cur_x = start_x
+        for name, color, custom_text_style in items:
+            swatch_cx = cur_x + swatch_w / 2.0
+            canvas_rectangle(
+                xy=(swatch_cx, start_y),
+                width=swatch_w,
+                height=swatch_h,
+                r=swatch_r,
+                style=Style(
+                    shape_fill_color=color,
+                    shape_line_color=Colors.Transparent,
+                    shape_line_width=0,
+                ),
+            )
+            raw_style = text_style.patch(custom_text_style) if custom_text_style is not None else text_style
+            item_style = ensure_text_style(raw_style, halign="left", valign="center")
+            text_x = cur_x + swatch_w + text_offset
+            canvas_text(
+                xy=(text_x, start_y),
+                text=name,
+                style=item_style,
+            )
+            t_size: float = float(item_style.text_size) if item_style.text_size is not None else 10.0
+            approx_w = float(len(name)) * t_size * 0.12
+            cur_x += swatch_w + text_offset + approx_w + item_gap

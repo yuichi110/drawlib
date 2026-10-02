@@ -9,8 +9,8 @@ The `drawlib.charts` module provides a declarative, pure-Python data visualizati
 Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, or Plotly) that generate isolated image files or web-only canvases, Drawlib charts are **first-class vector canvas elements**:
 
 - **Seamless Canvas Coexistence**: Charts can share the same canvas with architecture schemas, callout bubbles, and icons.
-- **Deterministic Layouts**: All margins, tick spaces, and legend boxes are mathematically computed from explicit canvas dimensions (`width`, `height`).
-- **Consistent Visual Theming**: Chart elements—bars, areas, gridlines, axes, labels, and legends—automatically adapt to Drawlib's active styling presets (`Styles.PrimaryFlat`, `Styles.AccentFlat`, etc.).
+- **Deterministic Layouts**: All margins, tick spaces, and plot boxes are mathematically computed from explicit canvas dimensions (`width`, `height`).
+- **Consistent Visual Theming & Style Presence**: Charts follow the "style-as-presence" philosophy. If an element has a style, it is drawn; if omitted (`None`), no fallback element or unwanted default grid/background is rendered. Legends are decoupled and rendered explicitly via `chart.draw_legend(...)`.
 
 
 
@@ -43,21 +43,31 @@ Drawlib organizes charts into seven specialized submodules under `drawlib.charts
 
 Every chart in Drawlib follows a consistent lifecycle and coordinate contract:
 
-### 1. Dimension Instantiation
-Specify virtual canvas dimensions (`width`, `height`) during initialization:
+### 1. Dimension Instantiation & Mandatory Anchor
+Specify category labels and a mandatory `axis_line_style` (the structural anchor) during initialization:
 ```python
-chart = BarChart(width=90, height=50, categories=[...], title="Performance Metrics")
+chart = BarChart(
+    categories=["US", "EU", "APAC"],
+    axis_line_style=Styles.Primary,
+    axis_text_style=Styles.Black,
+    grid_style=Styles.MutedLight,
+    width=90,
+    height=50,
+    title="Regional Distribution",
+    title_style=Styles.BlackBold,
+)
 ```
 
 ### 2. Adding Data Series
 Add data series directly with explicit styles:
 ```python
-chart.add_series("US Region", [120, 180, 240], style=Styles.PrimaryFlat)
-chart.add_series("EU Region", [90, 150, 210], style=Styles.SecondaryFlat)
+chart.add_series("Allocated", [120, 180, 240], style=Styles.PrimaryFlat)
+chart.add_series("Available", [90, 150, 210], style=Styles.SecondaryFlat)
 ```
 
-### 3. Rendering via Bottom-Left Anchor
-All charts are anchored by their **bottom-left corner** via `draw(xy=(x, y))`:
+### 3. Rendering via Bottom-Left Anchor & Decoupled Legend
+All charts are anchored by their **bottom-left corner** via `draw(xy=(x, y))`. Legends are rendered independently wherever desired via `draw_legend(xy=(x, y), text_style=...)`:
 ```python
 chart.draw(xy=(15, 10))
+chart.draw_legend(xy=(85, 50), text_style=Styles.Black)
 ```

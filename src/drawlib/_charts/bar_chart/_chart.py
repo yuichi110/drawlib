@@ -13,9 +13,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import drawlib._charts._common._legend as _legend_module
 import drawlib._charts.bar_chart._renderer as _renderer_module
 from drawlib._charts._common._axis import Axis
-from drawlib._charts._common._types import BarMode, FormatterType, LegendPosition, Orientation, ScaleType
+from drawlib._charts._common._types import BarMode, FormatterType, Orientation, ScaleType
 from drawlib._charts.bar_chart._series import Series
 
 if TYPE_CHECKING:
@@ -27,55 +28,55 @@ class BarChart:
 
     def __init__(
         self,
-        title: str = "",
-        categories: list[str] | None = None,
+        axis_line_style: Style,
         width: float = 60.0,
         height: float = 40.0,
+        categories: list[str] | None = None,
         orientation: Orientation = "vertical",
         bar_mode: BarMode = "group",
         bar_width_ratio: float = 0.7,
         r: float = 0.0,
-        show_values: bool = False,
+        axis_text_style: Style | None = None,
+        grid_style: Style | None = None,
+        value_text_style: Style | None = None,
         value_format: FormatterType = None,
-        value_label_style: Style | None = None,
-        legend_position: LegendPosition = "auto",
-        legend_style: Style | None = None,
-        style: Style | None = None,
+        background_style: Style | None = None,
+        title: str = "",
         title_style: Style | None = None,
     ) -> None:
         """Initialize BarChart.
 
         Args:
-            title: Title of the chart.
-            categories: Category names (e.g. ["Q1", "Q2", "Q3"]).
+            axis_line_style: Style defining baseline coordinate axis lines.
             width: Width of the chart on the canvas. Defaults to 60.0.
             height: Height of the chart on the canvas. Defaults to 40.0.
+            categories: Category names (e.g. ["Q1", "Q2", "Q3"]).
             orientation: Bar orientation ("vertical" or "horizontal"). Defaults to "vertical".
             bar_mode: Multi-series layout ("group" or "stack"). Defaults to "group".
             bar_width_ratio: Ratio of category slot occupied by bars (0.1 to 1.0). Defaults to 0.7.
             r: Corner radius for bars. Defaults to 0.0.
-            show_values: Whether to render data values on bars. Defaults to False.
+            axis_text_style: Optional Style for axis tick labels and category names.
+            grid_style: Optional Style for background gridlines.
+            value_text_style: Optional Style for data value labels drawn on bars.
             value_format: Custom format for value labels.
-            value_label_style: Style for value label typography.
-            legend_position: Legend placement ("top", "bottom", "right", "none", "auto").
-            legend_style: Style for legend text.
-            style: Optional Style for the chart background card.
+            background_style: Optional Style for the chart background card.
+            title: Title of the chart.
             title_style: Optional Style for the chart title typography.
         """
-        self.title: str = title
-        self.categories: list[str] = list(categories) if categories is not None else []
+        self.axis_line_style: Style = axis_line_style
         self.width: float = float(width)
         self.height: float = float(height)
+        self.categories: list[str] = list(categories) if categories is not None else []
         self.orientation: Orientation = orientation
         self.bar_mode: BarMode = bar_mode
         self.bar_width_ratio: float = float(bar_width_ratio)
         self.r: float = float(r)
-        self.show_values: bool = show_values
+        self.axis_text_style: Style | None = axis_text_style
+        self.grid_style: Style | None = grid_style
+        self.value_text_style: Style | None = value_text_style
         self.value_format: FormatterType = value_format
-        self.value_label_style: Style | None = value_label_style
-        self.legend_position: LegendPosition = legend_position
-        self.legend_style: Style | None = legend_style
-        self.style: Style | None = style
+        self.background_style: Style | None = background_style
+        self.title: str = title
         self.title_style: Style | None = title_style
 
         self.x_axis: Axis = Axis()
@@ -102,6 +103,7 @@ class BarChart:
         name: str,
         values: list[float],
         style: Style,
+        legend_text_style: Style | None = None,
     ) -> Series:
         """Add a data series to the chart.
 
@@ -109,11 +111,12 @@ class BarChart:
             name: Series label shown in the legend.
             values: Numerical values corresponding to categories.
             style: Style object defining bar outline and fill.
+            legend_text_style: Optional custom text style for this series in legend.
 
         Returns:
             Series: The newly created and registered series.
         """
-        s = Series(name=name, values=values, style=style)
+        s = Series(name=name, values=values, style=style, legend_text_style=legend_text_style)
         self._series.append(s)
         return s
 
@@ -212,3 +215,37 @@ class BarChart:
             xy: Canvas placement coordinate (x, y) where the bottom-left of the chart is anchored.
         """
         _renderer_module.draw_bar_chart(self, xy)
+
+    def draw_legend(
+        self,
+        xy: tuple[float, float],
+        text_style: Style,
+        orientation: Orientation = "vertical",
+        swatch_size: tuple[float, float] = (2.4, 1.2),
+        item_gap: float = 4.0,
+    ) -> None:
+        """Render legend for series at coordinate xy.
+
+        Args:
+            xy: Starting placement coordinate (x, y).
+            text_style: Base Style for legend text labels.
+            orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
+            swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
+            item_gap: Spacing between consecutive legend items. Defaults to 4.0.
+        """
+        items = [
+            (
+                s.name,
+                s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
+                s.legend_text_style,
+            )
+            for s in self._series
+        ]
+        _legend_module.draw_legend(
+            items=items,
+            xy=xy,
+            text_style=text_style,
+            orientation=orientation,
+            swatch_size=swatch_size,
+            item_gap=item_gap,
+        )

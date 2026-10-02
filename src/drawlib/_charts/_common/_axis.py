@@ -40,6 +40,7 @@ class Axis:
         show_ticks: bool = True,
         tick_label_style: Style | None = None,
         tick_label_angle: float = 0.0,
+        label_style: Style | None = None,
     ) -> None:
         """Initialize Axis.
 
@@ -59,6 +60,7 @@ class Axis:
             show_ticks: Whether to render tick labels. Defaults to True.
             tick_label_style: Optional Style for tick label typography.
             tick_label_angle: Rotation angle in degrees for tick labels. Defaults to 0.0.
+            label_style: Optional Style for axis title label typography.
         """
         self.scale: ScaleType = scale
         self.min_value: float | None = float(min_value) if min_value is not None else None
@@ -75,6 +77,7 @@ class Axis:
         self.show_ticks: bool = show_ticks
         self.tick_label_style: Style | None = tick_label_style
         self.tick_label_angle: float = float(tick_label_angle)
+        self.label_style: Style | None = label_style
 
     def configure(
         self,
@@ -93,6 +96,7 @@ class Axis:
         show_ticks: bool | None = None,
         tick_label_style: Style | None = None,
         tick_label_angle: float | None = None,
+        label_style: Style | None = None,
     ) -> None:
         """Update multiple axis configuration options in place.
 
@@ -112,6 +116,7 @@ class Axis:
             show_ticks: Whether to render tick labels.
             tick_label_style: Optional Style for tick label typography.
             tick_label_angle: Rotation angle in degrees for tick labels.
+            label_style: Optional Style for axis title label typography.
         """
         opts: dict[str, object] = {
             "scale": scale,
@@ -129,6 +134,7 @@ class Axis:
             "show_ticks": show_ticks,
             "tick_label_style": tick_label_style,
             "tick_label_angle": float(tick_label_angle) if tick_label_angle is not None else None,
+            "label_style": label_style,
         }
         for k, v in opts.items():
             if v is not None:

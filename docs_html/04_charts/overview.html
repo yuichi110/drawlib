@@ -309,8 +309,8 @@
 <p>Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, or Plotly) that generate isolated image files or web-only canvases, Drawlib charts are <strong>first-class vector canvas elements</strong>:</p>
 <ul>
 <li><strong>Seamless Canvas Coexistence</strong>: Charts can share the same canvas with architecture schemas, callout bubbles, and icons.</li>
-<li><strong>Deterministic Layouts</strong>: All margins, tick spaces, and legend boxes are mathematically computed from explicit canvas dimensions (<code>width</code>, <code>height</code>).</li>
-<li><strong>Consistent Visual Theming</strong>: Chart elements—bars, areas, gridlines, axes, labels, and legends—automatically adapt to Drawlib's active styling presets (<code>Styles.PrimaryFlat</code>, <code>Styles.AccentFlat</code>, etc.).</li>
+<li><strong>Deterministic Layouts</strong>: All margins, tick spaces, and plot boxes are mathematically computed from explicit canvas dimensions (<code>width</code>, <code>height</code>).</li>
+<li><strong>Consistent Visual Theming &amp; Style Presence</strong>: Charts follow the &quot;style-as-presence&quot; philosophy. If an element has a style, it is drawn; if omitted (<code>None</code>), no fallback element or unwanted default grid/background is rendered. Legends are decoupled and rendered explicitly via <code>chart.draw_legend(...)</code>.</li>
 </ul>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="overview_images/1.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
@@ -368,18 +368,28 @@
 <hr />
 <h2>3. Universal Chart Architecture</h2>
 <p>Every chart in Drawlib follows a consistent lifecycle and coordinate contract:</p>
-<h3>1. Dimension Instantiation</h3>
-<p>Specify virtual canvas dimensions (<code>width</code>, <code>height</code>) during initialization:</p>
-<pre><code class="language-python">chart = BarChart(width=90, height=50, categories=[...], title=&quot;Performance Metrics&quot;)
+<h3>1. Dimension Instantiation &amp; Mandatory Anchor</h3>
+<p>Specify category labels and a mandatory <code>axis_line_style</code> (the structural anchor) during initialization:</p>
+<pre><code class="language-python">chart = BarChart(
+    categories=[&quot;US&quot;, &quot;EU&quot;, &quot;APAC&quot;],
+    axis_line_style=Styles.Primary,
+    axis_text_style=Styles.Black,
+    grid_style=Styles.MutedLight,
+    width=90,
+    height=50,
+    title=&quot;Regional Distribution&quot;,
+    title_style=Styles.BlackBold,
+)
 </code></pre>
 <h3>2. Adding Data Series</h3>
 <p>Add data series directly with explicit styles:</p>
-<pre><code class="language-python">chart.add_series(&quot;US Region&quot;, [120, 180, 240], style=Styles.PrimaryFlat)
-chart.add_series(&quot;EU Region&quot;, [90, 150, 210], style=Styles.SecondaryFlat)
+<pre><code class="language-python">chart.add_series(&quot;Allocated&quot;, [120, 180, 240], style=Styles.PrimaryFlat)
+chart.add_series(&quot;Available&quot;, [90, 150, 210], style=Styles.SecondaryFlat)
 </code></pre>
-<h3>3. Rendering via Bottom-Left Anchor</h3>
-<p>All charts are anchored by their <strong>bottom-left corner</strong> via <code>draw(xy=(x, y))</code>:</p>
+<h3>3. Rendering via Bottom-Left Anchor &amp; Decoupled Legend</h3>
+<p>All charts are anchored by their <strong>bottom-left corner</strong> via <code>draw(xy=(x, y))</code>. Legends are rendered independently wherever desired via <code>draw_legend(xy=(x, y), text_style=...)</code>:</p>
 <pre><code class="language-python">chart.draw(xy=(15, 10))
+chart.draw_legend(xy=(85, 50), text_style=Styles.Black)
 </code></pre>
 
             </main>

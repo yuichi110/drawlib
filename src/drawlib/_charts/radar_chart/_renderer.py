@@ -15,10 +15,9 @@ import math
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._axis import _get_nice_step
-from drawlib._charts._common._legend import get_legend_size, render_legend
+from drawlib._charts._common._style_utils import ensure_line_style, ensure_shape_style, ensure_text_style
 from drawlib._charts._common._types import ColorType, FormatterType
 from drawlib._core.l3_colors import Color
-from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
 from drawlib._core.l4_canvas import line as canvas_line
@@ -26,16 +25,10 @@ from drawlib._core.l4_canvas import lines as canvas_lines
 from drawlib._core.l4_canvas import polygon as canvas_polygon
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
-from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._charts.radar_chart._chart import RadarChart
     from drawlib._charts.radar_chart._series import Series
-
-_DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)
-_DEFAULT_MUTED_TEXT = (148, 163, 184, 1.0)
-_DEFAULT_GRID_COLOR = (226, 232, 240, 1.0)
-_DEFAULT_SPOKE_COLOR = (203, 213, 225, 1.0)
 
 
 def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
@@ -47,7 +40,7 @@ def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
 def _resolve_series_colors(series_list: list[Series]) -> list[ColorType]:
     """Resolve fill/stroke colors for all series."""
     return [
-        s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or _DEFAULT_TEXT_COLOR
+        s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0)
         for s in series_list
     ]
 
@@ -95,50 +88,42 @@ def _draw_radar_grid(
     cx, cy = center
     span = eff_max - chart.min_value
 
-    default_grid_style = Style(
-        line_color=_DEFAULT_GRID_COLOR,
-        line_width=1.0,
-    )
-    grid_style = default_grid_style.patch(chart.grid_style)
-    circle_grid_style = Style(
-        shape_fill_color=Colors.Transparent,
-        shape_line_color=grid_style.line_color if grid_style.line_color is not None else _DEFAULT_GRID_COLOR,
-        shape_line_width=grid_style.line_width if grid_style.line_width is not None else 1.0,
-    )
-    default_spoke_style = Style(
-        line_color=_DEFAULT_SPOKE_COLOR,
-        line_width=1.0,
-    )
-    spoke_style = default_spoke_style.patch(chart.spoke_style)
-    scale_label_style = Style(
-        text_size=8.5,
-        text_font=Font.SANSSERIF_REGULAR,
-        text_color=_DEFAULT_MUTED_TEXT,
-        text_halign="left",
-        text_valign="bottom",
-    )
-
     # 1. Concentric grid rings
-    for k in range(1, chart.levels + 1):
-        ratio = k / chart.levels
-        ring_r = chart.radius * ratio
-        level_val = chart.min_value + ratio * span
+    if chart.grid_style is not None:
+        for k in range(1, chart.levels + 1):
+            ratio = k / chart.levels
+            ring_r = chart.radius * ratio
 
-        if chart.grid_shape == "polygon":
-            ring_pts = [(cx + ring_r * math.cos(a), cy + ring_r * math.sin(a)) for a in angles]
-            canvas_lines(xys=ring_pts + [ring_pts[0]], style=grid_style)
-        else:
-            canvas_circle(xy=center, radius=ring_r, style=circle_grid_style)
+            if chart.grid_shape == "polygon":
+                ring_pts = [(cx + ring_r * math.cos(a), cy + ring_r * math.sin(a)) for a in angles]
+                canvas_lines(xys=ring_pts + [ring_pts[0]], style=ensure_line_style(chart.grid_style))
+            else:
+                grid_color = (
+                    chart.grid_style.line_color or chart.grid_style.shape_line_color or (200, 200, 200, 1.0)
+                )
+                circle_grid_style = Style(
+                    shape_fill_color=(0, 0, 0, 0.0),
+                    shape_line_color=grid_color,
+                    shape_line_width=chart.grid_style.line_width or chart.grid_style.shape_line_width or 1.0,
+                    shape_line_style=chart.grid_style.line_style or chart.grid_style.shape_line_style or "solid",
+                )
+                canvas_circle(xy=center, radius=ring_r, style=circle_grid_style)
 
-        if chart.show_grid_labels:
-            lbl_str = _format_value(chart.grid_label_format, level_val)
-            # Render slightly offset from the top spoke
-            canvas_text(xy=(cx + 0.8, cy + ring_r + 0.3), text=lbl_str, style=scale_label_style)
+    # 2. Scale labels along top spoke
+    if chart.scale_text_style is not None and span > 0:
+        scale_style = ensure_text_style(chart.scale_text_style, halign="left", valign="bottom")
+        for k in range(1, chart.levels + 1):
+            ratio = k / chart.levels
+            ring_r = chart.radius * ratio
+            level_val = chart.min_value + ratio * span
+            lbl_str = _format_value(chart.scale_format, level_val)
+            canvas_text(xy=(cx + 0.8, cy + ring_r + 0.3), text=lbl_str, style=scale_style)
 
-    # 2. Radial spokes
+    # 3. Radial spokes (mandatory anchor)
+    spoke_line_style = ensure_line_style(chart.axis_line_style)
     for a in angles:
         spoke_end = (cx + chart.radius * math.cos(a), cy + chart.radius * math.sin(a))
-        canvas_line(xy1=center, xy2=spoke_end, style=spoke_style)
+        canvas_line(xy1=center, xy2=spoke_end, style=spoke_line_style)
 
 
 def _draw_category_labels(
@@ -147,10 +132,13 @@ def _draw_category_labels(
     angles: list[float],
 ) -> None:
     """Render category labels around the perimeter."""
+    if chart.axis_text_style is None:
+        return
+
     cx, cy = center
     offset_r = chart.radius + 3.0
 
-    for i, (cat, a) in enumerate(zip(chart.categories, angles, strict=False)):
+    for cat, a in zip(chart.categories, angles, strict=False):
         cos_a = math.cos(a)
         sin_a = math.sin(a)
 
@@ -171,15 +159,36 @@ def _draw_category_labels(
         else:
             valign = "center"
 
-        default_lbl_style = Style(
-            text_size=10.0,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_TEXT_COLOR,
-            text_halign=halign,
-            text_valign=valign,
-        )
-        lbl_style = default_lbl_style.patch(chart.category_label_style)
+        lbl_style = ensure_text_style(chart.axis_text_style, halign=halign, valign=valign)
         canvas_text(xy=(lx, ly), text=cat, style=lbl_style)
+
+
+def _draw_series_markers_and_labels(
+    chart: RadarChart,
+    s: Series,
+    pts: list[tuple[float, float]],
+    color: ColorType,
+) -> None:
+    """Render vertex markers and value text labels for a single series."""
+    if s.point_shape == "none" or s.point_size <= 0.0:
+        return
+
+    marker_style = Style(
+        shape_fill_color=(255, 255, 255, 1.0),
+        shape_line_color=color,
+        shape_line_width=1.5,
+    )
+    for (px, py), val in zip(pts, s.values, strict=False):
+        if s.point_shape == "circle":
+            canvas_circle(xy=(px, py), radius=s.point_size, style=marker_style)
+        elif s.point_shape == "square":
+            side = s.point_size * 1.6
+            canvas_rectangle(xy=(px, py), width=side, height=side, style=marker_style)
+
+        if chart.value_text_style is not None:
+            v_str = _format_value(chart.value_format, val)
+            v_style = ensure_text_style(chart.value_text_style, halign="center", valign="bottom")
+            canvas_text(xy=(px, py + s.point_size + 1.2), text=v_str, style=v_style)
 
 
 def _draw_series(
@@ -194,15 +203,6 @@ def _draw_series(
     span = eff_max - chart.min_value
     if span <= 0:
         return
-
-    default_val_label_style = Style(
-        text_size=9.0,
-        text_font=Font.SANSSERIF_BOLD,
-        text_color=_DEFAULT_TEXT_COLOR,
-        text_halign="center",
-        text_valign="bottom",
-    )
-    val_label_style = default_val_label_style.patch(chart.value_label_style)
 
     for s_idx, s in enumerate(chart.series):
         if not s.values:
@@ -219,39 +219,26 @@ def _draw_series(
             pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
 
         # 1. Filled transparent polygon
-        fill_style = Style(
-            shape_fill_color=_with_alpha(color, s.fill_alpha),
-            shape_line_color=Colors.Transparent,
-            shape_line_width=0,
-        )
-        canvas_polygon(xys=pts, style=fill_style)
+        if s.fill_alpha > 0.0:
+            fill_style = Style(
+                shape_fill_color=_with_alpha(color, s.fill_alpha),
+                shape_line_color=(0, 0, 0, 0.0),
+                shape_line_width=0,
+            )
+            canvas_polygon(xys=pts, style=fill_style)
 
         # 2. Outer border stroke
-        default_stroke_style = Style(
-            line_color=color,
-            line_width=s.line_width,
-            line_style=s.line_style,
+        stroke_style = ensure_line_style(
+            Style(
+                line_color=color,
+                line_width=s.line_width,
+                line_style=s.line_style,
+            ).patch(s.style)
         )
-        stroke_style = default_stroke_style.patch(s.style)
         canvas_lines(xys=pts + [pts[0]], style=stroke_style)
 
-        # 3. Vertex markers
-        if s.show_points and s.point_shape != "none":
-            marker_style = Style(
-                shape_fill_color=(255, 255, 255, 1.0),
-                shape_line_color=color,
-                shape_line_width=1.5,
-            )
-            for (px, py), val in zip(pts, s.values, strict=False):
-                if s.point_shape == "circle":
-                    canvas_circle(xy=(px, py), radius=s.point_size, style=marker_style)
-                elif s.point_shape == "square":
-                    side = s.point_size * 1.6
-                    canvas_rectangle(xy=(px, py), width=side, height=side, style=marker_style)
-
-                if chart.show_values:
-                    v_str = _format_value(chart.value_format, val)
-                    canvas_text(xy=(px, py + s.point_size + 1.2), text=v_str, style=val_label_style)
+        # 3. Vertex markers and labels
+        _draw_series_markers_and_labels(chart, s, pts, color)
 
 
 def draw_radar_chart(chart: RadarChart, xy: tuple[float, float]) -> None:
@@ -261,6 +248,20 @@ def draw_radar_chart(chart: RadarChart, xy: tuple[float, float]) -> None:
     c_max_x = c_min_x + chart_w
     c_max_y = c_min_y + chart_h
 
+    # 1. Background
+    if chart.background_style is not None:
+        canvas_rectangle(
+            xy=(c_min_x + chart_w / 2.0, c_min_y + chart_h / 2.0),
+            width=chart_w,
+            height=chart_h,
+            style=ensure_shape_style(chart.background_style),
+        )
+
+    # 2. Title
+    if chart.title and chart.title_style is not None:
+        t_style = ensure_text_style(chart.title_style, halign="center", valign="bottom")
+        canvas_text(xy=((c_min_x + c_max_x) / 2.0, c_max_y - 3.5), text=chart.title, style=t_style)
+
     num_cats = len(chart.categories)
     if num_cats < 3:
         return
@@ -268,45 +269,11 @@ def draw_radar_chart(chart: RadarChart, xy: tuple[float, float]) -> None:
     # Angular progression: top spoke is 90 degrees, progressing clockwise
     angles = [math.radians(90.0 - i * (360.0 / num_cats)) for i in range(num_cats)]
     eff_max = _calculate_max_value(chart)
-
-    series_names = [s.name for s in chart.series]
     series_colors = _resolve_series_colors(chart.series)
-    legend_w, legend_h = get_legend_size(chart.legend_position, series_names, len(chart.series))
 
-    if chart.title:
-        default_t_style = Style(
-            text_size=12.0,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_TEXT_COLOR,
-            text_halign="center",
-            text_valign="bottom",
-        )
-        t_style = default_t_style.patch(chart.title_style)
-        canvas_text(xy=((c_min_x + c_max_x) / 2.0, c_max_y - 3.5), text=chart.title, style=t_style)
-
-    # Compute center coordinates based on legend placement
-    if chart.legend_position == "right":
-        center_x = c_min_x + chart.radius + 8.0
-        center_y = c_min_y + (chart_h - (4.0 if chart.title else 0.0)) / 2.0
-        p_bounds = (c_min_x, c_min_y, center_x + chart.radius + 6.0, c_max_y)
-    elif chart.legend_position in {"top", "bottom"}:
-        center_x = c_min_x + chart_w / 2.0
-        center_y = c_min_y + chart.radius + (12.0 if chart.legend_position == "bottom" else 4.0)
-        p_min_y_bound = c_min_y + (7.0 if chart.legend_position == "bottom" else 0.0)
-        p_max_y_bound = c_max_y - (7.0 if chart.legend_position == "top" else 0.0)
-        p_bounds = (c_min_x, p_min_y_bound, c_max_x, p_max_y_bound)
-    else:
-        center_x = c_min_x + chart_w / 2.0
-        center_y = c_min_y + chart_h / 2.0
-        p_bounds = (c_min_x, c_min_y, c_max_x, c_max_y)
-
-    render_legend(
-        names=series_names,
-        colors=series_colors,
-        position=chart.legend_position,
-        plot_bounds=p_bounds,
-        chart_bounds=(c_min_x, c_min_y, c_max_x, c_max_y),
-    )
+    has_title = bool(chart.title and chart.title_style is not None)
+    center_x = c_min_x + chart_w / 2.0
+    center_y = c_min_y + (chart_h - (6.0 if has_title else 0.0)) / 2.0
 
     _draw_radar_grid(chart, (center_x, center_y), angles, eff_max)
     _draw_category_labels(chart, (center_x, center_y), angles)

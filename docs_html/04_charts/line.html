@@ -304,7 +304,7 @@
             <main class="main-content">
                 <h1>Line Chart</h1>
 <p>The <code>LineChart</code> component visualizes numerical trends over ordered categories or continuous time points.
-It supports straight line segments, smoothed spline curves, custom point marker shapes, and configurable line styles.</p>
+It supports straight line segments, smoothed spline curves, custom point marker shapes, configurable line styles, and decoupled legend rendering.</p>
 <hr />
 <h2>1. Quick Example: User Growth Trends</h2>
 <figure class="drawlib-image" style="text-align: center;">
@@ -322,24 +322,29 @@ It supports straight line segments, smoothed spline curves, custom point marker 
 </ul>
 </li>
 <li><strong>Stroke Styles (<code>line_style</code>)</strong>: Supports <code>&quot;solid&quot;</code>, <code>&quot;dashed&quot;</code>, and <code>&quot;dotted&quot;</code> strokes to differentiate targets from actuals.</li>
+<li><strong>Decoupled Legend (<code>draw_legend</code>)</strong>: Allows rendering the series legend at any coordinate on the canvas.</li>
 </ul>
 <hr />
 <h2>3. Class API Reference</h2>
 <h3>Constructor</h3>
 <pre><code class="language-python">LineChart(
-    categories: list[str],
+    axis_line_style: Style,
+    categories: list[str] | None = None,
+    axis_text_style: Style | None = None,
+    grid_style: Style | None = None,
+    value_text_style: Style | None = None,
+    background_style: Style | None = None,
+    title: str = &quot;&quot;,
+    title_style: Style | None = None,
     width: float = 80.0,
     height: float = 50.0,
-    title: str = &quot;&quot;,
     smooth: bool = False,
     show_points: bool = True,
     point_shape: Literal[&quot;circle&quot;, &quot;square&quot;, &quot;none&quot;] = &quot;circle&quot;,
     point_size: float = 0.7,
-    show_values: bool = False,
-    legend_position: Literal[&quot;auto&quot;, &quot;top&quot;, &quot;bottom&quot;, &quot;right&quot;, &quot;none&quot;] = &quot;auto&quot;,
 )
 </code></pre>
-<h3>Adding Series</h3>
+<h3>Adding Series &amp; Rendering</h3>
 <pre><code class="language-python">chart.add_series(
     name: str,
     values: list[float],
@@ -348,7 +353,10 @@ It supports straight line segments, smoothed spline curves, custom point marker 
     line_style: LineStyle = &quot;solid&quot;,
     point_shape: PointShape | None = None,
     point_size: float | None = None,
+    legend_text_style: Style | None = None,
 )
+chart.draw(xy=(0.0, 0.0))
+chart.draw_legend(xy, text_style=Styles.Black, orientation=&quot;vertical&quot;)
 </code></pre>
 
             </main>

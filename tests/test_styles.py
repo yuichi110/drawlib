@@ -60,10 +60,7 @@ def test_load_styles_custom_styles() -> None:
 def test_load_styles_custom_colors_explicit() -> None:
     """Verify load_styles respects explicitly defined colors in styles.py."""
     with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".py", delete=False) as f:
-        f.write(
-            "from drawlib.preset_colors import GoogleColors\n"
-            "Colors = GoogleColors\n"
-        )
+        f.write("from drawlib.preset_colors import GoogleColors\nColors = GoogleColors\n")
         f.flush()
         styles_file = f.name
 

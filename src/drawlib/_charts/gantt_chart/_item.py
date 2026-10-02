@@ -11,7 +11,10 @@
 
 from __future__ import annotations
 
-from drawlib._core.l3_styles import Style
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from drawlib._core.l3_styles import Style
 
 
 class Task:
@@ -24,7 +27,7 @@ class Task:
         end: str | float,
         style: Style,
         progress: float = 0.0,
-        show_progress_text: bool = True,
+        progress_text_style: Style | None = None,
     ) -> None:
         """Initialize Task.
 
@@ -34,14 +37,14 @@ class Task:
             end: End column name or numerical time index.
             style: Style defining task bar appearance.
             progress: Completion ratio from 0.0 to 1.0. Defaults to 0.0.
-            show_progress_text: Whether to print progress percentage on bar. Defaults to True.
+            progress_text_style: Optional Style for progress percentage text.
         """
         self.name = name
         self.start = start
         self.end = end
         self.style: Style = style
         self.progress = max(0.0, min(1.0, float(progress)))
-        self.show_progress_text = show_progress_text
+        self.progress_text_style: Style | None = progress_text_style
 
         # Layout cache populated during rendering
         self._cached_start_x: float = 0.0
@@ -56,15 +59,18 @@ class Section:
         self,
         name: str,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Initialize Section.
 
         Args:
             name: Section title displayed across the row.
             style: Optional Style overriding section banner appearance.
+            text_style: Optional Style overriding section text typography.
         """
         self.name = name
         self.style: Style | None = style
+        self.text_style: Style | None = text_style
 
         # Layout cache
         self._cached_row_y: float = 0.0
@@ -103,6 +109,7 @@ class Marker:
         at: str | float,
         style: Style,
         label: str = "",
+        label_style: Style | None = None,
     ) -> None:
         """Initialize Marker.
 
@@ -110,10 +117,12 @@ class Marker:
             at: Column name or numerical time index where line is placed.
             style: Style defining marker line appearance.
             label: Text badge rendered above or next to the line. Defaults to "".
+            label_style: Optional Style for marker label text.
         """
         self.at = at
         self.style: Style = style
         self.label = label
+        self.label_style: Style | None = label_style
 
 
 class Dependency:

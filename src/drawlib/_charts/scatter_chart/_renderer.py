@@ -14,11 +14,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
-from drawlib._charts._common._legend import get_legend_size, render_legend
-from drawlib._charts._common._types import ColorType, LegendPosition, PointShape
+from drawlib._charts._common._style_utils import ensure_line_style, ensure_shape_style, ensure_text_style
+from drawlib._charts._common._types import PointShape
 from drawlib._charts.scatter_chart._point import Point
-from drawlib._core.l3_colors import Color
-from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
 from drawlib._core.l4_canvas import line as canvas_line
@@ -30,45 +28,25 @@ from drawlib._core.l4_canvas import triangle as canvas_triangle
 if TYPE_CHECKING:
     from drawlib._charts.scatter_chart._chart import ScatterChart
 
-_DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)
-_DEFAULT_MUTED_TEXT = (100, 116, 139, 1.0)
-_DEFAULT_GRID_COLOR = (226, 232, 240, 1.0)
-_DEFAULT_AXIS_COLOR = (148, 163, 184, 1.0)
-
-
-def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
-    """Return an RGBA color tuple replacing alpha with given ratio."""
-    c = color if isinstance(color, Color) else Color(color)
-    return (c.r, c.g, c.b, float(alpha))
-
 
 def _calculate_plot_bounds(
     chart_xy: tuple[float, float],
     chart_w: float,
     chart_h: float,
-    title: str,
-    x_title: str,
-    y_title: str,
-    legend_h: float,
-    legend_w: float,
-    legend_pos: LegendPosition,
+    has_title: bool,
+    has_axis_text: bool,
+    has_x_label: bool,
+    has_y_label: bool,
 ) -> tuple[float, float, float, float]:
-    """Calculate internal plot area bounds accounting for labels, ticks, and legend."""
+    """Calculate internal plot area bounds accounting for labels, ticks, and titles."""
     c_min_x, c_min_y = chart_xy
     c_max_x = c_min_x + chart_w
     c_max_y = c_min_y + chart_h
 
-    pad_left = 11.0 + (4.0 if y_title else 0.0)
-    pad_bottom = 8.0 + (4.0 if x_title else 0.0)
-    pad_right = 10.0
-    pad_top = 4.0 + (5.0 if title else 0.0)
-
-    if legend_pos in {"top", "auto"} and legend_h > 0:
-        pad_top += legend_h + 2.0
-    elif legend_pos == "bottom" and legend_h > 0:
-        pad_bottom += legend_h + 2.0
-    elif legend_pos == "right" and legend_w > 0:
-        pad_right += legend_w + 2.0
+    pad_left = (11.0 + (4.0 if has_y_label else 0.0)) if has_axis_text else 3.0
+    pad_bottom = (8.0 + (4.0 if has_x_label else 0.0)) if has_axis_text else 3.0
+    pad_right = 5.0
+    pad_top = 4.0 + (5.0 if has_title else 0.0)
 
     p_min_x = c_min_x + pad_left
     p_max_x = c_max_x - pad_right
@@ -78,6 +56,7 @@ def _calculate_plot_bounds(
 
 
 def _draw_y_grid_and_ticks(
+    chart: ScatterChart,
     y_axis: Axis,
     ticks: list[float],
     eff_min: float,
@@ -88,34 +67,29 @@ def _draw_y_grid_and_ticks(
     plot_h: float,
 ) -> None:
     """Render horizontal gridlines and numeric tick labels along Y axis."""
-    default_grid_style = Style(
-        line_color=_DEFAULT_GRID_COLOR,
-        line_width=0.8,
-        line_style="dashed",
-    )
-    grid_style = default_grid_style.patch(y_axis.grid_style)
-    default_tick_label_style = Style(
-        text_size=9.0,
-        text_font=Font.SANSSERIF_REGULAR,
-        text_color=_DEFAULT_MUTED_TEXT,
-        text_halign="right",
-        text_valign="center",
-    )
-    tick_label_style = default_tick_label_style.patch(y_axis.tick_label_style)
+    grid_style = y_axis.grid_style or chart.grid_style
+    tick_label_style = y_axis.tick_label_style or chart.axis_text_style
+    if tick_label_style is not None:
+        tick_label_style = tick_label_style.patch(
+            text_halign="right",
+            text_valign="center",
+            text_angle=y_axis.tick_label_angle,
+        )
 
     for tick in ticks:
         ratio = value_to_ratio(tick, eff_min, eff_max, y_axis.scale)
         y = p_min_y + ratio * plot_h
 
-        if y_axis.show_grid:
-            canvas_line(xy1=(p_min_x, y), xy2=(p_max_x, y), style=grid_style)
+        if y_axis.show_grid and grid_style is not None:
+            canvas_line(xy1=(p_min_x, y), xy2=(p_max_x, y), style=ensure_line_style(grid_style))
 
-        if y_axis.show_ticks:
+        if y_axis.show_ticks and tick_label_style is not None:
             label_text = y_axis.format_value(tick)
-            canvas_text(xy=(p_min_x - 1.5, y), text=label_text, style=tick_label_style)
+            canvas_text(xy=(p_min_x - 1.5, y), text=label_text, style=ensure_text_style(tick_label_style))
 
 
 def _draw_x_grid_and_ticks(
+    chart: ScatterChart,
     x_axis: Axis,
     ticks: list[float],
     eff_min: float,
@@ -126,34 +100,29 @@ def _draw_x_grid_and_ticks(
     plot_w: float,
 ) -> None:
     """Render vertical gridlines and numeric tick labels along X axis."""
-    default_grid_style = Style(
-        line_color=_DEFAULT_GRID_COLOR,
-        line_width=0.8,
-        line_style="dashed",
-    )
-    grid_style = default_grid_style.patch(x_axis.grid_style)
-    default_tick_label_style = Style(
-        text_size=9.0,
-        text_font=Font.SANSSERIF_REGULAR,
-        text_color=_DEFAULT_MUTED_TEXT,
-        text_halign="center",
-        text_valign="top",
-    )
-    tick_label_style = default_tick_label_style.patch(x_axis.tick_label_style)
+    grid_style = x_axis.grid_style or chart.grid_style
+    tick_label_style = x_axis.tick_label_style or chart.axis_text_style
+    if tick_label_style is not None:
+        tick_label_style = tick_label_style.patch(
+            text_halign="center",
+            text_valign="top",
+            text_angle=x_axis.tick_label_angle,
+        )
 
     for tick in ticks:
         ratio = value_to_ratio(tick, eff_min, eff_max, x_axis.scale)
         x = p_min_x + ratio * plot_w
 
-        if x_axis.show_grid:
-            canvas_line(xy1=(x, p_min_y), xy2=(x, p_max_y), style=grid_style)
+        if x_axis.show_grid and grid_style is not None:
+            canvas_line(xy1=(x, p_min_y), xy2=(x, p_max_y), style=ensure_line_style(grid_style))
 
-        if x_axis.show_ticks:
+        if x_axis.show_ticks and tick_label_style is not None:
             label_text = x_axis.format_value(tick)
-            canvas_text(xy=(x, p_min_y - 1.5), text=label_text, style=tick_label_style)
+            canvas_text(xy=(x, p_min_y - 1.5), text=label_text, style=ensure_text_style(tick_label_style))
 
 
 def _draw_axes_lines(
+    chart: ScatterChart,
     x_axis: Axis,
     y_axis: Axis,
     p_min_x: float,
@@ -162,24 +131,26 @@ def _draw_axes_lines(
     p_max_y: float,
 ) -> None:
     """Render solid baseline strokes for X and Y axes."""
-    axis_stroke = Style(line_color=_DEFAULT_AXIS_COLOR, line_width=1.2)
+    x_line_style = x_axis.line_style or chart.axis_line_style
+    y_line_style = y_axis.line_style or chart.axis_line_style
 
-    if x_axis.show_axis_line:
+    if x_axis.show_axis_line and x_line_style is not None:
         canvas_line(
             xy1=(p_min_x, p_min_y),
             xy2=(p_max_x, p_min_y),
-            style=axis_stroke.patch(x_axis.line_style),
+            style=ensure_line_style(x_line_style),
         )
 
-    if y_axis.show_axis_line:
+    if y_axis.show_axis_line and y_line_style is not None:
         canvas_line(
             xy1=(p_min_x, p_min_y),
             xy2=(p_min_x, p_max_y),
-            style=axis_stroke.patch(y_axis.line_style),
+            style=ensure_line_style(y_line_style),
         )
 
 
 def _draw_axis_titles(
+    chart: ScatterChart,
     x_axis: Axis,
     y_axis: Axis,
     p_min_x: float,
@@ -188,23 +159,19 @@ def _draw_axis_titles(
     p_max_y: float,
 ) -> None:
     """Render descriptive labels for X and Y axes."""
-    title_style = Style(
-        text_size=9.5,
-        text_font=Font.SANSSERIF_BOLD,
-        text_color=_DEFAULT_TEXT_COLOR,
-        text_halign="center",
-        text_valign="center",
-    )
-
-    if x_axis.label:
+    x_label_style = x_axis.label_style or chart.axis_text_style
+    if x_axis.label and x_label_style is not None:
         x_cx = (p_min_x + p_max_x) / 2.0
         x_cy = p_min_y - 5.5
-        canvas_text(xy=(x_cx, x_cy), text=x_axis.label, style=title_style)
+        x_style = x_label_style.patch(text_halign="center", text_valign="center")
+        canvas_text(xy=(x_cx, x_cy), text=x_axis.label, style=ensure_text_style(x_style))
 
-    if y_axis.label:
+    y_label_style = y_axis.label_style or chart.axis_text_style
+    if y_axis.label and y_label_style is not None:
         y_cx = p_min_x - 9.0
         y_cy = (p_min_y + p_max_y) / 2.0
-        canvas_text(xy=(y_cx, y_cy), text=y_axis.label, angle=90.0, style=title_style)
+        y_style = y_label_style.patch(text_halign="center", text_valign="center")
+        canvas_text(xy=(y_cx, y_cy), text=y_axis.label, angle=90.0, style=ensure_text_style(y_style))
 
 
 def _draw_point_marker(
@@ -215,56 +182,42 @@ def _draw_point_marker(
     style: Style,
 ) -> None:
     """Render a single point marker on canvas."""
+    safe_style = ensure_shape_style(style)
     if shape == "circle":
-        canvas_circle(xy=(cx, cy), radius=radius, style=style)
+        canvas_circle(xy=(cx, cy), radius=radius, style=safe_style)
     elif shape == "square":
         d = radius * 2.0
-        canvas_rectangle(xy=(cx, cy), width=d, height=d, style=style)
+        canvas_rectangle(xy=(cx, cy), width=d, height=d, style=safe_style)
     elif shape == "rhombus":
         d = radius * 2.2
-        canvas_rhombus(xy=(cx, cy), width=d, height=d, style=style)
+        canvas_rhombus(xy=(cx, cy), width=d, height=d, style=safe_style)
     elif shape == "triangle":
-        canvas_triangle(xy=(cx, cy), width=radius * 2.2, height=radius * 2.0, style=style)
+        canvas_triangle(xy=(cx, cy), width=radius * 2.2, height=radius * 2.0, style=safe_style)
     else:
-        canvas_circle(xy=(cx, cy), radius=radius, style=style)
+        canvas_circle(xy=(cx, cy), radius=radius, style=safe_style)
 
 
 def _collect_all_points(
     chart: ScatterChart,
-) -> tuple[list[tuple[Point, Style, PointShape]], list[ColorType]]:
-    """Gather all points and series colors for plotting."""
+) -> list[tuple[Point, Style, PointShape]]:
+    """Gather all points for plotting."""
     all_points: list[tuple[Point, Style, PointShape]] = []
-    series_colors: list[ColorType] = []
 
     # Standalone points
     for pt in chart.points:
-        pt_color = pt.style.shape_fill_color or pt.style.line_color or pt.style.shape_line_color or _DEFAULT_TEXT_COLOR
-        base_style = Style(
-            shape_fill_color=pt_color,
-            shape_line_color=(255, 255, 255, 0.9),
-            shape_line_width=0.8,
-        )
-        p_style = base_style.patch(pt.style)
-        all_points.append((pt, p_style, pt.shape))
+        all_points.append((pt, pt.style, pt.shape))
 
     # Series points
     for s in chart.series:
-        s_color = s.style.shape_fill_color or s.style.line_color or s.style.shape_line_color or _DEFAULT_TEXT_COLOR
-        series_colors.append(s_color)
-        base_s_style = Style(
-            shape_fill_color=s_color,
-            shape_line_color=(255, 255, 255, 0.9),
-            shape_line_width=0.8,
-        )
-        default_s_style = base_s_style.patch(s.style)
         for pt in s.points:
-            pt_style = default_s_style.patch(pt.style)
+            pt_style = s.style.patch(pt.style)
             all_points.append((pt, pt_style, pt.shape or s.shape))
 
-    return all_points, series_colors
+    return all_points
 
 
 def _draw_points_and_labels(
+    chart: ScatterChart,
     all_points: list[tuple[Point, Style, PointShape]],
     eff_min_x: float,
     eff_max_x: float,
@@ -276,7 +229,6 @@ def _draw_points_and_labels(
     p_min_y: float,
     plot_w: float,
     plot_h: float,
-    show_labels: bool,
 ) -> None:
     """Render scatter markers and optional text labels on the canvas."""
     for pt, pt_style, shape in all_points:
@@ -288,22 +240,27 @@ def _draw_points_and_labels(
 
         _draw_point_marker(cx, cy, pt.radius, shape, pt_style)
 
-        if show_labels and pt.label:
-            base_l_style = Style(
-                text_size=8.5,
-                text_font=Font.SANSSERIF_REGULAR,
-                text_color=_DEFAULT_TEXT_COLOR,
-                text_halign="left",
-                text_valign="center",
-            )
-            l_style = base_l_style.patch(pt.label_style)
-            canvas_text(xy=(cx + pt.radius + 0.8, cy), text=pt.label, style=l_style)
+        if pt.label:
+            l_style = pt.label_style or chart.value_text_style
+            if l_style is not None:
+                l_style = l_style.patch(text_halign="left", text_valign="center")
+                canvas_text(xy=(cx + pt.radius + 0.8, cy), text=pt.label, style=ensure_text_style(l_style))
 
 
 def render_scatter_chart(chart: ScatterChart, xy: tuple[float, float]) -> None:
     """Render a complete ScatterChart onto the canvas."""
     chart_w, chart_h = chart.get_size()
-    all_points, series_colors = _collect_all_points(chart)
+    bx, by = float(xy[0]), float(xy[1])
+
+    if chart.background_style is not None:
+        canvas_rectangle(
+            xy=(bx + chart_w / 2.0, by + chart_h / 2.0),
+            width=chart_w,
+            height=chart_h,
+            style=ensure_shape_style(chart.background_style),
+        )
+
+    all_points = _collect_all_points(chart)
 
     all_xs = [pt.xy[0] for pt, _, _ in all_points]
     all_ys = [pt.xy[1] for pt, _, _ in all_points]
@@ -323,43 +280,36 @@ def render_scatter_chart(chart: ScatterChart, xy: tuple[float, float]) -> None:
     eff_min_x, eff_max_x, x_ticks = calculate_axis_range_and_ticks(chart.x_axis, data_min_x, data_max_x, is_bar=False)
     eff_min_y, eff_max_y, y_ticks = calculate_axis_range_and_ticks(chart.y_axis, data_min_y, data_max_y, is_bar=False)
 
-    series_names = [s.name for s in chart.series]
-    legend_w, legend_h = (0.0, 0.0)
-    if series_names and chart.legend_position != "none":
-        legend_w, legend_h = get_legend_size(chart.legend_position, series_names, len(series_names))
-
+    has_title = bool(chart.title and chart.title_style is not None)
+    has_axis_text = (
+        chart.axis_text_style is not None
+        or chart.x_axis.tick_label_style is not None
+        or chart.y_axis.tick_label_style is not None
+    )
     p_min_x, p_min_y, p_max_x, p_max_y = _calculate_plot_bounds(
         chart_xy=xy,
         chart_w=chart_w,
         chart_h=chart_h,
-        title=chart.title,
-        x_title=chart.x_axis.label,
-        y_title=chart.y_axis.label,
-        legend_h=legend_h,
-        legend_w=legend_w,
-        legend_pos=chart.legend_position,
+        has_title=has_title,
+        has_axis_text=has_axis_text,
+        has_x_label=bool(chart.x_axis.label),
+        has_y_label=bool(chart.y_axis.label),
     )
     plot_w = p_max_x - p_min_x
     plot_h = p_max_y - p_min_y
 
-    if chart.title:
-        title_y = xy[1] + chart_h - 2.5
-        base_t_style = Style(
-            text_size=12.0,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_TEXT_COLOR,
-            text_halign="center",
-            text_valign="center",
-        )
-        t_style = base_t_style.patch(chart.title_style)
-        canvas_text(xy=((xy[0] + xy[0] + chart_w) / 2.0, title_y), text=chart.title, style=t_style)
+    if chart.title and chart.title_style is not None:
+        title_y = by + chart_h - 2.5
+        t_style = chart.title_style.patch(text_halign="center", text_valign="center")
+        canvas_text(xy=(bx + chart_w / 2.0, title_y), text=chart.title, style=ensure_text_style(t_style))
 
-    _draw_y_grid_and_ticks(chart.y_axis, y_ticks, eff_min_y, eff_max_y, p_min_x, p_min_y, p_max_x, plot_h)
-    _draw_x_grid_and_ticks(chart.x_axis, x_ticks, eff_min_x, eff_max_x, p_min_x, p_min_y, p_max_y, plot_w)
-    _draw_axes_lines(chart.x_axis, chart.y_axis, p_min_x, p_min_y, p_max_x, p_max_y)
-    _draw_axis_titles(chart.x_axis, chart.y_axis, p_min_x, p_min_y, p_max_x, p_max_y)
+    _draw_y_grid_and_ticks(chart, chart.y_axis, y_ticks, eff_min_y, eff_max_y, p_min_x, p_min_y, p_max_x, plot_h)
+    _draw_x_grid_and_ticks(chart, chart.x_axis, x_ticks, eff_min_x, eff_max_x, p_min_x, p_min_y, p_max_y, plot_w)
+    _draw_axes_lines(chart, chart.x_axis, chart.y_axis, p_min_x, p_min_y, p_max_x, p_max_y)
+    _draw_axis_titles(chart, chart.x_axis, chart.y_axis, p_min_x, p_min_y, p_max_x, p_max_y)
 
     _draw_points_and_labels(
+        chart,
         all_points,
         eff_min_x,
         eff_max_x,
@@ -371,15 +321,4 @@ def render_scatter_chart(chart: ScatterChart, xy: tuple[float, float]) -> None:
         p_min_y,
         plot_w,
         plot_h,
-        chart.show_labels,
     )
-
-    if series_names and chart.legend_position != "none":
-        chart_bounds = (xy[0], xy[1], xy[0] + chart_w, xy[1] + chart_h)
-        render_legend(
-            names=series_names,
-            colors=series_colors,
-            position=chart.legend_position,
-            plot_bounds=(p_min_x, p_min_y, p_max_x, p_max_y),
-            chart_bounds=chart_bounds,
-        )

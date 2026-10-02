@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from drawlib._charts._common._style_utils import ensure_line_style, ensure_shape_style, ensure_text_style
 from drawlib._charts._common._types import ColorType
 from drawlib._charts.gantt_chart._item import (
     Milestone,
@@ -20,26 +21,14 @@ from drawlib._charts.gantt_chart._item import (
     Task,
 )
 from drawlib._core.l3_colors import Color
-from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import rhombus as canvas_rhombus
 from drawlib._core.l4_canvas import text as canvas_text
-from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._charts.gantt_chart._chart import GanttChart
-
-_DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)
-_DEFAULT_MUTED_TEXT = (100, 116, 139, 1.0)
-_DEFAULT_HEADER_BG = (241, 245, 249, 1.0)
-_DEFAULT_HEADER_BORDER = (203, 213, 225, 1.0)
-_DEFAULT_GRID_COLOR = (226, 232, 240, 1.0)
-_DEFAULT_ZEBRA_BG = (248, 250, 252, 1.0)
-_DEFAULT_SECTION_BG = (226, 232, 240, 0.7)
-_DEFAULT_MILESTONE_COLOR = (245, 158, 11, 1.0)
-_DEFAULT_MARKER_COLOR = (239, 68, 68, 1.0)
 
 
 def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
@@ -84,52 +73,40 @@ def _draw_header(
     header_h = top_y - bottom_y
     header_cy = (top_y + bottom_y) / 2.0
 
-    # Header full background
-    default_bg_style = Style(
-        shape_fill_color=_DEFAULT_HEADER_BG,
-        shape_line_color=_DEFAULT_HEADER_BORDER,
-        shape_line_width=1.0,
-    )
-    bg_style = default_bg_style.patch(chart.header_style)
-    canvas_rectangle(
-        xy=((left_x + right_x) / 2.0, header_cy),
-        width=header_w,
-        height=header_h,
-        style=bg_style,
-    )
+    # 1. Header full background
+    if chart.header_style is not None:
+        canvas_rectangle(
+            xy=((left_x + right_x) / 2.0, header_cy),
+            width=header_w,
+            height=header_h,
+            style=ensure_shape_style(chart.header_style),
+        )
 
-    # Label column header
-    canvas_text(
-        xy=(left_x + 1.5, header_cy),
-        text="Task / Phase",
-        style=Style(
-            text_size=10.0,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_MUTED_TEXT,
-            text_halign="left",
-            text_valign="center",
-        ),
-    )
+    # 2. Header dividing lines (mandatory axis_line_style)
+    axis_line = ensure_line_style(chart.axis_line_style)
+    # Header bottom horizontal line
+    canvas_line(xy1=(left_x, bottom_y), xy2=(right_x, bottom_y), style=axis_line)
+    # Header top horizontal line
+    canvas_line(xy1=(left_x, top_y), xy2=(right_x, top_y), style=axis_line)
+    # Header vertical divider separating label column from timeline
+    canvas_line(xy1=(x_tl_start, bottom_y), xy2=(x_tl_start, top_y), style=axis_line)
 
-    # Column names
-    col_label_style = Style(
-        text_size=9.5,
-        text_font=Font.SANSSERIF_BOLD,
-        text_color=_DEFAULT_TEXT_COLOR,
-        text_halign="center",
-        text_valign="center",
-    )
-    for i, col_name in enumerate(chart.columns):
-        col_cx = x_tl_start + (i + 0.5) * col_w
-        canvas_text(xy=(col_cx, header_cy), text=col_name, style=col_label_style)
+    # Column header vertical separators
+    for i in range(1, len(chart.columns)):
+        cx = x_tl_start + i * col_w
+        canvas_line(xy1=(cx, bottom_y), xy2=(cx, top_y), style=axis_line)
 
-        # Subtle vertical separator between column headers
-        if i > 0:
-            canvas_line(
-                xy1=(x_tl_start + i * col_w, bottom_y),
-                xy2=(x_tl_start + i * col_w, top_y),
-                style=Style(line_color=_DEFAULT_HEADER_BORDER, line_width=0.8),
-            )
+    # 3. Header text
+    if chart.axis_text_style is not None:
+        # Label column header
+        label_col_style = ensure_text_style(chart.axis_text_style, halign="left", valign="center")
+        canvas_text(xy=(left_x + 1.5, header_cy), text="Task / Phase", style=label_col_style)
+
+        # Column names
+        col_label_style = ensure_text_style(chart.axis_text_style, halign="center", valign="center")
+        for i, col_name in enumerate(chart.columns):
+            col_cx = x_tl_start + (i + 0.5) * col_w
+            canvas_text(xy=(col_cx, header_cy), text=col_name, style=col_label_style)
 
 
 def _draw_rows_and_items(
@@ -146,16 +123,15 @@ def _draw_rows_and_items(
     num_cols = len(chart.columns)
 
     # 1. Vertical timeline gridlines across rows area
-    if chart.show_vertical_grid:
-        default_v_grid_style = Style(
-            line_color=_DEFAULT_GRID_COLOR,
-            line_width=0.8,
-            line_style="dotted",
-        )
-        v_grid_style = default_v_grid_style.patch(chart.grid_style)
+    if chart.grid_style is not None:
+        grid_line = ensure_line_style(chart.grid_style)
         for i in range(num_cols + 1):
             gx = x_tl_start + i * col_w
-            canvas_line(xy1=(gx, rows_top), xy2=(gx, rows_bottom), style=v_grid_style)
+            canvas_line(xy1=(gx, rows_top), xy2=(gx, rows_bottom), style=grid_line)
+
+    # Vertical line separating label column from timeline (mandatory axis line)
+    axis_line = ensure_line_style(chart.axis_line_style)
+    canvas_line(xy1=(x_tl_start, rows_top), xy2=(x_tl_start, rows_bottom), style=axis_line)
 
     # 2. Rows
     for k, item in enumerate(chart.items):
@@ -164,29 +140,26 @@ def _draw_rows_and_items(
         row_cy = (row_top + row_bottom) / 2.0
 
         # Zebra striping
-        if chart.show_zebra and (k % 2 == 1) and not isinstance(item, Section):
+        if chart.zebra_style is not None and (k % 2 == 1) and not isinstance(item, Section):
             canvas_rectangle(
                 xy=((left_x + right_x) / 2.0, row_cy),
                 width=full_w,
                 height=chart.row_height,
-                style=Style(
-                    shape_fill_color=_DEFAULT_ZEBRA_BG,
-                    shape_line_color=Colors.Transparent,
-                    shape_line_width=0,
-                ),
+                style=ensure_shape_style(chart.zebra_style),
             )
 
-        # Row bottom hairline
+        # Row bottom divider line
+        divider_style = ensure_line_style(chart.grid_style or chart.axis_line_style)
         canvas_line(
             xy1=(left_x, row_bottom),
             xy2=(right_x, row_bottom),
-            style=Style(line_color=_DEFAULT_GRID_COLOR, line_width=0.5),
+            style=divider_style,
         )
 
-        # Cache row_y
+        # Cache row_y and render item
         if isinstance(item, Task):
             item._cached_row_y = row_cy
-            _draw_task_row(chart, item, left_x, row_cy, x_tl_start, col_w, k)
+            _draw_task_row(chart, item, left_x, row_cy, x_tl_start, col_w)
         elif isinstance(item, Section):
             item._cached_row_y = row_cy
             _draw_section_row(chart, item, left_x, right_x, row_cy)
@@ -204,29 +177,22 @@ def _draw_section_row(
 ) -> None:
     """Render full-width section header banner."""
     full_w = right_x - left_x
-    default_sec_style = Style(
-        shape_fill_color=_DEFAULT_SECTION_BG,
-        shape_line_color=Colors.Transparent,
-        shape_line_width=0,
-    )
-    sec_style = default_sec_style.patch(section.style)
-    canvas_rectangle(
-        xy=((left_x + right_x) / 2.0, row_cy),
-        width=full_w,
-        height=chart.row_height,
-        style=sec_style,
-    )
-    canvas_text(
-        xy=(left_x + 1.5, row_cy),
-        text=section.name,
-        style=Style(
-            text_size=10.0,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_TEXT_COLOR,
-            text_halign="left",
-            text_valign="center",
-        ),
-    )
+    if section.style is not None:
+        canvas_rectangle(
+            xy=((left_x + right_x) / 2.0, row_cy),
+            width=full_w,
+            height=chart.row_height,
+            style=ensure_shape_style(section.style),
+        )
+
+    eff_text_style = section.text_style or chart.axis_text_style
+    if eff_text_style is not None:
+        text_style = ensure_text_style(eff_text_style, halign="left", valign="center")
+        canvas_text(
+            xy=(left_x + 1.5, row_cy),
+            text=section.name,
+            style=text_style,
+        )
 
 
 def _draw_task_row(
@@ -236,21 +202,16 @@ def _draw_task_row(
     row_cy: float,
     x_tl_start: float,
     col_w: float,
-    idx: int,
 ) -> None:
     """Render single task label, scheduled bar, and progress."""
     # Label text
-    canvas_text(
-        xy=(left_x + 1.5, row_cy),
-        text=task.name,
-        style=Style(
-            text_size=9.5,
-            text_font=Font.SANSSERIF_REGULAR,
-            text_color=_DEFAULT_TEXT_COLOR,
-            text_halign="left",
-            text_valign="center",
-        ),
-    )
+    if chart.axis_text_style is not None:
+        label_style = ensure_text_style(chart.axis_text_style, halign="left", valign="center")
+        canvas_text(
+            xy=(left_x + 1.5, row_cy),
+            text=task.name,
+            style=label_style,
+        )
 
     start_t = _resolve_time(chart, task.start, is_end=False)
     end_t = _resolve_time(chart, task.end, is_end=True)
@@ -265,22 +226,17 @@ def _draw_task_row(
     bar_w = max(0.5, bx2 - bx1)
     bar_h = chart.row_height * 0.58
     bar_cx = (bx1 + bx2) / 2.0
-    color = task.style.shape_fill_color or task.style.line_color or task.style.shape_line_color or _DEFAULT_TEXT_COLOR
+    task_shape = ensure_shape_style(task.style)
+    color = task_shape.shape_fill_color or (50, 100, 200, 1.0)
 
     if task.progress <= 0.0:
         # Solid scheduled bar
-        default_bar_style = Style(
-            shape_fill_color=color,
-            shape_line_color=_with_alpha(color, 0.9),
-            shape_line_width=0.8,
-        )
-        bar_style = default_bar_style.patch(task.style)
         canvas_rectangle(
             xy=(bar_cx, row_cy),
             width=bar_w,
             height=bar_h,
             r=chart.bar_radius,
-            style=bar_style,
+            style=task_shape,
         )
     else:
         # Background bar (remaining/total span)
@@ -300,47 +256,24 @@ def _draw_task_row(
         # Progress bar (completed portion)
         prog_w = max(0.2, bar_w * task.progress)
         prog_cx = bx1 + prog_w / 2.0
-        default_prog_style = Style(
-            shape_fill_color=color,
-            shape_line_color=_with_alpha(color, 0.9),
-            shape_line_width=0.8,
-        )
-        prog_style = default_prog_style.patch(task.style)
         canvas_rectangle(
             xy=(prog_cx, row_cy),
             width=prog_w,
             height=bar_h,
             r=chart.bar_radius,
-            style=prog_style,
+            style=task_shape,
         )
 
-        # Optional percentage text
-        if task.show_progress_text:
+        # Progress text
+        eff_p_style = task.progress_text_style or chart.progress_text_style
+        if eff_p_style is not None:
             pct_label = f"{int(round(task.progress * 100))}%"
             if prog_w >= 4.0:
-                canvas_text(
-                    xy=(prog_cx, row_cy),
-                    text=pct_label,
-                    style=Style(
-                        text_size=8.0,
-                        text_font=Font.SANSSERIF_BOLD,
-                        text_color=(255, 255, 255, 1.0),
-                        text_halign="center",
-                        text_valign="center",
-                    ),
-                )
+                p_text_style = ensure_text_style(eff_p_style, halign="center", valign="center")
+                canvas_text(xy=(prog_cx, row_cy), text=pct_label, style=p_text_style)
             else:
-                canvas_text(
-                    xy=(bx2 + 1.0, row_cy),
-                    text=pct_label,
-                    style=Style(
-                        text_size=8.0,
-                        text_font=Font.SANSSERIF_BOLD,
-                        text_color=color,
-                        text_halign="left",
-                        text_valign="center",
-                    ),
-                )
+                p_text_style = ensure_text_style(eff_p_style, halign="left", valign="center")
+                canvas_text(xy=(bx2 + 1.0, row_cy), text=pct_label, style=p_text_style)
 
 
 def _draw_milestone_row(
@@ -352,36 +285,20 @@ def _draw_milestone_row(
     col_w: float,
 ) -> None:
     """Render milestone label and diamond marker."""
-    canvas_text(
-        xy=(left_x + 1.5, row_cy),
-        text=milestone.name,
-        style=Style(
-            text_size=9.5,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_TEXT_COLOR,
-            text_halign="left",
-            text_valign="center",
-        ),
-    )
+    if chart.axis_text_style is not None:
+        label_style = ensure_text_style(chart.axis_text_style, halign="left", valign="center")
+        canvas_text(
+            xy=(left_x + 1.5, row_cy),
+            text=milestone.name,
+            style=label_style,
+        )
 
     at_t = _resolve_point_time(chart, milestone.at)
     mx = x_tl_start + at_t * col_w
     milestone._cached_at_x = mx
 
-    color = (
-        milestone.style.shape_fill_color
-        or milestone.style.line_color
-        or milestone.style.shape_line_color
-        or _DEFAULT_MILESTONE_COLOR
-    )
     d_size = chart.row_height * 0.65
-    default_m_style = Style(
-        shape_fill_color=color,
-        shape_line_color=(255, 255, 255, 1.0),
-        shape_line_width=1.0,
-    )
-    m_style = default_m_style.patch(milestone.style)
-    canvas_rhombus(xy=(mx, row_cy), width=d_size, height=d_size, style=m_style)
+    canvas_rhombus(xy=(mx, row_cy), width=d_size, height=d_size, style=ensure_shape_style(milestone.style))
 
 
 def _avoid_grid(
@@ -403,7 +320,7 @@ def _avoid_grid(
 def _draw_dependencies(chart: GanttChart, x_tl_start: float, col_w: float) -> None:
     """Render right-angled dependency arrows linking tasks."""
     grid_lines = [x_tl_start + i * col_w for i in range(len(chart.columns) + 1)]
-    min_entry = 2.8  # Minimum lead-in horizontal length for arrow ("---->")
+    min_entry = 2.8
     min_exit = 1.5
 
     for dep in chart.dependencies:
@@ -415,16 +332,11 @@ def _draw_dependencies(chart: GanttChart, x_tl_start: float, col_w: float) -> No
         if x1 <= 0 or x2 <= 0:
             continue
 
-        style = dep.style or Style(
-            line_color=_DEFAULT_MUTED_TEXT,
-            line_width=1.2,
-        )
+        style = ensure_line_style(dep.style or chart.axis_line_style)
 
         if x2 >= x1 + (min_exit + min_entry):
             # Forward dependency with sufficient horizontal clearance
             mid_x = (x1 + x2) / 2.0
-            # If mid_x lands too close to a vertical gridline, shift it.
-            # Prefer shifting left (earlier) so the horizontal lead-in into x2 stays long (---->).
             for gx in grid_lines:
                 if abs(mid_x - gx) < 1.0:
                     left_cand = gx - 1.2
@@ -444,7 +356,6 @@ def _draw_dependencies(chart: GanttChart, x_tl_start: float, col_w: float) -> No
             p_right = x1 + 1.8
             p_left = x2 - min_entry
 
-            # Avoid gridlines for both vertical routing paths
             p_right = _avoid_grid(p_right, grid_lines, min_dist=1.0, prefer_dir=1.0)
             p_left = _avoid_grid(p_left, grid_lines, min_dist=1.0, prefer_dir=-1.0)
             if x2 - p_left < min_entry:
@@ -468,25 +379,13 @@ def _draw_markers(
     for mark in chart.markers:
         at_t = _resolve_point_time(chart, mark.at)
         mx = x_tl_start + at_t * col_w
-        color = (
-            mark.style.line_color
-            or mark.style.shape_line_color
-            or mark.style.shape_fill_color
-            or _DEFAULT_MARKER_COLOR
-        )
-        default_style = Style(
-            line_color=color,
-            line_width=1.5,
-            line_style="dashed",
-        )
-        style = default_style.patch(mark.style)
-
-        canvas_line(xy1=(mx, rows_top), xy2=(mx, rows_bottom), style=style)
+        canvas_line(xy1=(mx, rows_top), xy2=(mx, rows_bottom), style=ensure_line_style(mark.style))
 
         if mark.label:
             tag_w = max(7.0, len(mark.label) * 1.5)
             tag_h = 2.4
             tag_y = rows_top - 1.4
+            color = mark.style.line_color or (239, 68, 68, 1.0)
             canvas_rectangle(
                 xy=(mx, tag_y),
                 width=tag_w,
@@ -494,20 +393,19 @@ def _draw_markers(
                 r=0.6,
                 style=Style(
                     shape_fill_color=color,
-                    shape_line_color=Colors.Transparent,
+                    shape_line_color=(0, 0, 0, 0.0),
                     shape_line_width=0,
                 ),
+            )
+            label_text_style = ensure_text_style(
+                mark.label_style or Style(text_color=(255, 255, 255, 1.0), text_size=8.0),
+                halign="center",
+                valign="center",
             )
             canvas_text(
                 xy=(mx, tag_y),
                 text=mark.label,
-                style=Style(
-                    text_size=8.0,
-                    text_font=Font.SANSSERIF_BOLD,
-                    text_color=(255, 255, 255, 1.0),
-                    text_halign="center",
-                    text_valign="center",
-                ),
+                style=label_text_style,
             )
 
 
@@ -518,20 +416,22 @@ def draw_gantt_chart(chart: GanttChart, xy: tuple[float, float]) -> None:
     max_x = min_x + chart_w
     max_y = min_y + chart_h
 
+    # 1. Background card
+    if chart.background_style is not None:
+        canvas_rectangle(
+            xy=(min_x + chart_w / 2.0, min_y + chart_h / 2.0),
+            width=chart_w,
+            height=chart_h,
+            style=ensure_shape_style(chart.background_style),
+        )
+
     pad_x = 2.0
     pad_y = 2.0
 
-    # Title
+    # 2. Title
     content_top = max_y - pad_y
-    if chart.title:
-        default_t_style = Style(
-            text_size=12.0,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=_DEFAULT_TEXT_COLOR,
-            text_halign="center",
-            text_valign="bottom",
-        )
-        t_style = default_t_style.patch(chart.title_style)
+    if chart.title and chart.title_style is not None:
+        t_style = ensure_text_style(chart.title_style, halign="center", valign="bottom")
         canvas_text(xy=((min_x + max_x) / 2.0, max_y - 3.2), text=chart.title, style=t_style)
         content_top = max_y - 6.5
 

@@ -25,7 +25,7 @@ class TestScatterChartUnit:
 
     def test_initialization(self) -> None:
         """Test default attributes of ScatterChart."""
-        chart = ScatterChart(width=90.0, height=60.0, title="Benchmark")
+        chart = ScatterChart(axis_line_style=Styles.Primary, width=90.0, height=60.0, title="Benchmark")
         assert chart.width == 90.0
         assert chart.height == 60.0
         assert chart.title == "Benchmark"
@@ -35,7 +35,7 @@ class TestScatterChartUnit:
 
     def test_add_point(self) -> None:
         """Test adding individual data points via add()."""
-        chart = ScatterChart()
+        chart = ScatterChart(axis_line_style=Styles.Primary)
         p1 = chart.add(xy=(10.5, 25.0), style=Styles.PrimaryFlat, radius=1.5, label="Point A")
         assert p1.xy == (10.5, 25.0)
         assert p1.radius == 1.5
@@ -48,7 +48,7 @@ class TestScatterChartUnit:
 
     def test_add_series(self) -> None:
         """Test adding series with 2-tuples and 3-tuples (bubble size)."""
-        chart = ScatterChart()
+        chart = ScatterChart(axis_line_style=Styles.Primary)
         s1 = chart.add_series(
             name="Alpha",
             data=[(10.0, 20.0), (30.0, 40.0)],
@@ -72,7 +72,7 @@ class TestScatterChartUnit:
 
     def test_axis_configuration(self) -> None:
         """Test chaining configuration for X and Y axes."""
-        chart = ScatterChart()
+        chart = ScatterChart(axis_line_style=Styles.Primary)
         chart.configure_x_axis(label="Throughput", unit="rps", min_value=0.0, max_value=100.0)
         chart.configure_y_axis(label="Latency", unit="ms", min_value=0.0, max_value=50.0)
 
@@ -97,9 +97,14 @@ class TestScatterChartRendering:
             canvas.clear()
 
             chart = ScatterChart(
+                axis_line_style=Styles.Primary,
+                axis_text_style=Styles.Primary,
+                grid_style=Styles.MutedDashed,
+                value_text_style=Styles.Primary,
                 width=88.0,
                 height=55.0,
                 title="Service Benchmark",
+                title_style=Styles.PrimaryBold,
             )
             chart.configure_x_axis(label="Load (rps)", min_value=0)
             chart.configure_y_axis(label="Response Time (ms)", min_value=0)
@@ -124,6 +129,7 @@ class TestScatterChartRendering:
             )
 
             chart.draw(xy=(6.0, 20.0))
+            chart.draw_legend(xy=(6.0, 80.0), text_style=Styles.Primary, orientation="horizontal")
 
             canvas.save(str(out_file))
             assert out_file.exists()
@@ -136,9 +142,13 @@ class TestScatterChartRendering:
             canvas.clear()
 
             chart = ScatterChart(
+                axis_line_style=Styles.Primary,
+                axis_text_style=Styles.Primary,
+                grid_style=Styles.MutedDashed,
                 width=80.0,
                 height=50.0,
                 title="Market Share & Growth",
+                title_style=Styles.PrimaryBold,
             )
             chart.configure_x_axis(label="Market Size ($M)")
             chart.configure_y_axis(label="YoY Growth (%)")
@@ -166,10 +176,8 @@ class TestScatterChartRendering:
             out_file = Path(tmpdir) / "scatter_shapes.png"
             canvas.clear()
 
-            chart = ScatterChart(width=70.0, height=45.0)
-            c_style = Style(
-                shape_line_width=1.5, shape_fill_color=(16, 185, 129, 0.7), shape_line_color=(0, 0, 0, 1.0)
-            )
+            chart = ScatterChart(axis_line_style=Styles.Primary, width=70.0, height=45.0)
+            c_style = Style(shape_line_width=1.5, shape_fill_color=(16, 185, 129, 0.7), shape_line_color=(0, 0, 0, 1.0))
             chart.add(xy=(1, 2), style=c_style, shape="triangle", radius=2.0)
             chart.add(xy=(3, 4), style=Styles.AccentFlat, shape="rhombus", radius=2.0)
             chart.add(xy=(5, 6), style=Styles.PrimaryFlat, shape="square", radius=2.0)
@@ -186,7 +194,7 @@ class TestScatterChartRendering:
             out_file = Path(tmpdir) / "scatter_empty.png"
             canvas.clear()
 
-            chart = ScatterChart()
+            chart = ScatterChart(axis_line_style=Styles.Primary)
             chart.draw(xy=(10.0, 10.0))
 
             canvas.save(str(out_file))

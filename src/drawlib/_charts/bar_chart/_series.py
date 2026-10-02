@@ -27,6 +27,7 @@ class Series:
         name: str,
         values: list[float],
         style: Style,
+        legend_text_style: Style | None = None,
     ) -> None:
         """Initialize Series.
 
@@ -34,7 +35,9 @@ class Series:
             name: Series name shown in legend and tooltips.
             values: List of numerical values corresponding to chart categories.
             style: Style object defining bar outline and fill.
+            legend_text_style: Optional custom text style for this series in legend.
         """
         self.name = name
         self.values: list[float] = [float(v) for v in values]
         self.style: Style = style
+        self.legend_text_style: Style | None = legend_text_style

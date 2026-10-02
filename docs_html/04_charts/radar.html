@@ -321,106 +321,33 @@
                     Dimension 3
 </code></pre>
 <ul>
-<li><strong>Symmetric Spoke Rays</strong>: Each category forms a radial ray extending from <code>min_value</code> at the center to <code>max_value</code> at the outer perimeter.</li>
-<li><strong>Concentric Grid Contours</strong>: Configured with <code>grid_shape=&quot;polygon&quot;</code> (faceted polygon rings matching the vertex count) or <code>grid_shape=&quot;circle&quot;</code> (smooth circular concentric rings).</li>
+<li><strong>Symmetric Spoke Rays</strong>: Each category forms a radial ray extending from <code>min_value</code> at the center to <code>max_value</code> at the outer perimeter (anchored by <code>axis_line_style</code>).</li>
+<li><strong>Concentric Grid Contours</strong>: Rendered if <code>grid_style</code> is provided, configured with <code>grid_shape=&quot;polygon&quot;</code> or <code>grid_shape=&quot;circle&quot;</code>.</li>
 <li><strong>Semi-transparent Series Volumes</strong>: Multiple series overlay each other using semi-transparent polygon fills (<code>fill_alpha=0.2</code> to <code>0.4</code>) and distinct contour line styles (<code>solid</code>, <code>dashed</code>).</li>
+<li><strong>Decoupled Legend</strong>: Render series legends anywhere on the canvas via <code>draw_legend(...)</code>.</li>
 </ul>
 <hr />
 <h2>2. Constructor &amp; Configuration</h2>
 <pre><code class="language-python">from drawlib.charts.radar import RadarChart
+from drawlib.styles import Styles
 
 chart = RadarChart(
     categories=[&quot;Scalability&quot;, &quot;Reliability&quot;, &quot;Security&quot;, &quot;Maintainability&quot;, &quot;Latency&quot;],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.BlackBold.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
+    scale_text_style=Styles.Muted.patch(text_size=8.5),
+    value_text_style=Styles.BlackBold.patch(text_size=8.5),
     radius=24.0,                # Outer boundary spoke radius
     min_value=0.0,              # Value at center origin
     max_value=100.0,            # Scale value at outer ring (None = auto)
     levels=5,                   # Number of concentric grid contours
     grid_shape=&quot;polygon&quot;,       # &quot;polygon&quot; or &quot;circle&quot;
     title=&quot;System Architecture Trade-offs&quot;,
-    legend_position=&quot;right&quot;,    # &quot;right&quot;, &quot;bottom&quot;, &quot;top&quot;, &quot;none&quot;
-    show_values=True,           # Display numeric values near vertices
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     value_format=&quot;{:.0f}&quot;,
 )
 </code></pre>
-<h3>Parameter Reference</h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>categories</code></td>
-<td><code>list[str]</code></td>
-<td>Required</td>
-<td>Names of radial dimensions (minimum 3 required).</td>
-</tr>
-<tr>
-<td><code>radius</code></td>
-<td><code>float</code></td>
-<td><code>25.0</code></td>
-<td>Radius of the outer boundary spoke circle.</td>
-</tr>
-<tr>
-<td><code>min_value</code></td>
-<td><code>float</code></td>
-<td><code>0.0</code></td>
-<td>Data value at the central origin point.</td>
-</tr>
-<tr>
-<td><code>max_value</code></td>
-<td><code>float | None</code></td>
-<td><code>None</code></td>
-<td>Scale value at outer ring. If <code>None</code>, computed automatically.</td>
-</tr>
-<tr>
-<td><code>levels</code></td>
-<td><code>int</code></td>
-<td><code>5</code></td>
-<td>Number of concentric grid contours.</td>
-</tr>
-<tr>
-<td><code>grid_shape</code></td>
-<td><code>&quot;polygon&quot;</code> | <code>&quot;circle&quot;</code></td>
-<td><code>&quot;polygon&quot;</code></td>
-<td>Shape of concentric gridlines (regular polygon or circles).</td>
-</tr>
-<tr>
-<td><code>show_grid_labels</code></td>
-<td><code>bool</code></td>
-<td><code>True</code></td>
-<td>Whether to print numeric scale ticks along reference spoke.</td>
-</tr>
-<tr>
-<td><code>grid_label_format</code></td>
-<td><code>FormatterType</code></td>
-<td><code>None</code></td>
-<td>Formatter string or function for scale levels.</td>
-</tr>
-<tr>
-<td><code>legend_position</code></td>
-<td><code>LegendPosition</code></td>
-<td><code>&quot;right&quot;</code></td>
-<td>Position of the legend box.</td>
-</tr>
-<tr>
-<td><code>show_values</code></td>
-<td><code>bool</code></td>
-<td><code>False</code></td>
-<td>Whether to print numeric data values next to series vertices.</td>
-</tr>
-<tr>
-<td><code>value_format</code></td>
-<td><code>FormatterType</code></td>
-<td><code>None</code></td>
-<td>Formatter for vertex values.</td>
-</tr>
-</tbody>
-</table>
 <hr />
 <h2>3. Polygonal Grid Architecture Benchmark</h2>
 <p>Polygonal gridlines align precisely with spokes, making it easy to gauge relative metric ratings:</p>
@@ -435,13 +362,6 @@ chart = RadarChart(
   <img src="radar_images/2.png" alt="radar_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Device Feature Matrix with Circular Contours</figcaption>
 </figure>
-<hr />
-<h2>5. Best Practices &amp; Guidelines</h2>
-<ol>
-<li><strong>Category Limit</strong>: For best legibility, use between 4 and 8 dimensions. More than 8 categories makes spoke labels crowded.</li>
-<li><strong>Normalized Dimensions</strong>: Ensure all radial metrics share a similar range (e.g. 0 to 10 or 0% to 100%). Mixing incompatible units (e.g., latency in ms with availability in %) can mislead readers without normalization.</li>
-<li><strong>Alpha Blending</strong>: Keep <code>fill_alpha</code> around <code>0.2</code> to <code>0.35</code> so overlapping series do not obscure inner boundaries.</li>
-</ol>
 
             </main>
         </div>

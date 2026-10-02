@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._types import AreaMode, LegendPosition, LineStyle, PointShape
+from drawlib._charts._common._types import AreaMode, LineStyle, PointShape
 from drawlib._charts.area_chart._series import Series
 from drawlib._charts.line_chart import _renderer as _renderer_module
 from drawlib._charts.line_chart._base import CartesianChartBase
@@ -27,48 +27,54 @@ class AreaChart(CartesianChartBase):
 
     def __init__(
         self,
+        axis_line_style: Style,
         categories: list[str],
         width: float = 80.0,
         height: float = 50.0,
-        title: str = "",
-        title_style: Style | None = None,
         mode: AreaMode = "overlap",
         fill_alpha: float = 0.35,
         show_points: bool = False,
         point_shape: PointShape = "none",
         point_size: float = 1.0,
         smooth: bool = False,
-        legend_position: LegendPosition = "auto",
-        show_values: bool = False,
-        value_label_style: Style | None = None,
+        axis_text_style: Style | None = None,
+        grid_style: Style | None = None,
+        value_text_style: Style | None = None,
+        background_style: Style | None = None,
+        title: str = "",
+        title_style: Style | None = None,
     ) -> None:
         """Initialize AreaChart.
 
         Args:
+            axis_line_style: Style defining baseline coordinate axis lines.
             categories: Category labels along horizontal axis.
             width: Total width of chart. Defaults to 80.0.
             height: Total height of chart. Defaults to 50.0.
-            title: Title text at the top. Defaults to "".
-            title_style: Optional Style overriding title typography.
             mode: Area layout mode ("overlap" or "stack"). Defaults to "overlap".
             fill_alpha: Transparency ratio for area polygon fill (0.0 to 1.0). Defaults to 0.35.
             show_points: Whether to render markers at data points. Defaults to False.
             point_shape: Default marker shape ("circle", "square", "none"). Defaults to "none".
             point_size: Marker radius or half-width. Defaults to 1.0.
             smooth: Whether to render smooth curves instead of straight line segments.
-            legend_position: Legend location ("auto", "top", "bottom", "right", "none").
-            show_values: Whether to render numerical values above points. Defaults to False.
-            value_label_style: Optional Style for data point labels.
+            axis_text_style: Optional Style for axis tick labels and category names.
+            grid_style: Optional Style for background gridlines.
+            value_text_style: Optional Style for data point value labels.
+            background_style: Optional Style for chart background card.
+            title: Title text at the top. Defaults to "".
+            title_style: Optional Style overriding title typography.
         """
         super().__init__(
+            axis_line_style=axis_line_style,
             categories=categories,
             width=width,
             height=height,
+            axis_text_style=axis_text_style,
+            grid_style=grid_style,
+            value_text_style=value_text_style,
+            background_style=background_style,
             title=title,
             title_style=title_style,
-            legend_position=legend_position,
-            show_values=show_values,
-            value_label_style=value_label_style,
         )
         self.mode: AreaMode = mode
         self.fill_alpha: float = float(fill_alpha)
@@ -93,6 +99,7 @@ class AreaChart(CartesianChartBase):
         line_style: LineStyle = "solid",
         point_shape: PointShape | None = None,
         point_size: float | None = None,
+        legend_text_style: Style | None = None,
     ) -> Series:
         """Add a new area series to the chart.
 
@@ -105,6 +112,7 @@ class AreaChart(CartesianChartBase):
             line_style: Stroke pattern ("solid", "dashed", etc.). Defaults to "solid".
             point_shape: Custom marker shape or inherited from chart defaults.
             point_size: Custom marker size or inherited from chart defaults.
+            legend_text_style: Optional custom text style for this series in legend.
 
         Returns:
             Series: The newly created and registered series.
@@ -121,6 +129,7 @@ class AreaChart(CartesianChartBase):
             line_style=line_style,
             point_shape=shape,
             point_size=size,
+            legend_text_style=legend_text_style,
         )
         self._series.append(s)
         return s

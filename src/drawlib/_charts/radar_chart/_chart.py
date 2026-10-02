@@ -13,11 +13,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._types import (
     FormatterType,
     GridShape,
-    LegendPosition,
     LineStyle,
+    Orientation,
     PointShape,
 )
 from drawlib._charts.radar_chart import _renderer as _renderer_module
@@ -33,22 +34,21 @@ class RadarChart:
     def __init__(
         self,
         categories: list[str],
+        axis_line_style: Style,
         radius: float = 25.0,
         min_value: float = 0.0,
         max_value: float | None = None,
         levels: int = 5,
         grid_shape: GridShape = "polygon",
-        show_grid_labels: bool = True,
-        grid_label_format: FormatterType = None,
+        axis_text_style: Style | None = None,
         grid_style: Style | None = None,
-        spoke_style: Style | None = None,
-        category_label_style: Style | None = None,
+        scale_text_style: Style | None = None,
+        scale_format: FormatterType = None,
+        value_text_style: Style | None = None,
+        value_format: FormatterType = None,
+        background_style: Style | None = None,
         title: str = "",
         title_style: Style | None = None,
-        legend_position: LegendPosition = "right",
-        show_values: bool = False,
-        value_format: FormatterType = None,
-        value_label_style: Style | None = None,
         width: float | None = None,
         height: float | None = None,
     ) -> None:
@@ -56,22 +56,21 @@ class RadarChart:
 
         Args:
             categories: List of category/dimension names (minimum 3).
+            axis_line_style: Required Style for radial spoke lines.
             radius: Outer radius of the radar web. Defaults to 25.0.
             min_value: Baseline value at the center origin. Defaults to 0.0.
             max_value: Outer boundary value. If None, calculated automatically.
             levels: Number of concentric grid rings. Defaults to 5.
             grid_shape: Grid contour style ("polygon" or "circle"). Defaults to "polygon".
-            show_grid_labels: Whether to display numeric scale values along reference spoke. Defaults to True.
-            grid_label_format: Formatter string or function for scale levels.
-            grid_style: Optional Style overriding concentric grid lines.
-            spoke_style: Optional Style overriding radial spoke lines.
-            category_label_style: Optional Style overriding category label typography.
+            axis_text_style: Optional Style for category labels around the perimeter.
+            grid_style: Optional Style for concentric grid rings. If None, rings are omitted.
+            scale_text_style: Optional Style for numeric scale labels along spokes.
+            scale_format: Formatter string or function for scale levels.
+            value_text_style: Optional Style for vertex data values. If None, values are omitted.
+            value_format: Formatter string or function for vertex values.
+            background_style: Optional Style for chart background card.
             title: Title text at the top. Defaults to "".
             title_style: Optional Style overriding title typography.
-            legend_position: Legend placement ("right", "bottom", "top", "none", "auto"). Defaults to "right".
-            show_values: Whether to print numeric values next to series vertices. Defaults to False.
-            value_format: Formatter string or function for vertex values.
-            value_label_style: Optional Style overriding vertex value typography.
             width: Optional total chart width override.
             height: Optional total chart height override.
 
@@ -82,22 +81,21 @@ class RadarChart:
             raise ValueError(f"RadarChart requires at least 3 categories, but got {len(categories)}.")
 
         self._categories = list(categories)
+        self.axis_line_style: Style = axis_line_style
         self.radius = float(radius)
         self.min_value = float(min_value)
         self.max_value = float(max_value) if max_value is not None else None
         self.levels = max(1, int(levels))
         self.grid_shape: GridShape = grid_shape
-        self.show_grid_labels = show_grid_labels
-        self.grid_label_format: FormatterType = grid_label_format
+        self.axis_text_style: Style | None = axis_text_style
         self.grid_style: Style | None = grid_style
-        self.spoke_style: Style | None = spoke_style
-        self.category_label_style: Style | None = category_label_style
+        self.scale_text_style: Style | None = scale_text_style
+        self.scale_format: FormatterType = scale_format
+        self.value_text_style: Style | None = value_text_style
+        self.value_format: FormatterType = value_format
+        self.background_style: Style | None = background_style
         self.title = title
         self.title_style: Style | None = title_style
-        self.legend_position: LegendPosition = legend_position
-        self.show_values = show_values
-        self.value_format: FormatterType = value_format
-        self.value_label_style: Style | None = value_label_style
 
         self._custom_width = float(width) if width is not None else None
         self._custom_height = float(height) if height is not None else None
@@ -121,9 +119,9 @@ class RadarChart:
         fill_alpha: float = 0.25,
         line_width: float = 2.0,
         line_style: LineStyle = "solid",
-        show_points: bool = True,
         point_shape: PointShape = "circle",
         point_size: float = 0.8,
+        legend_text_style: Style | None = None,
     ) -> Series:
         """Add a new data series to the radar chart.
 
@@ -134,9 +132,9 @@ class RadarChart:
             fill_alpha: Transparency of polygon fill (0.0 to 1.0). Defaults to 0.25.
             line_width: Perimeter stroke width. Defaults to 2.0.
             line_style: Perimeter stroke pattern. Defaults to "solid".
-            show_points: Whether to render vertex markers. Defaults to True.
-            point_shape: Marker shape. Defaults to "circle".
+            point_shape: Marker shape ("circle", "square", "none"). Defaults to "circle".
             point_size: Marker radius. Defaults to 0.8.
+            legend_text_style: Optional custom text style for this series in legend.
 
         Returns:
             Series: The newly created and registered series.
@@ -148,9 +146,9 @@ class RadarChart:
             fill_alpha=fill_alpha,
             line_width=line_width,
             line_style=line_style,
-            show_points=show_points,
             point_shape=point_shape,
             point_size=point_size,
+            legend_text_style=legend_text_style,
         )
         self._series.append(s)
         return s
@@ -161,10 +159,10 @@ class RadarChart:
             return (self._custom_width, self._custom_height)
 
         diameter = self.radius * 2.0
-        extra_w = 26.0 if self.legend_position == "right" else 16.0
-        extra_h = (8.0 if self.title else 0.0) + (14.0 if self.legend_position in {"top", "bottom"} else 0.0) + 16.0
-        w = self._custom_width if self._custom_width is not None else diameter + extra_w
-        h = self._custom_height if self._custom_height is not None else diameter + extra_h
+        has_title = bool(self.title and self.title_style is not None)
+        pad = 16.0 if self.axis_text_style is not None else 8.0
+        w = self._custom_width if self._custom_width is not None else diameter + pad
+        h = self._custom_height if self._custom_height is not None else diameter + pad + (6.0 if has_title else 0.0)
         return (w, h)
 
     def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
@@ -174,3 +172,37 @@ class RadarChart:
             xy: Base canvas placement coordinate (x, y) where the bottom-left corner is anchored.
         """
         _renderer_module.draw_radar_chart(self, xy)
+
+    def draw_legend(
+        self,
+        xy: tuple[float, float],
+        text_style: Style,
+        orientation: Orientation = "vertical",
+        swatch_size: tuple[float, float] = (2.4, 1.2),
+        item_gap: float = 4.0,
+    ) -> None:
+        """Render legend for series at coordinate xy.
+
+        Args:
+            xy: Starting placement coordinate (x, y).
+            text_style: Base Style for legend text labels.
+            orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
+            swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
+            item_gap: Spacing between consecutive legend items. Defaults to 4.0.
+        """
+        items = [
+            (
+                s.name,
+                s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
+                s.legend_text_style,
+            )
+            for s in self._series
+        ]
+        _legend_module.draw_legend(
+            items=items,
+            xy=xy,
+            text_style=text_style,
+            orientation=orientation,
+            swatch_size=swatch_size,
+            item_gap=item_gap,
+        )

@@ -1,7 +1,7 @@
 # Line Chart
 
 The `LineChart` component visualizes numerical trends over ordered categories or continuous time points. 
-It supports straight line segments, smoothed spline curves, custom point marker shapes, and configurable line styles.
+It supports straight line segments, smoothed spline curves, custom point marker shapes, configurable line styles, and decoupled legend rendering.
 
 ---
 
@@ -12,13 +12,17 @@ from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles
 
-setup(width=100, height=60)
+setup(width=100, height=70)
 
 chart = LineChart(
+    axis_line_style=Styles.MutedDashed,
     categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedLight,
     width=80,
     height=45,
     title="Monthly Active Users (k)",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     smooth=True,
     show_points=True,
 )
@@ -26,6 +30,7 @@ chart.add_series("2025", [45, 52, 58, 65, 72, 80], style=Styles.PrimaryFlat, lin
 chart.add_series("2026", [60, 75, 88, 110, 135, 160], style=Styles.AccentFlat, line_width=2.5)
 
 chart.draw(xy=(10, 8))
+chart.draw_legend(xy=(25, 59), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
 ```
 
 ---
@@ -37,6 +42,7 @@ chart.draw(xy=(10, 8))
   - `point_shape`: Marker symbol (`"circle"`, `"square"`, `"none"`).
   - `point_size`: Radius / dimensions of markers.
 - **Stroke Styles (`line_style`)**: Supports `"solid"`, `"dashed"`, and `"dotted"` strokes to differentiate targets from actuals.
+- **Decoupled Legend (`draw_legend`)**: Allows rendering the series legend at any coordinate on the canvas.
 
 ---
 
@@ -45,20 +51,24 @@ chart.draw(xy=(10, 8))
 ### Constructor
 ```python
 LineChart(
-    categories: list[str],
+    axis_line_style: Style,
+    categories: list[str] | None = None,
+    axis_text_style: Style | None = None,
+    grid_style: Style | None = None,
+    value_text_style: Style | None = None,
+    background_style: Style | None = None,
+    title: str = "",
+    title_style: Style | None = None,
     width: float = 80.0,
     height: float = 50.0,
-    title: str = "",
     smooth: bool = False,
     show_points: bool = True,
     point_shape: Literal["circle", "square", "none"] = "circle",
     point_size: float = 0.7,
-    show_values: bool = False,
-    legend_position: Literal["auto", "top", "bottom", "right", "none"] = "auto",
 )
 ```
 
-### Adding Series
+### Adding Series & Rendering
 ```python
 chart.add_series(
     name: str,
@@ -68,5 +78,8 @@ chart.add_series(
     line_style: LineStyle = "solid",
     point_shape: PointShape | None = None,
     point_size: float | None = None,
+    legend_text_style: Style | None = None,
 )
+chart.draw(xy=(0.0, 0.0))
+chart.draw_legend(xy, text_style=Styles.Black, orientation="vertical")
 ```

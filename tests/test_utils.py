@@ -33,12 +33,7 @@ def test_missing_attribute_error() -> None:
 def test_load_utils_custom_functions_and_constants() -> None:
     """Verify load_utils loads user functions and constants onto drawlib.utils."""
     with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".py", delete=False) as f:
-        f.write(
-            "COMPANY_NAME = 'Acme Corp'\n"
-            "\n"
-            "def double(x: int) -> int:\n"
-            "    return x * 2\n"
-        )
+        f.write("COMPANY_NAME = 'Acme Corp'\n\ndef double(x: int) -> int:\n    return x * 2\n")
         f.flush()
         utils_file = f.name
 

@@ -17,12 +17,12 @@ Drawlib charts adhere to four foundational principles:
 ### 1.2 Module Structure & Imports
 All public chart types, series models, configuration classes, and enums are organized into dedicated submodules under `drawlib.charts`:
 
-- `drawlib.charts.bar`: `BarChart`, `Series`, `Mode`, `Axis`, `Orientation`, `LegendPosition`
-- `drawlib.charts.line`: `LineChart`, `Series`, `Axis`, `LineStyle`, `PointShape`, `LegendPosition`
-- `drawlib.charts.area`: `AreaChart`, `Series`, `Mode`, `Axis`, `LegendPosition`
+- `drawlib.charts.bar`: `BarChart`, `Series`, `Mode`, `Axis`, `Orientation`
+- `drawlib.charts.line`: `LineChart`, `Series`, `Axis`, `LineStyle`, `PointShape`
+- `drawlib.charts.area`: `AreaChart`, `Series`, `Mode`, `Axis`
 - `drawlib.charts.pie`: `PieChart`, `Slice`, `ColorType`, `FormatterType`
-- `drawlib.charts.radar`: `RadarChart`, `Series`, `GridShape`, `LegendPosition`
-- `drawlib.charts.scatter`: `ScatterChart`, `Series`, `Point`, `Axis`, `ScaleType`, `PointShape`, `LegendPosition`
+- `drawlib.charts.radar`: `RadarChart`, `Series`, `GridShape`
+- `drawlib.charts.scatter`: `ScatterChart`, `Series`, `Point`, `Axis`, `ScaleType`, `PointShape`
 - `drawlib.charts.gantt`: `GanttChart`, `Task`, `Milestone`, `Section`, `Marker`, `Dependency`
 
 ```python
@@ -56,7 +56,8 @@ from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Sect
 
 ### 2.1 Placement Coordinates and Bounding Dimensions
 Every chart class implements a consistent positioning and measurement interface:
-- **`draw(xy=(x, y))`**: Renders the chart onto the canvas. The `xy` tuple defines the **bottom-left corner** of the chart's total bounding container (including margins, titles, and legends).
+- **`draw(xy=(x, y))`**: Renders the chart body onto the canvas. The `xy` tuple defines the **bottom-left corner** of the chart's total bounding container (including margins and titles).
+- **`draw_legend(xy=(x, y), text_style: Style, orientation="vertical" | "horizontal", ...)`**: Renders the legend independently at the specified coordinate.
 - **`get_size() -> tuple[float, float]`**: Returns `(width, height)` representing the total bounding box dimensions on the canvas.
 
 ```text
@@ -67,12 +68,12 @@ Every chart class implements a consistent positioning and measurement interface:
                    │   │                              │   │
                    │   │                              │   │
                    │   └──────────────────────────────┘   │
-                   │       Legend / Axis Labels           │
+                   │       Axis Labels / Ticks            │
    (x, y)          └──────────────────────────────────────┘ (x + width, y)
 ```
 
 ### 2.2 The Axis System (`Axis`)
-Cartesian charts (`BarChart`, `LineChart`, `AreaChart`, `ScatterChart`) use the `Axis` model to control coordinate mapping, tick generation, and grid rendering.
+Cartesian charts (`BarChart`, `LineChart`, `AreaChart`, `ScatterChart`) use the `Axis` model to control coordinate mapping, tick generation, and label formatting.
 
 ```python
 class Axis:
@@ -86,12 +87,7 @@ class Axis:
         format: FormatterType = None,
         unit: str = "",
         label: str = "",
-        show_grid: bool = True,
-        grid_style: Style | None = None,
-        show_axis_line: bool = True,
-        line_style: Style | None = None,
-        show_ticks: bool = True,
-        tick_label_style: Style | None = None,
+        label_style: Style | None = None,
         tick_label_angle: float = 0.0,
     ) -> None:
         ...
@@ -119,14 +115,19 @@ chart.configure_y_axis(
     format="${:,.0f}",
     unit="k",
     label="Operating Budget (USD)",
-    show_grid=True,
     tick_label_angle=45.0,  # Angled labels for compact layouts
 )
 ```
 
-### 2.3 Explicit Styling Requirement (`style: Style`)
-All chart elements—series, slices, points, tasks, milestones, and markers—require an explicit `style: Style` argument.
-Drawlib strictly enforces explicit design tokens (`Styles.PrimaryFlat`, `Styles.SecondaryFlat`, `Styles.AccentFlat`, `Styles.MutedFlat`, `Styles.SuccessFlat`, etc.) or custom `Style(...)` instances:
+### 2.3 Explicit Styling Requirement & Presence-Based Rendering
+Drawlib follows a strict **"No Fallback / Style-as-Presence"** design:
+1. **Mandatory Axis Anchor**: Cartesian charts, `RadarChart`, and `GanttChart` require an explicit `axis_line_style: Style` in their constructors.
+2. **Presence-Based Rendering**: If an optional style is `None`, that visual element is completely omitted:
+   - `axis_text_style=None`: Ticks and category text are not drawn.
+   - `grid_style=None`: Gridlines are not drawn.
+   - `value_text_style=None`: Value numbers on bars/points are not drawn.
+   - `background_style=None`: Background card is transparent.
+3. **Data Series & Slices**: Series, slices, and markers require an explicit `style: Style` argument using design tokens (`Styles.PrimaryFlat`, `Styles.SecondaryFlat`, etc.) or custom `Style(...)` instances:
 
 ```python
 from drawlib.styles import Styles
@@ -157,28 +158,29 @@ chart.add_series("Series 2", [15, 25, 35], style=Styles.SecondaryFlat)
 ### 3.2 Constructor Parameters
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `title` | `str` | `""` | Chart title displayed at the top. |
-| `categories` | `list[str]` | `[]` | Category labels along the category axis. |
+| `axis_line_style` | `Style` | **Required** | Style for the Cartesian axes line and ticks. Mandatory anchor. |
+| `categories` | `list[str] \| None` | `None` | Category labels along the category axis. |
 | `width` / `height` | `float` | `60.0` / `40.0` | Bounding box dimensions on the canvas. |
+| `title` | `str` | `""` | Chart title displayed at the top. |
 | `orientation` | `"vertical"` \| `"horizontal"` | `"vertical"` | Direction of bars. |
 | `bar_mode` | `"group"` \| `"stack"` | `"group"` | Grouped side-by-side or stacked cumulatively. |
 | `bar_width_ratio` | `float` | `0.7` | Relative thickness ratio of bars within category bin (0.1 to 1.0). |
 | `r` | `float` | `0.0` | Corner rounding radius for bar rectangles. |
-| `show_values` | `bool` | `False` | Whether to render numerical text labels on or above bars. |
 | `value_format` | `FormatterType` | `None` | Formatter string or callable for value labels. |
-| `value_label_style`| `Style \| None` | `None` | Text style for numerical value labels. |
-| `legend_position` | `LegendPosition` | `"auto"` | Placement of legend (`"auto"`, `"top"`, `"bottom"`, `"right"`, `"none"`). |
-| `legend_style` | `Style \| None` | `None` | Text style for legend labels. |
+| `axis_text_style` | `Style \| None` | `None` | Style for axis tick marks and category labels. If None, labels are omitted. |
+| `grid_style` | `Style \| None` | `None` | Style for value axis gridlines. If None, grid is omitted. |
+| `value_text_style`| `Style \| None` | `None` | Style for numerical value labels on bars. If None, value labels are omitted. |
 | `title_style` | `Style \| None` | `None` | Text style for the chart title. |
-| `style` | `Style \| None` | `None` | Base style fallback for chart elements. |
+| `background_style`| `Style \| None` | `None` | Background container card style (fill, border). |
 
 ### 3.3 Methods & Data Model
-- `add_series(name: str, values: list[float], style: Style) -> Series`
+- `add_series(name: str, values: list[float], style: Style, legend_text_style: Style | None = None) -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical axis (value axis for vertical, category axis for horizontal).
 - `configure_x_axis(...) -> Axis`: Configures horizontal axis (category axis for vertical, value axis for horizontal).
-- `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Renders chart at bottom-left position `xy`.
+- `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Renders chart body at bottom-left position `xy`.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
 
-`Series` encapsulates `name: str`, `values: list[float]`, and `style: Style`.
+`Series` encapsulates `name: str`, `values: list[float]`, `style: Style`, and `legend_text_style: Style | None`.
 
 ### 3.4 Production Examples
 
@@ -191,22 +193,26 @@ from drawlib.styles import Styles
 setup(width=100, height=80)
 
 chart = BarChart(
+    axis_line_style=Styles.Primary,
     categories=["Q1", "Q2", "Q3", "Q4"],
     width=80.0,
     height=55.0,
     title="Quarterly Enterprise Revenue",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     orientation="vertical",
     bar_mode="group",
     bar_width_ratio=0.75,
     r=1.0,
-    show_values=True,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
+    value_text_style=Styles.PrimaryBold.patch(text_size=8.5),
     value_format="{:.1f}M",
-    legend_position="top",
 )
 chart.add_series("SaaS Subscriptions", [45.2, 58.0, 72.5, 91.0], style=Styles.PrimaryFlat)
 chart.add_series("Professional Services", [22.0, 24.5, 21.0, 19.5], style=Styles.SecondaryFlat)
-chart.configure_y_axis(unit="$", label="Revenue (USD Millions)", show_grid=True)
-chart.draw(xy=(10.0, 15.0))
+chart.configure_y_axis(unit="$", label="Revenue (USD Millions)")
+chart.draw(xy=(10.0, 12.0))
+chart.draw_legend(xy=(25.0, 68.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
 ```
 
 #### Example 3.4.2: Horizontal Stacked Bar Chart with Resource Breakdown
@@ -218,23 +224,27 @@ from drawlib.styles import Styles
 setup(width=105, height=75)
 
 chart = BarChart(
+    axis_line_style=Styles.Primary,
     categories=["Frontend", "API Gateway", "Database", "Search Index"],
-    width=85.0,
+    width=70.0,
     height=50.0,
     orientation="horizontal",
     bar_mode="stack",
     bar_width_ratio=0.6,
     r=0.8,
     title="Infrastructure Resource Utilization (%)",
-    show_values=True,
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
+    value_text_style=Styles.WhiteBold.patch(text_size=8.5),
     value_format="{:.0f}%",
-    legend_position="right",
 )
 chart.add_series("CPU", [35.0, 55.0, 80.0, 45.0], style=Styles.PrimaryFlat)
 chart.add_series("Memory", [40.0, 30.0, 15.0, 35.0], style=Styles.SecondaryFlat)
 chart.add_series("Storage I/O", [25.0, 15.0, 5.0, 20.0], style=Styles.AccentFlat)
-chart.configure_x_axis(min_value=0.0, max_value=100.0, tick_step=20.0, unit="%", show_grid=True)
-chart.draw(xy=(10.0, 15.0))
+chart.configure_x_axis(min_value=0.0, max_value=100.0, tick_step=20.0, unit="%")
+chart.draw(xy=(10.0, 12.0))
+chart.draw_legend(xy=(83.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="vertical")
 ```
 
 #### Example 3.4.3: Logarithmic Scale Latency Benchmark
@@ -246,16 +256,20 @@ from drawlib.styles import Styles
 setup(width=100, height=75)
 
 chart = BarChart(
+    axis_line_style=Styles.Primary,
     categories=["L1 Cache", "RAM", "NVMe SSD", "Cross-Region API"],
     width=80.0,
     height=55.0,
     title="Read Latency Comparison (Log Scale)",
-    show_values=True,
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
+    value_text_style=Styles.PrimaryBold.patch(text_size=8.5),
     value_format="{:g} ns",
 )
 chart.add_series("Access Time", [1.0, 100.0, 150000.0, 150000000.0], style=Styles.PrimaryFlat)
-chart.configure_y_axis(scale="log", unit="ns", label="Nanoseconds (log10)", show_grid=True)
-chart.draw(xy=(10.0, 12.0))
+chart.configure_y_axis(scale="log", unit="ns", label="Nanoseconds (log10)")
+chart.draw(xy=(10.0, 10.0))
 ```
 
 ---
@@ -278,23 +292,29 @@ chart.draw(xy=(10.0, 12.0))
 ### 4.2 Constructor Parameters
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `categories` | `list[str]` | Required | Category labels along horizontal axis. |
+| `axis_line_style` | `Style` | **Required** | Style for the axes line and ticks. Mandatory anchor. |
+| `categories` | `list[str] \| None` | `None` | Category labels along horizontal axis. |
 | `width` / `height` | `float` | `80.0` / `50.0` | Bounding dimensions on the canvas. |
 | `title` | `str` | `""` | Title text displayed at top of chart. |
 | `show_points` | `bool` | `True` | Whether to draw marker points at vertex coordinates. |
 | `point_shape` | `"circle"` \| `"square"` \| `"none"` | `"circle"` | Shape of vertex markers. |
 | `point_size` | `float` | `0.7` | Marker radius or half-width. |
 | `smooth` | `bool` | `False` | When True, uses smooth interpolated spline curve rendering. |
-| `legend_position` | `LegendPosition` | `"auto"` | Position of the legend box. |
-| `show_values` | `bool` | `False` | Whether to print numerical values above markers. |
+| `value_format` | `FormatterType` | `None` | Formatter string or callable for value labels. |
+| `axis_text_style` | `Style \| None` | `None` | Style for axis tick marks and category labels. If None, labels omitted. |
+| `grid_style` | `Style \| None` | `None` | Style for value axis gridlines. If None, grid is omitted. |
+| `value_text_style`| `Style \| None` | `None` | Style for numerical values above markers. If None, values omitted. |
+| `title_style` | `Style \| None` | `None` | Text style for the chart title. |
+| `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 4.3 Methods & Data Model
-- `add_series(name: str, values: list[float], style: Style, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None) -> Series`
-- `configure_y_axis(...) -> Axis`: Configures vertical value axis scale, ticks, and gridlines.
+- `add_series(name: str, values: list[float], style: Style, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None, legend_text_style: Style | None = None) -> Series`
+- `configure_y_axis(...) -> Axis`: Configures vertical value axis scale and ticks.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
 
-`Series` captures `name`, `values`, `style`, `line_width`, `line_style`, `point_shape`, and `point_size`.
+`Series` captures `name`, `values`, `style`, `line_width`, `line_style`, `point_shape`, `point_size`, and `legend_text_style`.
 
 ### 4.4 Production Examples
 
@@ -307,19 +327,23 @@ from drawlib.styles import Styles
 setup(width=100, height=80)
 
 chart = LineChart(
+    axis_line_style=Styles.Primary,
     categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     width=80.0,
     height=55.0,
     title="Platform MAU Growth (2025 vs 2026)",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     show_points=True,
     point_size=1.0,
-    show_values=True,
-    legend_position="top",
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
+    value_text_style=Styles.PrimaryBold.patch(text_size=8.5),
 )
 chart.add_series("2025 Baseline", [120.0, 140.0, 175.0, 210.0, 260.0, 310.0], style=Styles.SecondaryFlat, line_style="dashed")
 chart.add_series("2026 Accelerated", [150.0, 195.0, 270.0, 380.0, 520.0, 690.0], style=Styles.PrimaryFlat, line_width=2.5)
-chart.configure_y_axis(unit="k", label="Active Users (Thousands)", show_grid=True)
-chart.draw(xy=(10.0, 15.0))
+chart.configure_y_axis(unit="k", label="Active Users (Thousands)")
+chart.draw(xy=(10.0, 12.0))
+chart.draw_legend(xy=(25.0, 68.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
 ```
 
 #### Example 4.4.2: Smooth Spline CPU Load with Custom Markers
@@ -331,19 +355,23 @@ from drawlib.styles import Styles
 setup(width=100, height=75)
 
 chart = LineChart(
+    axis_line_style=Styles.Primary,
     categories=["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
     width=80.0,
     height=50.0,
     title="Kubernetes Node CPU Load Average",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     smooth=True,
     show_points=True,
     point_shape="square",
     point_size=0.8,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
 )
 chart.add_series("Node-A (Primary)", [22.0, 18.0, 65.0, 88.0, 74.0, 40.0], style=Styles.PrimaryFlat)
 chart.add_series("Node-B (Replica)", [15.0, 12.0, 42.0, 60.0, 52.0, 28.0], style=Styles.SecondaryFlat, line_style="dotted")
-chart.configure_y_axis(min_value=0.0, max_value=100.0, tick_step=25.0, unit="%", show_grid=True)
-chart.draw(xy=(10.0, 15.0))
+chart.configure_y_axis(min_value=0.0, max_value=100.0, tick_step=25.0, unit="%")
+chart.draw(xy=(10.0, 12.0))
 ```
 
 ---
@@ -368,7 +396,8 @@ chart.draw(xy=(10.0, 15.0))
 ### 5.2 Constructor Parameters
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `categories` | `list[str]` | Required | Category labels along horizontal axis. |
+| `axis_line_style` | `Style` | **Required** | Style for the axes line and ticks. Mandatory anchor. |
+| `categories` | `list[str] \| None` | `None` | Category labels along horizontal axis. |
 | `width` / `height` | `float` | `80.0` / `50.0` | Total chart bounding dimensions. |
 | `title` | `str` | `""` | Chart title displayed at the top. |
 | `mode` | `"overlap"` \| `"stack"` | `"overlap"` | Area composition mode. |
@@ -377,15 +406,19 @@ chart.draw(xy=(10.0, 15.0))
 | `point_shape` | `"circle"` \| `"square"` \| `"none"` | `"none"` | Marker shape at vertices. |
 | `point_size` | `float` | `1.0` | Size of point markers. |
 | `smooth` | `bool` | `False` | Whether boundary lines follow smooth curves. |
-| `legend_position` | `LegendPosition` | `"auto"` | Position of the legend box. |
+| `axis_text_style` | `Style \| None` | `None` | Style for axis tick marks and category labels. If None, labels omitted. |
+| `grid_style` | `Style \| None` | `None` | Style for value axis gridlines. If None, grid is omitted. |
+| `title_style` | `Style \| None` | `None` | Text style for the chart title. |
+| `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 5.3 Methods & Data Model
-- `add_series(name: str, values: list[float], style: Style, fill_alpha: float | None = None, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None) -> Series`
-- `configure_y_axis(...) -> Axis`: Configures vertical value axis scale, ticks, and gridlines.
+- `add_series(name: str, values: list[float], style: Style, fill_alpha: float | None = None, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None, legend_text_style: Style | None = None) -> Series`
+- `configure_y_axis(...) -> Axis`: Configures vertical value axis scale and ticks.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
 
-`Series` tracks `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, and `point_size`.
+`Series` tracks `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, `point_size`, and `legend_text_style`.
 
 ### 5.4 Production Examples
 
@@ -398,19 +431,23 @@ from drawlib.styles import Styles
 setup(width=100, height=80)
 
 chart = AreaChart(
+    axis_line_style=Styles.Primary,
     categories=["2021", "2022", "2023", "2024", "2025"],
     width=80.0,
     height=55.0,
     title="Cumulative Revenue Streams",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     mode="stack",
     fill_alpha=0.65,
-    legend_position="top",
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
 )
 chart.add_series("Enterprise Cloud", [40.0, 70.0, 110.0, 160.0, 225.0], style=Styles.PrimaryFlat)
 chart.add_series("SaaS Products", [25.0, 38.0, 52.0, 68.0, 85.0], style=Styles.SecondaryFlat)
 chart.add_series("Support & Advisory", [15.0, 18.0, 22.0, 24.0, 26.0], style=Styles.AccentFlat)
-chart.configure_y_axis(unit="M$", label="Gross Revenue (USD Millions)", show_grid=True)
-chart.draw(xy=(10.0, 15.0))
+chart.configure_y_axis(unit="M$", label="Gross Revenue (USD Millions)")
+chart.draw(xy=(10.0, 12.0))
+chart.draw_legend(xy=(25.0, 68.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
 ```
 
 #### Example 5.4.2: Overlapping Network Bandwidth with Custom Alpha
@@ -422,20 +459,24 @@ from drawlib.styles import Styles
 setup(width=100, height=75)
 
 chart = AreaChart(
+    axis_line_style=Styles.Primary,
     categories=["02:00", "06:00", "10:00", "14:00", "18:00", "22:00"],
     width=80.0,
     height=50.0,
     title="Ingress vs Egress Gateway Traffic",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     mode="overlap",
     fill_alpha=0.35,
     show_points=True,
     point_shape="circle",
     point_size=0.6,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
 )
 chart.add_series("Ingress Traffic", [120.0, 180.0, 650.0, 920.0, 780.0, 310.0], style=Styles.PrimaryFlat)
 chart.add_series("Egress Traffic", [80.0, 110.0, 420.0, 610.0, 530.0, 220.0], style=Styles.SecondaryFlat)
-chart.configure_y_axis(unit="Gbps", show_grid=True)
-chart.draw(xy=(10.0, 15.0))
+chart.configure_y_axis(unit="Gbps")
+chart.draw(xy=(10.0, 12.0))
 ```
 
 ---
@@ -468,17 +509,20 @@ chart.draw(xy=(10.0, 15.0))
 | `center_text` | `str` | `""` | Text rendered in center hole of donut (supports `\n`). |
 | `start_angle` | `float` | `90.0` | Initial starting radial angle in degrees (90.0 is 12 o'clock). |
 | `clockwise` | `bool` | `True` | Whether slices are ordered clockwise. |
-| `show_values` | `bool` | `True` | Whether to display percentage labels on slices ($\ge 4\%$ share). |
 | `value_format` | `FormatterType` | `"{:.1f}%"` | String format or function converting proportional ratio. |
-| `legend_position` | `LegendPosition` | `"right"` | Legend box placement (`"right"`, `"bottom"`, `"top"`, `"none"`). |
 | `width` / `height` | `float \| None` | `None` | Optional container dimension overrides. |
+| `value_text_style`| `Style \| None` | `None` | Style for percentage/value labels on slices. If None, slice labels are omitted. |
+| `center_text_style`| `Style \| None` | `None` | Style for donut center KPI text. |
+| `title_style` | `Style \| None` | `None` | Style for chart title. |
+| `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 6.3 Methods & Data Model
-- `add_slice(name: str, value: float, style: Style, explode: float = 0.0) -> Slice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
-- `get_size() -> tuple[float, float]`: Computes required bounding box dimensions based on radius, title, and legend.
-- `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
+- `add_slice(name: str, value: float, style: Style, explode: float = 0.0, legend_text_style: Style | None = None) -> Slice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
+- `get_size() -> tuple[float, float]`: Computes required bounding box dimensions based on radius and title.
+- `draw(xy=(0.0, 0.0))`: Renders chart body on canvas.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
 
-`Slice` encapsulates `name: str`, `value: float`, `style: Style`, and `explode: float`.
+`Slice` encapsulates `name: str`, `value: float`, `style: Style`, `explode: float`, and `legend_text_style: Style | None`.
 
 ### 6.4 Production Examples
 
@@ -491,17 +535,20 @@ from drawlib.styles import Styles
 setup(width=95, height=75)
 
 chart = PieChart(
-    radius=26.0,
+    radius=24.0,
     hole_ratio=0.62,
     center_text="$1.2B\nARR",
+    center_text_style=Styles.BlackBold.patch(text_size=11.0),
     title="Revenue Contribution by Product Line",
-    legend_position="right",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    value_text_style=Styles.WhiteBold.patch(text_size=9.0),
 )
 chart.add_slice("Cloud Infrastructure", 620.0, style=Styles.PrimaryFlat)
 chart.add_slice("AI Developer Tools", 340.0, style=Styles.SecondaryFlat)
 chart.add_slice("Security Suite", 180.0, style=Styles.AccentFlat)
 chart.add_slice("Legacy Support", 60.0, style=Styles.MutedFlat)
 chart.draw(xy=(10.0, 10.0))
+chart.draw_legend(xy=(64.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="vertical")
 ```
 
 #### Example 6.4.2: Exploded Slice Allocation
@@ -510,18 +557,20 @@ from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
 
-setup(width=90, height=80)
+setup(width=95, height=70)
 
 chart = PieChart(
-    radius=25.0,
+    radius=24.0,
     title="R&D Budget Allocation (2026)",
-    legend_position="bottom",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    value_text_style=Styles.WhiteBold.patch(text_size=9.0),
 )
 chart.add_slice("Generative AI Models", 48.0, style=Styles.PrimaryFlat, explode=3.0)
 chart.add_slice("Core Infrastructure", 24.0, style=Styles.SecondaryFlat)
 chart.add_slice("DevOps & Tooling", 16.0, style=Styles.AccentFlat)
 chart.add_slice("Compliance & Security", 12.0, style=Styles.MutedFlat)
-chart.draw(xy=(15.0, 10.0))
+chart.draw(xy=(10.0, 10.0))
+chart.draw_legend(xy=(66.0, 46.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="vertical")
 ```
 
 ---
@@ -550,24 +599,29 @@ chart.draw(xy=(15.0, 10.0))
 ### 7.2 Constructor Parameters
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `categories` | `list[str]` | Required | Names of radial dimensions (minimum 3 required). |
+| `axis_line_style` | `Style` | **Required** | Style for the radial spoke axes lines. Mandatory anchor. |
+| `categories` | `list[str] \| None` | `None` | Names of radial dimensions (minimum 3 required). |
 | `radius` | `float` | `25.0` | Radius of the outer boundary spoke circle. |
 | `min_value` | `float` | `0.0` | Data value at the central origin point. |
 | `max_value` | `float \| None` | `None` | Scale value at outer ring. If None, computed from series. |
 | `levels` | `int` | `5` | Number of concentric grid contours. |
 | `grid_shape` | `"polygon"` \| `"circle"` | `"polygon"` | Shape of concentric gridlines (regular polygon or circles). |
-| `show_grid_labels` | `bool` | `True` | Whether to print numeric scale ticks along reference spoke. |
 | `grid_label_format` | `FormatterType` | `None` | Formatter string or function for scale levels. |
-| `legend_position` | `LegendPosition` | `"right"` | Position of the legend box. |
-| `show_values` | `bool` | `False` | Whether to print numeric data values next to series vertices. |
 | `value_format` | `FormatterType` | `None` | Formatter for vertex values. |
+| `title` | `str` | `""` | Chart title displayed at the top. |
+| `axis_text_style` | `Style \| None` | `None` | Style for dimension category labels and scale level labels. If None, labels omitted. |
+| `grid_style` | `Style \| None` | `None` | Style for concentric grid contours. If None, grid is omitted. |
+| `value_text_style`| `Style \| None` | `None` | Style for numerical data values next to series vertices. If None, values omitted. |
+| `title_style` | `Style \| None` | `None` | Text style for the chart title. |
+| `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 7.3 Methods & Data Model
-- `add_series(name: str, values: list[float], style: Style, fill_alpha: float = 0.25, line_width: float = 2.0, line_style: LineStyle = "solid", show_points: bool = True, point_shape: PointShape = "circle", point_size: float = 0.8) -> Series`
+- `add_series(name: str, values: list[float], style: Style, fill_alpha: float = 0.25, line_width: float = 2.0, line_style: LineStyle = "solid", show_points: bool = True, point_shape: PointShape = "circle", point_size: float = 0.8, legend_text_style: Style | None = None) -> Series`
 - `get_size() -> tuple[float, float]`: Returns total computed bounding dimensions.
-- `draw(xy=(0.0, 0.0))`: Renders radar chart on canvas.
+- `draw(xy=(0.0, 0.0))`: Renders radar chart body on canvas.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
 
-`Series` maintains `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, and `point_size`.
+`Series` maintains `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, `point_size`, and `legend_text_style`.
 
 ### 7.4 Production Examples
 
@@ -580,6 +634,7 @@ from drawlib.styles import Styles
 setup(width=105, height=88)
 
 chart = RadarChart(
+    axis_line_style=Styles.Primary,
     categories=["Scalability", "Reliability", "Security", "Maintainability", "Latency"],
     radius=24.0,
     min_value=0.0,
@@ -587,13 +642,16 @@ chart = RadarChart(
     levels=5,
     grid_shape="polygon",
     title="System Architecture Trade-off Analysis",
-    legend_position="right",
-    show_values=True,
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
+    value_text_style=Styles.PrimaryBold.patch(text_size=8.5),
     value_format="{:.0f}",
 )
 chart.add_series("Microservices Architecture", [95, 80, 75, 85, 60], style=Styles.PrimaryFlat, fill_alpha=0.3)
 chart.add_series("Monolithic Architecture", [60, 90, 85, 70, 95], style=Styles.SecondaryFlat, fill_alpha=0.3, line_style="dashed")
-chart.draw(xy=(5.0, 5.0))
+chart.draw(xy=(8.0, 8.0))
+chart.draw_legend(xy=(72.0, 55.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="vertical")
 ```
 
 #### Example 7.4.2: Circular Grid Product Evaluation
@@ -602,19 +660,23 @@ from drawlib.canvas import setup
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles
 
-setup(width=95, height=75)
+setup(width=100, height=85)
 
 chart = RadarChart(
+    axis_line_style=Styles.Primary,
     categories=["UX Design", "Performance", "Battery Life", "Camera Quality", "Ecosystem", "Price"],
-    radius=26.0,
+    radius=24.0,
     levels=4,
     grid_shape="circle",
     title="Flagship Smartphone Benchmark",
-    legend_position="bottom",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
 )
 chart.add_series("Device Pro Max", [9.2, 9.5, 8.8, 9.6, 9.0, 6.5], style=Styles.PrimaryFlat)
 chart.add_series("Device Ultra", [8.5, 9.2, 9.4, 9.2, 8.2, 7.8], style=Styles.SecondaryFlat)
-chart.draw(xy=(15.0, 8.0))
+chart.draw(xy=(13.0, 15.0))
+chart.draw_legend(xy=(24.0, 10.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
 ```
 
 ---
@@ -638,22 +700,27 @@ chart.draw(xy=(15.0, 8.0))
 ### 8.2 Constructor Parameters
 | Parameter | Type | Default | Description |
 |---|---|---|---|
+| `axis_line_style` | `Style` | **Required** | Style for the axes line and ticks. Mandatory anchor. |
 | `width` / `height` | `float` | `88.0` / `55.0` | Overall container dimensions in canvas units. |
 | `title` | `str` | `""` | Chart title displayed at the top. |
 | `default_radius` | `float` | `1.0` | Default radius for point markers when unspecified. |
 | `default_shape` | `PointShape` | `"circle"` | Default marker shape (`"circle"`, `"square"`, `"rhombus"`, `"triangle"`). |
-| `legend_position` | `LegendPosition` | `"auto"` | Location of series legend box. |
-| `show_labels` | `bool` | `True` | Whether to display text annotation labels next to points. |
+| `axis_text_style` | `Style \| None` | `None` | Style for axis tick marks and numerical labels. If None, labels omitted. |
+| `grid_style` | `Style \| None` | `None` | Style for Cartesian gridlines. If None, grid is omitted. |
+| `value_text_style`| `Style \| None` | `None` | Default style for text annotation labels next to points. |
+| `title_style` | `Style \| None` | `None` | Text style for the chart title. |
+| `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 8.3 Methods & Data Models
-- `add(xy: tuple[float, float], style: Style, radius: float | None = None, shape: PointShape | None = None, label: str = "", label_style: Style | None = None) -> Point`: Adds an individual standalone point.
-- `add_series(name: str, data: list[tuple[float, float]] | list[tuple[float, float, float]], style: Style, radius: float | None = None, shape: PointShape | None = None) -> Series`: Adds a named series of `(x, y)` or `(x, y, radius)` points.
+- `add(xy: tuple[float, float], style: Style, radius: float | None = None, shape: PointShape | None = None, label: str = "", label_style: Style | None = None, legend_text_style: Style | None = None) -> Point`: Adds an individual standalone point.
+- `add_series(name: str, data: list[tuple[float, float]] | list[tuple[float, float, float]], style: Style, radius: float | None = None, shape: PointShape | None = None, legend_text_style: Style | None = None) -> Series`: Adds a named series of `(x, y)` or `(x, y, radius)` points.
 - `configure_x_axis(...) -> Axis`: Configures the continuous numerical horizontal axis.
 - `configure_y_axis(...) -> Axis`: Configures the continuous numerical vertical axis.
 - `get_size() -> tuple[float, float]`: Returns container dimensions.
-- `draw(xy)`: Renders scatter chart at bottom-left coordinate `xy`.
+- `draw(xy)`: Renders scatter chart body at bottom-left coordinate `xy`.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
 
-`Point` represents `xy`, `style`, `radius`, `shape`, and `label`. `Series` groups member points under `name`.
+`Point` represents `xy`, `style`, `radius`, `shape`, `label`, and `legend_text_style`. `Series` groups member points under `name` with `legend_text_style`.
 
 ### 8.4 Production Examples
 
@@ -662,20 +729,24 @@ chart.draw(xy=(15.0, 8.0))
 from drawlib.canvas import setup
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
-from drawlib.types import Style
 
 setup(width=105, height=75)
 
 chart = ScatterChart(
+    axis_line_style=Styles.Primary,
     width=85.0,
     height=52.0,
     title="Service Throughput vs p99 Latency Benchmark",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    value_text_style=Styles.BlackBold.patch(text_size=8.5),
+    grid_style=Styles.MutedDashed,
 )
 chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0, max_value=1000)
 chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0, max_value=200)
 
-chart.add(xy=(100.0, 18.0), style=Style(shape_fill_color=(100, 116, 139, 0.9)), radius=1.6, label="v1.0 Baseline")
-chart.add(xy=(730.0, 35.0), style=Style(shape_fill_color=(16, 185, 129, 0.9)), radius=2.2, label="v2.5 Release")
+chart.add(xy=(100.0, 18.0), style=Styles.MutedFlat, radius=1.6, label="v1.0 Baseline")
+chart.add(xy=(730.0, 35.0), style=Styles.SuccessFlat, radius=2.2, label="v2.5 Release")
 
 chart.add_series(
     name="Async Rust Engine",
@@ -689,7 +760,8 @@ chart.add_series(
     style=Styles.SecondaryFlat,
     shape="square",
 )
-chart.draw(xy=(10.0, 12.0))
+chart.draw(xy=(10.0, 10.0))
+chart.draw_legend(xy=(35.0, 56.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
 ```
 
 #### Example 8.4.2: Multidimensional Cloud Cost Bubble Chart
@@ -701,27 +773,32 @@ from drawlib.styles import Styles
 setup(width=105, height=75)
 
 chart = ScatterChart(
+    axis_line_style=Styles.Primary,
     width=85.0,
     height=52.0,
     title="Compute Workload: Duration vs Memory vs Cost (Bubble Size)",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
 )
-chart.configure_x_axis(label="Allocated RAM (GB)", unit=" GB", min_value=0, max_value=32)
+chart.configure_x_axis(label="Allocated RAM (GB)", unit=" GB", min_value=0, max_value=36)
 chart.configure_y_axis(label="Job Execution Time (sec)", unit=" s", min_value=0, max_value=60)
 
 # 3-Tuples encode (RAM_GB, Execution_Time_Sec, Monthly_Cost_Radius)
 chart.add_series(
     name="Serverless Functions",
-    data=[(1.0, 48.0, 1.2), (2.0, 28.0, 1.6), (4.0, 16.0, 2.4), (8.0, 10.0, 3.8)],
+    data=[(1.0, 48.0, 0.8), (2.0, 28.0, 1.1), (4.0, 16.0, 1.5), (8.0, 10.0, 1.9)],
     style=Styles.PrimaryFlat,
     shape="circle",
 )
 chart.add_series(
     name="Dedicated Kubernetes Pods",
-    data=[(4.0, 22.0, 2.2), (8.0, 14.0, 3.2), (16.0, 8.5, 4.8), (32.0, 5.0, 6.5)],
+    data=[(4.0, 22.0, 1.2), (8.0, 14.0, 1.5), (16.0, 8.5, 1.9), (32.0, 5.0, 2.4)],
     style=Styles.SecondaryFlat,
     shape="square",
 )
-chart.draw(xy=(10.0, 15.0))
+chart.draw(xy=(10.0, 10.0))
+chart.draw_legend(xy=(25.0, 56.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")
 ```
 
 ---
@@ -746,19 +823,24 @@ chart.draw(xy=(10.0, 15.0))
 ### 9.2 Constructor Parameters
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `columns` | `list[str]` | Required | Ordered timeline interval labels along horizontal header band. |
+| `axis_line_style` | `Style` | **Required** | Style for column divider lines and header baseline. Mandatory anchor. |
+| `columns` | `list[str] \| None` | `None` | Ordered timeline interval labels along horizontal header band. |
 | `width` | `float` | `90.0` | Overall chart bounding width. |
 | `height` | `float \| None` | `None` | Overall height. If None, calculated dynamically from total row count. |
 | `row_height` | `float` | `4.5` | Height per task, milestone, or section row. |
 | `header_height` | `float` | `5.5` | Height of the top column header band. |
 | `label_width` | `float` | `24.0` | Width allocated for the left task name column. |
 | `title` | `str` | `""` | Chart title displayed at the top. |
-| `show_vertical_grid` | `bool` | `True` | Whether to draw vertical divider gridlines between columns. |
-| `show_zebra` | `bool` | `True` | Whether to alternate row background colors. |
 | `bar_radius` | `float` | `0.8` | Corner rounding radius for task bars. |
+| `axis_text_style` | `Style \| None` | `None` | Style for column header labels and task row name labels. If None, labels omitted. |
+| `grid_style` | `Style \| None` | `None` | Style for vertical column separator lines. If None, vertical lines omitted. |
+| `zebra_style` | `Style \| None` | `None` | Style for alternating row background stripes. If None, zebra striping omitted. |
+| `progress_text_style`| `Style \| None` | `None` | Style for task completion percentage text. If None, progress text omitted. |
+| `title_style` | `Style \| None` | `None` | Text style for the chart title. |
+| `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 9.3 Methods & Schedule Models
-- `add_task(name: str, start: str | float, end: str | float, style: Style, progress: float = 0.0, show_progress_text: bool = True) -> Task`
+- `add_task(name: str, start: str | float, end: str | float, style: Style, progress: float = 0.0, progress_text_style: Style | None = None) -> Task`
 - `add_section(name: str, style: Style | None = None) -> Section`
 - `add_milestone(name: str, at: str | float, style: Style) -> Milestone`
 - `add_marker(at: str | float, style: Style, label: str = "") -> Marker`
@@ -779,13 +861,19 @@ from drawlib.styles import Styles
 setup(width=110, height=85)
 
 chart = GanttChart(
+    axis_line_style=Styles.Primary,
     columns=["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
     width=95.0,
     label_width=28.0,
     title="Core Platform Engineering Roadmap (2026)",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     header_height=6.0,
     row_height=5.0,
     bar_radius=1.0,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
+    zebra_style=Styles.MutedLight,
+    progress_text_style=Styles.WhiteBold.patch(text_size=8.5),
 )
 
 chart.add_section("1. Architecture & Core Services")
@@ -816,12 +904,16 @@ from drawlib.styles import Styles
 setup(width=100, height=70)
 
 chart = GanttChart(
+    axis_line_style=Styles.Primary,
     columns=["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"],
     width=88.0,
     label_width=24.0,
     title="Q3 Core Feature Sprints",
-    show_zebra=False,
+    title_style=Styles.BlackBold.patch(text_size=13.0),
     bar_radius=1.2,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedDashed,
+    progress_text_style=Styles.WhiteBold.patch(text_size=8.5),
 )
 
 s1 = chart.add_task("Auth Microservice", start=0.0, end=1.8, style=Styles.PrimaryFlat, progress=1.0)
@@ -874,7 +966,7 @@ PALETTE_CORPORATE = {
 ```
 
 ### 10.3 Background and Border Styling
-Every chart container accepts an optional `style: Style` argument to apply background fills, drop shadows, or container border outlines:
+Every chart container accepts an optional `background_style: Style` argument to apply background fills, drop shadows, or container border outlines:
 
 ```python
 card_style = Style(
@@ -882,7 +974,7 @@ card_style = Style(
     shape_line_color=(203, 213, 225, 1.0),
     shape_line_width=1.0,
 )
-chart = BarChart(..., style=card_style)
+chart = BarChart(axis_line_style=Styles.Primary, categories=["A", "B"], background_style=card_style)
 ```
 
 ---
@@ -906,7 +998,7 @@ chart = BarChart(..., style=card_style)
 - `GanttChart` requires at least **1 column** in its timeline header.
 
 ### 11.4 Slice Proportions and Minimum Label Threshold
-- In `PieChart`, text value labels are automatically hidden for slices representing less than $4\%$ of the total sum to prevent unreadable text overlap on narrow wedges. Use `legend_position="right"` to ensure all slice names and quantities remain identifiable.
+- In `PieChart`, text value labels are automatically hidden for slices representing less than $4\%$ of the total sum to prevent unreadable text overlap on narrow wedges. Use `chart.draw_legend(xy, text_style=...)` to ensure all slice names and quantities remain identifiable.
 
 ### 11.5 Gantt Task Time Indexing
 - In `GanttChart`, time coordinates can be passed as column string names (`"Apr"`) or floating-point relative offsets (`0.5` = middle of first column). Ensure string names match column definitions exactly to avoid lookup errors.

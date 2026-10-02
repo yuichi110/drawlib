@@ -13,8 +13,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._axis import Axis
-from drawlib._charts._common._types import FormatterType, LegendPosition, PointShape, ScaleType
+from drawlib._charts._common._types import FormatterType, Orientation, PointShape, ScaleType
 from drawlib._charts.scatter_chart import _renderer as _renderer_module
 from drawlib._charts.scatter_chart._point import Point, Series
 
@@ -27,35 +28,44 @@ class ScatterChart:
 
     def __init__(
         self,
+        axis_line_style: Style,
         width: float = 88.0,
         height: float = 55.0,
-        title: str = "",
-        title_style: Style | None = None,
         default_radius: float = 1.0,
         default_shape: PointShape = "circle",
-        legend_position: LegendPosition = "auto",
-        show_labels: bool = True,
+        axis_text_style: Style | None = None,
+        grid_style: Style | None = None,
+        value_text_style: Style | None = None,
+        background_style: Style | None = None,
+        title: str = "",
+        title_style: Style | None = None,
     ) -> None:
         """Initialize ScatterChart.
 
         Args:
+            axis_line_style: Style defining baseline coordinate axis lines.
             width: Total width of chart container. Defaults to 88.0.
             height: Total height of chart container. Defaults to 55.0.
-            title: Title text displayed at top of chart. Defaults to "".
-            title_style: Optional Style overriding chart title typography.
             default_radius: Default marker radius for data points. Defaults to 1.0.
             default_shape: Default shape ("circle", "square", "rhombus", "triangle"). Defaults to "circle".
-            legend_position: Legend location ("auto", "top", "bottom", "right", "none").
-            show_labels: Whether to print annotation labels next to points. Defaults to True.
+            axis_text_style: Optional Style for axis tick labels.
+            grid_style: Optional Style for background gridlines.
+            value_text_style: Optional Style for point annotation text.
+            background_style: Optional Style for chart background card.
+            title: Title text displayed at top of chart. Defaults to "".
+            title_style: Optional Style overriding chart title typography.
         """
+        self.axis_line_style: Style = axis_line_style
         self.width: float = float(width)
         self.height: float = float(height)
-        self.title: str = title
-        self.title_style: Style | None = title_style
         self.default_radius: float = float(default_radius)
         self.default_shape: PointShape = default_shape
-        self.legend_position: LegendPosition = legend_position
-        self.show_labels: bool = show_labels
+        self.axis_text_style: Style | None = axis_text_style
+        self.grid_style: Style | None = grid_style
+        self.value_text_style: Style | None = value_text_style
+        self.background_style: Style | None = background_style
+        self.title: str = title
+        self.title_style: Style | None = title_style
 
         self.x_axis: Axis = Axis()
         self.y_axis: Axis = Axis()
@@ -200,6 +210,7 @@ class ScatterChart:
         style: Style,
         radius: float | None = None,
         shape: PointShape | None = None,
+        legend_text_style: Style | None = None,
     ) -> Series:
         """Add a named group of points to the scatter chart.
 
@@ -209,6 +220,7 @@ class ScatterChart:
             style: Style applied to points in this series.
             radius: Default radius for points in this series.
             shape: Shape for points in this series.
+            legend_text_style: Optional custom text style for this series in legend.
 
         Returns:
             Series: The newly created and registered series.
@@ -241,6 +253,7 @@ class ScatterChart:
             style=style,
             radius=eff_radius,
             shape=eff_shape,
+            legend_text_style=legend_text_style,
         )
         self._series.append(series_obj)
         return series_obj
@@ -256,3 +269,37 @@ class ScatterChart:
             xy: Bottom-left coordinate tuple (x, y) of the chart bounding box.
         """
         _renderer_module.render_scatter_chart(self, xy)
+
+    def draw_legend(
+        self,
+        xy: tuple[float, float],
+        text_style: Style,
+        orientation: Orientation = "vertical",
+        swatch_size: tuple[float, float] = (2.4, 1.2),
+        item_gap: float = 4.0,
+    ) -> None:
+        """Render legend for series at coordinate xy.
+
+        Args:
+            xy: Starting placement coordinate (x, y).
+            text_style: Base Style for legend text labels.
+            orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
+            swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
+            item_gap: Spacing between consecutive legend items. Defaults to 4.0.
+        """
+        items = [
+            (
+                s.name,
+                s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
+                s.legend_text_style,
+            )
+            for s in self._series
+        ]
+        _legend_module.draw_legend(
+            items=items,
+            xy=xy,
+            text_style=text_style,
+            orientation=orientation,
+            swatch_size=swatch_size,
+            item_gap=item_gap,
+        )

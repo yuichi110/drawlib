@@ -55,6 +55,7 @@ class Series:
         style: Style,
         radius: float = 1.0,
         shape: PointShape = "circle",
+        legend_text_style: Style | None = None,
     ) -> None:
         """Initialize Series.
 
@@ -64,9 +65,11 @@ class Series:
             style: Style applied to points in this series.
             radius: Default radius for points in this series. Defaults to 1.0.
             shape: Default shape for points in this series. Defaults to "circle".
+            legend_text_style: Optional custom text style for this series in legend.
         """
         self.name: str = name
         self.points: list[Point] = points
         self.style: Style = style
         self.radius: float = float(radius)
         self.shape: PointShape = shape
+        self.legend_text_style: Style | None = legend_text_style

@@ -763,7 +763,7 @@ bp.set_bullet_style(
 )
 
 bp.set_indent(0)
-bp.add("RFC 402: Event-Driven Order Processing", style=Styles.PrimaryBold)
+bp.add("RFC 402: Event-Driven Order Processing", text_style=Styles.PrimaryBold)
 bp.set_indent(1)
 bp.add("Core Architectural Guarantees:")
 bp.set_indent(2)
