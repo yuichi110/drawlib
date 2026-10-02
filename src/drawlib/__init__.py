@@ -26,7 +26,6 @@ def _get_version() -> str:
 
 
 LIB_VERSION: Final[str] = _get_version()
-ASSET_VERSION: Final[str] = "v0_3"
 
 
 # please list active main committers (1+ commits per month)
@@ -145,7 +144,6 @@ def __dir__() -> list[str]:
 
 __all__ = [
     "LIB_VERSION",
-    "ASSET_VERSION",
     "AUTHORS",
     "LIB_NAME",
     "DESCRIPTION",

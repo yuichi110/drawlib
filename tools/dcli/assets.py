@@ -18,7 +18,6 @@ import typer
 from rich.panel import Panel
 from rich.table import Table
 
-from drawlib import ASSET_VERSION
 from drawlib._release_assets import (
     DEFAULT_RELEASE_TAG,
     RELEASE_ASSET_PACKAGES,
@@ -44,13 +43,9 @@ app = typer.Typer(
 
 
 def _resolve_tag(tag: Optional[str]) -> str:
-    """Resolve default release tag from ASSET_VERSION or constant."""
+    """Resolve release tag from parameter or DEFAULT_RELEASE_TAG."""
     if tag:
         return tag
-    # e.g. "v0_3" -> "v0.3"
-    if ASSET_VERSION.startswith("v"):
-        parts = ASSET_VERSION[1:].split("_")
-        return f"v{'.'.join(parts)}"
     return DEFAULT_RELEASE_TAG
 
 

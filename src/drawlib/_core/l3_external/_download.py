@@ -11,7 +11,6 @@
 
 import hashlib
 import os
-import urllib.request
 
 from drawlib._core.l1_core import logger
 from drawlib._release_assets import ReleaseAssetPackage, find_package_for_resource_path
@@ -45,85 +44,48 @@ def _find_package_for_file_path(file_path: str) -> ReleaseAssetPackage | None:
     return None
 
 
-def download_if_not_exist(file_path: str, download_url: str, md5_hash: str) -> None:  # noqa: C901
-    """Download asset if it doesn't exist locally or corrupted.
-
-    Download an asset file from the specified URL if it does not already exist locally,
-    or if its MD5 checksum does not match the provided hash.
+def download_if_not_exist(
+    file_path: str,
+    download_url: str = "",
+    md5_hash: str = "",
+) -> None:
+    """Download asset package if the asset file does not exist locally.
 
     Args:
-        file_path (str):
-            Local file path where the downloaded file will be saved or already exists.
-        download_url (str):
-            URL from which the file should be downloaded if it doesn't exist locally.
-        md5_hash (str):
-            Expected MD5 checksum of the file. If the file already exists locally,
-            its checksum is compared against this value to determine if a re-download is necessary.
-
-    Returns:
-        None
+        file_path (str): Local file path where the asset should exist.
+        download_url (str): Deprecated / optional download URL.
+        md5_hash (str): Optional expected MD5 checksum of the file.
 
     Raises:
-        RuntimeError: If any of the following conditions occur:
-            - File download encounters an error.
-            - Downloaded file is not saved properly.
-            - Downloaded file's checksum does not match the expected MD5 hash.
-
-    Notes:
-        - Creates the parent directory of file_path if it does not exist.
-        - Uses MD5 checksum to verify the integrity of the downloaded file.
-        - Utilizes urllib.request.urlopen for downloading the file.
-        - Logs download progress and errors using the 'logger' instance from drawlib._core.logging.
-
+        FileNotFoundError: If the asset package cannot be found for the given path.
+        RuntimeError: If downloading or extracting the package fails.
     """
-
     def is_file_exist() -> bool:
         return os.path.exists(file_path)
 
     def is_checksum_correct() -> bool:
+        if not md5_hash:
+            return True
         md5_hash2 = hashlib.md5()  # noqa: S324
         with open(file_path, "rb") as f:
             for chunk in iter(lambda: f.read(4096), b""):
                 md5_hash2.update(chunk)
-
         return md5_hash2.hexdigest().lower() == md5_hash.strip().lower()
 
-    def download() -> None:
-        try:
-            with urllib.request.urlopen(download_url) as response:  # noqa: S310
-                # create parent directory
-                directory = os.path.dirname(file_path)
-                os.makedirs(directory, exist_ok=True)
-
-                # save file
-                with open(file_path, "wb") as fout:
-                    data = response.read()
-                    fout.write(data)
-
-        except Exception as e:
-            raise RuntimeError(f"File download error happens. {str(e)}") from e
-
-    # if file exist and checksum ok, do nothing
-    if is_file_exist():
-        if is_checksum_correct():
-            return
+    # If file exists and checksum is correct, nothing to do
+    if is_file_exist() and is_checksum_correct():
+        return
 
     # Check if this asset belongs to a defined ReleaseAssetPackage
     pkg = _find_package_for_file_path(file_path)
-    if pkg is not None:
-        logger.info('Downloading release asset package "%s" from GitHub Releases...', pkg.name)
-        pkg.download_and_extract()
-        if is_file_exist():
-            logger.info('Asset package "%s" downloaded and extracted successfully.', pkg.name)
-            return
+    if pkg is None:
+        raise FileNotFoundError(
+            f"Asset file '{file_path}' does not exist locally and no release asset package matches it."
+        )
 
-    # if file not exist or checksum has problem, try legacy download
-    logger.info('No font on local machine. Downloading from "%s".', download_url)
-    download()
+    logger.info('Downloading release asset package "%s" from GitHub Releases...', pkg.name)
+    pkg.download_and_extract()
 
-    # after download, check file exist and checksum
     if not is_file_exist():
-        raise RuntimeError("File download completed. But not saved. Abort.")
-    if not is_checksum_correct():
-        raise RuntimeError("File download completed. But checksum has problem. Abort.")
-    logger.info("Download completed without troubles.")
+        raise RuntimeError(f"Asset package '{pkg.name}' downloaded, but file '{file_path}' was not found.")
+    logger.info('Asset package "%s" downloaded and extracted successfully.', pkg.name)

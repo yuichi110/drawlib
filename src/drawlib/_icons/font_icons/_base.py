@@ -12,12 +12,10 @@
 from __future__ import annotations
 
 import os
-from urllib.parse import urljoin
 
 from pydantic import validate_call
 
 import drawlib._assets
-from drawlib import ASSET_VERSION
 from drawlib._core.l2_types import Angle, Coordinate, IconStyle, PosFloat
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontMetadata, FontResource
@@ -69,15 +67,9 @@ class FontIconProvider:
         dir_path = os.path.join(os.path.dirname(drawlib._assets.__file__), self.asset_subdir)
         abs_path = os.path.join(dir_path, *paths)
 
-        url = urljoin(
-            f"https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/{ASSET_VERSION}/{self.asset_subdir}/",
-            "/".join(paths),
-        )
-
         return FontMetadata(
             path=resource.path,
             abs_path=abs_path,
-            url=url,
             md5=resource.md5,
         )
 

@@ -24,7 +24,7 @@ class TestGetFontMetadata:
         meta = get_font_metadata(Font.SANSSERIF_LIGHT)
         assert meta.path == "cjk_japanese_noto_sans/light.otf"
         assert meta.abs_path.endswith("cjk_japanese_noto_sans/light.otf")
-        assert meta.url.startswith("https://raw.githubusercontent.com/")
+        assert meta.url == ""
         assert meta.md5 == "88ce9ab7e76fed605c822b52605ac2fd"
 
     def test_get_font_metadata_invalid_font(self):

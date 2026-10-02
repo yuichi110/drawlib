@@ -10,9 +10,7 @@
 """Font metadata resolution module."""
 
 import os
-from urllib.parse import urljoin
 
-from drawlib import ASSET_VERSION
 from drawlib._core.l1_core import FONT_DIR_PATH
 from drawlib._core.l2_types import FontBase, FontMetadata
 from drawlib._core.l3_fonts._resources import FONT_RESOURCES
@@ -25,7 +23,7 @@ def get_font_metadata(font: FontBase) -> FontMetadata:
         font (FontBase): The font enum member.
 
     Returns:
-        FontMetadata: Resolved metadata including absolute path and URL.
+        FontMetadata: Resolved metadata including absolute path and checksum.
 
     Raises:
         ValueError: If the font is not found in FONT_RESOURCES.
@@ -39,15 +37,8 @@ def get_font_metadata(font: FontBase) -> FontMetadata:
     # Construct the local font path
     abs_path = os.path.join(FONT_DIR_PATH, *paths)
 
-    # Construct the URL
-    url = urljoin(
-        f"https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/{ASSET_VERSION}/fonts/",
-        "/".join(paths),
-    )
-
     return FontMetadata(
         path=resource.path,
         abs_path=abs_path,
-        url=url,
         md5=resource.md5,
     )

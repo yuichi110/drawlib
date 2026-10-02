@@ -31,98 +31,43 @@ class TestDownloadIfNotExist:
 
         md5_hash = hashlib.md5(content).hexdigest()  # noqa: S324
 
-        with patch("urllib.request.urlopen") as mock_urlopen:
+        with patch("drawlib._core.l3_external._download._find_package_for_file_path") as mock_find:
             download_if_not_exist(str(file_path), "http://dummy/url", md5_hash)
-            # urlopen should not be called since file exists and checksum is ok
-            mock_urlopen.assert_not_called()
+            # Should not look up package since file exists and checksum is ok
+            mock_find.assert_not_called()
 
-    def test_download_if_not_exist_file_does_not_exist(self, tmp_path: Path):
-        """Test download_if_not_exist when file does not exist locally."""
-        file_path = tmp_path / "subdir" / "test_file.txt"
-        content = b"hello"
-        md5_hash = hashlib.md5(content).hexdigest()  # noqa: S324
+    def test_download_if_not_exist_unknown_package(self, tmp_path: Path):
+        """Test download_if_not_exist raises FileNotFoundError when no package matches."""
+        file_path = tmp_path / "unknown_asset.ttf"
+        with pytest.raises(FileNotFoundError, match="does not exist locally and no release asset package matches it"):
+            download_if_not_exist(str(file_path))
 
-        # Mock urllib.request.urlopen as a context manager
-        mock_response = MagicMock()
-        mock_response.read.return_value = content
+    def test_download_if_not_exist_package_success(self, tmp_path: Path):
+        """Test download_if_not_exist downloads and extracts matching package."""
+        file_path = tmp_path / "fonts" / "roboto" / "Roboto-Regular.ttf"
+        mock_pkg = MagicMock()
+        mock_pkg.name = "font_roboto"
 
-        with patch("urllib.request.urlopen") as mock_urlopen:
-            mock_urlopen.return_value.__enter__.return_value = mock_response
+        def fake_extract():
+            file_path.parent.mkdir(parents=True, exist_ok=True)
+            file_path.write_bytes(b"fontdata")
 
-            download_if_not_exist(str(file_path), "http://dummy/url", md5_hash)
+        mock_pkg.download_and_extract.side_effect = fake_extract
 
-            mock_urlopen.assert_called_once_with("http://dummy/url")
+        with patch("drawlib._core.l3_external._download._find_package_for_file_path", return_value=mock_pkg):
+            download_if_not_exist(str(file_path))
+            mock_pkg.download_and_extract.assert_called_once()
 
         assert file_path.exists()
-        assert file_path.read_bytes() == content
-
-    def test_download_if_not_exist_file_exists_but_checksum_mismatch(self, tmp_path: Path):
-        """Test download_if_not_exist when file exists but has incorrect checksum."""
-        file_path = tmp_path / "test_file.txt"
-        file_path.write_bytes(b"world")  # Mismatched initial content
-
-        target_content = b"hello"
-        md5_hash = hashlib.md5(target_content).hexdigest()  # noqa: S324
-
-        # Mock urllib.request.urlopen as a context manager
-        mock_response = MagicMock()
-        mock_response.read.return_value = target_content
-
-        with patch("urllib.request.urlopen") as mock_urlopen:
-            mock_urlopen.return_value.__enter__.return_value = mock_response
-
-            download_if_not_exist(str(file_path), "http://dummy/url", md5_hash)
-
-            mock_urlopen.assert_called_once_with("http://dummy/url")
-
-        assert file_path.exists()
-        assert file_path.read_bytes() == target_content
-
-    def test_download_if_not_exist_http_error(self, tmp_path: Path):
-        """Test download_if_not_exist raises RuntimeError when network download fails."""
-        file_path = tmp_path / "test_file.txt"
-        md5_hash = "d41d8cd98f00b204e9800998ecf8427e"
-
-        with patch("urllib.request.urlopen", side_effect=Exception("HTTP Error 404")):
-            with pytest.raises(RuntimeError, match="File download error happens. HTTP Error 404"):
-                download_if_not_exist(str(file_path), "http://dummy/url", md5_hash)
-
-    def test_download_if_not_exist_checksum_mismatch_after_download(self, tmp_path: Path):
-        """Test download_if_not_exist raises RuntimeError when checksum mismatches post-download."""
-        file_path = tmp_path / "test_file.txt"
-        downloaded_content = b"world"
-        expected_md5 = hashlib.md5(b"hello").hexdigest()  # noqa: S324  # Checksum expects 'hello'
-
-        mock_response = MagicMock()
-        mock_response.read.return_value = downloaded_content
-
-        with patch("urllib.request.urlopen") as mock_urlopen:
-            mock_urlopen.return_value.__enter__.return_value = mock_response
-
-            with pytest.raises(RuntimeError, match="File download completed. But checksum has problem. Abort."):
-                download_if_not_exist(str(file_path), "http://dummy/url", expected_md5)
+        assert file_path.read_bytes() == b"fontdata"
 
     def test_download_if_not_exist_file_missing_after_download(self, tmp_path: Path):
         """Test download_if_not_exist raises RuntimeError if file is missing after download."""
-        file_path = tmp_path / "test_file.txt"
-        content = b"hello"
-        md5_hash = hashlib.md5(content).hexdigest()  # noqa: S324
+        file_path = tmp_path / "fonts" / "roboto" / "Roboto-Regular.ttf"
+        mock_pkg = MagicMock()
+        mock_pkg.name = "font_roboto"
+        # does not write the file
 
-        mock_response = MagicMock()
-        mock_response.read.return_value = content
-
-        original_exists = os.path.exists
-
-        def custom_exists(path: Union[str, os.PathLike[str]]) -> bool:
-            if str(path) == str(file_path):
-                return False
-            return original_exists(path)
-
-        with (
-            patch("urllib.request.urlopen") as mock_urlopen,
-            patch("os.path.exists", side_effect=custom_exists),
-        ):
-            mock_urlopen.return_value.__enter__.return_value = mock_response
-
-            with pytest.raises(RuntimeError, match="File download completed. But not saved. Abort."):
-                download_if_not_exist(str(file_path), "http://dummy/url", md5_hash)
+        with patch("drawlib._core.l3_external._download._find_package_for_file_path", return_value=mock_pkg):
+            with pytest.raises(RuntimeError, match="downloaded, but file .* was not found"):
+                download_if_not_exist(str(file_path))

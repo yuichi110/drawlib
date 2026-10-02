@@ -22,7 +22,7 @@ class FontMetadata(BaseModel):
 
     path: str
     abs_path: str
-    url: str
+    url: str = ""
     md5: str
 
 
