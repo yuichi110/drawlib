@@ -24,7 +24,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="code_blocks_images/1.png" alt="code_blocks_1" style="width: 650px; max-width: 100%;" />
+  <img src="code_blocks_images/code_blocks_service_arch.png" alt="code_blocks_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Service Architecture Example</figcaption>
 </figure>
 

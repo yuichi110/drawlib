@@ -15,7 +15,7 @@ Drawlib uses a standard **mathematical Cartesian coordinate system**:
 - **Center-Based Anchoring**:
   - By default, all closed shapes (`rectangle`, `circle`, `donuts`, `polygon`) and icons are anchored at their exact **geometric center `(x, y)`**.
 
-```drawlib 650px center caption:"Drawlib Cartesian Coordinate System"
+```drawlib 650px center file:cartesian_coordinate_system.png caption:"Drawlib Cartesian Coordinate System"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line
@@ -69,7 +69,7 @@ A common mistake when generating diagrams is placing elements too close to the c
 
 Professional illustrations maintain visual clarity by structuring colors around Drawlib's 6 core semantic roles, anchoring around `primary` while utilizing the other roles to represent distinct components and states without artificial frequency restrictions:
 
-```drawlib 650px center caption:"The 6-Color Semantic System"
+```drawlib 650px center file:six_color_semantic_system.png caption:"The 6-Color Semantic System"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles

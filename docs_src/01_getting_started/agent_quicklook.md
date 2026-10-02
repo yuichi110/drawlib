@@ -57,7 +57,7 @@ Ensure your agent knows how to query rules and preview drawings:
 
 Teach your agent to follow Drawlib's autonomous self-correction loop when creating diagrams:
 
-```drawlib 700px center caption:"Autonomous AI Visual Self-Correction Loop"
+```drawlib 700px center file:ai_feedback_loop.png caption:"Autonomous AI Visual Self-Correction Loop"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line

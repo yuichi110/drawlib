@@ -118,11 +118,11 @@ ignore = [
     "PLC2701", # Private name import from external module (standard for unit tests)
     "PLR6301" # Method could be a function/static method (standard for pytest classes)
 ]
-"src/drawlib/_builder/doc_builder/**.py" = [
+"src/drawlib/_builder/**.py" = [
     "S102",    # exec usage is intentional for dynamic code execution
     "S701",    # jinja2 autoescape
     "PLC0415", # lazy import for optional dependencies
-    "C901",    # complex build_document
+    "C901",    # complex functions in builder
     "F403",    # import star
     "F405"     # import star usage
 ]

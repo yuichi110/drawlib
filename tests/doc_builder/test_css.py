@@ -134,13 +134,15 @@ def test_build_document_custom_template(tmp_path) -> None:
     style = tmp_path / "style.css"
     style.write_text("body { margin: 0; }", encoding="utf-8")
 
-    input_md = tmp_path / "doc.md"
-    input_md.write_text("# Custom Template Page\n\nHello Custom Template!", encoding="utf-8")
+    index_md = tmp_path / "index.md"
+    index_md.write_text("# Custom Template Page\n\nHello Custom Template!", encoding="utf-8")
+    (tmp_path / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
 
-    out_html = tmp_path / "doc.html"
-    res_path = build_html(input_path=str(input_md), output_path=str(out_html))
+    out_dir = tmp_path / "out"
+    res_path = build_html(input_dir=str(tmp_path), output_dir=str(out_dir))
 
     assert os.path.exists(res_path)
+    out_html = out_dir / "index.html"
     content = out_html.read_text(encoding="utf-8")
     assert '<header class="custom-header">My Custom Header</header>' in content
     assert "Hello Custom Template!" in content

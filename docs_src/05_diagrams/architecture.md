@@ -73,7 +73,7 @@ d = ArchitectureDiagram(
 
 The following complete example demonstrates public and private subnets, load balancing, GKE pods, Cloud SQL, and external users:
 
-```drawlib 650px center caption:"Production Multi-Tier Cloud VPC Topology"
+```drawlib 650px center file:architecture_cloud_vpc_topology.png caption:"Production Multi-Tier Cloud VPC Topology"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -120,7 +120,7 @@ d.draw(xy=(5.0, 5.0))
 
 You can also use general architecture icons from `PhosphorIcon` to model messaging queues, Kafka clusters, and analytics engines:
 
-```drawlib 650px center caption:"Event-Driven Message Streaming Topology"
+```drawlib 650px center file:architecture_event_message_streaming.png caption:"Event-Driven Message Streaming Topology"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles

@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 from typing import Final, Sequence
 
-from drawlib._builder.doc_builder import build_markdown
+from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._core.l1_core import RULES_DIR_PATH
 
 AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
@@ -187,15 +187,28 @@ def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
         sys.stderr.flush()
 
     target_path.parent.mkdir(parents=True, exist_ok=True)
+    processor = DrawlibBlockProcessor(require_file=False)
+    source_content = source_path.read_text(encoding="utf-8")
 
     if quiet:
         with open(os.devnull, "w", encoding="utf-8") as devnull, contextlib.redirect_stdout(devnull):
-            build_markdown(input_path=str(source_path), output=str(target_path))
+            rendered_text = processor.process_markdown(
+                source_content,
+                doc_base_name=canonical,
+                output_dir=str(target_path.parent),
+                use_markdown_syntax=True,
+                source_filename=str(source_path),
+            )
     else:
         with contextlib.redirect_stdout(sys.stderr):
-            build_markdown(input_path=str(source_path), output=str(target_path))
+            rendered_text = processor.process_markdown(
+                source_content,
+                doc_base_name=canonical,
+                output_dir=str(target_path.parent),
+                use_markdown_syntax=True,
+                source_filename=str(source_path),
+            )
 
-    rendered_text = target_path.read_text(encoding="utf-8")
     rewritten_text = _rewrite_image_paths_to_runtime(rendered_text, topic=canonical)
     target_path.write_text(rewritten_text, encoding="utf-8")
 

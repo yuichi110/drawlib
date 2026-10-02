@@ -4,7 +4,7 @@
 
 本章では、Drawlib の基本図形描画機能のみを使用したシステム全体の基本アーキテクチャについて解説します。
 
-```drawlib 600px center caption:"システム全体構成（基本図形）"
+```drawlib 600px center file:system_overview.png caption:"システム全体構成（基本図形）"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle

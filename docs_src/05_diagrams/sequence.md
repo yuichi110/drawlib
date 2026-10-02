@@ -64,7 +64,7 @@ client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER))
 
 The following complete example showcases participant groups, cloud icons, activations, sticky notes, asynchronous dispatches, and a retry loop frame:
 
-```drawlib 650px center caption:"Microservices Distributed Transaction Pipeline"
+```drawlib 650px center file:sequence_distributed_transaction.png caption:"Microservices Distributed Transaction Pipeline"
 from drawlib import canvas
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
@@ -126,7 +126,7 @@ d.draw(xy=(5.0, 5.0))
 
 For real-time bidirectional streams, use `connect()` with `arrow="<->"`:
 
-```drawlib 650px center caption:"WebSocket Full-Duplex Telemetry Stream"
+```drawlib 650px center file:sequence_websocket_telemetry.png caption:"WebSocket Full-Duplex Telemetry Stream"
 from drawlib import canvas
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles

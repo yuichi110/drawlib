@@ -4,7 +4,7 @@ Drawlib is a pure-Python drawing library and documentation compiler crafted for 
 
 Designed from the ground up for modern software engineering and **autonomous AI coding agents**, Drawlib eliminates manual GUI drawing tools and brittle image files. Developers and LLM agents can create, version-control, and publish publication-grade architectural diagrams, flowcharts, data charts, and complete multi-page documentation sites entirely from declarative Python code.
 
-```drawlib fold-code 650px center caption:"From Code to Publication with Drawlib"
+```drawlib fold-code 650px center file:drawlib_code_to_publication.png caption:"From Code to Publication with Drawlib"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line

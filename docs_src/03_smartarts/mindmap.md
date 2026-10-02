@@ -7,7 +7,7 @@ Branches can project to the left, right, top, or bottom, with automatic elbow co
 
 ## 1. Quick Example: Architecture Topology Map
 
-```drawlib 650px center caption:"System Architecture Breakdown with MindMap"
+```drawlib 650px center file:mindmap_system_breakdown.png caption:"System Architecture Breakdown with MindMap"
 from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
 from drawlib.styles import Styles

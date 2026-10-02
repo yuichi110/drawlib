@@ -42,7 +42,7 @@ Large Language Models (LLMs) and AI coding agents (such as Claude Code, Cursor, 
 
 Drawlib is structured into four cohesive layers, ensuring both low-level flexibility and high-level productivity:
 
-```drawlib fold-code 650px center caption:"Drawlib Layered Architecture"
+```drawlib fold-code 650px center file:drawlib_layered_architecture.png caption:"Drawlib Layered Architecture"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles

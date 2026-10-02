@@ -76,7 +76,7 @@ The following complete example demonstrates public and private subnets, load bal
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/1.png" alt="architecture_1" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/architecture_cloud_vpc_topology.png" alt="architecture_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Production Multi-Tier Cloud VPC Topology</figcaption>
 </figure>
 
@@ -91,7 +91,7 @@ You can also use general architecture icons from `PhosphorIcon` to model messagi
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/2.png" alt="architecture_2" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/architecture_event_message_streaming.png" alt="architecture_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Event-Driven Message Streaming Topology</figcaption>
 </figure>
 

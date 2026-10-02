@@ -9,7 +9,7 @@ The `Table` component renders 2D tabular data, comparison matrices, and database
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="table_images/1.png" alt="table_1" style="width: 650px; max-width: 100%;" />
+  <img src="table_images/table_service_status_matrix.png" alt="table_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Service Status Matrix with Table</figcaption>
 </figure>
 

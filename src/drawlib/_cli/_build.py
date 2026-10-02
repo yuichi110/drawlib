@@ -90,11 +90,11 @@ def cmd_build_image(
     """Execute a Python drawing script (.py) or directory containing scripts to generate images."""
     try:
         executed = build_image(
-            inputs=input_path,
-            output=output,
+            input_path=input_path,
+            output_path=output,
             format=format,
-            styles=styles,
-            utils=utils,
+            styles_path=styles,
+            utils_path=utils,
             grid=grid,
             disable_auto_clear=disable_auto_clear,
             enable_auto_initialize=enable_auto_initialize,
@@ -107,13 +107,13 @@ def cmd_build_image(
 
 @build_app.command("markdown", epilog=HELP_EPILOG)
 def cmd_build_markdown(
-    input_path: Annotated[
+    input_dir: Annotated[
         str,
-        typer.Argument(metavar="INPUT", help="Input Markdown (.md) file path or directory path."),
+        typer.Argument(metavar="DIR", help="Directory containing Markdown (.md) source files."),
     ],
     output: Annotated[
         Optional[str],
-        typer.Option("-o", "--output", help="Output Markdown file or directory path."),
+        typer.Option("-o", "--output", help="Output Markdown directory path."),
     ] = None,
     format: Annotated[
         Literal["png", "webp"],
@@ -132,14 +132,14 @@ def cmd_build_markdown(
         typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
     ] = False,
 ) -> None:
-    """Compile Markdown file or directory containing drawlib code blocks into rendered Markdown."""
+    """Compile a directory containing Markdown files with drawlib code blocks into rendered Markdown."""
     try:
         out_file = build_markdown(
-            input_path=input_path,
-            output=output,
+            input_dir=input_dir,
+            output_dir=output,
             image_format=format,
-            styles=styles,
-            utils=utils,
+            styles_path=styles,
+            utils_path=utils,
             no_cache=no_cache,
         )
         print(f"Successfully compiled Markdown document(s): {out_file}")
@@ -149,13 +149,13 @@ def cmd_build_markdown(
 
 @build_app.command("html", epilog=HELP_EPILOG)
 def cmd_build_html(
-    input_path: Annotated[
+    input_dir: Annotated[
         str,
-        typer.Argument(metavar="INPUT", help="Input Markdown (.md), HTML (.html), or directory path."),
+        typer.Argument(metavar="DIR", help="Directory containing documentation source files."),
     ],
     output: Annotated[
         Optional[str],
-        typer.Option("-o", "--output", help="Output HTML file or directory path."),
+        typer.Option("-o", "--output", help="Output HTML directory path."),
     ] = None,
     format: Annotated[
         Literal["png", "webp"],
@@ -174,14 +174,14 @@ def cmd_build_html(
         typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
     ] = False,
 ) -> None:
-    """Compile Markdown/HTML file or directory into a static HTML page or multi-page website."""
+    """Compile a Markdown/HTML documentation directory into a static HTML site."""
     try:
         out_file = build_html(
-            input_path=input_path,
-            output=output,
+            input_dir=input_dir,
+            output_dir=output,
             image_format=format,
-            styles=styles,
-            utils=utils,
+            styles_path=styles,
+            utils_path=utils,
             no_cache=no_cache,
         )
         print(f"Successfully compiled HTML document(s): {out_file}")
@@ -191,11 +191,11 @@ def cmd_build_html(
 
 @build_app.command("pdf", epilog=HELP_EPILOG)
 def cmd_build_pdf(
-    input_path: Annotated[
+    input_dir: Annotated[
         str,
         typer.Argument(
-            metavar="INPUT",
-            help="Input Markdown (.md), HTML (.html) file, or directory to export to PDF.",
+            metavar="DIR",
+            help="Directory containing Markdown chapters to export to PDF.",
         ),
     ],
     output: Annotated[
@@ -238,16 +238,16 @@ def cmd_build_pdf(
         ),
     ] = False,
 ) -> None:
-    """Merge a Markdown/HTML file or directory into a single HTML and export to PDF."""
+    """Merge Markdown chapters in a directory into a single HTML and export to PDF."""
     try:
         out_file = build_pdf(
-            inputs=input_path,
-            output=output,
+            input_dir=input_dir,
+            output_file=output,
             page_break=page_break,
             generate_index=generate_index,
             title=title,
-            styles=styles,
-            utils=utils,
+            styles_path=styles,
+            utils_path=utils,
             no_cache=no_cache,
             timestamp=timestamp,
         )

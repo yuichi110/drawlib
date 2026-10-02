@@ -15,7 +15,7 @@ Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, 
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/1.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
+  <img src="overview_images/barchart_multi_series.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Declarative Multi-Series Bar Chart</figcaption>
 </figure>
 

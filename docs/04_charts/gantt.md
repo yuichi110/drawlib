@@ -59,7 +59,7 @@ The following complete example demonstrates sections, tasks with progress indica
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="gantt_images/1.png" alt="gantt_1" style="width: 650px; max-width: 100%;" />
+  <img src="gantt_images/gantt_chart_roadmap.png" alt="gantt_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Engineering Release Roadmap with Dependencies</figcaption>
 </figure>
 
@@ -82,7 +82,7 @@ Tasks can also accept explicit styles to designate project phases, teams, or sta
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="gantt_images/2.png" alt="gantt_2" style="width: 650px; max-width: 100%;" />
+  <img src="gantt_images/gantt_chart_sprint_schedule.png" alt="gantt_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Agile Sprint Schedule with Status Theming</figcaption>
 </figure>
 

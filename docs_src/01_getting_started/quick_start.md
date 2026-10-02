@@ -76,7 +76,7 @@ Inside any Markdown document (such as `doc.md`), simply embed the code block wit
 
 Here is our primary service flow:
 
-```drawlib 600px center caption:"Client-Server REST Communication"
+```drawlib 600px center file:client_server_communication.png caption:"Client-Server REST Communication"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line
@@ -95,7 +95,7 @@ text((50, 30), "REST API", style=Styles.PrimaryBold)
 
 When compiled with `drawlib build html` or `drawlib build markdown`, the code fence is executed and replaced with the rendered image:
 
-```drawlib 600px center caption:"Client-Server REST Communication"
+```drawlib 600px center file:client_server_communication_styled.png caption:"Client-Server REST Communication"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line

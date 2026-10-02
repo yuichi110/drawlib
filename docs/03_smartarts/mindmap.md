@@ -10,7 +10,7 @@ Branches can project to the left, right, top, or bottom, with automatic elbow co
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="mindmap_images/1.png" alt="mindmap_1" style="width: 650px; max-width: 100%;" />
+  <img src="mindmap_images/mindmap_system_breakdown.png" alt="mindmap_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">System Architecture Breakdown with MindMap</figcaption>
 </figure>
 

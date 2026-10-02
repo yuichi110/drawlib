@@ -9,6 +9,8 @@
 
 """Unit tests for DrawlibBlockProcessor in doc_builder."""
 
+import pytest
+
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor, extract_code_blocks
 
 
@@ -45,7 +47,7 @@ def test_block_processor_markdown_replacement(tmp_path) -> None:
 
 Hello World
 
-```drawlib
+```drawlib file:diag.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -56,9 +58,9 @@ Footer
     processed_md = processor.process_markdown(md_input, doc_base_name="my_doc", output_dir=str(out_dir))
 
     assert "# Test Title" in processed_md
-    assert '<img src="my_doc_images/1.png"' in processed_md
+    assert '<img src="my_doc_images/diag.png"' in processed_md
     assert "```drawlib" not in processed_md
-    assert (out_dir / "my_doc_images" / "1.png").exists()
+    assert (out_dir / "my_doc_images" / "diag.png").exists()
 
 
 def test_block_processor_html_script_tag(tmp_path) -> None:
@@ -103,7 +105,7 @@ def draw_my_node(label: str) -> None:
     processor = DrawlibBlockProcessor(utils_path=str(utils_file))
 
     md_input = """
-```drawlib
+```drawlib file:node.webp
 draw_my_node("Configured Node")
 ```
 """
@@ -114,8 +116,8 @@ draw_my_node("Configured Node")
         output_dir=str(out_dir),
     )
 
-    assert 'src="cfg_doc_images/1.webp"' in processed_md
-    assert (out_dir / "cfg_doc_images" / "1.webp").exists()
+    assert 'src="cfg_doc_images/node.webp"' in processed_md
+    assert (out_dir / "cfg_doc_images" / "node.webp").exists()
 
 
 def test_block_processor_ignore_explicit_save(tmp_path) -> None:
@@ -126,7 +128,7 @@ def test_block_processor_ignore_explicit_save(tmp_path) -> None:
 
     ignored_file = tmp_path / "should_not_be_created.png"
     md_input = f"""
-```drawlib
+```drawlib file:save_diag.png
 from drawlib.canvas import save
 from drawlib.styles import Styles
 from drawlib.shapes import circle
@@ -136,8 +138,8 @@ save(r"{ignored_file}")
 """
     processed_md = processor.process_markdown(md_input, doc_base_name="save_test", output_dir=str(out_dir))
 
-    assert "save_test_images/1.png" in processed_md
-    assert (out_dir / "save_test_images" / "1.png").exists()
+    assert "save_test_images/save_diag.png" in processed_md
+    assert (out_dir / "save_test_images" / "save_diag.png").exists()
     assert not ignored_file.exists(), "Explicit save() file should not have been created"
 
 
@@ -160,7 +162,7 @@ def test_block_processor_space_separated_options(tmp_path) -> None:
     assert opts2.css_class == "hero-img"
 
     md_input = """
-```drawlib 400px center caption:"System Architecture"
+```drawlib file:arch.png 400px center caption:"System Architecture"
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -181,7 +183,7 @@ def test_block_processor_code_visibility_modes(tmp_path) -> None:
 
     # 1. Default (no option) -> hide code
     md_default = """
-```drawlib
+```drawlib file:default.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -190,11 +192,11 @@ circle((50, 50), radius=10, style=Styles.Primary)
     res_default = processor.process_markdown(md_default, doc_base_name="default_doc", output_dir=str(out_dir))
     assert "```python" not in res_default
     assert "details" not in res_default
-    assert 'src="default_doc_images/1.png"' in res_default
+    assert 'src="default_doc_images/default.png"' in res_default
 
     # 2. show-code -> show code block followed by image
     md_show = """
-```drawlib show-code
+```drawlib file:show.png show-code
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -209,13 +211,13 @@ circle((50, 50), radius=10, style=Styles.Primary)
         "```"
     )
     assert expected_md_code in res_show
-    assert 'src="show_doc_images/1.png"' in res_show
+    assert 'src="show_doc_images/show.png"' in res_show
     # Python code comes before image
-    assert res_show.find("```python") < res_show.find("show_doc_images/1.png")
+    assert res_show.find("```python") < res_show.find("show_doc_images/show.png")
 
     # 3. fold-code -> image followed by details tag
     md_fold = """
-```drawlib fold-code
+```drawlib file:fold.png fold-code
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -227,7 +229,7 @@ circle((50, 50), radius=10, style=Styles.Primary)
     assert expected_md_code in res_fold
     assert "</details>" in res_fold
     # Image comes before details
-    assert res_fold.find("fold_doc_images/1.png") < res_fold.find("<details")
+    assert res_fold.find("fold_doc_images/fold.png") < res_fold.find("<details")
 
     # 4. HTML script tag fold-code and show-code
     html_input = """
@@ -325,7 +327,7 @@ circle((0, 0), radius=5)
 ````
 
 Actual diagram:
-```drawlib
+```drawlib file:mixed_circle.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), radius=20, style=Styles.Primary)
@@ -344,8 +346,8 @@ circle((50, 50), radius=20, style=Styles.Primary)
     # Outer fence snippet preserved
     assert "````markdown\n```drawlib\ncircle((0, 0), radius=5)\n```\n````" in processed
     # Real block replaced with image
-    assert 'src="mixed_images/1.png"' in processed
-    assert (out_dir / "mixed_images" / "1.png").exists()
+    assert 'src="mixed_images/mixed_circle.png"' in processed
+    assert (out_dir / "mixed_images" / "mixed_circle.png").exists()
 
 
 def test_tilde_and_varied_length_outer_fences(tmp_path) -> None:
@@ -372,3 +374,31 @@ circle((20, 20), radius=5)
     processed = processor.process_markdown(md_input, doc_base_name="fences", output_dir=str(out_dir))
     assert processed == md_input
     assert not (out_dir / "fences_images").exists()
+
+
+def test_block_processor_require_file_validation(tmp_path) -> None:
+    """Test that missing file:<name> raises ValueError by default and works when require_file=False."""
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+
+    # 1. Default require_file=True raises ValueError
+    processor = DrawlibBlockProcessor()
+    bad_md = """# Title
+```drawlib
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+circle((50, 50), radius=10, style=Styles.Primary)
+```
+"""
+    with pytest.raises(ValueError, match="Missing required 'file:<filename.ext>' option"):
+        processor.process_markdown(bad_md, doc_base_name="bad", output_dir=str(out_dir))
+
+    # 2. extract_code_blocks with require_file=True also raises ValueError
+    with pytest.raises(ValueError, match="Missing required 'file:<filename.ext>' option"):
+        extract_code_blocks(bad_md, is_html=False, require_file=True)
+
+    # 3. require_file=False allows auto-indexing
+    lenient_processor = DrawlibBlockProcessor(require_file=False)
+    processed = lenient_processor.process_markdown(bad_md, doc_base_name="lenient", output_dir=str(out_dir))
+    assert 'src="lenient_images/1.png"' in processed
+    assert (out_dir / "lenient_images" / "1.png").exists()

@@ -25,7 +25,7 @@ from rich.console import Console
 from rich.table import Table
 
 from drawlib import LIB_VERSION
-from drawlib._builder.doc_builder.build_cache import CliImageCache, hash_text
+from drawlib._builder._common.cache import CliImageCache, hash_text
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.l3_colors import BaseColors, Color
 from drawlib._core.l3_fonts import Font

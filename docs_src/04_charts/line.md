@@ -7,7 +7,7 @@ It supports straight line segments, smoothed spline curves, custom point marker 
 
 ## 1. Quick Example: User Growth Trends
 
-```drawlib 600px center caption:"User Growth Trends with LineChart"
+```drawlib 600px center file:linechart_user_growth.png caption:"User Growth Trends with LineChart"
 from drawlib.canvas import setup
 from drawlib.charts.line import LineChart
 from drawlib.styles import Styles

@@ -121,14 +121,15 @@ def test_cli_build_html_with_custom_template(tmp_path) -> None:
 
     input_md = tmp_path / "sample.md"
     input_md.write_text("# CLI Custom Template Test", encoding="utf-8")
-    out_html = tmp_path / "sample.html"
+    out_dir = tmp_path / "out"
 
     res = run_drawlib_cli(
-        ["build", "html", str(input_md), "-o", str(out_html)],
+        ["build", "html", str(tmp_path), "-o", str(out_dir)],
         cwd=str(tmp_path),
     )
 
     assert res.returncode == 0
+    out_html = out_dir / "sample.html"
     assert out_html.exists()
     assert "<body class='cli-custom'>" in out_html.read_text(encoding="utf-8")
 
@@ -139,10 +140,10 @@ def test_cli_build_html_missing_template_error(tmp_path) -> None:
     style.write_text("body { margin: 0; }", encoding="utf-8")
     input_md = tmp_path / "sample.md"
     input_md.write_text("# Sample", encoding="utf-8")
-    out_html = tmp_path / "sample.html"
+    out_dir = tmp_path / "out"
 
     res = run_drawlib_cli(
-        ["build", "html", str(input_md), "-o", str(out_html)],
+        ["build", "html", str(tmp_path), "-o", str(out_dir)],
         cwd=str(tmp_path),
     )
     assert res.returncode != 0

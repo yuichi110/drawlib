@@ -69,7 +69,7 @@ The following complete example showcases pseudo-states, choice diamonds, action 
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="state_diagram_images/1.png" alt="state_diagram_1" style="width: 650px; max-width: 100%;" />
+  <img src="state_diagram_images/state_user_session_lifecycle.png" alt="state_diagram_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">User Session Lifecycle State Machine</figcaption>
 </figure>
 
@@ -84,7 +84,7 @@ Use `ForkJoinState` to represent concurrent parallel threads:
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="state_diagram_images/2.png" alt="state_diagram_2" style="width: 650px; max-width: 100%;" />
+  <img src="state_diagram_images/state_concurrent_task_sync.png" alt="state_diagram_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Concurrent Task Synchronization with Fork and Join</figcaption>
 </figure>
 

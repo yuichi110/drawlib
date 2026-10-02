@@ -59,7 +59,7 @@ chart = RadarChart(
 
 Polygonal gridlines align precisely with spokes, making it easy to gauge relative metric ratings:
 
-```drawlib 650px center caption:"System Architecture Non-Functional Analysis"
+```drawlib 650px center file:radarchart_non_functional.png caption:"System Architecture Non-Functional Analysis"
 from drawlib import canvas
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles
@@ -95,7 +95,7 @@ chart.draw_legend(xy=(72.0, 55.0), text_style=Styles.Black.patch(text_size=9.0))
 
 Using `grid_shape="circle"` renders smooth concentric circles, ideal for scoring matrices and consumer benchmark comparisons:
 
-```drawlib 650px center caption:"Device Feature Matrix with Circular Contours"
+```drawlib 650px center file:radarchart_feature_matrix.png caption:"Device Feature Matrix with Circular Contours"
 from drawlib import canvas
 from drawlib.charts.radar import RadarChart
 from drawlib.styles import Styles

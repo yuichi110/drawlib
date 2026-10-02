@@ -45,7 +45,7 @@ Drawlib is structured into four cohesive layers, ensuring both low-level flexibi
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/1.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
+  <img src="overview_images/drawlib_layered_architecture.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Drawlib Layered Architecture</figcaption>
 </figure>
 

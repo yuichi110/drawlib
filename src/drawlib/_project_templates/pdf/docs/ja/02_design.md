@@ -4,7 +4,7 @@
 
 本章では、`utils.py` で定義した再利用可能な描画コンポーネントと、`_assets/` ディレクトリに配置した画像アセットを活用した 3 層アーキテクチャの詳細設計について解説します。
 
-```drawlib 600px center caption:"詳細コンポーネント構成図"
+```drawlib 600px center file:component_architecture.png caption:"詳細コンポーネント構成図"
 from drawlib.canvas import setup
 from drawlib.images import image
 from drawlib.styles import Styles

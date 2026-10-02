@@ -6,7 +6,7 @@
 
 Drawlib の基本図形描画機能のみを使用したシンプルな構成図です：
 
-```drawlib 600px center caption:"基本アーキテクチャ構成図"
+```drawlib 600px center file:basic_architecture.png caption:"基本アーキテクチャ構成図"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -26,7 +26,7 @@ line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
 
 `utils.py` で定義した再利用可能な描画コンポーネントと、`_assets/` ディレクトリに配置した画像アセットを組み合わせた実践例です：
 
-```drawlib 600px center caption:"共通ヘルパーと画像アセットを活用した構成図"
+```drawlib 600px center file:reusable_helpers_architecture.png caption:"共通ヘルパーと画像アセットを活用した構成図"
 from drawlib.canvas import setup
 from drawlib.images import image
 from drawlib.styles import Styles

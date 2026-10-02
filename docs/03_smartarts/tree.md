@@ -10,7 +10,7 @@ It automates vertical branch alignment, indentation levels, and tree connector l
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="tree_images/1.png" alt="tree_1" style="width: 600px; max-width: 100%;" />
+  <img src="tree_images/tree_project_structure.png" alt="tree_1" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Project File Structure with TreeNode</figcaption>
 </figure>
 

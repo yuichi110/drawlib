@@ -56,7 +56,7 @@ chart = GanttChart(
 
 The following complete example demonstrates sections, tasks with progress indicators, milestones, dependency arrows, and a "Today" marker:
 
-```drawlib 650px center caption:"Engineering Release Roadmap with Dependencies"
+```drawlib 650px center file:gantt_chart_roadmap.png caption:"Engineering Release Roadmap with Dependencies"
 from drawlib import canvas
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles
@@ -118,7 +118,7 @@ In `GanttChart`, time coordinates can be passed as:
 
 Tasks can also accept explicit styles to designate project phases, teams, or status:
 
-```drawlib 650px center caption:"Agile Sprint Schedule with Status Theming"
+```drawlib 650px center file:gantt_chart_sprint_schedule.png caption:"Agile Sprint Schedule with Status Theming"
 from drawlib import canvas
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles

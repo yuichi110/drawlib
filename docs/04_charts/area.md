@@ -53,7 +53,7 @@ Stacked area charts are ideal for displaying total aggregate metrics and showing
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="area_images/1.png" alt="area_1" style="width: 650px; max-width: 100%;" />
+  <img src="area_images/area_chart_revenue_streams.png" alt="area_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Cumulative Stacked Revenue Streams</figcaption>
 </figure>
 
@@ -68,7 +68,7 @@ When comparing independent metrics that share the same scale (such as network in
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="area_images/2.png" alt="area_2" style="width: 650px; max-width: 100%;" />
+  <img src="area_images/area_chart_gateway_traffic.png" alt="area_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Gateway Ingress vs Egress Traffic</figcaption>
 </figure>
 

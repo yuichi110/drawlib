@@ -53,7 +53,7 @@ chart = PieChart(
 
 Donut charts are the preferred choice for enterprise dashboards and executive presentations.
 
-```drawlib 650px center caption:"Revenue Contribution Donut Chart"
+```drawlib 650px center file:piechart_revenue_donut.png caption:"Revenue Contribution Donut Chart"
 from drawlib import canvas
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
@@ -85,7 +85,7 @@ chart.draw_legend(xy=(64.0, 48.0), text_style=Styles.Black.patch(text_size=9.0))
 
 Setting `explode > 0.0` radially displaces a slice away from the center origin, drawing immediate focus to that wedge:
 
-```drawlib 650px center caption:"Budget Allocation with Exploded Slice"
+```drawlib 650px center file:piechart_budget_exploded.png caption:"Budget Allocation with Exploded Slice"
 from drawlib import canvas
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles

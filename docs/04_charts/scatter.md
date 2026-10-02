@@ -52,7 +52,7 @@ Combining series with individually annotated baseline points makes system perfor
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="scatter_images/1.png" alt="scatter_1" style="width: 650px; max-width: 100%;" />
+  <img src="scatter_images/scatterchart_latency_benchmark.png" alt="scatter_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Throughput vs p99 Latency Benchmark</figcaption>
 </figure>
 
@@ -67,7 +67,7 @@ By providing 3-tuples `(x, y, radius)` in series data, the radius reflects a 3rd
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="scatter_images/2.png" alt="scatter_2" style="width: 650px; max-width: 100%;" />
+  <img src="scatter_images/scatterchart_bubble_plot.png" alt="scatter_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Compute Workload Multidimensional Bubble Plot</figcaption>
 </figure>
 

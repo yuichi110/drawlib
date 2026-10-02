@@ -10,7 +10,7 @@ It supports multi-series grouping, stacked bars, custom corner radii, value anno
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="bar_images/1.png" alt="bar_1" style="width: 600px; max-width: 100%;" />
+  <img src="bar_images/barchart_resource_allocation.png" alt="bar_1" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Stacked Resource Allocation with BarChart</figcaption>
 </figure>
 

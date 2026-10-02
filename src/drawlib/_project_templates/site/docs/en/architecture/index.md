@@ -4,7 +4,7 @@ This document describes the internal architecture of the system.
 
 ## Component Breakdown
 
-```drawlib 600px center caption:"Service Component Breakdown"
+```drawlib 600px center file:component_breakdown.png caption:"Service Component Breakdown"
 from drawlib.canvas import setup
 from drawlib.styles import Styles
 from drawlib.utils import connect, service_card

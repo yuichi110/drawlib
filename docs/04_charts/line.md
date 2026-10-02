@@ -10,7 +10,7 @@ It supports straight line segments, smoothed spline curves, custom point marker 
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="line_images/1.png" alt="line_1" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/linechart_user_growth.png" alt="line_1" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">User Growth Trends with LineChart</figcaption>
 </figure>
 

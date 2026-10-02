@@ -60,7 +60,7 @@ Teach your agent to follow Drawlib's autonomous self-correction loop when creati
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="agent_quicklook_images/1.png" alt="agent_quicklook_1" style="width: 700px; max-width: 100%;" />
+  <img src="agent_quicklook_images/ai_feedback_loop.png" alt="agent_quicklook_1" style="width: 700px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Autonomous AI Visual Self-Correction Loop</figcaption>
 </figure>
 

@@ -10,7 +10,7 @@ It is the premier component for CI/CD delivery pipelines, phased development mil
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="chevron_process_images/1.png" alt="chevron_process_1" style="width: 650px; max-width: 100%;" />
+  <img src="chevron_process_images/chevron_process_cd_pipeline.png" alt="chevron_process_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Continuous Delivery Pipeline with ChevronProcess</figcaption>
 </figure>
 

@@ -8,7 +8,7 @@ Drawlib allows you to embed Python drawing scripts directly into Markdown docume
 
 Embedded drawing blocks use the `drawlib` language identifier:
 
-```drawlib 650px center show-code caption:"Service Architecture Example"
+```drawlib 650px center show-code file:code_blocks_service_arch.png caption:"Service Architecture Example"
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line

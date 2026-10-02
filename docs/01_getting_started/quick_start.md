@@ -76,7 +76,7 @@ Inside any Markdown document (such as `doc.md`), simply embed the code block wit
 
 Here is our primary service flow:
 
-```drawlib 600px center caption:"Client-Server REST Communication"
+```drawlib 600px center file:client_server_communication.png caption:"Client-Server REST Communication"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line
@@ -98,7 +98,7 @@ When compiled with `drawlib build html` or `drawlib build markdown`, the code fe
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/1.png" alt="quick_start_1" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/client_server_communication_styled.png" alt="quick_start_1" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Client-Server REST Communication</figcaption>
 </figure>
 

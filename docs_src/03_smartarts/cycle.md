@@ -7,7 +7,7 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
 
 ## 1. Quick Example: Agile Development Cycle
 
-```drawlib 600px center caption:"Continuous Agile Lifecycle with Cycle"
+```drawlib 600px center file:cycle_agile_lifecycle.png caption:"Continuous Agile Lifecycle with Cycle"
 from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
 from drawlib.styles import Styles

@@ -67,7 +67,7 @@ The following complete example showcases participant groups, cloud icons, activa
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="sequence_images/1.png" alt="sequence_1" style="width: 650px; max-width: 100%;" />
+  <img src="sequence_images/sequence_distributed_transaction.png" alt="sequence_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Microservices Distributed Transaction Pipeline</figcaption>
 </figure>
 
@@ -82,7 +82,7 @@ For real-time bidirectional streams, use `connect()` with `arrow="<->"`:
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="sequence_images/2.png" alt="sequence_2" style="width: 650px; max-width: 100%;" />
+  <img src="sequence_images/sequence_websocket_telemetry.png" alt="sequence_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">WebSocket Full-Duplex Telemetry Stream</figcaption>
 </figure>
 

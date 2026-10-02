@@ -8,7 +8,7 @@ Drawlib is not only a drawing library—it is a **complete documentation compile
 
 Instead of writing documentation in static wikis and manually copying and pasting PNG screenshots, Drawlib establishes a clean, repeatable build pipeline:
 
-```drawlib 650px center caption:"Drawlib Documentation Build Pipeline"
+```drawlib 650px center file:doc_build_pipeline.png caption:"Drawlib Documentation Build Pipeline"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line

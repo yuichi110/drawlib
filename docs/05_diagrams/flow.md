@@ -52,7 +52,7 @@ The following example illustrates a multi-department expense reimbursement proce
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="flow_images/1.png" alt="flow_1" style="width: 650px; max-width: 100%;" />
+  <img src="flow_images/flow_approval_workflow.png" alt="flow_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Cross-Department Reimbursement Approval Workflow</figcaption>
 </figure>
 
@@ -67,7 +67,7 @@ By specifying `lane_orientation="horizontal"`, lanes are laid out as stacked hor
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="flow_images/2.png" alt="flow_2" style="width: 650px; max-width: 100%;" />
+  <img src="flow_images/flow_fulfillment_pipeline.png" alt="flow_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Fulfillment Logistics Horizontal Pipeline</figcaption>
 </figure>
 

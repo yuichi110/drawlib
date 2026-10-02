@@ -50,7 +50,7 @@ chart = AreaChart(
 
 Stacked area charts are ideal for displaying total aggregate metrics and showing the proportional contribution of each stream over time.
 
-```drawlib 650px center caption:"Cumulative Stacked Revenue Streams"
+```drawlib 650px center file:area_chart_revenue_streams.png caption:"Cumulative Stacked Revenue Streams"
 from drawlib import canvas
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Styles
@@ -85,7 +85,7 @@ chart.draw_legend(xy=(20.0, 72.0), text_style=Styles.Muted.patch(text_size=9.0),
 
 When comparing independent metrics that share the same scale (such as network ingress and egress traffic), use `mode="overlap"` with a lighter alpha and vertex markers:
 
-```drawlib 650px center caption:"Gateway Ingress vs Egress Traffic"
+```drawlib 650px center file:area_chart_gateway_traffic.png caption:"Gateway Ingress vs Egress Traffic"
 from drawlib import canvas
 from drawlib.charts.area import AreaChart
 from drawlib.styles import Styles

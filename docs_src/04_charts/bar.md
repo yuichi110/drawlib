@@ -7,7 +7,7 @@ It supports multi-series grouping, stacked bars, custom corner radii, value anno
 
 ## 1. Quick Example: Stacked Resource Allocation
 
-```drawlib 600px center caption:"Stacked Resource Allocation with BarChart"
+```drawlib 600px center file:barchart_resource_allocation.png caption:"Stacked Resource Allocation with BarChart"
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles

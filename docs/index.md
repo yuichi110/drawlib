@@ -7,7 +7,7 @@ Designed from the ground up for modern software engineering and **autonomous AI 
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="index_images/1.png" alt="index_1" style="width: 650px; max-width: 100%;" />
+  <img src="index_images/drawlib_code_to_publication.png" alt="index_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">From Code to Publication with Drawlib</figcaption>
 </figure>
 

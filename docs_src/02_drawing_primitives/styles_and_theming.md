@@ -7,7 +7,7 @@ Drawlib resolves this with a **systematic design token system** in `drawlib.styl
 
 ## 1. Overview of Semantic Styles
 
-```drawlib 650px center caption:"Drawlib Semantic Color Roles and Variants"
+```drawlib 650px center file:semantic_color_roles.png caption:"Drawlib Semantic Color Roles and Variants"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles

@@ -1,0 +1,218 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+"""External Python styles and utils loader for doc_builder and drawing blocks."""
+
+from __future__ import annotations
+
+import contextlib
+import os
+import sys
+from typing import Any, Dict, Optional
+
+import drawlib.preset_colors
+import drawlib.preset_styles
+import drawlib.styles
+import drawlib.utils
+
+
+def load_styles(
+    styles_path: Optional[str] = None,
+    shared_globals: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Load an external Python styles script and apply it to drawlib.styles.
+
+    If styles_path is None or empty, drawlib.styles is reset to its default theme.
+    When a styles_path is provided, the script is executed in a namespace initialized with
+    drawlib.styles.Styles and drawlib.styles.Colors, and any overridden `Styles` or `Colors`
+    are applied to drawlib.styles.
+
+    Args:
+        styles_path (Optional[str]): Path to the Python styles script, or None.
+        shared_globals (Optional[Dict[str, Any]]): Optional shared execution globals dictionary.
+
+    Raises:
+        FileNotFoundError: If the specified styles_path does not exist.
+    """
+    drawlib.styles.Styles = drawlib.preset_styles.DefaultStyles()
+    drawlib.styles.Colors = drawlib.preset_colors.DefaultColors()
+    setattr(drawlib.styles, "styles", drawlib.styles.Styles)
+    setattr(drawlib.styles, "colors", drawlib.styles.Colors)
+
+    if not styles_path:
+        return
+
+    styles_abs_path = os.path.abspath(styles_path)
+    if not os.path.exists(styles_abs_path):
+        raise FileNotFoundError(f'Styles file "{styles_abs_path}" does not exist.')
+
+    styles_dir = os.path.dirname(styles_abs_path)
+    if styles_dir not in sys.path:
+        sys.path.insert(0, styles_dir)
+
+    orig_styles = drawlib.styles.Styles
+    orig_colors = drawlib.styles.Colors
+
+    user_globals: dict[str, Any] = {
+        "__file__": styles_abs_path,
+        "__name__": "drawlib_styles",
+        "Styles": orig_styles,
+        "styles": orig_styles,
+        "Colors": orig_colors,
+        "colors": orig_colors,
+    }
+
+    current_cwd = os.getcwd()
+    try:
+        os.chdir(styles_dir)
+        with open(styles_abs_path, "r", encoding="utf-8") as f:
+            styles_code = f.read()
+
+        compiled_code = compile(styles_code, filename=styles_abs_path, mode="exec")
+        exec(compiled_code, user_globals)
+    finally:
+        os.chdir(current_cwd)
+
+    custom_colors = None
+    if user_globals.get("Colors") is not orig_colors:
+        custom_colors = user_globals["Colors"]
+    elif user_globals.get("colors") is not None and user_globals.get("colors") is not orig_colors:
+        custom_colors = user_globals["colors"]
+
+    custom_styles = None
+    if user_globals.get("Styles") is not orig_styles:
+        custom_styles = user_globals["Styles"]
+    elif user_globals.get("styles") is not None and user_globals.get("styles") is not orig_styles:
+        custom_styles = user_globals["styles"]
+
+    if custom_styles is not None:
+        if isinstance(custom_styles, type):
+            with contextlib.suppress(Exception):
+                custom_styles = custom_styles()
+        drawlib.styles.Styles = custom_styles
+        setattr(drawlib.styles, "styles", custom_styles)
+        if custom_colors is None:
+            custom_colors = getattr(custom_styles, "colors", None) or drawlib.preset_colors.DefaultColors()
+    if custom_colors is not None:
+        if isinstance(custom_colors, type):
+            with contextlib.suppress(Exception):
+                custom_colors = custom_colors()
+        drawlib.styles.Colors = custom_colors
+        setattr(drawlib.styles, "colors", custom_colors)
+
+    if shared_globals is not None:
+        shared_globals["Styles"] = drawlib.styles.Styles
+        shared_globals["styles"] = drawlib.styles.Styles
+        shared_globals["Colors"] = drawlib.styles.Colors
+        shared_globals["colors"] = drawlib.styles.Colors
+
+
+def load_utils(
+    utils_path: Optional[str] = None,
+    shared_globals: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Load an external Python utils script and attach its members to drawlib.utils.
+
+    If utils_path is None or empty, drawlib.utils is reset to its default state.
+    When a utils_path is provided, the script is executed, and all top-level attributes
+    (excluding those starting with '_') are attached to drawlib.utils.
+
+    Args:
+        utils_path (Optional[str]): Path to the Python utils script, or None.
+        shared_globals (Optional[Dict[str, Any]]): Optional shared execution globals dictionary.
+
+    Raises:
+        FileNotFoundError: If the specified utils_path does not exist.
+    """
+    drawlib.utils._reset_utils()
+
+    if not utils_path:
+        return
+
+    utils_abs_path = os.path.abspath(utils_path)
+    if not os.path.exists(utils_abs_path):
+        raise FileNotFoundError(f'Utils file "{utils_abs_path}" does not exist.')
+
+    utils_dir = os.path.dirname(utils_abs_path)
+    if utils_dir not in sys.path:
+        sys.path.insert(0, utils_dir)
+
+    user_globals: dict[str, Any] = {
+        "__file__": utils_abs_path,
+        "__name__": "drawlib_utils",
+    }
+
+    current_cwd = os.getcwd()
+    try:
+        os.chdir(utils_dir)
+        with open(utils_abs_path, "r", encoding="utf-8") as f:
+            utils_code = f.read()
+
+        compiled_code = compile(utils_code, filename=utils_abs_path, mode="exec")
+        exec(compiled_code, user_globals)
+    finally:
+        os.chdir(current_cwd)
+
+    for key, val in user_globals.items():
+        if not key.startswith("_"):
+            setattr(drawlib.utils, key, val)
+            if shared_globals is not None:
+                shared_globals[key] = val
+
+
+def load_styles_and_utils(
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
+    shared_globals: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Load both external styles and utils scripts.
+
+    Args:
+        styles_path (Optional[str]): Path to the Python styles script, or None.
+        utils_path (Optional[str]): Path to the Python utils script, or None.
+        shared_globals (Optional[Dict[str, Any]]): Optional shared execution globals dictionary.
+    """
+    load_styles(styles_path=styles_path, shared_globals=shared_globals)
+    load_utils(utils_path=utils_path, shared_globals=shared_globals)
+
+
+def resolve_styles_and_utils(
+    input_path: str,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
+) -> tuple[Optional[str], Optional[str]]:
+    """Resolve styles.py and utils.py file paths from parameters or directory conventions.
+
+    Args:
+        input_path (str): Input file or directory path.
+        styles_path (Optional[str]): Explicit styles file path, or None.
+        utils_path (Optional[str]): Explicit utils file path, or None.
+
+    Returns:
+        tuple[Optional[str], Optional[str]]: Tuple of resolved absolute (styles_path, utils_path).
+    """
+    input_abs = os.path.abspath(input_path)
+    base_dir = input_abs if os.path.isdir(input_abs) else os.path.dirname(input_abs)
+
+    resolved_styles = styles_path
+    if not resolved_styles:
+        cand = os.path.join(base_dir, "styles.py")
+        if os.path.isfile(cand):
+            resolved_styles = cand
+
+    resolved_utils = utils_path
+    if not resolved_utils:
+        cand = os.path.join(base_dir, "utils.py")
+        if os.path.isfile(cand):
+            resolved_utils = cand
+
+    return (
+        os.path.abspath(resolved_styles) if resolved_styles else None,
+        os.path.abspath(resolved_utils) if resolved_utils else None,
+    )

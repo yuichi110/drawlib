@@ -18,7 +18,7 @@ Drawlib uses a standard **mathematical Cartesian coordinate system**:
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="core_concepts_images/1.png" alt="core_concepts_1" style="width: 650px; max-width: 100%;" />
+  <img src="core_concepts_images/cartesian_coordinate_system.png" alt="core_concepts_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Drawlib Cartesian Coordinate System</figcaption>
 </figure>
 
@@ -55,7 +55,7 @@ Professional illustrations maintain visual clarity by structuring colors around 
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="core_concepts_images/2.png" alt="core_concepts_2" style="width: 650px; max-width: 100%;" />
+  <img src="core_concepts_images/six_color_semantic_system.png" alt="core_concepts_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">The 6-Color Semantic System</figcaption>
 </figure>
 

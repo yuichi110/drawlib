@@ -56,7 +56,7 @@ Donut charts are the preferred choice for enterprise dashboards and executive pr
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/1.png" alt="pie_1" style="width: 650px; max-width: 100%;" />
+  <img src="pie_images/piechart_revenue_donut.png" alt="pie_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Revenue Contribution Donut Chart</figcaption>
 </figure>
 
@@ -71,7 +71,7 @@ Setting `explode > 0.0` radially displaces a slice away from the center origin, 
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/2.png" alt="pie_2" style="width: 650px; max-width: 100%;" />
+  <img src="pie_images/piechart_budget_exploded.png" alt="pie_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Budget Allocation with Exploded Slice</figcaption>
 </figure>
 

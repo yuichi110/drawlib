@@ -11,7 +11,7 @@ Instead of writing documentation in static wikis and manually copying and pastin
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="project_quicklook_images/1.png" alt="project_quicklook_1" style="width: 650px; max-width: 100%;" />
+  <img src="project_quicklook_images/doc_build_pipeline.png" alt="project_quicklook_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Drawlib Documentation Build Pipeline</figcaption>
 </figure>
 

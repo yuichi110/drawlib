@@ -12,7 +12,7 @@ Unlike traditional Python visualization libraries (such as Matplotlib, Seaborn, 
 - **Deterministic Layouts**: All margins, tick spaces, and plot boxes are mathematically computed from explicit canvas dimensions (`width`, `height`).
 - **Consistent Visual Theming & Style Presence**: Charts follow the "style-as-presence" philosophy. If an element has a style, it is drawn; if omitted (`None`), no fallback element or unwanted default grid/background is rendered. Legends are decoupled and rendered explicitly via `chart.draw_legend(...)`.
 
-```drawlib 650px center caption:"Declarative Multi-Series Bar Chart"
+```drawlib 650px center file:barchart_multi_series.png caption:"Declarative Multi-Series Bar Chart"
 from drawlib.canvas import setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles

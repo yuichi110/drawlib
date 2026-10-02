@@ -10,7 +10,7 @@ The `drawlib.smartarts` module eliminates this boilerplate by providing **high-l
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/1.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
+  <img src="overview_images/smartarts_showcase.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">SmartArts High-Level Component Showcase</figcaption>
 </figure>
 

@@ -36,7 +36,7 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     (src / "index.md").write_text("# Welcome\nHome page content.\n", encoding="utf-8")
     (src / "navbar.md").write_text("# Site\n- [Home](index.md)\n- [Guide](guide.md)\n", encoding="utf-8")
     (src / "guide.md").write_text(
-        "# Guide\n```drawlib\n"
+        "# Guide\n```drawlib file:circle.png\n"
         "from drawlib.canvas import setup, save\n"
         "from drawlib.shapes import circle\n"
         "from drawlib.styles import Styles\n"
@@ -47,7 +47,7 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     )
 
     out_html = tmp_path / "docs_html"
-    build_html(input_path=str(src), output=str(out_html), no_cache=True)
+    build_html(input_dir=str(src), output_dir=str(out_html), no_cache=True)
 
     assert (out_html / "index.html").is_file()
     assert (out_html / "guide.html").is_file()
@@ -62,7 +62,7 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     assert not (out_html / "template.html").exists()
 
     out_md = tmp_path / "docs_md"
-    build_markdown(input_path=str(src), output=str(out_md), no_cache=True)
+    build_markdown(input_dir=str(src), output_dir=str(out_md), no_cache=True)
 
     assert (out_md / "index.md").is_file()
     assert (out_md / "guide.md").is_file()
@@ -107,7 +107,7 @@ def test_image_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     )
 
     out_img = tmp_path / "images"
-    build_image(inputs=str(src), output=str(out_img), no_cache=True)
+    build_image(input_path=str(src), output_path=str(out_img), no_cache=True)
 
     assert (out_img / "diagram.png").is_file()
     assert not (out_img / "styles.png").exists()

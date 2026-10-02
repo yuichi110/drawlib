@@ -6,7 +6,7 @@ The `Table` component renders 2D tabular data, comparison matrices, and database
 
 ## 1. Quick Example: Service SLA & Status Matrix
 
-```drawlib 650px center caption:"Service Status Matrix with Table"
+```drawlib 650px center file:table_service_status_matrix.png caption:"Service Status Matrix with Table"
 from drawlib.canvas import setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles

@@ -10,7 +10,7 @@ It is ideally suited for Agile/Scrum iterations, PDCA DevOps lifecycles, inciden
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="cycle_images/1.png" alt="cycle_1" style="width: 600px; max-width: 100%;" />
+  <img src="cycle_images/cycle_agile_lifecycle.png" alt="cycle_1" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Continuous Agile Lifecycle with Cycle</figcaption>
 </figure>
 

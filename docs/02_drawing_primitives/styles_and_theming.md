@@ -10,7 +10,7 @@ Drawlib resolves this with a **systematic design token system** in `drawlib.styl
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="styles_and_theming_images/1.png" alt="styles_and_theming_1" style="width: 650px; max-width: 100%;" />
+  <img src="styles_and_theming_images/semantic_color_roles.png" alt="styles_and_theming_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Drawlib Semantic Color Roles and Variants</figcaption>
 </figure>
 

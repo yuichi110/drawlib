@@ -49,7 +49,7 @@ chart = ScatterChart(
 
 Combining series with individually annotated baseline points makes system performance reports immediately actionable:
 
-```drawlib 650px center caption:"Throughput vs p99 Latency Benchmark"
+```drawlib 650px center file:scatterchart_latency_benchmark.png caption:"Throughput vs p99 Latency Benchmark"
 from drawlib import canvas
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles
@@ -98,7 +98,7 @@ chart.draw_legend(xy=(35.0, 56.0), text_style=Styles.Muted.patch(text_size=9.0),
 
 By providing 3-tuples `(x, y, radius)` in series data, the radius reflects a 3rd numerical dimension:
 
-```drawlib 650px center caption:"Compute Workload Multidimensional Bubble Plot"
+```drawlib 650px center file:scatterchart_bubble_plot.png caption:"Compute Workload Multidimensional Bubble Plot"
 from drawlib import canvas
 from drawlib.charts.scatter import ScatterChart
 from drawlib.styles import Styles

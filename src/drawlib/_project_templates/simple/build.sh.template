@@ -24,10 +24,10 @@ fi
 echo "Using Drawlib command: $DRAWLIB_CMD"
 
 echo "Building Markdown..."
-$DRAWLIB_CMD build markdown __SRC_DIR__/doc.md -o __OUT_DIR__/doc.md
+$DRAWLIB_CMD build markdown __SRC_DIR__/ -o __OUT_DIR__/
 
 echo "Building standalone HTML..."
-$DRAWLIB_CMD build html __SRC_DIR__/doc.md -o __OUT_HTML_DIR__/doc.html
+$DRAWLIB_CMD build html __SRC_DIR__/ -o __OUT_HTML_DIR__/
 
 echo "Build complete!"
 echo "  - Markdown: __OUT_DIR__/doc.md"

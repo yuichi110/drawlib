@@ -7,7 +7,7 @@ It is the premier component for CI/CD delivery pipelines, phased development mil
 
 ## 1. Quick Example: CI/CD Pipeline
 
-```drawlib 650px center caption:"Continuous Delivery Pipeline with ChevronProcess"
+```drawlib 650px center file:chevron_process_cd_pipeline.png caption:"Continuous Delivery Pipeline with ChevronProcess"
 from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles

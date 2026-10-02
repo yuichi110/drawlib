@@ -7,7 +7,7 @@ The `drawlib.smartarts` module eliminates this boilerplate by providing **high-l
 
 ## 1. What SmartArts Can Do
 
-```drawlib 650px center caption:"SmartArts High-Level Component Showcase"
+```drawlib 650px center file:smartarts_showcase.png caption:"SmartArts High-Level Component Showcase"
 from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess, Table
 from drawlib.styles import Styles

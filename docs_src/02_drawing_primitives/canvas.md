@@ -51,7 +51,7 @@ Drawlib uses a mathematical Cartesian coordinate system:
 - **Y-Axis**: Increases vertically upwards (`0` to `height`).
 - **Center-Based Anchoring**: Coordinates `(x, y)` for shapes, text, and icons refer to their **exact geometric center** by default.
 
-```drawlib 650px center caption:"Custom Canvas Configuration with Grid"
+```drawlib 650px center file:canvas_configuration_grid.png caption:"Custom Canvas Configuration with Grid"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle, circle
 from drawlib.styles import Colors, Styles

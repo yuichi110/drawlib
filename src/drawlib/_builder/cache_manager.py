@@ -11,82 +11,16 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
-
-from drawlib._builder.doc_builder.build_cache import BuildImageCache, CliImageCache
-from drawlib._core.l3_external import (
-    download_all_assets,
-    download_all_fonts,
-    download_all_icons,
-    purge_font_cache,
+from drawlib._builder._common.cache_manager import (
+    clear_cache,
+    clear_image_cache,
+    download_cache,
+    list_cache,
 )
-from drawlib._release_assets import RELEASE_ASSET_PACKAGES
 
-
-def clear_cache() -> None:
-    """Delete all locally cached font and icon asset files."""
-    purge_font_cache()
-
-
-def clear_image_cache(cli_only: bool = False, build_only: bool = False) -> None:
-    """Clear cached image entries from SQLite cache database (.drawlib/cache.db).
-
-    Args:
-        cli_only (bool): If True, clear only CLI catalog image cache (cli_image_cache).
-        build_only (bool): If True, clear only document build image cache (image_cache).
-    """
-    if not cli_only:
-        BuildImageCache().clear()
-    if not build_only:
-        CliImageCache().clear()
-
-
-def list_cache() -> List[Dict[str, Any]]:
-    """Inspect all downloadable font and icon packages and their local cache status.
-
-    Returns:
-        List[Dict[str, Any]]: List of package status dicts with keys
-            'name', 'category', 'cached', 'file_count', and 'size_bytes'.
-    """
-    results: List[Dict[str, Any]] = []
-    for pkg in RELEASE_ASSET_PACKAGES.values():
-        cached_files = 0
-        total_bytes = 0
-        local_dir = pkg.get_local_dir()
-        for rel_file in pkg.files:
-            file_path = local_dir / rel_file
-            if file_path.is_file():
-                cached_files += 1
-                total_bytes += file_path.stat().st_size
-
-        is_cached = cached_files == len(pkg.files) and len(pkg.files) > 0
-        results.append({
-            "name": str(pkg.name),
-            "category": pkg.category,
-            "cached": is_cached,
-            "file_count": f"{cached_files}/{len(pkg.files)}",
-            "size_bytes": total_bytes,
-        })
-    return results
-
-
-def download_cache(
-    all_assets: bool = True,
-    fonts: bool = False,
-    icons: bool = False,
-) -> None:
-    """Pre-download font and/or icon packages into the local drawlib cache.
-
-    Args:
-        all_assets (bool): Download both fonts and icons (default True if neither fonts nor icons is set).
-        fonts (bool): Download font packages only.
-        icons (bool): Download icon packages only.
-    """
-    if fonts and not icons:
-        download_all_fonts()
-    elif icons and not fonts:
-        download_all_icons()
-    elif all_assets or (fonts and icons):
-        download_all_assets()
-    else:
-        download_all_assets()
+__all__ = [
+    "clear_cache",
+    "clear_image_cache",
+    "download_cache",
+    "list_cache",
+]

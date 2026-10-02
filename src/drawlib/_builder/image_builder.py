@@ -27,9 +27,14 @@ from pydantic import validate_call
 
 import drawlib._core.l4_canvas
 import drawlib.canvas
-from drawlib._builder.doc_builder.build_cache import BuildImageCache, hash_file
-from drawlib._builder.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
-from drawlib._builder.doc_builder.styles_utils import load_styles_and_utils
+from drawlib._builder._common import (
+    BuildImageCache,
+    FileBuildProgress,
+    format_duplicate_output_error,
+    hash_file,
+    load_styles_and_utils,
+    resolve_styles_and_utils,
+)
 from drawlib._core.l1_core import dutil_settings, get_script_relative_path, logger
 from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas._canvas import Canvas
@@ -752,32 +757,15 @@ def _resolve_execution_mode(
     return "auto_clear"
 
 
-def _find_candidate_file(raw_targets: Sequence[str], filename: str) -> Optional[str]:
-    """Search for a candidate file (e.g. 'styles.py' or 'utils.py') in target roots.
-
-    Args:
-        raw_targets (Sequence[str]): Raw input targets.
-        filename (str): Name of the candidate file to search for.
-
-    Returns:
-        Optional[str]: Absolute path to the candidate file if found, otherwise None.
-    """
-    for t in raw_targets:
-        t_abs = os.path.abspath(t)
-        cand = (
-            os.path.join(t_abs, filename)
-            if os.path.isdir(t_abs)
-            else os.path.join(os.path.dirname(t_abs), filename)
-        )
-        if os.path.isfile(cand):
-            return cand
-    return None
-
-
 def build_image(
-    inputs: Union[str, Sequence[str]],
+    input_path: Union[str, Sequence[str]] = "",
+    output_path: Optional[str] = None,
+    *,
+    inputs: Optional[Union[str, Sequence[str]]] = None,
     output: Optional[str] = None,
     format: Optional[Literal["png", "webp", "jpg", "pdf"]] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
     styles: Optional[str] = None,
     utils: Optional[str] = None,
     grid: bool = False,
@@ -788,11 +776,15 @@ def build_image(
     """Execute one or more Python drawing scripts or directories to generate images.
 
     Args:
-        inputs (Union[str, Sequence[str]]): One or more target Python files (.py) or directories.
-        output (Optional[str]): Output image file path (for single script) or output directory path.
+        input_path (Union[str, Sequence[str]]): Target Python file(s) or directories.
+        output_path (Optional[str]): Output image file path or output directory path.
+        inputs (Optional[Union[str, Sequence[str]]]): Alias for input_path.
+        output (Optional[str]): Alias for output_path.
         format (Optional[Literal["png", "webp", "jpg", "pdf"]]): Image format override ('png', 'webp', 'jpg', 'pdf').
-        styles (Optional[str]): Optional path to Python styles script.
-        utils (Optional[str]): Optional path to Python utils script.
+        styles_path (Optional[str]): Optional path to Python styles script.
+        utils_path (Optional[str]): Optional path to Python utils script.
+        styles (Optional[str]): Alias for styles_path.
+        utils (Optional[str]): Alias for utils_path.
         grid (bool): Whether to save companion *_grid.<ext> images with coordinate grid overlaid.
         disable_auto_clear (bool): Disable clearing canvas per executing drawing code file.
         enable_auto_initialize (bool): Enable full canvas re-initialization per executing drawing code file.
@@ -804,23 +796,25 @@ def build_image(
     Raises:
         ValueError: If no valid target files or directories are provided.
     """
-    raw_targets: List[str] = [inputs] if isinstance(inputs, str) else list(inputs)
-    if not raw_targets:
+    raw_input = input_path or inputs
+    if not raw_input:
         raise ValueError("No input files or directories specified for build_image.")
+    raw_targets: List[str] = [raw_input] if isinstance(raw_input, str) else list(raw_input)
+    out_target = output_path or output
+    effective_styles = styles_path or styles
+    effective_utils = utils_path or utils
 
-    if styles is None:
-        styles = _find_candidate_file(raw_targets, "styles.py")
+    first_target = os.path.abspath(raw_targets[0])
+    search_dir = first_target if os.path.isdir(first_target) else os.path.dirname(first_target)
+    styles_abs, utils_abs = resolve_styles_and_utils(search_dir, effective_styles, effective_utils)
 
-    if utils is None:
-        utils = _find_candidate_file(raw_targets, "utils.py")
-
-    target_list, output_dir, output_file = _normalize_build_inputs_and_output(raw_targets, output)
+    target_list, output_dir, output_file = _normalize_build_inputs_and_output(raw_targets, out_target)
     exec_mode = _resolve_execution_mode(disable_auto_clear, enable_auto_initialize)
     target_roots = [os.path.abspath(t) for t in target_list if os.path.isdir(t)]
     executer = DrawlibExecuter(
         mode=exec_mode,
-        styles_path=styles,
-        utils_path=utils,
+        styles_path=styles_abs,
+        utils_path=utils_abs,
         output_dir=output_dir,
         output_file=output_file,
         image_format=format,

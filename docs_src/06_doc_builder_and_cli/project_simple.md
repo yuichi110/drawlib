@@ -51,7 +51,7 @@ This document outlines the migration from synchronous HTTP checkout to event-dri
 
 ## 2. Proposed Architecture
 
-```drawlib 650px center caption:"Target Event-Driven Architecture"
+```drawlib 650px center file:event_driven_architecture.png caption:"Target Event-Driven Architecture"
 from drawlib import canvas, shapes, lines, styles
 
 canvas.setup(width=100, height=45)

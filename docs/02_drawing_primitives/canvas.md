@@ -54,7 +54,7 @@ Drawlib uses a mathematical Cartesian coordinate system:
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/1.png" alt="canvas_1" style="width: 650px; max-width: 100%;" />
+  <img src="canvas_images/canvas_configuration_grid.png" alt="canvas_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Custom Canvas Configuration with Grid</figcaption>
 </figure>
 

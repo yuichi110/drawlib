@@ -62,7 +62,7 @@ Polygonal gridlines align precisely with spokes, making it easy to gauge relativ
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="radar_images/1.png" alt="radar_1" style="width: 650px; max-width: 100%;" />
+  <img src="radar_images/radarchart_non_functional.png" alt="radar_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">System Architecture Non-Functional Analysis</figcaption>
 </figure>
 
@@ -77,7 +77,7 @@ Using `grid_shape="circle"` renders smooth concentric circles, ideal for scoring
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="radar_images/2.png" alt="radar_2" style="width: 650px; max-width: 100%;" />
+  <img src="radar_images/radarchart_feature_matrix.png" alt="radar_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Device Feature Matrix with Circular Contours</figcaption>
 </figure>
 

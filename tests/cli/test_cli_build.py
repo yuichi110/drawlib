@@ -46,7 +46,7 @@ def test_cli_build_html_directory_default(tmp_path) -> None:
     (src_dir / "index.md").write_text(
         """# Main Index
 
-```drawlib
+```drawlib file:circle.png
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 circle((50, 50), radius=20, style=Styles.Primary)
@@ -63,7 +63,7 @@ circle((50, 50), radius=20, style=Styles.Primary)
 
     index_html = out_dir / "index.html"
     style_css = out_dir / "style.css"
-    index_img = out_dir / "index_images" / "1.png"
+    index_img = out_dir / "index_images" / "circle.png"
 
     assert index_html.exists()
     assert style_css.exists()
@@ -71,58 +71,37 @@ circle((50, 50), radius=20, style=Styles.Primary)
 
     content = index_html.read_text(encoding="utf-8")
     assert '<link rel="stylesheet" href="style.css">' in content
-    assert '<img src="index_images/1.png"' in content
+    assert '<img src="index_images/circle.png"' in content
 
 
-def test_cli_build_html_single_file(tmp_path) -> None:
-    """Test CLI build html single file (external style.css + PNG image)."""
-    (tmp_path / "template.html").write_text(
-        '<!DOCTYPE html><html><head>{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
-        "{% endif %}</head><body>{{ body }}</body></html>",
-        encoding="utf-8",
-    )
-    (tmp_path / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
-
+def test_cli_build_html_single_file_rejected(tmp_path) -> None:
+    """Test CLI build html rejects single file with descriptive error."""
     input_md = tmp_path / "sample.md"
+    input_md.write_text("# Sample Page\n", encoding="utf-8")
     output_html = tmp_path / "sample.html"
-
-    input_md.write_text(
-        """# Sample Page
-
-```drawlib
-from drawlib.styles import Styles
-from drawlib.shapes import rectangle
-rectangle((50, 50), width=40, height=20, style=Styles.Primary)
-```
-""",
-        encoding="utf-8",
-    )
 
     res = run_drawlib_cli(["build", "html", str(input_md), "-o", str(output_html)], cwd=str(tmp_path))
 
-    assert res.returncode == 0
-    assert output_html.exists()
-    assert (tmp_path / "style.css").exists()
-    assert (tmp_path / "sample_images" / "1.png").exists()
-    assert '<link rel="stylesheet" href="style.css">' in output_html.read_text(encoding="utf-8")
+    assert res.returncode != 0
+    assert "requires a directory as input" in res.stderr or "requires a directory as input" in res.stdout
 
 
 def test_cli_build_html_webp_format(tmp_path) -> None:
     """Test CLI build html with -f webp."""
-    (tmp_path / "template.html").write_text(
+    src_dir = tmp_path / "src_webp"
+    out_dir = tmp_path / "out_webp"
+    src_dir.mkdir()
+
+    (src_dir / "template.html").write_text(
         '<!DOCTYPE html><html><head>{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
         "{% endif %}</head><body>{{ body }}</body></html>",
         encoding="utf-8",
     )
-    (tmp_path / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
-
-    input_md = tmp_path / "sample.md"
-    output_html = tmp_path / "sample.html"
-
-    input_md.write_text(
+    (src_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
+    (src_dir / "index.md").write_text(
         """# WebP Test
 
-```drawlib
+```drawlib file:circle.webp
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -130,33 +109,36 @@ circle((50, 50), radius=10, style=Styles.Primary)
 """,
         encoding="utf-8",
     )
+    (src_dir / "navbar.md").write_text("- [WebP Test](index.md)\n", encoding="utf-8")
 
     res = run_drawlib_cli(
-        ["build", "html", str(input_md), "-o", str(output_html), "-f", "webp"],
+        ["build", "html", str(src_dir), "-o", str(out_dir), "-f", "webp"],
         cwd=str(tmp_path),
     )
 
     assert res.returncode == 0
-    content = output_html.read_text(encoding="utf-8")
-    assert "sample_images/1.webp" in content
-    assert (tmp_path / "sample_images" / "1.webp").exists()
+    content = (out_dir / "index.html").read_text(encoding="utf-8")
+    assert "index_images/circle.webp" in content
+    assert (out_dir / "index_images" / "circle.webp").exists()
 
     # Verify deprecated --image-format is rejected
     res_err = run_drawlib_cli(
-        ["build", "html", str(input_md), "-o", str(output_html), "--image-format", "webp"],
+        ["build", "html", str(src_dir), "-o", str(out_dir), "--image-format", "webp"],
         cwd=str(tmp_path),
     )
     assert res_err.returncode != 0
 
 
-def test_cli_build_markdown_single_file(tmp_path) -> None:
-    """Test CLI build markdown single file."""
-    input_md = tmp_path / "doc.md"
-    out_md = tmp_path / "rendered.md"
-    input_md.write_text(
+def test_cli_build_markdown_directory(tmp_path) -> None:
+    """Test CLI build markdown directory."""
+    src_dir = tmp_path / "src_md"
+    out_dir = tmp_path / "out_md"
+    src_dir.mkdir()
+
+    (src_dir / "doc.md").write_text(
         """# Markdown Output
 
-```drawlib
+```drawlib file:circle.png
 from drawlib.styles import Styles
 from drawlib.shapes import circle
 circle((50, 50), radius=10, style=Styles.Primary)
@@ -165,23 +147,23 @@ circle((50, 50), radius=10, style=Styles.Primary)
         encoding="utf-8",
     )
 
-    res = run_drawlib_cli(["build", "markdown", str(input_md), "-o", str(out_md)], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "markdown", str(src_dir), "-o", str(out_dir)], cwd=str(tmp_path))
 
     assert res.returncode == 0
     assert "Successfully compiled Markdown" in res.stdout
-    assert out_md.exists()
-    assert (tmp_path / "rendered_images" / "1.png").exists()
+    assert (out_dir / "doc.md").exists()
+    assert (out_dir / "doc_images" / "circle.png").exists()
 
 
-def test_cli_build_overwrite_error(tmp_path) -> None:
-    """Test CLI build markdown error when output path equals input source file."""
+def test_cli_build_single_file_rejected(tmp_path) -> None:
+    """Test CLI build markdown rejects single file input."""
     input_md = tmp_path / "sample.md"
-    input_md.write_text("# Overwrite Test", encoding="utf-8")
+    input_md.write_text("# Single File Test", encoding="utf-8")
 
-    res = run_drawlib_cli(["build", "markdown", str(input_md), "-o", str(input_md)], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "markdown", str(input_md)], cwd=str(tmp_path))
 
     assert res.returncode != 0
-    assert "Refusing to overwrite input source file" in res.stderr or "Refusing to overwrite" in res.stdout
+    assert "requires a directory as input" in res.stderr or "requires a directory as input" in res.stdout
 
 
 def test_cli_build_image_single_file(tmp_path) -> None:

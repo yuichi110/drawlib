@@ -174,10 +174,12 @@ def test_build_markdown_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest
     """Test that build_markdown uses cache on repeat runs and respects no_cache=True."""
     monkeypatch.chdir(tmp_path)
 
-    md_file = tmp_path / "sample.md"
+    src_dir = tmp_path / "docs_src"
+    src_dir.mkdir()
+    md_file = src_dir / "sample.md"
     md_file.write_text(
         """# Sample
-```drawlib
+```drawlib file:cached_circle.png
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 circle((50, 50), 20, style=Styles.Primary)
@@ -186,9 +188,9 @@ circle((50, 50), 20, style=Styles.Primary)
         encoding="utf-8",
     )
 
-    out_file1 = tmp_path / "out1.md"
+    out_dir1 = tmp_path / "out1"
     # 1st run: fills cache
-    build_markdown(str(md_file), output=str(out_file1))
+    build_markdown(input_dir=str(src_dir), output_dir=str(out_dir1))
     db_path = tmp_path / ".drawlib" / "cache.db"
     assert db_path.exists()
 
@@ -200,14 +202,14 @@ circle((50, 50), 20, style=Styles.Primary)
     conn.close()
 
     # 2nd run with same code: cache hit (no new entries added)
-    out_file2 = tmp_path / "out2.md"
-    build_markdown(str(md_file), output=str(out_file2))
-    assert (tmp_path / "out2_images" / "1.png").exists()
+    out_dir2 = tmp_path / "out2"
+    build_markdown(input_dir=str(src_dir), output_dir=str(out_dir2))
+    assert (out_dir2 / "sample_images" / "cached_circle.png").exists()
 
     # 3rd run with no_cache=True: runs successfully without cache interaction
-    out_file3 = tmp_path / "out3.md"
-    build_markdown(str(md_file), output=str(out_file3), no_cache=True)
-    assert (tmp_path / "out3_images" / "1.png").exists()
+    out_dir3 = tmp_path / "out3"
+    build_markdown(input_dir=str(src_dir), output_dir=str(out_dir3), no_cache=True)
+    assert (out_dir3 / "sample_images" / "cached_circle.png").exists()
 
 
 def test_build_image_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -228,7 +230,7 @@ save("my_output.png")
     )
 
     # 1st run
-    build_image(str(script))
+    build_image(input_path=str(script))
     out_img = tmp_path / "my_output.png"
     assert out_img.exists()
     db_path = tmp_path / ".drawlib" / "cache.db"
@@ -239,7 +241,7 @@ save("my_output.png")
     assert not out_img.exists()
 
     # 2nd run: restored from cache without executing Python code
-    build_image(str(script))
+    build_image(input_path=str(script))
     assert out_img.exists()
 
 

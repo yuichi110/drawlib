@@ -66,7 +66,7 @@ init.to(active, event="login", guard="token_valid", action="init_session()")
 
 The following complete example showcases pseudo-states, choice diamonds, action compartments, a self-loop, and curved return transitions:
 
-```drawlib 650px center caption:"User Session Lifecycle State Machine"
+```drawlib 650px center file:state_user_session_lifecycle.png caption:"User Session Lifecycle State Machine"
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import ChoiceState, FinalState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
@@ -116,7 +116,7 @@ sd.draw(xy=(0.0, 0.0))
 
 Use `ForkJoinState` to represent concurrent parallel threads:
 
-```drawlib 650px center caption:"Concurrent Task Synchronization with Fork and Join"
+```drawlib 650px center file:state_concurrent_task_sync.png caption:"Concurrent Task Synchronization with Fork and Join"
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import FinalState, ForkJoinState, InitialState, State, StateDiagram
 from drawlib.styles import Styles

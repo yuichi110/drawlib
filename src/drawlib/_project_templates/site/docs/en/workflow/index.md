@@ -4,7 +4,7 @@ This document illustrates the execution lifecycle.
 
 ## Process Flow
 
-```drawlib 600px center caption:"Execution Lifecycle Flow"
+```drawlib 600px center file:execution_lifecycle.png caption:"Execution Lifecycle Flow"
 from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles

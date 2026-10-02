@@ -7,7 +7,7 @@ It automates vertical branch alignment, indentation levels, and tree connector l
 
 ## 1. Quick Example: Project Directory Hierarchy
 
-```drawlib 600px center caption:"Project File Structure with TreeNode"
+```drawlib 600px center file:tree_project_structure.png caption:"Project File Structure with TreeNode"
 from drawlib.canvas import setup
 from drawlib.smartarts import TreeNode
 from drawlib.icons import phosphor
