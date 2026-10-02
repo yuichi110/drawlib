@@ -7,9 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""CLI package for drawlib."""
+"""Specialized visualizer for MonochromeColors palettes."""
 
-from drawlib._cli._drawlib import app, call_command
-from drawlib._cli.main import main
+from __future__ import annotations
 
-__all__ = ["app", "call_command", "main"]
+from drawlib._cli._visualizers.colors.base import BaseColorVisualizer
+
+
+class MonochromeColorVisualizer(BaseColorVisualizer):
+    """Visualizer specialized for MonochromeColors catalogs."""

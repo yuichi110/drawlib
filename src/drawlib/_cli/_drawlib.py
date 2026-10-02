@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Main Typer application for drawlib CLI."""
+"""Root Typer application and command dispatcher for drawlib CLI."""
 
 from __future__ import annotations
 
@@ -17,13 +17,18 @@ import typer
 
 import drawlib
 from drawlib._builder.rules_builder import build_rule, is_rule_cached
-from drawlib._cli._build import build_app
-from drawlib._cli._colors import colors_app
-from drawlib._cli._commands import cache_app, css_app, register_top_commands
 from drawlib._cli._help import HELP_EPILOG
-from drawlib._cli._init import cmd_init
-from drawlib._cli._rules import rules_app
-from drawlib._cli._styles import styles_app
+from drawlib._cli.commands import (
+    build_app,
+    cache_app,
+    cmd_init,
+    cmd_serve,
+    cmd_show,
+    colors_app,
+    css_app,
+    rules_app,
+    styles_app,
+)
 from drawlib._core.l1_core import dutil_settings, logger
 
 app = typer.Typer(
@@ -41,12 +46,24 @@ app.add_typer(colors_app, name="colors")
 app.add_typer(css_app, name="css")
 app.add_typer(rules_app, name="rules")
 app.add_typer(styles_app, name="styles")
+
 app.command(
     "init",
     help="Scaffold a starter drawlib project with sample illustrations and build script.",
     epilog=HELP_EPILOG,
 )(cmd_init)
-register_top_commands(app)
+
+app.command(
+    "serve",
+    help="Start a local HTTP server to preview built HTML documentation.",
+    epilog=HELP_EPILOG,
+)(cmd_serve)
+
+app.command(
+    "show",
+    help="Execute and display or export a drawlib code block from a Markdown/HTML file or Python script.",
+    epilog=HELP_EPILOG,
+)(cmd_show)
 
 
 def _version_callback(value: bool) -> None:
@@ -120,3 +137,8 @@ def main_callback(
 def call_command() -> None:
     """Execute the drawlib Typer CLI application."""
     app()
+
+
+def main() -> None:
+    """Execute the drawlib CLI main entrypoint."""
+    call_command()

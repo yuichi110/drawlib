@@ -17,7 +17,7 @@ from typing import Sequence
 
 from typer.testing import CliRunner
 
-from drawlib._cli._app import app
+from drawlib._cli._drawlib import app
 
 
 class CliResult:

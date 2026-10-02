@@ -99,24 +99,16 @@ def cmd_rules_show(
         print(f"Error: Unknown rule topic '{topic}'.\n", file=sys.stderr)
         print("Available topics:", file=sys.stderr)
         for t, desc in TOPIC_DESCRIPTIONS.items():
-            print(f"  - {t:<18}: {desc}", file=sys.stderr)
+            print(f"  - {t:<20}: {desc}", file=sys.stderr)
+        print("\nRun `drawlib rules list` to inspect cache status of all topics.", file=sys.stderr)
         raise typer.Exit(code=1)
 
     try:
         content = get_rule_markdown(selected_topic, rebuild=rebuild, raw=raw)
+        print(content)
     except Exception as exc:
-        print(f"Error: Failed to load rule topic '{selected_topic}': {exc}", file=sys.stderr)
+        print(f"Error: Failed to display rule topic '{selected_topic}': {exc}", file=sys.stderr)
         raise typer.Exit(code=1) from exc
-
-    try:
-        sys.stdout.write(content)
-        if not content.endswith("\n"):
-            sys.stdout.write("\n")
-        sys.stdout.flush()
-    except BrokenPipeError:
-        devnull = os.open(os.devnull, os.O_WRONLY)
-        os.dup2(devnull, sys.stdout.fileno())
-        return
 
 
 @rules_app.command("build", epilog=HELP_EPILOG)
@@ -124,41 +116,33 @@ def cmd_rules_build(
     topic: Annotated[
         Optional[str],
         typer.Argument(
-            help="Specific rule topic to compile (e.g. lib-shapes, overview).",
+            help="Specific topic to build, or 'all' to build all topics.",
         ),
     ] = None,
-    all_topics: Annotated[
-        bool,
-        typer.Option("--all", "-a", help="Compile illustrations for all available rule topics."),
-    ] = False,
     force: Annotated[
         bool,
-        typer.Option("--force", "-f", help="Force recompile even if cached documents are up-to-date."),
+        typer.Option("--force", "-f", help="Rebuild and re-cache illustrations even if they already exist."),
     ] = False,
 ) -> None:
-    """Pre-build rule documents and illustrations into _assets/rules/.
+    """Pre-build and cache illustrations for one or all rule topics.
 
     Args:
-        topic: Topic name to compile.
-        all_topics: If True, compile all topics.
-        force: If True, force recompile.
+        topic: Topic name or 'all' (default 'all' if omitted).
+        force: Force rebuild even if already cached.
     """
-    if not topic and not all_topics:
-        print("Error: Specify a topic name or pass --all to build all topics.", file=sys.stderr)
-        raise typer.Exit(code=1)
+    target = (topic or "all").strip().lower().replace("_", "-")
 
     try:
-        if all_topics or topic == "all":
+        if target == "all":
             built = build_all_rules(force=force, quiet=False)
-            print(f"Successfully compiled {len(built)} rule topic(s).")
-        elif topic:
-            selected_topic = topic.strip().lower().replace("_", "-")
-            if selected_topic not in TOPIC_DESCRIPTIONS:
-                print(f"Error: Unknown rule topic '{topic}'.", file=sys.stderr)
-                raise typer.Exit(code=1)
-
-            build_rule(selected_topic, force=force, quiet=False)
-            print(f"Successfully compiled rule topic '{selected_topic}'.")
+            print(f"\nDone: {len(built)} rule topics ready.")
+        elif target in TOPIC_DESCRIPTIONS:
+            build_rule(target, force=force, quiet=False)
+            print(f"Successfully compiled rule topic '{target}'.")
+        else:
+            print(f"Error: Unknown rule topic '{topic}'.\n", file=sys.stderr)
+            print("Run `drawlib rules list` to inspect available topics.", file=sys.stderr)
+            raise typer.Exit(code=1)
     except Exception as exc:
         print(f"Error: Failed to build rules: {exc}", file=sys.stderr)
         raise typer.Exit(code=1) from exc
@@ -166,10 +150,10 @@ def cmd_rules_build(
 
 @rules_app.command("clear", epilog=HELP_EPILOG)
 def cmd_rules_clear() -> None:
-    """Delete all cached rule documents and generated illustration images in _assets/rules/."""
+    """Clear the cached rules illustrations directory (~/.drawlib/cache/rules/)."""
     try:
         clear_rules_cache()
-        print("Successfully cleared rules illustration cache (_assets/rules/).")
+        print("Successfully cleared rule illustrations cache.")
     except Exception as exc:
         print(f"Error: Failed to clear rules cache: {exc}", file=sys.stderr)
         raise typer.Exit(code=1) from exc

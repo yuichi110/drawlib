@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Typer sub-application for `drawlib build {image, markdown, html, pdf}` commands."""
+"""Typer sub-application for `drawlib build` commands."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ from drawlib._core.l1_core import dutil_settings
 
 build_app = typer.Typer(
     name="build",
-    help="Compile Python scripts or Markdown/HTML documents into images, Markdown, HTML, or PDF.",
+    help="Compile documentation source directories or execute standalone Python drawing scripts.",
     epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings={"help_option_names": ["-h", "--help"]},
@@ -50,7 +50,7 @@ def cmd_build_image(
     ],
     output: Annotated[
         Optional[str],
-        typer.Option("-o", "--output", "--output-dir", help="Output image file path or output directory path."),
+        typer.Option("-o", "--output", help="Output image file path or output directory path."),
     ] = None,
     format: Annotated[
         Optional[Literal["png", "webp", "jpg", "pdf"]],
@@ -210,7 +210,6 @@ def cmd_build_pdf(
         bool,
         typer.Option(
             "--generate-index/--no-generate-index",
-            "--toc/--no-toc",
             help="Generate an index (Table of Contents) and insert it between the 1st and 2nd documents.",
         ),
     ] = False,

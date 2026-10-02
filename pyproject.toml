@@ -126,9 +126,6 @@ ignore = [
     "F403",    # import star
     "F405"     # import star usage
 ]
-"src/drawlib/_cli/_command.py" = [
-    "C901"     # complex command parser
-]
 "test_build_target/**.py" = [
     "F403", # undefined-local-with-import-star
     "F405", # undefined-local-with-import-star-usage

@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""CLI subcommands and matrix visualizer for preset style catalogs."""
+"""Base styles matrix visualizer components and shared drawing routines."""
 
 from __future__ import annotations
 
@@ -16,71 +16,27 @@ import math
 import os
 import sys
 import tempfile
-from typing import Annotated, Optional
 
 import typer
 from PIL import Image
 from rich.console import Console
-from rich.table import Table
 
 from drawlib import LIB_VERSION
 from drawlib._builder._common.cache import CliImageCache, hash_text
-from drawlib._cli._help import HELP_EPILOG
+from drawlib._cli._visualizers._common import display_dimage
 from drawlib._core.l3_colors import Color, ColorUtil
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import Style
-from drawlib._preset_styles import (
-    BaseStyles,
-    DefaultStyles,
-    DefaultStyles1,
-    DefaultStyles2,
-    DefaultStyles3,
-    DefaultStyles4,
-    DefaultStyles5,
-    DefaultStyles6,
-    GoogleStyles,
-    MonochromeStyles,
-)
+from drawlib._preset_styles import BaseStyles
 from drawlib.canvas import clear, get_dimage, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
 console = Console()
-_HELP_CTX = {"help_option_names": ["-h", "--help"]}
 
-styles_app = typer.Typer(
-    name="styles",
-    help="Inspect and visualize preset style catalogs.",
-    epilog=HELP_EPILOG,
-    no_args_is_help=True,
-    context_settings=_HELP_CTX,
-)
-
-
-def _get_preset(cls: type[BaseStyles]) -> BaseStyles:
-    inst = cls.get_default_instance()
-    if inst is None:
-        raise RuntimeError(f"Default instance for {cls.__name__} not registered.")
-    return inst
-
-
-_PRESET_MAP: dict[str, tuple[BaseStyles, str]] = {
-    "default": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles - Tone 4)"),
-    "def": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles - Tone 4)"),
-    "default1": (_get_preset(DefaultStyles1), "DefaultStyles1 (Drawlib Tone 1 Ultra Light)"),
-    "default2": (_get_preset(DefaultStyles2), "DefaultStyles2 (Drawlib Tone 2 Light)"),
-    "default3": (_get_preset(DefaultStyles3), "DefaultStyles3 (Drawlib Tone 3 Medium Soft)"),
-    "default4": (_get_preset(DefaultStyles4), "DefaultStyles4 (Drawlib Tone 4 Standard Base)"),
-    "default5": (_get_preset(DefaultStyles5), "DefaultStyles5 (Drawlib Tone 5 Deep)"),
-    "default6": (_get_preset(DefaultStyles6), "DefaultStyles6 (Drawlib Tone 6 Darkest Shade)"),
-    "monochrome": (_get_preset(MonochromeStyles), "MonochromeStyles (Grayscale / B&W Styles)"),
-    "mono": (_get_preset(MonochromeStyles), "MonochromeStyles (Grayscale / B&W Styles)"),
-    "google": (_get_preset(GoogleStyles), "GoogleStyles (Google Sheets Palette Styles)"),
-}
-
-_COL_HEADERS = [
+COL_HEADERS: list[str] = [
     "Bordered",
     "Bold",
     "Light",
@@ -92,7 +48,8 @@ _COL_HEADERS = [
     "DashedBold",
     "DashedLight",
 ]
-_VARIANTS = [
+
+VARIANTS: list[str] = [
     "Bordered",
     "Bold",
     "Light",
@@ -107,8 +64,10 @@ _VARIANTS = [
     "DashedBold",
     "DashedLight",
 ]
-_SEMANTIC_ROLES = ["Primary", "Secondary", "Accent", "Muted", "Danger", "Success", "Light", "Dark"]
-_SYSTEM_FIELDS = {
+
+SEMANTIC_ROLES: list[str] = ["Primary", "Secondary", "Accent", "Muted", "Danger", "Success", "Light", "Dark"]
+
+SYSTEM_FIELDS: set[str] = {
     "width",
     "height",
     "dpi",
@@ -117,13 +76,21 @@ _SYSTEM_FIELDS = {
     "sourcecode_font",
     "Canvas",
     "CanvasFlat",
-    *_SEMANTIC_ROLES,
-    *(f"{role}{v}" for role in _SEMANTIC_ROLES for v in _VARIANTS),
+    *SEMANTIC_ROLES,
+    *(f"{role}{v}" for role in SEMANTIC_ROLES for v in VARIANTS),
 }
 
 
-def _get_row_keys(styles: BaseStyles, base: str) -> list[str | None]:
-    """Retrieve 10 style keys for a given base name across the 10 orthogonal columns."""
+def get_row_keys(styles: BaseStyles, base: str) -> list[str | None]:
+    """Retrieve 10 style keys for a given base name across the 10 orthogonal columns.
+
+    Args:
+        styles (BaseStyles): Active BaseStyles instance.
+        base (str): Base color or semantic role name.
+
+    Returns:
+        list[str | None]: 10 style attribute names or None if unsupported.
+    """
 
     def _has_key(k: str) -> bool:
         try:
@@ -136,9 +103,7 @@ def _get_row_keys(styles: BaseStyles, base: str) -> list[str | None]:
         f"{base}Bold" if _has_key(f"{base}Bold") else None,
         f"{base}Light" if _has_key(f"{base}Light") else None,
         f"{base}Flat" if _has_key(f"{base}Flat") else None,
-        f"{base}Outline"
-        if _has_key(f"{base}Outline")
-        else (f"{base}Solid" if _has_key(f"{base}Solid") else None),
+        f"{base}Outline" if _has_key(f"{base}Outline") else (f"{base}Solid" if _has_key(f"{base}Solid") else None),
         f"{base}OutlineBold"
         if _has_key(f"{base}OutlineBold")
         else (f"{base}SolidBold" if _has_key(f"{base}SolidBold") else None),
@@ -151,8 +116,15 @@ def _get_row_keys(styles: BaseStyles, base: str) -> list[str | None]:
     ]
 
 
-def _format_supports_badge(supports: frozenset[str]) -> str:
-    """Format a compact badge showing supported drawing targets."""
+def format_supports_badge(supports: frozenset[str]) -> str:
+    """Format a compact badge showing supported drawing targets.
+
+    Args:
+        supports (frozenset[str]): Supported target features.
+
+    Returns:
+        str: Compact badge text (e.g. '[S L T I]').
+    """
     tags: list[str] = []
     if "shape" in supports:
         tags.append("S")
@@ -167,7 +139,7 @@ def _format_supports_badge(supports: frozenset[str]) -> str:
     return f"[{' '.join(tags)}]"
 
 
-def _extract_base_colors(styles: BaseStyles, filter_color: str | None = None) -> list[str]:
+def extract_base_colors(styles: BaseStyles, filter_color: str | None = None) -> list[str]:
     """Discover and optionally filter base color names from preset style model fields.
 
     Args:
@@ -181,9 +153,9 @@ def _extract_base_colors(styles: BaseStyles, filter_color: str | None = None) ->
         ValueError: If filter_color is specified but matches no colors.
     """
     base_colors: list[str] = []
-    sorted_variants = sorted(_VARIANTS, key=len, reverse=True)
+    sorted_variants = sorted(VARIANTS, key=len, reverse=True)
     for field_name in type(styles).model_fields:
-        if field_name in _SYSTEM_FIELDS:
+        if field_name in SYSTEM_FIELDS:
             continue
         base = field_name
         for v in sorted_variants:
@@ -219,11 +191,11 @@ def get_styles_page_count(
     Returns:
         int: Total number of pages (at least 1).
     """
-    base_colors = _extract_base_colors(styles, filter_color)
+    base_colors = extract_base_colors(styles, filter_color)
     return max(1, math.ceil(len(base_colors) / page_size))
 
 
-def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> None:
+def render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> None:
     """Render the single reference legend card showing Shape, Text Style, Line style, and badges.
 
     Args:
@@ -264,9 +236,7 @@ def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> Non
 
     line_c = Color(st_sample.line_color or (40, 40, 40))
     line_lum = ColorUtil.get_luminance(line_c)
-    legend_arrow_style = (
-        Style(line_color=Color(40, 40, 40), line_width=1.5) if line_lum > 0.78 else st_sample
-    )
+    legend_arrow_style = Style(line_color=Color(40, 40, 40), line_width=1.5) if line_lum > 0.78 else st_sample
 
     rectangle(
         (legend_cx - 40.0, legend_y),
@@ -303,7 +273,7 @@ def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> Non
     )
 
 
-def _draw_swatch(
+def draw_swatch(
     styles: BaseStyles,
     key: str | None,
     cx: float,
@@ -364,14 +334,14 @@ def _draw_swatch(
         style=st,
     )
 
-    badge = _format_supports_badge(st.supports)
+    badge = format_supports_badge(st.supports)
     badge_c = text_c.patch(alpha=0.75) if hasattr(text_c, "patch") else text_c
     font_size = 4.2 if len(key) >= 22 else (4.8 if len(key) >= 17 else (5.6 if len(key) >= 13 else 6.4))
     text((cx, cy + 1.1), key, style=Style(text_color=text_c, text_size=font_size, text_font=Font.SANSSERIF_BOLD))
     text((cx, cy - 1.8), badge, style=Style(text_color=badge_c, text_size=4.8, text_font=Font.SANSSERIF_REGULAR))
 
 
-def _get_semantic_rows(styles: BaseStyles, filter_color: str | None) -> list[tuple[str, list[str | None]]]:
+def get_semantic_rows(styles: BaseStyles, filter_color: str | None) -> list[tuple[str, list[str | None]]]:
     """Extract semantic role rows available in this preset style.
 
     Args:
@@ -382,7 +352,7 @@ def _get_semantic_rows(styles: BaseStyles, filter_color: str | None) -> list[tup
         list[tuple[str, list[str | None]]]: List of (row_label, row_keys) tuples.
     """
     rows: list[tuple[str, list[str | None]]] = []
-    for role in _SEMANTIC_ROLES:
+    for role in SEMANTIC_ROLES:
         try:
             has_role = isinstance(getattr(styles, role, None), Style)
         except AttributeError:
@@ -391,7 +361,7 @@ def _get_semantic_rows(styles: BaseStyles, filter_color: str | None) -> list[tup
             continue
         label = f"{role} (theme)" if role == "Primary" else role
         if filter_color is None or any(s in filter_color.lower() for s in (role.lower(), "theme", "semantic")):
-            rows.append((label, _get_row_keys(styles, role)))
+            rows.append((label, get_row_keys(styles, role)))
     return rows
 
 
@@ -407,30 +377,21 @@ def render_styles_matrix(
 ) -> Dimage:
     """Render an orthogonal visual matrix for a BaseStyles catalog page.
 
-    Displays a single reference legend at the top, followed by semantic roles (6 for
-    color catalogs, 4 for monochrome), and then an orthogonal grid where columns represent
-    10 variants and rows represent base colors for the specified page.
-
     Args:
-        styles (BaseStyles): BaseStyles instance containing style attributes.
-        name (str): Display name for the catalog header.
-        page (int): 1-indexed page number to render. Defaults to 1.
+        styles (BaseStyles): BaseStyles instance.
+        name (str): Display name for catalog header.
+        page (int): 1-indexed page number. Defaults to 1.
         page_size (int): Number of colors per page. Defaults to 25.
-        filter_color (str | None): Optional substring to filter base colors. Defaults to None.
+        filter_color (str | None): Optional substring to filter base colors.
         grid (bool): Whether to overlay coordinate grid. Defaults to False.
-        no_cache (bool): If True, bypass cache and force re-rendering. Defaults to False.
+        no_cache (bool): If True, bypass cache. Defaults to False.
 
     Returns:
         Dimage: Rendered in-memory image.
-
-    Raises:
-        ValueError: If page is less than 1 or exceeds total pages.
     """
     preset_slug = name.strip().lower().split()[0]
     cache = CliImageCache(enabled=not no_cache)
-    cache_key = hash_text(
-        f"styles_matrix:{preset_slug}:{page}:{page_size}:{filter_color}:{grid}:{LIB_VERSION}"
-    )
+    cache_key = hash_text(f"styles_matrix:{preset_slug}:{page}:{page_size}:{filter_color}:{grid}:{LIB_VERSION}")
 
     if cache.enabled:
         cached_blob = cache.get(cache_key)
@@ -438,7 +399,7 @@ def render_styles_matrix(
             pil_img = Image.open(io.BytesIO(cached_blob))
             return Dimage(pil_img)
 
-    base_colors = _extract_base_colors(styles, filter_color)
+    base_colors = extract_base_colors(styles, filter_color)
     total_pages = max(1, math.ceil(len(base_colors) / page_size))
     if page < 1 or page > total_pages:
         raise ValueError(f"Invalid page {page}. Available pages: 1 to {total_pages}.")
@@ -449,12 +410,12 @@ def render_styles_matrix(
 
     rows: list[tuple[str, list[str | None]]] = []
     if page == 1:
-        rows.extend(_get_semantic_rows(styles, filter_color))
+        rows.extend(get_semantic_rows(styles, filter_color))
 
     for b in page_colors:
-        rows.append((b, _get_row_keys(styles, b)))
+        rows.append((b, get_row_keys(styles, b)))
 
-    cols = len(_COL_HEADERS)
+    cols = len(COL_HEADERS)
     n_rows = len(rows)
 
     tile_w = 20.0
@@ -479,10 +440,10 @@ def render_styles_matrix(
     )
 
     legend_y = title_y - 7.5
-    _render_legend(styles, canvas_w / 2, legend_y)
+    render_legend(styles, canvas_w / 2, legend_y)
 
     col_start_y = legend_y - 6.5
-    for c_idx, h in enumerate(_COL_HEADERS):
+    for c_idx, h in enumerate(COL_HEADERS):
         cx = margin_x + c_idx * tile_w + tile_w / 2
         text(
             (cx, col_start_y),
@@ -506,7 +467,7 @@ def render_styles_matrix(
 
         for c_idx, key in enumerate(style_keys):
             cx = margin_x + c_idx * tile_w + tile_w / 2
-            _draw_swatch(styles, key, cx, cy, tile_w, tile_h)
+            draw_swatch(styles, key, cx, cy, tile_w, tile_h)
 
     dimage = get_dimage()
     if cache.enabled:
@@ -524,13 +485,7 @@ def render_styles_matrix(
     return dimage
 
 
-def _display_dimage(dimage: Dimage) -> None:
-    """Display Dimage using PIL Image.show() unless disabled by environment."""
-    if os.environ.get("DRAWLIB_SHOW_NO_DISPLAY") != "1":
-        dimage.get_pil_image().show()
-
-
-def _export_all_pages(
+def export_all_pages(
     styles: BaseStyles,
     short_name: str,
     total_pages: int,
@@ -551,7 +506,7 @@ def _export_all_pages(
         key (str): Catalog preset key.
         filter_color (str | None): Color filter if applied.
         grid (bool): Whether to show coordinate grid overlay.
-        no_cache (bool): If True, bypass cache and force re-rendering. Defaults to False.
+        no_cache (bool): If True, bypass cache. Defaults to False.
     """
     saved_paths: list[str] = []
     for p in range(1, total_pages + 1):
@@ -575,7 +530,7 @@ def _export_all_pages(
         console.print(f"  - [bold cyan]'{path}'[/bold cyan]")
 
 
-def _handle_single_page_output(
+def handle_single_page_output(
     dimage: Dimage,
     output: str | None,
     key: str,
@@ -623,7 +578,7 @@ def _handle_single_page_output(
         has_display = bool(os.environ.get("DISPLAY")) or sys.platform in {"darwin", "win32"}
         if has_display:
             try:
-                _display_dimage(dimage)
+                display_dimage(dimage)
                 console.print(f"Rendered successfully to temp file: [bold cyan]'{tmp_path}'[/bold cyan]")
             except Exception:
                 has_display = False
@@ -642,97 +597,3 @@ def _handle_single_page_output(
                     f"      To view another page: uv run drawlib styles show {key} {next_p}\n"
                     f"      To export all pages:  uv run drawlib styles show {key} --all -o styles_{key}.png[/dim]"
                 )
-
-
-@styles_app.command("list", epilog=HELP_EPILOG)
-def cmd_styles_list() -> None:
-    """List all available built-in style preset catalogs."""
-    table = Table(title="Drawlib Preset Styles", header_style="bold cyan")
-    table.add_column("Preset Alias", style="bold")
-    table.add_column("Class Name")
-    table.add_column("Styles Count", justify="right")
-    table.add_column("Description")
-
-    visited: set[str] = set()
-    for alias, (instance, desc) in _PRESET_MAP.items():
-        cls_name = instance.__class__.__name__
-        if cls_name in visited:
-            continue
-        visited.add(cls_name)
-        count = len(instance.styles())
-        table.add_row(alias, cls_name, str(count), desc)
-
-    console.print(table)
-
-
-@styles_app.command("show", epilog=HELP_EPILOG)
-def cmd_styles_show(
-    preset: Annotated[
-        str,
-        typer.Argument(help="Preset name: 'default', 'monochrome', or 'google'."),
-    ],
-    page: Annotated[
-        int,
-        typer.Argument(help="Page number (1-indexed, 25 colors per page). Defaults to 1."),
-    ] = 1,
-    all_pages: Annotated[
-        bool,
-        typer.Option("--all", "-a", help="Export all pages at once (e.g. styles_google_1.png, ...)."),
-    ] = False,
-    output: Annotated[
-        Optional[str],
-        typer.Option("-o", "--output", help="Save chart to image file instead of opening GUI."),
-    ] = None,
-    color: Annotated[
-        Optional[str],
-        typer.Option("-c", "--color", help="Filter by base color or hue name (e.g. 'blue', 'red')."),
-    ] = None,
-    grid: Annotated[
-        bool,
-        typer.Option("-g", "--grid", help="Show coordinate grid overlay."),
-    ] = False,
-    no_cache: Annotated[
-        bool,
-        typer.Option("--no-cache", help="Disable reading and writing the styles image cache."),
-    ] = False,
-) -> None:
-    """Display or export a visual style matrix for a preset style catalog."""
-    key = preset.strip().lower()
-    if key not in _PRESET_MAP:
-        avail = ", ".join(f"'{k}'" for k in sorted(set(_PRESET_MAP.keys())))
-        console.print(f"[bold red]Error:[/bold red] Unknown style preset '{preset}'. Available presets: {avail}")
-        raise typer.Exit(code=1)
-
-    instance, display_name = _PRESET_MAP[key]
-    short_name = display_name.split()[0]
-
-    try:
-        total_pages = get_styles_page_count(instance, filter_color=color)
-    except ValueError as e:
-        console.print(f"[bold red]Error:[/bold red] {e}")
-        raise typer.Exit(code=1)
-
-    if all_pages:
-        _export_all_pages(
-            instance,
-            short_name,
-            total_pages,
-            output,
-            key,
-            filter_color=color,
-            grid=grid,
-            no_cache=no_cache,
-        )
-        return
-
-    if not (1 <= page <= total_pages):
-        console.print(
-            f"[bold red]Error:[/bold red] Invalid page {page} for preset '{preset}'. "
-            f"Available pages: 1 to {total_pages}."
-        )
-        raise typer.Exit(code=1)
-
-    dimage = render_styles_matrix(
-        instance, short_name, page=page, filter_color=color, grid=grid, no_cache=no_cache
-    )
-    _handle_single_page_output(dimage, output, key, short_name, page, total_pages)

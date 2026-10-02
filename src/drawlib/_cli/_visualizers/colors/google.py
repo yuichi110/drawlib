@@ -7,15 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""CLI command module re-exporting call_command and DrawlibExecuter."""
+"""Specialized visualizer for GoogleColors palettes."""
 
 from __future__ import annotations
 
-from drawlib._builder.image_builder import DrawlibExecuter
-from drawlib._cli._app import app, call_command
+from drawlib._cli._visualizers.colors.base import BaseColorVisualizer
 
-__all__ = [
-    "DrawlibExecuter",
-    "app",
-    "call_command",
-]
+
+class GoogleColorVisualizer(BaseColorVisualizer):
+    """Visualizer specialized for GoogleColors catalogs."""
