@@ -62,7 +62,11 @@ def _resolve_base_name(output: Optional[str], selected_type: str) -> str:
     if output and output.strip():
         name = output.strip().rstrip("/\\")
         return name[:-4] if name.endswith("_src") else name
-    return "images" if selected_type == "image" else "docs"
+    if selected_type == "image":
+        return "images"
+    if selected_type == "slide":
+        return "slide"
+    return "docs"
 
 
 def _print_init_success(
@@ -107,7 +111,7 @@ def _print_init_success(
     else:
         print(f"  ./{src_dir}/build.sh")
 
-    if selected_type in {"site", "simple"}:
+    if selected_type in {"site", "simple", "slide"}:
         if here:
             print("  ./serve.sh")
         else:

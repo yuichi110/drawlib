@@ -12,6 +12,7 @@
 import math
 from typing import Any, Final
 
+import matplotlib
 import matplotlib.artist
 import matplotlib.font_manager
 import matplotlib.lines
@@ -35,6 +36,8 @@ from drawlib._core.l3_colors import (
 from drawlib._core.l3_styles import (
     Style,
 )
+
+matplotlib.rcParams["svg.fonttype"] = "none"
 
 
 class CanvasBase:

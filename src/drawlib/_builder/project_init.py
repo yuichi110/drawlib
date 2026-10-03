@@ -23,6 +23,7 @@ PROJECT_TYPES: Final[dict[str, str]] = {
     "site": "Multi-page documentation website with sidebar navigation.",
     "simple": "Single Markdown document compiled to Markdown and standalone HTML.",
     "pdf": "Multi-chapter report/document compiled into a single PDF with Table of Contents.",
+    "slide": "HTML presentation slide deck with modular SmartArts and vector diagrams.",
     "image": "Standalone Python illustration scripts compiled into images.",
 }
 
@@ -137,6 +138,8 @@ def _resolve_project_paths(
         base_name = "images"
     elif selected_type == "pdf":
         base_name = "doc"
+    elif selected_type == "slide":
+        base_name = "slide"
     else:
         base_name = "docs"
 

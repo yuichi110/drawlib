@@ -154,12 +154,14 @@ class Canvas(
 
         is_grid = self._grid or dutil_settings.get_force_grid()
 
+        save_kwargs = {"format": format} if format is not None else {}
+
         # save normal image
         if self._grid_only:
             # does not save normal image
             ...
         else:
-            pyplot.savefig(file_path)
+            pyplot.savefig(file_path, **save_kwargs)
             if not is_grid:
                 self._remove_artists_from_ax()  # remove drawing items
                 return
@@ -170,11 +172,11 @@ class Canvas(
 
         # save grid image
         if self._grid_only:
-            pyplot.savefig(file_path)
+            pyplot.savefig(file_path, **save_kwargs)
         else:
             name, extension = os.path.splitext(file_path)
             grid_image_file_path = f"{name}_grid{extension}"
-            pyplot.savefig(grid_image_file_path)
+            pyplot.savefig(grid_image_file_path, **save_kwargs)
 
         self._remove_artists_from_ax()  # remove grid
         self._artists = temp_artists

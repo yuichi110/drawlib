@@ -244,7 +244,7 @@ def test_cli_init_here_conflict_destination(tmp_path: Path) -> None:
 def test_python_api_init(tmp_path: Path) -> None:
     """Test Python programmatic API for project initialization."""
     types = list_project_types()
-    assert set(types.keys()) == {"simple", "site", "pdf", "image"}
+    assert set(types.keys()) == {"simple", "site", "pdf", "image", "slide"}
 
     target = tmp_path / "api_test"
     created = init_project("simple", destination=target)

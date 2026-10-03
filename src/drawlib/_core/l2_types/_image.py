@@ -16,7 +16,7 @@ from pydantic import BeforeValidator, Field
 from drawlib._core.l2_types._primitive import _normalize_str
 
 ImageFormat = Annotated[
-    Literal["jpg", "png", "webp", "pdf"],
+    Literal["jpg", "png", "webp", "pdf", "svg"],
     BeforeValidator(_normalize_str),
 ]
 

@@ -192,6 +192,18 @@ class TestAnimation:
         with pytest.raises(ValueError, match="Unsupported animation format 'jpg'"):
             save(out_path)
 
+    def test_save_svg_format_raises(self, tmp_path: Path) -> None:
+        """Test that attempting to save an animation as SVG raises a descriptive ValueError."""
+        clear()
+        setup(width=100, height=50)
+        anim = Animation()
+        with anim.frame():
+            circle((50, 25), radius=5, style=Styles.Primary)
+
+        out_path = str(tmp_path / "test.svg")
+        with pytest.raises(ValueError, match="Animations cannot be saved in SVG format"):
+            save(out_path)
+
     def test_clear_resets_active_animation(self) -> None:
         """Test that canvas.clear() resets _active_animation."""
         clear()

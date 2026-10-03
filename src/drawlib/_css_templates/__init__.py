@@ -86,19 +86,35 @@ BUILTIN_PDF_CSS_PRESETS: Dict[str, Dict[str, str]] = {
     },
 }
 
+BUILTIN_SLIDE_CSS_PRESETS: Dict[str, Dict[str, str]] = {
+    "google": {
+        "file": "google.css.template",
+        "description": "Google editorial presentation theme with 16:9 stage and Material palette.",
+    },
+    "default": {
+        "file": "default.css.template",
+        "description": "Modern developer light presentation theme with Tailwind-inspired colors.",
+    },
+}
+
 BUILTIN_CSS_PRESETS = BUILTIN_HTML_CSS_PRESETS
 
 
-def list_css(target: Literal["html", "pdf"] = "html") -> List[Dict[str, str]]:
-    """Return metadata for built-in CSS presets for the specified target ('html' or 'pdf').
+def list_css(target: Literal["html", "pdf", "slide"] = "html") -> List[Dict[str, str]]:
+    """Return metadata for built-in CSS presets for the specified target ('html', 'pdf', or 'slide').
 
     Args:
-        target (Literal["html", "pdf"]): Target format ('html' or 'pdf'). Defaults to 'html'.
+        target (Literal["html", "pdf", "slide"]): Target format ('html', 'pdf', or 'slide'). Defaults to 'html'.
 
     Returns:
         List[Dict[str, str]]: List of dicts with keys 'name', 'file', and 'description'.
     """
-    registry = BUILTIN_PDF_CSS_PRESETS if target == "pdf" else BUILTIN_HTML_CSS_PRESETS
+    if target == "pdf":
+        registry = BUILTIN_PDF_CSS_PRESETS
+    elif target == "slide":
+        registry = BUILTIN_SLIDE_CSS_PRESETS
+    else:
+        registry = BUILTIN_HTML_CSS_PRESETS
     return [{"name": name, "file": meta["file"], "description": meta["description"]} for name, meta in registry.items()]
 
 
@@ -112,6 +128,11 @@ def list_pdf_css() -> List[Dict[str, str]]:
     return list_css(target="pdf")
 
 
+def list_slide_css() -> List[Dict[str, str]]:
+    """Return metadata for built-in slide CSS presets."""
+    return list_css(target="slide")
+
+
 def _apply_css_font_replacements(css_text: str, lang: str = "en") -> str:
     """Apply font family replacements to CSS placeholders."""
     replacements = get_font_replacements(lang)
@@ -121,17 +142,29 @@ def _apply_css_font_replacements(css_text: str, lang: str = "en") -> str:
     return css_text
 
 
+def _read_preset_css(css_dir: str, file_name: str) -> str:
+    """Read preset CSS file content from directory, trying template variants."""
+    candidates = [file_name, f"{file_name}.template", "default.css.template", "default.css"]
+    for cand in candidates:
+        preset_file = os.path.join(css_dir, cand)
+        if os.path.isfile(preset_file):
+            with open(preset_file, "r", encoding="utf-8") as f:
+                return f.read()
+    return ""
+
+
 def get_css(
     name: Optional[str] = None,
-    target: Literal["html", "pdf"] = "html",
+    target: Literal["html", "pdf", "slide"] = "html",
     lang: str = "en",
 ) -> str:
-    """Get complete theme CSS content string for HTML or PDF.
+    """Get complete theme CSS content string for HTML, PDF, or Slide.
 
     Args:
         name (Optional[str]): Built-in CSS preset name or path to a custom CSS file.
             If None or empty, returns the default theme CSS content.
-        target (Literal["html", "pdf"]): Target document format ('html' or 'pdf'). Defaults to 'html'.
+        target (Literal["html", "pdf", "slide"]): Target document format
+            ('html', 'pdf', or 'slide'). Defaults to 'html'.
         lang (str): Language code or alias (e.g. 'en', 'ja', 'zh-cn', 'th') for typography. Defaults to 'en'.
 
     Returns:
@@ -140,31 +173,23 @@ def get_css(
     Raises:
         ValueError: If specified CSS preset name is unknown or file cannot be found.
     """
-    subdir = "pdf" if target == "pdf" else "html"
+    target_configs: Dict[str, tuple[str, Dict[str, Dict[str, str]]]] = {
+        "pdf": ("pdf", BUILTIN_PDF_CSS_PRESETS),
+        "slide": ("slide", BUILTIN_SLIDE_CSS_PRESETS),
+        "html": ("html", BUILTIN_HTML_CSS_PRESETS),
+    }
+    subdir, registry = target_configs.get(target, ("html", BUILTIN_HTML_CSS_PRESETS))
     css_dir = os.path.join(os.path.dirname(__file__), subdir)
-    registry = BUILTIN_PDF_CSS_PRESETS if target == "pdf" else BUILTIN_HTML_CSS_PRESETS
 
-    raw_css = ""
     if not name:
-        default_file = os.path.join(css_dir, "default.css.template")
-        if not os.path.exists(default_file):
-            default_file = os.path.join(css_dir, "default.css")
-        if os.path.exists(default_file):
-            with open(default_file, "r", encoding="utf-8") as f:
-                raw_css = f.read()
+        raw_css = _read_preset_css(css_dir, "default.css")
     elif os.path.exists(name):
         with open(name, "r", encoding="utf-8") as f:
             raw_css = f.read()
     else:
         normalized = "google" if (target == "pdf" and name == "google-pdf") else name
-        if normalized in registry:
-            file_name = registry[normalized]["file"]
-            preset_file = os.path.join(css_dir, file_name)
-            if not os.path.exists(preset_file):
-                preset_file = os.path.join(css_dir, file_name + ".template")
-            if os.path.exists(preset_file):
-                with open(preset_file, "r", encoding="utf-8") as f:
-                    raw_css = f.read()
+        file_name = registry.get(normalized, {}).get("file", "")
+        raw_css = _read_preset_css(css_dir, file_name) if file_name else ""
 
     if not raw_css and name and not os.path.exists(name):
         available = ", ".join(sorted(registry.keys()))
@@ -173,10 +198,21 @@ def get_css(
     return _apply_css_font_replacements(raw_css, lang=lang)
 
 
+def get_slide_js() -> str:
+    """Get the vanilla JavaScript presentation deck engine script content.
+
+    Returns:
+        str: JavaScript code for slide navigation, overview grid, and responsive scaling.
+    """
+    js_path = os.path.join(os.path.dirname(__file__), "slide", "slide.js")
+    with open(js_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
 def export_css(
     name: str,
     output_path: Optional[str] = None,
-    target: Literal["html", "pdf"] = "html",
+    target: Literal["html", "pdf", "slide"] = "html",
     force: bool = False,
     lang: str = "en",
 ) -> str:
@@ -186,7 +222,7 @@ def export_css(
         name (str): Built-in CSS preset name (e.g., 'google', 'default-dark').
         output_path (Optional[str]): Destination file path. If None, auto-resolves to
             'docs_src/style.css' if 'docs_src/style.css' exists, otherwise 'style.css'.
-        target (Literal["html", "pdf"]): Target format ('html' or 'pdf'). Defaults to 'html'.
+        target (Literal["html", "pdf", "slide"]): Target format ('html', 'pdf', or 'slide'). Defaults to 'html'.
         force (bool): If True, overwrite destination file if it already exists.
         lang (str): Language code or alias (e.g. 'en', 'ja', 'zh-cn', 'th') for typography. Defaults to 'en'.
 
@@ -222,9 +258,12 @@ __all__ = [
     "BUILTIN_CSS_PRESETS",
     "BUILTIN_HTML_CSS_PRESETS",
     "BUILTIN_PDF_CSS_PRESETS",
+    "BUILTIN_SLIDE_CSS_PRESETS",
     "export_css",
     "get_css",
+    "get_slide_js",
     "list_css",
     "list_html_css",
     "list_pdf_css",
+    "list_slide_css",
 ]

@@ -10,6 +10,7 @@
 """Unit and integration tests for Canvas class and saving/showing logic."""
 
 import os
+from pathlib import Path
 
 import pytest
 from matplotlib import pyplot
@@ -20,6 +21,7 @@ from drawlib.images import Dimage, image
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import circle
 from drawlib.styles import Colors, Styles
+from drawlib.text import text as canvas_text
 from drawlib.types import Style
 
 default_styles = Styles
@@ -235,3 +237,31 @@ class TestCanvas:
         width, height = dimg.get_image_size()
         assert width > 0
         assert height > 0
+
+    def test_save_svg_format(self, tmp_path: Path) -> None:
+        """Verify saving with format='svg' and .svg extension produces valid SVG file."""
+        clear()
+        setup(width=100, height=50)
+        circle((50, 25), 10, style=Styles.Primary)
+
+        out_path = str(tmp_path / "diagram.svg")
+        save(out_path, format="svg")
+        assert os.path.exists(out_path)
+        with open(out_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        assert "<svg" in content
+        assert "</svg>" in content
+
+    def test_save_svg_preserves_native_text(self, tmp_path: Path) -> None:
+        """Verify that text elements in SVG are preserved as native <text> elements."""
+        clear()
+        setup(width=100, height=50)
+        canvas_text((50, 25), "Searchable Text Label", style=Styles.WhiteBold)
+
+        out_path = str(tmp_path / "text_diagram.svg")
+        save(out_path)
+        assert os.path.exists(out_path)
+        with open(out_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        assert "<text" in content
+        assert "Searchable Text Label" in content

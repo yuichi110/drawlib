@@ -1,0 +1,345 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+"""Unit tests for slide components, SmartArts, and presentation templates."""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import ClassVar
+
+import pytest
+
+import drawlib.slide as slide_module
+from drawlib._css_templates import get_css, get_slide_js, list_slide_css
+from drawlib._slide import (
+    BoundingBox,
+    ChevronProcess,
+    CurvedAgenda,
+    SmartArtComponent,
+    Timeline,
+    build_slide,
+    register_smartart,
+    resolve_smartart,
+)
+from tests.cli.common import run_drawlib_cli
+
+
+class DummySmartArt(SmartArtComponent):
+    """Dummy SmartArt component for registration testing."""
+
+    name: ClassVar[str] = "test_dummy_smartart"
+
+    def render(
+        self,
+        box: BoundingBox,
+        content: str,
+        output_file: str,
+        **kwargs: object,
+    ) -> None:
+        """Render dummy content."""
+        pass
+
+
+class TestSlideFoundation:
+    """Test suite for slide foundation, bounding boxes, and component registry."""
+
+    def test_bounding_box_attributes_and_immutability(self) -> None:
+        """Verify BoundingBox attributes and frozen immutability."""
+        box = BoundingBox(x=100.0, y=200.0, width=800.0, height=600.0)
+        assert box.x == 100.0
+        assert box.y == 200.0
+        assert box.width == 800.0
+        assert box.height == 600.0
+
+        with pytest.raises(Exception):
+            # Should be frozen/immutable
+            setattr(box, "x", 150.0)
+
+    def test_register_and_resolve_builtin_smartart(self) -> None:
+        """Verify registering and resolving a built-in SmartArt component."""
+        register_smartart(DummySmartArt)
+        resolved = resolve_smartart("test_dummy_smartart")
+        assert resolved is DummySmartArt
+
+    def test_resolve_project_local_smartart(self, tmp_path: Path) -> None:
+        """Verify resolving a custom project-local SmartArt component from _slide_templates/."""
+        templates_dir = tmp_path / "_slide_templates"
+        templates_dir.mkdir(parents=True)
+        custom_file = templates_dir / "custom_kpi.py"
+
+        custom_file.write_text(
+            """
+from typing import ClassVar
+from drawlib._slide import SmartArtComponent, BoundingBox
+
+class CustomKpi(SmartArtComponent):
+    name: ClassVar[str] = "custom_kpi"
+    def render(self, box: BoundingBox, content: str, output_file: str, **kwargs: object) -> None:
+        pass
+""",
+            encoding="utf-8",
+        )
+
+        resolved = resolve_smartart("custom_kpi", project_dir=str(tmp_path))
+        assert resolved is not None
+        assert resolved.name == "custom_kpi"
+
+    def test_resolve_unknown_smartart_returns_none(self) -> None:
+        """Verify resolving an unknown component returns None."""
+        resolved = resolve_smartart("non_existent_smartart_xyz")
+        assert resolved is None
+
+    def test_list_slide_css_presets(self) -> None:
+        """Verify list_slide_css returns available presentation presets."""
+        presets = list_slide_css()
+        assert len(presets) >= 2
+        names = {p["name"] for p in presets}
+        assert "google" in names
+        assert "default" in names
+
+    def test_get_slide_css_content(self) -> None:
+        """Verify get_css with target='slide' returns complete presentation stylesheet."""
+        google_css = get_css(name="google", target="slide")
+        assert "--slide-width" in google_css
+        assert "presentation-stage" in google_css
+
+        default_css = get_css(name="default", target="slide")
+        assert "--slide-width" in default_css
+
+    def test_get_slide_js_content(self) -> None:
+        """Verify get_slide_js returns the vanilla JS deck controller."""
+        js_code = get_slide_js()
+        assert "STAGE_WIDTH" in js_code
+        assert "goToSlide" in js_code
+        assert "updateScale" in js_code
+
+    def test_public_slide_facade(self) -> None:
+        """Verify public drawlib.slide facade exposes expected domain symbols."""
+        assert hasattr(slide_module, "BoundingBox")
+        assert hasattr(slide_module, "SmartArtComponent")
+        assert hasattr(slide_module, "register_smartart")
+        assert hasattr(slide_module, "resolve_smartart")
+        assert hasattr(slide_module, "CurvedAgenda")
+        assert hasattr(slide_module, "Timeline")
+        assert hasattr(slide_module, "ChevronProcess")
+        assert hasattr(slide_module, "build_slide")
+        assert slide_module.BoundingBox is BoundingBox
+        assert slide_module.SmartArtComponent is SmartArtComponent
+
+
+class TestBuiltinSmartArts:
+    """Test suite for built-in slide SmartArts with Native SVG vector rendering."""
+
+    def test_curved_agenda_render_svg(self, tmp_path: Path) -> None:
+        """Verify CurvedAgenda renders geometry and searchable native text into SVG."""
+        box = BoundingBox(x=820.0, y=140.0, width=1040.0, height=860.0)
+        output_svg = tmp_path / "agenda.svg"
+        content = """
+1. Team Introductions (チーム紹介)
+2. Architecture Overview (設計概要)
+3. Production Deployment (本番公開)
+"""
+        agenda = CurvedAgenda()
+        agenda.render(box, content, str(output_svg))
+
+        assert output_svg.is_file()
+        svg_content = output_svg.read_text(encoding="utf-8")
+        assert "<svg" in svg_content
+        assert "<text" in svg_content
+        assert "Team Introductions" in svg_content
+        assert "チーム紹介" in svg_content
+        assert "Architecture Overview" in svg_content
+
+    def test_timeline_render_svg(self, tmp_path: Path) -> None:
+        """Verify Timeline renders milestone tags, titles, and descriptions into SVG."""
+        box = BoundingBox(x=60.0, y=140.0, width=1800.0, height=860.0)
+        output_svg = tmp_path / "timeline.svg"
+        content = """
+- 2026 Q1 | Architecture Design | Core foundation and vector exporter
+- 2026 Q2 | Beta Testing | User dogfooding and feedback iteration
+"""
+        timeline = Timeline()
+        timeline.render(box, content, str(output_svg))
+
+        assert output_svg.is_file()
+        svg_content = output_svg.read_text(encoding="utf-8")
+        assert "<svg" in svg_content
+        assert "<text" in svg_content
+        assert "2026 Q1" in svg_content
+        assert "Architecture Design" in svg_content
+
+    def test_chevron_process_render_svg(self, tmp_path: Path) -> None:
+        """Verify ChevronProcess renders interlocking blocks into SVG."""
+        box = BoundingBox(x=60.0, y=140.0, width=1800.0, height=860.0)
+        output_svg = tmp_path / "process.svg"
+        content = """
+1. Planning (要件定義)
+2. Implementation (実装)
+3. Verification (検証)
+"""
+        cp = ChevronProcess()
+        cp.render(box, content, str(output_svg))
+
+        assert output_svg.is_file()
+        svg_content = output_svg.read_text(encoding="utf-8")
+        assert "<svg" in svg_content
+        assert "<text" in svg_content
+        assert "Planning" in svg_content
+        assert "要件定義" in svg_content
+
+
+class TestSlideCompiler:
+    """Test suite for slide markdown compiler and presentation deck generator."""
+
+    def test_build_slide_compilation(self, tmp_path: Path) -> None:
+        """Verify end-to-end compilation of a multi-slide presentation."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        (src_dir / "01_title.md").write_text(
+            """---
+layout: cover
+theme: google
+paginate: false
+---
+
+# Drawlib Test Deck
+## Presentation as Code
+""",
+            encoding="utf-8",
+        )
+
+        (src_dir / "02_agenda.md").write_text(
+            """---
+header: "Presentation Agenda"
+layout: default
+---
+
+# Topics
+
+```smartart:curved_agenda slot:right file:agenda.svg
+1. First Step (はじめに)
+2. Second Step (つづき)
+```
+""",
+            encoding="utf-8",
+        )
+
+        (src_dir / "03_features.md").write_text(
+            """---
+header: "Features"
+layout: split-right
+ratio: "4:6"
+---
+
+# Declarative Illustrations
+
+- Pure Python code
+- Native SVG text elements
+
+```drawlib 100% center file:diag.svg slot:right
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.canvas import setup, clear
+
+clear()
+setup(width=100, height=60)
+rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", text_style=Styles.WhiteBold)
+```
+""",
+            encoding="utf-8",
+        )
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        assert Path(result_html).is_file()
+
+        index_content = Path(result_html).read_text(encoding="utf-8")
+        assert "Drawlib Test Deck" in index_content
+        assert "presentation-stage" in index_content
+        assert 'data-slide-index="1"' in index_content
+        assert 'data-slide-index="2"' in index_content
+        assert 'data-slide-index="3"' in index_content
+
+        # Assets
+        assert (out_dir / "slide.css").is_file()
+        assert (out_dir / "slide.js").is_file()
+        assert (out_dir / "agenda.svg").is_file()
+        assert (out_dir / "diag.svg").is_file()
+
+        # Check SVG has text
+        agenda_svg = (out_dir / "agenda.svg").read_text(encoding="utf-8")
+        assert "First Step" in agenda_svg
+        assert "はじめに" in agenda_svg
+
+    def test_build_slide_missing_dir_raises(self, tmp_path: Path) -> None:
+        """Verify ValueError raised when source directory does not exist."""
+        with pytest.raises(ValueError, match="Input directory does not exist"):
+            build_slide(str(tmp_path / "non_existent_dir"))
+
+    def test_build_slide_no_md_files_raises(self, tmp_path: Path) -> None:
+        """Verify ValueError raised when source directory contains no markdown files."""
+        empty_dir = tmp_path / "empty_dir"
+        empty_dir.mkdir()
+        with pytest.raises(ValueError, match="No Markdown slide files"):
+            build_slide(str(empty_dir))
+
+    def test_build_slide_unknown_smartart_raises(self, tmp_path: Path) -> None:
+        """Verify ValueError raised when unknown SmartArt component is invoked."""
+        src_dir = tmp_path / "slide_src"
+        src_dir.mkdir()
+        (src_dir / "01_slide.md").write_text(
+            """# Slide
+```smartart:non_existent_smartart
+1. Item
+```
+""",
+            encoding="utf-8",
+        )
+        with pytest.raises(ValueError, match="could not be resolved"):
+            build_slide(str(src_dir))
+
+
+class TestSlideCli:
+    """Test suite for slide CLI commands."""
+
+    def test_cli_build_slide(self, tmp_path: Path) -> None:
+        """Verify `drawlib build slide` CLI command execution."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide_dist"
+        src_dir.mkdir()
+
+        (src_dir / "01_title.md").write_text(
+            """---
+layout: cover
+---
+# CLI Slide Test
+""",
+            encoding="utf-8",
+        )
+
+        res = run_drawlib_cli(["build", "slide", str(src_dir), "-o", str(out_dir), "--no-cache"])
+        assert res.returncode == 0
+        assert (out_dir / "index.html").is_file()
+        assert (out_dir / "slide.css").is_file()
+
+    def test_cli_init_slide(self, tmp_path: Path) -> None:
+        """Verify `drawlib init slide` scaffolding."""
+        target_dir = tmp_path / "my_presentation"
+        res = run_drawlib_cli(["init", "slide", str(target_dir)])
+        assert res.returncode == 0
+
+        src_dir = target_dir / "slide_src"
+        assert src_dir.is_dir()
+        assert (src_dir / "01_title.md").is_file()
+        assert (src_dir / "02_agenda.md").is_file()
+        assert (src_dir / "build.sh").is_file()
+        assert (src_dir / "serve.sh").is_file()
+        assert (src_dir / "_slide_templates" / "custom_kpi.py").is_file()

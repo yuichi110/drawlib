@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawlib</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="slide.css">
+</head>
+<body>
+
+<div class="presentation-viewport">
+  <div class="presentation-stage">
+    <section class="slide layout-cover active" data-slide-index="1">
+<h1>Drawlib</h1>
+<h2>Illustration as Code for Modern Engineers</h2>
+<p>Declarative Python Diagramming &amp; Modern Presentation Architecture</p>
+<hr />
+<p><strong>Yuichi Ito</strong> | Drawlib Author<br />
+<em>October 2026</em></p>
+
+    </section>
+
+    <section class="slide layout-split-right" data-slide-index="2" style="--split-ratio: 42% 58%;">
+      <header class="slide-header">Agenda</header>
+      <div class="slide-body">
+        <div class="slot-left">
+<h1>Topics Covered</h1>
+<p>A unified, declarative approach to engineering illustration:</p>
+<ul>
+<li><strong>Why Drawlib?</strong>: The transition from fragile manual drawings to version-controlled Python code.</li>
+<li><strong>Cloud Architecture</strong>: Composing microservice topologies with vector icons and orthogonal routing.</li>
+<li><strong>Workflows &amp; Pipelines</strong>: CI/CD integration, SQLite hash caching, and animated WebP diagrams.</li>
+<li><strong>Modular SmartArts</strong>: Extensible layout components and custom presentation cards.</li>
+<li><strong>Unified Ecosystem</strong>: Documentation sites, vector PDF books, and interactive slide decks.</li>
+</ul>
+        </div>
+        <div class="slot-right">
+<figure class="drawlib-image" data-slot="right" style="width: 100%; display: flex; justify-content: center;">
+  <img src="agenda.svg" alt="curved_agenda" style="width: 100%; max-width: 1040.0px; height: auto;" />
+</figure>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="footer-title">Drawlib: Illustration as Code</span>
+        <span class="page-number">2 / 7</span>
+      </footer>
+    </section>
+
+    <section class="slide layout-split-right" data-slide-index="3" style="--split-ratio: 40% 60%;">
+      <header class="slide-header">Why Drawlib?</header>
+      <div class="slide-body">
+        <div class="slot-left">
+<h1>From Fragile Drawings to Code</h1>
+<p>Traditional technical diagramming approaches face severe friction:</p>
+<ul>
+<li><strong>GUI Tools (Visio, Draw.io)</strong>
+Binary files break Git diffs and code reviews. Diagrams quickly fall out of sync with code.</li>
+<li><strong>Text DSLs (Mermaid, PlantUML)</strong>
+Unpredictable layouts, line crossing disasters, and difficult styling overrides.</li>
+<li><strong>Matplotlib &amp; Graphviz</strong>
+Heavy low-level boilerplate and unintuitive coordinate systems.</li>
+</ul>
+<h3>The Drawlib Solution</h3>
+<p>Pure Python declarative syntax, unified Google semantic palettes, and pixel-perfect coordinate math.</p>
+        </div>
+        <div class="slot-right">
+<figure class="drawlib-image" data-slot="right" style="width: 100%; display: flex; justify-content: center;">
+  <img src="feature_matrix.svg" alt="Illustration" style="width: 100%; max-width: 100%; height: auto;" />
+</figure>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="footer-title">Drawlib: Illustration as Code</span>
+        <span class="page-number">3 / 7</span>
+      </footer>
+    </section>
+
+    <section class="slide layout-split-right" data-slide-index="4" style="--split-ratio: 40% 60%;">
+      <header class="slide-header">Cloud & Microservices</header>
+      <div class="slide-body">
+        <div class="slot-left">
+<h1>Scalable Topologies in Code</h1>
+<p>Drawlib provides high-level domain modules for cloud architecture with vector and official cloud icons:</p>
+<ul>
+<li><strong>Client Ingress</strong>: Web SPA, Mobile App, Edge Workers terminating TLS</li>
+<li><strong>Kubernetes Cluster</strong>: Isolated container pods with auto-scaling</li>
+<li><strong>Data Persistence</strong>: Sharded primary database + Kafka event streaming</li>
+<li><strong>Clean Syntax</strong>: Connect nodes with labels and automatic orthogonal routing</li>
+</ul>
+        </div>
+        <div class="slot-right">
+<figure class="drawlib-image" data-slot="right" style="width: 100%; display: flex; justify-content: center;">
+  <img src="arch_diagram.svg" alt="Illustration" style="width: 100%; max-width: 100%; height: auto;" />
+</figure>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="footer-title">Drawlib: Illustration as Code</span>
+        <span class="page-number">4 / 7</span>
+      </footer>
+    </section>
+
+    <section class="slide layout-split-right" data-slide-index="5" style="--split-ratio: 40% 60%;">
+      <header class="slide-header">Workflows & Pipelines</header>
+      <div class="slide-body">
+        <div class="slot-left">
+<h1>Automated CI/CD &amp; Caching</h1>
+<p>Technical diagrams shouldn't slow down your deployment cycles:</p>
+<ul>
+<li><strong>Git-Triggered Pipeline</strong>: Build runs automatically on pull requests</li>
+<li><strong>Change Detection</strong>: Analyzes document diffs and Python dependencies</li>
+<li><strong>SQLite Hash Caching</strong>:
+<ul>
+<li>Unchanged blocks are restored in <strong>&lt; 1ms</strong></li>
+<li>Only modified diagram code triggers full Python execution</li>
+</ul>
+</li>
+<li><strong>Dynamic Animations</strong>: Render looping animated WebP diagrams natively using <code>Animation</code></li>
+</ul>
+        </div>
+        <div class="slot-right">
+<figure class="drawlib-image" data-slot="right" style="width: 100%; display: flex; justify-content: center;">
+  <img src="workflow_pipeline.webp" alt="Illustration" style="width: 100%; max-width: 100%; height: auto;" />
+</figure>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="footer-title">Drawlib: Illustration as Code</span>
+        <span class="page-number">5 / 7</span>
+      </footer>
+    </section>
+
+    <section class="slide layout-split-right" data-slide-index="6" style="--split-ratio: 40% 60%;">
+      <header class="slide-header">Modular SmartArts</header>
+      <div class="slide-body">
+        <div class="slot-left">
+<h1>Extensible Presentation Components</h1>
+<p>Drawlib bridges the gap between pure diagrams and structured presentation components:</p>
+<ul>
+<li><strong>Built-in SmartArts</strong>:
+<ul>
+<li><code>curved_agenda</code>: Visual agenda with curved arc and numbered topic pills</li>
+<li><code>timeline</code>: Linear chronological milestones and event sequences</li>
+<li><code>chevron_process</code>: Multi-stage execution flows</li>
+</ul>
+</li>
+<li><strong>Custom Project Components</strong>:
+<ul>
+<li>Place Python classes into <code>_slide_templates/*.py</code></li>
+<li>Subclass <code>SmartArtComponent</code> and implement <code>render(box, content, output_file)</code></li>
+<li>Call directly from Markdown with <code>smartart:&lt;name&gt; slot:&lt;slot&gt; file:&lt;out.svg&gt;</code></li>
+</ul>
+</li>
+</ul>
+        </div>
+        <div class="slot-right">
+<figure class="drawlib-image" data-slot="right" style="width: 100%; display: flex; justify-content: center;">
+  <img src="kpi_metrics.svg" alt="custom_kpi" style="width: 100%; max-width: 1040.0px; height: auto;" />
+</figure>
+        </div>
+      </div>
+      <footer class="slide-footer">
+        <span class="footer-title">Drawlib: Illustration as Code</span>
+        <span class="page-number">6 / 7</span>
+      </footer>
+    </section>
+
+    <section class="slide layout-default" data-slide-index="7">
+      <header class="slide-header">Unified Ecosystem</header>
+      <div class="slide-body">
+<h1>One Illustration Core, Multiple Targets</h1>
+<p>Drawlib unifies engineering documentation and technical visualizations as version-controlled code:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Target</th>
+<th style="text-align:left">Command</th>
+<th style="text-align:left">Output</th>
+<th style="text-align:left">Primary Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Standalone Images</strong></td>
+<td style="text-align:left"><code>drawlib build image</code></td>
+<td style="text-align:left">PNG, WebP, PDF</td>
+<td style="text-align:left">README graphics, blog posts, whitepapers</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Documentation Site</strong></td>
+<td style="text-align:left"><code>drawlib build html</code></td>
+<td style="text-align:left">Static Web Site</td>
+<td style="text-align:left">Technical specs, API references, architecture docs</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Document Book</strong></td>
+<td style="text-align:left"><code>drawlib build pdf</code></td>
+<td style="text-align:left">Merged Vector PDF</td>
+<td style="text-align:left">Formal RFCs, architecture books, print designs</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Presentation Deck</strong></td>
+<td style="text-align:left"><code>drawlib build slide</code></td>
+<td style="text-align:left">HTML Slide Deck</td>
+<td style="text-align:left">Conference talks, design reviews, team pitches</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Get Started Today</h3>
+<pre><code class="language-bash"><span class="c1"># Initialize a new presentation project with Google styling</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>-s<span class="w"> </span>google
+
+<span class="c1"># Build presentation slides</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide/
+
+<span class="c1"># Start interactive preview server</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>slide/
+</code></pre>
+      </div>
+      <footer class="slide-footer">
+        <span class="footer-title">Drawlib: Illustration as Code</span>
+        <span class="page-number">7 / 7</span>
+      </footer>
+    </section>
+  </div>
+</div>
+
+<!-- On-Screen Controls -->
+<div class="slide-controls">
+  <button id="btn-prev" title="Previous Slide (Left Arrow)">◀</button>
+  <button id="btn-next" title="Next Slide (Right Arrow)">▶</button>
+  <button id="btn-overview" title="Slide Overview (O / Esc)">☵</button>
+  <button id="btn-fullscreen" title="Fullscreen (F)">⛶</button>
+</div>
+
+<!-- Overview Modal Grid -->
+<div class="overview-modal">
+  <div class="overview-grid">
+    <div class="overview-thumb current" data-slide-target="1">
+      <div class="thumb-title">1. Drawlib</div>
+      <div class="thumb-number">1 / 7</div>
+    </div>
+    <div class="overview-thumb" data-slide-target="2">
+      <div class="thumb-title">2. Topics Covered</div>
+      <div class="thumb-number">2 / 7</div>
+    </div>
+    <div class="overview-thumb" data-slide-target="3">
+      <div class="thumb-title">3. From Fragile Drawings to Code</div>
+      <div class="thumb-number">3 / 7</div>
+    </div>
+    <div class="overview-thumb" data-slide-target="4">
+      <div class="thumb-title">4. Scalable Topologies in Code</div>
+      <div class="thumb-number">4 / 7</div>
+    </div>
+    <div class="overview-thumb" data-slide-target="5">
+      <div class="thumb-title">5. Automated CI/CD & Caching</div>
+      <div class="thumb-number">5 / 7</div>
+    </div>
+    <div class="overview-thumb" data-slide-target="6">
+      <div class="thumb-title">6. Extensible Presentation Components</div>
+      <div class="thumb-number">6 / 7</div>
+    </div>
+    <div class="overview-thumb" data-slide-target="7">
+      <div class="thumb-title">7. One Illustration Core, Multiple Targets</div>
+      <div class="thumb-number">7 / 7</div>
+    </div>
+  </div>
+</div>
+
+<script src="slide.js"></script>
+</body>
+</html>

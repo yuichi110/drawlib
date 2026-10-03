@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="469.565217pt" viewBox="0 0 720 469.565217" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-03T22:23:14.345658</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 469.565217 
+L 720 469.565217 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 429.401739 299.081739 
+L 429.401739 26.608696 
+L 559.815652 26.608696 
+L 559.815652 299.081739 
+z
+" clip-path="url(#p8d615b5488)" style="fill: #f5f6fa; fill-opacity: 0.6; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #a0a0a5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #505055" x="445.053913" y="48.70606" transform="rotate(-0 445.053913 48.70606)">Kubernetes Service Cluster</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 129.913043 187.826087 
+L 231.54034 187.826087 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 223.54034 183.826087 
+L 231.54034 187.826087 
+L 223.54034 191.826087 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_2">
+    <g id="patch_4">
+     <path d="M 145.451702 196.763587 
+L 217.678733 196.763587 
+L 217.678733 178.888587 
+L 145.451702 178.888587 
+z
+" clip-path="url(#p8d615b5488)" style="fill: #ffffff; fill-opacity: 0.9"/>
+    </g>
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="181.565217" y="190.943899" transform="rotate(-0 181.565217 190.943899)">HTTPS/REST</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 280.173913 187.826087 
+L 377.217391 187.826087 
+L 377.217391 100.173913 
+L 472.583819 100.173913 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 464.583819 96.173913 
+L 472.583819 100.173913 
+L 464.583819 104.173913 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <g id="patch_6">
+     <path d="M 357.851376 152.9375 
+L 396.583407 152.9375 
+L 396.583407 135.0625 
+L 357.851376 135.0625 
+z
+" clip-path="url(#p8d615b5488)" style="fill: #ffffff; fill-opacity: 0.9"/>
+    </g>
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="377.217391" y="147.117812" transform="rotate(-0 377.217391 147.117812)">Token</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 280.173913 187.826087 
+L 377.217391 187.826087 
+L 377.217391 225.391304 
+L 472.583819 225.391304 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 464.583819 221.391304 
+L 472.583819 225.391304 
+L 464.583819 229.391304 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <g id="patch_8">
+     <path d="M 359.111219 215.546196 
+L 395.323563 215.546196 
+L 395.323563 197.671196 
+L 359.111219 197.671196 
+z
+" clip-path="url(#p8d615b5488)" style="fill: #ffffff; fill-opacity: 0.9"/>
+    </g>
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="377.217391" y="209.726508" transform="rotate(-0 377.217391 209.726508)">Order</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 514.956522 225.391304 
+L 561.913043 225.391304 
+L 561.913043 125.217391 
+L 607.192514 125.217391 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 599.192514 121.217391 
+L 607.192514 125.217391 
+L 599.192514 129.217391 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g id="patch_10">
+     <path d="M 530.734059 184.241848 
+L 593.092028 184.241848 
+L 593.092028 166.366848 
+L 530.734059 166.366848 
+z
+" clip-path="url(#p8d615b5488)" style="fill: #ffffff; fill-opacity: 0.9"/>
+    </g>
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="561.913043" y="178.42216" transform="rotate(-0 561.913043 178.42216)">Commit Tx</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 514.956522 225.391304 
+L 561.913043 225.391304 
+L 561.913043 300.521739 
+L 607.192514 300.521739 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 599.192514 296.521739 
+L 607.192514 300.521739 
+L 599.192514 304.521739 
+" clip-path="url(#p8d615b5488)" style="fill: none; stroke: #4285f4; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <g id="patch_12">
+     <path d="M 539.406872 271.894022 
+L 584.419215 271.894022 
+L 584.419215 254.019022 
+L 539.406872 254.019022 
+z
+" clip-path="url(#p8d615b5488)" style="fill: #ffffff; fill-opacity: 0.9"/>
+    </g>
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="561.913043" y="266.074334" transform="rotate(-0 561.913043 266.074334)">Publish</text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 48px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="106.434783" y="203.576087" transform="rotate(-0 106.434783 203.576087)"></text>
+    </g>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 13px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1e1e1e" x="106.434783" y="231.04284" transform="rotate(-0 106.434783 231.04284)">Client Browser</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 48px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="256.695652" y="206.576087" transform="rotate(-0 256.695652 206.576087)"></text>
+    </g>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 13px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1e1e1e" x="256.695652" y="230.97784" transform="rotate(-0 256.695652 230.97784)">API Gateway</text>
+    </g>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 42px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="494.608696" y="115.923913" transform="rotate(-0 494.608696 115.923913)"></text>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 13px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1e1e1e" x="494.608696" y="140.260231" transform="rotate(-0 494.608696 140.260231)">Auth Service</text>
+    </g>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 42px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="494.608696" y="242.453804" transform="rotate(-0 494.608696 242.453804)"></text>
+    </g>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 13px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1e1e1e" x="494.608696" y="265.477622" transform="rotate(-0 494.608696 265.477622)">Order Service</text>
+    </g>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 48px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="632.347826" y="143.967391" transform="rotate(-0 632.347826 143.967391)"></text>
+    </g>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 13px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1e1e1e" x="632.347826" y="168.369144" transform="rotate(-0 632.347826 168.369144)">Primary DB</text>
+    </g>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 48px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="632.347826" y="314.021739" transform="rotate(-0 632.347826 314.021739)"></text>
+    </g>
+   </g>
+   <g id="text_18">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 13px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #1e1e1e" x="632.347826" y="343.738492" transform="rotate(-0 632.347826 343.738492)">Kafka Queue</text>
+    </g>
+   </g>
+   <g id="text_19">
+    <g clip-path="url(#p8d615b5488)">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #28282d" x="25.043478" y="10.442425" transform="rotate(-0 25.043478 10.442425)">Scalable Microservices Topology</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8d615b5488">
+   <rect x="0" y="0" width="720" height="469.565217"/>
+  </clipPath>
+ </defs>
+</svg>

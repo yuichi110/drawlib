@@ -30,6 +30,9 @@ class DrawlibBlockOptions(BaseModel):
     css_class: Optional[str] = None
     file: Optional[str] = None
     code: Literal["hide", "show", "fold"] = "hide"
+    slot: Optional[str] = None
+    xy: Optional[tuple[float, float]] = None
+    size: Optional[tuple[float, float]] = None
 
 
 class ExtractedBlockInfo(BaseModel):
@@ -96,8 +99,24 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.align = val_clean.lower()
         elif key_lower in {"format", "fmt"}:
             fmt = val_clean.lower()
-            if fmt in {"png", "webp"}:
+            if fmt in {"png", "webp", "svg"}:
                 options.format = fmt
+        elif key_lower in {"slot", "s"}:
+            options.slot = val_clean.lower()
+        elif key_lower in {"xy", "pos", "position"}:
+            try:
+                coords = [float(p.strip()) for p in val_clean.strip("()[]").split(",")]
+                if len(coords) == 2:
+                    options.xy = (coords[0], coords[1])
+            except ValueError:
+                pass
+        elif key_lower in {"size", "dim", "dimensions"}:
+            try:
+                dims = [float(p.strip()) for p in val_clean.strip("()[]").split(",")]
+                if len(dims) == 2:
+                    options.size = (dims[0], dims[1])
+            except ValueError:
+                pass
         elif key_lower == "caption":
             options.caption = val_clean
         elif key_lower in {"class", "css_class"}:
@@ -114,8 +133,10 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.code = "hide"
             elif val_lower in {"left", "center", "right"}:
                 options.align = val_lower
-            elif val_lower in {"png", "webp"}:
+            elif val_lower in {"png", "webp", "svg"}:
                 options.format = val_lower
+            elif val_lower.startswith("slot:"):
+                options.slot = val_lower[5:].strip()
             elif re.match(r"^\d+(px|%)$", val_lower) or val_lower.isdigit():
                 has_unit = val_lower.endswith("px") or val_lower.endswith("%")
                 options.width = val_clean if has_unit else f"{val_clean}px"
@@ -138,7 +159,7 @@ def resolve_block_image_paths(
         options (DrawlibBlockOptions): Parsed block options.
         doc_base_name (str): Base filename of the document (without extension).
         block_counter (int): 1-based block index.
-        default_format (str): Default image format ('png' or 'webp').
+        default_format (str): Default image format ('png' or 'webp' or 'svg').
         output_dir (Optional[str]): Target output directory for generated assets.
         require_file (bool): Whether to enforce that options.file is provided.
         line_number (int): Line number of the code block for error reporting.
@@ -149,13 +170,13 @@ def resolve_block_image_paths(
     Raises:
         ValueError: If require_file is True and options.file is missing.
     """
-    eff_format = options.format if options.format in {"png", "webp"} else default_format
-    ext = "webp" if eff_format == "webp" else "png"
+    eff_format = options.format if options.format in {"png", "webp", "svg"} else default_format
+    ext = "svg" if eff_format == "svg" else ("webp" if eff_format == "webp" else "png")
 
     if options.file:
         raw_file = options.file.strip()
         _, file_ext = os.path.splitext(raw_file)
-        if file_ext.lower() in {".png", ".webp"}:
+        if file_ext.lower() in {".png", ".webp", ".svg"}:
             img_name = raw_file
         else:
             img_name = f"{raw_file}.{ext}"

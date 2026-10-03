@@ -127,7 +127,13 @@ class DrawlibBlockProcessor:
         """Execute a single drawlib code block and save output image to target file path."""
         target_abs_path = os.path.abspath(target_file_path)
         stem, ext_dot = os.path.splitext(target_abs_path)
-        fmt = "webp" if ext_dot.lower() == ".webp" else "png"
+        ext_lower = ext_dot.lower()
+        if ext_lower == ".svg":
+            fmt = "svg"
+        elif ext_lower == ".webp":
+            fmt = "webp"
+        else:
+            fmt = "png"
         grid_abs_path = f"{stem}_grid{ext_dot}"
 
         use_cache = self._cache.enabled and grid is None
@@ -196,8 +202,15 @@ class DrawlibBlockProcessor:
         source_filename: str = "<drawlib_block>",
     ) -> str:
         """Execute a single drawlib code block and return a base64 Data URL string."""
-        ext = "webp" if image_format == "webp" else "png"
-        mime = "image/webp" if ext == "webp" else "image/png"
+        if image_format == "svg":
+            ext = "svg"
+            mime = "image/svg+xml"
+        elif image_format == "webp":
+            ext = "webp"
+            mime = "image/webp"
+        else:
+            ext = "png"
+            mime = "image/png"
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_file = os.path.join(tmp_dir, f"temp.{ext}")

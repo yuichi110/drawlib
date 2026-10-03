@@ -22,6 +22,7 @@ from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
 from drawlib._builder.image_builder import build_image
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.l1_core import dutil_settings
+from drawlib._slide import build_slide
 
 build_app = typer.Typer(
     name="build",
@@ -253,3 +254,50 @@ def cmd_build_pdf(
         print(f"Successfully compiled PDF document: {out_file}")
     except Exception as e:
         _handle_build_error("Build PDF Error", e)
+
+
+@build_app.command("slide", epilog=HELP_EPILOG)
+def cmd_build_slide(
+    input_dir: Annotated[
+        str,
+        typer.Argument(metavar="DIR", help="Directory containing Markdown (.md) slide files."),
+    ],
+    output: Annotated[
+        Optional[str],
+        typer.Option("-o", "--output", help="Output directory path for the presentation deck."),
+    ] = None,
+    theme: Annotated[
+        Optional[str],
+        typer.Option("-t", "--theme", help="CSS theme preset (google, default, google-dark, default-dark)."),
+    ] = None,
+    format: Annotated[
+        Literal["svg", "webp", "png"],
+        typer.Option("-f", "--format", help="Default image format for embedded diagrams: svg, webp, or png."),
+    ] = "svg",
+    styles: Annotated[
+        Optional[str],
+        typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+    ] = None,
+    utils: Annotated[
+        Optional[str],
+        typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
+    ] = None,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
+) -> None:
+    """Compile a directory of Markdown slide files into a standalone HTML presentation deck."""
+    try:
+        out_file = build_slide(
+            input_dir=input_dir,
+            output_dir=output,
+            theme=theme,
+            image_format=format,
+            styles_path=styles,
+            utils_path=utils,
+            no_cache=no_cache,
+        )
+        print(f"Successfully compiled presentation deck: {out_file}")
+    except Exception as e:
+        _handle_build_error("Build Slide Error", e)

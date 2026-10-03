@@ -198,6 +198,10 @@ class Animation:
                 compress_level=9,
                 optimize=True,
             )
+        elif eff_format == "svg":
+            raise ValueError(
+                "Animations cannot be saved in SVG format. Please use 'webp' or 'png' (APNG) for animations."
+            )
         else:
             raise ValueError(
                 f"Unsupported animation format '{eff_format}'. Supported animation formats: 'png', 'webp', 'apng'."
