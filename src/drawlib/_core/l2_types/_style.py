@@ -39,10 +39,6 @@ def _normalize_angle(v: Any) -> float:  # noqa: ANN401
         raise ValueError(f"Angle must be a number. But '{v}' is given.") from e
 
 
-# Backwards compatibility alias
-normalize_angle = _normalize_angle
-normalize_literal_str = _normalize_str
-
 # Modern Type Definitions
 Angle = Annotated[float, BeforeValidator(_normalize_angle)]
 Angle90 = Annotated[float, Field(ge=0.0, le=90.0)]

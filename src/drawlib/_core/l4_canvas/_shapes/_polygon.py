@@ -385,10 +385,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             )
 
 
-# Backward compatibility alias
-CanvasOriginalPolygonFeature = CanvasShapePolygonFeature
-
 __all__ = [
-    "CanvasOriginalPolygonFeature",
     "CanvasShapePolygonFeature",
 ]

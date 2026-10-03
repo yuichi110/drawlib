@@ -311,8 +311,8 @@
     build_markdown,
     build_pdf,
     build_image,
-    export_block,
-    show_block,
+    export_code_block,
+    show_code_block,
 )
 from drawlib.tools import (
     init_project,
@@ -361,12 +361,12 @@ build_pdf(
 )
 </code></pre>
 <hr />
-<h2>3. Single Diagram Extraction (<code>export_block</code>)</h2>
+<h2>3. Single Diagram Extraction (<code>export_code_block</code>)</h2>
 <p>Extracts and renders a single diagram from a Markdown file or a standalone <code>.py</code> script without opening a GUI display:</p>
-<pre><code class="language-python">from drawlib.builder import export_block
+<pre><code class="language-python">from drawlib.builder import export_code_block
 
 # Extract block 1 from Markdown with coordinate grid:
-export_block(
+export_code_block(
     file_path=&quot;docs_src/architecture.md&quot;,
     target=&quot;1&quot;,                        # 1-based index or target filename
     output_path=&quot;.drawlib/scratch/arch.png&quot;,
@@ -374,7 +374,7 @@ export_block(
 )
 
 # Export from standalone Python script:
-export_block(
+export_code_block(
     file_path=&quot;scripts/diagram.py&quot;,
     output_path=&quot;assets/diagram.png&quot;,
     grid=False,
@@ -399,12 +399,12 @@ dimage.save(&quot;output.png&quot;)
 <h2>5. Automated Visual Regression Testing with Pytest</h2>
 <p>Integrate diagram rendering into your test suite to ensure code changes never break visual illustrations:</p>
 <pre><code class="language-python">from pathlib import Path
-from drawlib.builder import export_block
+from drawlib.builder import export_code_block
 
 def test_architecture_diagram_renders(tmp_path: Path):
     target_png = tmp_path / &quot;test_diagram.png&quot;
     
-    export_block(
+    export_code_block(
         file_path=&quot;docs_src/index.md&quot;,
         target=&quot;1&quot;,
         output_path=str(target_png),

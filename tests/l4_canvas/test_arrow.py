@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit and integration tests for CanvasOriginalArrowFeature shapes."""
+"""Unit and integration tests for CanvasShapeArrowFeature shapes."""
 
 import pytest
 
@@ -24,7 +24,7 @@ OUTPUT_DIR = "../../output_tests/l4_canvas/arrow/"
 
 
 class TestCanvasArrow:
-    """Tests for the CanvasOriginalArrowFeature class and arrow drawing methods."""
+    """Tests for the CanvasShapeArrowFeature class and arrow drawing methods."""
 
     @pytest.mark.image_threshold(98.5)
     def test_arrow(self) -> None:

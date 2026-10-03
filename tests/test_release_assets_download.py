@@ -214,7 +214,7 @@ class TestDownloadAndExtract:
             target_file.write_bytes(b"downloaded")
 
         with patch.object(ReleaseAssetPackage, "download_and_extract", side_effect=fake_extract) as mock_extract:
-            download_if_not_exist(str(target_file), "http://dummy/url", "dummy_md5")
+            download_if_not_exist(str(target_file), md5_hash="dummy_md5")
             mock_extract.assert_called_once()
 
         assert target_file.read_bytes() == b"downloaded"

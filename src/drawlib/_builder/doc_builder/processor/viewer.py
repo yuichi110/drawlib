@@ -255,7 +255,3 @@ def show_code_block(
     )
     display_path = grid_path if (grid and os.path.exists(grid_path)) else tmp_path
     display_image_file(display_path)
-
-
-_render_code_with_context = render_code_with_context
-_display_image_file = display_image_file

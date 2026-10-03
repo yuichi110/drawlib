@@ -13,8 +13,6 @@ from drawlib._core.l3_styles import (
     BaseStyles,
 )
 from drawlib._preset_styles._style_default import (
-    DefaultDarkStyles,
-    DefaultLightStyles,
     DefaultStyles,
     DefaultStyles1,
     DefaultStyles2,
@@ -28,8 +26,6 @@ from drawlib._preset_styles._style_monochrome import MonochromeStyles
 
 __all__ = [
     "BaseStyles",
-    "DefaultDarkStyles",
-    "DefaultLightStyles",
     "DefaultStyles",
     "DefaultStyles1",
     "DefaultStyles2",

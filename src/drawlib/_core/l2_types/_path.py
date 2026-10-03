@@ -67,14 +67,10 @@ def _validate_file_exists(v: str) -> str:
     return v
 
 
-# Backwards compatibility alias
-resolve_file_path = _resolve_file_path
-
 FilePath = Annotated[str, BeforeValidator(_resolve_file_path)]
 ExistingFilePath = Annotated[str, BeforeValidator(_resolve_file_path), AfterValidator(_validate_file_exists)]
 
 __all__ = [
     "ExistingFilePath",
     "FilePath",
-    "resolve_file_path",
 ]

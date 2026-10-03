@@ -12,8 +12,8 @@ from drawlib.builder import (
     build_markdown,
     build_pdf,
     build_image,
-    export_block,
-    show_block,
+    export_code_block,
+    show_code_block,
 )
 from drawlib.tools import (
     init_project,
@@ -75,15 +75,15 @@ build_pdf(
 
 ---
 
-## 3. Single Diagram Extraction (`export_block`)
+## 3. Single Diagram Extraction (`export_code_block`)
 
 Extracts and renders a single diagram from a Markdown file or a standalone `.py` script without opening a GUI display:
 
 ```python
-from drawlib.builder import export_block
+from drawlib.builder import export_code_block
 
 # Extract block 1 from Markdown with coordinate grid:
-export_block(
+export_code_block(
     file_path="docs_src/architecture.md",
     target="1",                        # 1-based index or target filename
     output_path=".drawlib/scratch/arch.png",
@@ -91,7 +91,7 @@ export_block(
 )
 
 # Export from standalone Python script:
-export_block(
+export_code_block(
     file_path="scripts/diagram.py",
     output_path="assets/diagram.png",
     grid=False,
@@ -126,12 +126,12 @@ Integrate diagram rendering into your test suite to ensure code changes never br
 
 ```python
 from pathlib import Path
-from drawlib.builder import export_block
+from drawlib.builder import export_code_block
 
 def test_architecture_diagram_renders(tmp_path: Path):
     target_png = tmp_path / "test_diagram.png"
     
-    export_block(
+    export_code_block(
         file_path="docs_src/index.md",
         target="1",
         output_path=str(target_png),

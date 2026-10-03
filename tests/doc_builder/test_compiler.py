@@ -17,7 +17,6 @@ import pytest
 from drawlib._builder.doc_builder import (
     DocType,
     build_document,
-    build_documents,
     build_html,
     build_markdown,
     build_pdf,
@@ -284,31 +283,6 @@ line((0, 0), (100, 100), style=Styles.Primary)
     assert "![index_1](index_images/line.png)" in content
     assert "```drawlib" not in content
     assert (out_dir / "index_images" / "line.png").exists()
-
-
-def test_build_documents_batch(tmp_path) -> None:
-    """Test build_documents batch compilation with directory target pairs."""
-    dir1 = tmp_path / "site1"
-    dir2 = tmp_path / "site2"
-    out1 = tmp_path / "out1"
-    out2 = tmp_path / "out2"
-    dir1.mkdir()
-    dir2.mkdir()
-    _setup_template_and_css(dir1)
-    _setup_template_and_css(dir2)
-
-    (dir1 / "index.md").write_text("# Page One\n", encoding="utf-8")
-    (dir1 / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
-
-    (dir2 / "index.md").write_text("# Page Two\n", encoding="utf-8")
-    (dir2 / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
-
-    res_paths = build_documents(targets=[(str(dir1), str(out1)), (str(dir2), str(out2))])
-    assert len(res_paths) == 2
-    assert os.path.exists(str(out1))
-    assert os.path.exists(str(out2))
-    assert (out1 / "index.html").exists()
-    assert (out2 / "index.html").exists()
 
 
 def test_build_document_directory_recursive(tmp_path) -> None:

@@ -689,10 +689,6 @@ class ArrowPolylineHelper:
         return points
 
 
-# Backward compatibility alias
-CanvasOriginalArrowFeature = CanvasShapeArrowFeature
-
 __all__ = [
-    "CanvasOriginalArrowFeature",
     "CanvasShapeArrowFeature",
 ]

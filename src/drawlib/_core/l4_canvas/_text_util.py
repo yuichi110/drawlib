@@ -84,8 +84,8 @@ class TextUtil:
             raise ValueError(f"font {font_target} must be FontBase")
 
         meta = get_font_metadata(font_target)
-        file_path, download_url, md5_hash = meta.abs_path, meta.url, meta.md5
-        download_if_not_exist(file_path=file_path, download_url=download_url, md5_hash=md5_hash)
+        file_path, md5_hash = meta.abs_path, meta.md5
+        download_if_not_exist(file_path=file_path, md5_hash=md5_hash)
         return FontProperties(size=style.text_size, fname=file_path)
 
     @staticmethod

@@ -15,9 +15,7 @@ from drawlib.builder import (
     build_markdown,
     build_pdf,
     build_image,
-    export_block,
     export_code_block,
-    show_block,
     show_code_block,
 )
 from drawlib.tools import (
@@ -103,14 +101,14 @@ build_image(
 
 ## 3. Diagram Export & Preview (`export` & `show`)
 
-### 3.1. `export_block` (Single Diagram Extraction)
+### 3.1. `export_code_block` (Single Diagram Extraction)
 Extracts and renders a single ````drawlib```` illustration from a Markdown file or a standalone `.py` script without opening a GUI display:
 
 ```python
-from drawlib.builder import export_block
+from drawlib.builder import export_code_block
 
 # Export block 1 from a Markdown document:
-export_block(
+export_code_block(
     file_path="docs_src/architecture.md",
     target="1",                      # 1-based index or target filename (e.g. "arch.png")
     output_path=".drawlib/scratch/arch.png",
@@ -120,20 +118,20 @@ export_block(
 )
 
 # Export directly from a standalone Python script:
-export_block(
+export_code_block(
     file_path=".drawlib/scratch/my_diagram.py",
     output_path=".drawlib/scratch/output.png",
     grid=False,
 )
 ```
 
-### 3.2. `show_block` (Desktop GUI Preview)
+### 3.2. `show_code_block` (Desktop GUI Preview)
 Displays the rendered illustration in a local GUI window for interactive alignment:
 
 ```python
-from drawlib.builder import show_block
+from drawlib.builder import show_code_block
 
-show_block(
+show_code_block(
     file_path="docs_src/architecture.md",
     target="1",
     grid=True,
@@ -220,7 +218,7 @@ export_css(name="google", output_path="style.css", target="html", force=True)
 
 ```python
 from pathlib import Path
-from drawlib.builder import build_html, build_markdown, export_block
+from drawlib.builder import build_html, build_markdown, export_code_block
 
 def run_documentation_pipeline() -> None:
     src_dir = Path("docs_src")
@@ -234,7 +232,7 @@ def run_documentation_pipeline() -> None:
     build_html(input_path=str(src_dir), output=str(html_dir))
 
     print("[3/3] Exporting hero diagram for release badge...")
-    export_block(
+    export_code_block(
         file_path=str(src_dir / "index.md"),
         target="1",
         output_path="assets/hero_diagram.png",
@@ -249,13 +247,13 @@ if __name__ == "__main__":
 
 ```python
 from pathlib import Path
-from drawlib.tools import export_block
+from drawlib.builder import export_code_block
 
 def test_architecture_diagram_generation(tmp_path: Path) -> None:
     output_png = tmp_path / "test_arch.png"
 
     # Export diagram block 1 to temporary directory
-    export_block(
+    export_code_block(
         file_path="docs_src/architecture.md",
         target="1",
         output_path=str(output_png),

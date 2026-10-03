@@ -107,7 +107,6 @@ class FontIconProvider:
         font_metadata = self.get_font_metadata(style_obj.icon_style)
         download_if_not_exist(
             file_path=font_metadata.abs_path,
-            download_url=font_metadata.url,
             md5_hash=font_metadata.md5,
         )
 

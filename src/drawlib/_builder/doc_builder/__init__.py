@@ -127,31 +127,6 @@ def build_document(
     )
 
 
-build = build_document
-
-
-def build_documents(
-    targets: Sequence[tuple[str, str]],
-    image_format: str = "png",
-    styles_path: Optional[str] = None,
-    utils_path: Optional[str] = None,
-    no_cache: bool = False,
-) -> list[str]:
-    """Batch compile multiple document target pairs (for backwards compatibility)."""
-    results: list[str] = []
-    for inp, out in targets:
-        res = build_document(
-            input_dir=inp,
-            output_path=out,
-            image_format=image_format,
-            styles_path=styles_path,
-            utils_path=utils_path,
-            no_cache=no_cache,
-        )
-        results.append(res)
-    return results
-
-
 __all__ = [
     "BuildImageCache",
     "DocType",
@@ -160,9 +135,7 @@ __all__ = [
     "FileBuildProgress",
     "NavbarItem",
     "NavbarSection",
-    "build",
     "build_document",
-    "build_documents",
     "build_html",
     "build_markdown",
     "build_merged_html",

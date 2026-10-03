@@ -179,7 +179,3 @@ def resolve_block_image_paths(
         target_img_path = rel_img_path
 
     return rel_img_path, target_img_path
-
-
-# Backward compatibility alias
-_resolve_block_image_paths = resolve_block_image_paths

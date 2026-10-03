@@ -758,16 +758,12 @@ def _resolve_execution_mode(
 
 
 def build_image(
-    input_path: Union[str, Sequence[str]] = "",
+    input_path: Union[str, Sequence[str]],
     output_path: Optional[str] = None,
     *,
-    inputs: Optional[Union[str, Sequence[str]]] = None,
-    output: Optional[str] = None,
     format: Optional[Literal["png", "webp", "jpg", "pdf"]] = None,
     styles_path: Optional[str] = None,
     utils_path: Optional[str] = None,
-    styles: Optional[str] = None,
-    utils: Optional[str] = None,
     grid: bool = False,
     disable_auto_clear: bool = False,
     enable_auto_initialize: bool = False,
@@ -778,13 +774,9 @@ def build_image(
     Args:
         input_path (Union[str, Sequence[str]]): Target Python file(s) or directories.
         output_path (Optional[str]): Output image file path or output directory path.
-        inputs (Optional[Union[str, Sequence[str]]]): Alias for input_path.
-        output (Optional[str]): Alias for output_path.
         format (Optional[Literal["png", "webp", "jpg", "pdf"]]): Image format override ('png', 'webp', 'jpg', 'pdf').
         styles_path (Optional[str]): Optional path to Python styles script.
         utils_path (Optional[str]): Optional path to Python utils script.
-        styles (Optional[str]): Alias for styles_path.
-        utils (Optional[str]): Alias for utils_path.
         grid (bool): Whether to save companion *_grid.<ext> images with coordinate grid overlaid.
         disable_auto_clear (bool): Disable clearing canvas per executing drawing code file.
         enable_auto_initialize (bool): Enable full canvas re-initialization per executing drawing code file.
@@ -796,19 +788,15 @@ def build_image(
     Raises:
         ValueError: If no valid target files or directories are provided.
     """
-    raw_input = input_path or inputs
-    if not raw_input:
+    if not input_path:
         raise ValueError("No input files or directories specified for build_image.")
-    raw_targets: List[str] = [raw_input] if isinstance(raw_input, str) else list(raw_input)
-    out_target = output_path or output
-    effective_styles = styles_path or styles
-    effective_utils = utils_path or utils
+    raw_targets: List[str] = [input_path] if isinstance(input_path, str) else list(input_path)
 
     first_target = os.path.abspath(raw_targets[0])
     search_dir = first_target if os.path.isdir(first_target) else os.path.dirname(first_target)
-    styles_abs, utils_abs = resolve_styles_and_utils(search_dir, effective_styles, effective_utils)
+    styles_abs, utils_abs = resolve_styles_and_utils(search_dir, styles_path, utils_path)
 
-    target_list, output_dir, output_file = _normalize_build_inputs_and_output(raw_targets, out_target)
+    target_list, output_dir, output_file = _normalize_build_inputs_and_output(raw_targets, output_path)
     exec_mode = _resolve_execution_mode(disable_auto_clear, enable_auto_initialize)
     target_roots = [os.path.abspath(t) for t in target_list if os.path.isdir(t)]
     executer = DrawlibExecuter(

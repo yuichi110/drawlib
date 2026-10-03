@@ -10,12 +10,10 @@
 """Canvas shape feature package aggregating all shape drawing capabilities."""
 
 from drawlib._core.l4_canvas._shapes._arrow import (
-    CanvasOriginalArrowFeature,
     CanvasShapeArrowFeature,
 )
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
 from drawlib._core.l4_canvas._shapes._polygon import (
-    CanvasOriginalPolygonFeature,
     CanvasShapePolygonFeature,
 )
 from drawlib._core.l4_canvas._shapes._util import ShapeUtil
@@ -32,8 +30,6 @@ class CanvasShapeFeature(
 
 
 __all__ = [
-    "CanvasOriginalArrowFeature",
-    "CanvasOriginalPolygonFeature",
     "CanvasShapeArrowFeature",
     "CanvasShapeBasicFeature",
     "CanvasShapeFeature",

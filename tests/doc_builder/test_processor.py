@@ -11,7 +11,11 @@
 
 import pytest
 
-from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor, extract_code_blocks
+from drawlib._builder.doc_builder.processor import (
+    DrawlibBlockProcessor,
+    extract_code_blocks,
+    parse_block_info,
+)
 
 
 def test_block_processor_render_block_to_file_and_data_url(tmp_path) -> None:
@@ -149,13 +153,13 @@ def test_block_processor_space_separated_options(tmp_path) -> None:
     out_dir.mkdir()
     processor = DrawlibBlockProcessor()
 
-    opts1 = processor._parse_block_info("400px center format:webp caption:'My Chart'")
+    opts1 = parse_block_info("400px center format:webp caption:'My Chart'")
     assert opts1.width == "400px"
     assert opts1.align == "center"
     assert opts1.format == "webp"
     assert opts1.caption == "My Chart"
 
-    opts2 = processor._parse_block_info("w:500 h:300 align:right class:hero-img")
+    opts2 = parse_block_info("w:500 h:300 align:right class:hero-img")
     assert opts2.width == "500px"
     assert opts2.height == "300px"
     assert opts2.align == "right"
@@ -265,22 +269,20 @@ circle((50, 50), radius=10, style=Styles.Primary)
 
 
 def test_block_processor_code_options_parsing() -> None:
-    """Test parsing code options in _parse_block_info."""
-    processor = DrawlibBlockProcessor()
-
-    assert processor._parse_block_info("").code == "hide"
-    assert processor._parse_block_info("400px center").code == "hide"
-    assert processor._parse_block_info("show-code").code == "show"
-    assert processor._parse_block_info("show_code").code == "show"
-    assert processor._parse_block_info("code:show").code == "show"
-    assert processor._parse_block_info("code=show").code == "show"
-    assert processor._parse_block_info("fold-code").code == "fold"
-    assert processor._parse_block_info("fold_code").code == "fold"
-    assert processor._parse_block_info("code:fold").code == "fold"
-    assert processor._parse_block_info("code=fold").code == "fold"
-    assert processor._parse_block_info("hide-code").code == "hide"
-    assert processor._parse_block_info("code:hide").code == "hide"
-    assert processor._parse_block_info("500px fold-code center").code == "fold"
+    """Test parsing code options in parse_block_info."""
+    assert parse_block_info("").code == "hide"
+    assert parse_block_info("400px center").code == "hide"
+    assert parse_block_info("show-code").code == "show"
+    assert parse_block_info("show_code").code == "show"
+    assert parse_block_info("code:show").code == "show"
+    assert parse_block_info("code=show").code == "show"
+    assert parse_block_info("fold-code").code == "fold"
+    assert parse_block_info("fold_code").code == "fold"
+    assert parse_block_info("code:fold").code == "fold"
+    assert parse_block_info("code=fold").code == "fold"
+    assert parse_block_info("hide-code").code == "hide"
+    assert parse_block_info("code:hide").code == "hide"
+    assert parse_block_info("500px fold-code center").code == "fold"
 
 
 def test_nested_drawlib_in_outer_code_fence_not_compiled(tmp_path) -> None:

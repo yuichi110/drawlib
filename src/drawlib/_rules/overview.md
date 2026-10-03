@@ -378,10 +378,10 @@ drawlib serve docs_html/ --check
 When you need to execute CLI operations programmatically (e.g. inside Python build automation, pytest verification suites, or automated CI pipelines), use `drawlib.tools`:
 
 ```python
-from drawlib.tools import build_html, build_markdown, export_block
+from drawlib.builder import build_html, build_markdown, export_code_block
 
 # Export a single diagram from a Markdown file by name (recommended)
-image_path = export_block(
+image_path = export_code_block(
     file_path="docs_src/architecture.md",
     target="system_architecture.png",
     output_path=".drawlib/scratch/preview.png",
@@ -402,7 +402,7 @@ build_html(
 | `build_html()` | `drawlib build html` | Compile static documentation sites or standalone HTML files. |
 | `build_markdown()` | `drawlib build markdown` | Render documentation for GitHub viewing with linked images. |
 | `build_pdf()` | `drawlib build pdf` | Export print-ready PDFs via headless browser. |
-| `export_block()` | `drawlib show -o` | Fast illustration rendering for AI self-verification and tests. |
+| `export_code_block()` | `drawlib show -o` | Fast illustration rendering for AI self-verification and tests. |
 | `init_project()` | `drawlib init` | Programmatic repository scaffolding. |
 | `serve_docs()` | `drawlib serve` | Local preview server and link verification checks. |
 | `clear_cache()` | `drawlib cache clear` | Cache cleanup. |
@@ -671,12 +671,12 @@ drawlib rules show <topic> --rebuild
 
 ### 5.19. Developer Tools API (`lib-tools`)
 - **Command**: `drawlib rules show lib-tools`
-- **Scope**: Programmatic Python developer API for document compilation (`build_html`, `build_markdown`, `build_pdf`), single illustration extraction (`export_block`), project scaffolding (`init_project`), local server (`serve_docs`), and cache management.
+- **Scope**: Programmatic Python developer API for document compilation (`build_html`, `build_markdown`, `build_pdf`), single illustration extraction (`export_code_block`), project scaffolding (`init_project`), local server (`serve_docs`), and cache management.
 - **Key Syntax**:
   ```python
-  from drawlib.tools import build_html, export_block
+  from drawlib.builder import build_html, export_code_block
   build_html("docs_src/", "docs_html/")
-  export_block("docs_src/arch.md", "1", "output.png")
+  export_code_block("docs_src/arch.md", "1", "output.png")
   ```
 - **When to read**: Refer to this rule when automating build scripts in Python, writing test assertions with pytest, or triggering on-demand diagram exports from custom automation sidecars.
 

@@ -20,7 +20,7 @@ from drawlib._builder._common.progress import (
     format_duplicate_output_error,
     format_progress_line,
 )
-from drawlib._builder.doc_builder.processor import _resolve_block_image_paths, extract_code_blocks
+from drawlib._builder.doc_builder.processor import extract_code_blocks, resolve_block_image_paths
 
 
 def check_document_output_duplicates(
@@ -74,7 +74,7 @@ def check_document_output_duplicates(
         )
 
         for block in blocks:
-            _, target_img_path = _resolve_block_image_paths(
+            _, target_img_path = resolve_block_image_paths(
                 options=block.options,
                 doc_base_name=doc_base_name,
                 block_counter=block.index,

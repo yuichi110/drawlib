@@ -78,11 +78,6 @@ class DrawlibBlockProcessor:
         )
 
     @staticmethod
-    def _parse_block_info(info_str: str) -> DrawlibBlockOptions:
-        """Compatibility bridge for static parsing."""
-        return parse_block_info(info_str)
-
-    @staticmethod
     def _exec_code_block(
         code: str,
         source_filename: str = "<drawlib_block>",

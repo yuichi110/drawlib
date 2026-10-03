@@ -32,7 +32,7 @@ class TestDownloadIfNotExist:
         md5_hash = hashlib.md5(content).hexdigest()  # noqa: S324
 
         with patch("drawlib._core.l3_external._download._find_package_for_file_path") as mock_find:
-            download_if_not_exist(str(file_path), "http://dummy/url", md5_hash)
+            download_if_not_exist(str(file_path), md5_hash=md5_hash)
             # Should not look up package since file exists and checksum is ok
             mock_find.assert_not_called()
 

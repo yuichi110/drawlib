@@ -18,9 +18,7 @@ from drawlib.builder import (
     build_image,
     build_markdown,
     build_pdf,
-    export_block,
     export_code_block,
-    show_block,
     show_code_block,
 )
 from drawlib.tools import (
@@ -42,9 +40,7 @@ def test_public_tools_facade_exports() -> None:
     assert callable(build_html)
     assert callable(build_pdf)
     assert callable(export_code_block)
-    assert callable(export_block)
     assert callable(show_code_block)
-    assert callable(show_block)
     assert callable(clear_cache)
     assert callable(list_cache)
     assert callable(download_cache)

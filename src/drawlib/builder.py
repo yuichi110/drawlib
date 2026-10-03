@@ -15,9 +15,7 @@ Provides document and image compilation functions for HTML, Markdown, PDF, and i
 from __future__ import annotations
 
 from drawlib._builder.doc_builder import (
-    build,
     build_document,
-    build_documents,
     build_html,
     build_markdown,
     build_pdf,
@@ -27,20 +25,13 @@ from drawlib._builder.doc_builder import (
 )
 from drawlib._builder.image_builder import build_image
 
-export_block = export_code_block
-show_block = show_code_block
-
 __all__ = [
-    "build",
     "build_document",
-    "build_documents",
     "build_html",
     "build_image",
     "build_markdown",
     "build_pdf",
     "detect_document_type",
-    "export_block",
     "export_code_block",
-    "show_block",
     "show_code_block",
 ]

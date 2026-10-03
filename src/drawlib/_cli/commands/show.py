@@ -18,7 +18,7 @@ from typing import Annotated, Optional
 
 import typer
 
-from drawlib._builder.doc_builder import show_code_block as show_block
+from drawlib._builder.doc_builder import show_code_block
 from drawlib._builder.rules_builder import _normalize_topic
 from drawlib._cli.commands.rules import cmd_rules_show
 from drawlib._core.l1_core import dutil_settings
@@ -77,7 +77,7 @@ def cmd_show(
             pass
 
     try:
-        show_block(
+        show_code_block(
             file_path=file,
             target=target,
             styles_path=styles,

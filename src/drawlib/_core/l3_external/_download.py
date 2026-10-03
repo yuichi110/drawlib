@@ -47,14 +47,12 @@ def _find_package_for_file_path(file_path: str) -> ReleaseAssetPackage | None:
 
 def download_if_not_exist(
     file_path: str,
-    download_url: str = "",
     md5_hash: str = "",
 ) -> None:
     """Download asset package if the asset file does not exist locally.
 
     Args:
         file_path (str): Local file path where the asset should exist.
-        download_url (str): Deprecated / optional download URL.
         md5_hash (str): Optional expected MD5 checksum of the file.
 
     Raises:

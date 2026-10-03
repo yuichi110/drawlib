@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit and integration tests for CanvasOriginalPolygonFeature shapes."""
+"""Unit and integration tests for CanvasShapePolygonFeature shapes."""
 
 import pytest
 
@@ -21,8 +21,8 @@ default_styles = Styles
 OUTPUT_DIR = "../../output_tests/l4_canvas/polygon/"
 
 
-class TestCanvasOriginalPolygon:
-    """Tests for the CanvasOriginalPolygonFeature class and custom polygon styles."""
+class TestCanvasPolygon:
+    """Tests for the CanvasShapePolygonFeature class and custom polygon styles."""
 
     def test_triangle(self) -> None:
         """Verify triangle drawing with base, height, alignments, styling, top vertex shifts, and angles."""

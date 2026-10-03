@@ -3761,13 +3761,8 @@ class DefaultStyles6(DefaultStyles):
         super().__init__(**kwargs)
 
 
-# Backward compatibility aliases
-DefaultLightStyles = DefaultStyles2
-DefaultDarkStyles = DefaultStyles5
-
-
 def _create_default_styles(  # noqa: C901, PLR0911
-    theme: Literal["default", "1", "2", "3", "4", "5", "6", "light", "dark"] = "default",
+    theme: Literal["default", "1", "2", "3", "4", "5", "6"] = "default",
 ) -> DefaultStyles:
     """Generate default preset styles for the given theme variant.
 
@@ -3783,13 +3778,13 @@ def _create_default_styles(  # noqa: C901, PLR0911
     elif theme == "1":
         col = DefaultColors1
         theme_tone = 1
-    elif theme in {"2", "light"}:
+    elif theme == "2":
         col = DefaultColors2
         theme_tone = 2
     elif theme == "3":
         col = DefaultColors3
         theme_tone = 3
-    elif theme in {"5", "dark"}:
+    elif theme == "5":
         col = DefaultColors5
         theme_tone = 5
     elif theme == "6":
@@ -4045,8 +4040,6 @@ DefaultStyles5.register_default_instance(_default_styles5)
 DefaultStyles6.register_default_instance(_default_styles6)
 
 __all__ = [
-    "DefaultDarkStyles",
-    "DefaultLightStyles",
     "DefaultStyles",
     "DefaultStyles1",
     "DefaultStyles2",

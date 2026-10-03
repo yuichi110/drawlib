@@ -14,19 +14,15 @@ from __future__ import annotations
 from drawlib._builder.doc_builder.processor.options import (
     DrawlibBlockOptions,
     ExtractedBlockInfo,
-    _resolve_block_image_paths,
     parse_block_info,
     resolve_block_image_paths,
 )
 from drawlib._builder.doc_builder.processor.parser import (
-    _resolve_selected_block,
     extract_code_blocks,
     resolve_selected_block,
 )
 from drawlib._builder.doc_builder.processor.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.processor.viewer import (
-    _display_image_file,
-    _render_code_with_context,
     display_image_file,
     export_code_block,
     render_code_with_context,
@@ -37,10 +33,6 @@ __all__ = [
     "DrawlibBlockOptions",
     "DrawlibBlockProcessor",
     "ExtractedBlockInfo",
-    "_display_image_file",
-    "_render_code_with_context",
-    "_resolve_block_image_paths",
-    "_resolve_selected_block",
     "display_image_file",
     "export_code_block",
     "extract_code_blocks",

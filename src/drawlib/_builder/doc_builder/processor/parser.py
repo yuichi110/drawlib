@@ -151,6 +151,3 @@ def resolve_selected_block(
         if target_clean in {b_fn, b_base, b_basename_only, b_basename_stem}:
             return b
     return None
-
-
-_resolve_selected_block = resolve_selected_block
