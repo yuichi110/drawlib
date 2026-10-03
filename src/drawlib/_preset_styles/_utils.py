@@ -14,7 +14,13 @@ from __future__ import annotations
 from drawlib._core.l2_types import IconStyle, LineStyle
 from drawlib._core.l3_colors import Color, ColorType
 from drawlib._core.l3_fonts import Font, FontBase, FontFile
-from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import (
+    DEFAULT_FONT,
+    DEFAULT_FONT_BOLD,
+    DEFAULT_FONT_LIGHT,
+    DEFAULT_TEXT_SIZE,
+    Style,
+)
 from drawlib._preset_colors import DefaultColors as Colors
 
 _DEFAULT_BORDER_COLOR: Color = Color(39, 39, 39)
@@ -54,7 +60,7 @@ def _create_style(
     line_style: LineStyle = "solid",
     shape_line_width: float | None = None,
     shape_line_style: LineStyle | None = None,
-    font: Font = Font.SANSSERIF_REGULAR,
+    font: Font = DEFAULT_FONT,
     icon_style: IconStyle = "regular",
 ) -> Style:
     """Helper function to create a Style instance with preset defaults.
@@ -90,7 +96,7 @@ def _create_style(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
         text_color=t_color,
-        text_size=16,
+        text_size=DEFAULT_TEXT_SIZE,
         text_font=font,
         text_halign="center",
         text_valign="center",
@@ -139,8 +145,8 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
         text_color=txt_col,
-        text_size=16,
-        text_font=Font.SANSSERIF_REGULAR,
+        text_size=DEFAULT_TEXT_SIZE,
+        text_font=DEFAULT_FONT,
         text_halign="center",
         text_valign="center",
         icon_color=txt_col,
@@ -158,8 +164,8 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
         text_color=txt_col,
-        text_size=16,
-        text_font=Font.SANSSERIF_BOLD,
+        text_size=DEFAULT_TEXT_SIZE,
+        text_font=DEFAULT_FONT_BOLD,
         text_halign="center",
         text_valign="center",
         icon_color=txt_col,
@@ -177,8 +183,8 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
         text_color=txt_col,
-        text_size=16,
-        text_font=Font.SANSSERIF_LIGHT,
+        text_size=DEFAULT_TEXT_SIZE,
+        text_font=DEFAULT_FONT_LIGHT,
         text_halign="center",
         text_valign="center",
         icon_color=txt_col,

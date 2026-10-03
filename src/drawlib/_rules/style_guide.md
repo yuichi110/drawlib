@@ -125,12 +125,13 @@ from __future__ import annotations
 from drawlib.fonts import FontJapanese
 from drawlib.styles import Colors, Styles
 
-# 1. Patch fonts project-wide
-# (regular font applies to all styles; bold and light can be explicitly overridden)
+# 1. Patch fonts and font sizes project-wide
+# (regular font applies to all styles; bold/light variants and font size can be specified)
 Styles = Styles.patch_font(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
     light=FontJapanese.SANSSERIF_LIGHT,
+    size=14,
 )
 
 # 2. Patch specific styles or color tokens project-wide

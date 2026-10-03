@@ -15,10 +15,15 @@ from typing import Any, ClassVar, Generator, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
-from drawlib._core.l2_types import FontBase, FontFile
+from drawlib._core.l2_types import FontBase, FontFile, PosFloat
 from drawlib._core.l3_colors import Color, ColorType
-from drawlib._core.l3_fonts import FontSourceCode
+from drawlib._core.l3_fonts import Font, FontSourceCode
 from drawlib._core.l3_styles._style_models import Style
+
+DEFAULT_TEXT_SIZE: float = 16.0
+DEFAULT_FONT: Font = Font.SANSSERIF_REGULAR
+DEFAULT_FONT_BOLD: Font = Font.SANSSERIF_BOLD
+DEFAULT_FONT_LIGHT: Font = Font.SANSSERIF_LIGHT
 
 
 def _resolve_target_font(
@@ -151,6 +156,10 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     colors: Any = None
 
     Transparent: ClassVar[Style] = Style.Transparent
+    DEFAULT_TEXT_SIZE: ClassVar[float] = DEFAULT_TEXT_SIZE
+    DEFAULT_FONT: ClassVar[Font] = DEFAULT_FONT
+    DEFAULT_FONT_BOLD: ClassVar[Font] = DEFAULT_FONT_BOLD
+    DEFAULT_FONT_LIGHT: ClassVar[Font] = DEFAULT_FONT_LIGHT
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize preset styles instance.
@@ -408,6 +417,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         bold: FontBase | FontFile | None = None,
         light: FontBase | FontFile | None = None,
         sourcecode: FontSourceCode | None = None,
+        size: PosFloat | None = None,
     ) -> Self:
         """Create a new copy of preset styles with updated font configurations.
 
@@ -418,6 +428,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
             bold (FontBase | FontFile | None): Font override for bold style variants ('Bold', '*Bold').
             light (FontBase | FontFile | None): Font override for light style variants ('Light', '*Light').
             sourcecode (FontSourceCode | None): Monospace source code font override.
+            size (float | None): Font size override in points applied to all styles.
 
         Returns:
             Self: New preset styles instance with updated font attributes.
@@ -435,13 +446,23 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
             if not isinstance(val, Style):
                 continue
 
+            patch_kwargs: dict[str, Any] = {}
             target_font = _resolve_target_font(field_name, regular, bold, light)
             if target_font is not None:
-                updates[field_name] = val.patch(text_font=target_font)
+                patch_kwargs["text_font"] = target_font
+            if size is not None:
+                patch_kwargs["text_size"] = size
+
+            if patch_kwargs:
+                updates[field_name] = val.patch(**patch_kwargs)
 
         return self.model_copy(update=updates)
 
 
 __all__ = [
+    "DEFAULT_FONT",
+    "DEFAULT_FONT_BOLD",
+    "DEFAULT_FONT_LIGHT",
+    "DEFAULT_TEXT_SIZE",
     "BaseStyles",
 ]

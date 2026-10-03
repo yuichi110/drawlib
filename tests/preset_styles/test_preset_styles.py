@@ -8,8 +8,10 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 import pytest
+from pydantic import ValidationError
 
 from drawlib import preset_styles
+from drawlib._core.l3_styles import DEFAULT_FONT, DEFAULT_TEXT_SIZE
 from drawlib._preset_styles import (
     BaseStyles,
     DefaultStyles,
@@ -250,6 +252,53 @@ class TestPresetStylesUnit:
 
         assert new_styles.sourcecode_font == FontSourceCode.ROBOTO_MONO
         assert default_styles.sourcecode_font == original_code_font
+
+    def test_preset_styles_patch_font_size_only(self) -> None:
+        """Verifies that patch_font with size updates font size across all styles while keeping fonts."""
+        original_primary_size = default_styles.Primary.text_size
+        original_primary_font = default_styles.Primary.text_font
+        new_styles = default_styles.patch_font(size=14)
+
+        # Base and variant styles update their text_size
+        assert new_styles.Primary.text_size == 14.0
+        assert new_styles.PrimaryBold.text_size == 14.0
+        assert new_styles.PrimaryLight.text_size == 14.0
+        assert new_styles.PrimaryFlat.text_size == 14.0
+        assert new_styles.Blue.text_size == 14.0
+
+        # Existing fonts remain preserved
+        assert new_styles.Primary.text_font == original_primary_font
+        assert new_styles.PrimaryBold.text_font == Font.SANSSERIF_BOLD
+
+        # Original styles instance is not modified
+        assert default_styles.Primary.text_size == original_primary_size
+
+    def test_preset_styles_patch_font_size_and_fonts(self) -> None:
+        """Verifies that patch_font simultaneously updates both font families and size."""
+        new_styles = default_styles.patch_font(
+            regular=FontJapanese.SANSSERIF_REGULAR,
+            bold=FontJapanese.SANSSERIF_BOLD,
+            size=18,
+        )
+
+        assert new_styles.Primary.text_font == FontJapanese.SANSSERIF_REGULAR
+        assert new_styles.Primary.text_size == 18.0
+        assert new_styles.PrimaryBold.text_font == FontJapanese.SANSSERIF_BOLD
+        assert new_styles.PrimaryBold.text_size == 18.0
+
+    def test_preset_styles_patch_font_invalid_size(self) -> None:
+        """Verifies that negative size raises ValidationError."""
+        with pytest.raises(ValidationError):
+            default_styles.patch_font(size=-5)
+
+    def test_preset_styles_default_constants(self) -> None:
+        """Verifies module and class-level default font and size constants."""
+        assert DEFAULT_TEXT_SIZE == 16.0
+        assert DEFAULT_FONT == Font.SANSSERIF_REGULAR
+        assert BaseStyles.DEFAULT_TEXT_SIZE == 16.0
+        assert BaseStyles.DEFAULT_FONT == Font.SANSSERIF_REGULAR
+        assert default_styles.Primary.text_size == DEFAULT_TEXT_SIZE
+        assert default_styles.Primary.text_font == DEFAULT_FONT
 
 
 @pytest.mark.image_threshold(93.0)
