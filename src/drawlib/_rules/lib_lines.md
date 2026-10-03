@@ -52,8 +52,7 @@ def line(
     xy2: tuple[float, float],
     *,
     style: Style,
-    width: float | None = None,
-    arrowhead: Literal["", "->", "<-", "<->"] | str = "",
+    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
@@ -62,8 +61,32 @@ def line(
 | `xy1` | `tuple[float, float]` | *Required* | Starting coordinate `(x1, y1)` in virtual canvas units. |
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `(x2, y2)` in virtual canvas units. |
 | `style` | `Style` | *Required* | Active `Style` object (e.g. `Styles.PrimaryBold`, `Styles.Primary`). Keyword-only argument. |
-| `width` | `float \| None` | `None` | Stroke width override in points. If omitted, uses `style.line_width` (default: `1.0`). |
-| `arrowhead` | `str` | `""` | Terminal arrowhead style: `""` (none), `"->"` (forward), `"<-"` (reverse), `"<->"` (both). |
+| `arrow_head` | `str` | `""` | Terminal arrowhead style: `""` (none), `"->"` (forward), `"<-"` (reverse), `"<->"` (both). |
+
+> [!TIP]
+> ### Best Practice: Overriding Line Width and Pattern via `style.patch()`
+> Drawlib drawing functions strictly separate **geometry** (coordinates `xy1`, `xy2`) from **presentation** (`style`).
+> Rather than passing ad-hoc styling arguments, use `.patch()` on preset styles to override thickness, dash patterns, or colors:
+>
+> ```python
+> from drawlib.lines import line
+> from drawlib.styles import Colors, Styles
+>
+> # 1. Inherit from preset style and adjust stroke width
+> line((10, 20), (90, 20), style=Styles.Primary.patch(line_width=3.0))
+>
+> # 2. Combine multiple style overrides (thickness + dashed pattern + color)
+> line(
+>     (10, 40),
+>     (90, 40),
+>     arrow_head="->",
+>     style=Styles.PrimaryBold.patch(
+>         line_width=4.0,
+>         line_style="dashed",
+>         line_color=Colors.Navy,
+>     ),
+> )
+> ```
 
 ### 2.2. Coordinate Geometry & Orientation Math
 When computing line endpoints programmatically:
@@ -118,9 +141,9 @@ rectangle((75, 28), width=24, height=10, style=Styles.GreenFlat, text="Order Ser
 rectangle((75, 8), width=24, height=10, style=Styles.PurpleFlat, text="Postgres DB", text_style=Styles.WhiteBold)
 
 # 3. Direct straight connections
-line((30, 43), (30, 33), arrowhead="->", style=Styles.PrimaryBold)
-line((42, 28), (63, 28), arrowhead="->", style=Styles.PrimaryBold)
-line((75, 23), (75, 13), arrowhead="->", style=Styles.PrimaryBold)
+line((30, 43), (30, 33), arrow_head="->", style=Styles.PrimaryBold)
+line((42, 28), (63, 28), arrow_head="->", style=Styles.PrimaryBold)
+line((75, 23), (75, 13), arrow_head="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -136,11 +159,10 @@ The `line_curved()` function creates a circular arc spline connecting two coordi
 def line_curved(
     xy1: tuple[float, float],
     xy2: tuple[float, float],
-    bend: float = 0,
-    width: float | None = None,
-    arrowhead: Literal["", "->", "<-", "<->"] | str = "",
     *,
+    bend: float = 0.0,
     style: Style,
+    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
@@ -148,10 +170,9 @@ def line_curved(
 | :--- | :--- | :--- | :--- |
 | `xy1` | `tuple[float, float]` | *Required* | Starting coordinate `(x1, y1)`. |
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `(x2, y2)`. |
-| `bend` | `float` | `0` | Curvature factor (typically `-1.0` to `1.0`). `0` is completely straight. |
-| `width` | `float \| None` | `None` | Stroke width override in points. |
-| `arrowhead` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
-| `style` | `Style` | *Required* | Line style instance. |
+| `bend` | `float` | `0.0` | Curvature factor (typically `-1.0` to `1.0`). `0.0` is completely straight. |
+| `style` | `Style` | *Required* | Line style instance (override thickness via `style.patch(line_width=...)`). |
+| `arrow_head` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
 
 ### 3.2. Curvature Mechanics & Direction Rules
 Internally, Drawlib configures Matplotlib's `matplotlib.patches.ConnectionStyle.Arc3(rad=bend)`:
@@ -176,8 +197,8 @@ Internally, Drawlib configures Matplotlib's `matplotlib.patches.ConnectionStyle.
 
 ### 3.3. Bidirectional Request-Response Separation
 When two architectural services exchange synchronous requests and responses, straight lines overlap and create visual confusion. `line_curved()` solves this cleanly:
-- **Forward Request (`A -> B`)**: `line_curved(pos_a, pos_b, bend=0.25, arrowhead="->", style=Styles.PrimaryBold)`
-- **Return Response (`B -> A`)**: `line_curved(pos_b, pos_a, bend=0.25, arrowhead="->", style=Styles.PrimaryBold)`
+- **Forward Request (`A -> B`)**: `line_curved(pos_a, pos_b, bend=0.25, arrow_head="->", style=Styles.PrimaryBold)`
+- **Return Response (`B -> A`)**: `line_curved(pos_b, pos_a, bend=0.25, arrow_head="->", style=Styles.PrimaryBold)`
 Because the travel direction is reversed in the second call, both lines bow outward in opposite directions, creating a clean symmetrical ellipse with space for labels in between.
 
 ### 3.4. Code Example: Microservice Request-Response Cycle & Bypass Path
@@ -197,11 +218,11 @@ rectangle((60, 30), width=18, height=14, style=Styles.MutedFlat, text="Proxy", t
 circle((95, 30), radius=10, style=Styles.GreenFlat, text="Service B", text_style=Styles.WhiteBold)
 
 # 1. Forward request (A -> B, curving above the Proxy)
-line_curved((35, 33), (85, 33), bend=0.35, arrowhead="->", style=Styles.BlueBold)
+line_curved((35, 33), (85, 33), bend=0.35, arrow_head="->", style=Styles.BlueBold)
 text((60, 48), "HTTPS POST (Direct Bypass)", style=Styles.Primary.patch(text_size=9, text_color=Colors.Blue))
 
 # 2. Reverse asynchronous callback (B -> A, curving below the Proxy)
-line_curved((85, 27), (35, 27), bend=0.35, arrowhead="->", style=Styles.GreenDashed)
+line_curved((85, 27), (35, 27), bend=0.35, arrow_head="->", style=Styles.GreenDashed)
 text((60, 12), "gRPC Stream Event (Ack)", style=Styles.Primary.patch(text_size=9, text_color=Colors.Green))
 
 save()
@@ -222,10 +243,9 @@ def line_bezier1(
     xy1: tuple[float, float],
     xy2: tuple[float, float],
     cp: tuple[float, float],
-    width: float | None = None,
-    arrowhead: Literal["", "->", "<-", "<->"] | str = "",
     *,
     style: Style,
+    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
@@ -238,9 +258,8 @@ def line_bezier1(
 | `xy1` | `tuple[float, float]` | *Required* | Starting coordinate `P0`. |
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `P1`. |
 | `cp` | `tuple[float, float]` | *Required* | Control point `Pc` defining the curve apex and tangency. |
-| `width` | `float \| None` | `None` | Stroke width override in points. |
-| `arrowhead` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
-| `style` | `Style` | *Required* | Line style instance. |
+| `style` | `Style` | *Required* | Line style instance (override thickness via `style.patch(line_width=...)`). |
+| `arrow_head` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
 
 #### Mathematical Formulation
 For interpolation parameter $t \in [0, 1]$:
@@ -275,10 +294,9 @@ def line_bezier2(
     xy2: tuple[float, float],
     cp1: tuple[float, float],
     cp2: tuple[float, float],
-    width: float | None = None,
-    arrowhead: Literal["", "->", "<-", "<->"] | str = "",
     *,
     style: Style,
+    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
@@ -291,9 +309,8 @@ def line_bezier2(
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `P1`. |
 | `cp1` | `tuple[float, float]` | *Required* | First control point controlling departure tangency. |
 | `cp2` | `tuple[float, float]` | *Required* | Second control point controlling arrival tangency. |
-| `width` | `float \| None` | `None` | Stroke width override in points. |
-| `arrowhead` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
-| `style` | `Style` | *Required* | Line style instance. |
+| `style` | `Style` | *Required* | Line style instance (override thickness via `style.patch(line_width=...)`). |
+| `arrow_head` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
 
 #### Mathematical Formulation
 $$B(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_{c1} + 3(1-t) t^2 P_{c2} + t^3 P_1$$
@@ -334,7 +351,7 @@ line_bezier1(
     xy1=(25, 45),
     cp=(45, 15),
     xy2=(50, 15),
-    arrowhead="->",
+    arrow_head="->",
     style=Styles.PurpleBold,
 )
 
@@ -347,7 +364,7 @@ line_bezier2(
     cp1=(x1 + dx * 0.5, y1),
     cp2=(x2 - dx * 0.5, y2),
     xy2=(x2, y2),
-    arrowhead="->",
+    arrow_head="->",
     style=Styles.GreenBold,
 )
 
@@ -366,17 +383,15 @@ def lines(
     xys: list[tuple[float, float]],
     *,
     style: Style,
-    width: float | None = None,
-    arrowhead: Literal["", "->", "<-", "<->"] | str = "",
+    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xys` | `list[tuple[float, float]]` | *Required* | Sequence of 2 or more coordinates `[(x0, y0), (x1, y1), ...]`. |
-| `style` | `Style` | *Required* | Active `Style` instance. Keyword-only argument. |
-| `width` | `float \| None` | `None` | Stroke width override in points. |
-| `arrowhead` | `str` | `""` | Arrowhead placed on terminal segment(s). |
+| `style` | `Style` | *Required* | Active `Style` instance (override thickness via `style.patch(line_width=...)`). Keyword-only argument. |
+| `arrow_head` | `str` | `""` | Arrowhead placed on terminal segment(s). |
 
 ### 5.2. Built-in Optimizations: Sanitization & Collinear Merging
 Drawlib's `LineUtil.sanitize_xys()` runs automatically prior to rendering:
@@ -431,13 +446,13 @@ rectangle((40, 12), width=22, height=10, style=Styles.GreenFlat, text="Analytics
 rectangle((75, 12), width=22, height=10, style=Styles.PurpleFlat, text="Storage", text_style=Styles.WhiteBold)
 
 # Vertical bus taps from producers to trunk
-lines([(25, 43), (25, 30)], arrowhead="->", style=Styles.BlueBold)
-lines([(55, 43), (55, 30)], arrowhead="->", style=Styles.BlueBold)
-lines([(85, 43), (85, 30)], arrowhead="->", style=Styles.BlueBold)
+lines([(25, 43), (25, 30)], arrow_head="->", style=Styles.BlueBold)
+lines([(55, 43), (55, 30)], arrow_head="->", style=Styles.BlueBold)
+lines([(85, 43), (85, 30)], arrow_head="->", style=Styles.BlueBold)
 
 # Dogleg taps from trunk to consumers
-lines([(40, 30), (40, 17)], arrowhead="->", style=Styles.GreenBold)
-lines([(75, 30), (75, 17)], arrowhead="->", style=Styles.PurpleBold)
+lines([(40, 30), (40, 17)], arrow_head="->", style=Styles.GreenBold)
+lines([(75, 30), (75, 17)], arrow_head="->", style=Styles.PurpleBold)
 
 save()
 ```
@@ -456,10 +471,9 @@ The `lines_curved()` function takes an ordinary polyline coordinate list and an 
 def lines_curved(
     xys: list[tuple[float, float]],
     r: float,
-    width: float | None = None,
-    arrowhead: Literal["", "->", "<-", "<->"] | str = "",
     *,
     style: Style,
+    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
@@ -467,9 +481,8 @@ def lines_curved(
 | :--- | :--- | :--- | :--- |
 | `xys` | `list[tuple[float, float]]` | *Required* | Sequence of 3 or more polyline coordinates. |
 | `r` | `float` | *Required* | Fillet curvature radius (distance from vertex to start of curve). |
-| `width` | `float \| None` | `None` | Stroke width override. |
-| `arrowhead` | `str` | `""` | Terminal arrowhead style. |
-| `style` | `Style` | *Required* | Line style instance. |
+| `style` | `Style` | *Required* | Line style instance (override thickness via `style.patch(line_width=...)`). |
+| `arrow_head` | `str` | `""` | Terminal arrowhead style. |
 
 #### Corner Fillet Radius Constraint
 At each vertex $P_i$, the rounding algorithm extracts control points at distance $r$ along incoming segment $P_{i-1} P_i$ and outgoing segment $P_i P_{i+1}$.
@@ -499,10 +512,9 @@ def lines_bezier(
         | tuple[tuple[float, float], tuple[float, float]]
         | tuple[tuple[float, float], tuple[float, float], tuple[float, float]]
     ],
-    width: float | None = None,
-    arrowhead: Literal["", "->", "<-", "<->"] | str = "",
     *,
     style: Style,
+    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
@@ -534,7 +546,7 @@ track_points = [
     (100, 25),
     (100, 45),
 ]
-lines_curved(track_points, r=6.0, arrowhead="->", style=Styles.BlueBold)
+lines_curved(track_points, r=6.0, arrow_head="->", style=Styles.BlueBold)
 
 # 2. Mixed path: straight run -> cubic S-bend -> straight run
 mixed_path = [
@@ -542,7 +554,7 @@ mixed_path = [
     ((60, 10), (60, 35), (75, 35)),                 # cubic S-curve to (75, 35)
     (95, 35),                                       # straight to (95, 35)
 ]
-lines_bezier((20, 10), path_points=mixed_path, arrowhead="->", style=Styles.PurpleDashed)
+lines_bezier((20, 10), path_points=mixed_path, arrow_head="->", style=Styles.PurpleDashed)
 
 save()
 ```
@@ -559,29 +571,27 @@ def line_arc(
     xy: tuple[float, float],
     width: float,
     height: float,
+    *,
     angle_start: float = 0,
     angle_end: float = 180,
     angle: float = 0,
-    linewidth: float | None = None,
-    arrowhead: Literal["", "->", "<-", "<->"] | str = "",
-    *,
-    style: Style,
     ccw: bool = True,
+    style: Style,
+    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(cx, cy)` of the ellipse. |
-| `width` | `float` | *Required* | Full horizontal diameter ($2 \times R_x$). |
-| `height` | `float` | *Required* | Full vertical diameter ($2 \times R_y$). Circular if `width == height`. |
+| `width` | `float` | *Required* | Full horizontal diameter ($2 \times R_x$) of arc ellipse geometry. |
+| `height` | `float` | *Required* | Full vertical diameter ($2 \times R_y$) of arc ellipse geometry. Circular if `width == height`. |
 | `angle_start` | `float` | `0` | Starting angle in degrees ($0^\circ$ = positive X-axis). |
 | `angle_end` | `float` | `180` | Ending angle in degrees. |
 | `angle` | `float` | `0` | Rotation angle of the entire ellipse frame in degrees. |
-| `linewidth` | `float \| None` | `None` | Stroke width override in points. *(Note: parameter name is `linewidth`)*. |
-| `arrowhead` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
-| `style` | `Style` | *Required* | Line style instance. |
 | `ccw` | `bool` | `True` | Traversal direction: `True` for counter-clockwise, `False` for clockwise. |
+| `style` | `Style` | *Required* | Line style instance (override stroke thickness via `style.patch(line_width=...)`). |
+| `arrow_head` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
 
 ### 7.2. Angle Navigation Reference
 Angles in Drawlib adhere to standard Cartesian trigonometry:
@@ -617,7 +627,7 @@ rectangle((30, 30), width=24, height=14, style=Styles.BlueFlat, text="Processor"
 rectangle((75, 30), width=24, height=14, style=Styles.GreenFlat, text="Consumer", text_style=Styles.WhiteBold)
 
 # Direct pipeline line
-line((42, 30), (63, 30), arrowhead="->", style=Styles.PrimaryBold)
+line((42, 30), (63, 30), arrow_head="->", style=Styles.PrimaryBold)
 
 # 1. Self-loop retry arc (Processor retries itself on failure)
 line_arc(
@@ -626,9 +636,8 @@ line_arc(
     height=16,
     angle_start=220,
     angle_end=320,
-    linewidth=1.5,
-    arrowhead="->",
-    style=Styles.RedDashed,
+    arrow_head="->",
+    style=Styles.RedDashed.patch(line_width=1.5),
     ccw=False,
 )
 text((30, 53), "Retry (3x)", style=Styles.Red)
@@ -640,9 +649,8 @@ line_arc(
     height=25,
     angle_start=0,
     angle_end=180,
-    linewidth=1.5,
-    arrowhead="->",
-    style=Styles.PurpleDashed,
+    arrow_head="->",
+    style=Styles.PurpleDashed.patch(line_width=1.5),
     ccw=False,
 )
 text((52.5, 12), "Negative ACK / Backpressure", style=Styles.Purple)
@@ -657,7 +665,7 @@ save()
 Arrowheads impart semantic directionality to relationships. Drawlib provides flexible controls over arrowhead orientation, scale, and fill appearance.
 
 ### 8.1. Logical Arrowhead Types
-The `arrowhead` parameter is accepted by all line functions:
+The `arrow_head` parameter is accepted by all line functions:
 - `""` or `"-"`: **No arrowhead** (plain undirected stroke). Use for physical wires, network backbones, undirected associations, or boundary borders.
 - `"->"`: **Forward arrowhead** at the ending coordinate. Use for function calls, message delivery, unidirectional data replication, or process flow.
 - `"<-"`: **Reverse arrowhead** at the starting coordinate. Use for dependency references ("inherits from", "depends on").
@@ -692,27 +700,27 @@ setup(width=120, height=70)
 
 # 1. Unfilled / Stick arrowheads (default)
 text((15, 60), "Stick -> (scale=20)", style=Styles.PrimaryBold)
-line((55, 60), (105, 60), arrowhead="->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+line((55, 60), (105, 60), arrow_head="->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
 text((15, 50), "Stick <- (scale=20)", style=Styles.PrimaryBold)
-line((55, 50), (105, 50), arrowhead="<-", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+line((55, 50), (105, 50), arrow_head="<-", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
 text((15, 40), "Stick <-> (scale=20)", style=Styles.PrimaryBold)
-line((55, 40), (105, 40), arrowhead="<->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+line((55, 40), (105, 40), arrow_head="<->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
 # 2. Filled triangular arrowheads
 text((15, 30), "Filled -|> (scale=20)", style=Styles.PrimaryBold)
-line((55, 30), (105, 30), arrowhead="->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
+line((55, 30), (105, 30), arrow_head="->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
 
 text((15, 20), "Filled <|-|> (scale=20)", style=Styles.PrimaryBold)
-line((55, 20), (105, 20), arrowhead="<->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
+line((55, 20), (105, 20), arrow_head="<->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
 
 # 3. Scaling variations
 text((15, 10), "Large Scale (scale=35)", style=Styles.PrimaryBold)
 line(
     (55, 10),
     (105, 10),
-    arrowhead="->",
+    arrow_head="->",
     style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=35, line_width=2.5),
 )
 
@@ -803,7 +811,7 @@ for i, (label, color_name, pattern, thickness, arrow) in enumerate(protocols):
     line(
         (70, y),
         (110, y),
-        arrowhead=arrow,
+        arrow_head=arrow,
         style=Styles.PrimaryBold.patch(line_color=color_name, line_style=pattern, line_width=thickness),
     )
 
@@ -866,11 +874,11 @@ def draw_labeled_line(
     label: str,
     *,
     line_style: Style,
-    arrowhead: str = "->",
+    arrow_head: str = "->",
     color: tuple[int, int, int] | str = Colors.Blue,
 ) -> None:
     """Draw a line with an automatically centered, masked text badge."""
-    line(xy1, xy2, arrowhead=arrowhead, style=line_style)
+    line(xy1, xy2, arrow_head=arrow_head, style=line_style)
     mx = (xy1[0] + xy2[0]) / 2
     my = (xy1[1] + xy2[1]) / 2
     badge = Styles.Primary.patch(
@@ -888,8 +896,8 @@ setup(width=120, height=50)
 rectangle((20, 25), width=24, height=14, style=Styles.BlueFlat, text="Client", text_style=Styles.WhiteBold)
 rectangle((100, 25), width=24, height=14, style=Styles.GreenFlat, text="Service", text_style=Styles.WhiteBold)
 
-draw_labeled_line((32, 29), (88, 29), "POST /api/checkout", arrowhead="->", line_style=Styles.BlueBold, color=Colors.Blue)
-draw_labeled_line((88, 21), (32, 21), "201 Created (45ms)", arrowhead="->", line_style=Styles.GreenDashed, color=Colors.Green)
+draw_labeled_line((32, 29), (88, 29), "POST /api/checkout", arrow_head="->", line_style=Styles.BlueBold, color=Colors.Blue)
+draw_labeled_line((88, 21), (32, 21), "201 Created (45ms)", arrow_head="->", line_style=Styles.GreenDashed, color=Colors.Green)
 
 save()
 ```
@@ -913,7 +921,7 @@ rectangle((20, 25), width=20, height=16, style=Styles.NavyFlat, text="API Gatewa
 
 for name, y in [("Users", 40), ("Orders", 25), ("Payments", 10)]:
     rectangle((95, y), width=22, height=10, style=Styles.GreenFlat, text=name, text_style=Styles.WhiteBold)
-    lines([(30, 25), (55, 25), (55, y), (84, y)], arrowhead="->", style=Styles.PrimaryBold)
+    lines([(30, 25), (55, 25), (55, y), (84, y)], arrow_head="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -931,7 +939,7 @@ pitch, base_r = 2.0, 4.0
 for i in range(4):
     offset = i * pitch
     path = [(15, 12 + offset), (45 + offset, 12 + offset), (45 + offset, 38 - offset), (105, 38 - offset)]
-    lines_curved(path, r=base_r + offset, arrowhead="->", style=Styles.BlueBold)
+    lines_curved(path, r=base_r + offset, arrow_head="->", style=Styles.BlueBold)
 
 save()
 ```
@@ -949,11 +957,11 @@ rectangle((60, 30), width=90, height=8, style=Styles.PurpleFlat, text="Kafka Eve
 
 for name, x in [("Auth Svc", 30), ("Order Svc", 60), ("Payment Svc", 90)]:
     rectangle((x, 50), width=20, height=10, style=Styles.BlueFlat, text=name, text_style=Styles.WhiteBold)
-    lines([(x, 45), (x, 34)], arrowhead="->", style=Styles.BlueBold)
+    lines([(x, 45), (x, 34)], arrow_head="->", style=Styles.BlueBold)
 
 for name, x in [("Email Worker", 40), ("Audit Log", 80)]:
     rectangle((x, 10), width=22, height=10, style=Styles.GreenFlat, text=name, text_style=Styles.WhiteBold)
-    lines([(x, 26), (x, 15)], arrowhead="->", style=Styles.GreenBold)
+    lines([(x, 26), (x, 15)], arrow_head="->", style=Styles.GreenBold)
 
 save()
 ```
@@ -978,7 +986,7 @@ rectangle((95, 25), width=22, height=12, style=Styles.GreenFlat, text="App Backe
 line(
     (36, 25),
     (84, 25),
-    arrowhead="->",
+    arrow_head="->",
     style=Styles.PrimaryBold.patch(line_color=Colors.Red, line_style="dashdot", line_width=2.0),
 )
 text((60, 28), "mTLS (Port 8443)", style=Styles.Primary.patch(text_size=9, text_bg_fill_color=Colors.White, text_bg_line_width=0.5))
@@ -1051,7 +1059,7 @@ rectangle(obs, width=30, height=18, style=Styles.RedFlat, text="Firewall / WAF",
 rectangle(end, width=16, height=12, style=Styles.GreenFlat, text="Server", text_style=Styles.WhiteBold)
 
 bypass = [(23, 25), (38, 25), (38, 40), (82, 40), (82, 25), (97, 25)]
-lines_curved(bypass, r=4.0, arrowhead="->", style=Styles.BlueBold)
+lines_curved(bypass, r=4.0, arrow_head="->", style=Styles.BlueBold)
 text((60, 44), "Authorized Bypass Channel", style=Styles.Blue)
 
 save()
@@ -1097,7 +1105,7 @@ save()
 - **Fix**: Keep `bend` positive on both lines if you invert `xy1` and `xy2`, or keep `xy1` and `xy2` identical and invert `bend` from positive to negative.
 
 #### Pitfall 5: Passing Unsupported Arrowhead Strings
-- **Error**: Passing `arrowhead="<--"` or `arrowhead="==>"` throws a validation error.
+- **Error**: Passing `arrow_head="<--"` or `arrow_head="==>"` throws a validation error.
 - **Why**: `TypeArrowHead` is strictly validated to `["", "->", "<-", "<->"]`.
 - **Fix**: Use only the four supported literal strings. For filled heads, configure `Style(line_arrow_head_fill=True)`.
 

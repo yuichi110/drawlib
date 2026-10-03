@@ -79,6 +79,30 @@ text_vertical(
 
 > **Rule for Vertical Text**: `style.text_halign` must be `"center"`. If another alignment is specified, Drawlib will issue a warning and automatically patch it to `"center"` to ensure glyph centerlines remain aligned.
 
+> [!TIP]
+> ### Best Practice: Adjusting Font Size and Text Attributes via `style.patch()`
+> Drawlib text primitives keep geometric positioning purely separate from typography styling.
+> Rather than passing ad-hoc size or color arguments, use `.patch()` on preset styles to override font size, alignment, or colors while maintaining design consistency:
+>
+> ```python
+> from drawlib.styles import Colors, Styles
+> from drawlib.text import text
+>
+> # 1. Inherit from preset style and adjust font size
+> text((50, 30), "Important Metric", style=Styles.PrimaryBold.patch(text_size=18))
+>
+> # 2. Fine-tune secondary text size, alignment, and color for annotations
+> text(
+>     (50, 15),
+>     "Supplementary description",
+>     style=Styles.Secondary.patch(
+>         text_size=10,
+>         text_halign="left",
+>         text_color=Colors.Gray5,
+>     ),
+> )
+> ```
+
 ---
 
 ## 3. Coordinate Alignment System (`halign` & `valign`)
@@ -368,9 +392,7 @@ save()
 
 ### Shape Text Parameters:
 - **`text` (str)**: Content string (supports `\n`).
-- **`text_style` (Style | None)**: Pre-defined style (e.g. `Styles.WhiteBold`, `Styles.PrimaryBold`) or custom `Style`.
-- **`fontsize` (float | None)**: Direct font size override.
-- **`fontcolor` (tuple | str | None)**: Direct font color override.
+- **`text_style` (Style | None)**: Pre-defined style (e.g. `Styles.WhiteBold`, `Styles.PrimaryBold`) or custom `Style` (override font size via `text_style=Styles.WhiteBold.patch(text_size=12)`).
 
 ---
 
@@ -379,9 +401,9 @@ save()
 When adding text to Drawlib illustrations:
 
 1. **Hierarchy First**:
-   - Diagram titles: `size=20–24`, `style=Styles.PrimaryBold`, `halign="center"` at canvas top.
-   - Container / node headers: `size=12–14`, `text_style=Styles.WhiteBold` (or `Styles.PrimaryBold`).
-   - Metadata / annotations: `size=9–11`, `style=Styles.Muted`.
+   - Diagram titles: `text_size=20–24` via `Styles.PrimaryBold.patch(text_size=22)`, `text_halign="center"` at canvas top.
+   - Container / node headers: `text_size=12–14` via `text_style=Styles.WhiteBold` (or `Styles.PrimaryBold`).
+   - Metadata / annotations: `text_size=9–11` via `Styles.Muted.patch(text_size=10)`.
 2. **Avoid Hardcoding Hex Colors**:
    - Prefer style presets (`Styles.PrimaryBold`, `Styles.BlueBold`, `Styles.WhiteBold`) over explicit `#RRGGBB` strings to maintain harmony across light/dark themes.
 3. **Prevent Text Collision**:
