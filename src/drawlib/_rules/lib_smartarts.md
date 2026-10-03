@@ -17,9 +17,8 @@ The `drawlib.smartarts` module provides high-level graphical components designed
 10. [Component 8: Pyramid (Tiered Stacks & Hierarchies)](#10-component-8-pyramid-tiered-stacks--hierarchies)
 11. [Component 9: BulletPoints (Formatted Bulleted Lists)](#11-component-9-bulletpoints-formatted-bulleted-lists)
 12. [Component 10: SourceCode (Syntax-Highlighted Code Containers)](#12-component-10-sourcecode-syntax-highlighted-code-containers)
-13. [Component 11: bubblespeech (Callouts & Speech Bubbles)](#13-component-11-bubblespeech-callouts--speech-bubbles)
-14. [Design Patterns & Coordinate Anchor Systems](#14-design-patterns--coordinate-anchor-systems)
-15. [Troubleshooting & Common Pitfalls](#15-troubleshooting--common-pitfalls)
+13. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
+14. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
 
 ---
 ## 1. Architectural Overview & Core Concepts
@@ -38,7 +37,6 @@ from drawlib.smartarts import (
     SourceCode,
     Table,
     TreeNode,
-    bubblespeech,
 )
 ```
 
@@ -53,7 +51,7 @@ from drawlib.types import Style
 ### 1.2 Coordinate Anchor Conventions
 Understanding anchor points is essential for programmatic generation and positioning:
 - **Top-Left Anchored**: `Table`, `TreeNode`, `BulletPoints`. You specify top-left coordinate `(x, y)`; elements flow rightward and downward.
-- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `bubblespeech`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
+- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
 - **Center Anchored**: `MindMapNode` (root node center `(x, y)`), `Cycle` (default `align="center"` anchors orbit center).
 
 ### 1.3 Style Resolution
@@ -77,7 +75,6 @@ Every SmartArt accepts:
 | `Pyramid` | Bottom-Left `(x, y)` | Stacked layers | `add()`, `draw()`, `draw_flexible()` | Defense-in-depth, testing pyramid, memory hierarchies |
 | `BulletPoints` | Top-Left `(x, y)` | Downward list | `set_indent()`, `set_bullet_style()`, `draw()` | Architecture takeaways, RFC summaries, feature lists |
 | `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw()`, `get_text()` | Embedded configuration, code samples, API payloads |
-| `bubblespeech` | Bottom-Left `(x, y)` | Vector speech box | Direct function call | Bottleneck callouts, architectural migration notes |
 
 ---
 ## 3. Component 1: Table
@@ -860,98 +857,9 @@ save()
 ```
 
 ---
-## 13. Component 11: bubblespeech (Callouts & Speech Bubbles)
+## 13. Design Patterns & Coordinate Anchor Systems
 
-`bubblespeech` draws an irregular speech bubble or callout box with a customized triangular pointer tail, designed for comic dialogue, system callouts, and migration notes.
-
-### 13.1 Vector Tail Geometry
-```
-           tail_start_ratio         tail_end_ratio
-                  │                      │
-     ┌────────────▼──────────────────────▼────────────┐
-     │                                                │
-     │                 Speech Box Body                │
-     │                                                │
-     └───────────────────────────▲────────────────────┘
-                                ╱ ╲
-                               ╱   ╲
-                              ╱     ╲
-                             ▼       ▼
-                        tail_vertex_xy
-```
-- **Body Anchor**: `xy=(x, y)` specifies **bottom-left corner** of rectangular bubble body.
-- **Edge Selection (`tail_edge`)**: `"bottom"`, `"top"`, `"left"`, `"right"`.
-- **Ratios along Edge**:
-  - `tail_start_ratio`: Float in `[0.0, 1.0]` where tail begins along edge.
-  - `tail_end_ratio`: Float in `[0.0, 1.0]` where tail ends along edge (must be $> \text{tail\_start\_ratio}$).
-- **Target Vertex (`tail_vertex_xy`)**: Absolute coordinate `(vx, vy)` pointing directly to target shape, server, or bottleneck.
-
-### 13.2 Function Signature
-```python
-bubblespeech(
-    xy: tuple[float, float],
-    width: float,
-    height: float,
-    tail_edge: Literal["left", "top", "right", "bottom"],
-    tail_start_ratio: float,
-    tail_vertex_xy: tuple[float, float],
-    tail_end_ratio: float,
-    *,
-    style: Style,
-    text: str = "",
-    text_style: Style | None = None,
-)
-```
-
-### 13.3 Production Example: Architecture Bottleneck Callout
-```drawlib show-code
-from drawlib.canvas import save, setup
-from drawlib.fonts import Font
-from drawlib.preset_colors import CssColors
-from drawlib.shapes import rectangle
-from drawlib.smartarts import bubblespeech
-from drawlib.styles import Colors, Styles
-from drawlib.types import Style
-
-setup(width=110, height=60)
-
-rectangle(
-    xy=(25, 20),
-    width=24,
-    height=14,
-    r=1.5,
-    style=Styles.RedFlat,
-    text="Legacy RDBMS\n(Bottleneck)",
-    text_style=Styles.WhiteBold,
-)
-
-bubblespeech(
-    xy=(55, 30),
-    width=48,
-    height=20,
-    tail_edge="bottom",
-    tail_start_ratio=0.15,
-    tail_end_ratio=0.45,
-    tail_vertex_xy=(25, 27),
-    style=Styles.Primary.patch(
-        shape_fill_color=CssColors.LightCoral,
-        shape_line_color=CssColors.Crimson,
-        shape_line_width=1.5,
-    ),
-    text="ACTION REQUIRED:\nExceeding IOPS threshold.\nMigrate read replicas to AWS Aurora.",
-    text_style=Styles.Primary.patch(
-        text_color=CssColors.DarkRed,
-        text_font=Font.SANSSERIF_BOLD,
-        text_size=9,
-    ),
-)
-save()
-```
-
----
-## 14. Design Patterns & Coordinate Anchor Systems
-
-### 14.1 Coordinate Normalization Cheat Sheet
+### 13.1 Coordinate Normalization Cheat Sheet
 
 When integrating multiple SmartArts onto a single canvas, harmonize their coordinate origins according to the following formulas:
 
@@ -973,11 +881,10 @@ top_left_y = bottom_y + H
 | `ChevronProcess` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `GridLayout` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `Pyramid` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
-| `bubblespeech` | Bottom-Left `(x, y)` | Pass `(X, Y - H)` | Pass `(X, Y)` directly |
 | `MindMapNode` | Root Center `(x, y)` | Pass `(X + W/2, Y - H/2)` | Pass `(X + W/2, Y + H/2)` |
 | `Cycle` (align="center") | Orbit Center `(x, y)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
 
-### 14.2 Multi-Component Dashboard Integration Example
+### 13.2 Multi-Component Dashboard Integration Example
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess, SourceCode, SourceCodeStyles, Table
@@ -1034,7 +941,7 @@ save()
 ```
 
 ---
-## 15. Troubleshooting & Common Pitfalls
+## 14. Troubleshooting & Common Pitfalls
 
 ### 1. Inverted Table or Grid Placement
 - **Problem**: Table rows or GridLayout cells render outside canvas or upside down.
@@ -1052,11 +959,6 @@ save()
 - **Problem**: Sibling subtrees collide or overlap when branching in same direction.
 - **Resolution**: Increase `horizontal_margin` (for `"bottom"` or `"top"` branches) or `vertical_margin` (for `"left"` or `"right"` branches). You can also apply localized `xy_shift=(dx, dy)` on problematic child nodes.
 
-### 4. bubblespeech Ratio Assertions
-- **Problem**: `ValueError: tail_start_ratio must be smaller than tail_end_ratio`.
-- **Cause**: Passing `tail_start_ratio >= tail_end_ratio` or ratios exceeding `1.0`.
-- **Resolution**: Ensure `0.0 <= tail_start_ratio < tail_end_ratio <= 1.0`.
-
-### 5. Cycle Arrow Overlaps
+### 4. Cycle Arrow Overlaps
 - **Problem**: Connecting curved arrows collide with step circles.
 - **Resolution**: Increase `arrow_gap` (default 2.5) or enlarge `radius` relative to `node_radius`. Ensure `arrow_width <= arrow_head_width`.

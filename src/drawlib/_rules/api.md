@@ -18,7 +18,7 @@ from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, Monoch
 
 # 3. Drawing Primitives
 from drawlib.shapes import (
-    arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, chevron,
+    arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, bubblespeech, chevron,
     circle, donuts, ellipse, fan, parallelogram, polygon, rectangle,
     regularpolygon, rhombus, shape, star, trapezoid, triangle, wedge,
 )
@@ -32,14 +32,14 @@ from drawlib.text import text, text_vertical
 from drawlib.diagrams.architecture import ArchitectureDiagram, Edge, Junction, Node, NodeGroup
 from drawlib.diagrams.flow import FlowDiagram
 from drawlib.diagrams.sequence import SequenceDiagram
-from drawlib.diagrams.state_diagram import StateDiagram
+from drawlib.diagrams.state import StateDiagram  # also aliased as drawlib.diagrams.state_diagram
 from drawlib.diagrams.class_diagram import ClassDiagram
 from drawlib.diagrams.er import ERDiagram
 
 # 5. SmartArts Structured Components
 from drawlib.smartarts import (
     BoxList, BulletPoints, ChevronProcess, Cycle, GridLayout,
-    MindMapNode, Pyramid, SourceCode, SourceCodeStyles, Table, TreeNode, bubblespeech,
+    MindMapNode, Pyramid, SourceCode, SourceCodeStyles, Table, TreeNode,
 )
 
 # 6. Statistical & Project Charts
@@ -119,6 +119,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `arrow_u(xy, width, height, ...)` | `width, height`, `angle: float = 0` | U-turn block arrow. |
 | `arrow_arc(xy, radius, angle1, angle2, ...)` | `radius, angle1, angle2`, `width: float` | Curved circular block arrow. |
 | `arrow_polyline(points, width, ...)` | `points: list[tuple[float, float]]`, `width: float` | Polyline-following block arrow. |
+| `bubblespeech(xy, width, height, tail_edge, ...)` | `tail_edge, tail_start_ratio, tail_end_ratio, tail_vertex_xy` | Rectangular speech bubble with pointer tail. |
 | `shape(points, ...)` | `points: list[tuple[float, float]]` | Custom path shape. |
 
 ```drawlib show-code file:shapes_primitives.png
@@ -324,7 +325,7 @@ seq.draw()
 ```
 
 ### 7.4 Other Supported Diagrams
-- **State Diagram** (`drawlib.diagrams.state_diagram.StateDiagram`): FSM states, composite states, transitions, guard conditions.
+- **State Diagram** (`drawlib.diagrams.state.StateDiagram`, aliased as `state_diagram`): FSM states, composite states, transitions, guard conditions.
 - **Class Diagram** (`drawlib.diagrams.class_diagram.ClassDiagram`): UML classes, methods, inheritance (`--|>`), associations, composition.
 - **ER Diagram** (`drawlib.diagrams.er.ERDiagram`): Relational tables, columns, primary keys, foreign keys, Crow's foot cardinality.
 
@@ -346,7 +347,6 @@ High-level automated components for business and technical concepts:
 | `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.draw(xy, width, height)` |
 | `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.draw(xy, width, height)` |
 | `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=...)` |
-| `bubblespeech` | Bounding Box `(x, y)` | Callout speech bubbles | `bubblespeech(xy, width, height, tail_xy, text=...)` |
 
 ```drawlib show-code file:smartarts_chevron.png
 from drawlib.canvas import setup

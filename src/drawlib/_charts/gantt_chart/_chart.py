@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 from drawlib._charts.gantt_chart import _renderer as _renderer_module
 from drawlib._charts.gantt_chart._item import (
     Dependency,
@@ -21,16 +23,16 @@ from drawlib._charts.gantt_chart._item import (
     Section,
     Task,
 )
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class GanttChart:
     """Represents a 2D Gantt project schedule chart."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         columns: list[str],
         axis_line_style: Style,
         axis_text_style: Style | None = None,

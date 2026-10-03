@@ -13,10 +13,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, TypeVar
 
-import drawlib._diagrams.state_diagram._renderer as _renderer_module
+from pydantic import validate_call
+
+import drawlib._diagrams.state._renderer as _renderer_module
 from drawlib._core.l3_styles import Style
-from drawlib._diagrams.state_diagram._state_node import State, StateNodeBase
-from drawlib._diagrams.state_diagram._transition import StateTransition
+from drawlib._diagrams.state._state_node import State, StateNodeBase
+from drawlib._diagrams.state._transition import StateTransition
 
 NodeT = TypeVar("NodeT", bound=StateNodeBase)
 
@@ -24,8 +26,10 @@ NodeT = TypeVar("NodeT", bound=StateNodeBase)
 class StateDiagram:
     """Top-level container managing states, transitions, and layout for State diagrams."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         node_style: Style,
         edge_style: Style,
         title: str = "",
@@ -44,17 +48,7 @@ class StateDiagram:
             width: Optional fixed canvas width. If None, auto-calculated from content.
             height: Optional fixed canvas height. If None, auto-calculated from content.
             margin: Outer margin padding surrounding all states (default: 5.0).
-
-        Raises:
-            TypeError: If node_style or edge_style is not a Style instance.
         """
-        if not isinstance(node_style, Style):
-            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
-        if not isinstance(edge_style, Style):
-            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
-        if style is not None and not isinstance(style, Style):
-            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
-
         self.node_style = node_style
         self.edge_style = edge_style
         self.title = title

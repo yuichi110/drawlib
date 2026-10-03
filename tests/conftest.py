@@ -16,7 +16,7 @@ from typing import Optional
 
 import pytest
 
-from drawlib._utils import dutil_settings
+from drawlib._core.l1_core import dutil_settings
 from drawlib.canvas import clear, setup
 from tests.utils import check_image_match
 

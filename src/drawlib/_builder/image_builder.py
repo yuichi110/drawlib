@@ -38,7 +38,6 @@ from drawlib._builder._common import (
 from drawlib._core.l1_core import dutil_settings, get_script_relative_path, logger
 from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas._canvas import Canvas
-from drawlib._utils import dutil_canvas
 
 
 class DrawlibExecuter:

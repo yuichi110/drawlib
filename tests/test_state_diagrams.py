@@ -16,9 +16,11 @@ from pathlib import Path
 from typing import Any, cast
 
 import pytest
+from pydantic import ValidationError
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
+from drawlib.diagrams import state, state_diagram
 from drawlib.diagrams.state_diagram import (
     ChoiceState,
     FinalState,
@@ -281,15 +283,23 @@ class TestStateDiagram:
         assert sd.get_size() == (150.0, 100.0)
 
     def test_state_diagram_style_validation(self) -> None:
-        """Verify TypeError when invalid styles are supplied."""
-        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+        """Verify ValidationError or TypeError when invalid styles are supplied."""
+        with pytest.raises((ValidationError, TypeError)):
             StateDiagram(node_style="invalid", edge_style=Styles.Primary)  # type: ignore
 
-        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+        with pytest.raises((ValidationError, TypeError)):
             StateDiagram(node_style=Styles.PrimaryFlat, edge_style="invalid")  # type: ignore
 
-        with pytest.raises(TypeError, match="style must be a Style instance"):
+        with pytest.raises((ValidationError, TypeError)):
             StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
+
+    def test_state_module_import_parity(self) -> None:
+        """Verify drawlib.diagrams.state exports identical objects as drawlib.diagrams.state_diagram."""
+        assert state.StateDiagram is state_diagram.StateDiagram
+        assert state.State is state_diagram.State
+        assert state.InitialState is state_diagram.InitialState
+        assert state.FinalState is state_diagram.FinalState
+        assert state.StateTransition is state_diagram.StateTransition
 
 
 class TestStateDiagramRendering:

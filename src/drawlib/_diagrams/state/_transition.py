@@ -13,12 +13,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._diagrams.state_diagram._types import LoopSide, PaddingType, RoutingType, Side
+from drawlib._diagrams.state._types import LoopSide, PaddingType, RoutingType, Side
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.state_diagram._diagram import StateDiagram
-    from drawlib._diagrams.state_diagram._state_node import StateNodeBase
+    from drawlib._diagrams.state._diagram import StateDiagram
+    from drawlib._diagrams.state._state_node import StateNodeBase
 
 
 class StateTransition:

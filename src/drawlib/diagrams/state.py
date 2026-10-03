@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Internal State diagrams module."""
+"""Public State diagrams module."""
 
 from __future__ import annotations
 

@@ -10,7 +10,6 @@
 """Package for smart arts modules."""
 
 from drawlib._smartarts._boxlist import BoxList
-from drawlib._smartarts._bubblespeech import bubblespeech
 from drawlib._smartarts._bulletpoints import BulletPoints
 from drawlib._smartarts._chevronprocess import ChevronProcess
 from drawlib._smartarts._cycle import Cycle
@@ -38,7 +37,6 @@ __all__ = [
     "SourceCodeStyles",
     "Table",
     "TreeNode",
-    "bubblespeech",
     "get_source_code_styles",
     "sourcecode",
 ]

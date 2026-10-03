@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._diagrams.flow._edge as _edge_module
 import drawlib._diagrams.flow._junction as _junction_module
 import drawlib._diagrams.flow._lane as _lane_module
@@ -38,8 +40,10 @@ if TYPE_CHECKING:
 class FlowDiagram:
     """Top-level container for flowcharts and workflow diagrams."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         node_style: Style,
         edge_style: Style,
         title: str = "",
@@ -58,17 +62,7 @@ class FlowDiagram:
             height: Optional fixed height of the diagram canvas.
             style: Optional Style object for the diagram background.
             lane_orientation: Orientation of swimlanes ("vertical" or "horizontal"). Defaults to "vertical".
-
-        Raises:
-            TypeError: If node_style or edge_style is not a Style instance.
         """
-        if not isinstance(node_style, Style):
-            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
-        if not isinstance(edge_style, Style):
-            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
-        if style is not None and not isinstance(style, Style):
-            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
-
         self.node_style = node_style
         self.edge_style = edge_style
         self.title = title

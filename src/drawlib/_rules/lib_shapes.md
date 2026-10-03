@@ -1,6 +1,6 @@
 # Drawlib Shapes Guidelines
 
-Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 21 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
+Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 22 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
 
 ---
 
@@ -30,6 +30,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [3.6 `regularpolygon`](#36-regularpolygon)
   - [3.7 `polygon`](#37-polygon)
   - [3.8 `star`](#38-star)
+  - [3.9 `bubblespeech`](#39-bubblespeech)
 - [4. Custom Path & Vector Construction](#4-custom-path--vector-construction)
   - [4.1 `shape`](#41-shape)
 - [5. Directed Block Arrow Shapes](#5-directed-block-arrow-shapes)
@@ -55,7 +56,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 21 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 22 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (
@@ -65,6 +66,7 @@ from drawlib.shapes import (
     arrow_l,
     arrow_polyline,
     arrow_u,
+    bubblespeech,
     chevron,
     circle,
     donuts,
@@ -1219,6 +1221,74 @@ save()
 
 ---
 
+### 3.9 `bubblespeech`
+
+Draws an irregular speech bubble or callout box with a triangular pointer tail, designed for comic dialogue, system callouts, and migration notes.
+
+#### Signature
+```python
+def bubblespeech(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    tail_edge: Literal["left", "top", "right", "bottom"],
+    tail_start_ratio: float,
+    tail_vertex_xy: tuple[float, float],
+    tail_end_ratio: float,
+    *,
+    style: Style,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Bottom-left corner coordinate `(x, y)` of the bubble body. |
+| `width` | `float` | *Required* | Horizontal width of the bubble body ($> 0$). |
+| `height` | `float` | *Required* | Vertical height of the bubble body ($> 0$). |
+| `tail_edge` | `Literal["left", "top", "right", "bottom"]` | *Required* | Edge where the tail originates. |
+| `tail_start_ratio` | `float` | *Required* | Ratio in `[0.0, 1.0]` along edge where the tail begins. |
+| `tail_vertex_xy` | `tuple[float, float]` | *Required* | Target coordinates pointing to vertex of the tail. |
+| `tail_end_ratio` | `float` | *Required* | Ratio in `[0.0, 1.0]` along edge where the tail ends ($> \text{tail\_start\_ratio}$). |
+| `style` | `Style` | *Required* | Shape fill and outline style. |
+| `text` | `str` | `""` | Centered text label within bubble body. |
+| `text_style` | `Style \| None` | `None` | Text styling parameters. |
+
+#### Geometric Mechanics
+- `xy` defines the **bottom-left** corner of the speech bubble rectangle.
+- `tail_start_ratio` must be strictly smaller than `tail_end_ratio`.
+- `tail_vertex_xy` is an absolute coordinate pointing to any external point (e.g. a server node or database).
+
+#### Code Example
+```drawlib show-code
+from drawlib.canvas import save, setup
+from drawlib.shapes import bubblespeech, rectangle
+from drawlib.styles import Styles
+
+setup(width=100, height=50)
+
+rectangle((25, 20), width=24, height=14, style=Styles.RedFlat, text="Database", text_style=Styles.WhiteBold)
+
+bubblespeech(
+    xy=(50, 25),
+    width=40,
+    height=18,
+    tail_edge="bottom",
+    tail_start_ratio=0.2,
+    tail_vertex_xy=(25, 27),
+    tail_end_ratio=0.5,
+    style=Styles.PrimaryFlat,
+    text="Replica Alert",
+    text_style=Styles.WhiteBold,
+)
+save()
+```
+
+---
+
 ## 4. Custom Path & Vector Construction
 
 ### 4.1 `shape`
@@ -2291,6 +2361,7 @@ save()
 | `arrow_l` | Center `(x, y)` | `width`, `height`, head/tail dims | **Yes** | Yes | **No** | **Yes** |
 | `arrow_u` | Center `(x, y)` | `width`, `height`, head/tail dims | **Yes** | Yes | **No** | **Yes** |
 | `chevron` | Center `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
+| `bubblespeech` | Bottom-Left `(x, y)` | `width`, `height`, `tail_*` | No | No | Yes | **Yes** |
 
 ---
 

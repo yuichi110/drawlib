@@ -341,6 +341,7 @@ parallelogram = canvas.parallelogram
 triangle = canvas.triangle
 star = canvas.star
 chevron = canvas.chevron
+bubblespeech = canvas.bubblespeech
 
 # original arrow
 arrow = canvas.arrow

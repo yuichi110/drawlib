@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any, cast
 
 import pytest
+from pydantic import ValidationError
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
@@ -257,17 +258,17 @@ class TestClassDiagram:
     """Unit tests for ClassDiagram container."""
 
     def test_class_diagram_style_validation(self) -> None:
-        """Verify TypeError raised when node_style or edge_style is invalid."""
-        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+        """Verify ValidationError or TypeError raised when node_style or edge_style is invalid."""
+        with pytest.raises((ValidationError, TypeError)):
             ClassDiagram(node_style=cast(Any, "invalid"), edge_style=Styles.Primary)
 
-        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+        with pytest.raises((ValidationError, TypeError)):
             ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=cast(Any, "invalid"))
 
-        with pytest.raises(TypeError, match="header_style must be a Style instance"):
+        with pytest.raises((ValidationError, TypeError)):
             ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, header_style=cast(Any, "invalid"))
 
-        with pytest.raises(TypeError, match="style must be a Style instance"):
+        with pytest.raises((ValidationError, TypeError)):
             ClassDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style=cast(Any, "invalid"))
 
     def test_diagram_add_and_connect(self) -> None:

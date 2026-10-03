@@ -27,7 +27,7 @@ from drawlib._core.l4_canvas import lines_curved as canvas_lines_curved
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import rhombus as canvas_rhombus
 from drawlib._core.l4_canvas import text as canvas_text
-from drawlib._diagrams.state_diagram._state_node import (
+from drawlib._diagrams.state._state_node import (
     ChoiceState,
     FinalState,
     ForkJoinState,
@@ -35,12 +35,12 @@ from drawlib._diagrams.state_diagram._state_node import (
     State,
     StateNodeBase,
 )
-from drawlib._diagrams.state_diagram._types import Side
+from drawlib._diagrams.state._types import Side
 from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
-    from drawlib._diagrams.state_diagram._diagram import StateDiagram
-    from drawlib._diagrams.state_diagram._transition import StateTransition
+    from drawlib._diagrams.state._diagram import StateDiagram
+    from drawlib._diagrams.state._transition import StateTransition
 
 
 def draw_state_diagram(diagram: StateDiagram, base_xy: tuple[float, float]) -> None:

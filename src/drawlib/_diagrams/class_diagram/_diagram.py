@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._diagrams.class_diagram._renderer as _renderer_module
 from drawlib._core.l3_styles import Style
 from drawlib._diagrams.class_diagram._class_node import ClassNode
@@ -22,8 +24,10 @@ from drawlib._diagrams.class_diagram._relationship import ClassRelationship
 class ClassDiagram:
     """Top-level container managing classes, relationships, and layout for Class diagrams."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         node_style: Style,
         edge_style: Style,
         title: str = "",
@@ -44,19 +48,7 @@ class ClassDiagram:
             height: Optional fixed canvas height. If None, auto-calculated from content.
             margin: Outer margin padding surrounding all classes (default: 5.0).
             header_style: Optional Style overriding class card header compartments.
-
-        Raises:
-            TypeError: If node_style or edge_style is not a Style instance.
         """
-        if not isinstance(node_style, Style):
-            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
-        if not isinstance(edge_style, Style):
-            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
-        if style is not None and not isinstance(style, Style):
-            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
-        if header_style is not None and not isinstance(header_style, Style):
-            raise TypeError(f"header_style must be a Style instance, got {type(header_style).__name__}")
-
         self.node_style = node_style
         self.edge_style = edge_style
         self.header_style = header_style

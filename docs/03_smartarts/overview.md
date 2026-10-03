@@ -31,7 +31,6 @@ The `drawlib.smartarts` module eliminates this boilerplate by providing **high-l
 | **`Pyramid`** | Testing pyramids, tiered memory/cache hierarchies | Bottom-Left `(x, y)` | `add()`, `draw()` |
 | **`BulletPoints`** | Architectural takeaways, RFC key points | Top-Left `(x, y)` | `draw()` |
 | **`SourceCode`** | Syntax-highlighted code blocks in diagrams | Top-Left `(x, y)` | `draw()` |
-| **`bubblespeech`** | Speech bubbles, architecture callouts, warnings | Bottom-Left `(x, y)` | Direct function call |
 
 ---
 
@@ -40,7 +39,7 @@ The `drawlib.smartarts` module eliminates this boilerplate by providing **high-l
 Understanding anchor points is essential when combining SmartArts with other elements:
 - **Top-Left Anchored (`Table`, `TreeNode`, `BulletPoints`, `SourceCode`)**:  
   You specify the top-left coordinate `(x, y)`. Content flows horizontally to the right and vertically downward (`y` decreases).
-- **Bottom-Left Anchored (`ChevronProcess`, `GridLayout`, `Pyramid`, `bubblespeech`)**:  
+- **Bottom-Left Anchored (`ChevronProcess`, `GridLayout`, `Pyramid`)**:  
   You specify the bottom-left coordinate `(x, y)`. The bounding container extends rightward and upward (`y` increases).
 - **Center Anchored (`Cycle`, `MindMapNode`)**:  
   You specify the center coordinate `(cx, cy)`. The diagram expands symmetrically or radially around the center.

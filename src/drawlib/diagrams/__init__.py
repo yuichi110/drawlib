@@ -17,6 +17,7 @@ from drawlib.diagrams import (
     er,
     flow,
     sequence,
+    state,
     state_diagram,
 )
 
@@ -26,5 +27,6 @@ __all__ = [
     "er",
     "flow",
     "sequence",
+    "state",
     "state_diagram",
 ]

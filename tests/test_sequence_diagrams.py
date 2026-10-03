@@ -14,6 +14,7 @@ from pathlib import Path
 
 import pytest
 from PIL import Image
+from pydantic import ValidationError
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
@@ -190,17 +191,17 @@ class TestSequenceDiagramLifecycle:
         assert end > start
 
     def test_sequence_diagram_style_validation(self) -> None:
-        """Verify TypeError when invalid styles are supplied."""
-        with pytest.raises(TypeError, match="node_style must be a Style instance"):
+        """Verify ValidationError or TypeError when invalid styles are supplied."""
+        with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(node_style="invalid", edge_style=Styles.Primary)  # type: ignore
 
-        with pytest.raises(TypeError, match="edge_style must be a Style instance"):
+        with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style="invalid")  # type: ignore
 
-        with pytest.raises(TypeError, match="style must be a Style instance"):
+        with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
 
-        with pytest.raises(TypeError, match="title_style must be a Style instance"):
+        with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title_style="invalid")  # type: ignore
 
 

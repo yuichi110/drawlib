@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._diagrams.architecture._edge as _edge_module
 import drawlib._diagrams.architecture._group as _group_module
 import drawlib._diagrams.architecture._junction as _junction_module
@@ -28,8 +30,10 @@ if TYPE_CHECKING:
 class ArchitectureDiagram:
     """Top-level container for architecture diagrams."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         node_style: Style,
         edge_style: Style,
         title: str = "",
@@ -46,17 +50,7 @@ class ArchitectureDiagram:
             width: Optional fixed width of the diagram.
             height: Optional fixed height of the diagram.
             style: Optional Style object for the diagram background.
-
-        Raises:
-            TypeError: If node_style or edge_style is not a Style instance.
         """
-        if not isinstance(node_style, Style):
-            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
-        if not isinstance(edge_style, Style):
-            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
-        if style is not None and not isinstance(style, Style):
-            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
-
         self.node_style = node_style
         self.edge_style = edge_style
         self.title = title

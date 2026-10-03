@@ -21,7 +21,6 @@ from drawlib._smartarts import (
     SourceCodeStyles,
     Table,
     TreeNode,
-    bubblespeech,
     get_source_code_styles,
     sourcecode,
 )
@@ -38,7 +37,6 @@ __all__ = [
     "SourceCodeStyles",
     "Table",
     "TreeNode",
-    "bubblespeech",
     "get_source_code_styles",
     "sourcecode",
 ]

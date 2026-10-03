@@ -13,21 +13,23 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._charts._common._legend as _legend_module
 import drawlib._charts.bar_chart._renderer as _renderer_module
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import BarMode, FormatterType, Orientation, ScaleType
 from drawlib._charts.bar_chart._series import Series
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class BarChart:
     """Configurable container and builder for vertical and horizontal bar charts."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         axis_line_style: Style,
         width: float = 60.0,
         height: float = 40.0,

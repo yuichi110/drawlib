@@ -19,7 +19,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from drawlib._builder.cache_manager import clear_cache, clear_image_cache, download_cache, list_cache
+from drawlib._builder._common.cache_manager import clear_cache, clear_image_cache, download_cache, list_cache
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.l1_core import dutil_settings
 

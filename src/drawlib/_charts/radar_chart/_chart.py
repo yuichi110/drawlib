@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._types import (
     FormatterType,
@@ -23,16 +25,16 @@ from drawlib._charts._common._types import (
 )
 from drawlib._charts.radar_chart import _renderer as _renderer_module
 from drawlib._charts.radar_chart._series import Series
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class RadarChart:
     """Represents a 2D radar (spider web) chart."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         categories: list[str],
         axis_line_style: Style,
         radius: float = 25.0,

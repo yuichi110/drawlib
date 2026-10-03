@@ -17,11 +17,10 @@ from __future__ import annotations
 
 import contextlib
 import os
-from dataclasses import dataclass
 from typing import Any
 
 import pygments
-from pydantic import validate_call
+from pydantic import BaseModel, ConfigDict, validate_call
 from pygments.lexer import Lexer
 from pygments.lexers import (
     get_lexer_by_name,
@@ -38,8 +37,7 @@ from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import TextUtil, canvas, rectangle, text
 
 
-@dataclass
-class SourceCodeStyles:
+class SourceCodeStyles(BaseModel):
     """Source code rendering style configuration.
 
     Attributes:
@@ -54,6 +52,11 @@ class SourceCodeStyles:
         type_: Style for classes, types, and builtin identifiers.
         operator: Style for operators and punctuation symbols.
     """
+
+    model_config = ConfigDict(
+        arbitrary_types_allowed=True,
+        frozen=True,
+    )
 
     box_style: Style
     linenum_style: Style

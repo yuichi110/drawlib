@@ -13,20 +13,22 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 from drawlib._charts._common._types import LineStyle, PointShape
 from drawlib._charts.line_chart import _renderer as _renderer_module
 from drawlib._charts.line_chart._base import CartesianChartBase
 from drawlib._charts.line_chart._series import Series
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class LineChart(CartesianChartBase):
     """Represents a 2D line chart with straight or smooth curves."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         axis_line_style: Style,
         categories: list[str],
         width: float = 80.0,

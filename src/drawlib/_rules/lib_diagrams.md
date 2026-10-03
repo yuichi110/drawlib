@@ -24,7 +24,7 @@ from drawlib.diagrams.class_diagram import ClassDiagram
 from drawlib.diagrams.er import ERDiagram
 from drawlib.diagrams.flow import FlowDiagram
 from drawlib.diagrams.sequence import SequenceDiagram
-from drawlib.diagrams.state_diagram import StateDiagram
+from drawlib.diagrams.state import StateDiagram  # also accessible via drawlib.diagrams.state_diagram
 
 # Or import submodules from drawlib.diagrams:
 from drawlib.diagrams import (
@@ -33,6 +33,7 @@ from drawlib.diagrams import (
     er,
     flow,
     sequence,
+    state,
     state_diagram,
 )
 ```

@@ -13,20 +13,22 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._types import FormatterType, Orientation
 from drawlib._charts.pie_chart import _renderer as _renderer_module
 from drawlib._charts.pie_chart._slice import Slice
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class PieChart:
     """Represents a 2D pie or donut chart."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         radius: float = 20.0,
         hole_ratio: float = 0.0,
         start_angle: float = 90.0,

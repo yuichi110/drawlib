@@ -13,19 +13,21 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import FormatterType, Orientation, ScaleType
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class CartesianChartBase:
     """Base container for 2D Cartesian charts with categories and numerical values."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         axis_line_style: Style,
         categories: list[str],
         width: float = 80.0,

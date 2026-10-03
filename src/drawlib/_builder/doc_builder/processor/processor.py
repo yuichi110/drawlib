@@ -39,7 +39,6 @@ from drawlib._builder.doc_builder.processor.options import (
 )
 from drawlib._core.l1_core import dutil_settings
 from drawlib._core.l4_canvas import save
-from drawlib._utils import dutil_canvas
 
 
 class DrawlibBlockProcessor:

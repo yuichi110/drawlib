@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._builder.cache_manager import clear_cache, download_cache, list_cache
+from drawlib._builder._common.cache_manager import clear_cache, download_cache, list_cache
 from drawlib._builder.project_init import init_project, list_project_types
 from drawlib._css_templates import (
     export_css,

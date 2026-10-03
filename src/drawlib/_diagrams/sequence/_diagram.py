@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._diagrams.sequence._block as _block_module
 import drawlib._diagrams.sequence._message as _message_module
 import drawlib._diagrams.sequence._note as _note_module
@@ -31,8 +33,10 @@ if TYPE_CHECKING:
 class SequenceDiagram:
     """Top-level container and timeline manager for sequence diagrams."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         node_style: Style,
         edge_style: Style,
         title: str = "",
@@ -59,19 +63,7 @@ class SequenceDiagram:
             padding: Margin clearance (float or (top, right, bottom, left) tuple). Defaults to 5.0.
             style: Style for diagram background.
             title_style: Style for title text.
-
-        Raises:
-            TypeError: If node_style or edge_style is not a Style instance.
         """
-        if not isinstance(node_style, Style):
-            raise TypeError(f"node_style must be a Style instance, got {type(node_style).__name__}")
-        if not isinstance(edge_style, Style):
-            raise TypeError(f"edge_style must be a Style instance, got {type(edge_style).__name__}")
-        if style is not None and not isinstance(style, Style):
-            raise TypeError(f"style must be a Style instance, got {type(style).__name__}")
-        if title_style is not None and not isinstance(title_style, Style):
-            raise TypeError(f"title_style must be a Style instance, got {type(title_style).__name__}")
-
         self.node_style = node_style
         self.edge_style = edge_style
         self.title = title

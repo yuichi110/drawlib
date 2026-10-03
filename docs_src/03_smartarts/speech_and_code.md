@@ -1,7 +1,7 @@
 # Speech & Code Blocks
 
 Drawlib provides specialized components for embedding contextual annotations and syntax-highlighted source code:
-- **`bubblespeech`**: Creates comic callouts and speech bubbles with precise tail pointers.
+- **`bubblespeech`**: Creates comic callouts and speech bubbles with precise tail pointers (available in `drawlib.shapes`).
 - **`SourceCode`**: Embeds vector-rendered, syntax-highlighted code snippets with unified styling and language font support.
 
 ---
@@ -10,8 +10,8 @@ Drawlib provides specialized components for embedding contextual annotations and
 
 ```drawlib 650px center file:speech_and_code_overview.png caption:"Speech Callout and Syntax-Highlighted Code Container"
 from drawlib.canvas import setup
-from drawlib.smartarts import bubblespeech, SourceCode, SourceCodeStyles
-from drawlib.shapes import circle
+from drawlib.shapes import circle, bubblespeech
+from drawlib.smartarts import SourceCode, SourceCodeStyles
 from drawlib.styles import Styles
 
 setup(width=120, height=60)

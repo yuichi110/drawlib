@@ -13,21 +13,23 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pydantic import validate_call
+
 import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import FormatterType, Orientation, PointShape, ScaleType
 from drawlib._charts.scatter_chart import _renderer as _renderer_module
 from drawlib._charts.scatter_chart._point import Point, Series
-
-if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Style
 
 
 class ScatterChart:
     """Represents a 2D Scatter and Bubble Chart with continuous numerical X and Y axes."""
 
+    @validate_call
     def __init__(
         self,
+        *,
         axis_line_style: Style,
         width: float = 88.0,
         height: float = 55.0,

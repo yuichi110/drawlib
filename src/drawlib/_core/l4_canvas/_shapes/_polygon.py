@@ -23,7 +23,9 @@ from drawlib._core.l2_types import (
     NumVertex,
     PosFloat,
     PosInt,
+    Ratio,
     Size,
+    TailEdge,
 )
 from drawlib._core.l3_math import rotate_point
 from drawlib._core.l3_styles import Style
@@ -380,6 +382,82 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
                     xy=(cx, cy),
                     text=text,
                     angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+    @validate_call
+    def bubblespeech(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        tail_edge: TailEdge,
+        tail_start_ratio: Ratio,
+        tail_vertex_xy: Coordinate,
+        tail_end_ratio: Ratio,
+        *,
+        style: Style,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a speech bubble shape on the canvas.
+
+        Args:
+            xy: The (x, y) coordinates of the bottom-left corner of the bubble body.
+            width: The width of the bubble body.
+            height: The height of the bubble body.
+            tail_edge: The edge ("left", "top", "right", "bottom") where the tail originates.
+            tail_start_ratio: Ratio (between 0.0 and 1.0) along the edge where the tail begins.
+            tail_vertex_xy: The (x, y) target coordinates pointing to the vertex of the tail.
+            tail_end_ratio: Ratio (between 0.0 and 1.0) along the edge where the tail ends.
+            style: The Style of the speech bubble shape (required).
+            text: Optional text to display inside the bubble. Defaults to an empty string.
+            text_style: Optional Style of the text.
+
+        Raises:
+            ValueError: If tail_start_ratio is greater than or equal to tail_end_ratio.
+        """
+        if tail_start_ratio >= tail_end_ratio:
+            raise ValueError("tail_start_ratio must be smaller than tail_end_ratio.")
+
+        x, y = xy
+        xys: list[Coordinate] = [(x, y)]  # left bottom
+
+        if tail_edge == "left":
+            xys.append((x, y + height * tail_start_ratio))
+            xys.append(tail_vertex_xy)
+            xys.append((x, y + height * tail_end_ratio))
+        xys.append((x, y + height))  # left top
+
+        if tail_edge == "top":
+            xys.append((x + width * tail_start_ratio, y + height))
+            xys.append(tail_vertex_xy)
+            xys.append((x + width * tail_end_ratio, y + height))
+        xys.append((x + width, y + height))  # right top
+
+        if tail_edge == "right":
+            xys.append((x + width, y + height * tail_end_ratio))
+            xys.append(tail_vertex_xy)
+            xys.append((x + width, y + height * tail_start_ratio))
+        xys.append((x + width, y))  # right bottom
+
+        if tail_edge == "bottom":
+            xys.append((x + width * tail_end_ratio, y))
+            xys.append(tail_vertex_xy)
+            xys.append((x + width * tail_start_ratio, y))
+
+        self.polygon(xys=xys, style=style)
+
+        if text:
+            center_x = x + width / 2.0
+            center_y = y + height / 2.0
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=(center_x, center_y),
+                    text=text,
+                    angle=0.0,
                     style=effective_text_style,
                 )
             )

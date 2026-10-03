@@ -7,26 +7,24 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public State diagrams module."""
+"""Public State diagrams module (alias for drawlib.diagrams.state)."""
 
 from __future__ import annotations
 
-from drawlib._diagrams.state_diagram._diagram import StateDiagram
-from drawlib._diagrams.state_diagram._state_node import (
+from drawlib.diagrams.state import (
     ChoiceState,
     FinalState,
     ForkJoinState,
     InitialState,
-    State,
-    StateNodeBase,
-)
-from drawlib._diagrams.state_diagram._transition import StateTransition
-from drawlib._diagrams.state_diagram._types import (
     PaddingType,
     RoutingType,
     ShapeType,
     Side,
+    State,
     StateAction,
+    StateDiagram,
+    StateNodeBase,
+    StateTransition,
 )
 
 __all__ = [

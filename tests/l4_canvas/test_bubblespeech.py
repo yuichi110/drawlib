@@ -15,7 +15,7 @@ import pytest
 from pydantic import ValidationError
 
 from drawlib.canvas import clear, save
-from drawlib.smartarts import bubblespeech
+from drawlib.shapes import bubblespeech
 from drawlib.styles import Colors, Styles
 
 default_styles = Styles
