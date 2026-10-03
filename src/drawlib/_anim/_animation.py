@@ -7,13 +7,14 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Animated PNG (APNG) animation generator implementation module."""
+"""Animation generator implementation module supporting APNG and Animated WebP."""
 
 from __future__ import annotations
 
 import os
 from collections.abc import Generator
 from contextlib import contextmanager
+from typing import Literal
 
 from PIL import Image
 from pydantic import validate_call
@@ -22,11 +23,11 @@ from drawlib._core.l2_types import PosInt
 from drawlib._core.l4_canvas import canvas
 
 
-class Apng:
-    """Animated PNG (APNG) animation generator for drawlib.
+class Animation:
+    """Animation generator for drawlib supporting APNG and Animated WebP.
 
-    This class manages animation frames and coordinates with drawlib canvas
-    to output animated PNG files.
+    This class manages animation frames and coordinates with the drawlib canvas
+    to output high-quality, multi-frame animated illustrations.
     """
 
     @validate_call
@@ -36,12 +37,12 @@ class Apng:
         frame_rate: float | None = None,
         loop: PosInt = 0,
     ) -> None:
-        """Initialize an Apng animation instance.
+        """Initialize an Animation instance.
 
         Args:
             fps: Playback frame rate in frames per second (e.g. 10.0 means 10 fps). Defaults to 10.0.
             frame_rate: Alias for `fps`. If both are specified, `fps` takes precedence.
-            loop: Number of playback loops. 0 means infinite loop. Defaults to 0.
+            loop: Number of playback loops. 0 means infinite continuous loop. Defaults to 0.
 
         Raises:
             ValueError: If fps or frame_rate is non-positive.
@@ -143,33 +144,61 @@ class Apng:
         if clear:
             canvas._clear_artists()
 
-    def _save(self, file_path: str) -> None:
+    def _save(
+        self,
+        file_path: str,
+        format: Literal["png", "apng", "webp"] | str | None = None,
+    ) -> None:
         """Internal save method called by canvas.save().
 
         Args:
             file_path: Destination file path.
+            format: Optional format override ('png', 'apng', 'webp'). If None,
+                inferred from file extension.
 
         Raises:
-            ValueError: If no frames have been captured.
+            ValueError: If no frames have been captured, or if the format is unsupported.
         """
         if not self._frames:
             raise ValueError(
-                "Cannot save APNG: No frames have been captured. Use 'with anim.frame():' or 'anim.add_frame()'."
+                "Cannot save animation: No frames have been captured. Use 'with anim.frame():' or 'anim.add_frame()'."
             )
 
         directory = os.path.dirname(file_path)
         if directory:
             os.makedirs(directory, exist_ok=True)
 
+        ext = os.path.splitext(file_path)[1].lower().lstrip(".")
+        eff_format = (format.lower() if format else ext) or "png"
+
         first_frame = self._frames[0]
         append_frames = self._frames[1:]
-        first_frame.save(
-            file_path,
-            save_all=True,
-            append_images=append_frames,
-            duration=self._durations,
-            loop=self._loop,
-            format="PNG",
-            compress_level=9,
-            optimize=True,
-        )
+
+        if eff_format in {"webp"}:
+            # Animated WebP: Lossless with size minimization
+            first_frame.save(
+                file_path,
+                save_all=True,
+                append_images=append_frames,
+                duration=self._durations,
+                loop=self._loop,
+                format="WEBP",
+                lossless=True,
+                minimize_size=True,
+            )
+        elif eff_format in {"png", "apng"}:
+            # APNG: Maximum zlib compression and Huffman optimization
+            first_frame.save(
+                file_path,
+                save_all=True,
+                append_images=append_frames,
+                duration=self._durations,
+                loop=self._loop,
+                format="PNG",
+                compress_level=9,
+                optimize=True,
+            )
+        else:
+            raise ValueError(
+                f"Unsupported animation format '{eff_format}'. Supported animation formats: 'png', 'webp', 'apng'."
+            )

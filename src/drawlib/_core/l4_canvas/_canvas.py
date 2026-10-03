@@ -142,7 +142,7 @@ class Canvas(
             self._create_parent_directory(file_path)
             anim = self._active_animation
             self._active_animation = None
-            anim._save(file_path)
+            anim._save(file_path, format=format)
             self._clear_artists()
             return
 

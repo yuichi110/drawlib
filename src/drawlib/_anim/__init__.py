@@ -7,8 +7,8 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Package for Animated PNG (APNG) animation."""
+"""Drawlib animation package."""
 
-from drawlib._apng._apng import Apng
+from drawlib._anim._animation import Animation
 
-__all__ = ["Apng"]
+__all__ = ["Animation"]

@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APNG Animations</title>
+    <title>Animations (APNG & WebP)</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -106,7 +106,7 @@
                             </li>
                             
                             <li class="nav-item active">
-                                <a href="apng.html" >APNG Animations</a>
+                                <a href="animation.html" >Animations (APNG & WebP)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -302,50 +302,68 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">APNG Animations</span>
+                    <span class="crumb active">Animations (APNG & WebP)</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>APNG Animations</h1>
-<p>Drawlib provides native support for generating <strong>Animated Portable Network Graphics (APNG)</strong>.<br />
-APNG empowers developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations and animated technical visualizations using declarative Python code.</p>
+                <h1>Animations (APNG &amp; WebP)</h1>
+<p>Drawlib provides native support for generating multi-frame animations in both <strong>Animated Portable Network Graphics (APNG)</strong> and <strong>Animated WebP</strong> formats.<br />
+Animations empower developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations and animated technical visualizations using declarative Python code.</p>
 <hr />
-<h2>1. Why APNG in Technical Documentation?</h2>
-<p>Unlike legacy GIF animations (which are constrained to 256 indexed colors and binary transparency), APNG features:</p>
-<ul>
-<li><strong>24-bit RGB and 32-bit RGBA Full Color</strong>: Gradients, soft drop shadows, and subtle fills remain crisp and uncompressed.</li>
-<li><strong>Alpha Channel Transparency</strong>: Transparent backgrounds blend seamlessly into light and dark documentation themes.</li>
-<li><strong>Zero Extra Dependencies</strong>: Relies on native Pillow (<code>save_all=True</code>), requiring no external binary packages like <code>ffmpeg</code>.</li>
-<li><strong>Universal Browser Support</strong>: Supported natively by all modern web browsers (Chrome, Firefox, Safari, Edge) and GitHub Markdown previews.</li>
-<li><strong>Safe Static Fallback</strong>: Standard PNG decoders (and PDF compilers) automatically display the 1st frame as a clean static image.</li>
-</ul>
+<h2>1. Supported Animation Formats</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Format</th>
+<th style="text-align:left">Extension</th>
+<th style="text-align:left">Primary Advantage</th>
+<th style="text-align:left">Best Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>APNG</strong></td>
+<td style="text-align:left"><code>.png</code></td>
+<td style="text-align:left"><strong>Universal Compatibility</strong>: Renders natively in all modern web browsers and GitHub Markdown previews. Safe static fallback to 1st frame in PDF compilers and legacy viewers.</td>
+<td style="text-align:left">GitHub READMEs, markdown documentation, printable technical documents.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Animated WebP</strong></td>
+<td style="text-align:left"><code>.webp</code></td>
+<td style="text-align:left"><strong>Ultra-Compact File Size</strong>: Typically ~50% smaller than APNG with lossless quality.</td>
+<td style="text-align:left">Web-hosted documentation sites, high-performance web applications, mobile platforms.</td>
+</tr>
+</tbody>
+</table>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="apng_images/apng_step_architecture.png" alt="apng_1" style="width: 650px; max-width: 100%;" />
+  <img src="animation_images/animation_step_architecture.png" alt="animation_1" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Step-by-Step Architecture Reveal</figcaption>
 </figure>
 <hr />
 <h2>2. Imports &amp; Canvas Lifecycle</h2>
-<p>All animation classes are exported from <code>drawlib.apng</code>:</p>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.apng</span><span class="w"> </span><span class="kn">import</span> <span class="n">Apng</span>
+<p>All animation functionality is centered around the <code>Animation</code> class in <code>drawlib.anim</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span><span class="p">,</span> <span class="n">circle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 </code></pre>
 <h3>Automatic Canvas Coordination</h3>
-<p>When an <code>Apng</code> instance is initialized, it automatically registers itself with the active Drawlib canvas (<code>canvas._active_animation</code>). You do not need to call a separate animation export method; calling standard <code>save()</code> captures all accumulated frames into an animated APNG file:</p>
-<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<p>When an <code>Animation</code> instance is initialized, it automatically registers itself with the active Drawlib canvas (<code>canvas._active_animation</code>). Calling standard <code>save()</code> captures all accumulated frames into an animated file without requiring separate export methods:</p>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
 
-<span class="c1"># Define frames...</span>
 <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">():</span>
     <span class="n">circle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
 
-<span class="c1"># Save unified under standard drawlib save()</span>
+<span class="c1"># Saves as APNG:</span>
 <span class="n">save</span><span class="p">(</span><span class="s2">&quot;animation.png&quot;</span><span class="p">)</span>
+
+<span class="c1"># Or saves as Animated WebP:</span>
+<span class="n">save</span><span class="p">(</span><span class="s2">&quot;animation.webp&quot;</span><span class="p">)</span>
 </code></pre>
 <hr />
-<h2>3. The <code>Apng</code> Class API</h2>
+<h2>3. The <code>Animation</code> Class API</h2>
 <h3>3.1. Initialization</h3>
-<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span>
     <span class="n">fps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">frame_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">loop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -384,7 +402,7 @@ APNG empowers developers and AI coding agents to create clean, high-framerate, m
 <hr />
 <h2>4. Defining Frames</h2>
 <h3>4.1. Context Manager: <code>with anim.frame()</code> (Recommended)</h3>
-<p>The <code>with anim.frame()</code> context manager captures the canvas state at the end of the block.</p>
+<p>The <code>with anim.frame()</code> context manager captures the canvas state at the end of each block.</p>
 <pre><code class="language-python"><span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span>
     <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -412,7 +430,7 @@ APNG empowers developers and AI coding agents to create clean, high-framerate, m
 <td style="text-align:left"><code>clear</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>True</code></td>
-<td style="text-align:left">Whether to clear existing canvas shapes before drawing this frame.</td>
+<td style="text-align:left">Whether to clear existing canvas shapes before drawing this frame. Defaults to <code>True</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -426,7 +444,7 @@ APNG empowers developers and AI coding agents to create clean, high-framerate, m
 <p>Drawlib supports two fundamental animation paradigms:</p>
 <h3>5.1. Independent Frame Mode (<code>clear=True</code>, Default)</h3>
 <p>Each frame starts with an empty canvas. This mode is ideal for moving objects, rotating elements, or physics simulations:</p>
-<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">():</span>
@@ -434,7 +452,7 @@ APNG empowers developers and AI coding agents to create clean, high-framerate, m
 </code></pre>
 <h3>5.2. Cumulative / Step-by-Step Mode (<code>clear=False</code>)</h3>
 <p>Setting <code>clear=False</code> keeps shapes from preceding frames on the canvas. This mode is exceptionally effective for architectural explanations that reveal components stage by stage:</p>
-<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 
 <span class="c1"># Stage 1: Ingress</span>
 <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -454,7 +472,7 @@ APNG empowers developers and AI coding agents to create clean, high-framerate, m
 <p>Frame timing is configured directly in <strong>seconds</strong> (e.g. <code>duration=0.25</code> for a quarter of a second, <code>duration=2.0</code> for two seconds).</p>
 <h3>Holding the Final Frame</h3>
 <p>To give readers sufficient time to inspect a completed diagram before the animation loops, specify an extended <code>duration</code> on the final frame:</p>
-<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>  <span class="c1"># Standard frames display for 0.2s</span>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>  <span class="c1"># Standard frames display for 0.2s</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">():</span>
@@ -467,18 +485,18 @@ APNG empowers developers and AI coding agents to create clean, high-framerate, m
 </code></pre>
 <hr />
 <h2>7. Embedded Markdown Code Blocks</h2>
-<p>You can embed APNG animations directly inside Markdown documents using the <code>drawlib</code> code fence. The document compiler automatically compiles the code block into an animated APNG file:</p>
+<p>You can embed animations directly inside Markdown documents using the <code>drawlib</code> code fence. The document compiler automatically compiles the code block into an animated file:</p>
 <pre><code class="language-markdown"><span class="gh"># Live Event Pipeline</span>
 
 <span class="sb">```drawlib</span><span class="w"> </span>600px center file:live_pipeline.png caption:&quot;Event Progression&quot;
-<span class="s">from drawlib.apng import Apng</span>
+<span class="s">from drawlib.anim import Animation</span>
 <span class="s">from drawlib.canvas import setup</span>
 <span class="s">from drawlib.lines import line</span>
 <span class="s">from drawlib.shapes import circle, rectangle</span>
 <span class="s">from drawlib.styles import Styles</span>
 
 <span class="s">setup(width=100, height=40)</span>
-<span class="s">anim = Apng(fps=10.0)</span>
+<span class="s">anim = Animation(fps=10.0)</span>
 
 <span class="s">for x in range(30, 75, 5):</span>
 <span class="s">    with anim.frame():</span>
@@ -488,14 +506,25 @@ APNG empowers developers and AI coding agents to create clean, high-framerate, m
 <span class="s">        circle((x, 20), radius=3, style=Styles.Secondary)</span>
 <span class="sb">```</span>
 </code></pre>
-<p>When compiled with <code>drawlib build html</code> or <code>drawlib build markdown</code>, <code>live_pipeline.png</code> is generated in the document's companion image folder and rendered natively in the browser.</p>
+<p>To output Animated WebP instead of APNG, specify a <code>.webp</code> extension in the <code>file:</code> attribute (e.g. <code>file:live_pipeline.webp</code>) or compile with <code>--format webp</code>.</p>
 <hr />
 <h2>8. Built-in Lossless Compression &amp; Performance</h2>
-<p>Drawlib automatically applies multi-tier lossless optimization when saving APNG files:</p>
+<p>Drawlib automatically applies multi-tier lossless optimization when saving animations:</p>
 <ol>
-<li><strong>Sub-frame Bounding Box Cropping</strong>: Only the changed pixels (<code>delta.getbbox()</code>) between consecutive frames are encoded, drastically reducing raw image data.</li>
-<li><strong>Maximum Zlib Compression (<code>compress_level=9</code>)</strong>: Applied automatically to all frame image chunks.</li>
-<li><strong>Huffman Tree Optimization (<code>optimize=True</code>)</strong>: Generates optimized compression tables.</li>
+<li><strong>APNG Compression</strong>:
+<ul>
+<li>Sub-frame delta bounding box cropping (<code>delta.getbbox()</code>).</li>
+<li>Maximum Zlib compression level (<code>compress_level=9</code>).</li>
+<li>Huffman tree optimization (<code>optimize=True</code>).</li>
+</ul>
+</li>
+<li><strong>Animated WebP Compression</strong>:
+<ul>
+<li>Fully lossless encoding (<code>lossless=True</code>).</li>
+<li>Automatic delta sub-frame size minimization (<code>minimize_size=True</code>).</li>
+<li>Generates files approximately 40%–60% smaller than APNG.</li>
+</ul>
+</li>
 </ol>
 <h3>Best Practice for Animation Performance</h3>
 <ul>

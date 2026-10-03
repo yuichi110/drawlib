@@ -69,7 +69,7 @@ Explore the comprehensive guides below:
 1. [**Getting Started**](./01_getting_started/overview.md)
    - Core philosophy, installation, quickstart, coordinate principles, project scaffolding, and AI agent configuration.
 2. [**Drawing Primitives & Styles**](./02_drawing_primitives/canvas.md)
-   - Low-level vector shapes, lines, connectors, typography, icons, image processing, APNG animations, and preset themes.
+   - Low-level vector shapes, lines, connectors, typography, icons, image processing, APNG & WebP animations, and preset themes.
 3. [**SmartArts**](./03_smartarts/overview.md)
    - High-level infographics: process pipelines, cyclical loops, data tables, hierarchical trees, and mindmaps.
 4. [**Charts**](./04_charts/overview.md)

@@ -68,8 +68,8 @@ Options are specified space-delimited on the opening code fence line:
 > Always specify an explicit `file:<name>.png` attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via `drawlib show <file> <image_name.png>`.
 
 > [!NOTE]
-> **APNG Animations in Code Blocks**:
-> Embedded `drawlib` blocks fully support generating multi-frame animated APNG files using `from drawlib.apng import Apng`. The document compiler automatically outputs an animated PNG into the companion image directory. See [APNG Animations](../02_drawing_primitives/apng.md) for full details.
+> **Animations in Code Blocks (APNG & WebP)**:
+> Embedded `drawlib` blocks fully support generating multi-frame animated illustrations using `from drawlib.anim import Animation`. The document compiler automatically outputs an animated PNG (APNG) or Animated WebP file based on the file extension. See [Animations (APNG & WebP)](../02_drawing_primitives/animation.md) for full details.
 
 ---
 

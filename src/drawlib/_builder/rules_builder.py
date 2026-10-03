@@ -31,7 +31,7 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "cli",
     "api",
     "lib-canvas",
-    "lib-apng",
+    "lib-anim",
     "lib-shapes",
     "lib-lines",
     "lib-text",

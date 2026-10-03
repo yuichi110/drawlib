@@ -1,29 +1,26 @@
-# APNG Animations
+# Animations (APNG & WebP)
 
-Drawlib provides native support for generating **Animated Portable Network Graphics (APNG)**.  
-APNG empowers developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations and animated technical visualizations using declarative Python code.
+Drawlib provides native support for generating multi-frame animations in both **Animated Portable Network Graphics (APNG)** and **Animated WebP** formats.  
+Animations empower developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations and animated technical visualizations using declarative Python code.
 
 ---
 
-## 1. Why APNG in Technical Documentation?
+## 1. Supported Animation Formats
 
-Unlike legacy GIF animations (which are constrained to 256 indexed colors and binary transparency), APNG features:
+| Format | Extension | Primary Advantage | Best Use Cases |
+| :--- | :--- | :--- | :--- |
+| **APNG** | `.png` | **Universal Compatibility**: Renders natively in all modern web browsers and GitHub Markdown previews. Safe static fallback to 1st frame in PDF compilers and legacy viewers. | GitHub READMEs, markdown documentation, printable technical documents. |
+| **Animated WebP** | `.webp` | **Ultra-Compact File Size**: Typically ~50% smaller than APNG with lossless quality. | Web-hosted documentation sites, high-performance web applications, mobile platforms. |
 
-* **24-bit RGB and 32-bit RGBA Full Color**: Gradients, soft drop shadows, and subtle fills remain crisp and uncompressed.
-* **Alpha Channel Transparency**: Transparent backgrounds blend seamlessly into light and dark documentation themes.
-* **Zero Extra Dependencies**: Relies on native Pillow (`save_all=True`), requiring no external binary packages like `ffmpeg`.
-* **Universal Browser Support**: Supported natively by all modern web browsers (Chrome, Firefox, Safari, Edge) and GitHub Markdown previews.
-* **Safe Static Fallback**: Standard PNG decoders (and PDF compilers) automatically display the 1st frame as a clean static image.
-
-```drawlib 650px center file:apng_step_architecture.png caption:"Step-by-Step Architecture Reveal"
-from drawlib.apng import Apng
+```drawlib 650px center file:animation_step_architecture.png caption:"Step-by-Step Architecture Reveal"
+from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=120, height=45)
-anim = Apng(fps=1.0, loop=0)
+anim = Animation(fps=1.0, loop=0)
 
 # Step 1: Base Client
 with anim.frame(clear=True, duration=1.2):
@@ -51,37 +48,39 @@ save()
 
 ## 2. Imports & Canvas Lifecycle
 
-All animation classes are exported from `drawlib.apng`:
+All animation functionality is centered around the `Animation` class in `drawlib.anim`:
 
 ```python
-from drawlib.apng import Apng
+from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, circle
 from drawlib.styles import Styles
 ```
 
 ### Automatic Canvas Coordination
-When an `Apng` instance is initialized, it automatically registers itself with the active Drawlib canvas (`canvas._active_animation`). You do not need to call a separate animation export method; calling standard `save()` captures all accumulated frames into an animated APNG file:
+When an `Animation` instance is initialized, it automatically registers itself with the active Drawlib canvas (`canvas._active_animation`). Calling standard `save()` captures all accumulated frames into an animated file without requiring separate export methods:
 
 ```python
-anim = Apng(fps=10.0)
+anim = Animation(fps=10.0)
 
-# Define frames...
 with anim.frame():
     circle((50, 50), radius=10, style=Styles.Primary)
 
-# Save unified under standard drawlib save()
+# Saves as APNG:
 save("animation.png")
+
+# Or saves as Animated WebP:
+save("animation.webp")
 ```
 
 ---
 
-## 3. The `Apng` Class API
+## 3. The `Animation` Class API
 
 ### 3.1. Initialization
 
 ```python
-anim = Apng(
+anim = Animation(
     fps: float | None = None,
     frame_rate: float | None = None,
     loop: int = 0,
@@ -100,7 +99,7 @@ anim = Apng(
 
 ### 4.1. Context Manager: `with anim.frame()` (Recommended)
 
-The `with anim.frame()` context manager captures the canvas state at the end of the block.
+The `with anim.frame()` context manager captures the canvas state at the end of each block.
 
 ```python
 with anim.frame(
@@ -114,7 +113,7 @@ with anim.frame(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `duration` | `float \| None` | `None` | Display duration for this frame in **seconds** (e.g. `1.5` for 1.5 seconds). If `None`, defaults to `1 / fps` (e.g. 0.1s for 10fps). |
-| `clear` | `bool` | `True` | Whether to clear existing canvas shapes before drawing this frame. |
+| `clear` | `bool` | `True` | Whether to clear existing canvas shapes before drawing this frame. Defaults to `True`. |
 
 ### 4.2. Imperative Method: `anim.add_frame()`
 
@@ -135,7 +134,7 @@ Drawlib supports two fundamental animation paradigms:
 Each frame starts with an empty canvas. This mode is ideal for moving objects, rotating elements, or physics simulations:
 
 ```python
-anim = Apng(fps=10.0)
+anim = Animation(fps=10.0)
 
 for x in range(10, 90, 10):
     with anim.frame():
@@ -146,7 +145,7 @@ for x in range(10, 90, 10):
 Setting `clear=False` keeps shapes from preceding frames on the canvas. This mode is exceptionally effective for architectural explanations that reveal components stage by stage:
 
 ```python
-anim = Apng(fps=1.0)
+anim = Animation(fps=1.0)
 
 # Stage 1: Ingress
 with anim.frame(clear=True):
@@ -172,7 +171,7 @@ Frame timing is configured directly in **seconds** (e.g. `duration=0.25` for a q
 To give readers sufficient time to inspect a completed diagram before the animation loops, specify an extended `duration` on the final frame:
 
 ```python
-anim = Apng(fps=5.0)  # Standard frames display for 0.2s
+anim = Animation(fps=5.0)  # Standard frames display for 0.2s
 
 for i in range(10):
     with anim.frame():
@@ -188,20 +187,20 @@ with anim.frame(duration=3.0):
 
 ## 7. Embedded Markdown Code Blocks
 
-You can embed APNG animations directly inside Markdown documents using the ````drawlib```` code fence. The document compiler automatically compiles the code block into an animated APNG file:
+You can embed animations directly inside Markdown documents using the ````drawlib```` code fence. The document compiler automatically compiles the code block into an animated file:
 
 ````markdown
 # Live Event Pipeline
 
 ```drawlib 600px center file:live_pipeline.png caption:"Event Progression"
-from drawlib.apng import Apng
+from drawlib.anim import Animation
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=40)
-anim = Apng(fps=10.0)
+anim = Animation(fps=10.0)
 
 for x in range(30, 75, 5):
     with anim.frame():
@@ -212,17 +211,22 @@ for x in range(30, 75, 5):
 ```
 ````
 
-When compiled with `drawlib build html` or `drawlib build markdown`, `live_pipeline.png` is generated in the document's companion image folder and rendered natively in the browser.
+To output Animated WebP instead of APNG, specify a `.webp` extension in the `file:` attribute (e.g. `file:live_pipeline.webp`) or compile with `--format webp`.
 
 ---
 
 ## 8. Built-in Lossless Compression & Performance
 
-Drawlib automatically applies multi-tier lossless optimization when saving APNG files:
+Drawlib automatically applies multi-tier lossless optimization when saving animations:
 
-1. **Sub-frame Bounding Box Cropping**: Only the changed pixels (`delta.getbbox()`) between consecutive frames are encoded, drastically reducing raw image data.
-2. **Maximum Zlib Compression (`compress_level=9`)**: Applied automatically to all frame image chunks.
-3. **Huffman Tree Optimization (`optimize=True`)**: Generates optimized compression tables.
+1. **APNG Compression**:
+   - Sub-frame delta bounding box cropping (`delta.getbbox()`).
+   - Maximum Zlib compression level (`compress_level=9`).
+   - Huffman tree optimization (`optimize=True`).
+2. **Animated WebP Compression**:
+   - Fully lossless encoding (`lossless=True`).
+   - Automatic delta sub-frame size minimization (`minimize_size=True`).
+   - Generates files approximately 40%–60% smaller than APNG.
 
 ### Best Practice for Animation Performance
 * **Frame Rate (`fps`)**: For technical diagrams, a frame rate of **5 to 10 FPS** provides fluid motion while maintaining compact file sizes (typically under 100 KB) and fast build times.
