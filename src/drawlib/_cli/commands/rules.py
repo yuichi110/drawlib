@@ -46,6 +46,7 @@ GENERAL_TOPICS: Final[dict[str, str]] = {
 
 LIBRARY_TOPICS: Final[dict[str, str]] = {
     "lib-canvas": "Canvas configuration, coordinate space, clear/save lifecycle, and background",
+    "lib-apng": "APNG animations, frame rate, loop count, and multi-step diagram flows",
     "lib-shapes": "Rectangles, circles, ellipses, wedges, and polygons",
     "lib-lines": "Straight, curved, and chained lines with arrowheads",
     "lib-text": "Text rendering, formatting, alignment, and fonts",

@@ -10,6 +10,7 @@
 
 """Canvas implementation module."""
 
+import contextlib
 import io
 import os
 from typing import Literal
@@ -22,6 +23,7 @@ from drawlib._core.l1_core import (
     dutil_settings,
     get_script_path,
     get_script_relative_path,
+    logger,
 )
 from drawlib._core.l2_types import (
     ImageFormat,
@@ -61,6 +63,9 @@ class Canvas(
     @validate_call
     def show(self) -> None:
         """Show canvas illustration."""
+        if self._active_animation is not None:
+            logger.warning("APNG animation cannot be previewed in GUI. Use save() to export as an APNG file.")
+
         self._set_background()
         zorder = self._draw_items()
         self._remove_margin()
@@ -132,6 +137,15 @@ class Canvas(
             in the script's directory. For example, calling save() in a script "mydir/image1.py"
             will generate "mydir/image1.png".
         """
+        if self._active_animation is not None:
+            file_path = self._get_save_file_path(file, format)
+            self._create_parent_directory(file_path)
+            anim = self._active_animation
+            self._active_animation = None
+            anim._save(file_path)
+            self._clear_artists()
+            return
+
         file_path = self._get_save_file_path(file, format)
         self._set_background()
         zorder = self._draw_items()
@@ -179,6 +193,13 @@ class Canvas(
         """
         for artist in self._artists:
             artist.remove()
+
+    def _clear_artists(self) -> None:
+        """Clear all artists safely from the canvas without resetting canvas configurations."""
+        for artist in self._artists:
+            with contextlib.suppress(Exception):
+                artist.remove()
+        self._artists.clear()
 
     @staticmethod
     def _get_save_file_path(file: str | None, format: str | None) -> str:

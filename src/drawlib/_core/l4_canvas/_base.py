@@ -10,7 +10,7 @@
 """Canvas's base class implementation module."""
 
 import math
-from typing import Final
+from typing import Any, Final
 
 import matplotlib.artist
 import matplotlib.font_manager
@@ -76,6 +76,7 @@ class CanvasBase:
         self._grid_xpitch: PosInt | None = None
         self._grid_ypitch: PosInt | None = None
         self._artists: list[matplotlib.artist.Artist] = []
+        self._active_animation: Any | None = None
 
         # it is decleared only for typing system
         self._fig = pyplot.figure()
