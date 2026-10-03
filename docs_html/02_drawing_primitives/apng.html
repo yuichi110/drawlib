@@ -1,0 +1,510 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APNG Animations</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib Documentation</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes.html" >Vector Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="arrows.html" >Block Arrows</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text_and_fonts.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="icons.html" >Standardized Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="apng.html" >APNG Animations</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles_and_theming.html" >Styles & Theming</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/lists_and_grids.html" >Lists & Grids</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_smartarts/speech_and_code.html" >Speech & Code</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">APNG Animations</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>APNG Animations</h1>
+<p>Drawlib provides native support for generating <strong>Animated Portable Network Graphics (APNG)</strong>.<br />
+APNG empowers developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations and animated technical visualizations using declarative Python code.</p>
+<hr />
+<h2>1. Why APNG in Technical Documentation?</h2>
+<p>Unlike legacy GIF animations (which are constrained to 256 indexed colors and binary transparency), APNG features:</p>
+<ul>
+<li><strong>24-bit RGB and 32-bit RGBA Full Color</strong>: Gradients, soft drop shadows, and subtle fills remain crisp and uncompressed.</li>
+<li><strong>Alpha Channel Transparency</strong>: Transparent backgrounds blend seamlessly into light and dark documentation themes.</li>
+<li><strong>Zero Extra Dependencies</strong>: Relies on native Pillow (<code>save_all=True</code>), requiring no external binary packages like <code>ffmpeg</code>.</li>
+<li><strong>Universal Browser Support</strong>: Supported natively by all modern web browsers (Chrome, Firefox, Safari, Edge) and GitHub Markdown previews.</li>
+<li><strong>Safe Static Fallback</strong>: Standard PNG decoders (and PDF compilers) automatically display the 1st frame as a clean static image.</li>
+</ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="apng_images/apng_step_architecture.png" alt="apng_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Step-by-Step Architecture Reveal</figcaption>
+</figure>
+<hr />
+<h2>2. Imports &amp; Canvas Lifecycle</h2>
+<p>All animation classes are exported from <code>drawlib.apng</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.apng</span><span class="w"> </span><span class="kn">import</span> <span class="n">Apng</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span><span class="p">,</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+</code></pre>
+<h3>Automatic Canvas Coordination</h3>
+<p>When an <code>Apng</code> instance is initialized, it automatically registers itself with the active Drawlib canvas (<code>canvas._active_animation</code>). You do not need to call a separate animation export method; calling standard <code>save()</code> captures all accumulated frames into an animated APNG file:</p>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="c1"># Define frames...</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">():</span>
+    <span class="n">circle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="c1"># Save unified under standard drawlib save()</span>
+<span class="n">save</span><span class="p">(</span><span class="s2">&quot;animation.png&quot;</span><span class="p">)</span>
+</code></pre>
+<hr />
+<h2>3. The <code>Apng</code> Class API</h2>
+<h3>3.1. Initialization</h3>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span>
+    <span class="n">fps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">loop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>fps</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>10.0</code></td>
+<td style="text-align:left">Target playback frame rate in frames per second (e.g. <code>10.0</code> means 10 fps).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>frame_rate</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>10.0</code></td>
+<td style="text-align:left">Alias for <code>fps</code>. If both are specified, <code>fps</code> takes precedence.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>loop</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left">Number of animation loops. <code>0</code> means continuous infinite looping.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Defining Frames</h2>
+<h3>4.1. Context Manager: <code>with anim.frame()</code> (Recommended)</h3>
+<p>The <code>with anim.frame()</code> context manager captures the canvas state at the end of the block.</p>
+<pre><code class="language-python"><span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># Standard Drawlib drawing calls</span>
+    <span class="n">circle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>duration</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Display duration for this frame in <strong>seconds</strong> (e.g. <code>1.5</code> for 1.5 seconds). If <code>None</code>, defaults to <code>1 / fps</code> (e.g. 0.1s for 10fps).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>clear</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>True</code></td>
+<td style="text-align:left">Whether to clear existing canvas shapes before drawing this frame.</td>
+</tr>
+</tbody>
+</table>
+<h3>4.2. Imperative Method: <code>anim.add_frame()</code></h3>
+<p>For procedural code or loops where context managers are less convenient:</p>
+<pre><code class="language-python"><span class="n">circle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">anim</span><span class="o">.</span><span class="n">add_frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre>
+<hr />
+<h2>5. Animation Modes</h2>
+<p>Drawlib supports two fundamental animation paradigms:</p>
+<h3>5.1. Independent Frame Mode (<code>clear=True</code>, Default)</h3>
+<p>Each frame starts with an empty canvas. This mode is ideal for moving objects, rotating elements, or physics simulations:</p>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">():</span>
+        <span class="n">circle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+</code></pre>
+<h3>5.2. Cumulative / Step-by-Step Mode (<code>clear=False</code>)</h3>
+<p>Setting <code>clear=False</code> keeps shapes from preceding frames on the canvas. This mode is exceptionally effective for architectural explanations that reveal components stage by stage:</p>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># Stage 1: Ingress</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Client&quot;</span><span class="p">)</span>
+
+<span class="c1"># Stage 2: Gateway appears (Client remains)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Gateway&quot;</span><span class="p">)</span>
+
+<span class="c1"># Stage 3: Database appears (Client and Gateway remain)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>  <span class="c1"># Hold final state for 3 seconds</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Database&quot;</span><span class="p">)</span>
+</code></pre>
+<hr />
+<h2>6. Timing &amp; Duration Control</h2>
+<h3>Frame Duration in Seconds</h3>
+<p>Frame timing is configured directly in <strong>seconds</strong> (e.g. <code>duration=0.25</code> for a quarter of a second, <code>duration=2.0</code> for two seconds).</p>
+<h3>Holding the Final Frame</h3>
+<p>To give readers sufficient time to inspect a completed diagram before the animation loops, specify an extended <code>duration</code> on the final frame:</p>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Apng</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>  <span class="c1"># Standard frames display for 0.2s</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">():</span>
+        <span class="n">draw_stage</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># Hold final completed architecture for 3.0 seconds</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+    <span class="n">draw_stage</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Deployment Complete&quot;</span><span class="p">)</span>
+</code></pre>
+<hr />
+<h2>7. Embedded Markdown Code Blocks</h2>
+<p>You can embed APNG animations directly inside Markdown documents using the <code>drawlib</code> code fence. The document compiler automatically compiles the code block into an animated APNG file:</p>
+<pre><code class="language-markdown"><span class="gh"># Live Event Pipeline</span>
+
+<span class="sb">```drawlib</span><span class="w"> </span>600px center file:live_pipeline.png caption:&quot;Event Progression&quot;
+<span class="s">from drawlib.apng import Apng</span>
+<span class="s">from drawlib.canvas import setup</span>
+<span class="s">from drawlib.lines import line</span>
+<span class="s">from drawlib.shapes import circle, rectangle</span>
+<span class="s">from drawlib.styles import Styles</span>
+
+<span class="s">setup(width=100, height=40)</span>
+<span class="s">anim = Apng(fps=10.0)</span>
+
+<span class="s">for x in range(30, 75, 5):</span>
+<span class="s">    with anim.frame():</span>
+<span class="s">        rectangle((20, 20), width=18, height=16, style=Styles.PrimaryFlat, text=&quot;App&quot;)</span>
+<span class="s">        rectangle((80, 20), width=18, height=16, style=Styles.AccentFlat, text=&quot;Queue&quot;)</span>
+<span class="s">        line((29, 20), (71, 20), style=Styles.MutedDashed)</span>
+<span class="s">        circle((x, 20), radius=3, style=Styles.Secondary)</span>
+<span class="sb">```</span>
+</code></pre>
+<p>When compiled with <code>drawlib build html</code> or <code>drawlib build markdown</code>, <code>live_pipeline.png</code> is generated in the document's companion image folder and rendered natively in the browser.</p>
+<hr />
+<h2>8. Built-in Lossless Compression &amp; Performance</h2>
+<p>Drawlib automatically applies multi-tier lossless optimization when saving APNG files:</p>
+<ol>
+<li><strong>Sub-frame Bounding Box Cropping</strong>: Only the changed pixels (<code>delta.getbbox()</code>) between consecutive frames are encoded, drastically reducing raw image data.</li>
+<li><strong>Maximum Zlib Compression (<code>compress_level=9</code>)</strong>: Applied automatically to all frame image chunks.</li>
+<li><strong>Huffman Tree Optimization (<code>optimize=True</code>)</strong>: Generates optimized compression tables.</li>
+</ol>
+<h3>Best Practice for Animation Performance</h3>
+<ul>
+<li><strong>Frame Rate (<code>fps</code>)</strong>: For technical diagrams, a frame rate of <strong>5 to 10 FPS</strong> provides fluid motion while maintaining compact file sizes (typically under 100 KB) and fast build times.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

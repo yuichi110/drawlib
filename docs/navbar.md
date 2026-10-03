@@ -19,6 +19,7 @@
 - [Text & Typography](./02_drawing_primitives/text_and_fonts.md)
 - [Standardized Icons](./02_drawing_primitives/icons.md)
 - [Images & Dimage](./02_drawing_primitives/images.md)
+- [APNG Animations](./02_drawing_primitives/apng.md)
 - [Styles & Theming](./02_drawing_primitives/styles_and_theming.md)
 
 ## 3. SmartArts

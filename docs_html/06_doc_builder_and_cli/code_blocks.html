@@ -106,6 +106,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../02_drawing_primitives/apng.html" >APNG Animations</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
                             </li>
                             
@@ -375,6 +379,11 @@
 <p>[!TIP]
 <strong>Best Practice for AI &amp; Automation</strong>:
 Always specify an explicit <code>file:&lt;name&gt;.png</code> attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via <code>drawlib show &lt;file&gt; &lt;image_name.png&gt;</code>.</p>
+</blockquote>
+<blockquote>
+<p>[!NOTE]
+<strong>APNG Animations in Code Blocks</strong>:
+Embedded <code>drawlib</code> blocks fully support generating multi-frame animated APNG files using <code>from drawlib.apng import Apng</code>. The document compiler automatically outputs an animated PNG into the companion image directory. See <a href="../02_drawing_primitives/apng.html">APNG Animations</a> for full details.</p>
 </blockquote>
 <hr />
 <h2>3. Working Directory &amp; Path Resolution</h2>
