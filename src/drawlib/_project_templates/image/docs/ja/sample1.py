@@ -38,7 +38,7 @@ rectangle(
 )
 
 # 矢印付き接続線
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((39, 22.5), (61, 22.5), arrow_head="->", style=Styles.PrimaryBold)
 
 # 描画したキャンバス画像を保存
 save()

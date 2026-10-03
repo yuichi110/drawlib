@@ -19,7 +19,7 @@ rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="ク�
 rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="バックエンド API", text_style=Styles.WhiteBold)
 
 # 矢印付き接続線
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((39, 22.5), (61, 22.5), arrow_head="->", style=Styles.PrimaryBold)
 ```
 
 ## 2. 応用構成（ユーティリティとアセット）

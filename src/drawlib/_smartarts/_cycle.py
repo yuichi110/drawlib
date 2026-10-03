@@ -455,11 +455,10 @@ class Cycle:
                     xy=(cx, cy),
                     width=orbit_r * 2.0,
                     height=orbit_r * 2.0,
-                    arrowhead=arc_head,
-                    linewidth=self._arrow_width,
+                    arrow_head=arc_head,
                     angle_start=a_start,
                     angle_end=a_end,
-                    style=arrow_style,
+                    style=arrow_style.patch(line_width=self._arrow_width),
                 )
 
     def _resolve_arrow_style(self, from_idx: int, to_idx: int) -> Style:

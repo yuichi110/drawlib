@@ -16,7 +16,6 @@ from drawlib._core.l1_core import logger
 from drawlib._core.l2_types import (
     Angle,
     Coordinate,
-    Size,
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
@@ -37,7 +36,6 @@ class CanvasTextFeature(CanvasBase):
         text: str,
         *,
         style: Style,
-        size: Size | None = None,
         angle: Angle = 0.0,
     ) -> None:
         """Draw text on the canvas.
@@ -46,12 +44,9 @@ class CanvasTextFeature(CanvasBase):
             xy: Coordinates (x, y) of the text anchor point.
             text: Text string to be displayed.
             style: Style of the text (required).
-            size (optional): Font size of the text override.
             angle (optional): Rotation angle of the text (in degrees).
         """
         style.validate_for("text")
-        if size is not None:
-            style = style.patch(text_size=size)
 
         options = TextUtil.get_text_options(style)
         fp = TextUtil.get_font_properties(style)
@@ -77,7 +72,6 @@ class CanvasTextFeature(CanvasBase):
         text: str,
         *,
         style: Style,
-        size: Size | None = None,
         angle: Angle = 0.0,
     ) -> None:
         """Draw vertical text on the canvas.
@@ -86,7 +80,6 @@ class CanvasTextFeature(CanvasBase):
             xy: Coordinates (x, y) of the text anchor point.
             text: Text string to be displayed vertically.
             style: Style of the text (required).
-            size (optional): Font size of the text override.
             angle (optional): Rotation angle of the text (in degrees).
         """
         style.validate_for("text")
@@ -96,4 +89,4 @@ class CanvasTextFeature(CanvasBase):
             style = style.patch(text_halign="center")
 
         vertical_text = "\n".join(text)
-        self.text(xy=xy, text=vertical_text, size=size, angle=angle, style=style)
+        self.text(xy=xy, text=vertical_text, angle=angle, style=style)

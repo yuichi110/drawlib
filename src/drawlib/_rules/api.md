@@ -142,14 +142,14 @@ Lines connect coordinates and support arrowheads: `"-"` (none), `"->"` (forward)
 
 | Function | Signature | Description |
 | :--- | :--- | :--- |
-| `line(xy1, xy2, ...)` | `(xy1, xy2, *, style=None, arrowhead="-", width=None)` | Straight line between two points. |
-| `lines(points, ...)` | `(points, *, style=None, arrowhead="-", width=None)` | Multi-segment chained polyline (orthogonal routing). |
-| `line_curved(xy1, xy2, ...)` | `(xy1, xy2, *, style=None, bend=0.0, arrowhead="-", width=None)` | Smooth circular arc curve between two points (`bend` controls curvature). |
-| `lines_curved(points, r, ...)` | `(points, r, *, style=None, arrowhead="-", width=None)` | Continuous curve passing smoothly through points with corner radius `r`. |
-| `line_bezier1(xy1, xy2, cp, ...)` | `(xy1, xy2, cp, *, style=None, arrowhead="-", width=None)` | Quadratic Bezier curve with 1 control point `cp`. |
-| `line_bezier2(xy1, xy2, cp1, cp2, ...)`| `(xy1, xy2, cp1, cp2, *, style=None, arrowhead="-", width=None)` | Cubic Bezier curve with 2 control points `cp1, cp2`. |
-| `lines_bezier(xy, path_points, ...)`| `(xy, path_points, *, style=None, arrowhead="-", width=None)` | Chained multi-segment Bezier spline. |
-| `line_arc(xy, width, height, ...)`| `(xy, width, height, *, style=None, angle_start=0, angle_end=180, ...)` | Elliptical arc segment line. |
+| `line(xy1, xy2, ...)` | `(xy1, xy2, *, style, arrow_head="")` | Straight line between two points. |
+| `lines(points, ...)` | `(points, *, style, arrow_head="")` | Multi-segment chained polyline (orthogonal routing). |
+| `line_curved(xy1, xy2, ...)` | `(xy1, xy2, *, style, bend=0.0, arrow_head="")` | Smooth circular arc curve between two points (`bend` controls curvature). |
+| `lines_curved(points, r, ...)` | `(points, r, *, style, arrow_head="")` | Continuous curve passing smoothly through points with corner radius `r`. |
+| `line_bezier1(xy1, xy2, cp, ...)` | `(xy1, xy2, cp, *, style, arrow_head="")` | Quadratic Bezier curve with 1 control point `cp`. |
+| `line_bezier2(xy1, xy2, cp1, cp2, ...)`| `(xy1, xy2, cp1, cp2, *, style, arrow_head="")` | Cubic Bezier curve with 2 control points `cp1, cp2`. |
+| `lines_bezier(xy, path_points, ...)`| `(xy, path_points, *, style, arrow_head="")` | Chained multi-segment Bezier spline. |
+| `line_arc(xy, width, height, ...)`| `(xy, width, height, *, style, angle_start=0, angle_end=180, ...)` | Elliptical arc segment line. |
 
 ```drawlib show-code file:lines_connectors.png
 from drawlib.canvas import setup
@@ -159,13 +159,13 @@ from drawlib.styles import Styles
 setup(width=120, height=40)
 
 # 1. Straight connector
-line((10, 20), (35, 20), arrowhead="->", style=Styles.PrimaryBold)
+line((10, 20), (35, 20), arrow_head="->", style=Styles.PrimaryBold)
 
 # 2. Curved arc connector
-line_curved((45, 12), (75, 12), bend=0.3, arrowhead="<->", style=Styles.AccentBold)
+line_curved((45, 12), (75, 12), bend=0.3, arrow_head="<->", style=Styles.AccentBold)
 
 # 3. Orthogonal stepped connector via lines()
-lines([(85, 12), (98, 12), (98, 28), (115, 28)], arrowhead="->", style=Styles.PrimaryBold)
+lines([(85, 12), (98, 12), (98, 28), (115, 28)], arrow_head="->", style=Styles.PrimaryBold)
 ```
 
 ---
@@ -176,8 +176,8 @@ Renders single-line or multi-line strings with explicit anchor alignments.
 
 | Function | Parameters | Description |
 | :--- | :--- | :--- |
-| `text(xy, text, ...)` | `(xy, text, *, style, size=None, angle=0.0)` | Standard horizontal text string. Alignments controlled via `style.text_halign` / `style.text_valign`. |
-| `text_vertical(xy, text, ...)` | `(xy, text, *, style, size=None, angle=0.0)` | Vertically stacked characters (ideal for East Asian scripts or vertical axis labels). |
+| `text(xy, text, ...)` | `(xy, text, *, style, angle=0.0)` | Standard horizontal text string. Alignments controlled via `style.text_halign` / `style.text_valign`. |
+| `text_vertical(xy, text, ...)` | `(xy, text, *, style, angle=0.0)` | Vertically stacked characters (ideal for East Asian scripts or vertical axis labels). |
 
 - **`style.text_halign` Options**: `"left"`, `"center"`, `"right"`
 - **`style.text_valign` Options**: `"bottom"`, `"center"`, `"top"`

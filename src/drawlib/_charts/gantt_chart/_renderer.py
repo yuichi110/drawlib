@@ -349,7 +349,7 @@ def _draw_dependencies(chart: GanttChart, x_tl_start: float, col_w: float) -> No
 
             canvas_line(xy1=(x1, y1), xy2=(mid_x, y1), style=style)
             canvas_line(xy1=(mid_x, y1), xy2=(mid_x, y2), style=style)
-            canvas_line(xy1=(mid_x, y2), xy2=(x2, y2), arrowhead="->", style=style)
+            canvas_line(xy1=(mid_x, y2), xy2=(x2, y2), arrow_head="->", style=style)
         else:
             # Overlapping, narrow gap, or backward dependency: route cleanly around
             mid_y = (y1 + y2) / 2.0
@@ -365,7 +365,7 @@ def _draw_dependencies(chart: GanttChart, x_tl_start: float, col_w: float) -> No
             canvas_line(xy1=(p_right, y1), xy2=(p_right, mid_y), style=style)
             canvas_line(xy1=(p_right, mid_y), xy2=(p_left, mid_y), style=style)
             canvas_line(xy1=(p_left, mid_y), xy2=(p_left, y2), style=style)
-            canvas_line(xy1=(p_left, y2), xy2=(x2, y2), arrowhead="->", style=style)
+            canvas_line(xy1=(p_left, y2), xy2=(x2, y2), arrow_head="->", style=style)
 
 
 def _draw_markers(

@@ -53,7 +53,6 @@ text(
     text: str,
     *,
     style: Style,
-    size: float | Literal["small", "medium", "large"] | None = None,
     angle: float = 0.0,
 ) -> None
 ```
@@ -62,8 +61,7 @@ text(
 - **`xy` (tuple[float, float])**: The anchor point `(x, y)` on the canvas.
 - **`text` (str)**: The string content to render. Supports newline characters (`\n`) for multi-line blocks.
 - **`style` (Style)**: Required keyword-only `Style` instance (e.g. `Styles.PrimaryBold`, `Styles.Primary`, `Styles.BlueBold` or custom `Style(...)`).
-  Alignment is controlled via `Style(text_halign="...", text_valign="...")` (`text_halign`: `"left"`, `"center"`, `"right"`; `text_valign`: `"bottom"`, `"center"`, `"top"`).
-- **`size` (float | Literal["small", "medium", "large"] | None)**: Font size in typographical points or semantic label. If `None` (default), inherits from `style.text_size`.
+  Alignment is controlled via `Style(text_halign="...", text_valign="...")` (`text_halign`: `"left"`, `"center"`, `"right"`; `text_valign`: `"bottom"`, `"center"`, `"top"`). Font size is controlled via `Style(text_size=...)` or `style.patch(text_size=...)`.
 - **`angle` (float)**: Counter-clockwise rotation angle in degrees around the anchor point `xy` (default: 0.0).
 
 ### 2.2. `text_vertical()` Specification
@@ -75,7 +73,6 @@ text_vertical(
     text: str,
     *,
     style: Style,
-    size: float | Literal["small", "medium", "large"] | None = None,
     angle: float = 0.0,
 ) -> None
 ```
@@ -308,7 +305,7 @@ summary = (
     "Region: us-central1"
 )
 
-text((50, 30), summary, size=12, style=Styles.PrimaryBold)
+text((50, 30), summary, style=Styles.PrimaryBold.patch(text_size=12))
 save()
 ```
 
@@ -326,10 +323,10 @@ from drawlib.styles import Styles
 setup(width=100, height=60)
 
 # Vertical axis label (-90 degrees or 90 degrees)
-text((10, 30), "Request Throughput (req/sec)", size=12, angle=90, style=Styles.PrimaryBold)
+text((10, 30), "Request Throughput (req/sec)", angle=90, style=Styles.PrimaryBold.patch(text_size=12))
 
 # Diagonal watermark / status label (45 degrees)
-text((50, 30), "INTERNAL DRAFT ONLY", size=22, angle=45, style=Styles.Muted)
+text((50, 30), "INTERNAL DRAFT ONLY", angle=45, style=Styles.Muted.patch(text_size=22))
 
 save()
 ```

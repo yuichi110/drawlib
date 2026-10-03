@@ -17,7 +17,7 @@ rectangle((25, 22.5), width=28, height=18, style=Styles.PrimaryFlat, text="Clien
 rectangle((75, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Cloud Backend", text_style=Styles.WhiteBold)
 
 # Connecting line with arrow
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((39, 22.5), (61, 22.5), arrow_head="->", style=Styles.PrimaryBold)
 ```
 
 The client application communicates securely with the cloud backend service.

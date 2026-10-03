@@ -39,7 +39,7 @@ class TestCanvasText:
 
         # Size settings & overrides
         text((30, 30), "Hello World", style=s_def.patch(text_size=12))
-        text((30, 30), "Hello World", size=36, style=s_def.patch(text_size=12))
+        text((30, 30), "Hello World", style=s_def.patch(text_size=36))
 
         # Background bounding box settings
         text(

@@ -259,7 +259,7 @@ def render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> None
     line(
         (legend_cx - 8.0, legend_y),
         (legend_cx + 8.0, legend_y),
-        arrowhead="->",
+        arrow_head="->",
         style=legend_arrow_style,
     )
     text(

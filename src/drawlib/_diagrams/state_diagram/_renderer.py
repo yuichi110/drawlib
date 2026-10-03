@@ -620,7 +620,7 @@ def _render_self_transition(
     a_end = base_angle + 360.0 - gap_deg / 2.0
 
     pts = LineArcHelper.get_ellipse_path_points(loop_xy, w_l, h_l, a_start, a_end)
-    canvas_lines_bezier(pts[0], path_points=pts[1:], arrowhead="->", style=edge_style)  # type: ignore
+    canvas_lines_bezier(pts[0], path_points=pts[1:], arrow_head="->", style=edge_style)  # type: ignore
 
     label = trans.effective_label
     if label:
@@ -680,7 +680,7 @@ def _render_orthogonal_transition(
     p1 = (mid_x, xy1[1])
     p2 = (mid_x, xy2[1])
 
-    canvas_lines(xys=[xy1, p1, p2, xy2], arrowhead="->", style=edge_style)
+    canvas_lines(xys=[xy1, p1, p2, xy2], arrow_head="->", style=edge_style)
 
     label = trans.effective_label
     if label:
@@ -712,9 +712,9 @@ def _render_curved_or_direct_transition(
     """
     bend = trans.bend
     if bend != 0.0:
-        canvas_line_curved(xy1=xy1, xy2=xy2, bend=bend, arrowhead="->", style=edge_style)
+        canvas_line_curved(xy1=xy1, xy2=xy2, bend=bend, arrow_head="->", style=edge_style)
     else:
-        canvas_line(xy1=xy1, xy2=xy2, arrowhead="->", style=edge_style)
+        canvas_line(xy1=xy1, xy2=xy2, arrow_head="->", style=edge_style)
 
     label = trans.effective_label
     if not label:

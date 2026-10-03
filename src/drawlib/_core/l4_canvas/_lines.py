@@ -46,8 +46,7 @@ class CanvasLineFeature(CanvasBase):
         xy2: Coordinate,
         *,
         style: Style,
-        width: PosFloat | None = None,
-        arrowhead: ArrowHead = "",
+        arrow_head: ArrowHead = "",
     ) -> None:
         """Draw straight line from xy1 to xy2.
 
@@ -55,16 +54,14 @@ class CanvasLineFeature(CanvasBase):
             xy1 (tuple[float, float]): Starting point of the line.
             xy2 (tuple[float, float]): Ending point of the line.
             style (Style): Line style (required).
-            width (float | None): Optional width of the line override.
-            arrowhead (Literal["->", "<-", "<->", "-"] | str): Optional arrowhead style.
+            arrow_head (Literal["->", "<-", "<->", "-"] | str): Optional arrowhead style.
         """
         style.validate_for("line")
 
         self.lines_bezier(
             xy1,
             path_points=[xy2],
-            width=width,
-            arrowhead=arrowhead,
+            arrow_head=arrow_head,
             style=style,
         )
 
@@ -76,8 +73,7 @@ class CanvasLineFeature(CanvasBase):
         *,
         style: Style,
         bend: Bend = 0,
-        width: PosFloat | None = None,
-        arrowhead: ArrowHead = "",
+        arrow_head: ArrowHead = "",
     ) -> None:
         """Draw curved line from xy1 to xy2.
 
@@ -86,14 +82,11 @@ class CanvasLineFeature(CanvasBase):
             xy2: tuple[float, float]: Ending point of the line.
             style: Style: Line style (required).
             bend: float: Additional line length between xy1 and xy2. 0 is straight.
-            width: float | None: Optional width of the line override.
-            arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
+            arrow_head: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
         """
         style.validate_for("line")
-        if width is not None:
-            style = style.patch(line_width=width)
 
-        options = LineUtil.get_fancyarrowpatch_options(arrowhead, style)
+        options = LineUtil.get_fancyarrowpatch_options(arrow_head, style)
         self._artists.append(
             FancyArrowPatch(
                 posA=xy1,
@@ -111,8 +104,7 @@ class CanvasLineFeature(CanvasBase):
         cp: Coordinate,
         *,
         style: Style,
-        width: PosFloat | None = None,
-        arrowhead: ArrowHead = "",
+        arrow_head: ArrowHead = "",
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 1 control point.
 
@@ -121,16 +113,14 @@ class CanvasLineFeature(CanvasBase):
             xy2: tuple[float, float]: Ending point of the line.
             cp: tuple[float, float]: Control point for the curve.
             style: Style: Line style (required).
-            width: float | None: Optional width of the line override.
-            arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
+            arrow_head: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
         """
         style.validate_for("line")
 
         self.lines_bezier(
             xy1,
             path_points=[(cp, xy2)],
-            width=width,
-            arrowhead=arrowhead,
+            arrow_head=arrow_head,
             style=style,
         )
 
@@ -143,8 +133,7 @@ class CanvasLineFeature(CanvasBase):
         cp2: Coordinate,
         *,
         style: Style,
-        width: PosFloat | None = None,
-        arrowhead: ArrowHead = "",
+        arrow_head: ArrowHead = "",
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 2 control points.
 
@@ -153,18 +142,15 @@ class CanvasLineFeature(CanvasBase):
             xy2: tuple[float, float]: Ending point of the line.
             cp1: tuple[float, float]: First control point for the curve.
             cp2: tuple[float, float]: Second control point for the curve.
-            xy2: tuple[float, float]: Ending point of the line.
             style: Style: Line style (required).
-            width: float | None: Optional width of the line override.
-            arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
+            arrow_head: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
         """
         style.validate_for("line")
 
         self.lines_bezier(
             xy1,
             path_points=[(cp1, cp2, xy2)],
-            width=width,
-            arrowhead=arrowhead,
+            arrow_head=arrow_head,
             style=style,
         )
 
@@ -179,8 +165,7 @@ class CanvasLineFeature(CanvasBase):
         angle_start: Angle = 0,
         angle_end: Angle = 180,
         angle: Angle = 0,
-        linewidth: PosFloat | None = None,
-        arrowhead: ArrowHead = "",
+        arrow_head: ArrowHead = "",
         ccw: bool = True,
     ) -> None:
         """Draw arc line on ellipse.
@@ -193,8 +178,7 @@ class CanvasLineFeature(CanvasBase):
             angle_start: float: The starting angle of the arc in degrees.
             angle_end: float: The ending angle of the arc in degrees.
             angle: float: The angle of ellipse.
-            linewidth: float | None: Optional width of the line override.
-            arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
+            arrow_head: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
             ccw: bool: Counter-clockwise direction if True.
         """
         style.validate_for("line")
@@ -227,8 +211,7 @@ class CanvasLineFeature(CanvasBase):
         self.lines_bezier(
             start_point,  # type: ignore
             path_points=path_points,  # type: ignore
-            width=linewidth,
-            arrowhead=arrowhead,
+            arrow_head=arrow_head,
             style=style,
         )
 
@@ -238,24 +221,21 @@ class CanvasLineFeature(CanvasBase):
         xys: Coordinates,
         *,
         style: Style,
-        width: PosFloat | None = None,
-        arrowhead: ArrowHead = "",
+        arrow_head: ArrowHead = "",
     ) -> None:
         """Draw multiple connected lines.
 
         Args:
             xys: list[tuple[float, float]]: List of points defining the lines.
             style: Style: Line style (required).
-            width: float | None: Optional width of the lines override.
-            arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
+            arrow_head (Literal["->", "<-", "<->", "-"] | str): Optional arrowhead style.
         """
         style.validate_for("line")
         xys = LineUtil._remove_consecutive_duplicates(list(xys))
         self.lines_bezier(
             xy=xys[0],
             path_points=xys[1:],  # type: ignore
-            width=width,
-            arrowhead=arrowhead,
+            arrow_head=arrow_head,
             style=style,
         )
 
@@ -266,8 +246,7 @@ class CanvasLineFeature(CanvasBase):
         r: PosFloat,
         *,
         style: Style,
-        width: PosFloat | None = None,
-        arrowhead: ArrowHead = "",
+        arrow_head: ArrowHead = "",
     ) -> None:
         """Draw curved lines connecting multiple points.
 
@@ -275,13 +254,12 @@ class CanvasLineFeature(CanvasBase):
             xys: list[tuple[float, float]]: List of points defining the lines.
             r: float: Radius of curvature for the lines.
             style: Style: Line style (required).
-            width: float | None: Optional width of the lines override.
-            arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
+            arrow_head (Literal["->", "<-", "<->", "-"] | str): Optional arrowhead style.
         """
         style.validate_for("line")
 
         if len(xys) == 2:
-            self.line(xys[0], xys[1], width=width, arrowhead=arrowhead, style=style)
+            self.line(xys[0], xys[1], arrow_head=arrow_head, style=style)
             return
 
         xys = LineUtil._remove_consecutive_duplicates(list(xys))
@@ -306,8 +284,7 @@ class CanvasLineFeature(CanvasBase):
         self.lines_bezier(
             xy=xys[0],
             path_points=path_points,
-            width=width,
-            arrowhead=arrowhead,
+            arrow_head=arrow_head,
             style=style,
         )
 
@@ -318,8 +295,7 @@ class CanvasLineFeature(CanvasBase):
         path_points: PathPoints,
         *,
         style: Style,
-        width: PosFloat | None = None,
-        arrowhead: ArrowHead = "",
+        arrow_head: ArrowHead = "",
     ) -> None:
         """Draw Bezier lines based on given path points.
 
@@ -327,13 +303,9 @@ class CanvasLineFeature(CanvasBase):
             xy: tuple[float, float]: Starting point of the line.
             path_points: List of path points and control points.
             style: Style: Line style (required).
-            width: float | None: Optional width of the lines override.
-            arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style.
+            arrow_head (Literal["->", "<-", "<->", "-"] | str): Optional arrowhead style.
         """
         style.validate_for("line")
-
-        if width is not None:
-            style = style.patch(line_width=width)
 
         # create Path
         vertices = [xy]
@@ -354,7 +326,7 @@ class CanvasLineFeature(CanvasBase):
                 codes.extend([Path.CURVE4] * 3)
 
         path = Path(vertices=vertices, codes=codes)
-        options = LineUtil.get_fancyarrowpatch_options(arrowhead, style)
+        options = LineUtil.get_fancyarrowpatch_options(arrow_head, style)
         self._artists.append(FancyArrowPatch(path=path, **options))
 
 

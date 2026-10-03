@@ -326,18 +326,18 @@ def _draw_single_edge(
     pts = _compute_edge_points(start_pt, end_pt, orientation, edge.waypoints, edge.routing, base_xy)
     pts = _apply_edge_padding(pts, edge.padding)
 
-    arrowhead: Literal["", "->", "<-", "<->"] = ""
+    arrow_head: Literal["", "->", "<-", "<->"] = ""
     if edge.arrow == "->":
-        arrowhead = "->"
+        arrow_head = "->"
     elif edge.arrow == "<-":
-        arrowhead = "<-"
+        arrow_head = "<-"
     elif edge.arrow == "<->":
-        arrowhead = "<->"
+        arrow_head = "<->"
 
     if len(pts) == 2:
-        canvas_line(xy1=pts[0], xy2=pts[1], arrowhead=arrowhead, style=applied_style)
+        canvas_line(xy1=pts[0], xy2=pts[1], arrow_head=arrow_head, style=applied_style)
     else:
-        canvas_lines(xys=pts, arrowhead=arrowhead, style=applied_style)
+        canvas_lines(xys=pts, arrow_head=arrow_head, style=applied_style)
 
     if not edge.label:
         return

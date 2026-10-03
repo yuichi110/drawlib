@@ -72,7 +72,7 @@ class LineUtil:
 
     @staticmethod
     def get_fancyarrowpatch_options(
-        arrowhead: ArrowHead,
+        arrow_head: ArrowHead,
         style: Style,
     ) -> dict[str, Any]:
         """Convert drawlib's Style to matplotlib's FancyArrowPatch options."""
@@ -84,20 +84,20 @@ class LineUtil:
             "alpha": style.line_alpha,
         }
 
-        if not arrowhead:
+        if not arrow_head:
             options["arrowstyle"] = "-"
         else:
             scale = style.line_arrow_head_scale if style.line_arrow_head_scale is not None else 20.0
             options["mutation_scale"] = scale
             if style.line_arrow_head_fill:
-                if arrowhead == "->":
+                if arrow_head == "->":
                     options["arrowstyle"] = "-|>"
-                elif arrowhead == "<-":
+                elif arrow_head == "<-":
                     options["arrowstyle"] = "<|-"
                 else:
                     options["arrowstyle"] = "<|-|>"
             else:
-                options["arrowstyle"] = arrowhead
+                options["arrowstyle"] = arrow_head
 
         return {k: v for k, v in options.items() if v is not None}
 

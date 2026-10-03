@@ -115,8 +115,8 @@ class TestPresetStylesPascalCaseAccess:
         """Test drawlib.styles active facade with Styles and Colors."""
         orig_s, orig_c = ds.Styles, ds.Colors
         try:
-            ds.Styles = DefaultStyles
-            ds.Colors = DefaultColors
+            setattr(ds, "Styles", DefaultStyles)
+            setattr(ds, "Colors", DefaultColors)
             # Default theme
             assert ds.Styles.RedFlat == default_styles.RedFlat
             assert ds.Colors.Red == default_colors.Red
@@ -124,8 +124,8 @@ class TestPresetStylesPascalCaseAccess:
             assert ds.Colors.Primary == default_colors.Primary
 
             # Switch to Google theme via classes
-            ds.Styles = GoogleStyles
-            ds.Colors = GoogleColors
+            setattr(ds, "Styles", GoogleStyles)
+            setattr(ds, "Colors", GoogleColors)
             assert ds.Styles.BlueFlat == google_styles.BlueFlat
             assert ds.Colors.Red == google_colors.Red
             assert ds.Colors.Transparent == Color(0, 0, 0, 0.0)

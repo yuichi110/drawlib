@@ -38,7 +38,7 @@ rectangle(
 )
 
 # Connecting line with arrow
-line((39, 22.5), (61, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((39, 22.5), (61, 22.5), arrow_head="->", style=Styles.PrimaryBold)
 
 # Save the rendered canvas image
 save()

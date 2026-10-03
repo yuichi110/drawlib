@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Generator, Self
+from typing import Any, ClassVar, Generator, Self
 
 from pydantic import BaseModel, ConfigDict, validate_call
 
@@ -149,6 +149,8 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     background_color: ColorType = (255, 255, 255, 1.0)
     sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO
     colors: Any = None
+
+    Transparent: ClassVar[Style] = Style.Transparent
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize preset styles instance.

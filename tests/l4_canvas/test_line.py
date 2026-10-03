@@ -42,21 +42,21 @@ class TestCanvasLine:
         line((20, 80), (80, 20), style=style)
 
         # Arrowheads and arrow fill
-        line((20, 20), (80, 80), arrowhead="->", style=s_def)
+        line((20, 20), (80, 80), arrow_head="->", style=s_def)
         line(
             (20, 80),
             (80, 20),
-            arrowhead="<->",
+            arrow_head="<->",
             style=s_def.patch(line_color=Colors.Red, line_arrow_head_fill=True),
         )
 
         # Preset styles
         line((10, 10), (90, 90), style=styles.Green)
-        line((10, 90), (90, 10), arrowhead="->", style=styles.Red)
+        line((10, 90), (90, 10), arrow_head="->", style=styles.Red)
 
         # Width options
         for y, w in [(10, 2), (20, 4), (30, 8), (40, 1), (50, 0.5)]:
-            line((10, y), (90, y), width=w, style=s_def)
+            line((10, y), (90, y), style=s_def.patch(line_width=w))
 
         save(f"{OUTPUT_DIR}test_line.png")
 
@@ -70,7 +70,7 @@ class TestCanvasLine:
             (20, 20),
             (80, 80),
             bend=-0.5,
-            arrowhead="->",
+            arrow_head="->",
             style=s_def,
         )
 
@@ -108,14 +108,14 @@ class TestCanvasLine:
         s_def = styles.Primary
 
         # On Circle
-        line_arc(xy=(25, 25), width=20, height=20, angle_start=45, angle_end=135, arrowhead="->", style=s_def)
-        line_arc(xy=(25, 75), width=20, height=20, angle_start=10, angle_end=190, arrowhead="->", style=s_def)
-        line_arc(xy=(75, 25), width=20, height=20, angle_start=270, angle_end=135, arrowhead="->", style=s_def)
-        line_arc(xy=(75, 75), width=20, height=20, angle_start=0, angle_end=360, arrowhead="->", style=s_def)
+        line_arc(xy=(25, 25), width=20, height=20, angle_start=45, angle_end=135, arrow_head="->", style=s_def)
+        line_arc(xy=(25, 75), width=20, height=20, angle_start=10, angle_end=190, arrow_head="->", style=s_def)
+        line_arc(xy=(75, 25), width=20, height=20, angle_start=270, angle_end=135, arrow_head="->", style=s_def)
+        line_arc(xy=(75, 75), width=20, height=20, angle_start=0, angle_end=360, arrow_head="->", style=s_def)
 
         # On Ellipse
-        line_arc(xy=(25, 25), width=30, height=15, angle_start=45, angle_end=135, arrowhead="->", style=s_def)
-        line_arc(xy=(25, 75), width=30, height=15, angle_start=10, angle_end=190, arrowhead="->", style=s_def)
+        line_arc(xy=(25, 25), width=30, height=15, angle_start=45, angle_end=135, arrow_head="->", style=s_def)
+        line_arc(xy=(25, 75), width=30, height=15, angle_start=10, angle_end=190, arrow_head="->", style=s_def)
 
         # Ellipse with rotated orientation angle
         line_arc(
@@ -124,7 +124,7 @@ class TestCanvasLine:
             height=15,
             angle_start=45,
             angle_end=135,
-            arrowhead="->",
+            arrow_head="->",
             angle=45,
             style=s_def,
         )

@@ -508,20 +508,20 @@ def _render_single_message(  # noqa: C901
     if message.is_reply:
         applied_style = applied_style.patch(line_style="dashed")
 
-    arrowhead: Literal["", "->", "<-", "<->"]
+    arrow_head: Literal["", "->", "<-", "<->"]
     if message.arrow == "<->":
-        arrowhead = "<->"
+        arrow_head = "<->"
     elif message.arrow == "->":
-        arrowhead = "->" if not message.is_async else "->"
+        arrow_head = "->" if not message.is_async else "->"
     else:
-        arrowhead = ""
+        arrow_head = ""
 
     if message.is_self_call:
-        _draw_self_call(sx, y, arrowhead, applied_style)
+        _draw_self_call(sx, y, arrow_head, applied_style)
         lx = sx + 8.0
         ly = y - 2.0
     else:
-        lx, ly = _draw_horizontal_message(sx, tx, y, message.padding, arrowhead, applied_style)
+        lx, ly = _draw_horizontal_message(sx, tx, y, message.padding, arrow_head, applied_style)
 
     if message.label:
         display_text = f"{message.number}. {message.label}" if message.number is not None else message.label
@@ -533,7 +533,7 @@ def _draw_horizontal_message(
     tx: float,
     y: float,
     padding: PaddingType,
-    arrowhead: Literal["", "->", "<-", "<->"],
+    arrow_head: Literal["", "->", "<-", "<->"],
     style: Style,
 ) -> tuple[float, float]:
     """Draw straight horizontal message line and return label coordinate."""
@@ -547,14 +547,14 @@ def _draw_horizontal_message(
     else:
         p0, p1 = sx, tx
 
-    canvas_line(xy1=(p0, y), xy2=(p1, y), arrowhead=arrowhead, style=style)
+    canvas_line(xy1=(p0, y), xy2=(p1, y), arrow_head=arrow_head, style=style)
     return (p0 + p1) / 2.0, y + 1.8
 
 
 def _draw_self_call(
     sx: float,
     y: float,
-    arrowhead: Literal["", "->", "<-", "<->"],
+    arrow_head: Literal["", "->", "<-", "<->"],
     style: Style,
 ) -> None:
     """Draw 3-segment self-invocation loop."""
@@ -566,7 +566,7 @@ def _draw_self_call(
         (sx + loop_w, y - loop_h),
         (sx, y - loop_h),
     ]
-    canvas_lines(xys=pts, arrowhead=arrowhead, style=style)
+    canvas_lines(xys=pts, arrow_head=arrow_head, style=style)
 
 
 def _render_message_label(lx: float, ly: float, text: str, custom_text_style: Style | None) -> None:

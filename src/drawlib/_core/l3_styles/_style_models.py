@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any, ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, ValidationError
 
@@ -27,7 +27,8 @@ from drawlib._core.l2_types import (
     Size,
     VAlign,
 )
-from drawlib._core.l3_colors import ColorType
+from drawlib._core.l3_colors import Color, ColorType
+from drawlib._core.l3_fonts import Font as FontEnum
 
 SupportType = Literal["shape", "line", "text", "icon", "image"]
 ALL_SUPPORTS: frozenset[SupportType] = frozenset({"shape", "line", "text", "icon", "image"})
@@ -74,6 +75,9 @@ class Style(BaseModel):
         extra="forbid",
         validate_assignment=True,
     )
+
+    # --- Class Constants ---
+    Transparent: ClassVar[Style]
 
     # --- Target Declaration ---
     supports: frozenset[SupportType] = frozenset()
@@ -296,6 +300,26 @@ class Style(BaseModel):
         """
         if target not in self.supports:
             raise ValueError(f"Style cannot be used for {target}. Declared supports: {set(self.supports)}.")
+
+
+Style.Transparent = Style(
+    supports=ALL_SUPPORTS,
+    shape_fill_color=Color(0, 0, 0, 0.0),
+    shape_fill_alpha=0.0,
+    shape_line_color=Color(0, 0, 0, 0.0),
+    shape_line_width=0.0,
+    shape_line_style="solid",
+    line_color=Color(0, 0, 0, 0.0),
+    line_width=0.0,
+    line_style="solid",
+    line_alpha=0.0,
+    text_color=Color(0, 0, 0, 0.0),
+    text_size=12.0,
+    text_font=FontEnum.SANSSERIF_REGULAR,
+    icon_color=Color(0, 0, 0, 0.0),
+    icon_style="regular",
+    image_alpha=0.0,
+)
 
 
 __all__ = [

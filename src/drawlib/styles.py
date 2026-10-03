@@ -14,14 +14,12 @@ Provides the active preset styles and corresponding theme colors for drawings.
 
 from __future__ import annotations
 
-from typing import Any
-
 from drawlib.preset_colors import Color, DefaultColors
 from drawlib.preset_styles import DefaultStyles, Style
 
 # Active design tokens
-Colors: Any = DefaultColors()
-Styles: Any = DefaultStyles()
+Colors: DefaultColors = DefaultColors()
+Styles: DefaultStyles = DefaultStyles()
 
 __all__ = [
     "Color",
