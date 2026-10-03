@@ -314,7 +314,7 @@ Drawlib resolves this with a <strong>systematic design token system</strong> in 
 <hr />
 <h2>2. Active Design Tokens (<code>drawlib.styles</code>)</h2>
 <p>The active design system is imported from <code>drawlib.styles</code>:</p>
-<pre><code class="language-python">from drawlib.styles import Colors, Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
 </code></pre>
 <ul>
 <li><strong><code>Styles</code></strong>: The active catalog of pre-configured <code>Style</code> objects (defaults to <code>DefaultStyles</code>).</li>
@@ -378,22 +378,22 @@ Drawlib resolves this with a <strong>systematic design token system</strong> in 
 <hr />
 <h2>4. Typography &amp; Icon Styles</h2>
 <p>Preset styles are also applied to text labels and icons:</p>
-<pre><code class="language-python"># Use WhiteBold for text inside filled dark containers
-rectangle((50, 25), width=30, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, text_style=Styles.WhiteBold)
-line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
+<pre><code class="language-python"><span class="c1"># Use WhiteBold for text inside filled dark containers</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>5. Customizing &amp; Deriving Styles (<code>.patch()</code>)</h2>
 <p>To create custom style variations without rebuilding a <code>Style</code> from scratch, use <code>.patch()</code>:</p>
-<pre><code class="language-python">from drawlib.styles import Styles
-from drawlib.preset_colors import CssColors
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">CssColors</span>
 
-# Derive a custom card style with a custom border and fill
-custom_card = Styles.Primary.patch(
-    shape_fill_color=CssColors.AliceBlue,
-    shape_line_color=CssColors.DodgerBlue,
-    shape_line_width=2.5,
-)
+<span class="c1"># Derive a custom card style with a custom border and fill</span>
+<span class="n">custom_card</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="n">CssColors</span><span class="o">.</span><span class="n">AliceBlue</span><span class="p">,</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="n">CssColors</span><span class="o">.</span><span class="n">DodgerBlue</span><span class="p">,</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <hr />
 <h2>6. Official Preset Style Catalogs (<code>drawlib.preset_styles</code>)</h2>
@@ -404,7 +404,7 @@ custom_card = Styles.Primary.patch(
 <li><strong><code>MonochromeStyles</code></strong>: Publication-grade grayscale palette for black-and-white academic papers.</li>
 </ol>
 <p>Switch the active preset globally via CLI flag:</p>
-<pre><code class="language-bash">$ uv run drawlib build html docs_src/ --styles google
+<pre><code class="language-bash">$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>docs_src/<span class="w"> </span>--styles<span class="w"> </span>google
 </code></pre>
 
             </main>

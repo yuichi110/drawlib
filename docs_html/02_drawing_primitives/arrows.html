@@ -314,23 +314,23 @@ Block arrows are closed 2D polygons with customizable tail widths, arrowhead dim
 <hr />
 <h2>2. Straight Block Arrow (<code>arrow</code>)</h2>
 <p>Draws a directed block arrow between two arbitrary coordinates <code>xy1</code> and <code>xy2</code>.</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import arrow
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arrow</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=40)
-arrow(
-    (15, 20),
-    (85, 20),
-    tail_width=5,
-    head_width=13,
-    head_length=10,
-    head=&quot;-&gt;&quot;,  # &quot;-&gt;&quot;, &quot;&lt;-&quot;, or &quot;&lt;-&gt;&quot;
-    style=Styles.PrimaryFlat,
-    text=&quot;Data Ingestion&quot;,
-    text_style=Styles.WhiteBold,
-)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">arrow</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">tail_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">head_width</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">head_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span>  <span class="c1"># &quot;-&gt;&quot;, &quot;&lt;-&quot;, or &quot;&lt;-&gt;&quot;</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Data Ingestion&quot;</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="arrows_images/arrow_straight.png" alt="arrows_2" style="width: 600px; max-width: 100%;" />
@@ -343,21 +343,21 @@ save()
 <hr />
 <h2>3. Process Chevron (<code>chevron</code>)</h2>
 <p>Draws an interlocking arrowhead-shaped block with an indented rear notch, ideal for sequential stage diagrams:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import chevron
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">chevron</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=40)
-chevron(
-    (50, 20),
-    width=40,
-    height=20,
-    corner_angle=60,  # Tip acute angle
-    style=Styles.AccentFlat,
-    text=&quot;Stage 1&quot;,
-    text_style=Styles.WhiteBold,
-)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">chevron</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>  <span class="c1"># Tip acute angle</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Stage 1&quot;</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="arrows_images/arrow_chevron.png" alt="arrows_3" style="width: 600px; max-width: 100%;" />
@@ -371,22 +371,22 @@ For chained multi-stage chevron pipelines, consider using the high-level <strong
 <h2>4. Orthogonal Routed Arrows</h2>
 <h3>L-Shaped Corner Arrow (<code>arrow_l</code>)</h3>
 <p>Draws a 90-degree right-angled block arrow within a bounding box <code>(width, height)</code>.</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import arrow_l
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arrow_l</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=60)
-arrow_l(
-    (50, 30),
-    width=40,
-    height=35,
-    tail_width=4,
-    head_width=11,
-    head_length=8,
-    r=5,  # Corner rounding radius
-    style=Styles.SecondaryFlat,
-)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">arrow_l</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+    <span class="n">tail_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">head_width</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">head_length</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Corner rounding radius</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="arrows_images/arrow_l.png" alt="arrows_4" style="width: 600px; max-width: 100%;" />
@@ -394,22 +394,22 @@ save()
 </figure>
 <h3>U-Turn Feedback Arrow (<code>arrow_u</code>)</h3>
 <p>Draws a 180-degree turnaround block arrow, typically used for retry mechanisms or feedback loops.</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import arrow_u
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arrow_u</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=60)
-arrow_u(
-    (50, 30),
-    width=35,
-    height=40,
-    tail_width=4,
-    head_width=11,
-    head_length=8,
-    r=6,  # Corner rounding radius
-    style=Styles.DangerFlat,
-)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">arrow_u</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">tail_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">head_width</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">head_length</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>  <span class="c1"># Corner rounding radius</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="arrows_images/arrow_u.png" alt="arrows_5" style="width: 600px; max-width: 100%;" />
@@ -419,22 +419,22 @@ save()
 <h2>5. Circular &amp; Multi-Point Arrows</h2>
 <h3>Circular Arc Arrow (<code>arrow_arc</code>)</h3>
 <p>Draws an elliptical arc block arrow between <code>angle_start</code> and <code>angle_end</code>.</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import arrow_arc
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arrow_arc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=35)
-arrow_arc(
-    (50, 26),
-    width=45,
-    height=32,
-    angle_start=180,
-    angle_end=0,
-    tail_width=4,
-    head_width=11,
-    style=Styles.SuccessFlat,
-)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">arrow_arc</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">tail_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">head_width</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessFlat</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="arrows_images/arrow_arc.png" alt="arrows_6" style="width: 600px; max-width: 100%;" />
@@ -442,20 +442,20 @@ save()
 </figure>
 <h3>Multi-Point Polyline Arrow (<code>arrow_polyline</code>)</h3>
 <p>Draws a complex routed block arrow passing through an arbitrary list of waypoint coordinates <code>[(x1, y1), (x2, y2), ...]</code>.</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import arrow_polyline
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">arrow_polyline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=60)
-arrow_polyline(
-    [(15, 15), (50, 15), (50, 45), (85, 45)],
-    tail_width=4,
-    head_width=11,
-    head_length=8,
-    r=4,
-    style=Styles.PrimaryFlat,
-)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">arrow_polyline</span><span class="p">(</span>
+    <span class="p">[(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">45</span><span class="p">)],</span>
+    <span class="n">tail_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">head_width</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">head_length</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="arrows_images/arrow_polyline.png" alt="arrows_7" style="width: 600px; max-width: 100%;" />

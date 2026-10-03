@@ -308,14 +308,14 @@ Under the &quot;Illustration as Code&quot; paradigm, canvas dimensions, resoluti
 <hr />
 <h2>1. Imports &amp; Core Lifecycle</h2>
 <p>Canvas lifecycle functions are imported from <code>drawlib.canvas</code>:</p>
-<pre><code class="language-python">from drawlib.canvas import (
-    clear,        # Reset canvas state between drawings
-    get_dimage,   # Render canvas in-memory and return a Dimage object
-    initialize,   # Alias for clear()
-    save,         # Save drawing to disk (PNG, SVG, PDF, WebP)
-    setup,        # Configure dimensions, grid, background color, and DPI
-    show,         # Display canvas in an interactive GUI window
-)
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">clear</span><span class="p">,</span>        <span class="c1"># Reset canvas state between drawings</span>
+    <span class="n">get_dimage</span><span class="p">,</span>   <span class="c1"># Render canvas in-memory and return a Dimage object</span>
+    <span class="n">initialize</span><span class="p">,</span>   <span class="c1"># Alias for clear()</span>
+    <span class="n">save</span><span class="p">,</span>         <span class="c1"># Save drawing to disk (PNG, SVG, PDF, WebP)</span>
+    <span class="n">setup</span><span class="p">,</span>        <span class="c1"># Configure dimensions, grid, background color, and DPI</span>
+    <span class="n">show</span><span class="p">,</span>         <span class="c1"># Display canvas in an interactive GUI window</span>
+<span class="p">)</span>
 </code></pre>
 <h3>The Canvas Lifecycle Model</h3>
 <p>Drawlib maintains an active canvas singleton. Drawing functions (<code>rectangle()</code>, <code>line()</code>, <code>text()</code>, etc.) register visual elements to this active canvas before it is saved or rendered:</p>
@@ -351,19 +351,19 @@ If you generate multiple illustrations in a single Python script, always call <c
 <h2>3. Function Reference</h2>
 <h3>3.1. <code>setup()</code></h3>
 <p>Configures canvas geometry, resolution, coordinate grids, and background appearance. Must be called before drawing elements.</p>
-<pre><code class="language-python">setup(
-    width: int | None = None,
-    height: int | None = None,
-    dpi: int | None = None,
-    background_color: tuple[int, int, int] | tuple[int, int, int, float] | None = None,
-    background_alpha: float | None = None,
-    grid: bool | None = None,
-    grid_only: bool | None = None,
-    grid_style: Style | None = None,
-    grid_centerstyle: Style | None = None,
-    grid_xpitch: int | None = None,
-    grid_ypitch: int | None = None,
-)
+<pre><code class="language-python"><span class="n">setup</span><span class="p">(</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">background_color</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">background_alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_centerstyle</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_xpitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_ypitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <h4>Parameter Reference:</h4>
 <table>
@@ -447,10 +447,10 @@ If you generate multiple illustrations in a single Python script, always call <c
 <hr />
 <h3>3.2. <code>save()</code></h3>
 <p>Exports the active canvas to an image file on disk.</p>
-<pre><code class="language-python">save(
-    file: str | None = None,
-    format: str | None = None,
-)
+<pre><code class="language-python"><span class="n">save</span><span class="p">(</span>
+    <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <ul>
 <li><strong><code>file</code></strong>: Target file path. If omitted, defaults to <code>&lt;script_name&gt;.png</code> in the directory of the running script.</li>

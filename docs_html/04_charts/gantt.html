@@ -314,7 +314,7 @@
  │ ◆ Beta Code Freeze   │              │              │       ◆      │              │
  └──────────────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
                                                        │
-                                                 Today's Marker
+                                                 Today&#39;s Marker
 </code></pre>
 <ul>
 <li><strong>Section Dividers (<code>add_section</code>)</strong>: Categorize tasks into functional domains (e.g. &quot;Core Engine&quot;, &quot;Observability&quot;).</li>
@@ -325,25 +325,25 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Configuration</h2>
-<pre><code class="language-python">from drawlib.charts.gantt import GanttChart
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.gantt</span><span class="w"> </span><span class="kn">import</span> <span class="n">GanttChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-chart = GanttChart(
-    columns=[&quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;],
-    axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Black.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
-    header_style=Styles.MutedLight,
-    zebra_style=Styles.MutedLight,
-    progress_text_style=Styles.WhiteBold.patch(text_size=8.5),
-    width=95.0,                 # Total chart bounding width
-    label_width=28.0,           # Width reserved for task label column
-    header_height=6.0,          # Height of the top timeline header band
-    row_height=5.0,             # Height allocated per task/milestone row
-    title=&quot;Engineering Roadmap (2026)&quot;,
-    title_style=Styles.BlackBold.patch(text_size=13.0),
-    bar_radius=1.0,             # Rounded corners for task duration bars
-)
+<span class="n">chart</span> <span class="o">=</span> <span class="n">GanttChart</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apr&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;Aug&quot;</span><span class="p">,</span> <span class="s2">&quot;Sep&quot;</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedLight</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedLight</span><span class="p">,</span>
+    <span class="n">zebra_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedLight</span><span class="p">,</span>
+    <span class="n">progress_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">95.0</span><span class="p">,</span>                 <span class="c1"># Total chart bounding width</span>
+    <span class="n">label_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>           <span class="c1"># Width reserved for task label column</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>          <span class="c1"># Height of the top timeline header band</span>
+    <span class="n">row_height</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>             <span class="c1"># Height allocated per task/milestone row</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Engineering Roadmap (2026)&quot;</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">bar_radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>             <span class="c1"># Rounded corners for task duration bars</span>
+<span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Engineering Release Roadmap with Dependencies</h2>

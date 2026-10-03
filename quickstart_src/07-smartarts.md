@@ -19,7 +19,7 @@
 
 `ChevronProcess` creates connected pipeline chevrons with automatic text and description formatting:
 
-```drawlib 640px center caption:"Figure 7.1: Automated CI/CD Pipeline via ChevronProcess"
+```drawlib 640px center file:smartarts_cicd.png caption:"Figure 7.1: Automated CI/CD Pipeline via ChevronProcess"
 from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
@@ -27,17 +27,18 @@ from drawlib.styles import Styles
 setup(width=120, height=36)
 
 pipeline = ChevronProcess(
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10),
+    description_style=Styles.White.patch(text_size=8),
     corner_angle=60.0,
     spacing=1.8,
     flat_left_end=True,
-    default_text_style=Styles.WhiteBold.patch(text_size=10),
-    default_description_style=Styles.White.patch(text_size=8),
 )
 
-pipeline.append("1. Commit", "Git Push", style=Styles.PrimaryFlat)
-pipeline.append("2. Test", "pytest / linter", style=Styles.SecondaryFlat)
-pipeline.append("3. Build", "Docker Container", style=Styles.AccentFlat)
-pipeline.append("4. Deploy", "Cloud Run (Prod)", style=Styles.SuccessFlat)
+pipeline.append("1. Commit", description="Git Push", style=Styles.PrimaryFlat)
+pipeline.append("2. Test", description="pytest / linter", style=Styles.SecondaryFlat)
+pipeline.append("3. Build", description="Docker Container", style=Styles.AccentFlat)
+pipeline.append("4. Deploy", description="Cloud Run (Prod)", style=Styles.SuccessFlat)
 
 pipeline.draw(xy=(10, 8), width=100, height=20)
 ```
@@ -46,7 +47,7 @@ pipeline.draw(xy=(10, 8), width=100, height=20)
 
 The `Table` component draws structured tabular data with configurable headers, alternating row colors, and border separators:
 
-```drawlib 640px center caption:"Figure 7.2: Microservice SLA & Metric Table"
+```drawlib 640px center file:smartarts_sla_table.png caption:"Figure 7.2: Microservice SLA & Metric Table"
 from drawlib.canvas import setup
 from drawlib.smartarts import Table
 from drawlib.styles import Colors, Styles
@@ -54,16 +55,17 @@ from drawlib.styles import Colors, Styles
 setup(width=120, height=52)
 
 table = Table(
+    cell_style=Styles.White,
+    text_style=Styles.Primary.patch(text_size=9),
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold.patch(text_size=9.5),
-    default_text_style=Styles.Primary.patch(text_size=9),
     border_style=Styles.MutedLight,
 )
 
 table.set_style_cell_evenodd(
     even_color=Colors.White,
     even_text_style=Styles.Primary.patch(text_size=9),
-    odd_color=Colors.Light,
+    odd_color=Colors.Gray1,
     odd_text_style=Styles.Primary.patch(text_size=9),
 )
 

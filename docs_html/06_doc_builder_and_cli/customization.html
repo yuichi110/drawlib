@@ -324,65 +324,65 @@
 <p>Drawlib projects include a local <code>style.css</code> in the source folder. You can edit this stylesheet directly to alter colors, typography, or spacing.</p>
 <h3>Exporting Built-In CSS Themes:</h3>
 <p>You can overwrite your local <code>style.css</code> with any built-in Drawlib theme preset using <code>drawlib css show</code>:</p>
-<pre><code class="language-bash"># Export the Google Material theme to your project:
-drawlib css show html google -o docs_src/style.css --force
+<pre><code class="language-bash"><span class="c1"># Export the Google Material theme to your project:</span>
+drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>html<span class="w"> </span>google<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
 
-# Export the GitHub Markdown theme:
-drawlib css show html github -o docs_src/style.css --force
+<span class="c1"># Export the GitHub Markdown theme:</span>
+drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>html<span class="w"> </span>github<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
 
-# Export the Monochrome dark theme:
-drawlib css show html monochrome -o docs_src/style.css --force
+<span class="c1"># Export the Monochrome dark theme:</span>
+drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>html<span class="w"> </span>monochrome<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
 </code></pre>
 <hr />
 <h2>3. Injected Project Styles (<code>styles.py</code>)</h2>
 <p>Rather than re-declaring custom colors and font styles in every single diagram, create a <code>styles.py</code> file in your source directory:</p>
-<pre><code class="language-python"># docs_src/styles.py
-from drawlib.fonts import FontRoboto
-from drawlib.styles import Styles
-from drawlib.types import Style
+<pre><code class="language-python"><span class="c1"># docs_src/styles.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontRoboto</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Style</span>
 
-# Project-wide custom styles
-CARD_STYLE = Style(
-    shape_fill_color=(245, 247, 250, 1.0),
-    shape_line_color=(200, 210, 225, 1.0),
-    shape_line_width=1.5,
-    font=FontRoboto.Medium,
-)
+<span class="c1"># Project-wide custom styles</span>
+<span class="n">CARD_STYLE</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">font</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">Medium</span><span class="p">,</span>
+<span class="p">)</span>
 
-HIGHLIGHT_STYLE = Styles.AccentFlat
+<span class="n">HIGHLIGHT_STYLE</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span>
 </code></pre>
 <p>Pass <code>-s docs_src/styles.py</code> during build. Drawlib automatically makes your styles accessible in every embedded <code>drawlib</code> block:</p>
-<pre><code class="language-python"># Inside your Markdown drawing code:
-from drawlib.canvas import setup
-from drawlib.shapes import rectangle
-import styles
+<pre><code class="language-python"><span class="c1"># Inside your Markdown drawing code:</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">styles</span>
 
-setup(width=80, height=40)
-rectangle((40, 20), width=50, height=25, style=styles.CARD_STYLE, text=&quot;Custom Branded Card&quot;)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">CARD_STYLE</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Custom Branded Card&quot;</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>4. Injected Helper Functions (<code>utils.py</code>)</h2>
 <p>For reusable composite drawing elements (such as specialized server racks, status badges, or complex icons), author custom functions in <code>utils.py</code>:</p>
-<pre><code class="language-python"># docs_src/utils.py
-from drawlib.shapes import circle, rectangle
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="c1"># docs_src/utils.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-def draw_server_node(xy, name: str, is_active: bool = True):
-    x, y = xy
-    # Container
-    rectangle((x, y), width=28, height=14, style=Styles.PrimaryFlat, text=name, text_style=Styles.WhiteBold)
-    # Status indicator light
-    indicator_style = Styles.SuccessFlat if is_active else Styles.DangerFlat
-    circle((x + 10, y + 4), radius=1.5, style=indicator_style)
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_server_node</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">xy</span>
+    <span class="c1"># Container</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+    <span class="c1"># Status indicator light</span>
+    <span class="n">indicator_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SuccessFlat</span> <span class="k">if</span> <span class="n">is_active</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">4</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">indicator_style</span><span class="p">)</span>
 </code></pre>
 <p>Pass <code>-u docs_src/utils.py</code> during build. In your Markdown documents, simply import and call the helper:</p>
-<pre><code class="language-python"># Inside your Markdown drawing code:
-from drawlib.canvas import setup
-import utils
+<pre><code class="language-python"><span class="c1"># Inside your Markdown drawing code:</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">utils</span>
 
-setup(width=100, height=40)
-utils.draw_server_node((25, 20), &quot;Primary App&quot;, is_active=True)
-utils.draw_server_node((75, 20), &quot;Replica App&quot;, is_active=False)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">draw_server_node</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="s2">&quot;Primary App&quot;</span><span class="p">,</span> <span class="n">is_active</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">draw_server_node</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="s2">&quot;Replica App&quot;</span><span class="p">,</span> <span class="n">is_active</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre>
 
             </main>

@@ -57,13 +57,13 @@ phosphor.git_branch(xy=(107.5, 12.0), width=4.5, style=Styles.Success)
 text((111.5, 12.0), text="Git Version Control\nReview diagrams as code diffs", style=ts_suc_body)
 
 # Connectors
-line((39.5, 24.0), (53.5, 24.0), arrowhead="<->", style=Styles.PrimaryBold)
-text((46.5, 28.5), text="Rules & Queries", style=Styles.PrimaryBold, size=7.5)
-text((46.5, 19.5), text="APIs / Grid Images", style=Styles.AccentBold, size=7.2)
+line((39.5, 24.0), (53.5, 24.0), arrow_head="<->", style=Styles.PrimaryBold)
+text((46.5, 28.5), text="Rules & Queries", style=Styles.PrimaryBold.patch(text_size=7.5))
+text((46.5, 19.5), text="APIs / Grid Images", style=Styles.AccentBold.patch(text_size=7.2))
 
-line((88.5, 24.0), (102.5, 24.0), arrowhead="->", style=Styles.PrimaryBold)
-text((95.5, 28.5), text="Verified Code", style=Styles.SuccessBold, size=7.5)
-text((95.5, 19.5), text="Document Sync", style=Styles.MutedBold, size=7.2)
+line((88.5, 24.0), (102.5, 24.0), arrow_head="->", style=Styles.PrimaryBold)
+text((95.5, 28.5), text="Verified Code", style=Styles.SuccessBold.patch(text_size=7.5))
+text((95.5, 19.5), text="Document Sync", style=Styles.MutedBold.patch(text_size=7.2))
 ```
 
 ## 6.1 Using the Built-In Rule System (`drawlib rules`)

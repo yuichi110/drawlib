@@ -66,12 +66,12 @@ def draw_line():
     y = 29
     text((x1, y), "Line", style=title_style)
     line((30, y - 4), (30, y + 4), style=Styles.Primary)
-    line((40, y - 4), (40, y + 4), arrowhead="->", style=Styles.Primary)
+    line((40, y - 4), (40, y + 4), arrow_head="->", style=Styles.Primary)
     line((50, y - 4), (50, y + 4), style=Styles.PrimaryDashed.patch(line_color=Colors.Red))
     line(
         (60, y - 4),
         (60, y + 4),
-        arrowhead="<->",
+        arrow_head="<->",
         style=Styles.Primary.patch(line_color=Colors.Red, line_arrow_head_fill=True),
     )
     line_curved((69, y - 4), (69, y + 4), bend=-0.3, style=Styles.Primary)
@@ -80,7 +80,7 @@ def draw_line():
         [(77, y - 4), (83, y - 2), (77, y), (83, y + 2), (77, y + 4)],
         style=Styles.Primary.patch(line_style="dotted", line_color=Colors.Red),
     )
-    lines_curved([(87, y - 4), (87, y + 4), (93, y + 4), (93, y - 4)], r=2, arrowhead="->", style=Styles.Primary)
+    lines_curved([(87, y - 4), (87, y + 4), (93, y + 4), (93, y - 4)], r=2, arrow_head="->", style=Styles.Primary)
 
 
 def draw_shape():

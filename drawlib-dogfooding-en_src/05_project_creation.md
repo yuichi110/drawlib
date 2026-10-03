@@ -48,8 +48,8 @@ phosphor.translate(xy=(11.0, 12.0), width=5.0, style=Styles.Secondary)
 text((16.0, 12.0), text="-l en\nEnglish typography stack", style=ts_sec_body)
 
 # Arrow 1
-line((42.0, 24.0), (49.0, 24.0), arrowhead="->", style=Styles.PrimaryBold)
-text((45.5, 27.5), text="Scaffold", style=Styles.SecondaryBold, size=8.5)
+line((42.0, 24.0), (49.0, 24.0), arrow_head="->", style=Styles.PrimaryBold)
+text((45.5, 27.5), text="Scaffold", style=Styles.SecondaryBold.patch(text_size=8.5))
 
 # 2. Source Directory: report_src/ (Source of Truth)
 rectangle((67.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
@@ -65,8 +65,8 @@ phosphor.play_circle(xy=(55.0, 12.0), width=5.0, style=Styles.Primary)
 text((60.0, 12.0), text="build.sh\nAutomated build script", style=ts_body)
 
 # Arrow 2
-line((86.0, 24.0), (93.0, 24.0), arrowhead="->", style=Styles.PrimaryBold)
-text((89.5, 27.5), text="build.sh", style=Styles.PrimaryBold, size=8.5)
+line((86.0, 24.0), (93.0, 24.0), arrow_head="->", style=Styles.PrimaryBold)
+text((89.5, 27.5), text="build.sh", style=Styles.PrimaryBold.patch(text_size=8.5))
 
 # 3. Deliverable: report.pdf
 rectangle((111.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.AccentOutline)

@@ -359,17 +359,17 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <hr />
 <h2>3. Circle-like &amp; Radial Shapes</h2>
 <p>Drawlib provides a suite of radial geometries centered at <code>xy</code>:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import circle, donuts, ellipse
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">donuts</span><span class="p">,</span> <span class="n">ellipse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=110, height=45)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
 
-circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text=&quot;circle&quot;, text_style=Styles.WhiteBold)
-donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text=&quot;donuts&quot;, text_style=Styles.WhiteBold)
-ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text=&quot;ellipse&quot;, text_style=Styles.WhiteBold)
+<span class="n">circle</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">donuts</span><span class="p">((</span><span class="mi">55</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;donuts&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">ellipse</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;ellipse&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
-save()
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_images/shapes_radial.png" alt="shapes_2" style="width: 600px; max-width: 100%;" />
@@ -390,15 +390,15 @@ save()
 <li>Set <code>r</code> to create smooth <strong>rounded corners</strong> (e.g., <code>r=4.0</code>).</li>
 <li>Use <code>angle</code> to rotate around the geometric center.</li>
 </ul>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=50)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
-rectangle((50, 25), width=50, height=26, r=4, style=Styles.PrimaryFlat, text=&quot;Service Card&quot;, text_style=Styles.WhiteBold)
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Service Card&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
-save()
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_images/shapes_rectangle.png" alt="shapes_3" style="width: 600px; max-width: 100%;" />
@@ -415,22 +415,22 @@ save()
 <hr />
 <h2>5. Custom Vector Shapes (<code>shape</code>)</h2>
 <p>For irregular geometries that do not match predefined primitives, <code>shape</code> allows you to construct custom vector polygons using <strong>local path coordinates</strong>:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import shape
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">shape</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=60)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 
-# Anchor at (50, 30), define local vertices relative to anchor
-shape(
-    (50, 30),
-    path_points=[(0, 0), (20, 0), (30, 15), (10, 25), (-5, 10)],
-    style=Styles.PrimaryFlat,
-    text=&quot;Custom Path&quot;,
-    text_style=Styles.WhiteBold,
-)
+<span class="c1"># Anchor at (50, 30), define local vertices relative to anchor</span>
+<span class="n">shape</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">path_points</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)],</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Custom Path&quot;</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
 
-save()
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_images/shapes_custom_path.png" alt="shapes_4" style="width: 600px; max-width: 100%;" />

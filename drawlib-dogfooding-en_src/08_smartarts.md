@@ -21,11 +21,12 @@ setup(width=110, height=65)
 
 # 1. Pipeline Definition (ChevronProcess)
 pipeline = ChevronProcess(
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold,
+    description_style=Styles.Muted,
     corner_angle=60.0,
     spacing=1.5,
     flat_left_end=True,
-    default_text_style=Styles.WhiteBold,
-    default_description_style=Styles.Muted,
 )
 pipeline.extend(
     texts=["1. Spec", "2. Develop", "3. Test", "4. Deploy"],
@@ -36,10 +37,11 @@ pipeline.draw(xy=(8, 48), width=94, height=12)
 
 # 2. Feature Matrix (Table)
 table = Table(
+    cell_style=Styles.White,
+    text_style=Styles.Primary,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
-    default_text_style=Styles.Primary,
-    border_style=Styles.MutedLight,
+    border_style=Styles.MutedDashed,
 )
 table.draw(
     xy=(8, 42),

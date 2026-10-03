@@ -307,16 +307,16 @@
 <hr />
 <h2>1. Basic Code Fence Syntax</h2>
 <p>Embedded drawing blocks use the <code>drawlib</code> language identifier:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.shapes import rectangle
-from drawlib.lines import line
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=40)
-rectangle((25, 20), width=30, height=18, style=Styles.AccentFlat, text=&quot;Publisher&quot;, text_style=Styles.WhiteBold)
-rectangle((75, 20), width=30, height=18, style=Styles.PrimaryFlat, text=&quot;Consumer&quot;, text_style=Styles.WhiteBold)
-line((40, 20), (60, 20), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Publisher&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Consumer&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="code_blocks_images/code_blocks_service_arch.png" alt="code_blocks_1" style="width: 650px; max-width: 100%;" />
@@ -394,8 +394,8 @@ Always specify an explicit <code>file:&lt;name&gt;.png</code> attribute for ever
 <hr />
 <h2>5. Rapid Verification Workflow</h2>
 <p>Do not run a full site build to verify minor coordinate changes. Inspect individual code blocks instantly using <code>drawlib show</code>:</p>
-<pre><code class="language-bash"># Preview block #1 of docs_src/my_doc.md with coordinate grid:
-uv run drawlib show docs_src/my_doc.md 1 -g -o .drawlib/scratch/preview.png
+<pre><code class="language-bash"><span class="c1"># Preview block #1 of docs_src/my_doc.md with coordinate grid:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/my_doc.md<span class="w"> </span><span class="m">1</span><span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/preview.png
 </code></pre>
 
             </main>

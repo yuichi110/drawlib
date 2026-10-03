@@ -8,7 +8,7 @@ Diagrams communicate faster when accompanied by standard iconography and project
 
 Every icon is a pure Python function accepting `xy`, `width`, `angle`, and `style`:
 
-```drawlib 620px center caption:"Figure 6.1: Vector Iconography from Phosphor"
+```drawlib 620px center file:icons_phosphor.png caption:"Figure 6.1: Vector Iconography from Phosphor"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -28,14 +28,14 @@ icons_list = [
 for x, fn, label, st in icons_list:
     rectangle(xy=(x, 22), width=20, height=36, r=2, style=Styles.MutedDashed)
     fn(xy=(x, 28), width=10, style=st)
-    text(xy=(x, 10), text=label, style=Styles.PrimaryBold, size=7.5)
+    text(xy=(x, 10), text=label, style=Styles.PrimaryBold.patch(text_size=7.5))
 ```
 
 ## Google Cloud Architecture Icons (`drawlib.icons.gcp`)
 
 For cloud infrastructure and microservice topologies, Drawlib includes 250+ official Google Cloud icons:
 
-```drawlib 620px center caption:"Figure 6.2: Official Google Cloud Service Architecture Icons"
+```drawlib 620px center file:icons_gcp.png caption:"Figure 6.2: Official Google Cloud Service Architecture Icons"
 from drawlib.canvas import setup
 from drawlib.icons import gcp
 from drawlib.lines import line
@@ -55,10 +55,10 @@ services = [
 for idx, (x, icon_fn, label) in enumerate(services):
     rectangle(xy=(x, 22), width=24, height=36, r=2, style=Styles.MutedDashed)
     icon_fn(xy=(x, 28), width=10, style=Styles.Primary)
-    text(xy=(x, 10), text=label, style=Styles.PrimaryBold, size=8)
+    text(xy=(x, 10), text=label, style=Styles.PrimaryBold.patch(text_size=8))
     if idx < len(services) - 1:
         next_x = services[idx + 1][0]
-        line((x + 12, 28), (next_x - 12, 28), arrowhead="->", style=Styles.PrimaryBold)
+        line((x + 12, 28), (next_x - 12, 28), arrow_head="->", style=Styles.PrimaryBold)
 ```
 
 ## External Media & In-Memory Images (`drawlib.images`)

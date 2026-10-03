@@ -56,7 +56,7 @@ def connect(
     start: tuple[float, float],
     end: tuple[float, float],
     label: str = "",
-    arrowhead: Literal["", "->", "<-", "<->"] = "->",
+    arrow_head: Literal["", "->", "<-", "<->"] = "->",
     style: Style = Styles.PrimaryBold,
 ) -> None:
     """Draw a styled connecting line with an optional centered protocol label.
@@ -65,10 +65,10 @@ def connect(
         start: Starting point (x, y).
         end: Ending point (x, y).
         label: Protocol or description text (e.g. 'HTTPS', 'gRPC').
-        arrowhead: Arrowhead style ('->', '<-', '<->', or '').
+        arrow_head: Arrowhead style ('->', '<-', '<->', or '').
         style: Line style.
     """
-    line(start, end, arrowhead=arrowhead, style=style)
+    line(start, end, arrow_head=arrow_head, style=style)
     if label:
         mid_x = (start[0] + end[0]) / 2
         mid_y = (start[1] + end[1]) / 2

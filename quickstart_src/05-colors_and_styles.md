@@ -20,7 +20,7 @@ Each semantic role provides **10 orthogonal style variants**:
 - **Outlines**: `outline`, `outline_bold`, `outline_light`
 - **Dashed Lines**: `dashed`, `dashed_bold`, `dashed_light`
 
-```drawlib 640px center caption:"Figure 5.1: The 6 Semantic Roles Across Core Style Variants"
+```drawlib 640px center file:styles_semantic_roles.png caption:"Figure 5.1: The 6 Semantic Roles Across Core Style Variants"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -38,7 +38,7 @@ roles = [
 ]
 
 for x, label, st_flat, st_out, st_dash in roles:
-    text((x, 48), label, style=Styles.PrimaryBold, size=9)
+    text((x, 48), label, style=Styles.PrimaryBold.patch(text_size=9))
     # Flat box
     rectangle((x, 37), width=15, height=12, r=1.5, style=st_flat, text="flat", text_style=Styles.WhiteBold)
     # Outline box
@@ -71,7 +71,7 @@ Typography is a critical component of professional technical diagrams. Drawlib p
 - **`FontMonoSpace`**: Roboto Mono for code blocks, URLs, and JSON keys.
 - **`FontFile(path)`**: Custom TrueType/OpenType font files.
 
-```drawlib 620px center caption:"Figure 5.2: Typography Hierarchy & Font Families"
+```drawlib 620px center file:styles_typography.png caption:"Figure 5.2: Typography Hierarchy & Font Families"
 from drawlib.canvas import setup
 from drawlib.fonts import Font, FontMonoSpace, FontRoboto
 from drawlib.shapes import rectangle
@@ -89,6 +89,6 @@ type_samples = [
 for x, title, sub, font_obj, st in type_samples:
     rectangle((x, 22), width=34, height=36, r=2.5, style=Styles.MutedDashed)
     rectangle((x, 32), width=30, height=10, r=1.5, style=st, text=title, text_style=Styles.WhiteBold)
-    text((x, 20), sub, style=Styles.PrimaryBold, size=7.5)
+    text((x, 20), sub, style=Styles.PrimaryBold.patch(text_size=7.5))
     text((x, 11), "Quick brown fox jumps\n1234567890", style=Styles.Primary.patch(text_font=font_obj, text_size=7.5))
 ```

@@ -41,15 +41,15 @@ rules = [
 for x, icon_fn, title, desc, st in rules:
     rectangle(xy=(x, 24), width=24, height=36, r=2.5, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=7, style=st)
-    text(xy=(x, 25), text=title, style=Styles.PrimaryBold, size=8.5)
-    text(xy=(x, 14), text=desc, style=Styles.Primary, size=7.5)
+    text(xy=(x, 25), text=title, style=Styles.PrimaryBold.patch(text_size=8.5))
+    text(xy=(x, 14), text=desc, style=Styles.Primary.patch(text_size=7.5))
 ```
 
 ## 4. Semantic Coordinates Pattern (`*_xy`)
 
 Avoid scattering raw coordinate literals `(50, 25)` or cryptic list indices (`a[1]`) across drawing calls. Define meaningful coordinate variables (e.g. `client_xy = (25, 25)`, `gateway_xy = (65, 25)`) at the beginning of the block:
 - **Refactoring Resilience**: Repositioning a node automatically updates both its shape and all incoming/outgoing connection lines.
-- **Self-Documenting Flows**: Connectors read with immediate clarity: `line(client_xy, gateway_xy, arrowhead="->", style=Styles.PrimaryBold)`.
+- **Self-Documenting Flows**: Connectors read with immediate clarity: `line(client_xy, gateway_xy, arrow_head="->", style=Styles.PrimaryBold)`.
 
 ## Summary Checklist for Production Blueprints
 

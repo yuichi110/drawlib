@@ -6,7 +6,7 @@ Drawlib provides a rich suite of 2D geometric primitives, flexible line connecti
 
 Drawlib includes over 20 shape primitives. Every shape supports direct text embedding, corner radius rounding (`r`), rotation (`angle`), and full alignment controls:
 
-```drawlib 620px center caption:"Figure 4.1: Selection of Drawlib Vector Shapes"
+```drawlib 620px center file:shapes_primitives.png caption:"Figure 4.1: Selection of Drawlib Vector Shapes"
 from drawlib.canvas import setup
 from drawlib.shapes import chevron, circle, donuts, polygon, rectangle, rhombus
 from drawlib.styles import Styles
@@ -54,12 +54,12 @@ Drawlib provides straight, curved, bezier, and multi-segment chained lines with 
 
 - **Arrowhead Styles**: `"->"` (end), `"<-"` (start), `"<->"` (both ends), `"-"` (none).
 - **Line Functions**:
-  - `line(xy1, xy2, arrowhead="->", style=...)`: Straight connection.
-  - `line_curved(xy1, xy2, bend=0.25, arrowhead="->", style=...)`: Smooth arc with defined bend curve.
+  - `line(xy1, xy2, arrow_head="->", style=...)`: Straight connection.
+  - `line_curved(xy1, xy2, bend=0.25, arrow_head="->", style=...)`: Smooth arc with defined bend curve.
   - `line_bezier1(xy1, xy2, cp, ...)` / `line_bezier2`: Bezier paths with control points.
   - `lines(points=[(x1, y1), (x2, y2), ...], ...)`: Polyline connecting arbitrary waypoints.
 
-```drawlib 620px center caption:"Figure 4.2: Connecting Lines, Curvature, and Arrowheads"
+```drawlib 620px center file:lines_connections.png caption:"Figure 4.2: Connecting Lines, Curvature, and Arrowheads"
 from drawlib.canvas import setup
 from drawlib.lines import line, line_curved, lines
 from drawlib.shapes import circle
@@ -74,16 +74,16 @@ circle((60, 35), radius=8, style=Styles.SecondaryFlat, text="B", text_style=Styl
 circle((100, 23), radius=8, style=Styles.AccentFlat, text="C", text_style=Styles.WhiteBold)
 
 # 1. Straight Line A -> B
-line((28, 25), (52, 33), arrowhead="->", style=Styles.PrimaryBold)
-text((38, 33), "Direct", style=Styles.PrimaryBold, size=8.5)
+line((28, 25), (52, 33), arrow_head="->", style=Styles.PrimaryBold)
+text((38, 33), "Direct", style=Styles.PrimaryBold.patch(text_size=8.5))
 
 # 2. Curved Arc B -> C
-line_curved((68, 35), (92, 25), bend=0.25, arrowhead="->", style=Styles.SecondaryBold)
-text((84, 35), "Curved Arc", style=Styles.SecondaryBold, size=8.5)
+line_curved((68, 35), (92, 25), bend=0.25, arrow_head="->", style=Styles.SecondaryBold)
+text((84, 35), "Curved Arc", style=Styles.SecondaryBold.patch(text_size=8.5))
 
 # 3. Chained Orthogonal Path A -> C
-lines([(20, 15), (20, 8), (100, 8), (100, 15)], arrowhead="->", style=Styles.MutedDashedBold)
-text((60, 5), "Multi-Point Orthogonal Route", style=Styles.MutedBold, size=8)
+lines([(20, 15), (20, 8), (100, 8), (100, 15)], arrow_head="->", style=Styles.MutedDashedBold)
+text((60, 5), "Multi-Point Orthogonal Route", style=Styles.MutedBold.patch(text_size=8))
 ```
 
 ## Geometric Math Utilities (`drawlib.math`)

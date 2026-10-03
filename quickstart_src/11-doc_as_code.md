@@ -11,7 +11,7 @@ Write diagrams inline within Markdown using the ````drawlib```` tag:
 
 The following diagram illustrates our microservice communication topology:
 
-```drawlib 600px center caption:"Figure 1.1: Event-Driven Order Processing"
+```drawlib 600px center file:event_microservices.png caption:"Figure 1.1: Event-Driven Order Processing"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -20,11 +20,11 @@ from drawlib.styles import Styles
 setup(width=100, height=40)
 rectangle((25, 20), width=30, height=18, style=Styles.PrimaryFlat, text="Publisher", text_style=Styles.WhiteBold)
 rectangle((75, 20), width=30, height=18, style=Styles.SecondaryFlat, text="Consumer", text_style=Styles.WhiteBold)
-line((40, 20), (60, 20), arrowhead="->", style=Styles.PrimaryBold)
+line((40, 20), (60, 20), arrow_head="->", style=Styles.PrimaryBold)
 ```
 ````
 
-```drawlib 600px center caption:"Figure 11.1: Embedded Drawlib Block Rendered Inline"
+```drawlib 600px center file:doc_code_inline_block.png caption:"Figure 11.1: Embedded Drawlib Block Rendered Inline"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -33,7 +33,7 @@ from drawlib.styles import Styles
 setup(width=100, height=36)
 rectangle((25, 18), width=30, height=18, r=2, style=Styles.PrimaryFlat, text="Publisher", text_style=Styles.WhiteBold)
 rectangle((75, 18), width=30, height=18, r=2, style=Styles.SecondaryFlat, text="Consumer", text_style=Styles.WhiteBold)
-line((40, 18), (60, 18), arrowhead="->", style=Styles.PrimaryBold)
+line((40, 18), (60, 18), arrow_head="->", style=Styles.PrimaryBold)
 ```
 
 ## Block Header Options

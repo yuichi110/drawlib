@@ -320,12 +320,12 @@
 <p>Phosphor (<a href="https://phosphoricons.com">https://phosphoricons.com</a>) provides an extensive set of clean, consistent vector icons.</p>
 <h3>Function Signature</h3>
 <p>Every icon is exposed as a function named after the icon:</p>
-<pre><code class="language-python">phosphor.&lt;icon_name&gt;(
-    xy: tuple[float, float],
-    width: float,
-    angle: float = 0.0,
-    style: Style | str | None = None,
-)
+<pre><code class="language-python"><span class="n">phosphor</span><span class="o">.&lt;</span><span class="n">icon_name</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <ul>
 <li><strong><code>xy</code></strong>: Center coordinate anchor point.</li>
@@ -342,18 +342,18 @@
 <li><code>&quot;bold&quot;</code>: Prominent heavy stroke for primary entities.</li>
 <li><code>&quot;fill&quot;</code>: Solid filled silhouette for active states or alert badges.</li>
 </ul>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
-from drawlib.styles import Styles
-from drawlib.text import text
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-setup(width=60, height=50)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
-# Solid filled bell icon
-phosphor.bell((30, 28), width=14, style=Styles.Accent.patch(icon_style=&quot;fill&quot;))
-text((30, 12), &quot;Alert Badge&quot;, style=Styles.AccentBold)
+<span class="c1"># Solid filled bell icon</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">bell</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Accent</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">icon_style</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="s2">&quot;Alert Badge&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">)</span>
 
-save()
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="icons_images/icons_phosphor_fill.png" alt="icons_2" style="width: 500px; max-width: 100%;" />
@@ -362,20 +362,20 @@ save()
 <hr />
 <h2>3. Google Cloud Architecture Icons (<code>drawlib.icons.gcp</code>)</h2>
 <p>For cloud topology illustrations, Drawlib provides official Google Cloud graphics:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.icons import gcp
-from drawlib.styles import Styles
-from drawlib.text import text
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">gcp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-setup(width=100, height=45)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
 
-gcp.compute_engine((30, 26), width=14, style=Styles.Primary)
-text((30, 10), &quot;Compute Engine&quot;, style=Styles.PrimaryBold)
+<span class="n">gcp</span><span class="o">.</span><span class="n">compute_engine</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;Compute Engine&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
-gcp.cloud_storage((70, 26), width=14, style=Styles.Primary)
-text((70, 10), &quot;Cloud Storage&quot;, style=Styles.PrimaryBold)
+<span class="n">gcp</span><span class="o">.</span><span class="n">cloud_storage</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;Cloud Storage&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
-save()
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="icons_images/icons_gcp_services.png" alt="icons_3" style="width: 600px; max-width: 100%;" />
@@ -389,15 +389,15 @@ save()
 <hr />
 <h2>4. Universal Font Icons (<code>font_icon</code>)</h2>
 <p>For custom or third-party vector icon sets (such as FontAwesome):</p>
-<pre><code class="language-python">from drawlib.icons import font_icon
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">font_icon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-font_icon(
-    xy=(50, 50),
-    icon=&quot;fa-brands fa-github&quot;,
-    width=12,
-    style=Styles.PrimaryBold,
-)
+<span class="n">font_icon</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;fa-brands fa-github&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <blockquote>
 <p>[!TIP]

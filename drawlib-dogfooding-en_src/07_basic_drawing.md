@@ -35,18 +35,18 @@ circle((88, 21), radius=9, style=Styles.AccentFlat, text="DB Cluster", text_styl
 phosphor.database(xy=(88, 34), width=6, style=Styles.Accent)
 
 # Connections and Arrows
-line((32, 21), (42, 21), arrowhead="->", style=Styles.PrimaryBold)
-text((37, 24), "HTTPS", style=Styles.Primary, size=9)
+line((32, 21), (42, 21), arrow_head="->", style=Styles.PrimaryBold)
+text((37, 24), "HTTPS", style=Styles.Primary.patch(text_size=9))
 
-line((68, 21), (79, 21), arrowhead="->", style=Styles.PrimaryBold)
-text((73.5, 24), "SQL", style=Styles.Accent, size=9)
+line((68, 21), (79, 21), arrow_head="->", style=Styles.PrimaryBold)
+text((73.5, 24), "SQL", style=Styles.Accent.patch(text_size=9))
 ```
 
 ## 7.3 Essential Drawing Functions
 
 - **`rectangle(xy, width, height, r=0, style=...)`**: Rectangle with optional rounded corners.
 - **`circle(xy, radius, style=...)`**: Circle.
-- **`line(start_xy, end_xy, arrowhead="->", style=...)`**: Straight line with arrowheads.
+- **`line(start_xy, end_xy, arrow_head="->", style=...)`**: Straight line with arrowheads.
 - **`line_curved(start_xy, end_xy, bend=0.2, ...)`**: Smooth bezier curves.
-- **`text(xy, text="...", style=..., size=12)`**: Styled typography.
+- **`text(xy, text="...", style=...)`**: Styled typography.
 - **`phosphor.<icon_name>(xy, width, style=...)`**: Phosphor vector icons.

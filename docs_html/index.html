@@ -311,24 +311,24 @@
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
-<pre><code class="language-python">from drawlib.canvas import setup
-from drawlib.shapes import rectangle, circle
-from drawlib.lines import line
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span><span class="p">,</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=120, height=45)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
 
-# Background Boundary
-rectangle((60, 22.5), width=116, height=38, style=Styles.MutedDashed)
+<span class="c1"># Background Boundary</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
 
-# Pipeline stages
-rectangle((25, 22.5), width=30, height=18, style=Styles.PrimaryFlat, text=&quot;AI Agent / Dev\n(Python Script)&quot;, text_style=Styles.WhiteBold)
-rectangle((62, 22.5), width=28, height=18, style=Styles.AccentFlat, text=&quot;Markdown\n(```drawlib)&quot;, text_style=Styles.WhiteBold)
-circle((98, 22.5), radius=10, style=Styles.SuccessFlat, text=&quot;HTML, PDF\n&amp; Markdown&quot;, text_style=Styles.WhiteBold)
+<span class="c1"># Pipeline stages</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;AI Agent / Dev</span><span class="se">\n</span><span class="s2">(Python Script)&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Markdown</span><span class="se">\n</span><span class="s2">(```drawlib)&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">98</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;HTML, PDF</span><span class="se">\n</span><span class="s2">&amp; Markdown&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
-# Connectors
-line((40, 22.5), (48, 22.5), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-line((76, 22.5), (88, 22.5), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
+<span class="c1"># Connectors</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 </code></pre>
 </details>
 <hr />

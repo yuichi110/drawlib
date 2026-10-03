@@ -21,6 +21,7 @@ chart = GanttChart(
     header_height=6.0,
     row_height=5.0,
     bar_radius=1.0,
+    axis_line_style=Styles.MutedDashed,
 )
 
 chart.add_section("1. Core Infrastructure")

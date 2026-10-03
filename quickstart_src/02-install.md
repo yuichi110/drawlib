@@ -35,7 +35,7 @@ python3 -m drawlib --version
   ```
 - **Universal Typography**: Drawlib bundles CJK-ready Google Noto Sans and Roboto fonts, ensuring Chinese, Japanese, Korean, and Latin typography renders consistently across Linux, macOS, and Windows without missing glyph boxes (`tofu`).
 
-```drawlib 620px center caption:"Figure 2.1: Drawlib Environment & Toolchain Architecture"
+```drawlib 620px center file:install_toolchain.png caption:"Figure 2.1: Drawlib Environment & Toolchain Architecture"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -55,9 +55,9 @@ layers = [
 for idx, (x, icon_fn, title, desc, st) in enumerate(layers):
     rectangle(xy=(x, 22), width=22, height=36, r=2.5, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=6, style=st)
-    text(xy=(x, 26), text=title, style=Styles.PrimaryBold, size=8)
-    text(xy=(x, 14), text=desc, style=Styles.Primary, size=7)
+    text(xy=(x, 26), text=title, style=Styles.PrimaryBold.patch(text_size=8))
+    text(xy=(x, 14), text=desc, style=Styles.Primary.patch(text_size=7))
     if idx < len(layers) - 1:
         next_x = layers[idx + 1][0]
-        line((x + 11, 22), (next_x - 11, 22), arrowhead="->", style=Styles.PrimaryBold)
+        line((x + 11, 22), (next_x - 11, 22), arrow_head="->", style=Styles.PrimaryBold)
 ```

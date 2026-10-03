@@ -11,7 +11,7 @@ Drawlib enforces a clean, predictable project structure for all documentation an
 | **`pdf`** | `drawlib init pdf` | Multi-chapter formal technical book or engineering report | `docs_src/` -> `document.pdf` |
 | **`image`** | `drawlib init image` | Standalone Python drawing batch scripts | `images_src/` -> `images/` |
 
-```drawlib 640px center caption:"Figure 14.1: The Four Standard Drawlib Project Templates"
+```drawlib 640px center file:project_templates.png caption:"Figure 14.1: The Four Standard Drawlib Project Templates"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -30,8 +30,8 @@ templates = [
 for x, icon_fn, title, desc, st in templates:
     rectangle(xy=(x, 24), width=24, height=36, r=2.5, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=7, style=st)
-    text(xy=(x, 25), text=title, style=Styles.PrimaryBold, size=8.5)
-    text(xy=(x, 14), text=desc, style=Styles.Primary, size=7.5)
+    text(xy=(x, 25), text=title, style=Styles.PrimaryBold.patch(text_size=8.5))
+    text(xy=(x, 14), text=desc, style=Styles.Primary.patch(text_size=7.5))
 ```
 
 ## Standard Project Directory Architecture

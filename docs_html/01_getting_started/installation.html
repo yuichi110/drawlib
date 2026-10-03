@@ -313,49 +313,49 @@
 <hr />
 <h2>1. Using <code>uv</code> (Recommended)</h2>
 <p>Add Drawlib to your current project dependencies:</p>
-<pre><code class="language-bash"># Add to active project
-$ uv add drawlib
+<pre><code class="language-bash"><span class="c1"># Add to active project</span>
+$<span class="w"> </span>uv<span class="w"> </span>add<span class="w"> </span>drawlib
 
-# Verify installation and CLI version
-$ uv run drawlib --version
+<span class="c1"># Verify installation and CLI version</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>--version
 </code></pre>
 <h3>Standalone CLI Execution (<code>uvx</code>)</h3>
 <p>If you want to run the Drawlib CLI tool without adding it to a project:</p>
-<pre><code class="language-bash">$ uvx drawlib --version
-$ uvx drawlib init site
+<pre><code class="language-bash">$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>--version
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site
 </code></pre>
 <hr />
 <h2>2. Using <code>pip</code></h2>
 <p>Install Drawlib into your virtual environment:</p>
-<pre><code class="language-bash">$ pip install drawlib
+<pre><code class="language-bash">$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>drawlib
 
-# Verify installation
-$ drawlib --version
+<span class="c1"># Verify installation</span>
+$<span class="w"> </span>drawlib<span class="w"> </span>--version
 </code></pre>
 <hr />
 <h2>3. Optional PDF Export Support</h2>
 <p>Drawlib includes built-in support for compiling Markdown documents into standalone PDF publications via headless Chromium.</p>
 <p>To enable PDF generation (<code>drawlib build pdf</code>):</p>
-<pre><code class="language-bash"># When using uv:
-$ uv add &quot;drawlib[pdf]&quot;
-$ uv run playwright install chromium
+<pre><code class="language-bash"><span class="c1"># When using uv:</span>
+$<span class="w"> </span>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;drawlib[pdf]&quot;</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium
 
-# When using pip:
-$ pip install &quot;drawlib[pdf]&quot;
-$ playwright install chromium
+<span class="c1"># When using pip:</span>
+$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;drawlib[pdf]&quot;</span>
+$<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium
 </code></pre>
 <hr />
 <h2>4. On-Demand Asset Downloads</h2>
 <p>To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official Google Cloud icons) and multilingual fonts are downloaded on demand upon first use and cached in your user data directory (<code>~/.drawlib/</code> or platform equivalent).</p>
 <p>To pre-fetch and warm the cache ahead of time (e.g. for offline builds or CI/CD pipelines):</p>
-<pre><code class="language-bash"># Warm asset caches
-$ uv run drawlib cache update
+<pre><code class="language-bash"><span class="c1"># Warm asset caches</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>update
 </code></pre>
 <hr />
 <h2>5. Verifying Installation</h2>
 <p>Verify that the Drawlib CLI commands and rule guides are accessible:</p>
-<pre><code class="language-bash">$ uv run drawlib --help
-$ uv run drawlib rules list
+<pre><code class="language-bash">$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>--help
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>list
 </code></pre>
 
             </main>

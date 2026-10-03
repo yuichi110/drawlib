@@ -13,7 +13,7 @@ from drawlib.icons import phosphor
 from drawlib.images import get_dimage_from_code, image
 from drawlib.preset_colors import CssColors
 from drawlib.shapes import arrow
-from drawlib.smartarts import SourceCode
+from drawlib.smartarts import SourceCode, SourceCodeStyles
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
 
@@ -57,15 +57,15 @@ def upper():
 def middle():
     image_y = 12
     arrow_y = 28
-    style = Styles.Primary.patch(image_border_width=1, text_valign="bottom")
+    style = Styles.Primary.patch(image_border_width=1)
 
-    sc = SourceCode(style="default", font=FontSourceCode.ROBOTO_MONO)
-    sc.draw((25, image_y), width=40, code=INNER_CODE, style=style)
+    sc_styles = SourceCodeStyles.get("default", font_lang="en", font=FontSourceCode.ROBOTO_MONO, text_size=7.5)
+    SourceCode.draw(xy=(5, 44), width=40, code=INNER_CODE, styles=sc_styles)
 
     arrow((50, arrow_y), (60, arrow_y), tail_width=5, head_width=10, head_length=5, head="->", style=Styles.PrimarySolid)
 
     inner_dimage = get_dimage_from_code(INNER_CODE)
-    image((80, image_y), width=31.5, image=inner_dimage, style=style)
+    image((64.25, image_y), width=31.5, image=inner_dimage, style=style)
 
 
 def lower():

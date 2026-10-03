@@ -321,23 +321,23 @@
 </code></pre>
 <hr />
 <h2>2. Constructor &amp; Configuration</h2>
-<pre><code class="language-python">from drawlib.charts.area import AreaChart
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.area</span><span class="w"> </span><span class="kn">import</span> <span class="n">AreaChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-chart = AreaChart(
-    axis_line_style=Styles.MutedDashed,
-    categories=[&quot;2021&quot;, &quot;2022&quot;, &quot;2023&quot;, &quot;2024&quot;, &quot;2025&quot;],
-    axis_text_style=Styles.Muted.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
-    width=80.0,
-    height=55.0,
-    title=&quot;Cumulative Revenue Streams&quot;,
-    title_style=Styles.BlackBold.patch(text_size=13.0),
-    mode=&quot;stack&quot;,               # &quot;stack&quot; or &quot;overlap&quot;
-    fill_alpha=0.65,            # Polygon fill opacity (0.0 to 1.0)
-    smooth=False,               # Smooth spline curve or straight lines
-    show_points=False,          # Draw vertex markers
-)
+<span class="n">chart</span> <span class="o">=</span> <span class="n">AreaChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;2021&quot;</span><span class="p">,</span> <span class="s2">&quot;2022&quot;</span><span class="p">,</span> <span class="s2">&quot;2023&quot;</span><span class="p">,</span> <span class="s2">&quot;2024&quot;</span><span class="p">,</span> <span class="s2">&quot;2025&quot;</span><span class="p">],</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedLight</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">80.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">55.0</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Cumulative Revenue Streams&quot;</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;stack&quot;</span><span class="p">,</span>               <span class="c1"># &quot;stack&quot; or &quot;overlap&quot;</span>
+    <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>            <span class="c1"># Polygon fill opacity (0.0 to 1.0)</span>
+    <span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>               <span class="c1"># Smooth spline curve or straight lines</span>
+    <span class="n">show_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>          <span class="c1"># Draw vertex markers</span>
+<span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Cumulative Stacked Area Chart</h2>

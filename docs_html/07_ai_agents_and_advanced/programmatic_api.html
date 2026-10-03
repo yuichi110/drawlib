@@ -306,114 +306,114 @@
 <p>While the <code>drawlib</code> CLI provides terminal commands for common workflows, Drawlib exposes a comprehensive Python developer API under <code>drawlib.builder</code> and <code>drawlib.tools</code>. This API allows you to integrate document compilation, diagram export, image snapshot testing, and template automation directly into CI/CD pipelines, web servers, and custom build scripts.</p>
 <hr />
 <h2>1. Module Overview &amp; Core Imports</h2>
-<pre><code class="language-python">from drawlib.builder import (
-    build_html,
-    build_markdown,
-    build_pdf,
-    build_image,
-    export_code_block,
-    show_code_block,
-)
-from drawlib.tools import (
-    init_project,
-    serve_docs,
-    list_cache,
-    clear_cache,
-    download_cache,
-    list_css,
-    export_css,
-)
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.builder</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_html</span><span class="p">,</span>
+    <span class="n">build_markdown</span><span class="p">,</span>
+    <span class="n">build_pdf</span><span class="p">,</span>
+    <span class="n">build_image</span><span class="p">,</span>
+    <span class="n">export_code_block</span><span class="p">,</span>
+    <span class="n">show_code_block</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">init_project</span><span class="p">,</span>
+    <span class="n">serve_docs</span><span class="p">,</span>
+    <span class="n">list_cache</span><span class="p">,</span>
+    <span class="n">clear_cache</span><span class="p">,</span>
+    <span class="n">download_cache</span><span class="p">,</span>
+    <span class="n">list_css</span><span class="p">,</span>
+    <span class="n">export_css</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <hr />
 <h2>2. Document Compilation API</h2>
 <h3>2.1 <code>build_html()</code></h3>
 <p>Compiles Markdown documents or directories into a responsive static HTML website:</p>
-<pre><code class="language-python">from drawlib.builder import build_html
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_html</span>
 
-build_html(
-    input_path=&quot;docs_src/&quot;,
-    output_path=&quot;docs_html/&quot;,
-    styles_path=&quot;docs_src/styles.py&quot;,  # Optional custom styles script
-    utils_path=&quot;docs_src/utils.py&quot;,    # Optional drawing helper script
-    no_cache=False,                    # Set True to bypass SQLite cache
-    image_format=&quot;png&quot;,                # &quot;png&quot; or &quot;webp&quot;
-)
+<span class="n">build_html</span><span class="p">(</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;docs_src/&quot;</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;docs_html/&quot;</span><span class="p">,</span>
+    <span class="n">styles_path</span><span class="o">=</span><span class="s2">&quot;docs_src/styles.py&quot;</span><span class="p">,</span>  <span class="c1"># Optional custom styles script</span>
+    <span class="n">utils_path</span><span class="o">=</span><span class="s2">&quot;docs_src/utils.py&quot;</span><span class="p">,</span>    <span class="c1"># Optional drawing helper script</span>
+    <span class="n">no_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>                    <span class="c1"># Set True to bypass SQLite cache</span>
+    <span class="n">image_format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span>                <span class="c1"># &quot;png&quot; or &quot;webp&quot;</span>
+<span class="p">)</span>
 </code></pre>
 <h3>2.2 <code>build_markdown()</code></h3>
 <p>Compiles source Markdown containing embedded <code>drawlib</code> blocks into standard GitHub-Flavored Markdown:</p>
-<pre><code class="language-python">from drawlib.builder import build_markdown
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_markdown</span>
 
-build_markdown(
-    input_path=&quot;docs_src/&quot;,
-    output_path=&quot;docs/&quot;,
-    styles_path=&quot;docs_src/styles.py&quot;,
-)
+<span class="n">build_markdown</span><span class="p">(</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;docs_src/&quot;</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;docs/&quot;</span><span class="p">,</span>
+    <span class="n">styles_path</span><span class="o">=</span><span class="s2">&quot;docs_src/styles.py&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <h3>2.3 <code>build_pdf()</code></h3>
 <p>Compiles documents directly to vector PDF using headless Chromium:</p>
-<pre><code class="language-python">from drawlib.builder import build_pdf
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_pdf</span>
 
-build_pdf(
-    inputs=&quot;docs_src/&quot;,
-    output_path=&quot;docs.pdf&quot;,
-    generate_index=True,               # Generate Table of Contents
-    page_break=True,                   # Page break before each chapter
-)
+<span class="n">build_pdf</span><span class="p">(</span>
+    <span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;docs_src/&quot;</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;docs.pdf&quot;</span><span class="p">,</span>
+    <span class="n">generate_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>               <span class="c1"># Generate Table of Contents</span>
+    <span class="n">page_break</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                   <span class="c1"># Page break before each chapter</span>
+<span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Single Diagram Extraction (<code>export_code_block</code>)</h2>
 <p>Extracts and renders a single diagram from a Markdown file or a standalone <code>.py</code> script without opening a GUI display:</p>
-<pre><code class="language-python">from drawlib.builder import export_code_block
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_code_block</span>
 
-# Extract block 1 from Markdown with coordinate grid:
-export_code_block(
-    file_path=&quot;docs_src/architecture.md&quot;,
-    target=&quot;1&quot;,                        # 1-based index or target filename
-    output_path=&quot;.drawlib/scratch/arch.png&quot;,
-    grid=True,                         # Overlay coordinate grid
-)
+<span class="c1"># Extract block 1 from Markdown with coordinate grid:</span>
+<span class="n">export_code_block</span><span class="p">(</span>
+    <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;docs_src/architecture.md&quot;</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>                        <span class="c1"># 1-based index or target filename</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;.drawlib/scratch/arch.png&quot;</span><span class="p">,</span>
+    <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                         <span class="c1"># Overlay coordinate grid</span>
+<span class="p">)</span>
 
-# Export from standalone Python script:
-export_code_block(
-    file_path=&quot;scripts/diagram.py&quot;,
-    output_path=&quot;assets/diagram.png&quot;,
-    grid=False,
-)
+<span class="c1"># Export from standalone Python script:</span>
+<span class="n">export_code_block</span><span class="p">(</span>
+    <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;scripts/diagram.py&quot;</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;assets/diagram.png&quot;</span><span class="p">,</span>
+    <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <hr />
 <h2>4. In-Memory Image API (<code>Dimage</code>)</h2>
 <p>Drawlib can export canvases directly to in-memory <code>Dimage</code> objects without writing temporary files to disk:</p>
-<pre><code class="language-python">from drawlib import canvas, shapes, styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">styles</span>
 
-canvas.setup(width=60, height=40)
-shapes.rectangle((30, 20), width=40, height=25, style=styles.Styles.AccentFlat, text=&quot;In-Memory&quot;)
+<span class="n">canvas</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">shapes</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;In-Memory&quot;</span><span class="p">)</span>
 
-# Export directly to Dimage object
-dimage = canvas.export_dimage()
+<span class="c1"># Export directly to Dimage object</span>
+<span class="n">dimage</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">export_dimage</span><span class="p">()</span>
 
-# Access underlying PIL Image or save
-pil_image = dimage.image
-dimage.save(&quot;output.png&quot;)
+<span class="c1"># Access underlying PIL Image or save</span>
+<span class="n">pil_image</span> <span class="o">=</span> <span class="n">dimage</span><span class="o">.</span><span class="n">image</span>
+<span class="n">dimage</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output.png&quot;</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>5. Automated Visual Regression Testing with Pytest</h2>
 <p>Integrate diagram rendering into your test suite to ensure code changes never break visual illustrations:</p>
-<pre><code class="language-python">from pathlib import Path
-from drawlib.builder import export_code_block
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_code_block</span>
 
-def test_architecture_diagram_renders(tmp_path: Path):
-    target_png = tmp_path / &quot;test_diagram.png&quot;
+<span class="k">def</span><span class="w"> </span><span class="nf">test_architecture_diagram_renders</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+    <span class="n">target_png</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;test_diagram.png&quot;</span>
     
-    export_code_block(
-        file_path=&quot;docs_src/index.md&quot;,
-        target=&quot;1&quot;,
-        output_path=str(target_png),
-        grid=False,
-    )
+    <span class="n">export_code_block</span><span class="p">(</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;docs_src/index.md&quot;</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">target_png</span><span class="p">),</span>
+        <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
     
-    # Assert diagram was generated with valid file size
-    assert target_png.exists()
-    assert target_png.stat().st_size &gt; 2048
+    <span class="c1"># Assert diagram was generated with valid file size</span>
+    <span class="k">assert</span> <span class="n">target_png</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">target_png</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="o">&gt;</span> <span class="mi">2048</span>
 </code></pre>
 
             </main>

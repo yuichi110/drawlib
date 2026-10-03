@@ -323,17 +323,17 @@
 <li><strong>Anchor</strong>: Bottom-Left <code>(x, y)</code>. Row 0 is the bottom row; Column 0 is the left column.</li>
 <li><strong>Cell Spanning</strong>: A card at <code>position=(col, row)</code> can span <code>width</code> columns and <code>height</code> rows.</li>
 </ul>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.smartarts import GridLayout
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridLayout</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=110, height=75)
-grid = GridLayout(num_column=3, num_row=3, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold, r=2.0)
-grid.add(position=(0, 2), width=3, height=1, text=&quot;Top Header Span&quot;, style=Styles.PrimaryFlat)
-grid.add(position=(0, 0), width=1, height=2, text=&quot;Sidebar&quot;, style=Styles.SecondaryFlat)
-grid.add(position=(1, 0), width=2, height=2, text=&quot;Main Content&quot;, style=Styles.AccentFlat)
-grid.draw(xy=(10, 10), width=90, height=55, margin=1.5)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GridLayout</span><span class="p">(</span><span class="n">num_column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">num_row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Top Header Span&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Sidebar&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Main Content&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="lists_and_grids_images/smartarts_gridlayout.png" alt="lists_and_grids_2" style="width: 550px; max-width: 100%;" />
@@ -355,17 +355,17 @@ save()
 <hr />
 <h2>4. BoxList (Linear Card Sequences)</h2>
 <p><code>BoxList</code> sequences cards along one axis (<code>align=&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, or <code>&quot;bottom&quot;</code>):</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.smartarts import BoxList
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoxList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=110, height=35)
-bl = BoxList(style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-bl.append(&quot;Step 1&quot;)
-bl.append(&quot;Step 2&quot;, style=Styles.AccentFlat)  # Highlighted step
-bl.append(&quot;Step 3&quot;)
-bl.draw(xy=(17, 10), box_width=25, box_height=15, align=&quot;left&quot;)
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">bl</span> <span class="o">=</span> <span class="n">BoxList</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Step 1&quot;</span><span class="p">)</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Step 2&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">)</span>  <span class="c1"># Highlighted step</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Step 3&quot;</span><span class="p">)</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="lists_and_grids_images/smartarts_boxlist.png" alt="lists_and_grids_3" style="width: 550px; max-width: 100%;" />
@@ -374,19 +374,19 @@ save()
 <hr />
 <h2>5. BulletPoints (Formatted Text Lists)</h2>
 <p><code>BulletPoints</code> renders nested lists starting from a top-left coordinate <code>(x, y)</code>:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.smartarts import BulletPoints
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">BulletPoints</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=45)
-bp = BulletPoints(text_style=Styles.PrimaryBold, vertical_margin=8.0, indent_width=5.0)
-bp.set_indent(1)
-bp.add(&quot;First architectural requirement&quot;)
-bp.add(&quot;Second architectural requirement&quot;)
-bp.set_indent(2)
-bp.add(&quot;Nested implementation detail&quot;)
-bp.draw(xy=(10, 35))
-save()
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">bp</span> <span class="o">=</span> <span class="n">BulletPoints</span><span class="p">(</span><span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span> <span class="n">vertical_margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">indent_width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;First architectural requirement&quot;</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Second architectural requirement&quot;</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">set_indent</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Nested implementation detail&quot;</span><span class="p">)</span>
+<span class="n">bp</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">35</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="lists_and_grids_images/smartarts_bulletpoints.png" alt="lists_and_grids_4" style="width: 550px; max-width: 100%;" />

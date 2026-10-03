@@ -13,7 +13,7 @@ Modern software teams manage code, infrastructure, and CI/CD pipelines as versio
 
 ## Drawlib's Three Architectural Pillars
 
-```drawlib 620px center caption:"Figure 1.1: Drawlib Core Architectural Pillars"
+```drawlib 620px center file:about_pillars.png caption:"Figure 1.1: Drawlib Core Architectural Pillars"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -31,8 +31,8 @@ pillars = [
 for x, icon_fn, title, bullets, style in pillars:
     rectangle(xy=(x, 22), width=34, height=36, r=3, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=7, style=style)
-    text(xy=(x, 26), text=title, style=Styles.PrimaryBold, size=10)
-    text(xy=(x, 14), text=bullets, style=Styles.Primary, size=7.5)
+    text(xy=(x, 26), text=title, style=Styles.PrimaryBold.patch(text_size=10))
+    text(xy=(x, 14), text=bullets, style=Styles.Primary.patch(text_size=7.5))
 ```
 
 1. **High-Level Declarative Components**: Rather than assembling raw polygons by hand, Drawlib provides pre-engineered modules for cloud architectures (`ArchitectureDiagram`), pipelines (`ChevronProcess`), sequence flows (`SequenceDiagram`), tables (`Table`), and charts (`BarChart`).

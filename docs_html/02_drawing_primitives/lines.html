@@ -349,18 +349,18 @@ The <code>drawlib.lines</code> module provides straight lines, smooth circular a
 <h2>3. Function Reference</h2>
 <h3>3.1. Straight Line (<code>line</code>)</h3>
 <p>Connects two coordinates <code>xy1</code> and <code>xy2</code> with a direct straight segment.</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.styles import Styles
-from drawlib.text import text
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-setup(width=100, height=40)
-line((15, 27), (85, 27), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-text((50, 32), &quot;Forward (-&gt;)&quot;, style=Styles.Primary)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="s2">&quot;Forward (-&gt;)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
 
-line((15, 12), (85, 12), arrowhead=&quot;&lt;-&gt;&quot;, style=Styles.SecondaryBold)
-text((50, 17), &quot;Bidirectional (&lt;-&gt;)&quot;, style=Styles.Secondary)
-save()
+<span class="n">line</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="s2">&quot;Bidirectional (&lt;-&gt;)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="lines_images/lines_straight.png" alt="lines_2" style="width: 500px; max-width: 100%;" />
@@ -370,72 +370,72 @@ save()
 <ul>
 <li><strong><code>bend</code></strong>: Controls the degree of curvature ($0.0$ = flat line, negative = bend upward, positive = bend downward). Defaults to <code>0.2</code>.</li>
 </ul>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.lines import line_curved
-from drawlib.styles import Styles
-from drawlib.text import text
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line_curved</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-setup(width=100, height=45)
-# Negative bend curves upward in Cartesian space
-line_curved((15, 22), (85, 22), bend=-0.35, arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-text((50, 40), &quot;bend=-0.35 (upward)&quot;, style=Styles.Primary)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="c1"># Negative bend curves upward in Cartesian space</span>
+<span class="n">line_curved</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">&quot;bend=-0.35 (upward)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
 
-# Positive bend curves downward in Cartesian space
-line_curved((15, 22), (85, 22), bend=0.35, arrowhead=&quot;-&gt;&quot;, style=Styles.AccentBold)
-text((50, 6), &quot;bend=0.35 (downward)&quot;, style=Styles.Accent)
-save()
+<span class="c1"># Positive bend curves downward in Cartesian space</span>
+<span class="n">line_curved</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">bend</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">&quot;bend=0.35 (downward)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Accent</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="lines_images/lines_curved.png" alt="lines_3" style="width: 500px; max-width: 100%;" />
 </div>
 <h3>3.3. Quadratic Bézier Curve (<code>line_bezier1</code>)</h3>
 <p>Connects <code>xy1</code> to <code>xy2</code> controlled by a single control point <code>cp</code> that pulls the curve tangentially:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.lines import line, line_bezier1
-from drawlib.shapes import circle
-from drawlib.styles import Styles
-from drawlib.text import text
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">line_bezier1</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-setup(width=100, height=50)
-p1, p2 = (15, 15), (85, 15)
-cp = (50, 40)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
 
-# Control point tangent guides
-line(p1, cp, style=Styles.MutedDashed)
-line(cp, p2, style=Styles.MutedDashed)
-circle(cp, radius=2, style=Styles.DangerFlat)
-text((50, 45), &quot;Control Point (cp)&quot;, style=Styles.Danger)
+<span class="c1"># Control point tangent guides</span>
+<span class="n">line</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">line</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="s2">&quot;Control Point (cp)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Danger</span><span class="p">)</span>
 
-# Quadratic Bézier curve
-line_bezier1(p1, p2, cp=cp, arrowhead=&quot;-&gt;&quot;, style=Styles.SecondaryBold)
-save()
+<span class="c1"># Quadratic Bézier curve</span>
+<span class="n">line_bezier1</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">cp</span><span class="o">=</span><span class="n">cp</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="lines_images/lines_bezier1.png" alt="lines_4" style="width: 500px; max-width: 100%;" />
 </div>
 <h3>3.4. Cubic Bézier Curve (<code>line_bezier2</code>)</h3>
 <p>Connects <code>xy1</code> to <code>xy2</code> with two independent control points <code>cp1</code> and <code>cp2</code>, enabling S-curves and asymmetric waves:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.lines import line, line_bezier2
-from drawlib.shapes import circle
-from drawlib.styles import Styles
-from drawlib.text import text
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">line_bezier2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-setup(width=100, height=50)
-p1, p2 = (15, 25), (85, 25)
-cp1, cp2 = (35, 42), (65, 8)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">cp1</span><span class="p">,</span> <span class="n">cp2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="p">(</span><span class="mi">65</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 
-# Tangent guides for both control points
-line(p1, cp1, style=Styles.MutedDashed)
-line(p2, cp2, style=Styles.MutedDashed)
-circle(cp1, radius=2, style=Styles.DangerFlat)
-text((35, 46), &quot;cp1&quot;, style=Styles.Danger)
-circle(cp2, radius=2, style=Styles.DangerFlat)
-text((65, 4), &quot;cp2&quot;, style=Styles.Danger)
+<span class="c1"># Tangent guides for both control points</span>
+<span class="n">line</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">cp1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">line</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">cp2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">cp1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">35</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="s2">&quot;cp1&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Danger</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">cp2</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">65</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;cp2&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Danger</span><span class="p">)</span>
 
-# Cubic Bézier S-curve
-line_bezier2(p1, p2, cp1=cp1, cp2=cp2, arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-save()
+<span class="c1"># Cubic Bézier S-curve</span>
+<span class="n">line_bezier2</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">cp1</span><span class="o">=</span><span class="n">cp1</span><span class="p">,</span> <span class="n">cp2</span><span class="o">=</span><span class="n">cp2</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="lines_images/lines_bezier2.png" alt="lines_5" style="width: 500px; max-width: 100%;" />
@@ -446,37 +446,37 @@ save()
 In software architectures and circuit schematics, <strong>orthogonal (Manhattan) routing</strong> is standard for clean, non-overlapping bus lines:</p>
 <h3>4.1. L-Routing (Single 90° Turn)</h3>
 <p>Connects two entities horizontally first, then vertically:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.lines import lines
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=45)
-rectangle((20, 30), width=24, height=14, style=Styles.PrimaryFlat, text=&quot;Client&quot;, text_style=Styles.WhiteBold)
-rectangle((80, 15), width=24, height=14, style=Styles.SecondaryFlat, text=&quot;Worker&quot;, text_style=Styles.WhiteBold)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Client&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Worker&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
-# L-shaped connection: horizontal from Client, then downward to Worker
-lines([(32, 30), (80, 30), (80, 22)], arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-save()
+<span class="c1"># L-shaped connection: horizontal from Client, then downward to Worker</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">22</span><span class="p">)],</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="lines_images/lines_l_routing.png" alt="lines_6" style="width: 500px; max-width: 100%;" />
 </div>
 <h3>4.2. Z-Routing / Dogleg (Two 90° Turns)</h3>
 <p>Connects two offset components across a shared mid-channel $x_{\text{mid}}$:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.lines import lines
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=100, height=45)
-rectangle((20, 32), width=24, height=14, style=Styles.PrimaryFlat, text=&quot;Service A&quot;, text_style=Styles.WhiteBold)
-rectangle((80, 14), width=24, height=14, style=Styles.AccentFlat, text=&quot;Service B&quot;, text_style=Styles.WhiteBold)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Service A&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Service B&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
-# Z-shaped dogleg connection across midpoint x_mid = 50
-x_mid = 50
-lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-save()
+<span class="c1"># Z-shaped dogleg connection across midpoint x_mid = 50</span>
+<span class="n">x_mid</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">(</span><span class="n">x_mid</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">(</span><span class="n">x_mid</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">14</span><span class="p">)],</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="lines_images/lines_z_routing.png" alt="lines_7" style="width: 500px; max-width: 100%;" />

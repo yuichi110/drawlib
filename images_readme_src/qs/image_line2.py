@@ -9,12 +9,12 @@ line(
     (80, 16),
     style=Styles.PrimaryDashed.patch(line_width=5, line_color=Colors.Red),
 )
-line((20, 25), (80, 25), arrowhead="->", style=Styles.Primary)
-line((20, 34), (80, 34), arrowhead="<->", style=Styles.Primary)
+line((20, 25), (80, 25), arrow_head="->", style=Styles.Primary)
+line((20, 34), (80, 34), arrow_head="<->", style=Styles.Primary)
 line(
     (20, 43),
     (80, 43),
-    arrowhead="<-",
+    arrow_head="<-",
     style=Styles.Primary.patch(line_arrow_head_scale=50, line_style="dashdot", line_arrow_head_fill=True),
 )
 

@@ -307,16 +307,16 @@
 <hr />
 <h2>1. Overview &amp; Topologies</h2>
 <pre><code class="language-text">        Standard Pie Chart                          Donut Chart with Center KPI
-            12 o'clock                                      12 o'clock
+            12 o&#39;clock                                      12 o&#39;clock
                 ▲                                               ▲
             . - ~ - .                                       . - ~ - .
-        . '    |    ' .                             . '    |    ' .
+        . &#39;    |    &#39; .                             . &#39;    |    &#39; .
       /        |  45%   \                         /    ┌───────┐    \
      |  35%    |         |                       |     │ $1.2B │     |
      |         |   20%   |                       |     │  ARR  │     |
       \        |        /                         \    └───────┘    /
-        . '    |    ' .                             . '    |    ' .
-            ' - ~ - '                                       ' - ~ - '
+        . &#39;    |    &#39; .                             . &#39;    |    &#39; .
+            &#39; - ~ - &#39;                                       &#39; - ~ - &#39;
 </code></pre>
 <ul>
 <li><strong>Solid Pie (<code>hole_ratio=0.0</code>)</strong>: Traditional full sector representation.</li>
@@ -326,21 +326,21 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Configuration</h2>
-<pre><code class="language-python">from drawlib.charts.pie import PieChart
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.pie</span><span class="w"> </span><span class="kn">import</span> <span class="n">PieChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-chart = PieChart(
-    radius=26.0,                # Outer radius in canvas coordinate units
-    hole_ratio=0.62,            # Inner hole ratio (0.0 for pie, 0.6+ for donut)
-    center_text=&quot;$1.2B\nARR&quot;,   # Center badge text (supports multiline)
-    center_text_style=Styles.BlackBold.patch(text_size=11.0),
-    title=&quot;Revenue by Product&quot;, # Top title text
-    title_style=Styles.BlackBold.patch(text_size=13.0),
-    start_angle=90.0,           # Starting angle in degrees (90.0 = 12 o'clock)
-    clockwise=True,             # Clockwise slice progression
-    value_text_style=Styles.WhiteBold.patch(text_size=9.0),  # Percentage labels on slices
-    value_format=&quot;{:.1f}%&quot;,     # Formatter for percentage badges
-)
+<span class="n">chart</span> <span class="o">=</span> <span class="n">PieChart</span><span class="p">(</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>                <span class="c1"># Outer radius in canvas coordinate units</span>
+    <span class="n">hole_ratio</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span>            <span class="c1"># Inner hole ratio (0.0 for pie, 0.6+ for donut)</span>
+    <span class="n">center_text</span><span class="o">=</span><span class="s2">&quot;$1.2B</span><span class="se">\n</span><span class="s2">ARR&quot;</span><span class="p">,</span>   <span class="c1"># Center badge text (supports multiline)</span>
+    <span class="n">center_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Revenue by Product&quot;</span><span class="p">,</span> <span class="c1"># Top title text</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">start_angle</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span>           <span class="c1"># Starting angle in degrees (90.0 = 12 o&#39;clock)</span>
+    <span class="n">clockwise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>             <span class="c1"># Clockwise slice progression</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>  <span class="c1"># Percentage labels on slices</span>
+    <span class="n">value_format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2">%&quot;</span><span class="p">,</span>     <span class="c1"># Formatter for percentage badges</span>
+<span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Donut Chart with Center KPI Badge</h2>

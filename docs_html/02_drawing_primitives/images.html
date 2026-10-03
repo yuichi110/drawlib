@@ -314,13 +314,13 @@ You can combine raster graphics (company logos, cloud service icons, application
 <hr />
 <h2>2. Placing Images (<code>image</code>)</h2>
 <p>The <code>image()</code> function places an image on the canvas at coordinate <code>xy</code>, automatically preserving its original aspect ratio.</p>
-<pre><code class="language-python">image(
-    xy: tuple[float, float],
-    width: float,
-    image: str | Image.Image | Dimage,
-    angle: float = 0.0,
-    style: Style | None = None,
-)
+<pre><code class="language-python"><span class="n">image</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">image</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span> <span class="o">|</span> <span class="n">Dimage</span><span class="p">,</span>
+    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <h3>Parameter Reference:</h3>
 <ul>
@@ -332,59 +332,59 @@ You can combine raster graphics (company logos, cloud service icons, application
 </ul>
 <h3>Changing Anchor Alignment</h3>
 <p>By default, <code>(x, y)</code> anchors the center of the image. To position an image by its bottom-left corner:</p>
-<pre><code class="language-python">from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-bottom_left_style = Styles.PrimaryBold.patch(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;)
-image((10, 10), width=25, image=&quot;logo.png&quot;, style=bottom_left_style)
+<span class="n">bottom_left_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_halign</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">text_valign</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
+<span class="n">image</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;logo.png&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">bottom_left_style</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. In-Memory Image Manipulation (<code>Dimage</code>)</h2>
 <p>The <code>Dimage</code> class wraps a PIL Image object with Drawlib transformation utilities:</p>
-<pre><code class="language-python">from drawlib.images import Dimage
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dimage</span>
 
-# 1. Load from file
-dimg = Dimage(&quot;assets/screenshot.png&quot;)
+<span class="c1"># 1. Load from file</span>
+<span class="n">dimg</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;assets/screenshot.png&quot;</span><span class="p">)</span>
 
-# 2. Inspect dimensions
-width, height = dimg.get_image_size()
+<span class="c1"># 2. Inspect dimensions</span>
+<span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">dimg</span><span class="o">.</span><span class="n">get_image_size</span><span class="p">()</span>
 
-# 3. Apply color tinting
-# Replaces non-transparent pixels with an RGB tint
-tinted_dimg = dimg.fill((52, 152, 219))
+<span class="c1"># 3. Apply color tinting</span>
+<span class="c1"># Replaces non-transparent pixels with an RGB tint</span>
+<span class="n">tinted_dimg</span> <span class="o">=</span> <span class="n">dimg</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">52</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">219</span><span class="p">))</span>
 
-# 4. Clone instance
-copy_dimg = dimg.copy()
+<span class="c1"># 4. Clone instance</span>
+<span class="n">copy_dimg</span> <span class="o">=</span> <span class="n">dimg</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 </code></pre>
 <hr />
 <h2>4. Dynamic In-Memory Rendering (<code>get_dimage_from_code</code>)</h2>
 <p>Drawlib can execute a snippet of Drawlib drawing code dynamically and return the rendered result directly as an in-memory <code>Dimage</code>.<br />
 This enables recursive nesting and reusable sub-diagram templates:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.images import get_dimage_from_code, image
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_dimage_from_code</span><span class="p">,</span> <span class="n">image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-# 1. Render a sub-component in-memory
-sub_code = &quot;&quot;&quot;
-from drawlib.canvas import save, setup
-from drawlib.shapes import circle
-from drawlib.styles import Styles
+<span class="c1"># 1. Render a sub-component in-memory</span>
+<span class="n">sub_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">from drawlib.canvas import save, setup</span>
+<span class="s2">from drawlib.shapes import circle</span>
+<span class="s2">from drawlib.styles import Styles</span>
 
-setup(width=40, height=40)
-circle((20, 20), radius=15, style=Styles.AccentFlat, text=&quot;Pod&quot;, text_style=Styles.WhiteBold.patch(text_size=36))
-save()
-&quot;&quot;&quot;
+<span class="s2">setup(width=40, height=40)</span>
+<span class="s2">circle((20, 20), radius=15, style=Styles.AccentFlat, text=&quot;Pod&quot;, text_style=Styles.WhiteBold.patch(text_size=36))</span>
+<span class="s2">save()</span>
+<span class="s2">&quot;&quot;&quot;</span>
 
-sub_diagram = get_dimage_from_code(sub_code)
+<span class="n">sub_diagram</span> <span class="o">=</span> <span class="n">get_dimage_from_code</span><span class="p">(</span><span class="n">sub_code</span><span class="p">)</span>
 
-# 2. Embed the sub-diagram onto the primary canvas
-setup(width=100, height=50)
-rectangle((50, 25), width=70, height=36, style=Styles.MutedDashed)
-image((50, 26), width=28, image=sub_diagram)
-text((50, 11), &quot;Host Canvas with Embedded Sub-Diagram&quot;, style=Styles.PrimaryBold)
+<span class="c1"># 2. Embed the sub-diagram onto the primary canvas</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">sub_diagram</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">&quot;Host Canvas with Embedded Sub-Diagram&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
-save()
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="images_images/image_get_dimage_from_code.png" alt="images_2" style="width: 600px; max-width: 100%;" />

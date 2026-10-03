@@ -57,13 +57,13 @@ phosphor.git_branch(xy=(107.5, 12.0), width=4.5, style=Styles.Success)
 text((111.5, 12.0), text="Git バージョン管理\nPR で図版のコード差分レビュー", style=ts_suc_body)
 
 # 接続線 (Drawlib <-> AI -> Docs)
-line((39.5, 24.0), (53.5, 24.0), arrowhead="<->", style=Styles.PrimaryBold)
-text((46.5, 28.5), text="Rules 検索 & 対話", style=Styles.PrimaryBold, size=8.0)
-text((46.5, 19.5), text="仕様 / 座標グリッド", style=Styles.AccentBold, size=7.5)
+line((39.5, 24.0), (53.5, 24.0), arrow_head="<->", style=Styles.PrimaryBold)
+text((46.5, 28.5), text="Rules 検索 & 対話", style=Styles.PrimaryBold.patch(text_size=8.0))
+text((46.5, 19.5), text="仕様 / 座標グリッド", style=Styles.AccentBold.patch(text_size=7.5))
 
-line((88.5, 24.0), (102.5, 24.0), arrowhead="->", style=Styles.PrimaryBold)
-text((95.5, 28.5), text="確定コード出力", style=Styles.SuccessBold, size=8.0)
-text((95.5, 19.5), text="ドキュメント自動同期", style=Styles.MutedBold, size=7.5)
+line((88.5, 24.0), (102.5, 24.0), arrow_head="->", style=Styles.PrimaryBold)
+text((95.5, 28.5), text="確定コード出力", style=Styles.SuccessBold.patch(text_size=8.0))
+text((95.5, 19.5), text="ドキュメント自動同期", style=Styles.MutedBold.patch(text_size=7.5))
 ```
 
 ## 6.1 組み込みルールシステムの活用 (`drawlib rules`)

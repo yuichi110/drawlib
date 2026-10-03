@@ -38,8 +38,7 @@ def center():
         head_length=10,
         style=Styles.Green,
         text="Apply Styles",
-        textsize=20,
-        text_style=Styles.White,
+        text_style=Styles.White.patch(text_size=20),
     )
 
 

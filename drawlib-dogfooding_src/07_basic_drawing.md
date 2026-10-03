@@ -35,18 +35,18 @@ circle((88, 21), radius=9, style=Styles.AccentFlat, text="DB Cluster", text_styl
 phosphor.database(xy=(88, 34), width=6, style=Styles.Accent)
 
 # 接続線と矢印
-line((32, 21), (42, 21), arrowhead="->", style=Styles.PrimaryBold)
-text((37, 24), "HTTPS", style=Styles.Primary, size=9)
+line((32, 21), (42, 21), arrow_head="->", style=Styles.PrimaryBold)
+text((37, 24), "HTTPS", style=Styles.Primary.patch(text_size=9))
 
-line((68, 21), (79, 21), arrowhead="->", style=Styles.PrimaryBold)
-text((73.5, 24), "SQL", style=Styles.Accent, size=9)
+line((68, 21), (79, 21), arrow_head="->", style=Styles.PrimaryBold)
+text((73.5, 24), "SQL", style=Styles.Accent.patch(text_size=9))
 ```
 
 ## 7.3 主要な描画関数一覧
 
 - **`rectangle(xy, width, height, r=0, style=...)`**: 角丸対応の長方形
 - **`circle(xy, radius, style=...)`**: 円
-- **`line(start_xy, end_xy, arrowhead="->", style=...)`**: 矢印付き直線
+- **`line(start_xy, end_xy, arrow_head="->", style=...)`**: 矢印付き直線
 - **`line_curved(start_xy, end_xy, bend=0.2, ...)`**: 滑らかな曲線
-- **`text(xy, text="...", style=..., size=12)`**: スタイル付きテキスト
+- **`text(xy, text="...", style=...)`**: スタイル付きテキスト
 - **`phosphor.<icon_name>(xy, width, style=...)`**: Phosphor ベクターアイコン

@@ -331,30 +331,30 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Participant Management</h2>
-<pre><code class="language-python">from drawlib.diagrams.sequence import (
-    Block,
-    GcpIcon,
-    Participant,
-    ParticipantGroup,
-    PhosphorIcon,
-    SequenceDiagram,
-)
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Block</span><span class="p">,</span>
+    <span class="n">GcpIcon</span><span class="p">,</span>
+    <span class="n">Participant</span><span class="p">,</span>
+    <span class="n">ParticipantGroup</span><span class="p">,</span>
+    <span class="n">PhosphorIcon</span><span class="p">,</span>
+    <span class="n">SequenceDiagram</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-d = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    title=&quot;Checkout Transaction Pipeline&quot;,
-    autonumber=True,            # Auto-number messages (1., 2., 3., ...)
-)
+<span class="n">d</span> <span class="o">=</span> <span class="n">SequenceDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Checkout Transaction Pipeline&quot;</span><span class="p">,</span>
+    <span class="n">autonumber</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>            <span class="c1"># Auto-number messages (1., 2., 3., ...)</span>
+<span class="p">)</span>
 
-# Participant group for clustered backend services
-vpc = d.add_group(ParticipantGroup(title=&quot;Google Cloud VPC&quot;, padding=4.0))
-api = vpc.add(Participant(&quot;Cloud Run\n(Gateway)&quot;, icon=GcpIcon.CLOUD_RUN))
-db = vpc.add(Participant(&quot;Cloud SQL&quot;, icon=GcpIcon.CLOUD_SQL))
+<span class="c1"># Participant group for clustered backend services</span>
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">ParticipantGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Google Cloud VPC&quot;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.0</span><span class="p">))</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">(</span><span class="s2">&quot;Cloud Run</span><span class="se">\n</span><span class="s2">(Gateway)&quot;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">))</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">(</span><span class="s2">&quot;Cloud SQL&quot;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">))</span>
 
-# External participant
-client = d.add(Participant(&quot;Web Browser&quot;, icon=PhosphorIcon.BROWSER))
+<span class="c1"># External participant</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">(</span><span class="s2">&quot;Web Browser&quot;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">BROWSER</span><span class="p">))</span>
 </code></pre>
 <hr />
 <h2>3. Distributed Transaction Pipeline</h2>

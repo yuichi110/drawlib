@@ -317,19 +317,19 @@
 <hr />
 <h2>2. Speech Bubbles (<code>bubblespeech</code>)</h2>
 <p>The <code>bubblespeech</code> function creates a rectangular speech bubble with a triangular tail pointing toward a specific target coordinate:</p>
-<pre><code class="language-python">bubblespeech(
-    xy: tuple[float, float],           # Bottom-left corner of the bubble body
-    width: float,                      # Bubble body width
-    height: float,                     # Bubble body height
-    tail_edge: Literal[&quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;],
-    tail_start_ratio: float,          # Float in [0.0, 1.0] along edge
-    tail_end_ratio: float,            # Float in [0.0, 1.0] along edge
-    tail_vertex_xy: tuple[float, float], # Exact target point coordinate
-    *,
-    style: Style,
-    text: str = &quot;&quot;,
-    text_style: Style | None = None,
-)
+<pre><code class="language-python"><span class="n">bubblespeech</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>           <span class="c1"># Bottom-left corner of the bubble body</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                      <span class="c1"># Bubble body width</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                     <span class="c1"># Bubble body height</span>
+    <span class="n">tail_edge</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">],</span>
+    <span class="n">tail_start_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>          <span class="c1"># Float in [0.0, 1.0] along edge</span>
+    <span class="n">tail_end_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>            <span class="c1"># Float in [0.0, 1.0] along edge</span>
+    <span class="n">tail_vertex_xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="c1"># Exact target point coordinate</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <ul>
 <li><strong><code>tail_edge</code></strong>: The side of the bubble where the tail originates (<code>&quot;bottom&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>).</li>
@@ -340,43 +340,43 @@
 <p><code>SourceCode</code> renders syntax-highlighted code snippets directly as sharp vector shapes and text.
 Unlike stateful SmartArts (<code>Table</code>, <code>TreeNode</code>), <code>SourceCode</code> is stateless: you draw code directly via <code>SourceCode.draw(...)</code> or the <code>sourcecode(...)</code> function alias.</p>
 <h3>Drawing Method</h3>
-<pre><code class="language-python">SourceCode.draw(
-    xy: tuple[float, float],           # Top-left corner (x, y) of the code container
-    width: float,                      # Total container width
-    code: str | None = None,           # Code string to render (or use `file`)
-    *,
-    styles: SourceCodeStyles,          # Required style configuration
-    file: str | None = None,           # Path to code file (alternative to `code`)
-    code_lang: str | None = None,      # Language: &quot;python&quot;, &quot;json&quot;, &quot;yaml&quot;, &quot;sql&quot;, etc.
-    show_linenum: bool = False,        # Whether to show line numbers in a gutter
-    r: float = 1.5,                    # Corner radius of the container box
-)
+<pre><code class="language-python"><span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>           <span class="c1"># Top-left corner (x, y) of the code container</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                      <span class="c1"># Total container width</span>
+    <span class="n">code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>           <span class="c1"># Code string to render (or use `file`)</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">styles</span><span class="p">:</span> <span class="n">SourceCodeStyles</span><span class="p">,</span>          <span class="c1"># Required style configuration</span>
+    <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>           <span class="c1"># Path to code file (alternative to `code`)</span>
+    <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>      <span class="c1"># Language: &quot;python&quot;, &quot;json&quot;, &quot;yaml&quot;, &quot;sql&quot;, etc.</span>
+    <span class="n">show_linenum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>        <span class="c1"># Whether to show line numbers in a gutter</span>
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>                    <span class="c1"># Corner radius of the container box</span>
+<span class="p">)</span>
 </code></pre>
 <h3>Style Management (<code>SourceCodeStyles</code>)</h3>
 <p>Styles are configured via <code>SourceCodeStyles.get(...)</code> (or <code>get_source_code_styles(...)</code>) and can be patched via <code>.patch()</code>:</p>
-<pre><code class="language-python">from drawlib.smartarts import SourceCodeStyles
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-# 1. Standard theme with Japanese CJK font (tofu prevention)
-styles = SourceCodeStyles.get(&quot;default&quot;, font_lang=&quot;ja&quot;, text_size=11.0)
+<span class="c1"># 1. Standard theme with Japanese CJK font (tofu prevention)</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">&quot;ja&quot;</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">)</span>
 
-# 2. Built-in themes: &quot;default&quot;, &quot;monochrome&quot;, &quot;dark&quot;, &quot;google&quot;
-dark_styles = SourceCodeStyles.get(&quot;dark&quot;, font_lang=&quot;en&quot;)
+<span class="c1"># 2. Built-in themes: &quot;default&quot;, &quot;monochrome&quot;, &quot;dark&quot;, &quot;google&quot;</span>
+<span class="n">dark_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dark&quot;</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
 
-# 3. Patch specific token styles
-custom_styles = dark_styles.patch(
-    keyword=Styles.PrimaryBold,
-    comment=Styles.MutedItalic,
-    box_style=Styles.MutedDashed,
-)
+<span class="c1"># 3. Patch specific token styles</span>
+<span class="n">custom_styles</span> <span class="o">=</span> <span class="n">dark_styles</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">keyword</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedItalic</span><span class="p">,</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <h3>Reading External Files</h3>
 <p>You can load code directly using <code>file=&quot;path/to/script.py&quot;</code> or retrieve the text via <code>SourceCode.get_text()</code>:</p>
-<pre><code class="language-python"># Direct rendering from file
-SourceCode.draw((10, 80), width=80, file=&quot;src/main.py&quot;, styles=styles, show_linenum=True)
+<pre><code class="language-python"><span class="c1"># Direct rendering from file</span>
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;src/main.py&quot;</span><span class="p">,</span> <span class="n">styles</span><span class="o">=</span><span class="n">styles</span><span class="p">,</span> <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-# Helper function
-code_text = SourceCode.get_text(&quot;src/main.py&quot;)
+<span class="c1"># Helper function</span>
+<span class="n">code_text</span> <span class="o">=</span> <span class="n">SourceCode</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="s2">&quot;src/main.py&quot;</span><span class="p">)</span>
 </code></pre>
 
             </main>

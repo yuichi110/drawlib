@@ -16,6 +16,7 @@ This directory contains the source Markdown files, drawing code, and configurati
 
 - `docs_src/`: Source documents and drawing code (**Source of Truth**).
   - `build.sh`: Build automation script for Markdown and HTML compilation.
+  - `serve.sh`: Local preview server script.
   - `styles.py`: Global drawing themes, style palettes, and font presets.
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
   - `style.css`: Custom CSS stylesheet for HTML pages.
@@ -50,6 +51,8 @@ drawlib build markdown docs_src/ -o docs/
 ### Previewing the HTML Site Locally
 Start the built-in development HTTP server to preview your site:
 ```bash
+./serve.sh
+# Or using drawlib directly:
 drawlib serve docs_html/
 ```
 

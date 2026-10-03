@@ -12,7 +12,7 @@ Drawlib was purposefully architected for the era of **AI Pair Programming** and 
 
 Every AI coding agent generating Drawlib illustrations should follow this 5-stage self-correction cycle:
 
-```drawlib 640px center caption:"Figure 13.1: The Autonomous AI Drawing & Self-Correction Feedback Loop"
+```drawlib 640px center file:ai_feedback_loop.png caption:"Figure 13.1: The Autonomous AI Drawing & Self-Correction Feedback Loop"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line, line_curved
@@ -32,17 +32,17 @@ steps = [
 for x, icon_fn, title, desc, st in steps:
     rectangle((x, 32), width=23, height=28, r=2, style=Styles.MutedDashed)
     icon_fn(xy=(x, 38), width=6, style=st)
-    text(xy=(x, 29), text=title, style=Styles.PrimaryBold, size=8)
-    text(xy=(x, 21), text=desc, style=Styles.Primary, size=7)
+    text(xy=(x, 29), text=title, style=Styles.PrimaryBold.patch(text_size=8))
+    text(xy=(x, 21), text=desc, style=Styles.Primary.patch(text_size=7))
 
 # Forward connectors
-line((26.5, 32), (30.5, 32), arrowhead="->", style=Styles.PrimaryBold)
-line((53.5, 32), (57.5, 32), arrowhead="->", style=Styles.PrimaryBold)
-line((80.5, 32), (84.5, 32), arrowhead="->", style=Styles.PrimaryBold)
+line((26.5, 32), (30.5, 32), arrow_head="->", style=Styles.PrimaryBold)
+line((53.5, 32), (57.5, 32), arrow_head="->", style=Styles.PrimaryBold)
+line((80.5, 32), (84.5, 32), arrow_head="->", style=Styles.PrimaryBold)
 
 # Self-Correction Feedback Loop
-line_curved((96, 17), (42, 17), bend=-0.3, arrowhead="->", style=Styles.DangerDashedBold)
-text((69, 5), "5. Issues Found? Auto-adjust coordinates & retry", style=Styles.DangerBold, size=8)
+line_curved((96, 17), (42, 17), bend=-0.3, arrow_head="->", style=Styles.DangerDashedBold)
+text((69, 5), "5. Issues Found? Auto-adjust coordinates & retry", style=Styles.DangerBold.patch(text_size=8))
 ```
 
 ### Self-Review Checklist for Agents

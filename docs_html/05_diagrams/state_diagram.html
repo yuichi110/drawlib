@@ -332,31 +332,31 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Core Classes</h2>
-<pre><code class="language-python">from drawlib.diagrams.state_diagram import (
-    ChoiceState,
-    FinalState,
-    ForkJoinState,
-    InitialState,
-    State,
-    StateDiagram,
-)
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.state_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ChoiceState</span><span class="p">,</span>
+    <span class="n">FinalState</span><span class="p">,</span>
+    <span class="n">ForkJoinState</span><span class="p">,</span>
+    <span class="n">InitialState</span><span class="p">,</span>
+    <span class="n">State</span><span class="p">,</span>
+    <span class="n">StateDiagram</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-sd = StateDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    title=&quot;Session Lifecycle State Machine&quot;,
-)
+<span class="n">sd</span> <span class="o">=</span> <span class="n">StateDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Session Lifecycle State Machine&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
-# State with action compartments
-active = sd.add(
-    State(&quot;Active&quot;, shape=&quot;box&quot;, entry=&quot;start_heartbeat()&quot;, do=&quot;handle_requests()&quot;, exit=&quot;flush()&quot;),
-    xy=(60.0, 40.0),
-)
+<span class="c1"># State with action compartments</span>
+<span class="n">active</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">&quot;Active&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">=</span><span class="s2">&quot;start_heartbeat()&quot;</span><span class="p">,</span> <span class="n">do</span><span class="o">=</span><span class="s2">&quot;handle_requests()&quot;</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="s2">&quot;flush()&quot;</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-# Transition with guard and action
-init = sd.add(InitialState(), xy=(10.0, 40.0))
-init.to(active, event=&quot;login&quot;, guard=&quot;token_valid&quot;, action=&quot;init_session()&quot;)
+<span class="c1"># Transition with guard and action</span>
+<span class="n">init</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">InitialState</span><span class="p">(),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">))</span>
+<span class="n">init</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;login&quot;</span><span class="p">,</span> <span class="n">guard</span><span class="o">=</span><span class="s2">&quot;token_valid&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;init_session()&quot;</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Session Lifecycle State Machine</h2>

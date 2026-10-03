@@ -36,6 +36,14 @@
     --rtd-inline-code-color: #e74c3c;
     --rtd-note-bg: #e7f2fa;
     --rtd-note-border: #6ab0de;
+    --rtd-code-keyword: #2980b9;
+    --rtd-code-string: #27ae60;
+    --rtd-code-comment: #7f8c8d;
+    --rtd-code-number: #d35400;
+    --rtd-code-function: #8e44ad;
+    --rtd-code-type: #16a085;
+    --rtd-code-operator: #555555;
+    --rtd-code-builtin: #2980b9;
     --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, __RTD_FONT_FAMILY__system-ui, sans-serif;
     --rtd-mono-font: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, __RTD_MONO_FONT_FAMILY__monospace;
     --sidebar-width: 280px;
@@ -58,6 +66,14 @@
         --rtd-inline-code-color: #f56565;
         --rtd-note-bg: #1a365d;
         --rtd-note-border: #3182ce;
+        --rtd-code-keyword: #5dade2;
+        --rtd-code-string: #58d68d;
+        --rtd-code-comment: #95a5a6;
+        --rtd-code-number: #f39c12;
+        --rtd-code-function: #bb8fce;
+        --rtd-code-type: #48c9b0;
+        --rtd-code-operator: #bdc3c7;
+        --rtd-code-builtin: #5dade2;
     }
 }
 
@@ -264,6 +280,18 @@ pre code {
     padding: 0;
     border: none;
 }
+
+/* Pygments syntax highlighting tokens */
+pre code .k, pre code .kc, pre code .kd, pre code .kn, pre code .kp, pre code .kr, pre code .kt { color: var(--rtd-code-keyword); font-weight: 600; }
+pre code .s, pre code .sa, pre code .sb, pre code .sc, pre code .dl, pre code .sd, pre code .s2, pre code .se, pre code .sh, pre code .si, pre code .sx, pre code .sr, pre code .s1, pre code .ss { color: var(--rtd-code-string); }
+pre code .c, pre code .ch, pre code .cm, pre code .cp, pre code .cpf, pre code .c1, pre code .cs { color: var(--rtd-code-comment); font-style: italic; }
+pre code .m, pre code .mb, pre code .mf, pre code .mh, pre code .mi, pre code .mo, pre code .il { color: var(--rtd-code-number); }
+pre code .nf, pre code .fm { color: var(--rtd-code-function); }
+pre code .nc, pre code .ne, pre code .nn, pre code .nt { color: var(--rtd-code-type); font-weight: 600; }
+pre code .na, pre code .nd, pre code .py { color: var(--rtd-code-type); font-weight: 600; }
+pre code .nb, pre code .bp { color: var(--rtd-code-builtin); }
+pre code .o, pre code .ow { color: var(--rtd-code-operator); }
+pre code .err { color: #ef4444; }
 
 blockquote {
     margin: 1.5rem 0;

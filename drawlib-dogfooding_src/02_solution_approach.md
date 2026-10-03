@@ -24,17 +24,17 @@ setup(width=110, height=45)
 
 # Left: Traditional Approach
 rectangle((28, 22.5), width=48, height=36, r=2, style=Styles.MutedDashed)
-text((28, 36), text="従来の手動アプローチ", style=Styles.MutedBold, size=11)
+text((28, 36), text="従来の手動アプローチ", style=Styles.MutedBold.patch(text_size=11))
 phosphor.file_x(xy=(16, 24), width=8, style=Styles.Muted)
-text((33, 24), text="・Figma / draw.io で手書き\n・PNG 画像を Git で管理\n・コード変更時に更新漏れ・腐敗", style=Styles.Muted, size=9)
+text((33, 24), text="・Figma / draw.io で手書き\n・PNG 画像を Git で管理\n・コード変更時に更新漏れ・腐敗", style=Styles.Muted.patch(text_size=9))
 
 # Right: Drawlib Approach
 rectangle((82, 22.5), width=48, height=36, r=2, style=Styles.PrimaryOutline)
-text((82, 36), text="Illustrated Doc as Code (Drawlib)", style=Styles.PrimaryBold, size=10.5)
+text((82, 36), text="Illustrated Doc as Code (Drawlib)", style=Styles.PrimaryBold.patch(text_size=10.5))
 phosphor.code(xy=(70, 24), width=8, style=Styles.Primary)
-text((87, 24), text="・Python コードで図版を定義\n・Markdown 内に直接埋め込み\n・Git で差分レビュー・CI 自動ビルド", style=Styles.Primary, size=9)
+text((87, 24), text="・Python コードで図版を定義\n・Markdown 内に直接埋め込み\n・Git で差分レビュー・CI 自動ビルド", style=Styles.Primary.patch(text_size=9))
 
-line((53, 22.5), (57, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((53, 22.5), (57, 22.5), arrow_head="->", style=Styles.PrimaryBold)
 ```
 
 ## 2.3 AI ペアプログラミングとの相乗効果

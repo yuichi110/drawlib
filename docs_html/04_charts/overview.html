@@ -370,26 +370,26 @@
 <p>Every chart in Drawlib follows a consistent lifecycle and coordinate contract:</p>
 <h3>1. Dimension Instantiation &amp; Mandatory Anchor</h3>
 <p>Specify category labels and a mandatory <code>axis_line_style</code> (the structural anchor) during initialization:</p>
-<pre><code class="language-python">chart = BarChart(
-    categories=[&quot;US&quot;, &quot;EU&quot;, &quot;APAC&quot;],
-    axis_line_style=Styles.Primary,
-    axis_text_style=Styles.Black,
-    grid_style=Styles.MutedLight,
-    width=90,
-    height=50,
-    title=&quot;Regional Distribution&quot;,
-    title_style=Styles.BlackBold,
-)
+<pre><code class="language-python"><span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;US&quot;</span><span class="p">,</span> <span class="s2">&quot;EU&quot;</span><span class="p">,</span> <span class="s2">&quot;APAC&quot;</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">,</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedLight</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Regional Distribution&quot;</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <h3>2. Adding Data Series</h3>
 <p>Add data series directly with explicit styles:</p>
-<pre><code class="language-python">chart.add_series(&quot;Allocated&quot;, [120, 180, 240], style=Styles.PrimaryFlat)
-chart.add_series(&quot;Available&quot;, [90, 150, 210], style=Styles.SecondaryFlat)
+<pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">&quot;Allocated&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">240</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">&quot;Available&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">210</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
 </code></pre>
 <h3>3. Rendering via Bottom-Left Anchor &amp; Decoupled Legend</h3>
 <p>All charts are anchored by their <strong>bottom-left corner</strong> via <code>draw(xy=(x, y))</code>. Legends are rendered independently wherever desired via <code>draw_legend(xy=(x, y), text_style=...)</code>:</p>
-<pre><code class="language-python">chart.draw(xy=(15, 10))
-chart.draw_legend(xy=(85, 50), text_style=Styles.Black)
+<pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">)</span>
 </code></pre>
 
             </main>

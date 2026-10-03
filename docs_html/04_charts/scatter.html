@@ -323,20 +323,20 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Configuration</h2>
-<pre><code class="language-python">from drawlib.charts.scatter import ScatterChart
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.scatter</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScatterChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-chart = ScatterChart(
-    axis_line_style=Styles.MutedDashed,
-    axis_text_style=Styles.Muted.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
-    width=85.0,                 # Total chart bounding width
-    height=52.0,                # Total chart bounding height
-    title=&quot;Service Throughput vs Latency&quot;,
-    title_style=Styles.BlackBold.patch(text_size=13.0),
-    default_radius=1.0,         # Default radius for points
-    default_shape=&quot;circle&quot;,     # &quot;circle&quot;, &quot;square&quot;, &quot;rhombus&quot;, &quot;triangle&quot;
-)
+<span class="n">chart</span> <span class="o">=</span> <span class="n">ScatterChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedLight</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">85.0</span><span class="p">,</span>                 <span class="c1"># Total chart bounding width</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">52.0</span><span class="p">,</span>                <span class="c1"># Total chart bounding height</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Service Throughput vs Latency&quot;</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">default_radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>         <span class="c1"># Default radius for points</span>
+    <span class="n">default_shape</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span>     <span class="c1"># &quot;circle&quot;, &quot;square&quot;, &quot;rhombus&quot;, &quot;triangle&quot;</span>
+<span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Benchmark Scatter Plot with Baseline Callouts</h2>

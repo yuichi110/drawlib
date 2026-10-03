@@ -307,11 +307,11 @@
 <hr />
 <h2>1. Project Initialization</h2>
 <p>Scaffold a new image project using <code>drawlib init</code>:</p>
-<pre><code class="language-bash"># Create in a new subdirectory:
-drawlib init image my_assets/
+<pre><code class="language-bash"><span class="c1"># Create in a new subdirectory:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>image<span class="w"> </span>my_assets/
 
-# Or scaffold directly in current working directory:
-drawlib init image --here
+<span class="c1"># Or scaffold directly in current working directory:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>image<span class="w"> </span>--here
 </code></pre>
 <hr />
 <h2>2. Directory Layout &amp; Anatomy</h2>
@@ -336,18 +336,18 @@ drawlib init image --here
 <hr />
 <h2>3. Writing Drawing Scripts</h2>
 <p>In an image project, each <code>.py</code> file inside <code>images_src/</code> is an independent drawing script. Call <code>canvas.save()</code> at the end of the script to output the image:</p>
-<pre><code class="language-python"># images_src/architecture_overview.py
-from drawlib import canvas, shapes, lines, styles
+<pre><code class="language-python"><span class="c1"># images_src/architecture_overview.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">styles</span>
 
-canvas.setup(width=100, height=60)
+<span class="n">canvas</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 
-# Draw components
-shapes.rectangle((30, 30), width=35, height=25, style=styles.Styles.AccentFlat, text=&quot;Client&quot;)
-shapes.rectangle((70, 30), width=35, height=25, style=styles.Styles.PrimaryFlat, text=&quot;Server&quot;)
-lines.line((47.5, 30), (52.5, 30), arrowhead=&quot;-&gt;&quot;, style=styles.Styles.PrimaryBold)
+<span class="c1"># Draw components</span>
+<span class="n">shapes</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Client&quot;</span><span class="p">)</span>
+<span class="n">shapes</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Server&quot;</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
-# Save image (relative to output directory)
-canvas.save(&quot;architecture_overview.png&quot;)
+<span class="c1"># Save image (relative to output directory)</span>
+<span class="n">canvas</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;architecture_overview.png&quot;</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>4. Building Images</h2>
@@ -357,7 +357,7 @@ canvas.save(&quot;architecture_overview.png&quot;)
 </code></pre>
 <h3>Direct CLI Command</h3>
 <p>Alternatively, invoke the builder directly:</p>
-<pre><code class="language-bash">drawlib build image images_src/ -o images/ -s images_src/styles.py -u images_src/utils.py
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/<span class="w"> </span>-s<span class="w"> </span>images_src/styles.py<span class="w"> </span>-u<span class="w"> </span>images_src/utils.py
 </code></pre>
 <h3>Useful Build Flags:</h3>
 <ul>

@@ -14,7 +14,7 @@ Drawlib provides a unified command-line interface (`drawlib`) that automates rap
 | **`serve`** | `drawlib serve <dir> [-p 8000] [--check]` | Launches a local HTTP preview server and verifies internal links and assets. |
 | **`cache`** | `drawlib cache list / clear [--images]` | Inspects or clears the SQLite build cache. |
 
-```drawlib 640px center caption:"Figure 12.1: Unified Drawlib CLI Build & Preview Pipeline"
+```drawlib 640px center file:cli_pipeline.png caption:"Figure 12.1: Unified Drawlib CLI Build & Preview Pipeline"
 from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -27,14 +27,14 @@ setup(width=120, height=48)
 # Input
 rectangle(xy=(18, 24), width=24, height=34, r=2, style=Styles.PrimaryOutline)
 phosphor.file_text(xy=(18, 30), width=8, style=Styles.Primary)
-text(xy=(18, 16), text="Source Docs\n(docs_src/)", style=Styles.PrimaryBold, size=9)
+text(xy=(18, 16), text="Source Docs\n(docs_src/)", style=Styles.PrimaryBold.patch(text_size=9))
 
 # CLI Engine
 rectangle(xy=(56, 24), width=26, height=34, r=2, style=Styles.SecondaryOutline)
 phosphor.terminal_window(xy=(56, 30), width=8, style=Styles.Secondary)
-text(xy=(56, 16), text="drawlib CLI\n& SQLite Cache", style=Styles.SecondaryBold, size=9)
+text(xy=(56, 16), text="drawlib CLI\n& SQLite Cache", style=Styles.SecondaryBold.patch(text_size=9))
 
-line((30, 24), (43, 24), arrowhead="->", style=Styles.PrimaryBold)
+line((30, 24), (43, 24), arrow_head="->", style=Styles.PrimaryBold)
 
 # Output Targets
 targets = [
@@ -44,7 +44,7 @@ targets = [
 ]
 
 for y_pos, label, st in targets:
-    line((69, 24), (82, y_pos), arrowhead="->", style=Styles.PrimaryBold)
+    line((69, 24), (82, y_pos), arrow_head="->", style=Styles.PrimaryBold)
     rectangle(xy=(101, y_pos), width=36, height=10, r=1.5, style=st, text=label, text_style=Styles.WhiteBold)
 ```
 

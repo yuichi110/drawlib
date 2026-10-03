@@ -324,14 +324,14 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Core Classes</h2>
-<pre><code class="language-python">from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-d = ArchitectureDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    title=&quot;Production Multi-Tier Cloud VPC&quot;,
-)
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Production Multi-Tier Cloud VPC&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <h3>Parameter Reference</h3>
 <h4><code>ArchitectureDiagram</code> Class</h4>

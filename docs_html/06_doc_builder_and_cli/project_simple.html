@@ -307,11 +307,11 @@
 <hr />
 <h2>1. Project Initialization</h2>
 <p>Scaffold a single-document project using <code>drawlib init</code>:</p>
-<pre><code class="language-bash"># Create in a new subdirectory:
-drawlib init simple my_rfc/
+<pre><code class="language-bash"><span class="c1"># Create in a new subdirectory:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>simple<span class="w"> </span>my_rfc/
 
-# Or scaffold directly in current working directory:
-drawlib init simple --here
+<span class="c1"># Or scaffold directly in current working directory:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>simple<span class="w"> </span>--here
 </code></pre>
 <hr />
 <h2>2. Directory Layout &amp; Anatomy</h2>
@@ -333,26 +333,26 @@ drawlib init simple --here
 <hr />
 <h2>3. Authoring the Document</h2>
 <p>Edit <code>docs_src/doc.md</code>. Embed Python diagrams directly inline:</p>
-<pre><code class="language-markdown"># RFC 104: Asynchronous Order Ingestion Pipeline
+<pre><code class="language-markdown"><span class="gh"># RFC 104: Asynchronous Order Ingestion Pipeline</span>
 
-## 1. Abstract
+<span class="gu">## 1. Abstract</span>
 This document outlines the migration from synchronous HTTP checkout to event-driven Kafka messaging.
 
-## 2. Proposed Architecture
+<span class="gu">## 2. Proposed Architecture</span>
 
-```drawlib 650px center file:event_driven_architecture.png caption:&quot;Target Event-Driven Architecture&quot;
-from drawlib import canvas, shapes, lines, styles
+<span class="sb">```drawlib</span><span class="w"> </span>650px center file:event_driven_architecture.png caption:&quot;Target Event-Driven Architecture&quot;
+<span class="s">from drawlib import canvas, shapes, lines, styles</span>
 
-canvas.setup(width=100, height=45)
-shapes.rectangle((20, 22.5), width=25, height=18, style=styles.Styles.AccentFlat, text=&quot;Client&quot;, text_style=styles.Styles.WhiteBold)
-shapes.rectangle((50, 22.5), width=25, height=18, style=styles.Styles.PrimaryFlat, text=&quot;Ingest Gateway&quot;, text_style=styles.Styles.WhiteBold)
-shapes.rectangle((80, 22.5), width=25, height=18, style=styles.Styles.SecondaryFlat, text=&quot;Kafka Queue&quot;, text_style=styles.Styles.WhiteBold)
+<span class="s">canvas.setup(width=100, height=45)</span>
+<span class="s">shapes.rectangle((20, 22.5), width=25, height=18, style=styles.Styles.AccentFlat, text=&quot;Client&quot;, text_style=styles.Styles.WhiteBold)</span>
+<span class="s">shapes.rectangle((50, 22.5), width=25, height=18, style=styles.Styles.PrimaryFlat, text=&quot;Ingest Gateway&quot;, text_style=styles.Styles.WhiteBold)</span>
+<span class="s">shapes.rectangle((80, 22.5), width=25, height=18, style=styles.Styles.SecondaryFlat, text=&quot;Kafka Queue&quot;, text_style=styles.Styles.WhiteBold)</span>
 
-lines.line((32.5, 22.5), (37.5, 22.5), arrowhead=&quot;-&gt;&quot;, style=styles.Styles.PrimaryBold)
-lines.line((62.5, 22.5), (67.5, 22.5), arrowhead=&quot;-&gt;&quot;, style=styles.Styles.PrimaryBold)
-```
+<span class="s">lines.line((32.5, 22.5), (37.5, 22.5), arrowhead=&quot;-&gt;&quot;, style=styles.Styles.PrimaryBold)</span>
+<span class="s">lines.line((62.5, 22.5), (67.5, 22.5), arrowhead=&quot;-&gt;&quot;, style=styles.Styles.PrimaryBold)</span>
+<span class="sb">```</span>
 
-## 3. Data Schema
+<span class="gu">## 3. Data Schema</span>
 ...
 </code></pre>
 <hr />

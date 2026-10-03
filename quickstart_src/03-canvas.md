@@ -10,7 +10,7 @@ Unlike traditional web or GUI coordinate systems where `(0, 0)` sits at the top-
 - **X-Axis**: Increases from left to right (`0` to `width`).
 - **Y-Axis**: Increases from bottom to top (`0` to `height`).
 
-```drawlib 620px center caption:"Figure 3.1: Cartesian Coordinate System & Canvas Anchors"
+```drawlib 620px center file:canvas_coordinates.png caption:"Figure 3.1: Cartesian Coordinate System & Canvas Anchors"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -23,24 +23,24 @@ setup(width=120, height=55)
 rectangle(xy=(60, 27.5), width=108, height=45, r=2, style=Styles.MutedDashed)
 
 # Coordinate axes
-line((12, 10), (110, 10), arrowhead="->", style=Styles.PrimaryBold)
-text((112, 10), "X", style=Styles.PrimaryBold, size=11)
+line((12, 10), (110, 10), arrow_head="->", style=Styles.PrimaryBold)
+text((112, 10), "X", style=Styles.PrimaryBold.patch(text_size=11))
 
-line((16, 6), (16, 48), arrowhead="->", style=Styles.PrimaryBold)
-text((16, 50), "Y", style=Styles.PrimaryBold, size=11)
+line((16, 6), (16, 48), arrow_head="->", style=Styles.PrimaryBold)
+text((16, 50), "Y", style=Styles.PrimaryBold.patch(text_size=11))
 
 # Origin marker
 circle((16, 10), radius=1.5, style=Styles.AccentFlat)
-text((13, 6), "(0, 0)", style=Styles.AccentBold, size=9)
+text((13, 6), "(0, 0)", style=Styles.AccentBold.patch(text_size=9))
 
 # Center anchor element
 circle((60, 28), radius=8, style=Styles.PrimaryFlat)
-text((60, 28), "Center\n(60, 28)", style=Styles.WhiteBold, size=9)
+text((60, 28), "Center\n(60, 28)", style=Styles.WhiteBold.patch(text_size=9))
 
 # Corner coordinate labels
-text((18, 45), "Top-Left (0, H)", style=Styles.MutedBold, size=8)
-text((105, 45), "Top-Right (W, H)", style=Styles.MutedBold, size=8)
-text((105, 14), "Bottom-Right (W, 0)", style=Styles.MutedBold, size=8)
+text((18, 45), "Top-Left (0, H)", style=Styles.MutedBold.patch(text_size=8))
+text((105, 45), "Top-Right (W, H)", style=Styles.MutedBold.patch(text_size=8))
+text((105, 14), "Bottom-Right (W, 0)", style=Styles.MutedBold.patch(text_size=8))
 ```
 
 ## Configuring the Canvas with `setup()`
@@ -65,7 +65,7 @@ Text labels support horizontal (`text_halign`) and vertical (`text_valign`) alig
 - **Horizontal Alignment (`text_halign`)**: `"left"`, `"center"`, `"right"`.
 - **Vertical Alignment (`text_valign`)**: `"bottom"`, `"center"`, `"top"`.
 
-```drawlib 620px center caption:"Figure 3.2: Text Alignment Anchors with text_halign"
+```drawlib 620px center file:canvas_text_alignment.png caption:"Figure 3.2: Text Alignment Anchors with text_halign"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import circle
@@ -85,6 +85,6 @@ for x, align_mode, label, st in anchors:
     line((x, 10), (x, 38), style=Styles.MutedDashed)
     # Red anchor dot
     circle((x, 24), radius=1.5, style=Styles.DangerFlat)
-    text((x, 24), label, style=Styles.PrimaryBold.patch(text_halign=align_mode), size=8.5)
-    text((x, 6), f"text_halign='{align_mode}'", style=st, size=8.5)
+    text((x, 24), label, style=Styles.PrimaryBold.patch(text_halign=align_mode, text_size=8.5))
+    text((x, 6), f"text_halign='{align_mode}'", style=st.patch(text_size=8.5))
 ```

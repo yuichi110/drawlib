@@ -142,3 +142,16 @@ def test_build_document_custom_template(tmp_path) -> None:
     content = out_html.read_text(encoding="utf-8")
     assert '<header class="custom-header">My Custom Header</header>' in content
     assert "Hello Custom Template!" in content
+
+
+def test_all_css_presets_have_syntax_highlighting_styles() -> None:
+    """Verify that all HTML and PDF CSS presets include syntax highlighting variables and token rules."""
+    for preset in list_css(target="html"):
+        content = get_css(preset["name"], target="html")
+        assert "--rtd-code-keyword" in content, f"Missing --rtd-code-keyword in html preset '{preset['name']}'"
+        assert "pre code .k" in content, f"Missing 'pre code .k' rule in html preset '{preset['name']}'"
+
+    for preset in list_css(target="pdf"):
+        content = get_css(preset["name"], target="pdf")
+        assert "--rtd-code-keyword" in content, f"Missing --rtd-code-keyword in pdf preset '{preset['name']}'"
+        assert "pre code .k" in content, f"Missing 'pre code .k' rule in pdf preset '{preset['name']}'"

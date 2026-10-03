@@ -329,30 +329,30 @@ $$\theta_i = \text{start_angle} \mp \left(i \cdot \frac{360^\circ}{N}\right)$$</
 <hr />
 <h2>3. Class API Reference</h2>
 <h3>Constructor</h3>
-<pre><code class="language-python">Cycle(
-    *,
-    style: Style,
-    text_style: Style,
-    description_style: Style | None = None,
-    arrow_style: Style | None = None,
-    clockwise: bool = True,
-    start_angle: float = 90.0,
-    node_shape: Literal[&quot;circle&quot;, &quot;rectangle&quot;, &quot;none&quot;] = &quot;circle&quot;,
-    node_radius: float = 8.0,
-    node_size: tuple[float, float] = (18.0, 10.0),
-    description_placement: Literal[&quot;inside&quot;, &quot;outside&quot;] = &quot;inside&quot;,
-    arrow_type: Literal[&quot;arc&quot;, &quot;line&quot;, &quot;none&quot;] = &quot;arc&quot;,
-    arrow_width: float = 2.0,
-    arrow_head_width: float = 4.5,
-    arrow_color_mode: Literal[&quot;monochrome&quot;, &quot;match_source&quot;, &quot;match_target&quot;] = &quot;match_source&quot;,
-    arrow_gap: float = 2.5,
-    center_text: str = &quot;&quot;,
-    center_description: str = &quot;&quot;,
-    center_radius: float = 10.0,
-    center_style: Style | None = None,
-    center_text_style: Style | None = None,
-    center_description_style: Style | None = None,
-)
+<pre><code class="language-python"><span class="n">Cycle</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">description_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">arrow_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">clockwise</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">start_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">90.0</span><span class="p">,</span>
+    <span class="n">node_shape</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+    <span class="n">node_radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">description_placement</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;inside&quot;</span><span class="p">,</span> <span class="s2">&quot;outside&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;inside&quot;</span><span class="p">,</span>
+    <span class="n">arrow_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;arc&quot;</span><span class="p">,</span> <span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;arc&quot;</span><span class="p">,</span>
+    <span class="n">arrow_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">arrow_head_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.5</span><span class="p">,</span>
+    <span class="n">arrow_color_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;monochrome&quot;</span><span class="p">,</span> <span class="s2">&quot;match_source&quot;</span><span class="p">,</span> <span class="s2">&quot;match_target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;match_source&quot;</span><span class="p">,</span>
+    <span class="n">arrow_gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+    <span class="n">center_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">center_description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">center_radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">center_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">center_text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">center_description_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
 <h3>Adding Steps and Center Hub</h3>
 <ul>

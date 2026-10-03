@@ -307,11 +307,11 @@
 <hr />
 <h2>1. Project Initialization</h2>
 <p>Scaffold a documentation website using <code>drawlib init</code>:</p>
-<pre><code class="language-bash"># Create in a new subdirectory:
-drawlib init site my_docs/
+<pre><code class="language-bash"><span class="c1"># Create in a new subdirectory:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs/
 
-# With custom theme and language:
-drawlib init site my_docs/ --style google --lang en
+<span class="c1"># With custom theme and language:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs/<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en
 </code></pre>
 <hr />
 <h2>2. Directory Layout &amp; Architecture</h2>
@@ -334,20 +334,20 @@ drawlib init site my_docs/ --style google --lang en
 <hr />
 <h2>3. Sidebar Navigation (<code>navbar.md</code>)</h2>
 <p>The sidebar navigation structure is governed entirely by <code>docs_src/navbar.md</code>:</p>
-<pre><code class="language-markdown"># Drawlib Documentation
+<pre><code class="language-markdown"><span class="gh"># Drawlib Documentation</span>
 
-- [Home](index.md)
+<span class="k">-</span><span class="w"> </span>[<span class="nt">Home</span>](<span class="na">index.md</span>)
 
-## Core Infrastructure
-- [VPC Architecture](01_architecture/vpc.md)
-- [Storage Tier](01_architecture/storage.md)
+<span class="gu">## Core Infrastructure</span>
+<span class="k">-</span><span class="w"> </span>[<span class="nt">VPC Architecture</span>](<span class="na">01_architecture/vpc.md</span>)
+<span class="k">-</span><span class="w"> </span>[<span class="nt">Storage Tier</span>](<span class="na">01_architecture/storage.md</span>)
 
-## Microservices
-- [Authentication Gateway](02_services/auth.md)
-- [Payment Service](02_services/payments.md)
+<span class="gu">## Microservices</span>
+<span class="k">-</span><span class="w"> </span>[<span class="nt">Authentication Gateway</span>](<span class="na">02_services/auth.md</span>)
+<span class="k">-</span><span class="w"> </span>[<span class="nt">Payment Service</span>](<span class="na">02_services/payments.md</span>)
 
-## External Resources
-- [GitHub Repository](https://github.com/example/repo)
+<span class="gu">## External Resources</span>
+<span class="k">-</span><span class="w"> </span>[<span class="nt">GitHub Repository</span>](<span class="na">https://github.com/example/repo</span>)
 </code></pre>
 <h3>Authoring Rules:</h3>
 <ol>
@@ -368,10 +368,10 @@ drawlib init site my_docs/ --style google --lang en
 </code></pre>
 <h3>Local Preview Server &amp; Link Audit</h3>
 <p>Start the local development server to preview pages:</p>
-<pre><code class="language-bash">uv run drawlib serve docs_html/
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/
 </code></pre>
 <p>Before deploying to production, run a headless pre-flight audit:</p>
-<pre><code class="language-bash">uv run drawlib serve docs_html/ --check
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--check
 </code></pre>
 
             </main>

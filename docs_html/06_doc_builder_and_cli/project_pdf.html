@@ -307,11 +307,11 @@
 <hr />
 <h2>1. Project Initialization</h2>
 <p>Scaffold a PDF project using <code>drawlib init</code>:</p>
-<pre><code class="language-bash"># Create in a new subdirectory:
-drawlib init pdf my_whitepaper/
+<pre><code class="language-bash"><span class="c1"># Create in a new subdirectory:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>pdf<span class="w"> </span>my_whitepaper/
 
-# Or scaffold directly in current working directory:
-drawlib init pdf --here
+<span class="c1"># Or scaffold directly in current working directory:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>pdf<span class="w"> </span>--here
 </code></pre>
 <hr />
 <h2>2. Directory Layout &amp; Anatomy</h2>
@@ -337,18 +337,18 @@ drawlib init pdf --here
 </ul>
 <h3>Engine Prerequisites:</h3>
 <p>Ensure the PDF dependencies and browser binaries are installed:</p>
-<pre><code class="language-bash">uv add &quot;drawlib[pdf]&quot;
-uv run playwright install chromium
+<pre><code class="language-bash">uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;drawlib[pdf]&quot;</span>
+uv<span class="w"> </span>run<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium
 </code></pre>
 <hr />
 <h2>4. Chapter Structuring &amp; Features</h2>
 <h3>Cover Page (<code>00_cover.md</code>)</h3>
 <p>The cover page typically defines the publication title, version, author, and date metadata:</p>
-<pre><code class="language-markdown"># Cloud Platform Technical Architecture
+<pre><code class="language-markdown"><span class="gh"># Cloud Platform Technical Architecture</span>
 
-### Engineering Whitepaper v2.0
-**Author**: System Architecture Team  
-**Date**: October 2026
+<span class="gu">### Engineering Whitepaper v2.0</span>
+<span class="gs">**Author**</span>: System Architecture Team  
+<span class="gs">**Date**</span>: October 2026
 </code></pre>
 <h3>Automatic Table of Contents (<code>--toc</code>)</h3>
 <p>Pass <code>--toc</code> (or <code>--generate-index</code>) to automatically generate a hierarchical Table of Contents derived from your Markdown <code>#</code> and <code>##</code> headings, complete with chapter page numbers.</p>
@@ -360,7 +360,7 @@ uv run playwright install chromium
 <pre><code class="language-bash">./docs_src/build.sh
 </code></pre>
 <h3>Direct CLI Command</h3>
-<pre><code class="language-bash">drawlib build pdf docs_src/ -o docs.pdf --toc --page-break -s docs_src/styles.py
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs.pdf<span class="w"> </span>--toc<span class="w"> </span>--page-break<span class="w"> </span>-s<span class="w"> </span>docs_src/styles.py
 </code></pre>
 
             </main>

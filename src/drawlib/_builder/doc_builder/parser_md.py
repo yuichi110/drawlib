@@ -13,6 +13,8 @@ import re
 
 from markdown_it import MarkdownIt
 
+from drawlib._builder.doc_builder.highlight import pygments_highlight
+
 
 def rewrite_relative_md_links(html: str) -> str:
     """Rewrite relative href links ending in .md to .html.
@@ -43,6 +45,14 @@ def parse_markdown_to_html(markdown_text: str) -> str:
     Returns:
         str: Converted HTML snippet string.
     """
-    md = MarkdownIt("gfm-like", {"html": True, "linkify": False, "typographer": True})
+    md = MarkdownIt(
+        "gfm-like",
+        {
+            "html": True,
+            "linkify": False,
+            "typographer": True,
+            "highlight": pygments_highlight,
+        },
+    )
     raw_html = md.render(markdown_text)
     return rewrite_relative_md_links(raw_html)

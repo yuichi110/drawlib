@@ -328,30 +328,30 @@
 </ul>
 <hr />
 <h2>2. Constructor &amp; Class Definition</h2>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
-from drawlib.styles import Styles
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-setup(width=90, height=45)
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
 
-cd = ClassDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    title=&quot;Domain Model&quot;,
-)
+<span class="n">cd</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Domain Model&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
-# Class with attributes and methods
-user = cd.add(ClassNode(name=&quot;User&quot;, width=26.0), xy=(25.0, 18.0))
-user.add_attribute(&quot;id&quot;, type=&quot;int&quot;, is_public=True)
-user.add_attribute(&quot;password_hash&quot;, type=&quot;str&quot;, is_public=False)
-user.add_method(&quot;login&quot;, params=&quot;password: str&quot;, return_type=&quot;bool&quot;)
+<span class="c1"># Class with attributes and methods</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;User&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">25.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">))</span>
+<span class="n">user</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">user</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">&quot;password_hash&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;str&quot;</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">user</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">&quot;login&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">&quot;password: str&quot;</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">)</span>
 
-# Interface with stereotype
-gateway = cd.add(ClassNode(name=&quot;PaymentGateway&quot;, stereotype=&quot;interface&quot;, width=28.0), xy=(65.0, 18.0))
-gateway.add_method(&quot;charge&quot;, params=&quot;amount: float&quot;, return_type=&quot;bool&quot;)
+<span class="c1"># Interface with stereotype</span>
+<span class="n">gateway</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;PaymentGateway&quot;</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">65.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">))</span>
+<span class="n">gateway</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">&quot;charge&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">&quot;amount: float&quot;</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">)</span>
 
-cd.draw(xy=(0.0, 0.0))
-save()
+<span class="n">cd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="class_diagram_images/class_diagram_basic_node.png" alt="class_diagram_1" style="width: 550px; max-width: 100%;" />

@@ -68,7 +68,7 @@ def connect(
         arrowhead: Arrowhead style ('->', '<->', '-').
         style: Line style.
     """
-    line(start, end, arrowhead=arrowhead, style=style)
+    line(start, end, arrow_head=arrowhead, style=style)
     if label:
         mid_x = (start[0] + end[0]) / 2
         mid_y = (start[1] + end[1]) / 2

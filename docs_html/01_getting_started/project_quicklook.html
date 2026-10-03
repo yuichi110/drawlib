@@ -319,11 +319,11 @@
 <hr />
 <h2>1. Project Scaffolding (<code>drawlib init</code>)</h2>
 <p>Scaffold a complete project template with a single command:</p>
-<pre><code class="language-bash"># Initialize a multi-page documentation website
-$ uv run drawlib init site
+<pre><code class="language-bash"><span class="c1"># Initialize a multi-page documentation website</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site
 
-# Or scaffold into a custom output name (e.g., mybook_src/ -&gt; mybook/):
-$ uv run drawlib init site -o mybook
+<span class="c1"># Or scaffold into a custom output name (e.g., mybook_src/ -&gt; mybook/):</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>-o<span class="w"> </span>mybook
 </code></pre>
 <p>Drawlib supports four starter project types:</p>
 <ul>
@@ -335,12 +335,12 @@ $ uv run drawlib init site -o mybook
 <hr />
 <h2>2. One-Command Compilation</h2>
 <p>Once initialized, compile your documentation using the generated <code>build.sh</code> script or the <code>drawlib build</code> CLI:</p>
-<pre><code class="language-bash"># Run the project build script
-$ ./build.sh
+<pre><code class="language-bash"><span class="c1"># Run the project build script</span>
+$<span class="w"> </span>./build.sh
 
-# Or compile using the CLI directly:
-$ uv run drawlib build html docs_src/ -o mybook_html/
-$ uv run drawlib build markdown docs_src/ -o mybook/
+<span class="c1"># Or compile using the CLI directly:</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>mybook_html/
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>mybook/
 </code></pre>
 <p>During the build process:</p>
 <ol>
@@ -352,7 +352,7 @@ $ uv run drawlib build markdown docs_src/ -o mybook/
 <hr />
 <h2>3. Local Live Preview (<code>drawlib serve</code>)</h2>
 <p>Preview your compiled HTML site locally with automatic live inspection:</p>
-<pre><code class="language-bash">$ uv run drawlib serve docs_html/
+<pre><code class="language-bash">$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/
 </code></pre>
 <p>Open <code>http://localhost:8000</code> in your browser to inspect the full documentation site, search index, and responsive styling.</p>
 <hr />

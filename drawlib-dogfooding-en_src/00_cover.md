@@ -35,18 +35,18 @@ phosphor.eye(xy=(112.0, 23.5), width=5.5, style=Styles.White)
 text((112.0, 13.5), text="4. Autonomous Review\n(Visual Inspection)", style=ts)
 
 # Forward arrows
-line((33.0, 18), (38.5, 18), arrowhead="->", style=Styles.PrimaryBold)
-line((63.5, 18), (69.0, 18), arrowhead="->", style=Styles.PrimaryBold)
-line((94.0, 18), (99.5, 18), arrowhead="->", style=Styles.PrimaryBold)
+line((33.0, 18), (38.5, 18), arrow_head="->", style=Styles.PrimaryBold)
+line((63.5, 18), (69.0, 18), arrow_head="->", style=Styles.PrimaryBold)
+line((94.0, 18), (99.5, 18), arrow_head="->", style=Styles.PrimaryBold)
 
 # Autonomous feedback loop
 line((112.0, 28.0), (112.0, 42.0), style=Styles.DangerBold)
 line((112.0, 42.0), (51.0, 42.0), style=Styles.DangerBold)
-line((51.0, 42.0), (51.0, 28.0), arrowhead="->", style=Styles.DangerBold)
+line((51.0, 42.0), (51.0, 28.0), arrow_head="->", style=Styles.DangerBold)
 
 # Feedback label and icon
 phosphor.arrows_clockwise(xy=(57.0, 46.0), width=4.0, style=Styles.Danger)
-text((84.0, 46.0), text="Self-correct coordinates & retry upon visual defects (Feedback Loop)", style=Styles.DangerBold, size=8.5)
+text((84.0, 46.0), text="Self-correct coordinates & retry upon visual defects (Feedback Loop)", style=Styles.DangerBold.patch(text_size=8.5))
 ```
 
 **Author**: Drawlib Core Team  

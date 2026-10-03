@@ -314,49 +314,49 @@
 <hr />
 <h2>2. Recommended Agent Instruction Template</h2>
 <p>Copy and paste the following snippet into your repository's AI instruction file (e.g. <code>.cursorrules</code>, <code>.agents/rules/docs.md</code>, or Claude/Gemini system prompts):</p>
-<pre><code class="language-markdown"># Drawlib Agent Directives
+<pre><code class="language-markdown"><span class="gh"># Drawlib Agent Directives</span>
 
 Drawlib is a pure-Python library for &quot;Illustration as Code&quot; and &quot;Documentation as Code&quot;.
 When tasked with creating diagrams, architectures, flowcharts, or charts, follow these rules:
 
-1. High-Level Over Low-Level:
+<span class="k">1.</span> High-Level Over Low-Level:
    Always favor high-level components over assembling raw rectangles and lines:
-   - Cloud Topologies: `drawlib.diagrams.architecture.ArchitectureDiagram`
-   - Flowcharts &amp; Swimlanes: `drawlib.diagrams.flow.FlowDiagram`
-   - API Sequences: `drawlib.diagrams.sequence.SequenceDiagram`
-   - UML Class Hierarchies: `drawlib.diagrams.class_diagram.ClassDiagram`
-   - Relational Database Schemas: `drawlib.diagrams.er.ERDiagram`
-   - State Machines: `drawlib.diagrams.state_diagram.StateDiagram`
-   - Pipelines &amp; Steps: `drawlib.smartarts.ChevronProcess`
-   - Quantitative Charts: `drawlib.charts` (BarChart, LineChart, AreaChart, PieChart, RadarChart, GanttChart)
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Cloud Topologies: <span class="sb">`drawlib.diagrams.architecture.ArchitectureDiagram`</span>
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Flowcharts &amp; Swimlanes: <span class="sb">`drawlib.diagrams.flow.FlowDiagram`</span>
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>API Sequences: <span class="sb">`drawlib.diagrams.sequence.SequenceDiagram`</span>
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>UML Class Hierarchies: <span class="sb">`drawlib.diagrams.class_diagram.ClassDiagram`</span>
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Relational Database Schemas: <span class="sb">`drawlib.diagrams.er.ERDiagram`</span>
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>State Machines: <span class="sb">`drawlib.diagrams.state_diagram.StateDiagram`</span>
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Pipelines &amp; Steps: <span class="sb">`drawlib.smartarts.ChevronProcess`</span>
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Quantitative Charts: <span class="sb">`drawlib.charts`</span> (BarChart, LineChart, AreaChart, PieChart, RadarChart, GanttChart)
 
-2. Coordinate System:
-   - (0, 0) is the BOTTOM-LEFT corner of the canvas.
-   - X increases rightward, Y increases upward.
-   - For icons and architecture nodes, coordinates define the CENTER of the icon.
+<span class="k">2.</span> Coordinate System:
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>(0, 0) is the BOTTOM-LEFT corner of the canvas.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>X increases rightward, Y increases upward.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>For icons and architecture nodes, coordinates define the CENTER of the icon.
 
-3. The Multimodal Self-Correction Loop:
-   - Write diagram prototype in `.drawlib/scratch/test_diagram.py` (ensure `.drawlib/` is in `.gitignore`).
-   - Render headless with grid: `uv run drawlib show .drawlib/scratch/test_diagram.py -g -o .drawlib/scratch/test_diagram.png`.
-   - Multimodal review: Inspect the image for label clipping, line overlaps, or missing margins.
-   - Fix coordinates, re-render, and present to user.
+<span class="k">3.</span> The Multimodal Self-Correction Loop:
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Write diagram prototype in <span class="sb">`.drawlib/scratch/test_diagram.py`</span> (ensure <span class="sb">`.drawlib/`</span> is in <span class="sb">`.gitignore`</span>).
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Render headless with grid: <span class="sb">`uv run drawlib show .drawlib/scratch/test_diagram.py -g -o .drawlib/scratch/test_diagram.png`</span>.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Multimodal review: Inspect the image for label clipping, line overlaps, or missing margins.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Fix coordinates, re-render, and present to user.
 
-4. Fetch Rules on Demand:
+<span class="k">4.</span> Fetch Rules on Demand:
    If you need exact parameter signatures or examples, run:
-   `uv run drawlib rules show &lt;topic&gt;` (e.g. `lib-diagrams`, `lib-charts`, `lib-smartarts`, `style-guide`).
+   <span class="sb">`uv run drawlib rules show &lt;topic&gt;`</span> (e.g. <span class="sb">`lib-diagrams`</span>, <span class="sb">`lib-charts`</span>, <span class="sb">`lib-smartarts`</span>, <span class="sb">`style-guide`</span>).
 </code></pre>
 <hr />
 <h2>3. Dynamic Knowledge Retrieval (<code>drawlib rules</code>)</h2>
 <p>Instead of pasting entire documentation pages into prompts, train your agent to run <code>drawlib rules</code>:</p>
-<pre><code class="language-bash"># List all 21 modular rule topics:
-uv run drawlib rules list
+<pre><code class="language-bash"><span class="c1"># List all 21 modular rule topics:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>list
 
-# Retrieve targeted manuals:
-uv run drawlib rules show agent-instruction    # Workflow loop
-uv run drawlib rules show lib-diagrams          # Architecture, flow, sequence, class, ER
-uv run drawlib rules show lib-charts            # Bar, line, area, pie, radar, gantt
-uv run drawlib rules show lib-smartarts         # Tables, trees, mindmaps, cycle loops
-uv run drawlib rules show style-guide           # 6-color semantic system &amp; typography
+<span class="c1"># Retrieve targeted manuals:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>agent-instruction<span class="w">    </span><span class="c1"># Workflow loop</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-diagrams<span class="w">          </span><span class="c1"># Architecture, flow, sequence, class, ER</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-charts<span class="w">            </span><span class="c1"># Bar, line, area, pie, radar, gantt</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-smartarts<span class="w">         </span><span class="c1"># Tables, trees, mindmaps, cycle loops</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>style-guide<span class="w">           </span><span class="c1"># 6-color semantic system &amp; typography</span>
 </code></pre>
 <hr />
 <h2>4. Prompting Best Practices</h2>

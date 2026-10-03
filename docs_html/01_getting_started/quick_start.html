@@ -318,63 +318,63 @@ You can author diagrams either as <strong>standalone Python scripts</strong> (<c
 <hr />
 <h2>1. Standalone Python Script</h2>
 <p>Create a Python script named <code>client_server.py</code>:</p>
-<pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.lines import line
-from drawlib.shapes import circle, rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-# Step 2: Setup canvas dimensions (Cartesian space: 100 wide x 50 high)
-setup(width=100, height=50)
+<span class="c1"># Step 2: Setup canvas dimensions (Cartesian space: 100 wide x 50 high)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
-# Step 3: Draw background boundary container
-rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
+<span class="c1"># Step 3: Draw background boundary container</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
 
-# Step 4: Draw main entities and connectors
-circle((25, 25), radius=12, style=Styles.AccentFlat, text=&quot;Client&quot;, text_style=Styles.WhiteBold)
-rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, text_style=Styles.WhiteBold)
+<span class="c1"># Step 4: Draw main entities and connectors</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Client&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
-# Connection line with arrowhead
-line((37, 25), (63, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-text((50, 30), &quot;REST API&quot;, style=Styles.PrimaryBold)
+<span class="c1"># Connection line with arrowhead</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">&quot;REST API&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
-# Step 5: Save image (defaults to client_server.png)
-save()
+<span class="c1"># Step 5: Save image (defaults to client_server.png)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 <h3>Running and Previewing</h3>
 <p>Run the script directly with Python:</p>
-<pre><code class="language-bash">$ uv run python client_server.py
-# Generates client_server.png
+<pre><code class="language-bash">$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>client_server.py
+<span class="c1"># Generates client_server.png</span>
 </code></pre>
 <p>Or use the unified <code>drawlib show</code> CLI command to export headless images or inspect coordinate overlays:</p>
-<pre><code class="language-bash"># Export directly to a specified output file
-$ uv run drawlib show client_server.py -o output.png
+<pre><code class="language-bash"><span class="c1"># Export directly to a specified output file</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>show<span class="w"> </span>client_server.py<span class="w"> </span>-o<span class="w"> </span>output.png
 
-# Overlay a visual coordinate grid (-g) to check element spacing
-$ uv run drawlib show client_server.py -g -o output_grid.png
+<span class="c1"># Overlay a visual coordinate grid (-g) to check element spacing</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>show<span class="w"> </span>client_server.py<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>output_grid.png
 </code></pre>
 <hr />
 <h2>2. Embedded Markdown Document</h2>
 <p>Inside any Markdown document (such as <code>doc.md</code>), simply embed the code block with <code>drawlib</code>:</p>
-<pre><code class="language-markdown"># Architecture Overview
+<pre><code class="language-markdown"><span class="gh"># Architecture Overview</span>
 
 Here is our primary service flow:
 
-```drawlib 600px center file:client_server_communication.png caption:&quot;Client-Server REST Communication&quot;
-from drawlib.canvas import setup
-from drawlib.shapes import rectangle, circle
-from drawlib.lines import line
-from drawlib.text import text
-from drawlib.styles import Styles
+<span class="sb">```drawlib</span><span class="w"> </span>600px center file:client_server_communication.png caption:&quot;Client-Server REST Communication&quot;
+<span class="s">from drawlib.canvas import setup</span>
+<span class="s">from drawlib.shapes import rectangle, circle</span>
+<span class="s">from drawlib.lines import line</span>
+<span class="s">from drawlib.text import text</span>
+<span class="s">from drawlib.styles import Styles</span>
 
-setup(width=100, height=50)
+<span class="s">setup(width=100, height=50)</span>
 
-rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
-circle((25, 25), radius=12, style=Styles.AccentFlat, text=&quot;Client&quot;, text_style=Styles.WhiteBold)
-rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, text_style=Styles.WhiteBold)
-line((37, 25), (63, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)
-text((50, 30), &quot;REST API&quot;, style=Styles.PrimaryBold)
-```
+<span class="s">rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)</span>
+<span class="s">circle((25, 25), radius=12, style=Styles.AccentFlat, text=&quot;Client&quot;, text_style=Styles.WhiteBold)</span>
+<span class="s">rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, text_style=Styles.WhiteBold)</span>
+<span class="s">line((37, 25), (63, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)</span>
+<span class="s">text((50, 30), &quot;REST API&quot;, style=Styles.PrimaryBold)</span>
+<span class="sb">```</span>
 </code></pre>
 <p>When compiled with <code>drawlib build html</code> or <code>drawlib build markdown</code>, the code fence is executed and replaced with the rendered image:</p>
 <figure class="drawlib-image" style="text-align: center;">
