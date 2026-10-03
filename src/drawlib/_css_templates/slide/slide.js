@@ -97,6 +97,16 @@
 
   function setupKeyboard() {
     window.addEventListener('keydown', (e) => {
+      // Do not intercept browser shortcuts (e.g. Cmd+F / Ctrl+F for Find, Cmd+R for Reload)
+      if (e.metaKey || e.ctrlKey || e.altKey) {
+        return;
+      }
+
+      // Do not intercept keys when typing in input or textarea elements
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+        return;
+      }
+
       if (isOverviewOpen) {
         if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') {
           toggleOverview();

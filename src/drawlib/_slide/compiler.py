@@ -158,6 +158,7 @@ def _format_asset_markup(
     options: DrawlibBlockOptions,
     box: BoundingBox,
     alt_text: str,
+    output_abs: str = "",
 ) -> str:
     """Format HTML markup for a rendered slide asset.
 
@@ -166,11 +167,30 @@ def _format_asset_markup(
         options: Parsed options.
         box: Target BoundingBox.
         alt_text: Alt text attribute.
+        output_abs: Absolute path to output directory for inlining SVGs.
 
     Returns:
         str: Generated HTML snippet.
     """
     if options.slot == "background":
+        if file_name.lower().endswith(".svg") and output_abs:
+            svg_disk = os.path.join(output_abs, file_name)
+            if os.path.exists(svg_disk):
+                with open(svg_disk, encoding="utf-8") as f:
+                    svg_content = f.read()
+                svg_clean = re.sub(r"<\?xml[^>]*\?>", "", svg_content)
+                svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean).strip()
+                bg_style = (
+                    "position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; "
+                    "z-index: 0; pointer-events: none;"
+                )
+                svg_clean = re.sub(
+                    r"<svg\s+",
+                    f'<svg class="slide-background-asset" style="{bg_style}" ',
+                    svg_clean,
+                    count=1,
+                )
+                return f"\n{svg_clean}\n"
         return (
             f'\n<img src="{file_name}" class="slide-background-asset" '
             f'style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; '
@@ -186,6 +206,27 @@ def _format_asset_markup(
         )
     slot_attr = f' data-slot="{options.slot}"' if options.slot else ""
     max_w = f"max-width: {options.width};" if options.width else f"max-width: {box.width}px;"
+
+    if file_name.lower().endswith(".svg") and output_abs:
+        svg_disk = os.path.join(output_abs, file_name)
+        if os.path.exists(svg_disk):
+            with open(svg_disk, encoding="utf-8") as f:
+                svg_content = f.read()
+            svg_clean = re.sub(r"<\?xml[^>]*\?>", "", svg_content)
+            svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean).strip()
+            svg_clean = re.sub(
+                r"<svg\s+",
+                f'<svg class="slide-vector-graphic" style="width: 100%; {max_w} height: auto;" ',
+                svg_clean,
+                count=1,
+            )
+            return (
+                f'\n<figure class="drawlib-image"{slot_attr} '
+                f'style="width: 100%; display: flex; justify-content: center;">\n'
+                f"  {svg_clean}\n"
+                f"</figure>\n"
+            )
+
     return (
         f'\n<figure class="drawlib-image"{slot_attr} '
         f'style="width: 100%; display: flex; justify-content: center;">\n'
@@ -231,7 +272,7 @@ def _process_smartarts(
 
         box = _resolve_smartart_box(options)
         cls().render(box, content, os.path.join(output_abs, target_file))
-        return _format_asset_markup(target_file, options, box, name)
+        return _format_asset_markup(target_file, options, box, name, output_abs=output_abs)
 
     return _PATTERN_SMARTART.sub(replacer, text)
 
@@ -277,7 +318,7 @@ def _process_drawlib_blocks(
         target_path = os.path.join(output_abs, dl_file)
         processor.render_block_to_file(code, target_path, source_filename=file_path)
         box = _resolve_smartart_box(options)
-        return _format_asset_markup(dl_file, options, box, "Illustration")
+        return _format_asset_markup(dl_file, options, box, "Illustration", output_abs=output_abs)
 
     return _PATTERN_DRAWLIB.sub(replacer, text)
 

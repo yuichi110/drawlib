@@ -247,7 +247,6 @@ code {
   max-width: 100%;
   max-height: 720px;
   object-fit: contain;
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.08));
 }
 
 /* Transparent Searchable Text Layer for Drawlib Images */
