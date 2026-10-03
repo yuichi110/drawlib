@@ -249,6 +249,67 @@ code {
   object-fit: contain;
 }
 
+/* Layout: Canvas (Pure 1920x1080 Stage with Zero Margins) */
+.slide.layout-canvas {
+  padding: 0;
+  display: none;
+}
+
+.slide.layout-canvas.active {
+  display: block;
+}
+
+.slide.layout-canvas .slide-body {
+  position: relative;
+  width: var(--slide-width);
+  height: var(--slide-height);
+  overflow: hidden;
+}
+
+/* Absolute Text Box Containers (::: box ...) */
+.slide-text-box {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 10;
+}
+
+.slide-text-box.compact,
+.slide.compact .slide-body {
+  line-height: 1.35;
+}
+
+.slide-text-box.compact h1, .slide.compact h1 { margin-bottom: 14px; }
+.slide-text-box.compact h2, .slide.compact h2 { margin-bottom: 12px; }
+.slide-text-box.compact h3, .slide.compact h3 { margin-bottom: 8px; }
+.slide-text-box.compact p, .slide.compact p,
+.slide-text-box.compact ul, .slide.compact ul,
+.slide-text-box.compact ol, .slide.compact ol {
+  font-size: 0.9em;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+.slide-text-box.compact li, .slide.compact li { margin-bottom: 6px; }
+
+/* Positioned Visual Asset Containers */
+.slide-positioned-asset {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+.slide-positioned-asset svg,
+.slide-positioned-asset img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /* Transparent Searchable Text Layer for Drawlib Images */
 .text-overlay-container {
   position: relative;

@@ -16,7 +16,7 @@ from importlib.resources.abc import Traversable
 from pathlib import Path
 from typing import Final, Optional
 
-from drawlib._builder.doc_builder.exporter_html import get_default_css
+from drawlib._css_templates import get_css
 from drawlib._langs import get_font_replacements, normalize_language
 
 PROJECT_TYPES: Final[dict[str, str]] = {
@@ -63,6 +63,7 @@ def _validate_conflicts(
             src_path / "utils.py",
             src_path / "README.md",
             src_path / "style.css",
+            src_path / "slide.css",
             src_path / "template.html",
         ]
         conflicts = [p for p in critical_items if p.exists()]
@@ -179,16 +180,20 @@ def _deploy_stylesheet(
     created_files: list[Path],
     lang: str = "en",
 ) -> None:
-    """Deploy custom or default style.css for document projects."""
-    if selected_type not in {"site", "simple", "pdf"}:
-        return
-
-    target = "pdf" if selected_type == "pdf" else "html"
-    css_content = get_default_css(custom_css_path=style or "default", target=target, lang=lang)
-    style_css_target = src_path / "style.css"
-    style_css_target.write_text(css_content, encoding="utf-8")
-    if style_css_target not in created_files:
-        created_files.append(style_css_target)
+    """Deploy custom or default style.css or slide.css for document/slide projects."""
+    if selected_type in {"site", "simple", "pdf"}:
+        target = "pdf" if selected_type == "pdf" else "html"
+        css_content = get_css(name=style or "default", target=target, lang=lang)
+        style_css_target = src_path / "style.css"
+        style_css_target.write_text(css_content, encoding="utf-8")
+        if style_css_target not in created_files:
+            created_files.append(style_css_target)
+    elif selected_type == "slide":
+        css_content = get_css(name=style or "default", target="slide", lang=lang)
+        slide_css_target = src_path / "slide.css"
+        slide_css_target.write_text(css_content, encoding="utf-8")
+        if slide_css_target not in created_files:
+            created_files.append(slide_css_target)
 
 
 def _deploy_shared_templates(

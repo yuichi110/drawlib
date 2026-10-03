@@ -1,16 +1,17 @@
 ---
+layout: default
 header: "Architecture"
-layout: split-right
-ratio: "4:6"
 ---
 
+::: box (80, 140) (740, 840) font:22px
 # Scalable Microservices in Code
 
 - **Declarative Python**: Pure code, version-controlled with clean git diffs
 - **Vector Native SVG**: Crisp scaling, Ctrl+F searchable text
 - **Interactive Deck**: Fullscreen, keyboard shortcuts, overview modal
+:::
 
-```drawlib 100% center file:microservices.svg slot:right
+```drawlib (860, 140) (980, 840) z:5 file:microservices.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line

@@ -1,16 +1,17 @@
 ---
-header: "Architecture"
-layout: split-right
-ratio: "4:6"
+layout: default
+header: "アーキテクチャ"
 ---
 
-# Scalable Microservices in Code
+::: box (80, 140) (740, 840) font:22px
+# Pythonコードで描くマイクロサービス
 
-- **Declarative Python**: Pure code, version-controlled with clean git diffs
-- **Vector Native SVG**: Crisp scaling, Ctrl+F searchable text
-- **Interactive Deck**: Fullscreen, keyboard shortcuts, overview modal
+- **宣言的Python**: 変更履歴がGitで管理できるクリーンなコード
+- **ネイティブSVG**: 拡大してもクリア、Ctrl+Fによる文字検索に対応
+- **インタラクティブなスライド**: 全画面表示、ショートカット、一覧モーダル
+:::
 
-```drawlib 100% center file:microservices.svg slot:right
+```drawlib (860, 140) (980, 840) z:5 file:microservices.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line

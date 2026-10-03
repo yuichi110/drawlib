@@ -33,6 +33,7 @@ class DrawlibBlockOptions(BaseModel):
     slot: Optional[str] = None
     xy: Optional[tuple[float, float]] = None
     size: Optional[tuple[float, float]] = None
+    z_index: Optional[int] = None
 
 
 class ExtractedBlockInfo(BaseModel):
@@ -59,6 +60,27 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
     info = info_str.strip()
     if not info:
         return options
+
+    # 1. Pre-process explicit xy: (...) / pos: (...) and size: (...) / dim: (...)
+    xy_m = re.search(r"(?:xy|pos|position):\s*\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)", info, re.I)
+    if xy_m:
+        options.xy = (float(xy_m.group(1)), float(xy_m.group(2)))
+        info = info[: xy_m.start()] + " " + info[xy_m.end() :]
+
+    size_m = re.search(r"(?:size|dim|dimensions):\s*\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)", info, re.I)
+    if size_m:
+        options.size = (float(size_m.group(1)), float(size_m.group(2)))
+        info = info[: size_m.start()] + " " + info[size_m.end() :]
+
+    # 2. Pre-process standalone tuple shorthands: (x, y) and (w, h)
+    tuple_pattern = r"\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)"
+    tuple_matches = list(re.finditer(tuple_pattern, info))
+    if tuple_matches:
+        if options.xy is None and len(tuple_matches) >= 1:
+            options.xy = (float(tuple_matches[0].group(1)), float(tuple_matches[0].group(2)))
+        if options.size is None and len(tuple_matches) >= 2:
+            options.size = (float(tuple_matches[1].group(1)), float(tuple_matches[1].group(2)))
+        info = re.sub(tuple_pattern, " ", info)
 
     try:
         tokens = shlex.split(info, posix=True)
@@ -123,6 +145,11 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
             options.css_class = val_clean
         elif key_lower == "file":
             options.file = val_clean
+        elif key_lower in {"z", "z_index", "z-index"}:
+            try:
+                options.z_index = int(val_clean)
+            except ValueError:
+                pass
         elif not key_lower:
             val_lower = val_clean.lower()
             if val_lower in {"show-code", "show_code"}:

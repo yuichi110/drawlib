@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import os
 import re
+import shlex
 import shutil
 from typing import Any, Optional
 
@@ -30,6 +31,10 @@ _PATTERN_SMARTART = re.compile(
 )
 _PATTERN_DRAWLIB = re.compile(
     r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",
+    re.DOTALL,
+)
+_PATTERN_CONTAINER_BOX = re.compile(
+    r"(?:\n|^)[ \t]*:::+[ \t]*box(?:\s+([^\n]*))?\n(.*?)\n[ \t]*:::+",
     re.DOTALL,
 )
 
@@ -197,11 +202,32 @@ def _format_asset_markup(
             f'z-index: 0; pointer-events: none;" />\n'
         )
     elif options.xy and options.size:
+        z = options.z_index if options.z_index is not None else 5
+        if file_name.lower().endswith(".svg") and output_abs:
+            svg_disk = os.path.join(output_abs, file_name)
+            if os.path.exists(svg_disk):
+                with open(svg_disk, encoding="utf-8") as f:
+                    svg_content = f.read()
+                svg_clean = re.sub(r"<\?xml[^>]*\?>", "", svg_content)
+                svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean).strip()
+                svg_clean = re.sub(
+                    r"<svg\s+",
+                    '<svg class="slide-vector-graphic" style="width: 100%; height: 100%;" ',
+                    svg_clean,
+                    count=1,
+                )
+                return (
+                    f'\n<div class="slide-positioned-asset" '
+                    f'style="position: absolute; left: {box.x}px; top: {box.y}px; width: {box.width}px; '
+                    f'height: {box.height}px; z-index: {z};">\n'
+                    f"  {svg_clean}\n"
+                    f"</div>\n"
+                )
         return (
             f'\n<div class="slide-positioned-asset" '
             f'style="position: absolute; left: {box.x}px; top: {box.y}px; width: {box.width}px; '
-            f'height: {box.height}px; z-index: 10;">\n'
-            f'  <img src="{file_name}" style="width: 100%; height: 100%; object-fit: contain;" />\n'
+            f'height: {box.height}px; z-index: {z};">\n'
+            f'  <img src="{file_name}" alt="{alt_text}" style="width: 100%; height: 100%; object-fit: contain;" />\n'
             f"</div>\n"
         )
     slot_attr = f' data-slot="{options.slot}"' if options.slot else ""
@@ -233,6 +259,197 @@ def _format_asset_markup(
         f'  <img src="{file_name}" alt="{alt_text}" style="width: 100%; {max_w} height: auto;" />\n'
         f"</figure>\n"
     )
+
+
+def _parse_box_coordinates(
+    header_opts: str,
+) -> tuple[Optional[float], Optional[float], Optional[float], Optional[float], str]:
+    """Extract (x, y) and (w, h) bounding box coordinates from container options.
+
+    Args:
+        header_opts: Raw header options string from ::: box.
+
+    Returns:
+        tuple[Optional[float], Optional[float], Optional[float], Optional[float], str]:
+            (x, y, w, h, remaining_options_string).
+    """
+    x: Optional[float] = None
+    y: Optional[float] = None
+    w: Optional[float] = None
+    h: Optional[float] = None
+
+    tuple_pattern = r"\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)"
+    tuple_matches = list(re.finditer(tuple_pattern, header_opts))
+    if len(tuple_matches) >= 1:
+        x = float(tuple_matches[0].group(1))
+        y = float(tuple_matches[0].group(2))
+    if len(tuple_matches) >= 2:
+        w = float(tuple_matches[1].group(1))
+        h = float(tuple_matches[1].group(2))
+
+    cleaned_opts = re.sub(tuple_pattern, " ", header_opts).strip()
+    return x, y, w, h, cleaned_opts
+
+
+def _build_box_styles(
+    x: Optional[float],
+    y: Optional[float],
+    w: Optional[float],
+    h: Optional[float],
+    font_size: Optional[str],
+    align: Optional[str],
+    z_index: Optional[int],
+    custom_styles: list[str],
+) -> list[str]:
+    """Construct inline CSS style declarations for a positioned text box.
+
+    Args:
+        x: Left coordinate in pixels.
+        y: Top coordinate in pixels.
+        w: Width in pixels.
+        h: Height in pixels.
+        font_size: Optional font size override.
+        align: Optional text alignment.
+        z_index: Optional z-index layer.
+        custom_styles: Additional inline CSS rules.
+
+    Returns:
+        list[str]: CSS style statements.
+    """
+    styles: list[str] = []
+    if x is not None and y is not None:
+        styles.append("position: absolute;")
+        styles.append(f"left: {x}px; top: {y}px;")
+    if w is not None and h is not None:
+        styles.append(f"width: {w}px; height: {h}px;")
+    if font_size:
+        fs = font_size if any(font_size.endswith(u) for u in ("px", "rem", "em", "%", "pt")) else f"{font_size}px"
+        styles.append(f"font-size: {fs};")
+    if align:
+        styles.append(f"text-align: {align};")
+    if z_index is not None:
+        styles.append(f"z-index: {z_index};")
+    for cs in custom_styles:
+        clean = cs.strip().rstrip(";")
+        if clean:
+            styles.append(f"{clean};")
+    return styles
+
+
+def _handle_keyed_box_token(
+    k: str,
+    v: str,
+    extra_class: list[str],
+    custom_styles: list[str],
+) -> tuple[Optional[str], Optional[int], Optional[str]]:
+    """Handle a key:value token for box options."""
+    k_lower = k.lower()
+    if k_lower in {"font", "font-size", "fontsize", "fs"}:
+        return v, None, None
+    elif k_lower in {"z", "z_index", "z-index"}:
+        try:
+            return None, int(v), None
+        except ValueError:
+            return None, None, None
+    elif k_lower in {"align", "text-align"}:
+        return None, None, v.lower()
+    elif k_lower in {"class", "css_class"}:
+        extra_class.extend(v.split())
+    elif k_lower in {"style", "css"}:
+        custom_styles.append(v)
+    return None, None, None
+
+
+def _handle_pos_box_token(arg: str) -> tuple[Optional[str], bool, Optional[str]]:
+    """Handle standalone keyword argument without key prefix."""
+    kw_lower = arg.lower()
+    if kw_lower == "compact":
+        return None, True, None
+    elif kw_lower in {"center", "left", "right"}:
+        return None, False, kw_lower
+    elif re.match(r"^\d+(px|rem|em|%)$", kw_lower):
+        return arg, False, None
+    return None, False, None
+
+
+def _parse_box_tokens(
+    cleaned_opts: str,
+) -> tuple[Optional[str], bool, Optional[str], Optional[int], list[str], list[str]]:
+    """Parse key:value tokens for a ::: box container.
+
+    Args:
+        cleaned_opts: Options string stripped of coordinate tuples.
+
+    Returns:
+        tuple: (font_size, compact, align, z_index, extra_classes, custom_styles).
+    """
+    font_size: Optional[str] = None
+    compact: bool = False
+    align: Optional[str] = None
+    z_index: Optional[int] = None
+    extra_class: list[str] = []
+    custom_styles: list[str] = []
+
+    try:
+        tokens = shlex.split(cleaned_opts, posix=True)
+    except ValueError:
+        tokens = cleaned_opts.split()
+
+    for token in tokens:
+        if ":" in token or "=" in token:
+            sep = ":" if ":" in token else "="
+            k, v = token.split(sep, 1)
+            v_clean = v.strip().strip('"').strip("'")
+            fs, z, al = _handle_keyed_box_token(k.strip(), v_clean, extra_class, custom_styles)
+            if fs:
+                font_size = fs
+            if z is not None:
+                z_index = z
+            if al:
+                align = al
+        else:
+            v_clean = token.strip().strip('"').strip("'")
+            fs, cp, al = _handle_pos_box_token(v_clean)
+            if fs:
+                font_size = fs
+            if cp:
+                compact = True
+            if al:
+                align = al
+
+    return font_size, compact, align, z_index, extra_class, custom_styles
+
+
+def _process_container_blocks(text: str) -> str:
+    """Parse and convert ::: box ... ::: container syntax to positioned text box <div> elements.
+
+    Args:
+        text: Markdown text with potential ::: box blocks.
+
+    Returns:
+        str: Transformed text with HTML container markup.
+    """
+
+    def replacer(match: re.Match[str]) -> str:
+        header_opts = (match.group(1) or "").strip()
+        content = match.group(2).strip()
+
+        x, y, w, h, cleaned_opts = _parse_box_coordinates(header_opts)
+        font_size, compact, align, z_index, extra_class, custom_styles = _parse_box_tokens(cleaned_opts)
+        styles = _build_box_styles(x, y, w, h, font_size, align, z_index, custom_styles)
+
+        classes = ["slide-text-box"]
+        if compact:
+            classes.append("compact")
+        classes.extend(extra_class)
+
+        rendered_inner = parse_markdown_to_html(content)
+        style_attr = f' style="{" ".join(styles)}"' if styles else ""
+        class_attr = f' class="{" ".join(classes)}"'
+
+        return f"\n<div{class_attr}{style_attr}>\n{rendered_inner}\n</div>\n"
+
+    return _PATTERN_CONTAINER_BOX.sub(replacer, text)
 
 
 def _process_smartarts(
@@ -374,6 +591,9 @@ def _assemble_slide_section(
     ratio_opt: str,
     idx: int,
     total_slides: int,
+    offset_y: str = "",
+    font_size: str = "",
+    compact: bool = False,
 ) -> str:
     """Assemble final slide <section> markup based on layout and slots.
 
@@ -386,25 +606,58 @@ def _assemble_slide_section(
         ratio_opt: Layout split ratio string.
         idx: Slide index.
         total_slides: Total slide count.
+        offset_y: Vertical offset string (e.g. '-20px').
+        font_size: Slide base font size override (e.g. '22px').
+        compact: Whether compact mode is active.
 
     Returns:
         str: Slide <section> HTML markup.
     """
     active_cls = " active" if idx == 1 else ""
+    compact_cls = " compact" if compact else ""
 
-    if layout in {"cover", "title"}:
+    # Build body styles
+    body_styles: list[str] = []
+    if offset_y:
+        oy = offset_y.strip()
+        if not any(oy.endswith(u) for u in ("px", "rem", "em", "%")):
+            oy = f"{oy}px"
+        body_styles.append(f"transform: translateY({oy});")
+    if font_size:
+        fs = font_size.strip()
+        if not any(fs.endswith(u) for u in ("px", "rem", "em", "%", "pt")):
+            fs = f"{fs}px"
+        body_styles.append(f"font-size: {fs};")
+    body_style_attr = f' style="{" ".join(body_styles)}"' if body_styles else ""
+
+    if layout == "canvas":
         return (
-            f'    <section class="slide layout-cover{active_cls}" data-slide-index="{idx}">\n'
-            f"{rendered_body}\n"
+            f'    <section class="slide layout-canvas{active_cls}{compact_cls}" data-slide-index="{idx}">\n'
+            f'      <div class="slide-body"{body_style_attr}>\n'
+            f"{rendered_body.strip()}\n"
+            f"      </div>\n"
             f"    </section>"
         )
 
-    header_html = f'      <header class="slide-header">{header_text}</header>\n' if header_text else ""
+    if layout in {"cover", "title"}:
+        return (
+            f'    <section class="slide layout-cover{active_cls}{compact_cls}" data-slide-index="{idx}">\n'
+            f'      <div class="slide-body"{body_style_attr}>\n'
+            f"{rendered_body.strip()}\n"
+            f"      </div>\n"
+            f"    </section>"
+        )
+
+    suppress_header = not header_text or header_text.strip().lower() in {"none", "false", "off"}
+    header_html = f'      <header class="slide-header">{header_text}</header>\n' if not suppress_header else ""
+
+    suppress_footer = not paginate or (footer_text.strip().lower() in {"none", "false", "off"})
     footer_html = ""
-    if paginate:
+    if not suppress_footer:
+        footer_title = "" if footer_text.strip().lower() in {"none", "false", "off"} else footer_text
         footer_html = (
             f'      <footer class="slide-footer">\n'
-            f'        <span class="footer-title">{footer_text}</span>\n'
+            f'        <span class="footer-title">{footer_title}</span>\n'
             f'        <span class="page-number">{idx} / {total_slides}</span>\n'
             f"      </footer>\n"
         )
@@ -416,10 +669,10 @@ def _assemble_slide_section(
         ratio = _calculate_split_ratio(ratio_opt, "42% 58%")
         text_html, graphic_html = _split_body_content(rendered_body, "right")
         return (
-            f'    <section class="slide layout-split-right{active_cls}" data-slide-index="{idx}" '
+            f'    <section class="slide layout-split-right{active_cls}{compact_cls}" data-slide-index="{idx}" '
             f'style="--split-ratio: {ratio};">\n'
             f"{header_html}"
-            f'      <div class="slide-body">\n'
+            f'      <div class="slide-body"{body_style_attr}>\n'
             f'        <div class="slot-left">\n{text_html.strip()}\n        </div>\n'
             f'        <div class="slot-right">\n{graphic_html.strip()}\n        </div>\n'
             f"      </div>\n"
@@ -430,10 +683,10 @@ def _assemble_slide_section(
         ratio = _calculate_split_ratio(ratio_opt, "58% 42%")
         text_html, graphic_html = _split_body_content(rendered_body, "left")
         return (
-            f'    <section class="slide layout-split-left{active_cls}" data-slide-index="{idx}" '
+            f'    <section class="slide layout-split-left{active_cls}{compact_cls}" data-slide-index="{idx}" '
             f'style="--split-ratio: {ratio};">\n'
             f"{header_html}"
-            f'      <div class="slide-body">\n'
+            f'      <div class="slide-body"{body_style_attr}>\n'
             f'        <div class="slot-left">\n{graphic_html.strip()}\n        </div>\n'
             f'        <div class="slot-right">\n{text_html.strip()}\n        </div>\n'
             f"      </div>\n"
@@ -442,9 +695,9 @@ def _assemble_slide_section(
         )
 
     return (
-        f'    <section class="slide layout-{layout}{active_cls}" data-slide-index="{idx}">\n'
+        f'    <section class="slide layout-{layout}{active_cls}{compact_cls}" data-slide-index="{idx}">\n'
         f"{header_html}"
-        f'      <div class="slide-body">\n{rendered_body.strip()}\n      </div>\n'
+        f'      <div class="slide-body"{body_style_attr}>\n{rendered_body.strip()}\n      </div>\n'
         f"{footer_html}"
         f"    </section>"
     )
@@ -477,12 +730,12 @@ def _deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> No
         output_abs: Output directory.
         deck_theme: Chosen CSS theme name.
     """
-    css_content = get_css(name=deck_theme, target="slide")
     local_css_path = os.path.join(input_abs, "slide.css")
     if os.path.isfile(local_css_path):
         with open(local_css_path, "r", encoding="utf-8") as f:
-            local_css = f.read()
-        css_content = f"{css_content}\n\n/* Project Custom Overrides (slide.css) */\n{local_css}"
+            css_content = f.read()
+    else:
+        css_content = get_css(name=deck_theme, target="slide")
 
     with open(os.path.join(output_abs, "slide.css"), "w", encoding="utf-8") as f:
         f.write(css_content)
@@ -561,11 +814,19 @@ def build_slide(
         footer = str(frontmatter.get("footer", deck_title))
         paginate = bool(frontmatter.get("paginate", layout != "cover"))
         ratio = str(frontmatter.get("ratio", ""))
+        offset_y = str(frontmatter.get("offset_y", frontmatter.get("offset-y", "")))
+        font_size = str(frontmatter.get("font_size", frontmatter.get("font-size", "")))
+        compact = bool(frontmatter.get("compact", False))
+        text_box_opt = str(frontmatter.get("text_box", frontmatter.get("box", ""))).strip()
+
+        if text_box_opt and "::: box" not in body_text:
+            body_text = f"::: box {text_box_opt}\n{body_text.strip()}\n:::"
 
         text_to_search = "\n" + body_text if not body_text.startswith("\n") else body_text
         t_smartart = _process_smartarts(text_to_search, input_abs, output_abs, idx, filename)
         t_drawlib = _process_drawlib_blocks(t_smartart, output_abs, processor, file_path, idx, image_format)
-        rendered_body = parse_markdown_to_html(t_drawlib.strip())
+        t_containers = _process_container_blocks(t_drawlib)
+        rendered_body = parse_markdown_to_html(t_containers.strip())
 
         slide_section = _assemble_slide_section(
             rendered_body,
@@ -576,6 +837,9 @@ def build_slide(
             ratio,
             idx,
             total_slides,
+            offset_y=offset_y,
+            font_size=font_size,
+            compact=compact,
         )
         slides_html_list.append(slide_section)
 

@@ -1,6 +1,8 @@
 # Drawlib HTML Slide Feature Plan (SLIDE_PLAN.md)
 
-This document outlines the architectural design, component specification, and implementation plan for adding an HTML-based presentation slide deck feature to `drawlib`.
+> [!NOTE]
+> **Status**: Archived / Superseded by [SLIDE_PLAN2.md](SLIDE_PLAN2.md).
+> An updated architecture plan focusing on a pure **Canvas-based 1920×1080 Stage Model**, absolute `(x, y, w, h)` coordinate placement, project-local `slide.css` stylesheets, and HTML comment directives (`<!-- ... -->`) has been created in [SLIDE_PLAN2.md](SLIDE_PLAN2.md). Please refer to `SLIDE_PLAN2.md` for the active specification.
 
 ---
 

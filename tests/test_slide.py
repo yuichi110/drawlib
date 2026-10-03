@@ -306,6 +306,121 @@ rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", t
         with pytest.raises(ValueError, match="could not be resolved"):
             build_slide(str(src_dir))
 
+    def test_build_slide_canvas_mode(self, tmp_path: Path) -> None:
+        """Verify layout: canvas produces full-bleed 1920x1080 stage without header or footer."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        (src_dir / "01_canvas.md").write_text(
+            """---
+layout: canvas
+---
+
+```smartart:curved_agenda (0, 0) (1920, 1080) file:hero.svg
+1. Stage Design
+2. Canvas Architecture
+```
+""",
+            encoding="utf-8",
+        )
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        content = Path(result_html).read_text(encoding="utf-8")
+        assert "layout-canvas" in content
+        assert "slide-header" not in content
+        assert "slide-footer" not in content
+        assert "slide-positioned-asset" in content
+
+    def test_build_slide_container_boxes_and_coordinates(self, tmp_path: Path) -> None:
+        """Verify ::: box container syntax creates absolutely positioned, styled text boxes."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        (src_dir / "01_boxes.md").write_text(
+            """---
+header: "Microservices"
+---
+
+::: box (80, 140) (740, 480) font:21px compact z:10
+# Ingress Controller
+- **TLS**: Terminated at edge
+- **Routing**: Path-based dispatch
+:::
+
+::: box (80, 660) (740, 320) align:center
+> Note: Zero-trust network policy active.
+:::
+""",
+            encoding="utf-8",
+        )
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        content = Path(result_html).read_text(encoding="utf-8")
+        assert "slide-text-box" in content
+        assert "left: 80.0px; top: 140.0px; width: 740.0px; height: 480.0px;" in content
+        assert "font-size: 21px;" in content
+        assert "compact" in content
+        assert "z-index: 10;" in content
+        assert "left: 80.0px; top: 660.0px; width: 740.0px; height: 320.0px;" in content
+        assert "text-align: center;" in content
+
+    def test_build_slide_header_footer_suppression(self, tmp_path: Path) -> None:
+        """Verify header: none and footer: none suppress master frame components."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        (src_dir / "01_suppressed.md").write_text(
+            """---
+header: none
+footer: none
+layout: default
+---
+
+# Clean Slide Without Chrome
+- Focused content only
+""",
+            encoding="utf-8",
+        )
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        content = Path(result_html).read_text(encoding="utf-8")
+        assert "slide-header" not in content
+        assert "slide-footer" not in content
+        assert "Clean Slide Without Chrome" in content
+
+    def test_build_slide_frontmatter_options(self, tmp_path: Path) -> None:
+        """Verify slide-level frontmatter: offset_y, font_size, compact, and box."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        (src_dir / "01_options.md").write_text(
+            """---
+header: "Fine Tuned Slide"
+offset_y: -25px
+font_size: 20px
+compact: true
+box: "(80, 140) (740, 840)"
+---
+
+# Title Inside Auto-Box
+- Point 1
+- Point 2
+""",
+            encoding="utf-8",
+        )
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        content = Path(result_html).read_text(encoding="utf-8")
+        assert "transform: translateY(-25px);" in content
+        assert "font-size: 20px;" in content
+        assert "compact" in content
+        assert "slide-text-box" in content
+        assert "left: 80.0px; top: 140.0px; width: 740.0px; height: 840.0px;" in content
+
 
 class TestSlideCli:
     """Test suite for slide CLI commands."""
@@ -342,4 +457,5 @@ layout: cover
         assert (src_dir / "02_agenda.md").is_file()
         assert (src_dir / "build.sh").is_file()
         assert (src_dir / "serve.sh").is_file()
+        assert (src_dir / "slide.css").is_file()
         assert (src_dir / "_slide_templates" / "custom_kpi.py").is_file()
