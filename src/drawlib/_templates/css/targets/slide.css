@@ -412,12 +412,12 @@ hr {
 /* Print / PDF Export */
 @media print {
   @page {
-    size: 16in 9in;
+    size: 1920px 1080px;
     margin: 0;
   }
 
   html, body {
-    width: 100% !important;
+    width: 1920px !important;
     height: auto !important;
     overflow: visible !important;
     background: transparent !important;
@@ -425,7 +425,7 @@ hr {
 
   .presentation-viewport {
     display: block !important;
-    width: 100% !important;
+    width: 1920px !important;
     height: auto !important;
     position: static !important;
     overflow: visible !important;
@@ -434,19 +434,25 @@ hr {
   .presentation-stage {
     transform: none !important;
     position: static !important;
-    width: 16in !important;
+    width: 1920px !important;
     height: auto !important;
     box-shadow: none !important;
   }
 
   .slide {
-    display: flex !important;
-    position: static !important;
-    width: 16in !important;
-    height: 9in !important;
+    display: block !important;
+    position: relative !important;
+    width: 1920px !important;
+    height: 1080px !important;
     page-break-after: always !important;
     break-after: page !important;
     box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .slide:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
 
   .slide-controls, .overview-modal {
