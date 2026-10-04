@@ -324,7 +324,7 @@
 └───────────────────────────┘                 └───────────────────────────┘               └───────────────────────────┘
 </code></pre>
 <ol>
-<li><strong>Source of Truth (<code>&lt;name&gt;_src/</code>)</strong>: You author content exclusively in source directories (e.g. <code>docs_src/</code> or <code>images_src/</code>). Output folders (<code>docs/</code>, <code>docs_html/</code>, <code>images/</code>) are build artifacts and should never be manually modified.</li>
+<li><strong>Source of Truth (<code>&lt;name&gt;_src/</code>)</strong>: You author content exclusively in source directories (e.g. <code>docs_src/</code>, <code>doc_src/</code>, <code>slide_src/</code>, or <code>image_src/</code>). Output folders (<code>docs_html/</code>, <code>docs_markdown/</code>, <code>docs_images/</code>, etc.) are build artifacts and should never be manually modified.</li>
 <li><strong>Deterministic Build Cache</strong>: Drawlib computes a SHA-256 hash of each embedded code block. Unaltered diagrams are restored instantly from <code>.drawlib/cache.db</code>, enabling sub-second incremental builds across massive multi-page sites.</li>
 <li><strong>Execution Sandbox &amp; Isolation</strong>: The canvas lifecycle automatically clears between separate code blocks, ensuring zero visual side effects between adjacent diagrams.</li>
 <li><strong>Target Portability</strong>: The same Markdown source document can compile simultaneously to:
@@ -332,6 +332,7 @@
 <li>A responsive static HTML documentation site (<code>drawlib build html</code>).</li>
 <li>GitHub-flavored Markdown with companion images (<code>drawlib build markdown</code>).</li>
 <li>A publication-grade vector PDF with table of contents and cover page (<code>drawlib build pdf</code>).</li>
+<li>Extracted standalone diagram images (<code>drawlib build image</code>).</li>
 </ul>
 </li>
 </ol>
@@ -349,22 +350,22 @@
 <tbody>
 <tr>
 <td><strong><code>doc</code></strong></td>
-<td><code>doc.html</code>, <code>doc.pdf</code>, <code>doc.md</code>, <code>images/</code></td>
+<td><code>doc_html/</code>, <code>doc.pdf</code>, <code>doc_markdown/</code>, <code>doc_images/</code></td>
 <td>Linear technical documents, RFCs, specifications, whitepapers, and formal reports.</td>
 </tr>
 <tr>
 <td><strong><code>site</code></strong></td>
-<td><code>docs_html/</code> &amp; <code>docs/</code></td>
+<td><code>docs_html/</code>, <code>docs_markdown/</code> (or <code>docs/</code>), <code>docs_images/</code></td>
 <td>Multi-page documentation websites with sidebar navigation (<code>navbar.md</code>).</td>
 </tr>
 <tr>
 <td><strong><code>slide</code></strong></td>
-<td><code>slide/index.html</code> &amp; <code>slide.pdf</code></td>
+<td><code>slide_html/</code>, <code>slide.pdf</code>, <code>slide_images/</code></td>
 <td>16:9 presentation slide decks (interactive web deck + printable vector PDF).</td>
 </tr>
 <tr>
 <td><strong><code>image</code></strong></td>
-<td><code>images/*.png</code></td>
+<td><code>image_images/*.png</code></td>
 <td>Batch rendering standalone Python drawing scripts to image assets.</td>
 </tr>
 </tbody>
@@ -378,7 +379,7 @@
 <li><a href="./project_doc.html">Linear Document Project Guide</a>: Linear document RFCs, specifications, whitepapers, and dual HTML/PDF publishing.</li>
 <li><a href="./project_site.html">Doc Site Project Guide</a>: Multi-page website authoring, sidebar categories, and link validation.</li>
 <li><a href="./project_slide.html">Slide Deck Project Guide</a>: 16:9 presentation slide decks with interactive web deck and vector PDF export.</li>
-<li><a href="./project_image.html">Image Project Guide</a>: Standalone script automation (<code>images_src/</code> ➔ <code>images/</code>).</li>
+<li><a href="./project_image.html">Image Project Guide</a>: Standalone script automation (<code>image_src/</code> ➔ <code>image_images/</code>).</li>
 <li><a href="./customization.html">Customization &amp; Theming</a>: Customizing <code>template.html</code>, <code>style.css</code>, and injecting project <code>styles.py</code> and <code>utils.py</code>.</li>
 </ul>
 

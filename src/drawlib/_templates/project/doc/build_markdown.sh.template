@@ -27,5 +27,5 @@ fi
 
 echo "Using Drawlib command: $DRAWLIB_CMD"
 echo "Building Markdown..."
-$DRAWLIB_CMD build markdown __SRC_DIR__/ -o __OUT_DIR__/
-echo "Markdown build complete: __OUT_DIR__/"
+$DRAWLIB_CMD build markdown __SRC_DIR__/ -o __OUT_MARKDOWN_DIR__/
+echo "Markdown build complete: __OUT_MARKDOWN_DIR__/"

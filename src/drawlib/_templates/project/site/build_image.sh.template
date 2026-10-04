@@ -2,8 +2,12 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PARENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-cd "$PARENT_DIR"
+if [ "__SRC_DIR__" = "." ]; then
+    cd "$SCRIPT_DIR"
+else
+    PARENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+    cd "$PARENT_DIR"
+fi
 
 if [ -z "${DRAWLIB_CMD:-}" ]; then
     if [ -f "uv.lock" ] && command -v uv &> /dev/null; then
@@ -22,9 +26,6 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
 fi
 
 echo "Using Drawlib command: $DRAWLIB_CMD"
-
-echo "Building README images..."
-$DRAWLIB_CMD build image images_readme_src/ -o images_readme/
-
-echo "Build complete!"
-echo "  - Images: images_readme/"
+echo "Extracting standalone diagram images..."
+$DRAWLIB_CMD build image __SRC_DIR__/ -o __OUT_IMAGES_DIR__/
+echo "Image extraction complete: __OUT_IMAGES_DIR__/"

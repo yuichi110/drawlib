@@ -26,5 +26,5 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
 fi
 
 echo "Building standalone Python illustrations..."
-$DRAWLIB_CMD build image __SRC_DIR__/ -o __OUT_DIR__/
-echo "Image build complete: __OUT_DIR__/"
+$DRAWLIB_CMD build image __SRC_DIR__/ -o __OUT_IMAGES_DIR__/
+echo "Image build complete: __OUT_IMAGES_DIR__/"

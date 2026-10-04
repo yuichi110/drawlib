@@ -21,9 +21,10 @@ This directory contains multi-chapter specification or technical report document
   - `00_cover.md`: Document title/cover page.
   - `01_overview.md`: Overview chapter.
   - `02_design.md`: Technical design chapter.
-- `__OUT_DIR__/`: Generated Markdown files.
+- `__OUT_MARKDOWN_DIR__/`: Generated Markdown files.
 - `__OUT_HTML_DIR__/`: Generated HTML documents.
 - `__OUT_PDF__`: Generated PDF document.
+- `__OUT_IMAGES_DIR__/`: Generated diagram images.
 
 ---
 

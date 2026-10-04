@@ -13,7 +13,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-rm -rf docs/ docs_html/ quickstart.pdf images_readme/
+rm -rf docs/ docs_html/ quickstart.pdf readme_images/
 
 echo "=== Building Documentation Site (docs_src/build.sh) ==="
 bash docs_src/build.sh
@@ -23,8 +23,8 @@ echo "=== Building Quickstart PDF (quickstart_src/build.sh) ==="
 bash quickstart_src/build.sh
 
 echo ""
-echo "=== Building README Images (images_readme_src/build.sh) ==="
-bash images_readme_src/build.sh
+echo "=== Building README Images (readme_src/build.sh) ==="
+bash readme_src/build.sh
 
 echo ""
 echo "All builds completed successfully!"

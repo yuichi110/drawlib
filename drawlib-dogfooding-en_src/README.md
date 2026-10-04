@@ -1,6 +1,6 @@
-# Drawlib PDF Report Project
+# Drawlib Document Project (doc)
 
-This directory contains multi-chapter documents compiled into a unified, print-ready vector PDF report using Drawlib and headless Chromium.
+This directory contains multi-chapter documents compiled into **HTML, PDF, Markdown, and standalone images** using Drawlib.
 
 > [!TIP]
 > **Need Comprehensive Rules & Deep Guides?**  
@@ -15,31 +15,49 @@ This directory contains multi-chapter documents compiled into a unified, print-r
 ## 1. Directory Structure
 
 - `drawlib-dogfooding-en_src/`: Source Markdown chapters and drawing code (**Source of Truth**).
-  - `build.sh`: Build script to compile chapters into a single PDF document.
+  - `build.sh`: Master build script to compile all targets (HTML, PDF, Markdown, Images).
+  - `build_html.sh`: Build standalone HTML document.
+  - `build_pdf.sh`: Build vector PDF report.
+  - `build_markdown.sh`: Build GitHub-browsable Markdown.
+  - `build_image.sh`: Extract embedded diagram images.
+  - `serve.sh`: Local preview web server for generated HTML.
   - `styles.py`: Global styles script (themes, styles, font presets).
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
-  - `style.css`: PDF report print stylesheet (paged media, `@page` rules).
-  - `template.html`: Jinja2 HTML layout used for PDF rendering.
+  - `style.css`: Document stylesheet.
+  - `template.html`: Jinja2 HTML layout used for HTML / PDF rendering.
   - `README.md`: This customization guide.
-  - `00_cover.md`: Report title/cover page.
-  - `01_overview.md`: Overview chapter.
-  - `02_design.md`: Technical design chapter.
+  - `00_cover.md`: Cover page.
+  - `01_ai_challenges.md`: Chapter Markdown files.
+- `drawlib-dogfooding-en_html/`: Generated HTML document (**Do not edit directly**).
 - `drawlib-dogfooding-en.pdf`: Generated PDF document (**Do not edit directly**).
+- `drawlib-dogfooding-en_markdown/`: Generated Markdown document (**Do not edit directly**).
+- `drawlib-dogfooding-en_images/`: Extracted standalone diagram images (**Do not edit directly**).
 
 ---
 
-## 2. Building PDF
+## 2. Building
 
-### Using the Build Script
-Run the automated build script from the project root or inside this directory:
+### Using the Build Scripts
+Run the desired build script from the project root or inside this directory:
 ```bash
-./build.sh
+./build_html.sh       # Generate standalone HTML document (drawlib-dogfooding-en_html/)
+./build_pdf.sh        # Generate vector PDF report (drawlib-dogfooding-en.pdf)
+./build_markdown.sh   # Generate GitHub-browsable Markdown (drawlib-dogfooding-en_markdown/)
+./build_image.sh      # Extract embedded diagram images (drawlib-dogfooding-en_images/)
+./build.sh            # Build all targets above sequentially
+```
+
+### Starting the Preview Server
+```bash
+./serve.sh            # Preview at http://localhost:8000
 ```
 
 ### Using the Drawlib CLI Directly
 ```bash
-# Compile chapters into a unified PDF report with table of contents
+drawlib build html drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_html/
 drawlib build pdf drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en.pdf --generate-index
+drawlib build markdown drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_markdown/
+drawlib build image drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_images/
 ```
 
 ---
@@ -95,7 +113,7 @@ chapter_banner((60, 20), f"System Design ({REPORT_VERSION})")
 ### 3.5. Fast Developer Verification
 Test individual drawing blocks with alignment grid (`-g`):
 ```bash
-drawlib export drawlib-dogfooding-en_src/01_overview.md 1 -g -o preview.png
+drawlib show drawlib-dogfooding-en_src/01_ai_challenges.md 1 -g -o preview.png
 ```
 Rebuild without cache:
 ```bash

@@ -186,7 +186,6 @@ def resolve_block_image_paths(
     output_dir: Optional[str],
     require_file: bool = False,
     line_number: int = 1,
-    flat_output: bool = False,
 ) -> tuple[str, str]:
     """Resolve relative image reference path and target filesystem path for a drawlib block.
 
@@ -198,7 +197,6 @@ def resolve_block_image_paths(
         output_dir (Optional[str]): Target output directory for generated assets.
         require_file (bool): Whether to enforce that options.file is provided.
         line_number (int): Line number of the code block for error reporting.
-        flat_output (bool): If True, omit <doc_base_name>_images/ subfolder. Defaults to False.
 
     Returns:
         tuple[str, str]: (rel_img_path for HTML/Markdown src, target_img_path on disk).
@@ -217,7 +215,7 @@ def resolve_block_image_paths(
         else:
             img_name = f"{raw_file}.{ext}"
 
-        if flat_output or "/" in img_name or (os.sep in img_name):
+        if "/" in img_name or (os.sep in img_name):
             rel_img_path = img_name
         else:
             rel_img_path = f"{doc_base_name}_images/{img_name}"
@@ -228,10 +226,7 @@ def resolve_block_image_paths(
                 "Example: ```drawlib file:my_diagram.png"
             )
         img_name = f"{block_counter}.{ext}"
-        if flat_output:
-            rel_img_path = f"{doc_base_name}_{img_name}" if doc_base_name else img_name
-        else:
-            rel_img_path = f"{doc_base_name}_images/{img_name}"
+        rel_img_path = f"{doc_base_name}_images/{img_name}"
 
     if output_dir:
         target_img_path = os.path.join(output_dir, rel_img_path)

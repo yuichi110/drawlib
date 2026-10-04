@@ -26,5 +26,5 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
 fi
 
 echo "Building Markdown..."
-$DRAWLIB_CMD build markdown __SRC_DIR__/ -o __OUT_DIR__/
-echo "Markdown build complete: __OUT_DIR__/"
+$DRAWLIB_CMD build markdown __SRC_DIR__/ -o __OUT_MARKDOWN_DIR__/
+echo "Markdown build complete: __OUT_MARKDOWN_DIR__/"

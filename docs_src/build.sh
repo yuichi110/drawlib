@@ -9,4 +9,7 @@ echo "=== Building HTML Site ==="
 echo "=== Building Markdown ==="
 "$SCRIPT_DIR/build_markdown.sh"
 
+echo "=== Extracting Images ==="
+"$SCRIPT_DIR/build_image.sh"
+
 echo "All builds completed successfully!"

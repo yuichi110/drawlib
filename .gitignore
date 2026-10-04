@@ -28,6 +28,18 @@ test_build_target/**/*.png
 !test_build_target/docs/commons/images/*.png
 colors_*.png
 styles_*.png
+quickstart_html/
+quickstart_images/
+quickstart_markdown/
+docs_images/
+drawlib-dogfooding_html/
+drawlib-dogfooding_images/
+drawlib-dogfooding_markdown/
+drawlib-dogfooding-en_html/
+drawlib-dogfooding-en_images/
+drawlib-dogfooding-en_markdown/
+slide/images/
+slide_images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

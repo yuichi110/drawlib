@@ -20,3 +20,51 @@ body {
         border-radius: 8px;
     }
 }
+
+@media print {
+    @page {
+        size: A4;
+        margin: 18mm 16mm;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    html, body {
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
+    }
+
+    .page-break {
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .chapter-separator {
+        page-break-before: always;
+        break-before: page;
+    }
+
+    pre, .drawlib-image, table, blockquote {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    h1, h2, h3 {
+        break-after: avoid;
+        page-break-after: avoid;
+    }
+}
+

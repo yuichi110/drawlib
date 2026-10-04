@@ -328,7 +328,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <hr />
 <h2>2. Directory Layout &amp; Anatomy</h2>
 <pre><code class="language-text">my_doc/
-├── docs_src/                  # [SOURCE OF TRUTH] Author Markdown content here
+├── doc_src/                   # [SOURCE OF TRUTH] Author Markdown content here
 │   ├── 00_cover.md            # Cover page (title, author, metadata)
 │   ├── 01_overview.md         # Executive overview chapter
 │   ├── 02_design.md           # Technical design chapter
@@ -337,16 +337,16 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 │   ├── styles.py              # Shared project styling themes
 │   ├── utils.py               # Helper drawing functions
 │   ├── build.sh               # Master build script (runs all target builds)
-│   ├── build_html.sh          # Fast preview HTML build (doc.html)
+│   ├── build_html.sh          # Fast preview HTML build (doc_html/)
 │   ├── build_pdf.sh           # Headless Chromium vector PDF build (doc.pdf)
-│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc.md)
-│   ├── build_image.sh         # Extract embedded drawlib blocks to images/
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc_markdown/)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to doc_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Project instructions
-├── doc.html                   # [GENERATED] Single-page HTML document
+├── doc_html/                  # [GENERATED] Single-page HTML document(s)
 ├── doc.pdf                    # [GENERATED] High-quality vector PDF
-├── doc.md                     # [GENERATED] Markdown with rendered images for GitHub
-└── images/                    # [GENERATED] Extracted diagram images
+├── doc_markdown/              # [GENERATED] Markdown with rendered images for GitHub
+└── doc_images/                # [GENERATED] Extracted standalone diagram images
 </code></pre>
 <hr />
 <h2>3. Four Target Outputs from One Source</h2>
@@ -354,7 +354,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Output File</th>
+<th style="text-align:left">Output Target</th>
 <th style="text-align:left">Target Audience</th>
 <th style="text-align:left">Primary Use Case</th>
 <th style="text-align:left">Build Script</th>
@@ -362,7 +362,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong><code>doc.html</code></strong></td>
+<td style="text-align:left"><strong><code>doc_html/</code></strong></td>
 <td style="text-align:left">Web Browsers</td>
 <td style="text-align:left">Fast local preview, web publishing, internal documentation wikis</td>
 <td style="text-align:left"><code>build_html.sh</code></td>
@@ -374,13 +374,13 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <td style="text-align:left"><code>build_pdf.sh</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>doc.md</code></strong></td>
+<td style="text-align:left"><strong><code>doc_markdown/</code></strong></td>
 <td style="text-align:left">GitHub &amp; Version Control</td>
 <td style="text-align:left">Direct viewing in GitHub/GitLab repositories with rendered image links</td>
 <td style="text-align:left"><code>build_markdown.sh</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>images/*.png</code></strong></td>
+<td style="text-align:left"><strong><code>doc_images/</code></strong></td>
 <td style="text-align:left">Presentations &amp; Messaging</td>
 <td style="text-align:left">Drag-and-drop into Google Slides, Keynote, PowerPoint, Slack, or PRs</td>
 <td style="text-align:left"><code>build_image.sh</code></td>
@@ -392,13 +392,13 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <p>Each project contains specialized scripts alongside a master orchestrator:</p>
 <ol>
 <li><strong><code>build_html.sh</code></strong>:
-Compiles Markdown chapters into a single, beautifully styled HTML document (<code>doc.html</code>). Extremely fast for local verification.</li>
+Compiles Markdown chapters into a beautifully styled HTML document (<code>doc_html/</code>). Extremely fast for local verification.</li>
 <li><strong><code>build_pdf.sh</code></strong>:
 Renders the document into an A4 vector PDF via headless Chromium (<code>page.pdf()</code>). Supports automatic Table of Contents (<code>--toc</code>) and clean chapter page breaks (<code>--page-break</code>).</li>
 <li><strong><code>build_markdown.sh</code></strong>:
-Converts inline <code>drawlib</code> blocks into standard Markdown image tags pointing to rendered diagrams in <code>images/</code>.</li>
+Converts inline <code>drawlib</code> blocks into standard Markdown image tags pointing to rendered diagrams in <code>doc_markdown/&lt;chapter&gt;_images/</code>.</li>
 <li><strong><code>build_image.sh</code></strong>:
-Scans all Markdown files, extracts embedded <code>drawlib</code> blocks, and renders them directly to <code>images/</code> as standalone PNG files.</li>
+Scans all Markdown files, extracts embedded <code>drawlib</code> blocks, and renders them cleanly into <code>doc_images/&lt;chapter&gt;_images/</code> without risk of name collisions.</li>
 <li><strong><code>build.sh</code> (Master Script)</strong>:
 Runs all of the above target builds in sequence to produce a complete set of release artifacts.</li>
 </ol>
@@ -406,16 +406,16 @@ Runs all of the above target builds in sequence to produce a complete set of rel
 <h2>5. Direct CLI Commands</h2>
 <p>You can also run the build commands directly from the terminal:</p>
 <pre><code class="language-bash"><span class="c1"># 1. Compile to HTML:</span>
-drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>doc.html
+drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_html/
 
 <span class="c1"># 2. Compile to PDF with Cover and Table of Contents:</span>
-drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>doc.pdf<span class="w"> </span>--toc<span class="w"> </span>--page-break
+drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc.pdf<span class="w"> </span>--toc<span class="w"> </span>--page-break
 
 <span class="c1"># 3. Compile to GitHub-ready Markdown:</span>
-drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>doc.md
+drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_markdown/
 
 <span class="c1"># 4. Extract diagram images from Markdown:</span>
-drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>images/
+drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_images/
 </code></pre>
 
             </main>

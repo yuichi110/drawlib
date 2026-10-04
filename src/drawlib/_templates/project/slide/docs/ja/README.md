@@ -17,7 +17,9 @@
   - `01_title.md`: タイトルスライド。
   - `02_agenda.md`: アジェンダスライド。
   - `03_architecture.md`: アーキテクチャ・図版スライド。
-- `__OUT_DIR__/`: 生成された成果物 (**直接編集不可**)。
+- `__OUT_HTML_DIR__/`: 生成されたインタラクティブ HTML スライド (`__OUT_HTML_DIR__/index.html`)。
+- `__OUT_PDF__`: 生成されたベクター PDF プレゼンテーション。
+- `__OUT_IMAGES_DIR__/`: 抽出された図解画像群。
 
 ---
 
@@ -27,7 +29,8 @@
 ```bash
 ./build_html.sh   # HTML スライドデッキの生成
 ./build_pdf.sh    # ベクター PDF の生成
-./build.sh        # 全ビルドの実行
+./build_image.sh  # 単体図解画像の抽出
+./build.sh        # 全ビルドの順次実行
 ```
 
 ### プレビュー

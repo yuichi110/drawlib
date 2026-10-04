@@ -372,10 +372,12 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <li><code>--page-break</code>: Insert CSS page breaks between chapters (<code>page-break-before: always</code>).</li>
 </ul>
 <h3>2.4 <code>drawlib build image</code></h3>
-<p>Batch executes standalone Python illustration scripts (<code>.py</code>) to generate images.</p>
-<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/<span class="w"> </span>--grid
+<p>Batch executes standalone Python illustration scripts (<code>.py</code>) or extracts embedded drawing blocks from Markdown files (<code>.md</code>) to generate image assets.</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs_images/<span class="w"> </span>--grid
 </code></pre>
 <ul>
+<li>For Python scripts: outputs <code>&lt;script_name&gt;.png</code> (or format) directly into the destination folder.</li>
+<li>For Markdown files: outputs diagrams cleanly into <code>&lt;markdown_name&gt;_images/&lt;image_file&gt;</code> subdirectories to prevent file collisions across chapters.</li>
 <li><code>-g</code>, <code>--grid</code>: Saves companion <code>*_grid.png</code> images overlaid with coordinate grids.</li>
 <li>Mirrors nested subdirectory hierarchies automatically in the destination folder.</li>
 </ul>

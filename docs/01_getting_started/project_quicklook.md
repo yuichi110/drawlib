@@ -36,10 +36,10 @@ $ uv run drawlib init site -o mybook
 ```
 
 Drawlib supports four starter project types:
-- **`doc`**: Linear technical document / spec / RFC / report compiled to HTML, PDF, Markdown, and extracted diagrams.
-- **`site`**: Multi-page documentation website with sidebar navigation (`navbar.md`) and dual publishing.
-- **`slide`**: 16:9 presentation slide deck compiled to interactive web HTML and multi-page vector PDF.
-- **`image`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
+- **`doc`**: Linear technical document / spec / RFC / report compiled to HTML (`doc_html/`), PDF (`doc.pdf`), Markdown (`doc_markdown/`), and diagrams (`doc_images/`).
+- **`site`**: Multi-page documentation website (`docs_html/`), Markdown site (`docs_markdown/` or `docs/`), and diagrams (`docs_images/`).
+- **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide.pdf`), and diagrams (`slide_images/`).
+- **`image`**: Standalone Python illustration scripts (`image_src/*.py`) batch-compiled to image files (`image_images/*.png`).
 
 ---
 
@@ -52,8 +52,9 @@ Once initialized, compile your documentation using the generated `build.sh` scri
 $ ./build.sh
 
 # Or compile using the CLI directly:
-$ uv run drawlib build html docs_src/ -o mybook_html/
-$ uv run drawlib build markdown docs_src/ -o mybook/
+$ uv run drawlib build html docs_src/ -o docs_html/
+$ uv run drawlib build markdown docs_src/ -o docs/
+$ uv run drawlib build image docs_src/ -o docs_images/
 ```
 
 During the build process:

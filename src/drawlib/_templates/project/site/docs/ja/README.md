@@ -15,7 +15,10 @@
 ## 1. ディレクトリ構成
 
 - `__SRC_DIR__/`: Markdown ソースドキュメントおよび図面コード (**正本**)。
-  - `build.sh`: Markdown および HTML サイトを一括ビルドするスクリプト。
+  - `build.sh`: HTML、Markdown、画像を順次ビルドするマスター統合スクリプト。
+  - `build_html.sh`: 静的 HTML サイトのビルドスクリプト。
+  - `build_markdown.sh`: GitHub 閲覧用 Markdown のビルドスクリプト。
+  - `build_image.sh`: 単体図解画像の一括抽出スクリプト。
   - `serve.sh`: ローカルプレビュー用 HTTP サーバースクリプト。
   - `styles.py`: 全体描画テーマ、パレット、日本語フォント設定スクリプト。
   - `utils.py`: 再利用可能な描画ヘルパー関数、マクロ、プロジェクト共通定数。
@@ -26,17 +29,20 @@
   - `index.md`: トップページ。
   - `architecture/index.md`: アーキテクチャ解説ページ。
   - `workflow/index.md`: ワークフロー解説ページ。
-- `__OUT_DIR__/`: 生成された Markdown ドキュメント (**直接編集しないでください**)。
+- `__OUT_MARKDOWN_DIR__/`: 生成された Markdown ドキュメント (**直接編集しないでください**)。
 - `__OUT_HTML_DIR__/`: 生成された静的 HTML サイト (**直接編集しないでください**)。
+- `__OUT_IMAGES_DIR__/`: 抽出された図解画像群 (**直接編集しないでください**)。
 
 ---
 
 ## 2. ビルドとプレビュー
 
 ### ビルドスクリプトの実行
-プロジェクトルートまたは本ディレクトリから以下を実行します:
 ```bash
-./build.sh
+./build_html.sh       # HTML サイトの生成
+./build_markdown.sh   # Markdown の生成
+./build_image.sh      # 図解画像の抽出
+./build.sh            # 全ビルドの順次実行
 ```
 
 ### drawlib コマンドを直接実行する場合
@@ -45,7 +51,10 @@
 drawlib build html __SRC_DIR__/ -o __OUT_HTML_DIR__/
 
 # GitHub 閲覧用 Markdown (画像リンク付き) の生成
-drawlib build markdown __SRC_DIR__/ -o __OUT_DIR__/
+drawlib build markdown __SRC_DIR__/ -o __OUT_MARKDOWN_DIR__/
+
+# 図解画像の抽出
+drawlib build image __SRC_DIR__/ -o __OUT_IMAGES_DIR__/
 ```
 
 ### HTML サイトのローカルプレビュー

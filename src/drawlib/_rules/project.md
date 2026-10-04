@@ -55,23 +55,23 @@ Drawlib features 4 built-in project starter templates tailored to different publ
 ### 3.1 Linear Document (`doc` Template)
 ```text
 my_doc/
-├── docs_src/                  # [SOURCE OF TRUTH] Edit ONLY files here!
+├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
 │   ├── 00_cover.md            # Cover page (title, author, metadata)
 │   ├── 01_overview.md         # Executive overview chapter
 │   ├── 02_design.md           # Technical design chapter
 │   ├── styles.py              # Project-wide styling themes and color overrides
 │   ├── utils.py               # Custom helper drawing functions
 │   ├── build.sh               # Master build script (runs all target builds)
-│   ├── build_html.sh          # Fast preview HTML build (doc.html)
+│   ├── build_html.sh          # Standalone HTML build (doc_html/)
 │   ├── build_pdf.sh           # Headless Chromium vector PDF build (doc.pdf)
-│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc.md)
-│   ├── build_image.sh         # Extract embedded drawlib blocks to images/
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc_markdown/)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to doc_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Project instructions
-├── doc.html                   # [GENERATED] Single-page HTML document
+├── doc_html/                  # [GENERATED] Standalone HTML document(s)
 ├── doc.pdf                    # [GENERATED] High-quality vector PDF
-├── doc.md                     # [GENERATED] Markdown with rendered images for GitHub
-└── images/                    # [GENERATED] Extracted diagram images
+├── doc_markdown/              # [GENERATED] Markdown with rendered images for GitHub
+└── doc_images/                # [GENERATED] Extracted standalone diagram images
 ```
 
 ### 3.2 Documentation Site (`site` Template)
@@ -82,19 +82,17 @@ my_project/
 │   ├── navbar.md              # Sidebar navigation and brand definition
 │   ├── styles.py              # Project-wide styling themes and color overrides
 │   ├── utils.py               # Custom helper drawing functions
-│   ├── build.sh               # Master build script (runs HTML + Markdown builds)
-│   ├── build_html.sh          # Static HTML website build
-│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing
+│   ├── build.sh               # Master build script (HTML + Markdown + Images)
+│   ├── build_html.sh          # Static HTML website build (docs_html/)
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (docs_markdown/)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to docs_images/
 │   ├── serve.sh               # Local preview server script
 │   ├── README.md              # Project instructions
 │   └── architecture/          # Chapter / section subdirectories
 │       └── index.md
-├── docs/                      # [GENERATED] Markdown site for GitHub (NEVER EDIT DIRECTLY!)
-│   ├── index.md
-│   └── index_images/          # Rendered companion images
-└── docs_html/                 # [GENERATED] Static HTML website with sidebar (NEVER EDIT DIRECTLY!)
-    ├── index.html
-    └── index_images/
+├── docs_html/                 # [GENERATED] Static HTML website with sidebar
+├── docs_markdown/             # [GENERATED] Markdown site for GitHub browsing
+└── docs_images/               # [GENERATED] Extracted standalone diagram images
 ```
 
 ### 3.3 Presentation Deck (`slide` Template)
@@ -107,29 +105,29 @@ my_slides/
 │   ├── styles.py              # Slide-wide styling and color overrides
 │   ├── utils.py               # Slide layout helpers (cards, badges, grids)
 │   ├── slide.js               # Slide runtime keyboard / navigation engine
-│   ├── build.sh               # Master build script (HTML + PDF)
-│   ├── build_html.sh          # HTML presentation deck build
-│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (1 slide per page)
+│   ├── build.sh               # Master build script (HTML + PDF + Images)
+│   ├── build_html.sh          # HTML presentation deck build (slide_html/)
+│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (slide.pdf)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to slide_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Slide authoring guide
-├── slide/                     # [GENERATED] HTML presentation deck
-│   ├── index.html
-│   └── index_images/
-└── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+├── slide_html/                # [GENERATED] HTML presentation deck (index.html)
+├── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+└── slide_images/              # [GENERATED] Extracted standalone slide diagram images
 ```
 
 ### 3.4 Standalone Images Project (`image` Template)
 ```text
 my_images_project/
-├── images_src/                # [SOURCE OF TRUTH] Python drawing scripts (*.py)
+├── image_src/                 # [SOURCE OF TRUTH] Python drawing scripts (*.py)
 │   ├── sample1.py             # Starter Drawlib drawing script
 │   ├── sample2.py             # Advanced drawing script
 │   ├── styles.py              # Shared project styling themes
 │   ├── utils.py               # Shared project helper functions
 │   ├── build.sh               # Master build script
-│   ├── build_image.sh         # Batch image rendering script
+│   ├── build_image.sh         # Batch image rendering script (image_images/)
 │   └── README.md              # Illustration workflow guide
-└── images/                    # [GENERATED] Rendered PNG/WebP output images
+└── image_images/              # [GENERATED] Rendered PNG/WebP output images
     ├── sample1.png
     └── sample2.png
 ```
@@ -139,7 +137,7 @@ Each project type generates focused, specialized shell scripts alongside a maste
 - **`build_html.sh`**: Fast preview HTML build. Perfect for rapid editing and browser verification.
 - **`build_pdf.sh`**: Headless Chromium print to vector PDF. Respects `@page` sizing (A4 for `doc`, 16:9 for `slide`).
 - **`build_markdown.sh`**: Replaces ````drawlib```` blocks with generated image links for GitHub repo viewing.
-- **`build_image.sh`**: Generates standalone image files (executing Python scripts for `image`, or extracting embedded code blocks for `doc`).
+- **`build_image.sh`**: Generates standalone image files (executing Python scripts for `image`, or extracting embedded code blocks for `doc`, `site`, `slide`).
 - **`build.sh` (Master)**: Sequentially executes all target builds applicable to the project.
 
 ### Golden Rule of Documentation:

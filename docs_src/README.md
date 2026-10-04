@@ -15,7 +15,10 @@ This directory contains the source Markdown files, drawing code, and configurati
 ## 1. Directory Structure
 
 - `docs_src/`: Source documents and drawing code (**Source of Truth**).
-  - `build.sh`: Build automation script for Markdown and HTML compilation.
+  - `build.sh`: Master build script (runs HTML, Markdown, and Image builds).
+  - `build_html.sh`: Static HTML website build script.
+  - `build_markdown.sh`: Rendered Markdown build script (outputs to `docs/`).
+  - `build_image.sh`: Batch diagram image extraction script (outputs to `docs_images/`).
   - `serve.sh`: Local preview server script.
   - `styles.py`: Global drawing themes, style palettes, and font presets.
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
@@ -26,17 +29,20 @@ This directory contains the source Markdown files, drawing code, and configurati
   - `index.md`: Root landing page.
   - `architecture/index.md`: Architecture chapter page.
   - `workflow/index.md`: Workflow chapter page.
-- `docs/`: Generated Markdown site (**Do not edit directly**).
+- `docs/`: Generated Markdown site for GitHub browsing (**Do not edit directly**).
 - `docs_html/`: Generated static HTML website (**Do not edit directly**).
+- `docs_images/`: Generated standalone diagram images (**Do not edit directly**).
 
 ---
 
 ## 2. Building & Previewing
 
-### Using the Build Script
-Run the automated build script from the project root or inside this directory:
+### Using the Build Scripts
 ```bash
-./build.sh
+./build_html.sh       # Compile standalone HTML website (docs_html/)
+./build_markdown.sh   # Compile Markdown for GitHub browsing (docs/)
+./build_image.sh      # Extract standalone diagram images (docs_images/)
+./build.sh            # Run all builds sequentially
 ```
 
 ### Using the Drawlib CLI Directly
@@ -46,6 +52,9 @@ drawlib build html docs_src/ -o docs_html/
 
 # Compile to GitHub-friendly Markdown with linked images
 drawlib build markdown docs_src/ -o docs/
+
+# Extract diagram images
+drawlib build image docs_src/ -o docs_images/
 ```
 
 ### Previewing the HTML Site Locally

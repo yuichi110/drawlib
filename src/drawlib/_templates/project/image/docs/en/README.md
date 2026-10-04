@@ -22,7 +22,7 @@ This directory contains standalone Python scripts that generate diagram images i
   - `README.md`: This customization guide.
   - `sample1.py`: Basic architecture diagram using Drawlib core primitives.
   - `sample2.py`: Advanced architecture diagram using `utils.py` and local assets (`_assets/`).
-- `__OUT_DIR__/`: Generated images directory (**Do not edit directly**).
+- `__OUT_IMAGES_DIR__/`: Generated images directory (**Do not edit directly**).
 
 ---
 
@@ -37,7 +37,7 @@ Run the automated build script from the project root or inside this directory:
 ### Using the Drawlib CLI Directly
 ```bash
 # Execute all Python scripts in the directory and generate image files
-drawlib build image __SRC_DIR__/ -o __OUT_DIR__/
+drawlib build image __SRC_DIR__/ -o __OUT_IMAGES_DIR__/
 ```
 
 ---

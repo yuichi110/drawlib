@@ -17,7 +17,9 @@ This directory contains slide Markdown files and drawing code compiled into an i
   - `01_title.md`: Title slide.
   - `02_agenda.md`: Agenda slide.
   - `03_architecture.md`: Architecture and diagram slide.
-- `__OUT_DIR__/`: Generated presentation artifacts (**Do not edit directly**).
+- `__OUT_HTML_DIR__/`: Generated interactive HTML slide deck (`__OUT_HTML_DIR__/index.html`).
+- `__OUT_PDF__`: Generated vector PDF presentation.
+- `__OUT_IMAGES_DIR__/`: Generated standalone diagram images.
 
 ---
 
@@ -27,7 +29,8 @@ This directory contains slide Markdown files and drawing code compiled into an i
 ```bash
 ./build_html.sh   # Compile interactive HTML slide deck
 ./build_pdf.sh    # Compile vector PDF presentation
-./build.sh        # Run all builds
+./build_image.sh  # Extract standalone diagram images
+./build.sh        # Run all builds sequentially
 ```
 
 ### Previewing

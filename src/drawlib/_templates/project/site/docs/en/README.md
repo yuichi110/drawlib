@@ -15,7 +15,10 @@ This directory contains the source Markdown files, drawing code, and configurati
 ## 1. Directory Structure
 
 - `__SRC_DIR__/`: Source documents and drawing code (**Source of Truth**).
-  - `build.sh`: Build automation script for Markdown and HTML compilation.
+  - `build.sh`: Master build script (runs HTML, Markdown, and Image builds).
+  - `build_html.sh`: Static HTML website build script.
+  - `build_markdown.sh`: Rendered Markdown build script.
+  - `build_image.sh`: Batch diagram image extraction script.
   - `serve.sh`: Local preview server script.
   - `styles.py`: Global drawing themes, style palettes, and font presets.
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
@@ -26,17 +29,20 @@ This directory contains the source Markdown files, drawing code, and configurati
   - `index.md`: Root landing page.
   - `architecture/index.md`: Architecture chapter page.
   - `workflow/index.md`: Workflow chapter page.
-- `__OUT_DIR__/`: Generated Markdown site (**Do not edit directly**).
+- `__OUT_MARKDOWN_DIR__/`: Generated Markdown site (**Do not edit directly**).
 - `__OUT_HTML_DIR__/`: Generated static HTML website (**Do not edit directly**).
+- `__OUT_IMAGES_DIR__/`: Generated standalone diagram images (**Do not edit directly**).
 
 ---
 
 ## 2. Building & Previewing
 
-### Using the Build Script
-Run the automated build script from the project root or inside this directory:
+### Using the Build Scripts
 ```bash
-./build.sh
+./build_html.sh       # Compile standalone HTML website
+./build_markdown.sh   # Compile Markdown for GitHub browsing
+./build_image.sh      # Extract standalone diagram images
+./build.sh            # Run all builds sequentially
 ```
 
 ### Using the Drawlib CLI Directly
@@ -45,7 +51,10 @@ Run the automated build script from the project root or inside this directory:
 drawlib build html __SRC_DIR__/ -o __OUT_HTML_DIR__/
 
 # Compile to GitHub-friendly Markdown with linked images
-drawlib build markdown __SRC_DIR__/ -o __OUT_DIR__/
+drawlib build markdown __SRC_DIR__/ -o __OUT_MARKDOWN_DIR__/
+
+# Extract diagram images
+drawlib build image __SRC_DIR__/ -o __OUT_IMAGES_DIR__/
 ```
 
 ### Previewing the HTML Site Locally

@@ -6,9 +6,9 @@ Drawlib enforces a clean, predictable project structure for all documentation an
 
 | Template | Scaffold Command | Best Suited For | Output Directory |
 | :--- | :--- | :--- | :--- |
+| **`doc`** | `drawlib init doc` | Linear technical document, spec, RFC, or formal report | `docs_src/` -> `doc.html`, `doc.pdf`, `doc.md` |
 | **`site`** | `drawlib init site` | Complete documentation website with sidebar navigation | `docs_src/` -> `docs_html/` & `docs/` |
-| **`simple`** | `drawlib init simple` | Single technical specification, RFC, or design memo | `docs_src/` -> `doc.html` & `doc.md` |
-| **`pdf`** | `drawlib init pdf` | Multi-chapter formal technical book or engineering report | `docs_src/` -> `document.pdf` |
+| **`slide`** | `drawlib init slide` | 16:9 presentation slide deck (web & vector PDF) | `slide_src/` -> `slide/index.html` & `slide.pdf` |
 | **`image`** | `drawlib init image` | Standalone Python drawing batch scripts | `images_src/` -> `images/` |
 
 ```drawlib 640px center file:project_templates.png caption:"Figure 14.1: The Four Standard Drawlib Project Templates"
@@ -21,9 +21,9 @@ from drawlib.text import text
 setup(width=120, height=48)
 
 templates = [
-    (18, phosphor.browsers, "Site Template", "Multi-page docs\nnavbar.md sidebar\nHTML + GitHub MD", Styles.PrimaryFlat),
-    (46, phosphor.file_text, "Simple Template", "Single RFC / Spec\ndoc.md -> doc.html\nStandalone memo", Styles.SecondaryFlat),
-    (74, phosphor.book, "PDF Template", "Multi-chapter book\n00-cover, 01-intro\nAuto-index page", Styles.AccentFlat),
+    (18, phosphor.file_text, "Doc Template", "Linear docs & RFCs\nHTML, PDF, MD, img\nSingle/multi-chapter", Styles.PrimaryFlat),
+    (46, phosphor.browsers, "Site Template", "Multi-page docs\nnavbar.md sidebar\nHTML + GitHub MD", Styles.SecondaryFlat),
+    (74, phosphor.presentation, "Slide Template", "16:9 presentations\nInteractive HTML\n1-slide-per-page PDF", Styles.AccentFlat),
     (102, phosphor.image, "Image Template", "Python scripts only\nimages_src/*.py\nBatch PNG export", Styles.SuccessFlat),
 ]
 

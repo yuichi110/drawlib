@@ -10,11 +10,11 @@ else
     cd "$PARENT_DIR"
 fi
 
-if [ ! -f "__OUT_DIR__/index.html" ]; then
-    if [ -f "__SRC_DIR__/build.sh" ]; then
-        "./__SRC_DIR__/build.sh"
-    elif [ -f "./build.sh" ]; then
-        "./build.sh"
+if [ ! -f "__OUT_HTML_DIR__/index.html" ]; then
+    if [ -f "$SCRIPT_DIR/build_html.sh" ]; then
+        "$SCRIPT_DIR/build_html.sh"
+    elif [ -f "$SCRIPT_DIR/build.sh" ]; then
+        "$SCRIPT_DIR/build.sh"
     fi
 fi
 
@@ -30,4 +30,4 @@ fi
 
 PORT="${1:-8000}"
 echo "Serving presentation at http://localhost:${PORT}..."
-$DRAWLIB_CMD serve __OUT_DIR__/ -p "${PORT}"
+$DRAWLIB_CMD serve __OUT_HTML_DIR__/ -p "${PORT}"

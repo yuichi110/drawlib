@@ -74,12 +74,14 @@ drawlib build pdf docs_src/ -o report.pdf --toc --page-break
 - `--page-break`: Insert CSS page breaks between chapters (`page-break-before: always`).
 
 ### 2.4 `drawlib build image`
-Batch executes standalone Python illustration scripts (`.py`) to generate images.
+Batch executes standalone Python illustration scripts (`.py`) or extracts embedded drawing blocks from Markdown files (`.md`) to generate image assets.
 
 ```bash
-drawlib build image images_src/ -o images/ --grid
+drawlib build image docs_src/ -o docs_images/ --grid
 ```
 
+- For Python scripts: outputs `<script_name>.png` (or format) directly into the destination folder.
+- For Markdown files: outputs diagrams cleanly into `<markdown_name>_images/<image_file>` subdirectories to prevent file collisions across chapters.
 - `-g`, `--grid`: Saves companion `*_grid.png` images overlaid with coordinate grids.
 - Mirrors nested subdirectory hierarchies automatically in the destination folder.
 

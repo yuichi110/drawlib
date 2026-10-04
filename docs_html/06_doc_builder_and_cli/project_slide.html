@@ -335,19 +335,19 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 │   ├── styles.py              # Slide-wide styling and color overrides
 │   ├── utils.py               # Slide layout helpers (cards, badges, grids)
 │   ├── slide.js               # Slide runtime keyboard / navigation engine
-│   ├── build.sh               # Master build script (HTML + PDF)
-│   ├── build_html.sh          # HTML presentation deck build
-│   ├── build_pdf.sh           # 16:9 vector PDF presentation export
+│   ├── build.sh               # Master build script (HTML + PDF + Images)
+│   ├── build_html.sh          # HTML presentation deck build (slide_html/)
+│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (slide.pdf)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to slide_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Slide authoring guide
-├── slide/                     # [GENERATED] HTML presentation deck
-│   ├── index.html
-│   └── index_images/
-└── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+├── slide_html/                # [GENERATED] HTML presentation deck (index.html)
+├── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+└── slide_images/              # [GENERATED] Extracted standalone diagram images
 </code></pre>
 <hr />
-<h2>3. Dual Presentation Outputs</h2>
-<p>A <code>slide</code> project produces two presentation artifacts:</p>
+<h2>3. Multiple Presentation Outputs</h2>
+<p>A <code>slide</code> project produces presentation artifacts tailored for every scenario:</p>
 <table>
 <thead>
 <tr>
@@ -359,7 +359,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong><code>slide/index.html</code></strong></td>
+<td style="text-align:left"><strong><code>slide_html/index.html</code></strong></td>
 <td style="text-align:left">Interactive Presenting</td>
 <td style="text-align:left">1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (<code>Space</code>, <code>Arrows</code>, <code>F</code>), overview grid</td>
 <td style="text-align:left"><code>build_html.sh</code></td>
@@ -369,6 +369,12 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <td style="text-align:left">Offline Distribution</td>
 <td style="text-align:left">1 slide per page, vector-sharp graphics, exact 16:9 aspect ratio (<code>@page { size: 16in 9in; margin: 0; }</code>)</td>
 <td style="text-align:left"><code>build_pdf.sh</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>slide_images/</code></strong></td>
+<td style="text-align:left">Slides &amp; Social Media</td>
+<td style="text-align:left">Extracted standalone slide illustrations for external decks and sharing</td>
+<td style="text-align:left"><code>build_image.sh</code></td>
 </tr>
 </tbody>
 </table>
@@ -397,11 +403,13 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <h2>5. Modular Build Scripts Architecture</h2>
 <ul>
 <li><strong><code>build_html.sh</code></strong>:
-Compiles slides into the web presentation deck in <code>slide/index.html</code>.</li>
+Compiles slides into the web presentation deck in <code>slide_html/index.html</code>.</li>
 <li><strong><code>build_pdf.sh</code></strong>:
 Uses headless Chromium to capture each slide into a multi-page vector PDF (<code>slide.pdf</code>).</li>
+<li><strong><code>build_image.sh</code></strong>:
+Extracts embedded <code>drawlib</code> blocks into standalone diagram images in <code>slide_images/</code>.</li>
 <li><strong><code>build.sh</code> (Master Script)</strong>:
-Runs both HTML and PDF builds in sequence.</li>
+Runs HTML, PDF, and Image builds in sequence.</li>
 </ul>
 <hr />
 <h2>6. Local Preview &amp; Presenting</h2>
@@ -409,7 +417,7 @@ Runs both HTML and PDF builds in sequence.</li>
 <pre><code class="language-bash">./slide_src/serve.sh
 </code></pre>
 <p>Or run directly:</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>slide/
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>slide_html/
 </code></pre>
 <h3>Keyboard Shortcuts:</h3>
 <ul>

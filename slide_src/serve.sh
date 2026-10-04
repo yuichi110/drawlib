@@ -11,7 +11,9 @@ else
 fi
 
 if [ ! -f "slide/index.html" ]; then
-    if [ -f "slide_src/build.sh" ]; then
+    if [ -f "slide_src/build_html.sh" ]; then
+        "./slide_src/build_html.sh"
+    elif [ -f "slide_src/build.sh" ]; then
         "./slide_src/build.sh"
     elif [ -f "./build.sh" ]; then
         "./build.sh"

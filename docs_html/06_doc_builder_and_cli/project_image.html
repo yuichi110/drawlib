@@ -324,27 +324,28 @@ drawlib<span class="w"> </span>init<span class="w"> </span>image<span class="w">
 <hr />
 <h2>2. Directory Layout &amp; Anatomy</h2>
 <pre><code class="language-text">my_assets/
-├── images_src/                # [SOURCE OF TRUTH] Edit Python drawing scripts here
+├── image_src/                 # [SOURCE OF TRUTH] Edit Python drawing scripts here
 │   ├── _assets/               # Static assets (logos, background textures)
 │   ├── sample1.py             # Primitive drawing script
 │   ├── sample2.py             # Advanced diagram script (utilizing styles &amp; utils)
 │   ├── styles.py              # Shared project styling themes
 │   ├── utils.py               # Reusable project drawing components
 │   ├── build.sh               # Executable batch build script
+│   ├── build_image.sh         # Batch image rendering script (image_images/)
 │   └── README.md              # Illustration workflow guide
-└── images/                    # [GENERATED] Rendered PNG/WebP output images
+└── image_images/              # [GENERATED] Rendered PNG/WebP output images
     ├── sample1.png
     └── sample2.png
 </code></pre>
 <h3>Key Rules:</h3>
 <ul>
-<li><strong>Source of Truth</strong>: Always author drawing scripts in <code>images_src/</code>.</li>
-<li><strong>Never Edit <code>images/</code></strong>: The <code>images/</code> folder is an output artifact directory overwritten during builds.</li>
+<li><strong>Source of Truth</strong>: Always author drawing scripts in <code>image_src/</code>.</li>
+<li><strong>Never Edit <code>image_images/</code></strong>: The <code>image_images/</code> folder is an output artifact directory overwritten during builds.</li>
 </ul>
 <hr />
 <h2>3. Writing Drawing Scripts</h2>
-<p>In an image project, each <code>.py</code> file inside <code>images_src/</code> is an independent drawing script. Call <code>canvas.save()</code> at the end of the script to output the image:</p>
-<pre><code class="language-python"><span class="c1"># images_src/architecture_overview.py</span>
+<p>In an image project, each <code>.py</code> file inside <code>image_src/</code> is an independent drawing script. Call <code>canvas.save()</code> at the end of the script to output the image:</p>
+<pre><code class="language-python"><span class="c1"># image_src/architecture_overview.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">styles</span>
 
 <span class="n">canvas</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
@@ -359,13 +360,13 @@ drawlib<span class="w"> </span>init<span class="w"> </span>image<span class="w">
 </code></pre>
 <hr />
 <h2>4. Building Images</h2>
-<h3>Automated Build (<code>./build.sh</code>)</h3>
+<h3>Automated Build (<code>./build_image.sh</code> or <code>./build.sh</code>)</h3>
 <p>Execute the provided build script:</p>
-<pre><code class="language-bash">./images_src/build.sh
+<pre><code class="language-bash">./image_src/build_image.sh
 </code></pre>
 <h3>Direct CLI Command</h3>
 <p>Alternatively, invoke the builder directly:</p>
-<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/<span class="w"> </span>-s<span class="w"> </span>images_src/styles.py<span class="w"> </span>-u<span class="w"> </span>images_src/utils.py
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>image_src/<span class="w"> </span>-o<span class="w"> </span>image_images/<span class="w"> </span>-s<span class="w"> </span>image_src/styles.py<span class="w"> </span>-u<span class="w"> </span>image_src/utils.py
 </code></pre>
 <h3>Useful Build Flags:</h3>
 <ul>

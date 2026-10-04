@@ -22,31 +22,32 @@ drawlib init image --here
 
 ```text
 my_assets/
-├── images_src/                # [SOURCE OF TRUTH] Edit Python drawing scripts here
+├── image_src/                 # [SOURCE OF TRUTH] Edit Python drawing scripts here
 │   ├── _assets/               # Static assets (logos, background textures)
 │   ├── sample1.py             # Primitive drawing script
 │   ├── sample2.py             # Advanced diagram script (utilizing styles & utils)
 │   ├── styles.py              # Shared project styling themes
 │   ├── utils.py               # Reusable project drawing components
 │   ├── build.sh               # Executable batch build script
+│   ├── build_image.sh         # Batch image rendering script (image_images/)
 │   └── README.md              # Illustration workflow guide
-└── images/                    # [GENERATED] Rendered PNG/WebP output images
+└── image_images/              # [GENERATED] Rendered PNG/WebP output images
     ├── sample1.png
     └── sample2.png
 ```
 
 ### Key Rules:
-- **Source of Truth**: Always author drawing scripts in `images_src/`.
-- **Never Edit `images/`**: The `images/` folder is an output artifact directory overwritten during builds.
+- **Source of Truth**: Always author drawing scripts in `image_src/`.
+- **Never Edit `image_images/`**: The `image_images/` folder is an output artifact directory overwritten during builds.
 
 ---
 
 ## 3. Writing Drawing Scripts
 
-In an image project, each `.py` file inside `images_src/` is an independent drawing script. Call `canvas.save()` at the end of the script to output the image:
+In an image project, each `.py` file inside `image_src/` is an independent drawing script. Call `canvas.save()` at the end of the script to output the image:
 
 ```python
-# images_src/architecture_overview.py
+# image_src/architecture_overview.py
 from drawlib import canvas, shapes, lines, styles
 
 canvas.setup(width=100, height=60)
@@ -64,18 +65,18 @@ canvas.save("architecture_overview.png")
 
 ## 4. Building Images
 
-### Automated Build (`./build.sh`)
+### Automated Build (`./build_image.sh` or `./build.sh`)
 Execute the provided build script:
 
 ```bash
-./images_src/build.sh
+./image_src/build_image.sh
 ```
 
 ### Direct CLI Command
 Alternatively, invoke the builder directly:
 
 ```bash
-drawlib build image images_src/ -o images/ -s images_src/styles.py -u images_src/utils.py
+drawlib build image image_src/ -o image_images/ -s image_src/styles.py -u image_src/utils.py
 ```
 
 ### Useful Build Flags:

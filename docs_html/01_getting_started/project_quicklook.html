@@ -335,10 +335,10 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 </code></pre>
 <p>Drawlib supports four starter project types:</p>
 <ul>
-<li><strong><code>doc</code></strong>: Linear technical document / spec / RFC / report compiled to HTML, PDF, Markdown, and extracted diagrams.</li>
-<li><strong><code>site</code></strong>: Multi-page documentation website with sidebar navigation (<code>navbar.md</code>) and dual publishing.</li>
-<li><strong><code>slide</code></strong>: 16:9 presentation slide deck compiled to interactive web HTML and multi-page vector PDF.</li>
-<li><strong><code>image</code></strong>: Standalone Python illustration scripts (<code>images_src/*.py</code>) batch-compiled to image files (<code>images/*.png</code>).</li>
+<li><strong><code>doc</code></strong>: Linear technical document / spec / RFC / report compiled to HTML (<code>doc_html/</code>), PDF (<code>doc.pdf</code>), Markdown (<code>doc_markdown/</code>), and diagrams (<code>doc_images/</code>).</li>
+<li><strong><code>site</code></strong>: Multi-page documentation website (<code>docs_html/</code>), Markdown site (<code>docs_markdown/</code> or <code>docs/</code>), and diagrams (<code>docs_images/</code>).</li>
+<li><strong><code>slide</code></strong>: 16:9 presentation slide deck compiled to web deck (<code>slide_html/</code>), vector PDF (<code>slide.pdf</code>), and diagrams (<code>slide_images/</code>).</li>
+<li><strong><code>image</code></strong>: Standalone Python illustration scripts (<code>image_src/*.py</code>) batch-compiled to image files (<code>image_images/*.png</code>).</li>
 </ul>
 <hr />
 <h2>2. One-Command Compilation</h2>
@@ -347,8 +347,9 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 $<span class="w"> </span>./build.sh
 
 <span class="c1"># Or compile using the CLI directly:</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>mybook_html/
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>mybook/
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs_html/
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs/
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs_images/
 </code></pre>
 <p>During the build process:</p>
 <ol>

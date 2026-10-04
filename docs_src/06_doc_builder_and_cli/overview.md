@@ -17,13 +17,14 @@ Markdown Source (docs_src/)                  Drawlib Compilation Pipeline       
 └───────────────────────────┘                 └───────────────────────────┘               └───────────────────────────┘
 ```
 
-1. **Source of Truth (`<name>_src/`)**: You author content exclusively in source directories (e.g. `docs_src/` or `images_src/`). Output folders (`docs/`, `docs_html/`, `images/`) are build artifacts and should never be manually modified.
+1. **Source of Truth (`<name>_src/`)**: You author content exclusively in source directories (e.g. `docs_src/`, `doc_src/`, `slide_src/`, or `image_src/`). Output folders (`docs_html/`, `docs_markdown/`, `docs_images/`, etc.) are build artifacts and should never be manually modified.
 2. **Deterministic Build Cache**: Drawlib computes a SHA-256 hash of each embedded code block. Unaltered diagrams are restored instantly from `.drawlib/cache.db`, enabling sub-second incremental builds across massive multi-page sites.
 3. **Execution Sandbox & Isolation**: The canvas lifecycle automatically clears between separate code blocks, ensuring zero visual side effects between adjacent diagrams.
 4. **Target Portability**: The same Markdown source document can compile simultaneously to:
    - A responsive static HTML documentation site (`drawlib build html`).
    - GitHub-flavored Markdown with companion images (`drawlib build markdown`).
    - A publication-grade vector PDF with table of contents and cover page (`drawlib build pdf`).
+   - Extracted standalone diagram images (`drawlib build image`).
 
 ---
 
@@ -33,10 +34,10 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 
 | Template | Primary Output | Typical Use Case |
 |---|---|---|
-| **`doc`** | `doc.html`, `doc.pdf`, `doc.md`, `images/` | Linear technical documents, RFCs, specifications, whitepapers, and formal reports. |
-| **`site`** | `docs_html/` & `docs/` | Multi-page documentation websites with sidebar navigation (`navbar.md`). |
-| **`slide`** | `slide/index.html` & `slide.pdf` | 16:9 presentation slide decks (interactive web deck + printable vector PDF). |
-| **`image`** | `images/*.png` | Batch rendering standalone Python drawing scripts to image assets. |
+| **`doc`** | `doc_html/`, `doc.pdf`, `doc_markdown/`, `doc_images/` | Linear technical documents, RFCs, specifications, whitepapers, and formal reports. |
+| **`site`** | `docs_html/`, `docs_markdown/` (or `docs/`), `docs_images/` | Multi-page documentation websites with sidebar navigation (`navbar.md`). |
+| **`slide`** | `slide_html/`, `slide.pdf`, `slide_images/` | 16:9 presentation slide decks (interactive web deck + printable vector PDF). |
+| **`image`** | `image_images/*.png` | Batch rendering standalone Python drawing scripts to image assets. |
 
 ---
 
@@ -48,5 +49,5 @@ Dive deeper into each builder subsystem:
 - [Linear Document Project Guide](./project_doc.md): Linear document RFCs, specifications, whitepapers, and dual HTML/PDF publishing.
 - [Doc Site Project Guide](./project_site.md): Multi-page website authoring, sidebar categories, and link validation.
 - [Slide Deck Project Guide](./project_slide.md): 16:9 presentation slide decks with interactive web deck and vector PDF export.
-- [Image Project Guide](./project_image.md): Standalone script automation (`images_src/` ➔ `images/`).
+- [Image Project Guide](./project_image.md): Standalone script automation (`image_src/` ➔ `image_images/`).
 - [Customization & Theming](./customization.md): Customizing `template.html`, `style.css`, and injecting project `styles.py` and `utils.py`.

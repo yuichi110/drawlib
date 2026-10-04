@@ -26,5 +26,5 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
 fi
 
 echo "Building HTML Slide Deck..."
-$DRAWLIB_CMD build slide __SRC_DIR__/ -o __OUT_DIR__/
-echo "Slide HTML build complete: __OUT_DIR__/index.html"
+$DRAWLIB_CMD build slide __SRC_DIR__/ -o __OUT_HTML_DIR__/
+echo "Slide HTML build complete: __OUT_HTML_DIR__/index.html"

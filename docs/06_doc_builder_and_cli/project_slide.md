@@ -34,27 +34,28 @@ my_deck/
 │   ├── styles.py              # Slide-wide styling and color overrides
 │   ├── utils.py               # Slide layout helpers (cards, badges, grids)
 │   ├── slide.js               # Slide runtime keyboard / navigation engine
-│   ├── build.sh               # Master build script (HTML + PDF)
-│   ├── build_html.sh          # HTML presentation deck build
-│   ├── build_pdf.sh           # 16:9 vector PDF presentation export
+│   ├── build.sh               # Master build script (HTML + PDF + Images)
+│   ├── build_html.sh          # HTML presentation deck build (slide_html/)
+│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (slide.pdf)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to slide_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Slide authoring guide
-├── slide/                     # [GENERATED] HTML presentation deck
-│   ├── index.html
-│   └── index_images/
-└── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+├── slide_html/                # [GENERATED] HTML presentation deck (index.html)
+├── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+└── slide_images/              # [GENERATED] Extracted standalone diagram images
 ```
 
 ---
 
-## 3. Dual Presentation Outputs
+## 3. Multiple Presentation Outputs
 
-A `slide` project produces two presentation artifacts:
+A `slide` project produces presentation artifacts tailored for every scenario:
 
 | Output | Audience & Environment | Key Features | Build Script |
 | :--- | :--- | :--- | :--- |
-| **`slide/index.html`** | Interactive Presenting | 1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (`Space`, `Arrows`, `F`), overview grid | `build_html.sh` |
+| **`slide_html/index.html`** | Interactive Presenting | 1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (`Space`, `Arrows`, `F`), overview grid | `build_html.sh` |
 | **`slide.pdf`** | Offline Distribution | 1 slide per page, vector-sharp graphics, exact 16:9 aspect ratio (`@page { size: 16in 9in; margin: 0; }`) | `build_pdf.sh` |
+| **`slide_images/`** | Slides & Social Media | Extracted standalone slide illustrations for external decks and sharing | `build_image.sh` |
 
 ---
 
@@ -87,11 +88,13 @@ line((97.5, 25), (112.5, 25), arrow_head="->", style=Styles.PrimaryBold)
 ## 5. Modular Build Scripts Architecture
 
 - **`build_html.sh`**:
-  Compiles slides into the web presentation deck in `slide/index.html`.
+  Compiles slides into the web presentation deck in `slide_html/index.html`.
 - **`build_pdf.sh`**:
   Uses headless Chromium to capture each slide into a multi-page vector PDF (`slide.pdf`).
+- **`build_image.sh`**:
+  Extracts embedded ````drawlib```` blocks into standalone diagram images in `slide_images/`.
 - **`build.sh` (Master Script)**:
-  Runs both HTML and PDF builds in sequence.
+  Runs HTML, PDF, and Image builds in sequence.
 
 ---
 
@@ -106,7 +109,7 @@ Launch the local development preview server:
 Or run directly:
 
 ```bash
-uv run drawlib serve slide/
+uv run drawlib serve slide_html/
 ```
 
 ### Keyboard Shortcuts:

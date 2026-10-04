@@ -1,6 +1,6 @@
-# Drawlib PDF レポートプロジェクト
+# Drawlib ドキュメントプロジェクト (`doc`)
 
-このディレクトリには、Drawlib と Chromium ヘッドレスブラウザを使用して単一の印刷品質ベクター PDF レポートへコンパイルされる複数チャプターのドキュメントが含まれています。
+このディレクトリには、Drawlib を使用して **HTML, PDF, Markdown, スタンドアロン画像** へ一括コンパイルされるドキュメントが含まれています。
 
 > [!TIP]
 > **詳細なルールや機能ガイドを確認したい場合**  
@@ -15,31 +15,49 @@
 ## 1. ディレクトリ構成
 
 - `drawlib-dogfooding_src/`: Markdown ソースドキュメントおよび図面コード (**正本**)。
-  - `build.sh`: チャプターを一括して PDF にコンパイルするスクリプト。
+  - `build.sh`: 全ターゲット（HTML, PDF, Markdown, Images）を一括ビルドするマスター実行スクリプト。
+  - `build_html.sh`: スタンドアロン HTML ドキュメントをビルドするスクリプト。
+  - `build_pdf.sh`: ベクター PDF レポートをビルドするスクリプト。
+  - `build_markdown.sh`: GitHub 閲覧用 Markdown をビルドするスクリプト。
+  - `build_image.sh`: 埋め込み図面ブロックを画像抽出するスクリプト。
+  - `serve.sh`: ローカル HTML プレビュー用簡易サーバー起動スクリプト。
   - `styles.py`: 全体描画テーマ、パレット、日本語フォント設定スクリプト。
   - `utils.py`: 再利用可能な描画ヘルパー関数、マクロ、プロジェクト共通定数。
-  - `style.css`: PDF 用印刷スタイルシート（ページ設定、余白、改ページ制御）。
-  - `template.html`: PDF 生成用 Jinja2 HTML テンプレート。
+  - `style.css`: ドキュメント用スタイルシート。
+  - `template.html`: HTML / PDF 用 Jinja2 HTML テンプレート。
   - `README.md`: 本カスタマイズガイド。
-  - `00_cover.md`: レポート表紙ページ。
-  - `01_overview.md`: 概要チャプター。
-  - `02_design.md`: 設計チャプター。
+  - `00_cover.md`: 表紙ページ。
+  - `01_ai_challenges.md`: 各チャプター Markdown ファイル。
+- `drawlib-dogfooding_html/`: 生成された HTML ドキュメント (**直接編集しないでください**)。
 - `drawlib-dogfooding.pdf`: 生成された PDF ドキュメント (**直接編集しないでください**)。
+- `drawlib-dogfooding_markdown/`: 生成された Markdown ドキュメント (**直接編集しないでください**)。
+- `drawlib-dogfooding_images/`: 抽出されたスタンドアロン図面画像 (**直接編集しないでください**)。
 
 ---
 
 ## 2. ビルド方法
 
 ### ビルドスクリプトの実行
-プロジェクトルートまたは本ディレクトリから以下を実行します:
+プロジェクトルートまたは本ディレクトリから目的のスクリプトを実行します:
 ```bash
-./build.sh
+./build_html.sh       # 単一 HTML ドキュメントの生成 (drawlib-dogfooding_html/)
+./build_pdf.sh        # ベクター PDF レポートの生成 (drawlib-dogfooding.pdf)
+./build_markdown.sh   # GitHub 閲覧用 Markdown の生成 (drawlib-dogfooding_markdown/)
+./build_image.sh      # 埋め込み図面画像の抽出 (drawlib-dogfooding_images/)
+./build.sh            # 上記全ターゲットの一括順次ビルド
+```
+
+### プレビューサーバーの起動
+```bash
+./serve.sh            # http://localhost:8000 でプレビュー
 ```
 
 ### drawlib コマンドを直接実行する場合
 ```bash
-# 自動目次生成付きで PDF レポートをビルド
+drawlib build html drawlib-dogfooding_src/ -o drawlib-dogfooding_html/
 drawlib build pdf drawlib-dogfooding_src/ -o drawlib-dogfooding.pdf --generate-index
+drawlib build markdown drawlib-dogfooding_src/ -o drawlib-dogfooding_markdown/
+drawlib build image drawlib-dogfooding_src/ -o drawlib-dogfooding_images/
 ```
 
 ---

@@ -871,7 +871,6 @@ def build_image(
                 output_dir=out_img_dir,
                 image_format=fmt,
                 source_filename=md_file,
-                flat_output=True,
             )
             if md_file not in executed:
                 executed.append(md_file)

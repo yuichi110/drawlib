@@ -21,9 +21,10 @@
   - `00_cover.md`: 表紙 / カバーページ。
   - `01_overview.md`: 概要章。
   - `02_design.md`: 設計章。
-- `__OUT_DIR__/`: 生成された Markdown ドキュメント。
+- `__OUT_MARKDOWN_DIR__/`: 生成された Markdown ドキュメント。
 - `__OUT_HTML_DIR__/`: 生成された HTML ドキュメント。
 - `__OUT_PDF__`: 生成された PDF ドキュメント。
+- `__OUT_IMAGES_DIR__/`: 抽出された図解画像。
 
 ---
 

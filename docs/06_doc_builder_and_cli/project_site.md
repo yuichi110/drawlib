@@ -27,15 +27,21 @@ my_docs/
 │   ├── navbar.md              # [MANDATORY] Sidebar categories and navigation menu
 │   ├── template.html          # [MANDATORY] Responsive HTML layout template
 │   ├── style.css              # [MANDATORY] Site stylesheet
-│   ├── config.py              # Global drawing settings
-│   ├── build.sh               # Executable build script
+│   ├── styles.py              # Global drawing styles and themes
+│   ├── utils.py               # Reusable helper functions
+│   ├── build.sh               # Master build script (HTML + Markdown + Images)
+│   ├── build_html.sh          # Static HTML website build (docs_html/)
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (docs_markdown/ or docs/)
+│   ├── build_image.sh         # Extract standalone diagram images (docs_images/)
+│   ├── serve.sh               # Local preview server script
 │   ├── README.md              # Authoring instructions
 │   ├── 01_architecture/       # Section directory
 │   │   └── vpc.md
 │   └── 02_services/           # Section directory
 │       └── auth.md
-├── docs/                      # [GENERATED] Markdown site for GitHub browsing
-└── docs_html/                 # [GENERATED] Static HTML site ready for web hosting
+├── docs_html/                 # [GENERATED] Static HTML site ready for web hosting
+├── docs_markdown/             # [GENERATED] Markdown site for GitHub browsing (or docs/ for repo roots)
+└── docs_images/               # [GENERATED] Extracted standalone diagram images
 ```
 
 ---
@@ -81,7 +87,10 @@ Any static assets placed in `docs_src/` (such as custom logos, sample data files
 
 ### Compile Site
 ```bash
-./docs_src/build.sh
+./docs_src/build_html.sh       # Compile HTML site (docs_html/)
+./docs_src/build_markdown.sh   # Compile Markdown site (docs_markdown/ or docs/)
+./docs_src/build_image.sh      # Extract standalone images (docs_images/)
+./docs_src/build.sh            # Run all builds sequentially
 ```
 
 ### Local Preview Server & Link Audit

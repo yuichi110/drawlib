@@ -291,7 +291,6 @@ class DrawlibBlockProcessor:
         embed_images: bool = False,
         source_filename: str = "<drawlib_block>",
         progress_callback: Optional[Callable[[int, int, bool], None]] = None,
-        flat_output: bool = False,
     ) -> str:
         """Process Markdown text and replace ```drawlib blocks with rendered images."""
         masked_text, preserved = preserve_outer_fences(markdown_text)
@@ -321,7 +320,6 @@ class DrawlibBlockProcessor:
                 output_dir=output_dir,
                 require_file=self.require_file,
                 line_number=line_no,
-                flat_output=flat_output,
             )
 
             if embed_images:

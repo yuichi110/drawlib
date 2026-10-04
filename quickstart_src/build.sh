@@ -2,29 +2,17 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PARENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-cd "$PARENT_DIR"
 
-if [ -z "${DRAWLIB_CMD:-}" ]; then
-    if [ -f "uv.lock" ] && command -v uv &> /dev/null; then
-        DRAWLIB_CMD="uv run drawlib"
-    elif command -v drawlib &> /dev/null; then
-        DRAWLIB_CMD="drawlib"
-    elif python3 -m drawlib --version &> /dev/null; then
-        DRAWLIB_CMD="python3 -m drawlib"
-    elif python -m drawlib --version &> /dev/null; then
-        DRAWLIB_CMD="python -m drawlib"
-    elif command -v uv &> /dev/null && uv run drawlib --version &> /dev/null; then
-        DRAWLIB_CMD="uv run drawlib"
-    else
-        DRAWLIB_CMD="drawlib"
-    fi
-fi
+echo "=== Building HTML ==="
+"$SCRIPT_DIR/build_html.sh"
 
-echo "Using Drawlib command: $DRAWLIB_CMD"
+echo "=== Building PDF ==="
+"$SCRIPT_DIR/build_pdf.sh"
 
-echo "Building Quickstart PDF document..."
-$DRAWLIB_CMD build pdf quickstart_src/ -o quickstart.pdf --generate-index
+echo "=== Building Markdown ==="
+"$SCRIPT_DIR/build_markdown.sh"
 
-echo "Build complete!"
-echo "  - PDF: quickstart.pdf"
+echo "=== Extracting Images ==="
+"$SCRIPT_DIR/build_image.sh"
+
+echo "All builds completed successfully!"

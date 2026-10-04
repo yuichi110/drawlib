@@ -332,14 +332,14 @@ def _resolve_project_paths(
     output: Optional[str],
     destination: str | Path,
     here: bool,
-) -> tuple[Path, Path, str, str, str, str]:
+) -> tuple[Path, Path, str, str, str, str, str]:
     """Resolve project directory names and output paths."""
     if output is not None and output.strip():
         base_name = output.strip().rstrip("/\\")
         if base_name.endswith("_src"):
             base_name = base_name[:-4]
     elif selected_type == "image":
-        base_name = "images"
+        base_name = "image"
     elif selected_type == "doc":
         base_name = "doc"
     elif selected_type == "slide":
@@ -351,7 +351,8 @@ def _resolve_project_paths(
     parent_dest = Path(destination).resolve()
     src_path = parent_dest if here else parent_dest / src_dir_name
 
-    out_dir_name = base_name
+    out_markdown_dir_name = f"{base_name}_markdown"
+    out_images_dir_name = f"{base_name}_images"
     out_html_dir_name = f"{base_name}_html"
     out_pdf_name = f"{base_name}.pdf"
 
@@ -359,7 +360,8 @@ def _resolve_project_paths(
         parent_dest,
         src_path,
         src_dir_name,
-        out_dir_name,
+        out_markdown_dir_name,
+        out_images_dir_name,
         out_html_dir_name,
         out_pdf_name,
     )
@@ -519,7 +521,8 @@ def init_project(
         _parent_dest,
         src_path,
         src_dir_name,
-        out_dir_name,
+        out_markdown_dir_name,
+        out_images_dir_name,
         out_html_dir_name,
         out_pdf_name,
     ) = _resolve_project_paths(selected_type, output, destination, here)
@@ -554,7 +557,9 @@ def init_project(
 
     replacements = {
         "__SRC_DIR__": "." if here else src_dir_name,
-        "__OUT_DIR__": out_dir_name,
+        "__OUT_DIR__": out_markdown_dir_name,
+        "__OUT_MARKDOWN_DIR__": out_markdown_dir_name,
+        "__OUT_IMAGES_DIR__": out_images_dir_name,
         "__OUT_HTML_DIR__": out_html_dir_name,
         "__OUT_PDF__": out_pdf_name,
         **get_font_replacements(selected_lang, style_theme=resolved_style),

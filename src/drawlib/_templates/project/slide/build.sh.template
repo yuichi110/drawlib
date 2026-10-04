@@ -9,4 +9,7 @@ echo "=== Building HTML Slide Deck ==="
 echo "=== Building Presentation PDF ==="
 "$SCRIPT_DIR/build_pdf.sh"
 
+echo "=== Extracting Images ==="
+"$SCRIPT_DIR/build_image.sh"
+
 echo "All slide builds completed successfully!"

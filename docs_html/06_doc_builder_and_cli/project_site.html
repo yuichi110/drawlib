@@ -329,15 +329,21 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 │   ├── navbar.md              # [MANDATORY] Sidebar categories and navigation menu
 │   ├── template.html          # [MANDATORY] Responsive HTML layout template
 │   ├── style.css              # [MANDATORY] Site stylesheet
-│   ├── config.py              # Global drawing settings
-│   ├── build.sh               # Executable build script
+│   ├── styles.py              # Global drawing styles and themes
+│   ├── utils.py               # Reusable helper functions
+│   ├── build.sh               # Master build script (HTML + Markdown + Images)
+│   ├── build_html.sh          # Static HTML website build (docs_html/)
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (docs_markdown/ or docs/)
+│   ├── build_image.sh         # Extract standalone diagram images (docs_images/)
+│   ├── serve.sh               # Local preview server script
 │   ├── README.md              # Authoring instructions
 │   ├── 01_architecture/       # Section directory
 │   │   └── vpc.md
 │   └── 02_services/           # Section directory
 │       └── auth.md
-├── docs/                      # [GENERATED] Markdown site for GitHub browsing
-└── docs_html/                 # [GENERATED] Static HTML site ready for web hosting
+├── docs_html/                 # [GENERATED] Static HTML site ready for web hosting
+├── docs_markdown/             # [GENERATED] Markdown site for GitHub browsing (or docs/ for repo roots)
+└── docs_images/               # [GENERATED] Extracted standalone diagram images
 </code></pre>
 <hr />
 <h2>3. Sidebar Navigation (<code>navbar.md</code>)</h2>
@@ -372,7 +378,10 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <hr />
 <h2>5. Building &amp; Local Preview</h2>
 <h3>Compile Site</h3>
-<pre><code class="language-bash">./docs_src/build.sh
+<pre><code class="language-bash">./docs_src/build_html.sh<span class="w">       </span><span class="c1"># Compile HTML site (docs_html/)</span>
+./docs_src/build_markdown.sh<span class="w">   </span><span class="c1"># Compile Markdown site (docs_markdown/ or docs/)</span>
+./docs_src/build_image.sh<span class="w">      </span><span class="c1"># Extract standalone images (docs_images/)</span>
+./docs_src/build.sh<span class="w">            </span><span class="c1"># Run all builds sequentially</span>
 </code></pre>
 <h3>Local Preview Server &amp; Link Audit</h3>
 <p>Start the local development server to preview pages:</p>

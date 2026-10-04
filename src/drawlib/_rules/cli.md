@@ -318,23 +318,23 @@ drawlib init list
 Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers.
 ```text
 my_doc/
-├── docs_src/                  # [SOURCE OF TRUTH] Edit ONLY files here!
+├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
 │   ├── 00_cover.md            # Cover page (title, author, metadata)
 │   ├── 01_overview.md         # Executive overview chapter
 │   ├── 02_design.md           # Technical design chapter
 │   ├── styles.py              # Global custom styles and theme presets
 │   ├── utils.py               # Custom helper drawing functions
 │   ├── build.sh               # Master build script (runs all target builds)
-│   ├── build_html.sh          # Fast preview HTML build (doc.html)
+│   ├── build_html.sh          # Standalone HTML build (doc_html/)
 │   ├── build_pdf.sh           # Headless Chromium vector PDF build (doc.pdf)
-│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc.md)
-│   ├── build_image.sh         # Extract embedded drawlib blocks to images/
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc_markdown/)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to doc_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Project instructions
-├── doc.html                   # [GENERATED] Single-page HTML document
+├── doc_html/                  # [GENERATED] Standalone HTML document(s)
 ├── doc.pdf                    # [GENERATED] High-quality vector PDF
-├── doc.md                     # [GENERATED] Markdown with rendered images for GitHub
-└── images/                    # [GENERATED] Extracted diagram images
+├── doc_markdown/              # [GENERATED] Markdown with rendered images for GitHub
+└── doc_images/                # [GENERATED] Extracted diagram images
 ```
 
 #### 2. `site`: Multi-page Website with Navigation Sidebar
@@ -348,15 +348,19 @@ my_site/
 │   ├── style.css              # [MANDATORY] Site stylesheet (from --style preset)
 │   ├── styles.py              # Global custom styles and theme presets
 │   ├── utils.py               # Custom helper drawing functions
-│   ├── build.sh               # Master build script (Markdown + HTML)
-│   ├── build_html.sh          # Static HTML website build
-│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing
+│   ├── build.sh               # Master build script (HTML + Markdown + Images)
+│   ├── build_html.sh          # Static HTML website build (docs_html/)
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (docs_markdown/)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to docs_images/
 │   ├── serve.sh               # Local preview server script
 │   ├── README.md              # Documentation workflow guide
 │   ├── architecture/
 │   │   └── index.md           # Chapter page with embedded diagrams
 │   └── workflow/
 │       └── index.md           # Workflow chapter page
+├── docs_html/                 # [GENERATED] Static HTML website with sidebar
+├── docs_markdown/             # [GENERATED] Markdown site for GitHub browsing
+└── docs_images/               # [GENERATED] Extracted diagram images
 ```
 
 #### 3. `slide`: 16:9 Presentation Slide Deck (HTML & Vector PDF)
@@ -370,31 +374,31 @@ my_deck/
 │   ├── styles.py              # Slide-wide styling and color overrides
 │   ├── utils.py               # Slide layout helpers (cards, badges, grids)
 │   ├── slide.js               # Slide runtime keyboard / navigation engine
-│   ├── build.sh               # Master build script (HTML + PDF)
-│   ├── build_html.sh          # HTML presentation deck build
-│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (1 slide per page)
+│   ├── build.sh               # Master build script (HTML + PDF + Images)
+│   ├── build_html.sh          # HTML presentation deck build (slide_html/)
+│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (slide.pdf)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to slide_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Slide authoring guide
-├── slide/                     # [GENERATED] HTML presentation deck
-│   ├── index.html
-│   └── index_images/
-└── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+├── slide_html/                # [GENERATED] HTML presentation deck (index.html)
+├── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+└── slide_images/              # [GENERATED] Extracted standalone slide diagram images
 ```
 
 #### 4. `image`: Standalone Python Illustration Scripts
 Designed for illustration asset repositories, diagrams for slides, or article banners.
 ```text
-images/
-├── images_src/
+my_images_project/
+├── image_src/
 │   ├── _assets/               # Static project assets (images, icons)
 │   ├── sample1.py             # Basic diagram script (primitives)
 │   ├── sample2.py             # Advanced diagram script (utils & assets)
 │   ├── styles.py              # Global styles script
 │   ├── utils.py               # Reusable drawing components
 │   ├── build.sh               # Master image build script
-│   ├── build_image.sh         # Batch image rendering script
+│   ├── build_image.sh         # Batch image rendering script (image_images/)
 │   └── README.md              # Illustration workflow guide
-└── images/                    # [GENERATED] Rendered PNG/WebP output images
+└── image_images/              # [GENERATED] Rendered PNG/WebP output images
 ```
 
 ### Scaffolding Examples:

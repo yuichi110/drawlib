@@ -27,5 +27,5 @@ fi
 
 echo "Using Drawlib command: $DRAWLIB_CMD"
 echo "Extracting standalone diagram images..."
-$DRAWLIB_CMD build image __SRC_DIR__/ -o __OUT_DIR__/images/
-echo "Image extraction complete: __OUT_DIR__/images/"
+$DRAWLIB_CMD build image __SRC_DIR__/ -o __OUT_IMAGES_DIR__/
+echo "Image extraction complete: __OUT_IMAGES_DIR__/"

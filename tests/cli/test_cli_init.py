@@ -90,7 +90,8 @@ def test_cli_init_doc(tmp_path: Path) -> None:
         assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build outputs
-    assert not (dest / "doc").exists()
+    assert not (dest / "doc_markdown").exists()
+    assert not (dest / "doc_images").exists()
     assert not (dest / "doc_html").exists()
     assert not (dest / "doc.pdf").exists()
 
@@ -114,14 +115,15 @@ def test_cli_init_site(tmp_path: Path) -> None:
     assert (dest / "docs_src" / "workflow" / "index.md").is_file()
     assert (dest / "docs_src" / "_assets" / "linux.png").is_file()
 
-    for script in ["build.sh", "build_html.sh", "build_markdown.sh", "serve.sh"]:
+    for script in ["build.sh", "build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"]:
         s = dest / "docs_src" / script
         assert s.is_file()
         assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build outputs
     assert not (dest / "docs_html").exists()
-    assert not (dest / "docs").exists()
+    assert not (dest / "docs_markdown").exists()
+    assert not (dest / "docs_images").exists()
 
 
 def test_cli_init_slide(tmp_path: Path) -> None:
@@ -140,12 +142,14 @@ def test_cli_init_slide(tmp_path: Path) -> None:
     assert (dest / "slide_src" / "03_architecture.md").is_file()
     assert (dest / "slide_src" / "_assets" / "linux.png").is_file()
 
-    for script in ["build.sh", "build_html.sh", "build_pdf.sh", "serve.sh"]:
+    for script in ["build.sh", "build_html.sh", "build_pdf.sh", "build_image.sh", "serve.sh"]:
         s = dest / "slide_src" / script
         assert s.is_file()
         assert os.stat(s).st_mode & 0o111 != 0
 
-    assert not (dest / "slide").exists()
+    assert not (dest / "slide_html").exists()
+    assert not (dest / "slide_images").exists()
+    assert not (dest / "slide.pdf").exists()
 
 
 def test_cli_init_image(tmp_path: Path) -> None:
@@ -155,21 +159,21 @@ def test_cli_init_image(tmp_path: Path) -> None:
     assert res.returncode == 0
     assert f"Initialized 'image' project in {dest}" in res.stdout
 
-    # Source files inside images_src/
-    assert (dest / "images_src" / "README.md").is_file()
-    assert (dest / "images_src" / "styles.py").is_file()
-    assert (dest / "images_src" / "utils.py").is_file()
-    assert (dest / "images_src" / "sample1.py").is_file()
-    assert (dest / "images_src" / "sample2.py").is_file()
-    assert (dest / "images_src" / "_assets" / "linux.png").is_file()
+    # Source files inside image_src/
+    assert (dest / "image_src" / "README.md").is_file()
+    assert (dest / "image_src" / "styles.py").is_file()
+    assert (dest / "image_src" / "utils.py").is_file()
+    assert (dest / "image_src" / "sample1.py").is_file()
+    assert (dest / "image_src" / "sample2.py").is_file()
+    assert (dest / "image_src" / "_assets" / "linux.png").is_file()
 
     for script in ["build.sh", "build_image.sh"]:
-        s = dest / "images_src" / script
+        s = dest / "image_src" / script
         assert s.is_file()
         assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build output
-    assert not (dest / "images").exists()
+    assert not (dest / "image_images").exists()
 
 
 def test_cli_init_custom_output(tmp_path: Path) -> None:
