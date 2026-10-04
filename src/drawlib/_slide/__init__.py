@@ -11,10 +11,20 @@
 
 from __future__ import annotations
 
-from drawlib._slide.base import BoundingBox
+from drawlib._slide.base import (
+    BoundingBox,
+    SlideContext,
+    current_slide,
+    reset_slide_context,
+    set_slide_context,
+)
 from drawlib._slide.compiler import build_slide
 
 __all__ = [
     "BoundingBox",
+    "SlideContext",
     "build_slide",
+    "current_slide",
+    "reset_slide_context",
+    "set_slide_context",
 ]

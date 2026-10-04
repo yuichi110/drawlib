@@ -15,6 +15,7 @@ import os
 import re
 import shlex
 import shutil
+from pathlib import Path
 from typing import Any, Optional
 
 from drawlib._builder._common import resolve_styles_and_utils
@@ -22,7 +23,7 @@ from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions, parse_block_info
 from drawlib._css_templates import get_css, get_slide_js
-from drawlib._slide.base import BoundingBox
+from drawlib._slide.base import BoundingBox, reset_slide_context, set_slide_context
 
 _PATTERN_DRAWLIB = re.compile(
     r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",
@@ -105,6 +106,28 @@ def _resolve_output_dir(input_abs: str, output_dir: Optional[str]) -> str:
     return output_abs
 
 
+def _clean_output_dir(output_abs: str, input_abs: str) -> None:
+    """Remove previous generated assets from output directory before building.
+
+    Args:
+        output_abs: Absolute path to target output directory.
+        input_abs: Absolute path to source directory.
+    """
+    if not os.path.exists(output_abs) or os.path.abspath(output_abs) == os.path.abspath(input_abs):
+        return
+    if os.path.exists(os.path.join(output_abs, ".git")):
+        return
+
+    for item in os.listdir(output_abs):
+        if item.startswith("."):
+            continue
+        item_path = os.path.join(output_abs, item)
+        if os.path.isdir(item_path):
+            shutil.rmtree(item_path)
+        else:
+            os.remove(item_path)
+
+
 def _collect_slide_files(input_abs: str) -> list[str]:
     """Discover and alphabetically sort candidate markdown slide files.
 
@@ -133,7 +156,7 @@ def _format_asset_markup(
     """Format HTML markup for a rendered slide asset to fill its parent block container.
 
     Args:
-        file_name: Image filename on disk.
+        file_name: Image filename or relative path on disk.
         alt_text: Alt text attribute.
         output_abs: Absolute path to output directory for inlining SVGs.
 
@@ -141,7 +164,7 @@ def _format_asset_markup(
         str: Generated HTML snippet.
     """
     if file_name.lower().endswith(".svg") and output_abs:
-        svg_disk = os.path.join(output_abs, file_name)
+        svg_disk = os.path.normpath(os.path.join(output_abs, file_name))
         if os.path.exists(svg_disk):
             with open(svg_disk, encoding="utf-8") as f:
                 svg_content = f.read()
@@ -381,6 +404,7 @@ def _process_drawlib_blocks(
         str: Transformed markdown text.
     """
     counter = 0
+    md_stem = Path(file_path).stem if file_path else f"slide_{idx}"
 
     def replacer(match: re.Match[str]) -> str:
         nonlocal counter
@@ -397,62 +421,36 @@ def _process_drawlib_blocks(
         else:
             dl_file = f"drawlib_{idx}_{counter}.{eff_fmt}"
 
-        target_path = os.path.join(output_abs, dl_file)
+        if "/" in dl_file or "\\" in dl_file:
+            rel_asset_path = dl_file.replace("\\", "/")
+        else:
+            rel_asset_path = f"images/{md_stem}/{dl_file}"
+
+        target_path = os.path.normpath(os.path.join(output_abs, rel_asset_path))
+        os.makedirs(os.path.dirname(target_path), exist_ok=True)
         processor.render_block_to_file(code, target_path, source_filename=file_path)
-        return _format_asset_markup(dl_file, "Illustration", output_abs=output_abs)
+        return _format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs)
 
     return _PATTERN_DRAWLIB.sub(replacer, text)
 
 
 def _assemble_slide_section(
     rendered_body: str,
-    header_text: str,
-    footer_text: str,
-    paginate: bool,
     idx: int,
-    total_slides: int,
-    layout: str = "",
 ) -> str:
     """Assemble final slide <section> markup on the 1920x1080 stage.
 
     Args:
         rendered_body: HTML body snippet containing positioned slide-block elements.
-        header_text: Slide header text.
-        footer_text: Slide footer text.
-        paginate: Whether to display footer page numbers.
         idx: Slide index.
-        total_slides: Total slide count.
-        layout: Optional slide layout name for CSS styling.
 
     Returns:
         str: Slide <section> HTML markup.
     """
     active_cls = " active" if idx == 1 else ""
-    layout_cls = f" layout-{layout}" if layout else ""
-
-    suppress_header = (
-        layout == "canvas" or not header_text or header_text.strip().lower() in {"none", "false", "off"}
-    )
-    header_html = f'      <header class="slide-header">{header_text}</header>\n' if not suppress_header else ""
-
-    suppress_footer = (
-        layout == "canvas" or not paginate or (footer_text.strip().lower() in {"none", "false", "off"})
-    )
-    footer_html = ""
-    if not suppress_footer:
-        footer_title = "" if footer_text.strip().lower() in {"none", "false", "off"} else footer_text
-        footer_html = (
-            f'      <footer class="slide-footer">\n'
-            f'        <span class="footer-title">{footer_title}</span>\n'
-            f'        <span class="page-number">{idx} / {total_slides}</span>\n'
-            f"      </footer>\n"
-        )
-
     return (
-        f'    <section class="slide{active_cls}{layout_cls}" data-slide-index="{idx}">\n'
-        f"{header_html}"
+        f'    <section class="slide{active_cls}" data-slide-index="{idx}">\n'
         f'      <div class="slide-body">\n{rendered_body.strip()}\n      </div>\n'
-        f"{footer_html}"
         f"    </section>"
     )
 
@@ -530,6 +528,7 @@ def build_slide(
         raise ValueError(f"Input directory does not exist: '{input_dir}'")
 
     output_abs = _resolve_output_dir(input_abs, output_dir)
+    _clean_output_dir(output_abs, input_abs)
     candidate_files = _collect_slide_files(input_abs)
     if not candidate_files:
         raise ValueError(f"No Markdown slide files (.md) found in '{input_dir}'")
@@ -563,30 +562,24 @@ def build_slide(
         if idx == 1 and deck_title == "Drawlib Presentation":
             deck_title = slide_title
 
-        layout = str(frontmatter.get("layout", "cover" if idx == 1 else "")).lower()
-        header = str(frontmatter.get("header", ""))
-        footer = str(frontmatter.get("footer", deck_title))
-        paginate = bool(frontmatter.get("paginate", layout != "cover"))
+        ctx_token = set_slide_context(index=idx, total=total_slides)
+        try:
+            # If no ::: block or ::: box is in body_text, auto-wrap in default stage block
+            text_to_search = "\n" + body_text if not body_text.startswith("\n") else body_text
+            if not _PATTERN_CONTAINER_BOX.search(text_to_search):
+                text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
 
-        # If no ::: block or ::: box is in body_text, auto-wrap in default stage block
-        text_to_search = "\n" + body_text if not body_text.startswith("\n") else body_text
-        if not _PATTERN_CONTAINER_BOX.search(text_to_search):
-            text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
+            t_drawlib = _process_drawlib_blocks(text_to_search, output_abs, processor, file_path, idx, image_format)
+            t_containers = _process_container_blocks(t_drawlib)
+            rendered_body = t_containers.strip()
 
-        t_drawlib = _process_drawlib_blocks(text_to_search, output_abs, processor, file_path, idx, image_format)
-        t_containers = _process_container_blocks(t_drawlib)
-        rendered_body = t_containers.strip()
-
-        slide_section = _assemble_slide_section(
-            rendered_body=rendered_body,
-            header_text=header,
-            footer_text=footer,
-            paginate=paginate,
-            idx=idx,
-            total_slides=total_slides,
-            layout=layout,
-        )
-        slides_html_list.append(slide_section)
+            slide_section = _assemble_slide_section(
+                rendered_body=rendered_body,
+                idx=idx,
+            )
+            slides_html_list.append(slide_section)
+        finally:
+            reset_slide_context(ctx_token)
 
         curr_thumb = " current" if idx == 1 else ""
         thumbs_html_list.append(

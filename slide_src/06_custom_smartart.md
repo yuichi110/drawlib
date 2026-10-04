@@ -1,12 +1,16 @@
----
-layout: default
-header: "Modular Drawing Helpers"
-footer: "Drawlib: Illustration as Code"
-paginate: true
----
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+import utils
+utils.draw_page_number()
+```
+:::
+
+::: block (80, 40) (1760, 60)
+# Modular Drawing Helpers
+:::
 
 ::: block (80, 140) (740, 840)
-# Reusable Python Helpers in utils.py
+## Reusable Python Helpers in utils.py
 
 Drawlib eliminates rigid DSL wrappers in favor of pure, reusable Python functions:
 
@@ -39,4 +43,8 @@ draw_kpi_cards(
     height=84,
 )
 ```
+:::
+
+::: block (80, 1010) (820, 30) font:14px
+*Drawlib: Illustration as Code*
 :::

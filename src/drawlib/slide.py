@@ -13,10 +13,14 @@ from __future__ import annotations
 
 from drawlib._slide import (
     BoundingBox,
+    SlideContext,
     build_slide,
+    current_slide,
 )
 
 __all__ = [
     "BoundingBox",
+    "SlideContext",
     "build_slide",
+    "current_slide",
 ]

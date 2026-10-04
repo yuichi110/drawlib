@@ -1,10 +1,9 @@
----
-layout: default
-header: "Architecture"
----
+::: block (80, 40) (1760, 60)
+# Architecture
+:::
 
 ::: block (80, 140) (740, 840) font:22px
-# Scalable Microservices in Code
+## Scalable Microservices in Code
 
 - **Declarative Python**: Pure code, version-controlled with clean git diffs
 - **Vector Native SVG**: Crisp scaling, Ctrl+F searchable text
@@ -25,4 +24,8 @@ rectangle((75, 30), width=30, height=20, style=Styles.SecondaryFlat, text="API G
 line((40, 30), (60, 30), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
+:::
+
+::: block (80, 1010) (1760, 30) font:14px
+*Drawlib Presentation*
 :::

@@ -1,12 +1,16 @@
----
-layout: default
-header: "Workflows & Pipelines"
-footer: "Drawlib: Illustration as Code"
-paginate: true
----
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+import utils
+utils.draw_page_number()
+```
+:::
+
+::: block (80, 40) (1760, 60)
+# Workflows & Pipelines
+:::
 
 ::: block (80, 140) (740, 840)
-# Automated CI/CD & Caching
+## Automated CI/CD & Caching
 
 Technical diagrams shouldn't slow down your deployment cycles:
 
@@ -66,4 +70,7 @@ for step, dur in zip(["push", "detect", "check", "cache", "build", "deploy"], [0
         draw_pipeline_state(step)
 save()
 ```
+:::
+::: block (80, 1010) (820, 30) font:14px
+*Drawlib: Illustration as Code*
 :::

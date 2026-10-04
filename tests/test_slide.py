@@ -22,6 +22,7 @@ from drawlib._slide import (
     BoundingBox,
     build_slide,
 )
+from drawlib._slide.base import reset_slide_context, set_slide_context
 from drawlib.canvas import clear, save, setup
 from slide_src.utils import draw_curved_agenda, draw_kpi_cards
 from tests.cli.common import run_drawlib_cli
@@ -69,8 +70,32 @@ class TestSlideFoundation:
     def test_public_slide_facade(self) -> None:
         """Verify public drawlib.slide facade exposes expected domain symbols."""
         assert hasattr(slide_module, "BoundingBox")
+        assert hasattr(slide_module, "SlideContext")
+        assert hasattr(slide_module, "current_slide")
         assert hasattr(slide_module, "build_slide")
         assert slide_module.BoundingBox is BoundingBox
+
+    def test_current_slide_introspection(self) -> None:
+        """Verify current_slide introspection properties and format method."""
+        # Outside of build context, current_slide defaults safely to 1/1
+        assert slide_module.current_slide.index == 1
+        assert slide_module.current_slide.total == 1
+        assert slide_module.current_slide.text == "1 / 1"
+        assert str(slide_module.current_slide) == "1 / 1"
+        assert slide_module.current_slide.format("{index} of {total}") == "1 of 1"
+
+        # Within slide context
+        token = set_slide_context(4, 9)
+        try:
+            assert slide_module.current_slide.index == 4
+            assert slide_module.current_slide.total == 9
+            assert slide_module.current_slide.text == "4 / 9"
+            assert str(slide_module.current_slide) == "4 / 9"
+            assert slide_module.current_slide.format("Slide {index} / {total}") == "Slide 4 / 9"
+        finally:
+            reset_slide_context(token)
+
+        assert slide_module.current_slide.index == 1
 
 
 class TestSlideDrawingHelpers:
@@ -131,13 +156,13 @@ class TestSlideCompiler:
 
         (src_dir / "01_title.md").write_text(
             """---
-layout: cover
 theme: google
-paginate: false
 ---
 
+::: block (160, 240) (1600, 600)
 # Drawlib Test Deck
 ## Presentation as Code
+:::
 """,
             encoding="utf-8",
         )
@@ -145,10 +170,9 @@ paginate: false
         (src_dir / "utils.py").write_text(Path("slide_src/utils.py").read_text(encoding="utf-8"), encoding="utf-8")
 
         (src_dir / "02_agenda.md").write_text(
-            """---
-header: "Presentation Agenda"
-layout: default
----
+            """::: block (80, 40) (1760, 60)
+# Presentation Agenda
+:::
 
 ::: block (80, 140) (700, 840)
 # Topics
@@ -177,10 +201,9 @@ draw_curved_agenda(
         )
 
         (src_dir / "03_features.md").write_text(
-            """---
-header: "Features"
-layout: default
----
+            """::: block (80, 40) (1760, 60)
+# Features
+:::
 
 ::: block (80, 140) (740, 840)
 # Declarative Illustrations
@@ -193,11 +216,14 @@ layout: default
 ```drawlib file:diag.svg
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
+from drawlib.slide import current_slide
+from drawlib.text import text
 from drawlib.canvas import setup, clear
 
 clear()
 setup(width=100, height=60)
 rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", text_style=Styles.WhiteBold)
+text((50, 10), current_slide.text, style=Styles.Dark)
 ```
 :::
 """,
@@ -217,13 +243,17 @@ rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", t
         # Assets
         assert (out_dir / "slide.css").is_file()
         assert (out_dir / "slide.js").is_file()
-        assert (out_dir / "agenda.svg").is_file()
-        assert (out_dir / "diag.svg").is_file()
+        assert (out_dir / "images" / "02_agenda" / "agenda.svg").is_file()
+        assert (out_dir / "images" / "03_features" / "diag.svg").is_file()
 
         # Check SVG has text
-        agenda_svg = (out_dir / "agenda.svg").read_text(encoding="utf-8")
+        agenda_svg = (out_dir / "images" / "02_agenda" / "agenda.svg").read_text(encoding="utf-8")
         assert "First Step" in agenda_svg
         assert "はじめに" in agenda_svg
+
+        # Check current_slide in diag.svg
+        diag_svg = (out_dir / "images" / "03_features" / "diag.svg").read_text(encoding="utf-8")
+        assert "3 / 3" in diag_svg
 
     def test_build_slide_missing_dir_raises(self, tmp_path: Path) -> None:
         """Verify ValueError raised when source directory does not exist."""
@@ -237,26 +267,25 @@ rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", t
         with pytest.raises(ValueError, match="No Markdown slide files"):
             build_slide(str(empty_dir))
 
-    def test_build_slide_canvas_mode(self, tmp_path: Path) -> None:
-        """Verify layout: canvas produces full-bleed 1920x1080 stage without header or footer."""
+    def test_build_slide_full_bleed_canvas(self, tmp_path: Path) -> None:
+        """Verify full-bleed 1920x1080 stage renders pure section without injected chrome."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
         src_dir.mkdir()
 
         (src_dir / "01_canvas.md").write_text(
-            """---
-layout: canvas
----
-
-::: block (0, 0) (1920, 1080)
+            """::: block (0, 0) (1920, 1080)
 ```drawlib file:hero.svg
 from drawlib.canvas import setup, clear
 from drawlib.shapes import rectangle
+from drawlib.slide import current_slide
+from drawlib.text import text
 from drawlib.styles import Styles
 
 clear()
 setup(width=192, height=108)
 rectangle((96, 54), width=180, height=90, style=Styles.PrimaryFlat)
+text((96, 20), current_slide.text, style=Styles.White)
 ```
 :::
 """,
@@ -265,11 +294,14 @@ rectangle((96, 54), width=180, height=90, style=Styles.PrimaryFlat)
 
         result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
         content = Path(result_html).read_text(encoding="utf-8")
-        assert "layout-canvas" in content
         assert "slide-header" not in content
         assert "slide-footer" not in content
+        assert "layout-canvas" not in content
         assert "slide-block" in content
-        assert (out_dir / "hero.svg").is_file()
+        assert 'data-slide-index="1"' in content
+        assert (out_dir / "images" / "01_canvas" / "hero.svg").is_file()
+        hero_svg = (out_dir / "images" / "01_canvas" / "hero.svg").read_text(encoding="utf-8")
+        assert "1 / 1" in hero_svg
 
     def test_build_slide_container_boxes_and_coordinates(self, tmp_path: Path) -> None:
         """Verify ::: block container syntax creates absolutely positioned, styled blocks."""
@@ -278,11 +310,7 @@ rectangle((96, 54), width=180, height=90, style=Styles.PrimaryFlat)
         src_dir.mkdir()
 
         (src_dir / "01_boxes.md").write_text(
-            """---
-header: "Microservices"
----
-
-::: block (80, 140) (740, 480) font:21px compact z:10
+            """::: block (80, 140) (740, 480) font:21px compact z:10
 # Ingress Controller
 - **TLS**: Terminated at edge
 - **Routing**: Path-based dispatch
@@ -305,21 +333,17 @@ header: "Microservices"
         assert "left: 80.0px; top: 660.0px; width: 740.0px; height: 320.0px;" in content
         assert "text-align: center;" in content
 
-    def test_build_slide_header_footer_suppression(self, tmp_path: Path) -> None:
-        """Verify header: none and footer: none suppress master frame components."""
+    def test_build_slide_chrome_free_by_default(self, tmp_path: Path) -> None:
+        """Verify slides are completely chrome-free by default without injected header/footer/paginate."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
         src_dir.mkdir()
 
-        (src_dir / "01_suppressed.md").write_text(
-            """---
-header: none
-footer: none
-layout: default
----
-
+        (src_dir / "01_clean.md").write_text(
+            """::: block (80, 140) (800, 400)
 # Clean Slide Without Chrome
 - Focused content only
+:::
 """,
             encoding="utf-8",
         )
@@ -328,6 +352,8 @@ layout: default
         content = Path(result_html).read_text(encoding="utf-8")
         assert "slide-header" not in content
         assert "slide-footer" not in content
+        assert "page-number" not in content
+        assert "layout-" not in content
         assert "Clean Slide Without Chrome" in content
 
     def test_build_slide_block_options_and_styling(self, tmp_path: Path) -> None:
@@ -337,11 +363,7 @@ layout: default
         src_dir.mkdir()
 
         (src_dir / "01_options.md").write_text(
-            """---
-header: "Fine Tuned Slide"
----
-
-::: block (80, 140) (740, 840) font:20px compact style:"transform: translateY(-25px);"
+            """::: block (80, 140) (740, 840) font:20px compact style:"transform: translateY(-25px);"
 # Title Inside Block
 - Point 1
 - Point 2
@@ -358,6 +380,34 @@ header: "Fine Tuned Slide"
         assert "slide-block" in content
         assert "left: 80.0px; top: 140.0px; width: 740.0px; height: 840.0px;" in content
 
+    def test_build_slide_cleans_obsolete_output_files(self, tmp_path: Path) -> None:
+        """Verify build_slide clears previous output files to avoid obsolete ghost files."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+        out_dir.mkdir()
+
+        # Seed old/obsolete files in output directory
+        (out_dir / "obsolete.svg").write_text("<svg>old</svg>", encoding="utf-8")
+        old_images = out_dir / "images" / "old_slide"
+        old_images.mkdir(parents=True)
+        (old_images / "legacy.svg").write_text("<svg>legacy</svg>", encoding="utf-8")
+
+        (src_dir / "01_slide.md").write_text(
+            """::: block (80, 140) (800, 400)
+# Fresh Slide
+:::
+""",
+            encoding="utf-8",
+        )
+
+        build_slide(str(src_dir), str(out_dir), no_cache=True)
+
+        assert not (out_dir / "obsolete.svg").exists()
+        assert not (out_dir / "images" / "old_slide").exists()
+        assert (out_dir / "index.html").is_file()
+        assert (out_dir / "slide.css").is_file()
+
 
 class TestSlideCli:
     """Test suite for slide CLI commands."""
@@ -370,9 +420,11 @@ class TestSlideCli:
 
         (src_dir / "01_title.md").write_text(
             """---
-layout: cover
+theme: google
 ---
+::: block (160, 240) (1600, 600)
 # CLI Slide Test
+:::
 """,
             encoding="utf-8",
         )

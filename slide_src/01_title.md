@@ -1,12 +1,4 @@
----
-layout: cover
-theme: google
-paginate: false
-header: "Drawlib Technical Overview"
-footer: "Confidential - Internal"
----
-
-::: block (80, 140) (1760, 840)
+::: block (160, 240) (1600, 600)
 # Drawlib
 ## Illustration as Code for Modern Engineers
 

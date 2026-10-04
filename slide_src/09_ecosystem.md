@@ -1,12 +1,16 @@
----
-layout: default
-header: "Unified Ecosystem"
-footer: "Drawlib: Illustration as Code"
-paginate: true
----
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+import utils
+utils.draw_page_number()
+```
+:::
+
+::: block (80, 40) (1760, 60)
+# Unified Ecosystem
+:::
 
 ::: block (80, 140) (1760, 840)
-# One Illustration Core, Multiple Targets
+## One Illustration Core, Multiple Targets
 
 Drawlib unifies engineering documentation and technical visualizations as version-controlled code:
 
@@ -31,4 +35,8 @@ uv run drawlib build slide slide_src/ -o slide/
 # Start interactive preview server
 uv run drawlib serve slide/
 ```
+:::
+
+::: block (80, 1010) (820, 30) font:14px
+*Drawlib: Illustration as Code*
 :::

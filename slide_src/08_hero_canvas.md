@@ -1,6 +1,9 @@
----
-layout: canvas
----
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+import utils
+utils.draw_page_number()
+```
+:::
 
 ::: block (0, 0) (1920, 1080)
 ```drawlib file:full_hero_canvas.svg
@@ -21,7 +24,7 @@ rectangle((96, 54), width=182, height=98, style=Styles.MutedDashed)
 
 # Top Hero Banner
 rectangle((96, 90), width=172, height=14, style=Styles.PrimaryFlat,
-          text="FULL CANVAS MODE (layout: canvas) — 1920 × 1080 PURE DRAWING STAGE", text_style=Styles.WhiteBold)
+          text="FULL CANVAS STAGE — 1920 × 1080 PURE DRAWING STAGE", text_style=Styles.WhiteBold)
 
 # 4 Architectural Pillars
 pillars = [
@@ -38,7 +41,7 @@ for x, title, desc, title_style in pillars:
 
 # Bottom Feature Callout
 rectangle((96, 14), width=172, height=10, style=Styles.PrimaryLight,
-          text="Zero Header • Zero Footer • Zero CSS Slot Limits • 100% Code-Driven Visualization", text_style=Styles.PrimaryBold)
+          text="Zero Injected Chrome • Full Stage Freedom • 100% Code-Driven Visualization", text_style=Styles.PrimaryBold)
 
 save()
 ```

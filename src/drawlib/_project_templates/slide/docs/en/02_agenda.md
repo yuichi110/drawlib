@@ -1,11 +1,8 @@
----
-header: "Agenda"
-layout: default
----
+::: block (80, 40) (1760, 60)
+# Topics Covered
+:::
 
 ::: block (80, 140) (700, 840)
-# Topics Covered
-
 - **Architecture Overview**: Declarative drawing engine
 - **Native Vector Output**: High-DPI & searchable text
 - **Modular Drawing**: Component-based utilities
@@ -32,4 +29,8 @@ draw_curved_agenda(
     height=84,
 )
 ```
+:::
+
+::: block (80, 1010) (1760, 30) font:14px
+*Drawlib Presentation*
 :::

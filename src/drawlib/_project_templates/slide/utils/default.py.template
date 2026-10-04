@@ -14,10 +14,33 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import Literal
 
+from drawlib.canvas import clear, setup
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle, rectangle
+from drawlib.slide import current_slide
 from drawlib.styles import Style, Styles
 from drawlib.text import text
+
+
+def draw_page_number(
+    width: int = 14,
+    height: int = 3,
+    style: Style | None = None,
+) -> None:
+    """Draw a standardized slide page number badge.
+
+    Args:
+        width: Canvas width in coordinate units.
+        height: Canvas height in coordinate units.
+        style: Text style for the page counter (defaults to gray 65pt text with transparent background).
+    """
+    clear()
+    setup(width=width, height=height, alpha=0.0)
+    effective_style = style or Styles.Black.patch(
+        text_size=65,
+        text_color=(128, 128, 128),
+    )
+    text((width / 2.0, height / 2.0), current_slide.text, style=effective_style)
 
 _DEFAULT_PALETTE = [
     (37, 99, 235),   # Blue 600

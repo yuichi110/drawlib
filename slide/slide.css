@@ -80,48 +80,8 @@ html, body {
   display: block;
 }
 
-/* Header & Footer */
-.slide-header {
-  position: absolute;
-  top: 40px;
-  left: 80px;
-  width: 1760px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  font-size: 22px;
-  font-weight: 500;
-  color: var(--slide-header-footer-color);
-  border-bottom: 2px solid var(--slide-border);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  z-index: 2;
-  box-sizing: border-box;
-}
-
-.slide-footer {
-  position: absolute;
-  bottom: 40px;
-  left: 80px;
-  width: 1760px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 20px;
-  color: var(--slide-header-footer-color);
-  border-top: 1px solid var(--slide-border);
-  z-index: 2;
-  box-sizing: border-box;
-}
-
-.page-number {
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  color: var(--slide-primary);
-}
-
 /* Slide Content Container */
+
 .slide-body {
   position: absolute;
   top: 0;
@@ -197,46 +157,13 @@ code {
   font-size: 0.9em;
 }
 
-/* Layout: Cover Slide */
-.slide.layout-cover {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 100px 140px;
-}
-
-.slide.layout-cover h1 {
-  font-size: 84px;
-  color: var(--slide-primary);
-  margin-bottom: 16px;
-  letter-spacing: -1px;
-}
-
-.slide.layout-cover h2 {
-  font-size: 42px;
-  color: var(--slide-text);
-  margin-bottom: 30px;
-  font-weight: 400;
-}
-
-.slide.layout-cover hr {
+hr {
   width: 140px;
   height: 6px;
   background-color: var(--slide-accent);
   border: none;
-  margin: 40px auto;
+  margin: 30px auto;
   border-radius: 3px;
-}
-
-.slide.layout-cover .author-info {
-  font-size: 28px;
-  color: var(--slide-text-muted);
-}
-
-.slide.layout-cover .slide-block {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 
@@ -348,127 +275,28 @@ code {
   gap: 8px;
 }
 
-/* Layout: Agenda Slide (Curve + Interactive HTML Pills) */
-.slide.layout-agenda {
-  padding: 80px 120px;
-  position: relative;
-  background-image: url('agenda_curve.png');
-  background-size: cover;
-  background-position: center;
-}
-
-.slide.layout-agenda h1.agenda-title {
-  font-size: 72px;
-  font-weight: 500;
-  color: #202124;
-  margin-top: 40px;
-  margin-left: 20px;
-}
-
-.agenda-items-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.agenda-item {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  pointer-events: auto;
-  transition: transform 0.2s ease, filter 0.2s ease;
-  cursor: pointer;
-}
-
-.agenda-item:hover {
-  transform: translateX(12px) scale(1.02);
-  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.12));
-}
-
-.agenda-badge {
-  width: 82px;
-  height: 82px;
-  border-radius: 50%;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  font-weight: 700;
-  border: 5px solid currentColor;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-.agenda-pill {
-  height: 72px;
-  background: #f1f3f4;
-  border-radius: 36px;
-  display: flex;
-  align-items: center;
-  padding: 0 48px 0 60px;
-  margin-left: -40px;
-  font-size: 32px;
-  font-weight: 700;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.agenda-pill .ja {
-  margin-left: 14px;
-  font-weight: 500;
-}
-
-/* Agenda color themes (Google 4-Colors) */
-.agenda-blue { color: #1a73e8; }
-.agenda-red { color: #ea4335; }
-.agenda-green { color: #188038; }
-.agenda-yellow { color: #f9ab00; }
-
-.agenda-confidential {
-  position: absolute;
-  top: 50px;
-  right: 80px;
-  font-size: 16px;
-  color: #bdc1c6;
-  letter-spacing: 0.5px;
-}
-
-.agenda-logo {
-  position: absolute;
-  bottom: 40px;
-  right: 80px;
-  font-size: 26px;
-  font-weight: 600;
-  color: #bdc1c6;
-  letter-spacing: -0.5px;
-}
-
-/* Layout: Default / Table Slide */
-.slide.layout-default table {
+/* Table in Slides */
+.slide-block table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 24px;
-  margin-bottom: 30px;
+  margin-top: 16px;
+  margin-bottom: 24px;
 }
 
-.slide.layout-default th,
-.slide.layout-default td {
-  padding: 16px 24px;
-  font-size: 24px;
+.slide-block th,
+.slide-block td {
+  padding: 14px 20px;
+  font-size: 22px;
   border-bottom: 1px solid var(--slide-border);
   text-align: left;
 }
 
-.slide.layout-default th {
+.slide-block th {
   background-color: var(--slide-card-bg);
   color: var(--slide-primary);
   font-weight: 600;
 }
+
 
 /* On-Screen Controls */
 .slide-controls {

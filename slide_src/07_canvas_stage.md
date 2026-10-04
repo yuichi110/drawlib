@@ -1,17 +1,21 @@
----
-layout: default
-header: "1920×1080 Stage Architecture"
-footer: "Drawlib: Illustration as Code"
-paginate: true
----
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+import utils
+utils.draw_page_number()
+```
+:::
+
+::: block (80, 40) (820, 60)
+# 1920×1080 Stage Architecture
+:::
 
 ::: block (80, 160) (780, 800) font:22px
-# Total Spatial Freedom
+## Total Spatial Freedom
 
 Every slide is a mathematically defined **1920×1080 Cartesian stage**:
 
 - **Absolute Placement**: Position diagrams, SmartArts, and text boxes at explicit `(x, y)` and `(w, h)` coordinates.
-- **Partial Overlap & Bleed**: Notice how the diagram on the right extends beyond the normal content zone, bleeding from `Y: 0` to `Y: 1080` across the header and footer lines.
+- **Partial Overlap & Bleed**: Notice how the diagram on the right extends beyond the normal content zone, bleeding from `Y: 0` to `Y: 1080` across the stage.
 - **Layer Stacking**: Manage depth with `z: N` to compose backgrounds, content panels, and overlays.
 - **Modular Scoping**: Use `::: block` for scoped typography and density control (`compact`, `font: 20px`).
 :::
@@ -52,4 +56,7 @@ line((49, 26), (49, 21), arrow_head="->", style=Styles.PrimaryBold)
 
 save()
 ```
+:::
+::: block (80, 1010) (820, 30) font:14px
+*Drawlib: Illustration as Code*
 :::

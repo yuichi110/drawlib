@@ -1,10 +1,9 @@
----
-layout: default
-header: "アーキテクチャ"
----
+::: block (80, 40) (1760, 60)
+# アーキテクチャ
+:::
 
 ::: block (80, 140) (740, 840) font:22px
-# Pythonコードで描くマイクロサービス
+## Pythonコードで描くマイクロサービス
 
 - **宣言的Python**: 変更履歴がGitで管理できるクリーンなコード
 - **ネイティブSVG**: 拡大してもクリア、Ctrl+Fによる文字検索に対応
@@ -25,4 +24,8 @@ rectangle((75, 30), width=30, height=20, style=Styles.SecondaryFlat, text="API G
 line((40, 30), (60, 30), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
+:::
+
+::: block (80, 1010) (1760, 30) font:14px
+*Drawlib プレゼンテーション*
 :::

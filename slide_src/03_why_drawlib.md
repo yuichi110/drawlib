@@ -1,12 +1,16 @@
----
-layout: default
-header: "Why Drawlib?"
-footer: "Drawlib: Illustration as Code"
-paginate: true
----
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+import utils
+utils.draw_page_number()
+```
+:::
+
+::: block (80, 40) (1760, 60)
+# Why Drawlib?
+:::
 
 ::: block (80, 140) (740, 840)
-# From Fragile Drawings to Code
+## From Fragile Drawings to Code
 
 Traditional technical diagramming approaches face severe friction:
 
@@ -53,4 +57,7 @@ data = [
 table.draw_flexible((7.0, 70.0), [26.0, 28.0, 30.0, 32.0], [8.0]*6, data)
 save()
 ```
+:::
+::: block (80, 1010) (820, 30) font:14px
+*Drawlib: Illustration as Code*
 :::
