@@ -31,8 +31,8 @@ rectangle((62, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Markdo
 circle((98, 22.5), radius=10, style=Styles.SuccessFlat, text="HTML, PDF\n& Markdown", text_style=Styles.WhiteBold)
 
 # Connectors
-line((40, 22.5), (48, 22.5), arrowhead="->", style=Styles.PrimaryBold)
-line((76, 22.5), (88, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.PrimaryBold)
+line((76, 22.5), (88, 22.5), arrow_head="->", style=Styles.PrimaryBold)
 ```
 
 </details>
@@ -77,6 +77,6 @@ Explore the comprehensive guides below:
 5. [**Technical Diagrams**](./05_diagrams/overview.md)
    - Engineering diagrams: cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, and state machines.
 6. [**Document Builder & CLI**](./06_doc_builder_and_cli/overview.md)
-   - Documentation as Code: Markdown block syntax, CLI reference, project templates (`image`, `simple`, `site`, `pdf`), and custom theming.
+   - Documentation as Code: Markdown block syntax, CLI reference, project templates (`site`, `doc`, `slide`, `image`), and custom theming.
 7. [**AI Agents & Advanced Integration**](./07_ai_agents_and_advanced/ai_agent_instructions.md)
    - Autonomous agent instructions, visual self-correction feedback loop, programmatic Python APIs, and math utilities.

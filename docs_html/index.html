@@ -9,13 +9,17 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drawlib Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
+    
     
 </head>
 <body>
@@ -246,11 +250,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                                <a href="06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -258,7 +258,11 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                                <a href="06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -331,8 +335,8 @@
 <span class="n">circle</span><span class="p">((</span><span class="mi">98</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;HTML, PDF</span><span class="se">\n</span><span class="s2">&amp; Markdown&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
 <span class="c1"># Connectors</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 </code></pre>
 </details>
 <hr />
@@ -388,7 +392,7 @@
 </li>
 <li><a href="./06_doc_builder_and_cli/overview.html"><strong>Document Builder &amp; CLI</strong></a>
 <ul>
-<li>Documentation as Code: Markdown block syntax, CLI reference, project templates (<code>image</code>, <code>simple</code>, <code>site</code>, <code>pdf</code>), and custom theming.</li>
+<li>Documentation as Code: Markdown block syntax, CLI reference, project templates (<code>site</code>, <code>doc</code>, <code>slide</code>, <code>image</code>), and custom theming.</li>
 </ul>
 </li>
 <li><a href="./07_ai_agents_and_advanced/ai_agent_instructions.html"><strong>AI Agents &amp; Advanced Integration</strong></a>

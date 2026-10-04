@@ -9,13 +9,17 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Start Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../style.css">
+    
     
 </head>
 <body>
@@ -246,11 +250,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -258,7 +258,11 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -339,7 +343,7 @@ You can author diagrams either as <strong>standalone Python scripts</strong> (<c
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
 <span class="c1"># Connection line with arrowhead</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">&quot;REST API&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
 <span class="c1"># Step 5: Save image (defaults to client_server.png)</span>
@@ -376,7 +380,7 @@ Here is our primary service flow:
 <span class="s">rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)</span>
 <span class="s">circle((25, 25), radius=12, style=Styles.AccentFlat, text=&quot;Client&quot;, text_style=Styles.WhiteBold)</span>
 <span class="s">rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, text_style=Styles.WhiteBold)</span>
-<span class="s">line((37, 25), (63, 25), arrowhead=&quot;-&gt;&quot;, style=Styles.PrimaryBold)</span>
+<span class="s">line((37, 25), (63, 25), arrow_head=&quot;-&gt;&quot;, style=Styles.PrimaryBold)</span>
 <span class="s">text((50, 30), &quot;REST API&quot;, style=Styles.PrimaryBold)</span>
 <span class="sb">```</span>
 </code></pre>

@@ -9,13 +9,17 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lines & Connectors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../style.css">
+    
     
 </head>
 <body>
@@ -246,11 +250,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -258,7 +258,11 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -359,10 +363,10 @@ The <code>drawlib.lines</code> module provides straight lines, smooth circular a
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="s2">&quot;Forward (-&gt;)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="s2">&quot;Bidirectional (&lt;-&gt;)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -381,11 +385,11 @@ The <code>drawlib.lines</code> module provides straight lines, smooth circular a
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
 <span class="c1"># Negative bend curves upward in Cartesian space</span>
-<span class="n">line_curved</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line_curved</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">&quot;bend=-0.35 (upward)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
 
 <span class="c1"># Positive bend curves downward in Cartesian space</span>
-<span class="n">line_curved</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">bend</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">)</span>
+<span class="n">line_curved</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">bend</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">&quot;bend=0.35 (downward)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Accent</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -411,7 +415,7 @@ The <code>drawlib.lines</code> module provides straight lines, smooth circular a
 <span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="s2">&quot;Control Point (cp)&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Danger</span><span class="p">)</span>
 
 <span class="c1"># Quadratic Bézier curve</span>
-<span class="n">line_bezier1</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">cp</span><span class="o">=</span><span class="n">cp</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">line_bezier1</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">cp</span><span class="o">=</span><span class="n">cp</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
@@ -438,7 +442,7 @@ The <code>drawlib.lines</code> module provides straight lines, smooth circular a
 <span class="n">text</span><span class="p">((</span><span class="mi">65</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;cp2&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Danger</span><span class="p">)</span>
 
 <span class="c1"># Cubic Bézier S-curve</span>
-<span class="n">line_bezier2</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">cp1</span><span class="o">=</span><span class="n">cp1</span><span class="p">,</span> <span class="n">cp2</span><span class="o">=</span><span class="n">cp2</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line_bezier2</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">cp1</span><span class="o">=</span><span class="n">cp1</span><span class="p">,</span> <span class="n">cp2</span><span class="o">=</span><span class="n">cp2</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
@@ -460,7 +464,7 @@ In software architectures and circuit schematics, <strong>orthogonal (Manhattan)
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Worker&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
 <span class="c1"># L-shaped connection: horizontal from Client, then downward to Worker</span>
-<span class="n">lines</span><span class="p">([(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">22</span><span class="p">)],</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">22</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
@@ -479,7 +483,7 @@ In software architectures and circuit schematics, <strong>orthogonal (Manhattan)
 
 <span class="c1"># Z-shaped dogleg connection across midpoint x_mid = 50</span>
 <span class="n">x_mid</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">lines</span><span class="p">([(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">(</span><span class="n">x_mid</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">(</span><span class="n">x_mid</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">14</span><span class="p">)],</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">(</span><span class="n">x_mid</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">(</span><span class="n">x_mid</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">14</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">

@@ -16,19 +16,19 @@ from drawlib.text import text
 setup(width=120, height=60)
 
 # 1. Straight Line with Arrowhead
-line((15, 45), (45, 45), arrowhead="->", style=Styles.PrimaryBold)
+line((15, 45), (45, 45), arrow_head="->", style=Styles.PrimaryBold)
 text((30, 48), "line()", style=Styles.PrimaryBold)
 
 # 2. Curved Line (arc with bend)
-line_curved((65, 45), (95, 45), bend=-0.4, arrowhead="->", style=Styles.AccentBold)
+line_curved((65, 45), (95, 45), bend=-0.4, arrow_head="->", style=Styles.AccentBold)
 text((80, 52), "line_curved(bend=-0.4)", style=Styles.PrimaryBold)
 
 # 3. Bézier Curve
-line_bezier1((15, 15), (45, 15), cp=(30, 32), arrowhead="->", style=Styles.SecondaryBold)
+line_bezier1((15, 15), (45, 15), cp=(30, 32), arrow_head="->", style=Styles.SecondaryBold)
 text((30, 22), "line_bezier1()", style=Styles.PrimaryBold)
 
 # 4. Multi-point Orthogonal Routing (Manhattan)
-lines([(65, 15), (85, 15), (85, 30), (105, 30)], arrowhead="->", style=Styles.SuccessBold)
+lines([(65, 15), (85, 15), (85, 30), (105, 30)], arrow_head="->", style=Styles.SuccessBold)
 text((85, 33), "lines(orthogonal)", style=Styles.PrimaryBold)
 
 save()
@@ -61,10 +61,10 @@ from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=100, height=40)
-line((15, 27), (85, 27), arrowhead="->", style=Styles.PrimaryBold)
+line((15, 27), (85, 27), arrow_head="->", style=Styles.PrimaryBold)
 text((50, 32), "Forward (->)", style=Styles.Primary)
 
-line((15, 12), (85, 12), arrowhead="<->", style=Styles.SecondaryBold)
+line((15, 12), (85, 12), arrow_head="<->", style=Styles.SecondaryBold)
 text((50, 17), "Bidirectional (<->)", style=Styles.Secondary)
 save()
 ```
@@ -81,11 +81,11 @@ from drawlib.text import text
 
 setup(width=100, height=45)
 # Negative bend curves upward in Cartesian space
-line_curved((15, 22), (85, 22), bend=-0.35, arrowhead="->", style=Styles.PrimaryBold)
+line_curved((15, 22), (85, 22), bend=-0.35, arrow_head="->", style=Styles.PrimaryBold)
 text((50, 40), "bend=-0.35 (upward)", style=Styles.Primary)
 
 # Positive bend curves downward in Cartesian space
-line_curved((15, 22), (85, 22), bend=0.35, arrowhead="->", style=Styles.AccentBold)
+line_curved((15, 22), (85, 22), bend=0.35, arrow_head="->", style=Styles.AccentBold)
 text((50, 6), "bend=0.35 (downward)", style=Styles.Accent)
 save()
 ```
@@ -111,7 +111,7 @@ circle(cp, radius=2, style=Styles.DangerFlat)
 text((50, 45), "Control Point (cp)", style=Styles.Danger)
 
 # Quadratic Bézier curve
-line_bezier1(p1, p2, cp=cp, arrowhead="->", style=Styles.SecondaryBold)
+line_bezier1(p1, p2, cp=cp, arrow_head="->", style=Styles.SecondaryBold)
 save()
 ```
 
@@ -138,7 +138,7 @@ circle(cp2, radius=2, style=Styles.DangerFlat)
 text((65, 4), "cp2", style=Styles.Danger)
 
 # Cubic Bézier S-curve
-line_bezier2(p1, p2, cp1=cp1, cp2=cp2, arrowhead="->", style=Styles.PrimaryBold)
+line_bezier2(p1, p2, cp1=cp1, cp2=cp2, arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 
@@ -163,7 +163,7 @@ rectangle((20, 30), width=24, height=14, style=Styles.PrimaryFlat, text="Client"
 rectangle((80, 15), width=24, height=14, style=Styles.SecondaryFlat, text="Worker", text_style=Styles.WhiteBold)
 
 # L-shaped connection: horizontal from Client, then downward to Worker
-lines([(32, 30), (80, 30), (80, 22)], arrowhead="->", style=Styles.PrimaryBold)
+lines([(32, 30), (80, 30), (80, 22)], arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 
@@ -182,7 +182,7 @@ rectangle((80, 14), width=24, height=14, style=Styles.AccentFlat, text="Service 
 
 # Z-shaped dogleg connection across midpoint x_mid = 50
 x_mid = 50
-lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrowhead="->", style=Styles.PrimaryBold)
+lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 

@@ -9,13 +9,17 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customization & Theming: Templates, CSS & Injected Code</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../style.css">
+    
     
 </head>
 <body>
@@ -246,11 +250,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="project_simple.html" >Single Spec Project (`simple`)</a>
+                                <a href="project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -258,7 +258,11 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_pdf.html" >PDF Report Project (`pdf`)</a>
+                                <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >Image Project (`image`)</a>
                             </li>
                             
                             <li class="nav-item active">
@@ -319,23 +323,24 @@
 <h3>Template Variables Provided by Drawlib:</h3>
 <ul>
 <li><code>{{ title }}</code>: The title of the current document or site brand.</li>
-<li><code>{{ content }}</code>: The compiled HTML body parsed from Markdown and embedded diagrams.</li>
-<li><code>{{ navbar }}</code>: The rendered sidebar navigation menu (in <code>site</code> projects).</li>
-<li><code>{{ root_path }}</code>: The relative path back to the project root (ensures assets load correctly in subdirectories).</li>
+<li><code>{{ body }}</code>: The compiled HTML content parsed from Markdown and embedded diagrams.</li>
+<li><code>{{ nav_sections }}</code> / <code>{{ nav_items }}</code>: Structured navigation tree for the sidebar (in <code>site</code> projects).</li>
+<li><code>{{ css_href }}</code>: Relative path to <code>style.css</code> (or <code>slide.css</code>).</li>
+<li><code>{{ custom_css }}</code>: Injected inline CSS overrides.</li>
 </ul>
 <hr />
 <h2>2. Customizing CSS Stylesheets (<code>style.css</code>)</h2>
-<p>Drawlib projects include a local <code>style.css</code> in the source folder. You can edit this stylesheet directly to alter colors, typography, or spacing.</p>
+<p>Drawlib projects include a local <code>style.css</code> in the source folder built with a 3-layer architecture (themes, components, targets). You can edit this stylesheet directly to alter colors, typography, or spacing.</p>
 <h3>Exporting Built-In CSS Themes:</h3>
-<p>You can overwrite your local <code>style.css</code> with any built-in Drawlib theme preset using <code>drawlib css show</code>:</p>
-<pre><code class="language-bash"><span class="c1"># Export the Google Material theme to your project:</span>
-drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>html<span class="w"> </span>google<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
+<p>You can overwrite your local <code>style.css</code> with any built-in Drawlib theme preset using <code>drawlib css export</code>:</p>
+<pre><code class="language-bash"><span class="c1"># Export the Google theme to your project:</span>
+drawlib<span class="w"> </span>css<span class="w"> </span><span class="nb">export</span><span class="w"> </span>html<span class="w"> </span>google<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
 
-<span class="c1"># Export the GitHub Markdown theme:</span>
-drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>html<span class="w"> </span>github<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
+<span class="c1"># Export the GitHub theme:</span>
+drawlib<span class="w"> </span>css<span class="w"> </span><span class="nb">export</span><span class="w"> </span>html<span class="w"> </span>github<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
 
 <span class="c1"># Export the Monochrome dark theme:</span>
-drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>html<span class="w"> </span>monochrome<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
+drawlib<span class="w"> </span>css<span class="w"> </span><span class="nb">export</span><span class="w"> </span>html<span class="w"> </span>monochrome<span class="w"> </span>-o<span class="w"> </span>docs_src/style.css<span class="w"> </span>--force
 </code></pre>
 <hr />
 <h2>3. Injected Project Styles (<code>styles.py</code>)</h2>

@@ -72,14 +72,14 @@ rectangle((92, 22.5), width=26, height=20, style=Styles.SecondaryFlat, text="3. 
 rectangle((118, 22.5), width=18, height=20, style=Styles.SuccessFlat, text="4. Auto\nReview", text_style=Styles.WhiteBold)
 
 # Forward arrows
-line((33, 22.5), (42, 22.5), arrowhead="->", style=Styles.PrimaryBold)
-line((70, 22.5), (79, 22.5), arrowhead="->", style=Styles.PrimaryBold)
-line((105, 22.5), (109, 22.5), arrowhead="->", style=Styles.PrimaryBold)
+line((33, 22.5), (42, 22.5), arrow_head="->", style=Styles.PrimaryBold)
+line((70, 22.5), (79, 22.5), arrow_head="->", style=Styles.PrimaryBold)
+line((105, 22.5), (109, 22.5), arrow_head="->", style=Styles.PrimaryBold)
 
 # Feedback loop
 line((118, 32.5), (118, 38), style=Styles.DangerBold)
 line((118, 38), (56, 38), style=Styles.DangerBold)
-line((56, 38), (56, 32.5), arrowhead="->", style=Styles.DangerBold)
+line((56, 38), (56, 32.5), arrow_head="->", style=Styles.DangerBold)
 ```
 
 1. **Inspect Context**: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.

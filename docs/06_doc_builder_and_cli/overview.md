@@ -33,9 +33,9 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 
 | Template | Primary Output | Typical Use Case |
 |---|---|---|
+| **`doc`** | `doc.html`, `doc.pdf`, `doc.md`, `images/` | Linear technical documents, RFCs, specifications, whitepapers, and formal reports. |
 | **`site`** | `docs_html/` & `docs/` | Multi-page documentation websites with sidebar navigation (`navbar.md`). |
-| **`simple`** | `docs_html/index.html` & `docs/` | Single-page technical RFCs, architecture proposals, and specs. |
-| **`pdf`** | `docs.pdf` | Formal technical reports, whitepapers, and printed design docs. |
+| **`slide`** | `slide/index.html` & `slide.pdf` | 16:9 presentation slide decks (interactive web deck + printable vector PDF). |
 | **`image`** | `images/*.png` | Batch rendering standalone Python drawing scripts to image assets. |
 
 ---
@@ -45,8 +45,8 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 Dive deeper into each builder subsystem:
 - [Embedded Code Blocks](./code_blocks.md): Code fence syntax, display modes (`show-code`, `fold-code`), alignment, and captions.
 - [CLI Reference](./cli_reference.md): Complete guide to `build`, `serve`, `show`, `init`, `cache`, `css`, `colors`, `styles`, and `rules`.
+- [Linear Document Project Guide](./project_doc.md): Linear document RFCs, specifications, whitepapers, and dual HTML/PDF publishing.
+- [Doc Site Project Guide](./project_site.md): Multi-page website authoring, sidebar categories, and link validation.
+- [Slide Deck Project Guide](./project_slide.md): 16:9 presentation slide decks with interactive web deck and vector PDF export.
 - [Image Project Guide](./project_image.md): Standalone script automation (`images_src/` ➔ `images/`).
-- [Simple Project Guide](./project_simple.md): Single-document RFC and technical spec publishing.
-- [Site Project Guide](./project_site.md): Multi-page website authoring, sidebar categories, and link validation.
-- [PDF Project Guide](./project_pdf.md): Multi-chapter formal reports, cover pages, and Chromium PDF rendering.
 - [Customization & Theming](./customization.md): Customizing `template.html`, `style.css`, and injecting project `styles.py` and `utils.py`.

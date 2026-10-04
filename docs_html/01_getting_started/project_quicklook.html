@@ -9,13 +9,17 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation Project & Build Overview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../style.css">
+    
     
 </head>
 <body>
@@ -246,11 +250,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_simple.html" >Single Spec Project (`simple`)</a>
+                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -258,7 +258,11 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_pdf.html" >PDF Report Project (`pdf`)</a>
+                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -331,9 +335,9 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 </code></pre>
 <p>Drawlib supports four starter project types:</p>
 <ul>
-<li><strong><code>site</code></strong>: Multi-page documentation website with sidebar navigation (<code>navbar.md</code>) and instant search.</li>
-<li><strong><code>simple</code></strong>: Single technical specification or RFC document compiled to standalone HTML and GitHub Markdown.</li>
-<li><strong><code>pdf</code></strong>: Multi-chapter formal technical publication compiled to vector PDF via headless Chromium.</li>
+<li><strong><code>doc</code></strong>: Linear technical document / spec / RFC / report compiled to HTML, PDF, Markdown, and extracted diagrams.</li>
+<li><strong><code>site</code></strong>: Multi-page documentation website with sidebar navigation (<code>navbar.md</code>) and dual publishing.</li>
+<li><strong><code>slide</code></strong>: 16:9 presentation slide deck compiled to interactive web HTML and multi-page vector PDF.</li>
 <li><strong><code>image</code></strong>: Standalone Python illustration scripts (<code>images_src/*.py</code>) batch-compiled to image files (<code>images/*.png</code>).</li>
 </ul>
 <hr />

@@ -55,9 +55,9 @@ Version 0.3.0 represents a major architectural milestone for Drawlib, transformi
 
 #### 7. Project Scaffolding (`drawlib init`)
 - Quickly scaffold complete starter projects for four primary use cases:
+  - `drawlib init doc`: Linear technical document (HTML, PDF, Markdown, images).
   - `drawlib init site`: Multi-page documentation website.
-  - `drawlib init simple`: Single specification / RFC document.
-  - `drawlib init pdf`: Formal technical PDF report.
+  - `drawlib init slide`: 16:9 presentation slide deck (web & vector PDF).
   - `drawlib init image`: Standalone Python illustration batch project.
 
 ---

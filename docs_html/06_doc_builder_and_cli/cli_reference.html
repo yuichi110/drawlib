@@ -9,13 +9,17 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLI Reference Manual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../style.css">
+    
     
 </head>
 <body>
@@ -246,11 +250,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="project_simple.html" >Single Spec Project (`simple`)</a>
+                                <a href="project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -258,7 +258,11 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_pdf.html" >PDF Report Project (`pdf`)</a>
+                                <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >Image Project (`image`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -317,10 +321,10 @@ drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> 
 drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>scripts/<span class="w"> </span>-o<span class="w"> </span>assets/<span class="w"> </span>-g<span class="w">                 </span><span class="c1"># Batch Python image rendering</span>
 
 <span class="c1"># Scaffolding</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>list<span class="w">                                          </span><span class="c1"># List starter project templates</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>list<span class="w">                                          </span><span class="c1"># List starter project templates (site, doc, slide, image)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_doc/<span class="w">                                   </span><span class="c1"># Scaffold linear document project (HTML, PDF, MD, images)</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_site/<span class="w">                                 </span><span class="c1"># Scaffold documentation site</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>simple<span class="w"> </span>my_doc/<span class="w">                                </span><span class="c1"># Scaffold single-page technical RFC</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>pdf<span class="w"> </span>my_report/<span class="w">                                </span><span class="c1"># Scaffold multi-chapter report</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck/<span class="w"> </span>-s<span class="w"> </span>google<span class="w">                      </span><span class="c1"># Scaffold 16:9 presentation slide deck</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>image<span class="w"> </span>my_images/<span class="w">                              </span><span class="c1"># Scaffold standalone image project</span>
 
 <span class="c1"># Inspection &amp; Preview</span>
@@ -381,8 +385,8 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <pre><code class="language-bash">drawlib<span class="w"> </span>init<span class="w"> </span>&lt;TYPE&gt;<span class="w"> </span><span class="o">[</span>DESTINATION<span class="o">]</span><span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </code></pre>
 <ul>
-<li><code>&lt;TYPE&gt;</code>: <code>site</code>, <code>simple</code>, <code>pdf</code>, <code>image</code>, or <code>list</code>.</li>
-<li><code>-o</code>, <code>--output &lt;name&gt;</code>: Base project/artifact name (sets source folder to <code>&lt;name&gt;_src</code> and output to <code>&lt;name&gt;.pdf</code> or <code>&lt;name&gt;_html</code>).</li>
+<li><code>&lt;TYPE&gt;</code>: <code>site</code>, <code>doc</code>, <code>slide</code>, <code>image</code>, or <code>list</code>.</li>
+<li><code>-o</code>, <code>--output &lt;name&gt;</code>: Base project/artifact name (sets source folder to <code>&lt;name&gt;_src</code> and output to <code>&lt;name&gt;_html/</code>, <code>&lt;name&gt;.pdf</code>, etc.).</li>
 <li><code>-s</code>, <code>--style &lt;theme&gt;</code>: Style preset theme (<code>default</code>, <code>google</code>, <code>monochrome</code>, etc.) configuring both <code>style.css</code> and <code>styles.py</code>.</li>
 <li><code>--here</code>: Scaffold directly in the current working directory without a wrapper folder.</li>
 <li><code>--force</code>: Overwrite existing files if directory is not empty.</li>

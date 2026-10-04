@@ -9,13 +9,17 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation as Code: The Drawlib Build Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../style.css">
+    
     
 </head>
 <body>
@@ -246,11 +250,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="project_simple.html" >Single Spec Project (`simple`)</a>
+                                <a href="project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -258,7 +258,11 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_pdf.html" >PDF Report Project (`pdf`)</a>
+                                <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >Image Project (`image`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -344,19 +348,19 @@
 </thead>
 <tbody>
 <tr>
+<td><strong><code>doc</code></strong></td>
+<td><code>doc.html</code>, <code>doc.pdf</code>, <code>doc.md</code>, <code>images/</code></td>
+<td>Linear technical documents, RFCs, specifications, whitepapers, and formal reports.</td>
+</tr>
+<tr>
 <td><strong><code>site</code></strong></td>
 <td><code>docs_html/</code> &amp; <code>docs/</code></td>
 <td>Multi-page documentation websites with sidebar navigation (<code>navbar.md</code>).</td>
 </tr>
 <tr>
-<td><strong><code>simple</code></strong></td>
-<td><code>docs_html/index.html</code> &amp; <code>docs/</code></td>
-<td>Single-page technical RFCs, architecture proposals, and specs.</td>
-</tr>
-<tr>
-<td><strong><code>pdf</code></strong></td>
-<td><code>docs.pdf</code></td>
-<td>Formal technical reports, whitepapers, and printed design docs.</td>
+<td><strong><code>slide</code></strong></td>
+<td><code>slide/index.html</code> &amp; <code>slide.pdf</code></td>
+<td>16:9 presentation slide decks (interactive web deck + printable vector PDF).</td>
 </tr>
 <tr>
 <td><strong><code>image</code></strong></td>
@@ -371,10 +375,10 @@
 <ul>
 <li><a href="./code_blocks.html">Embedded Code Blocks</a>: Code fence syntax, display modes (<code>show-code</code>, <code>fold-code</code>), alignment, and captions.</li>
 <li><a href="./cli_reference.html">CLI Reference</a>: Complete guide to <code>build</code>, <code>serve</code>, <code>show</code>, <code>init</code>, <code>cache</code>, <code>css</code>, <code>colors</code>, <code>styles</code>, and <code>rules</code>.</li>
+<li><a href="./project_doc.html">Linear Document Project Guide</a>: Linear document RFCs, specifications, whitepapers, and dual HTML/PDF publishing.</li>
+<li><a href="./project_site.html">Doc Site Project Guide</a>: Multi-page website authoring, sidebar categories, and link validation.</li>
+<li><a href="./project_slide.html">Slide Deck Project Guide</a>: 16:9 presentation slide decks with interactive web deck and vector PDF export.</li>
 <li><a href="./project_image.html">Image Project Guide</a>: Standalone script automation (<code>images_src/</code> ➔ <code>images/</code>).</li>
-<li><a href="./project_simple.html">Simple Project Guide</a>: Single-document RFC and technical spec publishing.</li>
-<li><a href="./project_site.html">Site Project Guide</a>: Multi-page website authoring, sidebar categories, and link validation.</li>
-<li><a href="./project_pdf.html">PDF Project Guide</a>: Multi-chapter formal reports, cover pages, and Chromium PDF rendering.</li>
 <li><a href="./customization.html">Customization &amp; Theming</a>: Customizing <code>template.html</code>, <code>style.css</code>, and injecting project <code>styles.py</code> and <code>utils.py</code>.</li>
 </ul>
 

@@ -36,9 +36,9 @@ $ uv run drawlib init site -o mybook
 ```
 
 Drawlib supports four starter project types:
-- **`site`**: Multi-page documentation website with sidebar navigation (`navbar.md`) and instant search.
-- **`simple`**: Single technical specification or RFC document compiled to standalone HTML and GitHub Markdown.
-- **`pdf`**: Multi-chapter formal technical publication compiled to vector PDF via headless Chromium.
+- **`doc`**: Linear technical document / spec / RFC / report compiled to HTML, PDF, Markdown, and extracted diagrams.
+- **`site`**: Multi-page documentation website with sidebar navigation (`navbar.md`) and dual publishing.
+- **`slide`**: 16:9 presentation slide deck compiled to interactive web HTML and multi-page vector PDF.
 - **`image`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
 
 ---

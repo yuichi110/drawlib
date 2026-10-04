@@ -14,10 +14,10 @@ drawlib build pdf docs_src/ -o manual.pdf --toc             # High-fidelity vect
 drawlib build image scripts/ -o assets/ -g                 # Batch Python image rendering
 
 # Scaffolding
-drawlib init list                                          # List starter project templates
+drawlib init list                                          # List starter project templates (site, doc, slide, image)
+drawlib init doc my_doc/                                   # Scaffold linear document project (HTML, PDF, MD, images)
 drawlib init site my_site/                                 # Scaffold documentation site
-drawlib init simple my_doc/                                # Scaffold single-page technical RFC
-drawlib init pdf my_report/                                # Scaffold multi-chapter report
+drawlib init slide my_deck/ -s google                      # Scaffold 16:9 presentation slide deck
 drawlib init image my_images/                              # Scaffold standalone image project
 
 # Inspection & Preview
@@ -93,8 +93,8 @@ Bootstraps new projects with standardized folder structures, configuration scrip
 drawlib init <TYPE> [DESTINATION] [OPTIONS]
 ```
 
-- `<TYPE>`: `site`, `simple`, `pdf`, `image`, or `list`.
-- `-o`, `--output <name>`: Base project/artifact name (sets source folder to `<name>_src` and output to `<name>.pdf` or `<name>_html`).
+- `<TYPE>`: `site`, `doc`, `slide`, `image`, or `list`.
+- `-o`, `--output <name>`: Base project/artifact name (sets source folder to `<name>_src` and output to `<name>_html/`, `<name>.pdf`, etc.).
 - `-s`, `--style <theme>`: Style preset theme (`default`, `google`, `monochrome`, etc.) configuring both `style.css` and `styles.py`.
 - `--here`: Scaffold directly in the current working directory without a wrapper folder.
 - `--force`: Overwrite existing files if directory is not empty.

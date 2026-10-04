@@ -55,10 +55,10 @@
 - [Documentation as Code Overview](./06_doc_builder_and_cli/overview.md)
 - [Markdown Code Block Syntax](./06_doc_builder_and_cli/code_blocks.md)
 - [CLI Reference](./06_doc_builder_and_cli/cli_reference.md)
-- [Image Project (`image`)](./06_doc_builder_and_cli/project_image.md)
-- [Single Spec Project (`simple`)](./06_doc_builder_and_cli/project_simple.md)
+- [Linear Document Project (`doc`)](./06_doc_builder_and_cli/project_doc.md)
 - [Doc Site Project (`site`)](./06_doc_builder_and_cli/project_site.md)
-- [PDF Report Project (`pdf`)](./06_doc_builder_and_cli/project_pdf.md)
+- [Slide Deck Project (`slide`)](./06_doc_builder_and_cli/project_slide.md)
+- [Image Project (`image`)](./06_doc_builder_and_cli/project_image.md)
 - [Templates & CSS Customization](./06_doc_builder_and_cli/customization.md)
 
 ## 7. AI Agents & Advanced Integration

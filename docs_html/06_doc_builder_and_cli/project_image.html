@@ -9,13 +9,17 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Project Guide (`drawlib init image`)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../style.css">
+    
     
 </head>
 <body>
@@ -245,12 +249,8 @@
                                 <a href="cli_reference.html" >CLI Reference</a>
                             </li>
                             
-                            <li class="nav-item active">
-                                <a href="project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
                             <li class="nav-item ">
-                                <a href="project_simple.html" >Single Spec Project (`simple`)</a>
+                                <a href="project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -258,7 +258,11 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_pdf.html" >PDF Report Project (`pdf`)</a>
+                                <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="project_image.html" >Image Project (`image`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -348,7 +352,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>image<span class="w">
 <span class="c1"># Draw components</span>
 <span class="n">shapes</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Client&quot;</span><span class="p">)</span>
 <span class="n">shapes</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Server&quot;</span><span class="p">)</span>
-<span class="n">lines</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
 <span class="c1"># Save image (relative to output directory)</span>
 <span class="n">canvas</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;architecture_overview.png&quot;</span><span class="p">)</span>

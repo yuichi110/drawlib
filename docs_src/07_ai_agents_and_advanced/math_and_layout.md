@@ -132,7 +132,7 @@ p1 = (25, 25)
 p2 = (95, 60)
 
 # Draw slanted wire
-line(p1, p2, arrowhead="->", style=Styles.PrimaryBold)
+line(p1, p2, arrow_head="->", style=Styles.PrimaryBold)
 
 # Calculate rotation angle and midpoint
 angle = get_angle(p1, p2)

@@ -13,28 +13,29 @@ Every Drawlib site and PDF project contains a Jinja2 template (`template.html`) 
 
 ### Template Variables Provided by Drawlib:
 - `{{ title }}`: The title of the current document or site brand.
-- `{{ content }}`: The compiled HTML body parsed from Markdown and embedded diagrams.
-- `{{ navbar }}`: The rendered sidebar navigation menu (in `site` projects).
-- `{{ root_path }}`: The relative path back to the project root (ensures assets load correctly in subdirectories).
+- `{{ body }}`: The compiled HTML content parsed from Markdown and embedded diagrams.
+- `{{ nav_sections }}` / `{{ nav_items }}`: Structured navigation tree for the sidebar (in `site` projects).
+- `{{ css_href }}`: Relative path to `style.css` (or `slide.css`).
+- `{{ custom_css }}`: Injected inline CSS overrides.
 
 ---
 
 ## 2. Customizing CSS Stylesheets (`style.css`)
 
-Drawlib projects include a local `style.css` in the source folder. You can edit this stylesheet directly to alter colors, typography, or spacing.
+Drawlib projects include a local `style.css` in the source folder built with a 3-layer architecture (themes, components, targets). You can edit this stylesheet directly to alter colors, typography, or spacing.
 
 ### Exporting Built-In CSS Themes:
-You can overwrite your local `style.css` with any built-in Drawlib theme preset using `drawlib css show`:
+You can overwrite your local `style.css` with any built-in Drawlib theme preset using `drawlib css export`:
 
 ```bash
-# Export the Google Material theme to your project:
-drawlib css show html google -o docs_src/style.css --force
+# Export the Google theme to your project:
+drawlib css export html google -o docs_src/style.css --force
 
-# Export the GitHub Markdown theme:
-drawlib css show html github -o docs_src/style.css --force
+# Export the GitHub theme:
+drawlib css export html github -o docs_src/style.css --force
 
 # Export the Monochrome dark theme:
-drawlib css show html monochrome -o docs_src/style.css --force
+drawlib css export html monochrome -o docs_src/style.css --force
 ```
 
 ---
