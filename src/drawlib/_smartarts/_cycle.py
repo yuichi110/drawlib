@@ -14,7 +14,7 @@ from __future__ import annotations
 import math
 from typing import Literal
 
-from pydantic import validate_call
+from pydantic import BaseModel, ConfigDict, validate_call
 
 from drawlib._core.l2_types import Angle, Coordinate, PosFloat
 from drawlib._core.l3_colors import ColorType, ColorUtil
@@ -27,24 +27,17 @@ from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
 
 
-class _CycleItem:
+class _CycleItem(BaseModel):
     """Internal container for a single step in Cycle."""
 
-    def __init__(
-        self,
-        text: str,
-        style: Style,
-        description: str = "",
-        text_style: Style | None = None,
-        description_style: Style | None = None,
-        arrow_style: Style | None = None,
-    ) -> None:
-        self.text = text
-        self.style = style
-        self.description = description
-        self.text_style = text_style
-        self.description_style = description_style
-        self.arrow_style = arrow_style
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    text: str
+    style: Style
+    description: str = ""
+    text_style: Style | None = None
+    description_style: Style | None = None
+    arrow_style: Style | None = None
 
 
 class Cycle:

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import math
 
-from pydantic import validate_call
+from pydantic import BaseModel, ConfigDict, validate_call
 
 from drawlib._core.l2_types import Angle90, Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
@@ -22,22 +22,16 @@ from drawlib._core.l4_canvas import polygon as canvas_polygon
 from drawlib._core.l4_canvas import text as canvas_text
 
 
-class _ChevronItem:
+class _ChevronItem(BaseModel):
     """Internal container for a single step in ChevronProcess."""
 
-    def __init__(
-        self,
-        text: str,
-        style: Style,
-        text_style: Style,
-        description_style: Style,
-        description: str = "",
-    ) -> None:
-        self.text = text
-        self.style = style
-        self.text_style = text_style
-        self.description_style = description_style
-        self.description = description
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    text: str
+    style: Style
+    text_style: Style
+    description_style: Style
+    description: str = ""
 
 
 class ChevronProcess:
