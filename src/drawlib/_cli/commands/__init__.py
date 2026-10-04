@@ -15,7 +15,7 @@ from drawlib._cli.commands.build import build_app
 from drawlib._cli.commands.cache import cache_app
 from drawlib._cli.commands.colors import colors_app
 from drawlib._cli.commands.css import css_app
-from drawlib._cli.commands.init import cmd_init
+from drawlib._cli.commands.init import init_app
 from drawlib._cli.commands.rules import cmd_rules_show, rules_app
 from drawlib._cli.commands.serve import cmd_serve
 from drawlib._cli.commands.show import cmd_show
@@ -24,12 +24,12 @@ from drawlib._cli.commands.styles import styles_app
 __all__ = [
     "build_app",
     "cache_app",
-    "cmd_init",
     "cmd_rules_show",
     "cmd_serve",
     "cmd_show",
     "colors_app",
     "css_app",
+    "init_app",
     "rules_app",
     "styles_app",
 ]

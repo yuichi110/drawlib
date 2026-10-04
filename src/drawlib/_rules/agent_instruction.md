@@ -127,10 +127,10 @@ Never create documentation project structures manually. Always scaffold them wit
 - **`doc`**: Linear technical document / spec / RFC (`doc_html/`, `doc.pdf`, `doc_markdown/`, and extracted diagram images `doc_images/`).
 - **`site`**: Multi-page documentation website (`docs_html/`), GitHub-ready Markdown (`docs_markdown/`), and extracted images (`docs_images/`) with sidebar navigation (`navbar.md`).
 - **`slide`**: 16:9 presentation slide deck (`slide_html/index.html` web presentation, `slide.pdf` vector PDF, and extracted images `slide_images/`).
-- **`image`**: Standalone Python drawing scripts generating image batches (`image_src/` -> `image_images/`).
+- **`images`**: Standalone Python drawing scripts generating image batches (`images_src/` -> `images/`).
 
 ### 4.3. Source of Truth & Build Pipeline
-- **Source of Truth**: Always edit Markdown and drawing scripts inside `<base>_src/` (e.g. `doc_src/`, `docs_src/`, `slide_src/`, or `image_src/`).
+- **Source of Truth**: Always edit Markdown and drawing scripts inside `<base>_src/` (e.g. `doc_src/`, `docs_src/`, `slide_src/`, or `images_src/`).
 - **Never Edit Output Folders**: Output folders (`<name>_html/`, `<name>_markdown/`, `<name>_images/`, `<name>.pdf`) are generated artifacts overwritten on each build.
 - **Build**: Run `./build.sh` (or specific `./build_*.sh` scripts like `./build_html.sh`).
 - **Preview & Link Verification**: Run `uv run drawlib serve docs_html/` (or `--check` for headless validation).

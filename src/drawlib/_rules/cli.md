@@ -16,12 +16,12 @@ drawlib build pdf docs_src/ -o manual.pdf --toc             # Merged vector PDF 
 drawlib build image scripts/ -o assets/ -g                 # Batch Python illustration rendering
 
 # Project scaffolding
-drawlib init list                                          # List available starter project templates (site, doc, slide, image)
-drawlib init site my_site/                                 # Create multi-page website project
-drawlib init doc my_doc/                                   # Create linear document project (HTML, PDF, MD, images)
-drawlib init slide my_deck/ -s google                      # Create 16:9 presentation slide deck
-drawlib init doc my_report/ -o rbac -s google              # Scaffold doc project with custom name & theme
-drawlib init site --here                                   # Scaffold directly into current directory
+drawlib init list                                          # List available starter project templates (site, doc, slide, images)
+drawlib init site                                          # Scaffold multi-page documentation website (docs_src/)
+drawlib init doc                                           # Scaffold linear document project (doc_src/)
+drawlib init doc rbac -s google                            # Scaffold doc project with custom target name & theme (rbac_src/)
+drawlib init slide -s google                               # Scaffold 16:9 presentation slide deck (slide_src/)
+drawlib init images                                        # Scaffold standalone Python illustrations repository (images_src/)
 
 # Inspection, visual preview, and extraction
 drawlib show doc.md arch.png -o .drawlib/scratch/arch.png            # Export named block to file without GUI (Recommended)
@@ -291,24 +291,22 @@ Bootstraps new documentation projects with production-ready file layouts, sample
 
 ### Syntax:
 ```bash
-drawlib init [TYPE] [DESTINATION] [OPTIONS]
+drawlib init <type> [target] [options]
 drawlib init list
 ```
 
 ### Arguments:
-- `[TYPE]`: Starter project template type (`site`, `doc`, `slide`, `image`) or `list` to view available types.
-- `[DESTINATION]`: Target directory path (defaults to current working directory).
+- `<type>`: Starter project template type (`doc`, `site`, `slide`, `images`) as a dedicated subcommand.
+- `[target]`: Base name for the project source folder and generated artifacts (defaults to `doc`, `docs`, `slide`, `images` respectively). Creates `<target>_src/` in the current directory.
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<name>` | `None` | Base project and artifact name. Sets source directory to `<name>_src` and targets output files/directories accordingly (e.g. `<name>_html/`, `<name>.pdf`). E.g. `-o rbac` creates `rbac_src/` and targets `rbac.pdf`. |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`, etc.) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
 | `--lang` | `-l` | `<lang>` | `en` | Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). |
-| `--here` | | flag | `False` | Initialize directly into current directory without creating a subfolder. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
 
-> **Note on Initial Build**: `drawlib init` is dedicated to pure, deterministic scaffolding and does not run compilation automatically. To build the scaffolded project, run `./build.sh` (or any of the specific `./build_*.sh` scripts).
+> **Note on Initial Build**: `drawlib init` is dedicated to pure, deterministic scaffolding and does not run compilation automatically. To build the scaffolded project, run `./<target>_src/build.sh` (or any of the specific `./<target>_src/build_*.sh` scripts).
 
 ---
 
@@ -403,16 +401,15 @@ my_images_project/
 
 ### Scaffolding Examples:
 ```bash
-drawlib init list                              # List available project types (site, doc, slide, image)
-drawlib init doc my_doc/                       # Scaffold a linear document project (HTML, PDF, MD, images)
-drawlib init site my_docs/                     # Scaffold a multi-page documentation website
-drawlib init site my_docs/ -s google           # Scaffold site with Google theme (style.css & styles.py)
-drawlib init site my_docs/ --lang ja           # Scaffold site with Japanese starter content & fonts
-drawlib init slide my_deck/ -s google          # Scaffold 16:9 slide deck with Google styling
-drawlib init doc my_report/ -o rbac -s google  # Scaffold doc: creates rbac_src/ and targets rbac.pdf
-drawlib init site --here                       # Scaffold a documentation site directly in current repo
-drawlib init doc my_doc/ --force               # Force scaffolding in a non-empty directory
-drawlib init image my_diagrams/ -s monochrome  # Scaffold image project with monochrome styling
+drawlib init list                              # List available project types (site, doc, slide, images)
+drawlib init doc                               # Scaffold a linear document project (doc_src/)
+drawlib init doc rbac -s google                # Scaffold doc with custom target name: creates rbac_src/ and targets rbac.pdf
+drawlib init site                              # Scaffold a multi-page documentation website (docs_src/)
+drawlib init site -s google                    # Scaffold site with Google theme (style.css & styles.py)
+drawlib init site --lang ja                    # Scaffold site with Japanese starter content & fonts
+drawlib init slide -s google                   # Scaffold 16:9 slide deck with Google styling (slide_src/)
+drawlib init images                            # Scaffold standalone illustration project (images_src/)
+drawlib init doc --force                       # Force overwrite existing doc_src/ directory
 ```
 
 ---
@@ -1049,7 +1046,7 @@ repos:
 
 #### 1. `Directory build requires "index.md" at the root of the input directory`
 - **Cause**: Running `drawlib build html` on a directory that does not have an `index.md` file at its top level.
-- **Fix**: Create `docs_src/index.md` as the root landing page or scaffold the directory with `drawlib init site --here`.
+- **Fix**: Create `docs_src/index.md` as the root landing page or scaffold the directory with `drawlib init site`.
 
 #### 2. `Directory build requires "navbar.md" at the root of the input directory`
 - **Cause**: Multi-page website builds require `navbar.md` in the root of the input directory to construct sidebar navigation.

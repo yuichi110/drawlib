@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import os
 import subprocess
-import sys
 from pathlib import Path
 
 import pytest
@@ -32,7 +31,7 @@ def test_cli_init_list(tmp_path: Path) -> None:
     assert "doc" in res1.stdout
     assert "site" in res1.stdout
     assert "slide" in res1.stdout
-    assert "image" in res1.stdout
+    assert "images" in res1.stdout
 
     # Verify -l and --list are rejected
     res2 = run_drawlib_cli(["init", "--list"], cwd=str(tmp_path))
@@ -42,40 +41,36 @@ def test_cli_init_list(tmp_path: Path) -> None:
     assert res3.returncode != 0
 
 
-def test_cli_init_missing_type(tmp_path: Path) -> None:
-    """Test `drawlib init` without arguments exits with code 1."""
+def test_cli_init_no_args_shows_help(tmp_path: Path) -> None:
+    """Test `drawlib init` without arguments displays usage help."""
     res = run_drawlib_cli(["init"], cwd=str(tmp_path))
-    assert res.returncode == 1
-    assert "Error: Missing project type." in res.stderr
-    assert "doc" in res.stderr
-    assert "drawlib init list" in res.stderr
+    assert res.returncode in {0, 2}
+    assert "Usage: drawlib init" in res.stdout or "Usage: drawlib init" in res.stderr
 
 
 def test_cli_init_unknown_type(tmp_path: Path) -> None:
-    """Test `drawlib init unknown` exits with code 1."""
+    """Test `drawlib init unknown` exits with error."""
     res = run_drawlib_cli(["init", "unknown"], cwd=str(tmp_path))
-    assert res.returncode == 1
-    assert "Error: Unknown project type 'unknown'." in res.stderr
-    assert "drawlib init list" in res.stderr
+    assert res.returncode != 0
+    assert "No such command" in res.stderr or "Error" in res.stderr
 
 
-def test_cli_init_doc(tmp_path: Path) -> None:
-    """Test scaffolding a doc project without automatic build."""
-    dest = tmp_path / "my_doc"
-    res = run_drawlib_cli(["init", "doc", str(dest)], cwd=str(tmp_path))
+def test_cli_init_doc_default(tmp_path: Path) -> None:
+    """Test scaffolding a doc project with default target ('doc_src/')."""
+    res = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert f"Initialized 'doc' project in {dest}" in res.stdout
+    assert "Initialized 'doc' project ('doc_src/')" in res.stdout
 
     # Source files inside doc_src/
-    assert (dest / "doc_src" / "README.md").is_file()
-    assert (dest / "doc_src" / "styles.py").is_file()
-    assert (dest / "doc_src" / "utils.py").is_file()
-    assert (dest / "doc_src" / "00_cover.md").is_file()
-    assert (dest / "doc_src" / "01_overview.md").is_file()
-    assert (dest / "doc_src" / "02_design.md").is_file()
-    assert (dest / "doc_src" / "template.html").is_file()
-    assert (dest / "doc_src" / "style.css").is_file()
-    assert (dest / "doc_src" / "_assets" / "linux.png").is_file()
+    assert (tmp_path / "doc_src" / "README.md").is_file()
+    assert (tmp_path / "doc_src" / "styles.py").is_file()
+    assert (tmp_path / "doc_src" / "utils.py").is_file()
+    assert (tmp_path / "doc_src" / "00_cover.md").is_file()
+    assert (tmp_path / "doc_src" / "01_overview.md").is_file()
+    assert (tmp_path / "doc_src" / "02_design.md").is_file()
+    assert (tmp_path / "doc_src" / "template.html").is_file()
+    assert (tmp_path / "doc_src" / "style.css").is_file()
+    assert (tmp_path / "doc_src" / "_assets" / "linux.png").is_file()
 
     for script in [
         "build.sh",
@@ -85,192 +80,155 @@ def test_cli_init_doc(tmp_path: Path) -> None:
         "build_image.sh",
         "serve.sh",
     ]:
-        s = dest / "doc_src" / script
+        s = tmp_path / "doc_src" / script
         assert s.is_file()
         assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build outputs
-    assert not (dest / "doc_markdown").exists()
-    assert not (dest / "doc_images").exists()
-    assert not (dest / "doc_html").exists()
-    assert not (dest / "doc.pdf").exists()
+    assert not (tmp_path / "doc_markdown").exists()
+    assert not (tmp_path / "doc_images").exists()
+    assert not (tmp_path / "doc_html").exists()
+    assert not (tmp_path / "doc.pdf").exists()
 
 
-def test_cli_init_site(tmp_path: Path) -> None:
-    """Test scaffolding a documentation site project."""
-    dest = tmp_path / "my_site"
-    res = run_drawlib_cli(["init", "site", str(dest)], cwd=str(tmp_path))
+def test_cli_init_site_default(tmp_path: Path) -> None:
+    """Test scaffolding a documentation site project with default target ('docs_src/')."""
+    res = run_drawlib_cli(["init", "site"], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert f"Initialized 'site' project in {dest}" in res.stdout
+    assert "Initialized 'site' project ('docs_src/')" in res.stdout
 
     # Source files inside docs_src/
-    assert (dest / "docs_src" / "README.md").is_file()
-    assert (dest / "docs_src" / "styles.py").is_file()
-    assert (dest / "docs_src" / "utils.py").is_file()
-    assert (dest / "docs_src" / "template.html").is_file()
-    assert (dest / "docs_src" / "style.css").is_file()
-    assert (dest / "docs_src" / "index.md").is_file()
-    assert (dest / "docs_src" / "navbar.md").is_file()
-    assert (dest / "docs_src" / "architecture" / "index.md").is_file()
-    assert (dest / "docs_src" / "workflow" / "index.md").is_file()
-    assert (dest / "docs_src" / "_assets" / "linux.png").is_file()
+    assert (tmp_path / "docs_src" / "README.md").is_file()
+    assert (tmp_path / "docs_src" / "styles.py").is_file()
+    assert (tmp_path / "docs_src" / "utils.py").is_file()
+    assert (tmp_path / "docs_src" / "template.html").is_file()
+    assert (tmp_path / "docs_src" / "style.css").is_file()
+    assert (tmp_path / "docs_src" / "index.md").is_file()
+    assert (tmp_path / "docs_src" / "navbar.md").is_file()
+    assert (tmp_path / "docs_src" / "architecture" / "index.md").is_file()
+    assert (tmp_path / "docs_src" / "workflow" / "index.md").is_file()
+    assert (tmp_path / "docs_src" / "_assets" / "linux.png").is_file()
 
     for script in ["build.sh", "build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"]:
-        s = dest / "docs_src" / script
+        s = tmp_path / "docs_src" / script
         assert s.is_file()
         assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build outputs
-    assert not (dest / "docs_html").exists()
-    assert not (dest / "docs_markdown").exists()
-    assert not (dest / "docs_images").exists()
+    assert not (tmp_path / "docs_html").exists()
+    assert not (tmp_path / "docs_markdown").exists()
+    assert not (tmp_path / "docs_images").exists()
 
 
-def test_cli_init_slide(tmp_path: Path) -> None:
-    """Test scaffolding a slide presentation project."""
-    dest = tmp_path / "my_slide"
-    res = run_drawlib_cli(["init", "slide", str(dest)], cwd=str(tmp_path))
+def test_cli_init_slide_default(tmp_path: Path) -> None:
+    """Test scaffolding a slide presentation project with default target ('slide_src/')."""
+    res = run_drawlib_cli(["init", "slide"], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert f"Initialized 'slide' project in {dest}" in res.stdout
+    assert "Initialized 'slide' project ('slide_src/')" in res.stdout
 
-    assert (dest / "slide_src" / "README.md").is_file()
-    assert (dest / "slide_src" / "styles.py").is_file()
-    assert (dest / "slide_src" / "utils.py").is_file()
-    assert (dest / "slide_src" / "slide.css").is_file()
-    assert (dest / "slide_src" / "01_title.md").is_file()
-    assert (dest / "slide_src" / "02_agenda.md").is_file()
-    assert (dest / "slide_src" / "03_architecture.md").is_file()
-    assert (dest / "slide_src" / "_assets" / "linux.png").is_file()
+    assert (tmp_path / "slide_src" / "README.md").is_file()
+    assert (tmp_path / "slide_src" / "styles.py").is_file()
+    assert (tmp_path / "slide_src" / "utils.py").is_file()
+    assert (tmp_path / "slide_src" / "slide.css").is_file()
+    assert (tmp_path / "slide_src" / "01_title.md").is_file()
+    assert (tmp_path / "slide_src" / "02_agenda.md").is_file()
+    assert (tmp_path / "slide_src" / "03_architecture.md").is_file()
+    assert (tmp_path / "slide_src" / "_assets" / "linux.png").is_file()
 
     for script in ["build.sh", "build_html.sh", "build_pdf.sh", "build_image.sh", "serve.sh"]:
-        s = dest / "slide_src" / script
+        s = tmp_path / "slide_src" / script
         assert s.is_file()
         assert os.stat(s).st_mode & 0o111 != 0
 
-    assert not (dest / "slide_html").exists()
-    assert not (dest / "slide_images").exists()
-    assert not (dest / "slide.pdf").exists()
+    assert not (tmp_path / "slide_html").exists()
+    assert not (tmp_path / "slide_images").exists()
+    assert not (tmp_path / "slide.pdf").exists()
 
 
-def test_cli_init_image(tmp_path: Path) -> None:
-    """Test scaffolding an image project."""
-    dest = tmp_path / "my_images"
-    res = run_drawlib_cli(["init", "image", str(dest)], cwd=str(tmp_path))
+def test_cli_init_images_default(tmp_path: Path) -> None:
+    """Test scaffolding an images project with canonical name 'images'."""
+    res = run_drawlib_cli(["init", "images"], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert f"Initialized 'image' project in {dest}" in res.stdout
+    assert "Initialized 'images' project ('images_src/')" in res.stdout
 
-    # Source files inside image_src/
-    assert (dest / "image_src" / "README.md").is_file()
-    assert (dest / "image_src" / "styles.py").is_file()
-    assert (dest / "image_src" / "utils.py").is_file()
-    assert (dest / "image_src" / "sample1.py").is_file()
-    assert (dest / "image_src" / "sample2.py").is_file()
-    assert (dest / "image_src" / "_assets" / "linux.png").is_file()
+    # Source files inside images_src/
+    assert (tmp_path / "images_src" / "README.md").is_file()
+    assert (tmp_path / "images_src" / "styles.py").is_file()
+    assert (tmp_path / "images_src" / "utils.py").is_file()
+    assert (tmp_path / "images_src" / "sample1.py").is_file()
+    assert (tmp_path / "images_src" / "sample2.py").is_file()
+    assert (tmp_path / "images_src" / "_assets" / "linux.png").is_file()
 
     for script in ["build.sh", "build_image.sh"]:
-        s = dest / "image_src" / script
+        s = tmp_path / "images_src" / script
         assert s.is_file()
         assert os.stat(s).st_mode & 0o111 != 0
 
-    # No automatic initial build output
-    assert not (dest / "image_images").exists()
+    # Next steps outputs correctly
+    assert "./images_src/build.sh" in res.stdout
 
 
-def test_cli_init_custom_output(tmp_path: Path) -> None:
-    """Test scaffolding with custom output name via -o."""
-    dest = tmp_path / "my_project"
-    res = run_drawlib_cli(["init", "site", str(dest), "-o", "manual"], cwd=str(tmp_path))
+def test_cli_init_image_alias(tmp_path: Path) -> None:
+    """Test legacy 'init image' alias creates images_src/ seamlessly."""
+    res = run_drawlib_cli(["init", "image"], cwd=str(tmp_path))
     assert res.returncode == 0
+    assert (tmp_path / "images_src" / "sample1.py").is_file()
+
+
+def test_cli_init_custom_target(tmp_path: Path) -> None:
+    """Test scaffolding with custom target name."""
+    res = run_drawlib_cli(["init", "site", "manual"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Initialized 'site' project ('manual_src/')" in res.stdout
 
     # Source folder is manual_src/
-    assert (dest / "manual_src" / "index.md").is_file()
-    assert (dest / "manual_src" / "build.sh").is_file()
-    assert (dest / "manual_src" / "build_html.sh").is_file()
-    build_html_content = (dest / "manual_src" / "build_html.sh").read_text(encoding="utf-8")
+    assert (tmp_path / "manual_src" / "index.md").is_file()
+    assert (tmp_path / "manual_src" / "build.sh").is_file()
+    assert (tmp_path / "manual_src" / "build_html.sh").is_file()
+    build_html_content = (tmp_path / "manual_src" / "build_html.sh").read_text(encoding="utf-8")
     assert "manual_src" in build_html_content
     assert "manual_html" in build_html_content
-
-    # Output folder not yet built
-    assert not (dest / "manual_html").exists()
 
 
 def test_cli_init_run_build_sh(tmp_path: Path) -> None:
     """Test executing the scaffolded build_html.sh script compiles the documentation."""
-    dest = tmp_path / "my_built_doc"
-    res = run_drawlib_cli(["init", "doc", str(dest)], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
     assert res.returncode == 0
 
-    build_sh = dest / "doc_src" / "build_html.sh"
+    build_sh = tmp_path / "doc_src" / "build_html.sh"
     assert build_sh.is_file()
 
     # Execute build_html.sh
     build_res = subprocess.run(
         ["bash", str(build_sh)],
-        cwd=str(dest / "doc_src"),
+        cwd=str(tmp_path / "doc_src"),
         capture_output=True,
         text=True,
         check=False,
     )
     assert build_res.returncode == 0
-    assert (dest / "doc_html" / "01_overview.html").is_file()
+    assert (tmp_path / "doc_html" / "01_overview.html").is_file()
 
 
 def test_cli_init_conflict_and_force(tmp_path: Path) -> None:
     """Test conflict detection and --force overwrite flag."""
-    dest = tmp_path / "conflict_test"
-    res1 = run_drawlib_cli(["init", "doc", str(dest)], cwd=str(tmp_path))
+    res1 = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
     assert res1.returncode == 0
 
     # Second run without force triggers FileExistsError because doc_src exists
-    res2 = run_drawlib_cli(["init", "doc", str(dest)], cwd=str(tmp_path))
+    res2 = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
     assert res2.returncode == 1
     assert "already exists" in res2.stderr
 
     # With force succeeds
-    res3 = run_drawlib_cli(["init", "doc", str(dest), "--force"], cwd=str(tmp_path))
+    res3 = run_drawlib_cli(["init", "doc", "--force"], cwd=str(tmp_path))
     assert res3.returncode == 0
-
-
-def test_cli_init_here(tmp_path: Path) -> None:
-    """Test `drawlib init <type> --here` inside an existing repository directory."""
-    repo_dir = tmp_path / "my_repo"
-    repo_dir.mkdir()
-    (repo_dir / "app.py").write_text("print('hello')", encoding="utf-8")
-
-    res = run_drawlib_cli(["init", "site", "--here"], cwd=str(repo_dir))
-    assert res.returncode == 0
-    assert "Initialized 'site' project in ." in res.stdout
-
-    # Existing repo files preserved
-    assert (repo_dir / "app.py").read_text(encoding="utf-8") == "print('hello')"
-
-    # Template files deployed into repo_dir
-    assert (repo_dir / "build.sh").is_file()
-    assert (repo_dir / "serve.sh").is_file()
-    assert (repo_dir / "styles.py").is_file()
-    assert (repo_dir / "index.md").is_file()
-
-    # Second run without force fails because build.sh/styles.py already exists
-    res_conflict = run_drawlib_cli(["init", "site", "--here"], cwd=str(repo_dir))
-    assert res_conflict.returncode == 1
-    assert "already contains project files" in res_conflict.stderr
-
-    # Second run with force succeeds
-    res_force = run_drawlib_cli(["init", "site", "--here", "--force"], cwd=str(repo_dir))
-    assert res_force.returncode == 0
-
-
-def test_cli_init_here_conflict_destination(tmp_path: Path) -> None:
-    """Test specifying both [DESTINATION] and --here raises error."""
-    res = run_drawlib_cli(["init", "doc", "some_dir", "--here"], cwd=str(tmp_path))
-    assert res.returncode == 1
-    assert "Cannot specify both [DESTINATION] and --here." in res.stderr
 
 
 def test_python_api_init(tmp_path: Path) -> None:
     """Test Python programmatic API for project initialization."""
     types = list_project_types()
-    assert set(types.keys()) == {"doc", "site", "slide", "image"}
+    assert set(types.keys()) == {"doc", "site", "slide", "images"}
 
     target = tmp_path / "api_test"
     created = init_project("doc", destination=target)

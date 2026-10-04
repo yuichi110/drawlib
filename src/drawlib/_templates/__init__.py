@@ -9,22 +9,26 @@
 
 """Drawlib templates and theme assets package."""
 
-from drawlib._templates.builder import (
+from drawlib._templates._css import (
     BUILTIN_CSS_PRESETS,
     BUILTIN_HTML_CSS_PRESETS,
     BUILTIN_PDF_CSS_PRESETS,
     BUILTIN_SLIDE_CSS_PRESETS,
     BUILTIN_THEMES,
-    PROJECT_TYPES,
     export_css,
     get_css,
     get_slide_js,
-    init_project,
     list_css,
     list_html_css,
     list_pdf_css,
-    list_project_types,
     list_slide_css,
+)
+from drawlib._templates._models import ProjectPaths
+from drawlib._templates._project import (
+    PROJECT_TYPES,
+    init_project,
+    list_project_types,
+    resolve_project_paths,
 )
 
 __all__ = [
@@ -34,6 +38,7 @@ __all__ = [
     "BUILTIN_SLIDE_CSS_PRESETS",
     "BUILTIN_THEMES",
     "PROJECT_TYPES",
+    "ProjectPaths",
     "export_css",
     "get_css",
     "get_slide_js",
@@ -43,4 +48,5 @@ __all__ = [
     "list_pdf_css",
     "list_project_types",
     "list_slide_css",
+    "resolve_project_paths",
 ]

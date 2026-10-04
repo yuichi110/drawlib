@@ -284,17 +284,20 @@ Drawlib integrates a complete, standalone documentation compilation pipeline (`d
 # List available starter templates:
 drawlib init list
 
-# Scaffold a multi-page documentation website in the current repository:
-drawlib init site --here
-
-# Scaffold a multi-page documentation website in a new subfolder:
-drawlib init site my_docs/
+# Scaffold a multi-page documentation website in the current directory:
+drawlib init site
 
 # Scaffold a linear document (HTML, PDF, MD, images):
-drawlib init doc my_doc/
+drawlib init doc
+
+# Scaffold a linear document with custom target name:
+drawlib init doc rbac -s google
 
 # Scaffold a 16:9 presentation slide deck:
-drawlib init slide my_deck/
+drawlib init slide -s google
+
+# Scaffold standalone Python illustrations repository:
+drawlib init images
 ```
 
 ### 4.2. Standard Project Structure & Lifecycle
@@ -438,7 +441,7 @@ drawlib rules show <topic> --rebuild
   ```bash
   drawlib build html docs_src/ -o docs_html/
   drawlib show script.py -g -o .drawlib/scratch/preview.png
-  drawlib init site --here
+  drawlib init site
   ```
 - **When to read**: Refer to this rule when automating build pipelines, setting up CI/CD, configuring custom themes/templates, or debugging CLI flags.
 
@@ -446,11 +449,11 @@ drawlib rules show <topic> --rebuild
 
 ### 5.2. Project Architecture & Scaffolding (`project`)
 - **Command**: `drawlib rules show project`
-- **Scope**: Scaffolding with `drawlib init`, 4 starter templates (`site`, `doc`, `slide`, `image`), `docs_src/` directory layout, `navbar.md` navigation authoring, code block options, and multi-image compilation.
+- **Scope**: Scaffolding with `drawlib init`, 4 starter templates (`site`, `doc`, `slide`, `images`), `docs_src/` directory layout, `navbar.md` navigation authoring, code block options, and multi-image compilation.
 - **Key Syntax**:
   ```bash
-  drawlib init site my_docs/
-  drawlib init image --here
+  drawlib init site
+  drawlib init images
   ```
 - **When to read**: Refer to this rule when setting up a new documentation site or image gallery, structuring navigation sidebars, troubleshooting missing document errors, or organizing build scripts.
 

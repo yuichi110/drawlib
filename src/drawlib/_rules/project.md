@@ -14,26 +14,21 @@ Drawlib provides a complete project scaffolding and document build engine. It tu
 # List available starter templates:
 drawlib init list
 
-# Scaffold a project into a new destination directory:
-drawlib init <type> [destination]
+# Scaffold a project in the current directory:
+drawlib init <type> [target] [options]
 
-# Scaffold directly into the current directory (no wrapper subfolder):
-drawlib init <type> --here
-
-# Custom output project name (e.g. source is rbac_src/, targets rbac_html, rbac.pdf):
-drawlib init doc my_report/ -o rbac -s google
+# Custom target name (e.g. creates rbac_src/ and targets rbac.pdf, rbac_html/):
+drawlib init doc rbac -s google
 ```
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<name>` | `docs` / `slide` / `images` | Base project and artifact name. Sets source folder to `<name>_src` and output targets accordingly (e.g. `<name>_html/`, `<name>.pdf`, `images/`). |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`, etc.) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
 | `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). |
-| `--here` | | flag | `False` | Scaffold directly in current working directory without a wrapper folder. |
-| `--force` | `-f` | flag | `False` | Overwrite existing files if directory is not empty. |
+| `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
 
-> **Pure Scaffolding Principle**: `drawlib init` only scaffolds template and configuration files; it never runs compilation automatically. To build your project, run `./build.sh` (or the specific `./build_*.sh` script).
+> **Pure Scaffolding Principle**: `drawlib init` only scaffolds template and configuration files; it never runs compilation automatically. To build your project, run `./<target>_src/build.sh` (or the specific `./<target>_src/build_*.sh` script).
 
 ---
 
@@ -43,10 +38,10 @@ Drawlib features 4 built-in project starter templates tailored to different publ
 
 | Project Type | Purpose | Source Directory | Generated Artifacts | Best Used For |
 | :--- | :--- | :--- | :--- | :--- |
-| **`doc`** | **Linear Document** | `docs_src/` | `doc.html` (Web preview)<br>`doc.pdf` (Printable vector PDF)<br>`doc.md` (GitHub Markdown)<br>`images/*.png` (Extracted diagrams) | Technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. |
+| **`doc`** | **Linear Document** | `doc_src/` | `doc.html` (Web preview)<br>`doc.pdf` (Printable vector PDF)<br>`doc.md` (GitHub Markdown)<br>`doc_images/*.png` (Extracted diagrams) | Technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. |
 | **`site`** | **Multi-Page Website** | `docs_src/` | `docs_html/` (HTML site)<br>`docs/` (GitHub Markdown) | Software documentation, technical guides, architectural handbooks, API manuals. |
 | **`slide`** | **Presentation Deck** | `slide_src/` | `slide/index.html` (Web)<br>`slide.pdf` (Printable vector PDF) | Conference talks, technical briefings, pitch decks, architectural presentations. |
-| **`image`** | **Standalone Image Scripts** | `images_src/` | `images/*.png` (or `.webp`) | Generating standalone architecture diagrams, social cards, or presentation assets from Python scripts. |
+| **`images`** | **Standalone Image Scripts** | `images_src/` | `images/*.png` (or `.webp`) | Generating standalone architecture diagrams, social cards, or presentation assets from Python scripts. |
 
 ---
 

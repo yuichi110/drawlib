@@ -21,11 +21,11 @@ from drawlib._cli._help import HELP_EPILOG
 from drawlib._cli.commands import (
     build_app,
     cache_app,
-    cmd_init,
     cmd_serve,
     cmd_show,
     colors_app,
     css_app,
+    init_app,
     rules_app,
     styles_app,
 )
@@ -44,14 +44,9 @@ app.add_typer(build_app, name="build")
 app.add_typer(cache_app, name="cache")
 app.add_typer(colors_app, name="colors")
 app.add_typer(css_app, name="css")
+app.add_typer(init_app, name="init")
 app.add_typer(rules_app, name="rules")
 app.add_typer(styles_app, name="styles")
-
-app.command(
-    "init",
-    help="Scaffold a starter drawlib project with sample illustrations and build script.",
-    epilog=HELP_EPILOG,
-)(cmd_init)
 
 app.command(
     "serve",
