@@ -5,6 +5,7 @@ footer: "Drawlib: Illustration as Code"
 paginate: true
 ---
 
+::: block (80, 140) (1760, 840)
 # One Illustration Core, Multiple Targets
 
 Drawlib unifies engineering documentation and technical visualizations as version-controlled code:
@@ -30,3 +31,4 @@ uv run drawlib build slide slide_src/ -o slide/
 # Start interactive preview server
 uv run drawlib serve slide/
 ```
+:::

@@ -1,11 +1,11 @@
 ---
-layout: split-right
-ratio: "4:6"
+layout: default
 header: "Workflows & Pipelines"
 footer: "Drawlib: Illustration as Code"
 paginate: true
 ---
 
+::: block (80, 140) (740, 840)
 # Automated CI/CD & Caching
 
 Technical diagrams shouldn't slow down your deployment cycles:
@@ -16,8 +16,10 @@ Technical diagrams shouldn't slow down your deployment cycles:
   - Unchanged blocks are restored in **< 1ms**
   - Only modified diagram code triggers full Python execution
 - **Dynamic Animations**: Render looping animated WebP diagrams natively using `Animation`
+:::
 
-```drawlib 100% center file:workflow_pipeline.webp slot:right
+::: block (880, 140) (960, 840)
+```drawlib file:workflow_pipeline.webp
 from drawlib.anim import Animation
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
@@ -64,3 +66,4 @@ for step, dur in zip(["push", "detect", "check", "cache", "build", "deploy"], [0
         draw_pipeline_state(step)
 save()
 ```
+:::

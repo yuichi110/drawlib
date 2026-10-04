@@ -5,6 +5,7 @@ footer: "Drawlib: Illustration as Code"
 paginate: true
 ---
 
+::: block (80, 140) (700, 840)
 # Topics Covered
 
 A unified, declarative approach to engineering illustration:
@@ -16,13 +17,15 @@ A unified, declarative approach to engineering illustration:
 - **Pure Canvas Stage**: Absolute 1920×1080 placement, partial bleed overlap, and z-index layers.
 - **Full Canvas Hero**: Zero-margin full-bleed illustration stage (`layout: canvas`).
 - **Unified Ecosystem**: Documentation sites, vector PDF books, and interactive slide decks.
+:::
 
-```drawlib (820, 140) (1040, 860) file:agenda.svg
+::: block (820, 140) (1020, 840)
+```drawlib file:agenda.svg
 from drawlib.canvas import clear, setup
 from utils import draw_curved_agenda
 
 clear()
-setup(width=104, height=86)
+setup(width=102, height=84)
 draw_curved_agenda(
     [
         ("Why Drawlib?", "Code vs Drawings"),
@@ -33,7 +36,8 @@ draw_curved_agenda(
         ("Full Canvas Hero", "layout: canvas 一枚絵"),
         ("Unified Ecosystem", "Docs, PDF & Slides"),
     ],
-    width=104,
-    height=86,
+    width=102,
+    height=84,
 )
 ```
+:::

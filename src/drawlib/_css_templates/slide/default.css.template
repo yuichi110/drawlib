@@ -71,18 +71,21 @@ html, body {
   top: 0;
   left: 0;
   display: none;
-  flex-direction: column;
   background-color: var(--slide-bg);
-  padding: 60px 90px;
+  padding: 0;
   overflow: hidden;
 }
 
 .slide.active {
-  display: flex;
+  display: block;
 }
 
 /* Header & Footer */
 .slide-header {
+  position: absolute;
+  top: 40px;
+  left: 80px;
+  width: 1760px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -90,12 +93,17 @@ html, body {
   font-weight: 500;
   color: var(--slide-header-footer-color);
   border-bottom: 2px solid var(--slide-border);
-  margin-bottom: 30px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
+  z-index: 2;
+  box-sizing: border-box;
 }
 
 .slide-footer {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  width: 1760px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -103,7 +111,8 @@ html, body {
   font-size: 20px;
   color: var(--slide-header-footer-color);
   border-top: 1px solid var(--slide-border);
-  margin-top: 30px;
+  z-index: 2;
+  box-sizing: border-box;
 }
 
 .page-number {
@@ -114,10 +123,12 @@ html, body {
 
 /* Slide Content Container */
 .slide-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--slide-width);
+  height: var(--slide-height);
+  pointer-events: auto;
 }
 
 /* Headings */
@@ -222,51 +233,15 @@ code {
   color: var(--slide-text-muted);
 }
 
-/* Layout: Split Right (Left Text, Right Diagram) */
-.slide.layout-split-right .slide-body {
-  display: grid;
-  grid-template-columns: var(--split-ratio, 45% 55%);
-  gap: 60px;
-  align-items: center;
-}
-
-.slot-left {
-  display: flex;
-  flex-direction: column;
+.slide.layout-cover .slide-block {
   justify-content: center;
-}
-
-.slot-right {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+  text-align: center;
 }
 
-.slot-right figure, .slot-right img {
-  max-width: 100%;
-  max-height: 720px;
-  object-fit: contain;
-}
 
-/* Layout: Canvas (Pure 1920x1080 Stage with Zero Margins) */
-.slide.layout-canvas {
-  padding: 0;
-  display: none;
-}
-
-.slide.layout-canvas.active {
-  display: block;
-}
-
-.slide.layout-canvas .slide-body {
-  position: relative;
-  width: var(--slide-width);
-  height: var(--slide-height);
-  overflow: hidden;
-}
-
-/* Absolute Text Box Containers (::: box ...) */
+/* Positioned Block Containers (::: block ...) */
+.slide-block,
 .slide-text-box {
   position: absolute;
   box-sizing: border-box;
@@ -276,35 +251,40 @@ code {
   z-index: 10;
 }
 
-.slide-text-box.compact,
-.slide.compact .slide-body {
+.slide-block.compact,
+.slide-text-box.compact {
   line-height: 1.35;
 }
 
-.slide-text-box.compact h1, .slide.compact h1 { margin-bottom: 14px; }
-.slide-text-box.compact h2, .slide.compact h2 { margin-bottom: 12px; }
-.slide-text-box.compact h3, .slide.compact h3 { margin-bottom: 8px; }
-.slide-text-box.compact p, .slide.compact p,
-.slide-text-box.compact ul, .slide.compact ul,
-.slide-text-box.compact ol, .slide.compact ol {
+.slide-block.compact h1, .slide-text-box.compact h1 { margin-bottom: 14px; }
+.slide-block.compact h2, .slide-text-box.compact h2 { margin-bottom: 12px; }
+.slide-block.compact h3, .slide-text-box.compact h3 { margin-bottom: 8px; }
+.slide-block.compact p, .slide-text-box.compact p,
+.slide-block.compact ul, .slide-text-box.compact ul,
+.slide-block.compact ol, .slide-text-box.compact ol {
   font-size: 0.9em;
   line-height: 1.35;
   margin-bottom: 10px;
 }
-.slide-text-box.compact li, .slide.compact li { margin-bottom: 6px; }
+.slide-block.compact li, .slide-text-box.compact li { margin-bottom: 6px; }
 
-/* Positioned Visual Asset Containers */
-.slide-positioned-asset {
-  position: absolute;
+/* Figures and Vector SVGs inside Blocks */
+.slide-block figure.drawlib-image,
+.slide-text-box figure.drawlib-image {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  z-index: 5;
 }
 
-.slide-positioned-asset svg,
-.slide-positioned-asset img {
+.slide-block figure.drawlib-image svg,
+.slide-block figure.drawlib-image img,
+.slide-text-box figure.drawlib-image svg,
+.slide-text-box figure.drawlib-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;

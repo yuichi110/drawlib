@@ -5,7 +5,7 @@ footer: "Drawlib: Illustration as Code"
 paginate: true
 ---
 
-::: box (80, 140) (740, 840) font:22px
+::: block (80, 140) (740, 840) font:22px
 # Scalable Topologies in Code
 
 Drawlib provides high-level domain modules for cloud architecture with vector and official cloud icons:
@@ -16,7 +16,8 @@ Drawlib provides high-level domain modules for cloud architecture with vector an
 - **Clean Syntax**: Connect nodes with labels and automatic orthogonal routing
 :::
 
-```drawlib (860, 140) (980, 840) z:5 file:arch_diagram.svg
+::: block (860, 140) (980, 840) z:5
+```drawlib file:arch_diagram.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 from drawlib.styles import Styles
@@ -45,3 +46,4 @@ arch.connect(orders, queue, label="Publish", routing="orthogonal")
 arch.draw(xy=(3.0, 3.0))
 save()
 ```
+:::

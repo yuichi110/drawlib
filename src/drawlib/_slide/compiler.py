@@ -29,7 +29,7 @@ _PATTERN_DRAWLIB = re.compile(
     re.DOTALL,
 )
 _PATTERN_CONTAINER_BOX = re.compile(
-    r"(?:\n|^)[ \t]*:::+[ \t]*box(?:\s+([^\n]*))?\n(.*?)\n[ \t]*:::+",
+    r"(?:\n|^)[ \t]*:::+[ \t]*(?:block|box)(?:\s+([^\n]*))?\n(.*?)\n[ \t]*:::+",
     re.DOTALL,
 )
 
@@ -125,109 +125,21 @@ def _collect_slide_files(input_abs: str) -> list[str]:
     return files
 
 
-def _resolve_block_box(options: DrawlibBlockOptions) -> BoundingBox:
-    """Resolve BoundingBox from block options.
-
-    Args:
-        options: Parsed block options.
-
-    Returns:
-        BoundingBox: Target bounding box on stage.
-    """
-    if options.xy and options.size:
-        return BoundingBox(
-            x=options.xy[0],
-            y=options.xy[1],
-            width=options.size[0],
-            height=options.size[1],
-        )
-
-    slot_name = (options.slot or "").lower()
-    if slot_name == "background":
-        return BoundingBox(x=0.0, y=0.0, width=1920.0, height=1080.0)
-    elif slot_name in {"left", "slot-left"}:
-        return BoundingBox(x=60.0, y=140.0, width=1040.0, height=860.0)
-    elif slot_name in {"right", "slot-right"}:
-        return BoundingBox(x=820.0, y=140.0, width=1040.0, height=860.0)
-
-    return BoundingBox(x=60.0, y=140.0, width=1800.0, height=860.0)
-
-
 def _format_asset_markup(
     file_name: str,
-    options: DrawlibBlockOptions,
-    box: BoundingBox,
     alt_text: str,
     output_abs: str = "",
 ) -> str:
-    """Format HTML markup for a rendered slide asset.
+    """Format HTML markup for a rendered slide asset to fill its parent block container.
 
     Args:
         file_name: Image filename on disk.
-        options: Parsed options.
-        box: Target BoundingBox.
         alt_text: Alt text attribute.
         output_abs: Absolute path to output directory for inlining SVGs.
 
     Returns:
         str: Generated HTML snippet.
     """
-    if options.slot == "background":
-        if file_name.lower().endswith(".svg") and output_abs:
-            svg_disk = os.path.join(output_abs, file_name)
-            if os.path.exists(svg_disk):
-                with open(svg_disk, encoding="utf-8") as f:
-                    svg_content = f.read()
-                svg_clean = re.sub(r"<\?xml[^>]*\?>", "", svg_content)
-                svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean).strip()
-                bg_style = (
-                    "position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; "
-                    "z-index: 0; pointer-events: none;"
-                )
-                svg_clean = re.sub(
-                    r"<svg\s+",
-                    f'<svg class="slide-background-asset" style="{bg_style}" ',
-                    svg_clean,
-                    count=1,
-                )
-                return f"\n{svg_clean}\n"
-        return (
-            f'\n<img src="{file_name}" class="slide-background-asset" '
-            f'style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; '
-            f'z-index: 0; pointer-events: none;" />\n'
-        )
-    elif options.xy and options.size:
-        z = options.z_index if options.z_index is not None else 5
-        if file_name.lower().endswith(".svg") and output_abs:
-            svg_disk = os.path.join(output_abs, file_name)
-            if os.path.exists(svg_disk):
-                with open(svg_disk, encoding="utf-8") as f:
-                    svg_content = f.read()
-                svg_clean = re.sub(r"<\?xml[^>]*\?>", "", svg_content)
-                svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean).strip()
-                svg_clean = re.sub(
-                    r"<svg\s+",
-                    '<svg class="slide-vector-graphic" style="width: 100%; height: 100%;" ',
-                    svg_clean,
-                    count=1,
-                )
-                return (
-                    f'\n<div class="slide-positioned-asset" '
-                    f'style="position: absolute; left: {box.x}px; top: {box.y}px; width: {box.width}px; '
-                    f'height: {box.height}px; z-index: {z};">\n'
-                    f"  {svg_clean}\n"
-                    f"</div>\n"
-                )
-        return (
-            f'\n<div class="slide-positioned-asset" '
-            f'style="position: absolute; left: {box.x}px; top: {box.y}px; width: {box.width}px; '
-            f'height: {box.height}px; z-index: {z};">\n'
-            f'  <img src="{file_name}" alt="{alt_text}" style="width: 100%; height: 100%; object-fit: contain;" />\n'
-            f"</div>\n"
-        )
-    slot_attr = f' data-slot="{options.slot}"' if options.slot else ""
-    max_w = f"max-width: {options.width};" if options.width else f"max-width: {box.width}px;"
-
     if file_name.lower().endswith(".svg") and output_abs:
         svg_disk = os.path.join(output_abs, file_name)
         if os.path.exists(svg_disk):
@@ -237,21 +149,19 @@ def _format_asset_markup(
             svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean).strip()
             svg_clean = re.sub(
                 r"<svg\s+",
-                f'<svg class="slide-vector-graphic" style="width: 100%; {max_w} height: auto;" ',
+                '<svg class="slide-vector-graphic" style="width: 100%; height: 100%; object-fit: contain;" ',
                 svg_clean,
                 count=1,
             )
             return (
-                f'\n<figure class="drawlib-image"{slot_attr} '
-                f'style="width: 100%; display: flex; justify-content: center;">\n'
+                f'\n<figure class="drawlib-image">\n'
                 f"  {svg_clean}\n"
                 f"</figure>\n"
             )
-
     return (
-        f'\n<figure class="drawlib-image"{slot_attr} '
-        f'style="width: 100%; display: flex; justify-content: center;">\n'
-        f'  <img src="{file_name}" alt="{alt_text}" style="width: 100%; {max_w} height: auto;" />\n'
+        f'\n<figure class="drawlib-image">\n'
+        f'  <img src="{file_name}" alt="{alt_text}" class="slide-raster-graphic" '
+        f'style="width: 100%; height: 100%; object-fit: contain;" />\n'
         f"</figure>\n"
     )
 
@@ -312,11 +222,13 @@ def _build_box_styles(
         list[str]: CSS style statements.
     """
     styles: list[str] = []
-    if x is not None and y is not None:
-        styles.append("position: absolute;")
-        styles.append(f"left: {x}px; top: {y}px;")
-    if w is not None and h is not None:
-        styles.append(f"width: {w}px; height: {h}px;")
+    actual_x = x if x is not None else 80.0
+    actual_y = y if y is not None else 140.0
+    actual_w = w if w is not None else 1760.0
+    actual_h = h if h is not None else 840.0
+    styles.append("position: absolute;")
+    styles.append(f"left: {actual_x}px; top: {actual_y}px;")
+    styles.append(f"width: {actual_w}px; height: {actual_h}px;")
     if font_size:
         fs = font_size if any(font_size.endswith(u) for u in ("px", "rem", "em", "%", "pt")) else f"{font_size}px"
         styles.append(f"font-size: {fs};")
@@ -433,7 +345,7 @@ def _process_container_blocks(text: str) -> str:
         font_size, compact, align, z_index, extra_class, custom_styles = _parse_box_tokens(cleaned_opts)
         styles = _build_box_styles(x, y, w, h, font_size, align, z_index, custom_styles)
 
-        classes = ["slide-text-box"]
+        classes = ["slide-block", "slide-text-box"]
         if compact:
             classes.append("compact")
         classes.extend(extra_class)
@@ -487,124 +399,45 @@ def _process_drawlib_blocks(
 
         target_path = os.path.join(output_abs, dl_file)
         processor.render_block_to_file(code, target_path, source_filename=file_path)
-        box = _resolve_block_box(options)
-        return _format_asset_markup(dl_file, options, box, "Illustration", output_abs=output_abs)
+        return _format_asset_markup(dl_file, "Illustration", output_abs=output_abs)
 
     return _PATTERN_DRAWLIB.sub(replacer, text)
 
 
-def _calculate_split_ratio(ratio_opt: str, default_ratio: str) -> str:
-    """Calculate CSS split ratio value from user option.
-
-    Args:
-        ratio_opt: User provided ratio option (e.g. '4:6' or '40% 60%').
-        default_ratio: Fallback ratio.
-
-    Returns:
-        str: Normalized CSS ratio string.
-    """
-    if not ratio_opt:
-        return default_ratio
-    if ":" in ratio_opt and "%" not in ratio_opt:
-        parts = ratio_opt.split(":", 1)
-        try:
-            r1, r2 = float(parts[0]), float(parts[1])
-            tot = r1 + r2
-            return f"{int(r1 / tot * 100)}% {int(r2 / tot * 100)}%"
-        except ValueError:
-            return default_ratio
-    return ratio_opt
-
-
-def _split_body_content(html: str, slot_name: str) -> tuple[str, str]:
-    """Separate text content from targeted slot graphic figure.
-
-    Args:
-        html: Rendered slide HTML body.
-        slot_name: Target slot ('left' or 'right').
-
-    Returns:
-        tuple[str, str]: (text_markup, graphic_markup).
-    """
-    m = re.search(rf'<figure[^>]*data-slot="{slot_name}"[^>]*>.*?</figure>', html, re.DOTALL)
-    if not m:
-        m = re.search(r"<figure[^>]*>.*?</figure>", html, re.DOTALL)
-
-    if m:
-        return html[: m.start()] + html[m.end() :], m.group(0)
-    return html, ""
-
-
 def _assemble_slide_section(
     rendered_body: str,
-    layout: str,
     header_text: str,
     footer_text: str,
     paginate: bool,
-    ratio_opt: str,
     idx: int,
     total_slides: int,
-    offset_y: str = "",
-    font_size: str = "",
-    compact: bool = False,
+    layout: str = "",
 ) -> str:
-    """Assemble final slide <section> markup based on layout and slots.
+    """Assemble final slide <section> markup on the 1920x1080 stage.
 
     Args:
-        rendered_body: HTML body snippet.
-        layout: Slide layout name.
+        rendered_body: HTML body snippet containing positioned slide-block elements.
         header_text: Slide header text.
         footer_text: Slide footer text.
         paginate: Whether to display footer page numbers.
-        ratio_opt: Layout split ratio string.
         idx: Slide index.
         total_slides: Total slide count.
-        offset_y: Vertical offset string (e.g. '-20px').
-        font_size: Slide base font size override (e.g. '22px').
-        compact: Whether compact mode is active.
+        layout: Optional slide layout name for CSS styling.
 
     Returns:
         str: Slide <section> HTML markup.
     """
     active_cls = " active" if idx == 1 else ""
-    compact_cls = " compact" if compact else ""
+    layout_cls = f" layout-{layout}" if layout else ""
 
-    # Build body styles
-    body_styles: list[str] = []
-    if offset_y:
-        oy = offset_y.strip()
-        if not any(oy.endswith(u) for u in ("px", "rem", "em", "%")):
-            oy = f"{oy}px"
-        body_styles.append(f"transform: translateY({oy});")
-    if font_size:
-        fs = font_size.strip()
-        if not any(fs.endswith(u) for u in ("px", "rem", "em", "%", "pt")):
-            fs = f"{fs}px"
-        body_styles.append(f"font-size: {fs};")
-    body_style_attr = f' style="{" ".join(body_styles)}"' if body_styles else ""
-
-    if layout == "canvas":
-        return (
-            f'    <section class="slide layout-canvas{active_cls}{compact_cls}" data-slide-index="{idx}">\n'
-            f'      <div class="slide-body"{body_style_attr}>\n'
-            f"{rendered_body.strip()}\n"
-            f"      </div>\n"
-            f"    </section>"
-        )
-
-    if layout in {"cover", "title"}:
-        return (
-            f'    <section class="slide layout-cover{active_cls}{compact_cls}" data-slide-index="{idx}">\n'
-            f'      <div class="slide-body"{body_style_attr}>\n'
-            f"{rendered_body.strip()}\n"
-            f"      </div>\n"
-            f"    </section>"
-        )
-
-    suppress_header = not header_text or header_text.strip().lower() in {"none", "false", "off"}
+    suppress_header = (
+        layout == "canvas" or not header_text or header_text.strip().lower() in {"none", "false", "off"}
+    )
     header_html = f'      <header class="slide-header">{header_text}</header>\n' if not suppress_header else ""
 
-    suppress_footer = not paginate or (footer_text.strip().lower() in {"none", "false", "off"})
+    suppress_footer = (
+        layout == "canvas" or not paginate or (footer_text.strip().lower() in {"none", "false", "off"})
+    )
     footer_html = ""
     if not suppress_footer:
         footer_title = "" if footer_text.strip().lower() in {"none", "false", "off"} else footer_text
@@ -615,42 +448,10 @@ def _assemble_slide_section(
             f"      </footer>\n"
         )
 
-    is_split_right = layout == "split-right" or (layout == "default" and 'data-slot="right"' in rendered_body)
-    is_split_left = layout == "split-left" or (layout == "default" and 'data-slot="left"' in rendered_body)
-
-    if is_split_right:
-        ratio = _calculate_split_ratio(ratio_opt, "42% 58%")
-        text_html, graphic_html = _split_body_content(rendered_body, "right")
-        return (
-            f'    <section class="slide layout-split-right{active_cls}{compact_cls}" data-slide-index="{idx}" '
-            f'style="--split-ratio: {ratio};">\n'
-            f"{header_html}"
-            f'      <div class="slide-body"{body_style_attr}>\n'
-            f'        <div class="slot-left">\n{text_html.strip()}\n        </div>\n'
-            f'        <div class="slot-right">\n{graphic_html.strip()}\n        </div>\n'
-            f"      </div>\n"
-            f"{footer_html}"
-            f"    </section>"
-        )
-    elif is_split_left:
-        ratio = _calculate_split_ratio(ratio_opt, "58% 42%")
-        text_html, graphic_html = _split_body_content(rendered_body, "left")
-        return (
-            f'    <section class="slide layout-split-left{active_cls}{compact_cls}" data-slide-index="{idx}" '
-            f'style="--split-ratio: {ratio};">\n'
-            f"{header_html}"
-            f'      <div class="slide-body"{body_style_attr}>\n'
-            f'        <div class="slot-left">\n{graphic_html.strip()}\n        </div>\n'
-            f'        <div class="slot-right">\n{text_html.strip()}\n        </div>\n'
-            f"      </div>\n"
-            f"{footer_html}"
-            f"    </section>"
-        )
-
     return (
-        f'    <section class="slide layout-{layout}{active_cls}{compact_cls}" data-slide-index="{idx}">\n'
+        f'    <section class="slide{active_cls}{layout_cls}" data-slide-index="{idx}">\n'
         f"{header_html}"
-        f'      <div class="slide-body"{body_style_attr}>\n{rendered_body.strip()}\n      </div>\n'
+        f'      <div class="slide-body">\n{rendered_body.strip()}\n      </div>\n'
         f"{footer_html}"
         f"    </section>"
     )
@@ -762,36 +563,28 @@ def build_slide(
         if idx == 1 and deck_title == "Drawlib Presentation":
             deck_title = slide_title
 
-        layout = str(frontmatter.get("layout", "cover" if idx == 1 else "default")).lower()
+        layout = str(frontmatter.get("layout", "cover" if idx == 1 else "")).lower()
         header = str(frontmatter.get("header", ""))
         footer = str(frontmatter.get("footer", deck_title))
         paginate = bool(frontmatter.get("paginate", layout != "cover"))
-        ratio = str(frontmatter.get("ratio", ""))
-        offset_y = str(frontmatter.get("offset_y", frontmatter.get("offset-y", "")))
-        font_size = str(frontmatter.get("font_size", frontmatter.get("font-size", "")))
-        compact = bool(frontmatter.get("compact", False))
-        text_box_opt = str(frontmatter.get("text_box", frontmatter.get("box", ""))).strip()
 
-        if text_box_opt and "::: box" not in body_text:
-            body_text = f"::: box {text_box_opt}\n{body_text.strip()}\n:::"
-
+        # If no ::: block or ::: box is in body_text, auto-wrap in default stage block
         text_to_search = "\n" + body_text if not body_text.startswith("\n") else body_text
+        if not _PATTERN_CONTAINER_BOX.search(text_to_search):
+            text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
+
         t_drawlib = _process_drawlib_blocks(text_to_search, output_abs, processor, file_path, idx, image_format)
         t_containers = _process_container_blocks(t_drawlib)
-        rendered_body = parse_markdown_to_html(t_containers.strip())
+        rendered_body = t_containers.strip()
 
         slide_section = _assemble_slide_section(
-            rendered_body,
-            layout,
-            header,
-            footer,
-            paginate,
-            ratio,
-            idx,
-            total_slides,
-            offset_y=offset_y,
-            font_size=font_size,
-            compact=compact,
+            rendered_body=rendered_body,
+            header_text=header,
+            footer_text=footer,
+            paginate=paginate,
+            idx=idx,
+            total_slides=total_slides,
+            layout=layout,
         )
         slides_html_list.append(slide_section)
 

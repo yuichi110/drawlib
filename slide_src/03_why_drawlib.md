@@ -1,11 +1,11 @@
 ---
-layout: split-right
-ratio: "4:6"
+layout: default
 header: "Why Drawlib?"
 footer: "Drawlib: Illustration as Code"
 paginate: true
 ---
 
+::: block (80, 140) (740, 840)
 # From Fragile Drawings to Code
 
 Traditional technical diagramming approaches face severe friction:
@@ -19,8 +19,10 @@ Traditional technical diagramming approaches face severe friction:
 
 ### The Drawlib Solution
 Pure Python declarative syntax, unified Google semantic palettes, and pixel-perfect coordinate math.
+:::
 
-```drawlib 100% center file:feature_matrix.svg slot:right
+::: block (880, 140) (960, 840)
+```drawlib file:feature_matrix.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import rectangle
@@ -51,3 +53,4 @@ data = [
 table.draw_flexible((7.0, 70.0), [26.0, 28.0, 30.0, 32.0], [8.0]*6, data)
 save()
 ```
+:::

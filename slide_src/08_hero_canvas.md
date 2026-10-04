@@ -2,7 +2,8 @@
 layout: canvas
 ---
 
-```drawlib (0, 0) (1920, 1080) file:full_hero_canvas.svg
+::: block (0, 0) (1920, 1080)
+```drawlib file:full_hero_canvas.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line
@@ -41,3 +42,4 @@ rectangle((96, 14), width=172, height=10, style=Styles.PrimaryLight,
 
 save()
 ```
+:::

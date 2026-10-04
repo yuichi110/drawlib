@@ -150,9 +150,13 @@ header: "Presentation Agenda"
 layout: default
 ---
 
+::: block (80, 140) (700, 840)
 # Topics
+- Key milestones
+:::
 
-```drawlib (820, 140) (1040, 860) file:agenda.svg
+::: block (820, 140) (1040, 860)
+```drawlib file:agenda.svg
 from drawlib.canvas import setup, clear
 from utils import draw_curved_agenda
 
@@ -167,6 +171,7 @@ draw_curved_agenda(
     height=86,
 )
 ```
+:::
 """,
             encoding="utf-8",
         )
@@ -174,16 +179,18 @@ draw_curved_agenda(
         (src_dir / "03_features.md").write_text(
             """---
 header: "Features"
-layout: split-right
-ratio: "4:6"
+layout: default
 ---
 
+::: block (80, 140) (740, 840)
 # Declarative Illustrations
 
 - Pure Python code
 - Native SVG text elements
+:::
 
-```drawlib 100% center file:diag.svg slot:right
+::: block (880, 140) (960, 840)
+```drawlib file:diag.svg
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.canvas import setup, clear
@@ -192,6 +199,7 @@ clear()
 setup(width=100, height=60)
 rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", text_style=Styles.WhiteBold)
 ```
+:::
 """,
             encoding="utf-8",
         )
@@ -240,7 +248,8 @@ rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", t
 layout: canvas
 ---
 
-```drawlib (0, 0) (1920, 1080) file:hero.svg
+::: block (0, 0) (1920, 1080)
+```drawlib file:hero.svg
 from drawlib.canvas import setup, clear
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -249,6 +258,7 @@ clear()
 setup(width=192, height=108)
 rectangle((96, 54), width=180, height=90, style=Styles.PrimaryFlat)
 ```
+:::
 """,
             encoding="utf-8",
         )
@@ -258,11 +268,11 @@ rectangle((96, 54), width=180, height=90, style=Styles.PrimaryFlat)
         assert "layout-canvas" in content
         assert "slide-header" not in content
         assert "slide-footer" not in content
-        assert "slide-positioned-asset" in content
+        assert "slide-block" in content
         assert (out_dir / "hero.svg").is_file()
 
     def test_build_slide_container_boxes_and_coordinates(self, tmp_path: Path) -> None:
-        """Verify ::: box container syntax creates absolutely positioned, styled text boxes."""
+        """Verify ::: block container syntax creates absolutely positioned, styled blocks."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
         src_dir.mkdir()
@@ -272,13 +282,13 @@ rectangle((96, 54), width=180, height=90, style=Styles.PrimaryFlat)
 header: "Microservices"
 ---
 
-::: box (80, 140) (740, 480) font:21px compact z:10
+::: block (80, 140) (740, 480) font:21px compact z:10
 # Ingress Controller
 - **TLS**: Terminated at edge
 - **Routing**: Path-based dispatch
 :::
 
-::: box (80, 660) (740, 320) align:center
+::: block (80, 660) (740, 320) align:center
 > Note: Zero-trust network policy active.
 :::
 """,
@@ -287,7 +297,7 @@ header: "Microservices"
 
         result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
         content = Path(result_html).read_text(encoding="utf-8")
-        assert "slide-text-box" in content
+        assert "slide-block" in content
         assert "left: 80.0px; top: 140.0px; width: 740.0px; height: 480.0px;" in content
         assert "font-size: 21px;" in content
         assert "compact" in content
@@ -320,8 +330,8 @@ layout: default
         assert "slide-footer" not in content
         assert "Clean Slide Without Chrome" in content
 
-    def test_build_slide_frontmatter_options(self, tmp_path: Path) -> None:
-        """Verify slide-level frontmatter: offset_y, font_size, compact, and box."""
+    def test_build_slide_block_options_and_styling(self, tmp_path: Path) -> None:
+        """Verify ::: block options: font_size, compact, align, z-index, and custom styles."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
         src_dir.mkdir()
@@ -329,15 +339,13 @@ layout: default
         (src_dir / "01_options.md").write_text(
             """---
 header: "Fine Tuned Slide"
-offset_y: -25px
-font_size: 20px
-compact: true
-box: "(80, 140) (740, 840)"
 ---
 
-# Title Inside Auto-Box
+::: block (80, 140) (740, 840) font:20px compact style:"transform: translateY(-25px);"
+# Title Inside Block
 - Point 1
 - Point 2
+:::
 """,
             encoding="utf-8",
         )
@@ -347,7 +355,7 @@ box: "(80, 140) (740, 840)"
         assert "transform: translateY(-25px);" in content
         assert "font-size: 20px;" in content
         assert "compact" in content
-        assert "slide-text-box" in content
+        assert "slide-block" in content
         assert "left: 80.0px; top: 140.0px; width: 740.0px; height: 840.0px;" in content
 
 

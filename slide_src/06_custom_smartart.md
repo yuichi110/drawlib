@@ -1,11 +1,11 @@
 ---
-layout: split-right
-ratio: "4:6"
+layout: default
 header: "Modular Drawing Helpers"
 footer: "Drawlib: Illustration as Code"
 paginate: true
 ---
 
+::: block (80, 140) (740, 840)
 # Reusable Python Helpers in utils.py
 
 Drawlib eliminates rigid DSL wrappers in favor of pure, reusable Python functions:
@@ -19,9 +19,11 @@ Drawlib eliminates rigid DSL wrappers in favor of pure, reusable Python function
   - `draw_kpi_cards()`: Vertically stacked metric cards with accent pills
   - `service_card()` & `connect()`: Microservice architectures and network flows
 - **Declarative Invocation**:
-  - Call pure Python functions directly inside ````drawlib (x, y) (w, h)```` blocks
+  - Call pure Python functions directly inside `::: block` containers
+:::
 
-```drawlib (840, 140) (1000, 840) file:kpi_metrics.svg
+::: block (860, 140) (980, 840)
+```drawlib file:kpi_metrics.svg
 from drawlib.canvas import clear, setup
 from utils import draw_kpi_cards
 
@@ -37,3 +39,4 @@ draw_kpi_cards(
     height=84,
 )
 ```
+:::

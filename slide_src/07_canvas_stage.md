@@ -5,7 +5,7 @@ footer: "Drawlib: Illustration as Code"
 paginate: true
 ---
 
-::: box (80, 160) (780, 800) font:22px
+::: block (80, 160) (780, 800) font:22px
 # Total Spatial Freedom
 
 Every slide is a mathematically defined **1920×1080 Cartesian stage**:
@@ -13,10 +13,11 @@ Every slide is a mathematically defined **1920×1080 Cartesian stage**:
 - **Absolute Placement**: Position diagrams, SmartArts, and text boxes at explicit `(x, y)` and `(w, h)` coordinates.
 - **Partial Overlap & Bleed**: Notice how the diagram on the right extends beyond the normal content zone, bleeding from `Y: 0` to `Y: 1080` across the header and footer lines.
 - **Layer Stacking**: Manage depth with `z: N` to compose backgrounds, content panels, and overlays.
-- **Modular Scoping**: Use `::: box` for scoped typography and density control (`compact`, `font: 20px`).
+- **Modular Scoping**: Use `::: block` for scoped typography and density control (`compact`, `font: 20px`).
 :::
 
-```drawlib (940, 0) (980, 1080) z:5 file:bleed_stack.svg
+::: block (940, 0) (980, 1080) z:5
+```drawlib file:bleed_stack.svg
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle, circle
@@ -51,3 +52,4 @@ line((49, 26), (49, 21), arrow_head="->", style=Styles.PrimaryBold)
 
 save()
 ```
+:::
