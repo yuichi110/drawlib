@@ -59,7 +59,13 @@ from drawlib.fonts import Font, FontFile, get_font, list_fonts, list_system_font
 # 8. Geometry & Math
 from drawlib.math import get_angle, get_center_and_size, get_distance
 
-# 9. Developer Tools
+# 9. Animations (APNG & Animated WebP)
+from drawlib.anim import Animation
+
+# 10. Presentation Slides
+from drawlib.slide import BoundingBox, SlideContext, build_slide, current_slide
+
+# 11. Developer Tools
 from drawlib.tools import clear_cache, init_project, list_cache, scan_broken_links, serve_docs
 ```
 
@@ -464,7 +470,58 @@ text((50, 15), "AVENGER FONT", style=avenger_style)
 
 ---
 
-## 11. Geometry & Coordinate Math (`drawlib.math`)
+## 11. Multi-Frame Animations (`drawlib.anim`)
+
+Drawlib natively supports multi-frame animations in **APNG** (`.png`) and **Animated WebP** (`.webp`) formats.
+
+| Class / Method | Parameters | Description |
+| :--- | :--- | :--- |
+| `Animation(fps=10.0, loop=0)` | `fps: float = 10.0`, `loop: int = 0` | Initializes animation controller and registers with canvas. |
+| `anim.frame(duration=None, clear=True)` | `duration: float \| None = None`, `clear: bool = True` | Context manager defining shapes drawn in a single frame. |
+| `anim.add_frame(duration=None, clear=True)` | `duration: float \| None = None`, `clear: bool = True` | Imperative method to capture the current canvas as a frame. |
+
+```python
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.shapes import circle
+from drawlib.styles import Styles
+
+setup(width=100, height=40)
+anim = Animation(fps=10.0)
+
+for x in range(15, 86, 10):
+    with anim.frame():
+        circle((x, 20), radius=6, style=Styles.Primary)
+
+save("motion.png")  # Automatically writes APNG or WebP based on extension
+```
+
+---
+
+## 12. Presentation Slides & Stage (`drawlib.slide`)
+
+Drawlib presentation slides operate on a universal **16:9 widescreen stage (1920x1080)** with origin `(0, 0)` at the bottom-left corner.
+
+| Symbol / Model | Description | Example Usage |
+| :--- | :--- | :--- |
+| `current_slide` | Dynamic slide counter runtime proxy (`index`, `total`, `text`, `format()`). | `text((1800, 50), current_slide.text, style=Styles.MutedSmall)` |
+| `BoundingBox` | Dataclass representing rectangular layout bounds `(x, y, width, height)`. | `box = BoundingBox(x=100, y=200, width=800, height=600)` |
+| `SlideContext` | Slide execution state container. | Internal slide runtime context |
+| `build_slide(...)` | Programmatic slide deck compiler (`input_dir`, `output_dir`, `image_format`). | `build_slide("slide_src/", "slide_html/")` |
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.slide import current_slide
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=120, height=30)
+text((60, 15), f"Slide {current_slide.index} of {current_slide.total}", style=Styles.PrimaryBold)
+```
+
+---
+
+## 13. Geometry & Coordinate Math (`drawlib.math`)
 
 Helper functions to eliminate manual trigonometry:
 
@@ -476,15 +533,15 @@ Helper functions to eliminate manual trigonometry:
 
 ---
 
-## 12. Developer Tools (`drawlib.tools`)
+## 14. Developer Tools (`drawlib.tools`)
 
 Programmatic Python tools for compilation and documentation management:
 
 ```python
-from drawlib.tools import init_project, serve_docs, scan_broken_links, clear_cache
+from drawlib.tools import clear_cache, init_project, scan_broken_links, serve_docs
 
-# Initialize a project scaffold ('site', 'doc', 'slide', 'image')
-init_project("site", destination="my_docs")
+# Initialize a project scaffold ('site', 'doc', 'slide', 'images')
+init_project("site", target="docs")
 
 # Run headless verification or local documentation preview
 serve_docs("docs_html", port=8000)
@@ -495,7 +552,7 @@ broken = scan_broken_links("docs_html")
 
 ---
 
-## 13. Essential Best Practice Checklist
+## 15. Essential Best Practice Checklist
 
 1. **Explicit Semantic Coordinate Variables**:
    Always declare semantic coordinate anchors (`gateway_xy`, `db_xy`) and compute horizontal/vertical gaps mathematically (`gap = (width - margins - total_node_width) / (n - 1)`). Avoid hardcoded magic numbers or raw list index lookups (`points[1]`).

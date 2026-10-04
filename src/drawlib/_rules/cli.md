@@ -315,7 +315,7 @@ drawlib init list
 #### 1. `doc`: Linear Document Project (HTML, PDF, Markdown, Images)
 Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers.
 ```text
-my_doc/
+.
 ├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
 │   ├── 00_cover.md            # Cover page (title, author, metadata)
 │   ├── 01_overview.md         # Executive overview chapter
@@ -338,7 +338,7 @@ my_doc/
 #### 2. `site`: Multi-page Website with Navigation Sidebar
 Designed for technical documentation, library user guides, and architecture wikis.
 ```text
-my_site/
+.
 ├── docs_src/
 │   ├── index.md               # [MANDATORY] Root landing page
 │   ├── navbar.md              # [MANDATORY] Sidebar categories and links definition
@@ -364,7 +364,7 @@ my_site/
 #### 3. `slide`: 16:9 Presentation Slide Deck (HTML & Vector PDF)
 Designed for technical presentations, conference talks, and pitch decks with embedded diagrams.
 ```text
-my_deck/
+.
 ├── slide_src/
 │   ├── 01_title.md            # Title slide
 │   ├── 02_agenda.md           # Agenda slide
@@ -383,20 +383,20 @@ my_deck/
 └── slide_images/              # [GENERATED] Extracted standalone slide diagram images
 ```
 
-#### 4. `image`: Standalone Python Illustration Scripts
+#### 4. `images`: Standalone Python Illustration Scripts
 Designed for illustration asset repositories, diagrams for slides, or article banners.
 ```text
-my_images_project/
-├── image_src/
+.
+├── images_src/
 │   ├── _assets/               # Static project assets (images, icons)
 │   ├── sample1.py             # Basic diagram script (primitives)
 │   ├── sample2.py             # Advanced diagram script (utils & assets)
 │   ├── styles.py              # Global styles script
 │   ├── utils.py               # Reusable drawing components
 │   ├── build.sh               # Master image build script
-│   ├── build_image.sh         # Batch image rendering script (image_images/)
+│   ├── build_image.sh         # Batch image rendering script (images/)
 │   └── README.md              # Illustration workflow guide
-└── image_images/              # [GENERATED] Rendered PNG/WebP output images
+└── images/                    # [GENERATED] Rendered PNG/WebP output images
 ```
 
 ### Scaffolding Examples:

@@ -150,7 +150,7 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | `uv run drawlib rules show agent-instruction` | `agent-instruction` | This bootstrap manual (purpose, capabilities, workflow loop). |
 | `uv run drawlib rules show overview` | `overview` | Canvas coordinate space `(0,0)` at bottom-left, Cartesian geometry, lifecycle (`setup`, `clear`, `save`). |
 | `uv run drawlib rules show style-guide` | `style-guide` | 6-color semantic system, primary anchor, padding, grid alignment, typography hierarchy. |
-| `uv run drawlib rules show project` | `project` | Project scaffolding (`init`), 4 template types (`site`, `doc`, `slide`, `image`), `docs_src/`, `navbar.md`, builds. |
+| `uv run drawlib rules show project` | `project` | Project scaffolding (`init`), 4 template types (`site`, `doc`, `slide`, `images`), `docs_src/`, `navbar.md`, builds. |
 | `uv run drawlib rules show cli` | `cli` | Complete command line interface (`build`, `show`, `init`, `serve`, `cache`, `rules`). |
 | `uv run drawlib rules show api` | `api` | Unified API index and cheat sheet for all Drawlib modules, primitives, and tokens. |
 
@@ -172,6 +172,8 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | `uv run drawlib rules show lib-smartarts` | `lib-smartarts` | Tables, tree hierarchies, mindmaps, cycle loops, process chevrons. |
 | `uv run drawlib rules show lib-charts` | `lib-charts` | Bar, Line, Area, Pie, Radar, Scatter, and Gantt charts. |
 | `uv run drawlib rules show lib-diagrams` | `lib-diagrams` | Architecture, Flow, Sequence, State, Class, and ER diagrams. |
+| `uv run drawlib rules show lib-anim` | `lib-anim` | Multi-frame animations (APNG/WebP), frame context manager, duration and loop controls. |
+| `uv run drawlib rules show lib-slide` | `lib-slide` | 16:9 stage (1920x1080), current_slide counter, layout boxes, HTML/PDF presentation decks. |
 | `uv run drawlib rules show lib-tools` | `lib-tools` | Programmatic Python API for compilation, diagram export, and CI/CD. |
 
 Run `uv run drawlib rules list` at any time to inspect all available rule topics and cache status.

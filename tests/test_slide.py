@@ -436,7 +436,8 @@ theme: google
     def test_cli_init_slide(self, tmp_path: Path) -> None:
         """Verify `drawlib init slide` scaffolding."""
         target_dir = tmp_path / "my_presentation"
-        res = run_drawlib_cli(["init", "slide", str(target_dir)])
+        target_dir.mkdir()
+        res = run_drawlib_cli(["init", "slide"], cwd=str(target_dir))
         assert res.returncode == 0
 
         src_dir = target_dir / "slide_src"
@@ -453,7 +454,8 @@ theme: google
     def test_cli_init_slide_styles(self, tmp_path: Path, style_name: str) -> None:
         """Verify `drawlib init slide --style <style>` deploys matching utils.py and slide.css."""
         target_dir = tmp_path / f"deck_{style_name}"
-        res = run_drawlib_cli(["init", "slide", str(target_dir), "--style", style_name])
+        target_dir.mkdir()
+        res = run_drawlib_cli(["init", "slide", "--style", style_name], cwd=str(target_dir))
         assert res.returncode == 0
 
         src_dir = target_dir / "slide_src"
@@ -484,7 +486,8 @@ theme: google
     def test_cli_init_slide_unsupported_style(self, tmp_path: Path) -> None:
         """Verify `drawlib init slide --style invalid` fails with a helpful error."""
         target_dir = tmp_path / "deck_invalid"
-        res = run_drawlib_cli(["init", "slide", str(target_dir), "--style", "unsupported_theme"])
+        target_dir.mkdir()
+        res = run_drawlib_cli(["init", "slide", "--style", "unsupported_theme"], cwd=str(target_dir))
         assert res.returncode != 0
         error_output = res.stderr + res.stdout
         assert "Unsupported slide style 'unsupported_theme'" in error_output

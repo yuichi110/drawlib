@@ -700,6 +700,32 @@ drawlib rules show <topic> --rebuild
 
 ---
 
+### 5.21. Multi-Frame Animations (`lib-anim`)
+- **Command**: `drawlib rules show lib-anim`
+- **Scope**: Multi-frame animations in APNG and Animated WebP, frame context manager (`with anim.frame()`), duration and loop controls, independent vs. cumulative frame modes, and static poster frame best practices.
+- **Key Syntax**:
+  ```python
+  from drawlib.anim import Animation
+  anim = Animation(fps=10.0)
+  with anim.frame():
+      circle((50, 50), radius=10, style=Styles.Primary)
+  ```
+- **When to read**: Refer to this rule when generating step-by-step technical animations, state transition diagrams, or animated workflow illustrations.
+
+---
+
+### 5.22. Presentation Slides & Stage (`lib-slide`)
+- **Command**: `drawlib rules show lib-slide`
+- **Scope**: Universal 16:9 widescreen presentation stage (1920x1080), dynamic `current_slide` runtime proxy, container layout blocks (`::: block`, `::: box`), standalone HTML deck (`slide.js`), and vector PDF presentation export.
+- **Key Syntax**:
+  ```python
+  from drawlib.slide import BoundingBox, current_slide
+  text((1800, 50), current_slide.text, style=Styles.MutedSmall)
+  ```
+- **When to read**: Refer to this rule when authoring presentation slide decks, configuring slide templates, or troubleshooting slide coordinate layouts.
+
+---
+
 ## 6. Autonomous AI Workflow & Implementation Guide
 
 When an AI coding agent is tasked with creating, modifying, or reviewing Drawlib illustrations, adhere to the following workflow principles to guarantee deterministic, publication-quality results.

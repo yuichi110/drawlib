@@ -49,7 +49,7 @@ Drawlib features 4 built-in project starter templates tailored to different publ
 
 ### 3.1 Linear Document (`doc` Template)
 ```text
-my_doc/
+.
 ├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
 │   ├── 00_cover.md            # Cover page (title, author, metadata)
 │   ├── 01_overview.md         # Executive overview chapter
@@ -71,7 +71,7 @@ my_doc/
 
 ### 3.2 Documentation Site (`site` Template)
 ```text
-my_project/
+.
 ├── docs_src/                  # [SOURCE OF TRUTH] Edit ONLY files here!
 │   ├── index.md               # Root landing page
 │   ├── navbar.md              # Sidebar navigation and brand definition
@@ -92,7 +92,7 @@ my_project/
 
 ### 3.3 Presentation Deck (`slide` Template)
 ```text
-my_slides/
+.
 ├── slide_src/                 # [SOURCE OF TRUTH] Edit ONLY files here!
 │   ├── 01_title.md            # Title slide
 │   ├── 02_agenda.md           # Agenda slide
@@ -111,18 +111,18 @@ my_slides/
 └── slide_images/              # [GENERATED] Extracted standalone slide diagram images
 ```
 
-### 3.4 Standalone Images Project (`image` Template)
+### 3.4 Standalone Images Project (`images` Template)
 ```text
-my_images_project/
-├── image_src/                 # [SOURCE OF TRUTH] Python drawing scripts (*.py)
+.
+├── images_src/                # [SOURCE OF TRUTH] Python drawing scripts (*.py)
 │   ├── sample1.py             # Starter Drawlib drawing script
 │   ├── sample2.py             # Advanced drawing script
 │   ├── styles.py              # Shared project styling themes
 │   ├── utils.py               # Shared project helper functions
 │   ├── build.sh               # Master build script
-│   ├── build_image.sh         # Batch image rendering script (image_images/)
+│   ├── build_image.sh         # Batch image rendering script (images/)
 │   └── README.md              # Illustration workflow guide
-└── image_images/              # [GENERATED] Rendered PNG/WebP output images
+└── images/                    # [GENERATED] Rendered PNG/WebP output images
     ├── sample1.png
     └── sample2.png
 ```
@@ -132,7 +132,7 @@ Each project type generates focused, specialized shell scripts alongside a maste
 - **`build_html.sh`**: Fast preview HTML build. Perfect for rapid editing and browser verification.
 - **`build_pdf.sh`**: Headless Chromium print to vector PDF. Respects `@page` sizing (A4 for `doc`, 16:9 for `slide`).
 - **`build_markdown.sh`**: Replaces ````drawlib```` blocks with generated image links for GitHub repo viewing.
-- **`build_image.sh`**: Generates standalone image files (executing Python scripts for `image`, or extracting embedded code blocks for `doc`, `site`, `slide`).
+- **`build_image.sh`**: Generates standalone image files (executing Python scripts for `images`, or extracting embedded code blocks for `doc`, `site`, `slide`).
 - **`build.sh` (Master)**: Sequentially executes all target builds applicable to the project.
 
 ### Golden Rule of Documentation:

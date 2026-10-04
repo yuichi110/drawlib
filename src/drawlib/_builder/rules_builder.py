@@ -47,6 +47,7 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "lib-charts",
     "lib-diagrams",
     "lib-tools",
+    "lib-slide",
 )
 
 

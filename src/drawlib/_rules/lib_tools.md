@@ -151,12 +151,14 @@ from drawlib.tools import init_project, list_project_types
 
 # Inspect available starter templates:
 types = list_project_types()
-# Returns: {"site": "Multi-page documentation...", "doc": "...", "slide": "...", "image": "..."}
+# Returns: {"site": "Multi-page documentation...", "doc": "...", "slide": "...", "images": "..."}
 
 # Scaffold a multi-page documentation website:
 init_project(
     project_type="site",
-    destination="./my_docs",
+    target="docs",
+    destination=".",
+    style="default",
     force=False,
 )
 ```

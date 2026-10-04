@@ -180,3 +180,25 @@ for x in range(30, 75, 5):
 ````
 
 To output WebP animations in Markdown, simply name the target file with `.webp` (e.g. `file:packet_pipeline.webp`) or specify `--format webp` in `drawlib build`.
+
+---
+
+## 8. Poster Frame Best Practice (Static & PDF Compatibility)
+
+According to the APNG specification, standard image viewers, OS file managers, and vector PDF compilation render only the **first frame (Frame 1)** as a fallback static image.
+
+> [!TIP]
+> **Poster Frame Principle**:
+> Never leave Frame 1 blank or unstyled. Always ensure Frame 1 presents a meaningful overview diagram or complete baseline architecture so that printed PDF reports and GitHub file previews communicate technical concepts clearly even without animation playback.
+
+---
+
+## 9. Animation Checklist for Technical Diagrams
+
+1. **Target Framerate**:
+   Use `fps=10.0` for smooth continuous motion (e.g. moving packets) or `fps=1.0–2.0` for step-by-step architectural sequences.
+2. **Final Frame Hold Duration**:
+   When explaining multi-step workflows, set a longer duration on the final completed frame (e.g. `duration=2.0` or `3.0`) before the animation loops so viewers can absorb the completed architecture.
+3. **Format Selection**:
+   Prefer `.png` (APNG) for general documentation and slide presentations where universal browser and PDF compatibility is required. Use `.webp` for web-only documentation sites where minimum payload size is prioritized.
+
