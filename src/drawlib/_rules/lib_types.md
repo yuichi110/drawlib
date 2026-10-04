@@ -212,7 +212,7 @@ active_card_style = card_style.patch(
 rectangle((40, 30), width=40, height=24, r=3, style=card_style, text="Standby Node")
 rectangle((100, 30), width=40, height=24, r=3, style=active_card_style, text="Active Leader")
 
-line((60, 30), (80, 30), arrowhead="->", style=Styles.PrimaryBold)
+line((60, 30), (80, 30), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 

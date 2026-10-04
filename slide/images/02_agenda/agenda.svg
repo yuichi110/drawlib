@@ -6,7 +6,6 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-04T02:07:37.718808</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -35,12 +34,12 @@ L 1.764706 29.647059
 L 12.352941 29.647059 
 L 12.352941 563.294118 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #1a73e8"/>
+" clip-path="url(#p3536581731)" style="fill: #1a73e8"/>
    </g>
    <g id="patch_3">
     <path d="M 129.6 71.152941 
 Q 201.6 296.470588 122.4 521.788235 
-" clip-path="url(#pdf3d5a9d93)" style="fill: none; stroke: #cdd2da; stroke-width: 3.5; stroke-linecap: round"/>
+" clip-path="url(#p3536581731)" style="fill: none; stroke: #cdd2da; stroke-width: 3.5; stroke-linecap: round"/>
    </g>
    <g id="patch_4">
     <path d="M 129.6 97.623529 
@@ -53,10 +52,10 @@ C 105.91852 57.399356 103.129412 64.132859 103.129412 71.152941
 C 103.129412 78.173023 105.91852 84.906526 110.882468 89.870474 
 C 115.846415 94.834421 122.579918 97.623529 129.6 97.623529 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #1a73e8"/>
+" clip-path="url(#p3536581731)" style="fill: #1a73e8"/>
    </g>
    <g id="text_1">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="129.6" y="75.816691" transform="rotate(-0 129.6 75.816691)">1</text>
     </g>
    </g>
@@ -71,15 +70,15 @@ Q 698.823529 101.594118 668.382353 101.594118
 L 204.158824 101.594118 
 Q 173.717647 101.594118 173.717647 71.152941 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
+" clip-path="url(#p3536581731)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
    </g>
    <g id="text_2">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="201.952941" y="66.203603" transform="rotate(-0 201.952941 66.203603)">Why Drawlib?</text>
     </g>
    </g>
    <g id="text_3">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #696e76" x="201.952941" y="83.591153" transform="rotate(-0 201.952941 83.591153)">Code vs Drawings</text>
     </g>
    </g>
@@ -94,10 +93,10 @@ C 125.71852 132.505239 122.929412 139.238741 122.929412 146.258824
 C 122.929412 153.278906 125.71852 160.012408 130.682468 164.976356 
 C 135.646415 169.940304 142.379918 172.729412 149.4 172.729412 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ea4335"/>
+" clip-path="url(#p3536581731)" style="fill: #ea4335"/>
    </g>
    <g id="text_4">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="149.4" y="150.922574" transform="rotate(-0 149.4 150.922574)">2</text>
     </g>
    </g>
@@ -112,15 +111,15 @@ Q 698.823529 176.7 668.382353 176.7
 L 223.958824 176.7 
 Q 193.517647 176.7 193.517647 146.258824 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
+" clip-path="url(#p3536581731)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
    </g>
    <g id="text_5">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="221.752941" y="141.286048" transform="rotate(-0 221.752941 141.286048)">Cloud Architecture</text>
     </g>
    </g>
    <g id="text_6">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #696e76" x="221.752941" y="158.697036" transform="rotate(-0 221.752941 158.697036)">Microservices Topology</text>
     </g>
    </g>
@@ -135,10 +134,10 @@ C 137.11852 207.611121 134.329412 214.344624 134.329412 221.364706
 C 134.329412 228.384788 137.11852 235.118291 142.082468 240.082238 
 C 147.046415 245.046186 153.779918 247.835294 160.8 247.835294 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #188038"/>
+" clip-path="url(#p3536581731)" style="fill: #188038"/>
    </g>
    <g id="text_7">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="160.8" y="226.028456" transform="rotate(-0 160.8 226.028456)">3</text>
     </g>
    </g>
@@ -153,15 +152,15 @@ Q 698.823529 251.805882 668.382353 251.805882
 L 235.358824 251.805882 
 Q 204.917647 251.805882 204.917647 221.364706 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
+" clip-path="url(#p3536581731)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
    </g>
    <g id="text_8">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="233.152941" y="216.476305" transform="rotate(-0 233.152941 216.476305)">Workflows &amp; Pipelines</text>
     </g>
    </g>
    <g id="text_9">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #696e76" x="233.152941" y="233.870418" transform="rotate(-0 233.152941 233.870418)">Animated CI/CD</text>
     </g>
    </g>
@@ -176,10 +175,10 @@ C 140.11852 282.717003 137.329412 289.450506 137.329412 296.470588
 C 137.329412 303.49067 140.11852 310.224173 145.082468 315.188121 
 C 150.046415 320.152068 156.779918 322.941176 163.8 322.941176 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ea4335"/>
+" clip-path="url(#p3536581731)" style="fill: #ea4335"/>
    </g>
    <g id="text_10">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="163.8" y="301.134338" transform="rotate(-0 163.8 301.134338)">4</text>
     </g>
    </g>
@@ -194,15 +193,15 @@ Q 698.823529 326.911765 668.382353 326.911765
 L 238.358824 326.911765 
 Q 207.917647 326.911765 207.917647 296.470588 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
+" clip-path="url(#p3536581731)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
    </g>
    <g id="text_11">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="236.152941" y="291.497812" transform="rotate(-0 236.152941 291.497812)">Modular Helpers</text>
     </g>
    </g>
    <g id="text_12">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #696e76" x="236.152941" y="308.976301" transform="rotate(-0 236.152941 308.976301)">Reusable Functions</text>
     </g>
    </g>
@@ -217,10 +216,10 @@ C 134.71852 357.822886 131.929412 364.556389 131.929412 371.576471
 C 131.929412 378.596553 134.71852 385.330055 139.682468 390.294003 
 C 144.646415 395.257951 151.379918 398.047059 158.4 398.047059 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #fbbc04"/>
+" clip-path="url(#p3536581731)" style="fill: #fbbc04"/>
    </g>
    <g id="text_13">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="158.4" y="376.240221" transform="rotate(-0 158.4 376.240221)">5</text>
     </g>
    </g>
@@ -235,15 +234,15 @@ Q 698.823529 402.017647 668.382353 402.017647
 L 232.958824 402.017647 
 Q 202.517647 402.017647 202.517647 371.576471 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
+" clip-path="url(#p3536581731)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
    </g>
    <g id="text_14">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="230.752941" y="366.26807" transform="rotate(-0 230.752941 366.26807)">Pure Canvas Stage</text>
     </g>
    </g>
    <g id="text_15">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #696e76" x="230.752941" y="384.082183" transform="rotate(-0 230.752941 384.082183)">1920×1080 &amp; Overlap</text>
     </g>
    </g>
@@ -258,10 +257,10 @@ C 120.91852 432.928768 118.129412 439.662271 118.129412 446.682353
 C 118.129412 453.702435 120.91852 460.435938 125.882468 465.399885 
 C 130.846415 470.363833 137.579918 473.152941 144.6 473.152941 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #1a73e8"/>
+" clip-path="url(#p3536581731)" style="fill: #1a73e8"/>
    </g>
    <g id="text_16">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="144.6" y="451.346103" transform="rotate(-0 144.6 451.346103)">6</text>
     </g>
    </g>
@@ -276,15 +275,15 @@ Q 698.823529 477.123529 668.382353 477.123529
 L 219.158824 477.123529 
 Q 188.717647 477.123529 188.717647 446.682353 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
+" clip-path="url(#p3536581731)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
    </g>
    <g id="text_17">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="216.952941" y="441.709577" transform="rotate(-0 216.952941 441.709577)">Full Canvas Hero</text>
     </g>
    </g>
    <g id="text_18">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #696e76" x="216.952941" y="459.300565" transform="rotate(-0 216.952941 459.300565)">Pure Stage 一枚絵</text>
     </g>
    </g>
@@ -299,10 +298,10 @@ C 98.71852 508.03465 95.929412 514.768153 95.929412 521.788235
 C 95.929412 528.808317 98.71852 535.54182 103.682468 540.505768 
 C 108.646415 545.469715 115.379918 548.258824 122.4 548.258824 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ea4335"/>
+" clip-path="url(#p3536581731)" style="fill: #ea4335"/>
    </g>
    <g id="text_19">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="122.4" y="526.451985" transform="rotate(-0 122.4 526.451985)">7</text>
     </g>
    </g>
@@ -317,22 +316,22 @@ Q 695.929412 552.229412 665.488235 552.229412
 L 196.958824 552.229412 
 Q 166.517647 552.229412 166.517647 521.788235 
 z
-" clip-path="url(#pdf3d5a9d93)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
+" clip-path="url(#p3536581731)" style="fill: #ffffff; stroke: #dce0e6; stroke-linejoin: miter"/>
    </g>
    <g id="text_20">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="194.752941" y="516.84546" transform="rotate(-0 194.752941 516.84546)">Unified Ecosystem</text>
     </g>
    </g>
    <g id="text_21">
-    <g clip-path="url(#pdf3d5a9d93)">
+    <g clip-path="url(#p3536581731)">
      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #696e76" x="194.752941" y="534.348088" transform="rotate(-0 194.752941 534.348088)">Docs, PDF &amp; Slides</text>
     </g>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pdf3d5a9d93">
+  <clipPath id="p3536581731">
    <rect x="0" y="0" width="720" height="592.941176"/>
   </clipPath>
  </defs>

@@ -38,6 +38,7 @@ from drawlib._core.l3_styles import (
 )
 
 matplotlib.rcParams["svg.fonttype"] = "none"
+matplotlib.rcParams["svg.hashsalt"] = "drawlib"
 
 
 class CanvasBase:

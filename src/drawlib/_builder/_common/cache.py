@@ -289,12 +289,16 @@ class BuildImageCache:
         config_hash: str = "",
         context_dir: Optional[str] = None,
         project_root: Optional[str] = None,
+        source_file: Optional[str] = None,
+        target_file: Optional[str] = None,
         extra_salt: str = "",
     ) -> tuple[str, str]:
         """Compute `(cache_key, code_hash)` for a given code block, config hash, and local asset context."""
         code_hash = hash_text(code)
         asset_hash = _hash_referenced_local_assets(code, context_dir, project_root=project_root)
-        composite = f"{code_hash}:{config_hash}:{asset_hash}"
+        source_abs = os.path.abspath(source_file) if source_file and source_file != "<drawlib_block>" else ""
+        target_abs = os.path.abspath(target_file) if target_file else ""
+        composite = f"{code_hash}:{config_hash}:{asset_hash}:{source_abs}:{target_abs}"
         if extra_salt:
             composite = f"{composite}:{extra_salt}"
         cache_key = hash_text(composite)

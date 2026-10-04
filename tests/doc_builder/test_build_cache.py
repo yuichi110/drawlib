@@ -308,3 +308,25 @@ def test_build_cache_referenced_asset_invalidation(tmp_path: Path) -> None:
     logo_file.write_bytes(b"updated_new_logo_png_bytes")
     key2, _ = BuildImageCache.compute_keys(code, context_dir=str(sub_dir), project_root=str(docs_root))
     assert key2 != key1
+
+
+def test_compute_keys_differentiates_source_and_target_files(tmp_path: Path) -> None:
+    """Verify that different source_file or target_file absolute paths produce distinct cache keys."""
+    code = "from drawlib.shapes import circle\ncircle((50, 50), radius=10)"
+
+    src1 = str(tmp_path / "slide1.md")
+    src2 = str(tmp_path / "slide2.md")
+    tgt1 = str(tmp_path / "out1.png")
+    tgt2 = str(tmp_path / "out2.png")
+
+    key_s1_t1, _ = BuildImageCache.compute_keys(code, source_file=src1, target_file=tgt1)
+    key_s1_t1_repeat, _ = BuildImageCache.compute_keys(code, source_file=src1, target_file=tgt1)
+    assert key_s1_t1 == key_s1_t1_repeat
+
+    # Different source file
+    key_s2_t1, _ = BuildImageCache.compute_keys(code, source_file=src2, target_file=tgt1)
+    assert key_s1_t1 != key_s2_t1
+
+    # Different target file
+    key_s1_t2, _ = BuildImageCache.compute_keys(code, source_file=src1, target_file=tgt2)
+    assert key_s1_t1 != key_s1_t2

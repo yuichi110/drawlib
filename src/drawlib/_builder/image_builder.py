@@ -408,6 +408,8 @@ class DrawlibExecuter:
             config_hash=self._config_hash,
             context_dir=script_dir,
             project_root=project_root,
+            source_file=file_path,
+            target_file=target_abs,
         )
         if self._restore_cached_image(target_abs, ext, need_grid, cache_key):
             return True

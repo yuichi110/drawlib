@@ -379,7 +379,13 @@ from drawlib.styles import Styles
 setup(width=120, height=55)
 
 # 1. Bar Chart on the left
-bar_chart = BarChart(width=50, height=40, title="Quarterly Sales", categories=["Q1", "Q2", "Q3", "Q4"])
+bar_chart = BarChart(
+    axis_line_style=Styles.Primary,
+    width=50,
+    height=40,
+    title="Quarterly Sales",
+    categories=["Q1", "Q2", "Q3", "Q4"],
+)
 bar_chart.add_series(name="Cloud", values=[45, 52, 68, 85], style=Styles.PrimaryFlat)
 bar_chart.draw((10, 8))
 

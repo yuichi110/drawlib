@@ -566,3 +566,40 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
         assert "1 / 3" in svg1
         assert "2 / 3" in svg2
         assert "3 / 3" in svg3
+
+    def test_build_slide_page_numbers_invalidation_when_total_slides_changes(self, tmp_path: Path) -> None:
+        """Verify adding a slide invalidates cache across deck and updates total slides in page numbers."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        page_block = """
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+from drawlib.canvas import clear, setup
+from drawlib.slide import current_slide
+from drawlib.text import text
+from drawlib.styles import Styles
+
+clear()
+setup(width=14, height=3, alpha=0.0)
+text((7, 1.5), current_slide.text, style=Styles.Black)
+```
+:::
+"""
+
+        (src_dir / "01_first.md").write_text(f"# Slide 1\n{page_block}", encoding="utf-8")
+        (src_dir / "02_second.md").write_text(f"# Slide 2\n{page_block}", encoding="utf-8")
+        (src_dir / "03_third.md").write_text(f"# Slide 3\n{page_block}", encoding="utf-8")
+
+        build_slide(str(src_dir), str(out_dir))
+        assert "1 / 3" in (out_dir / "images" / "01_first" / "page.svg").read_text(encoding="utf-8")
+
+        # Now add a 4th slide and re-build with cache enabled
+        (src_dir / "04_fourth.md").write_text(f"# Slide 4\n{page_block}", encoding="utf-8")
+        build_slide(str(src_dir), str(out_dir))
+
+        svg1 = (out_dir / "images" / "01_first" / "page.svg").read_text(encoding="utf-8")
+        svg4 = (out_dir / "images" / "04_fourth" / "page.svg").read_text(encoding="utf-8")
+        assert "1 / 4" in svg1
+        assert "4 / 4" in svg4

@@ -161,7 +161,7 @@ text(
 )
 
 # Connecting arrow with technical label
-line((58, 28), (82, 28), arrowhead="->", style=Styles.PrimaryBold)
+line((58, 28), (82, 28), arrow_head="->", style=Styles.PrimaryBold)
 text((70, 32), "/v1/charges", style=Styles.Primary.patch(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR, text_size=11))
 save()
 ```
@@ -181,7 +181,7 @@ cjk_bold = Styles.WhiteBold.patch(text_font=Font.SANSSERIF_BOLD, text_size=13)
 
 rectangle((30, 25), width=32, height=18, style=Styles.BlueFlat, text="ユーザー認証\n(Auth)", text_style=cjk_bold)
 rectangle((90, 25), width=32, height=18, style=Styles.PurpleFlat, text="決済ゲートウェイ\n(Gateway)", text_style=cjk_bold)
-line((46, 25), (74, 25), arrowhead="->", style=Styles.PrimaryBold)
+line((46, 25), (74, 25), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 

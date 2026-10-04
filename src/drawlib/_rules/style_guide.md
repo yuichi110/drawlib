@@ -106,9 +106,9 @@ rectangle((96, 45), width=24, height=14, style=Styles.SecondaryFlat, text="Auth 
 rectangle((96, 25), width=24, height=14, style=Styles.SuccessFlat, text="Audit Log", text_style=Styles.WhiteBold)
 
 # 6. Connectors with semantic line styles
-line((36, 35), (47, 35), arrowhead="->", style=Styles.PrimaryBold)
-line((73, 40), (84, 45), arrowhead="->", style=Styles.PrimaryBold)
-line((73, 30), (84, 25), arrowhead="->", style=Styles.PrimaryBold)
+line((36, 35), (47, 35), arrow_head="->", style=Styles.PrimaryBold)
+line((73, 40), (84, 45), arrow_head="->", style=Styles.PrimaryBold)
+line((73, 30), (84, 25), arrow_head="->", style=Styles.PrimaryBold)
 ```
 ````
 
@@ -244,8 +244,8 @@ rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.PrimaryFlat, text=
 rectangle(db_xy,      width=box_w, height=box_h, style=Styles.SecondaryFlat, text="Database", text_style=Styles.WhiteBold)
 
 # 3. Connect nodes by referencing the same coordinates
-line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrowhead="->", style=Styles.PrimaryBold)
-line((gateway_xy[0] + box_w/2, gateway_xy[1]), (db_xy[0] - box_w/2,      db_xy[1]),      arrowhead="->", style=Styles.PrimaryBold)
+line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrow_head="->", style=Styles.PrimaryBold)
+line((gateway_xy[0] + box_w/2, gateway_xy[1]), (db_xy[0] - box_w/2,      db_xy[1]),      arrow_head="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -296,15 +296,15 @@ Lines and arrows guide the viewer's eyes through the diagram:
    - **Bottom Port**: `(cx, cy - h/2)`
 5. **Orthogonal Waypoint Routing (`lines()` & `lines_curved()`)**:
    Avoid diagonal lines cutting across unrelated components (Line Spaghetti). Use multi-segment routing through intermediate waypoints:
-   - **`lines(xys=[...], arrowhead="->", style=Styles.PrimaryBold)`**: Renders a clean $90^\circ$ Manhattan route in a single call, attaching the arrowhead strictly to the final segment:
+   - **`lines(xys=[...], arrow_head="->", style=Styles.PrimaryBold)`**: Renders a clean $90^\circ$ Manhattan route in a single call, attaching the arrowhead strictly to the final segment:
      ```python
      # L-shaped routing through an intermediate right-angle corner:
      src_port = (gateway_xy[0], gateway_xy[1] - box_h / 2)   # Bottom port
      dst_port = (db_xy[0] - box_w / 2, db_xy[1])             # Left port
      waypoint = (src_port[0], dst_port[1])                  # 90° corner waypoint
-     lines([src_port, waypoint, dst_port], arrowhead="->", style=Styles.PrimaryBold)
+     lines([src_port, waypoint, dst_port], arrow_head="->", style=Styles.PrimaryBold)
      ```
-   - **`lines_curved(xys=[...], r=3.0, arrowhead="->", style=Styles.PrimaryBold)`**: Smoothly fillets right-angle corners with radius `r`, producing professional cloud architecture network topologies.
+   - **`lines_curved(xys=[...], r=3.0, arrow_head="->", style=Styles.PrimaryBold)`**: Smoothly fillets right-angle corners with radius `r`, producing professional cloud architecture network topologies.
 
 ---
 

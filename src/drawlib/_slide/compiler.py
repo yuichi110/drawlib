@@ -389,7 +389,6 @@ def _process_drawlib_blocks(
     file_path: str,
     idx: int,
     default_format: str,
-    total_slides: int = 1,
 ) -> str:
     """Execute and replace ```drawlib blocks.
 
@@ -400,7 +399,6 @@ def _process_drawlib_blocks(
         file_path: Absolute path to slide source file.
         idx: Slide index.
         default_format: Default image format.
-        total_slides: Total number of slides in deck.
 
     Returns:
         str: Transformed markdown text.
@@ -434,7 +432,6 @@ def _process_drawlib_blocks(
             code,
             target_path,
             source_filename=file_path,
-            extra_cache_salt=f"slide:{idx}:{total_slides}",
             no_cache=options.no_cache,
         )
         return _format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs)
@@ -549,6 +546,7 @@ def build_slide(
     if not candidate_files:
         raise ValueError(f"No Markdown slide files (.md) found in '{input_dir}'")
 
+    total_slides = len(candidate_files)
     styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
     processor = DrawlibBlockProcessor(
         styles_path=styles_abs,
@@ -556,9 +554,9 @@ def build_slide(
         no_cache=no_cache,
         project_root=input_abs,
         require_file=False,
+        extra_config_hash=f"total_slides:{total_slides}",
     )
 
-    total_slides = len(candidate_files)
     deck_title = "Drawlib Presentation"
     deck_theme = theme or "google"
 
@@ -592,7 +590,6 @@ def build_slide(
                 file_path,
                 idx,
                 image_format,
-                total_slides=total_slides,
             )
             t_containers = _process_container_blocks(t_drawlib)
             rendered_body = t_containers.strip()

@@ -43,7 +43,7 @@ for i, name in enumerate(services):
     if i > 0:
         prev_right = start_x + (i - 1) * (box_w + gap) + box_w
         curr_left = start_x + i * (box_w + gap)
-        line((prev_right, y), (curr_left, y), arrowhead="->", style=Styles.PrimaryBold)
+        line((prev_right, y), (curr_left, y), arrow_head="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -76,7 +76,7 @@ for i, label in enumerate(nodes):
     ly1 = center_y + 13 * math.sin(angle)
     lx2 = center_x + 21 * math.cos(angle)
     ly2 = center_y + 21 * math.sin(angle)
-    line((lx1, ly1), (lx2, ly2), arrowhead="->", style=Styles.PrimaryBold)
+    line((lx1, ly1), (lx2, ly2), arrow_head="->", style=Styles.PrimaryBold)
 
 save()
 ```
@@ -336,7 +336,7 @@ from drawlib.shapes import rectangle
 setup(width=120, height=50)
 rectangle((25, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Client", text_style=Styles.WhiteBold)
 rectangle((95, 25), width=30, height=20, style=Styles.SecondaryFlat, text="Service", text_style=Styles.WhiteBold)
-line((40, 25), (80, 25), arrowhead="->", style=Styles.PrimaryBold)
+line((40, 25), (80, 25), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 ````
@@ -491,8 +491,8 @@ drawlib rules show <topic> --rebuild
   from drawlib.styles import Styles
   from drawlib.lines import line, line_curved
 
-  line((10, 20), (40, 20), arrowhead="->", style=Styles.PrimaryBold)
-  line_curved((50, 20), (80, 40), bend=0.3, arrowhead="<->", style=Styles.PrimaryDashed)
+  line((10, 20), (40, 20), arrow_head="->", style=Styles.PrimaryBold)
+  line_curved((50, 20), (80, 40), bend=0.3, arrow_head="<->", style=Styles.PrimaryDashed)
   ```
 - **When to read**: Refer to this rule when connecting diagram nodes, configuring arrowheads (`->`, `<-`, `<->`, `-`), routing complex paths, or adjusting curve bending parameters.
 

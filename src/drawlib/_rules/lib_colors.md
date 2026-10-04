@@ -178,7 +178,7 @@ rectangle((40, 26), width=32, height=18, style=Styles.BlueFlat, text="Web Servic
 rectangle((100, 26), width=32, height=18, style=db_style, text="Database", text_style=Styles.WhiteBold)
 
 # Data connection
-line((56, 26), (84, 26), arrowhead="->", style=Styles.PrimaryBold)
+line((56, 26), (84, 26), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 
@@ -201,7 +201,7 @@ box_style = Styles.Primary.patch(
 
 rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", text_style=Styles.PrimaryBold)
 rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", text_style=Styles.PrimaryBold)
-line((45, 25), (75, 25), arrowhead="->", style=Styles.PrimaryBold)
+line((45, 25), (75, 25), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 

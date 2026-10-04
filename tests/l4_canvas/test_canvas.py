@@ -265,3 +265,22 @@ class TestCanvas:
             content = f.read()
         assert "<text" in content
         assert "Searchable Text Label" in content
+
+    def test_save_svg_deterministic_output(self, tmp_path: Path) -> None:
+        """Verify that two independent SVG saves of identical canvases produce byte-for-byte identical output."""
+        clear()
+        setup(width=100, height=50)
+        circle((50, 25), 10, style=Styles.Primary)
+        canvas_text((50, 25), "Deterministic", style=Styles.WhiteBold)
+        out1 = tmp_path / "diag1.svg"
+        save(str(out1))
+
+        clear()
+        setup(width=100, height=50)
+        circle((50, 25), 10, style=Styles.Primary)
+        canvas_text((50, 25), "Deterministic", style=Styles.WhiteBold)
+        out2 = tmp_path / "diag2.svg"
+        save(str(out2))
+
+        assert out1.read_bytes() == out2.read_bytes()
+        assert "<dc:date>" not in out1.read_text(encoding="utf-8")

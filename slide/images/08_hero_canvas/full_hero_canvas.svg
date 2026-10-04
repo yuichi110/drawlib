@@ -6,7 +6,6 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-04T02:07:43.297808</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -35,7 +34,7 @@ L 0 0
 L 720 0 
 L 720 405 
 z
-" clip-path="url(#pc1da2268eb)" style="fill: #ffffff"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #ffffff"/>
    </g>
    <g id="patch_3">
     <path d="M 18.75 386.25 
@@ -44,7 +43,7 @@ L 701.25 18.75
 L 701.25 386.25 
 L 18.75 386.25 
 z
-" clip-path="url(#pc1da2268eb)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #d9d9d9; stroke-width: 1.5; stroke-linejoin: miter"/>
+" clip-path="url(#p6494dea2b6)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #d9d9d9; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 37.5 93.75 
@@ -52,10 +51,10 @@ L 37.5 41.25
 L 682.5 41.25 
 L 682.5 93.75 
 z
-" clip-path="url(#pc1da2268eb)" style="fill: #4285f4"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #4285f4"/>
    </g>
    <g id="text_1">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="360" y="72.16375" transform="rotate(-0 360 72.16375)">FULL CANVAS STAGE — 1920 × 1080 PURE DRAWING STAGE</text>
     </g>
    </g>
@@ -65,21 +64,21 @@ L 35.625 127.5
 L 181.875 127.5 
 L 181.875 307.5 
 z
-" clip-path="url(#pc1da2268eb)" style="fill: #d9d9d9"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #d9d9d9"/>
    </g>
    <g id="text_2">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="108.75" y="162.16375" transform="rotate(-0 108.75 162.16375)">1. Deterministic</text>
     </g>
    </g>
    <g id="text_3">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(35.55 210.253)">Cartesian geometry</text>
     </g>
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(39.45375 229.535)">Version-controlled</text>
     </g>
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(33.8125 248.482)">Reproducible builds</text>
     </g>
    </g>
@@ -89,21 +88,21 @@ L 204.375 127.5
 L 350.625 127.5 
 L 350.625 307.5 
 z
-" clip-path="url(#pc1da2268eb)" style="fill: #d9d9d9"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #d9d9d9"/>
    </g>
    <g id="text_4">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #674ea7" x="277.5" y="162.16375" transform="rotate(-0 277.5 162.16375)">2. Native SVG</text>
     </g>
    </g>
    <g id="text_5">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(195.2175 210.4205)">Ctrl+F Searchable text</text>
     </g>
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(210.955 229.3675)">Infinite resolution</text>
     </g>
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(193.19375 248.3145)">Clean DOM integration</text>
     </g>
    </g>
@@ -113,21 +112,21 @@ L 373.125 127.5
 L 519.375 127.5 
 L 519.375 307.5 
 z
-" clip-path="url(#pc1da2268eb)" style="fill: #d9d9d9"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #d9d9d9"/>
    </g>
    <g id="text_6">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f57c00" x="446.25" y="162.04375" transform="rotate(-0 446.25 162.04375)">3. Multi-Target</text>
     </g>
    </g>
    <g id="text_7">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(375.4025 210.4205)">Images, PDF Books</text>
     </g>
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(368.85 229.7025)">Documentation sites</text>
     </g>
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(359.4 248.6495)">Interactive HTML decks</text>
     </g>
    </g>
@@ -137,21 +136,21 @@ L 541.875 127.5
 L 688.125 127.5 
 L 688.125 307.5 
 z
-" clip-path="url(#pc1da2268eb)" style="fill: #d9d9d9"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #d9d9d9"/>
    </g>
    <g id="text_8">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #434343" x="615" y="162.16375" transform="rotate(-0 615 162.16375)">4. AI Autonomous</text>
     </g>
    </g>
    <g id="text_9">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(533.32625 210.508)">Clean token hierarchy</text>
     </g>
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(524.12625 229.535)">Multi-modal review loop</text>
     </g>
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(510.98375 248.482)">Structured container syntax</text>
     </g>
    </g>
@@ -161,17 +160,17 @@ L 37.5 333.75
 L 682.5 333.75 
 L 682.5 371.25 
 z
-" clip-path="url(#pc1da2268eb)" style="fill: #4285f4; stroke: #434343; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #4285f4; stroke: #434343; stroke-width: 0.75; stroke-linejoin: miter"/>
    </g>
    <g id="text_10">
-    <g clip-path="url(#pc1da2268eb)">
+    <g clip-path="url(#p6494dea2b6)">
      <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="360" y="357.04375" transform="rotate(-0 360 357.04375)">Zero Injected Chrome • Full Stage Freedom • 100% Code-Driven Visualization</text>
     </g>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pc1da2268eb">
+  <clipPath id="p6494dea2b6">
    <rect x="0" y="0" width="720" height="405"/>
   </clipPath>
  </defs>

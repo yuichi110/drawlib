@@ -167,8 +167,8 @@ rectangle((75, 30), width=32, height=18, style=Styles.PrimaryFlat, text="API Gat
 rectangle((120, 30), width=32, height=18, style=Styles.SecondaryFlat, text="Auth Service", text_style=Styles.WhiteBold)
 
 # Connecting lines with arrowheads
-line((46, 30), (59, 30), arrowhead="->", style=Styles.PrimaryBold)
-line((91, 30), (104, 30), arrowhead="->", style=Styles.PrimaryBold)
+line((46, 30), (59, 30), arrow_head="->", style=Styles.PrimaryBold)
+line((91, 30), (104, 30), arrow_head="->", style=Styles.PrimaryBold)
 
 # Annotations
 text((70, 52), "System Boundary", style=Styles.PrimaryBold)

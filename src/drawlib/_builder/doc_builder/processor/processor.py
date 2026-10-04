@@ -52,6 +52,7 @@ class DrawlibBlockProcessor:
         cache: Optional[BuildImageCache] = None,
         project_root: Optional[str] = None,
         require_file: bool = True,
+        extra_config_hash: str = "",
     ) -> None:
         """Initialize processor with shared globals and SQLite build image cache."""
         self.shared_globals: Dict[str, Any] = {}
@@ -59,7 +60,10 @@ class DrawlibBlockProcessor:
         self.utils_path = utils_path
         s_hash = hash_file(styles_path) if styles_path else ""
         u_hash = hash_file(utils_path) if utils_path else ""
-        self.config_hash = f"{s_hash}:{u_hash}"
+        cfg_parts = [s_hash, u_hash]
+        if extra_config_hash:
+            cfg_parts.append(extra_config_hash)
+        self.config_hash = ":".join(cfg_parts)
         self.no_cache = no_cache
         self.require_file = require_file
         self._cache: BuildImageCache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
@@ -123,6 +127,7 @@ class DrawlibBlockProcessor:
         target_file_path: str,
         source_filename: str = "<drawlib_block>",
         grid: Optional[bool] = None,
+        cache_target_file: Optional[str] = None,
         extra_cache_salt: str = "",
         no_cache: bool = False,
     ) -> None:
@@ -147,20 +152,15 @@ class DrawlibBlockProcessor:
                 if source_filename != "<drawlib_block>" and os.path.exists(source_filename)
                 else os.getcwd()
             )
-            salt = extra_cache_salt
-            if not salt:
-                from drawlib._slide.base import get_slide_context
-
-                s_ctx = get_slide_context()
-                if s_ctx is not None:
-                    salt = f"slide:{s_ctx.index}:{s_ctx.total}"
-
+            eff_target = cache_target_file or target_abs_path
             cache_key, code_hash = self._cache.compute_keys(
                 code=code,
                 config_hash=self.config_hash,
                 context_dir=context_dir,
                 project_root=self.project_root,
-                extra_salt=salt,
+                source_file=source_filename,
+                target_file=eff_target,
+                extra_salt=extra_cache_salt,
             )
             cached = self._cache.get(cache_key, image_format=fmt)
             if cached is not None:
@@ -211,6 +211,7 @@ class DrawlibBlockProcessor:
         code: str,
         image_format: str = "png",
         source_filename: str = "<drawlib_block>",
+        target_file_path: Optional[str] = None,
         no_cache: bool = False,
     ) -> str:
         """Execute a single drawlib code block and return a base64 Data URL string."""
@@ -226,7 +227,13 @@ class DrawlibBlockProcessor:
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_file = os.path.join(tmp_dir, f"temp.{ext}")
-            self.render_block_to_file(code, tmp_file, source_filename=source_filename, no_cache=no_cache)
+            self.render_block_to_file(
+                code,
+                tmp_file,
+                source_filename=source_filename,
+                cache_target_file=target_file_path,
+                no_cache=no_cache,
+            )
             with open(tmp_file, "rb") as f:
                 b64_str = base64.b64encode(f.read()).decode("utf-8")
             return f"data:{mime};base64,{b64_str}"
@@ -320,6 +327,7 @@ class DrawlibBlockProcessor:
                     code,
                     image_format=image_format,
                     source_filename=source_filename,
+                    target_file_path=target_img_path,
                     no_cache=options.no_cache,
                 )
                 rel_img_path = data_url
@@ -403,6 +411,7 @@ class DrawlibBlockProcessor:
                     code,
                     image_format=image_format,
                     source_filename=source_filename,
+                    target_file_path=target_img_path,
                     no_cache=options.no_cache,
                 )
                 rel_img_path = data_url

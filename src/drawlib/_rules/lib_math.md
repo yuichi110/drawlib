@@ -101,7 +101,7 @@ p1 = (30, 20)
 p2 = (90, 60)
 
 # Draw slanted connection
-line(p1, p2, arrowhead="->", style=Styles.PrimaryBold)
+line(p1, p2, arrow_head="->", style=Styles.PrimaryBold)
 
 # Calculate angle and midpoint
 angle = get_angle(p1, p2)
@@ -184,7 +184,7 @@ for i in range(num_clients):
     # Offset connection endpoints to shape boundaries rather than shape centers
     hub_edge = (hub[0] + 13 * math.cos(angle_rad), hub[1] + 13 * math.sin(angle_rad))
     node_edge = (node_xy[0] - 7 * math.cos(angle_rad), node_xy[1] - 7 * math.sin(angle_rad))
-    line(hub_edge, node_edge, arrowhead="->", style=Styles.PrimaryBold)
+    line(hub_edge, node_edge, arrow_head="->", style=Styles.PrimaryBold)
     
     # Label line distance
     label_xy = ((hub_edge[0] + node_edge[0]) / 2, (hub_edge[1] + node_edge[1]) / 2 + 2)

@@ -140,7 +140,7 @@ text((35, 52), "Client Application", style=Styles.PrimaryBold)
 text((105, 52), "Microservice API", style=Styles.PrimaryBold)
 
 # Connecting arrow with payload label
-line((53, 30), (87, 30), arrowhead="->", style=Styles.PrimaryBold)
+line((53, 30), (87, 30), arrow_head="->", style=Styles.PrimaryBold)
 text((70, 35), "JSON / HTTPS", style=Styles.Primary)
 save()
 ```

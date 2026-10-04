@@ -146,7 +146,7 @@ setup(width=100, height=50)
 
 rectangle((25, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Client", text_style=Styles.WhiteBold)
 rectangle((75, 25), width=30, height=20, style=Styles.SecondaryFlat, text="Server", text_style=Styles.WhiteBold)
-line((40, 25), (60, 25), arrowhead="->", style=Styles.PrimaryBold)
+line((40, 25), (60, 25), arrow_head="->", style=Styles.PrimaryBold)
 ```
 ````
 

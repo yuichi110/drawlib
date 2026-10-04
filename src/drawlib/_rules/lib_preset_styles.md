@@ -598,48 +598,48 @@ from drawlib.text import text
 setup(width=140, height=90)
 
 # Section Headers
-text((70, 84), "Enterprise E-Commerce Microservices", style=Styles.PrimaryBold, size=18)
-text((70, 78), "Synchronous REST Ingress & Asynchronous Event Bus", style=Styles.Dark, size=12)
+text((70, 84), "Enterprise E-Commerce Microservices", style=Styles.PrimaryBold.patch(text_size=18))
+text((70, 78), "Synchronous REST Ingress & Asynchronous Event Bus", style=Styles.Dark.patch(text_size=12))
 
 # Subnet / Boundary Containers
 rectangle((70, 42), width=132, height=60, r=4, style=Styles.MutedDashed)
-text((22, 68), "Internal VPC (10.0.0.0/16)", style=Styles.MutedBold, size=11)
+text((22, 68), "Internal VPC (10.0.0.0/16)", style=Styles.MutedBold.patch(text_size=11))
 
 # Tier 1: External Client & API Gateway
 rectangle((22, 42), width=22, height=30, r=2, style=Styles.BlueSolid)
 phosphor.user((22, 50), width=9, style=Styles.Blue)
-text((22, 40), "Client Apps", style=Styles.BlueBold, size=11)
-text((22, 33), "Web / Mobile", style=Styles.Dark, size=9)
+text((22, 40), "Client Apps", style=Styles.BlueBold.patch(text_size=11))
+text((22, 33), "Web / Mobile", style=Styles.Dark.patch(text_size=9))
 
 rectangle((50, 42), width=22, height=30, r=2, style=Styles.TealFlat)
 phosphor.cloud((50, 50), width=9, style=Styles.WhiteBold)
-text((50, 40), "API Gateway", style=Styles.WhiteBold, size=11)
-text((50, 33), "Rate Limiting", style=Styles.White, size=9)
+text((50, 40), "API Gateway", style=Styles.WhiteBold.patch(text_size=11))
+text((50, 33), "Rate Limiting", style=Styles.White.patch(text_size=9))
 
 # Tier 2: Backend Core Services
 rectangle((80, 53), width=24, height=18, r=2, style=Styles.GreenBold)
-text((80, 56), "Order Service", style=Styles.GreenBold, size=11)
-text((80, 48), "gRPC :8081", style=Styles.Dark, size=9)
+text((80, 56), "Order Service", style=Styles.GreenBold.patch(text_size=11))
+text((80, 48), "gRPC :8081", style=Styles.Dark.patch(text_size=9))
 
 rectangle((80, 27), width=24, height=18, r=2, style=Styles.GreenBold)
-text((80, 30), "Payment Service", style=Styles.GreenBold, size=11)
-text((80, 22), "gRPC :8082", style=Styles.Dark, size=9)
+text((80, 30), "Payment Service", style=Styles.GreenBold.patch(text_size=11))
+text((80, 22), "gRPC :8082", style=Styles.Dark.patch(text_size=9))
 
 # Tier 3: Asynchronous Pub/Sub Queue & Storage
 rectangle((114, 53), width=22, height=18, r=2, style=Styles.PurpleFlat)
 phosphor.broadcast((114, 56), width=7, style=Styles.WhiteBold)
-text((114, 48), "Kafka Broker", style=Styles.WhiteBold, size=10)
+text((114, 48), "Kafka Broker", style=Styles.WhiteBold.patch(text_size=10))
 
 rectangle((114, 27), width=22, height=18, r=2, style=Styles.NavySolid)
 phosphor.database((114, 31), width=7, style=Styles.Navy)
-text((114, 22), "PostgreSQL HA", style=Styles.NavyBold, size=10)
+text((114, 22), "PostgreSQL HA", style=Styles.NavyBold.patch(text_size=10))
 
 # Connectors with semantic weights
-line((33, 42), (39, 42), arrowhead="->", style=Styles.BlueBold)
-line((61, 46), (68, 53), arrowhead="->", style=Styles.PrimaryBold)
-line((61, 38), (68, 27), arrowhead="->", style=Styles.PrimaryBold)
-line((92, 53), (103, 53), arrowhead="->", style=Styles.PurpleDashed)
-line((92, 27), (103, 27), arrowhead="<->", style=Styles.NavyBold)
+line((33, 42), (39, 42), arrow_head="->", style=Styles.BlueBold)
+line((61, 46), (68, 53), arrow_head="->", style=Styles.PrimaryBold)
+line((61, 38), (68, 27), arrow_head="->", style=Styles.PrimaryBold)
+line((92, 53), (103, 53), arrow_head="->", style=Styles.PurpleDashed)
+line((92, 27), (103, 27), arrow_head="<->", style=Styles.NavyBold)
 
 save()
 ```
@@ -663,36 +663,36 @@ setup(width=130, height=50)
 
 # Start State
 circle((15, 25), radius=5, style=Styles.BlueFlat)
-text((15, 14), "Initial", style=Styles.BlueBold, size=10)
+text((15, 14), "Initial", style=Styles.BlueBold.patch(text_size=10))
 
 # Processing State
 rectangle((45, 25), width=22, height=16, r=3, style=Styles.GreenBold)
-text((45, 27), "Validating", style=Styles.GreenBold, size=11)
-text((45, 20), "Worker Poll", style=Styles.Dark, size=9)
+text((45, 27), "Validating", style=Styles.GreenBold.patch(text_size=11))
+text((45, 20), "Worker Poll", style=Styles.Dark.patch(text_size=9))
 
 # Decision Branches: Success vs Failure
 rectangle((80, 36), width=22, height=14, r=3, style=Styles.GreenFlat)
-text((80, 36), "Processed", style=Styles.WhiteBold, size=10)
+text((80, 36), "Processed", style=Styles.WhiteBold.patch(text_size=10))
 
 rectangle((80, 14), width=22, height=14, r=3, style=Styles.RedFlat)
-text((80, 14), "Rejected", style=Styles.WhiteBold, size=10)
+text((80, 14), "Rejected", style=Styles.WhiteBold.patch(text_size=10))
 
 # Final State
 circle((115, 36), radius=5, style=Styles.GreenBold)
 circle((115, 36), radius=3.2, style=Styles.GreenFlat)
-text((115, 24), "Completed", style=Styles.GreenBold, size=10)
+text((115, 24), "Completed", style=Styles.GreenBold.patch(text_size=10))
 
 # Transitions
-line((20, 25), (34, 25), arrowhead="->", style=Styles.DarkBold)
-text((27, 28), "submit", style=Styles.Dark, size=9)
+line((20, 25), (34, 25), arrow_head="->", style=Styles.DarkBold)
+text((27, 28), "submit", style=Styles.Dark.patch(text_size=9))
 
-line((56, 29), (69, 36), arrowhead="->", style=Styles.GreenBold)
-text((60, 37), "valid", style=Styles.Green, size=9)
+line((56, 29), (69, 36), arrow_head="->", style=Styles.GreenBold)
+text((60, 37), "valid", style=Styles.Green.patch(text_size=9))
 
-line((56, 21), (69, 14), arrowhead="->", style=Styles.RedBold)
-text((60, 13), "invalid", style=Styles.Red, size=9)
+line((56, 21), (69, 14), arrow_head="->", style=Styles.RedBold)
+text((60, 13), "invalid", style=Styles.Red.patch(text_size=9))
 
-line((91, 36), (110, 36), arrowhead="->", style=Styles.GreenBold)
+line((91, 36), (110, 36), arrow_head="->", style=Styles.GreenBold)
 
 save()
 ```
@@ -717,47 +717,47 @@ from drawlib.text import text
 setup(width=150, height=85)
 
 # Architecture Title & Subtitle
-text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=Styles.PrimaryBold, size=18)
-text((75, 72), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style=Styles.Dark, size=11)
+text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=Styles.PrimaryBold.patch(text_size=18))
+text((75, 72), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style=Styles.Dark.patch(text_size=11))
 
 # Tier 1: Ingestion Sources
 rectangle((20, 40), width=22, height=44, r=2, style=Styles.OrangeSolid)
 phosphor.broadcast((20, 54), width=7, style=Styles.Orange)
-text((20, 46), "IoT / CDC", style=Styles.OrangeBold, size=10)
+text((20, 46), "IoT / CDC", style=Styles.OrangeBold.patch(text_size=10))
 phosphor.file_csv((20, 34), width=7, style=Styles.Orange)
-text((20, 26), "Batch Files", style=Styles.OrangeBold, size=10)
+text((20, 26), "Batch Files", style=Styles.OrangeBold.patch(text_size=10))
 
 # Tier 2: Bronze Layer (Raw Storage)
 rectangle((52, 40), width=24, height=44, r=2, style=Styles.BrownFlat)
 phosphor.database((52, 53), width=8, style=Styles.WhiteBold)
-text((52, 43), "Bronze Tier", style=Styles.WhiteBold, size=11)
-text((52, 36), "Raw Append", style=Styles.White, size=9)
-text((52, 28), "Parquet / JSON", style=Styles.White, size=8)
+text((52, 43), "Bronze Tier", style=Styles.WhiteBold.patch(text_size=11))
+text((52, 36), "Raw Append", style=Styles.White.patch(text_size=9))
+text((52, 28), "Parquet / JSON", style=Styles.White.patch(text_size=8))
 
 # Tier 3: Silver Layer (Cleaned & Enriched)
 rectangle((86, 40), width=24, height=44, r=2, style=Styles.SteelBold)
 phosphor.check_circle((86, 53), width=8, style=Styles.Steel)
-text((86, 43), "Silver Tier", style=Styles.SteelBold, size=11)
-text((86, 36), "Cleaned / Joined", style=Styles.Dark, size=9)
-text((86, 28), "Delta Tables", style=Styles.Dark, size=8)
+text((86, 43), "Silver Tier", style=Styles.SteelBold.patch(text_size=11))
+text((86, 36), "Cleaned / Joined", style=Styles.Dark.patch(text_size=9))
+text((86, 28), "Delta Tables", style=Styles.Dark.patch(text_size=8))
 
 # Tier 4: Gold Layer (Business Aggregates)
 rectangle((120, 52), width=24, height=22, r=2, style=Styles.GreenFlat)
 phosphor.chart_bar((120, 58), width=7, style=Styles.WhiteBold)
-text((120, 49), "Gold Marts", style=Styles.WhiteBold, size=10)
-text((120, 44), "Star Schemas", style=Styles.White, size=8)
+text((120, 49), "Gold Marts", style=Styles.WhiteBold.patch(text_size=10))
+text((120, 44), "Star Schemas", style=Styles.White.patch(text_size=8))
 
 # Tier 5: Consumers (ML & BI)
 rectangle((120, 25), width=24, height=22, r=2, style=Styles.TealBold)
 phosphor.cpu((120, 31), width=7, style=Styles.Teal)
-text((120, 22), "ML Models", style=Styles.TealBold, size=10)
-text((120, 17), "Serving API", style=Styles.Dark, size=8)
+text((120, 22), "ML Models", style=Styles.TealBold.patch(text_size=10))
+text((120, 17), "Serving API", style=Styles.Dark.patch(text_size=8))
 
 # Connectors with Flow Arrows
-line((31, 40), (40, 40), arrowhead="->", style=Styles.OrangeBold)
-line((64, 40), (74, 40), arrowhead="->", style=Styles.DarkBold)
-line((98, 45), (108, 52), arrowhead="->", style=Styles.GreenBold)
-line((98, 35), (108, 25), arrowhead="->", style=Styles.TealBold)
+line((31, 40), (40, 40), arrow_head="->", style=Styles.OrangeBold)
+line((64, 40), (74, 40), arrow_head="->", style=Styles.DarkBold)
+line((98, 45), (108, 52), arrow_head="->", style=Styles.GreenBold)
+line((98, 35), (108, 25), arrow_head="->", style=Styles.TealBold)
 
 save()
 ```

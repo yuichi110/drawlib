@@ -13,7 +13,7 @@
 import contextlib
 import io
 import os
-from typing import Literal
+from typing import Any, Literal
 
 from matplotlib import pyplot
 from PIL import Image
@@ -154,7 +154,10 @@ class Canvas(
 
         is_grid = self._grid or dutil_settings.get_force_grid()
 
-        save_kwargs = {"format": format} if format is not None else {}
+        save_kwargs: dict[str, Any] = {"format": format} if format is not None else {}
+        _, ext = os.path.splitext(file_path)
+        if (format and str(format).lower() == "svg") or ext.lower() == ".svg":
+            save_kwargs["metadata"] = {"Date": None}
 
         # save normal image
         if self._grid_only:
