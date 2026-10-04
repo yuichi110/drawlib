@@ -24,6 +24,7 @@ from drawlib._builder.doc_builder import (
     show_code_block,
 )
 from drawlib._builder.image_builder import build_image
+from drawlib._slide import build_slide
 
 __all__ = [
     "build_document",
@@ -31,6 +32,7 @@ __all__ = [
     "build_image",
     "build_markdown",
     "build_pdf",
+    "build_slide",
     "detect_document_type",
     "export_code_block",
     "show_code_block",

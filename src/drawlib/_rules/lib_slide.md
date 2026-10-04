@@ -99,33 +99,30 @@ slide_src/
 └── serve.sh               # Local presentation preview server
 ```
 
-### 3.1. Frontmatter Configuration
-Each slide file can specify optional YAML frontmatter:
+### 3.1. Pure Markdown & Zero Frontmatter
+Drawlib slides use pure Markdown without requiring YAML frontmatter. All layout and positioning is declared explicitly via `::: block`:
 
 ```markdown
----
-title: System Architecture Overview
-layout: default
-background: "#0f172a"
----
-
+::: block (160, 240) (1600, 600)
 # Microservices Topologies
+## Declarative Presentation Architecture
+:::
 ```
 
 ---
 
 ## 4. Layout Containers (`::: block` and `::: box`)
 
-Drawlib slides support flexible container blocks with absolute and slot-based positioning:
+Drawlib slides support flexible container blocks with absolute positioning on the 1920x1080 stage:
 
 ```markdown
-::: block xy: (100, 200) size: (800, 600)
+::: block (80, 140) (740, 840) font:22px
 ### Left Content Column
 - High-throughput API gateway
 - Asynchronous message bus
 :::
 
-::: block xy: (1000, 200) size: (800, 600)
+::: block (860, 140) (980, 840) z:5
 ```drawlib file:arch_diagram.png
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
@@ -137,10 +134,15 @@ rectangle((50, 30), width=60, height=30, style=Styles.PrimaryFlat, text="Core Se
 :::
 ```
 
-### Supported Block Positioning Options:
-- `xy: (x, y)`: Absolute stage position from bottom-left corner.
-- `size: (w, h)`: Container width and height in stage pixels.
-- `slot: left | right | header | footer`: Semantic predefined layout slots.
+### Supported Block Positioning & Styling Options:
+- `(x, y)`: Stage coordinates in pixels from top-left (e.g. `(80, 140)`).
+- `(w, h)`: Container width and height in pixels (e.g. `(740, 840)`).
+- `font:<size>`: Scoped font size (e.g. `font:22px` or `font:1.2rem`).
+- `compact`: Tighter line-height and smaller heading margins.
+- `center`, `left`, `right`: Text alignment inside the block.
+- `z:<index>`: Stacking depth layer for background/foreground composition (e.g. `z:5`, `z:10`).
+- `style:"..."`: Custom inline CSS declarations.
+- `class:"..."`: Custom CSS classes.
 
 ---
 

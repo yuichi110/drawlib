@@ -154,11 +154,7 @@ class TestSlideCompiler:
         src_dir.mkdir()
 
         (src_dir / "01_title.md").write_text(
-            """---
-theme: google
----
-
-::: block (160, 240) (1600, 600)
+            """::: block (160, 240) (1600, 600)
 # Drawlib Test Deck
 ## Presentation as Code
 :::
@@ -418,17 +414,14 @@ class TestSlideCli:
         src_dir.mkdir()
 
         (src_dir / "01_title.md").write_text(
-            """---
-theme: google
----
-::: block (160, 240) (1600, 600)
+            """::: block (160, 240) (1600, 600)
 # CLI Slide Test
 :::
 """,
             encoding="utf-8",
         )
 
-        res = run_drawlib_cli(["build", "slide", str(src_dir), "-o", str(out_dir), "--no-cache"])
+        res = run_drawlib_cli(["build", "slide", str(src_dir), "-o", str(out_dir), "--theme", "google", "--no-cache"])
         assert res.returncode == 0
         assert (out_dir / "index.html").is_file()
         assert (out_dir / "slide.css").is_file()

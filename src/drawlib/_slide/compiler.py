@@ -13,77 +13,21 @@ from __future__ import annotations
 
 import os
 import re
-import shlex
 import shutil
 from pathlib import Path
-from typing import Any, Optional
+from typing import Final, Optional
 
 from drawlib._builder._common import resolve_styles_and_utils
-from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
-from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions, parse_block_info
-from drawlib._slide.base import BoundingBox, reset_slide_context, set_slide_context
-from drawlib._templates import get_css, get_slide_js
+from drawlib._builder.doc_builder.processor.options import parse_block_info
+from drawlib._slide._assets import copy_static_assets, deploy_slide_assets, format_asset_markup
+from drawlib._slide._blocks import PATTERN_CONTAINER_BOX, process_container_blocks
+from drawlib._slide.base import reset_slide_context, set_slide_context
 
-_PATTERN_DRAWLIB = re.compile(
+_PATTERN_DRAWLIB: Final[re.Pattern[str]] = re.compile(
     r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",
     re.DOTALL,
 )
-_PATTERN_CONTAINER_BOX = re.compile(
-    r"(?:\n|^)[ \t]*:::+[ \t]*(?:block|box)(?:\s+([^\n]*))?\n(.*?)\n[ \t]*:::+",
-    re.DOTALL,
-)
-
-
-def _parse_frontmatter(content: str) -> tuple[dict[str, Any], str]:
-    """Parse YAML-style frontmatter delimited by leading '---'.
-
-    Args:
-        content: Raw markdown text.
-
-    Returns:
-        tuple[dict[str, Any], str]: (parsed frontmatter dict, remaining markdown body).
-    """
-    frontmatter: dict[str, Any] = {}
-    body = content
-
-    if content.startswith("---"):
-        parts = content.split("---", 2)
-        if len(parts) >= 3:
-            fm_text = parts[1]
-            body = parts[2]
-            for line in fm_text.splitlines():
-                line = line.strip()
-                if not line or line.startswith("#") or ":" not in line:
-                    continue
-                key, val = line.split(":", 1)
-                k = key.strip().lower()
-                v = val.strip().strip('"').strip("'")
-                if v.lower() in {"true", "yes"}:
-                    frontmatter[k] = True
-                elif v.lower() in {"false", "no"}:
-                    frontmatter[k] = False
-                else:
-                    frontmatter[k] = v
-
-    return frontmatter, body
-
-
-def _extract_slide_title(markdown_text: str, default: str) -> str:
-    """Extract first heading title from markdown body or return default.
-
-    Args:
-        markdown_text: Raw or processed markdown text.
-        default: Fallback title.
-
-    Returns:
-        str: Discovered heading title or default.
-    """
-    for line in markdown_text.splitlines():
-        line = line.strip()
-        if line.startswith("#"):
-            return re.sub(r"^#+\s*", "", line).strip()
-    return default
 
 
 def _resolve_output_dir(input_abs: str, output_dir: Optional[str]) -> str:
@@ -148,240 +92,6 @@ def _collect_slide_files(input_abs: str) -> list[str]:
     return files
 
 
-def _format_asset_markup(
-    file_name: str,
-    alt_text: str,
-    output_abs: str = "",
-) -> str:
-    """Format HTML markup for a rendered slide asset to fill its parent block container.
-
-    Args:
-        file_name: Image filename or relative path on disk.
-        alt_text: Alt text attribute.
-        output_abs: Absolute path to output directory for inlining SVGs.
-
-    Returns:
-        str: Generated HTML snippet.
-    """
-    if file_name.lower().endswith(".svg") and output_abs:
-        svg_disk = os.path.normpath(os.path.join(output_abs, file_name))
-        if os.path.exists(svg_disk):
-            with open(svg_disk, encoding="utf-8") as f:
-                svg_content = f.read()
-            svg_clean = re.sub(r"<\?xml[^>]*\?>", "", svg_content)
-            svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean).strip()
-            svg_clean = re.sub(
-                r"<svg\s+",
-                '<svg class="slide-vector-graphic" style="width: 100%; height: 100%; object-fit: contain;" ',
-                svg_clean,
-                count=1,
-            )
-            return (
-                f'\n<figure class="drawlib-image">\n'
-                f"  {svg_clean}\n"
-                f"</figure>\n"
-            )
-    return (
-        f'\n<figure class="drawlib-image">\n'
-        f'  <img src="{file_name}" alt="{alt_text}" class="slide-raster-graphic" '
-        f'style="width: 100%; height: 100%; object-fit: contain;" />\n'
-        f"</figure>\n"
-    )
-
-
-def _parse_box_coordinates(
-    header_opts: str,
-) -> tuple[Optional[float], Optional[float], Optional[float], Optional[float], str]:
-    """Extract (x, y) and (w, h) bounding box coordinates from container options.
-
-    Args:
-        header_opts: Raw header options string from ::: box.
-
-    Returns:
-        tuple[Optional[float], Optional[float], Optional[float], Optional[float], str]:
-            (x, y, w, h, remaining_options_string).
-    """
-    x: Optional[float] = None
-    y: Optional[float] = None
-    w: Optional[float] = None
-    h: Optional[float] = None
-
-    tuple_pattern = r"\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)"
-    tuple_matches = list(re.finditer(tuple_pattern, header_opts))
-    if len(tuple_matches) >= 1:
-        x = float(tuple_matches[0].group(1))
-        y = float(tuple_matches[0].group(2))
-    if len(tuple_matches) >= 2:
-        w = float(tuple_matches[1].group(1))
-        h = float(tuple_matches[1].group(2))
-
-    cleaned_opts = re.sub(tuple_pattern, " ", header_opts).strip()
-    return x, y, w, h, cleaned_opts
-
-
-def _build_box_styles(
-    x: Optional[float],
-    y: Optional[float],
-    w: Optional[float],
-    h: Optional[float],
-    font_size: Optional[str],
-    align: Optional[str],
-    z_index: Optional[int],
-    custom_styles: list[str],
-) -> list[str]:
-    """Construct inline CSS style declarations for a positioned text box.
-
-    Args:
-        x: Left coordinate in pixels.
-        y: Top coordinate in pixels.
-        w: Width in pixels.
-        h: Height in pixels.
-        font_size: Optional font size override.
-        align: Optional text alignment.
-        z_index: Optional z-index layer.
-        custom_styles: Additional inline CSS rules.
-
-    Returns:
-        list[str]: CSS style statements.
-    """
-    styles: list[str] = []
-    actual_x = x if x is not None else 80.0
-    actual_y = y if y is not None else 140.0
-    actual_w = w if w is not None else 1760.0
-    actual_h = h if h is not None else 840.0
-    styles.append("position: absolute;")
-    styles.append(f"left: {actual_x}px; top: {actual_y}px;")
-    styles.append(f"width: {actual_w}px; height: {actual_h}px;")
-    if font_size:
-        fs = font_size if any(font_size.endswith(u) for u in ("px", "rem", "em", "%", "pt")) else f"{font_size}px"
-        styles.append(f"font-size: {fs};")
-    if align:
-        styles.append(f"text-align: {align};")
-    if z_index is not None:
-        styles.append(f"z-index: {z_index};")
-    for cs in custom_styles:
-        clean = cs.strip().rstrip(";")
-        if clean:
-            styles.append(f"{clean};")
-    return styles
-
-
-def _handle_keyed_box_token(
-    k: str,
-    v: str,
-    extra_class: list[str],
-    custom_styles: list[str],
-) -> tuple[Optional[str], Optional[int], Optional[str]]:
-    """Handle a key:value token for box options."""
-    k_lower = k.lower()
-    if k_lower in {"font", "font-size", "fontsize", "fs"}:
-        return v, None, None
-    elif k_lower in {"z", "z_index", "z-index"}:
-        try:
-            return None, int(v), None
-        except ValueError:
-            return None, None, None
-    elif k_lower in {"align", "text-align"}:
-        return None, None, v.lower()
-    elif k_lower in {"class", "css_class"}:
-        extra_class.extend(v.split())
-    elif k_lower in {"style", "css"}:
-        custom_styles.append(v)
-    return None, None, None
-
-
-def _handle_pos_box_token(arg: str) -> tuple[Optional[str], bool, Optional[str]]:
-    """Handle standalone keyword argument without key prefix."""
-    kw_lower = arg.lower()
-    if kw_lower == "compact":
-        return None, True, None
-    elif kw_lower in {"center", "left", "right"}:
-        return None, False, kw_lower
-    elif re.match(r"^\d+(px|rem|em|%)$", kw_lower):
-        return arg, False, None
-    return None, False, None
-
-
-def _parse_box_tokens(
-    cleaned_opts: str,
-) -> tuple[Optional[str], bool, Optional[str], Optional[int], list[str], list[str]]:
-    """Parse key:value tokens for a ::: box container.
-
-    Args:
-        cleaned_opts: Options string stripped of coordinate tuples.
-
-    Returns:
-        tuple: (font_size, compact, align, z_index, extra_classes, custom_styles).
-    """
-    font_size: Optional[str] = None
-    compact: bool = False
-    align: Optional[str] = None
-    z_index: Optional[int] = None
-    extra_class: list[str] = []
-    custom_styles: list[str] = []
-
-    try:
-        tokens = shlex.split(cleaned_opts, posix=True)
-    except ValueError:
-        tokens = cleaned_opts.split()
-
-    for token in tokens:
-        if ":" in token or "=" in token:
-            sep = ":" if ":" in token else "="
-            k, v = token.split(sep, 1)
-            v_clean = v.strip().strip('"').strip("'")
-            fs, z, al = _handle_keyed_box_token(k.strip(), v_clean, extra_class, custom_styles)
-            if fs:
-                font_size = fs
-            if z is not None:
-                z_index = z
-            if al:
-                align = al
-        else:
-            v_clean = token.strip().strip('"').strip("'")
-            fs, cp, al = _handle_pos_box_token(v_clean)
-            if fs:
-                font_size = fs
-            if cp:
-                compact = True
-            if al:
-                align = al
-
-    return font_size, compact, align, z_index, extra_class, custom_styles
-
-
-def _process_container_blocks(text: str) -> str:
-    """Parse and convert ::: box ... ::: container syntax to positioned text box <div> elements.
-
-    Args:
-        text: Markdown text with potential ::: box blocks.
-
-    Returns:
-        str: Transformed text with HTML container markup.
-    """
-
-    def replacer(match: re.Match[str]) -> str:
-        header_opts = (match.group(1) or "").strip()
-        content = match.group(2).strip()
-
-        x, y, w, h, cleaned_opts = _parse_box_coordinates(header_opts)
-        font_size, compact, align, z_index, extra_class, custom_styles = _parse_box_tokens(cleaned_opts)
-        styles = _build_box_styles(x, y, w, h, font_size, align, z_index, custom_styles)
-
-        classes = ["slide-block", "slide-text-box"]
-        if compact:
-            classes.append("compact")
-        classes.extend(extra_class)
-
-        rendered_inner = parse_markdown_to_html(content)
-        style_attr = f' style="{" ".join(styles)}"' if styles else ""
-        class_attr = f' class="{" ".join(classes)}"'
-
-        return f"\n<div{class_attr}{style_attr}>\n{rendered_inner}\n</div>\n"
-
-    return _PATTERN_CONTAINER_BOX.sub(replacer, text)
-
-
 def _process_drawlib_blocks(
     text: str,
     output_abs: str,
@@ -434,7 +144,7 @@ def _process_drawlib_blocks(
             source_filename=file_path,
             no_cache=options.no_cache,
         )
-        return _format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs)
+        return format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs)
 
     return _PATTERN_DRAWLIB.sub(replacer, text)
 
@@ -460,59 +170,11 @@ def _assemble_slide_section(
     )
 
 
-def _copy_static_assets(input_abs: str, output_abs: str) -> None:
-    """Copy static image and font assets from input directory to output directory.
-
-    Args:
-        input_abs: Source directory.
-        output_abs: Target directory.
-    """
-    for asset_file in os.listdir(input_abs):
-        asset_lower = asset_file.lower()
-        if (
-            asset_lower.endswith((".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ttf", ".woff", ".woff2"))
-            and not asset_lower.startswith(".")
-        ):
-            src_p = os.path.join(input_abs, asset_file)
-            dst_p = os.path.join(output_abs, asset_file)
-            if not os.path.exists(dst_p):
-                shutil.copy2(src_p, dst_p)
-
-
-def _deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> None:
-    """Deploy slide.css, slide.js, and static assets to the output directory.
-
-    Args:
-        input_abs: Input directory containing potential slide.css overrides and assets.
-        output_abs: Output directory.
-        deck_theme: Chosen CSS theme name.
-    """
-    local_css_path = os.path.join(input_abs, "slide.css")
-    if os.path.isfile(local_css_path):
-        with open(local_css_path, "r", encoding="utf-8") as f:
-            css_content = f.read()
-    else:
-        css_content = get_css(name=deck_theme, target="slide")
-
-    with open(os.path.join(output_abs, "slide.css"), "w", encoding="utf-8") as f:
-        f.write(css_content)
-
-    with open(os.path.join(output_abs, "slide.js"), "w", encoding="utf-8") as f:
-        f.write(get_slide_js())
-
-    for asset_dir_name in ("_assets", "assets"):
-        local_assets_dir = os.path.join(input_abs, asset_dir_name)
-        out_assets_dir = os.path.join(output_abs, asset_dir_name)
-        if os.path.isdir(local_assets_dir) and os.path.abspath(local_assets_dir) != os.path.abspath(out_assets_dir):
-            if os.path.exists(out_assets_dir):
-                shutil.rmtree(out_assets_dir)
-            shutil.copytree(local_assets_dir, out_assets_dir)
-
-
 def build_slide(
     input_dir: str,
     output_dir: Optional[str] = None,
     *,
+    title: Optional[str] = None,
     theme: Optional[str] = None,
     image_format: str = "svg",
     styles_path: Optional[str] = None,
@@ -524,6 +186,7 @@ def build_slide(
     Args:
         input_dir: Directory containing Markdown (.md) slide files and presentation assets.
         output_dir: Target directory for compiled slide deck (defaults to 'slide/' or 'slides_html/').
+        title: Optional presentation HTML title (defaults to 'Drawlib Presentation').
         theme: CSS theme preset name ('google', 'default', 'google-dark', etc.).
         image_format: Default image format for embedded diagrams ('svg', 'webp', or 'png').
         styles_path: Optional path to custom styles.py script.
@@ -557,7 +220,7 @@ def build_slide(
         extra_config_hash=f"total_slides:{total_slides}",
     )
 
-    deck_title = "Drawlib Presentation"
+    deck_title = title or "Drawlib Presentation"
     deck_theme = theme or "google"
 
     slides_html_list: list[str] = []
@@ -568,19 +231,11 @@ def build_slide(
         with open(file_path, "r", encoding="utf-8") as f:
             raw_content = f.read()
 
-        frontmatter, body_text = _parse_frontmatter(raw_content)
-        if "theme" in frontmatter and not theme:
-            deck_theme = str(frontmatter["theme"])
-
-        slide_title = str(frontmatter.get("title", "")) or _extract_slide_title(body_text, f"Slide {idx}")
-        if idx == 1 and deck_title == "Drawlib Presentation":
-            deck_title = slide_title
-
         ctx_token = set_slide_context(index=idx, total=total_slides)
         try:
-            # If no ::: block or ::: box is in body_text, auto-wrap in default stage block
-            text_to_search = "\n" + body_text if not body_text.startswith("\n") else body_text
-            if not _PATTERN_CONTAINER_BOX.search(text_to_search):
+            # If no ::: block or ::: box is in raw_content, auto-wrap in default stage block
+            text_to_search = "\n" + raw_content if not raw_content.startswith("\n") else raw_content
+            if not PATTERN_CONTAINER_BOX.search(text_to_search):
                 text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
 
             t_drawlib = _process_drawlib_blocks(
@@ -591,7 +246,7 @@ def build_slide(
                 idx,
                 image_format,
             )
-            t_containers = _process_container_blocks(t_drawlib)
+            t_containers = process_container_blocks(t_drawlib)
             rendered_body = t_containers.strip()
 
             slide_section = _assemble_slide_section(
@@ -605,13 +260,13 @@ def build_slide(
         curr_thumb = " current" if idx == 1 else ""
         thumbs_html_list.append(
             f'    <div class="overview-thumb{curr_thumb}" data-slide-target="{idx}">\n'
-            f'      <div class="thumb-title">{idx}. {slide_title}</div>\n'
+            f'      <div class="thumb-title">Slide {idx}</div>\n'
             f'      <div class="thumb-number">{idx} / {total_slides}</div>\n'
             f"    </div>"
         )
 
-    _copy_static_assets(input_abs, output_abs)
-    _deploy_slide_assets(input_abs, output_abs, deck_theme)
+    copy_static_assets(input_abs, output_abs)
+    deploy_slide_assets(input_abs, output_abs, deck_theme)
 
     slides_markup = "\n\n".join(slides_html_list)
     thumbs_markup = "\n".join(thumbs_html_list)
