@@ -506,3 +506,63 @@ theme: google
         assert "connect" in utils_content
         assert "draw_curved_agenda" not in utils_content
         assert "draw_kpi_cards" not in utils_content
+
+    def test_build_slide_copies_static_assets(self, tmp_path: Path) -> None:
+        """Verify static assets in _assets are copied to output directory."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+        assets_dir = src_dir / "_assets"
+        assets_dir.mkdir()
+        (assets_dir / "logo.png").write_bytes(b"\x89PNG\r\n\x1a\nfakeimage")
+
+        (src_dir / "01_title.md").write_text(
+            """
+::: block (100, 100) (400, 400)
+![Logo](_assets/logo.png)
+:::
+""",
+            encoding="utf-8",
+        )
+
+        build_slide(str(src_dir), str(out_dir))
+
+        assert (out_dir / "_assets" / "logo.png").is_file()
+        assert (out_dir / "_assets" / "logo.png").read_bytes() == b"\x89PNG\r\n\x1a\nfakeimage"
+        html_content = (out_dir / "index.html").read_text(encoding="utf-8")
+        assert '<img src="_assets/logo.png" alt="Logo" />' in html_content
+
+    def test_build_slide_page_numbers_unique_per_slide(self, tmp_path: Path) -> None:
+        """Verify identical page number code blocks produce unique cached SVGs per slide."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        page_block = """
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+from drawlib.canvas import clear, setup
+from drawlib.slide import current_slide
+from drawlib.text import text
+from drawlib.styles import Styles
+
+clear()
+setup(width=14, height=3, alpha=0.0)
+text((7, 1.5), current_slide.text, style=Styles.Black)
+```
+:::
+"""
+
+        (src_dir / "01_first.md").write_text(f"# Slide 1\n{page_block}", encoding="utf-8")
+        (src_dir / "02_second.md").write_text(f"# Slide 2\n{page_block}", encoding="utf-8")
+        (src_dir / "03_third.md").write_text(f"# Slide 3\n{page_block}", encoding="utf-8")
+
+        build_slide(str(src_dir), str(out_dir))
+
+        svg1 = (out_dir / "images" / "01_first" / "page.svg").read_text(encoding="utf-8")
+        svg2 = (out_dir / "images" / "02_second" / "page.svg").read_text(encoding="utf-8")
+        svg3 = (out_dir / "images" / "03_third" / "page.svg").read_text(encoding="utf-8")
+
+        assert "1 / 3" in svg1
+        assert "2 / 3" in svg2
+        assert "3 / 3" in svg3

@@ -15,6 +15,8 @@ from drawlib._slide.base import (
     BoundingBox,
     SlideContext,
     current_slide,
+    get_slide_context,
+    has_slide_context,
     reset_slide_context,
     set_slide_context,
 )
@@ -25,6 +27,8 @@ __all__ = [
     "SlideContext",
     "build_slide",
     "current_slide",
+    "get_slide_context",
+    "has_slide_context",
     "reset_slide_context",
     "set_slide_context",
 ]

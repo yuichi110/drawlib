@@ -34,6 +34,7 @@ class DrawlibBlockOptions(BaseModel):
     xy: Optional[tuple[float, float]] = None
     size: Optional[tuple[float, float]] = None
     z_index: Optional[int] = None
+    no_cache: bool = False
 
 
 class ExtractedBlockInfo(BaseModel):
@@ -145,6 +146,10 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
             options.css_class = val_clean
         elif key_lower == "file":
             options.file = val_clean
+        elif key_lower in {"cache", "caching"}:
+            options.no_cache = val_clean.lower() in {"false", "0", "no", "off"}
+        elif key_lower in {"no-cache", "no_cache", "nocache"}:
+            options.no_cache = val_clean.lower() not in {"false", "0", "no", "off"}
         elif key_lower in {"z", "z_index", "z-index"}:
             try:
                 options.z_index = int(val_clean)
@@ -152,7 +157,9 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 pass
         elif not key_lower:
             val_lower = val_clean.lower()
-            if val_lower in {"show-code", "show_code"}:
+            if val_lower in {"no-cache", "no_cache", "nocache"}:
+                options.no_cache = True
+            elif val_lower in {"show-code", "show_code"}:
                 options.code = "show"
             elif val_lower in {"fold-code", "fold_code"}:
                 options.code = "fold"

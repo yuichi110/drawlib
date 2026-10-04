@@ -404,3 +404,35 @@ circle((50, 50), radius=10, style=Styles.Primary)
     processed = lenient_processor.process_markdown(bad_md, doc_base_name="lenient", output_dir=str(out_dir))
     assert 'src="lenient_images/1.png"' in processed
     assert (out_dir / "lenient_images" / "1.png").exists()
+
+
+def test_parse_block_info_no_cache() -> None:
+    """Verify parse_block_info correctly handles no-cache and cache options."""
+    assert parse_block_info("file:foo.png no-cache").no_cache is True
+    assert parse_block_info("file:foo.png no_cache").no_cache is True
+    assert parse_block_info("file:foo.png nocache").no_cache is True
+    assert parse_block_info("file:foo.png cache:false").no_cache is True
+    assert parse_block_info("file:foo.png cache:0").no_cache is True
+    assert parse_block_info("file:foo.png cache:off").no_cache is True
+    assert parse_block_info("file:foo.png no-cache:true").no_cache is True
+    assert parse_block_info("file:foo.png no-cache:false").no_cache is False
+    assert parse_block_info("file:foo.png cache:true").no_cache is False
+    assert parse_block_info("file:foo.png").no_cache is False
+
+
+def test_block_processor_honors_no_cache(tmp_path) -> None:
+    """Verify no-cache bypasses cache read and write."""
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    processor = DrawlibBlockProcessor()
+
+    code = (
+        "from drawlib.shapes import circle\n"
+        "from drawlib.styles import Styles\n"
+        "circle((50, 50), radius=10, style=Styles.Primary)"
+    )
+    img_path = str(out_dir / "test.png")
+
+    # Render with no_cache=True
+    processor.render_block_to_file(code, img_path, no_cache=True)
+    assert (out_dir / "test.png").exists()

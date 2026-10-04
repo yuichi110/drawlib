@@ -389,6 +389,7 @@ def _process_drawlib_blocks(
     file_path: str,
     idx: int,
     default_format: str,
+    total_slides: int = 1,
 ) -> str:
     """Execute and replace ```drawlib blocks.
 
@@ -399,6 +400,7 @@ def _process_drawlib_blocks(
         file_path: Absolute path to slide source file.
         idx: Slide index.
         default_format: Default image format.
+        total_slides: Total number of slides in deck.
 
     Returns:
         str: Transformed markdown text.
@@ -428,7 +430,13 @@ def _process_drawlib_blocks(
 
         target_path = os.path.normpath(os.path.join(output_abs, rel_asset_path))
         os.makedirs(os.path.dirname(target_path), exist_ok=True)
-        processor.render_block_to_file(code, target_path, source_filename=file_path)
+        processor.render_block_to_file(
+            code,
+            target_path,
+            source_filename=file_path,
+            extra_cache_salt=f"slide:{idx}:{total_slides}",
+            no_cache=options.no_cache,
+        )
         return _format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs)
 
     return _PATTERN_DRAWLIB.sub(replacer, text)
@@ -475,10 +483,10 @@ def _copy_static_assets(input_abs: str, output_abs: str) -> None:
 
 
 def _deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> None:
-    """Deploy slide.css and slide.js to the output directory.
+    """Deploy slide.css, slide.js, and static assets to the output directory.
 
     Args:
-        input_abs: Input directory containing potential slide.css overrides.
+        input_abs: Input directory containing potential slide.css overrides and assets.
         output_abs: Output directory.
         deck_theme: Chosen CSS theme name.
     """
@@ -494,6 +502,14 @@ def _deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> No
 
     with open(os.path.join(output_abs, "slide.js"), "w", encoding="utf-8") as f:
         f.write(get_slide_js())
+
+    for asset_dir_name in ("_assets", "assets"):
+        local_assets_dir = os.path.join(input_abs, asset_dir_name)
+        out_assets_dir = os.path.join(output_abs, asset_dir_name)
+        if os.path.isdir(local_assets_dir) and os.path.abspath(local_assets_dir) != os.path.abspath(out_assets_dir):
+            if os.path.exists(out_assets_dir):
+                shutil.rmtree(out_assets_dir)
+            shutil.copytree(local_assets_dir, out_assets_dir)
 
 
 def build_slide(
@@ -569,7 +585,15 @@ def build_slide(
             if not _PATTERN_CONTAINER_BOX.search(text_to_search):
                 text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
 
-            t_drawlib = _process_drawlib_blocks(text_to_search, output_abs, processor, file_path, idx, image_format)
+            t_drawlib = _process_drawlib_blocks(
+                text_to_search,
+                output_abs,
+                processor,
+                file_path,
+                idx,
+                image_format,
+                total_slides=total_slides,
+            )
             t_containers = _process_container_blocks(t_drawlib)
             rendered_body = t_containers.strip()
 

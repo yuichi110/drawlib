@@ -1,4 +1,4 @@
-::: block (160, 240) (1600, 600)
+::: block (160, 240) (1160, 600)
 # Drawlib
 ## Illustration as Code for Modern Engineers
 
@@ -8,4 +8,8 @@ Declarative Python Diagramming & Modern Presentation Architecture
 
 **Yuichi Ito** | Drawlib Author  
 *October 2026*
+:::
+
+::: block (1360, 260) (400, 480)
+![Linux Mascot](_assets/linux.png)
 :::

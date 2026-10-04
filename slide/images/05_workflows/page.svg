@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-04T01:55:04.865370</dc:date>
+    <dc:date>2026-10-04T02:07:38.997752</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -31,14 +31,14 @@ z
   </g>
   <g id="axes_1">
    <g id="text_1">
-    <g clip-path="url(#p3621ad15e8)">
-     <text style="font-size: 65px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #808080" x="360" y="95.566295" transform="rotate(-0 360 95.566295)">2 / 9</text>
+    <g clip-path="url(#p6b03622f12)">
+     <text style="font-size: 65px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #808080" x="360" y="95.566295" transform="rotate(-0 360 95.566295)">5 / 9</text>
     </g>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p3621ad15e8">
+  <clipPath id="p6b03622f12">
    <rect x="0" y="0" width="720" height="154.285714"/>
   </clipPath>
  </defs>

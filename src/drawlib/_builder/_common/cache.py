@@ -289,11 +289,14 @@ class BuildImageCache:
         config_hash: str = "",
         context_dir: Optional[str] = None,
         project_root: Optional[str] = None,
+        extra_salt: str = "",
     ) -> tuple[str, str]:
         """Compute `(cache_key, code_hash)` for a given code block, config hash, and local asset context."""
         code_hash = hash_text(code)
         asset_hash = _hash_referenced_local_assets(code, context_dir, project_root=project_root)
         composite = f"{code_hash}:{config_hash}:{asset_hash}"
+        if extra_salt:
+            composite = f"{composite}:{extra_salt}"
         cache_key = hash_text(composite)
         return cache_key, code_hash
 

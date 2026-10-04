@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import contextvars
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -61,12 +62,22 @@ class SlideContext:
         return template.format(index=self.index, total=self.total)
 
 
-_slide_context_var: contextvars.ContextVar[SlideContext] = contextvars.ContextVar(
-    "slide_context", default=SlideContext(index=1, total=1)
+_slide_context_var: contextvars.ContextVar[Optional[SlideContext]] = contextvars.ContextVar(
+    "slide_context", default=None
 )
 
 
-def set_slide_context(index: int, total: int) -> contextvars.Token[SlideContext]:
+def get_slide_context() -> Optional[SlideContext]:
+    """Return the active SlideContext if set, else None."""
+    return _slide_context_var.get()
+
+
+def has_slide_context() -> bool:
+    """Check whether a SlideContext is currently active."""
+    return _slide_context_var.get() is not None
+
+
+def set_slide_context(index: int, total: int) -> contextvars.Token[Optional[SlideContext]]:
     """Set the active slide context.
 
     Args:
@@ -79,7 +90,7 @@ def set_slide_context(index: int, total: int) -> contextvars.Token[SlideContext]
     return _slide_context_var.set(SlideContext(index=index, total=total))
 
 
-def reset_slide_context(token: contextvars.Token[SlideContext]) -> None:
+def reset_slide_context(token: contextvars.Token[Optional[SlideContext]]) -> None:
     """Reset the slide context using token.
 
     Args:
@@ -94,17 +105,20 @@ class _CurrentSlideProxy:
     @property
     def index(self) -> int:
         """Current slide index (1-based)."""
-        return _slide_context_var.get().index
+        ctx = _slide_context_var.get()
+        return ctx.index if ctx is not None else 1
 
     @property
     def total(self) -> int:
         """Total number of slides in the presentation."""
-        return _slide_context_var.get().total
+        ctx = _slide_context_var.get()
+        return ctx.total if ctx is not None else 1
 
     @property
     def text(self) -> str:
         """Formatted slide counter string, e.g. '4 / 9'."""
-        return _slide_context_var.get().text
+        ctx = _slide_context_var.get()
+        return ctx.text if ctx is not None else "1 / 1"
 
     def format(self, template: str = "{index} / {total}") -> str:
         """Render a custom formatted slide counter string.
@@ -122,7 +136,9 @@ class _CurrentSlideProxy:
 
     def __repr__(self) -> str:
         ctx = _slide_context_var.get()
-        return f"SlideContext(index={ctx.index}, total={ctx.total})"
+        idx = ctx.index if ctx is not None else 1
+        tot = ctx.total if ctx is not None else 1
+        return f"SlideContext(index={idx}, total={tot})"
 
 
 current_slide = _CurrentSlideProxy()

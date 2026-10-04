@@ -217,6 +217,23 @@ hr {
   object-fit: contain;
 }
 
+.slide-block img,
+.slide-text-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.slide-block p:has(> img:only-child),
+.slide-text-box p:has(> img:only-child) {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 /* Transparent Searchable Text Layer for Drawlib Images */
 .text-overlay-container {

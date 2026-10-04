@@ -123,6 +123,8 @@ class DrawlibBlockProcessor:
         target_file_path: str,
         source_filename: str = "<drawlib_block>",
         grid: Optional[bool] = None,
+        extra_cache_salt: str = "",
+        no_cache: bool = False,
     ) -> None:
         """Execute a single drawlib code block and save output image to target file path."""
         target_abs_path = os.path.abspath(target_file_path)
@@ -136,7 +138,7 @@ class DrawlibBlockProcessor:
             fmt = "png"
         grid_abs_path = f"{stem}_grid{ext_dot}"
 
-        use_cache = self._cache.enabled and grid is None
+        use_cache = self._cache.enabled and grid is None and not no_cache
         cache_key = ""
         code_hash = ""
         if use_cache:
@@ -145,11 +147,20 @@ class DrawlibBlockProcessor:
                 if source_filename != "<drawlib_block>" and os.path.exists(source_filename)
                 else os.getcwd()
             )
+            salt = extra_cache_salt
+            if not salt:
+                from drawlib._slide.base import get_slide_context
+
+                s_ctx = get_slide_context()
+                if s_ctx is not None:
+                    salt = f"slide:{s_ctx.index}:{s_ctx.total}"
+
             cache_key, code_hash = self._cache.compute_keys(
                 code=code,
                 config_hash=self.config_hash,
                 context_dir=context_dir,
                 project_root=self.project_root,
+                extra_salt=salt,
             )
             cached = self._cache.get(cache_key, image_format=fmt)
             if cached is not None:
@@ -200,6 +211,7 @@ class DrawlibBlockProcessor:
         code: str,
         image_format: str = "png",
         source_filename: str = "<drawlib_block>",
+        no_cache: bool = False,
     ) -> str:
         """Execute a single drawlib code block and return a base64 Data URL string."""
         if image_format == "svg":
@@ -214,7 +226,7 @@ class DrawlibBlockProcessor:
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_file = os.path.join(tmp_dir, f"temp.{ext}")
-            self.render_block_to_file(code, tmp_file, source_filename=source_filename)
+            self.render_block_to_file(code, tmp_file, source_filename=source_filename, no_cache=no_cache)
             with open(tmp_file, "rb") as f:
                 b64_str = base64.b64encode(f.read()).decode("utf-8")
             return f"data:{mime};base64,{b64_str}"
@@ -308,10 +320,16 @@ class DrawlibBlockProcessor:
                     code,
                     image_format=image_format,
                     source_filename=source_filename,
+                    no_cache=options.no_cache,
                 )
                 rel_img_path = data_url
             else:
-                self.render_block_to_file(code, target_img_path, source_filename=source_filename)
+                self.render_block_to_file(
+                    code,
+                    target_img_path,
+                    source_filename=source_filename,
+                    no_cache=options.no_cache,
+                )
 
             if progress_callback is not None:
                 progress_callback(block_counter, total_blocks, block_counter == total_blocks)
@@ -385,10 +403,16 @@ class DrawlibBlockProcessor:
                     code,
                     image_format=image_format,
                     source_filename=source_filename,
+                    no_cache=options.no_cache,
                 )
                 rel_img_path = data_url
             else:
-                self.render_block_to_file(code, target_img_path, source_filename=source_filename)
+                self.render_block_to_file(
+                    code,
+                    target_img_path,
+                    source_filename=source_filename,
+                    no_cache=options.no_cache,
+                )
 
             if progress_callback is not None:
                 progress_callback(block_counter, total_blocks, block_counter == total_blocks)
