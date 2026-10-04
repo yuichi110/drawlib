@@ -1,0 +1,59 @@
+/* GitHub Clean Markdown Style (github.css) */
+:root {
+    --rtd-sidebar-bg: #f6f8fa;
+    --rtd-sidebar-header: #24292e;
+    --rtd-sidebar-text: #57606a;
+    --rtd-sidebar-hover: #eaeef2;
+    --rtd-sidebar-active: #ffffff;
+    --rtd-brand-color: #0969da;
+    --rtd-brand-dark: #044289;
+    --rtd-text-color: #24292f;
+    --rtd-bg-color: #ffffff;
+    --rtd-content-bg: #ffffff;
+    --rtd-border-color: #d0d7de;
+    --rtd-code-bg: #f6f8fa;
+    --rtd-inline-code-bg: #afb8c133;
+    --rtd-inline-code-color: #24292f;
+    --rtd-note-bg: #ddf4ff;
+    --rtd-note-border: #0969da;
+    --rtd-code-keyword: #cf222e;
+    --rtd-code-string: #0a3069;
+    --rtd-code-comment: #6e7781;
+    --rtd-code-number: #0550ae;
+    --rtd-code-function: #8250df;
+    --rtd-code-type: #953800;
+    --rtd-code-operator: #24292f;
+    --rtd-code-builtin: #0550ae;
+    --rtd-font: -apple-system, BlinkMacSystemFont, "Segoe UI", __RTD_FONT_FAMILY__system-ui, "Noto Sans", Helvetica, Arial, sans-serif;
+    --rtd-mono-font: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, __RTD_MONO_FONT_FAMILY__"Liberation Mono", monospace;
+    --sidebar-width: 280px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-sidebar-bg: #161b22;
+        --rtd-sidebar-header: #0d1117;
+        --rtd-sidebar-text: #8b949e;
+        --rtd-sidebar-hover: #21262d;
+        --rtd-sidebar-active: #30363d;
+        --rtd-brand-color: #58a6ff;
+        --rtd-brand-dark: #1f6feb;
+        --rtd-text-color: #c9d1d9;
+        --rtd-bg-color: #0d1117;
+        --rtd-content-bg: #0d1117;
+        --rtd-border-color: #30363d;
+        --rtd-code-bg: #161b22;
+        --rtd-inline-code-bg: #6e768166;
+        --rtd-inline-code-color: #c9d1d9;
+        --rtd-note-bg: #388bfd26;
+        --rtd-note-border: #388bfd;
+        --rtd-code-keyword: #ff7b72;
+        --rtd-code-string: #a5d6ff;
+        --rtd-code-comment: #8b949e;
+        --rtd-code-number: #79c0ff;
+        --rtd-code-function: #d2a8ff;
+        --rtd-code-type: #ffa657;
+        --rtd-code-operator: #c9d1d9;
+        --rtd-code-builtin: #79c0ff;
+    }
+}

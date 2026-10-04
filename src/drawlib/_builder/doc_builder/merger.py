@@ -167,21 +167,13 @@ def build_merged_html(
 
     if template_path is None:
         t_cand = os.path.join(search_dir, "template.html")
-        if not os.path.isfile(t_cand):
-            raise ValueError(
-                f'Missing required "template.html" in "{search_dir}". '
-                'Please run "drawlib init" to initialize your project, or provide "template.html".'
-            )
-        template_path = t_cand
+        if os.path.isfile(t_cand):
+            template_path = t_cand
 
     if css_path is None:
         c_cand = os.path.join(search_dir, "style.css")
-        if not os.path.isfile(c_cand):
-            raise ValueError(
-                f'Missing required "style.css" in "{search_dir}". '
-                'Please run "drawlib init" to initialize your project, or provide "style.css".'
-            )
-        css_path = c_cand
+        if os.path.isfile(c_cand):
+            css_path = c_cand
 
     if styles_path is None:
         for inp in inputs:

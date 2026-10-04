@@ -290,9 +290,11 @@ drawlib init site --here
 # Scaffold a multi-page documentation website in a new subfolder:
 drawlib init site my_docs/
 
-# Scaffold a single-page document or PDF report:
-drawlib init simple my_doc/
-drawlib init pdf my_report/
+# Scaffold a linear document (HTML, PDF, MD, images):
+drawlib init doc my_doc/
+
+# Scaffold a 16:9 presentation slide deck:
+drawlib init slide my_deck/
 ```
 
 ### 4.2. Standard Project Structure & Lifecycle
@@ -444,7 +446,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.2. Project Architecture & Scaffolding (`project`)
 - **Command**: `drawlib rules show project`
-- **Scope**: Scaffolding with `drawlib init`, 4 starter templates (`site`, `simple`, `pdf`, `image`), `docs_src/` directory layout, `navbar.md` navigation authoring, code block options, and multi-image compilation.
+- **Scope**: Scaffolding with `drawlib init`, 4 starter templates (`site`, `doc`, `slide`, `image`), `docs_src/` directory layout, `navbar.md` navigation authoring, code block options, and multi-image compilation.
 - **Key Syntax**:
   ```bash
   drawlib init site my_docs/

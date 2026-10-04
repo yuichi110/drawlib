@@ -17,7 +17,7 @@ from typing import Annotated, Optional
 
 import typer
 
-from drawlib._builder.project_init import init_project, list_project_types
+from drawlib._templates import init_project, list_project_types
 
 
 def _print_types_list(types: dict[str, str]) -> None:
@@ -66,6 +66,8 @@ def _resolve_base_name(output: Optional[str], selected_type: str) -> str:
         return "images"
     if selected_type == "slide":
         return "slide"
+    if selected_type == "doc":
+        return "doc"
     return "docs"
 
 
@@ -111,7 +113,7 @@ def _print_init_success(
     else:
         print(f"  ./{src_dir}/build.sh")
 
-    if selected_type in {"site", "simple", "slide"}:
+    if selected_type in {"site", "doc", "slide"}:
         if here:
             print("  ./serve.sh")
         else:
@@ -123,7 +125,7 @@ def cmd_init(
         Optional[str],
         typer.Argument(
             metavar="TYPE",
-            help="Starter project type ('site', 'simple', 'pdf', 'image') or 'list' to view available types.",
+            help="Starter project type ('site', 'doc', 'slide', 'image') or 'list' to view available types.",
         ),
     ] = None,
     destination: Annotated[

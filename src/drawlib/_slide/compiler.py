@@ -22,8 +22,8 @@ from drawlib._builder._common import resolve_styles_and_utils
 from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions, parse_block_info
-from drawlib._css_templates import get_css, get_slide_js
 from drawlib._slide.base import BoundingBox, reset_slide_context, set_slide_context
+from drawlib._templates import get_css, get_slide_js
 
 _PATTERN_DRAWLIB = re.compile(
     r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",

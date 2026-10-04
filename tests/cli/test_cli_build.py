@@ -332,3 +332,63 @@ def test_cli_build_multiple_inputs_rejected(tmp_path) -> None:
     # pdf
     res_pdf = run_drawlib_cli(["build", "pdf", str(file1), str(file2)], cwd=str(tmp_path))
     assert res_pdf.returncode != 0
+
+
+def test_cli_build_pdf_single_markdown_file(tmp_path) -> None:
+    """Test CLI build pdf compiles a single standalone markdown file into PDF."""
+    if not _is_playwright_available():
+        pytest.skip("Playwright or headless Chromium not available")
+
+    md_file = tmp_path / "spec.md"
+    md_file.write_text("# Specification\n\nThis is a single-file technical spec.", encoding="utf-8")
+    out_pdf = tmp_path / "spec.pdf"
+
+    res = run_drawlib_cli(["build", "pdf", str(md_file), "-o", str(out_pdf)], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Successfully compiled PDF" in res.stdout
+    assert out_pdf.exists()
+    assert out_pdf.stat().st_size > 0
+
+
+def test_cli_build_pdf_slide_project(tmp_path) -> None:
+    """Test CLI build pdf compiles a slide project into presentation PDF."""
+    if not _is_playwright_available():
+        pytest.skip("Playwright or headless Chromium not available")
+
+    slide_dir = tmp_path / "slide_src"
+    slide_dir.mkdir()
+    (slide_dir / "slide.css").write_text("@media print { @page { size: 16in 9in; } }", encoding="utf-8")
+    (slide_dir / "01_title.md").write_text("# Slide Title\n\nPresentation slide content.", encoding="utf-8")
+
+    out_pdf = tmp_path / "presentation.pdf"
+    res = run_drawlib_cli(["build", "pdf", str(slide_dir), "-o", str(out_pdf)], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Successfully compiled PDF" in res.stdout
+    assert out_pdf.exists()
+    assert out_pdf.stat().st_size > 0
+
+
+def test_cli_build_image_from_markdown(tmp_path) -> None:
+    """Test CLI build image extracts and renders drawlib blocks from Markdown files."""
+    doc_dir = tmp_path / "doc_src"
+    doc_dir.mkdir()
+    (doc_dir / "chapter.md").write_text(
+        """# Chapter 1
+
+Here is an architectural diagram:
+
+```drawlib file:arch.png
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+rectangle((50, 50), width=40, height=20, style=Styles.Primary)
+```
+""",
+        encoding="utf-8",
+    )
+
+    out_images = tmp_path / "images"
+    res = run_drawlib_cli(["build", "image", str(doc_dir), "-o", str(out_images)], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Successfully executed image build" in res.stdout
+    assert (out_images / "arch.png").exists()
+    assert (out_images / "arch.png").stat().st_size > 0

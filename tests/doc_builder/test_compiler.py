@@ -117,7 +117,7 @@ def test_detect_document_type(tmp_path) -> None:
 
 
 def test_build_compiler_single_file_rejection(tmp_path) -> None:
-    """Test build_html, build_markdown, and build_pdf reject single file inputs."""
+    """Test build_html and build_markdown reject single file inputs."""
     single_file = tmp_path / "doc.md"
     single_file.write_text("# Single File", encoding="utf-8")
 
@@ -126,9 +126,6 @@ def test_build_compiler_single_file_rejection(tmp_path) -> None:
 
     with pytest.raises(ValueError, match="requires a directory as input"):
         build_markdown(input_dir=str(single_file))
-
-    with pytest.raises(ValueError, match="requires a directory as input"):
-        build_pdf(input_dir=str(single_file))
 
 
 def test_build_html_markdown_with_external_css(tmp_path) -> None:

@@ -1,0 +1,72 @@
+/* Monochrome Slate Theme (monochrome.css) */
+:root {
+    --rtd-sidebar-bg: #18181b;
+    --rtd-sidebar-header: #09090b;
+    --rtd-sidebar-text: #a1a1aa;
+    --rtd-sidebar-hover: #27272a;
+    --rtd-sidebar-active: #3f3f46;
+    --rtd-brand-color: #18181b;
+    --rtd-brand-dark: #09090b;
+    --rtd-text-color: #27272a;
+    --rtd-bg-color: #f4f4f5;
+    --rtd-content-bg: #ffffff;
+    --rtd-border-color: #e4e4e7;
+    --rtd-code-bg: #f4f4f5;
+    --rtd-inline-code-bg: #e4e4e7;
+    --rtd-inline-code-color: #18181b;
+    --rtd-note-bg: #f4f4f5;
+    --rtd-note-border: #18181b;
+    --rtd-code-keyword: #18181b;
+    --rtd-code-string: #52525b;
+    --rtd-code-comment: #71717a;
+    --rtd-code-number: #3f3f46;
+    --rtd-code-function: #09090b;
+    --rtd-code-type: #27272a;
+    --rtd-code-operator: #52525b;
+    --rtd-code-builtin: #27272a;
+    --rtd-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, __RTD_FONT_FAMILY__system-ui, "Noto Sans", sans-serif;
+    --rtd-mono-font: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, __RTD_MONO_FONT_FAMILY__monospace;
+    --sidebar-width: 280px;
+
+  --slide-bg: #ffffff;
+  --slide-text: #111111;
+  --slide-text-muted: #555555;
+  --slide-primary: #111111;
+  --slide-secondary: #444444;
+  --slide-accent: #777777;
+  --slide-yellow: #888888;
+  --slide-border: #cccccc;
+  --slide-card-bg: #f5f5f5;
+  --slide-code-bg: #1e1e1e;
+  --slide-code-text: #eeeeee;
+  --slide-header-footer-color: #666666;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-sidebar-bg: #09090b;
+        --rtd-sidebar-header: #18181b;
+        --rtd-sidebar-text: #71717a;
+        --rtd-sidebar-hover: #27272a;
+        --rtd-sidebar-active: #3f3f46;
+        --rtd-brand-color: #f4f4f5;
+        --rtd-brand-dark: #ffffff;
+        --rtd-text-color: #e4e4e7;
+        --rtd-bg-color: #09090b;
+        --rtd-content-bg: #18181b;
+        --rtd-border-color: #27272a;
+        --rtd-code-bg: #09090b;
+        --rtd-inline-code-bg: #27272a;
+        --rtd-inline-code-color: #f4f4f5;
+        --rtd-note-bg: #27272a;
+        --rtd-note-border: #a1a1aa;
+        --rtd-code-keyword: #ffffff;
+        --rtd-code-string: #d4d4d8;
+        --rtd-code-comment: #71717a;
+        --rtd-code-number: #e4e4e7;
+        --rtd-code-function: #f4f4f5;
+        --rtd-code-type: #e4e4e7;
+        --rtd-code-operator: #a1a1aa;
+        --rtd-code-builtin: #e4e4e7;
+    }
+}

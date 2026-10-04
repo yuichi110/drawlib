@@ -16,10 +16,11 @@ drawlib build pdf docs_src/ -o manual.pdf --toc             # Merged vector PDF 
 drawlib build image scripts/ -o assets/ -g                 # Batch Python illustration rendering
 
 # Project scaffolding
-drawlib init list                                          # List available starter project templates
+drawlib init list                                          # List available starter project templates (site, doc, slide, image)
 drawlib init site my_site/                                 # Create multi-page website project
-drawlib init simple my_doc/                                # Create single-page document project
-drawlib init pdf my_report/ -o rbac -s google              # Scaffold PDF report with custom name & theme
+drawlib init doc my_doc/                                   # Create linear document project (HTML, PDF, MD, images)
+drawlib init slide my_deck/ -s google                      # Create 16:9 presentation slide deck
+drawlib init doc my_report/ -o rbac -s google              # Scaffold doc project with custom name & theme
 drawlib init site --here                                   # Scaffold directly into current directory
 
 # Inspection, visual preview, and extraction
@@ -295,25 +296,48 @@ drawlib init list
 ```
 
 ### Arguments:
-- `[TYPE]`: Starter project template type (`site`, `simple`, `pdf`, `image`) or `list` to view available types.
+- `[TYPE]`: Starter project template type (`site`, `doc`, `slide`, `image`) or `list` to view available types.
 - `[DESTINATION]`: Target directory path (defaults to current working directory).
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<name>` | `None` | Base project and artifact name. Sets source directory to `<name>_src` and build output to `<name>.pdf` (for `pdf`) or `<name>_html` (for `site`/`simple`). E.g. `-o rbac` creates `rbac_src/` and targets `rbac.pdf`. |
+| `--output` | `-o` | `<name>` | `None` | Base project and artifact name. Sets source directory to `<name>_src` and targets output files/directories accordingly (e.g. `<name>_html/`, `<name>.pdf`). E.g. `-o rbac` creates `rbac_src/` and targets `rbac.pdf`. |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`, etc.) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
 | `--lang` | `-l` | `<lang>` | `en` | Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). |
 | `--here` | | flag | `False` | Initialize directly into current directory without creating a subfolder. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
 
-> **Note on Initial Build**: `drawlib init` is dedicated to pure, deterministic scaffolding and does not run compilation automatically. To build the scaffolded project, run `./build.sh` (or `./<src_dir>/build.sh`).
+> **Note on Initial Build**: `drawlib init` is dedicated to pure, deterministic scaffolding and does not run compilation automatically. To build the scaffolded project, run `./build.sh` (or any of the specific `./build_*.sh` scripts).
 
 ---
 
 ### Project Types & Generated Directory Structures
 
-#### 1. `site`: Multi-page Website with Navigation Sidebar
+#### 1. `doc`: Linear Document Project (HTML, PDF, Markdown, Images)
+Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers.
+```text
+my_doc/
+├── docs_src/                  # [SOURCE OF TRUTH] Edit ONLY files here!
+│   ├── 00_cover.md            # Cover page (title, author, metadata)
+│   ├── 01_overview.md         # Executive overview chapter
+│   ├── 02_design.md           # Technical design chapter
+│   ├── styles.py              # Global custom styles and theme presets
+│   ├── utils.py               # Custom helper drawing functions
+│   ├── build.sh               # Master build script (runs all target builds)
+│   ├── build_html.sh          # Fast preview HTML build (doc.html)
+│   ├── build_pdf.sh           # Headless Chromium vector PDF build (doc.pdf)
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc.md)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to images/
+│   ├── serve.sh               # Local preview server script
+│   └── README.md              # Project instructions
+├── doc.html                   # [GENERATED] Single-page HTML document
+├── doc.pdf                    # [GENERATED] High-quality vector PDF
+├── doc.md                     # [GENERATED] Markdown with rendered images for GitHub
+└── images/                    # [GENERATED] Extracted diagram images
+```
+
+#### 2. `site`: Multi-page Website with Navigation Sidebar
 Designed for technical documentation, library user guides, and architecture wikis.
 ```text
 my_site/
@@ -324,7 +348,10 @@ my_site/
 │   ├── style.css              # [MANDATORY] Site stylesheet (from --style preset)
 │   ├── styles.py              # Global custom styles and theme presets
 │   ├── utils.py               # Custom helper drawing functions
-│   ├── build.sh               # Executable build script (Markdown + HTML)
+│   ├── build.sh               # Master build script (Markdown + HTML)
+│   ├── build_html.sh          # Static HTML website build
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing
+│   ├── serve.sh               # Local preview server script
 │   ├── README.md              # Documentation workflow guide
 │   ├── architecture/
 │   │   └── index.md           # Chapter page with embedded diagrams
@@ -332,34 +359,26 @@ my_site/
 │       └── index.md           # Workflow chapter page
 ```
 
-#### 2. `simple`: Single Markdown Document Project
-Designed for standalone technical specifications, whitepapers, or README assets.
+#### 3. `slide`: 16:9 Presentation Slide Deck (HTML & Vector PDF)
+Designed for technical presentations, conference talks, and pitch decks with embedded diagrams.
 ```text
-my_doc/
-├── docs_src/
-│   ├── doc.md                 # Single authoring document
-│   ├── template.html          # [MANDATORY] Jinja2 HTML layout template
-│   ├── style.css              # [MANDATORY] Document stylesheet
-│   ├── styles.py              # Global custom styles and theme presets
-│   ├── utils.py               # Custom helper drawing functions
-│   ├── build.sh               # Automation script for Markdown & HTML export
-│   └── README.md              # Quickstart guide
-```
-
-#### 3. `pdf`: Multi-Chapter Report with Cover & Table of Contents
-Designed for formal reports, whitepapers, design documents, and printable manuals.
-```text
-my_report/
-├── docs_src/
-│   ├── 00_cover.md            # Cover page (title, author, metadata)
-│   ├── 01_overview.md         # Executive overview chapter
-│   ├── 02_design.md           # Technical design chapter
-│   ├── template.html          # [MANDATORY] Jinja2 PDF layout template
-│   ├── style.css              # [MANDATORY] Print/PDF stylesheet
-│   ├── styles.py              # Global custom styles and theme presets
-│   ├── utils.py               # Custom helper drawing functions
-│   ├── build.sh               # Headless PDF generation script
-│   └── README.md              # Compilation instructions
+my_deck/
+├── slide_src/
+│   ├── 01_title.md            # Title slide
+│   ├── 02_agenda.md           # Agenda slide
+│   ├── 03_architecture.md     # Architecture slide with diagrams
+│   ├── styles.py              # Slide-wide styling and color overrides
+│   ├── utils.py               # Slide layout helpers (cards, badges, grids)
+│   ├── slide.js               # Slide runtime keyboard / navigation engine
+│   ├── build.sh               # Master build script (HTML + PDF)
+│   ├── build_html.sh          # HTML presentation deck build
+│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (1 slide per page)
+│   ├── serve.sh               # Local preview server script
+│   └── README.md              # Slide authoring guide
+├── slide/                     # [GENERATED] HTML presentation deck
+│   ├── index.html
+│   └── index_images/
+└── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
 ```
 
 #### 4. `image`: Standalone Python Illustration Scripts
@@ -372,19 +391,23 @@ images/
 │   ├── sample2.py             # Advanced diagram script (utils & assets)
 │   ├── styles.py              # Global styles script
 │   ├── utils.py               # Reusable drawing components
-│   ├── build.sh               # Batch image rendering script
+│   ├── build.sh               # Master image build script
+│   ├── build_image.sh         # Batch image rendering script
 │   └── README.md              # Illustration workflow guide
+└── images/                    # [GENERATED] Rendered PNG/WebP output images
 ```
 
 ### Scaffolding Examples:
 ```bash
-drawlib init list                              # List available project types
+drawlib init list                              # List available project types (site, doc, slide, image)
+drawlib init doc my_doc/                       # Scaffold a linear document project (HTML, PDF, MD, images)
 drawlib init site my_docs/                     # Scaffold a multi-page documentation website
 drawlib init site my_docs/ -s google           # Scaffold site with Google theme (style.css & styles.py)
 drawlib init site my_docs/ --lang ja           # Scaffold site with Japanese starter content & fonts
-drawlib init pdf my_report/ -o rbac -s google  # Scaffold PDF: creates rbac_src/ and targets rbac.pdf
+drawlib init slide my_deck/ -s google          # Scaffold 16:9 slide deck with Google styling
+drawlib init doc my_report/ -o rbac -s google  # Scaffold doc: creates rbac_src/ and targets rbac.pdf
 drawlib init site --here                       # Scaffold a documentation site directly in current repo
-drawlib init simple my_doc/ --force            # Force scaffolding in a non-empty directory
+drawlib init doc my_doc/ --force               # Force scaffolding in a non-empty directory
 drawlib init image my_diagrams/ -s monochrome  # Scaffold image project with monochrome styling
 ```
 
@@ -842,7 +865,7 @@ drawlib rules
 | `agent-instruction` | AI agent bootstrap instructions, workflow loop, and capabilities. |
 | `overview` | Canvas lifecycle, coordinate system, core imports, and workflow. |
 | `style-guide` | Diagram design principles, visual hierarchy, 6-color semantic system, and layout best practices. |
-| `project` | Project scaffolding (`init`), 4 template types (`site`, `simple`, `pdf`, `image`), `docs_src/` layout, `navbar.md` rules, and build pipelines. |
+| `project` | Project scaffolding (`init`), 4 template types (`site`, `doc`, `slide`, `image`), `docs_src/` layout, `navbar.md` rules, and build pipelines. |
 | `cli` | Document compilation, export, preview, and cache CLI commands. |
 
 #### Library Modules (`drawlib.*`):

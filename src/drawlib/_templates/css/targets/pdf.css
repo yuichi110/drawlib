@@ -1,0 +1,57 @@
+/* drawlib PDF / Print Document Styles (targets/pdf.css) */
+@page {
+    size: A4;
+    margin: 18mm 16mm;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+html, body {
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.pdf-body, .pdf-document {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.page-break {
+    page-break-after: always;
+    break-after: page;
+}
+
+.chapter-separator {
+    page-break-before: always;
+    break-before: page;
+}
+
+pre, pre code {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    font-size: 0.85em;
+}
+
+pre, .drawlib-image, table, blockquote {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+h1, h2, h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+}
+
+.sidebar, .top-bar, .footer, .drawlib-code-details summary {
+    display: none !important;
+}

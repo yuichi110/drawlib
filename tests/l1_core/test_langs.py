@@ -7,13 +7,13 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for drawlib._langs module."""
+"""Unit tests for drawlib._templates.langs module."""
 
 from __future__ import annotations
 
 import pytest
 
-from drawlib._langs import (
+from drawlib._templates.langs import (
     CSS_MAP,
     HTML_MAP,
     LANGUAGES,

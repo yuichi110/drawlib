@@ -483,8 +483,8 @@ Programmatic Python tools for compilation and documentation management:
 ```python
 from drawlib.tools import init_project, serve_docs, scan_broken_links, clear_cache
 
-# Initialize a project scaffold ('site', 'simple', 'pdf', 'image')
-init_project("site", target_dir="my_docs")
+# Initialize a project scaffold ('site', 'doc', 'slide', 'image')
+init_project("site", destination="my_docs")
 
 # Run headless verification or local documentation preview
 serve_docs("docs_html", port=8000)

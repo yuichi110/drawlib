@@ -128,15 +128,15 @@ save()
 
 ### 4.2. Standard Project Scaffolding (`drawlib init`)
 Never create documentation project structures manually. Always scaffold them with `drawlib init`:
+- **`doc`**: Linear technical document / spec / RFC (`doc.html`, `doc.pdf`, `doc.md`, and extracted diagram images `images/`).
 - **`site`**: Multi-page documentation website (`docs_html/`) and GitHub-ready Markdown (`docs/`) with sidebar navigation (`navbar.md`).
-- **`simple`**: Single-document technical spec / RFC (`docs_html/doc.html` + `docs/doc.md`).
-- **`pdf`**: Multi-chapter formal technical reports and design documents (`docs.pdf`).
+- **`slide`**: 16:9 presentation slide deck (`slide/index.html` web presentation + `slide.pdf` vector PDF).
 - **`image`**: Standalone Python drawing scripts generating image batches (`images_src/` -> `images/`).
 
 ### 4.3. Source of Truth & Build Pipeline
-- **Source of Truth**: Always edit Markdown and drawing scripts inside `<base>_src/` (e.g. `docs_src/` or `images_src/`).
-- **Never Edit Output Folders**: Output folders (`docs/`, `docs_html/`, `images/`) are generated artifacts overwritten on each build.
-- **Build**: Run `./build.sh` (or `uv run drawlib build html docs_src/ -o docs_html/`).
+- **Source of Truth**: Always edit Markdown and drawing scripts inside `<base>_src/` (e.g. `docs_src/`, `slide_src/`, or `images_src/`).
+- **Never Edit Output Folders**: Output folders (`docs/`, `docs_html/`, `slide/`, `images/`) are generated artifacts overwritten on each build.
+- **Build**: Run `./build.sh` (or specific `./build_*.sh` scripts like `./build_html.sh`).
 - **Preview & Link Verification**: Run `uv run drawlib serve docs_html/` (or `--check` for headless validation).
 
 > **Deep Dive**: For complete project structure rules, `navbar.md` navigation authoring, and compilation flags, run:  
@@ -154,7 +154,7 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | `uv run drawlib rules show agent-instruction` | `agent-instruction` | This bootstrap manual (purpose, capabilities, workflow loop). |
 | `uv run drawlib rules show overview` | `overview` | Canvas coordinate space `(0,0)` at bottom-left, Cartesian geometry, lifecycle (`setup`, `clear`, `save`). |
 | `uv run drawlib rules show style-guide` | `style-guide` | 6-color semantic system, primary anchor, padding, grid alignment, typography hierarchy. |
-| `uv run drawlib rules show project` | `project` | Project scaffolding (`init`), 4 template types (`site`, `simple`, `pdf`, `image`), `docs_src/`, `navbar.md`, builds. |
+| `uv run drawlib rules show project` | `project` | Project scaffolding (`init`), 4 template types (`site`, `doc`, `slide`, `image`), `docs_src/`, `navbar.md`, builds. |
 | `uv run drawlib rules show cli` | `cli` | Complete command line interface (`build`, `show`, `init`, `serve`, `cache`, `rules`). |
 | `uv run drawlib rules show api` | `api` | Unified API index and cheat sheet for all Drawlib modules, primitives, and tokens. |
 

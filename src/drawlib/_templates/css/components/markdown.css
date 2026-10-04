@@ -1,0 +1,206 @@
+/* drawlib Markdown Typography and Content Elements */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--rtd-font);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--rtd-text-color);
+    background-color: var(--rtd-bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--rtd-font);
+    color: var(--rtd-heading-color);
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 2.25rem;
+    margin-top: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--rtd-border-color);
+}
+
+h2 {
+    font-size: 1.65rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+h3 {
+    font-size: 1.35rem;
+}
+
+h4 {
+    font-size: 1.15rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+}
+
+a {
+    color: var(--rtd-brand-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    color: var(--rtd-brand-dark);
+    text-decoration: underline;
+}
+
+ul, ol {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    padding-left: 2rem;
+}
+
+li {
+    margin-bottom: 0.4rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.4rem;
+    margin-bottom: 0;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--rtd-border-color);
+    margin: 2rem 0;
+}
+
+blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    background-color: var(--rtd-note-bg);
+    border-left: 4px solid var(--rtd-note-border);
+    color: var(--rtd-text-color);
+    border-radius: 0 8px 8px 0;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    border-bottom: 1px solid var(--rtd-border-color);
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+th {
+    font-family: var(--rtd-font);
+    background-color: var(--rtd-surface-bg);
+    color: var(--rtd-heading-color);
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.drawlib-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.25rem;
+    background-color: #ffffff;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.drawlib-image img, .drawlib-image svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.drawlib-caption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--rtd-muted-color, #64748b);
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+details.drawlib-code-details {
+    margin: 1rem 0 2rem 0;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    background-color: var(--rtd-code-bg);
+    overflow: hidden;
+}
+
+.drawlib-image + details.drawlib-code-details {
+    margin-top: -1rem;
+}
+
+details.drawlib-code-details summary {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--rtd-muted-color);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+details.drawlib-code-details summary:hover {
+    color: var(--rtd-heading-color);
+    background-color: var(--rtd-surface-bg);
+}
+
+details.drawlib-code-details[open] summary {
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+details.drawlib-code-details pre {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+/* Admonition / Callout boxes */
+.admonition {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--rtd-brand-color);
+    background-color: var(--rtd-note-bg);
+    border-radius: 0 8px 8px 0;
+}
+
+.admonition-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--rtd-heading-color);
+}

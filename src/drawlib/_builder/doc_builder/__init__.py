@@ -53,7 +53,7 @@ from drawlib._builder.doc_builder.progress import (
     check_document_output_duplicates,
     format_duplicate_output_error,
 )
-from drawlib._css_templates import (
+from drawlib._templates import (
     export_css,
     list_css,
     list_html_css,

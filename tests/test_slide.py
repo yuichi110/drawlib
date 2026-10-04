@@ -16,13 +16,12 @@ from pathlib import Path
 import pytest
 
 import drawlib.slide as slide_module
-from drawlib._builder.project_init import init_project
-from drawlib._css_templates import get_css, get_slide_js, list_slide_css
 from drawlib._slide import (
     BoundingBox,
     build_slide,
 )
 from drawlib._slide.base import reset_slide_context, set_slide_context
+from drawlib._templates import get_css, get_slide_js, init_project, list_slide_css
 from drawlib.canvas import clear, save, setup
 from slide_src.utils import draw_curved_agenda, draw_kpi_cards
 from tests.cli.common import run_drawlib_cli

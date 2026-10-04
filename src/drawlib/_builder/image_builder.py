@@ -698,26 +698,36 @@ class DrawlibExecuter:
                 sys.modules[name] = module
 
 
-def _collect_target_py_files(
+def _collect_target_files(
     target_list: Sequence[str],
     executer: DrawlibExecuter,
-) -> tuple[List[str], List[str]]:
-    """Resolve valid target paths and collect all Python files across those targets."""
+) -> tuple[List[str], List[str], List[str]]:
+    """Resolve valid target paths and collect all Python and Markdown files across those targets."""
     resolved_targets: List[str] = []
     all_py_files: List[str] = []
+    all_md_files: List[str] = []
     for target_file in target_list:
         if not os.path.isfile(target_file) and not os.path.isdir(target_file):
             logger.warning(f'ignore arg "{target_file}" since it is not a file/dir path')
             continue
         realpath = os.path.realpath(os.path.abspath(target_file))
         resolved_targets.append(realpath)
-        if os.path.isfile(realpath) and realpath.endswith(".py"):
-            all_py_files.append(realpath)
+        if os.path.isfile(realpath):
+            if realpath.endswith(".py"):
+                all_py_files.append(realpath)
+            elif realpath.lower().endswith((".md", ".markdown")):
+                all_md_files.append(realpath)
         elif os.path.isdir(realpath):
             all_py_files.extend(
                 fp for fp in executer._get_python_files(realpath) if not os.path.basename(fp).startswith("__")
             )
-    return resolved_targets, all_py_files
+            for root, _, files in os.walk(realpath):
+                for f in sorted(files):
+                    if f.startswith("."):
+                        continue
+                    if f.lower().endswith((".md", ".markdown")) and not f.lower().startswith("readme"):
+                        all_md_files.append(os.path.join(root, f))
+    return resolved_targets, all_py_files, all_md_files
 
 
 def _normalize_build_inputs_and_output(
@@ -812,7 +822,7 @@ def build_image(
         target_roots=target_roots,
     )
 
-    resolved_targets, all_py_files = _collect_target_py_files(target_list, executer)
+    resolved_targets, all_py_files, all_md_files = _collect_target_files(target_list, executer)
     executer.set_target_roots([t for t in resolved_targets if os.path.isdir(t)])
     if len(all_py_files) > 1:
         common = os.path.commonpath(all_py_files)
@@ -821,11 +831,52 @@ def build_image(
         executer._check_duplicate_outputs(all_py_files, all_disp)
 
     executed: List[str] = []
-    for realpath in resolved_targets:
-        executer.execute(realpath)
-        executed.append(realpath)
+    if all_py_files:
+        for realpath in resolved_targets:
+            if realpath in all_py_files or os.path.isdir(realpath):
+                executer.execute(realpath)
+                executed.append(realpath)
+
+    if all_md_files:
+        from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
+
+        out_img_dir = output_dir or (
+            os.path.join(resolved_targets[0], "images")
+            if os.path.isdir(resolved_targets[0])
+            else os.path.join(os.path.dirname(resolved_targets[0]), "images")
+        )
+        os.makedirs(out_img_dir, exist_ok=True)
+        processor = DrawlibBlockProcessor(
+            styles_path=styles_abs,
+            utils_path=utils_abs,
+            no_cache=no_cache,
+            require_file=False,
+        )
+        md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
+        for md_file in all_md_files:
+            try:
+                with open(md_file, "r", encoding="utf-8") as f:
+                    content = f.read()
+            except OSError:
+                continue
+
+            if not md_pattern.search(content):
+                continue
+
+            stem = os.path.splitext(os.path.basename(md_file))[0]
+            fmt = str(format or "png")
+            processor.process_markdown(
+                markdown_text=content,
+                doc_base_name=stem,
+                output_dir=out_img_dir,
+                image_format=fmt,
+                source_filename=md_file,
+                flat_output=True,
+            )
+            if md_file not in executed:
+                executed.append(md_file)
 
     if not executed:
-        raise ValueError("No valid Python files or directories were executed.")
+        raise ValueError("No valid Python files or Markdown files with drawing code were executed.")
 
     return executed

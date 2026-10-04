@@ -29,9 +29,9 @@ def test_cli_init_list(tmp_path: Path) -> None:
     res1 = run_drawlib_cli(["init", "list"], cwd=str(tmp_path))
     assert res1.returncode == 0
     assert "Available Drawlib Project Types:" in res1.stdout
-    assert "simple" in res1.stdout
+    assert "doc" in res1.stdout
     assert "site" in res1.stdout
-    assert "pdf" in res1.stdout
+    assert "slide" in res1.stdout
     assert "image" in res1.stdout
 
     # Verify -l and --list are rejected
@@ -47,7 +47,7 @@ def test_cli_init_missing_type(tmp_path: Path) -> None:
     res = run_drawlib_cli(["init"], cwd=str(tmp_path))
     assert res.returncode == 1
     assert "Error: Missing project type." in res.stderr
-    assert "simple" in res.stderr
+    assert "doc" in res.stderr
     assert "drawlib init list" in res.stderr
 
 
@@ -59,31 +59,40 @@ def test_cli_init_unknown_type(tmp_path: Path) -> None:
     assert "drawlib init list" in res.stderr
 
 
-def test_cli_init_simple(tmp_path: Path) -> None:
-    """Test scaffolding a simple project without automatic build."""
-    dest = tmp_path / "my_simple"
-    res = run_drawlib_cli(["init", "simple", str(dest)], cwd=str(tmp_path))
+def test_cli_init_doc(tmp_path: Path) -> None:
+    """Test scaffolding a doc project without automatic build."""
+    dest = tmp_path / "my_doc"
+    res = run_drawlib_cli(["init", "doc", str(dest)], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert f"Initialized 'simple' project in {dest}" in res.stdout
+    assert f"Initialized 'doc' project in {dest}" in res.stdout
 
-    # Source files inside docs_src/
-    assert (dest / "docs_src" / "README.md").is_file()
-    assert (dest / "docs_src" / "styles.py").is_file()
-    assert (dest / "docs_src" / "utils.py").is_file()
-    assert (dest / "docs_src" / "doc.md").is_file()
-    assert (dest / "docs_src" / "_assets" / "linux.png").is_file()
+    # Source files inside doc_src/
+    assert (dest / "doc_src" / "README.md").is_file()
+    assert (dest / "doc_src" / "styles.py").is_file()
+    assert (dest / "doc_src" / "utils.py").is_file()
+    assert (dest / "doc_src" / "00_cover.md").is_file()
+    assert (dest / "doc_src" / "01_overview.md").is_file()
+    assert (dest / "doc_src" / "02_design.md").is_file()
+    assert (dest / "doc_src" / "template.html").is_file()
+    assert (dest / "doc_src" / "style.css").is_file()
+    assert (dest / "doc_src" / "_assets" / "linux.png").is_file()
 
-    build_sh = dest / "docs_src" / "build.sh"
-    assert build_sh.is_file()
-    assert os.stat(build_sh).st_mode & 0o111 != 0
-
-    serve_sh = dest / "docs_src" / "serve.sh"
-    assert serve_sh.is_file()
-    assert os.stat(serve_sh).st_mode & 0o111 != 0
+    for script in [
+        "build.sh",
+        "build_html.sh",
+        "build_pdf.sh",
+        "build_markdown.sh",
+        "build_image.sh",
+        "serve.sh",
+    ]:
+        s = dest / "doc_src" / script
+        assert s.is_file()
+        assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build outputs
-    assert not (dest / "docs").exists()
-    assert not (dest / "docs_html").exists()
+    assert not (dest / "doc").exists()
+    assert not (dest / "doc_html").exists()
+    assert not (dest / "doc.pdf").exists()
 
 
 def test_cli_init_site(tmp_path: Path) -> None:
@@ -97,37 +106,46 @@ def test_cli_init_site(tmp_path: Path) -> None:
     assert (dest / "docs_src" / "README.md").is_file()
     assert (dest / "docs_src" / "styles.py").is_file()
     assert (dest / "docs_src" / "utils.py").is_file()
-    assert (dest / "docs_src" / "build.sh").is_file()
-    assert (dest / "docs_src" / "serve.sh").is_file()
+    assert (dest / "docs_src" / "template.html").is_file()
+    assert (dest / "docs_src" / "style.css").is_file()
     assert (dest / "docs_src" / "index.md").is_file()
     assert (dest / "docs_src" / "navbar.md").is_file()
     assert (dest / "docs_src" / "architecture" / "index.md").is_file()
     assert (dest / "docs_src" / "workflow" / "index.md").is_file()
     assert (dest / "docs_src" / "_assets" / "linux.png").is_file()
 
+    for script in ["build.sh", "build_html.sh", "build_markdown.sh", "serve.sh"]:
+        s = dest / "docs_src" / script
+        assert s.is_file()
+        assert os.stat(s).st_mode & 0o111 != 0
+
     # No automatic initial build outputs
     assert not (dest / "docs_html").exists()
     assert not (dest / "docs").exists()
 
 
-def test_cli_init_pdf(tmp_path: Path) -> None:
-    """Test scaffolding a PDF project."""
-    dest = tmp_path / "my_pdf"
-    res = run_drawlib_cli(["init", "pdf", str(dest)], cwd=str(tmp_path))
+def test_cli_init_slide(tmp_path: Path) -> None:
+    """Test scaffolding a slide presentation project."""
+    dest = tmp_path / "my_slide"
+    res = run_drawlib_cli(["init", "slide", str(dest)], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert f"Initialized 'pdf' project in {dest}" in res.stdout
+    assert f"Initialized 'slide' project in {dest}" in res.stdout
 
-    assert (dest / "doc_src" / "README.md").is_file()
-    assert (dest / "doc_src" / "styles.py").is_file()
-    assert (dest / "doc_src" / "utils.py").is_file()
-    assert (dest / "doc_src" / "build.sh").is_file()
-    assert (dest / "doc_src" / "00_cover.md").is_file()
-    assert (dest / "doc_src" / "01_overview.md").is_file()
-    assert (dest / "doc_src" / "02_design.md").is_file()
-    assert (dest / "doc_src" / "_assets" / "linux.png").is_file()
+    assert (dest / "slide_src" / "README.md").is_file()
+    assert (dest / "slide_src" / "styles.py").is_file()
+    assert (dest / "slide_src" / "utils.py").is_file()
+    assert (dest / "slide_src" / "slide.css").is_file()
+    assert (dest / "slide_src" / "01_title.md").is_file()
+    assert (dest / "slide_src" / "02_agenda.md").is_file()
+    assert (dest / "slide_src" / "03_architecture.md").is_file()
+    assert (dest / "slide_src" / "_assets" / "linux.png").is_file()
 
-    # No automatic initial build
-    assert not (dest / "doc.pdf").exists()
+    for script in ["build.sh", "build_html.sh", "build_pdf.sh", "serve.sh"]:
+        s = dest / "slide_src" / script
+        assert s.is_file()
+        assert os.stat(s).st_mode & 0o111 != 0
+
+    assert not (dest / "slide").exists()
 
 
 def test_cli_init_image(tmp_path: Path) -> None:
@@ -141,10 +159,14 @@ def test_cli_init_image(tmp_path: Path) -> None:
     assert (dest / "images_src" / "README.md").is_file()
     assert (dest / "images_src" / "styles.py").is_file()
     assert (dest / "images_src" / "utils.py").is_file()
-    assert (dest / "images_src" / "build.sh").is_file()
     assert (dest / "images_src" / "sample1.py").is_file()
     assert (dest / "images_src" / "sample2.py").is_file()
     assert (dest / "images_src" / "_assets" / "linux.png").is_file()
+
+    for script in ["build.sh", "build_image.sh"]:
+        s = dest / "images_src" / script
+        assert s.is_file()
+        assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build output
     assert not (dest / "images").exists()
@@ -159,49 +181,49 @@ def test_cli_init_custom_output(tmp_path: Path) -> None:
     # Source folder is manual_src/
     assert (dest / "manual_src" / "index.md").is_file()
     assert (dest / "manual_src" / "build.sh").is_file()
-    build_sh_content = (dest / "manual_src" / "build.sh").read_text(encoding="utf-8")
-    assert "manual_src" in build_sh_content
-    assert "manual_html" in build_sh_content
+    assert (dest / "manual_src" / "build_html.sh").is_file()
+    build_html_content = (dest / "manual_src" / "build_html.sh").read_text(encoding="utf-8")
+    assert "manual_src" in build_html_content
+    assert "manual_html" in build_html_content
 
     # Output folder not yet built
     assert not (dest / "manual_html").exists()
 
 
 def test_cli_init_run_build_sh(tmp_path: Path) -> None:
-    """Test executing the scaffolded build.sh script compiles the documentation."""
-    dest = tmp_path / "my_built_simple"
-    res = run_drawlib_cli(["init", "simple", str(dest)], cwd=str(tmp_path))
+    """Test executing the scaffolded build_html.sh script compiles the documentation."""
+    dest = tmp_path / "my_built_doc"
+    res = run_drawlib_cli(["init", "doc", str(dest)], cwd=str(tmp_path))
     assert res.returncode == 0
 
-    build_sh = dest / "docs_src" / "build.sh"
+    build_sh = dest / "doc_src" / "build_html.sh"
     assert build_sh.is_file()
 
-    # Execute build.sh
+    # Execute build_html.sh
     build_res = subprocess.run(
         ["bash", str(build_sh)],
-        cwd=str(dest / "docs_src"),
+        cwd=str(dest / "doc_src"),
         capture_output=True,
         text=True,
         check=False,
     )
     assert build_res.returncode == 0
-    assert (dest / "docs" / "doc.md").is_file()
-    assert (dest / "docs_html" / "doc.html").is_file()
+    assert (dest / "doc_html" / "01_overview.html").is_file()
 
 
 def test_cli_init_conflict_and_force(tmp_path: Path) -> None:
     """Test conflict detection and --force overwrite flag."""
     dest = tmp_path / "conflict_test"
-    res1 = run_drawlib_cli(["init", "simple", str(dest)], cwd=str(tmp_path))
+    res1 = run_drawlib_cli(["init", "doc", str(dest)], cwd=str(tmp_path))
     assert res1.returncode == 0
 
-    # Second run without force triggers FileExistsError because docs_src exists
-    res2 = run_drawlib_cli(["init", "simple", str(dest)], cwd=str(tmp_path))
+    # Second run without force triggers FileExistsError because doc_src exists
+    res2 = run_drawlib_cli(["init", "doc", str(dest)], cwd=str(tmp_path))
     assert res2.returncode == 1
     assert "already exists" in res2.stderr
 
     # With force succeeds
-    res3 = run_drawlib_cli(["init", "simple", str(dest), "--force"], cwd=str(tmp_path))
+    res3 = run_drawlib_cli(["init", "doc", str(dest), "--force"], cwd=str(tmp_path))
     assert res3.returncode == 0
 
 
@@ -236,7 +258,7 @@ def test_cli_init_here(tmp_path: Path) -> None:
 
 def test_cli_init_here_conflict_destination(tmp_path: Path) -> None:
     """Test specifying both [DESTINATION] and --here raises error."""
-    res = run_drawlib_cli(["init", "simple", "some_dir", "--here"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "doc", "some_dir", "--here"], cwd=str(tmp_path))
     assert res.returncode == 1
     assert "Cannot specify both [DESTINATION] and --here." in res.stderr
 
@@ -244,15 +266,15 @@ def test_cli_init_here_conflict_destination(tmp_path: Path) -> None:
 def test_python_api_init(tmp_path: Path) -> None:
     """Test Python programmatic API for project initialization."""
     types = list_project_types()
-    assert set(types.keys()) == {"simple", "site", "pdf", "image", "slide"}
+    assert set(types.keys()) == {"doc", "site", "slide", "image"}
 
     target = tmp_path / "api_test"
-    created = init_project("simple", destination=target)
+    created = init_project("doc", destination=target)
     assert len(created) >= 4
-    assert (target / "docs_src" / "build.sh").is_file()
+    assert (target / "doc_src" / "build.sh").is_file()
 
     with pytest.raises(FileExistsError, match="already exists"):
-        init_project("simple", destination=target, force=False)
+        init_project("doc", destination=target, force=False)
 
 
 def test_cli_init_lang_ja(tmp_path: Path) -> None:
@@ -331,7 +353,7 @@ def test_cli_init_lang_th(tmp_path: Path) -> None:
     src_dir = tmp_path / "docs_src"
     template_content = (src_dir / "template.html").read_text(encoding="utf-8")
     assert '<html lang="th"' in template_content
-    assert "Noto Sans Thai" in template_content
+    assert "Noto+Sans+Thai" in template_content
 
     style_content = (src_dir / "style.css").read_text(encoding="utf-8")
     assert "Noto Sans Thai" in style_content

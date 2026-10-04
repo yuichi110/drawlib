@@ -20,7 +20,7 @@ from rich.syntax import Syntax
 from rich.table import Table
 
 from drawlib._cli._help import HELP_EPILOG
-from drawlib._css_templates import (
+from drawlib._templates import (
     BUILTIN_HTML_CSS_PRESETS,
     BUILTIN_PDF_CSS_PRESETS,
     export_css,

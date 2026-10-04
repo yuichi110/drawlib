@@ -192,11 +192,11 @@ def cmd_build_html(
 
 @build_app.command("pdf", epilog=HELP_EPILOG)
 def cmd_build_pdf(
-    input_dir: Annotated[
+    input_path: Annotated[
         str,
         typer.Argument(
-            metavar="DIR",
-            help="Directory containing Markdown chapters to export to PDF.",
+            metavar="INPUT",
+            help="Directory containing Markdown chapters, single Markdown file (.md), or slide presentation directory.",
         ),
     ],
     output: Annotated[
@@ -238,10 +238,10 @@ def cmd_build_pdf(
         ),
     ] = False,
 ) -> None:
-    """Merge Markdown chapters in a directory into a single HTML and export to PDF."""
+    """Compile Markdown chapters, single Markdown file, or slide deck into a print-ready vector PDF."""
     try:
         out_file = build_pdf(
-            input_dir=input_dir,
+            input_path=input_path,
             output_file=output,
             page_break=page_break,
             generate_index=generate_index,

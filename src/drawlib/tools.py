@@ -12,15 +12,17 @@
 from __future__ import annotations
 
 from drawlib._builder._common.cache_manager import clear_cache, download_cache, list_cache
-from drawlib._builder.project_init import init_project, list_project_types
-from drawlib._css_templates import (
+from drawlib._http_server import scan_broken_links, serve_docs
+from drawlib._templates import (
     export_css,
     get_css,
+    init_project,
     list_css,
     list_html_css,
     list_pdf_css,
+    list_project_types,
+    list_slide_css,
 )
-from drawlib._http_server import scan_broken_links, serve_docs
 
 __all__ = [
     "clear_cache",
@@ -33,6 +35,7 @@ __all__ = [
     "list_html_css",
     "list_pdf_css",
     "list_project_types",
+    "list_slide_css",
     "scan_broken_links",
     "serve_docs",
 ]

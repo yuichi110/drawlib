@@ -1,0 +1,22 @@
+/* drawlib Linear Document Clean View (targets/doc.css) */
+body {
+    background-color: var(--rtd-bg-color);
+}
+
+.main-container {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    background-color: var(--rtd-content-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 12px;
+    padding: 3rem 3.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+}

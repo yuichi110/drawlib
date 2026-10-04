@@ -20,20 +20,20 @@ drawlib init <type> [destination]
 # Scaffold directly into the current directory (no wrapper subfolder):
 drawlib init <type> --here
 
-# Custom output project name (e.g. source is rbac_src/, output is rbac.pdf):
-drawlib init pdf my_report/ -o rbac -s google
+# Custom output project name (e.g. source is rbac_src/, targets rbac_html, rbac.pdf):
+drawlib init doc my_report/ -o rbac -s google
 ```
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<name>` | `docs` / `images` | Base project and artifact name. Sets source folder to `<name>_src` and output to `<name>.pdf` (for `pdf`) or `<name>_html` (for `site`/`simple`). E.g. `-o rbac` creates `rbac_src/` and targets `rbac.pdf`. |
+| `--output` | `-o` | `<name>` | `docs` / `slide` / `images` | Base project and artifact name. Sets source folder to `<name>_src` and output targets accordingly (e.g. `<name>_html/`, `<name>.pdf`, `images/`). |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`, etc.) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
 | `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). |
 | `--here` | | flag | `False` | Scaffold directly in current working directory without a wrapper folder. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if directory is not empty. |
 
-> **Pure Scaffolding Principle**: `drawlib init` only scaffolds template and configuration files; it never runs compilation automatically. To build your project, run `./build.sh` (or `./<src_dir>/build.sh`).
+> **Pure Scaffolding Principle**: `drawlib init` only scaffolds template and configuration files; it never runs compilation automatically. To build your project, run `./build.sh` (or the specific `./build_*.sh` script).
 
 ---
 
@@ -43,16 +43,38 @@ Drawlib features 4 built-in project starter templates tailored to different publ
 
 | Project Type | Purpose | Source Directory | Generated Artifacts | Best Used For |
 | :--- | :--- | :--- | :--- | :--- |
+| **`doc`** | **Linear Document** | `docs_src/` | `doc.html` (Web preview)<br>`doc.pdf` (Printable vector PDF)<br>`doc.md` (GitHub Markdown)<br>`images/*.png` (Extracted diagrams) | Technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. |
 | **`site`** | **Multi-Page Website** | `docs_src/` | `docs_html/` (HTML site)<br>`docs/` (GitHub Markdown) | Software documentation, technical guides, architectural handbooks, API manuals. |
-| **`simple`** | **Single Markdown Document** | `docs_src/` | `docs_html/doc.html`<br>`docs/doc.md` | Single-page project README, technical RFCs, standalone design proposals. |
-| **`pdf`** | **Multi-Chapter Report** | `docs_src/` | `docs.pdf` | Whitepapers, technical design documents, formal deliverables with Table of Contents. |
+| **`slide`** | **Presentation Deck** | `slide_src/` | `slide/index.html` (Web)<br>`slide.pdf` (Printable vector PDF) | Conference talks, technical briefings, pitch decks, architectural presentations. |
 | **`image`** | **Standalone Image Scripts** | `images_src/` | `images/*.png` (or `.webp`) | Generating standalone architecture diagrams, social cards, or presentation assets from Python scripts. |
 
 ---
 
 ## 3. Directory Structures & Anatomy of Generated Files
 
-### 3.1 Documentation Site (`site` Template)
+### 3.1 Linear Document (`doc` Template)
+```text
+my_doc/
+├── docs_src/                  # [SOURCE OF TRUTH] Edit ONLY files here!
+│   ├── 00_cover.md            # Cover page (title, author, metadata)
+│   ├── 01_overview.md         # Executive overview chapter
+│   ├── 02_design.md           # Technical design chapter
+│   ├── styles.py              # Project-wide styling themes and color overrides
+│   ├── utils.py               # Custom helper drawing functions
+│   ├── build.sh               # Master build script (runs all target builds)
+│   ├── build_html.sh          # Fast preview HTML build (doc.html)
+│   ├── build_pdf.sh           # Headless Chromium vector PDF build (doc.pdf)
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc.md)
+│   ├── build_image.sh         # Extract embedded drawlib blocks to images/
+│   ├── serve.sh               # Local preview server script
+│   └── README.md              # Project instructions
+├── doc.html                   # [GENERATED] Single-page HTML document
+├── doc.pdf                    # [GENERATED] High-quality vector PDF
+├── doc.md                     # [GENERATED] Markdown with rendered images for GitHub
+└── images/                    # [GENERATED] Extracted diagram images
+```
+
+### 3.2 Documentation Site (`site` Template)
 ```text
 my_project/
 ├── docs_src/                  # [SOURCE OF TRUTH] Edit ONLY files here!
@@ -60,7 +82,9 @@ my_project/
 │   ├── navbar.md              # Sidebar navigation and brand definition
 │   ├── styles.py              # Project-wide styling themes and color overrides
 │   ├── utils.py               # Custom helper drawing functions
-│   ├── build.sh               # Executable shell build script
+│   ├── build.sh               # Master build script (runs HTML + Markdown builds)
+│   ├── build_html.sh          # Static HTML website build
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing
 │   ├── serve.sh               # Local preview server script
 │   ├── README.md              # Project instructions
 │   └── architecture/          # Chapter / section subdirectories
@@ -73,17 +97,50 @@ my_project/
     └── index_images/
 ```
 
-### 3.2 Standalone Images Project (`image` Template)
+### 3.3 Presentation Deck (`slide` Template)
+```text
+my_slides/
+├── slide_src/                 # [SOURCE OF TRUTH] Edit ONLY files here!
+│   ├── 01_title.md            # Title slide
+│   ├── 02_agenda.md           # Agenda slide
+│   ├── 03_architecture.md     # Architecture slide with diagrams
+│   ├── styles.py              # Slide-wide styling and color overrides
+│   ├── utils.py               # Slide layout helpers (cards, badges, grids)
+│   ├── slide.js               # Slide runtime keyboard / navigation engine
+│   ├── build.sh               # Master build script (HTML + PDF)
+│   ├── build_html.sh          # HTML presentation deck build
+│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (1 slide per page)
+│   ├── serve.sh               # Local preview server script
+│   └── README.md              # Slide authoring guide
+├── slide/                     # [GENERATED] HTML presentation deck
+│   ├── index.html
+│   └── index_images/
+└── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+```
+
+### 3.4 Standalone Images Project (`image` Template)
 ```text
 my_images_project/
 ├── images_src/                # [SOURCE OF TRUTH] Python drawing scripts (*.py)
-│   ├── example.py             # Starter Drawlib drawing script
+│   ├── sample1.py             # Starter Drawlib drawing script
+│   ├── sample2.py             # Advanced drawing script
 │   ├── styles.py              # Shared project styling themes
 │   ├── utils.py               # Shared project helper functions
-│   └── build.sh               # Executable shell build script
+│   ├── build.sh               # Master build script
+│   ├── build_image.sh         # Batch image rendering script
+│   └── README.md              # Illustration workflow guide
 └── images/                    # [GENERATED] Rendered PNG/WebP output images
-    └── example.png
+    ├── sample1.png
+    └── sample2.png
 ```
+
+### 3.5 Modular Build Scripts Architecture
+Each project type generates focused, specialized shell scripts alongside a master `build.sh`:
+- **`build_html.sh`**: Fast preview HTML build. Perfect for rapid editing and browser verification.
+- **`build_pdf.sh`**: Headless Chromium print to vector PDF. Respects `@page` sizing (A4 for `doc`, 16:9 for `slide`).
+- **`build_markdown.sh`**: Replaces ````drawlib```` blocks with generated image links for GitHub repo viewing.
+- **`build_image.sh`**: Generates standalone image files (executing Python scripts for `image`, or extracting embedded code blocks for `doc`).
+- **`build.sh` (Master)**: Sequentially executes all target builds applicable to the project.
 
 ### Golden Rule of Documentation:
 - **Source of Truth**: Edit files **strictly** inside `<base>_src/` (e.g. `docs_src/` or `images_src/`).
@@ -177,16 +234,20 @@ Projects scaffolded with `drawlib init` include a self-contained `build.sh`:
 
 ### Direct CLI Commands:
 ```bash
-# 1. Compile multi-page directory to responsive HTML website:
+# 1. Compile multi-page directory or linear document to HTML:
 drawlib build html docs_src/ -o docs_html/ -s styles.py -u utils.py
 
-# 2. Compile directory to GitHub-ready rendered Markdown:
+# 2. Compile directory or linear document to GitHub-ready rendered Markdown:
 drawlib build markdown docs_src/ -o docs/ -s styles.py -u utils.py
 
-# 3. Compile single Markdown document to vector PDF:
-drawlib build pdf docs_src/index.md -o out.pdf -s styles.py
+# 3. Compile linear document or slide presentation to vector PDF:
+drawlib build pdf docs_src/ -o doc.pdf -s styles.py
+drawlib build pdf slide_src/ -o slide.pdf
 
-# 4. Compile directory of standalone Python scripts to images:
+# 4. Extract embedded Markdown diagrams to standalone images:
+drawlib build image docs_src/ -o images/ -s styles.py
+
+# 5. Compile standalone Python illustration scripts to images:
 drawlib build image images_src/ -o images/ -s styles.py
 ```
 

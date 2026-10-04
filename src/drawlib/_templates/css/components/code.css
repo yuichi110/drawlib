@@ -1,0 +1,39 @@
+/* drawlib Code Highlighting and Code Blocks */
+code {
+    font-family: var(--rtd-mono-font);
+    font-size: 0.88em;
+    background-color: var(--rtd-inline-code-bg);
+    color: var(--rtd-inline-code-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+pre {
+    background-color: var(--rtd-code-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+}
+
+/* Pygments syntax highlighting tokens */
+pre code .k, pre code .kc, pre code .kd, pre code .kn, pre code .kp, pre code .kr, pre code .kt { color: var(--rtd-code-keyword); font-weight: 600; }
+pre code .s, pre code .sa, pre code .sb, pre code .sc, pre code .dl, pre code .sd, pre code .s2, pre code .se, pre code .sh, pre code .si, pre code .sx, pre code .sr, pre code .s1, pre code .ss { color: var(--rtd-code-string); }
+pre code .c, pre code .ch, pre code .cm, pre code .cp, pre code .cpf, pre code .c1, pre code .cs { color: var(--rtd-code-comment); font-style: italic; }
+pre code .m, pre code .mb, pre code .mf, pre code .mh, pre code .mi, pre code .mo, pre code .il { color: var(--rtd-code-number); }
+pre code .nf, pre code .fm { color: var(--rtd-code-function); }
+pre code .nc, pre code .ne, pre code .nn, pre code .nt { color: var(--rtd-code-type); font-weight: 600; }
+pre code .na, pre code .nd, pre code .py { color: var(--rtd-code-type); font-weight: 600; }
+pre code .nb, pre code .bp { color: var(--rtd-code-builtin); }
+pre code .o, pre code .ow { color: var(--rtd-code-operator); }
+pre code .err { color: #ef4444; }

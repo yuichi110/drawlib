@@ -14,7 +14,7 @@ from typing import Any, Dict, List, Literal, Optional
 
 from jinja2 import Environment, FileSystemLoader
 
-from drawlib._css_templates import get_css
+from drawlib._templates import get_css
 
 
 def get_default_css(
@@ -126,14 +126,32 @@ def render_pdf_document(
     Raises:
         ValueError: If template_path is not specified or does not exist.
     """
-    if not template_path or not os.path.exists(template_path):
-        raise ValueError(f'Template file "{template_path}" does not exist.')
-
-    tmpl_abs = os.path.abspath(template_path)
-    tmpl_dir = os.path.dirname(tmpl_abs)
-    tmpl_name = os.path.basename(tmpl_abs)
-    custom_env = Environment(loader=FileSystemLoader(tmpl_dir))
-    template = custom_env.get_template(tmpl_name)
+    if template_path and os.path.exists(template_path):
+        tmpl_abs = os.path.abspath(template_path)
+        tmpl_dir = os.path.dirname(tmpl_abs)
+        tmpl_name = os.path.basename(tmpl_abs)
+        custom_env = Environment(loader=FileSystemLoader(tmpl_dir))
+        template = custom_env.get_template(tmpl_name)
+    else:
+        template = Environment().from_string(
+            "<!DOCTYPE html>\n"
+            '<html lang="en">\n'
+            "<head>\n"
+            '    <meta charset="UTF-8">\n'
+            '    <title>{{ title | default("Drawlib Document") }}</title>\n'
+            "    {% if custom_css %}\n"
+            "    <style>\n"
+            "{{ custom_css | safe }}\n"
+            "    </style>\n"
+            "    {% endif %}\n"
+            "</head>\n"
+            '<body class="pdf-document">\n'
+            '    <div class="main-content">\n'
+            "        {{ body | safe }}\n"
+            "    </div>\n"
+            "</body>\n"
+            "</html>"
+        )
 
     custom_css_content = get_pdf_css(custom_css_path=custom_css_path)
 

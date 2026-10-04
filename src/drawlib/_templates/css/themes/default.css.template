@@ -1,0 +1,45 @@
+/* drawlib Modern Developer Light Theme (default.css)
+ * Inspired by VitePress (Vue/Vite) & Tailwind CSS documentation
+ */
+:root {
+    --rtd-sidebar-bg: #f8fafc;
+    --rtd-sidebar-header: #f8fafc;
+    --rtd-sidebar-text: #475569;
+    --rtd-sidebar-hover: #f1f5f9;
+    --rtd-sidebar-active: #eef2ff;
+    --rtd-sidebar-active-text: #4338ca;
+    --rtd-brand-color: #4f46e5;
+    --rtd-brand-dark: #3730a3;
+    --rtd-heading-color: #0f172a;
+    --rtd-text-color: #334155;
+    --rtd-muted-color: #64748b;
+    --rtd-bg-color: #f8fafc;
+    --rtd-content-bg: #ffffff;
+    --rtd-surface-bg: #f1f5f9;
+    --rtd-border-color: #e2e8f0;
+    --rtd-code-bg: #f8fafc;
+    --rtd-inline-code-bg: #eef2ff;
+    --rtd-inline-code-color: #4338ca;
+    --rtd-note-bg: #eef2ff;
+    --rtd-note-border: #6366f1;
+    --rtd-code-keyword: #4f46e5;
+    --rtd-code-string: #16a34a;
+    --rtd-code-comment: #64748b;
+    --rtd-code-number: #d97706;
+    --rtd-code-function: #2563eb;
+    --rtd-code-type: #9333ea;
+    --rtd-code-operator: #475569;
+    --rtd-code-builtin: #0284c7;
+    --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, __RTD_FONT_FAMILY__system-ui, sans-serif;
+    --rtd-mono-font: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, __RTD_MONO_FONT_FAMILY__monospace;
+    --sidebar-width: 280px;
+
+  --slide-primary: #4f46e5;
+  --slide-secondary: #16a34a;
+  --slide-accent: #d97706;
+  --slide-yellow: #f59e0b;
+  --slide-border: #e2e8f0;
+  --slide-card-bg: #f8fafc;
+  --slide-code-bg: #1e1b4b;
+  --slide-code-text: #e0e7ff;
+}
