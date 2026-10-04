@@ -7,28 +7,16 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public slide presentation and SmartArt module."""
+"""Public slide presentation and layout module."""
 
 from __future__ import annotations
 
 from drawlib._slide import (
     BoundingBox,
-    ChevronProcess,
-    CurvedAgenda,
-    SmartArtComponent,
-    Timeline,
     build_slide,
-    register_smartart,
-    resolve_smartart,
 )
 
 __all__ = [
     "BoundingBox",
-    "ChevronProcess",
-    "CurvedAgenda",
-    "SmartArtComponent",
-    "Timeline",
     "build_slide",
-    "register_smartart",
-    "resolve_smartart",
 ]

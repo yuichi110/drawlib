@@ -7,48 +7,28 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for slide components, SmartArts, and presentation templates."""
+"""Unit tests for slide components, drawing helpers, and presentation templates."""
 
 from __future__ import annotations
 
 from pathlib import Path
-from typing import ClassVar
 
 import pytest
 
 import drawlib.slide as slide_module
+from drawlib._builder.project_init import init_project
 from drawlib._css_templates import get_css, get_slide_js, list_slide_css
 from drawlib._slide import (
     BoundingBox,
-    ChevronProcess,
-    CurvedAgenda,
-    SmartArtComponent,
-    Timeline,
     build_slide,
-    register_smartart,
-    resolve_smartart,
 )
+from drawlib.canvas import clear, save, setup
+from slide_src.utils import draw_curved_agenda, draw_kpi_cards
 from tests.cli.common import run_drawlib_cli
 
 
-class DummySmartArt(SmartArtComponent):
-    """Dummy SmartArt component for registration testing."""
-
-    name: ClassVar[str] = "test_dummy_smartart"
-
-    def render(
-        self,
-        box: BoundingBox,
-        content: str,
-        output_file: str,
-        **kwargs: object,
-    ) -> None:
-        """Render dummy content."""
-        pass
-
-
 class TestSlideFoundation:
-    """Test suite for slide foundation, bounding boxes, and component registry."""
+    """Test suite for slide foundation and bounding boxes."""
 
     def test_bounding_box_attributes_and_immutability(self) -> None:
         """Verify BoundingBox attributes and frozen immutability."""
@@ -61,40 +41,6 @@ class TestSlideFoundation:
         with pytest.raises(Exception):
             # Should be frozen/immutable
             setattr(box, "x", 150.0)
-
-    def test_register_and_resolve_builtin_smartart(self) -> None:
-        """Verify registering and resolving a built-in SmartArt component."""
-        register_smartart(DummySmartArt)
-        resolved = resolve_smartart("test_dummy_smartart")
-        assert resolved is DummySmartArt
-
-    def test_resolve_project_local_smartart(self, tmp_path: Path) -> None:
-        """Verify resolving a custom project-local SmartArt component from _slide_templates/."""
-        templates_dir = tmp_path / "_slide_templates"
-        templates_dir.mkdir(parents=True)
-        custom_file = templates_dir / "custom_kpi.py"
-
-        custom_file.write_text(
-            """
-from typing import ClassVar
-from drawlib._slide import SmartArtComponent, BoundingBox
-
-class CustomKpi(SmartArtComponent):
-    name: ClassVar[str] = "custom_kpi"
-    def render(self, box: BoundingBox, content: str, output_file: str, **kwargs: object) -> None:
-        pass
-""",
-            encoding="utf-8",
-        )
-
-        resolved = resolve_smartart("custom_kpi", project_dir=str(tmp_path))
-        assert resolved is not None
-        assert resolved.name == "custom_kpi"
-
-    def test_resolve_unknown_smartart_returns_none(self) -> None:
-        """Verify resolving an unknown component returns None."""
-        resolved = resolve_smartart("non_existent_smartart_xyz")
-        assert resolved is None
 
     def test_list_slide_css_presets(self) -> None:
         """Verify list_slide_css returns available presentation presets."""
@@ -123,31 +69,26 @@ class CustomKpi(SmartArtComponent):
     def test_public_slide_facade(self) -> None:
         """Verify public drawlib.slide facade exposes expected domain symbols."""
         assert hasattr(slide_module, "BoundingBox")
-        assert hasattr(slide_module, "SmartArtComponent")
-        assert hasattr(slide_module, "register_smartart")
-        assert hasattr(slide_module, "resolve_smartart")
-        assert hasattr(slide_module, "CurvedAgenda")
-        assert hasattr(slide_module, "Timeline")
-        assert hasattr(slide_module, "ChevronProcess")
         assert hasattr(slide_module, "build_slide")
         assert slide_module.BoundingBox is BoundingBox
-        assert slide_module.SmartArtComponent is SmartArtComponent
 
 
-class TestBuiltinSmartArts:
-    """Test suite for built-in slide SmartArts with Native SVG vector rendering."""
+class TestSlideDrawingHelpers:
+    """Test suite for slide drawing helpers with Native SVG vector rendering."""
 
-    def test_curved_agenda_render_svg(self, tmp_path: Path) -> None:
-        """Verify CurvedAgenda renders geometry and searchable native text into SVG."""
-        box = BoundingBox(x=820.0, y=140.0, width=1040.0, height=860.0)
+    def test_draw_curved_agenda_svg(self, tmp_path: Path) -> None:
+        """Verify draw_curved_agenda renders geometry and searchable native text into SVG."""
         output_svg = tmp_path / "agenda.svg"
-        content = """
-1. Team Introductions (チーム紹介)
-2. Architecture Overview (設計概要)
-3. Production Deployment (本番公開)
-"""
-        agenda = CurvedAgenda()
-        agenda.render(box, content, str(output_svg))
+        clear()
+        setup(width=104, height=86)
+        items = [
+            ("Team Introductions", "チーム紹介"),
+            ("Architecture Overview", "設計概要"),
+            ("Production Deployment", "本番公開"),
+        ]
+        draw_curved_agenda(items, width=104.0, height=86.0)
+        save(str(output_svg), format="svg")
+        clear()
 
         assert output_svg.is_file()
         svg_content = output_svg.read_text(encoding="utf-8")
@@ -157,42 +98,26 @@ class TestBuiltinSmartArts:
         assert "チーム紹介" in svg_content
         assert "Architecture Overview" in svg_content
 
-    def test_timeline_render_svg(self, tmp_path: Path) -> None:
-        """Verify Timeline renders milestone tags, titles, and descriptions into SVG."""
-        box = BoundingBox(x=60.0, y=140.0, width=1800.0, height=860.0)
-        output_svg = tmp_path / "timeline.svg"
-        content = """
-- 2026 Q1 | Architecture Design | Core foundation and vector exporter
-- 2026 Q2 | Beta Testing | User dogfooding and feedback iteration
-"""
-        timeline = Timeline()
-        timeline.render(box, content, str(output_svg))
+    def test_draw_kpi_cards_svg(self, tmp_path: Path) -> None:
+        """Verify draw_kpi_cards renders metrics and searchable native text into SVG."""
+        output_svg = tmp_path / "kpi.svg"
+        clear()
+        setup(width=100, height=84)
+        cards = [
+            ("99.99%", "System Availability", "Tier-1 SLA Guaranteed"),
+            ("1.2s", "Fast Build Time", "Sub-second SQLite cache hit"),
+        ]
+        draw_kpi_cards(cards, width=100.0, height=84.0)
+        save(str(output_svg), format="svg")
+        clear()
 
         assert output_svg.is_file()
         svg_content = output_svg.read_text(encoding="utf-8")
         assert "<svg" in svg_content
         assert "<text" in svg_content
-        assert "2026 Q1" in svg_content
-        assert "Architecture Design" in svg_content
-
-    def test_chevron_process_render_svg(self, tmp_path: Path) -> None:
-        """Verify ChevronProcess renders interlocking blocks into SVG."""
-        box = BoundingBox(x=60.0, y=140.0, width=1800.0, height=860.0)
-        output_svg = tmp_path / "process.svg"
-        content = """
-1. Planning (要件定義)
-2. Implementation (実装)
-3. Verification (検証)
-"""
-        cp = ChevronProcess()
-        cp.render(box, content, str(output_svg))
-
-        assert output_svg.is_file()
-        svg_content = output_svg.read_text(encoding="utf-8")
-        assert "<svg" in svg_content
-        assert "<text" in svg_content
-        assert "Planning" in svg_content
-        assert "要件定義" in svg_content
+        assert "99.99%" in svg_content
+        assert "System Availability" in svg_content
+        assert "Tier-1 SLA Guaranteed" in svg_content
 
 
 class TestSlideCompiler:
@@ -217,6 +142,8 @@ paginate: false
             encoding="utf-8",
         )
 
+        (src_dir / "utils.py").write_text(Path("slide_src/utils.py").read_text(encoding="utf-8"), encoding="utf-8")
+
         (src_dir / "02_agenda.md").write_text(
             """---
 header: "Presentation Agenda"
@@ -225,9 +152,20 @@ layout: default
 
 # Topics
 
-```smartart:curved_agenda slot:right file:agenda.svg
-1. First Step (はじめに)
-2. Second Step (つづき)
+```drawlib (820, 140) (1040, 860) file:agenda.svg
+from drawlib.canvas import setup, clear
+from utils import draw_curved_agenda
+
+clear()
+setup(width=104, height=86)
+draw_curved_agenda(
+    [
+        ("First Step", "はじめに"),
+        ("Second Step", "つづき"),
+    ],
+    width=104,
+    height=86,
+)
 ```
 """,
             encoding="utf-8",
@@ -291,21 +229,6 @@ rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", t
         with pytest.raises(ValueError, match="No Markdown slide files"):
             build_slide(str(empty_dir))
 
-    def test_build_slide_unknown_smartart_raises(self, tmp_path: Path) -> None:
-        """Verify ValueError raised when unknown SmartArt component is invoked."""
-        src_dir = tmp_path / "slide_src"
-        src_dir.mkdir()
-        (src_dir / "01_slide.md").write_text(
-            """# Slide
-```smartart:non_existent_smartart
-1. Item
-```
-""",
-            encoding="utf-8",
-        )
-        with pytest.raises(ValueError, match="could not be resolved"):
-            build_slide(str(src_dir))
-
     def test_build_slide_canvas_mode(self, tmp_path: Path) -> None:
         """Verify layout: canvas produces full-bleed 1920x1080 stage without header or footer."""
         src_dir = tmp_path / "slide_src"
@@ -317,9 +240,14 @@ rectangle((50, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Box", t
 layout: canvas
 ---
 
-```smartart:curved_agenda (0, 0) (1920, 1080) file:hero.svg
-1. Stage Design
-2. Canvas Architecture
+```drawlib (0, 0) (1920, 1080) file:hero.svg
+from drawlib.canvas import setup, clear
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+clear()
+setup(width=192, height=108)
+rectangle((96, 54), width=180, height=90, style=Styles.PrimaryFlat)
 ```
 """,
             encoding="utf-8",
@@ -331,6 +259,7 @@ layout: canvas
         assert "slide-header" not in content
         assert "slide-footer" not in content
         assert "slide-positioned-asset" in content
+        assert (out_dir / "hero.svg").is_file()
 
     def test_build_slide_container_boxes_and_coordinates(self, tmp_path: Path) -> None:
         """Verify ::: box container syntax creates absolutely positioned, styled text boxes."""
@@ -458,4 +387,62 @@ layout: cover
         assert (src_dir / "build.sh").is_file()
         assert (src_dir / "serve.sh").is_file()
         assert (src_dir / "slide.css").is_file()
-        assert (src_dir / "_slide_templates" / "custom_kpi.py").is_file()
+        assert (src_dir / "utils.py").is_file()
+        assert (src_dir / "styles.py").is_file()
+
+    @pytest.mark.parametrize("style_name", ["default", "google", "monochrome"])
+    def test_cli_init_slide_styles(self, tmp_path: Path, style_name: str) -> None:
+        """Verify `drawlib init slide --style <style>` deploys matching utils.py and slide.css."""
+        target_dir = tmp_path / f"deck_{style_name}"
+        res = run_drawlib_cli(["init", "slide", str(target_dir), "--style", style_name])
+        assert res.returncode == 0
+
+        src_dir = target_dir / "slide_src"
+        utils_content = (src_dir / "utils.py").read_text(encoding="utf-8")
+        styles_content = (src_dir / "styles.py").read_text(encoding="utf-8")
+        css_content = (src_dir / "slide.css").read_text(encoding="utf-8")
+
+        assert "draw_curved_agenda" in utils_content
+        assert "draw_kpi_cards" in utils_content
+        assert "service_card" in utils_content
+        assert "connect" in utils_content
+
+        if style_name == "google":
+            assert "(26, 115, 232)" in utils_content
+            assert "GoogleStyles" in styles_content
+            assert "GoogleColors" in styles_content
+            assert "Google Sans" in css_content
+        elif style_name == "monochrome":
+            assert "(20, 20, 20)" in utils_content
+            assert "MonochromeStyles" in styles_content
+            assert "MonochromeColors" in styles_content
+            assert "Monochrome" in css_content or "--slide-bg: #ffffff" in css_content
+        elif style_name == "default":
+            assert "(37, 99, 235)" in utils_content
+            assert "DefaultStyles" in styles_content
+            assert "DefaultColors" in styles_content
+
+    def test_cli_init_slide_unsupported_style(self, tmp_path: Path) -> None:
+        """Verify `drawlib init slide --style invalid` fails with a helpful error."""
+        target_dir = tmp_path / "deck_invalid"
+        res = run_drawlib_cli(["init", "slide", str(target_dir), "--style", "unsupported_theme"])
+        assert res.returncode != 0
+        error_output = res.stderr + res.stdout
+        assert "Unsupported slide style 'unsupported_theme'" in error_output
+        assert "Available styles: default, google, monochrome" in error_output
+
+    def test_python_api_init_slide_unsupported_style_raises(self, tmp_path: Path) -> None:
+        """Verify init_project('slide', style='invalid') raises ValueError."""
+        with pytest.raises(ValueError, match="Unsupported slide style 'unknown'"):
+            init_project("slide", destination=tmp_path / "invalid_slide", style="unknown")
+
+    def test_python_api_init_non_slide_uses_shared_utils(self, tmp_path: Path) -> None:
+        """Verify non-slide projects use the general _shared/utils.py without slide macros."""
+        target = tmp_path / "site_proj"
+        init_project("site", destination=target)
+
+        utils_content = (target / "docs_src" / "utils.py").read_text(encoding="utf-8")
+        assert "service_card" in utils_content
+        assert "connect" in utils_content
+        assert "draw_curved_agenda" not in utils_content
+        assert "draw_kpi_cards" not in utils_content

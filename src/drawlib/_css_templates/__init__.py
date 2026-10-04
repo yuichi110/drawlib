@@ -95,6 +95,10 @@ BUILTIN_SLIDE_CSS_PRESETS: Dict[str, Dict[str, str]] = {
         "file": "default.css.template",
         "description": "Modern developer light presentation theme with Tailwind-inspired colors.",
     },
+    "monochrome": {
+        "file": "monochrome.css.template",
+        "description": "High-contrast black-and-white presentation theme for print and clean projection.",
+    },
 }
 
 BUILTIN_CSS_PRESETS = BUILTIN_HTML_CSS_PRESETS

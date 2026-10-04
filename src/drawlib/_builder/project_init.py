@@ -201,6 +201,7 @@ def _deploy_shared_templates(
     src_path: Path,
     replacements: dict[str, str],
     created_files: list[Path],
+    selected_type: str = "",
 ) -> None:
     """Deploy default shared files (_shared/styles.py.template, _shared/utils.py).
 
@@ -209,6 +210,7 @@ def _deploy_shared_templates(
         src_path: Target source directory.
         replacements: Placeholder substitution dictionary.
         created_files: Mutable list collecting created file paths.
+        selected_type: Selected project type.
     """
     shared_root = templates_base.joinpath("_shared")
     if not shared_root.is_dir():
@@ -216,7 +218,44 @@ def _deploy_shared_templates(
     for item in shared_root.iterdir():
         if item.name == "__pycache__" or item.name.startswith("."):
             continue
+        if selected_type == "slide" and item.name == "utils.py":
+            continue
         _copy_item_with_substitutions(item, src_path / item.name, replacements, created_files)
+
+
+def _deploy_slide_utils(
+    templates_base: Traversable,
+    src_path: Path,
+    style: str,
+    replacements: dict[str, str],
+    created_files: list[Path],
+) -> None:
+    """Deploy style-specific utils.py for slide projects strictly without fallback.
+
+    Args:
+        templates_base: Base traversable of project templates.
+        src_path: Target source directory.
+        style: Slide style preset name (e.g. 'default', 'google', 'monochrome').
+        replacements: Placeholder substitution dictionary.
+        created_files: Mutable list collecting created file paths.
+
+    Raises:
+        ValueError: If template for the requested style does not exist.
+    """
+    utils_root = templates_base.joinpath("slide", "utils")
+    template_path = utils_root.joinpath(f"{style}.py.template")
+    if not template_path.is_file():
+        available: list[str] = []
+        if utils_root.is_dir():
+            available = sorted(
+                f.name[:-12]
+                for f in utils_root.iterdir()
+                if f.name.endswith(".py.template")
+            )
+        raise ValueError(
+            f"Unsupported slide style '{style}'. Available styles: {', '.join(available)}"
+        )
+    _copy_item_with_substitutions(template_path, src_path / "utils.py", replacements, created_files)
 
 
 def _deploy_type_root_files(
@@ -234,7 +273,7 @@ def _deploy_type_root_files(
         created_files: Mutable list collecting created file paths.
     """
     for item in type_root.iterdir():
-        if item.name in {"docs", "__pycache__"} or item.name.startswith("."):
+        if item.name in {"docs", "utils", "__pycache__"} or item.name.startswith("."):
             continue
         _copy_item_with_substitutions(item, src_path / item.name, replacements, created_files)
 
@@ -316,16 +355,33 @@ def init_project(
         out_pdf_name,
     ) = _resolve_project_paths(selected_type, output, destination, here)
 
+    templates_base = importlib.resources.files("drawlib._project_templates")
+    type_root = templates_base.joinpath(selected_type)
+    if not type_root.is_dir():
+        raise FileNotFoundError(f"Template directory for '{selected_type}' not found.")
+
+    if selected_type == "slide":
+        utils_root = templates_base.joinpath("slide", "utils")
+        template_path = utils_root.joinpath(f"{resolved_style}.py.template")
+        if not template_path.is_file():
+            available = (
+                sorted(
+                    f.name[:-12]
+                    for f in utils_root.iterdir()
+                    if f.name.endswith(".py.template")
+                )
+                if utils_root.is_dir()
+                else []
+            )
+            raise ValueError(
+                f"Unsupported slide style '{resolved_style}'. Available styles: {', '.join(available)}"
+            )
+
     _validate_conflicts(
         src_path=src_path,
         force=force,
         here=here,
     )
-
-    templates_base = importlib.resources.files("drawlib._project_templates")
-    type_root = templates_base.joinpath(selected_type)
-    if not type_root.is_dir():
-        raise FileNotFoundError(f"Template directory for '{selected_type}' not found.")
 
     replacements = {
         "__SRC_DIR__": "." if here else src_dir_name,
@@ -336,7 +392,11 @@ def init_project(
     }
 
     created_files: list[Path] = []
-    _deploy_shared_templates(templates_base, src_path, replacements, created_files)
+    _deploy_shared_templates(
+        templates_base, src_path, replacements, created_files, selected_type=selected_type
+    )
+    if selected_type == "slide":
+        _deploy_slide_utils(templates_base, src_path, resolved_style, replacements, created_files)
     _deploy_type_root_files(type_root, src_path, replacements, created_files)
     _deploy_localized_docs(type_root, src_path, selected_lang, replacements, created_files)
     _copy_shared_assets(src_path, replacements, created_files)

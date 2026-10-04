@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Drawlib user utility functions and constants."""
+"""Default-styled slide drawing utilities and presentation helper functions."""
 
 from __future__ import annotations
 
@@ -19,11 +19,12 @@ from drawlib.shapes import circle, rectangle
 from drawlib.styles import Style, Styles
 from drawlib.text import text
 
-# Define reusable drawing helper functions, macro components,
-# or project-specific constants in this file.
-#
-# All top-level functions, classes, and variables defined here are automatically
-# accessible in drawing code via `drawlib.utils`.
+_DEFAULT_PALETTE = [
+    (37, 99, 235),   # Blue 600
+    (16, 185, 129),  # Emerald 500
+    (239, 68, 68),   # Red 500
+    (245, 158, 11),  # Amber 500
+]
 
 
 def service_card(
@@ -99,7 +100,7 @@ def draw_curved_agenda(
     h = height
 
     if accent_bar:
-        bar_color = (26, 115, 232)
+        bar_color = (37, 99, 235)
         bar_style = Style(shape_fill_color=bar_color, shape_line_color=bar_color, shape_line_width=0.0)
         rectangle((1.0, h / 2.0), width=1.5, height=h * 0.9, style=bar_style)
 
@@ -108,16 +109,10 @@ def draw_curved_agenda(
     p_end = (w * 0.17, h * 0.12)
     p_ctrl = (w * 0.28, h * 0.50)
 
-    arc_style = Style(line_color=(205, 210, 218), line_width=3.5)
+    arc_style = Style(line_color=(203, 213, 225), line_width=3.5)
     line_bezier1(p_start, p_end, p_ctrl, style=arc_style)
 
-    palette = colors or [
-        (26, 115, 232),  # Blue
-        (234, 67, 53),   # Red
-        (24, 128, 56),   # Green
-        (234, 67, 53),   # Red
-        (251, 188, 4),   # Yellow
-    ]
+    palette = colors or _DEFAULT_PALETTE
 
     n = len(items)
     for i, item in enumerate(items):
@@ -142,7 +137,7 @@ def draw_curved_agenda(
         x_pill_center = x_pill_start + w_pill / 2.0
         pill_style = Style(
             shape_fill_color=(255, 255, 255),
-            shape_line_color=(220, 224, 230),
+            shape_line_color=(226, 232, 240),
             shape_line_width=1.0,
         )
         rectangle((x_pill_center, yi), width=w_pill, height=h_pill, r=h_pill / 2.0, style=pill_style)
@@ -157,7 +152,7 @@ def draw_curved_agenda(
                     text_size=12.0,
                     text_halign="left",
                     text_valign="center",
-                    text_color=(32, 33, 36),
+                    text_color=(15, 23, 42),
                 ),
             )
             text(
@@ -167,7 +162,7 @@ def draw_curved_agenda(
                     text_size=9.0,
                     text_halign="left",
                     text_valign="center",
-                    text_color=(105, 110, 118),
+                    text_color=(100, 116, 139),
                 ),
             )
         else:
@@ -178,7 +173,7 @@ def draw_curved_agenda(
                     text_size=12.5,
                     text_halign="left",
                     text_valign="center",
-                    text_color=(32, 33, 36),
+                    text_color=(15, 23, 42),
                 ),
             )
 
@@ -203,12 +198,7 @@ def draw_kpi_cards(
     w = width
     h = height
     n = len(cards)
-    accent_colors = colors or [
-        (26, 115, 232),  # Google Blue
-        (52, 168, 83),   # Google Green
-        (234, 67, 53),   # Google Red
-        (251, 188, 4),   # Google Yellow
-    ]
+    accent_colors = colors or _DEFAULT_PALETTE
 
     card_h = min(22.0, (h - 10.0) / max(n, 1))
     gap = (h - 10.0 - (card_h * n)) / max(n + 1, 1)
@@ -220,8 +210,8 @@ def draw_kpi_cards(
 
         # Background card
         card_style = Style(
-            shape_fill_color=(248, 249, 250),
-            shape_line_color=(220, 225, 235),
+            shape_fill_color=(248, 250, 252),
+            shape_line_color=(226, 232, 240),
             shape_line_width=1.0,
         )
         rectangle((cx, cy), width=card_w, height=card_h, r=3.0, style=card_style)
@@ -257,7 +247,7 @@ def draw_kpi_cards(
                     text_size=11.0,
                     text_halign="left",
                     text_valign="center",
-                    text_color=(32, 33, 36),
+                    text_color=(15, 23, 42),
                 ),
             )
 
@@ -270,6 +260,6 @@ def draw_kpi_cards(
                     text_size=8.5,
                     text_halign="left",
                     text_valign="center",
-                    text_color=(95, 99, 104),
+                    text_color=(100, 116, 139),
                 ),
             )

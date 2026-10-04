@@ -225,11 +225,9 @@ Following the proven pattern of `site`, `simple`, and `pdf` projects, `drawlib i
 slide_src/
 ├── slide.css                        # ★ Project Presentation Stylesheet (Editable!)
 ├── styles.py                        # ★ Project Drawlib Drawing Styles (Editable!)
-├── utils.py                         # Shared Python helper functions
-├── _slide_templates/                # Project Custom SmartArt Components
-│   └── custom_kpi.py                # Example custom component
+├── utils.py                         # ★ Reusable Drawing Helpers (draw_curved_agenda, draw_kpi_cards, etc.)
 ├── 01_title.md                      # Slide 1 (Cover)
-├── 02_agenda.md                     # Slide 2 (Curved Agenda SmartArt)
+├── 02_agenda.md                     # Slide 2 (Agenda with utils.draw_curved_agenda)
 ├── 03_architecture.md               # Slide 3 (Cloud Architecture Diagram)
 ├── build.sh                         # ./slide_src/build.sh
 └── serve.sh                         # ./slide_src/serve.sh

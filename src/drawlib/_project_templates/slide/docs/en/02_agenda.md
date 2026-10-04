@@ -5,10 +5,21 @@ layout: default
 
 # Topics Covered
 
-```smartart:curved_agenda slot:right file:agenda.svg
-1. Architecture Overview (Core Design)
-2. Native SVG Output (Searchable Text)
-3. Modular SmartArts (Reusable Components)
-4. Dynamic Animations (WebP Workflows)
-5. Next Steps (Roadmap)
+```drawlib (820, 140) (1040, 860) file:agenda.svg
+from drawlib.canvas import clear, setup
+from utils import draw_curved_agenda
+
+clear()
+setup(width=104, height=86)
+draw_curved_agenda(
+    [
+        ("Architecture Overview", "Core Design"),
+        ("Native SVG Output", "Searchable Text"),
+        ("Modular Drawing", "Reusable Functions"),
+        ("Dynamic Animations", "WebP Workflows"),
+        ("Next Steps", "Roadmap"),
+    ],
+    width=104,
+    height=86,
+)
 ```

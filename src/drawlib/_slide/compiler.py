@@ -23,12 +23,7 @@ from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions, parse_block_info
 from drawlib._css_templates import get_css, get_slide_js
 from drawlib._slide.base import BoundingBox
-from drawlib._slide.resolver import resolve_smartart
 
-_PATTERN_SMARTART = re.compile(
-    r"(?<=\n)[ \t]*```smartart:([a-zA-Z0-9_\-]+)([^\n]*)\n(.*?)\n[ \t]*```",
-    re.DOTALL,
-)
 _PATTERN_DRAWLIB = re.compile(
     r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",
     re.DOTALL,
@@ -130,7 +125,7 @@ def _collect_slide_files(input_abs: str) -> list[str]:
     return files
 
 
-def _resolve_smartart_box(options: DrawlibBlockOptions) -> BoundingBox:
+def _resolve_block_box(options: DrawlibBlockOptions) -> BoundingBox:
     """Resolve BoundingBox from block options.
 
     Args:
@@ -452,48 +447,6 @@ def _process_container_blocks(text: str) -> str:
     return _PATTERN_CONTAINER_BOX.sub(replacer, text)
 
 
-def _process_smartarts(
-    text: str,
-    input_abs: str,
-    output_abs: str,
-    idx: int,
-    filename: str,
-) -> str:
-    """Execute and replace ```smartart:<name> blocks.
-
-    Args:
-        text: Markdown text with code blocks.
-        input_abs: Input project directory.
-        output_abs: Output directory.
-        idx: Slide index.
-        filename: Slide filename.
-
-    Returns:
-        str: Transformed markdown text.
-    """
-    counter = 0
-
-    def replacer(match: re.Match[str]) -> str:
-        nonlocal counter
-        counter += 1
-        name, info, content = match.group(1).strip(), match.group(2).strip(), match.group(3).strip()
-        options = parse_block_info(info)
-
-        cls = resolve_smartart(name, project_dir=input_abs)
-        if cls is None:
-            raise ValueError(f"SmartArt component '{name}' could not be resolved in slide {idx} ({filename}).")
-
-        target_file = options.file if options.file else f"smartart_{idx}_{counter}.svg"
-        if not target_file.endswith((".svg", ".png", ".webp")):
-            target_file = f"{target_file}.svg"
-
-        box = _resolve_smartart_box(options)
-        cls().render(box, content, os.path.join(output_abs, target_file))
-        return _format_asset_markup(target_file, options, box, name, output_abs=output_abs)
-
-    return _PATTERN_SMARTART.sub(replacer, text)
-
-
 def _process_drawlib_blocks(
     text: str,
     output_abs: str,
@@ -534,7 +487,7 @@ def _process_drawlib_blocks(
 
         target_path = os.path.join(output_abs, dl_file)
         processor.render_block_to_file(code, target_path, source_filename=file_path)
-        box = _resolve_smartart_box(options)
+        box = _resolve_block_box(options)
         return _format_asset_markup(dl_file, options, box, "Illustration", output_abs=output_abs)
 
     return _PATTERN_DRAWLIB.sub(replacer, text)
@@ -823,8 +776,7 @@ def build_slide(
             body_text = f"::: box {text_box_opt}\n{body_text.strip()}\n:::"
 
         text_to_search = "\n" + body_text if not body_text.startswith("\n") else body_text
-        t_smartart = _process_smartarts(text_to_search, input_abs, output_abs, idx, filename)
-        t_drawlib = _process_drawlib_blocks(t_smartart, output_abs, processor, file_path, idx, image_format)
+        t_drawlib = _process_drawlib_blocks(text_to_search, output_abs, processor, file_path, idx, image_format)
         t_containers = _process_container_blocks(t_drawlib)
         rendered_body = parse_markdown_to_html(t_containers.strip())
 

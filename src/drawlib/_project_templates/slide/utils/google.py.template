@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Drawlib user utility functions and constants."""
+"""Google-styled slide drawing utilities and presentation helper functions."""
 
 from __future__ import annotations
 
@@ -19,11 +19,12 @@ from drawlib.shapes import circle, rectangle
 from drawlib.styles import Style, Styles
 from drawlib.text import text
 
-# Define reusable drawing helper functions, macro components,
-# or project-specific constants in this file.
-#
-# All top-level functions, classes, and variables defined here are automatically
-# accessible in drawing code via `drawlib.utils`.
+_GOOGLE_PALETTE = [
+    (26, 115, 232),  # Blue (#1a73e8)
+    (234, 67, 53),   # Red (#ea4335)
+    (24, 128, 56),   # Green (#188038)
+    (251, 188, 4),   # Yellow (#fbbc04)
+]
 
 
 def service_card(
@@ -83,7 +84,7 @@ def draw_curved_agenda(
     accent_bar: bool = True,
     colors: Sequence[tuple[int, int, int]] | None = None,
 ) -> None:
-    """Draw a curved agenda/roadmap diagram with numbered badges and pill containers.
+    """Draw a curved agenda/roadmap diagram with Google-colored numbered badges.
 
     Args:
         items: List of agenda items, either as "Title" strings or ("Title", "Subtitle") tuples.
@@ -111,13 +112,7 @@ def draw_curved_agenda(
     arc_style = Style(line_color=(205, 210, 218), line_width=3.5)
     line_bezier1(p_start, p_end, p_ctrl, style=arc_style)
 
-    palette = colors or [
-        (26, 115, 232),  # Blue
-        (234, 67, 53),   # Red
-        (24, 128, 56),   # Green
-        (234, 67, 53),   # Red
-        (251, 188, 4),   # Yellow
-    ]
+    palette = colors or _GOOGLE_PALETTE
 
     n = len(items)
     for i, item in enumerate(items):
@@ -189,7 +184,7 @@ def draw_kpi_cards(
     height: float = 84.0,
     colors: Sequence[tuple[int, int, int]] | None = None,
 ) -> None:
-    """Draw vertically stacked KPI metric cards with highlight badges and descriptions.
+    """Draw vertically stacked KPI metric cards with Google color accents and descriptions.
 
     Args:
         cards: List of (metric_value, label, description) tuples.
@@ -203,12 +198,7 @@ def draw_kpi_cards(
     w = width
     h = height
     n = len(cards)
-    accent_colors = colors or [
-        (26, 115, 232),  # Google Blue
-        (52, 168, 83),   # Google Green
-        (234, 67, 53),   # Google Red
-        (251, 188, 4),   # Google Yellow
-    ]
+    accent_colors = colors or _GOOGLE_PALETTE
 
     card_h = min(22.0, (h - 10.0) / max(n, 1))
     gap = (h - 10.0 - (card_h * n)) / max(n + 1, 1)
