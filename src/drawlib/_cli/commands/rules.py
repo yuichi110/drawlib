@@ -61,6 +61,7 @@ LIBRARY_TOPICS: Final[dict[str, str]] = {
     "lib-smartarts": "Tables, trees, mindmaps, and structured visual elements",
     "lib-charts": "Bar, line, pie, scatter, radar, area, and Gantt charts",
     "lib-diagrams": "Flowcharts, sequence, state, class, ER, and architecture diagrams",
+    "lib-graph": "Declarative graph layout solvers (Architecture, Layer, Tree, Radial, Grid) and code export",
     "lib-tools": "Python developer API for document building, diagram export, and cache management",
     "lib-slide": "16:9 presentation slide deck stage, SlideContext, current_slide, and stage layout blocks",
 }

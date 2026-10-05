@@ -475,7 +475,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.5. Shapes Primitives & Styling (`lib-shapes`)
 - **Command**: `drawlib rules show lib-shapes`
-- **Scope**: All 22 geometric shape functions including `rectangle`, `circle`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, and `chevron`.
+- **Scope**: All 23 geometric shape functions including `rectangle`, `circle`, `cylinder`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, and `chevron`.
 - **Key Syntax**:
   ```python
   from drawlib.styles import Styles
@@ -729,6 +729,22 @@ drawlib rules show <topic> --rebuild
   text((1800, 50), current_slide.text, style=Styles.MutedSmall)
   ```
 - **When to read**: Refer to this rule when authoring presentation slide decks, configuring slide templates, or troubleshooting slide coordinate layouts.
+
+---
+
+### 5.23. Graph Layout Engine (`lib-graph`)
+- **Command**: `drawlib rules show lib-graph`
+- **Scope**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), nested containers, compass zone positioning, post-layout coordinate tweaking (`calc()` + `offset()`), and standalone primitive code export (`export_code()`).
+- **Key Syntax**:
+  ```python
+  from drawlib.graph import ArchitectureGraph
+  g = ArchitectureGraph(direction="LR")
+  g.node("api", "API Gateway")
+  g.node("db", "Database", shape="cylinder")
+  g.edge("api", "db")
+  g.draw()
+  ```
+- **When to read**: Refer to this rule when generating complex node-and-edge topologies, cloud VPC clusters, layered DAG pipelines, or scaffolding initial primitive coordinates automatically.
 
 ---
 

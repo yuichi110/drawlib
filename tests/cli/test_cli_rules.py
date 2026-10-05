@@ -65,7 +65,9 @@ def test_cli_rules_list() -> None:
         "lib-smartarts",
         "lib-charts",
         "lib-diagrams",
+        "lib-graph",
         "lib-tools",
+        "lib-slide",
     ]:
         assert topic in res.stdout
 
@@ -95,7 +97,9 @@ def test_cli_rules_list() -> None:
         ("lib-smartarts", "# Drawlib SmartArts Guidelines"),
         ("lib-charts", "# Drawlib Charts Guidelines"),
         ("lib-diagrams", "# Drawlib Diagrams Guidelines"),
+        ("lib-graph", "# Drawlib Graph Guidelines"),
         ("lib-tools", "# Drawlib Tools Guidelines"),
+        ("lib-slide", "# Drawlib Slide Presentation & Stage Guidelines"),
     ],
 )
 def test_cli_rules_show_topics(topic: str, expected_heading: str) -> None:

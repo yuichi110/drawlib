@@ -1,6 +1,6 @@
 # Drawlib Shapes Guidelines
 
-Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 22 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
+Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 23 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
 
 ---
 
@@ -21,6 +21,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [2.4 `wedge`](#24-wedge)
   - [2.5 `fan`](#25-fan)
   - [2.6 `arc`](#26-arc)
+  - [2.7 `cylinder`](#27-cylinder)
 - [3. Polygon & Planar Geometric Primitives](#3-polygon--planar-geometric-primitives)
   - [3.1 `rectangle`](#31-rectangle)
   - [3.2 `parallelogram`](#32-parallelogram)
@@ -56,7 +57,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 22 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 23 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (
@@ -69,6 +70,7 @@ from drawlib.shapes import (
     bubblespeech,
     chevron,
     circle,
+    cylinder,
     donuts,
     ellipse,
     fan,
@@ -117,7 +119,7 @@ Shape functions fall into three distinct coordinate anchoring categories:
 
 1. **Center-Anchored Shapes (`is_default_center = True`)**:
    The input `xy=(x, y)` parameter specifies the exact **geometric center** of the shape.
-   - Functions: `circle`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `arrow_l`, `arrow_u`, `arrow_arc`.
+   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `arrow_l`, `arrow_u`, `arrow_arc`.
 2. **Bottom-Left Anchored Shapes (`is_default_center = False`)**:
    The input `xy=(x, y)` parameter specifies the **bottom-left corner of the shape's unrotated bounding box**.
    - Functions: `rectangle`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `chevron`, `shape` (when `is_default_center=False`).
@@ -660,6 +662,61 @@ arc(
     text="Orbit A",
     text_style=Styles.Primary.patch(text_size=10, text_color=CssColors.Crimson),
 )
+save()
+```
+
+---
+
+### 2.7 `cylinder`
+
+Draws a 3D-shaded cylinder shape with an elliptical top cap and optional multi-disk horizontal divider rings, ideal for databases, storage volumes, data lakes, and message queues.
+
+#### Signature
+```python
+def cylinder(
+    xy: tuple[float, float],
+    width: float,
+    height: float,
+    *,
+    style: Style,
+    disks: int = 1,
+    angle: float = 0.0,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the cylinder. |
+| `width` | `float` | *Required* | Total horizontal width ($> 0$). |
+| `height` | `float` | *Required* | Total vertical height including top/bottom caps ($> 0$). |
+| `style` | `Style` | *Required* | Shape fill and stroke style. Top cap is automatically lightened for 3D depth. |
+| `disks` | `int` | `1` | Number of stacked storage disks ($\ge 1$). Values $> 1$ render curved divider seams. |
+| `angle` | `float` | `0.0` | Counterclockwise rotation angle in degrees (`angle=90` or `-90` for horizontal pipes/queues). |
+| `text` | `str` | `""` | Embedded text label centered on the cylinder body. |
+| `text_style` | `Style \| None` | `None` | Text formatting style. |
+
+#### Geometric & Alignment Mechanics
+- Default coordinate `xy` is the geometric center of the cylinder.
+- The top elliptical cap automatically computes a lighter tint from `style.shape_fill_color` to provide clean 3D visual depth even on flat styles (`Styles.PrimaryFlat`).
+- Setting `disks=3` divides the cylinder body into 3 stacked storage tiers.
+
+#### Code Examples
+```drawlib show-code
+from drawlib.canvas import save, setup
+from drawlib.shapes import cylinder
+from drawlib.styles import Styles
+
+setup(width=120, height=50)
+
+# 1. Single-disk database cylinder
+cylinder((30, 25), width=26, height=32, style=Styles.Primary, text="Users DB")
+
+# 2. Multi-disk storage cluster (3 disks)
+cylinder((80, 25), width=28, height=34, disks=3, style=Styles.SecondaryFlat, text="Data Lake")
 save()
 ```
 
@@ -2346,6 +2403,7 @@ save()
 | `wedge`  | Center `(x, y)` | `radius`, `width`, `angle_start/end` | No | Yes | Yes | No |
 | `fan`    | Center `(x, y)` | `radius`, `angle_start/end` | No | Yes | Yes | No |
 | `arc`    | Center `(x, y)` | `width`, `height`, `angle_start/end` | No | Yes | Yes | No |
+| `cylinder` | Center `(x, y)` | `width`, `height`, `disks` | No | Yes | Yes | No |
 | `rectangle` | Center `(x, y)` | `width`, `height` | **Yes** | Yes | Yes | No |
 | `parallelogram` | Center `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
 | `rhombus` | Center `(x, y)` | `width`, `height` | No | Yes | Yes | No |

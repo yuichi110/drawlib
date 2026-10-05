@@ -15,6 +15,7 @@ Avoid manually writing SVGs or plotting with low-level matplotlib boilerplate. D
 
 | Diagram Category | Recommended High-Level Module | What It Draws |
 | :--- | :--- | :--- |
+| **Auto-Layout Graphs** | `drawlib.graph` (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) | Declarative auto-layout topologies, nested clusters, DAGs, code scaffolding |
 | **Cloud & Microservices** | `drawlib.diagrams.architecture.ArchitectureDiagram` | Cloud topologies, VPCs, clusters, icons |
 | **Pipelines & Workflows** | `drawlib.smartarts.ChevronProcess`, `drawlib.diagrams.flow.FlowDiagram` | Linear stages, decision gates, branching flows |
 | **Hierarchy & Organization**| `drawlib.smartarts.TreeNode` | Directory trees, org charts, taxonomy trees |
@@ -25,10 +26,10 @@ Avoid manually writing SVGs or plotting with low-level matplotlib boilerplate. D
 | **State & Transitions** | `drawlib.diagrams.state.StateDiagram` | State machine lifecycles, triggers, guards |
 | **Database Schemas & ER** | `drawlib.diagrams.er.ERDiagram` | Relational tables, foreign keys, cardinalities |
 | **Quantitative Charts** | `drawlib.charts` (Bar, Line, Area, Pie, Radar, Gantt) | Trend plots, project schedules, metrics |
-| **Drawing Primitives** | `drawlib.shapes`, `drawlib.lines`, `drawlib.text` | 22 shapes, curved/bezier lines, styled text |
+| **Drawing Primitives** | `drawlib.shapes`, `drawlib.lines`, `drawlib.text` | 23 shapes (incl. `cylinder`), curved/bezier lines, styled text |
 | **Standardized Icons** | `drawlib.icons` (Phosphor, FontAwesome, GCP) | Vector and official cloud architecture icons |
 
-> **Rule**: When tasked with creating a diagram, always favor high-level components (`smartarts`, `diagrams`, `charts`) over assembling dozens of raw rectangles and lines by hand.
+> **Rule**: When tasked with creating a diagram, always favor high-level components (`graph`, `smartarts`, `diagrams`, `charts`) over assembling dozens of raw rectangles and lines by hand.
 
 ---
 
@@ -162,9 +163,9 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | Command | Topic | Primary Focus |
 | :--- | :--- | :--- |
 | `uv run drawlib rules show lib-canvas` | `lib-canvas` | Canvas sizing, grid overlays, background transparency, in-memory Dimage. |
-| `uv run drawlib rules show lib-shapes` | `lib-shapes` | 22 shape primitives (rectangles, circles, wedges, polygons, chevrons). |
+| `uv run drawlib rules show lib-shapes` | `lib-shapes` | 23 shape primitives (rectangles, circles, cylinders, wedges, polygons, chevrons). |
 | `uv run drawlib rules show lib-lines` | `lib-lines` | Straight, curved, bezier, chained lines, and arrowheads (`->`, `<->`, `-`). |
-| `uv run drawlib rules show lib-text` | `lib-text` | Alignments (`halign`, `valign`), rotation, multiline text, font styles. |
+| `uv run drawlib rules show lib-text` | `lib-text` | Alignments (`halign`, `valign`), line spacing, rotation, multiline text, font styles. |
 | `uv run drawlib rules show lib-colors` | `lib-colors` | Color model, RGB/hex conversion, palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`). |
 | `uv run drawlib rules show lib-styles` | `lib-styles` | Dynamic runtime theming, `styles.py`, `utils.py`, CLI injection flags. |
 | `uv run drawlib rules show lib-preset-styles`| `lib-preset-styles` | Systematic naming matrix (`<color>_<variant>`), 7 semantic roles (4 for monochrome), 13 variants. |
@@ -176,6 +177,7 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | `uv run drawlib rules show lib-smartarts` | `lib-smartarts` | Tables, tree hierarchies, mindmaps, cycle loops, process chevrons. |
 | `uv run drawlib rules show lib-charts` | `lib-charts` | Bar, Line, Area, Pie, Radar, Scatter, and Gantt charts. |
 | `uv run drawlib rules show lib-diagrams` | `lib-diagrams` | Architecture, Flow, Sequence, State, Class, and ER diagrams. |
+| `uv run drawlib rules show lib-graph` | `lib-graph` | Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`). |
 | `uv run drawlib rules show lib-anim` | `lib-anim` | Multi-frame animations (APNG/WebP), frame context manager, duration and loop controls. |
 | `uv run drawlib rules show lib-slide` | `lib-slide` | 16:9 stage (1920x1080), current_slide counter, layout boxes, HTML/PDF presentation decks. |
 | `uv run drawlib rules show lib-tools` | `lib-tools` | Programmatic Python API for compilation, diagram export, and CI/CD. |

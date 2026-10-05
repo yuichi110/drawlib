@@ -19,16 +19,20 @@ from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, Monoch
 # 3. Drawing Primitives
 from drawlib.shapes import (
     arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, bubblespeech, chevron,
-    circle, donuts, ellipse, fan, parallelogram, polygon, rectangle,
+    circle, cylinder, donuts, ellipse, fan, parallelogram, polygon, rectangle,
     regularpolygon, rhombus, shape, star, trapezoid, triangle, wedge,
 )
 from drawlib.lines import (
     line, line_arc, line_bezier1, line_bezier2, line_curved,
-    lines, lines_bezier, lines_curved,
+    lines, lines_curved, lines_bezier,
 )
 from drawlib.text import text, text_vertical
 
-# 4. High-Level Diagrams
+# 4. High-Level Diagrams & Auto-Layout Graphs
+from drawlib.graph import (
+    ArchitectureGraph, Cluster, Edge, GraphLayout, GridGraph,
+    LayerGraph, Node, RadialGraph, TreeGraph,
+)
 from drawlib.diagrams.architecture import ArchitectureDiagram, Edge, Junction, Node, NodeGroup
 from drawlib.diagrams.flow import FlowDiagram
 from drawlib.diagrams.sequence import SequenceDiagram
@@ -107,6 +111,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | :--- | :--- | :--- |
 | `rectangle(xy, width, height, ...)` | `r: float = 0`, `angle: float = 0` | Rectangle or rounded rectangle (`r > 0`). |
 | `circle(xy, radius, ...)` | `radius: float` | Perfect circle centered at `xy`. |
+| `cylinder(xy, width, height, ...)` | `ratio_top: float = 0.3`, `disks: int = 1`, `angle: float = 0` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
 | `ellipse(xy, width, height, ...)` | `angle: float = 0` | Ellipse centered at `xy` with rotation angle. |
 | `wedge(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Circular sector / wedge slice from `angle1` to `angle2`. |
 | `fan(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Fan shape (wedge with arc perimeter). |
@@ -188,6 +193,7 @@ Renders single-line or multi-line strings with explicit anchor alignments.
 
 - **`style.text_halign` Options**: `"left"`, `"center"`, `"right"`
 - **`style.text_valign` Options**: `"bottom"`, `"center"`, `"top"`
+- **`style.text_line_spacing`**: `float | None` (line spacing multiplier for multi-line strings `\n`, e.g. `1.6` or `2.0`; defaults to `None` which uses `1.2`)
 
 ```drawlib show-code file:text_typography.png
 from drawlib.canvas import setup
@@ -348,6 +354,14 @@ seq.draw()
 - **State Diagram** (`drawlib.diagrams.state.StateDiagram`): FSM states, composite states, transitions, guard conditions.
 - **Class Diagram** (`drawlib.diagrams.class_diagram.ClassDiagram`): UML classes, methods, inheritance (`--|>`), associations, composition.
 - **ER Diagram** (`drawlib.diagrams.er.ERDiagram`): Relational tables, columns, primary keys, foreign keys, Crow's foot cardinality.
+
+### 7.5 Declarative Auto-Layout Graphs (`drawlib.graph`)
+When you want automatic coordinate computation from topological declarations (`node`, `edge`, `cluster`) with support for post-layout tweaking (`calc()` + `offset()`) or code scaffolding (`export_code()`):
+- **`ArchitectureGraph`**: 2-level macro/micro container packing and 5-zone compass positioning (`pos="left"|"center"|"right"|"top"|"bottom"`, `parent=...`).
+- **`LayerGraph`**: Sugiyama hierarchical DAG solver with `.tier()` stage pinning.
+- **`TreeGraph`**: Reingold-Tilford compact tree solver with `.child()`.
+- **`RadialGraph`**: Concentric hub-and-spoke solver with `.spoke()`.
+- **`GridGraph`**: 2D matrix solver with `.cell()`, `.cluster_row()`, `.cluster_col()`.
 
 ---
 
