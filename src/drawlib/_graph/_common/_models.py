@@ -34,6 +34,7 @@ class Node:
     ring: int | None = None
     row: int | None = None
     col: int | None = None
+    layer: int | None = None
 
 
 @dataclass

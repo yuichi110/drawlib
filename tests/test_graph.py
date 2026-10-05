@@ -22,6 +22,7 @@ from drawlib.graph import (
     EdgeLayout,
     GraphLayout,
     GridGraph,
+    LayerGraph,
     Node,
     NodeLayout,
     RadialGraph,
@@ -548,6 +549,166 @@ class TestGridGraph:
         assert "setup(width=100.0, height=60.0)" in code
         assert "c1_xy" in code
         assert "c2_xy" in code
+        assert "save()" in code
+
+        local_scope: dict[str, object] = {}
+        exec(code, {}, local_scope)  # noqa: S102
+
+
+class TestLayerGraph:
+    """Test suite for LayerGraph layout solver."""
+
+    def setup_method(self) -> None:
+        """Reset canvas before each test."""
+        clear()
+
+    def test_layer_subclass(self) -> None:
+        """Verify LayerGraph is a subclass of BaseGraph."""
+        assert issubclass(LayerGraph, BaseGraph)
+
+    def test_basic_dag_lr(self) -> None:
+        """Verify basic DAG pipeline in Left-to-Right direction."""
+        g = LayerGraph(direction="LR")
+        g.edge("checkout", "test")
+        g.edge("checkout", "lint")
+        g.edge("test", "build")
+        g.edge("lint", "build")
+        g.edge("build", "deploy")
+
+        layout = g.calc(width=140.0, height=80.0)
+
+        assert len(layout.nodes) == 5
+        checkout = layout.nodes["checkout"]
+        test = layout.nodes["test"]
+        lint = layout.nodes["lint"]
+        build = layout.nodes["build"]
+        deploy = layout.nodes["deploy"]
+
+        # LR flow: X increases along pipeline stages
+        assert checkout.x < test.x
+        assert test.x == lint.x
+        assert test.x < build.x < deploy.x
+
+        # Parallel branches in same layer should have different Y
+        assert test.y != lint.y
+
+    def test_basic_dag_tb(self) -> None:
+        """Verify basic DAG pipeline in Top-to-Bottom direction."""
+        g = LayerGraph(direction="TB")
+        g.edge("checkout", "test")
+        g.edge("checkout", "lint")
+        g.edge("test", "build")
+        g.edge("lint", "build")
+        g.edge("build", "deploy")
+
+        layout = g.calc(width=100.0, height=120.0)
+
+        assert len(layout.nodes) == 5
+        checkout = layout.nodes["checkout"]
+        test = layout.nodes["test"]
+        lint = layout.nodes["lint"]
+        build = layout.nodes["build"]
+        deploy = layout.nodes["deploy"]
+
+        # TB flow: Y decreases downwards
+        assert checkout.y > test.y
+        assert test.y == lint.y
+        assert test.y > build.y > deploy.y
+
+        # Parallel branches in same layer should have different X
+        assert test.x != lint.x
+
+    def test_multi_parent_merge(self) -> None:
+        """Verify LayerGraph supports multiple parents merging into one child."""
+        g = LayerGraph(direction="LR")
+        g.node("api_gw")
+        g.node("msg_queue")
+        g.edge("api_gw", "processor")
+        g.edge("msg_queue", "processor")
+
+        layout = g.calc(width=100.0, height=80.0)
+        assert len(layout.nodes) == 3
+
+        gw = layout.nodes["api_gw"]
+        queue = layout.nodes["msg_queue"]
+        proc = layout.nodes["processor"]
+
+        assert proc.x > max(gw.x, queue.x)
+
+    def test_cycle_handling(self) -> None:
+        """Verify graphs with cycles / feedback loops do not crash and assign layers."""
+        g = LayerGraph(direction="LR")
+        g.edge("a", "b")
+        g.edge("b", "c")
+        g.edge("c", "a")  # Feedback loop
+
+        layout = g.calc(width=100.0, height=80.0)
+        assert len(layout.nodes) == 3
+        assert len(layout.edges) == 3
+
+    def test_explicit_tier_and_layer_pinning(self) -> None:
+        """Verify explicit layer and tier pinning."""
+        g = LayerGraph(direction="LR")
+        g.tier("input", ["in1", "in2"], layer=0)
+        g.node("custom", layer=2)
+        g.edge("in1", "mid")
+        g.edge("mid", "custom")
+
+        layout = g.calc(width=120.0, height=80.0)
+        in1 = layout.nodes["in1"]
+        in2 = layout.nodes["in2"]
+        custom = layout.nodes["custom"]
+
+        assert in1.x == in2.x
+        assert custom.x > in1.x
+
+    def test_edge_routing_styles(self) -> None:
+        """Verify orthogonal and straight routing styles in LayerGraph."""
+        g_ortho = LayerGraph(direction="LR", edge_routing="orthogonal")
+        g_ortho.edge("a", "b")
+        g_ortho.edge("a", "c")
+        l_ortho = g_ortho.calc(width=100.0, height=80.0)
+        assert len(l_ortho.edges) == 2
+
+        g_straight = LayerGraph(direction="LR", edge_routing="straight")
+        g_straight.edge("a", "b")
+        g_straight.edge("a", "c")
+        l_straight = g_straight.calc(width=100.0, height=80.0)
+        assert len(l_straight.edges) == 2
+        for e in l_straight.edges:
+            assert e.waypoints == []
+
+    def test_clusters(self) -> None:
+        """Verify cluster grouping in LayerGraph."""
+        g = LayerGraph(direction="LR")
+        g.edge("in", "p1")
+        g.edge("in", "p2")
+        g.cluster("pool", ["p1", "p2"], label="Worker Pool")
+
+        layout = g.calc(width=100.0, height=80.0)
+        assert "pool" in layout.clusters
+        c = layout.clusters["pool"]
+        p1 = layout.nodes["p1"]
+        p2 = layout.nodes["p2"]
+
+        c_top = c.cy + c.height / 2.0
+        c_bottom = c.cy - c.height / 2.0
+        assert c_top >= max(p1.top, p2.top)
+        assert c_bottom <= min(p1.bottom, p2.bottom)
+
+    def test_layer_draw_and_export_code(self) -> None:
+        """Verify LayerGraph draw() and export_code() generate valid code."""
+        g = LayerGraph(direction="LR")
+        g.edge("build", "test")
+        g.edge("test", "deploy")
+
+        layout = g.draw(width=100.0, height=60.0)
+        assert len(layout.nodes) == 3
+
+        code = g.export_code(width=100.0, height=60.0)
+        assert "setup(width=100.0, height=60.0)" in code
+        assert "build_xy" in code
+        assert "test_xy" in code
         assert "save()" in code
 
         local_scope: dict[str, object] = {}

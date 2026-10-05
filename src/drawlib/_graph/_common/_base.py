@@ -79,6 +79,7 @@ class BaseGraph(ABC):
         ring: int | None = None,
         row: int | None = None,
         col: int | None = None,
+        layer: int | None = None,
     ) -> Node:
         """Register a node in the graph.
 
@@ -94,6 +95,7 @@ class BaseGraph(ABC):
             ring: Optional concentric ring number (for radial layouts).
             row: Optional row index (for grid layouts).
             col: Optional column index (for grid layouts).
+            layer: Optional layer/rank index (for layered layouts).
 
         Returns:
             The registered Node object.
@@ -116,6 +118,7 @@ class BaseGraph(ABC):
             ring=ring,
             row=row,
             col=col,
+            layer=layer,
         )
         self._nodes[id] = n
         return n
