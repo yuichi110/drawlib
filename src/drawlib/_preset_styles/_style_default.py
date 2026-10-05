@@ -55,6 +55,9 @@ class DefaultStyles(BaseStyles):
     PrimaryDashed: Style
     PrimaryDashedBold: Style
     PrimaryDashedLight: Style
+    PrimaryDotted: Style
+    PrimaryDottedBold: Style
+    PrimaryDottedLight: Style
 
     # secondary
     Secondary: Style
@@ -71,6 +74,9 @@ class DefaultStyles(BaseStyles):
     SecondaryDashed: Style
     SecondaryDashedBold: Style
     SecondaryDashedLight: Style
+    SecondaryDotted: Style
+    SecondaryDottedBold: Style
+    SecondaryDottedLight: Style
 
     # accent
     Accent: Style
@@ -87,6 +93,9 @@ class DefaultStyles(BaseStyles):
     AccentDashed: Style
     AccentDashedBold: Style
     AccentDashedLight: Style
+    AccentDotted: Style
+    AccentDottedBold: Style
+    AccentDottedLight: Style
 
     # muted
     Muted: Style
@@ -103,6 +112,9 @@ class DefaultStyles(BaseStyles):
     MutedDashed: Style
     MutedDashedBold: Style
     MutedDashedLight: Style
+    MutedDotted: Style
+    MutedDottedBold: Style
+    MutedDottedLight: Style
 
     # light
     Light: Style
@@ -119,6 +131,9 @@ class DefaultStyles(BaseStyles):
     LightDashed: Style
     LightDashedBold: Style
     LightDashedLight: Style
+    LightDotted: Style
+    LightDottedBold: Style
+    LightDottedLight: Style
 
     # dark
     Dark: Style
@@ -135,6 +150,28 @@ class DefaultStyles(BaseStyles):
     DarkDashed: Style
     DarkDashedBold: Style
     DarkDashedLight: Style
+    DarkDotted: Style
+    DarkDottedBold: Style
+    DarkDottedLight: Style
+
+    # warning
+    Warning: Style
+    WarningBordered: Style
+    WarningBold: Style
+    WarningLight: Style
+    WarningFlat: Style
+    WarningOutline: Style
+    WarningSolid: Style
+    WarningOutlineBold: Style
+    WarningSolidBold: Style
+    WarningOutlineLight: Style
+    WarningSolidLight: Style
+    WarningDashed: Style
+    WarningDashedBold: Style
+    WarningDashedLight: Style
+    WarningDotted: Style
+    WarningDottedBold: Style
+    WarningDottedLight: Style
 
     # danger
     Danger: Style
@@ -151,6 +188,9 @@ class DefaultStyles(BaseStyles):
     DangerDashed: Style
     DangerDashedBold: Style
     DangerDashedLight: Style
+    DangerDotted: Style
+    DangerDottedBold: Style
+    DangerDottedLight: Style
 
     # success
     Success: Style
@@ -167,6 +207,9 @@ class DefaultStyles(BaseStyles):
     SuccessDashed: Style
     SuccessDashedBold: Style
     SuccessDashedLight: Style
+    SuccessDotted: Style
+    SuccessDottedBold: Style
+    SuccessDottedLight: Style
 
     # =========================================================================
     # Numbered Semantic Roles
@@ -3882,6 +3925,12 @@ def _create_default_styles(  # noqa: C901, PLR0911
         "Success4": col.Success4,
         "Success5": col.Success5,
         "Success6": col.Success6,
+        "Warning1": col.Warning1,
+        "Warning2": col.Warning2,
+        "Warning3": col.Warning3,
+        "Warning4": col.Warning4,
+        "Warning5": col.Warning5,
+        "Warning6": col.Warning6,
         "White": col.White,
         "Gray1": col.Gray1,
         "Gray2": col.Gray2,
@@ -3918,6 +3967,7 @@ def _create_default_styles(  # noqa: C901, PLR0911
         "Primary": col.Primary,
         "Secondary": col.Secondary,
         "Accent": col.Accent,
+        "Warning": col.Warning,
         "Muted": col.Muted,
         "Light": col.Light,
         "Dark": col.Dark,
@@ -3975,6 +4025,9 @@ def _create_default_styles(  # noqa: C901, PLR0911
             styles_dict[f"{role_name}Dashed"] = v["dashed"]
             styles_dict[f"{role_name}DashedBold"] = v["dashed_bold"]
             styles_dict[f"{role_name}DashedLight"] = v["dashed_light"]
+            styles_dict[f"{role_name}Dotted"] = v["dotted"]
+            styles_dict[f"{role_name}DottedBold"] = v["dotted_bold"]
+            styles_dict[f"{role_name}DottedLight"] = v["dotted_light"]
 
     for cname, color in colors_map.items():
         v = _make_variants(color)
@@ -3992,6 +4045,9 @@ def _create_default_styles(  # noqa: C901, PLR0911
         styles_dict[f"{cname}Dashed"] = v["dashed"]
         styles_dict[f"{cname}DashedBold"] = v["dashed_bold"]
         styles_dict[f"{cname}DashedLight"] = v["dashed_light"]
+        styles_dict[f"{cname}Dotted"] = v["dotted"]
+        styles_dict[f"{cname}DottedBold"] = v["dotted_bold"]
+        styles_dict[f"{cname}DottedLight"] = v["dotted_light"]
 
     # Canvas shape style
     canvas_col = col.Canvas

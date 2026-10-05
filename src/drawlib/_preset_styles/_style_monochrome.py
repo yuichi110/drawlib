@@ -657,6 +657,9 @@ def _create_monochrome_styles() -> MonochromeStyles:
         styles_dict[f"{role_name}Dashed"] = v["dashed"]
         styles_dict[f"{role_name}DashedBold"] = v["dashed_bold"]
         styles_dict[f"{role_name}DashedLight"] = v["dashed_light"]
+        styles_dict[f"{role_name}Dotted"] = v["dotted"]
+        styles_dict[f"{role_name}DottedBold"] = v["dotted_bold"]
+        styles_dict[f"{role_name}DottedLight"] = v["dotted_light"]
 
     color_variants = {
         "White": _make_variants(white, border_color=black, default_text_color=black),
@@ -686,6 +689,9 @@ def _create_monochrome_styles() -> MonochromeStyles:
         styles_dict[f"{cname}Dashed"] = v["dashed"]
         styles_dict[f"{cname}DashedBold"] = v["dashed_bold"]
         styles_dict[f"{cname}DashedLight"] = v["dashed_light"]
+        styles_dict[f"{cname}Dotted"] = v["dotted"]
+        styles_dict[f"{cname}DottedBold"] = v["dotted_bold"]
+        styles_dict[f"{cname}DottedLight"] = v["dotted_light"]
 
     return MonochromeStyles(**styles_dict)
 

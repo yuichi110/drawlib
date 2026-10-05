@@ -200,6 +200,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     PrimaryDashed: Style | None = None
     PrimaryDashedBold: Style | None = None
     PrimaryDashedLight: Style | None = None
+    PrimaryDotted: Style | None = None
+    PrimaryDottedBold: Style | None = None
+    PrimaryDottedLight: Style | None = None
 
     Secondary: Style | None = None
     SecondaryBordered: Style | None = None
@@ -215,6 +218,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     SecondaryDashed: Style | None = None
     SecondaryDashedBold: Style | None = None
     SecondaryDashedLight: Style | None = None
+    SecondaryDotted: Style | None = None
+    SecondaryDottedBold: Style | None = None
+    SecondaryDottedLight: Style | None = None
 
     Accent: Style | None = None
     AccentBordered: Style | None = None
@@ -230,6 +236,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     AccentDashed: Style | None = None
     AccentDashedBold: Style | None = None
     AccentDashedLight: Style | None = None
+    AccentDotted: Style | None = None
+    AccentDottedBold: Style | None = None
+    AccentDottedLight: Style | None = None
 
     Muted: Style | None = None
     MutedBordered: Style | None = None
@@ -245,9 +254,13 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     MutedDashed: Style | None = None
     MutedDashedBold: Style | None = None
     MutedDashedLight: Style | None = None
+    MutedDotted: Style | None = None
+    MutedDottedBold: Style | None = None
+    MutedDottedLight: Style | None = None
 
-    # Extended semantic roles (10 variants each):
-    # - danger & success: Provided for color presets (giving 6 action/status roles total; excluded in monochrome)
+    # Extended semantic roles:
+    # - warning, danger & success: Provided for color presets (giving 7 action/status roles total;
+    #   excluded in monochrome)
     # - light & dark: Surface backgrounds and high-contrast typography
     Light: Style | None = None
     LightBordered: Style | None = None
@@ -263,6 +276,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     LightDashed: Style | None = None
     LightDashedBold: Style | None = None
     LightDashedLight: Style | None = None
+    LightDotted: Style | None = None
+    LightDottedBold: Style | None = None
+    LightDottedLight: Style | None = None
 
     Dark: Style | None = None
     DarkBordered: Style | None = None
@@ -278,6 +294,27 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     DarkDashed: Style | None = None
     DarkDashedBold: Style | None = None
     DarkDashedLight: Style | None = None
+    DarkDotted: Style | None = None
+    DarkDottedBold: Style | None = None
+    DarkDottedLight: Style | None = None
+
+    Warning: Style | None = None
+    WarningBordered: Style | None = None
+    WarningBold: Style | None = None
+    WarningLight: Style | None = None
+    WarningFlat: Style | None = None
+    WarningOutline: Style | None = None
+    WarningSolid: Style | None = None
+    WarningOutlineBold: Style | None = None
+    WarningSolidBold: Style | None = None
+    WarningOutlineLight: Style | None = None
+    WarningSolidLight: Style | None = None
+    WarningDashed: Style | None = None
+    WarningDashedBold: Style | None = None
+    WarningDashedLight: Style | None = None
+    WarningDotted: Style | None = None
+    WarningDottedBold: Style | None = None
+    WarningDottedLight: Style | None = None
 
     Danger: Style | None = None
     DangerBordered: Style | None = None
@@ -293,6 +330,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     DangerDashed: Style | None = None
     DangerDashedBold: Style | None = None
     DangerDashedLight: Style | None = None
+    DangerDotted: Style | None = None
+    DangerDottedBold: Style | None = None
+    DangerDottedLight: Style | None = None
 
     Success: Style | None = None
     SuccessBordered: Style | None = None
@@ -308,6 +348,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     SuccessDashed: Style | None = None
     SuccessDashedBold: Style | None = None
     SuccessDashedLight: Style | None = None
+    SuccessDotted: Style | None = None
+    SuccessDottedBold: Style | None = None
+    SuccessDottedLight: Style | None = None
 
     Canvas: Style | None = None
     CanvasFlat: Style | None = None

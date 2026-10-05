@@ -45,6 +45,9 @@ class GoogleStyles(BaseStyles):
     PrimaryDashed: Style
     PrimaryDashedBold: Style
     PrimaryDashedLight: Style
+    PrimaryDotted: Style
+    PrimaryDottedBold: Style
+    PrimaryDottedLight: Style
 
     # Secondary
     Secondary: Style
@@ -61,6 +64,9 @@ class GoogleStyles(BaseStyles):
     SecondaryDashed: Style
     SecondaryDashedBold: Style
     SecondaryDashedLight: Style
+    SecondaryDotted: Style
+    SecondaryDottedBold: Style
+    SecondaryDottedLight: Style
 
     # Accent
     Accent: Style
@@ -77,6 +83,9 @@ class GoogleStyles(BaseStyles):
     AccentDashed: Style
     AccentDashedBold: Style
     AccentDashedLight: Style
+    AccentDotted: Style
+    AccentDottedBold: Style
+    AccentDottedLight: Style
 
     # Muted
     Muted: Style
@@ -93,6 +102,9 @@ class GoogleStyles(BaseStyles):
     MutedDashed: Style
     MutedDashedBold: Style
     MutedDashedLight: Style
+    MutedDotted: Style
+    MutedDottedBold: Style
+    MutedDottedLight: Style
 
     # Light
     Light: Style
@@ -109,6 +121,9 @@ class GoogleStyles(BaseStyles):
     LightDashed: Style
     LightDashedBold: Style
     LightDashedLight: Style
+    LightDotted: Style
+    LightDottedBold: Style
+    LightDottedLight: Style
 
     # Dark
     Dark: Style
@@ -125,6 +140,28 @@ class GoogleStyles(BaseStyles):
     DarkDashed: Style
     DarkDashedBold: Style
     DarkDashedLight: Style
+    DarkDotted: Style
+    DarkDottedBold: Style
+    DarkDottedLight: Style
+
+    # Warning
+    Warning: Style
+    WarningBordered: Style
+    WarningBold: Style
+    WarningLight: Style
+    WarningFlat: Style
+    WarningOutline: Style
+    WarningSolid: Style
+    WarningOutlineBold: Style
+    WarningSolidBold: Style
+    WarningOutlineLight: Style
+    WarningSolidLight: Style
+    WarningDashed: Style
+    WarningDashedBold: Style
+    WarningDashedLight: Style
+    WarningDotted: Style
+    WarningDottedBold: Style
+    WarningDottedLight: Style
 
     # Danger
     Danger: Style
@@ -141,6 +178,9 @@ class GoogleStyles(BaseStyles):
     DangerDashed: Style
     DangerDashedBold: Style
     DangerDashedLight: Style
+    DangerDotted: Style
+    DangerDottedBold: Style
+    DangerDottedLight: Style
 
     # Success
     Success: Style
@@ -157,6 +197,9 @@ class GoogleStyles(BaseStyles):
     SuccessDashed: Style
     SuccessDashedBold: Style
     SuccessDashedLight: Style
+    SuccessDotted: Style
+    SuccessDottedBold: Style
+    SuccessDottedLight: Style
 
     # =========================================================================
     # Numbered Semantic Roles
@@ -4366,6 +4409,7 @@ def _create_google_styles() -> GoogleStyles:
         "Primary": col.Primary,
         "Secondary": col.Secondary,
         "Accent": col.Accent,
+        "Warning": col.Warning,
         "Muted": col.Muted,
         "Light": col.Light,
         "Dark": col.Dark,
@@ -4394,6 +4438,12 @@ def _create_google_styles() -> GoogleStyles:
                 default_text_color=col.White,
                 line_color=col.Dark,
             )
+        elif role_name == "Warning":
+            v = _make_variants(
+                color,
+                border_color=border_color,
+                default_text_color=col.Gray8,
+            )
         else:
             v = _make_variants(color, border_color=border_color)
         styles_dict[role_name] = v["normal"]
@@ -4410,6 +4460,9 @@ def _create_google_styles() -> GoogleStyles:
         styles_dict[f"{role_name}Dashed"] = v["dashed"]
         styles_dict[f"{role_name}DashedBold"] = v["dashed_bold"]
         styles_dict[f"{role_name}DashedLight"] = v["dashed_light"]
+        styles_dict[f"{role_name}Dotted"] = v["dotted"]
+        styles_dict[f"{role_name}DottedBold"] = v["dotted_bold"]
+        styles_dict[f"{role_name}DottedLight"] = v["dotted_light"]
 
     # 2. Neutrals
     neutrals_map = {
@@ -4522,9 +4575,9 @@ def _create_google_styles() -> GoogleStyles:
     brand_map["GooglePurple"] = getattr(col, "GooglePurple")
     brand_map["GoogleGray"] = getattr(col, "GoogleGray")
 
-    # 6. Semantic Tones (6 roles x 6 tones)
+    # 6. Semantic Tones (7 roles x 6 tones)
     semantic_tones_map: dict[str, Color] = {}
-    for r in ["primary", "secondary", "accent", "muted", "danger", "success"]:
+    for r in ["primary", "secondary", "accent", "muted", "warning", "danger", "success"]:
         for i in range(1, 7):
             semantic_tones_map[f"{r.capitalize()}{i}"] = getattr(col, f"{r.capitalize()}{i}")
 
@@ -4545,6 +4598,9 @@ def _create_google_styles() -> GoogleStyles:
         styles_dict[f"{cname}Dashed"] = v["dashed"]
         styles_dict[f"{cname}DashedBold"] = v["dashed_bold"]
         styles_dict[f"{cname}DashedLight"] = v["dashed_light"]
+        styles_dict[f"{cname}Dotted"] = v["dotted"]
+        styles_dict[f"{cname}DottedBold"] = v["dotted_bold"]
+        styles_dict[f"{cname}DottedLight"] = v["dotted_light"]
 
     # Canvas shape style
     canvas_col = col.Canvas

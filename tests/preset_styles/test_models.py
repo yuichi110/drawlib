@@ -45,6 +45,9 @@ class TestPresetStyles:
         assert isinstance(preset.PrimaryFlat, Style)
         assert isinstance(preset.PrimarySolid, Style)
         assert isinstance(preset.PrimaryDashed, Style)
+        assert isinstance(preset.PrimaryDotted, Style)
+        assert isinstance(preset.Warning, Style)
+        assert isinstance(preset.WarningDotted, Style)
         assert preset.background_color == (255, 255, 255, 1.0)
         assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
 
@@ -57,7 +60,7 @@ class TestPresetStyles:
     def test_default_styles_completeness(self) -> None:
         """Verifies DefaultStyles provides all variants across all colors without omission."""
         preset = default_styles
-        assert len(preset.styles()) == 1696
+        assert len(preset.styles()) == 1737
         variants = ["Flat", "Solid", "Dashed", "Bold", "Light"]
         colors = [
             "Red",
@@ -106,8 +109,10 @@ class TestPresetStyles:
         assert isinstance(preset.PrimaryLight, Style)
         assert isinstance(preset.PrimaryBold, Style)
         assert isinstance(preset.PrimaryFlat, Style)
-        assert isinstance(preset.PrimarySolid, Style)
         assert isinstance(preset.PrimaryDashed, Style)
+        assert isinstance(preset.PrimaryDotted, Style)
+        assert isinstance(preset.Warning, Style)
+        assert isinstance(preset.WarningDotted, Style)
         assert preset.background_color == (255, 255, 255, 1.0)
         assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
 

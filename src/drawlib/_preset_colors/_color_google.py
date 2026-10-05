@@ -205,12 +205,20 @@ class GoogleColors(BaseColors):
     Success5: Color = Green5
     Success6: Color = Green6
 
+    Warning1: Color = Yellow1
+    Warning2: Color = Yellow2
+    Warning3: Color = Yellow3
+    Warning4: Color = GoogleYellow
+    Warning5: Color = Yellow5
+    Warning6: Color = Yellow6
+
     # =========================================================================
     # 6. Semantic Roles (Tone 4 Centered as Default)
     # =========================================================================
     Primary: Color = Primary4          # GoogleBlue (#4285F4)
     Secondary: Color = Secondary4      # GooglePurple (#674EA7)
     Accent: Color = Accent4            # GoogleOrange (#F57C00)
+    Warning: Color = Warning4          # GoogleYellow (#FBBC04)
     Muted: Color = Muted4              # GoogleGray (#CCCCCC)
     Light: Color = Gray1               # #F3F3F3
     Dark: Color = Gray8                # #434343
@@ -225,6 +233,7 @@ class GoogleColors(BaseColors):
         Primary: ColorType | None = None,
         Secondary: ColorType | None = None,
         Accent: ColorType | None = None,
+        Warning: ColorType | None = None,
         Muted: ColorType | None = None,
         Light: ColorType | None = None,
         Dark: ColorType | None = None,
@@ -267,6 +276,12 @@ class GoogleColors(BaseColors):
         Success4: ColorType | None = None,
         Success5: ColorType | None = None,
         Success6: ColorType | None = None,
+        Warning1: ColorType | None = None,
+        Warning2: ColorType | None = None,
+        Warning3: ColorType | None = None,
+        Warning4: ColorType | None = None,
+        Warning5: ColorType | None = None,
+        Warning6: ColorType | None = None,
         # Neutrals
         White: ColorType | None = None,
         Gray1: ColorType | None = None,
@@ -383,6 +398,7 @@ class GoogleColors(BaseColors):
             Dark: Dark semantic color.
             Danger: Danger semantic color.
             Success: Success semantic color.
+            Warning: Warning semantic color.
             Primary1: Primary semantic color tone level 1.
             Primary2: Primary semantic color tone level 2.
             Primary3: Primary semantic color tone level 3.
@@ -401,6 +417,12 @@ class GoogleColors(BaseColors):
             Accent4: Accent semantic color tone level 4.
             Accent5: Accent semantic color tone level 5.
             Accent6: Accent semantic color tone level 6.
+            Warning1: Warning semantic color tone level 1.
+            Warning2: Warning semantic color tone level 2.
+            Warning3: Warning semantic color tone level 3.
+            Warning4: Warning semantic color tone level 4.
+            Warning5: Warning semantic color tone level 5.
+            Warning6: Warning semantic color tone level 6.
             Muted1: Muted semantic color tone level 1.
             Muted2: Muted semantic color tone level 2.
             Muted3: Muted semantic color tone level 3.

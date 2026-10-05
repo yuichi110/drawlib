@@ -461,7 +461,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.3. Diagram Style Guide & Aesthetics (`style-guide`)
 - **Command**: `drawlib rules show style-guide`
-- **Scope**: Visual hierarchy, the 6-color semantic design system for technical diagrams, semantic roles vs raw palette colors, standard canvas aspect ratios, coordinate grid alignment, and typography sizing scales.
+- **Scope**: Visual hierarchy, the 7-color semantic design system for technical diagrams, semantic roles vs raw palette colors, standard canvas aspect ratios, coordinate grid alignment, and typography sizing scales.
 - **When to read**: Refer to this rule before authoring diagrams to ensure harmonious color palettes, generous margins, proper text padding, and publication-grade visual quality.
 
 ---

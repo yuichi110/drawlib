@@ -105,6 +105,7 @@ class TestColors:
                             "Primary",
                             "Secondary",
                             "Accent",
+                            "Warning",
                             "Muted",
                             "Light",
                             "Dark",
@@ -113,7 +114,7 @@ class TestColors:
                             "Canvas",
                         }
                     else:
-                        assert isinstance(inst, MonochromeColors) and field_name in {"Danger", "Success"}
+                        assert isinstance(inst, MonochromeColors) and field_name in {"Danger", "Success", "Warning"}
                     continue
                 assert isinstance(val, Color)
                 assert len(val) in {3, 4}

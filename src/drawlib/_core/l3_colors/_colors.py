@@ -112,6 +112,7 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
     Dark: Color | None = None
     Danger: Color | None = None
     Success: Color | None = None
+    Warning: Color | None = None
     Canvas: Color | None = None
 
     @property
@@ -176,6 +177,13 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         if self.Success is None:
             raise AttributeError(f"{self.__class__.__name__} has no Success color.")
         return self.Success
+
+    @property
+    def warning(self) -> Color:
+        """Return warning semantic color."""
+        if self.Warning is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Warning color.")
+        return self.Warning
 
     def __iter__(self) -> Generator[tuple[str, Color], None, None]:
         """Yield (field_name, field_value) pairs for all color fields in the preset color model.

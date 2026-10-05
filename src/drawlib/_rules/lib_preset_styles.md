@@ -9,7 +9,7 @@ Drawlib provides a comprehensive, centralized preset style system in `drawlib.pr
 In complex technical diagrams and architectural illustrations, manually specifying colors, line widths, borders, and fonts for every individual element leads to verbose, brittle, and visually inconsistent code. Drawlib addresses this through three core design principles:
 
 1. **Systematic Semantic Roles**:
-   Rather than hardcoding arbitrary colors, Drawlib organizes styles around 6 semantic roles (`primary`, `secondary`, `accent`, `muted`, `danger`, `success`) across 10 orthogonal variants (`flat`, `bold`, `light`, `outline`, `dashed`, etc.).
+   Rather than hardcoding arbitrary colors, Drawlib organizes styles around 7 semantic roles (`primary`, `secondary`, `accent`, `warning`, `muted`, `danger`, `success`) across 13 orthogonal variants (`flat`, `bold`, `light`, `outline`, `dashed`, `dotted`, etc.).
 
 2. **First-Class Object Referencing**:
    Styles are passed as strongly-typed `Style` instances directly from `drawlib.styles.Styles` (or `Styles`), e.g., `style=Styles.PrimaryFlat` or `style=Styles.AccentBold`. Passing arbitrary strings to `style` is rejected by Pydantic validation to ensure compile-time safety.
@@ -113,9 +113,9 @@ from drawlib.types import BaseColors, BaseStyles
 
 ## 3. Official Palette Catalogs
 
-Drawlib ships with three pre-built, production-ready style catalogs. Each catalog organizes styles into semantic roles (with 10 orthogonal variants each) alongside default canvas background colors and typographical defaults:
-- **Color Catalogs (`DefaultStyles`, `GoogleStyles`)**: **6 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`, `danger`, `success`).
-- **Monochrome Catalog (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes danger/success.
+Drawlib ships with three pre-built, production-ready style catalogs. Each catalog organizes styles into semantic roles (with 13 orthogonal variants each) alongside default canvas background colors and typographical defaults:
+- **Color Catalogs (`DefaultStyles`, `GoogleStyles`)**: **7 Semantic Roles** (`primary`, `secondary`, `accent`, `warning`, `muted`, `danger`, `success`).
+- **Monochrome Catalog (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes warning/danger/success.
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────────────┐
@@ -124,11 +124,13 @@ Drawlib ships with three pre-built, production-ready style catalogs. Each catalo
 │ + background_color: ColorType = (255, 255, 255, 1.0)                                  │
 │ + sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO                      │
 ├───────────────────────────────────────────────────────────────────────────────────────┤
-│ Semantic Roles (10 orthogonal variants each: Bordered, Bold, Light, Flat, Outline,    │
-│                 OutlineBold, OutlineLight, Dashed, DashedBold, DashedLight):          │
+│ Semantic Roles (13 orthogonal variants each: Bordered, Bold, Light, Flat, Outline,   │
+│                 OutlineBold, OutlineLight, Dashed, DashedBold, DashedLight,           │
+│                 Dotted, DottedBold, DottedLight):                                     │
 │   - Primary: Core application logic, main components                                  │
 │   - Secondary: Databases, message queues, auxiliary services                          │
 │   - Accent: Gateways, clients, focal points                                           │
+│   - Warning: Alerts, transient states, review gates (Color catalogs only)             │
 │   - Muted: Boundaries, VPCs, subnets, containers                                      │
 │   - Danger: Errors, alerts, security risks (Color catalogs only)                      │
 │   - Success: Completed milestones, healthy status (Color catalogs only)               │
@@ -298,7 +300,7 @@ Every preset style follows a deterministic, composable PascalCase naming structu
 ### 5.1. Grammar Token Breakdown
 
 1. **`<Color>` (Color Token)**:
-   - Any color name available in `DefaultColors`, `GoogleColors`, `MonochromeColors`, or semantic roles (`Primary`, `Secondary`, `Accent`, `Muted`, `Light`, `Dark`, `Danger`, `Success`).
+   - Any color name available in `DefaultColors`, `GoogleColors`, `MonochromeColors`, or semantic roles (`Primary`, `Secondary`, `Accent`, `Warning`, `Muted`, `Light`, `Dark`, `Danger`, `Success`).
    - If omitted or using base role, the semantic anchor (e.g. `Primary`) is used.
 
 2. **`<Type>` (Structural / Fill Type)**:
@@ -306,6 +308,7 @@ Every preset style follows a deterministic, composable PascalCase naming structu
    - **`Flat`**: Solid fill color with **no border outline** (`shape_line_width=0`). Ideal for modern cards and badges.
    - **`Solid`**: Transparent fill (`shape_fill_color=Colors.Transparent`) with a **solid border outline**. Ideal for wireframes and subnets.
    - **`Dashed`**: Transparent fill with a **dashed border outline** (`shape_line_style="dashed"`). Ideal for boundaries, regions, and future states.
+   - **`Dotted`**: Transparent fill with a **dotted border outline** (`shape_line_style="dotted"`). Ideal for dependency links, soft boundaries, and degraded flows.
 
 3. **`<Weight>` (Stroke Width & Font Weight)**:
    - **`Light`**: Line border width is halved (0.75 px). Font weight is light (`Font.SANSSERIF_LIGHT`). Icons render in thin style.
@@ -322,10 +325,15 @@ Every preset style follows a deterministic, composable PascalCase naming structu
 | `Styles.PrimaryFlat` | Blue | None | None | 0.0 | Regular |
 | `Styles.PrimarySolid` | Transparent | Blue | Solid | 1.5 | Regular |
 | `Styles.PrimaryDashed` | Transparent | Blue | Dashed | 1.5 | Regular |
+| `Styles.PrimaryDotted` | Transparent | Blue | Dotted | 1.5 | Regular |
 | `Styles.PrimarySolidLight` | Transparent | Blue | Solid | 0.75 | Light |
 | `Styles.PrimarySolidBold` | Transparent | Blue | Solid | 2.25 | Bold |
 | `Styles.PrimaryDashedLight` | Transparent | Blue | Dashed | 0.75 | Light |
 | `Styles.PrimaryDashedBold` | Transparent | Blue | Dashed | 2.25 | Bold |
+| `Styles.PrimaryDottedLight` | Transparent | Blue | Dotted | 0.75 | Light |
+| `Styles.PrimaryDottedBold` | Transparent | Blue | Dotted | 2.25 | Bold |
+| `Styles.Warning` | Amber/Yellow | Black/Gray | Solid | 1.5 | Regular |
+| `Styles.WarningDotted` | Transparent | Amber/Yellow | Dotted | 1.5 | Regular |
 | `Styles.Red` | Red | Red | Solid | 1.5 | Regular |
 | `Styles.RedLight` | Red | Red | Solid | 0.75 | Light |
 | `Styles.RedBold` | Red | Red | Solid | 2.25 | Bold |

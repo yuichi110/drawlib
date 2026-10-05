@@ -19,29 +19,29 @@ Every visual element in a technical diagram should convey information. Avoid clu
 
 ---
 
-## 2. The 6-Color Semantic Design System
+## 2. The 7-Color Semantic Design System
 
-Drawlib structures diagram color schemes around **6 fundamental semantic roles**, anchoring the illustration around `primary` while allowing rich, expressive use of the remaining roles:
+Drawlib structures diagram color schemes around **7 fundamental semantic roles**, anchoring the illustration around `primary` while allowing rich, expressive use of the remaining roles:
 
 ```text
-┌────────────────────────────────────────────────────────┐
-│ Muted (Structural Foundation)                          │
-│ Canvas background, group boundaries, subnets, clusters │
-│ (Styles.Muted, Styles.MutedDashed, Styles.MutedFlat) │
-│                                                        │
-│  ┌───────────────────────┐   ┌──────────────────────┐  │
-│  │ Primary (Visual Core) │──>│ Secondary / Accent   │  │
-│  │ Core services & flows │   │ Auxiliary, events, DB│  │
-│  │ (Styles.Primary)      │   │ (secondary, accent)  │  │
-│  └───────────┬───────────┘   └──────────────────────┘  │
-│              │                                         │
-│              ▼                                         │
-│  ┌───────────────────────┐   ┌──────────────────────┐  │
-│  │ Success (Valid Path)  │   │ Danger (Alert/Risk)  │  │
-│  │ Healthy, target output│   │ Errors, failure paths│  │
-│  │ (Styles.Success)      │   │ (Styles.Danger)      │  │
-│  └───────────────────────┘   └──────────────────────┘  │
-└────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│ Muted (Structural Foundation)                                          │
+│ Canvas background, group boundaries, subnets, clusters                 │
+│ (Styles.Muted, Styles.MutedDashed, Styles.MutedFlat)                 │
+│                                                                        │
+│  ┌───────────────────────┐   ┌──────────────────────┐                  │
+│  │ Primary (Visual Core) │──>│ Secondary / Accent   │                  │
+│  │ Core services & flows │   │ Auxiliary, events, DB│                  │
+│  │ (Styles.Primary)      │   │ (secondary, accent)  │                  │
+│  └───────────┬───────────┘   └──────────────────────┘                  │
+│              │                                                         │
+│              ▼                                                         │
+│  ┌───────────────────────┐   ┌──────────────────────┐   ┌────────────┐ │
+│  │ Success (Valid Path)  │   │ Warning (Caution)    │   │ Danger     │ │
+│  │ Healthy, target output│   │ Degraded, review     │   │ Risk, error│ │
+│  │ (Styles.Success)      │   │ (Styles.Warning)     │   │ (Danger)   │ │
+│  └───────────────────────┘   └──────────────────────┘   └────────────┘ │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Core Color Principles:
@@ -50,8 +50,8 @@ Drawlib structures diagram color schemes around **6 fundamental semantic roles**
    - Using `primary` consistently anchors the eye and gives the diagram a unified, recognizable identity.
 2. **Active, Equal-Standing Role Usage (No Artificial Frequency Restrictions)**:
    - Technical diagrams require rich classification to distinguish multiple services, databases, external systems, and states.
-   - Unlike generic web layout rules that suppress secondary colors or relegate accent/alert colors to rare appearances, Drawlib treats all 6 colors as active, functional design assets.
-   - `secondary`, `accent`, `danger`, and `success` operate on equal standing without artificial percentage quotas. Use each color wherever its functional meaning naturally applies.
+   - Unlike generic web layout rules that suppress secondary colors or relegate accent/alert colors to rare appearances, Drawlib treats all 7 colors as active, functional design assets.
+   - `secondary`, `accent`, `warning`, `danger`, and `success` operate on equal standing without artificial percentage quotas. Use each color wherever its functional meaning naturally applies.
 3. **Muted for Calm Structural Grounding**:
    - `Styles.Muted` (`Styles.MutedDashed`, `Styles.MutedOutline`, `Styles.MutedFlat`) provides containers, grouping boundaries, and network subnets without competing for attention with functional nodes.
 
@@ -59,20 +59,20 @@ Drawlib structures diagram color schemes around **6 fundamental semantic roles**
 
 ## 3. Semantic Roles & Visual Intent
 
-Drawlib presets organize styles into semantic roles with 10 orthogonal visual variants:
-- **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **6 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Muted`, `Danger`, `Success`).
-- **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Muted`) — Grayscale excludes Danger/Success.
+Drawlib presets organize styles into semantic roles with 13 orthogonal visual variants:
+- **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **7 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Warning`, `Muted`, `Danger`, `Success`).
+- **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Muted`) — Grayscale excludes Warning/Danger/Success.
 
 ### Semantic Roles:
 - **`Styles.Primary`**: Core application logic, microservices, main processing components.
 - **`Styles.Secondary`**: Databases, caches, message queues, auxiliary services, background workers.
 - **`Styles.Accent`**: Clients, external users, entry gateways, triggers, scheduled jobs.
+- **`Styles.Warning`** *(Color presets only)*: Warnings, transient states, degraded performance, pending reviews, caution gates.
 - **`Styles.Muted`**: Structural boundaries (VPCs, Kubernetes namespaces, clusters, subnets).
 - **`Styles.Danger`** *(Color presets only)*: Errors, failure paths, alert thresholds, security risks.
 - **`Styles.Success`** *(Color presets only)*: Successful outcomes, healthy status, verified states.
 
 ### When to Use Raw Palette Colors:
-- **`Styles.Yellow` / `Styles.Orange`**: Warnings, transient states, pending queues.
 - **Palette Colors (`Styles.Blue`, `Styles.Purple`, etc.)**: Multi-brand differentiation or distinct architectural layers.
 
 > **Import Best Practice**: Always import `Styles` and `Colors` from `drawlib.styles` (`from drawlib.styles import Colors, Styles`) rather than importing from `drawlib.preset_styles`. **Always use uppercase PascalCase `Styles` and `Colors`** (never lowercase `styles` or `colors`). This allows project-wide theme switching and font configuration via `styles.py` (or `--styles custom_theme.py`) while preventing module shadowing.
@@ -304,9 +304,10 @@ Lines and arrows guide the viewer's eyes through the diagram:
      - **Dark Backgrounds**: **`Styles.Light` / `Styles.WhiteBold`**.
    - **Chromatic Lines (Reserved strictly for Semantic Emphasis)**:
      - **`Styles.Danger` / `Styles.DangerBold` (Red)**: Error handling, exception rollbacks, retry/feedback loops, rejected paths.
+     - **`Styles.Warning` / `Styles.WarningBold` / `Styles.WarningDotted` (Amber/Yellow)**: Fallback routes, degraded operations, conditional retries, warning thresholds.
      - **`Styles.Success` / `Styles.SuccessBold` (Green)**: Verified payload delivery, successful commit, passed health checks.
      - **`Styles.Primary` / `Styles.PrimaryBold` (Blue)**: Strictly reserved for the single critical data path or highlighted core pipeline in the entire diagram.
-     - **`Styles.Accent` / `Styles.Secondary` (Amber/Teal)**: External ingress events or auxiliary asynchronous queue triggers.
+     - **`Styles.Accent` / `Styles.Secondary` (Purple/Teal)**: External ingress events or auxiliary asynchronous queue triggers.
 3. **Consistent Line Weights**:
    - Standardize on `Styles.DarkBold` (line_width 2.5) for primary connections, or `Styles.Dark` (line_width 1.5) for denser topologies.
    - Reserve extra-thick or custom stroked lines strictly for highlighting critical paths.

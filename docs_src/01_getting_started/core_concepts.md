@@ -65,40 +65,43 @@ A common mistake when generating diagrams is placing elements too close to the c
 
 ---
 
-## 4. The 6-Color Semantic Design System
+## 4. The 7-Color Semantic Design System
 
-Professional illustrations maintain visual clarity by structuring colors around Drawlib's 6 core semantic roles, anchoring around `primary` while utilizing the other roles to represent distinct components and states without artificial frequency restrictions:
+Professional illustrations maintain visual clarity by structuring colors around Drawlib's 7 core semantic roles, anchoring around `primary` while utilizing the other roles to represent distinct components and states without artificial frequency restrictions:
 
-```drawlib 650px center file:six_color_semantic_system.png caption:"The 6-Color Semantic System"
+```drawlib 650px center file:seven_color_semantic_system.png caption:"The 7-Color Semantic System"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=150, height=35)
+setup(width=160, height=35)
 
 # Neutral Foundation / Subnet Boundary (Muted)
-rectangle((75, 17.5), width=146, height=30, style=Styles.MutedDashed)
+rectangle((80, 17.5), width=156, height=30, style=Styles.MutedDashed)
 
 # Primary Anchor (Core Microservice)
-rectangle((18, 17.5), width=22, height=18, style=Styles.PrimaryFlat, text="Primary\n(Core)", text_style=Styles.WhiteBold)
+rectangle((19.5, 17.5), width=21, height=18, style=Styles.PrimaryFlat, text="Primary\n(Core)", text_style=Styles.WhiteBold)
 
 # Secondary (Database / Auxiliary)
-rectangle((44, 17.5), width=22, height=18, style=Styles.SecondaryFlat, text="Secondary\n(Service)", text_style=Styles.WhiteBold)
+rectangle((43.5, 17.5), width=21, height=18, style=Styles.SecondaryFlat, text="Secondary\n(Service)", text_style=Styles.WhiteBold)
 
 # Accent (Events / Gateway)
-rectangle((70, 17.5), width=22, height=18, style=Styles.AccentFlat, text="Accent\n(Trigger)", text_style=Styles.WhiteBold)
+rectangle((67.5, 17.5), width=21, height=18, style=Styles.AccentFlat, text="Accent\n(Trigger)", text_style=Styles.WhiteBold)
+
+# Warning (Caution / Degraded)
+rectangle((91.5, 17.5), width=21, height=18, style=Styles.WarningFlat, text="Warning\n(Caution)", text_style=Styles.WhiteBold)
 
 # Danger (Alert / Error Path)
-rectangle((96, 17.5), width=22, height=18, style=Styles.DangerFlat, text="Danger\n(Alert)", text_style=Styles.WhiteBold)
+rectangle((115.5, 17.5), width=21, height=18, style=Styles.DangerFlat, text="Danger\n(Alert)", text_style=Styles.WhiteBold)
 
 # Success (Verified Outcome)
-rectangle((122, 17.5), width=22, height=18, style=Styles.SuccessFlat, text="Success\n(Audit)", text_style=Styles.WhiteBold)
+rectangle((139.5, 17.5), width=21, height=18, style=Styles.SuccessFlat, text="Success\n(Audit)", text_style=Styles.WhiteBold)
 ```
 
 1. **Primary Anchor (`Styles.Primary`)**:
    Central workflow spine, core microservices, and primary subject matter.
-2. **Functional Semantics (`Styles.Secondary`, `Styles.Accent`, `Styles.Danger`, `Styles.Success`)**:
-   Auxiliary services, events, databases, alerts, and verified deliverables. Used actively across the diagram according to their functional intent without artificial percentage caps.
+2. **Functional Semantics (`Styles.Secondary`, `Styles.Accent`, `Styles.Warning`, `Styles.Danger`, `Styles.Success`)**:
+   Auxiliary services, events, databases, warnings, alerts, and verified deliverables. Used actively across the diagram according to their functional intent without artificial percentage caps.
 3. **Muted Structural Base (`Styles.Muted`)**:
    Neutral containers, group boundaries, subnets, and grouping boxes (`Styles.MutedFlat`, `Styles.MutedDashed`).
 

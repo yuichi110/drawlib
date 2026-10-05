@@ -137,12 +137,18 @@ class DefaultColors(BaseColors):
     Secondary4: Color = Teal4
     Secondary5: Color = Teal5
     Secondary6: Color = Teal6
-    Accent1: Color = Amber1
-    Accent2: Color = Amber2
-    Accent3: Color = Amber3
-    Accent4: Color = Amber4
-    Accent5: Color = Amber5
-    Accent6: Color = Amber6
+    Accent1: Color = Purple1
+    Accent2: Color = Purple2
+    Accent3: Color = Purple3
+    Accent4: Color = Purple4
+    Accent5: Color = Purple5
+    Accent6: Color = Purple6
+    Warning1: Color = Amber1
+    Warning2: Color = Amber2
+    Warning3: Color = Amber3
+    Warning4: Color = Amber4
+    Warning5: Color = Amber5
+    Warning6: Color = Amber6
     Muted1: Color = Gray1
     Muted2: Color = Gray2
     Muted3: Color = Gray3
@@ -166,6 +172,7 @@ class DefaultColors(BaseColors):
     Primary: Color = Primary4
     Secondary: Color = Secondary4
     Accent: Color = Accent4
+    Warning: Color = Warning4
     Muted: Color = Muted4
     Light: Color = White
     Dark: Color = Gray7
@@ -185,6 +192,7 @@ class DefaultColors(BaseColors):
         Dark: ColorType | None = None,
         Danger: ColorType | None = None,
         Success: ColorType | None = None,
+        Warning: ColorType | None = None,
         # Semantic Tones
         Primary1: ColorType | None = None,
         Primary2: ColorType | None = None,
@@ -204,6 +212,12 @@ class DefaultColors(BaseColors):
         Accent4: ColorType | None = None,
         Accent5: ColorType | None = None,
         Accent6: ColorType | None = None,
+        Warning1: ColorType | None = None,
+        Warning2: ColorType | None = None,
+        Warning3: ColorType | None = None,
+        Warning4: ColorType | None = None,
+        Warning5: ColorType | None = None,
+        Warning6: ColorType | None = None,
         Muted1: ColorType | None = None,
         Muted2: ColorType | None = None,
         Muted3: ColorType | None = None,
@@ -316,6 +330,7 @@ class DefaultColors(BaseColors):
             Dark: Dark semantic color.
             Danger: Danger semantic color.
             Success: Success semantic color.
+            Warning: Warning semantic color.
             Primary1: Primary semantic color tone level 1.
             Primary2: Primary semantic color tone level 2.
             Primary3: Primary semantic color tone level 3.
@@ -334,6 +349,12 @@ class DefaultColors(BaseColors):
             Accent4: Accent semantic color tone level 4.
             Accent5: Accent semantic color tone level 5.
             Accent6: Accent semantic color tone level 6.
+            Warning1: Warning semantic color tone level 1.
+            Warning2: Warning semantic color tone level 2.
+            Warning3: Warning semantic color tone level 3.
+            Warning4: Warning semantic color tone level 4.
+            Warning5: Warning semantic color tone level 5.
+            Warning6: Warning semantic color tone level 6.
             Muted1: Muted semantic color tone level 1.
             Muted2: Muted semantic color tone level 2.
             Muted3: Muted semantic color tone level 3.
@@ -444,6 +465,7 @@ class DefaultColors1(DefaultColors):
     Primary: Color = DefaultColors.Primary1
     Secondary: Color = DefaultColors.Secondary1
     Accent: Color = DefaultColors.Accent1
+    Warning: Color = DefaultColors.Warning1
     Muted: Color = DefaultColors.Muted1
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray7
@@ -458,6 +480,7 @@ class DefaultColors2(DefaultColors):
     Primary: Color = DefaultColors.Primary2
     Secondary: Color = DefaultColors.Secondary2
     Accent: Color = DefaultColors.Accent2
+    Warning: Color = DefaultColors.Warning2
     Muted: Color = DefaultColors.Muted2
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray7
@@ -472,6 +495,7 @@ class DefaultColors3(DefaultColors):
     Primary: Color = DefaultColors.Primary3
     Secondary: Color = DefaultColors.Secondary3
     Accent: Color = DefaultColors.Accent3
+    Warning: Color = DefaultColors.Warning3
     Muted: Color = DefaultColors.Muted3
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray7
@@ -486,6 +510,7 @@ class DefaultColors4(DefaultColors):
     Primary: Color = DefaultColors.Primary4
     Secondary: Color = DefaultColors.Secondary4
     Accent: Color = DefaultColors.Accent4
+    Warning: Color = DefaultColors.Warning4
     Muted: Color = DefaultColors.Muted4
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray7
@@ -500,6 +525,7 @@ class DefaultColors5(DefaultColors):
     Primary: Color = DefaultColors.Primary5
     Secondary: Color = DefaultColors.Secondary5
     Accent: Color = DefaultColors.Accent5
+    Warning: Color = DefaultColors.Warning5
     Muted: Color = DefaultColors.Muted5
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray7
@@ -514,6 +540,7 @@ class DefaultColors6(DefaultColors):
     Primary: Color = DefaultColors.Primary6
     Secondary: Color = DefaultColors.Secondary6
     Accent: Color = DefaultColors.Accent6
+    Warning: Color = DefaultColors.Warning6
     Muted: Color = DefaultColors.Muted6
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray8

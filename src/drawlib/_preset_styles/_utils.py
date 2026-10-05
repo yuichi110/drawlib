@@ -271,6 +271,42 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
+    dotted_regular = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=1.5,
+        shape_line_style="dotted",
+        line_color=actual_line_col,
+        line_width=1.5,
+        line_style="dotted",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
+    dotted_bold = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=2.5,
+        shape_line_style="dotted",
+        line_color=actual_line_col,
+        line_width=2.5,
+        line_style="dotted",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
+    dotted_light = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=0.75,
+        shape_line_style="dotted",
+        line_color=actual_line_col,
+        line_width=0.75,
+        line_style="dotted",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
 
     return {
         "normal": bordered_regular,
@@ -287,6 +323,9 @@ def _make_variants(
         "dashed": dashed_regular,
         "dashed_bold": dashed_bold,
         "dashed_light": dashed_light,
+        "dotted": dotted_regular,
+        "dotted_bold": dotted_bold,
+        "dotted_light": dotted_light,
     }
 
 
