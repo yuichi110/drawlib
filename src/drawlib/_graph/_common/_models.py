@@ -32,6 +32,8 @@ class Node:
     width: float | None = None
     height: float | None = None
     ring: int | None = None
+    row: int | None = None
+    col: int | None = None
 
 
 @dataclass

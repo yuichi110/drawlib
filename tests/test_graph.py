@@ -21,6 +21,7 @@ from drawlib.graph import (
     Edge,
     EdgeLayout,
     GraphLayout,
+    GridGraph,
     Node,
     NodeLayout,
     RadialGraph,
@@ -387,6 +388,166 @@ class TestRadialGraph:
         assert "setup(width=120.0, height=120.0)" in code
         assert "hub_xy" in code
         assert "worker1_xy" in code
+        assert "save()" in code
+
+        local_scope: dict[str, object] = {}
+        exec(code, {}, local_scope)  # noqa: S102
+
+
+class TestGridGraph:
+    """Test suite for GridGraph layout solver."""
+
+    def setup_method(self) -> None:
+        """Reset canvas before each test."""
+        clear()
+
+    def test_grid_subclass(self) -> None:
+        """Verify GridGraph is a subclass of BaseGraph."""
+        assert issubclass(GridGraph, BaseGraph)
+
+    def test_basic_row_major_tiling(self) -> None:
+        """Verify regular 3x2 matrix tiling in row-major order."""
+        g = GridGraph(columns=3, order="row-major")
+        for i in range(6):
+            g.node(f"n{i}", f"Node {i}")
+
+        layout = g.calc(width=120.0, height=80.0, margin=10.0)
+
+        assert len(layout.nodes) == 6
+        n0 = layout.nodes["n0"]
+        n1 = layout.nodes["n1"]
+        n2 = layout.nodes["n2"]
+        n3 = layout.nodes["n3"]
+
+        # Row 0 (n0, n1, n2) should have same Y, higher than Row 1 (n3)
+        assert n0.y == n1.y == n2.y
+        assert n0.y > n3.y
+
+        # Columns should advance rightwards
+        assert n0.x < n1.x < n2.x
+
+    def test_column_major_tiling(self) -> None:
+        """Verify column-major tiling order."""
+        g = GridGraph(columns=3, rows=2, order="column-major")
+        for i in range(6):
+            g.node(f"n{i}", f"Node {i}")
+
+        layout = g.calc(width=120.0, height=80.0, margin=10.0)
+
+        assert len(layout.nodes) == 6
+        n0 = layout.nodes["n0"]
+        n1 = layout.nodes["n1"]
+        n2 = layout.nodes["n2"]
+
+        # In column-major with 2 rows, n0 is at (0, 0) and n1 is at (1, 0)
+        assert n0.x == n1.x
+        assert n0.y > n1.y
+        # n2 is at (0, 1), so same row as n0 but next column
+        assert n2.y == n0.y
+        assert n2.x > n0.x
+
+    def test_explicit_pinning_and_cell_helper(self) -> None:
+        """Verify explicit (row, col) slot pinning with cell helper."""
+        g = GridGraph(columns=3)
+        # Pin a node at (1, 1) - center slot
+        g.cell("center", row=1, col=1, label="Center Hub")
+        # Add unpinned nodes
+        g.node("a")
+        g.node("b")
+        g.node("c")
+
+        layout = g.calc(width=120.0, height=80.0)
+
+        # "a", "b", "c" should fill (0, 0), (0, 1), (0, 2)
+        # while "center" is at (1, 1)
+        a = layout.nodes["a"]
+        b = layout.nodes["b"]
+        c = layout.nodes["c"]
+        center = layout.nodes["center"]
+
+        assert a.y == b.y == c.y
+        assert a.x < b.x < c.x
+        assert center.y < a.y
+        assert center.x == b.x
+
+    def test_edge_routing_strategies(self) -> None:
+        """Verify horizontal, vertical, and corridor routing."""
+        g = GridGraph(columns=2, order="row-major", edge_routing="smart")
+        g.cell("top_left", row=0, col=0)
+        g.cell("top_right", row=0, col=1)
+        g.cell("bot_left", row=1, col=0)
+        g.cell("bot_right", row=1, col=1)
+
+        # Horizontal neighbor edge
+        g.edge("top_left", "top_right")
+        # Vertical neighbor edge
+        g.edge("top_left", "bot_left")
+        # Diagonal neighbor edge
+        g.edge("top_left", "bot_right")
+
+        layout = g.calc(width=100.0, height=100.0)
+
+        assert len(layout.edges) == 3
+
+        # Horizontal edge: no waypoints
+        e_horiz = layout.edges[0]
+        assert e_horiz.waypoints == []
+        assert e_horiz.src_port[1] == e_horiz.dst_port[1]
+
+        # Vertical edge: no waypoints
+        e_vert = layout.edges[1]
+        assert e_vert.waypoints == []
+        assert e_vert.src_port[0] == e_vert.dst_port[0]
+
+        # Diagonal edge: 2 waypoints creating Manhattan corridor
+        e_diag = layout.edges[2]
+        assert len(e_diag.waypoints) == 2
+        # Corridor mid_y should be between src and dst
+        mid_y = e_diag.waypoints[0][1]
+        assert e_diag.src_port[1] > mid_y > e_diag.dst_port[1]
+
+    def test_cluster_row_and_column(self) -> None:
+        """Verify dynamic row and column cluster conveniences."""
+        g = GridGraph(columns=3)
+        for i in range(6):
+            g.node(f"n{i}")
+
+        g.cluster_row(0, "row_0", label="Top Tier")
+        g.cluster_column(1, "col_1", label="Center Tier")
+
+        # Duplicate ID should raise ValueError
+        with pytest.raises(ValueError, match="already registered"):
+            g.cluster_row(1, "row_0")
+
+        layout = g.calc(width=120.0, height=80.0)
+
+        assert "row_0" in layout.clusters
+        assert "col_1" in layout.clusters
+
+        r0_cl = layout.clusters["row_0"]
+        n0 = layout.nodes["n0"]
+        n1 = layout.nodes["n1"]
+        n2 = layout.nodes["n2"]
+
+        r0_left = r0_cl.cx - r0_cl.width / 2.0
+        r0_right = r0_cl.cx + r0_cl.width / 2.0
+        assert r0_left <= min(n0.left, n1.left, n2.left)
+        assert r0_right >= max(n0.right, n1.right, n2.right)
+
+    def test_grid_draw_and_export_code(self) -> None:
+        """Verify GridGraph draw() and export_code() generate valid code."""
+        g = GridGraph(columns=2)
+        g.cell("c1", row=0, col=0, label="App 1")
+        g.cell("c2", row=0, col=1, label="App 2")
+        g.edge("c1", "c2", label="Sync")
+
+        layout = g.draw(width=100.0, height=60.0)
+        assert len(layout.nodes) == 2
+
+        code = g.export_code(width=100.0, height=60.0)
+        assert "setup(width=100.0, height=60.0)" in code
+        assert "c1_xy" in code
+        assert "c2_xy" in code
         assert "save()" in code
 
         local_scope: dict[str, object] = {}

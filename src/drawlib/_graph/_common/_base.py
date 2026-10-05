@@ -17,6 +17,7 @@ from typing import Literal
 from drawlib._graph._common._code_generator import generate_code
 from drawlib._graph._common._models import Cluster, Edge, GraphLayout, Node
 from drawlib._graph._common._renderer import render_layout
+from drawlib.fonts import Font
 from drawlib.styles import Style, Styles
 
 
@@ -51,7 +52,12 @@ class BaseGraph(ABC):
         self.default_node_style: Style = default_node_style or Styles.PrimaryFlat
         self.default_node_text_style: Style | None = default_node_text_style
         self.default_edge_style: Style = default_edge_style or Styles.DarkBold
-        self.default_edge_text_style: Style = default_edge_text_style or Styles.Dark
+        self.default_edge_text_style: Style = default_edge_text_style or Style(
+            text_size=10,
+            text_color=(50, 58, 72, 1.0),
+            text_font=Font.SANSSERIF_BOLD,
+            text_bg_fill_color=(255, 255, 255, 0.9),
+        )
         self.default_node_width: float = default_node_width
         self.default_node_height: float = default_node_height
 
@@ -71,6 +77,8 @@ class BaseGraph(ABC):
         width: float | None = None,
         height: float | None = None,
         ring: int | None = None,
+        row: int | None = None,
+        col: int | None = None,
     ) -> Node:
         """Register a node in the graph.
 
@@ -84,6 +92,8 @@ class BaseGraph(ABC):
             width: Custom width for this node.
             height: Custom height for this node.
             ring: Optional concentric ring number (for radial layouts).
+            row: Optional row index (for grid layouts).
+            col: Optional column index (for grid layouts).
 
         Returns:
             The registered Node object.
@@ -104,6 +114,8 @@ class BaseGraph(ABC):
             width=width,
             height=height,
             ring=ring,
+            row=row,
+            col=col,
         )
         self._nodes[id] = n
         return n

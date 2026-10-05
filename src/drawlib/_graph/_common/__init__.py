@@ -25,6 +25,7 @@ from drawlib._graph._common._models import (
 from drawlib._graph._common._renderer import render_layout
 from drawlib._graph._common._routing import (
     compute_boundary_intersection,
+    route_grid_edge,
     route_orthogonal_edge,
     route_radial_edge,
     route_straight_edge,
@@ -42,6 +43,7 @@ __all__ = [
     "compute_boundary_intersection",
     "generate_code",
     "render_layout",
+    "route_grid_edge",
     "route_orthogonal_edge",
     "route_radial_edge",
     "route_straight_edge",

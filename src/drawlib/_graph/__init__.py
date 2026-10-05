@@ -21,6 +21,7 @@ from drawlib._graph._common import (
     Node,
     NodeLayout,
 )
+from drawlib._graph._grid import GridGraph
 from drawlib._graph._radial import RadialGraph
 from drawlib._graph._tree import TreeGraph
 
@@ -31,6 +32,7 @@ __all__ = [
     "Edge",
     "EdgeLayout",
     "GraphLayout",
+    "GridGraph",
     "Node",
     "NodeLayout",
     "RadialGraph",

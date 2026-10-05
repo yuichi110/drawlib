@@ -144,3 +144,62 @@ def route_radial_edge(
     src_port = compute_boundary_intersection(src, (dst.x, dst.y))
     dst_port = compute_boundary_intersection(dst, (src.x, src.y))
     return src_port, [], dst_port
+
+
+def route_grid_edge(
+    src: NodeLayout,
+    dst: NodeLayout,
+    routing_style: Literal["smart", "orthogonal", "straight"] = "smart",
+) -> tuple[tuple[float, float], list[tuple[float, float]], tuple[float, float]]:
+    """Route an edge between two nodes in a grid layout.
+
+    - "smart": Straight line for adjacent horizontal/vertical nodes; right-angle
+      corridor routing for diagonal or multi-cell distance pairs.
+    - "orthogonal": Manhattan right-angle routing between row/column corridors.
+    - "straight": Direct line connecting exact boundary intersections.
+
+    Args:
+        src: Source node layout.
+        dst: Destination node layout.
+        routing_style: Path routing strategy ("smart", "orthogonal", "straight").
+
+    Returns:
+        tuple containing (src_port, waypoints, dst_port).
+    """
+    if routing_style == "straight":
+        return route_radial_edge(src, dst)
+
+    dx = dst.x - src.x
+    dy = dst.y - src.y
+
+    # Same row (horizontal)
+    if abs(dy) < 0.5:
+        if dx > 0:
+            src_port = (round(src.right, 2), round(src.y, 2))
+            dst_port = (round(dst.left, 2), round(dst.y, 2))
+        else:
+            src_port = (round(src.left, 2), round(src.y, 2))
+            dst_port = (round(dst.right, 2), round(dst.y, 2))
+        return src_port, [], dst_port
+
+    # Same column (vertical)
+    if abs(dx) < 0.5:
+        if dy > 0:  # src is below dst (canvas Y increases upwards)
+            src_port = (round(src.x, 2), round(src.top, 2))
+            dst_port = (round(dst.x, 2), round(dst.bottom, 2))
+        else:  # src is above dst
+            src_port = (round(src.x, 2), round(src.bottom, 2))
+            dst_port = (round(dst.x, 2), round(dst.top, 2))
+        return src_port, [], dst_port
+
+    # Diagonal / Multi-row/col
+    if dy < 0:  # src is above dst
+        src_port = (round(src.x, 2), round(src.bottom, 2))
+        dst_port = (round(dst.x, 2), round(dst.top, 2))
+    else:  # src is below dst
+        src_port = (round(src.x, 2), round(src.top, 2))
+        dst_port = (round(dst.x, 2), round(dst.bottom, 2))
+
+    mid_y = round((src_port[1] + dst_port[1]) / 2.0, 2)
+    waypoints = [(src_port[0], mid_y), (dst_port[0], mid_y)]
+    return src_port, waypoints, dst_port
