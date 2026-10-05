@@ -589,74 +589,66 @@ from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
-from drawlib.text import text
-from drawlib.types import Style
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=150, height=95)
+setup(width=155, height=95)
 
 # 1. Diagram Title & Subtitle
-text((75, 88), "High-Availability Multi-Tier Web Application on GCP", style=Styles.PrimaryBold.patch(text_size=17))
-text((75, 82), "End-to-End Traffic Routing, Microservices, Caching, and Persistence", style=Styles.Dark.patch(text_size=10))
+text((77.5, 88), "High-Availability Multi-Tier Web Application on GCP", style=Styles.DarkBold.patch(text_size=15))
+text((77.5, 82), "End-to-End Traffic Routing, Microservices, Caching, and Persistence", style=Styles.Muted.patch(text_size=9.5))
 
 # 2. Boundary Containers: GCP Project & VPC Network
-rectangle((80, 42), width=130, height=66, r=4, style=Styles.BlueDashed)
-text((28, 71), "Google Cloud Project (prod-us-central1)", style=Styles.BlueBold.patch(text_size=10))
+rectangle((88, 41), width=124, height=68, r=4, style=Styles.MutedDashed)
+text((30, 71), "Google Cloud Project (prod-us-central1)", style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"))
 
-rectangle((86, 40), width=114, height=54, r=3, style=Styles.MutedDashed)
-text((42, 63), "Custom VPC Network (10.0.0.0/16)", style=Styles.DarkBold.patch(text_size=9))
+rectangle((88, 38), width=116, height=54, r=3, style=Styles.Muted)
+text((34, 61), "Custom VPC Network (10.0.0.0/16)", style=Styles.Muted.patch(text_size=8.5, text_halign="left"))
 
 # 3. Public Internet Tier (Users & CDN)
-phosphor.user((14, 45), width=9, style=Styles.DarkBold)
-text((14, 37), "Web Clients", style=Styles.PrimaryBold.patch(text_size=9))
-text((14, 32), "HTTPS / SSL", style=Styles.Dark.patch(text_size=8))
+phosphor.user((13, 42), width=9, style=Styles.DarkBold)
+text((13, 33), "Web Clients", style=Styles.DarkBold.patch(text_size=9))
+text((13, 28), "HTTPS / SSL", style=Styles.Muted.patch(text_size=8))
 
 # 4. Ingress Tier: Cloud Armor & Load Balancing
-rectangle((38, 45), width=18, height=30, r=2, style=Styles.WhiteFlat)
-rectangle((38, 45), width=18, height=30, r=2, style=Styles.BlueSolid)
-gcp.cloud_armor((38, 52), width=8, style=Styles.Primary)
-text((38, 45), "Cloud Armor", style=Styles.PrimaryBold.patch(text_size=8))
-gcp.cloud_load_balancing((38, 35), width=8, style=Styles.Primary)
-text((38, 28), "Global ALB", style=Styles.PrimaryBold.patch(text_size=8))
+rectangle((44, 42), width=20, height=38, r=2, style=Styles.Neutral)
+gcp.cloud_armor((44, 53), width=7.5, style=Styles.Primary)
+text((44, 45.5), "Cloud Armor", style=Styles.DarkBold.patch(text_size=8))
+gcp.cloud_load_balancing((44, 34), width=7.5, style=Styles.Primary)
+text((44, 26.5), "Global ALB", style=Styles.DarkBold.patch(text_size=8))
 
-# 5. Compute Tier: Cloud Run Service
-rectangle((68, 45), width=24, height=34, r=2, style=Styles.WhiteFlat)
-rectangle((68, 45), width=24, height=34, r=2, style=Styles.GreenSolid)
-gcp.cloud_run((68, 52), width=10, style=Styles.Primary)
-text((68, 43), "App Backend", style=Styles.GreenBold.patch(text_size=9))
-text((68, 38), "Cloud Run", style=Styles.Dark.patch(text_size=8))
+# 5. Compute Tier: Cloud Run Service (Primary Hero Node)
+rectangle((74, 42), width=24, height=34, r=2, style=Styles.PrimaryNeutral)
+gcp.cloud_run((74, 49), width=10, style=Styles.Primary)
+text((74, 38), "App Backend", style=Styles.DarkBold.patch(text_size=9))
+text((74, 33), "Cloud Run", style=Styles.Muted.patch(text_size=8))
 # Replica indicator badge
-circle((77, 58), radius=2.5, style=Styles.GreenFlat)
-text((77, 58), "x8", style=Styles.WhiteBold.patch(text_size=7))
+circle((83, 56), radius=2.5, style=Styles.PrimaryFlat)
+text((83, 56), "x8", style=Styles.WhiteBold.patch(text_size=7))
 
 # 6. Caching Tier: Memorystore Redis
-rectangle((104, 55), width=22, height=22, r=2, style=Styles.WhiteFlat)
-rectangle((104, 55), width=22, height=22, r=2, style=Styles.RedSolid)
-gcp.memorystore((104, 60), width=8, style=Styles.Primary)
-text((104, 51), "Memorystore", style=Styles.PrimaryBold.patch(text_size=8))
-text((104, 46), "Redis In-Memory", style=Styles.Dark.patch(text_size=7))
+rectangle((106, 52), width=22, height=18, r=2, style=Styles.SecondaryNeutral)
+gcp.memorystore((106, 55.5), width=7.5, style=Styles.Primary)
+text((106, 47.5), "Memorystore", style=Styles.DarkBold.patch(text_size=8))
 
 # 7. Database Tier: Cloud SQL HA
-rectangle((104, 27), width=22, height=22, r=2, style=Styles.WhiteFlat)
-rectangle((104, 27), width=22, height=22, r=2, style=Styles.BlueSolid)
-gcp.cloud_sql((104, 32), width=8, style=Styles.Primary)
-text((104, 23), "Cloud SQL", style=Styles.PrimaryBold.patch(text_size=8))
-text((104, 18), "PostgreSQL HA", style=Styles.Dark.patch(text_size=7))
+rectangle((106, 28), width=22, height=18, r=2, style=Styles.SecondaryNeutral)
+gcp.cloud_sql((106, 31.5), width=7.5, style=Styles.Primary)
+text((106, 23.5), "Cloud SQL HA", style=Styles.DarkBold.patch(text_size=8))
 
 # 8. Storage & Observability Tier
-rectangle((132, 45), width=20, height=34, r=2, style=Styles.WhiteFlat)
-rectangle((132, 45), width=20, height=34, r=2, style=Styles.OrangeSolid)
-gcp.cloud_storage((132, 53), width=8, style=Styles.Primary)
-text((132, 45), "GCS Assets", style=Styles.PrimaryBold.patch(text_size=8))
-gcp.cloud_monitoring((132, 33), width=8, style=Styles.Primary)
-text((132, 25), "Monitoring", style=Styles.PrimaryBold.patch(text_size=8))
+rectangle((134, 42), width=20, height=38, r=2, style=Styles.Neutral)
+gcp.cloud_storage((134, 53), width=7.5, style=Styles.Primary)
+text((134, 45.5), "GCS Assets", style=Styles.DarkBold.patch(text_size=8))
+gcp.cloud_monitoring((134, 34), width=7.5, style=Styles.Primary)
+text((134, 26.5), "Monitoring", style=Styles.DarkBold.patch(text_size=8))
 
 # 9. Inter-service Connectors
-line((19, 45), (29, 45), arrow_head="->", style=Styles.DarkBold)
-line((47, 45), (56, 45), arrow_head="->", style=Styles.BlueBold)
-line((80, 48), (93, 55), arrow_head="<->", style=Styles.RedBold)
-line((80, 42), (93, 27), arrow_head="<->", style=Styles.BlueBold)
-line((80, 52), (122, 53), arrow_head="->", style=Styles.OrangeDashed)
+line((19, 42), (34, 42), arrow_head="->", style=Styles.DarkBold)
+line((54, 42), (62, 42), arrow_head="->", style=Styles.DarkBold)
+line((86, 46), (95, 52), arrow_head="<->", style=Styles.DarkBold)
+line((86, 36), (95, 28), arrow_head="<->", style=Styles.DarkBold)
+line((86, 42), (124, 42), arrow_head="->", style=Styles.MutedDashed)
 
 save()
 ```
@@ -670,47 +662,47 @@ from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=140, height=65)
+setup(width=145, height=65)
 
 # Title
-text((70, 58), "Event-Driven Serverless Ingestion & Analytics Pipeline", style=Styles.PrimaryBold.patch(text_size=15))
+text((72.5, 58), "Event-Driven Serverless Ingestion & Analytics Pipeline", style=Styles.DarkBold.patch(text_size=15))
 
 # Step 1: External IoT Producer
-phosphor.cpu((18, 30), width=10, style=Styles.OrangeBold)
-text((18, 19), "IoT Sensors", style=Styles.OrangeBold.patch(text_size=9))
-text((18, 14), "MQTT Stream", style=Styles.Dark.patch(text_size=8))
+phosphor.cpu((16, 30), width=10, style=Styles.DarkBold)
+text((16, 19), "IoT Sensors", style=Styles.DarkBold.patch(text_size=9))
+text((16, 14), "MQTT Stream", style=Styles.Muted.patch(text_size=8))
 
-# Step 2: Message Buffer (Pub/Sub)
-rectangle((45, 30), width=22, height=28, r=2, style=Styles.BlueSolid)
+# Step 2: Message Buffer (Pub/Sub - Hero Ingest Hub)
+rectangle((45, 30), width=24, height=28, r=2, style=Styles.PrimaryNeutral)
 gcp.pubsub((45, 36), width=10, style=Styles.Primary)
-text((45, 26), "Cloud Pub/Sub", style=Styles.BlueBold.patch(text_size=9))
-text((45, 20), "Buffer Topic", style=Styles.Dark.patch(text_size=8))
+text((45, 25), "Cloud Pub/Sub", style=Styles.DarkBold.patch(text_size=9))
+text((45, 20), "Buffer Topic", style=Styles.Muted.patch(text_size=8))
 
 # Step 3: Serverless Worker (Cloud Functions)
-rectangle((75, 30), width=22, height=28, r=2, style=Styles.GreenSolid)
-gcp.cloud_functions((75, 36), width=10, style=Styles.Primary)
-text((75, 26), "Cloud Functions", style=Styles.GreenBold.patch(text_size=9))
-text((75, 20), "Transform / Parse", style=Styles.Dark.patch(text_size=8))
+rectangle((76, 30), width=24, height=28, r=2, style=Styles.Neutral)
+gcp.cloud_functions((76, 36), width=10, style=Styles.Primary)
+text((76, 25), "Cloud Functions", style=Styles.DarkBold.patch(text_size=9))
+text((76, 20), "Transform / Parse", style=Styles.Muted.patch(text_size=8))
 
 # Step 4: Analytical Data Warehouse (BigQuery)
-rectangle((105, 30), width=22, height=28, r=2, style=Styles.BlueBold)
-gcp.bigquery((105, 36), width=10, style=Styles.Primary)
-text((105, 26), "BigQuery", style=Styles.BlueBold.patch(text_size=9))
-text((105, 20), "Partitioned Tables", style=Styles.Dark.patch(text_size=8))
+rectangle((107, 30), width=24, height=28, r=2, style=Styles.SecondaryNeutral)
+gcp.bigquery((107, 36), width=10, style=Styles.Primary)
+text((107, 25), "BigQuery", style=Styles.DarkBold.patch(text_size=9))
+text((107, 20), "Partitioned Tables", style=Styles.Muted.patch(text_size=8))
 
 # Step 5: Dashboard Visualization (Looker)
-phosphor.chart_line_up((130, 30), width=10, style=Styles.PurpleBold)
-text((130, 19), "Looker Studio", style=Styles.PurpleBold.patch(text_size=9))
-text((130, 14), "Real-time BI", style=Styles.Dark.patch(text_size=8))
+phosphor.chart_line_up((134, 30), width=10, style=Styles.DarkBold)
+text((134, 19), "Looker Studio", style=Styles.DarkBold.patch(text_size=9))
+text((134, 14), "Real-time BI", style=Styles.Muted.patch(text_size=8))
 
 # Connectors
-line((24, 30), (34, 30), arrow_head="->", style=Styles.OrangeBold)
-line((56, 30), (64, 30), arrow_head="->", style=Styles.BlueBold)
-line((86, 30), (94, 30), arrow_head="->", style=Styles.GreenBold)
-line((116, 30), (124, 30), arrow_head="->", style=Styles.PurpleBold)
+line((23, 30), (33, 30), arrow_head="->", style=Styles.DarkBold)
+line((57, 30), (64, 30), arrow_head="->", style=Styles.DarkBold)
+line((88, 30), (95, 30), arrow_head="->", style=Styles.DarkBold)
+line((119, 30), (127, 30), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -724,43 +716,43 @@ from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
 
-setup(width=140, height=60)
+setup(width=145, height=62)
 
 # Section Headers
-text((70, 54), "Hybrid Enterprise On-Premises to GCP Interconnect", style=Styles.PrimaryBold.patch(text_size=14))
+text((72.5, 55), "Hybrid Enterprise On-Premises to GCP Interconnect", style=Styles.DarkBold.patch(text_size=14))
 
 # On-Premise Datacenter Boundary
-rectangle((30, 26), width=44, height=36, r=2, style=Styles.DarkSolid)
-text((30, 40), "Corporate On-Premises Datacenter", style=Styles.DarkBold.patch(text_size=9))
+rectangle((30, 26), width=46, height=36, r=2, style=Styles.Neutral)
+text((30, 39), "Corporate On-Premises Datacenter", style=Styles.DarkBold.patch(text_size=8.5))
 
-phosphor.hard_drives((20, 24), width=9, style=Styles.DarkBold)
-text((20, 15), "App Server", style=Styles.Primary.patch(text_size=8))
+phosphor.hard_drives((19, 25), width=9, style=Styles.DarkBold)
+text((19, 15), "App Server", style=Styles.Dark.patch(text_size=8))
 
-phosphor.database((40, 24), width=9, style=Styles.DarkBold)
-text((40, 15), "Oracle DB", style=Styles.Primary.patch(text_size=8))
+phosphor.database((41, 25), width=9, style=Styles.DarkBold)
+text((41, 15), "Oracle DB", style=Styles.Dark.patch(text_size=8))
 
 # Cloud Boundary
-rectangle((105, 26), width=50, height=36, r=2, style=Styles.BlueDashed)
-text((105, 40), "Google Cloud Platform VPC", style=Styles.BlueBold.patch(text_size=9))
+rectangle((112, 26), width=50, height=36, r=2, style=Styles.MutedDashed)
+text((112, 39), "Google Cloud Platform VPC", style=Styles.DarkBold.patch(text_size=8.5))
 
-gcp.google_kubernetes_engine((95, 24), width=10, style=Styles.Primary)
-text((95, 15), "GKE Cluster", style=Styles.Primary.patch(text_size=8))
+gcp.google_kubernetes_engine((100, 25), width=10, style=Styles.Primary)
+text((100, 15), "GKE Cluster", style=Styles.Dark.patch(text_size=8))
 
-gcp.cloud_spanner((118, 24), width=10, style=Styles.Primary)
-text((118, 15), "Cloud Spanner", style=Styles.Primary.patch(text_size=8))
+gcp.cloud_spanner((124, 25), width=10, style=Styles.Primary)
+text((124, 15), "Cloud Spanner", style=Styles.Dark.patch(text_size=8))
 
-# Dedicated Cloud Interconnect
-rectangle((67, 24), width=14, height=12, r=1, style=Styles.TealFlat)
-text((67, 26), "Cloud", style=Styles.WhiteBold.patch(text_size=8))
-text((67, 20), "Interconnect", style=Styles.White.patch(text_size=7))
+# Dedicated Cloud Interconnect (Hero Bridge)
+rectangle((71, 25), width=18, height=13, r=1.5, style=Styles.PrimaryFlat)
+text((71, 27.5), "Cloud", style=Styles.WhiteBold.patch(text_size=8))
+text((71, 22), "Interconnect", style=Styles.White.patch(text_size=7.5))
 
 # Connectors
-line((52, 24), (60, 24), arrow_head="<->", style=Styles.TealBold)
-line((74, 24), (88, 24), arrow_head="<->", style=Styles.TealBold)
-line((100, 24), (112, 24), arrow_head="<->", style=Styles.BlueBold)
+line((53, 25), (62, 25), arrow_head="<->", style=Styles.DarkBold)
+line((80, 25), (93, 25), arrow_head="<->", style=Styles.DarkBold)
+line((107, 25), (117, 25), arrow_head="<->", style=Styles.DarkBold)
 
 save()
 ```
@@ -774,46 +766,46 @@ from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
 
 setup(width=150, height=65)
 
 # Pipeline Title
-text((75, 58), "Automated GitOps & CI/CD Delivery Pipeline", style=Styles.PrimaryBold.patch(text_size=15))
+text((75, 58), "Automated GitOps & CI/CD Delivery Pipeline", style=Styles.DarkBold.patch(text_size=15))
 
 # Stage 1: Developer Workstation
-rectangle((20, 28), width=24, height=32, r=2, style=Styles.DarkSolid)
-phosphor.laptop((20, 36), width=10, style=Styles.DarkBold)
-text((20, 25), "Developer", style=Styles.DarkBold.patch(text_size=9))
-text((20, 19), "git push", style=Styles.Dark.patch(text_size=8))
+rectangle((22, 28), width=26, height=32, r=2, style=Styles.Neutral)
+phosphor.laptop((22, 36), width=10, style=Styles.DarkBold)
+text((22, 24), "Developer", style=Styles.DarkBold.patch(text_size=9))
+text((22, 18.5), "git push", style=Styles.Muted.patch(text_size=8))
 
 # Stage 2: Source Repository & Webhook
-rectangle((52, 28), width=24, height=32, r=2, style=Styles.BlueSolid)
-phosphor.git_branch((52, 36), width=10, style=Styles.BlueBold)
-text((52, 25), "Cloud Source", style=Styles.BlueBold.patch(text_size=9))
-text((52, 19), "Pull Request", style=Styles.Dark.patch(text_size=8))
+rectangle((56, 28), width=26, height=32, r=2, style=Styles.Neutral)
+phosphor.git_branch((56, 36), width=10, style=Styles.DarkBold)
+text((56, 24), "Cloud Source", style=Styles.DarkBold.patch(text_size=9))
+text((56, 18.5), "Pull Request", style=Styles.Muted.patch(text_size=8))
 
-# Stage 3: Build & Automated Testing (Cloud Build)
-rectangle((84, 28), width=24, height=32, r=2, style=Styles.GreenSolid)
-gcp.cloud_build((84, 36), width=10, style=Styles.Primary)
-text((84, 25), "Cloud Build", style=Styles.GreenBold.patch(text_size=9))
-text((84, 19), "Unit / Lint / Test", style=Styles.Dark.patch(text_size=8))
+# Stage 3: Build & Automated Testing (Cloud Build - Hero Stage)
+rectangle((90, 28), width=26, height=32, r=2, style=Styles.PrimaryNeutral)
+gcp.cloud_build((90, 36), width=10, style=Styles.Primary)
+text((90, 24), "Cloud Build", style=Styles.DarkBold.patch(text_size=9))
+text((90, 18.5), "Unit / Lint / Test", style=Styles.Muted.patch(text_size=8))
 
 # Stage 4: Artifact Registry (OCI Images)
-rectangle((116, 28), width=24, height=32, r=2, style=Styles.OrangeSolid)
-gcp.artifact_registry((116, 36), width=10, style=Styles.Primary)
-text((116, 25), "Artifact Reg.", style=Styles.OrangeBold.patch(text_size=9))
-text((116, 19), "Vulnerability Scan", style=Styles.Dark.patch(text_size=8))
+rectangle((124, 28), width=26, height=32, r=2, style=Styles.SecondaryNeutral)
+gcp.artifact_registry((124, 36), width=10, style=Styles.Primary)
+text((124, 24), "Artifact Reg.", style=Styles.DarkBold.patch(text_size=9))
+text((124, 18.5), "OCI Images", style=Styles.Muted.patch(text_size=8))
 
 # Connectors with Pipeline Direction
-line((32, 28), (40, 28), arrow_head="->", style=Styles.DarkBold)
-line((64, 28), (72, 28), arrow_head="->", style=Styles.BlueBold)
-line((96, 28), (104, 28), arrow_head="->", style=Styles.GreenBold)
+line((35, 28), (43, 28), arrow_head="->", style=Styles.DarkBold)
+line((69, 28), (77, 28), arrow_head="->", style=Styles.DarkBold)
+line((103, 28), (111, 28), arrow_head="->", style=Styles.DarkBold)
 
 # Deployment Badge
-circle((124, 38), radius=2.5, style=Styles.GreenFlat)
-phosphor.check((124, 38), width=3, style=Styles.WhiteBold)
+circle((133, 40), radius=2.5, style=Styles.PrimaryFlat)
+phosphor.check((133, 40), width=3, style=Styles.WhiteBold)
 
 save()
 ```

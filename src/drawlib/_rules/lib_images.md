@@ -114,14 +114,14 @@ from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 setup(width=40, height=40)
-circle((20, 20), radius=16, style=Styles.AccentFlat, text="UI")
+circle((20, 20), radius=16, style=Styles.SecondaryNeutral, text="UI")
 """
 api_code = """
 from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.styles import Styles
 setup(width=40, height=40)
-circle((20, 20), radius=16, style=Styles.PrimaryFlat, text="API")
+circle((20, 20), radius=16, style=Styles.PrimaryFlat, text="API", text_style=Styles.WhiteBold)
 """
 
 img_frontend = get_dimage_from_code(frontend_code)
@@ -136,12 +136,12 @@ image((35, 30), width=22, image=img_frontend)
 image((105, 30), width=22, image=img_api)
 
 # Card titles
-text((35, 52), "Client Application", style=Styles.PrimaryBold)
-text((105, 52), "Microservice API", style=Styles.PrimaryBold)
+text((35, 52), "Client Application", style=Styles.DarkBold)
+text((105, 52), "Microservice API", style=Styles.DarkBold)
 
 # Connecting arrow with payload label
-line((53, 30), (87, 30), arrow_head="->", style=Styles.PrimaryBold)
-text((70, 35), "JSON / HTTPS", style=Styles.Primary)
+line((53, 30), (87, 30), arrow_head="->", style=Styles.DarkBold)
+text((70, 35), "JSON / HTTPS", style=Styles.Muted)
 save()
 ```
 
@@ -172,7 +172,7 @@ rectangle((50, 25), width=80, height=36, r=4, style=Styles.MutedDashed)
 # Place image with alpha transparency
 image_style = Styles.Primary.patch(image_alpha=0.6)
 image((50, 25), width=20, image=badge_img, style=image_style)
-text((50, 12), "Watermarked Badge", style=Styles.PrimaryBold)
+text((50, 12), "Watermarked Badge", style=Styles.DarkBold)
 save()
 ```
 

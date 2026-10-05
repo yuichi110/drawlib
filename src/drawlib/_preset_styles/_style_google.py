@@ -4504,7 +4504,7 @@ def _create_google_styles() -> GoogleStyles:
             v = _make_variants(
                 color,
                 border_color=col.Gray6,
-                default_text_color=col.White,
+                default_text_color=col.Dark,
                 line_color=col.Dark,
             )
         elif role_name == "Warning":

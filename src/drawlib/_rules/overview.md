@@ -196,7 +196,7 @@ Drawlib provides built-in geometric math utilities in `drawlib.math` so develope
 ```drawlib show-code file:overview_geometry_helpers.png
 from drawlib.canvas import save, setup
 from drawlib.styles import Styles
-from drawlib.math import get_angle, get_center_and_size, get_distance
+from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 
 setup(width=100, height=80)
@@ -209,13 +209,16 @@ rectangle(
     (cx, cy),
     width=bw,
     height=bh,
-    style=Styles.Light,
+    style=Styles.MutedDashed,
     text="Subsystem Boundary",
-    text_style=Styles.PrimaryBold.patch(text_xy_shift=(0, bh / 2 - 4)),
+    text_style=Styles.DarkBold.patch(text_xy_shift=(0, bh / 2 - 4)),
 )
 
-for xy in nodes:
-    circle(xy, radius=6, style=Styles.BlueFlat)
+for i, xy in enumerate(nodes):
+    if i == 1:
+        circle(xy, radius=6, style=Styles.PrimaryFlat, text=f"N{i+1}", text_style=Styles.WhiteBold)
+    else:
+        circle(xy, radius=6, style=Styles.Neutral, text=f"N{i+1}")
 
 save()
 ```

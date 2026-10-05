@@ -173,12 +173,12 @@ def _handle_tuple_event(
         blk = event[1]
         if isinstance(blk, Block):
             block_starts[blk] = rel_y
-        return rel_y + 3.0
+        return rel_y + 5.5
     if tag == "block_end" and len(event) > 1:
         blk = event[1]
         if isinstance(blk, Block):
             block_ends[blk] = rel_y
-        return rel_y + 2.0
+        return rel_y + 3.0
     return rel_y
 
 

@@ -368,35 +368,38 @@ from drawlib.text import text
 setup(width=140, height=70)
 
 # Column positions
-x_coords = [20, 50, 80, 110]
-y_top = 45
-y_bot = 15
+x_coords = [20, 52, 84, 116]
+y_top = 48
+y_bot = 16
 
-# Row 1: Flat fills (no border) vs Solid outlines (no fill)
-rectangle((x_coords[0], y_top), width=24, height=18, style=Styles.BlueFlat)
-text((x_coords[0], y_top), "BlueFlat", style=Styles.WhiteBold)
+# Row 1: Flat fills vs Neutral cards vs Solid/Dashed outlines
+rectangle((x_coords[0], y_top), width=26, height=18, style=Styles.PrimaryFlat)
+text((x_coords[0], y_top), "PrimaryFlat", style=Styles.WhiteBold.patch(text_size=10))
 
-rectangle((x_coords[1], y_top), width=24, height=18, style=Styles.GreenFlat)
-text((x_coords[1], y_top), "GreenFlat", style=Styles.WhiteBold)
+rectangle((x_coords[1], y_top), width=26, height=18, style=Styles.Neutral)
+text((x_coords[1], y_top), "Neutral", style=Styles.DarkBold.patch(text_size=10))
 
-rectangle((x_coords[2], y_top), width=24, height=18, style=Styles.RedSolid)
-text((x_coords[2], y_top), "RedSolid", style=Styles.Red)
+rectangle((x_coords[2], y_top), width=26, height=18, style=Styles.SecondaryNeutral)
+text((x_coords[2], y_top), "SecNeutral", style=Styles.DarkBold.patch(text_size=10))
 
-rectangle((x_coords[3], y_top), width=24, height=18, style=Styles.PurpleDashed)
-text((x_coords[3], y_top), "PurpleDashed", style=Styles.Purple)
+rectangle((x_coords[3], y_top), width=26, height=18, style=Styles.MutedDashed)
+text((x_coords[3], y_top), "MutedDashed", style=Styles.MutedBold.patch(text_size=10))
 
-# Row 2: Weight variations (light, standard, bold)
-rectangle((x_coords[0], y_bot), width=24, height=18, style=Styles.OrangeSolid)
-text((x_coords[0], y_bot), "OrangeSolid", style=Styles.Orange)
+# Row 2: Weight and Outline variations
+rectangle((x_coords[0], y_bot), width=26, height=18, style=Styles.BlueNeutral)
+text((x_coords[0], y_bot), "BlueNeutral", style=Styles.DarkBold.patch(text_size=10))
 
-rectangle((x_coords[1], y_bot), width=24, height=18, style=Styles.OrangeBold)
-text((x_coords[1], y_bot), "OrangeBold", style=Styles.OrangeBold)
+rectangle((x_coords[1], y_bot), width=26, height=18, style=Styles.TealNeutral)
+text((x_coords[1], y_bot), "TealNeutral", style=Styles.DarkBold.patch(text_size=10))
 
-rectangle((x_coords[2], y_bot), width=24, height=18, style=Styles.OrangeFlat)
-text((x_coords[2], y_bot), "OrangeFlat", style=Styles.WhiteBold)
+rectangle((x_coords[2], y_bot), width=26, height=18, style=Styles.PrimarySolidBold)
+text((x_coords[2], y_bot), "SolidBold", style=Styles.PrimaryBold.patch(text_size=10))
 
-# Connecting line showcasing weight
-line((x_coords[0] - 12, 32), (x_coords[3] + 12, 32), style=Styles.MutedDashed)
+rectangle((x_coords[3], y_bot), width=26, height=18, style=Styles.AccentFlat)
+text((x_coords[3], y_bot), "AccentFlat", style=Styles.WhiteBold.patch(text_size=10))
+
+# Divider line showcasing dashed style
+line((x_coords[0] - 13, 32), (x_coords[3] + 13, 32), style=Styles.MutedDashed)
 
 save()
 ```
@@ -602,11 +605,11 @@ print(f"Total defined style roles: {len(style_dict)}")
 
 ## 8. Applying Styles Across Multi-Element Diagrams
 
-To understand the power of preset styling, consider realistic diagrams combining shapes, lines, icons, and text. Consistent use of semantic presets creates immediate visual clarity.
+To understand the power of preset styling, consider realistic diagrams combining shapes, lines, icons, and text. Grounding 50%+ of nodes in calm neutral cards while reserving saturated fills (`PrimaryFlat`) for 1–2 focal components creates immediate visual hierarchy.
 
 ### 8.1. Production Microservice Architecture
 
-The following diagram demonstrates how color and style variations distinguish user ingress, routing, processing, caching, and persistence:
+The following diagram demonstrates how neutral cards and a single hero gateway distinguish user ingress, routing, processing, and persistence without rainbow chaos:
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
@@ -619,59 +622,55 @@ from drawlib.text import text
 setup(width=140, height=90)
 
 # Section Headers
-text((70, 84), "Enterprise E-Commerce Microservices", style=Styles.PrimaryBold.patch(text_size=18))
-text((70, 78), "Synchronous REST Ingress & Asynchronous Event Bus", style=Styles.Dark.patch(text_size=12))
+text((70, 84), "Enterprise E-Commerce Microservices", style=Styles.DarkBold.patch(text_size=18))
+text((70, 77), "Synchronous REST Ingress & Asynchronous Event Bus", style=Styles.Muted.patch(text_size=11))
 
-# Subnet / Boundary Containers
-rectangle((70, 42), width=132, height=60, r=4, style=Styles.MutedDashed)
-text((22, 68), "Internal VPC (10.0.0.0/16)", style=Styles.MutedBold.patch(text_size=11))
+# Subnet / Boundary Containers (Z-Layer 1)
+rectangle((70, 40), width=132, height=62, r=4, style=Styles.MutedDashed)
+text((24, 67), "Internal VPC (10.0.0.0/16)", style=Styles.MutedBold.patch(text_size=10))
 
-# Tier 1: External Client & API Gateway
-rectangle((22, 42), width=22, height=30, r=2, style=Styles.BlueSolid)
-phosphor.user((22, 50), width=9, style=Styles.Blue)
-text((22, 40), "Client Apps", style=Styles.BlueBold.patch(text_size=11))
-text((22, 33), "Web / Mobile", style=Styles.Dark.patch(text_size=9))
+# Tier 1: External Client (Neutral) & API Gateway (Hero PrimaryFlat)
+rectangle((22, 40), width=22, height=30, r=2, style=Styles.Neutral)
+phosphor.user((22, 48), width=8, style=Styles.Dark)
+text((22, 38), "Client Apps", style=Styles.DarkBold.patch(text_size=10))
+text((22, 31), "Web / Mobile", style=Styles.Muted.patch(text_size=8))
 
-rectangle((50, 42), width=22, height=30, r=2, style=Styles.TealFlat)
-phosphor.cloud((50, 50), width=9, style=Styles.WhiteBold)
-text((50, 40), "API Gateway", style=Styles.WhiteBold.patch(text_size=11))
-text((50, 33), "Rate Limiting", style=Styles.White.patch(text_size=9))
+rectangle((50, 40), width=22, height=30, r=2, style=Styles.PrimaryFlat)
+phosphor.cloud((50, 48), width=8, style=Styles.WhiteBold)
+text((50, 38), "API Gateway", style=Styles.WhiteBold.patch(text_size=10))
+text((50, 31), "Rate Limiting", style=Styles.White.patch(text_size=8))
 
-# Tier 2: Backend Core Services
-rectangle((80, 53), width=24, height=18, r=2, style=Styles.GreenBold)
-text((80, 56), "Order Service", style=Styles.GreenBold.patch(text_size=11))
-text((80, 48), "gRPC :8081", style=Styles.Dark.patch(text_size=9))
+# Tier 2: Backend Core Services (Calm Neutral Cards)
+rectangle((80, 52), width=24, height=18, r=2, style=Styles.Neutral)
+text((80, 55), "Order Service", style=Styles.DarkBold.patch(text_size=10))
+text((80, 48), "gRPC :8081", style=Styles.Muted.patch(text_size=8))
 
-rectangle((80, 27), width=24, height=18, r=2, style=Styles.GreenBold)
-text((80, 30), "Payment Service", style=Styles.GreenBold.patch(text_size=11))
-text((80, 22), "gRPC :8082", style=Styles.Dark.patch(text_size=9))
+rectangle((80, 28), width=24, height=18, r=2, style=Styles.Neutral)
+text((80, 31), "Payment Service", style=Styles.DarkBold.patch(text_size=10))
+text((80, 24), "gRPC :8082", style=Styles.Muted.patch(text_size=8))
 
-# Tier 3: Asynchronous Pub/Sub Queue & Storage
-rectangle((114, 53), width=22, height=18, r=2, style=Styles.PurpleFlat)
-phosphor.broadcast((114, 56), width=7, style=Styles.WhiteBold)
-text((114, 48), "Kafka Broker", style=Styles.WhiteBold.patch(text_size=10))
+# Tier 3: Asynchronous Pub/Sub Queue & Storage (Tinted Neutral Cards)
+rectangle((114, 52), width=22, height=18, r=2, style=Styles.SecondaryNeutral)
+phosphor.broadcast((114, 56), width=6, style=Styles.Dark)
+text((114, 47), "Kafka Broker", style=Styles.DarkBold.patch(text_size=9))
 
-rectangle((114, 27), width=22, height=18, r=2, style=Styles.NavySolid)
-phosphor.database((114, 31), width=7, style=Styles.Navy)
-text((114, 22), "PostgreSQL HA", style=Styles.NavyBold.patch(text_size=10))
+rectangle((114, 28), width=22, height=18, r=2, style=Styles.PrimaryNeutral)
+phosphor.database((114, 32), width=6, style=Styles.Dark)
+text((114, 23), "PostgreSQL HA", style=Styles.DarkBold.patch(text_size=9))
 
-# Connectors with semantic weights
-line((33, 42), (39, 42), arrow_head="->", style=Styles.BlueBold)
-line((61, 46), (68, 53), arrow_head="->", style=Styles.PrimaryBold)
-line((61, 38), (68, 27), arrow_head="->", style=Styles.PrimaryBold)
-line((92, 53), (103, 53), arrow_head="->", style=Styles.PurpleDashed)
-line((92, 27), (103, 27), arrow_head="<->", style=Styles.NavyBold)
+# Connectors (Z-Layer 3)
+line((33, 40), (39, 40), arrow_head="->", style=Styles.DarkBold)
+line((61, 44), (68, 52), arrow_head="->", style=Styles.DarkBold)
+line((61, 36), (68, 28), arrow_head="->", style=Styles.DarkBold)
+line((92, 52), (103, 52), arrow_head="->", style=Styles.MutedDashedBold)
+line((92, 28), (103, 28), arrow_head="<->", style=Styles.DarkBold)
 
 save()
 ```
 
 ### 8.2. State Machine Diagram
 
-Preset styles make state transitions intuitive by mapping distinct semantic meanings to colors:
-- Blue = Initial / Start State
-- Green = Active / Normal Execution
-- Orange = Paused / Pending Review
-- Red = Failed / Terminated Error State
+Preset styles make state transitions intuitive while keeping the diagram calm and readable:
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
@@ -680,52 +679,47 @@ from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=130, height=50)
+setup(width=130, height=52)
 
 # Start State
-circle((15, 25), radius=5, style=Styles.BlueFlat)
-text((15, 14), "Initial", style=Styles.BlueBold.patch(text_size=10))
+circle((15, 26), radius=5, style=Styles.DarkFlat)
+text((15, 15), "Initial", style=Styles.DarkBold.patch(text_size=10))
 
-# Processing State
-rectangle((45, 25), width=22, height=16, r=3, style=Styles.GreenBold)
-text((45, 27), "Validating", style=Styles.GreenBold.patch(text_size=11))
-text((45, 20), "Worker Poll", style=Styles.Dark.patch(text_size=9))
+# Processing State (Hero Focal State)
+rectangle((45, 26), width=24, height=16, r=3, style=Styles.PrimaryFlat)
+text((45, 29), "Validating", style=Styles.WhiteBold.patch(text_size=10))
+text((45, 22), "Worker Poll", style=Styles.White.patch(text_size=8))
 
-# Decision Branches: Success vs Failure
-rectangle((80, 36), width=22, height=14, r=3, style=Styles.GreenFlat)
-text((80, 36), "Processed", style=Styles.WhiteBold.patch(text_size=10))
+# Decision Branches: Success vs Failure (Tinted Neutral Cards)
+rectangle((82, 37), width=22, height=14, r=3, style=Styles.SuccessNeutral)
+text((82, 37), "Processed", style=Styles.DarkBold.patch(text_size=10))
 
-rectangle((80, 14), width=22, height=14, r=3, style=Styles.RedFlat)
-text((80, 14), "Rejected", style=Styles.WhiteBold.patch(text_size=10))
+rectangle((82, 15), width=22, height=14, r=3, style=Styles.DangerNeutral)
+text((82, 15), "Rejected", style=Styles.DarkBold.patch(text_size=10))
 
 # Final State
-circle((115, 36), radius=5, style=Styles.GreenBold)
-circle((115, 36), radius=3.2, style=Styles.GreenFlat)
-text((115, 24), "Completed", style=Styles.GreenBold.patch(text_size=10))
+circle((115, 37), radius=5, style=Styles.DarkOutlineBold)
+circle((115, 37), radius=3, style=Styles.DarkFlat)
+text((115, 26), "Completed", style=Styles.DarkBold.patch(text_size=10))
 
 # Transitions
-line((20, 25), (34, 25), arrow_head="->", style=Styles.DarkBold)
-text((27, 28), "submit", style=Styles.Dark.patch(text_size=9))
+line((20, 26), (33, 26), arrow_head="->", style=Styles.DarkBold)
+text((26.5, 30), "submit", style=Styles.Dark.patch(text_size=9))
 
-line((56, 29), (69, 36), arrow_head="->", style=Styles.GreenBold)
-text((60, 37), "valid", style=Styles.Green.patch(text_size=9))
+line((57, 30), (71, 37), arrow_head="->", style=Styles.DarkBold)
+text((62, 38), "valid", style=Styles.Dark.patch(text_size=9))
 
-line((56, 21), (69, 14), arrow_head="->", style=Styles.RedBold)
-text((60, 13), "invalid", style=Styles.Red.patch(text_size=9))
+line((57, 22), (71, 15), arrow_head="->", style=Styles.DangerBold)
+text((62, 13), "invalid", style=Styles.DangerBold.patch(text_size=9))
 
-line((91, 36), (110, 36), arrow_head="->", style=Styles.GreenBold)
+line((93, 37), (110, 37), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
 
 ### 8.3. Enterprise Data Lakehouse Architecture (Medallion Pattern)
 
-Multi-element architectures frequently utilize the **Medallion Pattern** (Raw Ingestion -> Bronze -> Silver -> Gold -> Analytics). Preset styles make distinct processing tiers instantly recognizable:
-
-- **Brown / Orange (`Styles.BrownFlat`, `Styles.OrangeSolid`)**: Raw Ingestion & Bronze Landing (unfiltered CDC & Kafka logs).
-- **Steel / Gray (`Styles.MutedFlat`, `Styles.GraySolidBold`)**: Cleansed, deduplicated, and enriched Delta tables.
-- **Gold / Yellow (`Styles.YellowFlat`, `Styles.GreenSolidBold`)**: Business-level aggregates, feature stores, and BI marts.
-- **Teal / Navy (`Styles.TealSolid`, `Styles.NavyBold`)**: Query engines, dashboards, and automated ML pipelines.
+Multi-element architectures frequently utilize the **Medallion Pattern** (Raw Ingestion -> Bronze -> Silver -> Gold -> Analytics). Using calm neutral cards with a single hero Gold analytical mart keeps the pipeline clean and legible:
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
@@ -738,47 +732,47 @@ from drawlib.text import text
 setup(width=150, height=85)
 
 # Architecture Title & Subtitle
-text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=Styles.PrimaryBold.patch(text_size=18))
-text((75, 72), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style=Styles.Dark.patch(text_size=11))
+text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=Styles.DarkBold.patch(text_size=16))
+text((75, 71), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style=Styles.Muted.patch(text_size=11))
 
-# Tier 1: Ingestion Sources
-rectangle((20, 40), width=22, height=44, r=2, style=Styles.OrangeSolid)
-phosphor.broadcast((20, 54), width=7, style=Styles.Orange)
-text((20, 46), "IoT / CDC", style=Styles.OrangeBold.patch(text_size=10))
-phosphor.file_csv((20, 34), width=7, style=Styles.Orange)
-text((20, 26), "Batch Files", style=Styles.OrangeBold.patch(text_size=10))
+# Tier 1: Ingestion Sources (Neutral Outline)
+rectangle((20, 38), width=24, height=44, r=2, style=Styles.MutedDashed)
+phosphor.broadcast((20, 52), width=7, style=Styles.Dark)
+text((20, 44), "IoT / CDC", style=Styles.DarkBold.patch(text_size=9))
+phosphor.file_csv((20, 32), width=7, style=Styles.Dark)
+text((20, 24), "Batch Files", style=Styles.DarkBold.patch(text_size=9))
 
-# Tier 2: Bronze Layer (Raw Storage)
-rectangle((52, 40), width=24, height=44, r=2, style=Styles.BrownFlat)
-phosphor.database((52, 53), width=8, style=Styles.WhiteBold)
-text((52, 43), "Bronze Tier", style=Styles.WhiteBold.patch(text_size=11))
-text((52, 36), "Raw Append", style=Styles.White.patch(text_size=9))
-text((52, 28), "Parquet / JSON", style=Styles.White.patch(text_size=8))
+# Tier 2: Bronze Layer (Warm Neutral Card)
+rectangle((53, 38), width=24, height=44, r=2, style=Styles.AmberNeutral)
+phosphor.database((53, 51), width=8, style=Styles.Dark)
+text((53, 41), "Bronze Tier", style=Styles.DarkBold.patch(text_size=10))
+text((53, 34), "Raw Append", style=Styles.Muted.patch(text_size=8))
+text((53, 27), "Parquet / JSON", style=Styles.Muted.patch(text_size=8))
 
-# Tier 3: Silver Layer (Cleaned & Enriched)
-rectangle((86, 40), width=24, height=44, r=2, style=Styles.SteelBold)
-phosphor.check_circle((86, 53), width=8, style=Styles.Steel)
-text((86, 43), "Silver Tier", style=Styles.SteelBold.patch(text_size=11))
-text((86, 36), "Cleaned / Joined", style=Styles.Dark.patch(text_size=9))
-text((86, 28), "Delta Tables", style=Styles.Dark.patch(text_size=8))
+# Tier 3: Silver Layer (Cool Neutral Card)
+rectangle((86, 38), width=24, height=44, r=2, style=Styles.Neutral)
+phosphor.check_circle((86, 51), width=8, style=Styles.Dark)
+text((86, 41), "Silver Tier", style=Styles.DarkBold.patch(text_size=10))
+text((86, 34), "Cleaned / Joined", style=Styles.Muted.patch(text_size=8))
+text((86, 27), "Delta Tables", style=Styles.Muted.patch(text_size=8))
 
-# Tier 4: Gold Layer (Business Aggregates)
-rectangle((120, 52), width=24, height=22, r=2, style=Styles.GreenFlat)
-phosphor.chart_bar((120, 58), width=7, style=Styles.WhiteBold)
-text((120, 49), "Gold Marts", style=Styles.WhiteBold.patch(text_size=10))
-text((120, 44), "Star Schemas", style=Styles.White.patch(text_size=8))
+# Tier 4: Gold Layer (Hero PrimaryFlat Focal Mart)
+rectangle((120, 50), width=26, height=20, r=2, style=Styles.PrimaryFlat)
+phosphor.chart_bar((120, 55), width=6, style=Styles.WhiteBold)
+text((120, 47), "Gold Marts", style=Styles.WhiteBold.patch(text_size=10))
+text((120, 42), "Star Schemas", style=Styles.White.patch(text_size=8))
 
-# Tier 5: Consumers (ML & BI)
-rectangle((120, 25), width=24, height=22, r=2, style=Styles.TealBold)
-phosphor.cpu((120, 31), width=7, style=Styles.Teal)
-text((120, 22), "ML Models", style=Styles.TealBold.patch(text_size=10))
-text((120, 17), "Serving API", style=Styles.Dark.patch(text_size=8))
+# Tier 5: Consumers (SecondaryNeutral Card)
+rectangle((120, 26), width=26, height=20, r=2, style=Styles.SecondaryNeutral)
+phosphor.cpu((120, 31), width=6, style=Styles.Dark)
+text((120, 23), "ML Models", style=Styles.DarkBold.patch(text_size=10))
+text((120, 18), "Serving API", style=Styles.Muted.patch(text_size=8))
 
 # Connectors with Flow Arrows
-line((31, 40), (40, 40), arrow_head="->", style=Styles.OrangeBold)
-line((64, 40), (74, 40), arrow_head="->", style=Styles.DarkBold)
-line((98, 45), (108, 52), arrow_head="->", style=Styles.GreenBold)
-line((98, 35), (108, 25), arrow_head="->", style=Styles.TealBold)
+line((32, 38), (41, 38), arrow_head="->", style=Styles.DarkBold)
+line((65, 38), (74, 38), arrow_head="->", style=Styles.DarkBold)
+line((98, 44), (107, 50), arrow_head="->", style=Styles.DarkBold)
+line((98, 32), (107, 26), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -903,22 +897,28 @@ from drawlib.canvas import save, setup
 from drawlib.preset_styles import DefaultStyles, MonochromeStyles
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
-from drawlib.text import text
 
 # Initialize canvas with default or custom catalog
 setup(width=100, height=60)
 
-# 1. Preset style usage
-rectangle((25, 36), width=20, height=20, style=Styles.BlueFlat, text="Flat", text_style=Styles.WhiteBold)
-rectangle((50, 36), width=20, height=20, style=Styles.GreenBold, text="Solid", text_style=Styles.GreenBold)
-circle((75, 36), radius=10, style=Styles.RedDashed, text="Dashed", text_style=Styles.RedBold)
+# 1. Preset style usage (1 Hero Flat + Neutral + Dashed)
+rectangle((24, 38), width=22, height=20, style=Styles.PrimaryFlat, text="Flat", text_style=Styles.WhiteBold)
+rectangle((50, 38), width=22, height=20, style=Styles.Neutral, text="Neutral")
+circle((76, 38), radius=10, style=Styles.MutedDashedBold, text="Dashed", text_style=Styles.DarkBold)
 
 # 2. Dynamic style retrieval via key lookup
-accent_style = DefaultStyles["TealFlat"]
-circle((85, 48), radius=5, style=accent_style)
+accent_style = DefaultStyles["SecondaryNeutral"]
+circle((88, 50), radius=5, style=accent_style)
 
 # 3. Dedicated monochrome catalog retrieval
-rectangle((50, 12), width=80, height=12, style=MonochromeStyles.PrimaryFlat, text="Monochrome Catalog Banner", text_style=MonochromeStyles.WhiteBold)
+rectangle(
+    (50, 12),
+    width=82,
+    height=12,
+    style=MonochromeStyles.PrimaryFlat,
+    text="Monochrome Catalog Banner",
+    text_style=MonochromeStyles.WhiteBold,
+)
 
 save()
 ```

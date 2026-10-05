@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+from drawlib._core.l3_colors import Color, ColorType
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
@@ -70,6 +71,35 @@ def _render_state_node(node: State, center_xy: tuple[float, float], default_node
         _render_text_only_state(node, center_xy, default_node_style)
 
 
+def _is_visible_color(c: ColorType | None) -> bool:
+    """Check whether a color value is non-None and not fully transparent."""
+    if c is None:
+        return False
+    if isinstance(c, Color):
+        return c.alpha > 0.0
+    if isinstance(c, tuple):
+        if len(c) == 4:
+            return float(c[-1]) > 0.0
+        return True
+    return True
+
+
+def _get_visible_border_color(style: Style) -> ColorType:
+    """Return a visible border color from style, falling back to dark slate if None or transparent."""
+    c = style.shape_line_color
+    if c is not None and _is_visible_color(c):
+        return c
+    return (71, 85, 105, 1.0)
+
+
+def _get_solid_pseudo_color(default_node_style: Style) -> ColorType:
+    """Return a high-contrast solid color for pseudo-states (Initial, Final, ForkJoin)."""
+    c = default_node_style.shape_line_color
+    if c is not None and _is_visible_color(c):
+        return c
+    return (30, 41, 59, 1.0)
+
+
 def _render_box_state(node: State, center_xy: tuple[float, float], default_node_style: Style) -> None:
     """Render a rounded box state node with optional actions.
 
@@ -83,7 +113,7 @@ def _render_box_state(node: State, center_xy: tuple[float, float], default_node_
     h = node.effective_height
 
     style = default_node_style.patch(node.style) if node.style is not None else default_node_style
-    border_color = style.shape_line_color or (71, 85, 105, 1.0)
+    border_color = _get_visible_border_color(style)
     text_color = style.text_color or (30, 41, 59, 1.0)
     canvas_rectangle(xy=(cx, cy), width=w, height=h, r=node.r, style=style)
 
@@ -180,7 +210,7 @@ def _render_circle_state(node: State, center_xy: tuple[float, float], default_no
     cx, cy = center_xy
     radius = node.effective_width / 2.0
 
-    border_color = default_node_style.shape_line_color or (71, 85, 105, 1.0)
+    border_color = _get_visible_border_color(default_node_style)
     base_style = Style(
         shape_fill_color=Colors.Transparent,
         shape_line_color=border_color,
@@ -214,7 +244,7 @@ def _render_double_circle_state(node: State, center_xy: tuple[float, float], def
     r_outer = node.effective_width / 2.0
     r_inner = max(r_outer - 1.2, 0.5)
 
-    border_color = default_node_style.shape_line_color or (71, 85, 105, 1.0)
+    border_color = _get_visible_border_color(default_node_style)
     outer_base = Style(
         shape_fill_color=Colors.Transparent,
         shape_line_color=border_color,
@@ -223,7 +253,7 @@ def _render_double_circle_state(node: State, center_xy: tuple[float, float], def
     outer_style = outer_base.patch(node.style) if node.style is not None else outer_base
     canvas_circle(xy=(cx, cy), radius=r_outer, style=outer_style)
 
-    inner_line_color = outer_style.shape_line_color or border_color
+    inner_line_color = _get_visible_border_color(outer_style)
     inner_line_width = outer_style.shape_line_width or 1.5
     inner_style = Style(
         shape_fill_color=Colors.Transparent,
@@ -276,7 +306,7 @@ def _render_initial_state(node: InitialState, center_xy: tuple[float, float], de
         default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
-    solid_color = default_node_style.shape_line_color or default_node_style.shape_fill_color or (30, 41, 59, 1.0)
+    solid_color = _get_solid_pseudo_color(default_node_style)
     base_style = Style(
         shape_fill_color=solid_color,
         shape_line_color=solid_color,
@@ -308,7 +338,7 @@ def _render_final_state(node: FinalState, center_xy: tuple[float, float], defaul
     r_outer = node.radius
     r_inner = r_outer * 0.65
 
-    solid_color = default_node_style.shape_line_color or default_node_style.shape_fill_color or (30, 41, 59, 1.0)
+    solid_color = _get_solid_pseudo_color(default_node_style)
     outer_base = Style(
         shape_fill_color=Colors.Transparent,
         shape_line_color=solid_color,
@@ -367,7 +397,7 @@ def _render_fork_join_state(node: ForkJoinState, center_xy: tuple[float, float],
         default_node_style: Base Style for state nodes.
     """
     cx, cy = center_xy
-    solid_color = default_node_style.shape_line_color or default_node_style.shape_fill_color or (30, 41, 59, 1.0)
+    solid_color = _get_solid_pseudo_color(default_node_style)
     base_style = Style(
         shape_fill_color=solid_color,
         shape_line_color=solid_color,

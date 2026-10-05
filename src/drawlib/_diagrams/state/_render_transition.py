@@ -336,13 +336,24 @@ def _render_curved_or_direct_transition(
 
     mid_x = (xy1[0] + xy2[0]) / 2.0
     mid_y = (xy1[1] + xy2[1]) / 2.0
-    norm_x = -dy / dist
-    norm_y = dx / dist
 
-    sign = 1.0 if bend >= 0 else -1.0
-    disp = dist * bend * 0.25 + sign * 2.2
-    label_x = mid_x + norm_x * disp
-    label_y = mid_y + norm_y * disp
+    if abs(bend) < 1e-6:
+        # Straight line: offset perpendicular pointing generally upward or to the right
+        px = -dy / dist
+        py = dx / dist
+        if py < 0 or (abs(py) < 1e-6 and px < 0):
+            px, py = -px, -py
+        label_x = mid_x + px * 2.2
+        label_y = mid_y + py * 2.2
+    else:
+        # Curved line: out_vector in direction of Arc3 bow
+        sign = 1.0 if bend > 0 else -1.0
+        out_x = (dy / dist) * sign
+        out_y = (-dx / dist) * sign
+        apex_offset = dist * abs(bend) * 0.5
+        label_offset = apex_offset + 2.2
+        label_x = mid_x + out_x * label_offset
+        label_y = mid_y + out_y * label_offset
 
     canvas_text(xy=(label_x, label_y), text=label, style=label_style)
 

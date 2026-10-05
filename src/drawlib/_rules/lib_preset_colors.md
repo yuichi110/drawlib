@@ -155,37 +155,30 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
+from drawlib.text import text
 
 setup(width=140, height=60)
 
-# Define custom semantic styles
-cloud_style = Styles.Primary.patch(
-    shape_fill_color=Colors.Blue.patch(alpha=0.15),
-    shape_line_color=Colors.Blue,
-    shape_line_width=2,
+# Define custom semantic styles using .patch()
+cluster_style = Styles.MutedDashed.patch(
+    shape_fill_color=Colors.Gray1.patch(alpha=0.6),
+    shape_line_color=Colors.Gray5,
 )
-db_style = Styles.Primary.patch(
-    shape_fill_color=Colors.Orange.patch(alpha=0.2),
-    shape_line_color=Colors.Orange,
-    shape_line_width=2,
+db_style = Styles.SecondaryNeutral.patch(
+    shape_fill_color=Colors.Teal1,
+    shape_line_color=Colors.Teal4,
 )
 
-# Background cluster zone
-rectangle(
-    (70, 30),
-    width=130,
-    height=50,
-    style=cloud_style,
-    text="Kubernetes Cluster",
-    text_style=Styles.Primary.patch(text_valign="top", text_color=Colors.Blue),
-)
+# Background cluster zone (Z-Layer 1)
+rectangle((70, 30), width=128, height=48, style=cluster_style)
+text((70, 48), "Kubernetes Cluster", style=Styles.DarkBold)
 
-# Service nodes
-rectangle((40, 26), width=32, height=18, style=Styles.BlueFlat, text="Web Service", text_style=Styles.WhiteBold)
-rectangle((100, 26), width=32, height=18, style=db_style, text="Database", text_style=Styles.WhiteBold)
+# Service nodes (Z-Layer 2: 1 Hero Primary, 1 Tinted-Neutral Database)
+rectangle((40, 24), width=34, height=18, style=Styles.PrimaryFlat, text="Web Service", text_style=Styles.WhiteBold)
+rectangle((100, 24), width=34, height=18, style=db_style, text="Database", text_style=Styles.DarkBold)
 
-# Data connection
-line((56, 26), (84, 26), arrow_head="->", style=Styles.PrimaryBold)
+# Data connection (Z-Layer 3)
+line((57, 24), (83, 24), arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 
@@ -195,20 +188,20 @@ save()
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.preset_colors import MonochromeColors
+from drawlib.preset_styles import MonochromeStyles
 from drawlib.shapes import rectangle
-from drawlib.styles import Styles
 
 setup(width=120, height=50)
 
-box_style = Styles.Primary.patch(
-    shape_fill_color=MonochromeColors.Gray3,
+box_style = MonochromeStyles.Primary.patch(
+    shape_fill_color=MonochromeColors.Gray2,
     shape_line_color=MonochromeColors.Black,
     shape_line_width=2,
 )
 
-rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", text_style=Styles.PrimaryBold)
-rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", text_style=Styles.PrimaryBold)
-line((45, 25), (75, 25), arrow_head="->", style=Styles.PrimaryBold)
+rectangle((30, 25), width=32, height=18, style=box_style, text="Module Alpha", text_style=MonochromeStyles.BlackBold)
+rectangle((90, 25), width=32, height=18, style=MonochromeStyles.PrimaryFlat, text="Module Beta", text_style=MonochromeStyles.WhiteBold)
+line((46, 25), (74, 25), arrow_head="->", style=MonochromeStyles.BlackBold)
 save()
 ```
 

@@ -101,14 +101,14 @@ p1 = (30, 20)
 p2 = (90, 60)
 
 # Draw slanted connection
-line(p1, p2, arrow_head="->", style=Styles.PrimaryBold)
+line(p1, p2, arrow_head="->", style=Styles.DarkBold)
 
 # Calculate angle and midpoint
 angle = get_angle(p1, p2)
 midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 4)
 
 # Rotate text along the line
-text(midpoint, f"Data Sync ({angle:.1f}°)", angle=angle, style=Styles.PrimaryBold)
+text(midpoint, f"Data Sync ({angle:.1f}°)", angle=angle, style=Styles.DarkBold)
 
 save()
 ```
@@ -126,28 +126,30 @@ from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.styles import Styles
 
-setup(width=140, height=70)
+setup(width=140, height=75)
 
 # Define service node positions
-nodes = [(40, 45), (70, 50), (100, 40), (60, 25)]
+nodes = [(40, 42), (70, 48), (100, 38), (60, 22)]
 
 # Calculate bounding box of all nodes
 (cx, cy), (bw, bh) = get_center_and_size(nodes)
+box_w, box_h = bw + 32, bh + 26
 
-# Draw encompassing cluster background with padding (+28 width, +22 height)
+# Draw encompassing cluster background
 rectangle(
     (cx, cy),
-    width=bw + 28,
-    height=bh + 22,
+    width=box_w,
+    height=box_h,
     r=4,
     style=Styles.MutedDashed,
-    text="Kubernetes Worker Nodes",
-    text_style=Styles.PrimaryBold.patch(text_valign="top"),
 )
+text((cx, cy + box_h / 2 - 4), "Kubernetes Worker Nodes", style=Styles.SecondaryBold)
 
-# Render nodes on top
+# Render nodes: 1 hero leader, remaining calm neutral pods
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f"Pod {i}", text_style=Styles.WhiteBold)
+    style = Styles.PrimaryFlat if i == 1 else Styles.Neutral
+    text_style = Styles.WhiteBold if i == 1 else Styles.DarkBold
+    circle((x, y), radius=7, style=style, text=f"Pod {i}", text_style=text_style)
 
 save()
 ```
@@ -169,10 +171,10 @@ hub = (60, 40)
 radius = 26
 num_clients = 5
 
-# Central Hub (radius=12)
+# Central Hub (radius=12, PrimaryFlat hero)
 circle(hub, radius=12, style=Styles.PrimaryFlat, text="Leader", text_style=Styles.WhiteBold)
 
-# Surrounding Worker Nodes (radius=6)
+# Surrounding Worker Nodes (radius=6, SecondaryNeutral)
 for i in range(num_clients):
     angle_rad = 2 * math.pi * i / num_clients
     node_xy = (hub[0] + radius * math.cos(angle_rad), hub[1] + radius * math.sin(angle_rad))
@@ -184,13 +186,13 @@ for i in range(num_clients):
     # Offset connection endpoints to shape boundaries rather than shape centers
     hub_edge = (hub[0] + 13 * math.cos(angle_rad), hub[1] + 13 * math.sin(angle_rad))
     node_edge = (node_xy[0] - 7 * math.cos(angle_rad), node_xy[1] - 7 * math.sin(angle_rad))
-    line(hub_edge, node_edge, arrow_head="->", style=Styles.PrimaryBold)
+    line(hub_edge, node_edge, arrow_head="->", style=Styles.DarkBold)
     
     # Label line distance
     label_xy = ((hub_edge[0] + node_edge[0]) / 2, (hub_edge[1] + node_edge[1]) / 2 + 2)
-    text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=Styles.Primary.patch(text_size=7))
+    text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=Styles.Dark.patch(text_size=7))
     
-    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f"N{i+1}", text_style=Styles.WhiteBold)
+    circle(node_xy, radius=6, style=Styles.SecondaryNeutral, text=f"N{i+1}", text_style=Styles.DarkBold)
 
 save()
 ```

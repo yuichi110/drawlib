@@ -120,30 +120,29 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
-from drawlib.types import Style
 
 setup(width=120, height=60)
 
 # 1. Tier boundary lines
-tier_style = Styles.PrimaryBold.patch(line_color=Colors.Gray5, line_style="dashed", line_width=1.0)
+tier_style = Styles.MutedDashed.patch(line_width=1.0)
 line((10, 40), (110, 40), style=tier_style)
 line((10, 20), (110, 20), style=tier_style)
 
 # Tier labels
-text((12, 42), "Presentation Tier", style=Styles.Primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
-text((12, 22), "Application Tier", style=Styles.Primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
-text((12, 2), "Persistence Tier", style=Styles.Primary.patch(text_size=10, text_color=Colors.Gray5, text_halign="left"))
+text((12, 42), "Presentation Tier", style=Styles.Dark.patch(text_size=9.5, text_halign="left"))
+text((12, 22), "Application Tier", style=Styles.Dark.patch(text_size=9.5, text_halign="left"))
+text((12, 2), "Persistence Tier", style=Styles.Dark.patch(text_size=9.5, text_halign="left"))
 
-# 2. Service nodes
-rectangle((30, 48), width=24, height=10, style=Styles.BlueFlat, text="Web Client", text_style=Styles.WhiteBold)
-rectangle((30, 28), width=24, height=10, style=Styles.GreenFlat, text="API Gateway", text_style=Styles.WhiteBold)
-rectangle((75, 28), width=24, height=10, style=Styles.GreenFlat, text="Order Service", text_style=Styles.WhiteBold)
-rectangle((75, 8), width=24, height=10, style=Styles.PurpleFlat, text="Postgres DB", text_style=Styles.WhiteBold)
+# 2. Service nodes (Hero API Gateway in PrimaryFlat, others in neutral cards)
+rectangle((30, 48), width=24, height=10, style=Styles.Neutral, text="Web Client")
+rectangle((30, 28), width=24, height=10, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
+rectangle((75, 28), width=24, height=10, style=Styles.SecondaryNeutral, text="Order Service")
+rectangle((75, 8), width=24, height=10, style=Styles.Neutral, text="Postgres DB")
 
 # 3. Direct straight connections
-line((30, 43), (30, 33), arrow_head="->", style=Styles.PrimaryBold)
-line((42, 28), (63, 28), arrow_head="->", style=Styles.PrimaryBold)
-line((75, 23), (75, 13), arrow_head="->", style=Styles.PrimaryBold)
+line((30, 43), (30, 33), arrow_head="->", style=Styles.DarkBold)
+line((42, 28), (63, 28), arrow_head="->", style=Styles.DarkBold)
+line((75, 23), (75, 13), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -197,8 +196,8 @@ Internally, Drawlib configures Matplotlib's `matplotlib.patches.ConnectionStyle.
 
 ### 3.3. Bidirectional Request-Response Separation
 When two architectural services exchange synchronous requests and responses, straight lines overlap and create visual confusion. `line_curved()` solves this cleanly:
-- **Forward Request (`A -> B`)**: `line_curved(pos_a, pos_b, bend=0.25, arrow_head="->", style=Styles.PrimaryBold)`
-- **Return Response (`B -> A`)**: `line_curved(pos_b, pos_a, bend=0.25, arrow_head="->", style=Styles.PrimaryBold)`
+- **Forward Request (`A -> B`)**: `line_curved(pos_a, pos_b, bend=0.25, arrow_head="->", style=Styles.DarkBold)`
+- **Return Response (`B -> A`)**: `line_curved(pos_b, pos_a, bend=0.25, arrow_head="->", style=Styles.DarkBold)`
 Because the travel direction is reversed in the second call, both lines bow outward in opposite directions, creating a clean symmetrical ellipse with space for labels in between.
 
 ### 3.4. Code Example: Microservice Request-Response Cycle & Bypass Path
@@ -206,24 +205,23 @@ Because the travel direction is reversed in the second call, both lines bow outw
 from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.shapes import circle, rectangle
-from drawlib.styles import Colors, Styles
+from drawlib.styles import Styles
 from drawlib.text import text
-from drawlib.types import Style
 
 setup(width=120, height=60)
 
-# Nodes
-circle((25, 30), radius=10, style=Styles.BlueFlat, text="Service A", text_style=Styles.WhiteBold)
-rectangle((60, 30), width=18, height=14, style=Styles.MutedFlat, text="Proxy", text_style=Styles.PrimaryBold.patch(text_color=Colors.Black))
-circle((95, 30), radius=10, style=Styles.GreenFlat, text="Service B", text_style=Styles.WhiteBold)
+# Nodes (Hero Service A in PrimaryFlat, supporting nodes in neutral cards)
+circle((25, 30), radius=10, style=Styles.PrimaryFlat, text="Service A", text_style=Styles.WhiteBold)
+rectangle((60, 30), width=18, height=14, style=Styles.Neutral, text="Proxy")
+circle((95, 30), radius=10, style=Styles.SecondaryNeutral, text="Service B")
 
 # 1. Forward request (A -> B, curving above the Proxy)
-line_curved((35, 33), (85, 33), bend=0.35, arrow_head="->", style=Styles.BlueBold)
-text((60, 48), "HTTPS POST (Direct Bypass)", style=Styles.Primary.patch(text_size=9, text_color=Colors.Blue))
+line_curved((35, 33), (85, 33), bend=0.35, arrow_head="->", style=Styles.DarkBold)
+text((60, 48), "HTTPS POST (Direct Bypass)", style=Styles.Dark.patch(text_size=9))
 
 # 2. Reverse asynchronous callback (B -> A, curving below the Proxy)
-line_curved((85, 27), (35, 27), bend=0.35, arrow_head="->", style=Styles.GreenDashed)
-text((60, 12), "gRPC Stream Event (Ack)", style=Styles.Primary.patch(text_size=9, text_color=Colors.Green))
+line_curved((85, 27), (35, 27), bend=0.35, arrow_head="->", style=Styles.MutedDashed)
+text((60, 12), "gRPC Stream Event (Ack)", style=Styles.Muted.patch(text_size=9))
 
 save()
 ```
@@ -335,16 +333,15 @@ $$\text{cp1} = \left(x_1 + \frac{\Delta x}{2}, y_1\right), \quad \text{cp2} = \l
 from drawlib.canvas import save, setup
 from drawlib.lines import line_bezier1, line_bezier2
 from drawlib.shapes import rectangle
-from drawlib.types import Style
 from drawlib.styles import Styles
 
 setup(width=120, height=60)
 
 # Pipeline stages
-rectangle((15, 45), width=20, height=12, style=Styles.BlueFlat, text="Ingest", text_style=Styles.WhiteBold)
-rectangle((60, 45), width=20, height=12, style=Styles.BlueFlat, text="Filter A", text_style=Styles.WhiteBold)
-rectangle((60, 15), width=20, height=12, style=Styles.PurpleFlat, text="Filter B", text_style=Styles.WhiteBold)
-rectangle((105, 30), width=20, height=12, style=Styles.GreenFlat, text="Sink", text_style=Styles.WhiteBold)
+rectangle((15, 45), width=20, height=12, style=Styles.Neutral, text="Ingest")
+rectangle((60, 45), width=20, height=12, style=Styles.PrimaryFlat, text="Filter A", text_style=Styles.WhiteBold)
+rectangle((60, 15), width=20, height=12, style=Styles.SecondaryNeutral, text="Filter B")
+rectangle((105, 30), width=20, height=12, style=Styles.Neutral, text="Sink")
 
 # 1. Quadratic curve: branch down to Filter B
 line_bezier1(
@@ -352,7 +349,7 @@ line_bezier1(
     cp=(45, 15),
     xy2=(50, 15),
     arrow_head="->",
-    style=Styles.PurpleBold,
+    style=Styles.DarkBold,
 )
 
 # 2. Cubic S-curve: converge Filter B into Sink with horizontal tangents
@@ -365,7 +362,7 @@ line_bezier2(
     cp2=(x2 - dx * 0.5, y2),
     xy2=(x2, y2),
     arrow_head="->",
-    style=Styles.GreenBold,
+    style=Styles.DarkBold,
 )
 
 save()
@@ -428,31 +425,30 @@ Routes around an intermediate obstacle:
 from drawlib.canvas import save, setup
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
-from drawlib.styles import Colors, Styles
-from drawlib.types import Style
+from drawlib.styles import Styles
 
 setup(width=120, height=60)
 
 # Central message bus spine (horizontal trunk)
-line((15, 30), (105, 30), style=Styles.PrimaryBold.patch(line_width=3.0, line_color=Colors.Navy))
+line((15, 30), (105, 30), style=Styles.DarkBold.patch(line_width=3.0))
 
 # Producer nodes (top tier)
-rectangle((25, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor A", text_style=Styles.WhiteBold)
-rectangle((55, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor B", text_style=Styles.WhiteBold)
-rectangle((85, 48), width=20, height=10, style=Styles.BlueFlat, text="Sensor C", text_style=Styles.WhiteBold)
+rectangle((25, 48), width=20, height=10, style=Styles.Neutral, text="Sensor A")
+rectangle((55, 48), width=20, height=10, style=Styles.Neutral, text="Sensor B")
+rectangle((85, 48), width=20, height=10, style=Styles.Neutral, text="Sensor C")
 
 # Consumer nodes (bottom tier)
-rectangle((40, 12), width=22, height=10, style=Styles.GreenFlat, text="Analytics", text_style=Styles.WhiteBold)
-rectangle((75, 12), width=22, height=10, style=Styles.PurpleFlat, text="Storage", text_style=Styles.WhiteBold)
+rectangle((40, 12), width=22, height=10, style=Styles.PrimaryFlat, text="Analytics", text_style=Styles.WhiteBold)
+rectangle((75, 12), width=22, height=10, style=Styles.SecondaryNeutral, text="Storage")
 
 # Vertical bus taps from producers to trunk
-lines([(25, 43), (25, 30)], arrow_head="->", style=Styles.BlueBold)
-lines([(55, 43), (55, 30)], arrow_head="->", style=Styles.BlueBold)
-lines([(85, 43), (85, 30)], arrow_head="->", style=Styles.BlueBold)
+lines([(25, 43), (25, 30)], arrow_head="->", style=Styles.DarkBold)
+lines([(55, 43), (55, 30)], arrow_head="->", style=Styles.DarkBold)
+lines([(85, 43), (85, 30)], arrow_head="->", style=Styles.DarkBold)
 
 # Dogleg taps from trunk to consumers
-lines([(40, 30), (40, 17)], arrow_head="->", style=Styles.GreenBold)
-lines([(75, 30), (75, 17)], arrow_head="->", style=Styles.PurpleBold)
+lines([(40, 30), (40, 17)], arrow_head="->", style=Styles.DarkBold)
+lines([(75, 30), (75, 17)], arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -618,42 +614,43 @@ Internally, `LineArcHelper` subdivides large angular sweeps into sub-arcs of $\l
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_arc
 from drawlib.shapes import rectangle
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
 
 setup(width=100, height=60)
 
-rectangle((30, 30), width=24, height=14, style=Styles.BlueFlat, text="Processor", text_style=Styles.WhiteBold)
-rectangle((75, 30), width=24, height=14, style=Styles.GreenFlat, text="Consumer", text_style=Styles.WhiteBold)
+# Nodes: Hero Processor in PrimaryFlat, supporting Consumer in Neutral
+rectangle((30, 30), width=24, height=14, style=Styles.PrimaryFlat, text="Processor", text_style=Styles.WhiteBold)
+rectangle((75, 30), width=24, height=14, style=Styles.Neutral, text="Consumer")
 
 # Direct pipeline line
-line((42, 30), (63, 30), arrow_head="->", style=Styles.PrimaryBold)
+line((42, 30), (63, 30), arrow_head="->", style=Styles.DarkBold)
 
 # 1. Self-loop retry arc (Processor retries itself on failure)
 line_arc(
-    xy=(30, 42),
-    width=16,
-    height=16,
-    angle_start=220,
-    angle_end=320,
+    xy=(30, 37),
+    width=14,
+    height=14,
+    angle_start=200,
+    angle_end=340,
     arrow_head="->",
-    style=Styles.RedDashed.patch(line_width=1.5),
+    style=Styles.MutedDashed.patch(line_width=1.5),
     ccw=False,
 )
-text((30, 53), "Retry (3x)", style=Styles.Red)
+text((30, 50), "Retry (3x)", style=Styles.Dark.patch(text_size=9))
 
 # 2. Large feedback arc (Consumer sends feedback to Processor)
 line_arc(
-    xy=(52.5, 30),
+    xy=(52.5, 23),
     width=45,
-    height=25,
+    height=20,
     angle_start=0,
     angle_end=180,
     arrow_head="->",
-    style=Styles.PurpleDashed.patch(line_width=1.5),
+    style=Styles.MutedDashed.patch(line_width=1.5),
     ccw=False,
 )
-text((52.5, 12), "Negative ACK / Backpressure", style=Styles.Purple)
+text((52.5, 8), "Negative ACK / Backpressure", style=Styles.Dark.patch(text_size=8.5))
 
 save()
 ```
@@ -692,36 +689,35 @@ On curved lines (`line_curved`, `line_bezier1`, `line_bezier2`, `line_arc`, `lin
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.text import text
-from drawlib.types import Style
 from drawlib.styles import Styles
+from drawlib.text import text
 
 setup(width=120, height=70)
 
 # 1. Unfilled / Stick arrowheads (default)
-text((15, 60), "Stick -> (scale=20)", style=Styles.PrimaryBold)
-line((55, 60), (105, 60), arrow_head="->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+text((15, 60), "Stick -> (scale=20)", style=Styles.DarkBold)
+line((55, 60), (105, 60), arrow_head="->", style=Styles.DarkBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
-text((15, 50), "Stick <- (scale=20)", style=Styles.PrimaryBold)
-line((55, 50), (105, 50), arrow_head="<-", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+text((15, 50), "Stick <- (scale=20)", style=Styles.DarkBold)
+line((55, 50), (105, 50), arrow_head="<-", style=Styles.DarkBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
-text((15, 40), "Stick <-> (scale=20)", style=Styles.PrimaryBold)
-line((55, 40), (105, 40), arrow_head="<->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
+text((15, 40), "Stick <-> (scale=20)", style=Styles.DarkBold)
+line((55, 40), (105, 40), arrow_head="<->", style=Styles.DarkBold.patch(line_arrow_head_fill=False, line_arrow_head_scale=20))
 
 # 2. Filled triangular arrowheads
-text((15, 30), "Filled -|> (scale=20)", style=Styles.PrimaryBold)
-line((55, 30), (105, 30), arrow_head="->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
+text((15, 30), "Filled -|> (scale=20)", style=Styles.DarkBold)
+line((55, 30), (105, 30), arrow_head="->", style=Styles.DarkBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
 
-text((15, 20), "Filled <|-|> (scale=20)", style=Styles.PrimaryBold)
-line((55, 20), (105, 20), arrow_head="<->", style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
+text((15, 20), "Filled <|-|> (scale=20)", style=Styles.DarkBold)
+line((55, 20), (105, 20), arrow_head="<->", style=Styles.DarkBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=20))
 
 # 3. Scaling variations
-text((15, 10), "Large Scale (scale=35)", style=Styles.PrimaryBold)
+text((15, 10), "Large Scale (scale=35)", style=Styles.DarkBold)
 line(
     (55, 10),
     (105, 10),
     arrow_head="->",
-    style=Styles.PrimaryBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=35, line_width=2.5),
+    style=Styles.DarkBold.patch(line_arrow_head_fill=True, line_arrow_head_scale=35, line_width=2.5),
 )
 
 save()
@@ -794,25 +790,24 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.styles import Colors, Styles
 from drawlib.text import text
-from drawlib.types import Style
 
 setup(width=120, height=55)
 
 protocols = [
-    ("Synchronous REST API", Colors.Blue, "solid", 1.5, "->"),
-    ("Asynchronous Event Queue", Colors.Purple, "dashed", 1.5, "->"),
-    ("Telemetry / Health Check", Colors.Gray5, "dotted", 1.0, "->"),
-    ("Cross-VPC Transit Tunnel", Colors.Red, "dashdot", 2.0, "<->"),
+    ("Synchronous REST API", Colors.Dark, "solid", 1.5, "->"),
+    ("Asynchronous Event Queue", Colors.Secondary, "dashed", 1.5, "->"),
+    ("Telemetry / Health Check", Colors.Muted, "dotted", 1.0, "->"),
+    ("Cross-VPC Transit Tunnel", Colors.Primary, "dashdot", 2.0, "<->"),
 ]
 
-for i, (label, color_name, pattern, thickness, arrow) in enumerate(protocols):
+for i, (label, color_val, pattern, thickness, arrow) in enumerate(protocols):
     y = 45 - i * 11
-    text((10, y), label, style=Styles.Primary.patch(text_size=11, text_halign="left"))
+    text((10, y), label, style=Styles.Dark.patch(text_size=10.5, text_halign="left"))
     line(
         (70, y),
         (110, y),
         arrow_head=arrow,
-        style=Styles.PrimaryBold.patch(line_color=color_name, line_style=pattern, line_width=thickness),
+        style=Styles.DarkBold.patch(line_color=color_val, line_style=pattern, line_width=thickness),
     )
 
 save()
@@ -875,17 +870,15 @@ def draw_labeled_line(
     *,
     line_style: Style,
     arrow_head: str = "->",
-    color: tuple[int, int, int] | str = Colors.Blue,
 ) -> None:
     """Draw a line with an automatically centered, masked text badge."""
     line(xy1, xy2, arrow_head=arrow_head, style=line_style)
     mx = (xy1[0] + xy2[0]) / 2
     my = (xy1[1] + xy2[1]) / 2
-    badge = Styles.Primary.patch(
+    badge = Styles.Dark.patch(
         text_size=9,
-        text_color=color,
         text_bg_fill_color=Colors.White,
-        text_bg_line_color=color,
+        text_bg_line_color=Colors.Gray3,
         text_bg_line_width=0.5,
         text_halign="center",
         text_valign="center",
@@ -893,11 +886,11 @@ def draw_labeled_line(
     text((mx, my), label, style=badge)
 
 setup(width=120, height=50)
-rectangle((20, 25), width=24, height=14, style=Styles.BlueFlat, text="Client", text_style=Styles.WhiteBold)
-rectangle((100, 25), width=24, height=14, style=Styles.GreenFlat, text="Service", text_style=Styles.WhiteBold)
+rectangle((20, 25), width=24, height=14, style=Styles.Neutral, text="Client")
+rectangle((100, 25), width=24, height=14, style=Styles.PrimaryFlat, text="Service", text_style=Styles.WhiteBold)
 
-draw_labeled_line((32, 29), (88, 29), "POST /api/checkout", arrow_head="->", line_style=Styles.BlueBold, color=Colors.Blue)
-draw_labeled_line((88, 21), (32, 21), "201 Created (45ms)", arrow_head="->", line_style=Styles.GreenDashed, color=Colors.Green)
+draw_labeled_line((32, 29), (88, 29), "POST /api/checkout", arrow_head="->", line_style=Styles.DarkBold)
+draw_labeled_line((88, 21), (32, 21), "201 Created (45ms)", arrow_head="->", line_style=Styles.MutedDashed)
 
 save()
 ```
@@ -917,11 +910,11 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=120, height=50)
-rectangle((20, 25), width=20, height=16, style=Styles.NavyFlat, text="API Gateway", text_style=Styles.WhiteBold)
+rectangle((20, 25), width=20, height=16, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
 
 for name, y in [("Users", 40), ("Orders", 25), ("Payments", 10)]:
-    rectangle((95, y), width=22, height=10, style=Styles.GreenFlat, text=name, text_style=Styles.WhiteBold)
-    lines([(30, 25), (55, 25), (55, y), (84, y)], arrow_head="->", style=Styles.PrimaryBold)
+    rectangle((95, y), width=22, height=10, style=Styles.Neutral, text=name)
+    lines([(30, 25), (55, 25), (55, y), (84, y)], arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -933,13 +926,13 @@ from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
 from drawlib.styles import Styles
 
-setup(width=120, height=50)
-pitch, base_r = 2.0, 4.0
+setup(width=120, height=55)
+pitch, base_r = 3.0, 4.0
 
 for i in range(4):
     offset = i * pitch
-    path = [(15, 12 + offset), (45 + offset, 12 + offset), (45 + offset, 38 - offset), (105, 38 - offset)]
-    lines_curved(path, r=base_r + offset, arrow_head="->", style=Styles.BlueBold)
+    path = [(15, 12 + offset), (45 + offset, 12 + offset), (45 + offset, 42 + offset), (105, 42 + offset)]
+    lines_curved(path, r=base_r + offset, arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -953,15 +946,15 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=120, height=60)
-rectangle((60, 30), width=90, height=8, style=Styles.PurpleFlat, text="Kafka Event Log", text_style=Styles.WhiteBold)
+rectangle((60, 30), width=90, height=8, style=Styles.PrimaryFlat, text="Kafka Event Log", text_style=Styles.WhiteBold)
 
 for name, x in [("Auth Svc", 30), ("Order Svc", 60), ("Payment Svc", 90)]:
-    rectangle((x, 50), width=20, height=10, style=Styles.BlueFlat, text=name, text_style=Styles.WhiteBold)
-    lines([(x, 45), (x, 34)], arrow_head="->", style=Styles.BlueBold)
+    rectangle((x, 50), width=20, height=10, style=Styles.Neutral, text=name)
+    lines([(x, 45), (x, 34)], arrow_head="->", style=Styles.DarkBold)
 
 for name, x in [("Email Worker", 40), ("Audit Log", 80)]:
-    rectangle((x, 10), width=22, height=10, style=Styles.GreenFlat, text=name, text_style=Styles.WhiteBold)
-    lines([(x, 26), (x, 15)], arrow_head="->", style=Styles.GreenBold)
+    rectangle((x, 10), width=22, height=10, style=Styles.SecondaryNeutral, text=name)
+    lines([(x, 26), (x, 15)], arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -972,24 +965,23 @@ Security zones and perimeter firewalls traversed by distinct cross-boundary link
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import Colors, Styles
+from drawlib.styles import Styles
 from drawlib.text import text
-from drawlib.types import Style
 
 setup(width=120, height=50)
-line((60, 5), (60, 45), style=Styles.PrimaryBold.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5))
-text((58, 43), "Public DMZ", style=Styles.Primary.patch(text_size=9, text_halign="right", text_color=Colors.Gray5))
-text((62, 43), "Private Subnet", style=Styles.Primary.patch(text_size=9, text_halign="left", text_color=Colors.Gray5))
+line((60, 5), (60, 45), style=Styles.MutedDashed.patch(line_width=1.5))
+text((58, 43), "Public DMZ", style=Styles.Dark.patch(text_size=9, text_halign="right"))
+text((62, 43), "Private Subnet", style=Styles.Dark.patch(text_size=9, text_halign="left"))
 
-rectangle((25, 25), width=22, height=12, style=Styles.BlueFlat, text="Reverse Proxy", text_style=Styles.WhiteBold)
-rectangle((95, 25), width=22, height=12, style=Styles.GreenFlat, text="App Backend", text_style=Styles.WhiteBold)
+rectangle((25, 25), width=22, height=12, style=Styles.Neutral, text="Reverse Proxy")
+rectangle((95, 25), width=22, height=12, style=Styles.PrimaryFlat, text="App Backend", text_style=Styles.WhiteBold)
 line(
     (36, 25),
     (84, 25),
     arrow_head="->",
-    style=Styles.PrimaryBold.patch(line_color=Colors.Red, line_style="dashdot", line_width=2.0),
+    style=Styles.DarkBold.patch(line_style="dashdot", line_width=1.8),
 )
-text((60, 28), "mTLS (Port 8443)", style=Styles.Primary.patch(text_size=9, text_bg_fill_color=Colors.White, text_bg_line_width=0.5))
+text((60, 28), "mTLS (Port 8443)", style=Styles.Dark.patch(text_size=8.5))
 
 save()
 ```
@@ -1048,19 +1040,19 @@ def route_around_obstacle(
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
 from drawlib.shapes import rectangle
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
 
 setup(width=120, height=50)
 
 start, end, obs = (15, 25), (105, 25), (60, 25)
-rectangle(start, width=16, height=12, style=Styles.BlueFlat, text="Client", text_style=Styles.WhiteBold)
-rectangle(obs, width=30, height=18, style=Styles.RedFlat, text="Firewall / WAF", text_style=Styles.WhiteBold)
-rectangle(end, width=16, height=12, style=Styles.GreenFlat, text="Server", text_style=Styles.WhiteBold)
+rectangle(start, width=16, height=12, style=Styles.Neutral, text="Client")
+rectangle(obs, width=30, height=18, style=Styles.SecondaryNeutral, text="Firewall / WAF")
+rectangle(end, width=16, height=12, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
 
 bypass = [(23, 25), (38, 25), (38, 40), (82, 40), (82, 25), (97, 25)]
-lines_curved(bypass, r=4.0, arrow_head="->", style=Styles.BlueBold)
-text((60, 44), "Authorized Bypass Channel", style=Styles.Blue)
+lines_curved(bypass, r=4.0, arrow_head="->", style=Styles.DarkBold)
+text((60, 44), "Authorized Bypass Channel", style=Styles.Dark.patch(text_size=9))
 
 save()
 ```

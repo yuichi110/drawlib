@@ -375,7 +375,7 @@ rectangle(
     (30, 25),
     width=28,
     height=16,
-    style=Styles.BlueFlat,
+    style=Styles.PrimaryFlat,
     text="Gateway API",
     text_style=Styles.WhiteBold,
 )
@@ -383,9 +383,8 @@ rectangle(
 circle(
     (75, 25),
     radius=10,
-    style=Styles.GreenFlat,
+    style=Styles.SecondaryNeutral,
     text="Worker Node\n(Active)",
-    text_style=Styles.WhiteBold,
 )
 
 save()

@@ -140,10 +140,10 @@ from drawlib.styles import Styles
 setup(width=140, height=65)
 
 # Header title
-text((70, 56), "API Gateway Routing Schema", style=Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20))
+text((70, 56), "API Gateway Routing Schema", style=Styles.DarkBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20))
 
-# Service node with mixed typography
-rectangle((40, 28), width=36, height=22, style=Styles.BlueFlat)
+# Service node with mixed typography (Hero)
+rectangle((40, 28), width=36, height=22, style=Styles.PrimaryFlat)
 text((40, 33), "Edge Gateway", style=Styles.WhiteBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=14))
 text(
     (40, 23),
@@ -151,18 +151,18 @@ text(
     style=Styles.White.patch(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR, text_size=11, text_color=(220, 235, 255)),
 )
 
-# Backend node
-rectangle((100, 28), width=36, height=22, style=Styles.GreenFlat)
-text((100, 33), "Payment Service", style=Styles.WhiteBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=14))
+# Backend node (Neutral)
+rectangle((100, 28), width=36, height=22, style=Styles.SecondaryNeutral)
+text((100, 33), "Payment Service", style=Styles.DarkBold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=14))
 text(
     (100, 23),
-    "10.0.1.15:8080",
-    style=Styles.White.patch(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR, text_size=11, text_color=(220, 255, 230)),
+    "10.1.15:8080",
+    style=Styles.Dark.patch(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR, text_size=11),
 )
 
 # Connecting arrow with technical label
-line((58, 28), (82, 28), arrow_head="->", style=Styles.PrimaryBold)
-text((70, 32), "/v1/charges", style=Styles.Primary.patch(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR, text_size=11))
+line((58, 28), (82, 28), arrow_head="->", style=Styles.DarkBold)
+text((70, 32), "/v1/charges", style=Styles.Dark.patch(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR, text_size=11))
 save()
 ```
 
@@ -177,11 +177,12 @@ from drawlib.styles import Styles
 
 setup(width=120, height=50)
 
-cjk_bold = Styles.WhiteBold.patch(text_font=Font.SANSSERIF_BOLD, text_size=13)
+cjk_white_bold = Styles.WhiteBold.patch(text_font=Font.SANSSERIF_BOLD, text_size=13)
+cjk_dark_bold = Styles.DarkBold.patch(text_font=Font.SANSSERIF_BOLD, text_size=13)
 
-rectangle((30, 25), width=32, height=18, style=Styles.BlueFlat, text="ユーザー認証\n(Auth)", text_style=cjk_bold)
-rectangle((90, 25), width=32, height=18, style=Styles.PurpleFlat, text="決済ゲートウェイ\n(Gateway)", text_style=cjk_bold)
-line((46, 25), (74, 25), arrow_head="->", style=Styles.PrimaryBold)
+rectangle((30, 25), width=32, height=18, style=Styles.PrimaryFlat, text="ユーザー認証\n(Auth)", text_style=cjk_white_bold)
+rectangle((90, 25), width=32, height=18, style=Styles.SecondaryNeutral, text="決済ゲートウェイ\n(Gateway)", text_style=cjk_dark_bold)
+line((46, 25), (74, 25), arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 

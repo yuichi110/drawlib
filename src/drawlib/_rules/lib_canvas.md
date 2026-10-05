@@ -155,23 +155,24 @@ Renders the canvas in-memory into a Drawlib `Dimage` object without saving to di
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.text import text
 from drawlib.styles import Styles
+from drawlib.text import text
 
-# Configure a 140x60 canvas with a subtle light background
-setup(width=140, height=60, background_color=(248, 249, 250))
+# Configure a 150x60 canvas with a subtle light background
+setup(width=150, height=60, background_color=(248, 249, 250))
 
-# Service nodes
-rectangle((30, 30), width=32, height=18, style=Styles.AccentFlat, text="Web Frontend", text_style=Styles.WhiteBold)
-rectangle((75, 30), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
-rectangle((120, 30), width=32, height=18, style=Styles.SecondaryFlat, text="Auth Service", text_style=Styles.WhiteBold)
+# System boundary container (Z-Layer 1)
+rectangle((75, 28), width=136, height=44, style=Styles.MutedDashed)
+text((75, 45), "System Boundary", style=Styles.DarkBold)
 
-# Connecting lines with arrowheads
-line((46, 30), (59, 30), arrow_head="->", style=Styles.PrimaryBold)
-line((91, 30), (104, 30), arrow_head="->", style=Styles.PrimaryBold)
+# Service nodes (Z-Layer 2: 1 Hero PrimaryFlat, 2 Neutral cards)
+rectangle((30, 24), width=32, height=18, style=Styles.Neutral, text="Web Frontend")
+rectangle((75, 24), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
+rectangle((120, 24), width=32, height=18, style=Styles.SecondaryNeutral, text="Auth Service")
 
-# Annotations
-text((70, 52), "System Boundary", style=Styles.PrimaryBold)
+# Connecting lines with arrowheads (Z-Layer 3)
+line((46, 24), (59, 24), arrow_head="->", style=Styles.DarkBold)
+line((91, 24), (104, 24), arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 

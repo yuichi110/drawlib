@@ -190,7 +190,7 @@ def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
         sys.stderr.flush()
 
     target_path.parent.mkdir(parents=True, exist_ok=True)
-    processor = DrawlibBlockProcessor(require_file=False)
+    processor = DrawlibBlockProcessor(require_file=False, no_cache=force)
     source_content = source_path.read_text(encoding="utf-8")
 
     if quiet:

@@ -206,6 +206,21 @@ class Node:
             target._diagram.add_edge(edge)
         return edge
 
+    def get_absolute_xy(self) -> tuple[float, float]:
+        """Compute absolute coordinate relative to diagram root.
+
+        Returns:
+            Tuple of (x, y) coordinates relative to the root diagram origin.
+        """
+        x, y = self._local_xy
+        curr = self._parent_group
+        while curr is not None:
+            cx, cy = curr._local_xy
+            x += cx
+            y += cy
+            curr = curr._parent_group
+        return (x, y)
+
     def fork(
         self,
         targets: list[Connectable],
@@ -226,9 +241,9 @@ class Node:
         Returns:
             list[Edge]: Created edges connecting this node to targets via the junction.
         """
-        x, y = self._local_xy
-        jx = float(at_x) if at_x is not None else x + self.icon_size * 2.0
-        jy = float(at_y) if at_y is not None else y
+        ax, ay = self.get_absolute_xy()
+        jx = float(at_x) if at_x is not None else ax + self.icon_size * 2.0
+        jy = float(at_y) if at_y is not None else ay
         j = _junction_module.Junction((jx, jy))
 
         if self._diagram is not None:

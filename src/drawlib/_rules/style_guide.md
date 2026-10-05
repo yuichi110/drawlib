@@ -211,7 +211,10 @@ gap = (total_w - (margin_x * 2) - (box_w * n)) / (n - 1)
 
 for i in range(n):
     cx = margin_x + (box_w / 2) + i * (box_w + gap)
-    rectangle((cx, y), width=box_w, height=box_h, style=Styles.PrimaryFlat, text=f"Node {i+1}", text_style=Styles.WhiteBold)
+    if i == 0:
+        rectangle((cx, y), width=box_w, height=box_h, style=Styles.PrimaryFlat, text=f"Node {i+1}", text_style=Styles.WhiteBold)
+    else:
+        rectangle((cx, y), width=box_w, height=box_h, style=Styles.Neutral, text=f"Node {i+1}")
 
 save()
 ```
@@ -246,10 +249,10 @@ client_xy  = (25, 30)
 gateway_xy = (65, 30)
 db_xy      = (105, 30)
 
-# 2. Render shapes using coordinate variables
-rectangle(client_xy,  width=box_w, height=box_h, style=Styles.AccentFlat,  text="Client", text_style=Styles.WhiteBold)
-rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.PrimaryFlat, text="Gateway", text_style=Styles.WhiteBold)
-rectangle(db_xy,      width=box_w, height=box_h, style=Styles.SecondaryFlat, text="Database", text_style=Styles.WhiteBold)
+# 2. Render shapes using coordinate variables (50%+ Neutral-Grounded)
+rectangle(client_xy,  width=box_w, height=box_h, style=Styles.Neutral,          text="Client")
+rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.PrimaryFlat,      text="Gateway", text_style=Styles.WhiteBold)
+rectangle(db_xy,      width=box_w, height=box_h, style=Styles.SecondaryNeutral, text="Database")
 
 # 3. Connect nodes by referencing the same coordinates
 line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrow_head="->", style=Styles.DarkBold)

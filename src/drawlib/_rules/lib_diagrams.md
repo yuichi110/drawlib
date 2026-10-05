@@ -194,39 +194,38 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, No
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=115, height=95)
+canvas.setup(width=155, height=95)
 
 d = ArchitectureDiagram(
-    node_style=Styles.PrimaryFlat,
-    node_text_style=Styles.Black,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    node_text_style=Styles.DarkBold,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Production Multi-Tier Cloud VPC",
 )
 
 # Outer VPC Network boundary
-vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(10.0, 8.0))
+vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(28.0, 8.0))
 
-# Public Subnet with Load Balancer
-public_subnet = vpc.add(NodeGroup(title="Public Subnet (10.0.1.0/24)", padding=5.0), xy=(5.0, 5.0))
-lb = public_subnet.add(Node("Cloud Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(15.0, 35.0))
+# Public Subnet with Load Balancer (local coordinates inside vpc)
+public_subnet = vpc.add(NodeGroup(title="Public Subnet (10.0.1.0/24)", padding=5.0), xy=(6.0, 6.0))
+lb = public_subnet.add(Node("Cloud Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(14.0, 30.0))
 
-# Private Subnet with Application Pods
-private_subnet = vpc.add(NodeGroup(title="Private Subnet (10.0.2.0/24)", padding=5.0), xy=(38.0, 5.0))
-gke1 = private_subnet.add(Node("API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(15.0, 48.0))
-gke2 = private_subnet.add(Node("API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(15.0, 20.0))
+# Private Subnet with Application Pods (local coordinates inside vpc)
+private_subnet = vpc.add(NodeGroup(title="Private Subnet (10.0.2.0/24)", padding=5.0), xy=(42.0, 6.0))
+gke1 = private_subnet.add(Node("API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 44.0))
+gke2 = private_subnet.add(Node("API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 16.0))
 
-# External Actor and Managed Services
-user = d.add(Node("Client User", icon=PhosphorIcon.USER, icon_size=8.0), xy=(5.0, 42.0))
-db = d.add(Node("Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(85.0, 45.0))
-storage = d.add(Node("Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(85.0, 18.0))
+# External Actor and Managed Services (global diagram coordinates outside vpc)
+user = d.add(Node("Client User", icon=PhosphorIcon.USER, icon_size=8.0), xy=(8.0, 44.0))
+db = d.add(Node("Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(132.0, 58.0))
+storage = d.add(Node("Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(132.0, 30.0))
 
 # Connections
 d.connect(user, lb, label="HTTPS (443)", padding=2.0)
-lb.fork([gke1, gke2], at_x=42.0, padding=2.0)
+lb.fork([gke1, gke2], at_x=66.0, padding=2.0)
 d.connect(gke1, db, label="SQL Query", padding=2.0)
-d.connect(gke2, db, label="SQL Query", padding=2.0)
-d.connect(gke1, storage, label="Uploads", padding=2.0)
+d.connect(gke2, storage, label="Asset Sync", padding=2.0)
 
 d.draw(xy=(5.0, 5.0))
 ```
@@ -238,25 +237,25 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, 
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=105, height=75)
+canvas.setup(width=125, height=80)
 
 d = ArchitectureDiagram(
-    node_style=Styles.PrimaryFlat,
-    node_text_style=Styles.Black,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    node_text_style=Styles.DarkBold,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Event-Driven Message Streaming Topology",
 )
 
-cluster = d.add(NodeGroup(title="Streaming Event Mesh", padding=6.0), xy=(15.0, 10.0))
-broker1 = cluster.add(Node("Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(20.0, 45.0))
-broker2 = cluster.add(Node("Kafka Broker 2", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(20.0, 20.0))
+cluster = d.add(NodeGroup(title="Streaming Event Mesh", padding=6.0), xy=(28.0, 10.0))
+broker1 = cluster.add(Node("Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(16.0, 40.0))
+broker2 = cluster.add(Node("Kafka Broker 2", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(16.0, 14.0))
 
-pub = d.add(Node("Event Ingest\nProducer", icon=PhosphorIcon.BROADCAST, icon_size=7.5), xy=(5.0, 32.5))
-analytics = d.add(Node("Realtime Analytics\nConsumer", icon=PhosphorIcon.CHART_BAR, icon_size=7.5), xy=(85.0, 45.0))
-archiver = d.add(Node("Parquet Lakehouse\nArchiver", icon=PhosphorIcon.HARD_DRIVES, icon_size=7.5), xy=(85.0, 20.0))
+pub = d.add(Node("Event Ingest\nProducer", icon=PhosphorIcon.BROADCAST, icon_size=7.5), xy=(8.0, 37.0))
+analytics = d.add(Node("Realtime Analytics\nConsumer", icon=PhosphorIcon.CHART_BAR, icon_size=7.5), xy=(98.0, 50.0))
+archiver = d.add(Node("Parquet Lakehouse\nArchiver", icon=PhosphorIcon.HARD_DRIVES, icon_size=7.5), xy=(98.0, 24.0))
 
-pub.fork([broker1, broker2], at_x=22.0, padding=1.5)
+pub.fork([broker1, broker2], at_x=24.0, padding=1.5)
 d.connect(broker1, analytics, label="Consumer Group A", padding=1.5)
 d.connect(broker2, archiver, label="Consumer Group B", padding=1.5)
 
@@ -322,9 +321,9 @@ canvas.clear()
 canvas.setup(width=110, height=95)
 
 flow = FlowDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Expense Reimbursement Approval Workflow",
     width=100.0,
     height=90.0,
@@ -338,25 +337,26 @@ flow.add_lane("Finance Dept", width=35.0)
 # 2. Add nodes (Y coordinates align corresponding steps horizontally)
 submit = flow.add(Start("Submit Claim"), xy=(15.0, 78.0))
 receipt = flow.add(Data("Attach Receipt"), xy=(15.0, 62.0))
-review = flow.add(Process("Review Details"), xy=(47.5, 62.0))
-decision = flow.add(Decision("Amount < $500?"), xy=(47.5, 42.0))
+review = flow.add(
+    Process("Review Details", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
+    xy=(47.5, 62.0),
+)
+decision = flow.add(Decision("Amount < $500?", style=Styles.SecondaryNeutral), xy=(47.5, 42.0))
 
-j = flow.junction(xy=(47.5, 25.0))
-auto_pay = flow.add(Process("Disburse Payment"), xy=(82.5, 25.0))
 audit = flow.add(Process("Compliance Audit"), xy=(82.5, 42.0))
-end = flow.add(End("Claim Closed"), xy=(15.0, 25.0))
+auto_pay = flow.add(Process("Disburse Payment", style=Styles.PrimaryNeutral), xy=(82.5, 20.0))
+end = flow.add(End("Claim Closed"), xy=(15.0, 20.0))
 
 # 3. Connect steps
 submit.connect(receipt)
 receipt.connect(review)
 review.connect(decision)
 
-# Decision routing
+# Decision routing (separate vertical levels avoid label collisions)
 decision.connect(audit, label="No", start_side="right", end_side="left")
-decision.connect(j, label="Yes", start_side="bottom", end_side="top")
-j.connect(auto_pay, routing="orthogonal")
+decision.connect(auto_pay, label="Yes", start_side="bottom", end_side="left")
 audit.connect(auto_pay, start_side="bottom", end_side="top")
-auto_pay.connect(end, label="Notice Sent")
+auto_pay.connect(end, label="Notice Sent", start_side="left", end_side="right")
 
 flow.draw(xy=(5.0, 5.0))
 ```
@@ -368,26 +368,26 @@ from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=130, height=80)
+canvas.setup(width=145, height=80)
 
 flow = FlowDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Fulfillment Logistics Pipeline",
     lane_orientation="horizontal",
-    width=115.0,
+    width=130.0,
     height=65.0,
 )
 
 flow.add_lane("Sales Platform", height=32.5, header_size=22.0)
 flow.add_lane("Distribution Center", height=32.5, header_size=22.0)
 
-order = flow.add(Start("New Purchase"), xy=(36.0, 48.0))
-validate = flow.add(Decision("In Stock?"), xy=(62.0, 48.0))
-cancel = flow.add(End("Cancel & Refund"), xy=(92.0, 48.0))
-pack = flow.add(Process("Pick & Pack"), xy=(62.0, 16.0))
-dispatch = flow.add(End("Ship Carrier"), xy=(92.0, 16.0))
+order = flow.add(Start("New Purchase", width=22.0), xy=(36.0, 48.0))
+validate = flow.add(Decision("In Stock?", style=Styles.SecondaryNeutral), xy=(68.0, 48.0))
+cancel = flow.add(End("Cancel & Refund", width=26.0), xy=(112.0, 48.0))
+pack = flow.add(Process("Pick & Pack", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), xy=(68.0, 16.0))
+dispatch = flow.add(End("Ship Carrier", width=24.0), xy=(112.0, 16.0))
 
 order.connect(validate)
 validate.connect(cancel, label="No", start_side="right", end_side="left")
@@ -451,59 +451,54 @@ Indented Python `with` statements naturally structure condition frames in the di
 #### Example 5.3.1: Microservices Order Processing Pipeline
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.styles import Colors, Styles
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
+from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=115, height=135)
+canvas.setup(width=165, height=140)
 
 d = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Microservices Distributed Transaction Pipeline",
     autonumber=True,
+    col_width=38.0,
+    step_y=10.0,
 )
 
-# Participant boundary group for internal cluster
+# 1. Participants: Client on the left, Backend services in VPC group on the right
+client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER, icon_size=7.5))
+
 backend = d.add(
     ParticipantGroup(
         title="Google Cloud VPC",
-        padding=4.0,
-        style=Styles.Primary.patch(shape_fill_color=(242, 246, 255, 0.4), shape_line_color=Colors.Gray5, shape_line_style="dashed"),
+        padding=3.5,
+        style=Styles.MutedDashed,
     )
 )
-api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))
-worker = backend.add(Participant("GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0))
-db = backend.add(Participant("Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0))
+api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, style=Styles.PrimaryNeutral))
+worker = backend.add(Participant("GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
+db = backend.add(Participant("Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
 
-client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER, icon_size=8.0))
-
-# 1. User initiates request
+# 2. Interactions
 client.request(api, "POST /api/v1/checkout")
 api.activate()
 
-# 2. Validation & Database query
 api.request(db, "Check Inventory")
 db.reply(api, "Stock Available")
 
-# 3. Sticky Note annotation
-api.note("Dispatching background fulfillment job", pos="right")
-
-# 4. Asynchronous worker dispatch
 api.request(worker, "Enqueue Job (Pub/Sub)", is_async=True)
 worker.reply(api, "Ack", is_async=True)
 
-# 5. Immediate response to client
 api.reply(client, "202 Accepted (Order ID)")
 api.deactivate()
 
-# 6. Worker background processing within loop
 with d.loop("Retry up to 3 times on DB lock"):
     worker.request(db, "Deduct Inventory Rows")
     db.reply(worker, "Rows Committed")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(5.0, 3.0))
 ```
 
 #### Example 5.3.2: Bidirectional WebSocket Protocol Stream
@@ -513,17 +508,17 @@ from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=65, height=80)
+canvas.setup(width=85, height=80)
 
 d = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="WebSocket Real-Time Live Sync",
 )
 
 app = d.add(Participant("Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
-gateway = d.add(Participant("WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5))
+gateway = d.add(Participant("WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5, style=Styles.PrimaryNeutral))
 
 app.request(gateway, "GET /ws HTTP/1.1 (Upgrade: websocket)")
 gateway.reply(app, "101 Switching Protocols")
@@ -597,38 +592,54 @@ from drawlib.diagrams.state import ChoiceState, FinalState, InitialState, State,
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=135, height=75)
+canvas.setup(width=142, height=75)
 
 sd = StateDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="User Session Lifecycle State Machine",
 )
 
 # 1. Pseudo-states and state nodes
 init = sd.add(InitialState(), xy=(12.0, 38.0))
 idle = sd.add(
-    State("Idle", shape="box", entry="reset_timeout()", do="listen_events()"),
-    xy=(35.0, 38.0),
+    State("Idle", shape="box", entry="reset()", do="listen()", width=22.0),
+    xy=(38.0, 38.0),
 )
-valid_check = sd.add(ChoiceState(name="Valid?"), xy=(70.0, 38.0))
+valid_check = sd.add(ChoiceState(name="Valid?", style=Styles.SecondaryNeutral), xy=(72.0, 38.0))
 active = sd.add(
-    State("Active", shape="box", entry="start_heartbeat()", do="handle_requests()", exit="flush()"),
-    xy=(102.0, 38.0),
+    State(
+        "Active",
+        shape="box",
+        entry="start()",
+        do="handle()",
+        exit="flush()",
+        style=Styles.PrimaryNeutral,
+        width=22.0,
+    ),
+    xy=(105.0, 38.0),
 )
-final = sd.add(FinalState(), xy=(126.0, 38.0))
+final = sd.add(FinalState(), xy=(132.0, 38.0))
 
 # 2. Connect transitions
 sd.connect(init, idle)
-sd.connect(idle, valid_check, event="login", guard="token_present")
+sd.connect(idle, valid_check, event="login")
 
 # Choice branches (success vs failure)
-sd.connect(valid_check, active, guard="token_valid")
-sd.connect(valid_check, idle, guard="token_invalid", bend=0.3)
+sd.connect(valid_check, active, guard="valid")
+sd.connect(
+    valid_check,
+    idle,
+    guard="invalid",
+    bend=-0.35,
+    start_side="bottom",
+    end_side="bottom",
+    text_style=Styles.Dark.patch(text_valign="top"),
+)
 
 # Self-transition heartbeat loop
-sd.connect(active, active, side="top", event="ping", action="extend_lease()")
+sd.connect(active, active, side="top", event="ping", action="extend()")
 
 # Termination
 sd.connect(active, final, event="logout")
@@ -646,16 +657,16 @@ canvas.clear()
 canvas.setup(width=115, height=75)
 
 sd = StateDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Concurrent Task Fork and Join",
 )
 
 init = sd.add(InitialState(), xy=(10.0, 37.5))
 fork = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(25.0, 37.5))
-job_a = sd.add(State("Compute Analytics", shape="box"), xy=(55.0, 50.0))
-job_b = sd.add(State("Index Search", shape="box"), xy=(55.0, 25.0))
+job_a = sd.add(State("Compute Analytics", shape="box", width=28.0, style=Styles.PrimaryNeutral), xy=(55.0, 50.0))
+job_b = sd.add(State("Index Search", shape="box", width=28.0, style=Styles.SecondaryNeutral), xy=(55.0, 25.0))
 join = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(85.0, 37.5))
 final = sd.add(FinalState(), xy=(105.0, 37.5))
 
@@ -728,9 +739,9 @@ canvas.clear()
 canvas.setup(width=110, height=85)
 
 cd = ClassDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="E-Commerce Domain Class Model",
 )
 
@@ -741,11 +752,11 @@ user.add_attribute("email", type="str", is_public=True)
 user.add_attribute("password_hash", type="str", is_public=False)
 user.add_method("login", return_type="bool")
 
-customer = cd.add(ClassNode(name="Customer", width=26.0), xy=(22.0, 20.0))
+customer = cd.add(ClassNode(name="Customer", width=26.0, style=Styles.SecondaryNeutral), xy=(22.0, 20.0))
 customer.add_attribute("shipping_address", type="str")
 customer.add_method("checkout", return_type="Order")
 
-order = cd.add(ClassNode(name="Order", width=28.0), xy=(75.0, 20.0))
+order = cd.add(ClassNode(name="Order", width=28.0, style=Styles.PrimaryNeutral), xy=(75.0, 20.0))
 order.add_attribute("order_id", type="str")
 order.add_attribute("total", type="float")
 order.add_method("calculate_tax", return_type="float")
@@ -780,17 +791,23 @@ canvas.clear()
 canvas.setup(width=105, height=80)
 
 cd = ClassDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="UML Observer Design Pattern",
 )
 
-subj_iface = cd.add(ClassNode(name="Subject", stereotype="interface", width=28.0), xy=(25.0, 58.0))
+subj_iface = cd.add(
+    ClassNode(name="Subject", stereotype="interface", width=28.0, style=Styles.PrimaryNeutral),
+    xy=(25.0, 58.0),
+)
 subj_iface.add_method("attach", params="o: Observer", return_type="void")
 subj_iface.add_method("notify", return_type="void")
 
-obs_iface = cd.add(ClassNode(name="Observer", stereotype="interface", width=28.0), xy=(75.0, 58.0))
+obs_iface = cd.add(
+    ClassNode(name="Observer", stereotype="interface", width=28.0, style=Styles.SecondaryNeutral),
+    xy=(75.0, 58.0),
+)
 obs_iface.add_method("update", return_type="void")
 
 concrete_subj = cd.add(ClassNode(name="NewsPublisher", width=28.0), xy=(25.0, 20.0))
@@ -880,30 +897,30 @@ from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=115, height=85)
+canvas.setup(width=158, height=85)
 
 erd = ERDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="E-Commerce Relational Database Schema",
 )
 
-# 1. Define entities
-users = erd.add(Entity(name="users", width=26.0), xy=(20.0, 50.0))
+# 1. Define entities with adequate width for column names and types
+users = erd.add(Entity(name="users", width=28.0), xy=(22.0, 50.0))
 users.add_column("id", type="INT", pk=True)
-users.add_column("email", type="VARCHAR(255)", nullable=False)
-users.add_column("name", type="VARCHAR(100)")
+users.add_column("email", type="VARCHAR", nullable=False)
+users.add_column("name", type="VARCHAR")
 
-orders = erd.add(Entity(name="orders", width=26.0), xy=(55.0, 50.0))
+orders = erd.add(Entity(name="orders", width=32.0, style=Styles.PrimaryNeutral), xy=(76.0, 50.0))
 orders.add_column("id", type="INT", pk=True)
 orders.add_column("user_id", type="INT", fk=True)
-orders.add_column("total_amount", type="DECIMAL(10,2)")
+orders.add_column("total_amount", type="DECIMAL")
 
-items = erd.add(Entity(name="order_items", width=26.0), xy=(90.0, 50.0))
+items = erd.add(Entity(name="order_items", width=34.0), xy=(130.0, 50.0))
 items.add_column("id", type="INT", pk=True)
 items.add_column("order_id", type="INT", fk=True)
-items.add_column("product_name", type="VARCHAR(100)")
+items.add_column("product_name", type="VARCHAR")
 items.add_column("quantity", type="INT")
 
 # 2. Connect relationships with column anchoring
@@ -936,28 +953,28 @@ from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=110, height=80)
+canvas.setup(width=145, height=80)
 
 erd = ERDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Multi-Tenant RBAC Authorization Schema",
 )
 
-tenants = erd.add(Entity(name="tenants", width=24.0), xy=(20.0, 48.0))
+tenants = erd.add(Entity(name="tenants", width=28.0), xy=(22.0, 48.0))
 tenants.add_column("id", type="UUID", pk=True)
-tenants.add_column("slug", type="VARCHAR(64)", nullable=False)
+tenants.add_column("slug", type="VARCHAR", nullable=False)
 
-accounts = erd.add(Entity(name="accounts", width=24.0), xy=(55.0, 48.0))
+accounts = erd.add(Entity(name="accounts", width=28.0, style=Styles.PrimaryNeutral), xy=(72.0, 48.0))
 accounts.add_column("id", type="UUID", pk=True)
 accounts.add_column("tenant_id", type="UUID", fk=True)
-accounts.add_column("email", type="VARCHAR(128)")
+accounts.add_column("email", type="VARCHAR")
 
-roles = erd.add(Entity(name="roles", width=24.0), xy=(90.0, 48.0))
+roles = erd.add(Entity(name="roles", width=28.0), xy=(122.0, 48.0))
 roles.add_column("id", type="UUID", pk=True)
 roles.add_column("account_id", type="UUID", fk=True)
-roles.add_column("role_name", type="VARCHAR(32)")
+roles.add_column("role_name", type="VARCHAR")
 
 tenants.connect(
     accounts,
@@ -966,14 +983,16 @@ tenants.connect(
     end_side="left",
     start_column="id",
     end_column="tenant_id",
+    routing="orthogonal",
 )
 accounts.connect(
     roles,
-    cardinality="1:1..*",
+    cardinality="1:*",
     start_side="right",
     end_side="left",
     start_column="id",
     end_column="account_id",
+    routing="orthogonal",
 )
 
 erd.draw(xy=(0.0, 0.0))

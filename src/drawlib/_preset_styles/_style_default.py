@@ -4074,7 +4074,7 @@ def _create_default_styles(  # noqa: C901, PLR0911
                 v = _make_variants(
                     color,
                     border_color=col.Gray4,
-                    default_text_color=col.White,
+                    default_text_color=col.Dark,
                     line_color=col.Dark,
                 )
             else:

@@ -321,7 +321,7 @@ def draw_horizontal_message(
         p0, p1 = sx, tx
 
     canvas_line(xy1=(p0, y), xy2=(p1, y), arrow_head=arrow_head, style=style)
-    return (p0 + p1) / 2.0, y + 1.8
+    return (p0 + p1) / 2.0, y + 2.5
 
 
 def draw_self_call(
@@ -349,15 +349,12 @@ def render_message_label(
     custom_text_style: Style | None,
     default_edge_text_style: Style,
 ) -> None:
-    """Draw message label with clear semi-transparent background backplate."""
+    """Draw message label resting cleanly above the message arrow."""
     base_label_style = Style(
-        text_size=11,
+        text_size=10,
         text_font=Font.SANSSERIF_REGULAR,
-        text_bg_fill_color=(255, 255, 255, 0.95),
-        text_bg_line_color=None,
-        text_bg_line_width=0,
         text_halign="center",
-        text_valign="center",
+        text_valign="bottom",
     )
     applied_text_style = custom_text_style or default_edge_text_style
     label_style = base_label_style.patch(applied_text_style)

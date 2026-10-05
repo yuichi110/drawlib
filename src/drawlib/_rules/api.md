@@ -124,7 +124,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `regularpolygon(xy, radius, num_edges, ...)` | `radius, num_edges: int`, `angle: float = 0` | Regular N-sided polygon (pentagon, hexagon, etc.). |
 | `polygon(points, ...)` | `points: list[tuple[float, float]]` | Arbitrary closed polygon from coordinate list. |
 | `star(xy, num_vertex, radius_ext, radius_int, ...)` | `num_vertex: int`, `radius_ext: float`, `radius_int: float`, `angle: float = 0` | Multi-pointed star shape. |
-| `chevron(xy, width, height, corner_angle, ...)` | `width, height, corner_angle: float`, `mirror: bool = False`, `angle: float = 0` | Process chevron arrow shape (xy is bottom-left). |
+| `chevron(xy, width, height, corner_angle, ...)` | `width, height, corner_angle: float`, `mirror: bool = False`, `angle: float = 0` | Process chevron arrow shape centered at `xy`. |
 | `arrow(xy, width, height, ...)` | `width, height`, `angle: float = 0` | Block arrow shape pointing right (or rotated). |
 | `arrow_l(xy, width, height, ...)` | `width, height`, `angle: float = 0` | L-shaped bent block arrow. |
 | `arrow_u(xy, width, height, ...)` | `width, height`, `angle: float = 0` | U-turn block arrow. |
@@ -138,12 +138,12 @@ from drawlib.canvas import setup
 from drawlib.shapes import chevron, circle, rectangle, star
 from drawlib.styles import Styles
 
-setup(width=120, height=40)
+setup(width=140, height=40)
 
-rectangle((20, 20), width=28, height=18, style=Styles.PrimaryFlat, text="Rectangle", text_style=Styles.WhiteBold)
-circle((50, 20), radius=10, style=Styles.SecondaryFlat, text="Circle", text_style=Styles.WhiteBold)
-chevron((68, 11), width=24, height=18, corner_angle=45, style=Styles.AccentFlat, text="Chevron", text_style=Styles.WhiteBold)
-star((106, 20), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.SuccessFlat)
+rectangle((22, 20), width=26, height=18, style=Styles.PrimaryFlat, text="Rectangle", text_style=Styles.WhiteBold)
+circle((56, 20), radius=10, style=Styles.Neutral, text="Circle")
+chevron((90, 20), width=26, height=18, corner_angle=45, style=Styles.SecondaryNeutral, text="Chevron")
+star((122, 20), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.PrimaryNeutral)
 ```
 
 ---
@@ -171,13 +171,13 @@ from drawlib.styles import Styles
 setup(width=120, height=40)
 
 # 1. Straight connector
-line((10, 20), (35, 20), arrow_head="->", style=Styles.PrimaryBold)
+line((10, 20), (35, 20), arrow_head="->", style=Styles.DarkBold)
 
 # 2. Curved arc connector
-line_curved((45, 12), (75, 12), bend=0.3, arrow_head="<->", style=Styles.AccentBold)
+line_curved((45, 12), (75, 12), bend=0.3, arrow_head="<->", style=Styles.PrimaryBold)
 
 # 3. Orthogonal stepped connector via lines()
-lines([(85, 12), (98, 12), (98, 28), (115, 28)], arrow_head="->", style=Styles.PrimaryBold)
+lines([(85, 12), (98, 12), (98, 28), (115, 28)], arrow_head="->", style=Styles.DarkBold)
 ```
 
 ---
@@ -203,11 +203,11 @@ from drawlib.text import text, text_vertical
 setup(width=120, height=45)
 
 # Centered main title
-text((60, 36), "System Architecture", style=Styles.PrimaryBold)
+text((60, 36), "System Architecture", style=Styles.DarkBold)
 
 # Left-aligned and right-aligned annotations using style.patch()
-text((15, 20), "Left Aligned", style=Styles.SecondaryBold.patch(text_halign="left"))
-text((105, 20), "Right Aligned", style=Styles.AccentBold.patch(text_halign="right"))
+text((15, 20), "Left Aligned", style=Styles.Dark.patch(text_halign="left"))
+text((105, 20), "Right Aligned", style=Styles.Dark.patch(text_halign="right"))
 
 # Vertical text
 text_vertical((60, 16), "STATUS", style=Styles.MutedBold)
@@ -277,19 +277,22 @@ from drawlib.styles import Styles
 
 setup(width=120, height=60)
 diag = ArchitectureDiagram(
-    node_style=Styles.PrimaryFlat,
-    node_text_style=Styles.Black,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    node_text_style=Styles.DarkBold,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
 )
 
 # 1. Container Boundaries / Groups
 group = diag.add(NodeGroup(title="Production VPC", width=100, height=44), (10, 8))
 
-# 2. Nodes with Built-in Cloud / Phosphor Icons
+# 2. Nodes with Built-in Cloud / Phosphor Icons (1 hero focal node, 2 neutral nodes)
 client = diag.add(Node(text="Web Client", icon=PhosphorIcon.GLOBE), (25, 30))
-gateway = diag.add(Node(text="API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY), (60, 30))
-db = diag.add(Node(text="Cloud SQL", icon=GcpIcon.CLOUD_SQL), (95, 30))
+gateway = diag.add(
+    Node(text="API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
+    (60, 30),
+)
+db = diag.add(Node(text="Cloud SQL", icon=GcpIcon.CLOUD_SQL, style=Styles.SecondaryNeutral), (95, 30))
 
 # 3. Smart Boundary-Clipping Edges
 diag.connect(client, gateway, label="HTTPS")
@@ -306,15 +309,15 @@ from drawlib.canvas import setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
-setup(width=100, height=65)
+setup(width=100, height=76)
 flow = FlowDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
 )
-start = flow.add(Start("Start"), (50, 56))
-proc = flow.add(Process("Execute Job"), (50, 40))
-gate = flow.add(Decision("Success?"), (50, 24))
+start = flow.add(Start("Start"), (50, 66))
+proc = flow.add(Process("Execute Job", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), (50, 48))
+gate = flow.add(Decision("Success?", style=Styles.SecondaryNeutral), (50, 28))
 end = flow.add(End("End"), (50, 8))
 
 flow.connect(start, proc)
@@ -334,13 +337,13 @@ from drawlib.styles import Styles
 
 setup(width=100, height=60)
 seq = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
 )
 user = seq.add(Participant("User"))
-auth = seq.add(Participant("Auth API"))
-db = seq.add(Participant("Database"))
+auth = seq.add(Participant("Auth API", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold))
+db = seq.add(Participant("Database", style=Styles.SecondaryNeutral))
 
 seq.request(user, auth, label="POST /login")
 seq.request(auth, db, label="SELECT user")
@@ -390,11 +393,14 @@ from drawlib.styles import Styles
 setup(width=120, height=35)
 
 process = ChevronProcess(
-    style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold,
-    description_style=Styles.White,
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold,
+    description_style=Styles.Muted,
 )
-process.extend(["1. Ingest", "2. Transform", "3. Validate", "4. Export"])
+process.append("1. Ingest")
+process.append("2. Transform", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+process.append("3. Validate")
+process.append("4. Export", style=Styles.SecondaryNeutral)
 process.draw((10, 8), width=100, height=18)
 ```
 
@@ -410,25 +416,25 @@ from drawlib.charts.bar import BarChart
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
 
-setup(width=120, height=55)
+setup(width=140, height=62)
 
 # 1. Bar Chart on the left
 bar_chart = BarChart(
-    axis_line_style=Styles.Primary,
-    width=50,
-    height=40,
+    axis_line_style=Styles.Dark,
+    width=52,
+    height=38,
     title="Quarterly Sales",
     categories=["Q1", "Q2", "Q3", "Q4"],
 )
 bar_chart.add_series(name="Cloud", values=[45, 52, 68, 85], style=Styles.PrimaryFlat)
-bar_chart.draw((10, 8))
+bar_chart.draw((10, 10))
 
 # 2. Donut Chart on the right
-pie = PieChart(radius=15, hole_ratio=0.5, title="Resource Usage")
+pie = PieChart(radius=14, hole_ratio=0.5, title="Resource Usage")
 pie.add_slice("Compute", 45, style=Styles.PrimaryFlat)
-pie.add_slice("Storage", 35, style=Styles.SecondaryFlat)
-pie.add_slice("Network", 20, style=Styles.AccentFlat)
-pie.draw((90, 28))
+pie.add_slice("Storage", 35, style=Styles.SecondaryNeutral)
+pie.add_slice("Network", 20, style=Styles.Neutral)
+pie.draw((104, 26))
 ```
 
 ---

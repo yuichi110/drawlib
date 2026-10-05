@@ -208,7 +208,6 @@ from drawlib.icons import phosphor
 from drawlib.preset_colors import CssColors
 from drawlib.smartarts import TreeNode
 from drawlib.styles import Colors, Styles
-from drawlib.types import Style
 
 setup(width=110, height=70)
 
@@ -227,8 +226,8 @@ TreeNode.register_drawing_item(
 
 tree_root = TreeNode(
     "monorepo-root/",
-    text_style=Styles.Primary.patch(text_size=11),
-    line_style=Styles.Primary.patch(line_color=Colors.Muted, line_width=1.0),
+    text_style=Styles.Dark.patch(text_size=11),
+    line_style=Styles.Muted.patch(line_width=1.0),
     line_horizontal_margin=3.0,
     line_horizontal_length=3.0,
     line_vertical_margin=6.0,
@@ -278,31 +277,29 @@ save()
 ### 5.3 Production Example: Horizontal Service Pipeline & Status Cards
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import CssColors
 from drawlib.smartarts import BoxList
-from drawlib.styles import Colors, Styles
-from drawlib.types import Style
+from drawlib.styles import Styles
 
 setup(width=110, height=50)
 
 pipeline = BoxList(
-    style=Styles.Primary,
-    text_style=Styles.WhiteBold.patch(text_size=10),
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10),
 )
 pipeline.append("1. Ingestion")
 pipeline.append("2. Validation")
-# Highlighted degraded step
+# Highlighted hero step
 pipeline.append(
     "3. ML Inference",
-    style=Styles.Primary.patch(shape_fill_color=CssColors.Crimson, shape_line_color=CssColors.DarkRed, shape_line_width=1.5),
+    style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=10),
 )
-pipeline.append("4. Persistence")
+pipeline.append("4. Persistence", style=Styles.SecondaryNeutral)
 pipeline.append("5. Dispatch")
 pipeline.draw(xy=(8, 30), box_width=18, box_height=10, align="left")
 
-status_list = BoxList(style=Styles.MutedFlat, text_style=Styles.WhiteBold)
-status_list.extend(["Cluster A: OK", "Cluster B: OK", "Cluster C: WARN"])
+status_list = BoxList(style=Styles.NeutralFlat, text_style=Styles.DarkBold.patch(text_size=9))
+status_list.extend(["Cluster A: OK", "Cluster B: OK", "Cluster C: SYNC"])
 status_list.draw(xy=(8, 5), box_width=25, box_height=6, align="left")
 save()
 ```
@@ -346,30 +343,28 @@ MindMapNode(
 ### 6.4 Production Example: Multi-Directional Architecture Overview
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.fonts import Font
-from drawlib.styles import Colors, Styles
 from drawlib.smartarts import MindMapNode
-from drawlib.types import Style
+from drawlib.styles import Styles
 
 setup(width=220, height=110)
 
-txt_white = Styles.Primary.patch(text_color=Colors.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
-txt_child = Styles.Primary.patch(text_size=8.5, text_font=Font.SANSSERIF_BOLD)
-txt_leaf = Styles.Primary.patch(text_size=9)
+txt_white = Styles.WhiteBold.patch(text_size=9)
+txt_branch = Styles.DarkBold.patch(text_size=8.5)
+txt_leaf = Styles.Dark.patch(text_size=9)
 
 root = MindMapNode(
     "Core API Gateway",
     shape="oval",
     size=(28, 12),
-    style=Styles.DarkFlat,
+    style=Styles.PrimaryFlat,
     text_style=txt_white,
-    line_style=Styles.Primary,
+    line_style=Styles.DarkBold,
     line_length=12.0,
     horizontal_margin=4.0,
     vertical_margin=4.0,
     children=[
         MindMapNode(
-            "Client Traffic", branch="left", shape="rectangle", size=(22, 8), style=Styles.BlueFlat, text_style=txt_white,
+            "Client Traffic", branch="left", shape="rectangle", size=(22, 8), style=Styles.PrimaryNeutral, text_style=txt_branch,
             children=[
                 MindMapNode("Web App (SPA)", shape="none", text_style=txt_leaf),
                 MindMapNode("Mobile Apps", shape="none", text_style=txt_leaf),
@@ -377,22 +372,22 @@ root = MindMapNode(
             ],
         ),
         MindMapNode(
-            "Internal Services", branch="right", shape="rectangle", size=(24, 8), style=Styles.GreenFlat, text_style=txt_white,
+            "Internal Services", branch="right", shape="rectangle", size=(24, 8), style=Styles.SecondaryNeutral, text_style=txt_branch,
             children=[
-                MindMapNode("Auth Service", shape="rectangle", size=(22, 6), style=Styles.Light, text_style=txt_child),
-                MindMapNode("Billing Engine", shape="rectangle", size=(22, 6), style=Styles.Light, text_style=txt_child),
-                MindMapNode("Notification Hub", shape="rectangle", size=(22, 6), style=Styles.Light, text_style=txt_child),
+                MindMapNode("Auth Service", shape="rectangle", size=(22, 6), style=Styles.Neutral, text_style=txt_branch),
+                MindMapNode("Billing Engine", shape="rectangle", size=(22, 6), style=Styles.Neutral, text_style=txt_branch),
+                MindMapNode("Notification Hub", shape="rectangle", size=(22, 6), style=Styles.Neutral, text_style=txt_branch),
             ],
         ),
         MindMapNode(
-            "Telemetry Stack", branch="top", shape="rectangle", size=(24, 8), style=Styles.PurpleFlat, text_style=txt_white,
+            "Telemetry Stack", branch="top", shape="rectangle", size=(24, 8), style=Styles.Neutral, text_style=txt_branch,
             children=[
                 MindMapNode("Prometheus Metrics", shape="none", text_style=txt_leaf),
                 MindMapNode("OpenTelemetry Traces", shape="none", text_style=txt_leaf),
             ],
         ),
         MindMapNode(
-            "Persistence Tier", branch="bottom", shape="rectangle", size=(24, 8), style=Styles.OrangeFlat, text_style=txt_white,
+            "Persistence Tier", branch="bottom", shape="rectangle", size=(24, 8), style=Styles.Neutral, text_style=txt_branch,
             children=[
                 MindMapNode("PostgreSQL Primary", shape="none", text_style=txt_leaf),
                 MindMapNode("Redis Cache Cluster", shape="none", text_style=txt_leaf),
@@ -440,31 +435,31 @@ ChevronProcess(
 ### 7.4 Production Example: Cloud CI/CD Deployment Pipeline
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import CssColors
 from drawlib.smartarts import ChevronProcess
-from drawlib.styles import Colors, Styles
-from drawlib.types import Style
+from drawlib.styles import Styles
 
 setup(width=130, height=45)
 
 pipeline = ChevronProcess(
-    style=Styles.BlueFlat,
-    text_style=Styles.WhiteBold.patch(text_size=9.5),
-    description_style=Styles.White.patch(text_size=8),
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=9.5),
+    description_style=Styles.Muted.patch(text_size=8),
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
 )
-pipeline.append("1. Commit", description="Lint / Hooks", style=Styles.MutedFlat)
+pipeline.append("1. Commit", description="Lint / Hooks")
 pipeline.append("2. Build", description="Docker Image")
 # Active Stage Highlight
 pipeline.append(
     text="3. Security",
     description="SAST & CVE",
-    style=Styles.Primary.patch(shape_fill_color=CssColors.Crimson, shape_line_color=Colors.Dark, shape_line_width=1.5),
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=9.5),
+    description_style=Styles.White.patch(text_size=8),
 )
 pipeline.append("4. Staging", description="Integration")
-pipeline.append("5. Production", description="Canary Deploy", style=Styles.GreenFlat)
+pipeline.append("5. Production", description="Canary Deploy", style=Styles.SecondaryNeutral)
 pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 save()
 ```
@@ -521,16 +516,15 @@ Cycle(
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import CssColors
 from drawlib.smartarts import Cycle
-from drawlib.styles import Colors, Styles
-from drawlib.types import Style
+from drawlib.styles import Styles
 
 setup(width=100, height=90)
 
 incident_cycle = Cycle(
-    style=Styles.RedFlat,
-    text_style=Styles.WhiteBold.patch(text_size=9),
-    description_style=Styles.White.patch(text_size=7),
-    arrow_style=Styles.PrimarySolid,
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=9),
+    description_style=Styles.Muted.patch(text_size=7),
+    arrow_style=Styles.DarkBold,
     clockwise=True,
     start_angle=90.0,
     node_shape="circle",
@@ -538,14 +532,20 @@ incident_cycle = Cycle(
     arrow_type="arc",
     arrow_width=1.5,
     arrow_head_width=4.0,
-    arrow_color_mode="match_source",
+    arrow_color_mode="monochrome",
     description_placement="inside",
 )
-incident_cycle.append("1. Detect", description="Alert Fires", style=Styles.RedFlat)
-incident_cycle.append("2. Triage", description="Assess Scope", style=Styles.OrangeFlat)
-incident_cycle.append("3. Mitigate", description="Failover / Rollback", style=Styles.GreenFlat)
-incident_cycle.append("4. Resolve", description="Root Fix", style=Styles.BlueFlat)
-incident_cycle.append("5. Learn", description="Action Items", style=Styles.PurpleFlat)
+incident_cycle.append(
+    "1. Detect",
+    description="Alert Fires",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=9),
+    description_style=Styles.White.patch(text_size=7),
+)
+incident_cycle.append("2. Triage", description="Assess Scope", style=Styles.PrimaryNeutral)
+incident_cycle.append("3. Mitigate", description="Failover", style=Styles.SecondaryNeutral)
+incident_cycle.append("4. Resolve", description="Root Fix", style=Styles.Neutral)
+incident_cycle.append("5. Learn", description="Action Items", style=Styles.Neutral)
 
 incident_cycle.set_center(
     text="SRE",
@@ -607,27 +607,32 @@ grid.add(
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import CssColors
 from drawlib.smartarts import GridLayout
-from drawlib.styles import Colors, Styles
-from drawlib.types import Style
+from drawlib.styles import Styles
 
 setup(width=110, height=75)
 
-grid = GridLayout(num_column=4, num_row=4, style=Styles.PrimarySolid, text_style=Styles.WhiteBold, r=1.5)
+grid = GridLayout(num_column=4, num_row=4, style=Styles.Neutral, text_style=Styles.DarkBold, r=1.5)
 
-# Row 3 (Top): Client & CDN Ingress
-grid.add(position=(0, 3), width=4, height=1, text="Edge Ingress: Cloudflare CDN & WAF Gateway", style=Styles.PurpleFlat)
+# Row 3 (Top): Client & CDN Ingress (Hero layer)
+grid.add(
+    position=(0, 3),
+    width=4,
+    height=1,
+    text="Edge Ingress: Cloudflare CDN & WAF Gateway",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold,
+)
 # Row 2: Microservice Layer
-grid.add(position=(0, 2), width=2, height=1, text="Order & Cart API", style=Styles.BlueFlat)
-grid.add(position=(2, 2), width=1, height=1, text="Auth API", style=Styles.BlueFlat)
-grid.add(position=(3, 2), width=1, height=1, text="Notify", style=Styles.BlueFlat)
+grid.add(position=(0, 2), width=2, height=1, text="Order & Cart API", style=Styles.PrimaryNeutral)
+grid.add(position=(2, 2), width=1, height=1, text="Auth API", style=Styles.PrimaryNeutral)
+grid.add(position=(3, 2), width=1, height=1, text="Notify", style=Styles.PrimaryNeutral)
 # Row 1: Persistence Tier
-grid.add(position=(0, 1), width=1, height=1, text="Postgres", style=Styles.GreenFlat)
-grid.add(position=(1, 1), width=1, height=1, text="Mongo", style=Styles.GreenFlat)
-grid.add(position=(2, 1), width=2, height=1, text="Redis Replication Cluster", style=Styles.GreenFlat)
+grid.add(position=(0, 1), width=1, height=1, text="Postgres", style=Styles.SecondaryNeutral)
+grid.add(position=(1, 1), width=1, height=1, text="Mongo", style=Styles.SecondaryNeutral)
+grid.add(position=(2, 1), width=2, height=1, text="Redis Replication Cluster", style=Styles.SecondaryNeutral)
 # Row 0 (Bottom): Cloud Infrastructure
-grid.add(position=(0, 0), width=4, height=1, text="Kubernetes Core Platform (AWS EKS Multi-AZ)", style=Styles.MutedFlat)
+grid.add(position=(0, 0), width=4, height=1, text="Kubernetes Core Platform (AWS EKS Multi-AZ)", style=Styles.Neutral)
 
 grid.draw(
     xy=(10, 10),
@@ -684,18 +689,20 @@ pyramid.add(
 ### 10.4 Production Example: Software Testing Pyramid
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import CssColors
 from drawlib.smartarts import Pyramid
-from drawlib.styles import Colors, Styles
-from drawlib.types import Style
+from drawlib.styles import Styles
 
 setup(width=100, height=65)
 
-test_pyramid = Pyramid(style=Styles.GreenFlat, text_style=Styles.WhiteBold.patch(text_size=10))
-test_pyramid.add("Manual (1%)", style=Styles.RedFlat, text_style=Styles.WhiteBold.patch(text_size=8.5))
-test_pyramid.add("End-to-End UI Tests (9%)", style=Styles.OrangeFlat)
-test_pyramid.add("Integration & Contract Tests (20%)", style=Styles.BlueFlat)
-test_pyramid.add("Unit Tests (70%)", style=Styles.GreenFlat)
+test_pyramid = Pyramid(style=Styles.Neutral, text_style=Styles.DarkBold.patch(text_size=10))
+test_pyramid.add("Manual (1%)", style=Styles.Neutral, text_style=Styles.DarkBold.patch(text_size=8.5))
+test_pyramid.add("End-to-End UI Tests (9%)", style=Styles.PrimaryNeutral)
+test_pyramid.add("Integration & Contract Tests (20%)", style=Styles.SecondaryNeutral)
+test_pyramid.add(
+    "Unit Tests (70%)",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10),
+)
 
 test_pyramid.draw(xy=(15, 10), width=70, height=45, margin=1.5, align="bottom", order="vertex_to_base")
 save()
@@ -894,23 +901,29 @@ setup(width=120, height=80)
 
 # 1. Top Section: Pipeline Status
 pipeline = ChevronProcess(
-    style=Styles.PrimarySolid,
-    text_style=Styles.WhiteBold,
-    description_style=Styles.Light,
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=9),
+    description_style=Styles.Muted.patch(text_size=7.5),
     corner_angle=60.0,
     spacing=1.5,
     flat_left_end=True,
 )
-pipeline.extend(
-    texts=["1. Plan", "2. Build", "3. Test", "4. Deploy"],
-    descriptions=["Arch Review", "Docker Image", "E2E Verified", "Production"],
+pipeline.append("1. Plan", description="Arch Review")
+pipeline.append("2. Build", description="Docker Image")
+pipeline.append("3. Test", description="E2E Verified", style=Styles.SecondaryNeutral)
+pipeline.append(
+    "4. Deploy",
+    description="Production",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=9),
+    description_style=Styles.White.patch(text_size=7.5),
 )
 pipeline.draw(xy=(10, 62), width=100, height=12)
 
 # 2. Bottom-Left Section: Service Matrix Table
 table = Table(
     cell_style=Styles.White,
-    text_style=Styles.Primary,
+    text_style=Styles.Dark,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
     border_style=Styles.MutedLight,

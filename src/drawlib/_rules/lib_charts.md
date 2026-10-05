@@ -337,7 +337,6 @@ chart = LineChart(
     point_size=1.0,
     axis_text_style=Styles.Muted.patch(text_size=9.5),
     grid_style=Styles.MutedDashed,
-    value_text_style=Styles.PrimaryBold.patch(text_size=8.5),
 )
 chart.add_series("2025 Baseline", [120.0, 140.0, 175.0, 210.0, 260.0, 310.0], style=Styles.SecondaryFlat, line_style="dashed")
 chart.add_series("2026 Accelerated", [150.0, 195.0, 270.0, 380.0, 520.0, 690.0], style=Styles.PrimaryFlat, line_width=2.5)
@@ -532,7 +531,7 @@ from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
 
-setup(width=95, height=75)
+setup(width=100, height=80)
 
 chart = PieChart(
     radius=24.0,
@@ -548,7 +547,7 @@ chart.add_slice("AI Developer Tools", 340.0, style=Styles.SecondaryFlat)
 chart.add_slice("Security Suite", 180.0, style=Styles.AccentFlat)
 chart.add_slice("Legacy Support", 60.0, style=Styles.MutedFlat)
 chart.draw(xy=(10.0, 10.0))
-chart.draw_legend(xy=(64.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="vertical")
+chart.draw_legend(xy=(66.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="vertical")
 ```
 
 #### Example 6.4.2: Exploded Slice Allocation
@@ -557,7 +556,7 @@ from drawlib.canvas import setup
 from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
 
-setup(width=95, height=70)
+setup(width=100, height=80)
 
 chart = PieChart(
     radius=24.0,
@@ -570,7 +569,7 @@ chart.add_slice("Core Infrastructure", 24.0, style=Styles.SecondaryFlat)
 chart.add_slice("DevOps & Tooling", 16.0, style=Styles.AccentFlat)
 chart.add_slice("Compliance & Security", 12.0, style=Styles.MutedFlat)
 chart.draw(xy=(10.0, 10.0))
-chart.draw_legend(xy=(66.0, 46.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="vertical")
+chart.draw_legend(xy=(68.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0), orientation="vertical")
 ```
 
 ---
@@ -745,8 +744,8 @@ chart = ScatterChart(
 chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0, max_value=1000)
 chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0, max_value=200)
 
-chart.add(xy=(100.0, 18.0), style=Styles.MutedFlat, radius=1.6, label="v1.0 Baseline")
-chart.add(xy=(730.0, 35.0), style=Styles.SuccessFlat, radius=2.2, label="v2.5 Release")
+chart.add(xy=(100.0, 18.0), style=Styles.Neutral, radius=1.6, label="v1.0 Baseline")
+chart.add(xy=(800.0, 50.0), style=Styles.SecondaryNeutral, radius=2.2, label="v2.5 Release")
 
 chart.add_series(
     name="Async Rust Engine",
@@ -885,13 +884,13 @@ chart.add_section("2. APIs & Observability")
 t4 = chart.add_task("gRPC & HTTP/3 Gateway", start=2.5, end=4.0, style=Styles.SecondaryFlat, progress=0.2)
 t5 = chart.add_task("Distributed Tracing Exporter", start=3.2, end=4.8, style=Styles.SecondaryFlat, progress=0.0)
 
-chart.add_milestone("Alpha Architecture Freeze", at="Jun", style=Styles.AccentFlat)
-chart.add_milestone("Public Beta Launch", at=4.0, style=Styles.AccentFlat)
+chart.add_milestone("Alpha Architecture Freeze", at="Jun", style=Styles.SecondaryFlat)
+chart.add_milestone("Public Beta Launch", at=4.0, style=Styles.PrimaryFlat)
 
 chart.add_dependency(t1, t2)
 chart.add_dependency(t2, t4)
 chart.add_dependency(t3, t4)
-chart.add_marker(at=1.7, style=Styles.AccentFlat, label="Today (Mid-May)")
+chart.add_marker(at=1.7, style=Styles.DarkDashed, label="Today")
 chart.draw(xy=(8.0, 10.0))
 ```
 
@@ -918,10 +917,10 @@ chart = GanttChart(
 
 s1 = chart.add_task("Auth Microservice", start=0.0, end=1.8, style=Styles.PrimaryFlat, progress=1.0)
 s2 = chart.add_task("Payment Gateway", start=1.2, end=3.0, style=Styles.SecondaryFlat, progress=0.6)
-s3 = chart.add_task("Load Testing & Tuning", start=2.5, end=4.0, style=Styles.AccentFlat, progress=0.1)
+s3 = chart.add_task("Load Testing & Tuning", start=2.5, end=4.0, style=Styles.PrimaryNeutral, progress=0.1)
 
 chart.add_dependency(s1, s2)
-chart.add_milestone("Feature Complete", at=3.0, style=Styles.AccentFlat)
+chart.add_milestone("Feature Complete", at=3.0, style=Styles.SecondaryFlat)
 chart.draw(xy=(6.0, 15.0))
 ```
 

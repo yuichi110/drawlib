@@ -679,7 +679,7 @@ def _create_monochrome_styles() -> MonochromeStyles:
     d_v = _make_variants(
         gray8,
         border_color=black,
-        default_text_color=white,
+        default_text_color=gray8,
         line_color=black,
     )
     n_v = _make_variants(
@@ -730,16 +730,16 @@ def _create_monochrome_styles() -> MonochromeStyles:
         styles_dict[f"{role_name}DottedLight"] = v["dotted_light"]
 
     color_variants = {
-        "White": _make_variants(white, border_color=black, default_text_color=black),
-        "Gray1": _make_variants(gray1, border_color=gray5, default_text_color=gray5),
-        "Gray2": _make_variants(gray2, border_color=gray5, default_text_color=gray5),
-        "Gray3": _make_variants(gray3, border_color=gray6, default_text_color=black),
-        "Gray4": _make_variants(gray4, border_color=black, default_text_color=white),
-        "Gray5": _make_variants(gray5, border_color=black, default_text_color=white),
-        "Gray6": _make_variants(gray6, border_color=black, default_text_color=white),
-        "Gray7": _make_variants(gray7, border_color=black, default_text_color=white),
-        "Gray8": _make_variants(gray8, border_color=black, default_text_color=white),
-        "Black": _make_variants(black, border_color=black, default_text_color=white),
+        "White": _make_variants(white, border_color=black),
+        "Gray1": _make_variants(gray1, border_color=gray5),
+        "Gray2": _make_variants(gray2, border_color=gray5),
+        "Gray3": _make_variants(gray3, border_color=gray6),
+        "Gray4": _make_variants(gray4, border_color=black),
+        "Gray5": _make_variants(gray5, border_color=black),
+        "Gray6": _make_variants(gray6, border_color=black),
+        "Gray7": _make_variants(gray7, border_color=black),
+        "Gray8": _make_variants(gray8, border_color=black),
+        "Black": _make_variants(black, border_color=black),
     }
 
     for cname, v in color_variants.items():
