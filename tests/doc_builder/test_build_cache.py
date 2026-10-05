@@ -24,7 +24,7 @@ from drawlib._builder._common.cache import (
     hash_file,
     hash_text,
 )
-from drawlib.builder import build_html, build_image, build_markdown, build_pdf
+from drawlib.tools import build_html, build_image, build_markdown, build_pdf
 
 
 def test_build_cache_put_get_png_webp(tmp_path: Path) -> None:

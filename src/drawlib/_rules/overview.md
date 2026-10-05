@@ -39,11 +39,15 @@ start_x, y, gap = 15, 20, 10
 
 for i, name in enumerate(services):
     x = start_x + i * (box_w + gap) + (box_w / 2)
-    rectangle((x, y), width=box_w, height=box_h, style=Styles.BlueFlat, text=name, text_style=Styles.WhiteBold)
+    # Highlight "Core API" as the hero focal node; keep others in calm Neutral cards
+    if name == "Core API":
+        rectangle((x, y), width=box_w, height=box_h, style=Styles.PrimaryFlat, text=name, text_style=Styles.WhiteBold)
+    else:
+        rectangle((x, y), width=box_w, height=box_h, style=Styles.Neutral, text=name)
     if i > 0:
         prev_right = start_x + (i - 1) * (box_w + gap) + box_w
         curr_left = start_x + i * (box_w + gap)
-        line((prev_right, y), (curr_left, y), arrow_head="->", style=Styles.PrimaryBold)
+        line((prev_right, y), (curr_left, y), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -61,22 +65,22 @@ center_x, center_y, radius = 50, 50, 30
 nodes = ["Ingest", "Transform", "Validate", "Store", "Index", "Serve"]
 n = len(nodes)
 
-# Central hub
-circle((center_x, center_y), radius=12, style=Styles.PurpleFlat, text="Data Hub", text_style=Styles.WhiteBold)
+# Central hub (Primary hero anchor)
+circle((center_x, center_y), radius=12, style=Styles.PrimaryFlat, text="Data Hub", text_style=Styles.WhiteBold)
 
-# Satellite nodes
+# Satellite nodes (Calm neutral cards so the hub stands out)
 for i, label in enumerate(nodes):
     angle = (2 * math.pi / n) * i
     x = center_x + radius * math.cos(angle)
     y = center_y + radius * math.sin(angle)
-    circle((x, y), radius=8, style=Styles.GreenFlat, text=label, text_style=Styles.WhiteBold)
+    circle((x, y), radius=8, style=Styles.SecondaryNeutral, text=label)
 
     # Connect hub edge to satellite edge without cutting through nodes
     lx1 = center_x + 13 * math.cos(angle)
     ly1 = center_y + 13 * math.sin(angle)
     lx2 = center_x + 21 * math.cos(angle)
     ly2 = center_y + 21 * math.sin(angle)
-    line((lx1, ly1), (lx2, ly2), arrow_head="->", style=Styles.PrimaryBold)
+    line((lx1, ly1), (lx2, ly2), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -222,7 +226,12 @@ save()
 
 Drawlib features a cohesive visual system comprising color catalogs, multi-language typography, strongly-typed style objects, and seamless image embedding.
 
-### 3.1. Color Models & Palettes (`drawlib.preset_colors`)
+### 3.1. Color Discipline & Palettes (`50%+ Neutral-Grounded Architecture`)
+A common anti-pattern in AI-generated diagrams is **"Rainbow Color Chaos"**—coloring every box with a heavy saturated fill (`PrimaryFlat`, `AccentFlat`, `SuccessFlat`, `WarningFlat`). To keep diagrams calm, legible, and publication-grade:
+- **Ground 50%+ of Nodes in Neutral Cards**: Use `Styles.Neutral`, `Styles.NeutralFlat`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.BlueNeutral`, or `Styles.TealNeutral` for standard services, workers, and child nodes.
+- **Reserve Saturated Hero Fills for 1–2 Focal Points**: Use `Styles.PrimaryFlat` or `Styles.AccentFlat` (paired with `text_style=Styles.WhiteBold`) only on the primary anchor or entrypoint of the diagram.
+- **Use `Styles.MutedDashed` for Containers**: Keep VPCs, subnets, and cluster boundaries subtle so foreground nodes stand out.
+
 Colors in Drawlib can be represented as `Color` objects, RGB tuples `(r, g, b)`, RGBA tuples `(r, g, b, a)`, hex strings, or constants from curated palettes:
 - **`Color` Model & Derivation**:
   - `Color(r, g, b, alpha=1.0)` or `Color("#3498db")`: Immutable 4-tuple subclass providing `.patch()`, `.r`, `.g`, `.b`, `.alpha`, and `.hex`.
@@ -274,7 +283,7 @@ Drawlib allows seamless integration of raster and vector graphic assets into dia
 
 ## 4. Core Concept: Documentation Creation (Docs as Code & tools)
 
-Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.builder` and `drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, and headless vector PDFs without requiring external site generators.
+Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, and headless vector PDFs without requiring external site generators.
 
 ### 4.1. Project Scaffolding Rule (`drawlib init`)
 > **Important Scaffolding Rule**: Never create documentation project files or directories by hand from scratch.  
@@ -340,8 +349,8 @@ from drawlib.shapes import rectangle
 
 setup(width=120, height=50)
 rectangle((25, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Client", text_style=Styles.WhiteBold)
-rectangle((95, 25), width=30, height=20, style=Styles.SecondaryFlat, text="Service", text_style=Styles.WhiteBold)
-line((40, 25), (80, 25), arrow_head="->", style=Styles.PrimaryBold)
+rectangle((95, 25), width=30, height=20, style=Styles.SecondaryNeutral, text="Service")
+line((40, 25), (80, 25), arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 ````
@@ -383,7 +392,7 @@ drawlib serve docs_html/ --check
 When you need to execute CLI operations programmatically (e.g. inside Python build automation, pytest verification suites, or automated CI pipelines), use `drawlib.tools`:
 
 ```python
-from drawlib.builder import build_html, build_markdown, export_code_block
+from drawlib.tools import build_html, build_markdown, export_code_block
 
 # Export a single diagram from a Markdown file by name (recommended)
 image_path = export_code_block(
@@ -618,8 +627,8 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.14. Color Models, Catalogs & Palettes (`lib-colors`)
-- **Command**: `drawlib rules show lib-colors`
+### 5.14. Color Models, Catalogs & Palettes (`lib-preset-colors`)
+- **Command**: `drawlib rules show lib-preset-colors`
 - **Scope**: `Color` model with `.patch()`, RGB/RGBA formats, 140 CSS colors (`CssColors`), and curated theme palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`).
 - **Key Syntax**:
   ```python
@@ -685,7 +694,7 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Programmatic Python developer API for document compilation (`build_html`, `build_markdown`, `build_pdf`), single illustration extraction (`export_code_block`), project scaffolding (`init_project`), local server (`serve_docs`), and cache management.
 - **Key Syntax**:
   ```python
-  from drawlib.builder import build_html, export_code_block
+  from drawlib.tools import build_html, export_code_block
   build_html("docs_src/", "docs_html/")
   export_code_block("docs_src/arch.md", "1", "output.png")
   ```
@@ -779,6 +788,7 @@ Never deliver unverified drawing code to the user. Always execute the autonomous
    - Overlapping shapes, clipped text boxes, or text colliding with borders.
    - Arrowhead routing that cuts through elements instead of connecting boundary edges cleanly.
    - Unbalanced whitespace, disproportionate element scales, or poorly centered groups.
+   - **Color Overuse (Rainbow Chaos)**: Verify that 50%+ of nodes use calm neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, etc.) and saturated fills (`Styles.PrimaryFlat`) are limited to 1–2 focal nodes.
 5. **Step 5: Autonomous Coordinate Adjustment**: If any aesthetic or spatial defects are found, adjust coordinates, margins, or canvas size in the code and re-render. Repeat until the layout is clean.
 6. **Step 6: Deliver & Human Verification**: Present the final diagram to the user.
 

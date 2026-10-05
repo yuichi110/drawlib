@@ -87,10 +87,10 @@ Drawlib presets organize styles into semantic roles with 13 orthogonal visual va
 
 ### 3.1. Example: Using `Styles` and `Colors` in Diagrams
 
-The following embedded Markdown block illustrates the 6-color semantic system using functional roles and connectors:
+The following embedded Markdown block illustrates the 50%+ neutral-grounded semantic system (anchoring the hero service in `Styles.PrimaryFlat` while grounding supporting nodes in calm neutral/tinted-neutral cards):
 
 ````markdown
-```drawlib 600px center caption:"Architecture Flow with Semantic Roles"
+```drawlib 600px center caption:"Architecture Flow with 50%+ Neutral-Grounded Semantic Roles"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -101,17 +101,17 @@ setup(width=140, height=70)
 # 1. Structural Boundary / Subnet Container (Muted)
 rectangle((70, 35), width=124, height=52, style=Styles.MutedDashed)
 
-# 2. External Client Entrypoint (Accent)
-rectangle((24, 35), width=24, height=18, style=Styles.AccentFlat, text="Client App", text_style=Styles.WhiteBold)
+# 2. External Client Entrypoint (Calm Neutral Card)
+rectangle((24, 35), width=24, height=18, style=Styles.Neutral, text="Client App")
 
-# 3. Core Processing Service (Primary Anchor)
+# 3. Core Processing Service (Primary Hero Anchor)
 rectangle((60, 35), width=26, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
 
-# 4. Auxiliary Microservice (Secondary)
-rectangle((96, 45), width=24, height=14, style=Styles.SecondaryFlat, text="Auth Service", text_style=Styles.WhiteBold)
+# 4. Auxiliary Microservice (Secondary Tinted Neutral)
+rectangle((96, 45), width=24, height=14, style=Styles.SecondaryNeutral, text="Auth Service")
 
-# 5. Verified Data Sink (Success)
-rectangle((96, 25), width=24, height=14, style=Styles.SuccessFlat, text="Audit Log", text_style=Styles.WhiteBold)
+# 5. Verified Data Sink (Success Tinted Neutral)
+rectangle((96, 25), width=24, height=14, style=Styles.SuccessNeutral, text="Audit Log")
 
 # 6. Connectors with semantic line styles (DarkBold for neutral sequence)
 line((36, 35), (47, 35), arrow_head="->", style=Styles.DarkBold)
@@ -362,4 +362,4 @@ Before assembling dozens of raw `rectangle` and `line` primitives, choose the ma
 - Project Scaffolding & Docs: `uv run drawlib rules show project`
 - Preset Styles Matrix: `uv run drawlib rules show lib-preset-styles`
 - Dynamic Theming & Scripts: `uv run drawlib rules show lib-styles`
-- Color Palettes: `uv run drawlib rules show lib-colors`
+- Color Palettes: `uv run drawlib rules show lib-preset-colors`

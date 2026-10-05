@@ -2,6 +2,13 @@
 
 Drawlib provides a comprehensive, centralized preset style system in `drawlib.preset_styles` designed to enforce visual consistency, eliminate boilerplate styling code, and enable rapid diagram prototyping. Under the "Illustration as Code" philosophy, styling is treated as a systematic design system where shapes, lines, icons, text, and images adhere to cohesive color palettes, line widths, and typographical hierarchies.
 
+> [!IMPORTANT]
+> **Color Discipline: Avoid Rainbow Chaos (50%+ Neutral-Grounded Architecture)**:
+> Never color every box in a diagram with saturated fills (`PrimaryFlat`, `AccentFlat`, `SuccessFlat`, `WarningFlat`). Overly colorful diagrams look amateurish and cause visual fatigue.
+> - **Ground 50% or more of nodes in calm neutral or tinted-neutral cards**: `Styles.Neutral`, `Styles.NeutralFlat`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.BlueNeutral`, `Styles.TealNeutral`.
+> - **Reserve saturated hero fills (`Styles.PrimaryFlat`, `Styles.AccentFlat` with `text_style=Styles.WhiteBold`)** strictly for the 1–2 most important focal points.
+> - **Use `Styles.MutedDashed` or `Styles.Muted`** for boundary containers, VPCs, and clusters.
+
 ---
 
 ## 1. Architectural Philosophy & Core Concepts

@@ -876,7 +876,7 @@ drawlib rules
 | `lib-shapes` | Rectangles, circles, ellipses, wedges, and polygons. |
 | `lib-lines` | Straight, curved, and chained lines with arrowheads. |
 | `lib-text` | Text rendering, formatting, alignment, and fonts. |
-| `lib-colors` | Color models, RGB/RGBA tuples, hex conversion, and palette classes. |
+| `lib-preset-colors` | Color models, RGB/RGBA tuples, hex conversion, and palette classes. |
 | `lib-styles` | Styles and utils architecture, active preset styles, colors palette, and dynamic custom scripts. |
 | `lib-preset-styles` | Pre-defined style naming rules and color palette classes. |
 | `lib-fonts` | Font configuration, system/file fonts, CJK/multilingual typography, and cache. |

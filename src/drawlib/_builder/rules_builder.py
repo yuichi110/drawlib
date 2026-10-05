@@ -35,7 +35,7 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "lib-shapes",
     "lib-lines",
     "lib-text",
-    "lib-colors",
+    "lib-preset-colors",
     "lib-styles",
     "lib-preset-styles",
     "lib-fonts",

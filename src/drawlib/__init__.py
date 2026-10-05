@@ -99,7 +99,6 @@ except ValueError as e:
 
 if TYPE_CHECKING:
     from drawlib import (
-        builder,
         tools,
     )
 
@@ -123,7 +122,6 @@ from drawlib import (  # noqa: E402
 )
 
 _LAZY_MODULES: dict[str, str] = {
-    "builder": "drawlib.builder",
     "tools": "drawlib.tools",
 }
 
@@ -150,7 +148,6 @@ __all__ = [
     "HOMEPAGE",
     "REPOSITORY",
     "README",
-    "builder",
     "canvas",
     "charts",
     "diagrams",

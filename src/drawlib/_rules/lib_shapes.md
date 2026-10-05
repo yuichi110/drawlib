@@ -712,11 +712,11 @@ from drawlib.styles import Styles
 
 setup(width=120, height=50)
 
-# 1. Single-disk database cylinder
-cylinder((30, 25), width=26, height=32, style=Styles.Primary, text="Users DB")
+# 1. Single-disk database cylinder (Primary hero anchor)
+cylinder((30, 25), width=26, height=32, style=Styles.PrimaryFlat, text="Users DB", text_style=Styles.WhiteBold)
 
-# 2. Multi-disk storage cluster (3 disks)
-cylinder((80, 25), width=28, height=34, disks=3, style=Styles.SecondaryFlat, text="Data Lake")
+# 2. Multi-disk storage cluster (3 disks, calm tinted-neutral card)
+cylinder((80, 25), width=28, height=34, disks=3, style=Styles.SecondaryNeutral, text="Data Lake")
 save()
 ```
 

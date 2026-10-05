@@ -64,8 +64,15 @@ Always execute this self-correction loop when creating or modifying diagrams:
    - Arrowhead misalignment or awkward line overlaps.
    - Missing perimeter margins (elements too close to canvas edges).
    - Poor color contrast (e.g. dark text on dark fill).
+   - **Color Overuse (Rainbow Chaos)**: Ensure **50%+ of nodes use calm neutral styles** (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.BlueNeutral`, etc.) and reserve saturated fills (`Styles.PrimaryFlat`, `Styles.AccentFlat`) strictly for 1–2 primary focal points.
 5. **Auto-Adjust & Iterate**: Fix coordinates and re-export until the layout is balanced and visually clear.
 6. **Present to User**: Deliver clean code and verified illustrations.
+
+> **Color Discipline Rule (50%+ Neutral-Grounded Architecture)**:
+> Never color every box with saturated fills (`PrimaryFlat`, `AccentFlat`, `SuccessFlat`, `WarningFlat`) like a rainbow. Overly colorful diagrams look amateurish and cause visual fatigue.
+> - **Ground 50% or more of nodes in calm neutral or tinted-neutral cards**: `Styles.Neutral`, `Styles.NeutralFlat`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.BlueNeutral`, `Styles.TealNeutral`. (These already include high-contrast dark text automatically).
+> - **Reserve saturated hero fills (`Styles.PrimaryFlat`, `Styles.AccentFlat` with `text_style=Styles.WhiteBold`)** for the 1–2 most important focal components in the diagram.
+> - **Use `Styles.MutedDashed` or `Styles.Muted`** for boundary containers, VPCs, and clusters.
 
 ---
 
@@ -77,17 +84,19 @@ from drawlib.styles import Styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 
-setup(width=120, height=50)
+setup(width=140, height=50)
 
-# 1. Background / Boundary Container
-rectangle((60, 25), width=108, height=38, style=Styles.MutedDashed)
+# 1. Background / Boundary Container (Muted)
+rectangle((70, 25), width=124, height=38, style=Styles.MutedDashed)
 
-# 2. Main Services
-rectangle((30, 25), width=32, height=18, style=Styles.AccentFlat, text="Client App", text_style=Styles.WhiteBold)
-rectangle((90, 25), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
+# 2. Nodes: Hero focal point in PrimaryFlat, supporting nodes in calm Neutral cards
+rectangle((28, 25), width=28, height=16, style=Styles.Neutral, text="Client App")
+rectangle((70, 25), width=30, height=16, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
+rectangle((112, 25), width=28, height=16, style=Styles.SecondaryNeutral, text="Auth Service")
 
-# 3. Connection
-line((46, 25), (74, 25), arrow_head="->", style=Styles.DarkBold)
+# 3. Connections
+line((42, 25), (55, 25), arrow_head="->", style=Styles.DarkBold)
+line((85, 25), (98, 25), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -112,10 +121,12 @@ from drawlib.shapes import rectangle
 from drawlib.lines import line
 from drawlib.styles import Styles
 
-setup(width=100, height=40)
-rectangle((25, 20), width=30, height=18, style=Styles.PrimaryFlat, text="Publisher", text_style=Styles.WhiteBold)
-rectangle((75, 20), width=30, height=18, style=Styles.SecondaryFlat, text="Consumer", text_style=Styles.WhiteBold)
-line((40, 20), (60, 20), arrow_head="->", style=Styles.DarkBold)
+setup(width=120, height=40)
+rectangle((25, 20), width=28, height=16, style=Styles.PrimaryFlat, text="Publisher", text_style=Styles.WhiteBold)
+rectangle((60, 20), width=24, height=14, style=Styles.Neutral, text="Event Bus")
+rectangle((95, 20), width=28, height=16, style=Styles.SecondaryNeutral, text="Consumer")
+line((39, 20), (48, 20), arrow_head="->", style=Styles.DarkBold)
+line((72, 20), (81, 20), arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 ````
@@ -166,7 +177,7 @@ Drawlib provides comprehensive, focused rule manuals that you can query via term
 | `uv run drawlib rules show lib-shapes` | `lib-shapes` | 23 shape primitives (rectangles, circles, cylinders, wedges, polygons, chevrons). |
 | `uv run drawlib rules show lib-lines` | `lib-lines` | Straight, curved, bezier, chained lines, and arrowheads (`->`, `<->`, `-`). |
 | `uv run drawlib rules show lib-text` | `lib-text` | Alignments (`halign`, `valign`), line spacing, rotation, multiline text, font styles. |
-| `uv run drawlib rules show lib-colors` | `lib-colors` | Color model, RGB/hex conversion, palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`). |
+| `uv run drawlib rules show lib-preset-colors` | `lib-preset-colors` | Color model, RGB/hex conversion, palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`). |
 | `uv run drawlib rules show lib-styles` | `lib-styles` | Dynamic runtime theming, `styles.py`, `utils.py`, CLI injection flags. |
 | `uv run drawlib rules show lib-preset-styles`| `lib-preset-styles` | Systematic naming matrix (`<color>_<variant>`), 7 semantic roles (4 for monochrome), 13 variants. |
 | `uv run drawlib rules show lib-fonts` | `lib-fonts` | Universal CJK+Latin typography, regional scripts, custom font files. |

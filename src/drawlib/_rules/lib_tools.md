@@ -7,26 +7,31 @@ While `drawlib` CLI commands (`drawlib build`, `drawlib show`, etc.) are designe
 
 ## 1. Imports & Core Architecture
 
-All public developer tools can be imported directly from `drawlib.tools` or their dedicated submodules:
+All public developer and build tools are imported directly from `drawlib.tools`:
 
 ```python
-from drawlib.builder import (
+from drawlib.tools import (
+    # Document, Slide, & Image Compilation
+    build_document,
     build_html,
     build_markdown,
     build_pdf,
+    build_slide,
     build_image,
+    detect_document_type,
     export_code_block,
     show_code_block,
-)
-from drawlib.tools import (
+    # Project Scaffolding, Local Server, Cache, & CSS Presets
     init_project,
     list_project_types,
     serve_docs,
+    scan_broken_links,
     list_cache,
     clear_cache,
     download_cache,
     list_css,
     export_css,
+    get_css,
 )
 ```
 
@@ -34,13 +39,13 @@ from drawlib.tools import (
 
 ## 2. Document & Image Compilation
 
-The compilation tools compile Markdown documents, multi-page document sites, and standalone Python illustration scripts into production outputs.
+The compilation tools compile Markdown documents, multi-page document sites, presentation slides, and standalone Python illustration scripts into production outputs.
 
 ### 2.1. HTML Build (`build_html`)
 Compiles a single Markdown file or a documentation source directory (`docs_src/`) into responsive HTML pages with navigation and styling:
 
 ```python
-from drawlib.builder import build_html
+from drawlib.tools import build_html
 
 build_html(
     input_path="docs_src/",
@@ -57,7 +62,7 @@ build_html(
 Compiles Markdown documents for GitHub repository browsing. ````drawlib```` code blocks are replaced with syntax-highlighted Python code followed by relative image links:
 
 ```python
-from drawlib.builder import build_markdown
+from drawlib.tools import build_markdown
 
 build_markdown(
     input_path="docs_src/",
@@ -72,7 +77,7 @@ build_markdown(
 Compiles documents directly to print-ready vector PDF using headless Chromium via Playwright:
 
 ```python
-from drawlib.builder import build_pdf
+from drawlib.tools import build_pdf
 
 build_pdf(
     inputs="docs_src/index.md",
@@ -86,7 +91,7 @@ build_pdf(
 Executes standalone Python drawing scripts in batch mode:
 
 ```python
-from drawlib.builder import build_image
+from drawlib.tools import build_image
 
 build_image(
     inputs="drawings/",
@@ -105,7 +110,7 @@ build_image(
 Extracts and renders a single ````drawlib```` illustration from a Markdown file or a standalone `.py` script without opening a GUI display:
 
 ```python
-from drawlib.builder import export_code_block
+from drawlib.tools import export_code_block
 
 # Export block 1 from a Markdown document:
 export_code_block(
@@ -129,7 +134,7 @@ export_code_block(
 Displays the rendered illustration in a local GUI window for interactive alignment:
 
 ```python
-from drawlib.builder import show_code_block
+from drawlib.tools import show_code_block
 
 show_code_block(
     file_path="docs_src/architecture.md",
@@ -220,7 +225,7 @@ export_css(name="google", output_path="style.css", target="html", force=True)
 
 ```python
 from pathlib import Path
-from drawlib.builder import build_html, build_markdown, export_code_block
+from drawlib.tools import build_html, build_markdown, export_code_block
 
 def run_documentation_pipeline() -> None:
     src_dir = Path("docs_src")
@@ -249,7 +254,7 @@ if __name__ == "__main__":
 
 ```python
 from pathlib import Path
-from drawlib.builder import export_code_block
+from drawlib.tools import export_code_block
 
 def test_architecture_diagram_generation(tmp_path: Path) -> None:
     output_png = tmp_path / "test_arch.png"

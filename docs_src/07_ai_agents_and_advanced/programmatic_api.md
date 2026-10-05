@@ -1,28 +1,34 @@
-# Programmatic Python API (`drawlib.builder` & `drawlib.tools`)
+# Programmatic Python API (`drawlib.tools`)
 
-While the `drawlib` CLI provides terminal commands for common workflows, Drawlib exposes a comprehensive Python developer API under `drawlib.builder` and `drawlib.tools`. This API allows you to integrate document compilation, diagram export, image snapshot testing, and template automation directly into CI/CD pipelines, web servers, and custom build scripts.
+While the `drawlib` CLI provides terminal commands for common workflows, Drawlib exposes a comprehensive Python developer API under `drawlib.tools`. This API allows you to integrate document compilation, diagram export, image snapshot testing, and template automation directly into CI/CD pipelines, web servers, and custom build scripts.
 
 ---
 
 ## 1. Module Overview & Core Imports
 
 ```python
-from drawlib.builder import (
+from drawlib.tools import (
+    # Document, Slide, & Image Compilation
+    build_document,
     build_html,
     build_markdown,
     build_pdf,
+    build_slide,
     build_image,
+    detect_document_type,
     export_code_block,
     show_code_block,
-)
-from drawlib.tools import (
+    # Project Scaffolding, Local Server, Cache, & CSS Presets
     init_project,
+    list_project_types,
     serve_docs,
+    scan_broken_links,
     list_cache,
     clear_cache,
     download_cache,
     list_css,
     export_css,
+    get_css,
 )
 ```
 
@@ -34,7 +40,7 @@ from drawlib.tools import (
 Compiles Markdown documents or directories into a responsive static HTML website:
 
 ```python
-from drawlib.builder import build_html
+from drawlib.tools import build_html
 
 build_html(
     input_path="docs_src/",
@@ -50,7 +56,7 @@ build_html(
 Compiles source Markdown containing embedded ````drawlib```` blocks into standard GitHub-Flavored Markdown:
 
 ```python
-from drawlib.builder import build_markdown
+from drawlib.tools import build_markdown
 
 build_markdown(
     input_path="docs_src/",
@@ -63,7 +69,7 @@ build_markdown(
 Compiles documents directly to vector PDF using headless Chromium:
 
 ```python
-from drawlib.builder import build_pdf
+from drawlib.tools import build_pdf
 
 build_pdf(
     inputs="docs_src/",
@@ -80,7 +86,7 @@ build_pdf(
 Extracts and renders a single diagram from a Markdown file or a standalone `.py` script without opening a GUI display:
 
 ```python
-from drawlib.builder import export_code_block
+from drawlib.tools import export_code_block
 
 # Extract block 1 from Markdown with coordinate grid:
 export_code_block(
@@ -108,7 +114,7 @@ Drawlib can export canvases directly to in-memory `Dimage` objects without writi
 from drawlib import canvas, shapes, styles
 
 canvas.setup(width=60, height=40)
-shapes.rectangle((30, 20), width=40, height=25, style=styles.Styles.AccentFlat, text="In-Memory")
+shapes.rectangle((30, 20), width=40, height=25, style=styles.Styles.PrimaryFlat, text="In-Memory", text_style=styles.Styles.WhiteBold)
 
 # Export directly to Dimage object
 dimage = canvas.export_dimage()
@@ -126,7 +132,7 @@ Integrate diagram rendering into your test suite to ensure code changes never br
 
 ```python
 from pathlib import Path
-from drawlib.builder import export_code_block
+from drawlib.tools import export_code_block
 
 def test_architecture_diagram_renders(tmp_path: Path):
     target_png = tmp_path / "test_diagram.png"

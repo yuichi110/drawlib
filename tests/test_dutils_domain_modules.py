@@ -10,17 +10,17 @@
 """Unit tests for public domain utilities in drawlib.math, drawlib.preset_colors, and drawlib.canvas."""
 
 from drawlib._builder.doc_builder.exporter_html import get_default_css
-from drawlib.builder import (
+from drawlib.canvas import clear
+from drawlib.math import get_angle, get_center_and_size, get_distance
+from drawlib.preset_colors import Color
+from drawlib.styles import Colors
+from drawlib.tools import (
     build_document,
     build_html,
     build_image,
     build_markdown,
     build_pdf,
 )
-from drawlib.canvas import clear
-from drawlib.math import get_angle, get_center_and_size, get_distance
-from drawlib.preset_colors import Color
-from drawlib.styles import Colors
 
 
 class TestDomainUtilities:
@@ -45,8 +45,8 @@ class TestDomainUtilities:
         """Verify canvas.clear executes clean environment setup without errors."""
         clear()
 
-    def test_builder_exports(self) -> None:
-        """Verify drawlib.builder exports public build functions."""
+    def test_tools_exports(self) -> None:
+        """Verify drawlib.tools exports public build functions."""
         assert callable(build_document)
         assert callable(build_html)
         assert callable(build_markdown)

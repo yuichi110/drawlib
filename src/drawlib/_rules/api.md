@@ -582,15 +582,17 @@ broken = scan_broken_links("docs_html")
 
 ## 15. Essential Best Practice Checklist
 
-1. **Explicit Semantic Coordinate Variables**:
+1. **50%+ Neutral-Grounded Color Discipline (Avoid Rainbow Chaos)**:
+   Ground **50% or more of nodes in calm neutral or tinted-neutral cards** (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.BlueNeutral`, `Styles.TealNeutral`). Reserve saturated hero fills (`Styles.PrimaryFlat`, `Styles.AccentFlat` with `text_style=Styles.WhiteBold`) strictly for 1–2 focal nodes.
+2. **Explicit Semantic Coordinate Variables**:
    Always declare semantic coordinate anchors (`gateway_xy`, `db_xy`) and compute horizontal/vertical gaps mathematically (`gap = (width - margins - total_node_width) / (n - 1)`). Avoid hardcoded magic numbers or raw list index lookups (`points[1]`).
-2. **PascalCase Design Tokens**:
+3. **PascalCase Design Tokens**:
    Always use `from drawlib.styles import Colors, Styles` and `Styles.PrimaryFlat`. Never lowercase to `styles` or `colors`.
-3. **Z-Order Layering Discipline**:
+4. **Z-Order Layering Discipline**:
    Always draw background boundaries/containers first, main entity shapes second, connector lines third, and text/badges last.
-4. **Perimeter Margins & Right-Edge Protection**:
-   Ensure minimum outer margins of **10–15%** around the canvas canvas perimeter so labels and arrowheads are never clipped by canvas borders.
-5. **Headless Verification with Coordinate Grid**:
+5. **Perimeter Margins & Right-Edge Protection**:
+   Ensure minimum outer margins of **10–15%** around the canvas perimeter so labels and arrowheads are never clipped by canvas borders.
+6. **Headless Verification with Coordinate Grid**:
    For terminal/agent workflows, always use headless export:
    ```bash
    uv run drawlib show docs_src/doc.md file_name.png -g -o .drawlib/scratch/preview.png

@@ -6,9 +6,10 @@ Rather than hardcoding colors, fonts, theme styles, or reusable helper functions
 2. `drawlib.utils`: Dynamic container for project-wide helper functions, components, and business constants.
 
 > [!IMPORTANT]
-> **Always Use PascalCase `Styles` and `Colors`**:
-> In drawing scripts and Markdown blocks, **always import and use uppercase `Styles` and `Colors`** (`from drawlib.styles import Colors, Styles` and `style=Styles.PrimaryFlat`, `color=Colors.Blue`).
-> **Never use lowercase `styles` or `colors`**. Uppercase naming avoids variable shadowing with the `drawlib.styles` module and ensures deterministic AI code generation.
+> 1. **Always Use PascalCase `Styles` and `Colors`**:
+>    In drawing scripts and Markdown blocks, **always import and use uppercase `Styles` and `Colors`** (`from drawlib.styles import Colors, Styles` and `style=Styles.PrimaryFlat`, `color=Colors.Blue`). **Never use lowercase `styles` or `colors`** to avoid shadowing module `drawlib.styles`.
+> 2. **Color Discipline: Avoid Rainbow Chaos (50%+ Neutral-Grounded Architecture)**:
+>    Do **not** color every node with heavy saturated fills (`PrimaryFlat`, `AccentFlat`, `SuccessFlat`, `WarningFlat`). Ground **50% or more of nodes in calm neutral or tinted-neutral cards** (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.BlueNeutral`), and reserve saturated hero styles (`Styles.PrimaryFlat` with `text_style=Styles.WhiteBold`) strictly for 1–2 primary focal points.
 
 ---
 

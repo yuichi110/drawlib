@@ -1,7 +1,13 @@
-# Drawlib Colors Guidelines
+# Drawlib Preset Colors Guidelines
 
 Color in Drawlib is defined through declarative RGB/RGBA tuples, standardized color constant catalogs, and ergonomic helper utilities.  
 Drawlib enforces visual harmony across diagrams through curated theme palettes while permitting complete customization via hex codes and grayscale ramps.
+
+> [!IMPORTANT]
+> **Color Discipline: Avoid Rainbow Chaos (50%+ Neutral-Grounded Architecture)**:
+> Having a rich color catalog does **not** mean every box in a diagram should be a different saturated color. Overusing saturated fills (`PrimaryFlat`, `AccentFlat`, `SuccessFlat`, `WarningFlat`) makes diagrams look amateurish and causes visual fatigue.
+> - **Ground 50% or more of nodes in calm neutral or tinted-neutral cards** (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.BlueNeutral`, `Styles.TealNeutral`).
+> - **Reserve saturated hero fills (`Styles.PrimaryFlat`, `Styles.AccentFlat`)** strictly for 1–2 focal components in a diagram.
 
 ---
 
