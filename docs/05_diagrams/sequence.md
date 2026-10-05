@@ -45,6 +45,7 @@ from drawlib.styles import Styles
 d = SequenceDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Checkout Transaction Pipeline",
     autonumber=True,            # Auto-number messages (1., 2., 3., ...)
 )

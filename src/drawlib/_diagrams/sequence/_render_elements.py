@@ -270,6 +270,7 @@ def render_single_message(  # noqa: C901
     participant_x_map: dict[Participant, float],
     base_xy: tuple[float, float],
     default_msg_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Draw a single horizontal message or self-call loop."""
     bx, by = base_xy
@@ -297,7 +298,7 @@ def render_single_message(  # noqa: C901
 
     if message.label:
         display_text = f"{message.number}. {message.label}" if message.number is not None else message.label
-        render_message_label(lx, ly, display_text, message.text_style)
+        render_message_label(lx, ly, display_text, message.text_style, default_edge_text_style)
 
 
 def draw_horizontal_message(
@@ -341,20 +342,25 @@ def draw_self_call(
     canvas_lines(xys=pts, arrow_head=arrow_head, style=style)
 
 
-def render_message_label(lx: float, ly: float, text: str, custom_text_style: Style | None) -> None:
+def render_message_label(
+    lx: float,
+    ly: float,
+    text: str,
+    custom_text_style: Style | None,
+    default_edge_text_style: Style,
+) -> None:
     """Draw message label with clear semi-transparent background backplate."""
-    label_style = Style(
+    base_label_style = Style(
         text_size=11,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=(40, 40, 45, 1.0),
         text_bg_fill_color=(255, 255, 255, 0.95),
         text_bg_line_color=None,
         text_bg_line_width=0,
         text_halign="center",
         text_valign="center",
     )
-    if custom_text_style:
-        label_style = label_style.patch(custom_text_style)
+    applied_text_style = custom_text_style or default_edge_text_style
+    label_style = base_label_style.patch(applied_text_style)
     canvas_text(xy=(lx, ly), text=text, style=label_style)
 
 

@@ -125,7 +125,11 @@ class TestSequenceNoteAndBlock:
 
     def test_block_context_manager(self) -> None:
         """Verify Block context manager records boundary events in Diagram."""
-        d = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
+        d = SequenceDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
         client = d.add(Participant("Client"))
         server = d.add(Participant("Server"))
 
@@ -144,7 +148,11 @@ class TestSequenceNoteAndBlock:
 
     def test_participant_group(self) -> None:
         """Verify ParticipantGroup clustering box."""
-        d = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
+        d = SequenceDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
         group = d.add_group(ParticipantGroup("Internal Cluster", padding=6.0))
         p1 = group.add(Participant("Service Alpha"))
         p2 = group.add(Participant("Service Beta"))
@@ -160,21 +168,31 @@ class TestSequenceDiagramLifecycle:
 
     def test_autonumbering(self) -> None:
         """Verify automatic sequential numbering of message arrows."""
-        d = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, autonumber=True)
+        d = SequenceDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            autonumber=True,
+        )
         p1 = d.add(Participant("A"))
         p2 = d.add(Participant("B"))
 
-        m1 = p1.request(p2, "First")
+        m1 = p1.request(p2, "First", text_style=Styles.Accent)
         m2 = p2.reply(p1, "Second")
         m3 = p1.request(p2, "Third")
 
         assert m1.number == 1
+        assert m1.text_style == Styles.Accent
         assert m2.number == 2
         assert m3.number == 3
 
     def test_activations(self) -> None:
         """Verify participant lifeline activation tracking."""
-        d = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
+        d = SequenceDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
         client = d.add(Participant("Client"))
         server = d.add(Participant("Server"))
 
@@ -192,17 +210,42 @@ class TestSequenceDiagramLifecycle:
 
     def test_sequence_diagram_style_validation(self) -> None:
         """Verify ValidationError or TypeError when invalid styles are supplied."""
+        # Missing required edge_text_style
         with pytest.raises((ValidationError, TypeError)):
-            SequenceDiagram(node_style="invalid", edge_style=Styles.Primary)  # type: ignore
+            SequenceDiagram(  # type: ignore
+                node_style=Styles.PrimaryFlat,
+                edge_style=Styles.Primary,
+            )
 
         with pytest.raises((ValidationError, TypeError)):
-            SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style="invalid")  # type: ignore
+            SequenceDiagram(
+                node_style="invalid",  # type: ignore
+                edge_style=Styles.Primary,
+                edge_text_style=Styles.Dark,
+            )
 
         with pytest.raises((ValidationError, TypeError)):
-            SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
+            SequenceDiagram(
+                node_style=Styles.PrimaryFlat,
+                edge_style="invalid",  # type: ignore
+                edge_text_style=Styles.Dark,
+            )
 
         with pytest.raises((ValidationError, TypeError)):
-            SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title_style="invalid")  # type: ignore
+            SequenceDiagram(
+                node_style=Styles.PrimaryFlat,
+                edge_style=Styles.Primary,
+                edge_text_style=Styles.Dark,
+                style="invalid",  # type: ignore
+            )
+
+        with pytest.raises((ValidationError, TypeError)):
+            SequenceDiagram(
+                node_style=Styles.PrimaryFlat,
+                edge_style=Styles.Primary,
+                edge_text_style=Styles.Dark,
+                title_style="invalid",  # type: ignore
+            )
 
 
 class TestSequenceDiagramRenderingEndToEnd:
@@ -215,6 +258,7 @@ class TestSequenceDiagramRenderingEndToEnd:
         d = SequenceDiagram(
             node_style=Styles.PrimaryFlat,
             edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
             title="OAuth2 Authentication Flow",
             autonumber=True,
         )
@@ -262,6 +306,7 @@ class TestSequenceDiagramRenderingEndToEnd:
         d = SequenceDiagram(
             node_style=Styles.PrimaryFlat,
             edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
             title="Microservices Event Stream",
         )
 

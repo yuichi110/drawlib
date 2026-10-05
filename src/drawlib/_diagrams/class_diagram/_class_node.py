@@ -273,6 +273,7 @@ class ClassNode:
         end_side: Side = "auto",
         label: str = "",
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> ClassRelationship:
@@ -284,6 +285,7 @@ class ClassNode:
             end_side=end_side,
             label=label,
             style=style,
+            text_style=text_style,
             routing=routing,
             padding=padding,
         )
@@ -297,6 +299,7 @@ class ClassNode:
         end_side: Side = "auto",
         label: str = "",
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> ClassRelationship:
@@ -308,6 +311,7 @@ class ClassNode:
             end_side=end_side,
             label=label,
             style=style,
+            text_style=text_style,
             routing=routing,
             padding=padding,
         )
@@ -326,6 +330,7 @@ class ClassNode:
         end_role: str = "",
         directed: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> ClassRelationship:
@@ -342,6 +347,7 @@ class ClassNode:
             end_role=end_role,
             directed=directed,
             style=style,
+            text_style=text_style,
             routing=routing,
             padding=padding,
         )
@@ -360,6 +366,7 @@ class ClassNode:
         end_role: str = "",
         directed: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> ClassRelationship:
@@ -376,6 +383,7 @@ class ClassNode:
             end_role=end_role,
             directed=directed,
             style=style,
+            text_style=text_style,
             routing=routing,
             padding=padding,
         )
@@ -394,6 +402,7 @@ class ClassNode:
         end_role: str = "",
         directed: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> ClassRelationship:
@@ -410,6 +419,7 @@ class ClassNode:
             end_role=end_role,
             directed=directed,
             style=style,
+            text_style=text_style,
             routing=routing,
             padding=padding,
         )
@@ -427,6 +437,7 @@ class ClassNode:
         start_role: str = "",
         end_role: str = "",
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> ClassRelationship:
@@ -443,6 +454,7 @@ class ClassNode:
             end_role=end_role,
             directed=True,
             style=style,
+            text_style=text_style,
             routing=routing,
             padding=padding,
         )
@@ -462,6 +474,7 @@ class ClassNode:
         end_role: str = "",
         directed: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> ClassRelationship:
@@ -479,6 +492,7 @@ class ClassNode:
             end_role=end_role,
             directed=directed,
             style=style,
+            text_style=text_style,
             routing=routing,
             padding=padding,
         )

@@ -35,8 +35,11 @@ class ArchitectureDiagram:
         self,
         *,
         node_style: Style,
+        node_text_style: Style,
         edge_style: Style,
+        edge_text_style: Style,
         title: str = "",
+        title_style: Style | None = None,
         width: float | None = None,
         height: float | None = None,
         style: Style | None = None,
@@ -45,15 +48,21 @@ class ArchitectureDiagram:
 
         Args:
             node_style: Mandatory base Style object for nodes in the diagram.
+            node_text_style: Mandatory base Style object for node labels in the diagram.
             edge_style: Mandatory base Style object for edges in the diagram.
+            edge_text_style: Mandatory base Style object for edge labels in the diagram.
             title: Optional diagram title.
+            title_style: Optional Style object for the diagram title.
             width: Optional fixed width of the diagram.
             height: Optional fixed height of the diagram.
             style: Optional Style object for the diagram background.
         """
         self.node_style = node_style
+        self.node_text_style = node_text_style
         self.edge_style = edge_style
+        self.edge_text_style = edge_text_style
         self.title = title
+        self.title_style = title_style
         self.width = float(width) if width is not None else None
         self.height = float(height) if height is not None else None
         self.style = style
@@ -113,6 +122,7 @@ class ArchitectureDiagram:
         arrow: ArrowType = "->",
         routing: RoutingType = "orthogonal",
         style: Style | None = None,
+        text_style: Style | None = None,
         padding: PaddingType = 0.0,
     ) -> Edge:
         """Create and register an edge between two connectables.
@@ -124,6 +134,7 @@ class ArchitectureDiagram:
             arrow: Arrowhead direction ("->", "<-", "<->", "-").
             routing: Path routing strategy ("orthogonal", "direct", "curved").
             style: Optional Style object for the line.
+            text_style: Optional Style object for the label text.
             padding: Gap distance between nodes and line ends (float or (start, end) tuple).
 
         Returns:
@@ -136,6 +147,7 @@ class ArchitectureDiagram:
             arrow=arrow,
             routing=routing,
             style=style,
+            text_style=text_style,
             padding=padding,
         )
         self.add_edge(edge)

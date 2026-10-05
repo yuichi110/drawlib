@@ -58,19 +58,22 @@ def draw_class_diagram(diagram: ClassDiagram, base_xy: tuple[float, float]) -> N
     # 2. Render Diagram Title if specified
     if diagram.title:
         title_y = max(c_max_y, center_y + diag_h / 2.0) + 2.0
-        title_color = diagram.node_style.text_color or (30, 41, 59, 1.0)
-        title_style = Style(
+        base_title_style = Style(
             text_size=16,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=title_color,
+            text_color=(30, 41, 59, 1.0),
             text_halign="center",
             text_valign="bottom",
         )
+        if diagram.title_style:
+            title_style = base_title_style.patch(diagram.title_style)
+        else:
+            title_style = base_title_style
         canvas_text(xy=(center_x, title_y), text=diagram.title, style=title_style)
 
     # 3. Render Relationships (Edges, UML markers, labels)
     for rel in diagram.relationships:
-        render_relationship(rel, canvas_xy_map, diagram.edge_style)
+        render_relationship(rel, canvas_xy_map, diagram.edge_style, diagram.edge_text_style)
 
     # 4. Render Class Nodes (Cards, Header, Compartments)
     for c in diagram.classes:

@@ -246,7 +246,12 @@ class TestStateDiagram:
 
     def test_diagram_add_and_connect(self) -> None:
         """Verify adding nodes and connecting them with .to()."""
-        sd = StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Test FSM")
+        sd = StateDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            title="Test FSM",
+        )
 
         s1 = sd.add(State("Start"), xy=(10.0, 20.0))
         s2 = sd.add(State("End"), xy=(40.0, 20.0))
@@ -255,16 +260,22 @@ class TestStateDiagram:
         assert s1.xy == (10.0, 20.0)
         assert s2.xy == (40.0, 20.0)
 
-        edge = s1.to(s2, event="go", bend=0.2)
+        edge = s1.to(s2, event="go", bend=0.2, text_style=Styles.Accent)
         assert len(sd.transitions) == 1
         assert edge.start is s1
         assert edge.end is s2
         assert edge.bend == 0.2
         assert edge.effective_label == "go"
+        assert edge.text_style == Styles.Accent
 
     def test_diagram_bounds_and_size(self) -> None:
         """Verify diagram bounding box and canvas sizing."""
-        sd = StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, margin=10.0)
+        sd = StateDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            margin=10.0,
+        )
         sd.add(State("A", width=20.0, height=10.0), xy=(0.0, 0.0))
         sd.add(State("B", width=20.0, height=10.0), xy=(50.0, 0.0))
 
@@ -279,19 +290,45 @@ class TestStateDiagram:
 
     def test_diagram_custom_size(self) -> None:
         """Verify custom width and height override."""
-        sd = StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, width=150.0, height=100.0)
+        sd = StateDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            width=150.0,
+            height=100.0,
+        )
         assert sd.get_size() == (150.0, 100.0)
 
     def test_state_diagram_style_validation(self) -> None:
         """Verify ValidationError or TypeError when invalid styles are supplied."""
+        # Missing required edge_text_style
         with pytest.raises((ValidationError, TypeError)):
-            StateDiagram(node_style="invalid", edge_style=Styles.Primary)  # type: ignore
+            StateDiagram(  # type: ignore
+                node_style=Styles.PrimaryFlat,
+                edge_style=Styles.Primary,
+            )
 
         with pytest.raises((ValidationError, TypeError)):
-            StateDiagram(node_style=Styles.PrimaryFlat, edge_style="invalid")  # type: ignore
+            StateDiagram(
+                node_style="invalid",  # type: ignore
+                edge_style=Styles.Primary,
+                edge_text_style=Styles.Dark,
+            )
 
         with pytest.raises((ValidationError, TypeError)):
-            StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
+            StateDiagram(
+                node_style=Styles.PrimaryFlat,
+                edge_style="invalid",  # type: ignore
+                edge_text_style=Styles.Dark,
+            )
+
+        with pytest.raises((ValidationError, TypeError)):
+            StateDiagram(
+                node_style=Styles.PrimaryFlat,
+                edge_style=Styles.Primary,
+                edge_text_style=Styles.Dark,
+                style="invalid",  # type: ignore
+            )
 
     def test_state_module_exports(self) -> None:
         """Verify drawlib.diagrams.state exports expected public symbols."""
@@ -312,7 +349,12 @@ class TestStateDiagramRendering:
         """Render a comprehensive state diagram exercising all shapes, pseudo-states, and transitions."""
         canvas.setup(width=160, height=110)
 
-        sd = StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Turnstile & Auth FSM")
+        sd = StateDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            title="Turnstile & Auth FSM",
+        )
 
         # 1. Pseudo-states & States
         init = sd.add(InitialState(), xy=(20.0, 75.0))

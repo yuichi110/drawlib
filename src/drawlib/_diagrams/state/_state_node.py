@@ -115,6 +115,7 @@ class StateNodeBase:
         height: float | None = None,
         ratio: float = 0.88,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> StateTransition:
         """Create and register a self-transition loop on this state.
 
@@ -129,6 +130,7 @@ class StateNodeBase:
             height: Optional height of loop ellipse. Defaults to width, proportional size, or standard.
             ratio: Arc coverage ratio along ellipse circumference (default 0.88).
             style: Optional Style object overriding edge color, width, and dash style.
+            text_style: Optional Style object overriding transition label text.
 
         Returns:
             StateTransition: Newly created self-loop transition edge.
@@ -141,6 +143,7 @@ class StateNodeBase:
             guard=guard,
             action=action,
             style=style,
+            text_style=text_style,
             loop_side=side,
             loop_width=width,
             loop_height=height,
@@ -163,6 +166,7 @@ class StateNodeBase:
         end_side: Side = "auto",
         routing: RoutingType = "curved",
         style: Style | None = None,
+        text_style: Style | None = None,
         padding: PaddingType = 0.0,
     ) -> StateTransition:
         """Create and register a state transition from self to target.
@@ -178,6 +182,7 @@ class StateNodeBase:
             end_side: Attachment side on end state ('left', 'right', 'top', 'bottom', 'auto').
             routing: Line path routing strategy ('curved', 'orthogonal', 'direct').
             style: Optional Style object overriding edge color, width, and dash style.
+            text_style: Optional Style object overriding transition label text.
             padding: Distance offset between state boundary and arrow ends.
 
         Returns:
@@ -192,6 +197,7 @@ class StateNodeBase:
                 guard=guard,
                 action=action,
                 style=style,
+                text_style=text_style,
             )
 
         trans = _transition_module.StateTransition(
@@ -206,6 +212,7 @@ class StateNodeBase:
             end_side=end_side,
             routing=routing,
             style=style,
+            text_style=text_style,
             padding=padding,
         )
         if self._diagram is not None:

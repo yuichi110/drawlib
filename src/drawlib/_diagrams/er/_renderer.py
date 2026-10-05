@@ -56,19 +56,22 @@ def draw_er_diagram(diagram: ERDiagram, base_xy: tuple[float, float]) -> None:
     if diagram.title:
         dw, dh = diagram.get_size()
         bx, by = base_xy
-        title_color = diagram.node_style.text_color or (30, 41, 59, 1.0)
-        title_style = Style(
+        base_title_style = Style(
             text_size=18,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=title_color,
+            text_color=(30, 41, 59, 1.0),
             text_halign="center",
             text_valign="bottom",
         )
+        if diagram.title_style:
+            title_style = base_title_style.patch(diagram.title_style)
+        else:
+            title_style = base_title_style
         canvas_text(xy=(bx + dw / 2.0, by + dh + 2.0), text=diagram.title, style=title_style)
 
     # 3. Render Relationships (Edges & Crow's Foot markers)
     for rel in diagram.relationships:
-        _render_relationship(rel, canvas_xy_map, diagram.edge_style)
+        _render_relationship(rel, canvas_xy_map, diagram.edge_style, diagram.edge_text_style)
 
     # 4. Render Entities (Cards, Headers, Columns)
     for entity, _ in diagram._entities:
@@ -267,6 +270,7 @@ def _render_relationship(
     rel: Relationship,
     canvas_xy_map: dict[Entity, tuple[float, float]],
     default_edge_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render a relationship edge with Crow's Foot markers and label.
 
@@ -274,6 +278,7 @@ def _render_relationship(
         rel: Relationship instance.
         canvas_xy_map: Mapping of Entity to canvas center coordinates.
         default_edge_style: Base Style for relationship edges.
+        default_edge_text_style: Base Style for relationship labels.
     """
     start_ent = rel.start
     end_ent = rel.end
@@ -338,7 +343,7 @@ def _render_relationship(
 
     # Render Label if provided
     if rel.label:
-        _render_relationship_label(path, rel.label, line_style)
+        _render_relationship_label(path, rel.label, line_style, default_edge_text_style, rel.text_style)
 
 
 def _get_canvas_anchor(
@@ -444,6 +449,8 @@ def _render_relationship_label(
     path: list[tuple[float, float]],
     label_text: str,
     line_style: Style,
+    default_edge_text_style: Style,
+    custom_text_style: Style | None = None,
 ) -> None:
     """Draw text label near the midpoint of the relationship line path."""
     if not path:
@@ -456,11 +463,9 @@ def _render_relationship_label(
     mx = (p1[0] + p2[0]) / 2.0
     my = (p1[1] + p2[1]) / 2.0
 
-    label_text_color = line_style.text_color or (30, 41, 59, 1.0)
-    label_style = Style(
+    base_label_style = Style(
         text_size=9.5,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=label_text_color,
         text_bg_fill_color=Colors.White,
         text_bg_fill_alpha=0.9,
         text_bg_line_color=(226, 232, 240, 1.0),
@@ -468,4 +473,6 @@ def _render_relationship_label(
         text_halign="center",
         text_valign="center",
     )
+    applied_text_style = custom_text_style or default_edge_text_style
+    label_style = base_label_style.patch(applied_text_style)
     canvas_text(xy=(mx, my), text=label_text, style=label_style)

@@ -145,8 +145,11 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `node_style` | `Style` | *(Required)* | Default style for nodes and card backgrounds. |
+| `node_text_style` | `Style` | *(Required)* | Default typography style for node labels. |
 | `edge_style` | `Style` | *(Required)* | Default style for connection lines and arrowheads. |
+| `edge_text_style` | `Style` | *(Required)* | Default typography style for connection edge labels. |
 | `title` | `str` | `""` | Diagram title text rendered at top. |
+| `title_style` | `Style \| None` | `None` | Optional typography style for diagram title. |
 | `width` / `height` | `float \| None` | `None` | Optional canvas bounding dimensions override. |
 | `margin` | `float` | `5.0` | Outer margin around all elements. |
 | `style` | `Style \| None` | `None` | Optional Style for container background card. |
@@ -195,7 +198,9 @@ canvas.setup(width=115, height=95)
 
 d = ArchitectureDiagram(
     node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.Black,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Production Multi-Tier Cloud VPC",
 )
 
@@ -237,7 +242,9 @@ canvas.setup(width=105, height=75)
 
 d = ArchitectureDiagram(
     node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.Black,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Event-Driven Message Streaming Topology",
 )
 
@@ -317,6 +324,7 @@ canvas.setup(width=110, height=95)
 flow = FlowDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Expense Reimbursement Approval Workflow",
     width=100.0,
     height=90.0,
@@ -365,6 +373,7 @@ canvas.setup(width=130, height=80)
 flow = FlowDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Fulfillment Logistics Pipeline",
     lane_orientation="horizontal",
     width=115.0,
@@ -413,7 +422,7 @@ from drawlib.diagrams.sequence import Block, Message, Note, Participant, Partici
 ```
 
 #### Constructor & Participant Management:
-- `SequenceDiagram(node_style, edge_style, title="", width=None, height=None, autonumber=False, style=None)`
+- `SequenceDiagram(node_style, edge_style, edge_text_style, title="", width=None, height=None, autonumber=False, style=None, title_style=None)`
 - `d.add(Participant(name, icon=None, icon_size=8.0, style=None)) -> Participant`
 - `d.add_group(ParticipantGroup(title="", padding=4.0, style=None)) -> ParticipantGroup`
 
@@ -451,6 +460,7 @@ canvas.setup(width=115, height=135)
 d = SequenceDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Microservices Distributed Transaction Pipeline",
     autonumber=True,
 )
@@ -508,6 +518,7 @@ canvas.setup(width=65, height=80)
 d = SequenceDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="WebSocket Real-Time Live Sync",
 )
 
@@ -590,6 +601,7 @@ canvas.setup(width=135, height=75)
 sd = StateDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="User Session Lifecycle State Machine",
 )
 
@@ -635,6 +647,7 @@ canvas.setup(width=115, height=75)
 sd = StateDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Concurrent Task Fork and Join",
 )
 
@@ -714,6 +727,7 @@ canvas.setup(width=110, height=85)
 cd = ClassDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="E-Commerce Domain Class Model",
 )
 
@@ -763,6 +777,7 @@ canvas.setup(width=105, height=80)
 cd = ClassDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="UML Observer Design Pattern",
 )
 
@@ -863,6 +878,7 @@ canvas.setup(width=115, height=85)
 erd = ERDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="E-Commerce Relational Database Schema",
 )
 
@@ -918,6 +934,7 @@ canvas.setup(width=110, height=80)
 erd = ERDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Multi-Tenant RBAC Authorization Schema",
 )
 

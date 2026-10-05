@@ -35,6 +35,7 @@ setup(width=50, height=45)
 er = ERDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="User Schema",
 )
 

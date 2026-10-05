@@ -90,7 +90,14 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
         if isinstance(event, Message):
             rel_y = event_y_map[event]
             abs_y = by + (y_origin_top - rel_y)
-            render_single_message(event, abs_y, participant_x_map, (bx, by), default_msg_style)
+            render_single_message(
+                event,
+                abs_y,
+                participant_x_map,
+                (bx, by),
+                default_msg_style,
+                diagram.edge_text_style,
+            )
         elif isinstance(event, Note):
             rel_y = event_y_map[event]
             abs_y = by + (y_origin_top - rel_y)
@@ -101,7 +108,7 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
 
     # Layer 7: Diagram Title
     if diagram.title:
-        title_color = diagram.node_style.text_color or (35, 35, 45, 1.0)
+        title_color = diagram.edge_text_style.text_color or (35, 35, 45, 1.0)
         title_style = Style(
             text_size=15,
             text_font=Font.SANSSERIF_BOLD,

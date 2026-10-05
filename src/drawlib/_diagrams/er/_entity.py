@@ -198,6 +198,7 @@ class Entity:
         end_column: str | None = None,
         label: str = "",
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> Relationship:
@@ -212,6 +213,7 @@ class Entity:
             end_column: Optional column name in end entity.
             label: Optional relationship label.
             style: Optional Style for the line.
+            text_style: Optional Style for relationship label text.
             routing: Path routing strategy ("orthogonal" or "direct").
             padding: Gap distance between entity and line ends.
 
@@ -228,6 +230,7 @@ class Entity:
             end_column=end_column,
             label=label,
             style=style,
+            text_style=text_style,
             routing=routing,
             padding=padding,
         )

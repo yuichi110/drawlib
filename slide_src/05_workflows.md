@@ -34,6 +34,7 @@ def draw_pipeline_state(active_step: str) -> None:
     flow = FlowDiagram(
         node_style=Styles.MutedFlat,
         edge_style=Styles.Primary,
+        edge_text_style=Styles.Black,
         title="Illustration & Slide CI/CD Pipeline (Live)",
     )
     s_start = Styles.AccentFlat if active_step == "push" else Styles.PrimaryFlat

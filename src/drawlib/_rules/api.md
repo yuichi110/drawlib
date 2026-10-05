@@ -269,7 +269,12 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, No
 from drawlib.styles import Styles
 
 setup(width=120, height=60)
-diag = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
+diag = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.Black,
+    edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
+)
 
 # 1. Container Boundaries / Groups
 group = diag.add(NodeGroup(title="Production VPC", width=100, height=44), (10, 8))
@@ -295,7 +300,11 @@ from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
 setup(width=100, height=65)
-flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
+flow = FlowDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
+)
 start = flow.add(Start("Start"), (50, 56))
 proc = flow.add(Process("Execute Job"), (50, 40))
 gate = flow.add(Decision("Success?"), (50, 24))
@@ -317,7 +326,11 @@ from drawlib.diagrams.sequence import Participant, SequenceDiagram
 from drawlib.styles import Styles
 
 setup(width=100, height=60)
-seq = SequenceDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
+seq = SequenceDiagram(
+    node_style=Styles.PrimaryFlat,
+    edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
+)
 user = seq.add(Participant("User"))
 auth = seq.add(Participant("Auth API"))
 db = seq.add(Participant("Database"))

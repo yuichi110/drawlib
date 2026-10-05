@@ -39,6 +39,7 @@ class SequenceDiagram:
         *,
         node_style: Style,
         edge_style: Style,
+        edge_text_style: Style,
         title: str = "",
         autonumber: bool = False,
         width: float | None = None,
@@ -54,6 +55,7 @@ class SequenceDiagram:
         Args:
             node_style: Mandatory base Style object for participant headers in the diagram.
             edge_style: Mandatory base Style object for message arrows in the diagram.
+            edge_text_style: Mandatory base Style object for message labels in the diagram.
             title: Diagram title.
             autonumber: Whether to automatically number message arrows (1, 2, 3...).
             width: Optional fixed width of the diagram canvas area.
@@ -66,6 +68,7 @@ class SequenceDiagram:
         """
         self.node_style = node_style
         self.edge_style = edge_style
+        self.edge_text_style = edge_text_style
         self.title = title
         self.autonumber = autonumber
         self.width = float(width) if width is not None else None
@@ -139,6 +142,7 @@ class SequenceDiagram:
         label: str = "",
         is_async: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> Message:
         """Record a synchronous or asynchronous request message (solid line).
 
@@ -148,6 +152,7 @@ class SequenceDiagram:
             label: Text label describing the message.
             is_async: True for open stick arrow; False for solid triangular arrow. Defaults to False.
             style: Optional line Style.
+            text_style: Optional text Style for label.
 
         Returns:
             Message: Created message.
@@ -160,6 +165,7 @@ class SequenceDiagram:
             is_async=is_async,
             arrow="->",
             style=style,
+            text_style=text_style,
         )
         self._record_message(message)
         return message
@@ -171,6 +177,7 @@ class SequenceDiagram:
         label: str = "",
         is_async: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> Message:
         """Record a response/return message (dashed line).
 
@@ -180,6 +187,7 @@ class SequenceDiagram:
             label: Text label describing the reply.
             is_async: True for open stick arrow; False for solid triangular arrow. Defaults to False.
             style: Optional line Style.
+            text_style: Optional text Style for label.
 
         Returns:
             Message: Created message.
@@ -192,6 +200,7 @@ class SequenceDiagram:
             is_async=is_async,
             arrow="->",
             style=style,
+            text_style=text_style,
         )
         self._record_message(message)
         return message
@@ -204,6 +213,7 @@ class SequenceDiagram:
         arrow: ArrowType = "->",
         is_async: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> Message:
         """Record a custom connection message (e.g. bidirectional stream '<->').
 
@@ -214,6 +224,7 @@ class SequenceDiagram:
             arrow: Arrowhead configuration ("->", "<->", "-"). Defaults to "->".
             is_async: True for open stick arrow; False for solid triangular arrow. Defaults to False.
             style: Optional line Style.
+            text_style: Optional text Style for label.
 
         Returns:
             Message: Created message.
@@ -226,6 +237,7 @@ class SequenceDiagram:
             is_async=is_async,
             arrow=arrow,
             style=style,
+            text_style=text_style,
         )
         self._record_message(message)
         return message

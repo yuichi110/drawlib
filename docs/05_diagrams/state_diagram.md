@@ -46,6 +46,7 @@ from drawlib.styles import Styles
 sd = StateDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Session Lifecycle State Machine",
 )
 

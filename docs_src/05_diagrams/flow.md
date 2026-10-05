@@ -60,6 +60,7 @@ canvas.setup(width=110, height=95)
 flow = FlowDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Expense Reimbursement Approval Workflow",
     width=100.0,
     height=90.0,
@@ -113,6 +114,7 @@ canvas.setup(width=130, height=80)
 flow = FlowDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Fulfillment Logistics Pipeline",
     lane_orientation="horizontal",
     width=115.0,

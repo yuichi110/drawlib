@@ -589,7 +589,13 @@ drawlib rules show <topic> --rebuild
   from drawlib.diagrams.flow import FlowDiagram
   from drawlib.styles import Styles
 
-  flow = FlowDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, width=80, height=60)
+  flow = FlowDiagram(
+      node_style=Styles.PrimaryFlat,
+      edge_style=Styles.Primary,
+      edge_text_style=Styles.Black,
+      width=80,
+      height=60,
+  )
   start = flow.node("Start", shape="circle")
   step = flow.node("Process", shape="rectangle")
   flow.edge(start, step, label="execute")

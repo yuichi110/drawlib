@@ -337,7 +337,9 @@
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">,</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Production Multi-Tier Cloud VPC&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
@@ -360,16 +362,34 @@
 <td>Default style for nodes and card backgrounds.</td>
 </tr>
 <tr>
+<td><code>node_text_style</code></td>
+<td><code>Style</code></td>
+<td><em>(Required)</em></td>
+<td>Default style for node text labels.</td>
+</tr>
+<tr>
 <td><code>edge_style</code></td>
 <td><code>Style</code></td>
 <td><em>(Required)</em></td>
 <td>Default style for connection lines and arrowheads.</td>
 </tr>
 <tr>
+<td><code>edge_text_style</code></td>
+<td><code>Style</code></td>
+<td><em>(Required)</em></td>
+<td>Default style for connection text labels.</td>
+</tr>
+<tr>
 <td><code>title</code></td>
 <td><code>str</code></td>
 <td><code>&quot;&quot;</code></td>
 <td>Optional banner title for the diagram.</td>
+</tr>
+<tr>
+<td><code>title_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional style for diagram title.</td>
 </tr>
 <tr>
 <td><code>width</code></td>

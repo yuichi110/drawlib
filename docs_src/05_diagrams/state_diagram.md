@@ -46,6 +46,7 @@ from drawlib.styles import Styles
 sd = StateDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Session Lifecycle State Machine",
 )
 
@@ -77,6 +78,7 @@ canvas.setup(width=135, height=75)
 sd = StateDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="User Session Lifecycle State Machine",
 )
 
@@ -127,6 +129,7 @@ canvas.setup(width=115, height=75)
 sd = StateDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Concurrent Task Fork and Join",
 )
 

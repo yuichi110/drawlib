@@ -32,6 +32,7 @@ def render_relationship(
     rel: ClassRelationship,
     canvas_xy_map: dict[ClassNode, tuple[float, float]],
     default_edge_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render a relationship edge connecting two class nodes with markers and labels.
 
@@ -39,6 +40,7 @@ def render_relationship(
         rel: ClassRelationship instance.
         canvas_xy_map: Mapping of ClassNode to canvas center coordinates.
         default_edge_style: Mandatory default Style for relationship edges.
+        default_edge_text_style: Mandatory default Style for relationship labels.
     """
     path = _compute_relationship_path(rel, canvas_xy_map)
 
@@ -51,7 +53,7 @@ def render_relationship(
 
     trimmed_path = _render_relationship_markers(rel, path, line_style)
     canvas_lines(xys=trimmed_path, style=line_style)
-    _render_relationship_annotations(rel, path, line_style)
+    _render_relationship_annotations(rel, path, line_style, default_edge_text_style)
 
 
 def _determine_auto_sides(
@@ -332,7 +334,7 @@ def _render_start_annotations(
     rel: ClassRelationship,
     p0: tuple[float, float],
     p1: tuple[float, float],
-    line_style: Style,
+    applied_text_style: Style,
 ) -> None:
     """Render start multiplicity and role label near start anchor."""
     if not (rel.start_multiplicity or rel.start_role):
@@ -349,7 +351,7 @@ def _render_start_annotations(
     offset_dist = 4.0 if rel.relationship_type in {"composition", "aggregation"} else 2.8
     anchor = (p0[0] + offset_dist * u[0], p0[1] + offset_dist * u[1])
 
-    text_color = line_style.text_color or (30, 41, 59, 1.0)
+    text_color = applied_text_style.text_color or (30, 41, 59, 1.0)
     muted_color = (100, 116, 139, 1.0)
 
     if rel.start_multiplicity:
@@ -382,7 +384,7 @@ def _render_end_annotations(
     rel: ClassRelationship,
     p_last: tuple[float, float],
     p_prev: tuple[float, float],
-    line_style: Style,
+    applied_text_style: Style,
 ) -> None:
     """Render end multiplicity and role label near end anchor."""
     if not (rel.end_multiplicity or rel.end_role):
@@ -399,7 +401,7 @@ def _render_end_annotations(
     offset_dist = 4.0 if rel.relationship_type in {"inheritance", "realization"} or rel.directed else 2.8
     anchor = (p_last[0] + offset_dist * u[0], p_last[1] + offset_dist * u[1])
 
-    text_color = line_style.text_color or (30, 41, 59, 1.0)
+    text_color = applied_text_style.text_color or (30, 41, 59, 1.0)
     muted_color = (100, 116, 139, 1.0)
 
     if rel.end_multiplicity:
@@ -432,13 +434,15 @@ def _render_relationship_annotations(
     rel: ClassRelationship,
     path: list[tuple[float, float]],
     line_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render multiplicities, roles, and center label for a relationship."""
     if len(path) < 2:
         return
 
-    _render_start_annotations(rel, path[0], path[1], line_style)
-    _render_end_annotations(rel, path[-1], path[-2], line_style)
+    applied_text_style = rel.text_style or default_edge_text_style
+    _render_start_annotations(rel, path[0], path[1], applied_text_style)
+    _render_end_annotations(rel, path[-1], path[-2], applied_text_style)
 
     # Center label
     if rel.label:
@@ -447,19 +451,20 @@ def _render_relationship_annotations(
         p2 = path[mid_idx + 1]
         mx = (p1[0] + p2[0]) / 2.0
         my = (p1[1] + p2[1]) / 2.0
-        label_text_color = line_style.text_color or (30, 41, 59, 1.0)
+        base_label_style = Style(
+            text_size=8.5,
+            text_font=Font.SANSSERIF_REGULAR,
+            text_bg_fill_color=(255, 255, 255, 0.9),
+            text_bg_fill_alpha=0.9,
+            text_bg_line_color=(226, 232, 240, 1.0),
+            text_bg_line_width=0.5,
+            text_halign="center",
+            text_valign="center",
+        )
+        applied_text_style = rel.text_style or default_edge_text_style
+        label_style = base_label_style.patch(applied_text_style)
         canvas_text(
             xy=(mx, my),
             text=rel.label,
-            style=Style(
-                text_size=8.5,
-                text_font=Font.SANSSERIF_REGULAR,
-                text_color=label_text_color,
-                text_bg_fill_color=(255, 255, 255, 0.9),
-                text_bg_fill_alpha=0.9,
-                text_bg_line_color=(226, 232, 240, 1.0),
-                text_bg_line_width=0.5,
-                text_halign="center",
-                text_valign="center",
-            ),
+            style=label_style,
         )

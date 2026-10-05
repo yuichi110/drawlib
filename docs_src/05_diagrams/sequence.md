@@ -45,6 +45,7 @@ from drawlib.styles import Styles
 d = SequenceDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Checkout Transaction Pipeline",
     autonumber=True,            # Auto-number messages (1., 2., 3., ...)
 )
@@ -75,6 +76,7 @@ canvas.setup(width=115, height=135)
 d = SequenceDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Microservices Distributed Transaction Pipeline",
     autonumber=True,
 )
@@ -137,6 +139,7 @@ canvas.setup(width=65, height=80)
 d = SequenceDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="WebSocket Real-Time Live Sync",
 )
 

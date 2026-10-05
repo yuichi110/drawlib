@@ -33,7 +33,9 @@ from drawlib.styles import Styles
 
 d = ArchitectureDiagram(
     node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.Black,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Production Multi-Tier Cloud VPC",
 )
 ```
@@ -44,8 +46,11 @@ d = ArchitectureDiagram(
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `node_style` | `Style` | *(Required)* | Default style for nodes and card backgrounds. |
+| `node_text_style` | `Style` | *(Required)* | Default style for node text labels. |
 | `edge_style` | `Style` | *(Required)* | Default style for connection lines and arrowheads. |
+| `edge_text_style` | `Style` | *(Required)* | Default style for connection text labels. |
 | `title` | `str` | `""` | Optional banner title for the diagram. |
+| `title_style` | `Style \| None` | `None` | Optional style for diagram title. |
 | `width` | `float \| None` | `None` | Explicit diagram canvas width, or `None` for auto-fit. |
 | `height` | `float \| None` | `None` | Explicit diagram canvas height, or `None` for auto-fit. |
 | `margin` | `float` | `5.0` | Outer margin around all elements. |
@@ -83,7 +88,9 @@ canvas.setup(width=115, height=95)
 
 d = ArchitectureDiagram(
     node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.Black,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Production Multi-Tier Cloud VPC",
 )
 
@@ -130,7 +137,9 @@ canvas.setup(width=105, height=75)
 
 d = ArchitectureDiagram(
     node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.Black,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Event-Driven Message Streaming Topology",
 )
 

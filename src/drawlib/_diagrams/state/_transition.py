@@ -37,6 +37,7 @@ class StateTransition:
         end_side: Side = "auto",
         routing: RoutingType = "curved",
         style: Style | None = None,
+        text_style: Style | None = None,
         padding: PaddingType = 0.0,
         loop_side: LoopSide = "top",
         loop_width: float | None = None,
@@ -58,6 +59,7 @@ class StateTransition:
             end_side: Attachment side on end state ('left', 'right', 'top', 'bottom', 'auto').
             routing: Line path routing strategy ('curved', 'orthogonal', 'direct').
             style: Optional Style object overriding edge color, width, and dash style.
+            text_style: Optional Style object overriding transition label text.
             padding: Distance offset between state boundary and arrow ends.
             loop_side: Attachment side for self-loop ('top', 'bottom', 'left', 'right', etc.).
             loop_width: Optional width of loop ellipse.
@@ -96,6 +98,7 @@ class StateTransition:
         self.end_side: Side = end_side
         self.routing: RoutingType = routing
         self.style = style
+        self.text_style = text_style
         self.padding: PaddingType = padding
         self.loop_side: LoopSide = loop_side
         self.loop_width = float(loop_width) if loop_width is not None else None

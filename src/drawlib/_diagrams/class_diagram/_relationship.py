@@ -40,6 +40,7 @@ class ClassRelationship:
         end_role: str = "",
         directed: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> None:
@@ -59,6 +60,7 @@ class ClassRelationship:
             end_role: Optional role name at end anchor.
             directed: Whether to draw a directional open arrow at the end (for association/aggregation/composition).
             style: Optional Style object overriding relationship appearance.
+            text_style: Optional Style object overriding relationship label text.
             routing: Path routing strategy ('orthogonal' or 'direct').
             padding: Gap distance between class borders and line endpoints.
         """
@@ -95,6 +97,7 @@ class ClassRelationship:
         self.end_role = end_role
         self.directed = directed
         self.style = style
+        self.text_style = text_style
         self.routing: RoutingType = routing
         self.padding: PaddingType = padding
 

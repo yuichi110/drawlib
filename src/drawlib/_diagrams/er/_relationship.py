@@ -37,6 +37,7 @@ class Relationship:
         end_column: str | None = None,
         label: str = "",
         style: Style | None = None,
+        text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
     ) -> None:
@@ -52,6 +53,7 @@ class Relationship:
             end_column: Optional column name in end entity to anchor the connection.
             label: Optional relationship label text.
             style: Optional Style object for the relationship line.
+            text_style: Optional Style object for the relationship label text.
             routing: Routing strategy ("orthogonal" or "direct").
             padding: Gap distance between entity borders and line ends.
         """
@@ -78,6 +80,7 @@ class Relationship:
         self.end_column = end_column
         self.label = label
         self.style = style
+        self.text_style = text_style
         self.routing: RoutingType = routing
         self.padding: PaddingType = padding
 

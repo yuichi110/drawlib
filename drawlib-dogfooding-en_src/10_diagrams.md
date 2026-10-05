@@ -15,7 +15,9 @@ setup(width=115, height=65)
 
 diag = ArchitectureDiagram(
     node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.Black,
     edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Black,
     title="Cloud Microservices Architecture",
 )
 

@@ -32,7 +32,9 @@ class StateDiagram:
         *,
         node_style: Style,
         edge_style: Style,
+        edge_text_style: Style,
         title: str = "",
+        title_style: Style | None = None,
         style: Style | None = None,
         width: float | None = None,
         height: float | None = None,
@@ -43,7 +45,9 @@ class StateDiagram:
         Args:
             node_style: Mandatory base Style object for state nodes in the diagram.
             edge_style: Mandatory base Style object for transition edges in the diagram.
+            edge_text_style: Mandatory base Style object for transition labels in the diagram.
             title: Optional title displayed above the diagram.
+            title_style: Optional Style object for the diagram title.
             style: Optional Style overriding diagram background.
             width: Optional fixed canvas width. If None, auto-calculated from content.
             height: Optional fixed canvas height. If None, auto-calculated from content.
@@ -51,7 +55,9 @@ class StateDiagram:
         """
         self.node_style = node_style
         self.edge_style = edge_style
+        self.edge_text_style = edge_text_style
         self.title = title
+        self.title_style = title_style
         self.style = style
         self.custom_width = float(width) if width is not None else None
         self.custom_height = float(height) if height is not None else None

@@ -231,6 +231,7 @@ def render_edges(
     canvas_xy_map: dict[Connectable, tuple[float, float]],
     base_xy: tuple[float, float],
     default_edge_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render all FlowEdge connections."""
     for edge in edges:
@@ -279,18 +280,16 @@ def render_edges(
             lx = (pts[mid_idx - 1][0] + pts[mid_idx][0]) / 2.0
             ly = (pts[mid_idx - 1][1] + pts[mid_idx][1]) / 2.0
 
-            label_text_color = default_edge_style.text_color or (30, 41, 59, 1.0)
-            label_style = Style(
+            base_label_style = Style(
                 text_size=11,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=label_text_color,
                 text_bg_fill_color=(255, 255, 255, 0.9),
                 text_bg_line_color=None,
                 text_bg_line_width=0,
                 text_halign="center",
                 text_valign="center",
             )
-            if edge.text_style:
-                label_style = label_style.patch(edge.text_style)
+            applied_text_style = edge.text_style or default_edge_text_style
+            label_style = base_label_style.patch(applied_text_style)
 
             canvas_text(xy=(lx, ly), text=edge.label, style=label_style)

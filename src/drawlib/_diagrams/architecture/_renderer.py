@@ -174,7 +174,7 @@ def _render_groups(
             canvas_text(xy=(tx, ty), text=group.title, style=title_style)
 
 
-def _render_node_label(node: Node, nx: float, ny: float, default_node_style: Style) -> None:
+def _render_node_label(node: Node, nx: float, ny: float, default_node_text_style: Style) -> None:
     """Render label text for a node."""
     if not node.text:
         return
@@ -209,25 +209,25 @@ def _render_node_label(node: Node, nx: float, ny: float, default_node_style: Sty
         valign = "top"
 
     font_size = float(node.text_style.text_size) if node.text_style and node.text_style.text_size is not None else 13.0
-    text_color = default_node_style.text_color or (30, 30, 30, 1.0)
-    text_style = Style(
+    base_style = Style(
         text_size=font_size,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=text_color,
         text_halign=halign,
         text_valign=valign,
         text_angle=node.text_angle,
     )
+    applied_style = base_style.patch(default_node_text_style)
     if node.text_style:
-        text_style = text_style.patch(node.text_style)
+        applied_style = applied_style.patch(node.text_style)
 
-    canvas_text(xy=(tx, ty), text=node.text, style=text_style)
+    canvas_text(xy=(tx, ty), text=node.text, style=applied_style)
 
 
 def _render_nodes(
     nodes: list[Node],
     canvas_xy_map: dict[Connectable, tuple[float, float]],
     default_node_style: Style,
+    default_node_text_style: Style,
 ) -> None:
     """Draw Layer 2: Nodes (cards, icons, labels)."""
     for node in nodes:
@@ -249,7 +249,7 @@ def _render_nodes(
             default_icon_style.patch(node.icon_style) if node.icon_style is not None else default_icon_style
         )
         _draw_icon(node.icon, (nx, ny), node.icon_size, applied_icon_style)
-        _render_node_label(node, nx, ny, default_node_style)
+        _render_node_label(node, nx, ny, default_node_text_style)
 
 
 def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> None:
@@ -277,19 +277,22 @@ def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0
         )
 
     _render_groups(all_groups, canvas_xy_map)
-    draw_edges(diagram._edges, canvas_xy_map, base_xy, diagram.edge_style)
-    _render_nodes(all_nodes, canvas_xy_map, diagram.node_style)
+    draw_edges(diagram._edges, canvas_xy_map, base_xy, diagram.edge_style, diagram.edge_text_style)
+    _render_nodes(all_nodes, canvas_xy_map, diagram.node_style, diagram.node_text_style)
 
     if diagram.title:
         _, dh = diagram.get_size()
-        title_color = diagram.node_style.text_color or (40, 40, 45, 1.0)
-        title_style = Style(
+        base_title_style = Style(
             text_size=15,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=title_color,
+            text_color=(40, 40, 45, 1.0),
             text_halign="left",
             text_valign="bottom",
         )
+        if diagram.title_style:
+            title_style = base_title_style.patch(diagram.title_style)
+        else:
+            title_style = base_title_style
         canvas_text(xy=(base_xy[0] + 1.0, base_xy[1] + dh + 2.0), text=diagram.title, style=title_style)
 
 

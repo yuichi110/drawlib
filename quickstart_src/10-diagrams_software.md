@@ -16,6 +16,7 @@ setup(width=120, height=65)
 d = SequenceDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="OAuth 2.0 Token Exchange Sequence",
 )
 
@@ -48,6 +49,7 @@ setup(width=120, height=65)
 f = FlowDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Incoming Request Authorization Gate",
 )
 

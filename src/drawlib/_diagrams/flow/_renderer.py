@@ -61,21 +61,24 @@ def draw_diagram(diagram: FlowDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> 
         render_lanes(diagram.lanes, diagram.lane_orientation, base_xy, dw, dh)
 
     # Layer 2: Flow Edges
-    render_edges(diagram.edges, canvas_xy_map, base_xy, diagram.edge_style)
+    render_edges(diagram.edges, canvas_xy_map, base_xy, diagram.edge_style, diagram.edge_text_style)
 
     # Layer 3: Flow Nodes & Junctions
     _render_nodes(all_nodes, canvas_xy_map, diagram.node_style)
 
     # Layer 4: Title
     if diagram.title:
-        title_color = diagram.node_style.text_color or (30, 41, 59, 1.0)
-        title_style = Style(
+        base_title_style = Style(
             text_size=16,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=title_color,
+            text_color=(30, 41, 59, 1.0),
             text_halign="center",
             text_valign="bottom",
         )
+        if diagram.title_style:
+            title_style = base_title_style.patch(diagram.title_style)
+        else:
+            title_style = base_title_style
         canvas_text(xy=(bx + dw / 2.0, by + dh + 2.0), text=diagram.title, style=title_style)
 
 

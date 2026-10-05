@@ -178,7 +178,12 @@ class TestERDiagram:
 
     def test_diagram_add_and_connect(self) -> None:
         """Verify adding entities and connecting them."""
-        erd = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Test Diagram")
+        erd = ERDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            title="Test Diagram",
+        )
         u = Entity("users")
         o = Entity("orders")
 
@@ -189,18 +194,29 @@ class TestERDiagram:
         assert u.xy == (20.0, 50.0)
         assert o.xy == (70.0, 50.0)
 
-        rel = u.connect(o, cardinality="1:*", label="places")
+        rel = u.connect(o, cardinality="1:*", label="places", text_style=Styles.Accent)
         assert len(erd.relationships) == 1
         assert rel.start is u
         assert rel.end is o
         assert rel.label == "places"
+        assert rel.text_style == Styles.Accent
 
     def test_get_size(self) -> None:
         """Verify automatic and fixed diagram size."""
-        erd_fixed = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, width=200.0, height=100.0)
+        erd_fixed = ERDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            width=200.0,
+            height=100.0,
+        )
         assert erd_fixed.get_size() == (200.0, 100.0)
 
-        erd_auto = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary)
+        erd_auto = ERDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
         u = Entity("users", width=20.0, height=10.0)
         erd_auto.add(u, xy=(50.0, 50.0))
         # max_x = 50 + 10 = 60 (+10 margin = 70.0)
@@ -211,17 +227,42 @@ class TestERDiagram:
 
     def test_er_diagram_style_validation(self) -> None:
         """Verify ValidationError or TypeError when invalid styles are supplied."""
+        # Missing required edge_text_style
         with pytest.raises((ValidationError, TypeError)):
-            ERDiagram(node_style="invalid", edge_style=Styles.Primary)  # type: ignore
+            ERDiagram(  # type: ignore
+                node_style=Styles.PrimaryFlat,
+                edge_style=Styles.Primary,
+            )
 
         with pytest.raises((ValidationError, TypeError)):
-            ERDiagram(node_style=Styles.PrimaryFlat, edge_style="invalid")  # type: ignore
+            ERDiagram(
+                node_style="invalid",  # type: ignore
+                edge_style=Styles.Primary,
+                edge_text_style=Styles.Dark,
+            )
 
         with pytest.raises((ValidationError, TypeError)):
-            ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
+            ERDiagram(
+                node_style=Styles.PrimaryFlat,
+                edge_style="invalid",  # type: ignore
+                edge_text_style=Styles.Dark,
+            )
 
         with pytest.raises((ValidationError, TypeError)):
-            ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, header_style="invalid")  # type: ignore
+            ERDiagram(
+                node_style=Styles.PrimaryFlat,
+                edge_style=Styles.Primary,
+                edge_text_style=Styles.Dark,
+                style="invalid",  # type: ignore
+            )
+
+        with pytest.raises((ValidationError, TypeError)):
+            ERDiagram(
+                node_style=Styles.PrimaryFlat,
+                edge_style=Styles.Primary,
+                edge_text_style=Styles.Dark,
+                header_style="invalid",  # type: ignore
+            )
 
 
 class TestERDiagramRendering:
@@ -231,7 +272,12 @@ class TestERDiagramRendering:
         """Verify basic ER diagram rendering and image file export."""
         canvas.clear()
 
-        erd = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Customer Order System")
+        erd = ERDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            title="Customer Order System",
+        )
         users = erd.add(Entity(name="users", width=25.0), xy=(25.0, 60.0))
         users.add_column("id", type="INT", pk=True)
         users.add_column("email", type="VARCHAR(255)", nullable=False)
@@ -274,7 +320,12 @@ class TestERDiagramRendering:
             "*:*",
         ]
 
-        erd = ERDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, title="Cardinalities Gallery")
+        erd = ERDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+            title="Cardinalities Gallery",
+        )
         for idx, card in enumerate(cardinalities):
             y = 85.0 - idx * 12.0
             e1 = erd.add(Entity(name=f"Src_{idx}", width=18.0, height=8.0), xy=(20.0, y))
@@ -300,6 +351,7 @@ class TestERDiagramRendering:
         erd = ERDiagram(
             node_style=Styles.PrimaryFlat,
             edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
             title="Styled ERD",
             style=Style(shape_fill_color=Colors.White),
         )

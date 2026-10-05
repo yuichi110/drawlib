@@ -33,6 +33,7 @@ setup(width=50, height=45)
 er = ERDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="User Schema",
 )
 
@@ -95,6 +96,7 @@ setup(width=110, height=80)
 er = ERDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="E-Commerce Relational Database Schema",
 )
 

@@ -43,6 +43,7 @@ setup(width=90, height=45)
 cd = ClassDiagram(
     node_style=Styles.PrimaryFlat,
     edge_style=Styles.Primary,
+    edge_text_style=Styles.Black,
     title="Domain Model",
 )
 

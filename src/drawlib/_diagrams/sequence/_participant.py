@@ -87,6 +87,7 @@ class Participant:
         label: str = "",
         is_async: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> Message:
         """Send a request message (solid line) from this participant to target.
 
@@ -95,13 +96,18 @@ class Participant:
             label: Description text of the message.
             is_async: True for open stick arrow; False for solid filled arrow. Defaults to False.
             style: Optional Style object for the message line.
+            text_style: Optional Style object for the label text.
 
         Returns:
             Message: Created message.
         """
         if self._diagram is not None:
-            return self._diagram.request(self, target, label=label, is_async=is_async, style=style)
-        return _message_module.Message(self, target, label=label, is_reply=False, is_async=is_async, style=style)
+            return self._diagram.request(
+                self, target, label=label, is_async=is_async, style=style, text_style=text_style
+            )
+        return _message_module.Message(
+            self, target, label=label, is_reply=False, is_async=is_async, style=style, text_style=text_style
+        )
 
     def reply(
         self,
@@ -109,6 +115,7 @@ class Participant:
         label: str = "",
         is_async: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> Message:
         """Send a response/return message (dashed line) from this participant to target.
 
@@ -117,13 +124,16 @@ class Participant:
             label: Description text of the response.
             is_async: True for open stick arrow; False for solid filled arrow. Defaults to False.
             style: Optional Style object for the response line.
+            text_style: Optional Style object for the label text.
 
         Returns:
             Message: Created message.
         """
         if self._diagram is not None:
-            return self._diagram.reply(self, target, label=label, is_async=is_async, style=style)
-        return _message_module.Message(self, target, label=label, is_reply=True, is_async=is_async, style=style)
+            return self._diagram.reply(self, target, label=label, is_async=is_async, style=style, text_style=text_style)
+        return _message_module.Message(
+            self, target, label=label, is_reply=True, is_async=is_async, style=style, text_style=text_style
+        )
 
     def connect(
         self,
@@ -132,6 +142,7 @@ class Participant:
         arrow: ArrowType = "->",
         is_async: bool = False,
         style: Style | None = None,
+        text_style: Style | None = None,
     ) -> Message:
         """Connect to target with a custom arrow (e.g. bidirectional stream '<->').
 
@@ -141,13 +152,18 @@ class Participant:
             arrow: Arrowhead configuration ("->", "<->", "-"). Defaults to "->".
             is_async: True for open stick arrow; False for solid filled arrow. Defaults to False.
             style: Optional Style object.
+            text_style: Optional Style object for the label text.
 
         Returns:
             Message: Created message.
         """
         if self._diagram is not None:
-            return self._diagram.connect(self, target, label=label, arrow=arrow, is_async=is_async, style=style)
-        return _message_module.Message(self, target, label=label, arrow=arrow, is_async=is_async, style=style)
+            return self._diagram.connect(
+                self, target, label=label, arrow=arrow, is_async=is_async, style=style, text_style=text_style
+            )
+        return _message_module.Message(
+            self, target, label=label, arrow=arrow, is_async=is_async, style=style, text_style=text_style
+        )
 
     def note(
         self,

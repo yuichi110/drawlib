@@ -76,8 +76,8 @@ class FlowEdge:
         self.label = label
         self.arrow = resolved_arrow
         self.routing = routing
-        self.start_side = start_side
-        self.end_side = end_side
+        self.start_side: Side = start_side
+        self.end_side: Side = end_side
         self.style = style
         self.text_style = text_style
         self.padding = padding

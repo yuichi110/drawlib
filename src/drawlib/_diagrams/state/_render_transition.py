@@ -39,6 +39,7 @@ def render_transition(
     trans: StateTransition,
     canvas_xy_map: dict[StateNodeBase, tuple[float, float]],
     default_edge_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render a transition edge.
 
@@ -46,12 +47,13 @@ def render_transition(
         trans: StateTransition instance.
         canvas_xy_map: Mapping of state nodes to canvas coordinates.
         default_edge_style: Base Style for transition edges.
+        default_edge_text_style: Base Style for transition labels.
     """
     edge_style = default_edge_style.patch(trans.style) if trans.style is not None else default_edge_style
     if trans.is_self_transition:
-        _render_self_transition(trans, canvas_xy_map, edge_style)
+        _render_self_transition(trans, canvas_xy_map, edge_style, default_edge_text_style)
     else:
-        _render_normal_transition(trans, canvas_xy_map, edge_style)
+        _render_normal_transition(trans, canvas_xy_map, edge_style, default_edge_text_style)
 
 
 _LOOP_SIDE_CONFIG: dict[
@@ -139,6 +141,7 @@ def _render_self_transition(
     trans: StateTransition,
     canvas_xy_map: dict[StateNodeBase, tuple[float, float]],
     edge_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render a self-transition loop curving along a side or corner using an ellipse arc.
 
@@ -146,6 +149,7 @@ def _render_self_transition(
         trans: StateTransition instance where start is end or is_loop is True.
         canvas_xy_map: Mapping of state nodes to canvas coordinates.
         edge_style: Style for the transition edge.
+        default_edge_text_style: Base Style for transition labels.
     """
     node = trans.start
     center = canvas_xy_map[node]
@@ -188,13 +192,25 @@ def _render_self_transition(
 
     label = trans.effective_label
     if label:
-        label_text_color = edge_style.text_color or (30, 41, 59, 1.0)
-        label_style = Style(
-            text_size=8.5,
-            text_font=Font.SANSSERIF_REGULAR,
-            text_color=label_text_color,
-            text_halign=text_halign,
-            text_valign=text_valign,
+        applied_text_style = trans.text_style or default_edge_text_style
+        label_style = (
+            Style(
+                text_size=8.5,
+                text_font=Font.SANSSERIF_REGULAR,
+            )
+            .patch(applied_text_style)
+            .patch(
+                text_halign=(
+                    trans.text_style.text_halign
+                    if trans.text_style and trans.text_style.text_halign is not None
+                    else text_halign
+                ),
+                text_valign=(
+                    trans.text_style.text_valign
+                    if trans.text_style and trans.text_style.text_valign is not None
+                    else text_valign
+                ),
+            )
         )
         canvas_text(xy=label_pos, text=label, style=label_style)
 
@@ -203,6 +219,7 @@ def _render_normal_transition(
     trans: StateTransition,
     canvas_xy_map: dict[StateNodeBase, tuple[float, float]],
     edge_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render a transition between two distinct states.
 
@@ -210,6 +227,7 @@ def _render_normal_transition(
         trans: StateTransition instance.
         canvas_xy_map: Mapping of state nodes to canvas coordinates.
         edge_style: Style for the transition edge.
+        default_edge_text_style: Base Style for transition labels.
     """
     start_c = canvas_xy_map[trans.start]
     end_c = canvas_xy_map[trans.end]
@@ -221,9 +239,9 @@ def _render_normal_transition(
     xy2 = _get_node_border_point(trans.end, end_c, start_c, trans.end_side, pad_end)
 
     if trans.routing == "orthogonal":
-        _render_orthogonal_transition(xy1, xy2, trans, edge_style)
+        _render_orthogonal_transition(xy1, xy2, trans, edge_style, default_edge_text_style)
     else:
-        _render_curved_or_direct_transition(xy1, xy2, trans, edge_style)
+        _render_curved_or_direct_transition(xy1, xy2, trans, edge_style, default_edge_text_style)
 
 
 def _render_orthogonal_transition(
@@ -231,6 +249,7 @@ def _render_orthogonal_transition(
     xy2: tuple[float, float],
     trans: StateTransition,
     edge_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render orthogonal (stepped) transition line.
 
@@ -239,6 +258,7 @@ def _render_orthogonal_transition(
         xy2: End point on boundary.
         trans: StateTransition instance.
         edge_style: Edge style.
+        default_edge_text_style: Base Style for transition labels.
     """
     mid_x = (xy1[0] + xy2[0]) / 2.0
     p1 = (mid_x, xy1[1])
@@ -248,13 +268,25 @@ def _render_orthogonal_transition(
 
     label = trans.effective_label
     if label:
-        label_text_color = edge_style.text_color or (30, 41, 59, 1.0)
-        label_style = Style(
-            text_size=8.5,
-            text_font=Font.SANSSERIF_REGULAR,
-            text_color=label_text_color,
-            text_halign="center",
-            text_valign="bottom",
+        applied_text_style = trans.text_style or default_edge_text_style
+        label_style = (
+            Style(
+                text_size=8.5,
+                text_font=Font.SANSSERIF_REGULAR,
+            )
+            .patch(applied_text_style)
+            .patch(
+                text_halign=(
+                    trans.text_style.text_halign
+                    if trans.text_style and trans.text_style.text_halign is not None
+                    else "center"
+                ),
+                text_valign=(
+                    trans.text_style.text_valign
+                    if trans.text_style and trans.text_style.text_valign is not None
+                    else "bottom"
+                ),
+            )
         )
         mid_y = (xy1[1] + xy2[1]) / 2.0
         canvas_text(xy=(mid_x, mid_y + 1.2), text=label, style=label_style)
@@ -265,6 +297,7 @@ def _render_curved_or_direct_transition(
     xy2: tuple[float, float],
     trans: StateTransition,
     edge_style: Style,
+    default_edge_text_style: Style,
 ) -> None:
     """Render curved or straight direct transition line.
 
@@ -273,6 +306,7 @@ def _render_curved_or_direct_transition(
         xy2: End point on boundary.
         trans: StateTransition instance.
         edge_style: Edge style.
+        default_edge_text_style: Base Style for transition labels.
     """
     bend = trans.bend
     if bend != 0.0:
@@ -284,14 +318,13 @@ def _render_curved_or_direct_transition(
     if not label:
         return
 
-    label_text_color = edge_style.text_color or (30, 41, 59, 1.0)
+    applied_text_style = trans.text_style or default_edge_text_style
     label_style = Style(
         text_size=8.5,
         text_font=Font.SANSSERIF_REGULAR,
-        text_color=label_text_color,
         text_halign="center",
         text_valign="center",
-    )
+    ).patch(applied_text_style)
 
     # Compute label offset along normal vector
     dx = xy2[0] - xy1[0]
