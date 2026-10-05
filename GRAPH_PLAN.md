@@ -32,10 +32,11 @@ Drawlib は外部の C バイナリ（Graphviz 等）に一切依存しない **
    - `draw()`: 計算結果を Drawlib の標準スタイルでキャンバスに一括描画する。
 3. **下書きから清書への架け橋 (`export_code()`)**:
    - 自動配置された座標を変数化した Drawlib Python コードを書き出すことで、「大枠は自動配置 → こだわりたい箇所だけ絶対座標で微調整」という理想の二段階ワークフローをライブラリ単体で完結させる。
-4. **用途別の専門クラス分離**:
-   - `ArchitectureGraph`: クラウド・Web・多層アーキテクチャ（階層型・VPCクラスタ境界）
-   - `TreeGraph`: 組織図・決定木・AST（対称整列ツリー）
-   - `RadialGraph`: イベント駆動・Kafka/PubSub・ハブ＆スポーク（同心円・放射状）
+4. **用途別の専門クラス分離（4大レイアウトエンジン）**:
+   - `ArchitectureGraph`: クラウド・Web・多層アーキテクチャ（多層階層型 Tiered Layering ＆ VPC/クラスタ境界）
+   - `TreeGraph`: 組織図・決定木・AST（Reingold-Tilford 対称整列ツリー）
+   - `RadialGraph`: イベント駆動・Kafka/PubSub・ハブ＆スポーク（同心円・放射状 Concentric Rings）
+   - `GridGraph`: マイクロサービス一覧・カード整列・ステータス表（矩形グリッド整列 Matrix Grid ＆ エッジ接続）
 
 ---
 
@@ -45,7 +46,7 @@ Drawlib は外部の C バイナリ（Graphviz 等）に一切依存しない **
 
 ```text
 src/drawlib/
-├── graph.py                      # 公開ファサード (ArchitectureGraph, TreeGraph, RadialGraph, GraphLayout)
+├── graph.py                      # 公開ファサード (ArchitectureGraph, TreeGraph, RadialGraph, GridGraph, GraphLayout)
 └── _graph/                       # 内部実装パッケージ
     ├── __init__.py
     ├── _models.py                # データ構造 (Node, Edge, Cluster, Port, GraphLayout)
@@ -53,6 +54,7 @@ src/drawlib/
     ├── _architecture.py          # ArchitectureGraph (多層階層型 DAG レイアウトエンジン)
     ├── _tree.py                  # TreeGraph (Reingold-Tilford 対称ツリーレイアウトエンジン)
     ├── _radial.py                # RadialGraph (同心円・放射状レイアウトエンジン)
+    ├── _grid.py                  # GridGraph (矩形グリッド・Matrix Grid レイアウトエンジン)
     ├── _renderer.py              # Drawlib プリミティブ (shapes, lines, text) による自動描画アダプタ
     └── _code_generator.py        # 計算済み座標を変数化した Python コード生成器
 ```
@@ -289,7 +291,50 @@ class RadialGraph(BaseGraph):
 
 ---
 
-### 3.5. 幾何計算結果オブジェクト: `GraphLayout`
+### 3.5. `GridGraph`（矩形グリッド整列・Matrix Grid）
+
+#### 目的
+マイクロサービス一覧、ダッシュボードカード、バッチジョブ群、ステータス表など、指定した列数（`columns`）に合わせてノードを整然とタイル状に並べ、ノード間に依存関係や通信エッジを結ぶトポロジーの自動配置。
+
+#### 特有の API
+```python
+class GridGraph(BaseGraph):
+    def __init__(
+        self,
+        *,
+        columns: int = 3,                 # 1行あたりの列数
+        order: Literal["row-major", "column-major"] = "row-major", # 配置順（行優先 / 列優先）
+        col_sep: float | None = None,     # 列間の水平距離
+        row_sep: float | None = None,     # 行間の垂直距離
+        default_node_style: Style | None = None,
+        default_edge_style: Style | None = None,
+    ) -> None: ...
+
+    def cluster(
+        self,
+        id: str,
+        nodes: list[str],
+        label: str | None = None,
+        *,
+        style: Style | None = None,
+        text_style: Style | None = None,
+        padding: float = 4.0,
+    ) -> Cluster:
+        """Register a grouping boundary surrounding a subset of grid cells."""
+```
+
+#### 配置アルゴリズム（Matrix Grid Partitioning & Edge Routing）
+1. **Grid Slot Mapping**:
+   - 登録順にノードを $(row, col)$ のスロットに配置（`row-major` の場合は $col = i \pmod{\text{columns}}$, $row = \lfloor i / \text{columns} \rfloor$）。
+   - 全体行数 $M$・列数 $N$ からグリッドの論理マトリクスを確定。
+2. **Dimension & Spacing Scaling**:
+   - キャンバスの `width` と `height`（およびマージン）に基づき、各セルの中心座標 $(cx, cy)$ を均等ピッチで算出。
+3. **Smart Boundary Port Routing**:
+   - 同一行・同一列・斜めのノード間エッジに対して、ノード外周境界（四辺の中点）の最近傍ポート同士を結ぶ接続線を自動算出。隣接セル間は直線、離れたセル間はグリッドの隙間を通る直角経路（Manhattan routing）をサポート。
+
+---
+
+### 3.6. 幾何計算結果オブジェクト: `GraphLayout`
 
 `calc()` メソッドが返すデータ構造です。描画に必要なすべての幾何情報を保持し、ユーザーが手動で介入・微調整できるよう設計します。
 
@@ -411,9 +456,10 @@ save()
 - `src/drawlib/graph.py`（公開ファサード）
 - **動作検証**: サンプルコードによる画像描画と `export_code()` の出力テスト
 
-### フェーズ 2: `TreeGraph` ＆ `RadialGraph` の追加
+### フェーズ 2: `TreeGraph`, `RadialGraph`, `GridGraph` の追加
 - `src/drawlib/_graph/_tree.py`（Reingold-Tilford 左右/上下整列ツリー）
 - `src/drawlib/_graph/_radial.py`（ハブ＆スポーク同心円・角度均等分割配置）
+- `src/drawlib/_graph/_grid.py`（矩形グリッド整列 ＆ エッジ配線）
 - `graph.py` からのエクスポートと単体テスト
 
 ### フェーズ 3: 堅牢性強化 ＆ テストスイート
@@ -437,6 +483,6 @@ save()
 2. **キャンバス枠収束テスト**:
    - 指定された `width` / `height` および `margin` の境界内に、すべてのノード・エッジ・ラベルが収まり、はみ出し（Clipping）が発生しないこと。
 3. **視覚的一致性テスト (Pixel Matching)**:
-   - `test_graph.py` において、`ArchitectureGraph`, `TreeGraph`, `RadialGraph` でレンダリングした画像をスナップショット比較（Match Rate > 95%）。
+   - `test_graph.py` において、`ArchitectureGraph`, `TreeGraph`, `RadialGraph`, `GridGraph` でレンダリングした画像をスナップショット比較（Match Rate > 95%）。
 4. **Code Export 再現性テスト**:
    - `export_code()` で出力された Python スクリプトを実行して生成された画像と、`g.draw()` で直接レンダリングされた画像がピクセル単位で完全一致すること。
