@@ -86,8 +86,61 @@ def route_straight_edge(
     elif direction == "LR":
         src_port = (round(src.right, 2), round(src.y, 2))
         dst_port = (round(dst.left, 2), round(dst.y, 2))
-    else:  # "RL"
-        src_port = (round(src.left, 2), round(src.y, 2))
-        dst_port = (round(dst.right, 2), round(dst.y, 2))
+    return src_port, [], dst_port
 
+
+def compute_boundary_intersection(
+    node: NodeLayout,
+    target_xy: tuple[float, float],
+) -> tuple[float, float]:
+    """Compute the intersection point between a node's perimeter and a line toward target_xy.
+
+    Accurately calculates intersections for circle, rectangle, and rounded_rectangle geometries.
+
+    Args:
+        node: NodeLayout of the shape.
+        target_xy: Target coordinate (e.g. another node center).
+
+    Returns:
+        Exact boundary point (x, y) on the node's perimeter.
+    """
+    dx = target_xy[0] - node.x
+    dy = target_xy[1] - node.y
+    dist = (dx**2 + dy**2) ** 0.5
+    if dist < 1e-6:
+        return (node.x, node.y)
+
+    u_x = dx / dist
+    u_y = dy / dist
+
+    if node.shape == "circle":
+        r = node.width / 2.0
+        return (round(node.x + r * u_x, 2), round(node.y + r * u_y, 2))
+
+    # Rectangle / Rounded Rectangle (Ray-Box Intersection)
+    half_w = node.width / 2.0
+    half_h = node.height / 2.0
+
+    t_x = half_w / abs(u_x) if abs(u_x) > 1e-6 else float("inf")
+    t_y = half_h / abs(u_y) if abs(u_y) > 1e-6 else float("inf")
+    t = min(t_x, t_y)
+
+    return (round(node.x + t * u_x, 2), round(node.y + t * u_y, 2))
+
+
+def route_radial_edge(
+    src: NodeLayout,
+    dst: NodeLayout,
+) -> tuple[tuple[float, float], list[tuple[float, float]], tuple[float, float]]:
+    """Route a direct radial edge between two nodes connecting their exact boundaries.
+
+    Args:
+        src: Source node layout.
+        dst: Destination node layout.
+
+    Returns:
+        tuple containing (src_port, waypoints=[], dst_port).
+    """
+    src_port = compute_boundary_intersection(src, (dst.x, dst.y))
+    dst_port = compute_boundary_intersection(dst, (src.x, src.y))
     return src_port, [], dst_port

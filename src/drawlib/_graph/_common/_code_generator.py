@@ -47,14 +47,23 @@ def _format_clusters_code(clusters: dict[str, ClusterLayout]) -> list[str]:
         "# " + "=" * 77,
     ]
     for c in clusters.values():
-        lines.append(
-            f"rectangle(({c.cx:.1f}, {c.cy:.1f}), width={c.width:.1f}, height={c.height:.1f}, "
-            "style=Styles.MutedDashed)"
-        )
-        if c.label:
-            tx = round(c.left + 2.5, 1)
-            ty = round(c.top - 2.0, 1)
-            lines.append(f'text(({tx:.1f}, {ty:.1f}), "{c.label}", style=Styles.DarkBold)')
+        if c.shape == "circle":
+            r = c.width / 2.0
+            lines.append(
+                f"circle(({c.cx:.1f}, {c.cy:.1f}), radius={r:.1f}, "
+                "style=Styles.MutedDashed)"
+            )
+            if c.label:
+                lines.append(f'text(({c.cx:.1f}, {c.top - 2.0:.1f}), "{c.label}", style=Styles.DarkBold)')
+        else:
+            lines.append(
+                f"rectangle(({c.cx:.1f}, {c.cy:.1f}), width={c.width:.1f}, height={c.height:.1f}, "
+                "style=Styles.MutedDashed)"
+            )
+            if c.label:
+                tx = round(c.left + 2.5, 1)
+                ty = round(c.top - 2.0, 1)
+                lines.append(f'text(({tx:.1f}, {ty:.1f}), "{c.label}", style=Styles.DarkBold)')
     return lines
 
 

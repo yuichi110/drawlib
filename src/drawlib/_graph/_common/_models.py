@@ -31,6 +31,7 @@ class Node:
     icon: str | None = None
     width: float | None = None
     height: float | None = None
+    ring: int | None = None
 
 
 @dataclass
@@ -132,6 +133,7 @@ class ClusterLayout:
     bbox: tuple[float, float, float, float]  # (cx, cy, width, height)
     style: Style
     text_style: Style
+    shape: Literal["rectangle", "circle"] = "rectangle"
 
     @property
     def cx(self) -> float:

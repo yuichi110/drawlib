@@ -23,6 +23,7 @@ from drawlib.graph import (
     GraphLayout,
     Node,
     NodeLayout,
+    RadialGraph,
     TreeGraph,
 )
 from drawlib.styles import Styles
@@ -247,5 +248,146 @@ class TestTreeGraph:
         assert "save()" in code
 
         # Verify that generated code can be executed safely
+        local_scope: dict[str, object] = {}
+        exec(code, {}, local_scope)  # noqa: S102
+
+
+class TestRadialGraph:
+    """Test suite for RadialGraph layout solver."""
+
+    def setup_method(self) -> None:
+        """Reset canvas before each test."""
+        clear()
+
+    def test_radial_subclass(self) -> None:
+        """Verify RadialGraph is a subclass of BaseGraph."""
+        assert issubclass(RadialGraph, BaseGraph)
+
+    def test_basic_hub_spokes(self) -> None:
+        """Verify central hub placement and equidistant spoke distribution."""
+        g = RadialGraph(hub="broker")
+        g.node("broker", "Message Broker", shape="circle", width=16.0, height=16.0)
+        g.spoke("broker", "s1", "Producer")
+        g.spoke("broker", "s2", "Consumer A")
+        g.spoke("broker", "s3", "Consumer B")
+        g.spoke("broker", "s4", "Audit Logger")
+
+        layout = g.calc(width=100.0, height=100.0, margin=10.0)
+
+        assert len(layout.nodes) == 5
+        assert len(layout.edges) == 4
+
+        # Hub at exact center
+        hub = layout.nodes["broker"]
+        assert hub.xy == (50.0, 50.0)
+
+        # All 4 spokes on same radial distance from hub
+        distances: list[float] = []
+        for sid in ["s1", "s2", "s3", "s4"]:
+            spoke = layout.nodes[sid]
+            dx = spoke.x - hub.x
+            dy = spoke.y - hub.y
+            dist = round((dx**2 + dy**2) ** 0.5, 1)
+            distances.append(dist)
+
+        assert len(set(distances)) == 1
+        assert distances[0] > 15.0
+
+    def test_concentric_multiring(self) -> None:
+        """Verify concentric multi-ring assignments and increasing radii."""
+        g = RadialGraph(hub="core")
+        g.node("core", "Core Service")
+        # Ring 1
+        g.spoke("core", "gw1", "Gateway 1")
+        g.spoke("core", "gw2", "Gateway 2")
+        # Ring 2
+        g.spoke("gw1", "app1", "Client App")
+        g.spoke("gw1", "app2", "Mobile App")
+        g.spoke("gw2", "app3", "Partner API")
+
+        layout = g.calc(width=120.0, height=120.0, margin=10.0)
+
+        assert len(layout.nodes) == 6
+
+        hub = layout.nodes["core"]
+        gw1 = layout.nodes["gw1"]
+        app1 = layout.nodes["app1"]
+
+        dist_ring1 = ((gw1.x - hub.x) ** 2 + (gw1.y - hub.y) ** 2) ** 0.5
+        dist_ring2 = ((app1.x - hub.x) ** 2 + (app1.y - hub.y) ** 2) ** 0.5
+
+        assert dist_ring2 > dist_ring1
+
+    def test_custom_center_and_semicircle(self) -> None:
+        """Verify custom center and fan angle sweep (semicircle)."""
+        g = RadialGraph(
+            hub="root",
+            center=(30.0, 30.0),
+            start_angle=0.0,
+            angle_range=180.0,
+        )
+        g.node("root", "Root")
+        g.spoke("root", "a")
+        g.spoke("root", "b")
+        g.spoke("root", "c")
+
+        layout = g.calc(width=100.0, height=100.0)
+
+        hub = layout.nodes["root"]
+        assert hub.xy == (30.0, 30.0)
+
+        # With 0 to 180 degrees sweep, Y should be >= hub.y
+        for nid in ["a", "b", "c"]:
+            node = layout.nodes[nid]
+            assert node.y >= hub.y - 0.1
+
+    def test_boundary_port_intersections(self) -> None:
+        """Verify edge ports touch node perimeters rather than node centers."""
+        g = RadialGraph(hub="center")
+        g.node("center", "Center", shape="circle", width=20.0, height=20.0)
+        g.spoke("center", "east", shape="rectangle", width=20.0, height=10.0)
+
+        layout = g.calc(width=100.0, height=100.0)
+        edge = layout.edges[0]
+
+        center_nl = layout.nodes["center"]
+        east_nl = layout.nodes["east"]
+
+        # src_port should be on center node boundary (radius = 10.0 from center.xy)
+        src_dist = ((edge.src_port[0] - center_nl.x) ** 2 + (edge.src_port[1] - center_nl.y) ** 2) ** 0.5
+        assert abs(src_dist - 10.0) < 0.5
+
+        # dst_port should not equal east_nl.xy
+        assert edge.dst_port != east_nl.xy
+
+    def test_ring_guides(self) -> None:
+        """Verify draw_ring_guides generates circular guide clusters."""
+        g = RadialGraph(hub="h", draw_ring_guides=True)
+        g.spoke("h", "s1")
+        g.spoke("s1", "s2")
+
+        layout = g.calc(width=100.0, height=100.0)
+
+        # Should have guide clusters for rings
+        guide_clusters = [c for c in layout.clusters.values() if c.shape == "circle"]
+        assert len(guide_clusters) >= 2
+
+    def test_radial_draw_and_export_code(self) -> None:
+        """Verify radial draw() and export_code() generate valid code."""
+        g = RadialGraph(hub="hub")
+        g.node("hub", "Hub", shape="circle", width=16.0, height=16.0)
+        g.spoke("hub", "worker1", "Worker 1")
+        g.spoke("hub", "worker2", "Worker 2")
+        g.cluster("workers", ["worker1", "worker2"], label="Worker Pool")
+
+        layout = g.draw(width=120.0, height=120.0)
+        assert len(layout.nodes) == 3
+
+        code = g.export_code(width=120.0, height=120.0)
+        assert "setup(width=120.0, height=120.0)" in code
+        assert "hub_xy" in code
+        assert "worker1_xy" in code
+        assert "save()" in code
+
         local_scope: dict[str, object] = {}
         exec(code, {}, local_scope)  # noqa: S102

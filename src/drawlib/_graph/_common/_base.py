@@ -70,6 +70,7 @@ class BaseGraph(ABC):
         icon: str | None = None,
         width: float | None = None,
         height: float | None = None,
+        ring: int | None = None,
     ) -> Node:
         """Register a node in the graph.
 
@@ -82,6 +83,7 @@ class BaseGraph(ABC):
             icon: Optional icon name or path.
             width: Custom width for this node.
             height: Custom height for this node.
+            ring: Optional concentric ring number (for radial layouts).
 
         Returns:
             The registered Node object.
@@ -101,6 +103,7 @@ class BaseGraph(ABC):
             icon=icon,
             width=width,
             height=height,
+            ring=ring,
         )
         self._nodes[id] = n
         return n

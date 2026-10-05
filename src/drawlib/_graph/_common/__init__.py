@@ -23,7 +23,12 @@ from drawlib._graph._common._models import (
     NodeLayout,
 )
 from drawlib._graph._common._renderer import render_layout
-from drawlib._graph._common._routing import route_orthogonal_edge, route_straight_edge
+from drawlib._graph._common._routing import (
+    compute_boundary_intersection,
+    route_orthogonal_edge,
+    route_radial_edge,
+    route_straight_edge,
+)
 
 __all__ = [
     "BaseGraph",
@@ -34,8 +39,10 @@ __all__ = [
     "GraphLayout",
     "Node",
     "NodeLayout",
+    "compute_boundary_intersection",
     "generate_code",
     "render_layout",
     "route_orthogonal_edge",
+    "route_radial_edge",
     "route_straight_edge",
 ]

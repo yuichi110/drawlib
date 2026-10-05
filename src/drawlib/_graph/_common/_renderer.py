@@ -29,16 +29,27 @@ if TYPE_CHECKING:
 def _draw_clusters(clusters: dict[str, ClusterLayout]) -> None:
     """Draw cluster boundaries and header labels in background layer."""
     for cluster in clusters.values():
-        rectangle(
-            (cluster.cx, cluster.cy),
-            width=cluster.width,
-            height=cluster.height,
-            style=cluster.style,
-        )
-        if cluster.label:
-            tx = round(cluster.left + 2.5, 2)
-            ty = round(cluster.top - 2.0, 2)
-            text((tx, ty), text=cluster.label, style=cluster.text_style)
+        if cluster.shape == "circle":
+            circle(
+                (cluster.cx, cluster.cy),
+                radius=cluster.width / 2.0,
+                style=cluster.style,
+            )
+            if cluster.label:
+                tx = cluster.cx
+                ty = round(cluster.top - 2.0, 2)
+                text((tx, ty), text=cluster.label, style=cluster.text_style)
+        else:
+            rectangle(
+                (cluster.cx, cluster.cy),
+                width=cluster.width,
+                height=cluster.height,
+                style=cluster.style,
+            )
+            if cluster.label:
+                tx = round(cluster.left + 2.5, 2)
+                ty = round(cluster.top - 2.0, 2)
+                text((tx, ty), text=cluster.label, style=cluster.text_style)
 
 
 def _draw_edges(edges: list[EdgeLayout]) -> None:

@@ -24,6 +24,7 @@ from drawlib._graph import (
     GraphLayout,
     Node,
     NodeLayout,
+    RadialGraph,
     TreeGraph,
 )
 
@@ -36,5 +37,6 @@ __all__ = [
     "GraphLayout",
     "Node",
     "NodeLayout",
+    "RadialGraph",
     "TreeGraph",
 ]
