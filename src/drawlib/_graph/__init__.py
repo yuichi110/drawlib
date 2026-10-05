@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+from drawlib._graph._architecture import ArchitectureGraph
 from drawlib._graph._common import (
     BaseGraph,
     Cluster,
@@ -27,6 +28,7 @@ from drawlib._graph._radial import RadialGraph
 from drawlib._graph._tree import TreeGraph
 
 __all__ = [
+    "ArchitectureGraph",
     "BaseGraph",
     "Cluster",
     "ClusterLayout",

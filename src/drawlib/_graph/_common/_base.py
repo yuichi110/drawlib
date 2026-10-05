@@ -80,6 +80,8 @@ class BaseGraph(ABC):
         row: int | None = None,
         col: int | None = None,
         layer: int | None = None,
+        group: str | None = None,
+        subgroup: str | None = None,
     ) -> Node:
         """Register a node in the graph.
 
@@ -96,6 +98,8 @@ class BaseGraph(ABC):
             row: Optional row index (for grid layouts).
             col: Optional column index (for grid layouts).
             layer: Optional layer/rank index (for layered layouts).
+            group: Optional container/group ID (for architecture layouts).
+            subgroup: Optional nested subgroup ID (for architecture layouts).
 
         Returns:
             The registered Node object.
@@ -119,6 +123,8 @@ class BaseGraph(ABC):
             row=row,
             col=col,
             layer=layer,
+            group=group,
+            subgroup=subgroup,
         )
         self._nodes[id] = n
         return n
@@ -169,6 +175,9 @@ class BaseGraph(ABC):
         style: Style | None = None,
         text_style: Style | None = None,
         padding: float = 4.0,
+        parent: str | None = None,
+        order: int | None = None,
+        pos: Literal["top", "bottom", "left", "right", "center"] | None = None,
     ) -> Cluster:
         """Register a grouping boundary surrounding a subset of nodes.
 
@@ -179,6 +188,9 @@ class BaseGraph(ABC):
             style: Container border and fill style (defaults to Styles.MutedDashed).
             text_style: Text style for the cluster label.
             padding: Margin padding surrounding the member nodes.
+            parent: Optional parent group/cluster ID for nested boundaries.
+            order: Optional sequence index among peer containers.
+            pos: Optional 2D macro spatial position ("top", "bottom", "left", "right", "center").
 
         Returns:
             The registered Cluster object.
@@ -196,9 +208,53 @@ class BaseGraph(ABC):
             style=style if style is not None else Styles.MutedDashed,
             text_style=text_style,
             padding=padding,
+            parent=parent,
+            order=order,
+            pos=pos,
         )
         self._clusters[id] = c
         return c
+
+    def group(
+        self,
+        id: str,
+        label: str | None = None,
+        *,
+        nodes: list[str] | None = None,
+        style: Style | None = None,
+        text_style: Style | None = None,
+        padding: float = 4.0,
+        parent: str | None = None,
+        order: int | None = None,
+        pos: Literal["top", "bottom", "left", "right", "center"] | None = None,
+    ) -> Cluster:
+        """Register an architectural container / group (e.g. VPC, subnet, zone).
+
+        Args:
+            id: Unique identifier string for the container.
+            label: Text title for the container. Defaults to id if None.
+            nodes: Optional initial list of member node IDs.
+            style: Container boundary and fill style (defaults to Styles.MutedDashed).
+            text_style: Text style for the container label.
+            padding: Margin padding surrounding member elements.
+            parent: Optional parent container ID (e.g. Subnet in VPC).
+            order: Optional ordering rank among peer containers.
+            pos: Optional 2D macro spatial position ("top", "bottom", "left", "right", "center").
+
+        Returns:
+            The registered Cluster object.
+        """
+        return self.cluster(
+            id=id,
+            nodes=nodes or [],
+            label=label if label is not None else id,
+            style=style,
+            text_style=text_style,
+            padding=padding,
+            parent=parent,
+            order=order,
+            pos=pos,
+        )
 
     @abstractmethod
     def calc(

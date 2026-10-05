@@ -86,6 +86,9 @@ def route_straight_edge(
     elif direction == "LR":
         src_port = (round(src.right, 2), round(src.y, 2))
         dst_port = (round(dst.left, 2), round(dst.y, 2))
+    else:  # "RL"
+        src_port = (round(src.left, 2), round(src.y, 2))
+        dst_port = (round(dst.right, 2), round(dst.y, 2))
     return src_port, [], dst_port
 
 

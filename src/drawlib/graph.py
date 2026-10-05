@@ -16,6 +16,7 @@ aesthetic coordinates, render directly to canvas, or export clean Drawlib code.
 from __future__ import annotations
 
 from drawlib._graph import (
+    ArchitectureGraph,
     BaseGraph,
     Cluster,
     ClusterLayout,
@@ -31,6 +32,7 @@ from drawlib._graph import (
 )
 
 __all__ = [
+    "ArchitectureGraph",
     "BaseGraph",
     "Cluster",
     "ClusterLayout",

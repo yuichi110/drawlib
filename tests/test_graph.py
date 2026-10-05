@@ -15,6 +15,7 @@ import pytest
 
 from drawlib.canvas import canvas, clear
 from drawlib.graph import (
+    ArchitectureGraph,
     BaseGraph,
     Cluster,
     ClusterLayout,
@@ -713,3 +714,235 @@ class TestLayerGraph:
 
         local_scope: dict[str, object] = {}
         exec(code, {}, local_scope)  # noqa: S102
+
+
+class TestArchitectureGraph:
+    """Test suite for ArchitectureGraph compound layout solver."""
+
+    def setup_method(self) -> None:
+        """Reset canvas before each test."""
+        clear()
+
+    def test_architecture_subclass(self) -> None:
+        """Verify ArchitectureGraph is a subclass of BaseGraph."""
+        assert issubclass(ArchitectureGraph, BaseGraph)
+
+    def test_empty_graph(self) -> None:
+        """Verify empty ArchitectureGraph returns empty layout."""
+        g = ArchitectureGraph()
+        layout = g.calc(width=100.0, height=80.0)
+        assert len(layout.nodes) == 0
+        assert len(layout.edges) == 0
+        assert len(layout.clusters) == 0
+
+    def test_fallback_to_layered(self) -> None:
+        """Verify graph without containers cleanly falls back to LayerGraph layout."""
+        g = ArchitectureGraph(direction="LR")
+        g.edge("app", "db")
+        layout = g.calc(width=100.0, height=80.0)
+        assert len(layout.nodes) == 2
+        assert layout.nodes["app"].x < layout.nodes["db"].x
+
+    def test_multi_container_lr(self) -> None:
+        """Verify root containers are ordered left-to-right along edge flows."""
+        g = ArchitectureGraph(direction="LR")
+        g.cluster("clients", ["browser", "mobile"], label="Client Layer")
+        g.cluster("cloud", ["api_gateway", "service"], label="Cloud VPC")
+        g.cluster("storage", ["rds", "s3"], label="Persistence")
+
+        g.edge("browser", "api_gateway")
+        g.edge("mobile", "api_gateway")
+        g.edge("api_gateway", "service")
+        g.edge("service", "rds")
+        g.edge("service", "s3")
+
+        layout = g.calc(width=160.0, height=90.0)
+        assert len(layout.nodes) == 6
+        assert len(layout.clusters) == 3
+
+        c_clients = layout.clusters["clients"]
+        c_cloud = layout.clusters["cloud"]
+        c_storage = layout.clusters["storage"]
+
+        # Container sequence along LR
+        assert c_clients.cx < c_cloud.cx < c_storage.cx
+
+        # Nodes must be placed inside their cluster bounds
+        for nid in ["browser", "mobile"]:
+            node = layout.nodes[nid]
+            assert c_clients.left <= node.left and node.right <= c_clients.right
+            assert c_clients.bottom <= node.bottom and node.top <= c_clients.top
+
+        for nid in ["api_gateway", "service"]:
+            node = layout.nodes[nid]
+            assert c_cloud.left <= node.left and node.right <= c_cloud.right
+
+        for nid in ["rds", "s3"]:
+            node = layout.nodes[nid]
+            assert c_storage.left <= node.left and node.right <= c_storage.right
+
+    def test_multi_container_tb(self) -> None:
+        """Verify root containers are ordered top-to-bottom along edge flows."""
+        g = ArchitectureGraph(direction="TB")
+        g.cluster("edge_zone", ["cdn"], label="Edge Zone")
+        g.cluster("app_zone", ["backend"], label="Application Zone")
+
+        g.edge("cdn", "backend")
+
+        layout = g.calc(width=100.0, height=120.0)
+        assert len(layout.clusters) == 2
+
+        c_edge = layout.clusters["edge_zone"]
+        c_app = layout.clusters["app_zone"]
+
+        assert c_edge.cy > c_app.cy
+
+    def test_explicit_container_order(self) -> None:
+        """Verify explicit container ordering overrides automatic topological sort."""
+        g = ArchitectureGraph(direction="LR")
+        g.cluster("zone_b", ["b1"], order=1)
+        g.cluster("zone_a", ["a1"], order=0)
+        g.cluster("zone_c", ["c1"], order=2)
+
+        layout = g.calc(width=120.0, height=60.0)
+        c_a = layout.clusters["zone_a"]
+        c_b = layout.clusters["zone_b"]
+        c_c = layout.clusters["zone_c"]
+
+        assert c_a.cx < c_b.cx < c_c.cx
+
+    def test_nested_subgroups(self) -> None:
+        """Verify nested subgroups (e.g. subnets inside VPC) position correctly."""
+        g = ArchitectureGraph(direction="LR")
+        g.cluster("vpc", [], label="AWS VPC")
+        g.cluster("public_subnet", ["alb"], parent="vpc", label="Public Subnet")
+        g.cluster("private_subnet", ["ecs_task"], parent="vpc", label="Private Subnet")
+
+        g.edge("alb", "ecs_task")
+
+        layout = g.calc(width=140.0, height=80.0)
+        assert "vpc" in layout.clusters
+        assert "public_subnet" in layout.clusters
+        assert "private_subnet" in layout.clusters
+
+        c_vpc = layout.clusters["vpc"]
+        c_pub = layout.clusters["public_subnet"]
+        c_priv = layout.clusters["private_subnet"]
+
+        # Subnets are ordered LR inside VPC
+        assert c_pub.cx < c_priv.cx
+
+        # Subnets are contained within VPC bounds
+        assert c_vpc.left <= c_pub.left and c_pub.right <= c_vpc.right
+        assert c_vpc.left <= c_priv.left and c_priv.right <= c_vpc.right
+        assert c_vpc.bottom <= c_pub.bottom and c_pub.top <= c_vpc.top
+        assert c_vpc.bottom <= c_priv.bottom and c_priv.top <= c_vpc.top
+
+    def test_node_group_and_subgroup_attributes(self) -> None:
+        """Verify nodes can assign their group and subgroup via node() parameters."""
+        g = ArchitectureGraph(direction="LR")
+        g.cluster("vpc", [], label="VPC")
+        g.node("gateway", group="vpc", subgroup="public")
+        g.node("api", group="vpc", subgroup="private")
+        g.edge("gateway", "api")
+
+        layout = g.calc(width=120.0, height=80.0)
+        assert "gateway" in layout.nodes
+        assert "api" in layout.nodes
+        assert "vpc" in layout.clusters
+        assert "public" in layout.clusters
+        assert "private" in layout.clusters
+
+    def test_group_convenience_method(self) -> None:
+        """Verify group() convenience method creates a container."""
+        g = ArchitectureGraph(direction="LR")
+        g.group("k8s_cluster", label="Kubernetes Cluster", nodes=["pod1", "pod2"])
+        g.edge("pod1", "pod2")
+
+        layout = g.calc(width=100.0, height=80.0)
+        assert "k8s_cluster" in layout.clusters
+        assert len(layout.nodes) == 2
+
+    def test_architecture_draw_and_export_code(self) -> None:
+        """Verify ArchitectureGraph draw() and export_code() generate valid code."""
+        g = ArchitectureGraph(direction="LR")
+        g.cluster("clients", ["web"], label="Clients")
+        g.cluster("backend", ["api"], label="Backend")
+        g.edge("web", "api")
+
+        layout = g.draw(width=100.0, height=60.0)
+        assert len(layout.nodes) == 2
+        assert len(layout.clusters) == 2
+
+        code = g.export_code(width=100.0, height=60.0)
+        assert "setup(width=100.0, height=60.0)" in code
+        assert "web_xy" in code
+        assert "api_xy" in code
+        assert "save()" in code
+
+        local_scope: dict[str, object] = {}
+        exec(code, {}, local_scope)  # noqa: S102
+
+    def test_compass_5_zones(self) -> None:
+        """Verify 2D compass layout positioning for all 5 zones (center, top, bottom, left, right)."""
+        g = ArchitectureGraph()
+        g.cluster("clients", ["browser"], label="Clients", pos="left")
+        g.cluster("monitoring", ["cloudwatch"], label="Monitoring", pos="top")
+        g.cluster("vpc", ["api"], label="Core VPC", pos="center")
+        g.cluster("db", ["aurora"], label="Databases", pos="bottom")
+        g.cluster("saas", ["stripe"], label="External SaaS", pos="right")
+
+        g.edge("browser", "api")
+        g.edge("api", "cloudwatch")
+        g.edge("api", "aurora")
+        g.edge("api", "stripe")
+
+        layout = g.calc(width=160.0, height=120.0)
+        assert len(layout.clusters) == 5
+
+        c_left = layout.clusters["clients"]
+        c_right = layout.clusters["saas"]
+        c_center = layout.clusters["vpc"]
+        c_top = layout.clusters["monitoring"]
+        c_bottom = layout.clusters["db"]
+
+        # Horizontal alignment
+        assert c_left.cx < c_center.cx < c_right.cx
+
+        # Vertical alignment
+        assert c_bottom.cy < c_center.cy < c_top.cy
+
+        # Relative containment
+        assert c_left.right <= c_center.left
+        assert c_center.right <= c_right.left
+        assert c_bottom.top <= c_center.bottom
+        assert c_center.top <= c_top.bottom
+
+    def test_compass_top_and_bottom_into_center(self) -> None:
+        """Verify convergent flows from top and bottom into center."""
+        g = ArchitectureGraph()
+        g.cluster("ingress", ["apigw"], label="Ingress", pos="top")
+        g.cluster("core", ["service"], label="Core Service", pos="center")
+        g.cluster("legacy", ["mainframe"], label="On-Premises", pos="bottom")
+
+        # Top flows down, bottom flows up
+        g.edge("apigw", "service")
+        g.edge("mainframe", "service")
+
+        layout = g.calc(width=100.0, height=120.0)
+        assert len(layout.clusters) == 3
+
+        c_top = layout.clusters["ingress"]
+        c_center = layout.clusters["core"]
+        c_bottom = layout.clusters["legacy"]
+
+        assert c_top.cy > c_center.cy > c_bottom.cy
+
+        # Verify edge port directions
+        e_top = layout.edges[0]
+        assert e_top.src == "apigw" and e_top.dst == "service"
+        assert e_top.src_port[1] > e_top.dst_port[1]  # Flows downward
+
+        e_bot = layout.edges[1]
+        assert e_bot.src == "mainframe" and e_bot.dst == "service"
+        assert e_bot.src_port[1] < e_bot.dst_port[1]  # Flows upward

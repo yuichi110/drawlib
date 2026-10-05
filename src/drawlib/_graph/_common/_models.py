@@ -35,6 +35,8 @@ class Node:
     row: int | None = None
     col: int | None = None
     layer: int | None = None
+    group: str | None = None
+    subgroup: str | None = None
 
 
 @dataclass
@@ -60,6 +62,9 @@ class Cluster:
     style: Style | None = None
     text_style: Style | None = None
     padding: float = 4.0
+    parent: str | None = None
+    order: int | None = None
+    pos: Literal["top", "bottom", "left", "right", "center"] | None = None
 
 
 @dataclass
