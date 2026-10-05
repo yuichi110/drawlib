@@ -1115,4 +1115,5 @@ save()
 3. **Mask Labels Over Connectors**: Always supply `text_bg_fill_color=Colors.White` (or the canvas background color) when labeling lines to avoid messy stroke collisions.
 4. **Enforce Orthogonal Clarity**: In enterprise software architectures, prioritize `lines()` or `lines_curved()` over diagonal lines to preserve visual cleanliness.
 5. **Reserve `line_curved` for Direct Bidirectional Pairs**: Use circular splines where two entities exchange requests and responses, or where an edge must bypass an obstacle.
+6. **Default to Neutral Line Colors (`Styles.Dark` / `Styles.DarkBold`)**: Never use chromatic colors (`Primary`, `Secondary`, `Accent`) for generic connection lines or sequential workflow arrows without functional intent. Reserve `Styles.Danger` for errors/retries/feedback loops, `Styles.Success` for confirmed validations, and `Styles.Primary` strictly for the single critical data path.
 

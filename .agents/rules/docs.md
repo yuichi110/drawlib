@@ -86,7 +86,7 @@ rectangle((30, 25), width=32, height=18, style=Styles.AccentFlat, text="Client A
 rectangle((90, 25), width=32, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
 
 # 3. Connection
-line((46, 25), (74, 25), arrow_head="->", style=Styles.PrimaryBold)
+line((46, 25), (74, 25), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -114,7 +114,7 @@ from drawlib.styles import Styles
 setup(width=100, height=40)
 rectangle((25, 20), width=30, height=18, style=Styles.PrimaryFlat, text="Publisher", text_style=Styles.WhiteBold)
 rectangle((75, 20), width=30, height=18, style=Styles.SecondaryFlat, text="Consumer", text_style=Styles.WhiteBold)
-line((40, 20), (60, 20), arrow_head="->", style=Styles.PrimaryBold)
+line((40, 20), (60, 20), arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 ````

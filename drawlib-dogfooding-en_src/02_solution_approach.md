@@ -30,11 +30,11 @@ text((34, 24), text="• Hand-drawn in Figma / draw.io\n• Binary PNGs stored i
 
 # Right: Drawlib Approach
 rectangle((82, 22.5), width=48, height=36, r=2, style=Styles.PrimaryOutline)
-text((82, 36), text="Illustrated Doc as Code (Drawlib)", style=Styles.PrimaryBold.patch(text_size=10))
+text((82, 36), text="Illustrated Doc as Code (Drawlib)", style=Styles.DarkBold.patch(text_size=10))
 phosphor.code(xy=(70, 24), width=8, style=Styles.Primary)
-text((88, 24), text="• Declarative Python drawing code\n• Inline ```drawlib``` blocks in Markdown\n• Git diff reviews & CI/CD builds", style=Styles.Primary.patch(text_size=8.5))
+text((88, 24), text="• Declarative Python drawing code\n• Inline ```drawlib``` blocks in Markdown\n• Git diff reviews & CI/CD builds", style=Styles.Dark.patch(text_size=8.5))
 
-line((53, 22.5), (57, 22.5), arrow_head="->", style=Styles.PrimaryBold)
+line((53, 22.5), (57, 22.5), arrow_head="->", style=Styles.DarkBold)
 ```
 
 ## 2.3 Synergy with AI Pair Programming

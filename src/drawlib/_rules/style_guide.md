@@ -105,10 +105,10 @@ rectangle((96, 45), width=24, height=14, style=Styles.SecondaryFlat, text="Auth 
 # 5. Verified Data Sink (Success)
 rectangle((96, 25), width=24, height=14, style=Styles.SuccessFlat, text="Audit Log", text_style=Styles.WhiteBold)
 
-# 6. Connectors with semantic line styles
-line((36, 35), (47, 35), arrow_head="->", style=Styles.PrimaryBold)
-line((73, 40), (84, 45), arrow_head="->", style=Styles.PrimaryBold)
-line((73, 30), (84, 25), arrow_head="->", style=Styles.PrimaryBold)
+# 6. Connectors with semantic line styles (DarkBold for neutral sequence)
+line((36, 35), (47, 35), arrow_head="->", style=Styles.DarkBold)
+line((73, 40), (84, 45), arrow_head="->", style=Styles.DarkBold)
+line((73, 30), (84, 25), arrow_head="->", style=Styles.DarkBold)
 ```
 ````
 
@@ -244,8 +244,8 @@ rectangle(gateway_xy, width=box_w, height=box_h, style=Styles.PrimaryFlat, text=
 rectangle(db_xy,      width=box_w, height=box_h, style=Styles.SecondaryFlat, text="Database", text_style=Styles.WhiteBold)
 
 # 3. Connect nodes by referencing the same coordinates
-line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrow_head="->", style=Styles.PrimaryBold)
-line((gateway_xy[0] + box_w/2, gateway_xy[1]), (db_xy[0] - box_w/2,      db_xy[1]),      arrow_head="->", style=Styles.PrimaryBold)
+line((client_xy[0] + box_w/2,  client_xy[1]),  (gateway_xy[0] - box_w/2, gateway_xy[1]), arrow_head="->", style=Styles.DarkBold)
+line((gateway_xy[0] + box_w/2, gateway_xy[1]), (db_xy[0] - box_w/2,      db_xy[1]),      arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
@@ -282,7 +282,7 @@ Establish a clear typographical scale:
 
 #### Why Chromatic Text Must Be Avoided:
 1. **Prevents Rainbow Text Clutter**: Coloring titles, headers, or bullet points with `Styles.Primary` (blue) or `Styles.Secondary` (purple/teal) creates unnecessary visual noise and weakens overall diagram aesthetics.
-2. **Preserves Semantic Power of Color**: Reserve chromatic colors (`Primary`, `Secondary`, `Accent`, `Danger`, `Success`) strictly for **shape fills, key borders, and directional connectors**. When all text is blue, `Primary` loses its ability to anchor the eye to core application components.
+2. **Preserves Semantic Power of Color**: Reserve chromatic colors (`Primary`, `Secondary`, `Accent`, `Danger`, `Success`) strictly for **key shape fills, highlighted badges, and meaningful semantic flows**. When all text and lines are blue, `Primary` loses its ability to anchor the eye to core application components.
 3. **Guarantees Universal Contrast**: `Dark` and `Light` ensure maximum readability across varying screens, projectors, and exported document media.
 
 Drawlib automatically ensures optimal luminance contrast when text is embedded inside shapes. If using standalone `text()`, ensure dark text on light backgrounds and light text on dark containers.
@@ -297,29 +297,39 @@ Lines and arrows guide the viewer's eyes through the diagram:
    - `->`: Unidirectional execution, API request, pipeline progress.
    - `<->`: Bidirectional sync, continuous handshake, WebSocket connection.
    - `-`: Structural link, un-directed relationship, database association.
-2. **Consistent Line Weights**:
-   - Use `Styles.PrimaryBold` (line_width ~2) or `Styles.Primary` consistently.
-   - Reserve extra-thick lines strictly for highlighting critical paths or primary data flows.
-3. **Smooth Curved Bends**:
+2. **Line Color Principle: Neutral by Default (`Styles.Dark` / `Styles.Light`)**:
+   **Never use chromatic semantic colors (`Primary`, `Secondary`, `Accent`) for generic connection lines or sequential workflow arrows without deliberate functional meaning.**
+   - **Default Connectors (Structural / Sequential Flow)**:
+     - **Light Backgrounds**: **`Styles.Dark` / `Styles.DarkBold`** (line_width ~2.5) for standard clear transitions, or **`Styles.Muted` / `Styles.MutedBold`** for subtle/secondary links.
+     - **Dark Backgrounds**: **`Styles.Light` / `Styles.WhiteBold`**.
+   - **Chromatic Lines (Reserved strictly for Semantic Emphasis)**:
+     - **`Styles.Danger` / `Styles.DangerBold` (Red)**: Error handling, exception rollbacks, retry/feedback loops, rejected paths.
+     - **`Styles.Success` / `Styles.SuccessBold` (Green)**: Verified payload delivery, successful commit, passed health checks.
+     - **`Styles.Primary` / `Styles.PrimaryBold` (Blue)**: Strictly reserved for the single critical data path or highlighted core pipeline in the entire diagram.
+     - **`Styles.Accent` / `Styles.Secondary` (Amber/Teal)**: External ingress events or auxiliary asynchronous queue triggers.
+3. **Consistent Line Weights**:
+   - Standardize on `Styles.DarkBold` (line_width 2.5) for primary connections, or `Styles.Dark` (line_width 1.5) for denser topologies.
+   - Reserve extra-thick or custom stroked lines strictly for highlighting critical paths.
+4. **Smooth Curved Bends**:
    - When using `line_curved`, maintain moderate curvature: `bend=0.2 ~ 0.3`.
    - Avoid extreme bends (`bend > 0.6`) that create exaggerated loops or obscure other elements.
-4. **Boundary Edge Port Snapping**:
+5. **Boundary Edge Port Snapping**:
    Never connect node center coordinates `(cx, cy)` directly, as this causes arrowheads to penetrate into shapes or intersect text. Calculate connection ports along shape perimeter edges:
    - **Left Port**: `(cx - w/2, cy)`
    - **Right Port**: `(cx + w/2, cy)`
    - **Top Port**: `(cx, cy + h/2)`
    - **Bottom Port**: `(cx, cy - h/2)`
-5. **Orthogonal Waypoint Routing (`lines()` & `lines_curved()`)**:
+6. **Orthogonal Waypoint Routing (`lines()` & `lines_curved()`)**:
    Avoid diagonal lines cutting across unrelated components (Line Spaghetti). Use multi-segment routing through intermediate waypoints:
-   - **`lines(xys=[...], arrow_head="->", style=Styles.PrimaryBold)`**: Renders a clean $90^\circ$ Manhattan route in a single call, attaching the arrowhead strictly to the final segment:
+   - **`lines(xys=[...], arrow_head="->", style=Styles.DarkBold)`**: Renders a clean $90^\circ$ Manhattan route in a single call, attaching the arrowhead strictly to the final segment:
      ```python
      # L-shaped routing through an intermediate right-angle corner:
      src_port = (gateway_xy[0], gateway_xy[1] - box_h / 2)   # Bottom port
      dst_port = (db_xy[0] - box_w / 2, db_xy[1])             # Left port
      waypoint = (src_port[0], dst_port[1])                  # 90° corner waypoint
-     lines([src_port, waypoint, dst_port], arrow_head="->", style=Styles.PrimaryBold)
+     lines([src_port, waypoint, dst_port], arrow_head="->", style=Styles.DarkBold)
      ```
-   - **`lines_curved(xys=[...], r=3.0, arrow_head="->", style=Styles.PrimaryBold)`**: Smoothly fillets right-angle corners with radius `r`, producing professional cloud architecture network topologies.
+   - **`lines_curved(xys=[...], r=3.0, arrow_head="->", style=Styles.DarkBold)`**: Smoothly fillets right-angle corners with radius `r`, producing professional cloud architecture network topologies.
 
 ---
 

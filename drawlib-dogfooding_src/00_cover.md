@@ -35,9 +35,9 @@ phosphor.eye(xy=(112.0, 23.5), width=5.5, style=Styles.White)
 text((112.0, 13.5), text="4. 自律レビュー\n(視覚的セルフ検証)", style=ts)
 
 # 順方向の矢印
-line((33.0, 18), (38.5, 18), arrow_head="->", style=Styles.PrimaryBold)
-line((63.5, 18), (69.0, 18), arrow_head="->", style=Styles.PrimaryBold)
-line((94.0, 18), (99.5, 18), arrow_head="->", style=Styles.PrimaryBold)
+line((33.0, 18), (38.5, 18), arrow_head="->", style=Styles.DarkBold)
+line((63.5, 18), (69.0, 18), arrow_head="->", style=Styles.DarkBold)
+line((94.0, 18), (99.5, 18), arrow_head="->", style=Styles.DarkBold)
 
 # 自律フィードバックループ
 line((112.0, 28.0), (112.0, 42.0), style=Styles.DangerBold)

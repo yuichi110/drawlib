@@ -13,7 +13,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-rm -rf docs/ docs_html/ quickstart.pdf readme_images/
+rm -rf docs/ docs_html/ quickstart.pdf readme_images/ \
+  drawlib-dogfooding/ drawlib-dogfooding_html/ drawlib-dogfooding.pdf drawlib-dogfooding_images/ \
+  drawlib-dogfooding-en/ drawlib-dogfooding-en_html/ drawlib-dogfooding-en.pdf drawlib-dogfooding-en_images/
 
 echo "=== Building Documentation Site (docs_src/build.sh) ==="
 bash docs_src/build.sh
@@ -25,6 +27,14 @@ bash quickstart_src/build.sh
 echo ""
 echo "=== Building README Images (readme_src/build.sh) ==="
 bash readme_src/build.sh
+
+echo ""
+echo "=== Building Dogfooding Doc JP (drawlib-dogfooding_src/build.sh) ==="
+bash drawlib-dogfooding_src/build.sh
+
+echo ""
+echo "=== Building Dogfooding Doc EN (drawlib-dogfooding-en_src/build.sh) ==="
+bash drawlib-dogfooding-en_src/build.sh
 
 echo ""
 echo "All builds completed successfully!"
