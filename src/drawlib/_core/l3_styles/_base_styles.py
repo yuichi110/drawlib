@@ -352,6 +352,67 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     SuccessDottedBold: Style | None = None
     SuccessDottedLight: Style | None = None
 
+    # Neutral role
+    Neutral: Style | None = None
+    NeutralBordered: Style | None = None
+    NeutralBold: Style | None = None
+    NeutralLight: Style | None = None
+    NeutralFlat: Style | None = None
+    NeutralOutline: Style | None = None
+    NeutralSolid: Style | None = None
+    NeutralOutlineBold: Style | None = None
+    NeutralSolidBold: Style | None = None
+    NeutralOutlineLight: Style | None = None
+    NeutralSolidLight: Style | None = None
+    NeutralDashed: Style | None = None
+    NeutralDashedBold: Style | None = None
+    NeutralDashedLight: Style | None = None
+    NeutralDotted: Style | None = None
+    NeutralDottedBold: Style | None = None
+    NeutralDottedLight: Style | None = None
+
+    # Semantic Neutral Cards (Bordered & Flat)
+    PrimaryNeutral: Style | None = None
+    PrimaryNeutralFlat: Style | None = None
+    SecondaryNeutral: Style | None = None
+    SecondaryNeutralFlat: Style | None = None
+    AccentNeutral: Style | None = None
+    AccentNeutralFlat: Style | None = None
+    WarningNeutral: Style | None = None
+    WarningNeutralFlat: Style | None = None
+    DangerNeutral: Style | None = None
+    DangerNeutralFlat: Style | None = None
+    SuccessNeutral: Style | None = None
+    SuccessNeutralFlat: Style | None = None
+    MutedNeutral: Style | None = None
+    MutedNeutralFlat: Style | None = None
+
+    # Named Color Neutral Cards (Bordered & Flat)
+    GrayNeutral: Style | None = None
+    GrayNeutralFlat: Style | None = None
+    BlueNeutral: Style | None = None
+    BlueNeutralFlat: Style | None = None
+    GreenNeutral: Style | None = None
+    GreenNeutralFlat: Style | None = None
+    RedNeutral: Style | None = None
+    RedNeutralFlat: Style | None = None
+    OrangeNeutral: Style | None = None
+    OrangeNeutralFlat: Style | None = None
+    AmberNeutral: Style | None = None
+    AmberNeutralFlat: Style | None = None
+    PurpleNeutral: Style | None = None
+    PurpleNeutralFlat: Style | None = None
+    TealNeutral: Style | None = None
+    TealNeutralFlat: Style | None = None
+    PinkNeutral: Style | None = None
+    PinkNeutralFlat: Style | None = None
+    CyanNeutral: Style | None = None
+    CyanNeutralFlat: Style | None = None
+    YellowNeutral: Style | None = None
+    YellowNeutralFlat: Style | None = None
+    MagentaNeutral: Style | None = None
+    MagentaNeutralFlat: Style | None = None
+
     Canvas: Style | None = None
     CanvasFlat: Style | None = None
 

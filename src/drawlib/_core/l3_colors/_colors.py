@@ -113,7 +113,31 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
     Danger: Color | None = None
     Success: Color | None = None
     Warning: Color | None = None
+    Neutral: Color | None = None
     Canvas: Color | None = None
+
+    # Semantic Neutral Colors (Fill tones)
+    GrayNeutral: Color | None = None
+    PrimaryNeutral: Color | None = None
+    SecondaryNeutral: Color | None = None
+    AccentNeutral: Color | None = None
+    WarningNeutral: Color | None = None
+    DangerNeutral: Color | None = None
+    SuccessNeutral: Color | None = None
+    MutedNeutral: Color | None = None
+
+    # Named Color Neutral Colors (Fill tones)
+    BlueNeutral: Color | None = None
+    GreenNeutral: Color | None = None
+    RedNeutral: Color | None = None
+    OrangeNeutral: Color | None = None
+    AmberNeutral: Color | None = None
+    PurpleNeutral: Color | None = None
+    TealNeutral: Color | None = None
+    PinkNeutral: Color | None = None
+    CyanNeutral: Color | None = None
+    YellowNeutral: Color | None = None
+    MagentaNeutral: Color | None = None
 
     @property
     def primary(self) -> Color:
@@ -184,6 +208,13 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         if self.Warning is None:
             raise AttributeError(f"{self.__class__.__name__} has no Warning color.")
         return self.Warning
+
+    @property
+    def neutral(self) -> Color:
+        """Return neutral semantic color."""
+        if self.Neutral is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Neutral color.")
+        return self.Neutral
 
     def __iter__(self) -> Generator[tuple[str, Color], None, None]:
         """Yield (field_name, field_value) pairs for all color fields in the preset color model.

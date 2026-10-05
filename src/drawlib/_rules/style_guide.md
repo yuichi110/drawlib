@@ -48,11 +48,14 @@ Drawlib structures diagram color schemes around **7 fundamental semantic roles**
 1. **Primary as the Visual Anchor**:
    - `Styles.Primary` serves as the primary focal point, core services, and central workflow spine.
    - Using `primary` consistently anchors the eye and gives the diagram a unified, recognizable identity.
-2. **Active, Equal-Standing Role Usage (No Artificial Frequency Restrictions)**:
+2. **50%+ Neutral-Grounded Architecture (Calm, Professional Diagrams)**:
+   - When every box in a diagram uses saturated fills (e.g. all `PrimaryFlat`, `AccentFlat`, `DangerFlat`), illustrations look overly flashy and cause visual fatigue.
+   - Ground **50% or more of nodes in neutral tones** (`Styles.Neutral`, `Styles.NeutralFlat`, `Styles.GrayNeutralFlat`, or tinted neutrals like `Styles.BlueNeutral`, `Styles.TealNeutral`, `Styles.PurpleNeutral`).
+   - Saturated hero styles (`Styles.PrimaryFlat`, `Styles.AccentFlat`) should be reserved for key focal points, highlighting the core system while secondary services and workers rest on soft neutral cards.
+3. **Active, Equal-Standing Role Usage (No Artificial Frequency Restrictions)**:
    - Technical diagrams require rich classification to distinguish multiple services, databases, external systems, and states.
-   - Unlike generic web layout rules that suppress secondary colors or relegate accent/alert colors to rare appearances, Drawlib treats all 7 colors as active, functional design assets.
    - `secondary`, `accent`, `warning`, `danger`, and `success` operate on equal standing without artificial percentage quotas. Use each color wherever its functional meaning naturally applies.
-3. **Muted for Calm Structural Grounding**:
+4. **Muted for Calm Structural Grounding**:
    - `Styles.Muted` (`Styles.MutedDashed`, `Styles.MutedOutline`, `Styles.MutedFlat`) provides containers, grouping boundaries, and network subnets without competing for attention with functional nodes.
 
 ---
@@ -60,17 +63,22 @@ Drawlib structures diagram color schemes around **7 fundamental semantic roles**
 ## 3. Semantic Roles & Visual Intent
 
 Drawlib presets organize styles into semantic roles with 13 orthogonal visual variants:
-- **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **7 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Warning`, `Muted`, `Danger`, `Success`).
-- **Monochrome Preset (`MonochromeStyles`)**: **4 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Muted`) — Grayscale excludes Warning/Danger/Success.
+- **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **8 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Danger`, `Success`).
+- **Monochrome Preset (`MonochromeStyles`)**: **5 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Neutral`, `Muted`) — Grayscale excludes Warning/Danger/Success.
 
 ### Semantic Roles:
 - **`Styles.Primary`**: Core application logic, microservices, main processing components.
 - **`Styles.Secondary`**: Databases, caches, message queues, auxiliary services, background workers.
 - **`Styles.Accent`**: Clients, external users, entry gateways, triggers, scheduled jobs.
 - **`Styles.Warning`** *(Color presets only)*: Warnings, transient states, degraded performance, pending reviews, caution gates.
+- **`Styles.Neutral` / `Styles.GrayNeutral`**: Card surfaces, general services, background workers, and calm container blocks.
 - **`Styles.Muted`**: Structural boundaries (VPCs, Kubernetes namespaces, clusters, subnets).
 - **`Styles.Danger`** *(Color presets only)*: Errors, failure paths, alert thresholds, security risks.
 - **`Styles.Success`** *(Color presets only)*: Successful outcomes, healthy status, verified states.
+
+### Tinted Neutral Cards:
+- **Tinted Cards (`Styles.BlueNeutral`, `Styles.TealNeutral`, `Styles.PurpleNeutral`, `Styles.GreenNeutral`, `Styles.AmberNeutral`, `Styles.RedNeutral`)**: Ultra-light tone 1 pastel fills with tone 3 borders and high-contrast tone 6 text. Perfect for grouping microservices without heavy saturated fills.
+- **Borderless Flat Cards (`Styles.NeutralFlat`, `Styles.BlueNeutralFlat`, `Styles.GreenNeutralFlat`, etc.)**: Borderless soft cards for sleek, modern diagrams.
 
 ### When to Use Raw Palette Colors:
 - **Palette Colors (`Styles.Blue`, `Styles.Purple`, etc.)**: Multi-brand differentiation or distinct architectural layers.

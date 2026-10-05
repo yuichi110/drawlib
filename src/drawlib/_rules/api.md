@@ -218,19 +218,20 @@ text_vertical((60, 16), "STATUS", style=Styles.MutedBold)
 ### 6.2 Preset Style Families (`Styles.<color>_<variant>`)
 Styles are systematically constructed as `<color>_<variant>`:
 
-- **Semantic Roles**: `primary`, `secondary`, `accent`, `muted`, `light`, `dark`, `danger`, `success`  
-  *(Plus utility shades: `muted`, `light`, `dark`, `white`, `black`, `blue`, `green`, `red`, `purple`, etc.)*
-- **10 Structural Variants**:
-  - `_flat`: Filled background with subtle outline.
-  - `_outline`: Transparent background with colored border.
-  - `_thin`: Minimalist thin stroke.
-  - `_bold`: High-contrast prominent stroke.
-  - `_dashed`: Dashed border for boundaries or speculative stages.
-  - `_dotted`: Dotted border for ephemeral or mock objects.
-  - `_double`: Double border stroke.
-  - `_glow`: Radiant glow effect.
-  - `_glass`: Translucent glassmorphism fill.
-  - `_neon`: High-intensity vibrant stroke.
+- **Semantic Roles**: `Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Light`, `Dark`, `Danger`, `Success`  
+  *(Plus utility shades: `White`, `Black`, `Gray1`..`Gray8`, `Blue`, `Green`, `Red`, `Purple`, etc.)*
+- **Card Neutral Tokens (50%+ Neutral Grounding)**:
+  - Base: `Styles.Neutral`, `Styles.NeutralFlat`, `Styles.GrayNeutral`, `Styles.GrayNeutralFlat`
+  - Semantic cards: `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.AccentNeutral`, `Styles.WarningNeutral`, ...
+  - Named hue cards: `Styles.BlueNeutral`, `Styles.TealNeutral`, `Styles.PurpleNeutral`, `Styles.GreenNeutral`, `Styles.AmberNeutral`, `Styles.RedNeutral`, ...
+- **13 Orthogonal Structural Variants**:
+  - `Bordered` (default): Solid border (1.5) with soft fill, high-contrast text.
+  - `Flat`: Borderless shape (`shape_line_width=0.0`).
+  - `Bold`: Thick stroke (2.5) with bold font.
+  - `Light`: Thin stroke (0.75) with light font.
+  - `Outline` / `Solid`: Transparent background with colored border.
+  - `Dashed`, `DashedBold`, `DashedLight`: Dashed stroke for boundaries or groupings.
+  - `Dotted`, `DottedBold`, `DottedLight`: Dotted stroke for ephemeral objects.
 - **Typography Styles**: `Styles.WhiteBold`, `Styles.PrimaryBold`, `Styles.MutedLight`, etc.
 
 ### 6.3 Custom Style and Color Construction

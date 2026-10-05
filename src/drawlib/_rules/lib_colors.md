@@ -57,7 +57,8 @@ The standard set for rapid prototyping, architecture diagrams, and geometric sty
 - **6-Tone Chromatic Scales (Levels 1 to 6)**: `Blue1..6`, `Green1..6`, `Red1..6`, `Orange1..6`, `Amber1..6`, `Purple1..6`, `Teal1..6`, `Pink1..6`
 - **Neutrals (Light to Dark)**: `White`, `Gray1` through `Gray8`, `Black`
 - **Classic Primaries**: `Red`, `Green`, `Blue`, `Yellow`, `Orange`, `Purple`, `Pink`, `Cyan`, `Magenta`, `Lime`, `Teal`, `Navy`, `Olive`, `Brown`, `Gold`, `Aqua`, `GreenYellow`, `Ivory`, `Steel`
-- **Semantic Roles**: `Primary`, `Secondary`, `Accent`, `Muted`, `Light`, `Dark`, `Danger`, `Success`, `Canvas`, and numbered `Primary1..6`, `Secondary1..6`, `Accent1..6`, `Muted1..6`, `Danger1..6`, `Success1..6`
+- **Semantic Roles**: `Primary`, `Secondary`, `Accent`, `Neutral`, `Muted`, `Light`, `Dark`, `Danger`, `Success`, `Canvas`, and numbered `Primary1..6`, `Secondary1..6`, `Accent1..6`, `Muted1..6`, `Danger1..6`, `Success1..6`
+- **Card Neutral Tokens (Fill tones matching Styles.*Neutral)**: `Neutral`, `GrayNeutral`, `PrimaryNeutral`, `SecondaryNeutral`, `AccentNeutral`, `WarningNeutral`, `DangerNeutral`, `SuccessNeutral`, `MutedNeutral`, `BlueNeutral`, `GreenNeutral`, `RedNeutral`, `OrangeNeutral`, `AmberNeutral`, `PurpleNeutral`, `TealNeutral`, `PinkNeutral`, `CyanNeutral`, `YellowNeutral`, `MagentaNeutral`
 
 ### 3.2. `CssColors` (W3C CSS Named Colors Catalog)
 Contains all 140 standardized CSS color definitions for precise styling:

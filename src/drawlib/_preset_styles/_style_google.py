@@ -18,7 +18,7 @@ from drawlib._core.l3_colors import BaseColors, Color, ColorType
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import BaseStyles, Style
 from drawlib._preset_colors import GoogleColors
-from drawlib._preset_styles._utils import _make_variants
+from drawlib._preset_styles._utils import _make_neutral_card, _make_variants
 
 warnings.filterwarnings(
     "ignore",
@@ -200,6 +200,67 @@ class GoogleStyles(BaseStyles):
     SuccessDotted: Style
     SuccessDottedBold: Style
     SuccessDottedLight: Style
+
+    # neutral
+    Neutral: Style
+    NeutralBordered: Style
+    NeutralBold: Style
+    NeutralLight: Style
+    NeutralFlat: Style
+    NeutralOutline: Style
+    NeutralSolid: Style
+    NeutralOutlineBold: Style
+    NeutralSolidBold: Style
+    NeutralOutlineLight: Style
+    NeutralSolidLight: Style
+    NeutralDashed: Style
+    NeutralDashedBold: Style
+    NeutralDashedLight: Style
+    NeutralDotted: Style
+    NeutralDottedBold: Style
+    NeutralDottedLight: Style
+
+    # Semantic Neutral Cards (Bordered & Flat)
+    PrimaryNeutral: Style
+    PrimaryNeutralFlat: Style
+    SecondaryNeutral: Style
+    SecondaryNeutralFlat: Style
+    AccentNeutral: Style
+    AccentNeutralFlat: Style
+    WarningNeutral: Style
+    WarningNeutralFlat: Style
+    DangerNeutral: Style
+    DangerNeutralFlat: Style
+    SuccessNeutral: Style
+    SuccessNeutralFlat: Style
+    MutedNeutral: Style
+    MutedNeutralFlat: Style
+
+    # Named Color Neutral Cards (Bordered & Flat)
+    GrayNeutral: Style
+    GrayNeutralFlat: Style
+    BlueNeutral: Style
+    BlueNeutralFlat: Style
+    GreenNeutral: Style
+    GreenNeutralFlat: Style
+    RedNeutral: Style
+    RedNeutralFlat: Style
+    OrangeNeutral: Style
+    OrangeNeutralFlat: Style
+    AmberNeutral: Style
+    AmberNeutralFlat: Style
+    PurpleNeutral: Style
+    PurpleNeutralFlat: Style
+    TealNeutral: Style
+    TealNeutralFlat: Style
+    PinkNeutral: Style
+    PinkNeutralFlat: Style
+    CyanNeutral: Style
+    CyanNeutralFlat: Style
+    YellowNeutral: Style
+    YellowNeutralFlat: Style
+    MagentaNeutral: Style
+    MagentaNeutralFlat: Style
 
     # =========================================================================
     # Numbered Semantic Roles
@@ -4412,6 +4473,7 @@ def _create_google_styles() -> GoogleStyles:
         "Warning": col.Warning,
         "Muted": col.Muted,
         "Light": col.Light,
+        "Neutral": col.Neutral,
         "Dark": col.Dark,
         "Danger": col.Danger,
         "Success": col.Success,
@@ -4425,6 +4487,13 @@ def _create_google_styles() -> GoogleStyles:
                 line_color=col.Gray5,
             )
         elif role_name == "Light":
+            v = _make_variants(
+                color,
+                border_color=col.Gray4,
+                default_text_color=col.Gray8,
+                line_color=col.Gray4,
+            )
+        elif role_name == "Neutral":
             v = _make_variants(
                 color,
                 border_color=col.Gray4,
@@ -4615,6 +4684,73 @@ def _create_google_styles() -> GoogleStyles:
         shape_fill_color=canvas_col,
         shape_line_color=canvas_col,
         shape_line_width=0.0,
+    )
+
+    # Neutral Card Styles (Bordered & Flat)
+    # Base / Gray Neutral
+    styles_dict["GrayNeutral"], styles_dict["GrayNeutralFlat"] = _make_neutral_card(
+        col.Gray2, border_color=col.Gray4, text_color=col.Gray8
+    )
+    styles_dict["Neutral"] = styles_dict["GrayNeutral"]
+    styles_dict["NeutralBordered"] = styles_dict["GrayNeutral"]
+    styles_dict["NeutralFlat"] = styles_dict["GrayNeutralFlat"]
+
+    # Semantic Neutral Cards
+    styles_dict["PrimaryNeutral"], styles_dict["PrimaryNeutralFlat"] = _make_neutral_card(
+        col.Primary1, border_color=col.Primary3, text_color=col.Primary6
+    )
+    styles_dict["SecondaryNeutral"], styles_dict["SecondaryNeutralFlat"] = _make_neutral_card(
+        col.Secondary1, border_color=col.Secondary3, text_color=col.Secondary6
+    )
+    styles_dict["AccentNeutral"], styles_dict["AccentNeutralFlat"] = _make_neutral_card(
+        col.Accent1, border_color=col.Accent3, text_color=col.Accent6
+    )
+    styles_dict["WarningNeutral"], styles_dict["WarningNeutralFlat"] = _make_neutral_card(
+        col.Warning1, border_color=col.Warning3, text_color=col.Warning6
+    )
+    styles_dict["DangerNeutral"], styles_dict["DangerNeutralFlat"] = _make_neutral_card(
+        col.Danger1, border_color=col.Danger3, text_color=col.Danger6
+    )
+    styles_dict["SuccessNeutral"], styles_dict["SuccessNeutralFlat"] = _make_neutral_card(
+        col.Success1, border_color=col.Success3, text_color=col.Success6
+    )
+    styles_dict["MutedNeutral"], styles_dict["MutedNeutralFlat"] = _make_neutral_card(
+        col.Gray2, border_color=col.Gray4, text_color=col.Gray8
+    )
+
+    # Named Color Neutral Cards
+    styles_dict["BlueNeutral"], styles_dict["BlueNeutralFlat"] = _make_neutral_card(
+        col.Blue1, border_color=col.Blue3, text_color=col.Blue6
+    )
+    styles_dict["GreenNeutral"], styles_dict["GreenNeutralFlat"] = _make_neutral_card(
+        col.Green1, border_color=col.Green3, text_color=col.Green6
+    )
+    styles_dict["RedNeutral"], styles_dict["RedNeutralFlat"] = _make_neutral_card(
+        col.Red1, border_color=col.Red3, text_color=col.Red6
+    )
+    styles_dict["OrangeNeutral"], styles_dict["OrangeNeutralFlat"] = _make_neutral_card(
+        col.Orange1, border_color=col.Orange3, text_color=col.Orange6
+    )
+    styles_dict["YellowNeutral"], styles_dict["YellowNeutralFlat"] = _make_neutral_card(
+        col.Yellow1, border_color=col.Yellow3, text_color=col.Yellow6
+    )
+    styles_dict["AmberNeutral"], styles_dict["AmberNeutralFlat"] = _make_neutral_card(
+        col.Yellow1, border_color=col.Yellow3, text_color=col.Yellow6
+    )
+    styles_dict["PurpleNeutral"], styles_dict["PurpleNeutralFlat"] = _make_neutral_card(
+        col.Purple1, border_color=col.Purple3, text_color=col.Purple6
+    )
+    styles_dict["CyanNeutral"], styles_dict["CyanNeutralFlat"] = _make_neutral_card(
+        col.Cyan1, border_color=col.Cyan3, text_color=col.Cyan6
+    )
+    styles_dict["TealNeutral"], styles_dict["TealNeutralFlat"] = _make_neutral_card(
+        col.Cyan1, border_color=col.Cyan3, text_color=col.Cyan6
+    )
+    styles_dict["MagentaNeutral"], styles_dict["MagentaNeutralFlat"] = _make_neutral_card(
+        col.Magenta1, border_color=col.Magenta3, text_color=col.Magenta6
+    )
+    styles_dict["PinkNeutral"], styles_dict["PinkNeutralFlat"] = _make_neutral_card(
+        col.Magenta1, border_color=col.Magenta3, text_color=col.Magenta6
     )
 
     return GoogleStyles(**styles_dict)

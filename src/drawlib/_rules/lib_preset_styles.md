@@ -131,9 +131,15 @@ Drawlib ships with three pre-built, production-ready style catalogs. Each catalo
 │   - Secondary: Databases, message queues, auxiliary services                          │
 │   - Accent: Gateways, clients, focal points                                           │
 │   - Warning: Alerts, transient states, review gates (Color catalogs only)             │
+│   - Neutral: Calm card surfaces, worker nodes, base containers                        │
 │   - Muted: Boundaries, VPCs, subnets, containers                                      │
 │   - Danger: Errors, alerts, security risks (Color catalogs only)                      │
 │   - Success: Completed milestones, healthy status (Color catalogs only)               │
+├───────────────────────────────────────────────────────────────────────────────────────┤
+│ Tinted Neutral Cards (Bordered and Flat variants):                                    │
+│   - Semantic: PrimaryNeutral, SecondaryNeutral, AccentNeutral, WarningNeutral, ...    │
+│   - Named Hues: GrayNeutral, BlueNeutral, GreenNeutral, TealNeutral, PurpleNeutral,   │
+│                 AmberNeutral, RedNeutral, OrangeNeutral, PinkNeutral                  │
 └───────────────────────────────────────────────────────────────────────────────────────┘
 ```
 

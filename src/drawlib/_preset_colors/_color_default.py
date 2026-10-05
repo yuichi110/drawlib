@@ -178,7 +178,30 @@ class DefaultColors(BaseColors):
     Dark: Color = Gray7
     Danger: Color = Danger4
     Success: Color = Success4
+    Neutral: Color = Gray2
     Canvas: Color = White
+
+    # --- Semantic & Tinted Neutral Colors (Fill tones) ---
+    GrayNeutral: Color = Gray2
+    PrimaryNeutral: Color = Primary1
+    SecondaryNeutral: Color = Secondary1
+    AccentNeutral: Color = Accent1
+    WarningNeutral: Color = Warning1
+    DangerNeutral: Color = Danger1
+    SuccessNeutral: Color = Success1
+    MutedNeutral: Color = Gray2
+
+    BlueNeutral: Color = Blue1
+    GreenNeutral: Color = Green1
+    RedNeutral: Color = Red1
+    OrangeNeutral: Color = Orange1
+    AmberNeutral: Color = Amber1
+    PurpleNeutral: Color = Purple1
+    TealNeutral: Color = Teal1
+    PinkNeutral: Color = Pink1
+    CyanNeutral: Color = Teal1
+    YellowNeutral: Color = Amber1
+    MagentaNeutral: Color = Pink1
 
     def patch(
         self,
@@ -189,6 +212,7 @@ class DefaultColors(BaseColors):
         Accent: ColorType | None = None,
         Muted: ColorType | None = None,
         Light: ColorType | None = None,
+        Neutral: ColorType | None = None,
         Dark: ColorType | None = None,
         Danger: ColorType | None = None,
         Success: ColorType | None = None,
@@ -327,6 +351,7 @@ class DefaultColors(BaseColors):
             Accent: Accent semantic color.
             Muted: Muted semantic color.
             Light: Light semantic color.
+            Neutral: Neutral semantic color.
             Dark: Dark semantic color.
             Danger: Danger semantic color.
             Success: Success semantic color.

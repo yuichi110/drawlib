@@ -17,7 +17,7 @@ from drawlib._core.l3_colors import BaseColors, ColorType
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import BaseStyles, Style
 from drawlib._preset_colors import MonochromeColors
-from drawlib._preset_styles._utils import _make_variants
+from drawlib._preset_styles._utils import _make_neutral_card, _make_variants
 
 
 class MonochromeStyles(BaseStyles):
@@ -273,6 +273,67 @@ class MonochromeStyles(BaseStyles):
     DarkDashed: Style
     DarkDashedBold: Style
     DarkDashedLight: Style
+
+    # neutral
+    Neutral: Style
+    NeutralBordered: Style
+    NeutralBold: Style
+    NeutralLight: Style
+    NeutralFlat: Style
+    NeutralOutline: Style
+    NeutralSolid: Style
+    NeutralOutlineBold: Style
+    NeutralSolidBold: Style
+    NeutralOutlineLight: Style
+    NeutralSolidLight: Style
+    NeutralDashed: Style
+    NeutralDashedBold: Style
+    NeutralDashedLight: Style
+    NeutralDotted: Style
+    NeutralDottedBold: Style
+    NeutralDottedLight: Style
+
+    # Semantic Neutral Cards (Bordered & Flat)
+    PrimaryNeutral: Style
+    PrimaryNeutralFlat: Style
+    SecondaryNeutral: Style
+    SecondaryNeutralFlat: Style
+    AccentNeutral: Style
+    AccentNeutralFlat: Style
+    WarningNeutral: Style
+    WarningNeutralFlat: Style
+    DangerNeutral: Style
+    DangerNeutralFlat: Style
+    SuccessNeutral: Style
+    SuccessNeutralFlat: Style
+    MutedNeutral: Style
+    MutedNeutralFlat: Style
+
+    # Named Color Neutral Cards (Bordered & Flat)
+    GrayNeutral: Style
+    GrayNeutralFlat: Style
+    BlueNeutral: Style
+    BlueNeutralFlat: Style
+    GreenNeutral: Style
+    GreenNeutralFlat: Style
+    RedNeutral: Style
+    RedNeutralFlat: Style
+    OrangeNeutral: Style
+    OrangeNeutralFlat: Style
+    AmberNeutral: Style
+    AmberNeutralFlat: Style
+    PurpleNeutral: Style
+    PurpleNeutralFlat: Style
+    TealNeutral: Style
+    TealNeutralFlat: Style
+    PinkNeutral: Style
+    PinkNeutralFlat: Style
+    CyanNeutral: Style
+    CyanNeutralFlat: Style
+    YellowNeutral: Style
+    YellowNeutralFlat: Style
+    MagentaNeutral: Style
+    MagentaNeutralFlat: Style
 
     Canvas: Style
     CanvasFlat: Style
@@ -621,6 +682,12 @@ def _create_monochrome_styles() -> MonochromeStyles:
         default_text_color=white,
         line_color=black,
     )
+    n_v = _make_variants(
+        gray2,
+        border_color=gray5,
+        default_text_color=gray8,
+        line_color=gray5,
+    )
 
     role_variants = {
         "Primary": p_v,
@@ -628,6 +695,7 @@ def _create_monochrome_styles() -> MonochromeStyles:
         "Accent": a_v,
         "Muted": m_v,
         "Light": l_v,
+        "Neutral": n_v,
         "Dark": d_v,
     }
 
@@ -692,6 +760,55 @@ def _create_monochrome_styles() -> MonochromeStyles:
         styles_dict[f"{cname}Dotted"] = v["dotted"]
         styles_dict[f"{cname}DottedBold"] = v["dotted_bold"]
         styles_dict[f"{cname}DottedLight"] = v["dotted_light"]
+
+    # Neutral Card Styles (Bordered & Flat)
+    neutral_card, neutral_flat = _make_neutral_card(gray2, border_color=gray5, text_color=gray8)
+    styles_dict["GrayNeutral"] = neutral_card
+    styles_dict["GrayNeutralFlat"] = neutral_flat
+    styles_dict["Neutral"] = neutral_card
+    styles_dict["NeutralBordered"] = neutral_card
+    styles_dict["NeutralFlat"] = neutral_flat
+
+    neutral_keys = [
+        "PrimaryNeutral",
+        "PrimaryNeutralFlat",
+        "SecondaryNeutral",
+        "SecondaryNeutralFlat",
+        "AccentNeutral",
+        "AccentNeutralFlat",
+        "WarningNeutral",
+        "WarningNeutralFlat",
+        "DangerNeutral",
+        "DangerNeutralFlat",
+        "SuccessNeutral",
+        "SuccessNeutralFlat",
+        "MutedNeutral",
+        "MutedNeutralFlat",
+        "BlueNeutral",
+        "BlueNeutralFlat",
+        "GreenNeutral",
+        "GreenNeutralFlat",
+        "RedNeutral",
+        "RedNeutralFlat",
+        "OrangeNeutral",
+        "OrangeNeutralFlat",
+        "AmberNeutral",
+        "AmberNeutralFlat",
+        "PurpleNeutral",
+        "PurpleNeutralFlat",
+        "TealNeutral",
+        "TealNeutralFlat",
+        "PinkNeutral",
+        "PinkNeutralFlat",
+        "CyanNeutral",
+        "CyanNeutralFlat",
+        "YellowNeutral",
+        "YellowNeutralFlat",
+        "MagentaNeutral",
+        "MagentaNeutralFlat",
+    ]
+    for k in neutral_keys:
+        styles_dict[k] = neutral_flat if k.endswith("Flat") else neutral_card
 
     return MonochromeStyles(**styles_dict)
 

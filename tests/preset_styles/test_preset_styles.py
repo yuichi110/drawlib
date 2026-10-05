@@ -163,6 +163,52 @@ class TestPresetStylesUnit:
                 assert isinstance(dashed_light, Style)
                 assert dashed_light.supports == frozenset({"shape", "line"})
 
+    def test_neutral_styles(self) -> None:
+        """Verifies Neutral and tinted neutral card styles across presets."""
+        presets = [default_styles, google_styles, monochrome_styles]
+        for st in presets:
+            # Base Neutral and aliases
+            assert isinstance(st.Neutral, Style)
+            assert isinstance(st.NeutralFlat, Style)
+            assert isinstance(st.NeutralBordered, Style)
+            assert st.NeutralBordered == st.Neutral
+            assert isinstance(st.GrayNeutral, Style)
+            assert isinstance(st.GrayNeutralFlat, Style)
+            assert st.Neutral.supports == frozenset({"shape", "line", "text", "icon"})
+            assert st.NeutralFlat.supports == frozenset({"shape", "text", "icon"})
+
+            # Semantic neutral cards
+            assert isinstance(st.PrimaryNeutral, Style)
+            assert isinstance(st.PrimaryNeutralFlat, Style)
+            assert isinstance(st.SecondaryNeutral, Style)
+            assert isinstance(st.SecondaryNeutralFlat, Style)
+            assert isinstance(st.AccentNeutral, Style)
+            assert isinstance(st.AccentNeutralFlat, Style)
+            assert isinstance(st.WarningNeutral, Style)
+            assert isinstance(st.WarningNeutralFlat, Style)
+
+            # Named color neutral cards
+            assert isinstance(st.BlueNeutral, Style)
+            assert isinstance(st.BlueNeutralFlat, Style)
+            assert isinstance(st.GreenNeutral, Style)
+            assert isinstance(st.GreenNeutralFlat, Style)
+            assert isinstance(st.RedNeutral, Style)
+            assert isinstance(st.RedNeutralFlat, Style)
+            assert isinstance(st.AmberNeutral, Style)
+            assert isinstance(st.AmberNeutralFlat, Style)
+            assert isinstance(st.PurpleNeutral, Style)
+            assert isinstance(st.PurpleNeutralFlat, Style)
+            assert isinstance(st.TealNeutral, Style)
+            assert isinstance(st.TealNeutralFlat, Style)
+
+        # Verify default_styles specific tone mapping
+        assert default_styles.Neutral.shape_fill_color == default_styles.colors.Neutral
+        assert default_styles.BlueNeutral.shape_fill_color == default_styles.colors.Blue1
+        assert default_styles.BlueNeutral.shape_line_color == default_styles.colors.Blue3
+        assert default_styles.BlueNeutral.text_color == default_styles.colors.Blue6
+        assert default_styles.BlueNeutralFlat.shape_fill_color == default_styles.colors.Blue1
+        assert default_styles.BlueNeutralFlat.text_color == default_styles.colors.Blue6
+
     def test_monochrome_danger_success_unsupported(self) -> None:
         """Verifies MonochromeStyles raises AttributeError for unsupported danger and success."""
         for role in ["Danger", "Success"]:

@@ -38,8 +38,30 @@ class MonochromeColors(BaseColors):
     Light: Color = White
     Dark: Color = Gray8
     Danger: Color | None = None
-    Success: Color | None = None
+    Neutral: Color = Gray2
     Canvas: Color = White
+
+    # Semantic & Tinted Neutral Colors (Fill tones mapping to Gray2)
+    GrayNeutral: Color = Gray2
+    PrimaryNeutral: Color = Gray2
+    SecondaryNeutral: Color = Gray2
+    AccentNeutral: Color = Gray2
+    WarningNeutral: Color = Gray2
+    DangerNeutral: Color = Gray2
+    SuccessNeutral: Color = Gray2
+    MutedNeutral: Color = Gray2
+
+    BlueNeutral: Color = Gray2
+    GreenNeutral: Color = Gray2
+    RedNeutral: Color = Gray2
+    OrangeNeutral: Color = Gray2
+    AmberNeutral: Color = Gray2
+    PurpleNeutral: Color = Gray2
+    TealNeutral: Color = Gray2
+    PinkNeutral: Color = Gray2
+    CyanNeutral: Color = Gray2
+    YellowNeutral: Color = Gray2
+    MagentaNeutral: Color = Gray2
 
     def patch(
         self,
@@ -50,6 +72,7 @@ class MonochromeColors(BaseColors):
         Accent: ColorType | None = None,
         Muted: ColorType | None = None,
         Light: ColorType | None = None,
+        Neutral: ColorType | None = None,
         Dark: ColorType | None = None,
         Danger: ColorType | None = None,
         Success: ColorType | None = None,
@@ -74,6 +97,7 @@ class MonochromeColors(BaseColors):
             Accent: Accent semantic color.
             Muted: Muted semantic color.
             Light: Light semantic color.
+            Neutral: Neutral semantic color.
             Dark: Dark semantic color.
             Danger: Danger semantic color.
             Success: Success semantic color.

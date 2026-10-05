@@ -48,6 +48,7 @@ Every style token is composed of a **Semantic Role** (or color name) and an opti
 - **`Primary`**: Main structural components and key architectural blocks.
 - **`Secondary`**: Secondary supporting services and auxiliary nodes.
 - **`Accent`**: Emphasized focal points and action triggers.
+- **`Neutral`**: Calm card surfaces, general services, and worker nodes.
 - **`Success`**: Healthy statuses, successful states, and completed steps.
 - **`Danger`**: Error conditions, security threats, and terminating gates.
 - **`Warning`**: Warnings, deprecations, and pending queues.
@@ -62,6 +63,9 @@ Every style token is composed of a **Semantic Role** (or color name) and an opti
 | `Light` | `Styles.PrimaryLight` | Soft, pastel fill color. |
 | `Outline` | `Styles.PrimaryOutline` | Transparent fill with a colored border line. |
 | `Dashed` | `Styles.MutedDashed` | Dashed border stroke (ideal for VPCs and clusters). |
+| `Dotted` | `Styles.PrimaryDotted` | Dotted border stroke for ephemeral or preview components. |
+| `Neutral` | `Styles.BlueNeutral` | Tinted card with ultra-light fill, soft border, high-contrast text. |
+| `NeutralFlat` | `Styles.BlueNeutralFlat` | Borderless tinted card with high-contrast text. |
 
 ---
 

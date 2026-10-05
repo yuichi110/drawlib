@@ -329,8 +329,64 @@ def _make_variants(
     }
 
 
+def _make_neutral_card(
+    fill_color: ColorType,
+    *,
+    border_color: ColorType | None = None,
+    text_color: ColorType | None = None,
+) -> tuple[Style, Style]:
+    """Generate (bordered, flat) neutral card styles for tinted container cards.
+
+    Args:
+        fill_color: Fill color (typically tone 1 or tone 2).
+        border_color: Border line color (typically tone 3 or tone 4).
+        text_color: High contrast text and icon color (typically tone 6 or tone 7).
+
+    Returns:
+        tuple[Style, Style]: (neutral_bordered, neutral_flat) Style instances.
+    """
+    b_col = border_color if border_color is not None else _DEFAULT_BORDER_COLOR
+    t_col = text_color if text_color is not None else b_col
+
+    bordered = Style(
+        supports={"shape", "line", "text", "icon"},
+        shape_fill_color=fill_color,
+        shape_line_color=b_col,
+        shape_line_width=1.5,
+        shape_line_style="solid",
+        line_color=b_col,
+        line_width=1.5,
+        line_style="solid",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+        text_color=t_col,
+        text_size=DEFAULT_TEXT_SIZE,
+        text_font=DEFAULT_FONT,
+        text_halign="center",
+        text_valign="center",
+        icon_color=t_col,
+        icon_style="regular",
+    )
+    flat = Style(
+        supports={"shape", "text", "icon"},
+        shape_fill_color=fill_color,
+        shape_line_color=Colors.Transparent,
+        shape_line_width=0.0,
+        shape_line_style="solid",
+        text_color=t_col,
+        text_size=DEFAULT_TEXT_SIZE,
+        text_font=DEFAULT_FONT,
+        text_halign="center",
+        text_valign="center",
+        icon_color=t_col,
+        icon_style="regular",
+    )
+    return bordered, flat
+
+
 __all__ = [
     "_create_style",
+    "_make_neutral_card",
     "_make_variants",
     "_resolve_target_font",
 ]

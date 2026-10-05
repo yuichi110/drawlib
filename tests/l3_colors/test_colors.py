@@ -108,10 +108,30 @@ class TestColors:
                             "Warning",
                             "Muted",
                             "Light",
+                            "Neutral",
                             "Dark",
                             "Danger",
                             "Success",
                             "Canvas",
+                            "GrayNeutral",
+                            "PrimaryNeutral",
+                            "SecondaryNeutral",
+                            "AccentNeutral",
+                            "WarningNeutral",
+                            "DangerNeutral",
+                            "SuccessNeutral",
+                            "MutedNeutral",
+                            "BlueNeutral",
+                            "GreenNeutral",
+                            "RedNeutral",
+                            "OrangeNeutral",
+                            "AmberNeutral",
+                            "PurpleNeutral",
+                            "TealNeutral",
+                            "PinkNeutral",
+                            "CyanNeutral",
+                            "YellowNeutral",
+                            "MagentaNeutral",
                         }
                     else:
                         assert isinstance(inst, MonochromeColors) and field_name in {"Danger", "Success", "Warning"}
@@ -133,7 +153,7 @@ class TestColors:
             monochrome_colors,
         ]
         for inst in semantic_instances:
-            for sem in ("Primary", "Secondary", "Accent", "Muted", "Light", "Dark", "Canvas"):
+            for sem in ("Primary", "Secondary", "Accent", "Muted", "Light", "Neutral", "Dark", "Canvas"):
                 val = getattr(inst, sem)
                 assert isinstance(val, Color)
                 # Lowercase property access
@@ -201,3 +221,25 @@ class TestColors:
         assert isinstance(p3, MonochromeColors)
         assert p3.Gray1 == (180, 180, 180, 1.0)
         assert p3.Accent == (99, 99, 99, 1.0)
+
+    def test_neutral_colors(self) -> None:
+        """Test neutral and semantic/tinted neutral colors on color palettes."""
+        assert default_colors.Neutral == default_colors.Gray2
+        assert default_colors.neutral == default_colors.Gray2
+        assert default_colors.PrimaryNeutral == default_colors.Primary1
+        assert default_colors.SecondaryNeutral == default_colors.Secondary1
+        assert default_colors.AccentNeutral == default_colors.Accent1
+        assert default_colors.MutedNeutral == default_colors.Gray2
+        assert default_colors.BlueNeutral == default_colors.Blue1
+        assert default_colors.GrayNeutral == default_colors.Gray2
+
+        assert google_colors.Neutral == google_colors.Gray2
+        assert google_colors.PrimaryNeutral == google_colors.Primary1
+        assert google_colors.SecondaryNeutral == google_colors.Secondary1
+        assert google_colors.AccentNeutral == google_colors.Accent1
+        assert google_colors.BlueNeutral == google_colors.Blue1
+
+        assert monochrome_colors.Neutral == monochrome_colors.Gray2
+        assert monochrome_colors.PrimaryNeutral == monochrome_colors.Gray2
+        assert monochrome_colors.BlueNeutral == monochrome_colors.Gray2
+        assert monochrome_colors.GrayNeutral == monochrome_colors.Gray2

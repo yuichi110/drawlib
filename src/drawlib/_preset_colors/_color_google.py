@@ -224,7 +224,32 @@ class GoogleColors(BaseColors):
     Dark: Color = Gray8                # #434343
     Danger: Color = Danger4            # GoogleRed (#EA4335)
     Success: Color = Success4          # GoogleGreen (#34A853)
+    Neutral: Color = Gray2             # #EFEFEF
     Canvas: Color = White              # #FFFFFF
+
+    # =========================================================================
+    # 7. Semantic & Tinted Neutral Colors (Fill tones)
+    # =========================================================================
+    GrayNeutral: Color = Gray2
+    PrimaryNeutral: Color = Primary1
+    SecondaryNeutral: Color = Secondary1
+    AccentNeutral: Color = Accent1
+    WarningNeutral: Color = Warning1
+    DangerNeutral: Color = Danger1
+    SuccessNeutral: Color = Success1
+    MutedNeutral: Color = Gray2
+
+    BlueNeutral: Color = Blue1
+    GreenNeutral: Color = Green1
+    RedNeutral: Color = Red1
+    OrangeNeutral: Color = Orange1
+    YellowNeutral: Color = Yellow1
+    AmberNeutral: Color = Yellow1
+    PurpleNeutral: Color = Purple1
+    CyanNeutral: Color = Cyan1
+    TealNeutral: Color = Cyan1
+    MagentaNeutral: Color = Magenta1
+    PinkNeutral: Color = Magenta1
 
     def patch(
         self,
@@ -236,6 +261,7 @@ class GoogleColors(BaseColors):
         Warning: ColorType | None = None,
         Muted: ColorType | None = None,
         Light: ColorType | None = None,
+        Neutral: ColorType | None = None,
         Dark: ColorType | None = None,
         Danger: ColorType | None = None,
         Success: ColorType | None = None,
@@ -395,6 +421,7 @@ class GoogleColors(BaseColors):
             Accent: Accent semantic color.
             Muted: Muted semantic color.
             Light: Light semantic color.
+            Neutral: Neutral semantic color.
             Dark: Dark semantic color.
             Danger: Danger semantic color.
             Success: Success semantic color.
