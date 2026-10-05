@@ -445,6 +445,42 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
   <figcaption class="drawlib-caption">Custom Vector Shape via Local Path Points</figcaption>
 </figure>
 <hr />
+<h2>6. Callout Speech Bubbles (<code>bubblespeech</code>)</h2>
+<p>For callouts, annotations, and explanatory speech bubbles, <code>bubblespeech</code> creates a speech bubble with an integrated pointer tail pointing directly at target coordinates:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">bubblespeech</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Target element</span>
+<span class="n">node_xy</span> <span class="o">=</span> <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">node_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+
+<span class="c1"># Callout pointing to the edge of the target element</span>
+<span class="n">bubblespeech</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">tail_edge</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+    <span class="n">tail_start_ratio</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span>
+    <span class="n">tail_vertex_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+    <span class="n">tail_end_ratio</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Points to target element</span><span class="se">\n</span><span class="s2">with automatic tail&quot;</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_images/shapes_bubblespeech.png" alt="shapes_5" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Callout Speech Bubble</figcaption>
+</figure>
+<ul>
+<li><strong><code>bubblespeech(xy, width, height, tail_edge, tail_start_ratio, tail_vertex_xy, tail_end_ratio, style=..., ...)</code></strong>: Draws a speech bubble whose tail originates from <code>tail_edge</code> and points to <code>tail_vertex_xy</code>. See <a href="../03_smartarts/speech_and_code.html">Speech and Code</a> for detailed callout patterns.</li>
+</ul>
+<hr />
 <blockquote>
 <p>[!TIP]
 For directed arrows (straight, right-angled, U-turn, arc, and chevron arrows), see <strong><a href="./arrows.html">Block Arrows</a></strong>.</p>

@@ -68,5 +68,5 @@ f.draw()
 ## 3. Class, State & ER Diagrams
 
 - **`ClassDiagram`**: Document classes, attributes, methods, inheritance (`--|>`), implementation (`..|>`), and associations.
-- **`StateDiagram`**: Model state machine lifecycles (`Initial`, `State`, `Final`) with event triggers and guard conditions.
+- **`StateDiagram`**: Model state machine lifecycles (`InitialState`, `State`, `FinalState`) with event triggers and guard conditions.
 - **`ERDiagram`**: Relational database schemas documenting primary keys (`PK`), foreign keys (`FK`), and 1:N cardinalities.

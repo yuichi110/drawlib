@@ -6,17 +6,17 @@ Drawlib provides the `drawlib init` command to scaffold purpose-built documentat
 
 | Template | Use Case | Primary Artifacts |
 | :--- | :--- | :--- |
-| **`pdf`** | Multi-chapter technical specs, engineering RFCs, and formal reports | `<name>.pdf` (with auto-generated TOC) |
-| **`site`** | Multi-page documentation website with sidebar navigation | `<name>_html/` and `<name>/` |
-| **`simple`** | Single-page specifications, RFCs, and READMEs | `<name>_html/doc.html` |
-| **`image`** | Standalone Python drawing scripts | `<name>/*.png` |
+| **`doc`** | Multi-chapter technical specs, engineering RFCs, and formal reports | `<target>.html`, `<target>.pdf`, `<target>.md` |
+| **`site`** | Multi-page documentation website with sidebar navigation | `<target>_html/` and `<target>/` |
+| **`slide`** | 16:9 presentation slide deck (web & vector PDF) | `slide/index.html` and `slide.pdf` |
+| **`images`** | Standalone Python drawing scripts | `<target>/*.png`, `*.webp` |
 
-## 5.2 Creating a Google-Style PDF Project
+## 5.2 Creating a Google-Style Document Project
 
-Create a Google-style PDF project in one command:
+Create a Google-style document project in one command:
 
 ```bash
-uv run drawlib init pdf my_report/ -o report -l en -s google
+uv run drawlib init doc report -l en -s google
 ```
 
 ```drawlib 640px center file:fig_project_lifecycle.png caption:"Figure 5.1: Project Lifecycle from Scaffolding to Final Artifact"
@@ -30,26 +30,25 @@ from drawlib.text import text
 setup(width=135, height=54)
 
 header_ts = Styles.WhiteBold.patch(text_size=9.2)
-ts_sec_body = Styles.Secondary.patch(text_size=7.8, text_halign="left")
-ts_body = Styles.Primary.patch(text_size=7.8, text_halign="left")
-ts_acc_body = Styles.Accent.patch(text_size=7.8, text_halign="left")
+ts_body = Styles.Dark.patch(text_size=7.8, text_halign="left")
+ts_bold = Styles.DarkBold.patch(text_size=8.5)
 
 # 1. Scaffold: drawlib init
 rectangle((23.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.MutedDashed)
 rectangle((23.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.SecondaryFlat, text="1. drawlib init", text_style=header_ts)
 
 phosphor.terminal_window(xy=(11.0, 31.0), width=5.0, style=Styles.Secondary)
-text((16.0, 31.0), text="-o report\nSynchronized name & path", style=ts_sec_body)
+text((16.0, 31.0), text="init doc report\nAuto-resolves report_src/", style=ts_body)
 
 phosphor.palette(xy=(11.0, 21.5), width=5.0, style=Styles.Secondary)
-text((16.0, 21.5), text="-s google\nUnified CSS & Python theme", style=ts_sec_body)
+text((16.0, 21.5), text="-s google\nUnified CSS & Python theme", style=ts_body)
 
 phosphor.translate(xy=(11.0, 12.0), width=5.0, style=Styles.Secondary)
-text((16.0, 12.0), text="-l en\nEnglish typography stack", style=ts_sec_body)
+text((16.0, 12.0), text="-l en\nEnglish typography stack", style=ts_body)
 
 # Arrow 1
-line((42.0, 24.0), (49.0, 24.0), arrow_head="->", style=Styles.PrimaryBold)
-text((45.5, 27.5), text="Scaffold", style=Styles.SecondaryBold.patch(text_size=8.5))
+line((42.0, 24.0), (49.0, 24.0), arrow_head="->", style=Styles.DarkBold)
+text((45.5, 27.5), text="Scaffold", style=ts_bold)
 
 # 2. Source Directory: report_src/ (Source of Truth)
 rectangle((67.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
@@ -65,45 +64,44 @@ phosphor.play_circle(xy=(55.0, 12.0), width=5.0, style=Styles.Primary)
 text((60.0, 12.0), text="build.sh\nAutomated build script", style=ts_body)
 
 # Arrow 2
-line((86.0, 24.0), (93.0, 24.0), arrow_head="->", style=Styles.PrimaryBold)
-text((89.5, 27.5), text="build.sh", style=Styles.PrimaryBold.patch(text_size=8.5))
+line((86.0, 24.0), (93.0, 24.0), arrow_head="->", style=Styles.DarkBold)
+text((89.5, 27.5), text="build.sh", style=ts_bold)
 
 # 3. Deliverable: report.pdf
 rectangle((111.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.AccentOutline)
 rectangle((111.5, 40.0), width=33.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="3. report.pdf (Output)", text_style=header_ts)
 
 phosphor.file_pdf(xy=(99.0, 31.0), width=5.0, style=Styles.Accent)
-text((104.0, 31.0), text="A4 Print Optimization\nChromium rendering engine", style=ts_acc_body)
+text((104.0, 31.0), text="A4 Print Optimization\nChromium rendering engine", style=ts_body)
 
 phosphor.list_numbers(xy=(99.0, 21.5), width=5.0, style=Styles.Accent)
-text((104.0, 21.5), text="Automatic TOC\nPage numbers in sync", style=ts_acc_body)
+text((104.0, 21.5), text="Automatic TOC\nPage numbers in sync", style=ts_body)
 
 phosphor.image(xy=(99.0, 12.0), width=5.0, style=Styles.Accent)
-text((104.0, 12.0), text="Vector Graphics\nHigh-res inline diagrams", style=ts_acc_body)
+text((104.0, 12.0), text="Vector Graphics\nHigh-res inline diagrams", style=ts_body)
 ```
 
-### Synchronized Naming via `-o`
+### Automatic Path Resolution via Target Argument
 
-Specifying `-o report` establishes a synchronized pipeline:
-- **Source Directory**: Creates `my_report/report_src/`.
-- **Build Output**: Generates `my_report/report.pdf`.
+Specifying `drawlib init doc report` establishes a synchronized pipeline:
+- **Source Directory**: Creates `report_src/` in current working directory.
+- **Build Output**: Generates `report.pdf`, `report_html/`, and `report_markdown/`.
 
 ## 5.3 Directory Structure
 
 The scaffolded `report_src/` folder contains:
 
 ```text
-my_report/
-├── report_src/
-│   ├── 00_cover.md           # [Required] Title page and metadata
-│   ├── 01_overview.md        # Chapter 1 content
-│   ├── 02_design.md          # Chapter 2 content
-│   ├── style.css             # PDF stylesheet (Google Theme)
-│   ├── styles.py             # Drawing style definitions (GoogleStyles)
-│   ├── template.html         # Jinja2 print layout template
-│   ├── utils.py              # Project drawing helpers
-│   ├── build.sh              # [Executable] One-click build script
-│   └── README.md             # Project guide
+report_src/
+├── 00_cover.md           # [Required] Title page and metadata
+├── 01_overview.md        # Chapter 1 content
+├── 02_design.md          # Chapter 2 content
+├── style.css             # PDF stylesheet (Google Theme)
+├── styles.py             # Drawing style definitions (GoogleStyles)
+├── template.html         # Jinja2 print layout template
+├── utils.py              # Project drawing helpers
+├── build.sh              # [Executable] One-click build script
+└── README.md             # Project guide
 ```
 
 ## 5.4 Building the Document
@@ -112,7 +110,7 @@ To compile your Markdown documents into a polished PDF, run the generated `build
 
 ```bash
 # Execute build script
-./my_report/report_src/build.sh
+./report_src/build.sh
 ```
 
-When compilation finishes, `my_report/report.pdf` is ready for distribution.
+When compilation finishes, `report.pdf` is ready for distribution.

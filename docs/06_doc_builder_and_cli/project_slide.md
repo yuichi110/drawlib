@@ -11,14 +11,11 @@ Drawlib compiles your slide deck into both an **interactive HTML web presentatio
 Scaffold a presentation project using `drawlib init`:
 
 ```bash
-# Create in a new subdirectory:
-drawlib init slide my_deck/
+# Scaffold standard slide project in current directory (creates 'slide_src/'):
+drawlib init slide
 
-# With Google styling and custom output base name:
-drawlib init slide my_deck/ -o keynote -s google
-
-# Or scaffold directly in current working directory:
-drawlib init slide --here
+# With custom target name, theme, and language (creates 'my_deck_src/'):
+drawlib init slide my_deck -s google -l en
 ```
 
 ---

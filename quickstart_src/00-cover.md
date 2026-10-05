@@ -17,18 +17,18 @@ setup(width=120, height=48)
 # 1. Stage: Source Code & Markdown
 rectangle(xy=(18, 24), width=26, height=32, r=2.5, style=Styles.PrimaryOutline)
 phosphor.code(xy=(18, 30), width=9, style=Styles.Primary)
-text(xy=(18, 16), text="Declarative Python\n& Markdown", style=Styles.PrimaryBold.patch(text_size=9.5))
+text(xy=(18, 16), text="Declarative Python\n& Markdown", style=Styles.DarkBold.patch(text_size=9.5))
 
 # Transition 1
-line((31, 24), (43, 24), arrow_head="->", style=Styles.PrimaryBold)
+line((31, 24), (43, 24), arrow_head="->", style=Styles.DarkBold)
 
 # 2. Stage: Drawlib Engine
 circle(xy=(56, 24), radius=13, style=Styles.SecondaryOutline)
 phosphor.cpu(xy=(56, 29), width=8, style=Styles.Secondary)
-text(xy=(56, 18), text="drawlib\nEngine", style=Styles.SecondaryBold.patch(text_size=10))
+text(xy=(56, 18), text="drawlib\nEngine", style=Styles.DarkBold.patch(text_size=10))
 
 # Transition 2
-line((69, 24), (81, 24), arrow_head="->", style=Styles.PrimaryBold)
+line((69, 24), (81, 24), arrow_head="->", style=Styles.DarkBold)
 
 # 3. Stage: Unified Publication Outputs
 rectangle(xy=(98, 35), width=26, height=12, r=2, style=Styles.AccentFlat)

@@ -138,5 +138,51 @@ save()
 
 ---
 
+## 6. Callout Speech Bubbles (`bubblespeech`)
+
+For callouts, annotations, and explanatory speech bubbles, `bubblespeech` creates a speech bubble with an integrated pointer tail pointing directly at target coordinates:
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import circle, bubblespeech
+from drawlib.styles import Styles
+
+setup(width=110, height=50)
+
+# Target element
+node_xy = (22, 25)
+circle(node_xy, radius=9, style=Styles.SecondaryFlat, text="Node", text_style=Styles.WhiteBold)
+
+# Callout pointing to the edge of the target element
+bubblespeech(
+    xy=(44, 14),
+    width=52,
+    height=22,
+    tail_edge="left",
+    tail_start_ratio=0.35,
+    tail_vertex_xy=(31, 25),
+    tail_end_ratio=0.75,
+    style=Styles.PrimaryFlat,
+    text="Points to target element\nwith automatic tail",
+    text_style=Styles.WhiteBold,
+)
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_images/shapes_bubblespeech.png" alt="shapes_5" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Callout Speech Bubble</figcaption>
+</figure>
+
+
+
+- **`bubblespeech(xy, width, height, tail_edge, tail_start_ratio, tail_vertex_xy, tail_end_ratio, style=..., ...)`**: Draws a speech bubble whose tail originates from `tail_edge` and points to `tail_vertex_xy`. See [Speech and Code](../03_smartarts/speech_and_code.md) for detailed callout patterns.
+
+---
+
 > [!TIP]
 > For directed arrows (straight, right-angled, U-turn, arc, and chevron arrows), see **[Block Arrows](./arrows.md)**.
+

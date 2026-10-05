@@ -12,8 +12,13 @@
 | **`MindMapNode`** | Center `(x, y)` | Brainstorming nodes, radial feature maps, architectural taxonomy |
 | **`Cycle`** | Center `(x, y)` | Feedback loops, continuous monitoring lifecycles, SRE runbooks |
 | **`Pyramid`** | Bottom-Left `(x, y)` | Testing pyramids, security tier models, priority hierarchies |
+| **`BoxList`** | Top-Left `(x, y)` | Feature checklists, component listings, vertical card stacks |
+| **`BulletPoints`** | Top-Left `(x, y)` | Bulleted textual summaries, key takeaways, architectural principles |
+| **`GridLayout`** | Bottom-Left `(x, y)` | Uniform grid arrangements, dashboard widgets, matrix cells |
 | **`SourceCode`** | Top-Left `(x, y)` | Syntax-highlighted code blocks with line numbering |
-| **`bubblespeech`** | Bottom-Left `(x, y)` | Callouts, architectural notes, migration warnings |
+
+> [!NOTE]
+> For pointing speech bubbles and callout annotations, use `bubblespeech` from `drawlib.shapes`.
 
 ## Linear Workflow: `ChevronProcess`
 

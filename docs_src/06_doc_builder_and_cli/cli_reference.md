@@ -92,15 +92,14 @@ drawlib build image docs_src/ -o docs_images/ --grid
 Bootstraps new projects with standardized folder structures, configuration scripts, and build automations:
 
 ```bash
-drawlib init <TYPE> [DESTINATION] [OPTIONS]
+drawlib init <TYPE> [target] [OPTIONS]
 ```
 
-- `<TYPE>`: `site`, `doc`, `slide`, `image`, or `list`.
-- `-o`, `--output <name>`: Base project/artifact name (sets source folder to `<name>_src` and output to `<name>_html/`, `<name>.pdf`, etc.).
+- `<TYPE>`: Subcommand choosing project type: `doc`, `site`, `slide`, `images`, or `list`.
+- `[target]`: Base name for the project and source folder (creates `<target>_src/`). Defaults: `doc` for doc, `docs` for site, `slide` for slide, `images` for images.
 - `-s`, `--style <theme>`: Style preset theme (`default`, `google`, `monochrome`, etc.) configuring both `style.css` and `styles.py`.
-- `--here`: Scaffold directly in the current working directory without a wrapper folder.
-- `--force`: Overwrite existing files if directory is not empty.
-- `--lang <code/alias>`: Starter content language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.).
+- `-l`, `--lang <code>`: Starter content language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). Default: `en`.
+- `-f`, `--force`: Overwrite existing files if destination directory is not empty.
 
 ---
 

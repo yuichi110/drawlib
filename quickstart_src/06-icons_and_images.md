@@ -55,10 +55,10 @@ services = [
 for idx, (x, icon_fn, label) in enumerate(services):
     rectangle(xy=(x, 22), width=24, height=36, r=2, style=Styles.MutedDashed)
     icon_fn(xy=(x, 28), width=10, style=Styles.Primary)
-    text(xy=(x, 10), text=label, style=Styles.PrimaryBold.patch(text_size=8))
+    text(xy=(x, 10), text=label, style=Styles.DarkBold.patch(text_size=8))
     if idx < len(services) - 1:
         next_x = services[idx + 1][0]
-        line((x + 12, 28), (next_x - 12, 28), arrow_head="->", style=Styles.PrimaryBold)
+        line((x + 12, 28), (next_x - 12, 28), arrow_head="->", style=Styles.DarkBold)
 ```
 
 ## External Media & In-Memory Images (`drawlib.images`)

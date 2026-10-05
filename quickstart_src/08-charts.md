@@ -7,6 +7,7 @@
 - **`BarChart`**: Grouped and stacked bars with vertical or horizontal orientation and optional value labels.
 - **`LineChart` & `AreaChart`**: Continuous trend lines, splines, markers, and filled cumulative areas.
 - **`PieChart` & `RadarChart`**: Proportional slices, donut rings, and multivariate spider web diagrams.
+- **`ScatterChart`**: Distribution plots, latency correlations, and cluster maps.
 - **`GanttChart`**: Project milestones, sprint roadmaps, and task dependency schedules.
 
 ## Grouped Bar Chart Example
@@ -23,11 +24,11 @@ chart = BarChart(
     axis_line_style=Styles.MutedDashed,
     axis_text_style=Styles.Muted.patch(text_size=9.5),
     grid_style=Styles.MutedLight,
-    value_text_style=Styles.PrimaryBold.patch(text_size=8.5),
+    value_text_style=Styles.DarkBold.patch(text_size=8.5),
     width=90,
     height=48,
     title="Quarterly Cloud vs On-Premises Throughput",
-    title_style=Styles.PrimaryBold.patch(text_size=12.0),
+    title_style=Styles.DarkBold.patch(text_size=12.0),
 )
 
 chart.add_series("Cloud Native", [48.0, 72.0, 96.0, 134.0], style=Styles.PrimaryFlat)
@@ -54,7 +55,7 @@ chart = LineChart(
     width=90,
     height=48,
     title="24-Hour API Gateway Latency Trend",
-    title_style=Styles.PrimaryBold.patch(text_size=12.0),
+    title_style=Styles.DarkBold.patch(text_size=12.0),
     show_points=True,
 )
 

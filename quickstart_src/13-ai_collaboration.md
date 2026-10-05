@@ -32,13 +32,13 @@ steps = [
 for x, icon_fn, title, desc, st in steps:
     rectangle((x, 32), width=23, height=28, r=2, style=Styles.MutedDashed)
     icon_fn(xy=(x, 38), width=6, style=st)
-    text(xy=(x, 29), text=title, style=Styles.PrimaryBold.patch(text_size=8))
-    text(xy=(x, 21), text=desc, style=Styles.Primary.patch(text_size=7))
+    text(xy=(x, 29), text=title, style=Styles.DarkBold.patch(text_size=8))
+    text(xy=(x, 21), text=desc, style=Styles.Dark.patch(text_size=7))
 
 # Forward connectors
-line((26.5, 32), (30.5, 32), arrow_head="->", style=Styles.PrimaryBold)
-line((53.5, 32), (57.5, 32), arrow_head="->", style=Styles.PrimaryBold)
-line((80.5, 32), (84.5, 32), arrow_head="->", style=Styles.PrimaryBold)
+line((26.5, 32), (30.5, 32), arrow_head="->", style=Styles.DarkBold)
+line((53.5, 32), (57.5, 32), arrow_head="->", style=Styles.DarkBold)
+line((80.5, 32), (84.5, 32), arrow_head="->", style=Styles.DarkBold)
 
 # Self-Correction Feedback Loop
 line_curved((96, 17), (42, 17), bend=-0.3, arrow_head="->", style=Styles.DangerDashedBold)

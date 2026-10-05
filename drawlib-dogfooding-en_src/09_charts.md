@@ -46,3 +46,4 @@ chart.draw(xy=(6.0, 5.0))
 - **`LineChart` / `AreaChart`**: Trend plots and multi-series metric tracking.
 - **`PieChart`**: Proportional slices with smart label anti-collision.
 - **`RadarChart`**: Multi-dimensional capability matrices.
+- **`ScatterChart`**: Distribution plots, latency correlations, and cluster analysis.

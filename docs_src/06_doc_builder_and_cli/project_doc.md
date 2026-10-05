@@ -11,14 +11,11 @@ By unifying single-page specs and multi-chapter reports into a single archetype,
 Scaffold a linear document project using `drawlib init`:
 
 ```bash
-# Create in a new subdirectory:
-drawlib init doc my_doc/
+# Scaffold standard doc project in current directory (creates 'doc_src/'):
+drawlib init doc
 
-# With custom theme, language, and output base name:
-drawlib init doc my_report/ -o rbac -s google -l en
-
-# Or scaffold directly in current working directory:
-drawlib init doc --here
+# With custom target name, theme, and language (creates 'my_report_src/'):
+drawlib init doc my_report -s google -l en
 ```
 
 ---

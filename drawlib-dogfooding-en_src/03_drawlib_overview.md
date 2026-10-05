@@ -19,9 +19,15 @@ With Drawlib, you never waste time tweaking arbitrary RGB hex codes. It provides
 - **`Styles.Secondary`**: External entities, user actors, and clients (Slate / Indigo)
 - **`Styles.Accent`**: Highlighted features and auxiliary components (Amber / Teal)
 - **`Styles.Muted`**: Boundary containers, structural grids, and subtle annotations (Light Gray)
-- **`Styles.Success` / `Styles.Warning` / `Styles.Danger`**: Operational statuses, alerts, and errors
+- **`Styles.Success` / `Styles.Danger`**: Operational statuses, health checks, alerts, and errors
 
-Every color role includes variants such as `_flat` (solid fill), `_outline` (bordered), `_bold` (thick line), and `_dashed` (dashed border).
+Every color role includes standardized PascalCase design tokens such as `PrimaryFlat` (solid fill), `PrimaryOutline` (bordered), `PrimaryBold` (thick line), and `PrimaryDashed` (dashed border).
+
+### Principles of Neutral Typography and Connectors
+
+To maintain high contrast, professional aesthetics, and visual clarity:
+- **Neutral Typography**: On light backgrounds, text MUST default to `Styles.Dark` or `Styles.DarkBold`. Inside dark-filled shapes, use `Styles.WhiteBold` or `Styles.Light`. Never apply colors (`Primary`, `Secondary`, `Accent`) to text without explicit semantic necessity.
+- **Neutral Connectors**: Standard workflow lines, arrows, and sequential transitions default to `Styles.DarkBold`. Reserve accent and status colors (`Styles.Primary`, `Styles.Accent`, `Styles.Danger`) strictly for critical flow paths, active connections, or error loops.
 
 ## 3.3 Typography and Multilingual Support
 

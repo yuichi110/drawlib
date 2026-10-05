@@ -8,10 +8,10 @@ Establish an unambiguous reading order by adhering to a consistent text hierarch
 
 | Hierarchy Level | Recommended Size | Recommended Style | Typical Placement |
 | :--- | :--- | :--- | :--- |
-| **Diagram Title** | `14–18` | `Styles.PrimaryBold` | Top of canvas or figure caption |
+| **Diagram Title** | `14–18` | `Styles.DarkBold` | Top of canvas or figure caption |
 | **Container / Boundary** | `10–12` | `Styles.MutedBold` | Top-left of boundary boxes |
 | **Service / Node Title** | `9–11` | `Styles.WhiteBold` (or `bold`) | Centered inside service cards |
-| **Subtitle / Tech Stack** | `7.5–8.5` | `Styles.White` (or `primary`) | Below node titles (`fastapi / :8000`) |
+| **Subtitle / Tech Stack** | `7.5–8.5` | `Styles.Dark` (or `Styles.Muted`) | Below node titles (`fastapi / :8000`) |
 | **Annotation / Metadata** | `7–8` | `Styles.Muted` | Connector protocols, IP subnets |
 
 ## 2. Perimeter Margins & Spacing
@@ -41,15 +41,15 @@ rules = [
 for x, icon_fn, title, desc, st in rules:
     rectangle(xy=(x, 24), width=24, height=36, r=2.5, style=Styles.MutedDashed)
     icon_fn(xy=(x, 34), width=7, style=st)
-    text(xy=(x, 25), text=title, style=Styles.PrimaryBold.patch(text_size=8.5))
-    text(xy=(x, 14), text=desc, style=Styles.Primary.patch(text_size=7.5))
+    text(xy=(x, 25), text=title, style=Styles.DarkBold.patch(text_size=8.5))
+    text(xy=(x, 14), text=desc, style=Styles.Dark.patch(text_size=7.5))
 ```
 
 ## 4. Semantic Coordinates Pattern (`*_xy`)
 
 Avoid scattering raw coordinate literals `(50, 25)` or cryptic list indices (`a[1]`) across drawing calls. Define meaningful coordinate variables (e.g. `client_xy = (25, 25)`, `gateway_xy = (65, 25)`) at the beginning of the block:
 - **Refactoring Resilience**: Repositioning a node automatically updates both its shape and all incoming/outgoing connection lines.
-- **Self-Documenting Flows**: Connectors read with immediate clarity: `line(client_xy, gateway_xy, arrow_head="->", style=Styles.PrimaryBold)`.
+- **Self-Documenting Flows**: Connectors read with immediate clarity: `line(client_xy, gateway_xy, arrow_head="->", style=Styles.DarkBold)`.
 
 ## Summary Checklist for Production Blueprints
 
@@ -59,6 +59,7 @@ Before merging illustrations into production documentation:
 - [ ] **Explicit Naming**: Does every block specify `file:<name>.png` for deterministic referencing?
 - [ ] **Semantic Coordinates**: Are coordinates organized via named variables (`*_xy`) rather than raw magic literals?
 - [ ] **Aspect Ratio**: Is the canvas `width` and `height` proportioned to the diagram contents without wasted letterbox space?
-- [ ] **Contrast Verification**: Is text easily readable across dark and light backgrounds?
+- [ ] **Contrast Verification**: Is text easily readable across dark (use `Styles.WhiteBold`) and light (use `Styles.Dark` / `Styles.DarkBold`) backgrounds?
+- [ ] **Neutral Connectors**: Are standard flow connectors styled with `Styles.DarkBold`, reserving colors strictly for semantic emphasis?
 - [ ] **Connected Flows**: Do connecting lines have directional arrowheads indicating data flow direction?
 - [ ] **Incremental Verification**: Has the block been tested with `uv run drawlib show <file> <name.png> -g -o .drawlib/scratch/test.png`?

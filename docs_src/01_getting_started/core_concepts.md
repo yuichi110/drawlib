@@ -33,12 +33,12 @@ rectangle((55, 32), width=44, height=20, style=Styles.PrimaryFlat, text="Centere
 circle((55, 32), radius=1.5, style=Styles.AccentFlat)
 
 # Y-axis
-line((4, 8), (4, 52), arrow_head="->", style=Styles.PrimaryBold)
-text((8, 50), "+Y (Upwards)", style=Styles.PrimaryBold)
+line((4, 8), (4, 52), arrow_head="->", style=Styles.DarkBold)
+text((8, 50), "+Y (Upwards)", style=Styles.DarkBold)
 
 # X-axis
-line((8, 4), (45, 4), arrow_head="->", style=Styles.PrimaryBold)
-text((32, 7), "+X (Rightwards)", style=Styles.PrimaryBold)
+line((8, 4), (45, 4), arrow_head="->", style=Styles.DarkBold)
+text((32, 7), "+X (Rightwards)", style=Styles.DarkBold)
 ```
 
 ---

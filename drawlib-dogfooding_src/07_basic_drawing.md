@@ -35,11 +35,11 @@ circle((88, 21), radius=9, style=Styles.AccentFlat, text="DB Cluster", text_styl
 phosphor.database(xy=(88, 34), width=6, style=Styles.Accent)
 
 # 接続線と矢印
-line((32, 21), (42, 21), arrow_head="->", style=Styles.PrimaryBold)
-text((37, 24), "HTTPS", style=Styles.Primary.patch(text_size=9))
+line((32, 21), (42, 21), arrow_head="->", style=Styles.DarkBold)
+text((37, 24), "HTTPS", style=Styles.DarkBold.patch(text_size=9))
 
-line((68, 21), (79, 21), arrow_head="->", style=Styles.PrimaryBold)
-text((73.5, 24), "SQL", style=Styles.Accent.patch(text_size=9))
+line((68, 21), (79, 21), arrow_head="->", style=Styles.DarkBold)
+text((73.5, 24), "SQL", style=Styles.DarkBold.patch(text_size=9))
 ```
 
 ## 7.3 主要な描画関数一覧

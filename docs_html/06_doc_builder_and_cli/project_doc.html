@@ -316,14 +316,11 @@
 <hr />
 <h2>1. Project Initialization</h2>
 <p>Scaffold a linear document project using <code>drawlib init</code>:</p>
-<pre><code class="language-bash"><span class="c1"># Create in a new subdirectory:</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_doc/
+<pre><code class="language-bash"><span class="c1"># Scaffold standard doc project in current directory (creates &#39;doc_src/&#39;):</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>doc
 
-<span class="c1"># With custom theme, language, and output base name:</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_report/<span class="w"> </span>-o<span class="w"> </span>rbac<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
-
-<span class="c1"># Or scaffold directly in current working directory:</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>--here
+<span class="c1"># With custom target name, theme, and language (creates &#39;my_report_src/&#39;):</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
 </code></pre>
 <hr />
 <h2>2. Directory Layout &amp; Anatomy</h2>

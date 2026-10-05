@@ -19,9 +19,15 @@ Drawlib では、作図のたびに RGB 値を迷う必要はありません。�
 - **`Styles.Secondary`**: 外部システムやクライアント（スレート・インディゴ系）
 - **`Styles.Accent`**: 注目させたいハイライトや補助サービス（アンバー・ティール系）
 - **`Styles.Muted`**: 境界枠や補助注記、背景コンテナ（薄いグレー系）
-- **`Styles.Success` / `Styles.Warning` / `Styles.Error`**: 正常・警告・異常ステータス
+- **`Styles.Success` / `Styles.Danger`**: 正常ステータス（緑系）および異常・警告・エラー（赤系）
 
-各カラーには `_flat`（塗りつぶし）、`_outline`（枠線）、`_bold`（太線）、`_dashed`（破線）などのバリアントが用意されています。
+各カラーには `PrimaryFlat`（塗りつぶし）、`PrimaryOutline`（枠線）、`PrimaryBold`（太線）、`PrimaryDashed`（破線）などの PascalCase 定数トークンが用意されています。
+
+### テキストおよび接続線のニュートラルカラー原則
+
+視認性の確保と見やすいレイアウトのため、以下の基本ルールが定められています:
+- **ニュートラルタイポグラフィ**: 背景が明るい場合は **`Styles.Dark`** または **`Styles.DarkBold`** を基本とします。背景が濃い塗りつぶしノード内部では **`Styles.WhiteBold`** または **`Styles.Light`** を使用します（意味なく文字に `Primary` や `Secondary` を選ぶことは避けます）。
+- **ニュートラルコネクタ**: 通常の処理進行や接続線・矢印は **`Styles.DarkBold`** を推奨します。`Styles.Primary` や `Styles.Danger` などのカラー矢印は、クリティカル動線やエラーロールバックなど、強調すべき意味がある場合のみ使用します。
 
 ## 3.3 日本語フォント・CJK の完全サポート
 

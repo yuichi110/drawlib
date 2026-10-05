@@ -8,7 +8,14 @@
 - **`Table`**: Structured comparison matrices with header styling and custom borders.
 - **`MindMapNode`**: Radial and branching idea maps.
 - **`TreeNode`**: Hierarchical organization charts and directory trees.
-- **`bubblespeech`**: Pointed callouts and annotations.
+- **`Cycle`**: Continuous feedback loops and lifecycle workflows.
+- **`Pyramid`**: Testing pyramids, security tier models, and priority hierarchies.
+- **`BoxList` / `BulletPoints`**: Organized card stacks and bulleted summaries.
+- **`GridLayout`**: Matrix-based dashboard layouts.
+- **`SourceCode`**: Syntax-highlighted code blocks with line numbering.
+
+> [!NOTE]
+> For pointing speech bubbles and callout annotations, use `bubblespeech` from `drawlib.shapes`.
 
 ## 8.2 Release Pipeline and Feature Matrix Example
 
@@ -38,7 +45,7 @@ pipeline.draw(xy=(8, 48), width=94, height=12)
 # 2. Feature Matrix (Table)
 table = Table(
     cell_style=Styles.White,
-    text_style=Styles.Primary,
+    text_style=Styles.Dark,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
     border_style=Styles.MutedDashed,

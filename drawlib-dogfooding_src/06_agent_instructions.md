@@ -13,57 +13,55 @@ from drawlib.text import text
 setup(width=142, height=54)
 
 header_ts = Styles.WhiteBold.patch(text_size=10.0)
-ts_pri_body = Styles.Primary.patch(text_size=7.8, text_halign="left")
-ts_acc_body = Styles.Accent.patch(text_size=7.8, text_halign="left")
-ts_suc_body = Styles.Success.patch(text_size=7.8, text_halign="left")
+ts_body = Styles.Dark.patch(text_size=7.8, text_halign="left")
 
 # 1. Drawlib (CLI & Knowledge Base)
 rectangle((22.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
 rectangle((22.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="Drawlib (CLI & ナレッジ)", text_style=header_ts)
 
 phosphor.book_bookmark(xy=(9.5, 31.0), width=4.5, style=Styles.Primary)
-text((13.5, 31.0), text="drawlib rules show\nAPI仕様・作図ルールを提供", style=ts_pri_body)
+text((13.5, 31.0), text="drawlib rules show\nAPI仕様・作図ルールを提供", style=ts_body)
 
 phosphor.terminal_window(xy=(9.5, 21.5), width=4.5, style=Styles.Primary)
-text((13.5, 21.5), text="drawlib show -g\nミリ単位の座標グリッド出力", style=ts_pri_body)
+text((13.5, 21.5), text="drawlib show -g\nミリ単位の座標グリッド出力", style=ts_body)
 
 phosphor.gear(xy=(9.5, 12.0), width=4.5, style=Styles.Primary)
-text((13.5, 12.0), text="drawlib build\nPDF / HTML の自動コンパイル", style=ts_pri_body)
+text((13.5, 12.0), text="drawlib build\nPDF / HTML の自動コンパイル", style=ts_body)
 
 # 2. AI Agent (Cursor / Claude / Gemini)
 rectangle((71.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.AccentOutline)
 rectangle((71.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="AI Agent (自律パートナー)", text_style=header_ts)
 
 phosphor.chats(xy=(58.5, 31.0), width=4.5, style=Styles.Accent)
-text((62.5, 31.0), text="1. 知識のオンデマンド対話\nDrawlib から必要な構文を調査", style=ts_acc_body)
+text((62.5, 31.0), text="1. 知識のオンデマンド対話\nDrawlib から必要な構文を調査", style=ts_body)
 
 phosphor.code(xy=(58.5, 21.5), width=4.5, style=Styles.Accent)
-text((62.5, 21.5), text="2. スクラッチで安全に試作\n.drawlib/scratch/ で描画テスト", style=ts_acc_body)
+text((62.5, 21.5), text="2. スクラッチで安全に試作\n.drawlib/scratch/ で描画テスト", style=ts_body)
 
 phosphor.eye(xy=(58.5, 12.0), width=4.5, style=Styles.Accent)
-text((62.5, 12.0), text="3. 視覚的セルフレビュー\n重なり・文字溢れを自動検知修正", style=ts_acc_body)
+text((62.5, 12.0), text="3. 視覚的セルフレビュー\n重なり・文字溢れを自動検知修正", style=ts_body)
 
 # 3. Docs / Illustration (最終成果物)
 rectangle((120.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.SuccessOutline)
 rectangle((120.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.SuccessFlat, text="Docs / Illustration", text_style=header_ts)
 
 phosphor.file_text(xy=(107.5, 31.0), width=4.5, style=Styles.Success)
-text((111.5, 31.0), text="*.md 技術仕様書\nインライン ```drawlib``` 統合", style=ts_suc_body)
+text((111.5, 31.0), text="*.md 技術仕様書\nインライン ```drawlib``` 統合", style=ts_body)
 
 phosphor.file_pdf(xy=(107.5, 21.5), width=4.5, style=Styles.Success)
-text((111.5, 21.5), text="*.pdf / Web サイト\n美しい図解入りの配布成果物", style=ts_suc_body)
+text((111.5, 21.5), text="*.pdf / Web サイト\n美しい図解入りの配布成果物", style=ts_body)
 
 phosphor.git_branch(xy=(107.5, 12.0), width=4.5, style=Styles.Success)
-text((111.5, 12.0), text="Git バージョン管理\nPR で図版のコード差分レビュー", style=ts_suc_body)
+text((111.5, 12.0), text="Git バージョン管理\nPR で図版のコード差分レビュー", style=ts_body)
 
 # 接続線 (Drawlib <-> AI -> Docs)
-line((39.5, 24.0), (53.5, 24.0), arrow_head="<->", style=Styles.PrimaryBold)
-text((46.5, 28.5), text="Rules 検索 & 対話", style=Styles.PrimaryBold.patch(text_size=8.0))
-text((46.5, 19.5), text="仕様 / 座標グリッド", style=Styles.AccentBold.patch(text_size=7.5))
+line((39.5, 24.0), (53.5, 24.0), arrow_head="<->", style=Styles.DarkBold)
+text((46.5, 28.5), text="Rules 検索 & 対話", style=Styles.DarkBold.patch(text_size=8.0))
+text((46.5, 19.5), text="仕様 / 座標グリッド", style=Styles.Dark.patch(text_size=7.5))
 
-line((88.5, 24.0), (102.5, 24.0), arrow_head="->", style=Styles.PrimaryBold)
-text((95.5, 28.5), text="確定コード出力", style=Styles.SuccessBold.patch(text_size=8.0))
-text((95.5, 19.5), text="ドキュメント自動同期", style=Styles.MutedBold.patch(text_size=7.5))
+line((88.5, 24.0), (102.5, 24.0), arrow_head="->", style=Styles.DarkBold)
+text((95.5, 28.5), text="確定コード出力", style=Styles.DarkBold.patch(text_size=8.0))
+text((95.5, 19.5), text="ドキュメント自動同期", style=Styles.Dark.patch(text_size=7.5))
 ```
 
 ## 6.1 組み込みルールシステムの活用 (`drawlib rules`)

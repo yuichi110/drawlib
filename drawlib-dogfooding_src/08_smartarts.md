@@ -8,7 +8,14 @@
 - **`Table`**: 均等セル配置、ヘッダー強調、罫線装飾を備えたデータ比較テーブル。
 - **`MindMapNode`**: 放射状または特定方向に広がるアイデアマップ・機能構造図。
 - **`TreeNode`**: 組織図やディレクトリツリーを表す階層構造図。
-- **`bubblespeech`**: 特定のノードやボトルネックを指し示すコールアウト吹き出し。
+- **`Cycle`**: フィードバックループや継続的改善サイクル図。
+- **`Pyramid`**: テストピラミッドやセキュリティ階層モデル。
+- **`BoxList` / `BulletPoints`**: 箇条書きやカードスタックの整列配置。
+- **`GridLayout`**: 均等グリッドによるダッシュボード風レイアウト。
+- **`SourceCode`**: シンタックスハイライト付きコードブロック表示。
+
+> [!NOTE]
+> 特定のノードを指し示すコールアウト吹き出しは、基本図形モジュール `drawlib.shapes.bubblespeech` から利用できます。
 
 ## 8.2 パイプラインと機能比較の作成例
 
@@ -38,7 +45,7 @@ pipeline.draw(xy=(8, 48), width=94, height=12)
 # 2. 比較表の定義 (Table)
 table = Table(
     cell_style=Styles.White,
-    text_style=Styles.Primary,
+    text_style=Styles.Dark,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
     border_style=Styles.MutedDashed,

@@ -20,6 +20,12 @@ Each semantic role provides **10 orthogonal style variants**:
 - **Outlines**: `outline`, `outline_bold`, `outline_light`
 - **Dashed Lines**: `dashed`, `dashed_bold`, `dashed_light`
 
+### Neutral Typography & Connectors Principles
+
+To maintain high contrast and prevent visual clutter:
+- **Neutral Typography**: Text on light backgrounds should always use `Styles.Dark` or `Styles.DarkBold`. On dark fills, use `Styles.WhiteBold` or `Styles.Light`. Avoid coloring body text with `Styles.Primary` or `Styles.Secondary` arbitrarily.
+- **Neutral Connectors**: Connecting lines and flow arrows default to `Styles.DarkBold`. Reserve accent colors (`Styles.Primary`, `Styles.Danger`) strictly for meaningful architectural emphasis or error loops.
+
 ```drawlib 640px center file:styles_semantic_roles.png caption:"Figure 5.1: The 6 Semantic Roles Across Core Style Variants"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
@@ -38,13 +44,13 @@ roles = [
 ]
 
 for x, label, st_flat, st_out, st_dash in roles:
-    text((x, 48), label, style=Styles.PrimaryBold.patch(text_size=9))
+    text((x, 48), label, style=Styles.DarkBold.patch(text_size=9))
     # Flat box
     rectangle((x, 37), width=15, height=12, r=1.5, style=st_flat, text="flat", text_style=Styles.WhiteBold)
     # Outline box
-    rectangle((x, 22), width=15, height=12, r=1.5, style=st_out, text="outline", text_style=Styles.Primary)
+    rectangle((x, 22), width=15, height=12, r=1.5, style=st_out, text="outline", text_style=Styles.Dark)
     # Dashed box
-    rectangle((x, 7), width=15, height=12, r=1.5, style=st_dash, text="dashed", text_style=Styles.Primary)
+    rectangle((x, 7), width=15, height=12, r=1.5, style=st_dash, text="dashed", text_style=Styles.Dark)
 ```
 
 ## Creating Custom Styles with `.patch()`
@@ -89,6 +95,6 @@ type_samples = [
 for x, title, sub, font_obj, st in type_samples:
     rectangle((x, 22), width=34, height=36, r=2.5, style=Styles.MutedDashed)
     rectangle((x, 32), width=30, height=10, r=1.5, style=st, text=title, text_style=Styles.WhiteBold)
-    text((x, 20), sub, style=Styles.PrimaryBold.patch(text_size=7.5))
-    text((x, 11), "Quick brown fox jumps\n1234567890", style=Styles.Primary.patch(text_font=font_obj, text_size=7.5))
+    text((x, 20), sub, style=Styles.DarkBold.patch(text_size=7.5))
+    text((x, 11), "Quick brown fox jumps\n1234567890", style=Styles.Dark.patch(text_font=font_obj, text_size=7.5))
 ```

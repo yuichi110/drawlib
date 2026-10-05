@@ -23,11 +23,11 @@ setup(width=120, height=55)
 rectangle(xy=(60, 27.5), width=108, height=45, r=2, style=Styles.MutedDashed)
 
 # Coordinate axes
-line((12, 10), (110, 10), arrow_head="->", style=Styles.PrimaryBold)
-text((112, 10), "X", style=Styles.PrimaryBold.patch(text_size=11))
+line((12, 10), (110, 10), arrow_head="->", style=Styles.DarkBold)
+text((112, 10), "X", style=Styles.DarkBold.patch(text_size=11))
 
-line((16, 6), (16, 48), arrow_head="->", style=Styles.PrimaryBold)
-text((16, 50), "Y", style=Styles.PrimaryBold.patch(text_size=11))
+line((16, 6), (16, 48), arrow_head="->", style=Styles.DarkBold)
+text((16, 50), "Y", style=Styles.DarkBold.patch(text_size=11))
 
 # Origin marker
 circle((16, 10), radius=1.5, style=Styles.AccentFlat)

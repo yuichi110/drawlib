@@ -57,7 +57,10 @@ Drawlib provides straight, curved, bezier, and multi-segment chained lines with 
   - `line(xy1, xy2, arrow_head="->", style=...)`: Straight connection.
   - `line_curved(xy1, xy2, bend=0.25, arrow_head="->", style=...)`: Smooth arc with defined bend curve.
   - `line_bezier1(xy1, xy2, cp, ...)` / `line_bezier2`: Bezier paths with control points.
-  - `lines(points=[(x1, y1), (x2, y2), ...], ...)`: Polyline connecting arbitrary waypoints.
+  - `lines(xys=[(x1, y1), (x2, y2), ...], ...)`: Polyline connecting arbitrary waypoints.
+
+> [!TIP]
+> **Neutral Connectors Principle**: Always use `Styles.DarkBold` (or `Styles.LightBold` on dark backgrounds) for standard sequential lines and arrows. Reserve colors (`Styles.Primary`, `Styles.Accent`, `Styles.Danger`) strictly for meaningful distinctions, such as primary data flows or error rollbacks.
 
 ```drawlib 620px center file:lines_connections.png caption:"Figure 4.2: Connecting Lines, Curvature, and Arrowheads"
 from drawlib.canvas import setup
@@ -74,12 +77,12 @@ circle((60, 35), radius=8, style=Styles.SecondaryFlat, text="B", text_style=Styl
 circle((100, 23), radius=8, style=Styles.AccentFlat, text="C", text_style=Styles.WhiteBold)
 
 # 1. Straight Line A -> B
-line((28, 25), (52, 33), arrow_head="->", style=Styles.PrimaryBold)
-text((38, 33), "Direct", style=Styles.PrimaryBold.patch(text_size=8.5))
+line((28, 25), (52, 33), arrow_head="->", style=Styles.DarkBold)
+text((38, 33), "Direct", style=Styles.DarkBold.patch(text_size=8.5))
 
 # 2. Curved Arc B -> C
-line_curved((68, 35), (92, 25), bend=0.25, arrow_head="->", style=Styles.SecondaryBold)
-text((84, 35), "Curved Arc", style=Styles.SecondaryBold.patch(text_size=8.5))
+line_curved((68, 35), (92, 25), bend=0.25, arrow_head="->", style=Styles.DarkBold)
+text((84, 35), "Curved Arc", style=Styles.DarkBold.patch(text_size=8.5))
 
 # 3. Chained Orthogonal Path A -> C
 lines([(20, 15), (20, 8), (100, 8), (100, 15)], arrow_head="->", style=Styles.MutedDashedBold)
