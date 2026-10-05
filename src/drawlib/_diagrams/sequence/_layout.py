@@ -17,18 +17,10 @@ from drawlib._diagrams.sequence._block import Block
 from drawlib._diagrams.sequence._message import Message
 from drawlib._diagrams.sequence._note import Note
 from drawlib._diagrams.sequence._participant import Participant
-from drawlib._diagrams.sequence._types import DiagramPadding, PaddingType
+from drawlib._diagrams.sequence._types import PaddingType
 
 if TYPE_CHECKING:
     from drawlib._diagrams.sequence._diagram import SequenceDiagram
-
-
-def parse_diagram_padding(padding: DiagramPadding) -> tuple[float, float, float, float]:
-    """Parse padding into (top, right, bottom, left)."""
-    if isinstance(padding, (int, float)):
-        val = float(padding)
-        return val, val, val, val
-    return float(padding[0]), float(padding[1]), float(padding[2]), float(padding[3])
 
 
 def parse_message_padding(padding: PaddingType) -> tuple[float, float]:
@@ -212,7 +204,7 @@ def _resolve_activations(
 
 def compute_diagram_size(diagram: SequenceDiagram) -> tuple[float, float]:
     """Compute diagram overall dimensions."""
-    pad_top, pad_right, pad_bottom, pad_left = parse_diagram_padding(diagram.padding)
+    pad_top = pad_right = pad_bottom = pad_left = float(diagram.margin)
     participant_x_map = compute_x_coordinates(diagram, pad_left)
 
     max_x = max(participant_x_map.values(), default=50.0)

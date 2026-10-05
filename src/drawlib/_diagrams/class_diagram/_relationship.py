@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, cast
 
 from drawlib._diagrams.class_diagram._types import RelationshipType, RoutingType, Side
 
@@ -64,6 +64,15 @@ class ClassRelationship:
             routing: Path routing strategy ('orthogonal' or 'direct').
             padding: Gap distance between class borders and line endpoints.
         """
+        type_aliases: dict[str, str] = {
+            "inherit": "inheritance",
+            "realize": "realization",
+            "composite": "composition",
+            "aggregate": "aggregation",
+            "associate": "association",
+            "depend": "dependency",
+        }
+        resolved_type = type_aliases.get(relationship_type, relationship_type)
         valid_types = {
             "inheritance",
             "realization",
@@ -72,7 +81,7 @@ class ClassRelationship:
             "association",
             "dependency",
         }
-        if relationship_type not in valid_types:
+        if resolved_type not in valid_types:
             raise ValueError(f"Invalid relationship_type: {relationship_type!r}. Must be one of {sorted(valid_types)}.")
 
         valid_sides = {"left", "right", "top", "bottom", "auto"}
@@ -87,7 +96,7 @@ class ClassRelationship:
 
         self.start = start
         self.end = end
-        self.relationship_type: RelationshipType = relationship_type
+        self.relationship_type: RelationshipType = cast(RelationshipType, resolved_type)
         self.start_side: Side = start_side
         self.end_side: Side = end_side
         self.label = label

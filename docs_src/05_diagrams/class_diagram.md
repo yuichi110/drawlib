@@ -61,20 +61,20 @@ save()
 
 ---
 
-## 3. The 6 UML Relationship Verbs
+## 3. The 6 UML Relationship Types
 
-Drawlib provides dedicated semantic methods for the 6 core UML relationships instead of generic line drawing:
+Relationships between classes are registered cleanly at the diagram level via `cd.connect(source, target, relationship_type=...)`:
 
-| Verb Method | Relationship | Line Stroke | End Marker | Semantic Meaning |
+| `relationship_type` | Relationship | Line Stroke | End Marker | Semantic Meaning |
 |---|---|---|---|---|
-| `child.inherit(parent)` | **Inheritance** | Solid | Hollow Triangle (at parent) | Superclass generalization |
-| `impl.realize(iface)` | **Realization** | Dashed | Hollow Triangle (at iface) | Interface implementation |
-| `whole.composite(part)` | **Composition** | Solid | Filled Diamond (at whole) | Strong lifecycle ownership |
-| `whole.aggregate(part)` | **Aggregation** | Solid | Hollow Diamond (at whole) | Shared lifecycle / part-whole |
-| `c1.associate(c2)` | **Association** | Solid | None (or Open Arrow) | Structural reference |
-| `client.depend(supplier)` | **Dependency** | Dashed | Open Arrow (at supplier) | Uses-a dependency |
+| `"inheritance"` | **Inheritance** | Solid | Hollow Triangle (at target) | Superclass generalization |
+| `"realization"` | **Realization** | Dashed | Hollow Triangle (at target) | Interface implementation |
+| `"composition"` | **Composition** | Solid | Filled Diamond (at source) | Strong lifecycle ownership |
+| `"aggregation"` | **Aggregation** | Solid | Hollow Diamond (at source) | Shared lifecycle / part-whole |
+| `"association"` | **Association** | Solid | None (or Open Arrow) | Structural reference |
+| `"dependency"` | **Dependency** | Dashed | Open Arrow (at target) | Uses-a dependency |
 
-All relationship methods accept `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, and `label`.
+`cd.connect(...)` accepts `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, and `label`.
 
 ---
 
@@ -115,17 +115,19 @@ order.add_method("calculate_tax", return_type="float")
 iface = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=30.0), xy=(75.0, 60.0))
 iface.add_method("process_charge", params="amount: float", return_type="bool")
 
-# 2. Connect relationships using intuitive verbs
-customer.inherit(user, start_side="top", end_side="bottom")
-customer.composite(
+# 2. Connect relationships using diagram.connect
+cd.connect(customer, user, "inheritance", start_side="top", end_side="bottom")
+cd.connect(
+    customer,
     order,
+    "composition",
     start_side="right",
     end_side="left",
     start_multiplicity="1",
     end_multiplicity="*",
     label="places",
 )
-order.depend(iface, start_side="top", end_side="bottom", label="uses")
+cd.connect(order, iface, "dependency", start_side="top", end_side="bottom", label="uses")
 
 cd.draw(xy=(0.0, 0.0))
 save()
@@ -165,10 +167,12 @@ concrete_subj.add_method("get_state", return_type="str")
 concrete_obs = cd.add(ClassNode(name="EmailSubscriber", width=28.0), xy=(75.0, 20.0))
 concrete_obs.add_method("update", return_type="void")
 
-concrete_subj.realize(subj_iface, start_side="top", end_side="bottom")
-concrete_obs.realize(obs_iface, start_side="top", end_side="bottom")
-subj_iface.aggregate(
+cd.connect(concrete_subj, subj_iface, "realization", start_side="top", end_side="bottom")
+cd.connect(concrete_obs, obs_iface, "realization", start_side="top", end_side="bottom")
+cd.connect(
+    subj_iface,
     obs_iface,
+    "aggregation",
     start_side="right",
     end_side="left",
     start_multiplicity="1",

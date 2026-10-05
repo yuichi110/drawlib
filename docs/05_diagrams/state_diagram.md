@@ -58,7 +58,7 @@ active = sd.add(
 
 # Transition with guard and action
 init = sd.add(InitialState(), xy=(10.0, 40.0))
-init.to(active, event="login", guard="token_valid", action="init_session()")
+sd.connect(init, active, event="login", guard="token_valid", action="init_session()")
 ```
 
 ---

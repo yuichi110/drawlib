@@ -11,16 +11,18 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, overload
 
 from pydantic import validate_call
 
 import drawlib._diagrams.sequence._block as _block_module
+import drawlib._diagrams.sequence._group as _group_module
 import drawlib._diagrams.sequence._message as _message_module
 import drawlib._diagrams.sequence._note as _note_module
+import drawlib._diagrams.sequence._participant as _participant_module
 import drawlib._diagrams.sequence._renderer as _renderer_module
 from drawlib._core.l3_styles import Style
-from drawlib._diagrams.sequence._types import ArrowType, DiagramPadding, NotePosition
+from drawlib._diagrams.sequence._types import ArrowType, NotePosition
 
 if TYPE_CHECKING:
     from drawlib._diagrams.sequence._block import Block
@@ -46,7 +48,7 @@ class SequenceDiagram:
         height: float | None = None,
         col_width: float = 20.0,
         step_y: float = 7.0,
-        padding: DiagramPadding = 5.0,
+        margin: float = 5.0,
         style: Style | None = None,
         title_style: Style | None = None,
     ) -> None:
@@ -62,7 +64,7 @@ class SequenceDiagram:
             height: Optional fixed height of the diagram canvas area.
             col_width: Default horizontal spacing between participant lifelines. Defaults to 20.0.
             step_y: Default vertical advance per timeline message step. Defaults to 7.0.
-            padding: Margin clearance (float or (top, right, bottom, left) tuple). Defaults to 5.0.
+            margin: Outer margin surrounding all lifelines (default: 5.0).
             style: Style for diagram background.
             title_style: Style for title text.
         """
@@ -75,7 +77,7 @@ class SequenceDiagram:
         self.height = float(height) if height is not None else None
         self.col_width = float(col_width)
         self.step_y = float(step_y)
-        self.padding = padding
+        self.margin = float(margin)
         self.style = style
         self.title_style = title_style
 
@@ -101,39 +103,43 @@ class SequenceDiagram:
         """Get the timeline event sequence in declaration order."""
         return list(self._events)
 
-    def add(self, participant: Participant, x: float | None = None) -> Participant:
-        """Add a participant to the diagram.
+    @overload
+    def add(self, item: Participant, x: float | None = None) -> Participant: ...
+
+    @overload
+    def add(self, item: ParticipantGroup) -> ParticipantGroup: ...
+
+    def add(
+        self,
+        item: Participant | ParticipantGroup,
+        x: float | None = None,
+    ) -> Participant | ParticipantGroup:
+        """Add a participant or participant group to the diagram.
 
         Args:
-            participant: Participant instance.
-            x: Optional explicitly fixed X coordinate for this participant.
+            item: Participant or ParticipantGroup instance.
+            x: Optional explicitly fixed X coordinate for participant (ignored for group).
 
         Returns:
-            Participant: The added participant for assignment or chaining.
+            Participant | ParticipantGroup: The added participant or group.
         """
-        if participant not in self._participants:
-            self._participants.append(participant)
-        participant._diagram = self
-        if x is not None:
-            participant._fixed_x = float(x)
-        return participant
-
-    def add_group(self, group: ParticipantGroup) -> ParticipantGroup:
-        """Add a participant header boundary box.
-
-        Args:
-            group: ParticipantGroup instance.
-
-        Returns:
-            ParticipantGroup: The added group.
-        """
-        if group not in self._groups:
-            self._groups.append(group)
-        group._diagram = self
-        for p in group.participants:
-            if p not in self._participants:
-                self.add(p)
-        return group
+        if isinstance(item, _participant_module.Participant):
+            if item not in self._participants:
+                self._participants.append(item)
+            item._diagram = self
+            if x is not None:
+                item._fixed_x = float(x)
+            return item
+        elif isinstance(item, _group_module.ParticipantGroup):
+            if item not in self._groups:
+                self._groups.append(item)
+            item._diagram = self
+            for p in item.participants:
+                if p not in self._participants:
+                    self.add(p)
+            return item
+        else:
+            raise TypeError(f"Expected Participant or ParticipantGroup, got {type(item)}")
 
     def request(
         self,

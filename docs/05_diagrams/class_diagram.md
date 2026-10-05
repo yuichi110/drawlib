@@ -70,20 +70,20 @@ save()
 
 ---
 
-## 3. The 6 UML Relationship Verbs
+## 3. The 6 UML Relationship Types
 
-Drawlib provides dedicated semantic methods for the 6 core UML relationships instead of generic line drawing:
+Relationships between classes are registered cleanly at the diagram level via `cd.connect(source, target, relationship_type=...)`:
 
-| Verb Method | Relationship | Line Stroke | End Marker | Semantic Meaning |
+| `relationship_type` | Relationship | Line Stroke | End Marker | Semantic Meaning |
 |---|---|---|---|---|
-| `child.inherit(parent)` | **Inheritance** | Solid | Hollow Triangle (at parent) | Superclass generalization |
-| `impl.realize(iface)` | **Realization** | Dashed | Hollow Triangle (at iface) | Interface implementation |
-| `whole.composite(part)` | **Composition** | Solid | Filled Diamond (at whole) | Strong lifecycle ownership |
-| `whole.aggregate(part)` | **Aggregation** | Solid | Hollow Diamond (at whole) | Shared lifecycle / part-whole |
-| `c1.associate(c2)` | **Association** | Solid | None (or Open Arrow) | Structural reference |
-| `client.depend(supplier)` | **Dependency** | Dashed | Open Arrow (at supplier) | Uses-a dependency |
+| `"inheritance"` | **Inheritance** | Solid | Hollow Triangle (at target) | Superclass generalization |
+| `"realization"` | **Realization** | Dashed | Hollow Triangle (at target) | Interface implementation |
+| `"composition"` | **Composition** | Solid | Filled Diamond (at source) | Strong lifecycle ownership |
+| `"aggregation"` | **Aggregation** | Solid | Hollow Diamond (at source) | Shared lifecycle / part-whole |
+| `"association"` | **Association** | Solid | None (or Open Arrow) | Structural reference |
+| `"dependency"` | **Dependency** | Dashed | Open Arrow (at target) | Uses-a dependency |
 
-All relationship methods accept `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, and `label`.
+`cd.connect(...)` accepts `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, and `label`.
 
 ---
 

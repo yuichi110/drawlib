@@ -51,7 +51,7 @@ d = SequenceDiagram(
 )
 
 # Participant group for clustered backend services
-vpc = d.add_group(ParticipantGroup(title="Google Cloud VPC", padding=4.0))
+vpc = d.add(ParticipantGroup(title="Google Cloud VPC", padding=4.0))
 api = vpc.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN))
 db = vpc.add(Participant("Cloud SQL", icon=GcpIcon.CLOUD_SQL))
 

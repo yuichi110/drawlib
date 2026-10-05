@@ -19,6 +19,7 @@ import drawlib._diagrams.class_diagram._renderer as _renderer_module
 from drawlib._core.l3_styles import Style
 from drawlib._diagrams.class_diagram._class_node import ClassNode
 from drawlib._diagrams.class_diagram._relationship import ClassRelationship
+from drawlib._diagrams.class_diagram._types import PaddingType, RelationshipType, RoutingType, Side
 
 
 class ClassDiagram:
@@ -99,6 +100,70 @@ class ClassDiagram:
         if rel not in self.relationships:
             self.relationships.append(rel)
         return rel
+
+    def connect(
+        self,
+        source: ClassNode,
+        target: ClassNode,
+        relationship_type: RelationshipType = "association",
+        *,
+        type: RelationshipType | None = None,
+        label: str = "",
+        start_side: Side = "auto",
+        end_side: Side = "auto",
+        start_multiplicity: str = "",
+        end_multiplicity: str = "",
+        start_role: str = "",
+        end_role: str = "",
+        directed: bool = False,
+        style: Style | None = None,
+        text_style: Style | None = None,
+        routing: RoutingType = "orthogonal",
+        padding: PaddingType = 0.0,
+    ) -> ClassRelationship:
+        """Create and register a relationship between two classes.
+
+        Args:
+            source: Start ClassNode.
+            target: End ClassNode.
+            relationship_type: Type of relationship ('inheritance', 'realization', 'composition',
+                'aggregation', 'association', 'dependency'). Defaults to 'association'.
+            type: Optional alias for relationship_type.
+            label: Optional relationship label text.
+            start_side: Attachment side on start class ('left', 'right', 'top', 'bottom', 'auto').
+            end_side: Attachment side on end class ('left', 'right', 'top', 'bottom', 'auto').
+            start_multiplicity: Multiplicity string near start ('1', '0..1', '*', etc.).
+            end_multiplicity: Multiplicity string near end ('1', '0..1', '*', etc.).
+            start_role: Role name label near start.
+            end_role: Role name label near end.
+            directed: Whether to draw a directional navigability arrow.
+            style: Style object overriding relationship line and symbols.
+            text_style: Style object overriding relationship labels.
+            routing: Line path routing strategy ('orthogonal', 'direct').
+            padding: Gap distance between class borders and line ends.
+
+        Returns:
+            ClassRelationship: Newly created and registered relationship.
+        """
+        resolved_type = type if type is not None else relationship_type
+        rel = ClassRelationship(
+            start=source,
+            end=target,
+            relationship_type=resolved_type,
+            start_side=start_side,
+            end_side=end_side,
+            label=label,
+            start_multiplicity=start_multiplicity,
+            end_multiplicity=end_multiplicity,
+            start_role=start_role,
+            end_role=end_role,
+            directed=directed,
+            style=style,
+            text_style=text_style,
+            routing=routing,
+            padding=padding,
+        )
+        return self.add_relationship(rel)
 
     def get_bounds(self) -> tuple[float, float, float, float]:
         """Compute the enclosing bounding box [min_x, min_y, max_x, max_y] of all registered classes.

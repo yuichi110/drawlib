@@ -365,7 +365,7 @@
 
 <span class="c1"># Transition with guard and action</span>
 <span class="n">init</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">InitialState</span><span class="p">(),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">))</span>
-<span class="n">init</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;login&quot;</span><span class="p">,</span> <span class="n">guard</span><span class="o">=</span><span class="s2">&quot;token_valid&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;init_session()&quot;</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">active</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;login&quot;</span><span class="p">,</span> <span class="n">guard</span><span class="o">=</span><span class="s2">&quot;token_valid&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;init_session()&quot;</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Session Lifecycle State Machine</h2>

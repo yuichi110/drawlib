@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, Union
 
 from pydantic import BaseModel, ConfigDict
 
@@ -23,6 +23,12 @@ RelationshipType = Literal[
     "aggregation",
     "association",
     "dependency",
+    "inherit",
+    "realize",
+    "composite",
+    "aggregate",
+    "associate",
+    "depend",
 ]
 
 # Side attachment on class node borders
@@ -30,6 +36,9 @@ Side = Literal["left", "right", "top", "bottom", "auto"]
 
 # Line routing strategy
 RoutingType = Literal["orthogonal", "direct"]
+
+# Padding clearance (gap distance between borders and line endpoints)
+PaddingType = Union[float, tuple[float, float]]
 
 
 class AttributeInfo(BaseModel):

@@ -367,12 +367,12 @@
   <figcaption class="drawlib-caption">Basic Class and Interface Nodes</figcaption>
 </figure>
 <hr />
-<h2>3. The 6 UML Relationship Verbs</h2>
-<p>Drawlib provides dedicated semantic methods for the 6 core UML relationships instead of generic line drawing:</p>
+<h2>3. The 6 UML Relationship Types</h2>
+<p>Relationships between classes are registered cleanly at the diagram level via <code>cd.connect(source, target, relationship_type=...)</code>:</p>
 <table>
 <thead>
 <tr>
-<th>Verb Method</th>
+<th><code>relationship_type</code></th>
 <th>Relationship</th>
 <th>Line Stroke</th>
 <th>End Marker</th>
@@ -381,50 +381,50 @@
 </thead>
 <tbody>
 <tr>
-<td><code>child.inherit(parent)</code></td>
+<td><code>&quot;inheritance&quot;</code></td>
 <td><strong>Inheritance</strong></td>
 <td>Solid</td>
-<td>Hollow Triangle (at parent)</td>
+<td>Hollow Triangle (at target)</td>
 <td>Superclass generalization</td>
 </tr>
 <tr>
-<td><code>impl.realize(iface)</code></td>
+<td><code>&quot;realization&quot;</code></td>
 <td><strong>Realization</strong></td>
 <td>Dashed</td>
-<td>Hollow Triangle (at iface)</td>
+<td>Hollow Triangle (at target)</td>
 <td>Interface implementation</td>
 </tr>
 <tr>
-<td><code>whole.composite(part)</code></td>
+<td><code>&quot;composition&quot;</code></td>
 <td><strong>Composition</strong></td>
 <td>Solid</td>
-<td>Filled Diamond (at whole)</td>
+<td>Filled Diamond (at source)</td>
 <td>Strong lifecycle ownership</td>
 </tr>
 <tr>
-<td><code>whole.aggregate(part)</code></td>
+<td><code>&quot;aggregation&quot;</code></td>
 <td><strong>Aggregation</strong></td>
 <td>Solid</td>
-<td>Hollow Diamond (at whole)</td>
+<td>Hollow Diamond (at source)</td>
 <td>Shared lifecycle / part-whole</td>
 </tr>
 <tr>
-<td><code>c1.associate(c2)</code></td>
+<td><code>&quot;association&quot;</code></td>
 <td><strong>Association</strong></td>
 <td>Solid</td>
 <td>None (or Open Arrow)</td>
 <td>Structural reference</td>
 </tr>
 <tr>
-<td><code>client.depend(supplier)</code></td>
+<td><code>&quot;dependency&quot;</code></td>
 <td><strong>Dependency</strong></td>
 <td>Dashed</td>
-<td>Open Arrow (at supplier)</td>
+<td>Open Arrow (at target)</td>
 <td>Uses-a dependency</td>
 </tr>
 </tbody>
 </table>
-<p>All relationship methods accept <code>start_side</code>, <code>end_side</code>, <code>start_multiplicity</code> (<code>&quot;1&quot;</code>, <code>&quot;0..1&quot;</code>), <code>end_multiplicity</code> (<code>&quot;*&quot;</code>, <code>&quot;1..*&quot;</code>), <code>start_role</code>, <code>end_role</code>, and <code>label</code>.</p>
+<p><code>cd.connect(...)</code> accepts <code>start_side</code>, <code>end_side</code>, <code>start_multiplicity</code> (<code>&quot;1&quot;</code>, <code>&quot;0..1&quot;</code>), <code>end_multiplicity</code> (<code>&quot;*&quot;</code>, <code>&quot;1..*&quot;</code>), <code>start_role</code>, <code>end_role</code>, and <code>label</code>.</p>
 <hr />
 <h2>4. E-Commerce Domain Model</h2>
 <p>The following example combines inheritance, composition, and interface dependency:</p>

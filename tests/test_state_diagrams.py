@@ -198,8 +198,13 @@ class TestStateTransition:
 
     def test_loop_transition(self) -> None:
         """Verify self-loop transition properties."""
-        s = State("LoopState")
-        t = s.loop(side="right", label="tick", width=14.0, height=8.0, ratio=0.85)
+        sd = StateDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
+        s = sd.add(State("LoopState"))
+        t = sd.connect(s, s, side="right", label="tick", loop_width=14.0, loop_height=8.0, loop_ratio=0.85)
         assert t.is_self_transition is True
         assert t.is_loop is True
         assert t.loop_side == "right"
@@ -210,8 +215,13 @@ class TestStateTransition:
 
     def test_loop_defaults(self) -> None:
         """Verify default parameters for self-loop."""
-        s = State("DefaultLoop")
-        t = s.loop()
+        sd = StateDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
+        s = sd.add(State("DefaultLoop"))
+        t = sd.connect(s, s)
         assert t.is_self_transition is True
         assert t.loop_side == "top"
         assert t.loop_width is None
@@ -219,9 +229,14 @@ class TestStateTransition:
         assert t.loop_ratio == 0.88
 
     def test_to_self_delegates_to_loop(self) -> None:
-        """Verify state.to(state) creates a self-loop transition."""
-        s = State("SelfTo")
-        t = s.to(s, event="retry", start_side="bottom")
+        """Verify sd.connect(s, s) creates a self-loop transition."""
+        sd = StateDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
+        s = sd.add(State("SelfTo"))
+        t = sd.connect(s, s, event="retry", start_side="bottom")
         assert t.is_self_transition is True
         assert t.loop_side == "bottom"
         assert t.effective_label == "retry"
@@ -260,7 +275,7 @@ class TestStateDiagram:
         assert s1.xy == (10.0, 20.0)
         assert s2.xy == (40.0, 20.0)
 
-        edge = s1.to(s2, event="go", bend=0.2, text_style=Styles.Accent)
+        edge = sd.connect(s1, s2, event="go", bend=0.2, text_style=Styles.Accent)
         assert len(sd.transitions) == 1
         assert edge.start is s1
         assert edge.end is s2
@@ -392,24 +407,24 @@ class TestStateDiagramRendering:
 
         # 2. Transitions
         # Initial -> Locked
-        init.to(locked)
+        sd.connect(init, locked)
 
         # Locked -> Choice -> Unlocked
-        locked.to(choice, event="coin")
-        choice.to(unlocked, guard="valid_card")
-        choice.to(locked, guard="invalid", bend=0.3)
+        sd.connect(locked, choice, event="coin")
+        sd.connect(choice, unlocked, guard="valid_card")
+        sd.connect(choice, locked, guard="invalid", bend=0.3)
 
         # Bidirectional curved transitions between Locked and Unlocked
-        unlocked.to(locked, event="push", bend=0.3)
+        sd.connect(unlocked, locked, event="push", bend=0.3)
 
         # Self-transition on Locked (invalid action)
-        locked.to(locked, event="push", action="alarm()")
+        sd.connect(locked, locked, event="push", action="alarm()")
 
         # Transitions to Audit and Done
-        locked.to(audit, event="admin_key", routing="orthogonal")
-        unlocked.to(success, event="pass_through")
-        success.to(final)
-        locked.to(sync, event="shutdown")
+        sd.connect(locked, audit, event="admin_key", routing="orthogonal")
+        sd.connect(unlocked, success, event="pass_through")
+        sd.connect(success, final)
+        sd.connect(locked, sync, event="shutdown")
 
         # Draw diagram
         sd.draw(xy=(0.0, 0.0))

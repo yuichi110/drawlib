@@ -13,11 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Literal
 
-import drawlib._diagrams.state._transition as _transition_module
 from drawlib._diagrams.state._types import (
-    LoopSide,
-    PaddingType,
-    RoutingType,
     ShapeType,
     Side,
     StateAction,
@@ -26,7 +22,6 @@ from drawlib._diagrams.state._types import (
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
     from drawlib._diagrams.state._diagram import StateDiagram
-    from drawlib._diagrams.state._transition import StateTransition
 
 
 class StateNodeBase:
@@ -103,123 +98,6 @@ class StateNodeBase:
         if side == "right":
             return (cx + half_w, cy)
         return (cx, cy)
-
-    def loop(
-        self,
-        side: LoopSide = "top",
-        label: str = "",
-        event: str = "",
-        guard: str = "",
-        action: str = "",
-        width: float | None = None,
-        height: float | None = None,
-        ratio: float = 0.88,
-        style: Style | None = None,
-        text_style: Style | None = None,
-    ) -> StateTransition:
-        """Create and register a self-transition loop on this state.
-
-        Args:
-            side: Attachment side for loop ('top', 'bottom', 'left', 'right',
-                  'top_right', 'top_left', 'bottom_right', 'bottom_left'). Default is 'top'.
-            label: Optional full transition label string. Overrides event/guard/action if specified.
-            event: Trigger event name (e.g. 'heartbeat', 'tick').
-            guard: Guard condition text (automatically formatted as '[guard]').
-            action: Effect / action text (automatically formatted as '/ action').
-            width: Optional width of loop ellipse. Defaults to height, proportional size, or standard.
-            height: Optional height of loop ellipse. Defaults to width, proportional size, or standard.
-            ratio: Arc coverage ratio along ellipse circumference (default 0.88).
-            style: Optional Style object overriding edge color, width, and dash style.
-            text_style: Optional Style object overriding transition label text.
-
-        Returns:
-            StateTransition: Newly created self-loop transition edge.
-        """
-        trans = _transition_module.StateTransition(
-            start=self,
-            end=self,
-            label=label,
-            event=event,
-            guard=guard,
-            action=action,
-            style=style,
-            text_style=text_style,
-            loop_side=side,
-            loop_width=width,
-            loop_height=height,
-            loop_ratio=ratio,
-            is_loop=True,
-        )
-        if self._diagram is not None:
-            self._diagram.add_transition(trans)
-        return trans
-
-    def to(
-        self,
-        target: StateNodeBase,
-        label: str = "",
-        event: str = "",
-        guard: str = "",
-        action: str = "",
-        bend: float = 0.0,
-        start_side: Side = "auto",
-        end_side: Side = "auto",
-        routing: RoutingType = "curved",
-        style: Style | None = None,
-        text_style: Style | None = None,
-        padding: PaddingType = 0.0,
-    ) -> StateTransition:
-        """Create and register a state transition from self to target.
-
-        Args:
-            target: Destination StateNodeBase instance.
-            label: Optional full transition label string. Overrides event/guard/action if specified.
-            event: Trigger event name (e.g. 'click', 'timeout').
-            guard: Guard condition text (automatically formatted as '[guard]').
-            action: Effect / action text (automatically formatted as '/ action').
-            bend: Curvature amount for curved routing (0 is straight, positive curves outward).
-            start_side: Attachment side on start state ('left', 'right', 'top', 'bottom', 'auto').
-            end_side: Attachment side on end state ('left', 'right', 'top', 'bottom', 'auto').
-            routing: Line path routing strategy ('curved', 'orthogonal', 'direct').
-            style: Optional Style object overriding edge color, width, and dash style.
-            text_style: Optional Style object overriding transition label text.
-            padding: Distance offset between state boundary and arrow ends.
-
-        Returns:
-            StateTransition: Newly created transition edge.
-        """
-        if target is self:
-            chosen_side: LoopSide = start_side if start_side != "auto" else "top"
-            return self.loop(
-                side=chosen_side,
-                label=label,
-                event=event,
-                guard=guard,
-                action=action,
-                style=style,
-                text_style=text_style,
-            )
-
-        trans = _transition_module.StateTransition(
-            start=self,
-            end=target,
-            label=label,
-            event=event,
-            guard=guard,
-            action=action,
-            bend=bend,
-            start_side=start_side,
-            end_side=end_side,
-            routing=routing,
-            style=style,
-            text_style=text_style,
-            padding=padding,
-        )
-        if self._diagram is not None:
-            self._diagram.add_transition(trans)
-        elif target._diagram is not None:
-            target._diagram.add_transition(trans)
-        return trans
 
 
 class State(StateNodeBase):

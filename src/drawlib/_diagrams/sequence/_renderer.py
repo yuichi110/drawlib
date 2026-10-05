@@ -21,7 +21,6 @@ from drawlib._diagrams.sequence._layout import (
     compute_diagram_size,
     compute_timeline_y,
     compute_x_coordinates,
-    parse_diagram_padding,
 )
 from drawlib._diagrams.sequence._message import Message
 from drawlib._diagrams.sequence._note import Note
@@ -48,7 +47,7 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
         xy: Base canvas anchor coordinate (x, y). Defaults to (0.0, 0.0).
     """
     bx, by = float(xy[0]), float(xy[1])
-    pad_top, pad_right, pad_bottom, pad_left = parse_diagram_padding(diagram.padding)
+    pad_top = pad_bottom = pad_left = float(diagram.margin)
 
     dw, dh = compute_diagram_size(diagram)
     participant_x_map = compute_x_coordinates(diagram, pad_left)

@@ -152,8 +152,10 @@ class TestSequenceNoteAndBlock:
             node_style=Styles.PrimaryFlat,
             edge_style=Styles.Primary,
             edge_text_style=Styles.Dark,
+            margin=6.0,
         )
-        group = d.add_group(ParticipantGroup("Internal Cluster", padding=6.0))
+        assert d.margin == 6.0
+        group = d.add(ParticipantGroup("Internal Cluster", padding=6.0))
         p1 = group.add(Participant("Service Alpha"))
         p2 = group.add(Participant("Service Beta"))
 
@@ -310,7 +312,7 @@ class TestSequenceDiagramRenderingEndToEnd:
             title="Microservices Event Stream",
         )
 
-        backend = d.add_group(
+        backend = d.add(
             ParticipantGroup(
                 title="Backend VPC",
                 style=Style(

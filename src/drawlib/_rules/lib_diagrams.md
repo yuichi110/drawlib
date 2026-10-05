@@ -422,9 +422,9 @@ from drawlib.diagrams.sequence import Block, Message, Note, Participant, Partici
 ```
 
 #### Constructor & Participant Management:
-- `SequenceDiagram(node_style, edge_style, edge_text_style, title="", width=None, height=None, autonumber=False, style=None, title_style=None)`
+- `SequenceDiagram(node_style, edge_style, edge_text_style, title="", width=None, height=None, margin=5.0, autonumber=False, style=None, title_style=None)`
 - `d.add(Participant(name, icon=None, icon_size=8.0, style=None)) -> Participant`
-- `d.add_group(ParticipantGroup(title="", padding=4.0, style=None)) -> ParticipantGroup`
+- `d.add(ParticipantGroup(title="", padding=4.0, style=None)) -> ParticipantGroup`
 
 #### Message Verbs:
 - **`a.request(b, label, is_async=False)`**: Synchronous call rendered as a solid line with a filled arrowhead (`―▶`). If `is_async=True`, renders an open stick arrowhead (`―>`).
@@ -466,7 +466,7 @@ d = SequenceDiagram(
 )
 
 # Participant boundary group for internal cluster
-backend = d.add_group(
+backend = d.add(
     ParticipantGroup(
         title="Google Cloud VPC",
         padding=4.0,
@@ -574,9 +574,10 @@ d.draw(xy=(5.0, 5.0))
 
 ### 6.3 Action Compartments & Transition Syntax
 - **Internal Actions**: Pass `entry="..."`, `do="..."`, or `exit="..."` during `State` creation, or chain with `state.add_action("custom", "...")`.
-- **Transitions with `node.to(...)`**:
+- **Transitions with `sd.connect(...)`**:
   ```python
-  s1.to(
+  sd.connect(
+      s1,
       s2,
       event="submit",
       guard="is_valid",
@@ -585,7 +586,7 @@ d.draw(xy=(5.0, 5.0))
   )
   ```
   Automatically formats formal UML labels: `event [guard] / action`.
-- **Self-Transitions**: Call `state.loop(side="top", event="tick")` or `state.to(state, ...)`.
+- **Self-Transitions**: Call `sd.connect(state, state, side="top", event="tick")`.
 
 ### 6.4 Production Examples
 
@@ -619,18 +620,18 @@ active = sd.add(
 final = sd.add(FinalState(), xy=(126.0, 38.0))
 
 # 2. Connect transitions
-init.to(idle)
-idle.to(valid_check, event="login", guard="token_present")
+sd.connect(init, idle)
+sd.connect(idle, valid_check, event="login", guard="token_present")
 
 # Choice branches (success vs failure)
-valid_check.to(active, guard="token_valid")
-valid_check.to(idle, guard="token_invalid", bend=0.3)
+sd.connect(valid_check, active, guard="token_valid")
+sd.connect(valid_check, idle, guard="token_invalid", bend=0.3)
 
 # Self-transition heartbeat loop
-active.loop(side="top", event="ping", action="extend_lease()")
+sd.connect(active, active, side="top", event="ping", action="extend_lease()")
 
 # Termination
-active.to(final, event="logout")
+sd.connect(active, final, event="logout")
 
 sd.draw(xy=(0.0, 0.0))
 ```
@@ -658,12 +659,12 @@ job_b = sd.add(State("Index Search", shape="box"), xy=(55.0, 25.0))
 join = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(85.0, 37.5))
 final = sd.add(FinalState(), xy=(105.0, 37.5))
 
-init.to(fork)
-fork.to(job_a)
-fork.to(job_b)
-job_a.to(join)
-job_b.to(join)
-join.to(final)
+sd.connect(init, fork)
+sd.connect(fork, job_a)
+sd.connect(fork, job_b)
+sd.connect(job_a, join)
+sd.connect(job_b, join)
+sd.connect(join, final)
 
 sd.draw(xy=(0.0, 0.0))
 ```
@@ -701,17 +702,19 @@ sd.draw(xy=(0.0, 0.0))
 - **Stereotypes**: `ClassNode(name="Service", stereotype="interface")` renders `«interface»`.
 - **Abstract Classes**: `ClassNode(name="Entity", is_abstract=True)` renders `«abstract»`.
 
-### 7.3 The 6 UML Relationship Verb Methods
-| Verb Method | UML Relationship | Line Stroke | End Marker | Description |
-|---|---|---|---|---|
-| `child.inherit(parent)` | **Inheritance** | Solid | Hollow Triangle (at parent) | Superclass / Subclass Generalization |
-| `impl.realize(iface)` | **Realization** | Dashed | Hollow Triangle (at iface) | Interface Implementation |
-| `whole.composite(part)` | **Composition** | Solid | Filled Diamond (at whole) | Strong ownership; part dies with whole |
-| `whole.aggregate(part)` | **Aggregation** | Solid | Hollow Diamond (at whole) | Shared ownership / part-whole |
-| `c1.associate(c2)` | **Association** | Solid | None (or Open Arrow) | Structural reference |
-| `client.depend(supplier)`| **Dependency** | Dashed | Open Arrow (at supplier) | Client depends on supplier |
+### 7.3 The 6 UML Relationship Types
+Relationships between classes are registered cleanly at the diagram level via `cd.connect(source, target, relationship_type=...)`:
 
-All relationship methods support `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, and `label`.
+| `relationship_type` | UML Relationship | Line Stroke | End Marker | Description |
+|---|---|---|---|---|
+| `"inheritance"` | **Inheritance** | Solid | Hollow Triangle (at target) | Superclass / Subclass Generalization |
+| `"realization"` | **Realization** | Dashed | Hollow Triangle (at target) | Interface Implementation |
+| `"composition"` | **Composition** | Solid | Filled Diamond (at source) | Strong ownership; part dies with whole |
+| `"aggregation"` | **Aggregation** | Solid | Hollow Diamond (at source) | Shared ownership / part-whole |
+| `"association"` | **Association** | Solid | None (or Open Arrow) | Structural reference |
+| `"dependency"` | **Dependency** | Dashed | Open Arrow (at target) | Client depends on supplier |
+
+`cd.connect(...)` supports `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, and `label`.
 
 ### 7.4 Production Examples
 
@@ -750,17 +753,19 @@ order.add_method("calculate_tax", return_type="float")
 iface = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=30.0), xy=(75.0, 60.0))
 iface.add_method("process_charge", params="amount: float", return_type="bool")
 
-# 2. Connect relationships using intuitive verbs
-customer.inherit(user, start_side="top", end_side="bottom")
-customer.composite(
+# 2. Connect relationships using diagram.connect
+cd.connect(customer, user, "inheritance", start_side="top", end_side="bottom")
+cd.connect(
+    customer,
     order,
+    "composition",
     start_side="right",
     end_side="left",
     start_multiplicity="1",
     end_multiplicity="*",
     label="places",
 )
-order.depend(iface, start_side="top", end_side="bottom", label="uses")
+cd.connect(order, iface, "dependency", start_side="top", end_side="bottom", label="uses")
 
 cd.draw(xy=(0.0, 0.0))
 ```
@@ -795,10 +800,12 @@ concrete_subj.add_method("get_state", return_type="str")
 concrete_obs = cd.add(ClassNode(name="EmailSubscriber", width=28.0), xy=(75.0, 20.0))
 concrete_obs.add_method("update", return_type="void")
 
-concrete_subj.realize(subj_iface, start_side="top", end_side="bottom")
-concrete_obs.realize(obs_iface, start_side="top", end_side="bottom")
-subj_iface.aggregate(
+cd.connect(concrete_subj, subj_iface, "realization", start_side="top", end_side="bottom")
+cd.connect(concrete_obs, obs_iface, "realization", start_side="top", end_side="bottom")
+cd.connect(
+    subj_iface,
     obs_iface,
+    "aggregation",
     start_side="right",
     end_side="left",
     start_multiplicity="1",

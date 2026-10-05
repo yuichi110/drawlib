@@ -219,37 +219,42 @@ class TestClassRelationship:
         with pytest.raises(ValueError, match="Invalid routing"):
             ClassRelationship(start=c1, end=c2, routing="curved")  # type: ignore
 
-    def test_verb_methods(self) -> None:
-        """Verify verb methods create correct relationship types."""
-        c_animal = ClassNode("Animal")
-        c_dog = ClassNode("Dog")
-        c_runnable = ClassNode("Runnable", stereotype="interface")
-        c_car = ClassNode("Car")
-        c_engine = ClassNode("Engine")
-        c_dept = ClassNode("Department")
-        c_emp = ClassNode("Employee")
-        c_doc = ClassNode("Document")
-        c_printer = ClassNode("Printer")
+    def test_diagram_connect_methods(self) -> None:
+        """Verify diagram.connect creates correct relationship types."""
+        cd = ClassDiagram(
+            node_style=Styles.PrimaryFlat,
+            edge_style=Styles.Primary,
+            edge_text_style=Styles.Dark,
+        )
+        c_animal = cd.add(ClassNode("Animal"))
+        c_dog = cd.add(ClassNode("Dog"))
+        c_runnable = cd.add(ClassNode("Runnable", stereotype="interface"))
+        c_car = cd.add(ClassNode("Car"))
+        c_engine = cd.add(ClassNode("Engine"))
+        c_dept = cd.add(ClassNode("Department"))
+        c_emp = cd.add(ClassNode("Employee"))
+        c_doc = cd.add(ClassNode("Document"))
+        c_printer = cd.add(ClassNode("Printer"))
 
-        rel_inherit = c_dog.inherit(c_animal)
+        rel_inherit = cd.connect(c_dog, c_animal, relationship_type="inheritance")
         assert rel_inherit.relationship_type == "inheritance"
 
-        rel_realize = c_dog.realize(c_runnable)
+        rel_realize = cd.connect(c_dog, c_runnable, type="realization")
         assert rel_realize.relationship_type == "realization"
 
-        rel_comp = c_car.composite(c_engine, start_multiplicity="1", end_multiplicity="1")
+        rel_comp = cd.connect(c_car, c_engine, "composition", start_multiplicity="1", end_multiplicity="1")
         assert rel_comp.relationship_type == "composition"
         assert rel_comp.start_multiplicity == "1"
         assert rel_comp.end_multiplicity == "1"
 
-        rel_agg = c_dept.aggregate(c_emp, start_multiplicity="1", end_multiplicity="*")
+        rel_agg = cd.connect(c_dept, c_emp, "aggregation", start_multiplicity="1", end_multiplicity="*")
         assert rel_agg.relationship_type == "aggregation"
 
-        rel_assoc = c_dog.associate(c_car, label="rides_in")
+        rel_assoc = cd.connect(c_dog, c_car, "association", label="rides_in")
         assert rel_assoc.relationship_type == "association"
         assert rel_assoc.label == "rides_in"
 
-        rel_dep = c_doc.depend(c_printer, label="prints_with")
+        rel_dep = cd.connect(c_doc, c_printer, "dependency", label="prints_with", directed=True)
         assert rel_dep.relationship_type == "dependency"
         assert rel_dep.directed is True
 
@@ -311,7 +316,7 @@ class TestClassDiagram:
         assert c1.xy == (20.0, 50.0)
         assert c2.xy == (60.0, 50.0)
 
-        rel = c1.associate(c2, label="has_profile", text_style=Styles.Accent)
+        rel = cd.connect(c1, c2, "association", label="has_profile", text_style=Styles.Accent)
         assert len(cd.relationships) == 1
         assert rel.start is c1
         assert rel.end is c2
@@ -374,11 +379,13 @@ class TestClassDiagramRendering:
         order.add_method("calculate_total", return_type="float")
 
         # Customer inherits User
-        customer.inherit(user, start_side="top", end_side="bottom")
+        cd.connect(customer, user, "inheritance", start_side="top", end_side="bottom")
 
         # Customer composes Order
-        customer.composite(
+        cd.connect(
+            customer,
             order,
+            "composition",
             start_side="right",
             end_side="left",
             start_multiplicity="1",
@@ -418,7 +425,8 @@ class TestClassDiagramRendering:
             c_src = cd.add(ClassNode(name=f"Src_{idx}", width=20.0, height=7.0), xy=(25.0, y))
             c_tgt = cd.add(ClassNode(name=f"Tgt_{idx}", width=20.0, height=7.0), xy=(75.0, y))
 
-            c_src.connect(
+            cd.connect(
+                c_src,
                 c_tgt,
                 relationship_type=rel_type,
                 start_side="right",
@@ -482,14 +490,18 @@ class TestClassDiagramRendering:
         paypal.add_method("process", params="amount: float", return_type="bool")
 
         # Realization relationships with direct routing
-        stripe.realize(
+        cd.connect(
+            stripe,
             processor,
+            relationship_type="realization",
             routing="direct",
             style=Style(line_color=Colors.Navy, line_width=2.0),
             padding=1.0,
         )
-        paypal.realize(
+        cd.connect(
+            paypal,
             processor,
+            relationship_type="realization",
             routing="direct",
             style=Style(line_color=Colors.Blue, line_width=2.0),
             padding=1.0,

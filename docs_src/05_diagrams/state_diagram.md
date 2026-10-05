@@ -58,7 +58,7 @@ active = sd.add(
 
 # Transition with guard and action
 init = sd.add(InitialState(), xy=(10.0, 40.0))
-init.to(active, event="login", guard="token_valid", action="init_session()")
+sd.connect(init, active, event="login", guard="token_valid", action="init_session()")
 ```
 
 ---
@@ -96,18 +96,18 @@ active = sd.add(
 final = sd.add(FinalState(), xy=(126.0, 38.0))
 
 # 2. Connect transitions
-init.to(idle)
-idle.to(valid_check, event="login", guard="token_present")
+sd.connect(init, idle)
+sd.connect(idle, valid_check, event="login", guard="token_present")
 
 # Choice branches (success vs failure with curved arc)
-valid_check.to(active, guard="token_valid")
-valid_check.to(idle, guard="token_invalid", bend=0.3)
+sd.connect(valid_check, active, guard="token_valid")
+sd.connect(valid_check, idle, guard="token_invalid", bend=0.3)
 
 # Self-transition heartbeat loop
-active.loop(side="top", event="ping", action="extend_lease()")
+sd.connect(active, active, side="top", event="ping", action="extend_lease()")
 
 # Termination
-active.to(final, event="logout")
+sd.connect(active, final, event="logout")
 
 sd.draw(xy=(0.0, 0.0))
 ```
@@ -140,12 +140,12 @@ job_b = sd.add(State("Index Search", shape="box"), xy=(55.0, 25.0))
 join = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(85.0, 37.5))
 final = sd.add(FinalState(), xy=(105.0, 37.5))
 
-init.to(fork)
-fork.to(job_a)
-fork.to(job_b)
-job_a.to(join)
-job_b.to(join)
-join.to(final)
+sd.connect(init, fork)
+sd.connect(fork, job_a)
+sd.connect(fork, job_b)
+sd.connect(job_a, join)
+sd.connect(job_b, join)
+sd.connect(join, final)
 
 sd.draw(xy=(0.0, 0.0))
 ```

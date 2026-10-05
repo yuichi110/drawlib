@@ -19,6 +19,7 @@ import drawlib._diagrams.state._renderer as _renderer_module
 from drawlib._core.l3_styles import Style
 from drawlib._diagrams.state._state_node import State, StateNodeBase
 from drawlib._diagrams.state._transition import StateTransition
+from drawlib._diagrams.state._types import LoopSide, PaddingType, RoutingType, Side
 
 NodeT = TypeVar("NodeT", bound=StateNodeBase)
 
@@ -117,6 +118,87 @@ class StateDiagram:
         if trans not in self.transitions:
             self.transitions.append(trans)
         return trans
+
+    def connect(
+        self,
+        source: StateNodeBase,
+        target: StateNodeBase,
+        *,
+        label: str = "",
+        event: str = "",
+        guard: str = "",
+        action: str = "",
+        side: LoopSide = "top",
+        bend: float = 0.0,
+        start_side: Side = "auto",
+        end_side: Side = "auto",
+        routing: RoutingType = "curved",
+        style: Style | None = None,
+        text_style: Style | None = None,
+        padding: PaddingType = 0.0,
+        loop_width: float | None = None,
+        loop_height: float | None = None,
+        loop_ratio: float = 0.88,
+    ) -> StateTransition:
+        """Create and register a transition between two states (or self-loop if source == target).
+
+        Args:
+            source: Start state node.
+            target: End state node.
+            label: Full transition label string (overrides event/guard/action if specified).
+            event: Trigger event name (e.g. 'click', 'timeout').
+            guard: Guard condition text (automatically formatted as '[guard]').
+            action: Effect / action text (automatically formatted as '/ action').
+            side: Attachment side for self-loop ('top', 'bottom', 'left', 'right', etc.).
+            bend: Curvature amount for curved routing (0 is straight, positive curves outward).
+            start_side: Attachment side on start state ('left', 'right', 'top', 'bottom', 'auto').
+            end_side: Attachment side on end state ('left', 'right', 'top', 'bottom', 'auto').
+            routing: Line path routing strategy ('curved', 'orthogonal', 'direct').
+            style: Style object overriding transition edge line.
+            text_style: Style object overriding transition label text.
+            padding: Distance offset between state boundary and arrow ends.
+            loop_width: Width of loop ellipse when source == target.
+            loop_height: Height of loop ellipse when source == target.
+            loop_ratio: Arc coverage ratio along ellipse circumference when source == target.
+
+        Returns:
+            StateTransition: Newly created and registered transition.
+        """
+        if source is target:
+            chosen_side: LoopSide = side if side != "top" else (start_side if start_side != "auto" else "top")
+            trans = StateTransition(
+                start=source,
+                end=source,
+                label=label,
+                event=event,
+                guard=guard,
+                action=action,
+                style=style,
+                text_style=text_style,
+                loop_side=chosen_side,
+                loop_width=loop_width,
+                loop_height=loop_height,
+                loop_ratio=loop_ratio,
+                is_loop=True,
+            )
+            return self.add_transition(trans)
+
+        trans = StateTransition(
+            start=source,
+            end=target,
+            label=label,
+            event=event,
+            guard=guard,
+            action=action,
+            bend=bend,
+            start_side=start_side,
+            end_side=end_side,
+            routing=routing,
+            style=style,
+            text_style=text_style,
+            padding=padding,
+        )
+        return self.add_transition(trans)
 
     def get_bounds(self) -> tuple[float, float, float, float]:
         """Compute the enclosing bounding box [min_x, min_y, max_x, max_y] of all registered states.
