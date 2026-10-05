@@ -379,6 +379,7 @@ arrow_u = canvas.arrow_u
 # patches
 arc = canvas.arc
 circle = canvas.circle
+cylinder = canvas.cylinder
 ellipse = canvas.ellipse
 polygon = canvas.polygon
 rectangle = canvas.rectangle

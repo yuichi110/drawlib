@@ -20,6 +20,7 @@ from matplotlib.patches import (
     RegularPolygon,
     Wedge,
 )
+from matplotlib.path import Path
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (
@@ -29,12 +30,118 @@ from drawlib._core.l2_types import (
     NumVertex,
     PathPoints,
     PosFloat,
+    PosInt,
     Size,
 )
+from drawlib._core.l3_colors import ColorUtil
 from drawlib._core.l3_math import get_center_and_size
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas._shapes._util import ShapeUtil
+
+
+def _get_cylinder_fill_colors(
+    style: Style,
+) -> tuple[tuple[float, float, float, float] | str, tuple[float, float, float, float] | str]:
+    """Get body fill and top cap fill colors for cylinder.
+
+    Args:
+        style: Shape style object.
+
+    Returns:
+        A tuple of (body_fill, top_fill) formatted for matplotlib.
+    """
+    if style.shape_fill_color is None:
+        return "none", "none"
+    raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.shape_fill_alpha)
+    if raw_fill[3] <= 0.0:
+        return "none", "none"
+    top_fill = (
+        min(1.0, raw_fill[0] + (1.0 - raw_fill[0]) * 0.28),
+        min(1.0, raw_fill[1] + (1.0 - raw_fill[1]) * 0.28),
+        min(1.0, raw_fill[2] + (1.0 - raw_fill[2]) * 0.28),
+        raw_fill[3],
+    )
+    return raw_fill, top_fill
+
+
+def _build_cylinder_disk_patches(
+    cx: float,
+    cy: float,
+    hw: float,
+    hh: float,
+    hr: float,
+    ky: float,
+    kx: float,
+    disks: int,
+    cos_a: float,
+    sin_a: float,
+    stroke_color: tuple[float, float, float, float] | str,
+    line_w: float,
+    line_style: str,
+    has_stroke: bool,
+) -> list[PathPatch]:
+    """Generate divider curve patches for multi-disk cylinders.
+
+    Args:
+        cx: Center x coordinate.
+        cy: Center y coordinate.
+        hw: Half width.
+        hh: Half height of cylinder body.
+        hr: Half radius (vertical radius of cap ellipse).
+        ky: Vertical control point delta for Bezier curve.
+        kx: Horizontal control point delta for Bezier curve.
+        disks: Number of disks.
+        cos_a: Cosine of rotation angle.
+        sin_a: Sine of rotation angle.
+        stroke_color: Line color for stroke.
+        line_w: Line width.
+        line_style: Line style.
+        has_stroke: Whether shape has line stroke.
+
+    Returns:
+        List of PathPatch objects representing disk divider curves.
+    """
+    if disks <= 1 or hh <= 0:
+        return []
+
+    d_color = stroke_color if has_stroke else (1.0, 1.0, 1.0, 0.7)
+    d_w = line_w if has_stroke else 1.5
+    step_h = (2 * hh) / disks
+    d_codes = [
+        Path.MOVETO,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+        Path.CURVE4,
+    ]
+    patches: list[PathPatch] = []
+
+    for i in range(1, disks):
+        dy = -hh + i * step_h
+        d_verts = [
+            (-hw, dy),
+            (-hw, dy - ky),
+            (-kx, dy - hr),
+            (0, dy - hr),
+            (kx, dy - hr),
+            (hw, dy - ky),
+            (hw, dy),
+        ]
+        world_verts = [(cx + vx * cos_a - vy * sin_a, cy + vx * sin_a + vy * cos_a) for vx, vy in d_verts]
+        patches.append(
+            PathPatch(
+                Path(vertices=world_verts, codes=d_codes),
+                facecolor="none",
+                edgecolor=d_color,
+                linewidth=d_w,
+                linestyle=line_style,
+                zorder=1,
+            )
+        )
+    return patches
 
 
 class CanvasShapeBasicFeature(CanvasBase):
@@ -573,6 +680,224 @@ class CanvasShapeBasicFeature(CanvasBase):
             text=text,
             text_style=text_style,
         )
+
+    @validate_call
+    def cylinder(
+        self,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        *,
+        style: Style,
+        disks: PosInt = 1,
+        angle: Angle = 0.0,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw a 3D cylinder shape on the canvas.
+
+        Args:
+            xy: Center coordinates (x, y) of the cylinder.
+            width: Width of the cylinder.
+            height: Height of the cylinder.
+            style: Style object (required).
+            disks: Number of stacked disks (default is 1).
+            angle: Rotation angle in degrees (default is 0.0).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(
+            style,
+            text_style,
+        )
+
+        if width <= 0 or height <= 0:
+            raise ValueError(f"width and height must be positive, but got width={width}, height={height}.")
+        if disks < 1:
+            raise ValueError(f"disks must be >= 1, but got {disks}.")
+
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        cx, cy = xy
+
+        eh = min(width * 0.35, height * 0.35)
+        hw = width / 2.0
+        hh = max(0.0, (height - eh) / 2.0)
+        hr = eh / 2.0
+
+        kappa = 0.5522847498307936
+        kx = hw * kappa
+        ky = hr * kappa
+
+        rad = math.radians(angle)
+        cos_a = math.cos(rad)
+        sin_a = math.sin(rad)
+
+        def xform(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
+            return [(cx + vx * cos_a - vy * sin_a, cy + vx * sin_a + vy * cos_a) for vx, vy in pts]
+
+        # 1. Seamless body path (sides + bottom curve + top inner seam)
+        b_verts = [
+            (-hw, hh),
+            (-hw, -hh),
+            (-hw, -hh - ky),
+            (-kx, -hh - hr),
+            (0, -hh - hr),
+            (kx, -hh - hr),
+            (hw, -hh - ky),
+            (hw, -hh),
+            (hw, hh),
+            (hw, hh - ky),
+            (kx, hh - hr),
+            (0, hh - hr),
+            (-kx, hh - hr),
+            (-hw, hh - ky),
+            (-hw, hh),
+        ]
+        b_codes = [
+            Path.MOVETO,
+            Path.LINETO,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.LINETO,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CLOSEPOLY,
+        ]
+        b_verts.append((-hw, hh))
+        body_path = Path(vertices=xform(b_verts), codes=b_codes)
+
+        # 2. Top cap path (full ellipse at +hh)
+        t_verts = [
+            (hw, hh),
+            (hw, hh + ky),
+            (kx, hh + hr),
+            (0, hh + hr),
+            (-kx, hh + hr),
+            (-hw, hh + ky),
+            (-hw, hh),
+            (-hw, hh - ky),
+            (-kx, hh - hr),
+            (0, hh - hr),
+            (kx, hh - hr),
+            (hw, hh - ky),
+            (hw, hh),
+        ]
+        t_codes = [
+            Path.MOVETO,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CLOSEPOLY,
+        ]
+        t_verts.append((hw, hh))
+        top_path = Path(vertices=xform(t_verts), codes=t_codes)
+
+        line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
+        has_stroke = style.shape_line_color is not None and line_w > 0
+        line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
+
+        m_fill, top_fill = _get_cylinder_fill_colors(style)
+        stroke_color = ColorUtil.get_mplot_rgba(style.shape_line_color) if has_stroke else "none"
+
+        body_patch = PathPatch(body_path, facecolor=m_fill, edgecolor="none", linewidth=0, zorder=1)
+        top_patch = PathPatch(
+            top_path,
+            facecolor=top_fill,
+            edgecolor=stroke_color if has_stroke else "none",
+            linewidth=line_w,
+            linestyle=line_style,
+            zorder=1,
+        )
+        self._artists.append(body_patch)
+        self._artists.append(top_patch)
+
+        if has_stroke:
+            out_verts = [
+                (-hw, hh),
+                (-hw, -hh),
+                (-hw, -hh - ky),
+                (-kx, -hh - hr),
+                (0, -hh - hr),
+                (kx, -hh - hr),
+                (hw, -hh - ky),
+                (hw, -hh),
+                (hw, hh),
+            ]
+            out_codes = [
+                Path.MOVETO,
+                Path.LINETO,
+                Path.CURVE4,
+                Path.CURVE4,
+                Path.CURVE4,
+                Path.CURVE4,
+                Path.CURVE4,
+                Path.CURVE4,
+                Path.LINETO,
+            ]
+            out_path = Path(vertices=xform(out_verts), codes=out_codes)
+            out_patch = PathPatch(
+                out_path,
+                facecolor="none",
+                edgecolor=stroke_color,
+                linewidth=line_w,
+                linestyle=line_style,
+                zorder=1,
+            )
+            self._artists.append(out_patch)
+
+        self._artists.extend(
+            _build_cylinder_disk_patches(
+                cx=cx,
+                cy=cy,
+                hw=hw,
+                hh=hh,
+                hr=hr,
+                ky=ky,
+                kx=kx,
+                disks=disks,
+                cos_a=cos_a,
+                sin_a=sin_a,
+                stroke_color=stroke_color,
+                line_w=line_w,
+                line_style=line_style,
+                has_stroke=has_stroke,
+            )
+        )
+
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
 
 
 __all__ = ["CanvasShapeBasicFeature"]
