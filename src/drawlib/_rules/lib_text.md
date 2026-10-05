@@ -207,6 +207,7 @@ When pre-defined styles are insufficient, pass a custom `Style` instance to cont
 - **`text_font` (Font | FontFile)**: Font family definition.
 - **`text_halign` (str)**: `"left"`, `"center"`, `"right"`.
 - **`text_valign` (str)**: `"bottom"`, `"center"`, `"top"`.
+- **`text_line_spacing` (float)**: Line spacing multiplier for multi-line text (default: `1.2`).
 
 ### 5.2. Text Background Box Attributes in `Style`
 Drawlib can automatically render a padded background rectangle behind the text block (useful for overlaying readable text across busy diagram lines):
@@ -309,7 +310,7 @@ text((50, 25), "Corporate Brand Typography", style=custom_style)
 `text()` natively parses newline characters (`\n`) to generate multi-line paragraphs.
 
 ### 7.1. Behavior & Line Spacing
-- Line spacing is automatically calculated relative to `size` (or `text_size`).
+- Line spacing is calculated relative to `text_size` (default multiplier: `1.2`). You can customize the vertical spacing between lines via `style.patch(text_line_spacing=1.6)`.
 - The entire multi-line block conforms to the specified `text_halign` and `text_valign`.
   - With `text_halign="center"` (default), each line is individually centered.
   - With `text_halign="left"`, all lines align flush to the left boundary.
@@ -329,7 +330,7 @@ summary = (
     "Region: us-central1"
 )
 
-text((50, 30), summary, style=Styles.PrimaryBold.patch(text_size=12))
+text((50, 30), summary, style=Styles.PrimaryBold.patch(text_size=12, text_line_spacing=1.5))
 save()
 ```
 

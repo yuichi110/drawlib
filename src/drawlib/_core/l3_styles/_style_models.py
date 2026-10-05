@@ -162,6 +162,7 @@ class Style(BaseModel):
     text_valign: VAlign | None = None
     text_angle: Angle | None = None
     text_flip: bool | None = None
+    text_line_spacing: PosFloat | None = None
     text_xy_shift: Coordinate | None = None
     text_xy_abs_shift: Coordinate | None = None
     text_bg_fill_color: ColorType | None = None
@@ -207,6 +208,7 @@ class Style(BaseModel):
         text_valign: VAlign | None = None,
         text_angle: Angle | None = None,
         text_flip: bool | None = None,
+        text_line_spacing: PosFloat | None = None,
         text_xy_shift: Coordinate | None = None,
         text_xy_abs_shift: Coordinate | None = None,
         text_bg_fill_color: ColorType | None = None,
@@ -247,6 +249,7 @@ class Style(BaseModel):
             text_valign: Vertical alignment for text.
             text_angle: Rotation angle for text.
             text_flip: Whether text is flipped horizontally.
+            text_line_spacing: Line spacing multiplier for multi-line text.
             text_xy_shift: Relative XY coordinate shift.
             text_xy_abs_shift: Absolute XY coordinate shift.
             text_bg_fill_color: Background box fill color for text.

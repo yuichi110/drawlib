@@ -87,6 +87,7 @@ class ShapeUtil:
             text_font=font,
             text_halign=halign,
             text_valign=valign,
+            text_line_spacing=shape_style.text_line_spacing,
         )
 
     @staticmethod

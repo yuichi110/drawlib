@@ -61,6 +61,7 @@ class TextUtil:
             "color": color,
             "horizontalalignment": style.text_halign if style.text_halign is not None else "center",
             "verticalalignment": style.text_valign if style.text_valign is not None else "center",
+            "linespacing": style.text_line_spacing,
         }
 
         return {k: v for k, v in options.items() if v is not None}

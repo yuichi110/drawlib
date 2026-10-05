@@ -238,6 +238,7 @@ class TestTextProperties:
             text_valign="bottom",
             text_angle=45.0,
             text_flip=True,
+            text_line_spacing=1.5,
             text_xy_shift=(2.0, 3.0),
             text_bg_fill_color=Colors.Gray3,
             text_bg_fill_alpha=0.5,
@@ -252,8 +253,12 @@ class TestTextProperties:
         assert s.text_valign == "bottom"
         assert s.text_angle == 45.0
         assert s.text_flip is True
+        assert s.text_line_spacing == 1.5
         assert s.text_xy_shift == (2.0, 3.0)
         assert s.text_bg_fill_color == Colors.Gray3
+
+        patched = s.patch(text_line_spacing=2.0)
+        assert patched.text_line_spacing == 2.0
 
     def test_invalid_text_properties(self):
         """Test invalid text property values raise ValueError."""
@@ -263,6 +268,8 @@ class TestTextProperties:
             Style(**{"text_valign": "middle"})
         with pytest.raises(ValueError):
             Style(text_size=-5.0)
+        with pytest.raises(ValueError):
+            Style(text_line_spacing=-1.0)
 
 
 class TestIconProperties:

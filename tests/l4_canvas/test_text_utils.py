@@ -54,6 +54,12 @@ class TestTextUtil:
         assert options["color"] == (0.0, 1.0, 0.0, 1.0)
         assert options["horizontalalignment"] == "center"
         assert options["verticalalignment"] == "top"
+        assert "linespacing" not in options
+
+        # 3. Test text_line_spacing
+        style_with_spacing = Style(text_color=(0, 255, 0), text_line_spacing=1.6)
+        options_spacing = TextUtil.get_text_options(style_with_spacing)
+        assert options_spacing["linespacing"] == 1.6
 
     def test_get_font_properties(self) -> None:
         """Verifies get_font_properties constructs a FontProperties object for custom and default fonts."""

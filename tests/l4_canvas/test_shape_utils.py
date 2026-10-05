@@ -89,6 +89,11 @@ class TestShapeUtil:
         assert resolved_explicit.text_color == (0, 255, 0)
         assert resolved_explicit.text_size == 20
 
+        # 5. Inherit text_line_spacing from shape_style
+        spaced_shape_style = dark_style.patch(text_line_spacing=1.8)
+        resolved_spaced = ShapeUtil.resolve_embedded_text_style(spaced_shape_style)
+        assert resolved_spaced.text_line_spacing == 1.8
+
     def test_apply_alignment(self) -> None:
         """Verifies alignment shifting logic for all horizontal and vertical alignment settings."""
         # 1. Angle is None, is_default_center = False (defaults to left/bottom)
@@ -134,11 +139,12 @@ class TestShapeUtil:
         assert t_obj.get_rotation() == 30.0
 
         # 2. With style, custom rotation, flip, and relative xy_shift
-        style = base_style.patch(text_angle=45.0, text_flip=True, text_xy_shift=(5.0, 10.0))
+        style = base_style.patch(text_angle=45.0, text_flip=True, text_xy_shift=(5.0, 10.0), text_line_spacing=1.5)
         t_obj = ShapeUtil.get_shape_text((50.0, 50.0), 0.0, "hello", style=style)
         assert t_obj.get_rotation() == 225.0  # (45.0 + 180) % 360
         # shift at angle 0: x + 5, y + 10
         assert t_obj.get_position() == (55.0, 60.0)
+        assert getattr(t_obj, "_linespacing") == 1.5
 
         # 3. Test absolute shift
         abs_style = base_style.patch(text_xy_abs_shift=(3.0, -3.0))

@@ -56,6 +56,7 @@ Style(
     text_valign: Literal["bottom", "center", "top"] | None = None,
     text_angle: float | None = None,
     text_flip: bool | None = None,
+    text_line_spacing: float | None = None,
     text_xy_shift: tuple[float, float] | None = None,
     text_xy_abs_shift: tuple[float, float] | None = None,
     text_bg_fill_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
@@ -98,6 +99,7 @@ Style(
 | `text_valign` | `str` | Vertical alignment: `"bottom"`, `"center"`, `"top"`. |
 | `text_angle` | `float` | Counter-clockwise text rotation angle in degrees. |
 | `text_flip` | `bool` | Whether to mirror text horizontally. |
+| `text_line_spacing` | `float` | Line spacing multiplier for multi-line text (default: `1.2`). |
 | `text_xy_shift` | `tuple` | Normalized relative offset `(dx, dy)` for embedded text within shapes. |
 | `text_xy_abs_shift` | `tuple` | Absolute coordinate offset `(dx, dy)` in canvas units. |
 | `icon_color` | `ColorType` | Color for vector icons. |
