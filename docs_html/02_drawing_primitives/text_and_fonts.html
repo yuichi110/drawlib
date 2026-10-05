@@ -207,6 +207,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../05_diagrams/graph.html" >Auto-Layout Graphs</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
                             </li>
                             
@@ -352,7 +356,8 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
   <figcaption class="drawlib-caption">Vertical Japanese Typography</figcaption>
 </figure>
 <hr />
-<h2>3. Alignment Engines (<code>halign</code> &amp; <code>valign</code>)</h2>
+<h2>3. Alignment &amp; Line Spacing (<code>halign</code>, <code>valign</code>, <code>text_line_spacing</code>)</h2>
+<h3>3.1. Anchor Alignments (<code>text_halign</code> &amp; <code>text_valign</code>)</h3>
 <p>By default, text is centered horizontally and vertically at <code>xy</code>. You can alter the alignment using style attributes:</p>
 <ul>
 <li><strong><code>text_halign</code></strong>:
@@ -392,6 +397,44 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
 <figure class="drawlib-image" style="text-align: center;">
   <img src="text_and_fonts_images/text_alignment.png" alt="text_and_fonts_3" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Custom Horizontal and Vertical Text Alignment</figcaption>
+</figure>
+<h3>3.2. Multi-line Text &amp; Line Spacing (<code>text_line_spacing</code>)</h3>
+<p>When rendering multi-line strings (separated by <code>\n</code>) inside <code>text()</code> or shape <code>text=&quot;...&quot;</code>, you can adjust the vertical line height multiplier via <code>text_line_spacing</code> on <code>Style</code> (default <code>None</code> uses <code>1.2</code>):</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+
+<span class="n">sample</span> <span class="o">=</span> <span class="s2">&quot;API Gateway</span><span class="se">\n</span><span class="s2">Rate Limiting</span><span class="se">\n</span><span class="s2">JWT Validation&quot;</span>
+
+<span class="c1"># Default line spacing (~1.2x)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Relaxed line spacing (1.8x)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">83</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_line_spacing</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="text_and_fonts_images/text_line_spacing.png" alt="text_and_fonts_4" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Adjusting Multi-Line Spacing with text_line_spacing</figcaption>
 </figure>
 <hr />
 <h2>4. Built-in Font System (<code>drawlib.fonts</code>)</h2>
@@ -465,7 +508,7 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="text_and_fonts_images/text_monospace_font.png" alt="text_and_fonts_4" style="width: 600px; max-width: 100%;" />
+  <img src="text_and_fonts_images/text_monospace_font.png" alt="text_and_fonts_5" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Monospace Code Typography with FontSourceCode</figcaption>
 </figure>
 

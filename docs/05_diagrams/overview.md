@@ -14,6 +14,7 @@ Unlike external diagramming tools that depend on Graphviz, PlantUML, or opaque a
 
 | Diagram Category | Class Name | Module Import | Primary Use Case |
 |---|---|---|---|
+| **Auto-Layout Graphs** | `ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph` | `drawlib.graph` | Automatic coordinate solving, nested clusters, DAGs, code scaffolding |
 | **Cloud & Architecture** | `ArchitectureDiagram` | `drawlib.diagrams.architecture` | Microservices, VPC boundaries, cloud topologies |
 | **Workflow & Processes** | `FlowDiagram` | `drawlib.diagrams.flow` | ISO 5807 flowcharts, cross-functional swimlanes |
 | **API Sequences & Protocols** | `SequenceDiagram` | `drawlib.diagrams.sequence` | Chronological message lifelines, condition blocks |
@@ -62,6 +63,7 @@ A `Junction` represents a zero-dimension coordinate `(x, y)` on the canvas. It a
 ## 4. Chapter Navigation
 
 Explore each dedicated diagram guide:
+- [Auto-Layout Graphs (`drawlib.graph`)](./graph.md): Declarative layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), `offset()`, and `export_code()`.
 - [Cloud & Architecture Diagrams](./architecture.md): Microservices, VPC boundaries, and cloud icon topologies.
 - [Flowcharts & Swimlanes](./flow.md): ISO 5807 flowchart symbols with multi-lane workflows.
 - [Sequence Diagrams](./sequence.md): Chronological API interactions, message styles, and condition blocks.

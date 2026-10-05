@@ -63,7 +63,9 @@ save()
 
 ---
 
-## 3. Alignment Engines (`halign` & `valign`)
+## 3. Alignment & Line Spacing (`halign`, `valign`, `text_line_spacing`)
+
+### 3.1. Anchor Alignments (`text_halign` & `text_valign`)
 
 By default, text is centered horizontally and vertically at `xy`. You can alter the alignment using style attributes:
 
@@ -102,6 +104,53 @@ save()
 <figure class="drawlib-image" style="text-align: center;">
   <img src="text_and_fonts_images/text_alignment.png" alt="text_and_fonts_3" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Custom Horizontal and Vertical Text Alignment</figcaption>
+</figure>
+
+
+
+### 3.2. Multi-line Text & Line Spacing (`text_line_spacing`)
+
+When rendering multi-line strings (separated by `\n`) inside `text()` or shape `text="..."`, you can adjust the vertical line height multiplier via `text_line_spacing` on `Style` (default `None` uses `1.2`):
+
+
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=115, height=48)
+
+sample = "API Gateway\nRate Limiting\nJWT Validation"
+
+# Default line spacing (~1.2x)
+rectangle(
+    (32, 24),
+    width=42,
+    height=32,
+    r=2,
+    style=Styles.PrimaryFlat,
+    text=sample,
+    text_style=Styles.WhiteBold,
+)
+
+# Relaxed line spacing (1.8x)
+rectangle(
+    (83, 24),
+    width=42,
+    height=32,
+    r=2,
+    style=Styles.SecondaryFlat,
+    text=sample,
+    text_style=Styles.WhiteBold.patch(text_line_spacing=1.8),
+)
+
+save()
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="text_and_fonts_images/text_line_spacing.png" alt="text_and_fonts_4" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Adjusting Multi-Line Spacing with text_line_spacing</figcaption>
 </figure>
 
 
@@ -146,7 +195,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="text_and_fonts_images/text_monospace_font.png" alt="text_and_fonts_4" style="width: 600px; max-width: 100%;" />
+  <img src="text_and_fonts_images/text_monospace_font.png" alt="text_and_fonts_5" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Monospace Code Typography with FontSourceCode</figcaption>
 </figure>
 

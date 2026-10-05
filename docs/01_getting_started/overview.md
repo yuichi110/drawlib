@@ -73,8 +73,8 @@ rectangle((60, 11), width=110, height=11, style=Styles.SuccessFlat, text="Layer 
 1. **Layer 1: Core Engine (`drawlib.canvas`, `drawlib.styles`)**  
    Manages canvas lifecycle, Cartesian coordinate systems, theme resolution, and universal font typography.
 2. **Layer 2: Drawing Primitives (`drawlib.shapes`, `drawlib.lines`, `drawlib.text`, `drawlib.icons`, `drawlib.images`)**  
-   Provides 21 vector shapes, flexible line connectors with routing and arrowheads, typography, and standardized icon sets (Phosphor, FontAwesome, GCP).
-3. **Layer 3: High-Level Visualizations (`drawlib.smartarts`, `drawlib.charts`, `drawlib.diagrams`)**  
-   Ready-to-use domain components: cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, data charts, and process flows.
+   Provides 23 vector shapes (including 3D cylinders), flexible line connectors with routing and arrowheads, typography, and standardized icon sets (Phosphor, FontAwesome, GCP).
+3. **Layer 3: High-Level Visualizations (`drawlib.graph`, `drawlib.smartarts`, `drawlib.charts`, `drawlib.diagrams`)**  
+   Ready-to-use domain components: auto-layout graphs, cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, data charts, and process flows.
 4. **Layer 4: Document Builder & CLI (`drawlib._builder`, `drawlib._cli`)**  
    Compiles Markdown files with embedded `drawlib` blocks into responsive static HTML sites, GitHub-ready Markdown, and standalone PDF publications.

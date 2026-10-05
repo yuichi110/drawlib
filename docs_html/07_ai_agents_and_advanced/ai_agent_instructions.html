@@ -207,6 +207,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../05_diagrams/graph.html" >Auto-Layout Graphs</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
                             </li>
                             
@@ -329,6 +333,7 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 
 <span class="k">1.</span> High-Level Over Low-Level:
    Always favor high-level components over assembling raw rectangles and lines:
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Auto-Layout Graphs: <span class="sb">`drawlib.graph`</span> (ArchitectureGraph, LayerGraph, TreeGraph, RadialGraph, GridGraph)
 <span class="w">   </span><span class="k">-</span><span class="w"> </span>Cloud Topologies: <span class="sb">`drawlib.diagrams.architecture.ArchitectureDiagram`</span>
 <span class="w">   </span><span class="k">-</span><span class="w"> </span>Flowcharts &amp; Swimlanes: <span class="sb">`drawlib.diagrams.flow.FlowDiagram`</span>
 <span class="w">   </span><span class="k">-</span><span class="w"> </span>API Sequences: <span class="sb">`drawlib.diagrams.sequence.SequenceDiagram`</span>
@@ -351,16 +356,17 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 
 <span class="k">4.</span> Fetch Rules on Demand:
    If you need exact parameter signatures or examples, run:
-   <span class="sb">`uv run drawlib rules show &lt;topic&gt;`</span> (e.g. <span class="sb">`lib-diagrams`</span>, <span class="sb">`lib-charts`</span>, <span class="sb">`lib-smartarts`</span>, <span class="sb">`style-guide`</span>).
+   <span class="sb">`uv run drawlib rules show &lt;topic&gt;`</span> (e.g. <span class="sb">`lib-graph`</span>, <span class="sb">`lib-diagrams`</span>, <span class="sb">`lib-charts`</span>, <span class="sb">`lib-smartarts`</span>, <span class="sb">`style-guide`</span>).
 </code></pre>
 <hr />
 <h2>3. Dynamic Knowledge Retrieval (<code>drawlib rules</code>)</h2>
 <p>Instead of pasting entire documentation pages into prompts, train your agent to run <code>drawlib rules</code>:</p>
-<pre><code class="language-bash"><span class="c1"># List all 21 modular rule topics:</span>
+<pre><code class="language-bash"><span class="c1"># List all modular rule topics:</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>list
 
 <span class="c1"># Retrieve targeted manuals:</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>agent-instruction<span class="w">    </span><span class="c1"># Workflow loop</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-graph<span class="w">             </span><span class="c1"># Auto-layout graph solvers &amp; code export</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-diagrams<span class="w">          </span><span class="c1"># Architecture, flow, sequence, class, ER</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-charts<span class="w">            </span><span class="c1"># Bar, line, area, pie, radar, gantt</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-smartarts<span class="w">         </span><span class="c1"># Tables, trees, mindmaps, cycle loops</span>

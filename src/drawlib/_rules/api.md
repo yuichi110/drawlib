@@ -111,7 +111,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | :--- | :--- | :--- |
 | `rectangle(xy, width, height, ...)` | `r: float = 0`, `angle: float = 0` | Rectangle or rounded rectangle (`r > 0`). |
 | `circle(xy, radius, ...)` | `radius: float` | Perfect circle centered at `xy`. |
-| `cylinder(xy, width, height, ...)` | `ratio_top: float = 0.3`, `disks: int = 1`, `angle: float = 0` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
+| `cylinder(xy, width, height, ...)` | `disks: int = 1`, `angle: float = 0` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
 | `ellipse(xy, width, height, ...)` | `angle: float = 0` | Ellipse centered at `xy` with rotation angle. |
 | `wedge(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Circular sector / wedge slice from `angle1` to `angle2`. |
 | `fan(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Fan shape (wedge with arc perimeter). |

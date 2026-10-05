@@ -24,6 +24,7 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 
 1. High-Level Over Low-Level:
    Always favor high-level components over assembling raw rectangles and lines:
+   - Auto-Layout Graphs: `drawlib.graph` (ArchitectureGraph, LayerGraph, TreeGraph, RadialGraph, GridGraph)
    - Cloud Topologies: `drawlib.diagrams.architecture.ArchitectureDiagram`
    - Flowcharts & Swimlanes: `drawlib.diagrams.flow.FlowDiagram`
    - API Sequences: `drawlib.diagrams.sequence.SequenceDiagram`
@@ -46,7 +47,7 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 
 4. Fetch Rules on Demand:
    If you need exact parameter signatures or examples, run:
-   `uv run drawlib rules show <topic>` (e.g. `lib-diagrams`, `lib-charts`, `lib-smartarts`, `style-guide`).
+   `uv run drawlib rules show <topic>` (e.g. `lib-graph`, `lib-diagrams`, `lib-charts`, `lib-smartarts`, `style-guide`).
 ````
 
 ---
@@ -56,11 +57,12 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 Instead of pasting entire documentation pages into prompts, train your agent to run `drawlib rules`:
 
 ```bash
-# List all 21 modular rule topics:
+# List all modular rule topics:
 uv run drawlib rules list
 
 # Retrieve targeted manuals:
 uv run drawlib rules show agent-instruction    # Workflow loop
+uv run drawlib rules show lib-graph             # Auto-layout graph solvers & code export
 uv run drawlib rules show lib-diagrams          # Architecture, flow, sequence, class, ER
 uv run drawlib rules show lib-charts            # Bar, line, area, pie, radar, gantt
 uv run drawlib rules show lib-smartarts         # Tables, trees, mindmaps, cycle loops

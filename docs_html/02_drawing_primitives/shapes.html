@@ -207,6 +207,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../05_diagrams/graph.html" >Auto-Layout Graphs</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../05_diagrams/architecture.html" >Architecture Diagrams</a>
                             </li>
                             
@@ -391,7 +395,40 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <li><strong><code>wedge(xy, radius, width, angle_start, angle_end, ...)</code></strong>: Draws an angular donut slice.</li>
 </ul>
 <hr />
-<h2>4. Rectangular &amp; Planar Polygons</h2>
+<h2>4. 3D Cylinders &amp; Database Stacks (<code>cylinder</code>)</h2>
+<p>For databases, message queues, object storage buckets, and disk arrays, <code>cylinder</code> renders a 3D cylindrical container with an elliptical top cap and optional multi-disk divider rings:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">cylinder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span>
+
+<span class="c1"># 1. Single cylinder</span>
+<span class="n">cylinder</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Cache&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+
+<span class="c1"># 2. 3-disk database stack (disks=3)</span>
+<span class="n">cylinder</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">disks</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Primary</span><span class="se">\n</span><span class="s2">DB&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+
+<span class="c1"># 3. Horizontal / rotated cylinder (e.g. message queue)</span>
+<span class="n">cylinder</span><span class="p">((</span><span class="mi">98</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">angle</span><span class="o">=-</span><span class="mi">90</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Accent</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Queue&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="shapes_images/shapes_cylinder.png" alt="shapes_3" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">3D Cylinders and Multi-Disk Database Stacks</figcaption>
+</figure>
+<ul>
+<li><strong><code>cylinder(xy, width, height, *, style, disks=1, angle=0.0, text=&quot;&quot;, text_style=None)</code></strong>:
+<ul>
+<li><code>disks</code>: Number of stacked disk segments (<code>1</code> for a standard cylinder; <code>2</code> or <code>3</code> adds internal elliptical divider seams).</li>
+<li><code>angle</code>: Counterclockwise rotation angle in degrees (<code>-90</code> or <code>90</code> for horizontal pipes/queues).</li>
+<li>The top elliptical cap is automatically tinted lighter for 3D depth even on flat styles (<code>Styles.SecondaryFlat</code>), and embedded <code>text</code> is centered on the front body below the top cap.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>5. Rectangular &amp; Planar Polygons</h2>
 <h3><code>rectangle(xy, width, height, r=0.0, angle=0.0, ...)</code></h3>
 <p>Draws a rectangle centered at <code>xy</code>.</p>
 <ul>
@@ -409,7 +446,7 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_images/shapes_rectangle.png" alt="shapes_3" style="width: 600px; max-width: 100%;" />
+  <img src="shapes_images/shapes_rectangle.png" alt="shapes_4" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Rounded Rectangle Service Card</figcaption>
 </figure>
 <ul>
@@ -421,7 +458,7 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <li><strong><code>polygon(points, ...)</code></strong>: Arbitrary closed polygon from coordinate list <code>[(x1, y1), (x2, y2), ...]</code>.</li>
 </ul>
 <hr />
-<h2>5. Custom Vector Shapes (<code>shape</code>)</h2>
+<h2>6. Custom Vector Shapes (<code>shape</code>)</h2>
 <p>For irregular geometries that do not match predefined primitives, <code>shape</code> allows you to construct custom vector polygons using <strong>local path coordinates</strong>:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">shape</span>
@@ -441,11 +478,11 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_images/shapes_custom_path.png" alt="shapes_4" style="width: 600px; max-width: 100%;" />
+  <img src="shapes_images/shapes_custom_path.png" alt="shapes_5" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Custom Vector Shape via Local Path Points</figcaption>
 </figure>
 <hr />
-<h2>6. Callout Speech Bubbles (<code>bubblespeech</code>)</h2>
+<h2>7. Callout Speech Bubbles (<code>bubblespeech</code>)</h2>
 <p>For callouts, annotations, and explanatory speech bubbles, <code>bubblespeech</code> creates a speech bubble with an integrated pointer tail pointing directly at target coordinates:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">bubblespeech</span>
@@ -474,7 +511,7 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_images/shapes_bubblespeech.png" alt="shapes_5" style="width: 600px; max-width: 100%;" />
+  <img src="shapes_images/shapes_bubblespeech.png" alt="shapes_6" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Callout Speech Bubble</figcaption>
 </figure>
 <ul>

@@ -44,6 +44,7 @@
 
 ## 5. Technical Diagrams
 - [Diagrams Overview](./05_diagrams/overview.md)
+- [Auto-Layout Graphs](./05_diagrams/graph.md)
 - [Architecture Diagrams](./05_diagrams/architecture.md)
 - [Flow Diagrams](./05_diagrams/flow.md)
 - [Sequence Diagrams](./05_diagrams/sequence.md)

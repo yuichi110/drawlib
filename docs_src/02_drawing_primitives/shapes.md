@@ -74,7 +74,37 @@ save()
 
 ---
 
-## 4. Rectangular & Planar Polygons
+## 4. 3D Cylinders & Database Stacks (`cylinder`)
+
+For databases, message queues, object storage buckets, and disk arrays, `cylinder` renders a 3D cylindrical container with an elliptical top cap and optional multi-disk divider rings:
+
+```drawlib show-code 600px center file:shapes_cylinder.png caption:"3D Cylinders and Multi-Disk Database Stacks"
+from drawlib.canvas import save, setup
+from drawlib.shapes import cylinder
+from drawlib.styles import Styles
+
+setup(width=120, height=55)
+
+# 1. Single cylinder
+cylinder((25, 27.5), width=26, height=34, style=Styles.Primary, text="Cache", text_style=Styles.WhiteBold)
+
+# 2. 3-disk database stack (disks=3)
+cylinder((62, 27.5), width=28, height=36, disks=3, style=Styles.SecondaryFlat, text="Primary\nDB", text_style=Styles.WhiteBold)
+
+# 3. Horizontal / rotated cylinder (e.g. message queue)
+cylinder((98, 27.5), width=20, height=32, angle=-90, style=Styles.Accent, text="Queue", text_style=Styles.WhiteBold)
+
+save()
+```
+
+- **`cylinder(xy, width, height, *, style, disks=1, angle=0.0, text="", text_style=None)`**:
+  - `disks`: Number of stacked disk segments (`1` for a standard cylinder; `2` or `3` adds internal elliptical divider seams).
+  - `angle`: Counterclockwise rotation angle in degrees (`-90` or `90` for horizontal pipes/queues).
+  - The top elliptical cap is automatically tinted lighter for 3D depth even on flat styles (`Styles.SecondaryFlat`), and embedded `text` is centered on the front body below the top cap.
+
+---
+
+## 5. Rectangular & Planar Polygons
 
 ### `rectangle(xy, width, height, r=0.0, angle=0.0, ...)`
 Draws a rectangle centered at `xy`. 
@@ -102,7 +132,7 @@ save()
 
 ---
 
-## 5. Custom Vector Shapes (`shape`)
+## 6. Custom Vector Shapes (`shape`)
 
 For irregular geometries that do not match predefined primitives, `shape` allows you to construct custom vector polygons using **local path coordinates**:
 
@@ -127,7 +157,7 @@ save()
 
 ---
 
-## 6. Callout Speech Bubbles (`bubblespeech`)
+## 7. Callout Speech Bubbles (`bubblespeech`)
 
 For callouts, annotations, and explanatory speech bubbles, `bubblespeech` creates a speech bubble with an integrated pointer tail pointing directly at target coordinates:
 

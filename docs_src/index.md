@@ -36,6 +36,7 @@ Drawlib is built to empower AI coding agents (such as Claude Code, Cursor, Gemin
 
 ### 2. Rich High-Level Visualizations
 Avoid assembling hundreds of primitive shapes by hand. Drawlib provides production-ready, declarative components:
+- **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) with nested clusters, `offset()` fine-tuning, and standalone code scaffolding (`export_code()`).
 - **SmartArts**: Process pipelines (`ChevronProcess`), cyclical loops (`Cycle`), data tables (`Table`), and trees (`Tree`).
 - **Data Charts**: Pure-Python bar, line, area, pie, radar, scatter, and Gantt charts without external graphing dependencies.
 - **Technical Diagrams**: Cloud architectures (`ArchitectureDiagram`), flowcharts (`FlowDiagram`), API sequences (`SequenceDiagram`), UML class diagrams (`ClassDiagram`), ER diagrams (`ERDiagram`), and state machines (`StateDiagram`).
@@ -61,7 +62,7 @@ Explore the comprehensive guides below:
 4. [**Charts**](./04_charts/overview.md)
    - Declarative data plotting: bar, line, area, pie, radar, scatter, and project Gantt charts.
 5. [**Technical Diagrams**](./05_diagrams/overview.md)
-   - Engineering diagrams: cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, and state machines.
+   - Engineering diagrams: auto-layout graphs (`drawlib.graph`), cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, and state machines.
 6. [**Document Builder & CLI**](./06_doc_builder_and_cli/overview.md)
    - Documentation as Code: Markdown block syntax, CLI reference, project templates (`site`, `doc`, `slide`, `image`), and custom theming.
 7. [**AI Agents & Advanced Integration**](./07_ai_agents_and_advanced/ai_agent_instructions.md)

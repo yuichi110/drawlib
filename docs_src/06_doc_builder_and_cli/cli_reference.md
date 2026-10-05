@@ -139,6 +139,7 @@ Inspect built-in architectural and library manuals on demand from the terminal:
 drawlib rules list                  # View all available rule topics
 drawlib rules show agent-instruction # View agent bootstrap manual
 drawlib rules show overview         # View Cartesian geometry principles
+drawlib rules show lib-graph        # View declarative graph layout solvers
 drawlib rules show lib-charts       # View chart APIs and data models
 drawlib rules show lib-diagrams     # View technical diagram APIs
 ```
