@@ -11,699 +11,48 @@
 
 from __future__ import annotations
 
-import math
-from pathlib import Path
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING
 
-from PIL.Image import Image
-
-import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
-import drawlib._icons.png_icons.gcp._generated as gcp_gen
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import image as canvas_image
-from drawlib._core.l4_canvas import line as canvas_line
-from drawlib._core.l4_canvas import lines as canvas_lines
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
-from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
-from drawlib._diagrams.sequence._block import Block
-from drawlib._diagrams.sequence._group import ParticipantGroup
+from drawlib._diagrams.sequence._layout import (
+    compute_diagram_size,
+    compute_timeline_y,
+    compute_x_coordinates,
+    parse_diagram_padding,
+)
 from drawlib._diagrams.sequence._message import Message
 from drawlib._diagrams.sequence._note import Note
-from drawlib._diagrams.sequence._participant import Participant
-from drawlib._diagrams.sequence._types import DiagramPadding, IconType, PaddingType
+from drawlib._diagrams.sequence._render_elements import (
+    render_activation_bars,
+    render_blocks,
+    render_groups,
+    render_headers,
+    render_lifelines,
+    render_note,
+    render_single_message,
+)
 from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.sequence._diagram import SequenceDiagram
 
 
-def _parse_diagram_padding(padding: DiagramPadding) -> tuple[float, float, float, float]:
-    """Parse padding into (top, right, bottom, left)."""
-    if isinstance(padding, (int, float)):
-        val = float(padding)
-        return val, val, val, val
-    return float(padding[0]), float(padding[1]), float(padding[2]), float(padding[3])
-
-
-def _parse_message_padding(padding: PaddingType) -> tuple[float, float]:
-    """Extract (start_pad, end_pad) from message PaddingType."""
-    if isinstance(padding, (int, float)):
-        val = float(padding)
-        return val, val
-    return float(padding[0]), float(padding[1])
-
-
-def _draw_enum_icon(
-    icon: GcpIcon | PhosphorIcon,
-    canvas_xy: tuple[float, float],
-    icon_size: float,
-    applied_style: Style,
-) -> None:
-    """Draw a phosphor or GCP icon enum."""
-    cx, cy = canvas_xy
-    fallback_style = Style(
-        shape_fill_color=Colors.Transparent,
-        shape_line_color=(150, 150, 150, 1.0),
-        shape_line_width=1.0,
-    )
-    if isinstance(icon, PhosphorIcon):
-        p_name = icon.name.lower()
-        if hasattr(phosphor_gen, p_name):
-            getattr(phosphor_gen, p_name)(xy=(cx, cy), width=icon_size, style=applied_style)
-        else:
-            canvas_rectangle(xy=(cx, cy), width=icon_size, height=icon_size, style=fallback_style)
-    else:
-        g_name = icon.name.lower()
-        if hasattr(gcp_gen, g_name):
-            getattr(gcp_gen, g_name)(xy=(cx, cy), width=icon_size, style=applied_style)
-        else:
-            canvas_rectangle(xy=(cx, cy), width=icon_size, height=icon_size, style=fallback_style)
-
-
-def _draw_image_icon(
-    icon: CustomIcon | Dimage | Image | str | Path,
-    canvas_xy: tuple[float, float],
-    icon_size: float,
-    applied_style: Style,
-) -> None:
-    """Draw an image-based icon or file."""
-    cx, cy = canvas_xy
-    img: str | Dimage
-    if isinstance(icon, CustomIcon):
-        img = icon.dimage
-    elif isinstance(icon, Image):
-        img = Dimage(icon)
-    elif isinstance(icon, Dimage):
-        img = icon
-    else:
-        img = str(icon)
-
-    canvas_image(xy=(cx, cy), image=img, width=icon_size, style=applied_style)
-
-
-def _draw_icon(
-    icon: IconType,
-    canvas_xy: tuple[float, float],
-    icon_size: float,
-    icon_style: Style | None = None,
-) -> None:
-    """Draw icon representation at coordinate with given size."""
-    if icon is None:
-        return
-
-    default_style = Style(icon_color=(50, 50, 50, 1.0), image_border_width=0)
-    applied_style = default_style.patch(icon_style)
-    if isinstance(icon, (GcpIcon, PhosphorIcon)):
-        _draw_enum_icon(icon, canvas_xy, icon_size, applied_style)
-    elif isinstance(icon, (CustomIcon, Dimage, Image, str, Path)):
-        _draw_image_icon(icon, canvas_xy, icon_size, applied_style)
-    elif callable(icon):
-        icon(xy=canvas_xy, width=icon_size, style=applied_style)
-
-
-def _estimate_note_size(note: Note) -> tuple[float, float]:
-    """Estimate width and height of a note card."""
-    lines = note.text.split("\n") if note.text else []
-    max_line_len = max((len(line) for line in lines), default=0)
-    card_w = max(max_line_len * 0.75 + 5.0, 14.0)
-    card_h = max(len(lines) * 2.2 + 3.0, 6.0)
-    return card_w, card_h
-
-
-def _compute_x_coordinates(
-    diagram: SequenceDiagram,
-    pad_left: float,
-) -> dict[Participant, float]:
-    """Calculate X position for each participant lifeline."""
-    participant_x_map: dict[Participant, float] = {}
-
-    first_participant = diagram.participants[0] if diagram.participants else None
-    left_group_pad = max(
-        (g.padding for g in diagram.groups if first_participant and first_participant in g.participants),
-        default=0.0,
-    )
-    left_note_w = max(
-        (
-            _estimate_note_size(ev)[0] + 3.0
-            for ev in diagram.events
-            if isinstance(ev, Note) and ev.on == first_participant and ev.pos == "left"
-        ),
-        default=0.0,
-    )
-    block_margin = 7.0 if diagram._blocks else 0.0
-    left_extra = max(left_group_pad, left_note_w, block_margin)
-
-    current_x = pad_left + left_extra
-
-    for i, participant in enumerate(diagram.participants):
-        if participant._fixed_x is not None:
-            participant_x_map[participant] = participant._fixed_x
-            current_x = max(current_x, participant._fixed_x + diagram.col_width)
-            continue
-
-        header_w, _ = participant.get_header_size()
-        half_w = header_w / 2.0
-        if i == 0:
-            current_x += half_w
-            participant_x_map[participant] = current_x
-        else:
-            prev_participant = diagram.participants[i - 1]
-            prev_half_w = prev_participant.get_header_size()[0] / 2.0
-            gap = max(diagram.col_width, prev_half_w + half_w + 4.0)
-            current_x += gap
-            participant_x_map[participant] = current_x
-
-    return participant_x_map
-
-
-def _compute_timeline_y(  # noqa: C901
-    diagram: SequenceDiagram,
-) -> tuple[
-    float,
-    dict[object, float],
-    dict[Block, tuple[float, float]],
-    dict[Participant, list[tuple[float, float]]],
-]:
-    """Compute relative Y positions from top for events, blocks, and activations.
-
-    Returns:
-        Tuple of (total_timeline_h, event_y_map, block_bounds_y, resolved_activations).
-    """
-    event_y_map: dict[object, float] = {}
-    block_starts: dict[Block, float] = {}
-    block_ends: dict[Block, float] = {}
-    step_y_record: list[float] = []
-
-    rel_y = 0.0
-
-    for event in diagram.events:
-        if isinstance(event, Message):
-            rel_y = _advance_message_step(event, rel_y, diagram.step_y, event_y_map, step_y_record)
-        elif isinstance(event, Note):
-            rel_y = _advance_note_step(event, rel_y, event_y_map, step_y_record)
-        elif isinstance(event, tuple):
-            rel_y = _handle_tuple_event(event, rel_y, block_starts, block_ends)
-
-    block_bounds_y: dict[Block, tuple[float, float]] = {}
-    for block in diagram._blocks:
-        start_y = block_starts.get(block, 0.0)
-        end_y = block_ends.get(block, rel_y)
-        block_bounds_y[block] = (start_y, end_y)
-
-    resolved_activations = _resolve_activations(diagram, step_y_record, rel_y)
-    return rel_y, event_y_map, block_bounds_y, resolved_activations
-
-
-def _advance_message_step(
-    message: Message,
-    rel_y: float,
-    step_y: float,
-    event_y_map: dict[object, float],
-    step_y_record: list[float],
-) -> float:
-    """Advance timeline for a message."""
-    if message.is_self_call:
-        advance = step_y * 1.8
-    else:
-        lines = message.label.count("\n") + 1 if message.label else 1
-        advance = step_y + (lines - 1) * 2.5
-
-    event_y_map[message] = rel_y + advance * 0.4
-    step_y_record.append(event_y_map[message])
-    return rel_y + advance
-
-
-def _advance_note_step(
-    note: Note,
-    rel_y: float,
-    event_y_map: dict[object, float],
-    step_y_record: list[float],
-) -> float:
-    """Advance timeline for a note card."""
-    lines = note.text.count("\n") + 1 if note.text else 1
-    note_h = max(lines * 2.2 + 3.0, 6.0)
-    event_y_map[note] = rel_y + note_h * 0.5
-    step_y_record.append(event_y_map[note])
-    return rel_y + note_h + 2.0
-
-
-def _handle_tuple_event(
-    event: tuple[object, ...],
-    rel_y: float,
-    block_starts: dict[Block, float],
-    block_ends: dict[Block, float],
-) -> float:
-    """Handle spacer and block boundary timeline events."""
-    if not event:
-        return rel_y
-    tag = event[0]
-    if tag == "space" and len(event) > 1 and isinstance(event[1], (int, float)):
-        return rel_y + float(event[1])
-    if tag == "block_start" and len(event) > 1:
-        blk = event[1]
-        if isinstance(blk, Block):
-            block_starts[blk] = rel_y
-        return rel_y + 3.0
-    if tag == "block_end" and len(event) > 1:
-        blk = event[1]
-        if isinstance(blk, Block):
-            block_ends[blk] = rel_y
-        return rel_y + 2.0
-    return rel_y
-
-
-def _resolve_activations(
-    diagram: SequenceDiagram,
-    step_y_record: list[float],
-    total_rel_y: float,
-) -> dict[Participant, list[tuple[float, float]]]:
-    """Map activation step indices to relative Y coordinates."""
-    resolved: dict[Participant, list[tuple[float, float]]] = {}
-    for participant in diagram.participants:
-        acts: list[tuple[float, float]] = []
-        for start_idx, end_idx in participant._activations:
-            sy = step_y_record[start_idx] if 0 <= start_idx < len(step_y_record) else 0.0
-            if end_idx is not None and 0 <= end_idx < len(step_y_record):
-                ey = step_y_record[end_idx]
-            else:
-                ey = total_rel_y
-            acts.append((sy, ey))
-        resolved[participant] = acts
-    return resolved
-
-
-def _compute_diagram_size(diagram: SequenceDiagram) -> tuple[float, float]:
-    """Compute diagram overall dimensions."""
-    pad_top, pad_right, pad_bottom, pad_left = _parse_diagram_padding(diagram.padding)
-    participant_x_map = _compute_x_coordinates(diagram, pad_left)
-
-    max_x = max(participant_x_map.values(), default=50.0)
-    last_participant = diagram.participants[-1] if diagram.participants else None
-    last_half_w = last_participant.get_header_size()[0] / 2.0 if last_participant else 10.0
-    right_group_pad = max(
-        (g.padding for g in diagram.groups if last_participant and last_participant in g.participants),
-        default=0.0,
-    )
-    right_note_w = max(
-        (
-            _estimate_note_size(ev)[0] + 3.0
-            for ev in diagram.events
-            if isinstance(ev, Note) and ev.on == last_participant and ev.pos == "right"
-        ),
-        default=0.0,
-    )
-    block_margin = 7.0 if diagram._blocks else 0.0
-    right_extra = max(right_group_pad, right_note_w, block_margin)
-    total_w = max_x + last_half_w + right_extra + pad_right
-
-    max_header_h = max((p.get_header_size()[1] for p in diagram.participants), default=12.0)
-    group_top_extra = max((g.padding + (5.0 if g.title else 0.0) for g in diagram.groups), default=0.0)
-    group_bottom_extra = max((g.padding for g in diagram.groups), default=0.0)
-    title_extra = 6.0 if diagram.title else 0.0
-    timeline_h, _, _, _ = _compute_timeline_y(diagram)
-    total_h = (
-        pad_top + title_extra + group_top_extra + max_header_h + group_bottom_extra + timeline_h + 8.0 + pad_bottom
-    )
-
-    dw = diagram.width if diagram.width is not None else total_w
-    dh = diagram.height if diagram.height is not None else total_h
-    return dw, dh
-
-
-def _render_lifelines(
-    participants: list[Participant],
-    participant_x_map: dict[Participant, float],
-    y_header_bottom: float,
-    y_lifeline_bottom: float,
-    base_xy: tuple[float, float],
-) -> None:
-    """Draw vertical dashed lifelines for all participants."""
-    bx, by = base_xy
-    default_lifeline_style = Style(
-        line_color=(185, 185, 190, 1.0),
-        line_width=1.0,
-        line_style="dashed",
-    )
-    for participant in participants:
-        nx = bx + participant_x_map[participant]
-        applied = default_lifeline_style.patch(participant.lifeline_style)
-        canvas_line(
-            xy1=(nx, by + y_header_bottom),
-            xy2=(nx, by + y_lifeline_bottom),
-            style=applied,
-        )
-
-
-def _render_activation_bars(
-    participants: list[Participant],
-    participant_x_map: dict[Participant, float],
-    resolved_acts: dict[Participant, list[tuple[float, float]]],
-    y_origin_top: float,
-    base_xy: tuple[float, float],
-) -> None:
-    """Draw slender execution activation rectangles along lifelines."""
-    bx, by = base_xy
-    act_style = Style(
-        shape_fill_color=(235, 238, 245, 0.9),
-        shape_line_color=(120, 125, 135, 1.0),
-        shape_line_width=1.0,
-    )
-    bar_width = 2.4
-
-    for participant in participants:
-        nx = bx + participant_x_map[participant]
-        for start_rel, end_rel in resolved_acts.get(participant, []):
-            y_start = by + (y_origin_top - start_rel)
-            y_end = by + (y_origin_top - end_rel)
-            h = abs(y_start - y_end)
-            if h < 0.5:
-                continue
-            cy = (y_start + y_end) / 2.0
-            canvas_rectangle(xy=(nx, cy), width=bar_width, height=h, style=act_style)
-
-
-def _render_participant_header(
-    participant: Participant,
-    canvas_xy: tuple[float, float],
-    header_w: float,
-    header_h: float,
-    default_node_style: Style,
-) -> None:
-    """Render a participant's top card, icon, and label."""
-    cx, cy = canvas_xy
-    card_style = default_node_style.patch(participant.style) if participant.style is not None else default_node_style
-    canvas_rectangle(xy=(cx, cy), width=header_w, height=header_h, style=card_style)
-
-    if participant.icon is not None:
-        _draw_icon(participant.icon, (cx, cy), participant.icon_size, participant.icon_style)
-
-    if not participant.text:
-        return
-
-    font_size = (
-        float(participant.text_style.text_size)
-        if participant.text_style and participant.text_style.text_size is not None
-        else 12.0
-    )
-    text_color = card_style.text_color or (35, 35, 40, 1.0)
-    text_style = Style(
-        text_size=font_size,
-        text_font=Font.SANSSERIF_BOLD if participant.icon is None else Font.SANSSERIF_REGULAR,
-        text_color=text_color,
-        text_halign="center",
-        text_valign="center",
-        text_angle=participant.text_angle,
-    )
-    if participant.text_style:
-        text_style = text_style.patch(participant.text_style)
-
-    if participant.icon is None:
-        canvas_text(xy=(cx, cy), text=participant.text, style=text_style)
-    else:
-        half_icon = participant.icon_size / 2.0
-        ty = (
-            cy - half_icon - participant.text_margin
-            if participant.text_position == "bottom"
-            else cy + half_icon + participant.text_margin
-        )
-        canvas_text(xy=(cx, ty), text=participant.text, style=text_style)
-
-
-def _render_headers(
-    participants: list[Participant],
-    participant_x_map: dict[Participant, float],
-    header_cy: float,
-    base_xy: tuple[float, float],
-    default_node_style: Style,
-) -> None:
-    """Draw all participant headers."""
-    bx, by = base_xy
-    for participant in participants:
-        nx = bx + participant_x_map[participant]
-        hw, hh = participant.get_header_size()
-        _render_participant_header(participant, (nx, by + header_cy), hw, hh, default_node_style)
-
-
-def _render_groups(
-    groups: list[ParticipantGroup],
-    participant_x_map: dict[Participant, float],
-    header_cy: float,
-    base_xy: tuple[float, float],
-) -> None:
-    """Draw participant grouping boxes around header cards."""
-    bx, by = base_xy
-    default_group_style = Style(
-        shape_fill_color=(240, 243, 250, 0.4),
-        shape_line_color=(170, 175, 185, 1.0),
-        shape_line_width=1.0,
-        shape_line_style="dashed",
-    )
-    for group in groups:
-        if not group.participants:
-            continue
-        xs = [bx + participant_x_map[p] for p in group.participants if p in participant_x_map]
-        if not xs:
-            continue
-        half_ws = [p.get_header_size()[0] / 2.0 for p in group.participants if p in participant_x_map]
-        half_hs = [p.get_header_size()[1] / 2.0 for p in group.participants if p in participant_x_map]
-
-        min_x = min(x - hw for x, hw in zip(xs, half_ws, strict=False)) - group.padding
-        max_x = max(x + hw for x, hw in zip(xs, half_ws, strict=False)) + group.padding
-        max_h = max(half_hs) * 2.0 + group.padding * 2.0
-
-        box_cx = (min_x + max_x) / 2.0
-        box_cy = by + header_cy
-        applied = default_group_style.patch(group.style)
-        canvas_rectangle(xy=(box_cx, box_cy), width=max_x - min_x, height=max_h, style=applied)
-
-        if group.title:
-            title_style = Style(
-                text_size=11,
-                text_font=Font.SANSSERIF_BOLD,
-                text_color=(90, 95, 105, 1.0),
-                text_halign="left",
-                text_valign="bottom",
-            )
-            if group.text_style:
-                title_style = title_style.patch(group.text_style)
-            canvas_text(xy=(min_x + 2.0, box_cy + max_h / 2.0 + 1.0), text=group.title, style=title_style)
-
-
-def _render_single_message(  # noqa: C901
-    message: Message,
-    y: float,
-    participant_x_map: dict[Participant, float],
-    base_xy: tuple[float, float],
-    default_msg_style: Style,
-) -> None:
-    """Draw a single horizontal message or self-call loop."""
-    bx, by = base_xy
-    sx = bx + participant_x_map[message.source]
-    tx = bx + participant_x_map[message.target]
-
-    applied_style = default_msg_style.patch(message.style)
-    if message.is_reply:
-        applied_style = applied_style.patch(line_style="dashed")
-
-    arrow_head: Literal["", "->", "<-", "<->"]
-    if message.arrow == "<->":
-        arrow_head = "<->"
-    elif message.arrow == "->":
-        arrow_head = "->" if not message.is_async else "->"
-    else:
-        arrow_head = ""
-
-    if message.is_self_call:
-        _draw_self_call(sx, y, arrow_head, applied_style)
-        lx = sx + 8.0
-        ly = y - 2.0
-    else:
-        lx, ly = _draw_horizontal_message(sx, tx, y, message.padding, arrow_head, applied_style)
-
-    if message.label:
-        display_text = f"{message.number}. {message.label}" if message.number is not None else message.label
-        _render_message_label(lx, ly, display_text, message.text_style)
-
-
-def _draw_horizontal_message(
-    sx: float,
-    tx: float,
-    y: float,
-    padding: PaddingType,
-    arrow_head: Literal["", "->", "<-", "<->"],
-    style: Style,
-) -> tuple[float, float]:
-    """Draw straight horizontal message line and return label coordinate."""
-    sp, ep = _parse_message_padding(padding)
-    dx = tx - sx
-    dist = abs(dx)
-    if dist > 1e-4:
-        sign = 1.0 if dx > 0 else -1.0
-        p0 = sx + sign * min(sp, dist * 0.4)
-        p1 = tx - sign * min(ep, dist * 0.4)
-    else:
-        p0, p1 = sx, tx
-
-    canvas_line(xy1=(p0, y), xy2=(p1, y), arrow_head=arrow_head, style=style)
-    return (p0 + p1) / 2.0, y + 1.8
-
-
-def _draw_self_call(
-    sx: float,
-    y: float,
-    arrow_head: Literal["", "->", "<-", "<->"],
-    style: Style,
-) -> None:
-    """Draw 3-segment self-invocation loop."""
-    loop_w = 6.0
-    loop_h = 5.0
-    pts = [
-        (sx, y),
-        (sx + loop_w, y),
-        (sx + loop_w, y - loop_h),
-        (sx, y - loop_h),
-    ]
-    canvas_lines(xys=pts, arrow_head=arrow_head, style=style)
-
-
-def _render_message_label(lx: float, ly: float, text: str, custom_text_style: Style | None) -> None:
-    """Draw message label with clear semi-transparent background backplate."""
-    label_style = Style(
-        text_size=11,
-        text_font=Font.SANSSERIF_REGULAR,
-        text_color=(40, 40, 45, 1.0),
-        text_bg_fill_color=(255, 255, 255, 0.95),
-        text_bg_line_color=None,
-        text_bg_line_width=0,
-        text_halign="center",
-        text_valign="center",
-    )
-    if custom_text_style:
-        label_style = label_style.patch(custom_text_style)
-    canvas_text(xy=(lx, ly), text=text, style=label_style)
-
-
-def _render_note(
-    note: Note,
-    y: float,
-    participant_x_map: dict[Participant, float],
-    base_xy: tuple[float, float],
-) -> None:
-    """Draw a sticky note annotation card."""
-    bx, by = base_xy
-    default_note_style = Style(
-        shape_fill_color=(255, 252, 235, 0.95),
-        shape_line_color=(220, 210, 160, 1.0),
-        shape_line_width=1.0,
-    )
-    applied_style = default_note_style.patch(note.style)
-
-    card_w, card_h = _estimate_note_size(note)
-
-    if note.over and len(note.over) >= 2:
-        xs = [bx + participant_x_map[p] for p in note.over if p in participant_x_map]
-        card_w = max(max(xs) - min(xs) + 8.0, card_w)
-        cx = (min(xs) + max(xs)) / 2.0
-    elif note.on:
-        nx = bx + participant_x_map[note.on]
-        cx = nx + card_w / 2.0 + 3.0 if note.pos == "right" else nx - card_w / 2.0 - 3.0
-    else:
-        cx = bx + 30.0
-
-    canvas_rectangle(xy=(cx, y), width=card_w, height=card_h, style=applied_style)
-
-    text_style = Style(
-        text_size=10,
-        text_font=Font.SANSSERIF_REGULAR,
-        text_color=(60, 55, 45, 1.0),
-        text_halign="center",
-        text_valign="center",
-    )
-    if note.text_style:
-        text_style = text_style.patch(note.text_style)
-    canvas_text(xy=(cx, y), text=note.text, style=text_style)
-
-
-def _render_blocks(
-    blocks: list[Block],
-    block_bounds_y: dict[Block, tuple[float, float]],
-    participant_x_map: dict[Participant, float],
-    y_origin_top: float,
-    base_xy: tuple[float, float],
-    participants: list[Participant],
-) -> None:
-    """Draw framing boundary rectangles and header tabs for condition/loop blocks."""
-    bx, by = base_xy
-    default_block_style = Style(
-        shape_fill_color=(245, 247, 252, 0.25),
-        shape_line_color=(165, 175, 195, 1.0),
-        shape_line_width=1.0,
-        shape_line_style="dashed",
-    )
-
-    for block in blocks:
-        start_rel, end_rel = block_bounds_y.get(block, (0.0, 10.0))
-        y_top = by + (y_origin_top - start_rel)
-        y_bot = by + (y_origin_top - end_rel)
-        bh = max(abs(y_top - y_bot), 6.0)
-        cy = (y_top + y_bot) / 2.0
-
-        involved = block.involved_participants if block.involved_participants else set(participants)
-        xs = [bx + participant_x_map[p] for p in involved if p in participant_x_map]
-        if not xs:
-            xs = [bx + x for x in participant_x_map.values()]
-
-        min_x = min(xs) - 7.0
-        max_x = max(xs) + 7.0
-        bw = max_x - min_x
-        cx = (min_x + max_x) / 2.0
-
-        applied = default_block_style.patch(block.style)
-        canvas_rectangle(xy=(cx, cy), width=bw, height=bh, style=applied)
-
-        # Draw header tab box
-        tag = f"[{block.block_type.upper()}] {block.label}" if block.label else f"[{block.block_type.upper()}]"
-        tab_w = max(len(tag) * 0.7 + 3.0, 8.0)
-        tab_h = 3.0
-        tab_cx = min_x + tab_w / 2.0
-        tab_cy = y_top - tab_h / 2.0
-        canvas_rectangle(
-            xy=(tab_cx, tab_cy),
-            width=tab_w,
-            height=tab_h,
-            style=Style(
-                shape_fill_color=(235, 240, 250, 0.95),
-                shape_line_color=(165, 175, 195, 1.0),
-                shape_line_width=1.0,
-            ),
-        )
-        block_text_style = Style(
-            text_size=9,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=(60, 70, 90, 1.0),
-            text_halign="center",
-            text_valign="center",
-        )
-        if block.text_style:
-            block_text_style = block_text_style.patch(block.text_style)
-        canvas_text(
-            xy=(tab_cx, tab_cy),
-            text=tag,
-            style=block_text_style,
-        )
-
-
 def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> None:
-    """Execute complete 2-pass drawing pipeline for a sequence diagram."""
-    bx, by = float(xy[0]), float(xy[1])
-    pad_top, pad_right, pad_bottom, pad_left = _parse_diagram_padding(diagram.padding)
+    """Execute complete 2-pass drawing pipeline for a sequence diagram.
 
-    dw, dh = _compute_diagram_size(diagram)
-    participant_x_map = _compute_x_coordinates(diagram, pad_left)
-    timeline_h, event_y_map, block_bounds_y, resolved_acts = _compute_timeline_y(diagram)
+    Args:
+        diagram: SequenceDiagram container instance.
+        xy: Base canvas anchor coordinate (x, y). Defaults to (0.0, 0.0).
+    """
+    bx, by = float(xy[0]), float(xy[1])
+    pad_top, pad_right, pad_bottom, pad_left = parse_diagram_padding(diagram.padding)
+
+    dw, dh = compute_diagram_size(diagram)
+    participant_x_map = compute_x_coordinates(diagram, pad_left)
+    timeline_h, event_y_map, block_bounds_y, resolved_acts = compute_timeline_y(diagram)
 
     max_header_h = max((p.get_header_size()[1] for p in diagram.participants), default=12.0)
     group_top_extra = max((g.padding + (5.0 if g.title else 0.0) for g in diagram.groups), default=0.0)
@@ -724,16 +73,16 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
         canvas_rectangle(xy=(bx + dw / 2.0, by + dh / 2.0), width=dw, height=dh, style=bg_style)
 
     # Layer 1: Participant Groups
-    _render_groups(diagram.groups, participant_x_map, header_cy, (bx, by))
+    render_groups(diagram.groups, participant_x_map, header_cy, (bx, by))
 
     # Layer 2: Blocks (loops, condition frames)
-    _render_blocks(diagram._blocks, block_bounds_y, participant_x_map, y_origin_top, (bx, by), diagram.participants)
+    render_blocks(diagram._blocks, block_bounds_y, participant_x_map, y_origin_top, (bx, by), diagram.participants)
 
     # Layer 3: Lifelines
-    _render_lifelines(diagram.participants, participant_x_map, y_header_bottom, y_lifeline_bottom, (bx, by))
+    render_lifelines(diagram.participants, participant_x_map, y_header_bottom, y_lifeline_bottom, (bx, by))
 
     # Layer 4: Activation Bars
-    _render_activation_bars(diagram.participants, participant_x_map, resolved_acts, y_origin_top, (bx, by))
+    render_activation_bars(diagram.participants, participant_x_map, resolved_acts, y_origin_top, (bx, by))
 
     # Layer 5: Messages and Notes
     default_msg_style = diagram.edge_style
@@ -741,14 +90,14 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
         if isinstance(event, Message):
             rel_y = event_y_map[event]
             abs_y = by + (y_origin_top - rel_y)
-            _render_single_message(event, abs_y, participant_x_map, (bx, by), default_msg_style)
+            render_single_message(event, abs_y, participant_x_map, (bx, by), default_msg_style)
         elif isinstance(event, Note):
             rel_y = event_y_map[event]
             abs_y = by + (y_origin_top - rel_y)
-            _render_note(event, abs_y, participant_x_map, (bx, by))
+            render_note(event, abs_y, participant_x_map, (bx, by))
 
     # Layer 6: Participant Headers
-    _render_headers(diagram.participants, participant_x_map, header_cy, (bx, by), diagram.node_style)
+    render_headers(diagram.participants, participant_x_map, header_cy, (bx, by), diagram.node_style)
 
     # Layer 7: Diagram Title
     if diagram.title:
@@ -763,3 +112,7 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
         if diagram.title_style:
             title_style = title_style.patch(diagram.title_style)
         canvas_text(xy=(bx + pad_left, by + dh - pad_top - title_extra + 1.0), text=diagram.title, style=title_style)
+
+
+# Internal re-export for diagram sizing query
+_compute_diagram_size = compute_diagram_size
