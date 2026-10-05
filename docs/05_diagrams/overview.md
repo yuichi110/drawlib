@@ -19,7 +19,7 @@ Unlike external diagramming tools that depend on Graphviz, PlantUML, or opaque a
 | **API Sequences & Protocols** | `SequenceDiagram` | `drawlib.diagrams.sequence` | Chronological message lifelines, condition blocks |
 | **Object-Oriented Structure** | `ClassDiagram` | `drawlib.diagrams.class_diagram` | UML 2.0 class cards, 6 standard relationships |
 | **Relational Schemas** | `ERDiagram` | `drawlib.diagrams.er` | Crow's foot physical schemas, column-level anchors |
-| **Statecharts & Automata** | `StateDiagram` | `drawlib.diagrams.state_diagram` | Finite state machines, curved arc transitions |
+| **Statecharts & Automata** | `StateDiagram` | `drawlib.diagrams.state` | Finite state machines, curved arc transitions |
 
 ---
 

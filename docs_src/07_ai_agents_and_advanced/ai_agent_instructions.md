@@ -29,7 +29,7 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
    - API Sequences: `drawlib.diagrams.sequence.SequenceDiagram`
    - UML Class Hierarchies: `drawlib.diagrams.class_diagram.ClassDiagram`
    - Relational Database Schemas: `drawlib.diagrams.er.ERDiagram`
-   - State Machines: `drawlib.diagrams.state_diagram.StateDiagram`
+   - State Machines: `drawlib.diagrams.state.StateDiagram`
    - Pipelines & Steps: `drawlib.smartarts.ChevronProcess`
    - Quantitative Charts: `drawlib.charts` (BarChart, LineChart, AreaChart, PieChart, RadarChart, GanttChart)
 

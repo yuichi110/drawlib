@@ -24,7 +24,7 @@ from drawlib.diagrams.class_diagram import ClassDiagram
 from drawlib.diagrams.er import ERDiagram
 from drawlib.diagrams.flow import FlowDiagram
 from drawlib.diagrams.sequence import SequenceDiagram
-from drawlib.diagrams.state import StateDiagram  # also accessible via drawlib.diagrams.state_diagram
+from drawlib.diagrams.state import StateDiagram
 
 # Or import submodules from drawlib.diagrams:
 from drawlib.diagrams import (
@@ -34,7 +34,6 @@ from drawlib.diagrams import (
     flow,
     sequence,
     state,
-    state_diagram,
 )
 ```
 
@@ -582,7 +581,7 @@ d.draw(xy=(5.0, 5.0))
 #### Example 6.4.1: Session Lifecycle State Machine
 ```drawlib show-code file:diagram_state_lifecycle.png
 from drawlib import canvas
-from drawlib.diagrams.state_diagram import ChoiceState, FinalState, InitialState, State, StateDiagram
+from drawlib.diagrams.state import ChoiceState, FinalState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
 
 canvas.clear()
@@ -627,7 +626,7 @@ sd.draw(xy=(0.0, 0.0))
 #### Example 6.4.2: Concurrent Task Synchronization with Fork and Join
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.diagrams.state_diagram import FinalState, ForkJoinState, InitialState, State, StateDiagram
+from drawlib.diagrams.state import FinalState, ForkJoinState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
 
 canvas.clear()

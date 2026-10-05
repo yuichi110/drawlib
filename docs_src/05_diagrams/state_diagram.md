@@ -33,7 +33,7 @@
 ## 2. Constructor & Core Classes
 
 ```python
-from drawlib.diagrams.state_diagram import (
+from drawlib.diagrams.state import (
     ChoiceState,
     FinalState,
     ForkJoinState,
@@ -68,7 +68,7 @@ The following complete example showcases pseudo-states, choice diamonds, action 
 
 ```drawlib 650px center file:state_user_session_lifecycle.png caption:"User Session Lifecycle State Machine"
 from drawlib import canvas
-from drawlib.diagrams.state_diagram import ChoiceState, FinalState, InitialState, State, StateDiagram
+from drawlib.diagrams.state import ChoiceState, FinalState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
 
 canvas.clear()
@@ -118,7 +118,7 @@ Use `ForkJoinState` to represent concurrent parallel threads:
 
 ```drawlib 650px center file:state_concurrent_task_sync.png caption:"Concurrent Task Synchronization with Fork and Join"
 from drawlib import canvas
-from drawlib.diagrams.state_diagram import FinalState, ForkJoinState, InitialState, State, StateDiagram
+from drawlib.diagrams.state import FinalState, ForkJoinState, InitialState, State, StateDiagram
 from drawlib.styles import Styles
 
 canvas.clear()

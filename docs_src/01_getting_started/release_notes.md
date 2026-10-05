@@ -29,7 +29,7 @@ Version 0.3.0 represents a major architectural milestone for Drawlib, transformi
 #### 3. High-Level Technical Diagrams (`drawlib.diagrams`)
 - **ER Diagrams (`drawlib.diagrams.er.ERDiagram`)**: Full support for Information Engineering (IE / Crow's Foot) notation, table entity compartments, and automatic orthogonal routing.
 - **UML Class Diagrams (`drawlib.diagrams.class_diagram.ClassDiagram`)**: 3-compartment class cards, stereotypes (`«interface»`), visibility indicators, and relationship methods (`inherit()`, `realize()`, `composite()`, `aggregate()`, `associate()`, `depend()`).
-- **State Machine Diagrams (`drawlib.diagrams.state_diagram.StateDiagram`)**: Declarative statecharts with initial/final pseudo-states, internal activity compartments (`entry`, `do`, `exit`), curved transitions with bend control, and self-loops.
+- **State Machine Diagrams (`drawlib.diagrams.state.StateDiagram`)**: Declarative statecharts with initial/final pseudo-states, internal activity compartments (`entry`, `do`, `exit`), curved transitions with bend control, and self-loops.
 - **Flow Diagrams (`drawlib.diagrams.flow.FlowDiagram`)**: Standard flowchart symbols (ISO 5807 / JIS X 0121), decision branching, T-junction merging, and swimlanes (`Lane`).
 - **Architecture Diagrams (`drawlib.diagrams.architecture.ArchitectureDiagram`)**: Cloud topologies, cluster groups, Phosphor and official GCP vector icons.
 

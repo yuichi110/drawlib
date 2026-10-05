@@ -54,7 +54,7 @@ A `slide` project produces presentation artifacts tailored for every scenario:
 | Output | Audience & Environment | Key Features | Build Script |
 | :--- | :--- | :--- | :--- |
 | **`slide_html/index.html`** | Interactive Presenting | 1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (`Space`, `Arrows`, `F`), overview grid | `build_html.sh` |
-| **`slide.pdf`** | Offline Distribution | 1 slide per page, vector-sharp graphics, exact 16:9 aspect ratio (`@page { size: 16in 9in; margin: 0; }`) | `build_pdf.sh` |
+| **`slide.pdf`** | Offline Distribution | 1 slide per page, vector-sharp graphics, exact 16:9 aspect ratio (`@page { size: 1920px 1080px; margin: 0; }`) | `build_pdf.sh` |
 | **`slide_images/`** | Slides & Social Media | Extracted standalone slide illustrations for external decks and sharing | `build_image.sh` |
 
 ---

@@ -33,7 +33,7 @@
 ## 2. Constructor & Core Classes
 
 ```python
-from drawlib.diagrams.state_diagram import (
+from drawlib.diagrams.state import (
     ChoiceState,
     FinalState,
     ForkJoinState,

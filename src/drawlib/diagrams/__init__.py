@@ -18,7 +18,6 @@ from drawlib.diagrams import (
     flow,
     sequence,
     state,
-    state_diagram,
 )
 
 __all__ = [
@@ -28,5 +27,4 @@ __all__ = [
     "flow",
     "sequence",
     "state",
-    "state_diagram",
 ]

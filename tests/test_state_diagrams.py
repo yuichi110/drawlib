@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit and integration tests for drawlib.diagrams.state_diagram."""
+"""Unit and integration tests for drawlib.diagrams.state."""
 
 from __future__ import annotations
 
@@ -20,8 +20,8 @@ from pydantic import ValidationError
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
-from drawlib.diagrams import state, state_diagram
-from drawlib.diagrams.state_diagram import (
+from drawlib.diagrams import state
+from drawlib.diagrams.state import (
     ChoiceState,
     FinalState,
     ForkJoinState,
@@ -293,13 +293,16 @@ class TestStateDiagram:
         with pytest.raises((ValidationError, TypeError)):
             StateDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary, style="invalid")  # type: ignore
 
-    def test_state_module_import_parity(self) -> None:
-        """Verify drawlib.diagrams.state exports identical objects as drawlib.diagrams.state_diagram."""
-        assert state.StateDiagram is state_diagram.StateDiagram
-        assert state.State is state_diagram.State
-        assert state.InitialState is state_diagram.InitialState
-        assert state.FinalState is state_diagram.FinalState
-        assert state.StateTransition is state_diagram.StateTransition
+    def test_state_module_exports(self) -> None:
+        """Verify drawlib.diagrams.state exports expected public symbols."""
+        assert hasattr(state, "StateDiagram")
+        assert hasattr(state, "State")
+        assert hasattr(state, "InitialState")
+        assert hasattr(state, "FinalState")
+        assert hasattr(state, "ChoiceState")
+        assert hasattr(state, "ForkJoinState")
+        assert hasattr(state, "StateTransition")
+        assert hasattr(state, "StateAction")
 
 
 class TestStateDiagramRendering:

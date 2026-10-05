@@ -32,7 +32,7 @@ from drawlib.text import text, text_vertical
 from drawlib.diagrams.architecture import ArchitectureDiagram, Edge, Junction, Node, NodeGroup
 from drawlib.diagrams.flow import FlowDiagram
 from drawlib.diagrams.sequence import SequenceDiagram
-from drawlib.diagrams.state import StateDiagram  # also aliased as drawlib.diagrams.state_diagram
+from drawlib.diagrams.state import StateDiagram
 from drawlib.diagrams.class_diagram import ClassDiagram
 from drawlib.diagrams.er import ERDiagram
 
@@ -331,7 +331,7 @@ seq.draw()
 ```
 
 ### 7.4 Other Supported Diagrams
-- **State Diagram** (`drawlib.diagrams.state.StateDiagram`, aliased as `state_diagram`): FSM states, composite states, transitions, guard conditions.
+- **State Diagram** (`drawlib.diagrams.state.StateDiagram`): FSM states, composite states, transitions, guard conditions.
 - **Class Diagram** (`drawlib.diagrams.class_diagram.ClassDiagram`): UML classes, methods, inheritance (`--|>`), associations, composition.
 - **ER Diagram** (`drawlib.diagrams.er.ERDiagram`): Relational tables, columns, primary keys, foreign keys, Crow's foot cardinality.
 

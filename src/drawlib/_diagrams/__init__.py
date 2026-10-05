@@ -19,8 +19,6 @@ from drawlib._diagrams.flow import FlowDiagram
 from drawlib._diagrams.sequence import SequenceDiagram
 from drawlib._diagrams.state import StateDiagram
 
-state_diagram = state
-
 __all__ = [
     "ArchitectureDiagram",
     "ClassDiagram",
@@ -34,5 +32,4 @@ __all__ = [
     "flow",
     "sequence",
     "state",
-    "state_diagram",
 ]
