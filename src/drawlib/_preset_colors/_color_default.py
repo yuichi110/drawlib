@@ -166,7 +166,7 @@ class DefaultColors(BaseColors):
     Primary: Color = Primary4
     Secondary: Color = Secondary4
     Accent: Color = Accent4
-    Muted: Color = Muted3
+    Muted: Color = Muted4
     Light: Color = White
     Dark: Color = Gray7
     Danger: Color = Danger4
@@ -486,7 +486,7 @@ class DefaultColors4(DefaultColors):
     Primary: Color = DefaultColors.Primary4
     Secondary: Color = DefaultColors.Secondary4
     Accent: Color = DefaultColors.Accent4
-    Muted: Color = DefaultColors.Muted3
+    Muted: Color = DefaultColors.Muted4
     Light: Color = DefaultColors.White
     Dark: Color = DefaultColors.Gray7
     Danger: Color = DefaultColors.Danger4

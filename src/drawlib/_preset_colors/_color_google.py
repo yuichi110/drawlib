@@ -158,7 +158,7 @@ class GoogleColors(BaseColors):
     GoogleGreen: Color = Green4         # #34A853 (Theme Success)
     GoogleOrange: Color = Orange4       # #F57C00 (Theme Accent)
     GooglePurple: Color = Purple4       # #674EA7 (Theme Secondary)
-    GoogleGray: Color = Gray3           # #D9D9D9 (Theme Muted border)
+    GoogleGray: Color = Gray4           # #CCCCCC (Theme Muted border & fill)
 
     # =========================================================================
     # 5. Semantic Numbered Palette (6 Roles x 6 Levels)
@@ -211,7 +211,7 @@ class GoogleColors(BaseColors):
     Primary: Color = Primary4          # GoogleBlue (#4285F4)
     Secondary: Color = Secondary4      # GooglePurple (#674EA7)
     Accent: Color = Accent4            # GoogleOrange (#F57C00)
-    Muted: Color = Muted3              # GoogleGray (#D9D9D9)
+    Muted: Color = Muted4              # GoogleGray (#CCCCCC)
     Light: Color = Gray1               # #F3F3F3
     Dark: Color = Gray8                # #434343
     Danger: Color = Danger4            # GoogleRed (#EA4335)

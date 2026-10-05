@@ -400,12 +400,13 @@ save()
 
 When adding text to Drawlib illustrations:
 
-1. **Hierarchy First**:
-   - Diagram titles: `text_size=20–24` via `Styles.PrimaryBold.patch(text_size=22)`, `text_halign="center"` at canvas top.
-   - Container / node headers: `text_size=12–14` via `text_style=Styles.WhiteBold` (or `Styles.PrimaryBold`).
-   - Metadata / annotations: `text_size=9–11` via `Styles.Muted.patch(text_size=10)`.
+1. **Hierarchy & Neutral Text Colors**:
+   - Diagram titles: `text_size=20–24` via `Styles.DarkBold.patch(text_size=22)`, `text_halign="center"` at canvas top.
+   - Container / node headers: `text_size=12–14` via `text_style=Styles.WhiteBold` (on dark/colored fill) or `Styles.DarkBold` (on light fill).
+   - Metadata / annotations: `text_size=9–11` via `Styles.Muted.patch(text_size=10)` or `Styles.Dark`.
+   - **Neutral Text Rule**: Never use `Styles.Primary` or `Styles.Secondary` for general text, titles, or body labels without deliberate reason. Default to `Styles.Dark` on light backgrounds and `Styles.Light` / `Styles.White` on dark backgrounds.
 2. **Avoid Hardcoding Hex Colors**:
-   - Prefer style presets (`Styles.PrimaryBold`, `Styles.BlueBold`, `Styles.WhiteBold`) over explicit `#RRGGBB` strings to maintain harmony across light/dark themes.
+   - Prefer style presets (`Styles.DarkBold`, `Styles.WhiteBold`, `Styles.Muted`) over explicit `#RRGGBB` strings to maintain harmony across light/dark themes.
 3. **Prevent Text Collision**:
    - Allow at least 2 coordinate units of margin between shape boundaries and text borders.
    - For long labels, insert explicit `\n` line breaks rather than letting text overflow the shape width.

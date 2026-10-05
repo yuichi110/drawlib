@@ -265,10 +265,25 @@ Establish a clear typographical scale:
 
 | Level | Size (`text_size`) | Recommended Style | Usage |
 | :--- | :--- | :--- | :--- |
-| **Diagram Title** | 18 – 22 | `Styles.PrimaryBold.patch(text_size=20)` | Top of canvas diagram titles. |
-| **Section Header**| 14 – 16 | `Styles.PrimaryBold` | Subsystem containers, VPC group headers. |
-| **Primary Node** | 11 – 13 | `Styles.PrimaryBold` / `Styles.WhiteBold` | Service names, entity titles, actions. |
-| **Metadata / Note**| 8 – 10 | `Styles.Light` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
+| **Diagram Title** | 18 – 22 | `Styles.DarkBold.patch(text_size=20)` | Top of canvas diagram titles. |
+| **Section Header**| 14 – 16 | `Styles.DarkBold` | Subsystem containers, VPC group headers. |
+| **Node Label** | 11 – 13 | `Styles.WhiteBold` (on dark fill) / `Styles.DarkBold` (on light fill) | Service names, entity titles, actions. |
+| **Metadata / Note**| 8 – 10 | `Styles.Muted` (subtle) / `Styles.Dark` | IP addresses, protocols (`HTTP/2`), ports (`:8080`). |
+
+### 6.1 Default Text Color Principle: High-Contrast Neutral Typography
+
+**Core Rule: Never use chromatic semantic colors (`Primary`, `Secondary`, `Accent`) for general text, titles, or body labels without a deliberate functional reason.**
+
+- **On Light Backgrounds** (canvas background, white cards, light container shapes):
+  - Primary text, titles, bullet points: **`Styles.Dark` / `Styles.DarkBold`**
+  - Secondary text, inactive states, subtle notes: **`Styles.Muted` / `Styles.MutedBold`**
+- **On Dark Backgrounds** (solid/colored shape fills such as `Styles.PrimaryFlat` or `Styles.AccentFlat`):
+  - Inverted text: **`Styles.Light` / `Styles.White` / `Styles.WhiteBold`**
+
+#### Why Chromatic Text Must Be Avoided:
+1. **Prevents Rainbow Text Clutter**: Coloring titles, headers, or bullet points with `Styles.Primary` (blue) or `Styles.Secondary` (purple/teal) creates unnecessary visual noise and weakens overall diagram aesthetics.
+2. **Preserves Semantic Power of Color**: Reserve chromatic colors (`Primary`, `Secondary`, `Accent`, `Danger`, `Success`) strictly for **shape fills, key borders, and directional connectors**. When all text is blue, `Primary` loses its ability to anchor the eye to core application components.
+3. **Guarantees Universal Contrast**: `Dark` and `Light` ensure maximum readability across varying screens, projectors, and exported document media.
 
 Drawlib automatically ensures optimal luminance contrast when text is embedded inside shapes. If using standalone `text()`, ensure dark text on light backgrounds and light text on dark containers.
 

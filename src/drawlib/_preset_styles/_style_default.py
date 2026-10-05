@@ -3937,12 +3937,12 @@ def _create_default_styles(  # noqa: C901, PLR0911
     for role_name, color in semantic_map.items():
         if color is not None:
             if role_name == "Muted":
-                text_col = col.White if theme_tone >= 5 else col.Dark
+                text_col = col.White if theme_tone >= 5 else col.Gray6
                 v = _make_variants(
                     color,
-                    border_color=col.Gray5,
+                    border_color=col.Gray6,
                     default_text_color=text_col,
-                    line_color=col.Gray4,
+                    line_color=col.Gray5,
                 )
             elif role_name == "Light":
                 v = _make_variants(

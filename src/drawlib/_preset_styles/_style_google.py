@@ -4373,7 +4373,29 @@ def _create_google_styles() -> GoogleStyles:
         "Success": col.Success,
     }
     for role_name, color in semantic_map.items():
-        v = _make_variants(color, border_color=border_color)
+        if role_name == "Muted":
+            v = _make_variants(
+                color,
+                border_color=col.Gray6,
+                default_text_color=col.Gray6,
+                line_color=col.Gray5,
+            )
+        elif role_name == "Light":
+            v = _make_variants(
+                color,
+                border_color=col.Gray4,
+                default_text_color=col.Gray8,
+                line_color=col.Gray4,
+            )
+        elif role_name == "Dark":
+            v = _make_variants(
+                color,
+                border_color=col.Gray6,
+                default_text_color=col.White,
+                line_color=col.Gray6,
+            )
+        else:
+            v = _make_variants(color, border_color=border_color)
         styles_dict[role_name] = v["normal"]
         styles_dict[f"{role_name}Bordered"] = v["bordered"]
         styles_dict[f"{role_name}Bold"] = v["bold"]
