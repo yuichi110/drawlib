@@ -22,13 +22,13 @@ TreeNode.register_drawing_item(
 )
 TreeNode.register_drawing_item(
     name="file", location="before", padding_width=4.0, function=phosphor.file_text,
-    style=Styles.SecondaryFlat, args={"width": 3.0}
+    style=Styles.Dark, args={"width": 3.0}
 )
 
 root = TreeNode(
     "src/",
-    text_style=Styles.PrimaryBold,
-    line_style=Styles.PrimaryBold,
+    text_style=Styles.DarkBold,
+    line_style=Styles.DarkLight,
     line_horizontal_margin=3.0,
     line_horizontal_length=3.0,
     line_vertical_margin=6.0,

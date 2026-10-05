@@ -72,11 +72,11 @@ from drawlib.lines import line
 from drawlib.styles import Styles
 
 setup(width=160, height=50)
-rectangle((30, 25), width=35, height=20, style=Styles.PrimaryFlat, text="Producer", text_style=Styles.WhiteBold)
-rectangle((80, 25), width=35, height=20, style=Styles.AccentFlat, text="Kafka", text_style=Styles.WhiteBold)
-rectangle((130, 25), width=35, height=20, style=Styles.SecondaryFlat, text="Consumer", text_style=Styles.WhiteBold)
-line((47.5, 25), (62.5, 25), arrow_head="->", style=Styles.PrimaryBold)
-line((97.5, 25), (112.5, 25), arrow_head="->", style=Styles.PrimaryBold)
+rectangle((30, 25), width=35, height=20, style=Styles.Neutral, text="Producer")
+rectangle((80, 25), width=35, height=20, style=Styles.PrimaryFlat, text="Kafka", text_style=Styles.WhiteBold)
+rectangle((130, 25), width=35, height=20, style=Styles.SecondaryNeutral, text="Consumer")
+line((47.5, 25), (62.5, 25), arrow_head="->", style=Styles.DarkBold)
+line((97.5, 25), (112.5, 25), arrow_head="->", style=Styles.DarkBold)
 ```
 ````
 

@@ -89,17 +89,17 @@ t3 = chart.add_task("Distributed Consensus Protocol", start=1.5, end=3.2, style=
 
 # 2. APIs & Observability Section
 chart.add_section("2. APIs & Observability")
-t4 = chart.add_task("gRPC & HTTP/3 Gateway", start=2.5, end=4.0, style=Styles.SecondaryFlat, progress=0.2)
-t5 = chart.add_task("Distributed Tracing Exporter", start=3.2, end=4.8, style=Styles.SecondaryFlat, progress=0.0)
+t4 = chart.add_task("gRPC & HTTP/3 Gateway", start=2.5, end=4.0, style=Styles.SecondaryNeutral, progress=0.2)
+t5 = chart.add_task("Distributed Tracing Exporter", start=3.2, end=4.8, style=Styles.SecondaryNeutral, progress=0.0)
 
 # 3. Milestones & Today Marker
-chart.add_milestone("Alpha Architecture Freeze", at="Jun", style=Styles.AccentFlat)
-chart.add_milestone("Public Beta Launch", at=4.0, style=Styles.AccentFlat)
+chart.add_milestone("Alpha Architecture Freeze", at="Jun", style=Styles.PrimaryFlat)
+chart.add_milestone("Public Beta Launch", at=4.0, style=Styles.PrimaryFlat)
 
 chart.add_dependency(t1, t2)
 chart.add_dependency(t2, t4)
 chart.add_dependency(t3, t4)
-chart.add_marker(at=1.7, style=Styles.AccentFlat, label="Today (Mid-May)")
+chart.add_marker(at=1.7, style=Styles.DarkDashed, label="Today (Mid-May)")
 
 chart.draw(xy=(8.0, 10.0))
 ```
@@ -141,11 +141,11 @@ chart = GanttChart(
 )
 
 s1 = chart.add_task("Auth Microservice", start=0.0, end=1.8, style=Styles.PrimaryFlat, progress=1.0)
-s2 = chart.add_task("Payment Gateway", start=1.2, end=3.0, style=Styles.SecondaryFlat, progress=0.6)
-s3 = chart.add_task("Load Testing & Tuning", start=2.5, end=4.0, style=Styles.AccentFlat, progress=0.1)
+s2 = chart.add_task("Payment Gateway", start=1.2, end=3.0, style=Styles.SecondaryNeutral, progress=0.6)
+s3 = chart.add_task("Load Testing & Tuning", start=2.5, end=4.0, style=Styles.Neutral, progress=0.1)
 
 chart.add_dependency(s1, s2)
-chart.add_milestone("Feature Complete", at=3.0, style=Styles.AccentFlat)
+chart.add_milestone("Feature Complete", at=3.0, style=Styles.PrimaryFlat)
 
 chart.draw(xy=(6.0, 15.0))
 ```

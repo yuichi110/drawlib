@@ -95,7 +95,7 @@ from drawlib.shapes import circle
 from drawlib.styles import Styles
 
 setup(width=40, height=40)
-circle((20, 20), radius=15, style=Styles.AccentFlat, text="Pod", text_style=Styles.WhiteBold.patch(text_size=36))
+circle((20, 20), radius=15, style=Styles.PrimaryFlat, text="Pod", text_style=Styles.WhiteBold.patch(text_size=36))
 save()
 """
 
@@ -105,7 +105,7 @@ sub_diagram = get_dimage_from_code(sub_code)
 setup(width=100, height=50)
 rectangle((50, 25), width=70, height=36, style=Styles.MutedDashed)
 image((50, 26), width=28, image=sub_diagram)
-text((50, 11), "Host Canvas with Embedded Sub-Diagram", style=Styles.PrimaryBold)
+text((50, 11), "Host Canvas with Embedded Sub-Diagram", style=Styles.DarkBold)
 
 save()
 ```

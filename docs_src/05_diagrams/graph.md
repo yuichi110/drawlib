@@ -62,21 +62,22 @@ g = ArchitectureGraph(direction="LR", default_node_width=26.0)
 
 # External client zone pinned to the left
 g.cluster("clients", ["client"], label="External", pos="left", padding=5.0)
-g.node("client", "Client App", style=Styles.AccentFlat, text_style=Styles.WhiteBold)
+g.node("client", "Client App", style=Styles.Neutral)
 
 # Cloud VPC with nested Compute and Data tiers in the center
 g.group("vpc", "Production VPC", pos="center", padding=5.0)
 g.cluster("app_tier", ["api", "worker"], label="Compute Tier", parent="vpc", order=1, padding=5.0)
 g.cluster("data_tier", ["db", "cache"], label="Data Tier", parent="vpc", order=2, padding=5.0)
 
+# Hero focal node in PrimaryFlat; supporting nodes in calm Neutral / Tinted-Neutral cards
 g.node("api", "API Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.node("worker", "Worker", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.node("db", "Primary DB", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
-g.node("cache", "Redis Cache", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
+g.node("worker", "Worker", style=Styles.PrimaryNeutral)
+g.node("db", "Primary DB", style=Styles.SecondaryNeutral)
+g.node("cache", "Redis Cache", style=Styles.SecondaryNeutral)
 
 # Observability cluster pinned to the bottom
 g.cluster("obs", ["metrics"], label="Observability", pos="bottom", padding=5.0)
-g.node("metrics", "Prometheus", style=Styles.SuccessFlat, text_style=Styles.WhiteBold)
+g.node("metrics", "Prometheus", style=Styles.Neutral)
 
 g.edge("client", "api", "HTTPS")
 g.edge("api", "worker", "Queue")
@@ -103,11 +104,11 @@ setup(width=185, height=90)
 
 g = LayerGraph(direction="LR", rank_sep=14.0, default_node_width=26.0)
 
-g.node("git", "Git Push", style=Styles.AccentFlat, text_style=Styles.WhiteBold)
-g.node("lint", "Lint & Type", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.node("unit", "Unit Tests", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.node("build", "Build Image", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
-g.node("prod", "Production", style=Styles.SuccessFlat, text_style=Styles.WhiteBold)
+g.node("git", "Git Push", style=Styles.Neutral)
+g.node("lint", "Lint & Type", style=Styles.PrimaryNeutral)
+g.node("unit", "Unit Tests", style=Styles.PrimaryNeutral)
+g.node("build", "Build Image", style=Styles.SecondaryNeutral)
+g.node("prod", "Production", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
 
 g.tier("ci", ["lint", "unit"], layer=1)
 g.cluster("ci_box", ["lint", "unit"], label="CI Checks", padding=6.0)
@@ -138,13 +139,13 @@ setup(width=160, height=85)
 g = TreeGraph(root="vp", direction="TB", default_node_width=28.0)
 g.node("vp", "VP Engineering", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
 
-g.child("vp", "plat", "Platform Team", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
-g.child("vp", "prod", "Product Team", style=Styles.AccentFlat, text_style=Styles.WhiteBold)
+g.child("vp", "plat", "Platform Team", style=Styles.PrimaryNeutral)
+g.child("vp", "prod", "Product Team", style=Styles.SecondaryNeutral)
 
-g.child("plat", "infra", "Cloud Infra", style=Styles.Secondary)
-g.child("plat", "sec", "Security", style=Styles.Secondary)
-g.child("prod", "web", "Web Frontend", style=Styles.Accent)
-g.child("prod", "mob", "Mobile Apps", style=Styles.Accent)
+g.child("plat", "infra", "Cloud Infra", style=Styles.Neutral)
+g.child("plat", "sec", "Security", style=Styles.Neutral)
+g.child("prod", "web", "Web Frontend", style=Styles.Neutral)
+g.child("prod", "mob", "Mobile Apps", style=Styles.Neutral)
 
 g.draw(margin=12)
 save()
@@ -161,20 +162,20 @@ from drawlib.canvas import save, setup
 from drawlib.graph import RadialGraph
 from drawlib.styles import Styles
 
-setup(width=150, height=120)
+setup(width=170, height=130)
 
 g = RadialGraph(hub="core", draw_ring_guides=True, default_node_width=24.0)
 g.node("core", "Event Mesh", shape="circle", width=24.0, height=24.0, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
 
-g.spoke("core", "auth", "Auth API", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
-g.spoke("core", "billing", "Billing", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
-g.spoke("core", "orders", "Orders", style=Styles.AccentFlat, text_style=Styles.WhiteBold)
-g.spoke("core", "notify", "Notify", style=Styles.SuccessFlat, text_style=Styles.WhiteBold)
+g.spoke("core", "auth", "Auth API", style=Styles.PrimaryNeutral)
+g.spoke("core", "billing", "Billing", style=Styles.PrimaryNeutral)
+g.spoke("core", "orders", "Orders", style=Styles.SecondaryNeutral)
+g.spoke("core", "notify", "Notify", style=Styles.PrimaryNeutral)
 
-g.spoke("orders", "inv", "Inventory", ring=2, style=Styles.WarningFlat, text_style=Styles.WhiteBold)
-g.spoke("orders", "ship", "Shipping", ring=2, style=Styles.WarningFlat, text_style=Styles.WhiteBold)
+g.spoke("orders", "inv", "Inventory", ring=2, style=Styles.Neutral)
+g.spoke("orders", "ship", "Shipping", ring=2, style=Styles.Neutral)
 
-g.draw(margin=14)
+g.draw(margin=18)
 save()
 ```
 
@@ -193,13 +194,13 @@ setup(width=150, height=90)
 
 g = GridGraph(columns=3)
 
-g.cell("fe_web", row=0, col=0, label="Web UI", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.cell("fe_mob", row=0, col=1, label="Mobile UI", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.cell("fe_cli", row=0, col=2, label="CLI Tool", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.cell("fe_web", row=0, col=0, label="Web UI", style=Styles.Neutral)
+g.cell("fe_mob", row=0, col=1, label="Mobile UI", style=Styles.Neutral)
+g.cell("fe_cli", row=0, col=2, label="CLI Tool", style=Styles.Neutral)
 
-g.cell("svc_auth", row=1, col=0, label="Auth API", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
-g.cell("svc_core", row=1, col=1, label="Core API", style=Styles.AccentFlat, text_style=Styles.WhiteBold)
-g.cell("svc_pay", row=1, col=2, label="Billing API", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
+g.cell("svc_auth", row=1, col=0, label="Auth API", style=Styles.SecondaryNeutral)
+g.cell("svc_core", row=1, col=1, label="Core API", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.cell("svc_pay", row=1, col=2, label="Billing API", style=Styles.SecondaryNeutral)
 
 g.cluster_row(0, "row_fe", label="Client Interfaces")
 g.cluster_row(1, "row_be", label="Backend Services")
@@ -229,9 +230,9 @@ from drawlib.styles import Styles
 setup(width=150, height=75)
 
 g = LayerGraph(direction="LR", default_node_width=26.0)
-g.node("ingest", "Ingest", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-g.node("process", "Stream Engine", style=Styles.AccentFlat, text_style=Styles.WhiteBold)
-g.node("store", "Data Lake", style=Styles.SecondaryFlat, text_style=Styles.WhiteBold)
+g.node("ingest", "Ingest", style=Styles.Neutral)
+g.node("process", "Stream Engine", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+g.node("store", "Data Lake", style=Styles.SecondaryNeutral)
 
 g.edge("ingest", "process")
 g.edge("process", "store")
@@ -253,9 +254,8 @@ bubblespeech(
     tail_start_ratio=0.4,
     tail_end_ratio=0.6,
     tail_vertex_xy=(proc.x, proc.y + proc.height / 2 + 1),
-    style=Styles.WarningFlat,
+    style=Styles.WarningNeutral,
     text="Auto-scaled x8",
-    text_style=Styles.WhiteBold,
 )
 
 save()

@@ -48,24 +48,34 @@ A common mistake when generating diagrams is placing elements too close to the c
 
 ---
 
-## 4. The 7-Color Semantic Design System
+## 4. The Semantic Design System & Color Discipline
 
-Professional illustrations maintain visual clarity by structuring colors around Drawlib's 7 core semantic roles, anchoring around `primary` while utilizing the other roles to represent distinct components and states without artificial frequency restrictions:
+Professional illustrations maintain visual clarity by structuring colors around Drawlib's core semantic roles and following the **50%+ Neutral-Grounded Architecture** discipline:
+
+> [!IMPORTANT]
+> **Avoid Rainbow Chaos (50%+ Neutral-Grounded Architecture)**:
+> Never color every box with saturated fills (`PrimaryFlat`, `AccentFlat`, `SuccessFlat`, `WarningFlat`). Overly colorful diagrams look amateurish and cause visual fatigue.
+> - **Ground 50% or more of nodes in calm neutral or tinted-neutral cards**: `Styles.Neutral`, `Styles.NeutralFlat`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`.
+> - **Reserve saturated hero fills (`Styles.PrimaryFlat`, `Styles.AccentFlat` with `text_style=Styles.WhiteBold`)** strictly for 1–2 primary focal points.
+> - **Use `Styles.MutedDashed` or `Styles.Muted`** for boundary containers, VPCs, and clusters.
+> - **Use `Styles.DarkBold` or `Styles.DarkFlat`** for clean, neutral connection lines.
 
 
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="core_concepts_images/seven_color_semantic_system.png" alt="core_concepts_2" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">The 7-Color Semantic System</figcaption>
+  <figcaption class="drawlib-caption">The Semantic Color System</figcaption>
 </figure>
 
 
 
-1. **Primary Anchor (`Styles.Primary`)**:
-   Central workflow spine, core microservices, and primary subject matter.
-2. **Functional Semantics (`Styles.Secondary`, `Styles.Accent`, `Styles.Warning`, `Styles.Danger`, `Styles.Success`)**:
-   Auxiliary services, events, databases, warnings, alerts, and verified deliverables. Used actively across the diagram according to their functional intent without artificial percentage caps.
-3. **Muted Structural Base (`Styles.Muted`)**:
+1. **Primary Anchor (`Styles.PrimaryFlat`)**:
+   Central workflow spine, core microservices, and primary subject matter (reserved for 1–2 hero elements).
+2. **Neutral Grounding (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`)**:
+   General worker nodes, supporting services, and calm card surfaces that provide breathing room for the eye.
+3. **Functional Semantics (`Styles.Accent`, `Styles.Warning`, `Styles.Danger`, `Styles.Success`)**:
+   Auxiliary events, warnings, alerts, and verified deliverables used purposefully where their functional meaning applies.
+4. **Muted Structural Base (`Styles.Muted`)**:
    Neutral containers, group boundaries, subnets, and grouping boxes (`Styles.MutedFlat`, `Styles.MutedDashed`).
 
 ---

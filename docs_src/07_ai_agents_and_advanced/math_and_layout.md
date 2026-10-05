@@ -67,12 +67,14 @@ rectangle(
     r=4,
     style=Styles.MutedDashed,
     text="Kubernetes Worker Cluster",
-    text_style=Styles.PrimaryBold,
+    text_style=Styles.DarkBold,
 )
 
 # 4. Render nodes
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style=Styles.PrimaryFlat, text=f"Pod {i}", text_style=Styles.WhiteBold)
+    st = Styles.PrimaryFlat if i == 1 else Styles.Neutral
+    t_st = Styles.WhiteBold if i == 1 else Styles.DarkBold
+    circle((x, y), radius=7, style=st, text=f"Pod {i}", text_style=t_st)
 save()
 ```
 
@@ -108,8 +110,8 @@ for i in range(num_clients):
     dist = get_distance(hub, node_xy)
     angle_deg = get_angle(hub, node_xy)
     
-    line(hub, node_xy, style=Styles.PrimaryBold)
-    circle(node_xy, radius=6, style=Styles.SecondaryFlat, text=f"N{i+1}", text_style=Styles.WhiteBold)
+    line(hub, node_xy, style=Styles.DarkBold)
+    circle(node_xy, radius=6, style=Styles.Neutral, text=f"N{i+1}")
 save()
 ```
 
@@ -132,13 +134,13 @@ p1 = (25, 25)
 p2 = (95, 60)
 
 # Draw slanted wire
-line(p1, p2, arrow_head="->", style=Styles.PrimaryBold)
+line(p1, p2, arrow_head="->", style=Styles.DarkBold)
 
 # Calculate rotation angle and midpoint
 angle = get_angle(p1, p2)
 midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 4)
 
 # Render rotated text parallel to the connection
-text(midpoint, f"Telemetry Stream ({angle:.1f}°)", angle=angle, style=Styles.PrimaryBold)
+text(midpoint, f"Telemetry Stream ({angle:.1f}°)", angle=angle, style=Styles.DarkBold)
 save()
 ```

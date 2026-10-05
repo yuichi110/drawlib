@@ -32,10 +32,10 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, No
 from drawlib.styles import Styles
 
 d = ArchitectureDiagram(
-    node_style=Styles.PrimaryFlat,
-    node_text_style=Styles.Black,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    node_text_style=Styles.DarkBold,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Production Multi-Tier Cloud VPC",
 )
 ```

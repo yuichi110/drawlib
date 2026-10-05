@@ -14,20 +14,20 @@ from drawlib.styles import Styles
 
 setup(width=120, height=60)
 
-# 1. Straight Block Arrow
+# 1. Straight Block Arrow (Hero)
 arrow((15, 45), (45, 45), tail_width=4, head_width=10, head_length=8, style=Styles.PrimaryFlat, text="arrow", text_style=Styles.WhiteBold)
 
-# 2. Chevron
-chevron((75, 45), width=24, height=14, corner_angle=60, style=Styles.AccentFlat, text="chevron", text_style=Styles.WhiteBold)
+# 2. Chevron (Neutral)
+chevron((75, 45), width=24, height=14, corner_angle=60, style=Styles.Neutral, text="chevron")
 
 # 3. Arrow Arc (Circular flow)
-arrow_arc((105, 45), width=20, height=20, angle_start=180, angle_end=0, tail_width=3, head_width=8, style=Styles.SuccessFlat)
+arrow_arc((105, 45), width=20, height=20, angle_start=180, angle_end=0, tail_width=3, head_width=8, style=Styles.SecondaryNeutral)
 
 # 4. L-shaped Arrow
-arrow_l((30, 20), width=25, height=20, tail_width=3, head_width=8, head_length=6, style=Styles.SecondaryFlat)
+arrow_l((30, 20), width=25, height=20, tail_width=3, head_width=8, head_length=6, style=Styles.DarkBold)
 
 # 5. U-turn Arrow
-arrow_u((75, 20), width=25, height=22, tail_width=3, head_width=8, head_length=6, style=Styles.DangerFlat)
+arrow_u((75, 20), width=25, height=22, tail_width=3, head_width=8, head_length=6, style=Styles.DarkBold)
 
 save()
 ```
@@ -78,7 +78,7 @@ chevron(
     width=40,
     height=20,
     corner_angle=60,  # Tip acute angle
-    style=Styles.AccentFlat,
+    style=Styles.PrimaryFlat,
     text="Stage 1",
     text_style=Styles.WhiteBold,
 )
@@ -109,7 +109,7 @@ arrow_l(
     head_width=11,
     head_length=8,
     r=5,  # Corner rounding radius
-    style=Styles.SecondaryFlat,
+    style=Styles.DarkBold,
 )
 save()
 ```
@@ -131,7 +131,7 @@ arrow_u(
     head_width=11,
     head_length=8,
     r=6,  # Corner rounding radius
-    style=Styles.DangerFlat,
+    style=Styles.DarkBold,
 )
 save()
 ```
@@ -157,7 +157,7 @@ arrow_arc(
     angle_end=0,
     tail_width=4,
     head_width=11,
-    style=Styles.SuccessFlat,
+    style=Styles.DarkBold,
 )
 save()
 ```

@@ -15,18 +15,18 @@ setup(width=120, height=60)
 
 table = Table(
     cell_style=Styles.White,
-    text_style=Styles.PrimaryBold,
+    text_style=Styles.Dark,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
-    border_style=Styles.PrimaryBold,
+    border_style=Styles.DarkLight,
 )
 
 # Custom even/odd row styling using semantic tokens
 table.set_style_cell_evenodd(
     even_color=Colors.Muted1,
-    even_text_style=Styles.PrimaryBold,
+    even_text_style=Styles.Dark,
     odd_color=Colors.White,
-    odd_text_style=Styles.PrimaryBold,
+    odd_text_style=Styles.Dark,
 )
 
 # SLA highlight on HEALTHY rows using Success tint

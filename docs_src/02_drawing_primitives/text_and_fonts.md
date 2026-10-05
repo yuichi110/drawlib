@@ -17,19 +17,19 @@ setup(width=120, height=50)
 
 # 1. Alignment anchors (red dots mark coordinate anchor xy)
 circle((30, 35), radius=1.5, style=Styles.DangerFlat)
-text((30, 35), "Left-Aligned", style=Styles.PrimaryBold.patch(text_halign="left", text_valign="center"))
+text((30, 35), "Left-Aligned", style=Styles.DarkBold.patch(text_halign="left", text_valign="center"))
 
 circle((30, 20), radius=1.5, style=Styles.DangerFlat)
-text((30, 20), "Center-Aligned", style=Styles.PrimaryBold.patch(text_halign="center", text_valign="center"))
+text((30, 20), "Center-Aligned", style=Styles.DarkBold.patch(text_halign="center", text_valign="center"))
 
 circle((30, 5), radius=1.5, style=Styles.DangerFlat)
-text((30, 5), "Right-Aligned", style=Styles.PrimaryBold.patch(text_halign="right", text_valign="center"))
+text((30, 5), "Right-Aligned", style=Styles.DarkBold.patch(text_halign="right", text_valign="center"))
 
 # 2. Rotated text
-text((75, 25), "Rotated 45°", angle=45, style=Styles.AccentBold)
+text((75, 25), "Rotated 45°", angle=45, style=Styles.DarkBold)
 
 # 3. Japanese Vertical text
-text_vertical((105, 40), "縦書き日本語", style=Styles.SecondaryBold)
+text_vertical((105, 40), "縦書き日本語", style=Styles.DarkBold)
 
 save()
 ```
@@ -127,9 +127,8 @@ rectangle(
     width=42,
     height=32,
     r=2,
-    style=Styles.PrimaryFlat,
+    style=Styles.Neutral,
     text=sample,
-    text_style=Styles.WhiteBold,
 )
 
 # Relaxed line spacing (1.8x)
@@ -138,7 +137,7 @@ rectangle(
     width=42,
     height=32,
     r=2,
-    style=Styles.SecondaryFlat,
+    style=Styles.PrimaryFlat,
     text=sample,
     text_style=Styles.WhiteBold.patch(text_line_spacing=1.8),
 )

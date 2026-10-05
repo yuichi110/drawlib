@@ -17,19 +17,19 @@ setup(width=120, height=60)
 
 # 1. Straight Line with Arrowhead
 line((15, 45), (45, 45), arrow_head="->", style=Styles.PrimaryBold)
-text((30, 48), "line()", style=Styles.PrimaryBold)
+text((30, 48), "line()", style=Styles.DarkBold)
 
 # 2. Curved Line (arc with bend)
-line_curved((65, 45), (95, 45), bend=-0.4, arrow_head="->", style=Styles.AccentBold)
-text((80, 52), "line_curved(bend=-0.4)", style=Styles.PrimaryBold)
+line_curved((65, 45), (95, 45), bend=-0.4, arrow_head="->", style=Styles.DarkBold)
+text((80, 52), "line_curved(bend=-0.4)", style=Styles.DarkBold)
 
 # 3. Bézier Curve
-line_bezier1((15, 15), (45, 15), cp=(30, 32), arrow_head="->", style=Styles.SecondaryBold)
-text((30, 22), "line_bezier1()", style=Styles.PrimaryBold)
+line_bezier1((15, 15), (45, 15), cp=(30, 32), arrow_head="->", style=Styles.DarkBold)
+text((30, 22), "line_bezier1()", style=Styles.DarkBold)
 
 # 4. Multi-point Orthogonal Routing (Manhattan)
-lines([(65, 15), (85, 15), (85, 30), (105, 30)], arrow_head="->", style=Styles.SuccessBold)
-text((85, 33), "lines(orthogonal)", style=Styles.PrimaryBold)
+lines([(65, 15), (85, 15), (85, 30), (105, 30)], arrow_head="->", style=Styles.DarkBold)
+text((85, 33), "lines(orthogonal)", style=Styles.DarkBold)
 
 save()
 ```
@@ -61,11 +61,11 @@ from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=100, height=40)
-line((15, 27), (85, 27), arrow_head="->", style=Styles.PrimaryBold)
-text((50, 32), "Forward (->)", style=Styles.Primary)
+line((15, 27), (85, 27), arrow_head="->", style=Styles.DarkBold)
+text((50, 32), "Forward (->)", style=Styles.DarkBold)
 
-line((15, 12), (85, 12), arrow_head="<->", style=Styles.SecondaryBold)
-text((50, 17), "Bidirectional (<->)", style=Styles.Secondary)
+line((15, 12), (85, 12), arrow_head="<->", style=Styles.DarkBold)
+text((50, 17), "Bidirectional (<->)", style=Styles.Dark)
 save()
 ```
 
@@ -81,12 +81,12 @@ from drawlib.text import text
 
 setup(width=100, height=45)
 # Negative bend curves upward in Cartesian space
-line_curved((15, 22), (85, 22), bend=-0.35, arrow_head="->", style=Styles.PrimaryBold)
-text((50, 40), "bend=-0.35 (upward)", style=Styles.Primary)
+line_curved((15, 22), (85, 22), bend=-0.35, arrow_head="->", style=Styles.DarkBold)
+text((50, 40), "bend=-0.35 (upward)", style=Styles.DarkBold)
 
 # Positive bend curves downward in Cartesian space
-line_curved((15, 22), (85, 22), bend=0.35, arrow_head="->", style=Styles.AccentBold)
-text((50, 6), "bend=0.35 (downward)", style=Styles.Accent)
+line_curved((15, 22), (85, 22), bend=0.35, arrow_head="->", style=Styles.DarkBold)
+text((50, 6), "bend=0.35 (downward)", style=Styles.Dark)
 save()
 ```
 
@@ -159,11 +159,11 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=45)
-rectangle((20, 30), width=24, height=14, style=Styles.PrimaryFlat, text="Client", text_style=Styles.WhiteBold)
-rectangle((80, 15), width=24, height=14, style=Styles.SecondaryFlat, text="Worker", text_style=Styles.WhiteBold)
+rectangle((20, 30), width=24, height=14, style=Styles.Neutral, text="Client")
+rectangle((80, 15), width=24, height=14, style=Styles.PrimaryFlat, text="Worker", text_style=Styles.WhiteBold)
 
 # L-shaped connection: horizontal from Client, then downward to Worker
-lines([(32, 30), (80, 30), (80, 22)], arrow_head="->", style=Styles.PrimaryBold)
+lines([(32, 30), (80, 30), (80, 22)], arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 
@@ -177,12 +177,12 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=45)
-rectangle((20, 32), width=24, height=14, style=Styles.PrimaryFlat, text="Service A", text_style=Styles.WhiteBold)
-rectangle((80, 14), width=24, height=14, style=Styles.AccentFlat, text="Service B", text_style=Styles.WhiteBold)
+rectangle((20, 32), width=24, height=14, style=Styles.Neutral, text="Service A")
+rectangle((80, 14), width=24, height=14, style=Styles.PrimaryFlat, text="Service B", text_style=Styles.WhiteBold)
 
 # Z-shaped dogleg connection across midpoint x_mid = 50
 x_mid = 50
-lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrow_head="->", style=Styles.PrimaryBold)
+lines([(32, 32), (x_mid, 32), (x_mid, 14), (68, 14)], arrow_head="->", style=Styles.DarkBold)
 save()
 ```
 

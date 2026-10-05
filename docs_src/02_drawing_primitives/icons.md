@@ -19,17 +19,17 @@ from drawlib.text import text
 setup(width=120, height=45)
 
 # Phosphor icons with semantic styles
-phosphor.browser((20, 25), width=14, style=Styles.AccentFlat)
-text((20, 10), "Browser", style=Styles.PrimaryBold)
+phosphor.browser((20, 25), width=14, style=Styles.Dark)
+text((20, 10), "Browser", style=Styles.DarkBold)
 
 phosphor.cpu((50, 25), width=14, style=Styles.PrimaryFlat)
-text((50, 10), "API Server", style=Styles.PrimaryBold)
+text((50, 10), "API Server", style=Styles.DarkBold)
 
-phosphor.database((80, 25), width=14, style=Styles.SecondaryFlat)
-text((80, 10), "Database", style=Styles.PrimaryBold)
+phosphor.database((80, 25), width=14, style=Styles.Dark)
+text((80, 10), "Database", style=Styles.DarkBold)
 
-phosphor.cloud((105, 25), width=14, style=Styles.SuccessFlat)
-text((105, 10), "Cloud", style=Styles.PrimaryBold)
+phosphor.cloud((105, 25), width=14, style=Styles.Dark)
+text((105, 10), "Cloud", style=Styles.DarkBold)
 
 save()
 ```

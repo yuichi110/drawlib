@@ -16,25 +16,25 @@ setup(width=120, height=60)
 
 # 1. ChevronProcess: Automatic stage spacing and interlocking angles
 proc = ChevronProcess(
-    style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold,
-    description_style=Styles.White,
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold,
+    description_style=Styles.Dark,
     flat_left_end=True,
     spacing=2.0,
 )
 proc.append("Plan")
-proc.append("Code", style=Styles.AccentFlat)
-proc.append("Test", style=Styles.SecondaryFlat)
-proc.append("Deploy", style=Styles.SuccessFlat)
+proc.append("Code", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+proc.append("Test")
+proc.append("Deploy", style=Styles.SecondaryNeutral)
 proc.draw(xy=(10, 42), width=100, height=12)
 
 # 2. Table: Structured comparison and schema datasets
 tbl = Table(
-    cell_style=Styles.MutedFlat,
-    text_style=Styles.PrimaryBold,
+    cell_style=Styles.NeutralFlat,
+    text_style=Styles.Dark,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
-    border_style=Styles.PrimaryBold,
+    border_style=Styles.DarkLight,
 )
 data = [
     ["Component", "Target Diagram", "Coordinate Anchor"],

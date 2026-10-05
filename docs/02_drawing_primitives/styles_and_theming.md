@@ -67,7 +67,7 @@ Preset styles are also applied to text labels and icons:
 ```python
 # Use WhiteBold for text inside filled dark containers
 rectangle((50, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
-line((20, 25), (80, 25), arrow_head="->", style=Styles.PrimaryBold)
+line((20, 25), (80, 25), arrow_head="->", style=Styles.DarkBold)
 ```
 
 ---

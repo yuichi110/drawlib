@@ -42,7 +42,7 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 3. The Multimodal Self-Correction Loop:
    - Write diagram prototype in `.drawlib/scratch/test_diagram.py` (ensure `.drawlib/` is in `.gitignore`).
    - Render headless with grid: `uv run drawlib show .drawlib/scratch/test_diagram.py -g -o .drawlib/scratch/test_diagram.png`.
-   - Multimodal review: Inspect the image for label clipping, line overlaps, or missing margins.
+   - Multimodal review: Inspect the image for label clipping, line overlaps, missing margins, or rainbow coloring (ensure 50%+ nodes use calm Neutral styles, reserve saturated fills for 1–2 hero elements).
    - Fix coordinates, re-render, and present to user.
 
 4. Fetch Rules on Demand:

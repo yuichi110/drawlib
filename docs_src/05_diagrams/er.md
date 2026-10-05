@@ -31,9 +31,9 @@ from drawlib.styles import Styles
 setup(width=50, height=45)
 
 er = ERDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="User Schema",
 )
 
@@ -94,9 +94,9 @@ from drawlib.styles import Styles
 setup(width=110, height=80)
 
 er = ERDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="E-Commerce Relational Database Schema",
 )
 
@@ -106,7 +106,7 @@ users.add_column("email", type="VARCHAR(255)", nullable=False)
 users.add_column("name", type="VARCHAR(100)")
 users.add_column("created_at", type="TIMESTAMP")
 
-orders = er.add(Entity(name="orders", width=30.0), xy=(75.0, 45.0))
+orders = er.add(Entity(name="orders", width=30.0, style=Styles.PrimaryNeutral), xy=(75.0, 45.0))
 orders.add_column("id", type="INT", pk=True)
 orders.add_column("user_id", type="INT", fk=True)
 orders.add_column("total_cents", type="INT", nullable=False)

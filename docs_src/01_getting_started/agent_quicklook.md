@@ -65,21 +65,21 @@ from drawlib.styles import Styles
 
 setup(width=130, height=45)
 
-# Agent loop boxes
+# Agent loop boxes: Hero focal node in PrimaryFlat, supporting nodes in calm Neutral cards
 rectangle((20, 22.5), width=26, height=20, style=Styles.PrimaryFlat, text="1. LLM Agent\n(Reads Code)", text_style=Styles.WhiteBold)
-rectangle((56, 22.5), width=28, height=20, style=Styles.AccentFlat, text="2. Generate\nDrawlib Code", text_style=Styles.WhiteBold)
-rectangle((92, 22.5), width=26, height=20, style=Styles.SecondaryFlat, text="3. Render Grid\n(-g Image)", text_style=Styles.WhiteBold)
-rectangle((118, 22.5), width=18, height=20, style=Styles.SuccessFlat, text="4. Auto\nReview", text_style=Styles.WhiteBold)
+rectangle((56, 22.5), width=28, height=20, style=Styles.Neutral, text="2. Generate\nDrawlib Code")
+rectangle((92, 22.5), width=26, height=20, style=Styles.Neutral, text="3. Render Grid\n(-g Image)")
+rectangle((118, 22.5), width=18, height=20, style=Styles.SecondaryNeutral, text="4. Auto\nReview")
 
 # Forward arrows
-line((33, 22.5), (42, 22.5), arrow_head="->", style=Styles.PrimaryBold)
-line((70, 22.5), (79, 22.5), arrow_head="->", style=Styles.PrimaryBold)
-line((105, 22.5), (109, 22.5), arrow_head="->", style=Styles.PrimaryBold)
+line((33, 22.5), (42, 22.5), arrow_head="->", style=Styles.DarkBold)
+line((70, 22.5), (79, 22.5), arrow_head="->", style=Styles.DarkBold)
+line((105, 22.5), (109, 22.5), arrow_head="->", style=Styles.DarkBold)
 
 # Feedback loop
-line((118, 32.5), (118, 38), style=Styles.DangerBold)
-line((118, 38), (56, 38), style=Styles.DangerBold)
-line((56, 38), (56, 32.5), arrow_head="->", style=Styles.DangerBold)
+line((118, 32.5), (118, 38), style=Styles.DarkDashed)
+line((118, 38), (56, 38), style=Styles.DarkDashed)
+line((56, 38), (56, 32.5), arrow_head="->", style=Styles.DarkDashed)
 ```
 
 1. **Inspect Context**: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.

@@ -44,15 +44,15 @@ from drawlib.diagrams.state import (
 from drawlib.styles import Styles
 
 sd = StateDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Session Lifecycle State Machine",
 )
 
 # State with action compartments
 active = sd.add(
-    State("Active", shape="box", entry="start_heartbeat()", do="handle_requests()", exit="flush()"),
+    State("Active", shape="box", entry="start_heartbeat()", do="handle_requests()", exit="flush()", style=Styles.PrimaryNeutral),
     xy=(60.0, 40.0),
 )
 

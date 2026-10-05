@@ -29,8 +29,8 @@ chart = BarChart(
     title="Quarterly Revenue ($M)",
     title_style=Styles.BlackBold.patch(text_size=13.0),
 )
-chart.add_series("2025", [12.5, 18.2, 22.0, 31.4], style=Styles.PrimaryFlat)
-chart.add_series("2026", [15.0, 24.5, 29.8, 38.0], style=Styles.AccentFlat)
+chart.add_series("2025", [12.5, 18.2, 22.0, 31.4], style=Styles.SecondaryNeutral)
+chart.add_series("2026", [15.0, 24.5, 29.8, 38.0], style=Styles.PrimaryFlat)
 
 chart.draw(xy=(10, 8))
 chart.draw_legend(xy=(25, 59), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")

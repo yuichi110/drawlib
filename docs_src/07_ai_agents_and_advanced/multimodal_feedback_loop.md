@@ -31,11 +31,12 @@ uv run drawlib show .drawlib/scratch/test_diagram.py -g -o .drawlib/scratch/test
 ```
 
 ### Stage 4: Multimodal Inspection
-Using vision inspection tools (such as `view_file` or image viewer), the agent examines the rendered output for four common visual defects:
+Using vision inspection tools (such as `view_file` or image viewer), the agent examines the rendered output for five common visual defects:
 1. **Text Overflow & Clipping**: Did a long service name or method label spill outside its enclosing box?
 2. **Line & Arrow Overlaps**: Are orthogonal lines colliding awkwardly, or are arrowheads obscured by shapes?
 3. **Canvas Margin Starvation**: Are outermost elements pushed right up against the canvas boundary with zero padding?
 4. **Color Contrast**: Is dark text placed over dark shape fills, or light text on pale backgrounds?
+5. **Color Overuse (Rainbow Chaos)**: Are all boxes colored with saturated fills? Ground 50%+ of nodes in calm neutral or tinted-neutral styles (`Styles.Neutral`, `Styles.NeutralFlat`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`) and reserve saturated hero fills (`Styles.PrimaryFlat`) for 1–2 key focal points.
 
 ### Stage 5: Iterative Refinement
 Because the coordinate grid directly reveals the exact `(x, y)` location of every visual defect, the agent can adjust coordinates deterministically (e.g. "Move box X from 45.0 to 52.0 to eliminate overlap") rather than guessing.
@@ -55,4 +56,4 @@ When performing a multimodal self-review, check off each item in this matrix:
 | **Node Alignment** | Jagged, misaligned connection lines | Ensure horizontally aligned nodes share the exact same `y` coordinate. |
 | **Label Breathing Room** | Text touching card borders | Increase box `width` / `height` or adjust `text_size` via `text_style`. |
 | **Arrowhead Visibility** | Arrowhead clipped inside target node | Add `padding=1.5` or `padding=2.0` on connection edge calls. |
-| **Color Semantic Roles** | Confusing multi-color rainbow | Use 7-color semantic system: anchor around primary (`Styles.PrimaryFlat`), with neutral grouping (`Styles.MutedFlat`/`Styles.MutedDashed`), and functional roles (`Styles.SecondaryFlat`, `Styles.AccentFlat`, `Styles.WarningFlat`, `Styles.SuccessFlat`, `Styles.DangerFlat`). |
+| **Color Semantic Roles** | Confusing multi-color rainbow chaos | Follow the 50%+ Neutral-Grounded Architecture rule: ground 50%+ of nodes in calm neutral styles (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`), use `Styles.MutedDashed` for boundary containers, and reserve saturated hero fills (`Styles.PrimaryFlat`) for 1–2 focal components. |

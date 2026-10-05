@@ -15,14 +15,14 @@ setup(width=120, height=45)
 # Background Boundary
 rectangle((60, 22.5), width=116, height=38, style=Styles.MutedDashed)
 
-# Pipeline stages
+# Pipeline stages: Hero focal point in PrimaryFlat, supporting nodes in calm Neutral cards
 rectangle((25, 22.5), width=30, height=18, style=Styles.PrimaryFlat, text="AI Agent / Dev\n(Python Script)", text_style=Styles.WhiteBold)
-rectangle((62, 22.5), width=28, height=18, style=Styles.AccentFlat, text="Markdown\n(```drawlib)", text_style=Styles.WhiteBold)
-circle((98, 22.5), radius=10, style=Styles.SuccessFlat, text="HTML, PDF\n& Markdown", text_style=Styles.WhiteBold)
+rectangle((62, 22.5), width=28, height=18, style=Styles.Neutral, text="Markdown\n(```drawlib)")
+rectangle((98, 22.5), width=28, height=18, style=Styles.SecondaryNeutral, text="HTML, PDF\n& Markdown")
 
 # Connectors
-line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.PrimaryBold)
-line((76, 22.5), (88, 22.5), arrow_head="->", style=Styles.PrimaryBold)
+line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.DarkBold)
+line((76, 22.5), (84, 22.5), arrow_head="->", style=Styles.DarkBold)
 ```
 
 ---

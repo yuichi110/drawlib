@@ -58,9 +58,9 @@ canvas.clear()
 canvas.setup(width=110, height=95)
 
 flow = FlowDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Expense Reimbursement Approval Workflow",
     width=100.0,
     height=90.0,
@@ -74,25 +74,26 @@ flow.add_lane("Finance Dept", width=35.0)
 # 2. Add nodes (Y coordinates align corresponding steps horizontally)
 submit = flow.add(Start("Submit Claim"), xy=(15.0, 78.0))
 receipt = flow.add(Data("Attach Receipt"), xy=(15.0, 62.0))
-review = flow.add(Process("Review Details"), xy=(47.5, 62.0))
-decision = flow.add(Decision("Amount < $500?"), xy=(47.5, 42.0))
+review = flow.add(
+    Process("Review Details", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
+    xy=(47.5, 62.0),
+)
+decision = flow.add(Decision("Amount < $500?", style=Styles.SecondaryNeutral), xy=(47.5, 42.0))
 
-j = flow.junction(xy=(47.5, 25.0))
-auto_pay = flow.add(Process("Disburse Payment"), xy=(82.5, 25.0))
 audit = flow.add(Process("Compliance Audit"), xy=(82.5, 42.0))
-end = flow.add(End("Claim Closed"), xy=(15.0, 25.0))
+auto_pay = flow.add(Process("Disburse Payment", style=Styles.PrimaryNeutral), xy=(82.5, 20.0))
+end = flow.add(End("Claim Closed"), xy=(15.0, 20.0))
 
 # 3. Connect steps
 submit.connect(receipt)
 receipt.connect(review)
 review.connect(decision)
 
-# Decision routing
+# Decision routing (separate vertical levels avoid label collisions)
 decision.connect(audit, label="No", start_side="right", end_side="left")
-decision.connect(j, label="Yes", start_side="bottom", end_side="top")
-j.connect(auto_pay, routing="orthogonal")
+decision.connect(auto_pay, label="Yes", start_side="bottom", end_side="left")
 audit.connect(auto_pay, start_side="bottom", end_side="top")
-auto_pay.connect(end, label="Notice Sent")
+auto_pay.connect(end, label="Notice Sent", start_side="left", end_side="right")
 
 flow.draw(xy=(5.0, 5.0))
 ```
@@ -109,26 +110,26 @@ from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=130, height=80)
+canvas.setup(width=145, height=80)
 
 flow = FlowDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Fulfillment Logistics Pipeline",
     lane_orientation="horizontal",
-    width=115.0,
+    width=130.0,
     height=65.0,
 )
 
 flow.add_lane("Sales Platform", height=32.5, header_size=22.0)
 flow.add_lane("Distribution Center", height=32.5, header_size=22.0)
 
-order = flow.add(Start("New Purchase"), xy=(36.0, 48.0))
-validate = flow.add(Decision("In Stock?"), xy=(62.0, 48.0))
-cancel = flow.add(End("Cancel & Refund"), xy=(92.0, 48.0))
-pack = flow.add(Process("Pick & Pack"), xy=(62.0, 16.0))
-dispatch = flow.add(End("Ship Carrier"), xy=(92.0, 16.0))
+order = flow.add(Start("New Purchase", width=22.0), xy=(36.0, 48.0))
+validate = flow.add(Decision("In Stock?", style=Styles.SecondaryNeutral), xy=(68.0, 48.0))
+cancel = flow.add(End("Cancel & Refund", width=26.0), xy=(112.0, 48.0))
+pack = flow.add(Process("Pick & Pack", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), xy=(68.0, 16.0))
+dispatch = flow.add(End("Ship Carrier", width=24.0), xy=(112.0, 16.0))
 
 order.connect(validate)
 validate.connect(cancel, label="No", start_side="right", end_side="left")

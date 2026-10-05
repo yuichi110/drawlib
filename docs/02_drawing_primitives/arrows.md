@@ -73,7 +73,7 @@ chevron(
     width=40,
     height=20,
     corner_angle=60,  # Tip acute angle
-    style=Styles.AccentFlat,
+    style=Styles.PrimaryFlat,
     text="Stage 1",
     text_style=Styles.WhiteBold,
 )
@@ -113,7 +113,7 @@ arrow_l(
     head_width=11,
     head_length=8,
     r=5,  # Corner rounding radius
-    style=Styles.SecondaryFlat,
+    style=Styles.DarkBold,
 )
 save()
 ```
@@ -144,7 +144,7 @@ arrow_u(
     head_width=11,
     head_length=8,
     r=6,  # Corner rounding radius
-    style=Styles.DangerFlat,
+    style=Styles.DarkBold,
 )
 save()
 ```
@@ -179,7 +179,7 @@ arrow_arc(
     angle_end=0,
     tail_width=4,
     head_width=11,
-    style=Styles.SuccessFlat,
+    style=Styles.DarkBold,
 )
 save()
 ```

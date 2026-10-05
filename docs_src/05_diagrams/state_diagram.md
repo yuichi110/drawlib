@@ -44,15 +44,15 @@ from drawlib.diagrams.state import (
 from drawlib.styles import Styles
 
 sd = StateDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Session Lifecycle State Machine",
 )
 
 # State with action compartments
 active = sd.add(
-    State("Active", shape="box", entry="start_heartbeat()", do="handle_requests()", exit="flush()"),
+    State("Active", shape="box", entry="start_heartbeat()", do="handle_requests()", exit="flush()", style=Styles.PrimaryNeutral),
     xy=(60.0, 40.0),
 )
 
@@ -73,38 +73,54 @@ from drawlib.diagrams.state import ChoiceState, FinalState, InitialState, State,
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=135, height=75)
+canvas.setup(width=142, height=75)
 
 sd = StateDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="User Session Lifecycle State Machine",
 )
 
 # 1. Pseudo-states and state nodes
 init = sd.add(InitialState(), xy=(12.0, 38.0))
 idle = sd.add(
-    State("Idle", shape="box", entry="reset_timeout()", do="listen_events()"),
-    xy=(35.0, 38.0),
+    State("Idle", shape="box", entry="reset()", do="listen()", width=22.0),
+    xy=(38.0, 38.0),
 )
-valid_check = sd.add(ChoiceState(name="Valid?"), xy=(70.0, 38.0))
+valid_check = sd.add(ChoiceState(name="Valid?", style=Styles.SecondaryNeutral), xy=(72.0, 38.0))
 active = sd.add(
-    State("Active", shape="box", entry="start_heartbeat()", do="handle_requests()", exit="flush()"),
-    xy=(102.0, 38.0),
+    State(
+        "Active",
+        shape="box",
+        entry="start()",
+        do="handle()",
+        exit="flush()",
+        style=Styles.PrimaryNeutral,
+        width=22.0,
+    ),
+    xy=(105.0, 38.0),
 )
-final = sd.add(FinalState(), xy=(126.0, 38.0))
+final = sd.add(FinalState(), xy=(132.0, 38.0))
 
 # 2. Connect transitions
 sd.connect(init, idle)
-sd.connect(idle, valid_check, event="login", guard="token_present")
+sd.connect(idle, valid_check, event="login")
 
-# Choice branches (success vs failure with curved arc)
-sd.connect(valid_check, active, guard="token_valid")
-sd.connect(valid_check, idle, guard="token_invalid", bend=0.3)
+# Choice branches (success vs failure)
+sd.connect(valid_check, active, guard="valid")
+sd.connect(
+    valid_check,
+    idle,
+    guard="invalid",
+    bend=-0.35,
+    start_side="bottom",
+    end_side="bottom",
+    text_style=Styles.Dark.patch(text_valign="top"),
+)
 
 # Self-transition heartbeat loop
-sd.connect(active, active, side="top", event="ping", action="extend_lease()")
+sd.connect(active, active, side="top", event="ping", action="extend()")
 
 # Termination
 sd.connect(active, final, event="logout")
@@ -127,16 +143,16 @@ canvas.clear()
 canvas.setup(width=115, height=75)
 
 sd = StateDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Concurrent Task Fork and Join",
 )
 
 init = sd.add(InitialState(), xy=(10.0, 37.5))
 fork = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(25.0, 37.5))
-job_a = sd.add(State("Compute Analytics", shape="box"), xy=(55.0, 50.0))
-job_b = sd.add(State("Index Search", shape="box"), xy=(55.0, 25.0))
+job_a = sd.add(State("Compute Analytics", shape="box", width=28.0, style=Styles.PrimaryNeutral), xy=(55.0, 50.0))
+job_b = sd.add(State("Index Search", shape="box", width=28.0, style=Styles.SecondaryNeutral), xy=(55.0, 25.0))
 join = sd.add(ForkJoinState(orientation="vertical", length=22.0), xy=(85.0, 37.5))
 final = sd.add(FinalState(), xy=(105.0, 37.5))
 

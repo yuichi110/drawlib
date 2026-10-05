@@ -20,23 +20,23 @@ root = MindMapNode(
     size=(28, 12),
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold,
-    line_style=Styles.PrimaryBold,
+    line_style=Styles.DarkBold,
     line_length=12.0,
     horizontal_margin=4.0,
     vertical_margin=4.0,
     children=[
         MindMapNode(
-            "Clients", branch="left", shape="rectangle", size=(20, 8), style=Styles.AccentFlat, text_style=Styles.WhiteBold,
+            "Clients", branch="left", shape="rectangle", size=(20, 8), style=Styles.Neutral, text_style=Styles.DarkBold,
             children=[
-                MindMapNode("Web Browser", shape="none", text_style=Styles.PrimaryBold),
-                MindMapNode("Mobile App", shape="none", text_style=Styles.PrimaryBold),
+                MindMapNode("Web Browser", shape="none", text_style=Styles.Dark),
+                MindMapNode("Mobile App", shape="none", text_style=Styles.Dark),
             ],
         ),
         MindMapNode(
-            "Services", branch="right", shape="rectangle", size=(20, 8), style=Styles.SecondaryFlat, text_style=Styles.WhiteBold,
+            "Services", branch="right", shape="rectangle", size=(20, 8), style=Styles.SecondaryNeutral, text_style=Styles.DarkBold,
             children=[
-                MindMapNode("Auth Service", shape="none", text_style=Styles.PrimaryBold),
-                MindMapNode("Order Service", shape="none", text_style=Styles.PrimaryBold),
+                MindMapNode("Auth Service", shape="none", text_style=Styles.Dark),
+                MindMapNode("Order Service", shape="none", text_style=Styles.Dark),
             ],
         ),
     ],

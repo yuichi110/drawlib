@@ -59,7 +59,7 @@ from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=95, height=75)
+canvas.setup(width=95, height=80)
 
 chart = PieChart(
     radius=24.0,
@@ -75,7 +75,7 @@ chart.add_slice("AI Developer Tools", 340.0, style=Styles.SecondaryFlat)
 chart.add_slice("Security Suite", 180.0, style=Styles.AccentFlat)
 chart.add_slice("Legacy Support", 60.0, style=Styles.MutedFlat)
 
-chart.draw(xy=(10.0, 10.0))
+chart.draw(xy=(10.0, 8.0))
 chart.draw_legend(xy=(64.0, 48.0), text_style=Styles.Black.patch(text_size=9.0))
 ```
 
@@ -91,7 +91,7 @@ from drawlib.charts.pie import PieChart
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=95, height=70)
+canvas.setup(width=95, height=80)
 
 chart = PieChart(
     radius=24.0,
@@ -104,6 +104,6 @@ chart.add_slice("Core Infrastructure", 24.0, style=Styles.SecondaryFlat)
 chart.add_slice("DevOps & Tooling", 16.0, style=Styles.AccentFlat)
 chart.add_slice("Compliance & Security", 12.0, style=Styles.MutedFlat)
 
-chart.draw(xy=(10.0, 10.0))
+chart.draw(xy=(10.0, 8.0))
 chart.draw_legend(xy=(66.0, 46.0), text_style=Styles.Black.patch(text_size=9.0))
 ```

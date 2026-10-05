@@ -26,8 +26,8 @@ chart = LineChart(
     smooth=True,
     show_points=True,
 )
-chart.add_series("2025", [45, 52, 58, 65, 72, 80], style=Styles.PrimaryFlat, line_width=2.5)
-chart.add_series("2026", [60, 75, 88, 110, 135, 160], style=Styles.AccentFlat, line_width=2.5)
+chart.add_series("2025", [45, 52, 58, 65, 72, 80], style=Styles.DarkBold, line_width=2.5, line_style="dashed")
+chart.add_series("2026", [60, 75, 88, 110, 135, 160], style=Styles.PrimaryFlat, line_width=2.5)
 
 chart.draw(xy=(10, 8))
 chart.draw_legend(xy=(25, 59), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")

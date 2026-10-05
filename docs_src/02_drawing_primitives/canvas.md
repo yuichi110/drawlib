@@ -60,8 +60,8 @@ from drawlib.styles import Colors, Styles
 setup(width=100, height=50, background_color=Colors.Muted1, grid=True)
 
 rectangle((50, 25), width=60, height=25, style=Styles.PrimaryFlat, text="Custom Canvas Setup", text_style=Styles.WhiteBold)
-circle((20, 25), radius=8, style=Styles.AccentFlat)
-circle((80, 25), radius=8, style=Styles.SuccessFlat)
+circle((20, 25), radius=8, style=Styles.Neutral)
+circle((80, 25), radius=8, style=Styles.SecondaryNeutral)
 ```
 
 ---

@@ -12,17 +12,17 @@ from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=135, height=52)
+setup(width=140, height=52)
 
-# Row 1: Core Functional Roles (Primary, Secondary, Accent)
-rectangle((25, 36), width=30, height=18, style=Styles.PrimaryFlat, text="PrimaryFlat\n(Core Anchor)", text_style=Styles.WhiteBold)
-rectangle((67.5, 36), width=30, height=18, style=Styles.SecondaryFlat, text="SecondaryFlat\n(Auxiliary/DB)", text_style=Styles.WhiteBold)
-rectangle((110, 36), width=30, height=18, style=Styles.AccentFlat, text="AccentFlat\n(Trigger/Client)", text_style=Styles.WhiteBold)
+# Row 1: Core Functional Roles (Hero Anchor, Calm Neutral, Auxiliary)
+rectangle((25, 36), width=32, height=18, style=Styles.PrimaryFlat, text="PrimaryFlat\n(Hero Anchor)", text_style=Styles.WhiteBold)
+rectangle((70, 36), width=32, height=18, style=Styles.Neutral, text="Neutral\n(50%+ Cards)")
+rectangle((115, 36), width=32, height=18, style=Styles.SecondaryNeutral, text="SecondaryNeutral\n(Auxiliary)")
 
 # Row 2: Status & Boundary Roles (Success, Danger, Muted)
-rectangle((25, 14), width=30, height=18, style=Styles.SuccessFlat, text="SuccessFlat\n(Verified)", text_style=Styles.WhiteBold)
-rectangle((67.5, 14), width=30, height=18, style=Styles.DangerFlat, text="DangerFlat\n(Error/Risk)", text_style=Styles.WhiteBold)
-rectangle((110, 14), width=30, height=18, style=Styles.MutedDashed, text="MutedDashed\n(Container)", text_style=Styles.PrimaryBold)
+rectangle((25, 14), width=32, height=18, style=Styles.SuccessFlat, text="SuccessFlat\n(Verified)", text_style=Styles.WhiteBold)
+rectangle((70, 14), width=32, height=18, style=Styles.DangerFlat, text="DangerFlat\n(Error/Risk)", text_style=Styles.WhiteBold)
+rectangle((115, 14), width=32, height=18, style=Styles.MutedDashed, text="MutedDashed\n(Container)", text_style=Styles.DarkBold)
 ```
 
 ---
@@ -76,7 +76,7 @@ Preset styles are also applied to text labels and icons:
 ```python
 # Use WhiteBold for text inside filled dark containers
 rectangle((50, 25), width=30, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
-line((20, 25), (80, 25), arrow_head="->", style=Styles.PrimaryBold)
+line((20, 25), (80, 25), arrow_head="->", style=Styles.DarkBold)
 ```
 
 ---

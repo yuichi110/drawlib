@@ -384,7 +384,7 @@ This enables recursive nesting and reusable sub-diagram templates:</p>
 <span class="s2">from drawlib.styles import Styles</span>
 
 <span class="s2">setup(width=40, height=40)</span>
-<span class="s2">circle((20, 20), radius=15, style=Styles.AccentFlat, text=&quot;Pod&quot;, text_style=Styles.WhiteBold.patch(text_size=36))</span>
+<span class="s2">circle((20, 20), radius=15, style=Styles.PrimaryFlat, text=&quot;Pod&quot;, text_style=Styles.WhiteBold.patch(text_size=36))</span>
 <span class="s2">save()</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
@@ -394,7 +394,7 @@ This enables recursive nesting and reusable sub-diagram templates:</p>
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
 <span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">sub_diagram</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">&quot;Host Canvas with Embedded Sub-Diagram&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">&quot;Host Canvas with Embedded Sub-Diagram&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>

@@ -41,9 +41,9 @@ from drawlib.styles import Styles
 setup(width=90, height=45)
 
 cd = ClassDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Domain Model",
 )
 
@@ -54,7 +54,7 @@ user.add_attribute("password_hash", type="str", is_public=False)
 user.add_method("login", params="password: str", return_type="bool")
 
 # Interface with stereotype
-gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0), xy=(65.0, 18.0))
+gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0, style=Styles.PrimaryNeutral), xy=(65.0, 18.0))
 gateway.add_method("charge", params="amount: float", return_type="bool")
 
 cd.draw(xy=(0.0, 0.0))

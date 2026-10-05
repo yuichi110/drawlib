@@ -15,18 +15,24 @@ from drawlib.styles import Styles
 setup(width=130, height=45)
 
 pipeline = ChevronProcess(
-    style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=10),
-    description_style=Styles.White.patch(text_size=7.5),
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10),
+    description_style=Styles.Dark.patch(text_size=7.5),
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
 )
 pipeline.append("1. Commit", description="Lint & Tests")
 pipeline.append("2. Build", description="Docker Image")
-pipeline.append("3. Security", description="Vulnerability Scan", style=Styles.AccentFlat)
+pipeline.append(
+    "3. Security",
+    description="Vulnerability Scan",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10),
+    description_style=Styles.White.patch(text_size=7.5),
+)
 pipeline.append("4. Staging", description="E2E Validation")
-pipeline.append("5. Production", description="Canary Release", style=Styles.SuccessFlat)
+pipeline.append("5. Production", description="Canary Release", style=Styles.SecondaryNeutral)
 
 pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 ```

@@ -25,21 +25,21 @@ anim = Animation(fps=1.0, loop=0)
 # Step 1: Base Client
 with anim.frame(clear=True, duration=1.2):
     rectangle((60, 22.5), width=116, height=38, style=Styles.MutedDashed)
-    rectangle((25, 22.5), width=24, height=18, style=Styles.PrimaryFlat, text="Client App", text_style=Styles.WhiteBold)
+    rectangle((25, 22.5), width=24, height=18, style=Styles.Neutral, text="Client App")
 
-# Step 2: Gateway appears
+# Step 2: Gateway appears (Hero node)
 with anim.frame(clear=False, duration=1.2):
-    rectangle((60, 22.5), width=24, height=18, style=Styles.SecondaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
-    line((37, 22.5), (48, 22.5), arrow_head="->", style=Styles.PrimaryBold)
+    rectangle((60, 22.5), width=24, height=18, style=Styles.PrimaryFlat, text="API Gateway", text_style=Styles.WhiteBold)
+    line((37, 22.5), (48, 22.5), arrow_head="->", style=Styles.DarkBold)
 
 # Step 3: Backend Services appear
 with anim.frame(clear=False, duration=1.2):
-    rectangle((95, 22.5), width=24, height=18, style=Styles.AccentFlat, text="Service Cluster", text_style=Styles.WhiteBold)
-    line((72, 22.5), (83, 22.5), arrow_head="->", style=Styles.SecondaryBold)
+    rectangle((95, 22.5), width=24, height=18, style=Styles.SecondaryNeutral, text="Service Cluster")
+    line((72, 22.5), (83, 22.5), arrow_head="->", style=Styles.DarkBold)
 
 # Step 4: Completed State (Held for 3 seconds before looping)
 with anim.frame(clear=False, duration=3.0):
-    rectangle((60, 6.0), width=60, height=7, style=Styles.SuccessFlat, text="Architecture Completed", text_style=Styles.WhiteBold)
+    rectangle((60, 6.0), width=60, height=7, style=Styles.PrimaryNeutral, text="Architecture Completed")
 
 save()
 ```
@@ -149,15 +149,15 @@ anim = Animation(fps=1.0)
 
 # Stage 1: Ingress
 with anim.frame(clear=True):
-    rectangle((20, 50), width=20, height=15, style=Styles.PrimaryFlat, text="Client")
+    rectangle((20, 50), width=20, height=15, style=Styles.Neutral, text="Client")
 
 # Stage 2: Gateway appears (Client remains)
 with anim.frame(clear=False):
-    rectangle((50, 50), width=20, height=15, style=Styles.SecondaryFlat, text="Gateway")
+    rectangle((50, 50), width=20, height=15, style=Styles.PrimaryFlat, text="Gateway", text_style=Styles.WhiteBold)
 
 # Stage 3: Database appears (Client and Gateway remain)
 with anim.frame(clear=False, duration=3.0):  # Hold final state for 3 seconds
-    rectangle((80, 50), width=20, height=15, style=Styles.AccentFlat, text="Database")
+    rectangle((80, 50), width=20, height=15, style=Styles.SecondaryNeutral, text="Database")
 ```
 
 ---
@@ -180,7 +180,7 @@ for i in range(10):
 # Hold final completed architecture for 3.0 seconds
 with anim.frame(duration=3.0):
     draw_stage(10)
-    rectangle((50, 10), width=40, height=6, style=Styles.SuccessFlat, text="Deployment Complete")
+    rectangle((50, 10), width=40, height=6, style=Styles.PrimaryNeutral, text="Deployment Complete")
 ```
 
 ---
@@ -204,10 +204,10 @@ anim = Animation(fps=10.0)
 
 for x in range(30, 75, 5):
     with anim.frame():
-        rectangle((20, 20), width=18, height=16, style=Styles.PrimaryFlat, text="App")
-        rectangle((80, 20), width=18, height=16, style=Styles.AccentFlat, text="Queue")
+        rectangle((20, 20), width=18, height=16, style=Styles.Neutral, text="App")
+        rectangle((80, 20), width=18, height=16, style=Styles.PrimaryFlat, text="Queue", text_style=Styles.WhiteBold)
         line((29, 20), (71, 20), style=Styles.MutedDashed)
-        circle((x, 20), radius=3, style=Styles.Secondary)
+        circle((x, 20), radius=3, style=Styles.Dark)
 ```
 ````
 

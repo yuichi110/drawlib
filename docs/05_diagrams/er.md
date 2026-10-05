@@ -33,9 +33,9 @@ from drawlib.styles import Styles
 setup(width=50, height=45)
 
 er = ERDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="User Schema",
 )
 

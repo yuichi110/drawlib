@@ -43,16 +43,16 @@ from drawlib.diagrams.sequence import (
 from drawlib.styles import Styles
 
 d = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Checkout Transaction Pipeline",
     autonumber=True,            # Auto-number messages (1., 2., 3., ...)
 )
 
 # Participant group for clustered backend services
 vpc = d.add(ParticipantGroup(title="Google Cloud VPC", padding=4.0))
-api = vpc.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN))
+api = vpc.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, style=Styles.PrimaryNeutral))
 db = vpc.add(Participant("Cloud SQL", icon=GcpIcon.CLOUD_SQL))
 
 # External participant
@@ -71,55 +71,50 @@ from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, Ph
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=115, height=135)
+canvas.setup(width=165, height=140)
 
 d = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Microservices Distributed Transaction Pipeline",
     autonumber=True,
+    col_width=38.0,
+    step_y=10.0,
 )
 
-# 1. Clustered Backend Participant Group
+# 1. Participants: Client on the left, Backend services in VPC group on the right
+client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER, icon_size=7.5))
+
 backend = d.add(
     ParticipantGroup(
         title="Google Cloud VPC",
-        padding=4.0,
+        padding=3.5,
         style=Styles.MutedDashed,
     )
 )
-api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))
-worker = backend.add(Participant("GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0))
-db = backend.add(Participant("Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0))
+api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, style=Styles.PrimaryNeutral))
+worker = backend.add(Participant("GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
+db = backend.add(Participant("Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
 
-client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER, icon_size=8.0))
-
-# 2. Client Initiates Checkout Request
+# 2. Interactions
 client.request(api, "POST /api/v1/checkout")
 api.activate()
 
-# 3. Inventory Validation
 api.request(db, "Check Inventory")
 db.reply(api, "Stock Available")
 
-# 4. Sticky Note Annotation
-api.note("Dispatching background fulfillment job", pos="right")
-
-# 5. Asynchronous Worker Dispatch
 api.request(worker, "Enqueue Job (Pub/Sub)", is_async=True)
 worker.reply(api, "Ack", is_async=True)
 
-# 6. Immediate Response to Client
 api.reply(client, "202 Accepted (Order ID)")
 api.deactivate()
 
-# 7. Background Processing Retry Loop
 with d.loop("Retry up to 3 times on DB lock"):
     worker.request(db, "Deduct Inventory Rows")
     db.reply(worker, "Rows Committed")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(5.0, 3.0))
 ```
 
 ---
@@ -134,23 +129,23 @@ from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=65, height=80)
+canvas.setup(width=85, height=80)
 
 d = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="WebSocket Real-Time Live Sync",
 )
 
 app = d.add(Participant("Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
-gateway = d.add(Participant("WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5))
+gateway = d.add(Participant("WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5, style=Styles.PrimaryNeutral))
 
 app.request(gateway, "GET /ws HTTP/1.1 (Upgrade: websocket)")
 gateway.reply(app, "101 Switching Protocols")
 
 # Bidirectional streaming channel
-app.connect(gateway, "Full-Duplex JSON Stream", arrow="<->")
+app.connect(gateway, "Full-Duplex JSON Telemetry Stream", arrow="<->")
 
 with d.loop("Every 500ms Ping Interval"):
     gateway.request(app, "PING", is_async=True)

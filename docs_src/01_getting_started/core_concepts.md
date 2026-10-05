@@ -65,44 +65,57 @@ A common mistake when generating diagrams is placing elements too close to the c
 
 ---
 
-## 4. The 7-Color Semantic Design System
+## 4. The Semantic Design System & Color Discipline
 
-Professional illustrations maintain visual clarity by structuring colors around Drawlib's 7 core semantic roles, anchoring around `primary` while utilizing the other roles to represent distinct components and states without artificial frequency restrictions:
+Professional illustrations maintain visual clarity by structuring colors around Drawlib's core semantic roles and following the **50%+ Neutral-Grounded Architecture** discipline:
 
-```drawlib 650px center file:seven_color_semantic_system.png caption:"The 7-Color Semantic System"
+> [!IMPORTANT]
+> **Avoid Rainbow Chaos (50%+ Neutral-Grounded Architecture)**:
+> Never color every box with saturated fills (`PrimaryFlat`, `AccentFlat`, `SuccessFlat`, `WarningFlat`). Overly colorful diagrams look amateurish and cause visual fatigue.
+> - **Ground 50% or more of nodes in calm neutral or tinted-neutral cards**: `Styles.Neutral`, `Styles.NeutralFlat`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`.
+> - **Reserve saturated hero fills (`Styles.PrimaryFlat`, `Styles.AccentFlat` with `text_style=Styles.WhiteBold`)** strictly for 1–2 primary focal points.
+> - **Use `Styles.MutedDashed` or `Styles.Muted`** for boundary containers, VPCs, and clusters.
+> - **Use `Styles.DarkBold` or `Styles.DarkFlat`** for clean, neutral connection lines.
+
+```drawlib 650px center file:seven_color_semantic_system.png caption:"The Semantic Color System"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-setup(width=160, height=35)
+setup(width=170, height=35)
 
 # Neutral Foundation / Subnet Boundary (Muted)
-rectangle((80, 17.5), width=156, height=30, style=Styles.MutedDashed)
+rectangle((85, 17.5), width=166, height=30, style=Styles.MutedDashed)
 
-# Primary Anchor (Core Microservice)
-rectangle((19.5, 17.5), width=21, height=18, style=Styles.PrimaryFlat, text="Primary\n(Core)", text_style=Styles.WhiteBold)
+# 1. Primary Hero Anchor
+rectangle((18, 17.5), width=20, height=18, style=Styles.PrimaryFlat, text="Primary\n(Core Hero)", text_style=Styles.WhiteBold)
 
-# Secondary (Database / Auxiliary)
-rectangle((43.5, 17.5), width=21, height=18, style=Styles.SecondaryFlat, text="Secondary\n(Service)", text_style=Styles.WhiteBold)
+# 2. Neutral Supporting Card (50%+ Grounding)
+rectangle((40, 17.5), width=20, height=18, style=Styles.Neutral, text="Neutral\n(Card)")
 
-# Accent (Events / Gateway)
-rectangle((67.5, 17.5), width=21, height=18, style=Styles.AccentFlat, text="Accent\n(Trigger)", text_style=Styles.WhiteBold)
+# 3. Secondary Tinted Neutral
+rectangle((62, 17.5), width=20, height=18, style=Styles.SecondaryNeutral, text="Secondary\n(Storage)")
 
-# Warning (Caution / Degraded)
-rectangle((91.5, 17.5), width=21, height=18, style=Styles.WarningFlat, text="Warning\n(Caution)", text_style=Styles.WhiteBold)
+# 4. Accent (Trigger / Client)
+rectangle((84, 17.5), width=20, height=18, style=Styles.AccentFlat, text="Accent\n(Trigger)", text_style=Styles.WhiteBold)
 
-# Danger (Alert / Error Path)
-rectangle((115.5, 17.5), width=21, height=18, style=Styles.DangerFlat, text="Danger\n(Alert)", text_style=Styles.WhiteBold)
+# 5. Warning (Caution / Review)
+rectangle((106, 17.5), width=20, height=18, style=Styles.WarningNeutral, text="Warning\n(Caution)")
 
-# Success (Verified Outcome)
-rectangle((139.5, 17.5), width=21, height=18, style=Styles.SuccessFlat, text="Success\n(Audit)", text_style=Styles.WhiteBold)
+# 6. Danger (Alert / Error Path)
+rectangle((128, 17.5), width=20, height=18, style=Styles.DangerFlat, text="Danger\n(Alert)", text_style=Styles.WhiteBold)
+
+# 7. Success (Verified Outcome)
+rectangle((150, 17.5), width=20, height=18, style=Styles.SuccessNeutral, text="Success\n(Audit)")
 ```
 
-1. **Primary Anchor (`Styles.Primary`)**:
-   Central workflow spine, core microservices, and primary subject matter.
-2. **Functional Semantics (`Styles.Secondary`, `Styles.Accent`, `Styles.Warning`, `Styles.Danger`, `Styles.Success`)**:
-   Auxiliary services, events, databases, warnings, alerts, and verified deliverables. Used actively across the diagram according to their functional intent without artificial percentage caps.
-3. **Muted Structural Base (`Styles.Muted`)**:
+1. **Primary Anchor (`Styles.PrimaryFlat`)**:
+   Central workflow spine, core microservices, and primary subject matter (reserved for 1–2 hero elements).
+2. **Neutral Grounding (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`)**:
+   General worker nodes, supporting services, and calm card surfaces that provide breathing room for the eye.
+3. **Functional Semantics (`Styles.Accent`, `Styles.Warning`, `Styles.Danger`, `Styles.Success`)**:
+   Auxiliary events, warnings, alerts, and verified deliverables used purposefully where their functional meaning applies.
+4. **Muted Structural Base (`Styles.Muted`)**:
    Neutral containers, group boundaries, subnets, and grouping boxes (`Styles.MutedFlat`, `Styles.MutedDashed`).
 
 ---

@@ -16,20 +16,20 @@ from drawlib.styles import Styles
 
 setup(width=120, height=45)
 
-# Source folder
+# Source folder (Hero focal origin)
 rectangle((24, 22.5), width=32, height=24, style=Styles.PrimaryFlat, text="Source of Truth\n\ndocs_src/\n(Markdown + Code)", text_style=Styles.WhiteBold)
 
-# Build engine
-rectangle((60, 22.5), width=24, height=16, style=Styles.AccentFlat, text="drawlib\nbuild", text_style=Styles.WhiteBold)
+# Build engine (Calm Neutral card)
+rectangle((60, 22.5), width=24, height=16, style=Styles.Neutral, text="drawlib\nbuild")
 
-# Outputs
-rectangle((98, 31), width=28, height=12, style=Styles.SuccessFlat, text="docs_html/ (Site)", text_style=Styles.WhiteBold)
-rectangle((98, 14), width=28, height=12, style=Styles.SecondaryFlat, text="docs/ (GitHub MD)", text_style=Styles.WhiteBold)
+# Outputs (Secondary Neutral cards)
+rectangle((98, 31), width=28, height=12, style=Styles.SecondaryNeutral, text="docs_html/ (Site)")
+rectangle((98, 14), width=28, height=12, style=Styles.SecondaryNeutral, text="docs/ (GitHub MD)")
 
 # Lines
-line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.PrimaryBold)
-line((72, 25), (84, 31), arrow_head="->", style=Styles.PrimaryBold)
-line((72, 20), (84, 14), arrow_head="->", style=Styles.PrimaryBold)
+line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.DarkBold)
+line((72, 25), (84, 31), arrow_head="->", style=Styles.DarkBold)
+line((72, 20), (84, 14), arrow_head="->", style=Styles.DarkBold)
 ```
 
 ### The Golden Rule: `<name>_src/` is the Single Source of Truth

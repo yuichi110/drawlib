@@ -15,10 +15,10 @@ from drawlib.styles import Styles
 setup(width=100, height=90)
 
 cycle = Cycle(
-    style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=9),
-    description_style=Styles.White.patch(text_size=7),
-    arrow_style=Styles.PrimarySolid,
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=9),
+    description_style=Styles.Dark.patch(text_size=7),
+    arrow_style=Styles.DarkBold,
     clockwise=True,
     start_angle=90.0,
     node_shape="circle",
@@ -26,20 +26,26 @@ cycle = Cycle(
     arrow_type="arc",
     arrow_width=1.5,
     arrow_head_width=4.0,
-    arrow_color_mode="match_source",
+    arrow_color_mode="monochrome",
     description_placement="inside",
 )
-cycle.append("1. Plan", description="Sprint Goal", style=Styles.PrimaryFlat)
-cycle.append("2. Do", description="Build Feature", style=Styles.AccentFlat)
-cycle.append("3. Check", description="Code Review", style=Styles.SecondaryFlat)
-cycle.append("4. Act", description="Retro & Deploy", style=Styles.SuccessFlat)
+cycle.append(
+    "1. Plan",
+    description="Sprint Goal",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=9),
+    description_style=Styles.White.patch(text_size=7),
+)
+cycle.append("2. Do", description="Build Feature")
+cycle.append("3. Check", description="Code Review")
+cycle.append("4. Act", description="Retro & Deploy", style=Styles.SecondaryNeutral)
 
 cycle.set_center(
     text="Agile",
     description="Loop",
     radius=10.0,
     style=Styles.MutedFlat,
-    text_style=Styles.PrimaryBold.patch(text_size=10),
+    text_style=Styles.DarkBold.patch(text_size=10),
 )
 
 cycle.draw(xy=(50, 45), radius=28.0)

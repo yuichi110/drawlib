@@ -43,16 +43,16 @@ from drawlib.diagrams.sequence import (
 from drawlib.styles import Styles
 
 d = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Checkout Transaction Pipeline",
     autonumber=True,            # Auto-number messages (1., 2., 3., ...)
 )
 
 # Participant group for clustered backend services
 vpc = d.add(ParticipantGroup(title="Google Cloud VPC", padding=4.0))
-api = vpc.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN))
+api = vpc.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, style=Styles.PrimaryNeutral))
 db = vpc.add(Participant("Cloud SQL", icon=GcpIcon.CLOUD_SQL))
 
 # External participant

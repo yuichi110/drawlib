@@ -86,10 +86,10 @@ from drawlib.styles import Styles
 setup(width=100, height=50)
 
 rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)
-circle((25, 25), radius=12, style=Styles.AccentFlat, text="Client", text_style=Styles.WhiteBold)
+circle((25, 25), radius=12, style=Styles.Neutral, text="Client")
 rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)
-line((37, 25), (63, 25), arrow_head="->", style=Styles.PrimaryBold)
-text((50, 30), "REST API", style=Styles.PrimaryBold)
+line((37, 25), (63, 25), arrow_head="->", style=Styles.DarkBold)
+text((50, 30), "REST API", style=Styles.Dark)
 ```
 ````
 
@@ -110,4 +110,4 @@ When compiled with `drawlib build html` or `drawlib build markdown`, the code fe
 
 1. **`setup()` is Mandatory**: Always call `setup(width=..., height=...)` at the start of your drawing block.
 2. **Handling `save()` in Markdown Blocks**: In Markdown embedded blocks, calling `save()` is optional because Drawlib captures the canvas automatically (and calls to `save()` are safely treated as no-ops). However, writing `save()` (without arguments) in complete examples is recommended for 100% copy-paste compatibility with standalone `.py` scripts.
-3. **Use Semantic Styles**: Avoid hardcoding RGB values like `(255, 0, 0)`. Leverage `Styles.PrimaryFlat`, `Styles.AccentFlat`, and `Styles.PrimaryBold` to maintain clean visual harmony.
+3. **Color Discipline (50%+ Neutral-Grounded Architecture)**: Avoid rainbow chaos. Ground 50% or more of nodes in calm neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`), reserve saturated hero styles (`Styles.PrimaryFlat`) for 1–2 primary focal points, and use `Styles.DarkBold` for connectors.

@@ -28,7 +28,7 @@ chart = BarChart(
     r=1.0,
 )
 chart.add_series("Allocated", [4.0, 16.0, 64.0], style=Styles.PrimaryFlat)
-chart.add_series("Burst Buffer", [2.0, 8.0, 32.0], style=Styles.AccentFlat)
+chart.add_series("Burst Buffer", [2.0, 8.0, 32.0], style=Styles.SecondaryNeutral)
 
 chart.draw(xy=(10, 8))
 chart.draw_legend(xy=(25, 59), text_style=Styles.Muted.patch(text_size=9.0), orientation="horizontal")

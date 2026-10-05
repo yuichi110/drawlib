@@ -33,15 +33,15 @@ setup(width=120, height=60)
 
 # Row 1: Circle-like & Radial
 circle((20, 45), radius=10, style=Styles.PrimaryFlat, text="circle", text_style=Styles.WhiteBold)
-donuts((50, 45), radius=10, width=4, style=Styles.AccentFlat, text="donuts", text_style=Styles.WhiteBold)
-regularpolygon((80, 45), radius=10, num_vertex=6, style=Styles.SecondaryFlat, text="hexagon", text_style=Styles.WhiteBold)
-star((105, 45), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.DangerFlat)
+donuts((50, 45), radius=10, width=4, style=Styles.Neutral, text="donuts")
+regularpolygon((80, 45), radius=10, num_vertex=6, style=Styles.SecondaryNeutral, text="hexagon")
+star((105, 45), num_vertex=5, radius_ext=10, radius_int=5, style=Styles.Neutral)
 
 # Row 2: Rectangles & Polygons
-rectangle((20, 18), width=24, height=14, r=2, style=Styles.PrimaryFlat, text="rounded", text_style=Styles.WhiteBold)
-rhombus((50, 18), width=22, height=16, style=Styles.AccentFlat, text="rhombus", text_style=Styles.WhiteBold)
-trapezoid((70, 11), height=14, bottomedge_width=22, topedge_width=12, style=Styles.SecondaryFlat, text="trapezoid", text_style=Styles.WhiteBold)
-triangle((105, 18), width=18, height=14, style=Styles.SuccessFlat, text="tri", text_style=Styles.WhiteBold)
+rectangle((20, 18), width=24, height=14, r=2, style=Styles.Neutral, text="rounded")
+rhombus((50, 18), width=22, height=16, style=Styles.Neutral, text="rhombus")
+trapezoid((70, 11), height=14, bottomedge_width=22, topedge_width=12, style=Styles.Neutral, text="trapezoid")
+triangle((105, 18), width=18, height=14, style=Styles.SecondaryNeutral, text="tri")
 
 save()
 ```
@@ -60,8 +60,8 @@ from drawlib.styles import Styles
 setup(width=110, height=45)
 
 circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text="circle", text_style=Styles.WhiteBold)
-donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text="donuts", text_style=Styles.WhiteBold)
-ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text="ellipse", text_style=Styles.WhiteBold)
+donuts((55, 22.5), radius=12, width=4.5, style=Styles.Neutral, text="donuts")
+ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryNeutral, text="ellipse")
 
 save()
 ```
@@ -86,13 +86,13 @@ from drawlib.styles import Styles
 setup(width=120, height=55)
 
 # 1. Single cylinder
-cylinder((25, 27.5), width=26, height=34, style=Styles.Primary, text="Cache", text_style=Styles.WhiteBold)
+cylinder((25, 27.5), width=26, height=34, style=Styles.Neutral, text="Cache")
 
 # 2. 3-disk database stack (disks=3)
-cylinder((62, 27.5), width=28, height=36, disks=3, style=Styles.SecondaryFlat, text="Primary\nDB", text_style=Styles.WhiteBold)
+cylinder((62, 27.5), width=28, height=36, disks=3, style=Styles.PrimaryFlat, text="Primary\nDB", text_style=Styles.WhiteBold)
 
 # 3. Horizontal / rotated cylinder (e.g. message queue)
-cylinder((98, 27.5), width=20, height=32, angle=-90, style=Styles.Accent, text="Queue", text_style=Styles.WhiteBold)
+cylinder((98, 27.5), width=20, height=32, angle=-90, style=Styles.SecondaryNeutral, text="Queue")
 
 save()
 ```
@@ -170,7 +170,7 @@ setup(width=110, height=50)
 
 # Target element
 node_xy = (22, 25)
-circle(node_xy, radius=9, style=Styles.SecondaryFlat, text="Node", text_style=Styles.WhiteBold)
+circle(node_xy, radius=9, style=Styles.Neutral, text="Node")
 
 # Callout pointing to the edge of the target element
 bubblespeech(

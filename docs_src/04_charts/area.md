@@ -72,7 +72,7 @@ chart = AreaChart(
 )
 chart.add_series("Enterprise Cloud", [40.0, 70.0, 110.0, 160.0, 225.0], style=Styles.PrimaryFlat)
 chart.add_series("SaaS Products", [25.0, 38.0, 52.0, 68.0, 85.0], style=Styles.SecondaryFlat)
-chart.add_series("Support & Advisory", [15.0, 18.0, 22.0, 24.0, 26.0], style=Styles.AccentFlat)
+chart.add_series("Support & Advisory", [15.0, 18.0, 22.0, 24.0, 26.0], style=Styles.MutedFlat)
 
 chart.configure_y_axis(unit="M$", label="Gross Revenue (USD Millions)")
 chart.draw(xy=(10.0, 15.0))

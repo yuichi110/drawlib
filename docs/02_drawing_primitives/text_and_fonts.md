@@ -129,9 +129,8 @@ rectangle(
     width=42,
     height=32,
     r=2,
-    style=Styles.PrimaryFlat,
+    style=Styles.Neutral,
     text=sample,
-    text_style=Styles.WhiteBold,
 )
 
 # Relaxed line spacing (1.8x)
@@ -140,7 +139,7 @@ rectangle(
     width=42,
     height=32,
     r=2,
-    style=Styles.SecondaryFlat,
+    style=Styles.PrimaryFlat,
     text=sample,
     text_style=Styles.WhiteBold.patch(text_line_spacing=1.8),
 )

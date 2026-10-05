@@ -46,8 +46,8 @@ from drawlib.styles import Styles
 setup(width=110, height=45)
 
 circle((20, 22.5), radius=12, style=Styles.PrimaryFlat, text="circle", text_style=Styles.WhiteBold)
-donuts((55, 22.5), radius=12, width=4.5, style=Styles.AccentFlat, text="donuts", text_style=Styles.WhiteBold)
-ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryFlat, text="ellipse", text_style=Styles.WhiteBold)
+donuts((55, 22.5), radius=12, width=4.5, style=Styles.Neutral, text="donuts")
+ellipse((90, 22.5), width=24, height=16, style=Styles.SecondaryNeutral, text="ellipse")
 
 save()
 ```
@@ -81,13 +81,13 @@ from drawlib.styles import Styles
 setup(width=120, height=55)
 
 # 1. Single cylinder
-cylinder((25, 27.5), width=26, height=34, style=Styles.Primary, text="Cache", text_style=Styles.WhiteBold)
+cylinder((25, 27.5), width=26, height=34, style=Styles.Neutral, text="Cache")
 
 # 2. 3-disk database stack (disks=3)
-cylinder((62, 27.5), width=28, height=36, disks=3, style=Styles.SecondaryFlat, text="Primary\nDB", text_style=Styles.WhiteBold)
+cylinder((62, 27.5), width=28, height=36, disks=3, style=Styles.PrimaryFlat, text="Primary\nDB", text_style=Styles.WhiteBold)
 
 # 3. Horizontal / rotated cylinder (e.g. message queue)
-cylinder((98, 27.5), width=20, height=32, angle=-90, style=Styles.Accent, text="Queue", text_style=Styles.WhiteBold)
+cylinder((98, 27.5), width=20, height=32, angle=-90, style=Styles.SecondaryNeutral, text="Queue")
 
 save()
 ```
@@ -192,7 +192,7 @@ setup(width=110, height=50)
 
 # Target element
 node_xy = (22, 25)
-circle(node_xy, radius=9, style=Styles.SecondaryFlat, text="Node", text_style=Styles.WhiteBold)
+circle(node_xy, radius=9, style=Styles.Neutral, text="Node")
 
 # Callout pointing to the edge of the target element
 bubblespeech(

@@ -17,7 +17,7 @@ from drawlib.styles import Styles
 setup(width=120, height=60)
 
 # 1. BubbleSpeech Callout pointing to an entity
-circle((25, 20), radius=10, style=Styles.SecondaryFlat, text="DB Server", text_style=Styles.WhiteBold)
+circle((25, 20), radius=10, style=Styles.Neutral, text="DB Server")
 
 bubblespeech(
     xy=(15, 38),

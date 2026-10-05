@@ -335,12 +335,13 @@
 <pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>show<span class="w"> </span>.drawlib/scratch/test_diagram.py<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/test_diagram.png
 </code></pre>
 <h3>Stage 4: Multimodal Inspection</h3>
-<p>Using vision inspection tools (such as <code>view_file</code> or image viewer), the agent examines the rendered output for four common visual defects:</p>
+<p>Using vision inspection tools (such as <code>view_file</code> or image viewer), the agent examines the rendered output for five common visual defects:</p>
 <ol>
 <li><strong>Text Overflow &amp; Clipping</strong>: Did a long service name or method label spill outside its enclosing box?</li>
 <li><strong>Line &amp; Arrow Overlaps</strong>: Are orthogonal lines colliding awkwardly, or are arrowheads obscured by shapes?</li>
 <li><strong>Canvas Margin Starvation</strong>: Are outermost elements pushed right up against the canvas boundary with zero padding?</li>
 <li><strong>Color Contrast</strong>: Is dark text placed over dark shape fills, or light text on pale backgrounds?</li>
+<li><strong>Color Overuse (Rainbow Chaos)</strong>: Are all boxes colored with saturated fills? Ground 50%+ of nodes in calm neutral or tinted-neutral styles (<code>Styles.Neutral</code>, <code>Styles.NeutralFlat</code>, <code>Styles.PrimaryNeutral</code>, <code>Styles.SecondaryNeutral</code>) and reserve saturated hero fills (<code>Styles.PrimaryFlat</code>) for 1–2 key focal points.</li>
 </ol>
 <h3>Stage 5: Iterative Refinement</h3>
 <p>Because the coordinate grid directly reveals the exact <code>(x, y)</code> location of every visual defect, the agent can adjust coordinates deterministically (e.g. &quot;Move box X from 45.0 to 52.0 to eliminate overlap&quot;) rather than guessing.</p>
@@ -380,8 +381,8 @@
 </tr>
 <tr>
 <td><strong>Color Semantic Roles</strong></td>
-<td>Confusing multi-color rainbow</td>
-<td>Use 7-color semantic system: anchor around primary (<code>Styles.PrimaryFlat</code>), with neutral grouping (<code>Styles.MutedFlat</code>/<code>Styles.MutedDashed</code>), and functional roles (<code>Styles.SecondaryFlat</code>, <code>Styles.AccentFlat</code>, <code>Styles.WarningFlat</code>, <code>Styles.SuccessFlat</code>, <code>Styles.DangerFlat</code>).</td>
+<td>Confusing multi-color rainbow chaos</td>
+<td>Follow the 50%+ Neutral-Grounded Architecture rule: ground 50%+ of nodes in calm neutral styles (<code>Styles.Neutral</code>, <code>Styles.PrimaryNeutral</code>, <code>Styles.SecondaryNeutral</code>), use <code>Styles.MutedDashed</code> for boundary containers, and reserve saturated hero fills (<code>Styles.PrimaryFlat</code>) for 1–2 focal components.</td>
 </tr>
 </tbody>
 </table>

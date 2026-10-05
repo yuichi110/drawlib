@@ -39,9 +39,9 @@ from drawlib.styles import Styles
 setup(width=90, height=45)
 
 cd = ClassDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="Domain Model",
 )
 
@@ -52,7 +52,7 @@ user.add_attribute("password_hash", type="str", is_public=False)
 user.add_method("login", params="password: str", return_type="bool")
 
 # Interface with stereotype
-gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0), xy=(65.0, 18.0))
+gateway = cd.add(ClassNode(name="PaymentGateway", stereotype="interface", width=28.0, style=Styles.PrimaryNeutral), xy=(65.0, 18.0))
 gateway.add_method("charge", params="amount: float", return_type="bool")
 
 cd.draw(xy=(0.0, 0.0))
@@ -90,9 +90,9 @@ from drawlib.styles import Styles
 setup(width=110, height=85)
 
 cd = ClassDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="E-Commerce Domain Class Model",
 )
 
@@ -103,11 +103,11 @@ user.add_attribute("email", type="str", is_public=True)
 user.add_attribute("password_hash", type="str", is_public=False)
 user.add_method("login", return_type="bool")
 
-customer = cd.add(ClassNode(name="Customer", width=26.0), xy=(22.0, 20.0))
+customer = cd.add(ClassNode(name="Customer", width=26.0, style=Styles.SecondaryNeutral), xy=(22.0, 20.0))
 customer.add_attribute("shipping_address", type="str")
 customer.add_method("checkout", return_type="Order")
 
-order = cd.add(ClassNode(name="Order", width=28.0), xy=(75.0, 20.0))
+order = cd.add(ClassNode(name="Order", width=28.0, style=Styles.PrimaryNeutral), xy=(75.0, 20.0))
 order.add_attribute("order_id", type="str")
 order.add_attribute("total", type="float")
 order.add_method("calculate_tax", return_type="float")
@@ -147,17 +147,23 @@ from drawlib.styles import Styles
 setup(width=105, height=80)
 
 cd = ClassDiagram(
-    node_style=Styles.PrimaryFlat,
-    edge_style=Styles.Primary,
-    edge_text_style=Styles.Black,
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark,
     title="UML Observer Design Pattern",
 )
 
-subj_iface = cd.add(ClassNode(name="Subject", stereotype="interface", width=28.0), xy=(25.0, 58.0))
+subj_iface = cd.add(
+    ClassNode(name="Subject", stereotype="interface", width=28.0, style=Styles.PrimaryNeutral),
+    xy=(25.0, 58.0),
+)
 subj_iface.add_method("attach", params="o: Observer", return_type="void")
 subj_iface.add_method("notify", return_type="void")
 
-obs_iface = cd.add(ClassNode(name="Observer", stereotype="interface", width=28.0), xy=(75.0, 58.0))
+obs_iface = cd.add(
+    ClassNode(name="Observer", stereotype="interface", width=28.0, style=Styles.SecondaryNeutral),
+    xy=(75.0, 58.0),
+)
 obs_iface.add_method("update", return_type="void")
 
 concrete_subj = cd.add(ClassNode(name="NewsPublisher", width=28.0), xy=(25.0, 20.0))

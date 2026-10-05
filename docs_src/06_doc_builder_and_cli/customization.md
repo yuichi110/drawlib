@@ -87,7 +87,9 @@ from drawlib.styles import Styles
 def draw_server_node(xy, name: str, is_active: bool = True):
     x, y = xy
     # Container
-    rectangle((x, y), width=28, height=14, style=Styles.PrimaryFlat, text=name, text_style=Styles.WhiteBold)
+    style = Styles.PrimaryFlat if is_active else Styles.Neutral
+    t_style = Styles.WhiteBold if is_active else Styles.DarkBold
+    rectangle((x, y), width=28, height=14, style=style, text=name, text_style=t_style)
     # Status indicator light
     indicator_style = Styles.SuccessFlat if is_active else Styles.DangerFlat
     circle((x + 10, y + 4), radius=1.5, style=indicator_style)
