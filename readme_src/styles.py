@@ -9,8 +9,8 @@
 
 """Drawlib configuration file for README images."""
 
-from drawlib.preset_colors import DefaultColors5
-from drawlib.preset_styles import DefaultStyles5
+from drawlib.preset_colors import DefaultColors
+from drawlib.preset_styles import DefaultStyles
 
-Colors = DefaultColors5()
-Styles = DefaultStyles5()
+Colors = DefaultColors()
+Styles = DefaultStyles()

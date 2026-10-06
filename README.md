@@ -1,715 +1,230 @@
-# About Drawlib
+# Drawlib
 
-Drawlib is a pure Python drawing library crafted to facilitate Illustration as Code rather than focusing solely on creating polished illustrations. Witness Python code in action generating a circular image:
+**Pure-Python Library for "Illustration as Code" & "Illustrated Documentation as Code"**
 
-![Alt text for the image](readme_images/about/image_drawlib.png)
+Drawlib is a declarative Python drawing library and integrated documentation compiler designed for software engineers and **autonomous AI coding agents**. Instead of maintaining brittle diagrams in external GUI tools (draw.io, Visio, PowerPoint) and manually pasting exported images into wikis, Drawlib lets you author, version-control, and build architectural diagrams, data charts, technical documents, and presentation slide decks entirely from code in Git.
 
-As you can see, we define circle location, size and styles at left side code. Executing it generate right side circle image. You will get illustration as you code.
+![Drawlib Hero Concept](readme_images/01_hero_concept.png)
 
-## Official Documentation
+- **Official Website & Documentation**: [https://www.drawlib.com/](https://www.drawlib.com/)
+- **Repository Guides & Whitepapers**:
+  - [Quickstart Guide (PDF)](quickstart.pdf)
+  - [16:9 Presentation Slide Deck (PDF)](slide.pdf)
+  - [Dogfooding Whitepaper — English (PDF)](drawlib-dogfooding-en.pdf) | [日本語版 (PDF)](drawlib-dogfooding.pdf)
 
-Complete documentation is provided at our official documentation.
+---
 
-[Drawlib Documentation](https://www.drawlib.com/docs/)
+## Why Drawlib v0.3?
 
-## Various Drawing Items
+### 1. Cloud & Software Engineering Diagrams
+Stop assembling complex architectures out of raw coordinates. Drawlib provides high-level diagramming engines (`drawlib.diagrams`, `drawlib.graph`) and standardized icon sets (`drawlib.icons.gcp`, `phosphor`, `fontawesome`):
 
-Drawlib offers a variety of drawing items with different styles. 
-Below is a sample image showcasing the major drawing items with varying styles.
+![Cloud Architecture Showcase](readme_images/02_showcase_diagrams.png)
 
-![Alt text for the image](readme_images/about/image_items.png)
+- **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) with nested clusters, `offset()` fine-tuning, and standalone code export (`export_code()`).
+- **Technical Diagrams (`drawlib.diagrams`)**:
+  - **Cloud Architecture (`ArchitectureDiagram`)**: VPC boundaries, subnets, tiers, and official cloud service icons.
+  - **Flowcharts (`FlowDiagram`)**: Process stages, decision branches, and orthogonal connectors.
+  - **Sequence Diagrams (`SequenceDiagram`)**: Client/server lifelines, synchronous/asynchronous messages, and activation bars.
+  - **UML Class, ER & State Diagrams (`ClassDiagram`, `ERDiagram`, `StateDiagram`)**: Object-oriented models, database schemas, and state machines.
 
-- Icon: Over 1500 patterns available in 5 styles (thin, light, regular, bold, fill)
-- Image: Easily apply effects
-- Line: Supports many styles
-- Shape: Around 20 patterns
-- Text: Various sizes, fonts, and weights (light, regular, bold), supporting major local languages
+---
 
-Drawlib is inspired by the features of Microsoft PowerPoint. 
-We aim to implement as many popular features as possible. 
-In addition to basic drawing features, Drawlib includes advanced features such as a code highlighter, implemented as smart art.
+### 2. Quantitative Charts & SmartArt Infographics
+Compose presentation-ready infographics (`drawlib.smartarts`) and quantitative data plots (`drawlib.charts`) side by side on the same canvas:
 
-## Concept: Apply Style to Content
+![Charts and SmartArts Showcase](readme_images/03_showcase_charts_smartarts.png)
 
-The parameters of a circle include coordinates, size, color, etc. 
-Many drawing tools treat these parameters uniformly. 
-However, we divide them into two parts:
+- **SmartArts (`drawlib.smartarts`)**: `ChevronProcess`, `Cycle`, `Table`, `TreeNode`, `MindMapNode`, `Pyramid`, `BoxList`, `BulletPoints`, `GridLayout`, and syntax-highlighted `SourceCode`.
+- **Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, and `GanttChart` styled with the same design tokens as your diagrams.
 
-- Content: The type of drawing items, such as coordinates, size, angle, etc.
-- Style: Elements like color, line width, and font.
+---
 
-If you are familiar with HTML/CSS, content is analogous to HTML, and style is analogous to CSS. Just as it’s recommended to define styles in CSS and reference them in HTML, Drawlib encourages defining styles separately and referencing them in the illustration code.
+### 3. Rich Primitives & Semantic Design System
+At its foundation, Drawlib separates **Content** (geometry, coordinates, structure) from **Style** (colors, typography, borders, themes)—just like HTML and CSS:
 
-![Alt text for the image](readme_images/about/image_concept.png)
+![Primitives and Styles Showcase](readme_images/04_showcase_primitives.png)
 
-From an artistic perspective, the mix of content and style is essential. However, for illustrations that do not require an artistic look, the content is more critical than the styles. The color or width of a line is less important than where the line is drawn.
+- **5 Core Primitive Categories**:
+  - **Icons (`drawlib.icons`)**: 1,500+ Phosphor icons (5 weights), FontAwesome, and official Google Cloud (GCP) icons.
+  - **Images (`drawlib.images`)**: Non-destructive `Dimage` processing pipeline (`sepia()`, `grayscale()`, `mosaic()`, `mirror()`, `crop()`, borders, rotation).
+  - **Lines (`drawlib.lines`)**: Straight, curved (`bend`), quadratic/cubic Bezier, and rounded multi-point polylines with customizable arrowheads (`"->"`, `"<-"`, `"<->"`).
+  - **Shapes (`drawlib.shapes`)**: 23 geometric primitives (`rectangle`, `circle`, `ellipse`, `rhombus`, `star`, `arrow`, `chevron`, `bubblespeech`, `polygon`, etc.).
+  - **Text (`drawlib.text`, `drawlib.fonts`)**: Multilingual typography with automatic on-demand font caching (`FontRoboto`, `FontSansSerif`, `FontSerif`, `FontSourceCode`, `FontJapanese`, `FontChinese`, `FontKorean`, `FontArabic`, etc.).
+- **7-Role Semantic Style System (`drawlib.styles`)**:
+  - Built-in presets (`default`, `google`, `essentials`, `monochrome`, ` warm`, `cold`) accessed via `Styles.<Token>` (`Styles.PrimaryFlat`, `Styles.Neutral`, `Styles.SecondaryNeutral`, `Styles.MutedDashed`, `Styles.SuccessNeutral`, `Styles.WarningNeutral`, `Styles.DangerNeutral`).
 
-Separating content and style allows you to focus on the essential content first. Once the content is created, you can modify its appearance by changing styles outside of the content. Additionally, you can apply one style to many content items if they are separated. Using the same style for many items is crucial for achieving consistency in illustrations.
+---
 
-## Well organized API
+### 4. Illustrated Documentation & Slide as Code
+Write Markdown files with embedded ```` ```drawlib ```` code blocks. A single `drawlib build` command compiles your repository into multiple publication formats:
 
-Drawing illustrations can be a complex task, but Drawlib aims to simplify this process by providing a range of APIs for drawing icons, images, lines, shapes, and text, complete with various styles.
-You don't need to memorize every detail to start drawing; understanding the library's design allows you to write efficient code. 
-IDEs can assist by providing quick access to classes, functions, and their options.
+![Documentation as Code Workflow](readme_images/05_workflow_doc_as_code.png)
 
-Drawlib is structured around the following APIs:
+- **4 Project Scaffolds (`drawlib init <type>`)**:
+  - `drawlib init site`: Multi-page documentation website (`docs_html/`), GitHub Markdown (`docs/`), and PDF.
+  - `drawlib init doc`: Linear technical specification / whitepaper (`*_html/`, `*_markdown/`, `*.pdf`).
+  - `drawlib init slide`: 16:9 presentation slide deck with native SVG text and keyboard navigation (`slide/`, `slide.pdf`).
+  - `drawlib init image`: Standalone batch Python illustration scripts (`readme_src/` -> `readme_images/`).
 
-- Fundamental classes and functions: These include essential canvas manipulation methods such as ``save()`` and ``config()``.
-- Drawing functions: Examples include ``circle()`` and ``line()``.
-- Style class: The unified ``Style`` class defines the visual appearance of elements (lines, shapes, text, icons, images).
-- Theme and style accessor module (``dtheme``): This module facilitates managing themes and accessing styles across drawings.
-- Advanced classes and functions: These components utilize the aforementioned APIs internally to provide extended functionality.
+---
 
-![Alt text for the image](readme_images/about/image_api.png)
+### 5. Autonomous AI Coding Agent Self-Correction Loop
+Drawlib is engineered from the ground up for **AI-driven documentation and diagram synthesis** (Claude Code, Cursor, Gemini, Codex):
 
-The image above illustrates Drawlib's core components, categorized into five sections representing its various APIs. 
-Despite its complexity, Drawlib maintains consistency in function arguments and style classes.
+![Autonomous AI Visual Self-Correction Loop](readme_images/06_ai_agent_loop.png)
 
-Once you grasp the fundamental concepts of the library, predicting the outcomes of functions and arguments becomes intuitive.
+1. **On-Demand Spec & Best-Practice Lookup (`drawlib rules show`)**: Rather than requiring humans to feed massive static rule prompts, the AI agent **autonomously queries `drawlib rules show <topic>`** whenever it needs detailed module specifications, API signatures, coordinate conventions, or visual design best practices.
+2. **Declarative Code Synthesis**: Guided by the specifications it looked up and your repository's source code, the agent authors or updates Python drawing blocks and Markdown prose in Git.
+3. **Headless Coordinate Grid Preview (`drawlib show -g`)**: The agent renders any script or embedded Markdown diagram with a precision coordinate grid overlay.
+4. **Multimodal Visual Inspection & Self-Repair**: The agent inspects the rendered PNG multimodally, checks for text clipping, overlapping labels, or style imbalances, and autonomously repairs coordinates and styles until the layout passes inspection.
 
+---
 
-## Good for Documentations and Books
+## Installation
 
-In contemporary software development, version control extends beyond code to encompass documentation, all managed seamlessly through Git. While I compose technical documents and literature using VSCode and Markdown, I previously relied on PowerPoint for illustrations. However, this approach lacks compatibility with versioning documentation images.
-
-Enter Drawlib, a solution meticulously developed to address this issue. With Drawlib, not only can textual documentation be version-controlled, but illustration code can also be managed through Git. This facilitates the automation of build tasks via scripting or CI/CD pipelines.
-
-![Alt text for the image](readme_images/about/image_buildmany.png)
-
-Integrating Drawlib into your workflow is straightforward and doesn’t significantly differ from managing markdown documents. If you create your documentation using markdown or a similar format, you can easily adopt drawlib.
-
-
-# Installation
-
-You can install drawlib with the following command. If your system uses python3 and pip3, use them instead.
-
-```bash
-$ pip install drawlib
-```
-
-After installation, you can check whether Drawlib was installed successfully with these commands:
+Install `drawlib` from PyPI using `pip` or `uv`:
 
 ```bash
-$ python -m drawlib --version
-software=0.1.24
-api=0.1.24
-
-$ drawlib --version
-software=0.1.24
-api=0.1.24
+pip install drawlib
 ```
 
-The Drawlib package also installs the drawlib command, which is useful for building many images. This command calls the Drawlib libraries’ script, equivalent to python -m drawlib. For more details, refer to the relevant section in the foundation chapter.
+To enable headless PDF export for documentation sites, linear documents, and slide decks, install the `[pdf]` extra and Chromium:
 
-
-# Quick Start
-
-## Standard Procedure for Drawing with Drawlib
-
-Below is the standard procedure for drawing using Drawlib:
-
-1. Import Drawlib library: Begin by importing the Drawlib library into your Python environment.
-2. (Optional) Import Your Style Code and Utilities: Optionally, import any custom style definitions or utility functions you may have.
-3. (Optional) Configure the Canvas: Set up the canvas by specifying its size and resolution.
-4. Draw Elements: Use Drawlib's APIs to draw icons, images, lines, shapes, or text on the canvas as needed.
-5. Save the Canvas: Once your drawing is complete, save the canvas to an image file.
-
-While detailed explanations will be provided in subsequent documents, let's briefly overview each step with an example.
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=100)
-
-line((10, 10), (90, 90))
-circle((25, 75), radius=20)
-image((75, 25), width=30, image="python.png")
-text((75, 5), "Hello drawlib!")
-
-save()
+```bash
+pip install "drawlib[pdf]"
+playwright install chromium
 ```
 
-Execute this code using the Python command:
+Verify the installation:
 
-![Alt text for the image](readme_images/qs/image_abstract1.png)
-
-Now, let's proceed to explore the functionality of Drawlib step by step.
-
-## Importing Drawlib
-
-Drawlib is a pure Python library that you can import and use like any other library after installation. 
-While many libraries spread their APIs across multiple packages, drawlib consolidates all its public APIs within the ``drawlib.apis`` package.
-
-We recommend importing all APIs using the wildcard ``*``, as shown below:
-
-```python
-from drawlib.apis import *
+```bash
+drawlib --version
 ```
 
-Although conventional Python programming guidelines (PEP) discourage wildcard imports for clarity and maintenance reasons, in the context of illustrating typical scenarios, simplicity in accessing APIs takes precedence.
+---
 
-This import style ensures that you have immediate access to all the latest APIs available in your drawlib installation. 
-You can then proceed to import your custom styles and utilities as needed, akin to importing CSS and utility JavaScript code in an HTML header. 
-We will provide detailed explanations on this aspect later.
+## Quick Start
 
-If you need to use older APIs, you can achieve this by importing them using the following style:
+### 1. Standalone Python Script
 
-```python
-from drawlib.v0_2.apis import *
-```
-
-Here, `v0_2` corresponds to version `0.2.*`.
-
-## Configuring the Canvas Size and DPI
-
-After importing the Drawlib library, you can start drawing. 
-However, it's recommended to configure the canvas to define parameters such as size using the ``config()`` function. 
-For example:
+Create a file named `architecture.py`:
 
 ```python
-config(width=100, height=100)
-```
-
-This snippet sets the canvas width to 100 units and height to 100 units. 
-These units represent coordinates within the canvas, not pixel values. 
-With both dimensions set to 100, the coordinate range for both x and y axes is from 0 to 100. 
-If you set both dimensions to 10, specifying x=20 would be out of range. 
-Drawlib does not raise an error in this case, but your item may not render as expected. 
-By default, both width and height are set to 100 units.
-
-If you configure the canvas with ``config(width=200, height=100)``, it will produce a wider canvas while maintaining the coordinate system for each item. 
-See the output image below:
-
-![Alt text for the image](readme_images/qs/image_config1.png)
-
-For higher resolution images, adjusting the DPI (Dots Per Inch) is necessary:
-
-```python
-config(dpi=200)
-```
-
-Drawlib maintains a consistent canvas width of 10 inches. 
-Therefore, changes in the coordinate-based width from the previous example do not affect the output.
-
-In the given example, a canvas size of "10 inches x 200 DPI" results in an image width of 2000 pixels.
-Increasing the DPI to 400 would double the image width to 4000 pixels. 
-However, generating high-resolution images consumes more time and disk space. 
-While there is no maximum set value, a DPI of 1000 may be excessive.
-Default DPI value is 100.
-
-## Configuring the Canvas Grid
-
-The ``config()`` function in Drawlib offers several advanced options, including the grid feature, 
-which can be particularly useful for positioning items on your canvas quickly:
-
-```python
-config(width=100, height=100, grid=True)
-```
-
-Enabling ``grid=True`` adds a grid to your image without affecting the normal image generation. 
-Therefore, there's no need to remove the ``grid=True`` option to obtain an image without a grid. 
-If you specifically require only a grid image, you can use ``grid_only=True`` instead. 
-By default, both grid and grid_only are set to False.
-
-The effects of these adjustments are demonstrated in the following files:
-
-![Alt text for the image](readme_images/qs/image_config2.png)
-
-And
-
-![Alt text for the image](readme_images/qs/image_config2_grid.png)
-
-Code file ``image_config2.py`` yield two files: ``image_config2.png`` and ``image_config2_grid.png``.
-Image file without grid is normal file name.
-Image file with grid has ``_grid`` on its last.
-
-## Coordinate and alignment
-
-Drawlib organizes its drawing functionalities into five main categories: Icon, Image, Line, Shape, and Text. 
-Before delving into these categories, understanding Drawlib's coordinate system is essential, as all drawing objects rely on it.
-
-Each drawing object in Drawlib is positioned using xy coordinates. 
-The placement of these xy coordinates depends on horizontal (``halign``) and vertical (``valign``) alignment settings. 
-Common alignment options include:
-
-### Horizontal alignment ``halign``
-
-- left
-- center
-- right
-
-### Vertical alignment ``valign`` 
-
-- bottom
-- center
-- top
-
-Let's examine these alignment options through an example:
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50, grid_only=True)
-
-circle(
-    xy=(25, 25),
-    radius=10,
-    style=Style(text_halign="center", text_valign="center"),
-)
-circle(
-    xy=(25, 25),
-    radius=1,
-    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
-)
-text((25, 10), "Align center,center", style=Style(text_color=Colors.Red))
-
-circle(
-    xy=(75, 25),
-    radius=10,
-    style=Style(text_halign="left", text_valign="bottom"),
-)
-circle(
-    xy=(75, 25),
-    radius=1,
-    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
-)
-text((75, 10), "Align left,bottom", style=Style(text_color=Colors.Red))
-
-save()
-```
-
-![Alt text for the image](readme_images/qs/image_coordinate1.png)
-
-In the image, the left circle's xy coordinates are aligned "center, center" as specified, 
-while the right circle's xy coordinates are aligned "left, bottom".
-
-By default, Drawlib sets the alignment for shapes like rectangles to "center, center". 
-This differs from many other drawing systems, which often default to "left, bottom" for rectangle-related shapes. 
-Drawlib's choice of "center, center" simplifies the process of aligning items of varying sizes both vertically and horizontally.
-
-Despite the default setting, there may be cases where "left, bottom" alignment is preferred over "center, center". 
-In such situations, it's recommended to define a custom style object with the desired alignment settings and apply it selectively to specific items.
-You can overrides primary style with secondary style easily. Please take a look foundation chapter for details.
-
-
-## Drawing icon
-
-Drawing an icon is similar to drawing an image. 
-However, while an image typically refers to a png/jpeg picture, drawlib's icon is a Font Icon. 
-If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first.
-
-Drawlib offers two methods for drawing icons:
-
-- Using the ``font_icon()`` function.
-- Utilizing the ``phosphor`` module and its functions.
-
-If you wish to draw an icon using your own font icon file, you can employ the font_icon() function. 
-For instance, if you want to utilize FontAwesome (which is not supported by default), you need to provide the file and drawing parameters to this function.
-
-The phosphor module provides embedded font icons and functions for drawing them. 
-It leverages Phosphor (https://phosphoricons.com), which offers icons that are easy to use and facilitate "Illustration as Code" since they are accessible to anyone.
-
-Here's an example using phosphor:
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=60, grid=True)
-
-phosphor.airplane((25, 30), width=20)
-phosphor.coffee(
-    xy=(75, 30),
-    width=20,
-    angle=45,
-    style=Style(text_color=Colors.Red, icon_style="fill"),
-)
-
-save()
-```
-
-This code generates the following output image:
-
-![Alt text for the image](readme_images/qs/image_icon1.png)
-
-As demonstrated, the function name determines the icon to be drawn, while the ``Style`` object can be adjusted to modify color, style, and other attributes.
-
-For detailed instructions on using the icon() function, please refer to the icon documentation. 
-This topic is beyond the scope of this quick start guide.
-
-
-## Drawing image
-
-The ``image()`` function draws the provided image onto the Canvas at the specified xy coordinates and width. 
-The height is automatically calculated based on the width to maintain the original image aspect ratio. 
-If you need to adjust the aspect ratio, you can utilize the ``Dimage`` class, which I will discuss later.
-
-Here's an example using the ``image()`` function:
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50, grid=True)
-
-image(xy=(25, 25), width=20, image="python.png")
-image(
-    xy=(75, 25),
-    width=20,
-    angle=45,
-    image="python.png",
-    style=Style(line_width=1),
-)
-
-save()
-```
-
-Execute this code using the Python command to get image.
-
-![Alt text for the image](readme_images/qs/image_image1.png)
-
-As you can observe, you can specify the angle and use the ``Style`` object to manage alignment and border lines.
-
-If you wish to modify the image itself, consider utilizing the ``Dimage`` class, which provides numerous methods for image manipulation. 
-Take a look at this example:
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50, grid=True)
-
-image(xy=(25, 25), width=20, image="python.png")
-dimg = Dimage("python.png").mirror().sepia()
-image(xy=(75, 25), width=20, image=dimg)
-
-save()
-```
-
-The ``Dimage`` class is a string-like object. 
-Methods for applying effects do not modify the image itself but create a new image object. 
-Therefore, we use method chaining to apply operations such as mirroring (horizontal reverse) and sepia (changing color).
-
-![Alt text for the image](readme_images/qs/image_image2.png)
-
-Both the ``image()`` function and the ``Dimage`` class accept images from the popular Pillow library. 
-If you wish to perform advanced image processing, it's advisable to do so using Pillow and then utilize image() and Dimage for handling the processed images.
-
-Additionally, if the original image is of high resolution and drawlib compromises its quality upon saving, consider increasing the DPI (dots per inch) using the ``config()`` function.
-
-## Drawing line
-===============
-
-Drawlib features the ``line()`` function for drawing lines, but it offers various other line-drawing options as well:
-
-* line
-* line_curved
-* line_bezier1
-* line_bezier2
-* lines
-* lines_curved
-* lines_bezier
-
-Functions starting with "line" are designed to draw lines from point xy1 to point xy2, while those starting with "lines" are designed for lines passing through multiple points. 
-Let's explore some of these line types:
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50, grid=True)
-
-line((20, 7), (80, 7))
-line_curved((20, 20), (80, 20), bend=0.2)
-line_curved((20, 30), (80, 30), bend=-0.2)
-lines([(20, 40), (30, 45), (70, 45), (80, 40)])
-
-save()
-```
-
-The ``line_curved()`` function draws a line from xy1 to xy2, but the bend parameter allows you to create curved lines. 
-A bend value of 0.2 indicates a curved line 1.2 times longer than a straight line, while a value of -0.2 creates a curve in the opposite direction.
-
-![Alt text for the image](readme_images/qs/image_line1.png)
-
-Bezier line functions are a bit more complex. 
-Please refer to the line documentation for details. However, they are incredibly useful for controlling complex curves.
-
-From point of line styling, we have these 2 categories.
-
-- Arrow head
-- Visual styles: Color, width, line style(solid, dashed etc) etc.
-
-Arrow head has logical meaning (HTML equivalent), so we will specify it at function arg ``arrowhead``.
-But visual style has less meaning (CSS equivalent), then we will specify it as styling class ``Style``.
-
-Consider this example showcasing styling:
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50, grid=True)
-
-line((20, 7), (80, 7))
-line(
-    (20, 16),
-    (80, 16),
-    style=Style(line_style="dashed", line_width=5, line_color=Colors.Red),
-)
-line((20, 25), (80, 25), arrowhead="->")
-line((20, 34), (80, 34), arrowhead="<->")
-line((20, 43), (80, 43), arrowhead="<-", style=Style(arrow_head_scale=50, line_style="dashdot", arrow_head_fill=True))
-
-save()
-```
-
-With ``Style``, you can configure line width, color, style, and more. 
-Arrow head style is specified in function directry.
-
-![Alt text for the image](readme_images/qs/image_line2.png)
-
-While the ``arrow()`` function also draws arrows, it is not a line but rather a shape. 
-Keep in mind that if you wish to draw an arrow line, utilize line() and related functions with arrowhead argument or Style.
-
-## Drawing shapes
-
-Drawlib's keyword ``Shape`` encompasses a variety of shapes such as circles, rectangles, and more. 
-While you're already familiar with the ``circle()`` function, Drawlib version 0.1 introduces several other functions for drawing shapes:
-
-* arrow()
-* arc()
-* bubblespeech()
-* chevron()
-* circle()
-* donuts()
-* ellipse()
-* fan()
-* parallelogram()
-* polygon()
-* rectangle()
-* regularpolygon()
-* rhombus()
-* shape()
-* star()
-* trapezoid()
-* triangle()
-* wedge()
-
-Most of these functions fall into one of two categories: circle-like or rectangle-like. 
-Circle-type shapes are defined by parameters such as xy coordinates and radius, while rectangle-type shapes are defined by parameters like xy coordinates, width, and height. 
-The exceptions are arrow(), polygon(), and shape().
-
-We won't delve into the specifics in this quick start guide, but it's worth noting that the ``shape()`` function is particularly versatile for creating custom shape objects. 
-When you use it, tasks like positioning your item at a specified xy coordinate and adjusting its angle are automatically handled.
-
-Let's explore two examples: a circle-like shape, ``star()``, and a rectangle-like shape, ``rectangle()``.
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50, grid=True)
-
-star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5)
-rectangle((75, 25), width=30, height=20, r=3, angle=45)
-
-save()
-```
-
-This code generates the following image:
-
-![Alt text for the image](readme_images/qs/image_shape1.png)
-
-Circle-type shapes are defined by their radius, while rectangle-type shapes are defined by their width and height. 
-By default, the xy coordinate marks the center of the shape. 
-Except for arrow() and polygon(), all functions can accept an angle parameter.
-
-Shapes can also be styled using the ``Style`` class:
-
-- ``style``: for basic shape styling such as line width, line color, and fill color
-- ``text_style``: for styling text within a shape
-
-The ``Style`` object allows you to specify parameters like color, size, font, and more. 
-When styling text within a shape, it also offers ``text_xy_shift`` and ``text_angle`` options. 
-Specifying ``text_xy_shift`` allows you to adjust the position of the text within the shape. 
-Keep in mind that the ``text_angle`` parameter in ``Style`` overrides the shape's angle for the text.
-
-Let's examine a styling example:
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50, grid=True)
-
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=120, height=50)
+
+# 1. Structural Boundary (Muted)
+rectangle((60, 25), width=112, height=42, r=3, style=Styles.MutedDashed)
+text((22, 42.5), "Production VPC", style=Styles.MutedBold.patch(text_size=9))
+
+# 2. Entrypoint & Hero Service
+rectangle((22, 24), width=24, height=16, r=2, style=Styles.Neutral, text="Client App")
 rectangle(
-    (25, 25),
-    width=30,
-    height=20,
-    angle=45,
-    text="Hello!",
-    style=Style(line_style="dashed", line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
+    (58, 24),
+    width=26,
+    height=16,
+    r=2,
+    style=Styles.PrimaryFlat,
+    text="API Gateway",
+    text_style=Styles.WhiteBold,
 )
-rectangle(
-    (75, 25),
-    width=30,
-    height=20,
-    angle=45,
-    text="Hello!",
-    text_style=Style(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
-)
+
+# 3. Downstream Services (Tinted Neutral Cards)
+rectangle((96, 33), width=24, height=12, r=2, style=Styles.SecondaryNeutral, text="Auth Service")
+rectangle((96, 15), width=24, height=12, r=2, style=Styles.SuccessNeutral, text="Audit Log DB")
+
+# 4. Directional Connectors
+line((34, 24), (45, 24), arrow_head="->", style=Styles.DarkBold)
+line((71, 28), (84, 33), arrow_head="->", style=Styles.DarkBold)
+line((71, 20), (84, 15), arrow_head="->", style=Styles.DarkBold)
 
 save()
 ```
 
-This code generates the following output:
+Run the script with Python or `drawlib` to generate `architecture.png`:
 
-![Alt text for the image](readme_images/qs/image_shape2.png)
-
-In the left example, we configure ``Style`` to add style to the rectangle. 
-``line_width``, ``line_color``, and ``line_style`` control the border, while ``fill_color`` sets the fill color. 
-If you don't require a shape border line, simply set ``line_width=0``, and if you don't need a fill color, set ``fill_color=Colors.Transparent``. 
-Notice how the text angle follows the shape angle by default.
-
-In the right example, we configure ``Style`` for the text within the rectangle via ``text_style``. 
-Parameters like ``text_color``, ``text_size``, ``text_font`` control typography, while options like ``text_xy_shift`` and ``text_angle`` adjust placement.
-
-When you specify ``text_xy_shift``, you can move the center point of the text. 
-Remember that the xy value is not a global coordinate but is relative to the shape, taking its angle into account. 
-Therefore, specifying ``(-10, 0)`` moves the center point not only to the left but also downward since the shape has a 45-degree angle.
-
-The ``text_angle`` option in ``Style`` overrides the shape's angle for the text. 
-If left unspecified, the text inside the right rectangle should be at a 45-degree angle. 
-However, since we've specified it in the style, it remains at 0 degrees.
-
-## Drawing texts
-
-The ``text()`` function is used to render text onto the canvas. 
-It requires specifications for xy coordinates, the text message, and an optional angle. 
-All other text parameters are defined within a ``Style`` object.
-
-With ``Style``, you can configure text color, size, font, alignment, and text background options (such as ``text_bg_fill_color``, ``text_bg_line_width``, etc.).
-
-Let's examine some code examples:
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50)
-
-text((50, 7), "Hello drawlib. こんにちは。")
-text(
-    (50, 16),
-    "Hello drawlib. こんにちは。",
-    angle=10,
-    style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
-)
-text(
-    (50, 25),
-    "Hello drawlib.",
-    style=Style(text_font=FontFile("avenger/regular.ttf")),
-)
-text(
-    (50, 34),
-    "Hello drawlib. こんにちは。",
-    style=Style(text_color=Colors.Red, text_size=24),
-)
-text(
-    (50, 43),
-    "Hello drawlib. こんにちは。",
-    style=Style(text_color=Colors.White, text_bg_fill_color=Colors.Black),
-)
-save()
+```bash
+python architecture.py
 ```
 
-Executing this code yields the following image:
+#### Core Principles at a Glance
+- **Bottom-Left Origin `(0, 0)`**: `setup(width=120, height=50)` defines a Cartesian coordinate canvas where `x` spans `0..120` (left to right) and `y` spans `0..50` (bottom to top).
+- **Center Alignment by Default**: Shapes (`rectangle`, `circle`, `icon`, `image`, `text`) are positioned by their center `(x, y)`, making horizontal and vertical alignment effortless.
+- **50%+ Neutral Baseline**: Ground supporting nodes in calm neutral styles (`Styles.Neutral`, `Styles.SecondaryNeutral`, `Styles.SuccessNeutral`) and reserve saturated fills (`Styles.PrimaryFlat`) for primary focal points.
+- **Style Patching (`.patch()`)**: Customize any preset token non-destructively via `Styles.MutedBold.patch(text_size=9)` or `Styles.Primary.patch(shape_line_width=2)`.
 
-![Alt text for the image](readme_images/qs/image_text1.png)
+---
 
-In this example, we've configured several text-related ``Style`` parameters. 
-I've used Japanese text for testing purposes. 
-As you can see, the Roboto font fails to render it correctly. 
-Be cautious when using non-alphabet characters. 
-Drawlib supports a variety of embedded fonts, categorized under Font-Something classes. 
-For instance, Japanese fonts are defined within FontJapanese.
+### 2. Illustrated Documentation & Slide Deck Workflow
 
-Remember, fonts are downloaded from the internet the first time you use them, after which they're cached locally within the drawlib library on your machine. 
-Fonts that haven't been used before won't be downloaded. 
-However, attempting to call text() with a new font can result in a download error. 
-Therefore, make sure to download fonts before entering internet-restricted areas.
+Scaffold a new documentation website, technical spec, or 16:9 slide deck in seconds:
 
-Calling text() with new font will make download error.
-Please download fonts before you go to internet restricted area.
+```bash
+# Initialize a multi-page documentation site in docs_src/
+drawlib init site
 
-In the third example, we've prepared a font file locally and utilized it. 
-If drawlib doesn't include the font you wish to use, you can provide it to the style's font parameter using the ``FontFile`` class.
-
-In the fourth and fifth examples, we've configured text parameters such as color, size, and background. 
-These settings may not be particularly complex, but it's important to note that the font size remains constant regardless of changes in canvas width and height. 
-Doubling the canvas size won't result in halving the font text size; it remains the same as the original size.
-
-## Using Official Theme
-
-In Drawlib, you can define the style of drawing items using the unified ``Style`` class. 
-However, specifying styles for each item can be cumbersome and may lead to inconsistency. 
-To address this, Drawlib provides a theme and style feature, allowing you to choose a theme and easily apply its styles by name.
-
-Here is an example. Note that the ``style`` argument takes text values.
-
-```python
-from drawlib.apis import *
-
-config(width=100, height=50)
-x1 = 12
-x2 = 34
-x3 = 62
-x4 = 88
-line_y = 40
-line_length = 7
-circle_y = 25
-text_y = 10
-
-# blue style
-line((x1 - line_length, line_y), (x1 + line_length, line_y), style="blue")
-circle((x1, circle_y), radius=8, style="blue")
-text((x1, text_y), text="blue", style="blue")
-
-# blue solid style
-line((x2 - line_length, line_y), (x2 + line_length, line_y), style="blue_solid")
-circle((x2, circle_y), radius=8, style="blue_solid")
-text((x2, text_y), text='style="blue_solid"', style="blue")
-
-# green dashed style
-line((x3 - line_length, line_y), (x3 + line_length, line_y), style="green_dashed_bold")
-circle((x3, circle_y), radius=8, style="green_dashed_bold")
-text((x3, text_y), text='style="green_dashed_bold"', style="green_bold")
-
-# red flat style
-line((x4 - line_length, line_y), (x4 + line_length, line_y), style="red")
-circle((x4, circle_y), radius=8, style="red_flat")
-text((x4, text_y), text='style="red_flat"', style="red")
-
-save()
+# Or initialize a 16:9 presentation slide deck in slide_src/
+drawlib init slide
 ```
 
-The style has this syntax: ``<color>_<type>_<weight>``. 
-If the type and weight are default, they are not shown in the style name. 
-Executing this code yields the following image:
+Inside your Markdown files (`docs_src/index.md`), embed Python drawing blocks using the ```` ```drawlib ```` fence:
 
-![Alt text for the image](readme_images/qs/image_theme1.png)
+````markdown
+# System Architecture
 
-Drawlib offers several official themes:
+Below is our core request routing pipeline:
 
-- ``default``
-- ``essentials``
-- ``monochrome``
+```drawlib 600px center file:service_routing.png caption:"Service Routing Pipeline"
+from drawlib.canvas import setup
+from drawlib.shapes import rectangle
+from drawlib.lines import line
+from drawlib.styles import Styles
 
-The style naming rules are consistent across all themes. 
-However, the ``default`` theme default primarily focuses on colors to keep it simple for beginners.
-You can check the available style names for each style class using ``dtheme.print_style_table()``. 
-Note that many style names support only a few style classes because "flat (no border fill)" styles do not suit lines and text.
-
-Here's how you can print the available styles in a theme:
-
-```python
-from drawlib.apis import *
-
-dtheme.apply_official_theme("default")
-dtheme.print_style_table()
-
-# table output here
+setup(width=100, height=40)
+rectangle((25, 20), width=30, height=16, r=2, style=Styles.Neutral, text="Ingress")
+rectangle((75, 20), width=30, height=16, r=2, style=Styles.PrimaryFlat, text="Core API", text_style=Styles.WhiteBold)
+line((40, 20), (60, 20), arrow_head="->", style=Styles.DarkBold)
 ```
+````
+
+Compile or preview with the `drawlib` CLI:
+
+```bash
+# Build HTML site, GitHub Markdown, or PDF
+./docs_src/build.sh
+
+# Launch live-reload preview server at http://localhost:8000
+drawlib serve html docs_src/
+
+# Render a single diagram with coordinate grid (-g) for layout inspection
+drawlib show docs_src/index.md service_routing.png -g -o preview_grid.png
+```
+
+---
+
+### 3. CLI Reference Summary
+
+| Command | Description |
+| :--- | :--- |
+| `drawlib init <site\|doc\|slide\|image>` | Scaffold a new documentation, slide deck, or image project |
+| `drawlib build <html\|markdown\|pdf\|slide\|image>` | Compile source files into HTML, Markdown, PDF, Slide deck, or PNG/SVG images |
+| `drawlib serve <html\|slide> <src_dir>` | Start a local HTTP preview server with automatic rebuilds |
+| `drawlib show <file> [target] [-g]` | Render and inspect a single script or embedded Markdown diagram (with optional grid) |
+| `drawlib rules show [topic]` | On-demand CLI reference for AI agents to look up detailed API specs & best practices (`overview`, `style-guide`, `api`, `lib-*`) |
+| `drawlib cache <list\|download\|clear>` | Manage local font and icon asset caches (supports offline pre-caching via `--all`) |
+
+---
+
+## Links & Resources
+
+- **Official Website**: [https://www.drawlib.com/](https://www.drawlib.com/)
+- **Documentation**: [https://www.drawlib.com/docs/](https://www.drawlib.com/docs/)
+- **PyPI Package**: [https://pypi.org/project/drawlib/](https://pypi.org/project/drawlib/)
+- **GitHub Repository**: [https://github.com/yuichi110/drawlib](https://github.com/yuichi110/drawlib)
+- **License**: Apache License 2.0
