@@ -69,15 +69,17 @@ Write Markdown files with embedded ```` ```drawlib ```` code blocks. A single `d
 
 ---
 
-### 5. Autonomous AI Coding Agent Self-Correction Loop
-Drawlib is engineered from the ground up for **AI-driven documentation and diagram synthesis** (Claude Code, Cursor, Gemini, Codex):
+### 5. AI Inner Loop & Human Outer Loop
+Drawlib is engineered from the ground up for **AI-native documentation and diagram engineering** (Claude Code, Cursor, Gemini, Codex), separating high-frequency visual self-correction from high-level human review:
 
-![Autonomous AI Visual Self-Correction Loop](readme_images/06_ai_agent_loop.png)
+![AI Inner Loop and Human Outer Loop](readme_images/06_ai_agent_loop.png)
 
-1. **On-Demand Spec & Best-Practice Lookup (`drawlib rules show`)**: Rather than requiring humans to feed massive static rule prompts, the AI agent **autonomously queries `drawlib rules show <topic>`** whenever it needs detailed module specifications, API signatures, coordinate conventions, or visual design best practices.
-2. **Declarative Code Synthesis**: Guided by the specifications it looked up and your repository's source code, the agent authors or updates Python drawing blocks and Markdown prose in Git.
-3. **Headless Coordinate Grid Preview (`drawlib show -g`)**: The agent renders any script or embedded Markdown diagram with a precision coordinate grid overlay.
-4. **Multimodal Visual Inspection & Self-Repair**: The agent inspects the rendered PNG multimodally, checks for text clipping, overlapping labels, or style imbalances, and autonomously repairs coordinates and styles until the layout passes inspection.
+- **AI Inner Loop (Autonomous Visual Self-Correction)**:
+  1. **On-Demand Spec Lookup (`drawlib rules show`)**: The AI agent **autonomously queries `drawlib rules show <topic>`** whenever it needs detailed API specifications, coordinate rules, or visual design best practices.
+  2. **Code Synthesis & Grid Preview (`drawlib show -g`)**: The agent writes Python drawing blocks and Markdown prose, then renders a headless preview with a coordinate grid overlay.
+  3. **Multimodal Inspection & Self-Repair**: The agent visually inspects the rendered PNG for text clipping, overlapping labels, or style imbalances, repairing coordinates and styles autonomously until the diagram passes inspection.
+- **Human Outer Loop (Intent & Review)**:
+  - The developer stays focused on high-level architecture and intent—providing initial goals, reviewing the compiled **Published Docs** (HTML / PDF / GitHub MD / Slide), and iterating on direction without ever nudging pixels in a GUI tool.
 
 ---
 
