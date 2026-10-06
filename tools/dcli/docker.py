@@ -136,7 +136,7 @@ def build_image(
         "docker",
         "build",
         "-f",
-        "Dockerfile.pypi_test",
+        "tools/docker/Dockerfile.pypi_test",
         "--build-arg",
         f"PYTHON_VERSION={python}",
         "--build-arg",

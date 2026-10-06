@@ -1,4 +1,0 @@
-{
-  "include": ["tests"],
-  "typeCheckingMode": "basic"
-}
