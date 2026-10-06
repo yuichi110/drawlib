@@ -326,7 +326,7 @@ my_project/
 │       └── index.md
 ├── styles.py                  # Global custom styles and palette theming
 ├── utils.py                   # User-defined helper functions and constants
-├── docs_build.sh              # Unified build automation script
+├── build.sh                   # Unified build automation script
 ├── docs/                      # [GENERATED] Rendered Markdown site for GitHub browsing
 └── docs_html/                 # [GENERATED] Responsive static HTML site with sidebar
 ```
@@ -373,7 +373,7 @@ save()
 ### 4.5. Build & Preview Commands
 ```bash
 # Run full documentation build via script:
-./docs_build.sh
+./build.sh
 
 # Preview or test a specific diagram block by name with coordinate grid (Recommended):
 # (Always pass -o <path> in headless environments to write images to disk for AI inspection)
