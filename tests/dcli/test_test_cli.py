@@ -51,12 +51,12 @@ def test_test_dcli_command() -> None:
         mock_run.assert_called_once_with("tests/dcli/", cov=False)
 
 
-def test_test_core_command() -> None:
-    """Test dcli test core command."""
+def test_test_target_shortcut() -> None:
+    """Test dcli test target shortcut resolution."""
     with patch("tools.dcli.test._run_pytest") as mock_run:
-        result = runner.invoke(app, ["core"])
+        result = runner.invoke(app, ["target", "core"])
         assert result.exit_code == 0
-        mock_run.assert_called_once_with("tests/drawlib/_core/", cov=False)
+        mock_run.assert_called_once_with("tests/drawlib/_core/", cov=False, cov_report=False, parallel=False)
 
 
 def test_test_target_command() -> None:
@@ -64,4 +64,4 @@ def test_test_target_command() -> None:
     with patch("tools.dcli.test._run_pytest") as mock_run:
         result = runner.invoke(app, ["target", "tests/my_test.py"])
         assert result.exit_code == 0
-        mock_run.assert_called_once_with("tests/my_test.py", cov=False)
+        mock_run.assert_called_once_with("tests/my_test.py", cov=False, cov_report=False, parallel=False)

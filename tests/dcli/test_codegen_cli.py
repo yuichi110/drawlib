@@ -7,15 +7,15 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for tools/dcli/gen."""
+"""Unit tests for tools/dcli/codegen."""
 
 from __future__ import annotations
 
 from typer.testing import CliRunner
 
-from tools.dcli.gen import app
-from tools.dcli.gen.gcp_normalize import sanitize_name
-from tools.dcli.gen.phosphor import parse_css_icons
+from tools.dcli.codegen import app
+from tools.dcli.codegen.gcp_normalize import sanitize_name
+from tools.dcli.codegen.phosphor import parse_css_icons
 
 runner = CliRunner()
 
@@ -42,9 +42,9 @@ def test_parse_css_icons() -> None:
     assert icons.get("alarm") == "e004"
 
 
-def test_gen_cli_help() -> None:
-    """Test dcli gen --help."""
+def test_codegen_cli_help() -> None:
+    """Test dcli codegen --help."""
     result = runner.invoke(app, ["--help"])
     assert result.exit_code == 0
-    assert "icon" in result.output
+    assert "icon-phosphor" in result.output
     assert "icon-gcp" in result.output

@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from unittest.mock import patch
 
 import pytest
@@ -24,6 +25,7 @@ from tools.dcli.pypi.client import (
     get_latest_version,
     list_versions,
 )
+from tools.dcli.pypi.dep import ReleaseInfo, get_dependencies
 
 runner = CliRunner()
 
@@ -106,3 +108,44 @@ def test_pypi_cli_check_version_failure() -> None:
         result = runner.invoke(app, ["check-version"])
         assert result.exit_code == 1
         assert "Check failed" in result.output
+
+
+def test_get_dependencies() -> None:
+    """Test retrieving dependencies from pyproject.toml."""
+    deps = get_dependencies()
+    assert len(deps) > 0
+    dep_names = [d.name for d in deps]
+    assert "matplotlib" in dep_names
+    assert "pydantic" in dep_names
+
+
+def test_pypi_cli_deps() -> None:
+    """Test dcli pypi deps command."""
+    result = runner.invoke(app, ["deps"])
+    assert result.exit_code == 0
+    assert "matplotlib" in result.output
+    assert "pydantic" in result.output
+
+
+def test_pypi_cli_dep_releases() -> None:
+    """Test dcli pypi dep-releases command."""
+    mock_releases = [
+        ReleaseInfo(version="0.3.0", timestamps=datetime(2026, 1, 1, tzinfo=timezone.utc)),
+        ReleaseInfo(version="0.2.0", timestamps=datetime(2025, 1, 1, tzinfo=timezone.utc)),
+    ]
+    with patch("tools.dcli.pypi.cli.get_releases", return_value=mock_releases):
+        result = runner.invoke(app, ["dep-releases", "drawlib"])
+        assert result.exit_code == 0
+        assert "0.3.0" in result.output
+        assert "0.2.0" in result.output
+
+
+def test_pypi_cli_dep_releases_json() -> None:
+    """Test dcli pypi dep-releases --format json command."""
+    mock_releases = [
+        ReleaseInfo(version="0.3.0", timestamps=datetime(2026, 1, 1, tzinfo=timezone.utc)),
+    ]
+    with patch("tools.dcli.pypi.cli.get_releases", return_value=mock_releases):
+        result = runner.invoke(app, ["dep-releases", "drawlib", "--format", "json"])
+        assert result.exit_code == 0
+        assert '"version": "0.3.0"' in result.output

@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import shutil
 from pathlib import Path
@@ -28,15 +29,53 @@ from tools.dcli.pypi.client import (
 from tools.dcli.pypi.client import (
     list_versions as client_list_versions,
 )
+from tools.dcli.pypi.dep import get_dependencies, get_releases
 from tools.dcli.pypi.pyproject import update_pyproject_toml
 
 _get_new_version = get_new_version
 
 app = typer.Typer(
     name="pypi",
-    help="Version verification, metadata synchronization, and publishing to PyPI / TestPyPI.",
+    help="Version verification, dependency tracking, metadata sync, and publishing to PyPI / TestPyPI.",
     no_args_is_help=True,
 )
+
+
+@app.command("deps")
+def list_dependencies() -> None:
+    """List all project dependencies defined in pyproject.toml."""
+    dependencies = get_dependencies()
+    for dep in dependencies:
+        console.print(dep.name)
+
+
+@app.command("dep-releases")
+def list_releases(
+    package: str = typer.Argument(..., help="Package name to inspect on PyPI."),
+    year_from: Optional[int] = typer.Option(None, "--from", help="Filter releases starting from this year."),
+    year_to: Optional[int] = typer.Option(None, "--to", help="Filter releases up to this year."),
+    output_format: str = typer.Option("text", "--format", help="Output format: 'text' or 'json'."),
+) -> None:
+    """List released versions for a specific package from PyPI.
+
+    Args:
+        package: Name of the PyPI package.
+        year_from: Filter releases starting from this year.
+        year_to: Filter releases up to this year.
+        output_format: Output format ('text' or 'json').
+    """
+    try:
+        releases = get_releases(package, year_from=year_from, year_to=year_to)
+    except Exception as e:
+        err_console.print(f"[bold red]{e}[/bold red]")
+        raise typer.Exit(code=1) from e
+
+    if output_format == "json":
+        data = [{"version": r.version, "timestamps": r.timestamps.isoformat()} for r in releases]
+        console.print(json.dumps(data, indent=2))
+    else:
+        for r in releases:
+            console.print(r.version)
 
 
 @app.command("list-versions")

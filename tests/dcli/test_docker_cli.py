@@ -31,12 +31,12 @@ def test_check_docker_cli_found() -> None:
 
 
 def test_daemon_status_running() -> None:
-    """Test daemon-status output when Docker daemon is running."""
+    """Test status output when Docker daemon is running."""
     with (
         patch("shutil.which", return_value="/usr/bin/docker"),
         patch("tools.dcli.docker._is_daemon_running", return_value=True),
     ):
-        result = runner.invoke(app, ["daemon-status"])
+        result = runner.invoke(app, ["status"])
         assert result.exit_code == 0
         assert "Docker daemon is running" in result.output
 

@@ -21,8 +21,8 @@ runner = CliRunner()
 def test_discover_toolsets() -> None:
     """Test discovering available CLI toolsets."""
     toolsets = discover_toolsets()
-    expected = {"assets", "check", "dep", "docker", "docs", "gen", "pypi", "test"}
-    assert expected.issubset(set(toolsets))
+    expected = {"assets", "check", "codegen", "docker", "docs", "pypi", "test"}
+    assert expected == set(toolsets)
     assert "__init__" not in toolsets
     assert "common" not in toolsets
     assert "completion" not in toolsets

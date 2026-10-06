@@ -7,9 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Gen toolset entrypoint."""
+"""Codegen toolset entrypoint."""
 
-from tools.dcli.gen.cli import app
+from tools.dcli.codegen.cli import app
 
 if __name__ == "__main__":
     app()

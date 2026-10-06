@@ -13,7 +13,6 @@
 
 from __future__ import annotations
 
-import platform
 import shutil
 import subprocess
 from typing import Optional
@@ -51,61 +50,15 @@ def _is_daemon_running() -> bool:
     return res.returncode == 0
 
 
-@app.command("daemon-status")
-def daemon_status() -> None:
+@app.command("status")
+@app.command("daemon-status", hidden=True)
+def status() -> None:
     """Check Docker daemon status."""
     _check_docker_cli()
     if _is_daemon_running():
         console.print("[bold green]Docker daemon is running.[/bold green]")
     else:
         console.print("[bold yellow]Docker daemon is NOT running or not responding.[/bold yellow]")
-
-
-@app.command("daemon-start")
-def daemon_start() -> None:
-    """Start Docker Desktop application (macOS only).
-
-    Raises:
-        typer.Exit: If executed on a non-macOS system.
-    """
-    if platform.system() != "Darwin":
-        err_console.print("[bold red]Error: daemon-start is only supported on macOS.[/bold red]")
-        raise typer.Exit(code=1)
-
-    if _is_daemon_running():
-        console.print("[bold green]Docker daemon is already running.[/bold green]")
-        return
-
-    run_command(["open", "-a", "Docker"], desc="Starting Docker Desktop...")
-    console.print("[cyan]Please wait while Docker Desktop starts up...[/cyan]")
-
-
-@app.command("daemon-stop")
-def daemon_stop() -> None:
-    """Stop all running Docker containers and quit Docker Desktop (macOS only).
-
-    Raises:
-        typer.Exit: If executed on a non-macOS system.
-    """
-    if platform.system() != "Darwin":
-        err_console.print("[bold red]Error: daemon-stop is only supported on macOS.[/bold red]")
-        raise typer.Exit(code=1)
-
-    console.print("[cyan]Stopping running containers...[/cyan]")
-    ps_proc = subprocess.run(
-        ["docker", "ps", "-q"],  # noqa: S603, S607
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    running_ids = [line.strip() for line in ps_proc.stdout.splitlines() if line.strip()]
-    if running_ids:
-        subprocess.run(["docker", "stop", *running_ids], check=False)  # noqa: S603, S607
-
-    console.print("[cyan]Terminating Docker Desktop processes...[/cyan]")
-    subprocess.run(["pkill", "-SIGTERM", "-a", "Docker"], check=False)  # noqa: S603, S607
-    subprocess.run(["pkill", "-SIGTERM", "-f", "com.docker.backend"], check=False)  # noqa: S603, S607
-    console.print("[bold green]✓ Docker shutdown initiated.[/bold green]")
 
 
 @app.command("build-image")

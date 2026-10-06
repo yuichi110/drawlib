@@ -15,15 +15,15 @@ from pathlib import Path
 
 import typer
 
+from tools.dcli.codegen.gcp_codegen import generate_gcp_code
+from tools.dcli.codegen.gcp_download import download_and_extract_gcp_icons
+from tools.dcli.codegen.gcp_normalize import normalize_all_gcp_icons
+from tools.dcli.codegen.phosphor import generate_phosphor_code
 from tools.dcli.common import PROJECT_ROOT, console
-from tools.dcli.gen.gcp_codegen import generate_gcp_code
-from tools.dcli.gen.gcp_download import download_and_extract_gcp_icons
-from tools.dcli.gen.gcp_normalize import normalize_all_gcp_icons
-from tools.dcli.gen.phosphor import generate_phosphor_code
 
 app = typer.Typer(
-    name="gen",
-    help="Code generation and asset utilities for icons.",
+    name="codegen",
+    help="Code generation utilities for icons and Python bindings.",
     no_args_is_help=True,
 )
 
@@ -33,8 +33,8 @@ def callback() -> None:
     """Code generation toolset callback."""
 
 
-@app.command("icon")
-def gen_icon() -> None:
+@app.command("icon-phosphor")
+def gen_icon_phosphor() -> None:
     """Generate Phosphor icon python bindings and code."""
     console.print("[bold cyan]Generating Phosphor icon code...[/bold cyan]")
     generate_phosphor_code()

@@ -7,9 +7,8 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Dep toolset entrypoint."""
+"""Code generation and asset utilities for icons."""
 
-from tools.dcli.dep.cli import app
+from tools.dcli.codegen.cli import app
 
-if __name__ == "__main__":
-    app()
+__all__ = ["app"]

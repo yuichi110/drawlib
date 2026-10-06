@@ -24,30 +24,29 @@ Execute `./dcli` with no arguments to print all available toolsets:
   - ./dcli check docstring
   - ./dcli check lines
   - ./dcli check all
-* test:     Test execution and coverage via pytest
-  - ./dcli test all [--cov]
-  - ./dcli test target <path>
-  - ./dcli test cli
-  - ./dcli test core / types / styles / fonts / preset-styles / canvas / icons / smartarts / doc-builder
+* codegen:  Code generation utilities for icons and bindings
+  - ./dcli codegen icon-phosphor
+  - ./dcli codegen icon-gcp [--output-dir DIR]
+* docker:   Docker test container management
+  - ./dcli docker status
+  - ./dcli docker build-image --version <VER> [--python VER] [--repo pypi|test-pypi]
+  - ./dcli docker list-images / prune-images
 * docs:     Documentation generation and local preview
-  - ./dcli docs build
-  - ./dcli docs serve [-p PORT]
-* gen:      Code generation utilities
-  - ./dcli gen icon
-  - ./dcli gen icon-gcp [--output-dir DIR]
-* pypi:     PyPI publishing and version management
+  - ./dcli docs build [TARGET] [--all] [--clean]
+  - ./dcli docs serve [TARGET] [-p PORT]
+* pypi:     PyPI publishing, version verification, and dependency management
+  - ./dcli pypi deps
+  - ./dcli pypi dep-releases <package> [--from YEAR]
   - ./dcli pypi list-versions [--test-pypi]
   - ./dcli pypi latest [--test-pypi]
   - ./dcli pypi check-version [--allow-jump] [--test-pypi]
   - ./dcli pypi update-pyproject
   - ./dcli pypi publish [--allow-jump] [--test-pypi]
-* dep:      Project dependency inspection and PyPI releases
-  - ./dcli dep list
-  - ./dcli dep releases <package> [--from YEAR]
-* docker:   Docker test container management
-  - ./dcli docker daemon-status / daemon-start / daemon-stop
-  - ./dcli docker build-image --version <VER> [--python VER] [--repo pypi|test-pypi]
-  - ./dcli docker list-images / prune-images
+* test:     Test execution and coverage via pytest
+  - ./dcli test all [--cov] [--parallel]
+  - ./dcli test drawlib
+  - ./dcli test dcli
+  - ./dcli test target <path_or_shortcut> (shortcuts: canvas, smartarts, core, etc.)
 ```
 
 ## Shell Autocompletion
