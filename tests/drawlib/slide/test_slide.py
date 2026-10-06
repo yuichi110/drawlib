@@ -11,6 +11,9 @@
 
 from __future__ import annotations
 
+import importlib.machinery
+import importlib.util
+from importlib.resources import files
 from pathlib import Path
 
 import pytest
@@ -23,8 +26,16 @@ from drawlib._slide import (
 from drawlib._slide.base import reset_slide_context, set_slide_context
 from drawlib._templates import get_css, get_slide_js, init_project, list_slide_css
 from drawlib.canvas import clear, save, setup
-from slide_src.utils import draw_curved_agenda, draw_kpi_cards
 from tests.drawlib.cli.common import run_drawlib_cli
+
+_SLIDE_UTILS_PATH = Path(str(files("drawlib._templates").joinpath("project/slide/utils/google.py.template")))
+_loader = importlib.machinery.SourceFileLoader("_slide_template_utils", str(_SLIDE_UTILS_PATH))
+_spec = importlib.util.spec_from_loader(_loader.name, _loader)
+assert _spec is not None
+_slide_utils = importlib.util.module_from_spec(_spec)
+_loader.exec_module(_slide_utils)
+draw_curved_agenda = _slide_utils.draw_curved_agenda
+draw_kpi_cards = _slide_utils.draw_kpi_cards
 
 
 class TestSlideFoundation:
@@ -162,7 +173,7 @@ class TestSlideCompiler:
             encoding="utf-8",
         )
 
-        (src_dir / "utils.py").write_text(Path("slide_src/utils.py").read_text(encoding="utf-8"), encoding="utf-8")
+        (src_dir / "utils.py").write_text(_SLIDE_UTILS_PATH.read_text(encoding="utf-8"), encoding="utf-8")
 
         (src_dir / "02_agenda.md").write_text(
             """::: block (80, 40) (1760, 60)

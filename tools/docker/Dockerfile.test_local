@@ -13,19 +13,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Install test runner dependencies
+# Install test runner dependencies and baseline rendering libraries matching test answer images
 RUN pip install --no-cache-dir \
     pytest \
     pytest-cov \
-    pytest-xdist
+    pytest-xdist \
+    matplotlib==3.10.9 \
+    pillow==12.2.0
 
-# Copy and install local drawlib package
-COPY pyproject.toml README_PYPI.md LICENSE.txt ./
+# Copy and install local drawlib package (including [pdf] extras for unit test mocks)
+COPY pyproject.toml ./
 COPY src/ ./src/
-RUN pip install --no-cache-dir . && rm -rf ./src pyproject.toml README_PYPI.md LICENSE.txt
+RUN touch README_PYPI.md && pip install --no-cache-dir ".[pdf]" && rm -rf ./src README_PYPI.md
 
 # Copy test suite and assets
 COPY tests/ ./tests/
 RUN mkdir -p output_tests
 
-CMD ["pytest", "-n", "auto", "tests/drawlib/"]
+CMD ["sh", "-c", "drawlib cache download --all && pytest -n auto --dist loadfile tests/drawlib/"]

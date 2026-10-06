@@ -65,7 +65,7 @@ class TestTextUtil:
         """Verifies get_font_properties constructs a FontProperties object for custom and default fonts."""
         # 1. Test Style with custom FontFile (referencing an existing file)
         font_path = os.path.normpath(
-            os.path.join(os.path.dirname(__file__), "../../../../src/drawlib/_assets/fonts/roboto/regular.ttf")
+            os.path.join(os.path.dirname(__file__), "../../../assets/avenger/regular.ttf")
         )
         font_file = FontFile(font_path)
         style_file = Style(text_font=font_file, text_size=18.0)

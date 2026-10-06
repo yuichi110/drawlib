@@ -1,13 +1,16 @@
+# 1. Ignore everything by default
+*
+
+# 2. Allow only files and directories required by Dockerfiles
+!pyproject.toml
+!src/
+!tests/
+
+# 3. Exclude runtime caches and bytecode inside allowed directories
 **/__pycache__
-*.pyc
-*.pyo
-*.pyd
-.git
-.github
-.venv
-.pytest_cache
-.ruff_cache
-.pyright_cache
-output_tests
-output_tests_docker
-dist
+**/*.pyc
+**/*.pyo
+**/*.pyd
+src/drawlib/_assets/*
+!src/drawlib/_assets/__init__.py
+!src/drawlib/_assets/.gitignore

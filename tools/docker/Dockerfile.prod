@@ -17,11 +17,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp/drawlib_build
-COPY pyproject.toml README_PYPI.md LICENSE.txt ./
+COPY pyproject.toml ./
 COPY src/ ./src/
 
 # Install drawlib (from local source or PyPI, with optional [pdf] extras)
-RUN if [ "${INSTALL_SOURCE}" = "pypi" ]; then \
+RUN touch README_PYPI.md && \
+    if [ "${INSTALL_SOURCE}" = "pypi" ]; then \
         if [ "${WITH_PDF}" = "true" ]; then \
             pip install --no-cache-dir "drawlib[pdf]==${DRAWLIB_VERSION}"; \
         else \
