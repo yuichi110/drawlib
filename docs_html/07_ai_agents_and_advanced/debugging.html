@@ -349,10 +349,10 @@ The coordinate grid reveals immediately if coordinates exceed <code>setup(width=
 <li><strong>Cause</strong>: The active font does not contain glyphs for Chinese, Japanese, Korean, or specialized Unicode characters.</li>
 <li><strong>Solution</strong>:
 <ol>
-<li>Switch to universal CJK typography:<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontSourceHanSans</span>
+<li>Switch to universal CJK typography:<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontJapanese</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Style</span>
 
-<span class="n">jp_style</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontSourceHanSans</span><span class="o">.</span><span class="n">Regular</span><span class="p">)</span>
+<span class="n">jp_style</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_REGULAR</span><span class="p">)</span>
 </code></pre>
 </li>
 <li>Ensure font assets are pre-cached:<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--fonts

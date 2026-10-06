@@ -111,7 +111,7 @@ dark_styles = SourceCodeStyles.get("dark", font_lang="en")
 # 3. Patch specific token styles
 custom_styles = dark_styles.patch(
     keyword=Styles.PrimaryBold,
-    comment=Styles.MutedItalic,
+    comment=Styles.MutedThin,
     box_style=Styles.MutedDashed,
 )
 ```

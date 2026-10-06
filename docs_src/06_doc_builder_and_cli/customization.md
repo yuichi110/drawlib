@@ -55,7 +55,7 @@ CARD_STYLE = Style(
     shape_fill_color=(245, 247, 250, 1.0),
     shape_line_color=(200, 210, 225, 1.0),
     shape_line_width=1.5,
-    font=FontRoboto.Medium,
+    text_font=FontRoboto.REGULAR,
 )
 
 HIGHLIGHT_STYLE = Styles.AccentFlat

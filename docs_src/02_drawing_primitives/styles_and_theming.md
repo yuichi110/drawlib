@@ -60,7 +60,7 @@ Every style token is composed of a **Semantic Role** (or color name) and an opti
 | `Flat` | `Styles.PrimaryFlat` | Solid fill color without border lines. |
 | `Bordered` | `Styles.PrimaryBordered` | Standard fill with a contrasting border. |
 | `Bold` | `Styles.PrimaryBold` | Heavy stroke for lines and borders. |
-| `Thin` | `Styles.PrimaryThin` | Thin stroke with light font weight. |
+| `Thin` | `Styles.PrimaryThin` | Thin stroke with thin font weight. |
 | `Outline` | `Styles.PrimaryOutline` | Transparent fill with a colored border line. |
 | `Dashed` | `Styles.MutedDashed` | Dashed border stroke (ideal for VPCs and clusters). |
 | `Dotted` | `Styles.PrimaryDotted` | Dotted border stroke for ephemeral or preview components. |

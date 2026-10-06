@@ -44,10 +44,10 @@ Outputs timing metrics, image cache hits/misses, and document parsing phases.
 - **Solution**:
   1. Switch to universal CJK typography:
      ```python
-     from drawlib.fonts import FontSourceHanSans
+     from drawlib.fonts import FontJapanese
      from drawlib.types import Style
      
-     jp_style = Style(font=FontSourceHanSans.Regular)
+     jp_style = Style(text_font=FontJapanese.SANSSERIF_REGULAR)
      ```
   2. Ensure font assets are pre-cached:
      ```bash
