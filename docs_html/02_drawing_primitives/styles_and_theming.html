@@ -412,26 +412,45 @@ Drawlib resolves this with a <strong>systematic design token system</strong> in 
 </code></pre>
 <hr />
 <h2>5. Customizing &amp; Deriving Styles (<code>.patch()</code>)</h2>
-<p>To create custom style variations without rebuilding a <code>Style</code> from scratch, use <code>.patch()</code>:</p>
+<p>Styles in Drawlib are immutable data models. To create custom variations without rebuilding a <code>Style</code> from scratch, use the <code>.patch()</code> method to override specific attributes:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">CssColors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span>
 
-<span class="c1"># Derive a custom card style with a custom border and fill</span>
-<span class="n">custom_card</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
-    <span class="n">shape_fill_color</span><span class="o">=</span><span class="n">CssColors</span><span class="o">.</span><span class="n">AliceBlue</span><span class="p">,</span>
-    <span class="n">shape_line_color</span><span class="o">=</span><span class="n">CssColors</span><span class="o">.</span><span class="n">DodgerBlue</span><span class="p">,</span>
-    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+<span class="c1"># 1. Derive a custom branded node card</span>
+<span class="n">custom_card</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Blue</span><span class="p">,</span>
+    <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Derive a high-contrast danger badge</span>
+<span class="n">danger_badge</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span>
+    <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <hr />
-<h2>6. Official Preset Style Catalogs (<code>drawlib.preset_styles</code>)</h2>
-<p>Drawlib includes three official style catalogs:</p>
+<h2>6. Official Preset Style Catalogs &amp; Typography Patching</h2>
+<p>Drawlib includes three official style catalogs in <code>drawlib.preset_styles</code>:</p>
 <ol>
-<li><strong><code>DefaultStyles</code></strong>: Clean, balanced modern tech palette.</li>
-<li><strong><code>GoogleStyles</code></strong>: Material Design inspired palette (Blue, Red, Yellow, Green).</li>
-<li><strong><code>MonochromeStyles</code></strong>: Publication-grade grayscale palette for black-and-white academic papers.</li>
+<li><strong><code>DefaultStyles</code></strong>: Clean, balanced modern tech palette (Tailwind/VitePress inspired).</li>
+<li><strong><code>GoogleStyles</code></strong>: Material Design inspired palette (Google Blue, Red, Yellow, Green).</li>
+<li><strong><code>MonochromeStyles</code></strong>: Publication-grade grayscale palette for black-and-white academic papers and official specifications.</li>
 </ol>
-<p>Switch the active preset globally via CLI flag:</p>
+<h3>Universal Typography Patching (<code>.patch_font()</code>)</h3>
+<p>When publishing documents in international languages (such as Japanese, Chinese, or Korean) or applying corporate typography, use <code>.patch_font()</code> to replace font families across all predefined tokens in one call:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontJapanese</span>  <span class="c1"># or FontRoboto, FontChinese, etc.</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">GoogleStyles</span>
+
+<span class="c1"># Patch all styles with unified typography weights</span>
+<span class="n">Styles</span> <span class="o">=</span> <span class="n">GoogleStyles</span><span class="p">()</span><span class="o">.</span><span class="n">patch_font</span><span class="p">(</span>
+    <span class="n">regular</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_REGULAR</span><span class="p">,</span>
+    <span class="n">bold</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_BOLD</span><span class="p">,</span>
+    <span class="n">thin</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_THIN</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<p>Switch the active preset globally via CLI flag during build:</p>
 <pre><code class="language-bash">$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>docs_src/<span class="w"> </span>--styles<span class="w"> </span>google
 </code></pre>
 

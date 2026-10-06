@@ -18,12 +18,78 @@ When tasked with generating technical illustrations, AI agents typically struggl
    Instead of drawing raw boxes and wires, an agent simply writes `ArchitectureDiagram`, `ERDiagram`, or `FlowDiagram`. The library handles orthogonal routing, padding, and marker styling automatically.
 2. **Built-in Visual Harmony**:  
    Predefined semantic styles (`Styles.PrimaryFlat`, `Styles.AccentFlat`) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.
-3. **On-Demand Rule Injection**:  
-   Drawlib includes a complete built-in manual that agents can query via the CLI at runtime (`drawlib rules show <topic>`), eliminating context-window bloat and outdated training data.
-
 ---
 
-## Equipping Your AI Agent
+## Drawlib & AI Agent Collaboration Model
+
+Drawlib provides a tightly integrated tripartite architecture between the library's on-demand knowledge engine, the autonomous AI coding agent, and version-controlled project documentation:
+
+```drawlib 650px center file:agent_collaboration_model.png caption:"Drawlib & AI Agent Autonomous Interaction Model"
+from drawlib.canvas import setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=142, height=54)
+
+header_ts = Styles.WhiteBold.patch(text_size=9.5)
+ts_body = Styles.Dark.patch(text_size=7.5, text_halign="left")
+
+# 1. Drawlib (CLI & Knowledge Base)
+rectangle((22.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)
+rectangle((22.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.PrimaryFlat, text="Drawlib CLI & Engine", text_style=header_ts)
+
+phosphor.book_bookmark(xy=(9.5, 31.0), width=4.5, style=Styles.Primary)
+text((13.5, 31.0), text="drawlib rules show\nOn-demand API manuals", style=ts_body)
+
+phosphor.terminal_window(xy=(9.5, 21.5), width=4.5, style=Styles.Primary)
+text((13.5, 21.5), text="drawlib show -g\nMillimeter coordinate grid", style=ts_body)
+
+phosphor.gear(xy=(9.5, 12.0), width=4.5, style=Styles.Primary)
+text((13.5, 12.0), text="drawlib build\nHTML / PDF / Markdown compiler", style=ts_body)
+
+# 2. AI Agent (Autonomous Partner)
+rectangle((71.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.AccentOutline)
+rectangle((71.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.AccentFlat, text="AI Coding Agent", text_style=header_ts)
+
+phosphor.chats(xy=(58.5, 31.0), width=4.5, style=Styles.Accent)
+text((62.5, 31.0), text="1. On-Demand Rules Query\nFetch syntax without bloat", style=ts_body)
+
+phosphor.code(xy=(58.5, 21.5), width=4.5, style=Styles.Accent)
+text((62.5, 21.5), text="2. Isolated Scratch Prototyping\nDraft in .drawlib/scratch/", style=ts_body)
+
+phosphor.eye(xy=(58.5, 12.0), width=4.5, style=Styles.Accent)
+text((62.5, 12.0), text="3. Multimodal Review\nInspect & fix overlaps", style=ts_body)
+
+# 3. Docs / Illustration (Deliverables)
+rectangle((120.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.SuccessOutline)
+rectangle((120.0, 40.0), width=30.0, height=5.5, r=1.5, style=Styles.SuccessFlat, text="Docs & Deliverables", text_style=header_ts)
+
+phosphor.file_text(xy=(107.5, 31.0), width=4.5, style=Styles.Success)
+text((111.5, 31.0), text="*.md Specifications\nEmbedded ```drawlib``` blocks", style=ts_body)
+
+phosphor.file_pdf(xy=(107.5, 21.5), width=4.5, style=Styles.Success)
+text((111.5, 21.5), text="*.pdf & Web Sites\nPublication-grade assets", style=ts_body)
+
+phosphor.git_branch(xy=(107.5, 12.0), width=4.5, style=Styles.Success)
+text((111.5, 12.0), text="Git PR Code Review\nDiffable illustration code", style=ts_body)
+
+# Connections (Drawlib <-> AI -> Docs)
+line((39.5, 24.0), (53.5, 24.0), arrow_head="<->", style=Styles.DarkBold)
+text((46.5, 28.5), text="Rules Query", style=Styles.DarkBold.patch(text_size=7.5))
+text((46.5, 19.5), text="Grid Images", style=Styles.Dark.patch(text_size=7.0))
+
+line((88.5, 24.0), (102.5, 24.0), arrow_head="->", style=Styles.DarkBold)
+text((95.5, 28.5), text="Commit Code", style=Styles.DarkBold.patch(text_size=7.5))
+text((95.5, 19.5), text="Compiled Output", style=Styles.Dark.patch(text_size=7.0))
+```
+
+### Why Agents Don't Hallucinate Drawlib Code
+Unlike traditional libraries where agents often hallucinate outdated APIs or struggle with deprecated options, Drawlib eliminates hallucinations through **active command-line guidance**:
+1. **On-Demand Rule Injection**: Rather than stuffing thousands of tokens of API documentation into the agent's prompt context, the agent simply queries `drawlib rules show <topic>` when it needs exact signatures.
+2. **Deterministic Geometry**: Agents do not have to guess rendering outcomes; they run `drawlib show -g` to render images with absolute millimeter grids and verify their work visually.
 
 To enable your AI agent to author Drawlib illustrations and documentation, configure your environment with Drawlib's core guidelines.
 

@@ -74,30 +74,52 @@ line((20, 25), (80, 25), arrow_head="->", style=Styles.DarkBold)
 
 ## 5. Customizing & Deriving Styles (`.patch()`)
 
-To create custom style variations without rebuilding a `Style` from scratch, use `.patch()`:
+Styles in Drawlib are immutable data models. To create custom variations without rebuilding a `Style` from scratch, use the `.patch()` method to override specific attributes:
 
 ```python
 from drawlib.styles import Styles
-from drawlib.preset_colors import CssColors
+from drawlib.preset_colors import Colors
 
-# Derive a custom card style with a custom border and fill
-custom_card = Styles.Primary.patch(
-    shape_fill_color=CssColors.AliceBlue,
-    shape_line_color=CssColors.DodgerBlue,
-    shape_line_width=2.5,
+# 1. Derive a custom branded node card
+custom_card = Styles.PrimaryNeutral.patch(
+    shape_line_width=2.0,
+    shape_line_color=Colors.Blue,
+    text_size=11.0,
+)
+
+# 2. Derive a high-contrast danger badge
+danger_badge = Styles.DangerFlat.patch(
+    shape_line_width=1.0,
+    shape_line_color=(255, 255, 255, 0.8),
+    text_size=9.0,
 )
 ```
 
 ---
 
-## 6. Official Preset Style Catalogs (`drawlib.preset_styles`)
+## 6. Official Preset Style Catalogs & Typography Patching
 
-Drawlib includes three official style catalogs:
-1. **`DefaultStyles`**: Clean, balanced modern tech palette.
-2. **`GoogleStyles`**: Material Design inspired palette (Blue, Red, Yellow, Green).
-3. **`MonochromeStyles`**: Publication-grade grayscale palette for black-and-white academic papers.
+Drawlib includes three official style catalogs in `drawlib.preset_styles`:
+1. **`DefaultStyles`**: Clean, balanced modern tech palette (Tailwind/VitePress inspired).
+2. **`GoogleStyles`**: Material Design inspired palette (Google Blue, Red, Yellow, Green).
+3. **`MonochromeStyles`**: Publication-grade grayscale palette for black-and-white academic papers and official specifications.
 
-Switch the active preset globally via CLI flag:
+### Universal Typography Patching (`.patch_font()`)
+When publishing documents in international languages (such as Japanese, Chinese, or Korean) or applying corporate typography, use `.patch_font()` to replace font families across all predefined tokens in one call:
+
+```python
+from drawlib.fonts import FontJapanese  # or FontRoboto, FontChinese, etc.
+from drawlib.preset_styles import GoogleStyles
+
+# Patch all styles with unified typography weights
+Styles = GoogleStyles().patch_font(
+    regular=FontJapanese.SANSSERIF_REGULAR,
+    bold=FontJapanese.SANSSERIF_BOLD,
+    thin=FontJapanese.SANSSERIF_THIN,
+)
+```
+
+Switch the active preset globally via CLI flag during build:
 
 ```bash
 $ uv run drawlib build html docs_src/ --styles google

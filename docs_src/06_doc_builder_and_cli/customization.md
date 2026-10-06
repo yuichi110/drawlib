@@ -42,36 +42,47 @@ drawlib css export html monochrome -o docs_src/style.css --force
 
 ## 3. Injected Project Styles (`styles.py`)
 
-Rather than re-declaring custom colors and font styles in every single diagram, create a `styles.py` file in your source directory:
+Rather than re-declaring custom colors and font styles in every single diagram or scattering ad-hoc style variables, Drawlib allows you to define a `styles.py` file in your source directory.
+
+When placed in the project root or source directory (or injected via `-s docs_src/styles.py`), Drawlib uses `styles.py` to customize the project-wide `Colors` and `Styles` design tokens:
 
 ```python
 # docs_src/styles.py
 from drawlib.fonts import FontRoboto
-from drawlib.styles import Styles
-from drawlib.types import Style
+from drawlib.preset_colors import GoogleColors
+from drawlib.preset_styles import GoogleStyles
 
-# Project-wide custom styles
-CARD_STYLE = Style(
-    shape_fill_color=(245, 247, 250, 1.0),
-    shape_line_color=(200, 210, 225, 1.0),
-    shape_line_width=1.5,
-    text_font=FontRoboto.REGULAR,
+# 1. Initialize project-wide color palette and style catalog
+Colors = GoogleColors()
+Styles = GoogleStyles().patch_font(
+    regular=FontRoboto.REGULAR,
+    bold=FontRoboto.BOLD,
+    thin=FontRoboto.THIN,
 )
 
-HIGHLIGHT_STYLE = Styles.AccentFlat
+# 2. Derive reusable custom component tokens
+CustomCard = Styles.PrimaryNeutral.patch(
+    shape_line_width=1.5,
+    text_size=10.0,
+)
 ```
 
-Pass `-s docs_src/styles.py` during build. Drawlib automatically makes your styles accessible in every embedded ````drawlib```` block:
+### Seamless Theming with `from drawlib.styles import Styles, Colors`
+When `styles.py` is present, all embedded ````drawlib```` blocks automatically inherit these settings when importing standard tokens:
 
 ```python
 # Inside your Markdown drawing code:
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
-import styles
+from drawlib.styles import Styles
 
 setup(width=80, height=40)
-rectangle((40, 20), width=50, height=25, style=styles.CARD_STYLE, text="Custom Branded Card")
+# Automatically rendered using the GoogleStyles theme and Roboto fonts configured in styles.py
+rectangle((40, 20), width=50, height=25, style=Styles.PrimaryFlat, text="Unified Themed Card", text_style=Styles.WhiteBold)
 ```
+
+### Cohesive Design with `style.css`
+When scaffolding projects using `drawlib init --style google` (or `monochrome`, `default`), Drawlib automatically synchronizes both `styles.py` (for Python illustrations) and `style.css` (for HTML/PDF typography and card backgrounds). This ensures that **editorial prose and embedded architectural diagrams share a 100% unified visual identity**.
 
 ---
 

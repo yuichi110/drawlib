@@ -8,20 +8,38 @@ It empowers human developers, system architects, and **autonomous AI coding agen
 
 ## The Paradigm Shift: Why Illustration as Code?
 
-Traditional technical diagramming relies heavily on drag-and-drop GUI software (such as Microsoft Visio, Lucidchart, Figma, or Draw.io). While accessible for quick whiteboard brainstorming, GUI tools introduce severe architectural bottlenecks into modern software development:
+In modern software development accelerated by AI coding assistants, code refactoring and feature additions move at an unprecedented pace. However, system architecture documentation, database schemas, and workflow diagrams are frequently left behind—leading to **documentation rot** and onboarding bottlenecks.
 
-- **No Meaningful Version Control**: Binary files or monolithic XML/JSON blobs make Git diffs unreadable and merge conflicts impossible to resolve collaboratively.
-- **Visual Drift & Branding Decay**: Colors, stroke widths, alignments, and font sizes drift unpredictably across team members, diluting corporate visual consistency.
-- **High Maintenance Overhead**: Keeping diagrams in sync with rapid codebase changes requires opening external tools, manually re-drawing components, exporting PNGs, and updating image links.
+### The Limits of GUI Tools in Modern Workflows
 
-### The Drawlib Solution
+Traditional technical diagramming relies on drag-and-drop GUI tools (such as Draw.io, Visio, Lucidchart, or Figma). While convenient for quick whiteboard sketches, managing illustrations as exported binary files (PNG, JPEG) introduces critical flaws:
+
+- **No Meaningful Version Control**: Binary images cannot produce meaningful Git diffs in pull requests. Reviewers cannot inspect what architectural components changed.
+- **AI Agents Cannot Edit Binary Assets**: While AI coding agents can read and edit codebases seamlessly, they cannot manipulate pixels or drag-and-drop canvas elements in GUI software.
+- **Visual & Branding Drift**: Colors, stroke widths, paddings, and font sizes drift unpredictably across team members, diluting corporate design standards.
+
+### The Pitfalls of Raw SVG & Direct Matplotlib Generation
+
+When engineers attempt to automate diagramming via code, they often ask AI agents to generate raw SVG XML or low-level Matplotlib scripts. In practice, both approaches quickly break down:
+
+- **Raw SVG Generation**:
+  - LLMs cannot accurately compute font glyph widths or dynamic multi-line text wrapping without a browser layout engine, frequently causing text to overflow boundary boxes.
+  - Computing precise connection vectors, orthogonal routes, and arrowheads by hand requires excessive trigonometric calculations that easily misalign.
+  - Generating hundreds of raw `<path>` and `<polygon>` elements creates unmaintainable blobs of XML that humans cannot easily review or audit.
+- **Direct Matplotlib Scripting**:
+  - Matplotlib was originally engineered for academic data visualization (scatter plots, histograms, line graphs), not software systems engineering.
+  - It lacks native abstractions for architectural components (nodes, boundary containers, sequence lifelines, decision gates, standardized cloud icons).
+  - Authors must write dozens of lines of low-level boilerplate just to draw and style a single labeled box with an icon.
+
+### The Drawlib Solution: "Illustration as Code"
 
 Drawlib treats architectural illustrations as first-class software artifacts governed by standard engineering practices:
 
 1. **Deterministic & Reproducible**: Geometry, spacing, palette shades, and typography are mathematically defined in code. Re-running the build guarantees bit-for-bit identical visual output.
 2. **Pull-Request Friendly**: Modifying an architecture (such as adding a microservice or updating an API gateway route) appears as clean, human-readable code diffs in Git.
-3. **Algorithmic Geometry**: Leverage loops, list comprehensions, and trigonometric functions to generate grids, circular cycles, and trees without manual drag-and-drop positioning.
-4. **Centralized Style Governance**: Theme tokens (`DefaultStyles`, `GoogleStyles`, `MonochromeStyles`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy.
+3. **High-Level Domain Primitives**: Declarative abstractions (`ArchitectureDiagram`, `ChevronProcess`, `Table`, `ArchitectureGraph`) eliminate layout boilerplate while preserving pixel-perfect control.
+4. **Algorithmic Geometry**: Leverage loops, list comprehensions, and trigonometric functions to generate grids, circular cycles, and trees without manual drag-and-drop positioning.
+5. **Centralized Style Governance**: Theme tokens (`DefaultStyles`, `GoogleStyles`, `MonochromeStyles`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy.
 
 ---
 

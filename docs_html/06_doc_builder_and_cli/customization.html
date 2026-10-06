@@ -348,31 +348,40 @@ drawlib<span class="w"> </span>css<span class="w"> </span><span class="nb">expor
 </code></pre>
 <hr />
 <h2>3. Injected Project Styles (<code>styles.py</code>)</h2>
-<p>Rather than re-declaring custom colors and font styles in every single diagram, create a <code>styles.py</code> file in your source directory:</p>
+<p>Rather than re-declaring custom colors and font styles in every single diagram or scattering ad-hoc style variables, Drawlib allows you to define a <code>styles.py</code> file in your source directory.</p>
+<p>When placed in the project root or source directory (or injected via <code>-s docs_src/styles.py</code>), Drawlib uses <code>styles.py</code> to customize the project-wide <code>Colors</code> and <code>Styles</code> design tokens:</p>
 <pre><code class="language-python"><span class="c1"># docs_src/styles.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontRoboto</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Style</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">GoogleColors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">GoogleStyles</span>
 
-<span class="c1"># Project-wide custom styles</span>
-<span class="n">CARD_STYLE</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span>
-    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
-    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
-    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
-    <span class="n">text_font</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">REGULAR</span><span class="p">,</span>
+<span class="c1"># 1. Initialize project-wide color palette and style catalog</span>
+<span class="n">Colors</span> <span class="o">=</span> <span class="n">GoogleColors</span><span class="p">()</span>
+<span class="n">Styles</span> <span class="o">=</span> <span class="n">GoogleStyles</span><span class="p">()</span><span class="o">.</span><span class="n">patch_font</span><span class="p">(</span>
+    <span class="n">regular</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">REGULAR</span><span class="p">,</span>
+    <span class="n">bold</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">BOLD</span><span class="p">,</span>
+    <span class="n">thin</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">THIN</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">HIGHLIGHT_STYLE</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span>
+<span class="c1"># 2. Derive reusable custom component tokens</span>
+<span class="n">CustomCard</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre>
-<p>Pass <code>-s docs_src/styles.py</code> during build. Drawlib automatically makes your styles accessible in every embedded <code>drawlib</code> block:</p>
+<h3>Seamless Theming with <code>from drawlib.styles import Styles, Colors</code></h3>
+<p>When <code>styles.py</code> is present, all embedded <code>drawlib</code> blocks automatically inherit these settings when importing standard tokens:</p>
 <pre><code class="language-python"><span class="c1"># Inside your Markdown drawing code:</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">CARD_STYLE</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Custom Branded Card&quot;</span><span class="p">)</span>
+<span class="c1"># Automatically rendered using the GoogleStyles theme and Roboto fonts configured in styles.py</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Unified Themed Card&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 </code></pre>
+<h3>Cohesive Design with <code>style.css</code></h3>
+<p>When scaffolding projects using <code>drawlib init --style google</code> (or <code>monochrome</code>, <code>default</code>), Drawlib automatically synchronizes both <code>styles.py</code> (for Python illustrations) and <code>style.css</code> (for HTML/PDF typography and card backgrounds). This ensures that <strong>editorial prose and embedded architectural diagrams share a 100% unified visual identity</strong>.</p>
 <hr />
 <h2>4. Injected Helper Functions (<code>utils.py</code>)</h2>
 <p>For reusable composite drawing elements (such as specialized server racks, status badges, or complex icons), author custom functions in <code>utils.py</code>:</p>

@@ -319,17 +319,38 @@
 <p>It empowers human developers, system architects, and <strong>autonomous AI coding agents</strong> to design, version-control, and publish clean architectural schemas, workflow charts, and entire multi-page technical documentation websites directly from declarative Python code.</p>
 <hr />
 <h2>The Paradigm Shift: Why Illustration as Code?</h2>
-<p>Traditional technical diagramming relies heavily on drag-and-drop GUI software (such as Microsoft Visio, Lucidchart, Figma, or Draw.io). While accessible for quick whiteboard brainstorming, GUI tools introduce severe architectural bottlenecks into modern software development:</p>
+<p>In modern software development accelerated by AI coding assistants, code refactoring and feature additions move at an unprecedented pace. However, system architecture documentation, database schemas, and workflow diagrams are frequently left behind—leading to <strong>documentation rot</strong> and onboarding bottlenecks.</p>
+<h3>The Limits of GUI Tools in Modern Workflows</h3>
+<p>Traditional technical diagramming relies on drag-and-drop GUI tools (such as Draw.io, Visio, Lucidchart, or Figma). While convenient for quick whiteboard sketches, managing illustrations as exported binary files (PNG, JPEG) introduces critical flaws:</p>
 <ul>
-<li><strong>No Meaningful Version Control</strong>: Binary files or monolithic XML/JSON blobs make Git diffs unreadable and merge conflicts impossible to resolve collaboratively.</li>
-<li><strong>Visual Drift &amp; Branding Decay</strong>: Colors, stroke widths, alignments, and font sizes drift unpredictably across team members, diluting corporate visual consistency.</li>
-<li><strong>High Maintenance Overhead</strong>: Keeping diagrams in sync with rapid codebase changes requires opening external tools, manually re-drawing components, exporting PNGs, and updating image links.</li>
+<li><strong>No Meaningful Version Control</strong>: Binary images cannot produce meaningful Git diffs in pull requests. Reviewers cannot inspect what architectural components changed.</li>
+<li><strong>AI Agents Cannot Edit Binary Assets</strong>: While AI coding agents can read and edit codebases seamlessly, they cannot manipulate pixels or drag-and-drop canvas elements in GUI software.</li>
+<li><strong>Visual &amp; Branding Drift</strong>: Colors, stroke widths, paddings, and font sizes drift unpredictably across team members, diluting corporate design standards.</li>
 </ul>
-<h3>The Drawlib Solution</h3>
+<h3>The Pitfalls of Raw SVG &amp; Direct Matplotlib Generation</h3>
+<p>When engineers attempt to automate diagramming via code, they often ask AI agents to generate raw SVG XML or low-level Matplotlib scripts. In practice, both approaches quickly break down:</p>
+<ul>
+<li><strong>Raw SVG Generation</strong>:
+<ul>
+<li>LLMs cannot accurately compute font glyph widths or dynamic multi-line text wrapping without a browser layout engine, frequently causing text to overflow boundary boxes.</li>
+<li>Computing precise connection vectors, orthogonal routes, and arrowheads by hand requires excessive trigonometric calculations that easily misalign.</li>
+<li>Generating hundreds of raw <code>&lt;path&gt;</code> and <code>&lt;polygon&gt;</code> elements creates unmaintainable blobs of XML that humans cannot easily review or audit.</li>
+</ul>
+</li>
+<li><strong>Direct Matplotlib Scripting</strong>:
+<ul>
+<li>Matplotlib was originally engineered for academic data visualization (scatter plots, histograms, line graphs), not software systems engineering.</li>
+<li>It lacks native abstractions for architectural components (nodes, boundary containers, sequence lifelines, decision gates, standardized cloud icons).</li>
+<li>Authors must write dozens of lines of low-level boilerplate just to draw and style a single labeled box with an icon.</li>
+</ul>
+</li>
+</ul>
+<h3>The Drawlib Solution: &quot;Illustration as Code&quot;</h3>
 <p>Drawlib treats architectural illustrations as first-class software artifacts governed by standard engineering practices:</p>
 <ol>
 <li><strong>Deterministic &amp; Reproducible</strong>: Geometry, spacing, palette shades, and typography are mathematically defined in code. Re-running the build guarantees bit-for-bit identical visual output.</li>
 <li><strong>Pull-Request Friendly</strong>: Modifying an architecture (such as adding a microservice or updating an API gateway route) appears as clean, human-readable code diffs in Git.</li>
+<li><strong>High-Level Domain Primitives</strong>: Declarative abstractions (<code>ArchitectureDiagram</code>, <code>ChevronProcess</code>, <code>Table</code>, <code>ArchitectureGraph</code>) eliminate layout boilerplate while preserving pixel-perfect control.</li>
 <li><strong>Algorithmic Geometry</strong>: Leverage loops, list comprehensions, and trigonometric functions to generate grids, circular cycles, and trees without manual drag-and-drop positioning.</li>
 <li><strong>Centralized Style Governance</strong>: Theme tokens (<code>DefaultStyles</code>, <code>GoogleStyles</code>, <code>MonochromeStyles</code>) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy.</li>
 </ol>

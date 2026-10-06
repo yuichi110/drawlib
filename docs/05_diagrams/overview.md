@@ -24,7 +24,31 @@ Unlike external diagramming tools that depend on Graphviz, PlantUML, or opaque a
 
 ---
 
-## 2. Universal Connection Engine
+## 2. Solving the Cold-Start Problem with Auto-Layout (`drawlib.graph`)
+
+When drafting a new architecture or workflow from scratch, calculating precise coordinate pairs `(x, y)` for every node and boundary can strain cognitive working memory for both human engineers and AI agents—a challenge known as the **Cold-Start Problem**.
+
+To solve this, Drawlib introduces a seamless **two-stage workflow**:
+
+```text
+Step 1: Declare Topology (Fast Draft)       Step 2: Export Clean Code (Fine Tuning)
+┌──────────────────────────────────────┐    ┌──────────────────────────────────────┐
+│ g = ArchitectureGraph()              │    │ # Generated Drawlib Python Code      │
+│ g.cluster("vpc", ["api", "db"])      │───►│ client_xy = (25.0, 30.0)             │
+│ g.edge("client", "api")              │    │ rectangle(client_xy, width=28, ...)  │
+│ g.export_code()                      │    │ line(client_xy, api_xy, ...)         │
+└──────────────────────────────────────┘    └──────────────────────────────────────┘
+```
+
+1. **Declarative Auto-Layout (`g.draw()`)**: Focus purely on structural relationships—nodes, edges, and nested clusters. The Pure-Python solver automatically computes neat orthogonal geometry.
+2. **Scaffold to Deterministic Code (`g.export_code()`)**: Once the overall layout looks balanced, call `export_code()` to output self-contained Drawlib Python code with calculated coordinates baked in as semantic variables (`api_xy`, `db_xy`).
+3. **Pixel-Perfect Polishing**: Tweak specific coordinates, add custom icons, or attach styled badges directly in code without re-running black-box solvers.
+
+For complete details on the five specialized solvers, see **[Auto-Layout Graphs (`drawlib.graph`)](./graph.md)**.
+
+---
+
+## 3. Universal Connection Engine
 
 All diagram elements (nodes, entities, classes, boundaries, and junctions) implement the `Connectable` protocol:
 

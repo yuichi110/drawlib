@@ -331,11 +331,20 @@
 Instead of drawing raw boxes and wires, an agent simply writes <code>ArchitectureDiagram</code>, <code>ERDiagram</code>, or <code>FlowDiagram</code>. The library handles orthogonal routing, padding, and marker styling automatically.</li>
 <li><strong>Built-in Visual Harmony</strong>:<br />
 Predefined semantic styles (<code>Styles.PrimaryFlat</code>, <code>Styles.AccentFlat</code>) ensure that AI-generated diagrams look publication-ready without fine-tuning color codes.</li>
-<li><strong>On-Demand Rule Injection</strong>:<br />
-Drawlib includes a complete built-in manual that agents can query via the CLI at runtime (<code>drawlib rules show &lt;topic&gt;</code>), eliminating context-window bloat and outdated training data.</li>
 </ol>
 <hr />
-<h2>Equipping Your AI Agent</h2>
+<h2>Drawlib &amp; AI Agent Collaboration Model</h2>
+<p>Drawlib provides a tightly integrated tripartite architecture between the library's on-demand knowledge engine, the autonomous AI coding agent, and version-controlled project documentation:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="agent_quicklook_images/agent_collaboration_model.png" alt="agent_quicklook_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Drawlib & AI Agent Autonomous Interaction Model</figcaption>
+</figure>
+<h3>Why Agents Don't Hallucinate Drawlib Code</h3>
+<p>Unlike traditional libraries where agents often hallucinate outdated APIs or struggle with deprecated options, Drawlib eliminates hallucinations through <strong>active command-line guidance</strong>:</p>
+<ol>
+<li><strong>On-Demand Rule Injection</strong>: Rather than stuffing thousands of tokens of API documentation into the agent's prompt context, the agent simply queries <code>drawlib rules show &lt;topic&gt;</code> when it needs exact signatures.</li>
+<li><strong>Deterministic Geometry</strong>: Agents do not have to guess rendering outcomes; they run <code>drawlib show -g</code> to render images with absolute millimeter grids and verify their work visually.</li>
+</ol>
 <p>To enable your AI agent to author Drawlib illustrations and documentation, configure your environment with Drawlib's core guidelines.</p>
 <h3>1. Configure Workspace Rules</h3>
 <p>Add the Drawlib agent instructions to your project's rule file:</p>
@@ -380,7 +389,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <h2>The Autonomous Verification Loop</h2>
 <p>Teach your agent to follow Drawlib's autonomous self-correction loop when creating diagrams:</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="agent_quicklook_images/ai_feedback_loop.png" alt="agent_quicklook_1" style="width: 700px; max-width: 100%;" />
+  <img src="agent_quicklook_images/ai_feedback_loop.png" alt="agent_quicklook_2" style="width: 700px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Autonomous AI Visual Self-Correction Loop</figcaption>
 </figure>
 <ol>

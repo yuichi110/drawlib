@@ -380,7 +380,25 @@
 </tbody>
 </table>
 <hr />
-<h2>2. Universal Connection Engine</h2>
+<h2>2. Solving the Cold-Start Problem with Auto-Layout (<code>drawlib.graph</code>)</h2>
+<p>When drafting a new architecture or workflow from scratch, calculating precise coordinate pairs <code>(x, y)</code> for every node and boundary can strain cognitive working memory for both human engineers and AI agents—a challenge known as the <strong>Cold-Start Problem</strong>.</p>
+<p>To solve this, Drawlib introduces a seamless <strong>two-stage workflow</strong>:</p>
+<pre><code class="language-text">Step 1: Declare Topology (Fast Draft)       Step 2: Export Clean Code (Fine Tuning)
+┌──────────────────────────────────────┐    ┌──────────────────────────────────────┐
+│ g = ArchitectureGraph()              │    │ # Generated Drawlib Python Code      │
+│ g.cluster(&quot;vpc&quot;, [&quot;api&quot;, &quot;db&quot;])      │───►│ client_xy = (25.0, 30.0)             │
+│ g.edge(&quot;client&quot;, &quot;api&quot;)              │    │ rectangle(client_xy, width=28, ...)  │
+│ g.export_code()                      │    │ line(client_xy, api_xy, ...)         │
+└──────────────────────────────────────┘    └──────────────────────────────────────┘
+</code></pre>
+<ol>
+<li><strong>Declarative Auto-Layout (<code>g.draw()</code>)</strong>: Focus purely on structural relationships—nodes, edges, and nested clusters. The Pure-Python solver automatically computes neat orthogonal geometry.</li>
+<li><strong>Scaffold to Deterministic Code (<code>g.export_code()</code>)</strong>: Once the overall layout looks balanced, call <code>export_code()</code> to output self-contained Drawlib Python code with calculated coordinates baked in as semantic variables (<code>api_xy</code>, <code>db_xy</code>).</li>
+<li><strong>Pixel-Perfect Polishing</strong>: Tweak specific coordinates, add custom icons, or attach styled badges directly in code without re-running black-box solvers.</li>
+</ol>
+<p>For complete details on the five specialized solvers, see <strong><a href="./graph.html">Auto-Layout Graphs (<code>drawlib.graph</code>)</a></strong>.</p>
+<hr />
+<h2>3. Universal Connection Engine</h2>
 <p>All diagram elements (nodes, entities, classes, boundaries, and junctions) implement the <code>Connectable</code> protocol:</p>
 <pre><code class="language-text">       Orthogonal Z-Bend                 Direct Straight                  Curved Arc (bend)
     ┌─────┐        ┌─────┐           ┌─────┐         ┌─────┐          ┌─────┐  . - ~ - .  ┌─────┐
