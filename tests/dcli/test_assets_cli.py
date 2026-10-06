@@ -25,9 +25,10 @@ from drawlib._release_assets import (
     AssetManifestItem,
     ReleaseAssetPackageName,
 )
-from tools.dcli.assets import _resolve_tag, app
-from tools.scripts.release_assets_tool import (
+from tools.dcli.assets import (
     GitHubReleaseClient,
+    _resolve_tag,
+    app,
     build_package_zip,
     resolve_github_token,
 )

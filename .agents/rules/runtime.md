@@ -12,6 +12,6 @@ This document describes the runtime environment and command execution standards 
 
 ## 2. Python Execution
 - **Command**: When executing Python scripts or commands, always use `uv run python` or `./dcli`.
-- **Example**: `uv run python tools/scripts/my_script.py`
+- **Example**: `./dcli check all` or `uv run python -m drawlib`
 - **Testing**: Use `./dcli test all` or `./dcli test <target>`.
 - **Linting/Formatting**: Use `./dcli check lint` or `./dcli check all`.

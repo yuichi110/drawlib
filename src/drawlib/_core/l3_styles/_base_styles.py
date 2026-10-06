@@ -523,11 +523,11 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         """Create a new copy of preset styles with updated font configurations.
 
         Args:
-            regular (FontBase | FontFile | None): Default baseline font applied to all styles.
+            regular (Font | FontFile | None): Default baseline font applied to all styles.
                 If provided without explicit bold/thin overrides, it is also applied as fallback
                 for bold and thin variants.
-            bold (FontBase | FontFile | None): Font override for bold style variants ('Bold', '*Bold').
-            thin (FontBase | FontFile | None): Font override for thin style variants ('Thin', '*Thin').
+            bold (Font | FontFile | None): Font override for bold style variants ('Bold', '*Bold').
+            thin (Font | FontFile | None): Font override for thin style variants ('Thin', '*Thin').
             sourcecode (FontSourceCode | None): Monospace source code font override.
             size (float | None): Font size override in points applied to all styles.
 

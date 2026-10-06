@@ -16,7 +16,7 @@ This document describes the project structure and architectural principles of th
 - `docs/`: Generated Markdown documentation for GitHub repository browsing (do not edit directly).
 - `docs_html/`: Generated static HTML site for web hosting (do not edit directly).
 - `tests/`: Contains unit and integration tests.
-- `tools/`: Project developer CLI (`tools/dcli/`) and maintenance scripts (`tools/scripts/`).
+- `tools/`: Project developer CLI (`tools/dcli/`).
 - `pyproject.toml`: Project metadata and tool configurations (Ruff, Pyright, uv).
 
 ## 2. Package Architecture

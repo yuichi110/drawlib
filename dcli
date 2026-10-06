@@ -60,13 +60,14 @@ fi
 CLI_NAME="$1"
 shift
 
-# Check if the target toolset file exists inside tools/dcli/
+# Check if the target toolset file or package exists inside tools/dcli/
 # Exclude base/system directories or module entrypoints
-if [ ! -f "${SCRIPT_DIR}/tools/dcli/${CLI_NAME}.py" ] || \
+if { [ ! -f "${SCRIPT_DIR}/tools/dcli/${CLI_NAME}.py" ] && [ ! -d "${SCRIPT_DIR}/tools/dcli/${CLI_NAME}" ]; } || \
    [ "${CLI_NAME}" = "__init__" ] || \
    [ "${CLI_NAME}" = "__main__" ] || \
    [ "${CLI_NAME}" = "common" ] || \
-   [ "${CLI_NAME}" = "completion" ]; then
+   [ "${CLI_NAME}" = "completion" ] || \
+   [[ "${CLI_NAME}" == _* ]]; then
   exec uv run python -m "tools.dcli" --invalid-toolset "${CLI_NAME}"
 fi
 

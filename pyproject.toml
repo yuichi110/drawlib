@@ -137,8 +137,8 @@ ignore = [
 convention = "google"
 
 [tool.pyright]
-include = ["src/drawlib", "tools/scripts"]
-extraPaths = ["tools/scripts"]
+include = ["src/drawlib", "tools"]
+extraPaths = ["."]
 typeCheckingMode = "basic"
 reportMissingTypeArgument = "warning"
 reportUnknownParameterType = "warning"
