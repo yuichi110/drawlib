@@ -1,5 +1,6 @@
 ---
-trigger: always_on
+trigger: model_decision
+description: Software Code Architect
 ---
 
 # Architecture Guidelines for drawlib
@@ -17,7 +18,7 @@ This document describes the project structure and architectural principles of th
 - `docs_html/`: Generated static HTML site for web hosting (do not edit directly).
 - `tests/`: Contains unit and integration tests.
 - `tools/`: Project developer CLI (`tools/dcli/`).
-- `pyproject.toml`: Project metadata and tool configurations (Ruff, Pyright, uv).
+- `pyproject.toml`: Project metadata and tool configurations (Ruff, Ty, uv).
 
 ## 2. Package Architecture
 `drawlib` follows a modular Python package layout (`src/drawlib/`):

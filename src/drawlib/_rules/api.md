@@ -1,6 +1,6 @@
 # Drawlib API Reference & Cheat Sheet
 
-Drawlib is a pure-Python library for **"Illustration as Code"** and **"Documentation as Code"**.  
+Drawlib is a pure-Python library for **"Illustration as Code"** and **"Illustrated Documentation as Code"**.  
 This document serves as the unified, high-speed API index and cheat sheet covering all public modules, classes, drawing primitives, styling tokens, and developer utilities.
 
 ---

@@ -1,5 +1,6 @@
 ---
-trigger: always_on
+trigger: model_decision
+description: dcli commands for development (testing, building doc, pypi management etc.)
 ---
 
 # Development CLI (dcli) for drawlib

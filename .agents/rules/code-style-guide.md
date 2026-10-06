@@ -1,5 +1,6 @@
 ---
-trigger: always_on
+trigger: model_decision
+description: Coding Guid
 ---
 
 # Code Style Guide for drawlib
@@ -12,7 +13,7 @@ This document defines the coding standards and style guidelines for the `drawlib
 - **Formatting & Linting**: 
     - Use `ruff` for both linting and formatting.
     - Max line length is **120** characters.
-    - Use `pyright` for static type checking.
+    - Use `ty` for static type checking (`./dcli check type` or `uv run ty check`).
 
 ## 2. Naming Conventions
 - **Modules and Packages**: `snake_case`. Keep names short and descriptive.
@@ -26,7 +27,7 @@ This document defines the coding standards and style guidelines for the `drawlib
 ## 3. Type Hinting
 - **Mandatory Typing**: All public functions and methods **must** have complete type hints for arguments and return values.
 - **Modern Syntax**: Use `from __future__ import annotations` to allow forward references and modern type syntax.
-- **Specific Types**: Use `List`, `Tuple`, `Dict`, `Union`, `Optional`, and `Literal` from the `typing` module (or built-in types for Python 3.10+ where appropriate).
+- **Specific Types**: Use `List`, `Tuple`, `Dict`, `Union`, `Optional`, and `Literal` from the `typing` module (or built-in types for Python 3.11+ where appropriate).
 - **Avoid `Any`**: Minimize the use of `Any`. Be as specific as possible.
 
 ## 4. Documentation (Docstrings)
@@ -37,31 +38,32 @@ This document defines the coding standards and style guidelines for the `drawlib
     - **Functions/Methods**: Include `Args`, `Returns`, and `Raises` sections if applicable.
 - **Brief vs. Detailed**: Provide a concise one-line summary followed by a more detailed explanation if the logic is complex.
 - **Type Annotations in Docstrings**:
-    - **For functions decorated with `@guarded`**:
+    - **For functions decorated with `@validate_call`**:
         - Use explicit base Python types and `Union` / `Literal` syntax (e.g., `tuple[float, float]`, `Literal["->", "<-", "<->", "-"] | str`).
-        - Do **not** use internal type aliases (e.g., `TypeCoordinate`, `TypeArrowHead`) to ensure better IDE support for end-users.
-    - **For internal functions (NOT decorated with `@guarded`)**:
-        - Use internal type aliases (e.g., `TypeCoordinate`, `TypeArrowHead`) to maintain consistency with the function signature.
+        - Do **not** use internal type aliases to ensure better IDE autocompletion support for end-users.
+    - **For internal functions (NOT decorated with `@validate_call`)**:
+        - Use internal type aliases to maintain consistency with the function signature.
     - **Line Length**: Docstring lines must not exceed **120** characters. Wrap long type definitions or descriptions if necessary.
 
 ## 5. Implementation Patterns
-- **Data Modeling**: 
-    - Use `@dataclasses.dataclass` for style and data models.
-    - **Strict Rule**: Do **not** use external validation libraries like Pydantic or Marshmallow for core models.
-    - **Validation**: Use `@property` and setters to implement attribute validation. Call validator functions from `drawlib.v0_2.private.validators`.
+- **Data & Style Modeling**: 
+    - Use Pydantic v2 `BaseModel` for style models, data models, and configurations (e.g. `drawlib._core.l3_styles`).
+    - Use `@validate_call` from `pydantic` on public drawing facades and builder methods to ensure robust argument validation.
+- **Validation**:
+    - Use Pydantic field validators or custom validators where appropriate.
+    - Ensure clear error messages when invalid options or out-of-range coordinates are provided.
 - **Error Handling**:
-    - Use the `@error_handler` decorator for public-facing methods and functions to ensure consistent error reporting.
-    - Raise descriptive `ValueError` or custom exceptions when validation fails.
+    - Raise descriptive `ValueError` or custom `DrawlibError` subclasses when validation fails.
 - **Immutability/Copying**: 
-    - Provide a `copy()` method (using `deepcopy`) for style objects to prevent unintended side effects from shared state.
+    - Provide `copy()` or `model_copy(deep=True)` methods for style objects to prevent unintended side effects from shared mutable state.
 
 ## 6. Imports
 - **Ordering**:
     1. Standard library imports.
-    2. Third-party library imports.
+    2. Third-party library imports (`matplotlib`, `pydantic`, `typer`, `rich`, etc.).
     3. Local library imports (`drawlib`).
 - **Style**:
-    - Use absolute imports (e.g., `from drawlib.v0_2.private.core.fonts import Font`).
+    - Use absolute imports (e.g., `from drawlib._core.l3_fonts import Font`).
     - Avoid `import *`.
     - Group imports from the same module.
 
@@ -82,4 +84,4 @@ All Python source files must start with the following copyright and license head
 ## 8. Tool Configuration
 Reference `pyproject.toml` for the exact configuration of linting tools:
 - `[tool.ruff]` and `[tool.ruff.lint]`
-- `[tool.pyright]`
+- `[tool.ty]`

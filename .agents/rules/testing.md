@@ -50,5 +50,4 @@ This document defines the standards and best practices for writing tests in the 
     - `./dcli test all`: Runs the entire test suite (`tests/` across both `drawlib` and `dcli`).
     - `./dcli test drawlib`: Runs all tests under `tests/drawlib/`.
     - `./dcli test dcli`: Runs tests under `tests/dcli/`.
-    - `./dcli test target <path>`: Runs a specific test file or directory.
-    - Domain subcommands: `./dcli test core`, `charts`, `diagrams`, `smartarts`, `graph`, `slide`, `anim`, `icons`, `canvas`, `types`, `styles`, `fonts`, `images`, `cli`, `doc-builder`, `preset-styles`.
+    - `./dcli test target <path_or_shortcut>`: Runs a specific test file, directory, or target shortcut (e.g., `core`, `charts`, `diagrams`, `smartarts`, `graph`, `slide`, `anim`, `icons`, `canvas`, `types`, `styles`, `fonts`, `images`, `cli`, `doc-builder`, `preset-styles`).
