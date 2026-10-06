@@ -53,7 +53,7 @@ class StyleFontConfig:
         drawlib_font_module: Drawlib font class name (e.g. 'FontJapanese', 'FontThai', 'FontRoboto').
         font_regular_attr: Regular font attribute name.
         font_bold_attr: Bold font attribute name.
-        font_light_attr: Light font attribute name.
+        font_thin_attr: Thin font attribute name.
         activate_patch: Whether to activate Styles.patch_font by default in styles.py.
     """
 

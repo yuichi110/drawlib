@@ -234,10 +234,10 @@ Styles are systematically constructed as `<color>_<variant>`:
   - `Bordered` (default): Solid border (1.5) with soft fill, high-contrast text.
   - `Flat`: Borderless shape (`shape_line_width=0.0`).
   - `Bold`: Thick stroke (2.5) with bold font.
-  - `Light`: Thin stroke (0.75) with light font.
+  - `Thin`: Thin stroke (0.75) with thin font.
   - `Outline` / `Solid`: Transparent background with colored border.
-  - `Dashed`, `DashedBold`, `DashedLight`: Dashed stroke for boundaries or groupings.
-  - `Dotted`, `DottedBold`, `DottedLight`: Dotted stroke for ephemeral objects.
+  - `Dashed`, `DashedBold`, `DashedThin`: Dashed stroke for boundaries or groupings.
+  - `Dotted`, `DottedBold`, `DottedThin`: Dotted stroke for ephemeral objects.
 - **Typography Styles**: `Styles.WhiteBold`, `Styles.PrimaryBold`, `Styles.MutedThin`, etc.
 
 ### 6.3 Custom Style and Color Construction

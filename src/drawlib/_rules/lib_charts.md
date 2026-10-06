@@ -937,14 +937,14 @@ from drawlib.types import Style
 
 # Configure bold title typography
 title_style = Style(
-    font=FontRoboto.Bold,
+    font=FontRoboto.BOLD,
     text_size=18,
     text_color=(30, 41, 59, 1.0),
 )
 
 # Configure monospaced numeric tick labels
 tick_style = Style(
-    font=FontRoboto.Light,
+    font=FontRoboto.THIN,
     text_size=10,
     text_color=(100, 116, 139, 1.0),
 )

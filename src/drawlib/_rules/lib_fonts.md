@@ -1,6 +1,6 @@
 # Drawlib Fonts Guidelines
 
-Drawlib provides a comprehensive typography engine supporting multilingual scripts, standardized weights (Light, Regular, Bold), monospace code rendering, and custom TrueType/OpenType font loading.
+Drawlib provides a comprehensive typography engine supporting multilingual scripts, standardized weights (Thin, Regular, Bold), monospace code rendering, and custom TrueType/OpenType font loading.
 
 ---
 

@@ -303,7 +303,7 @@ Every preset style follows a deterministic, composable PascalCase naming structu
 ```text
                      Styles.<Color><Type><Weight>
                               │       │      │
-                              │       │      └─► "Light" | "Bold" | (omitted)
+                              │       │      └─► "Thin" | "Bold" | (omitted)
                               │       │
                               │       └─► "Flat" | "Solid" | "Dashed" | (omitted)
                               │
@@ -333,22 +333,22 @@ Every preset style follows a deterministic, composable PascalCase naming structu
 | Style Token | Resolved Fill | Resolved Line | Line Style | Line Width | Font Weight |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `Styles.Primary` | Blue | Black | Solid | 1.5 | Regular |
-| `Styles.PrimaryThin` | Blue | Black | Solid | 0.75 | Light |
+| `Styles.PrimaryThin` | Blue | Black | Solid | 0.75 | Thin |
 | `Styles.PrimaryBold` | Blue | Black | Solid | 2.5 | Bold |
 | `Styles.PrimaryFlat` | Blue | None | None | 0.0 | Regular |
 | `Styles.PrimarySolid` | Transparent | Blue | Solid | 1.5 | Regular |
 | `Styles.PrimaryDashed` | Transparent | Blue | Dashed | 1.5 | Regular |
 | `Styles.PrimaryDotted` | Transparent | Blue | Dotted | 1.5 | Regular |
-| `Styles.PrimarySolidThin` | Transparent | Blue | Solid | 0.75 | Light |
+| `Styles.PrimarySolidThin` | Transparent | Blue | Solid | 0.75 | Thin |
 | `Styles.PrimarySolidBold` | Transparent | Blue | Solid | 2.5 | Bold |
-| `Styles.PrimaryDashedThin` | Transparent | Blue | Dashed | 0.75 | Light |
+| `Styles.PrimaryDashedThin` | Transparent | Blue | Dashed | 0.75 | Thin |
 | `Styles.PrimaryDashedBold` | Transparent | Blue | Dashed | 2.5 | Bold |
-| `Styles.PrimaryDottedThin` | Transparent | Blue | Dotted | 0.75 | Light |
+| `Styles.PrimaryDottedThin` | Transparent | Blue | Dotted | 0.75 | Thin |
 | `Styles.PrimaryDottedBold` | Transparent | Blue | Dotted | 2.5 | Bold |
 | `Styles.Warning` | Amber/Yellow | Black/Gray | Solid | 1.5 | Regular |
 | `Styles.WarningDotted` | Transparent | Amber/Yellow | Dotted | 1.5 | Regular |
 | `Styles.Red` | Red | Red | Solid | 1.5 | Regular |
-| `Styles.RedThin` | Red | Red | Solid | 0.75 | Light |
+| `Styles.RedThin` | Red | Red | Solid | 0.75 | Thin |
 | `Styles.RedBold` | Red | Red | Solid | 2.5 | Bold |
 | `Styles.RedFlat` | Red | None | None | 0.0 | Regular |
 | `Styles.RedSolid` | Transparent | Red | Solid | 1.5 | Regular |
@@ -414,7 +414,7 @@ Not every visual property applies to every drawing element. For example, lines d
 
 ```text
 ┌─────────────────┬───────────┬──────────────┬─────────────┬─────────────┬──────────────┬─────────────┐
-│  Drawing Item   │  Default  │ Light / Bold │    Flat     │    Solid    │ Solid Light/ │ Dashed All  │
+│  Drawing Item   │  Default  │ Thin / Bold  │    Flat     │    Solid    │  Solid Thin/ │ Dashed All  │
 │                 │ (<color>) │ (<color>_*)  │ (<color>_*) │ (<color>_*) │  Solid Bold  │ (<color>_*) │
 ├─────────────────┼───────────┼──────────────┼─────────────┼─────────────┼──────────────┼─────────────┤
 │ Shapes          │     ✓     │      ✓       │      ✓      │      ✓      │      ✓       │      ✓      │
@@ -844,7 +844,7 @@ custom_style = Styles.Primary.patch(line_width=10.0)
 
 The `flat` modifier explicitly strips border lines by configuring `line_width=0`. Because `line()` objects possess no interior fill, applying a `Flat` style renders the line completely invisible.
 
-- For lines, always use `""`, `Solid`, or `Dashed` along with `Light` or `Bold` (e.g. `Styles.Blue`, `Styles.GreenDashed`, `Styles.RedBold`).
+- For lines, always use `""`, `Solid`, or `Dashed` along with `Thin` or `Bold` (e.g. `Styles.Blue`, `Styles.GreenDashed`, `Styles.RedBold`).
 
 ### Pitfall 4: Misinterpreting `flat` vs `solid`
 
@@ -879,17 +879,17 @@ Popular Default Colors:
 | Suffix | Fill Behavior | Outline Behavior | Border Line Style | Border Width | Font Weight |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `""` | Color Fill | Black/Color Border | Solid | 1.5 px | Regular |
-| `_thin` | Color Fill | Black/Color Border | Solid | 0.75 px | Light |
+| `_thin` | Color Fill | Black/Color Border | Solid | 0.75 px | Thin |
 | `_bold` | Color Fill | Black/Color Border | Solid | 2.5 px | Bold |
 | `_flat` | Color Fill | No Border | None | 0.0 px | Regular |
 | `_solid` | Transparent | Color Border | Solid | 1.5 px | Regular |
-| `_solid_thin` | Transparent | Color Border | Solid | 0.75 px | Light |
+| `_solid_thin` | Transparent | Color Border | Solid | 0.75 px | Thin |
 | `_solid_bold` | Transparent | Color Border | Solid | 2.5 px | Bold |
 | `_dashed` | Transparent | Color Border | Dashed | 1.5 px | Regular |
-| `_dashed_thin`| Transparent | Color Border | Dashed | 0.75 px | Light |
+| `_dashed_thin`| Transparent | Color Border | Dashed | 0.75 px | Thin |
 | `_dashed_bold` | Transparent | Color Border | Dashed | 2.5 px | Bold |
 | `_dotted` | Transparent | Color Border | Dotted | 1.5 px | Regular |
-| `_dotted_thin`| Transparent | Color Border | Dotted | 0.75 px | Light |
+| `_dotted_thin`| Transparent | Color Border | Dotted | 0.75 px | Thin |
 | `_dotted_bold` | Transparent | Color Border | Dotted | 2.5 px | Bold |
 
 ### 11.3. Essential Code Snippets

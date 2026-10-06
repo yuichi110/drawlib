@@ -134,11 +134,11 @@ from drawlib.fonts import FontJapanese
 from drawlib.styles import Colors, Styles
 
 # 1. Patch fonts and font sizes project-wide
-# (regular font applies to all styles; bold/light variants and font size can be specified)
+# (regular font applies to all styles; bold/thin variants and font size can be specified)
 Styles = Styles.patch_font(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
-    light=FontJapanese.SANSSERIF_THIN,
+    thin=FontJapanese.SANSSERIF_THIN,
     size=14,
 )
 

@@ -16,7 +16,7 @@ Colors = GoogleColors()
 Styles = GoogleStyles().patch_font(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
-    light=FontJapanese.SANSSERIF_LIGHT,
+    thin=FontJapanese.SANSSERIF_THIN,
 )
 ```
 

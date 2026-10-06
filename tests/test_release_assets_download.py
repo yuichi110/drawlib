@@ -84,7 +84,7 @@ class TestPackageResolution:
 
     def test_find_package_for_resource_path(self):
         """Verify unified resource path resolution for both fonts and icons."""
-        font_pkg = find_package_for_resource_path("fonts/roboto/light.ttf")
+        font_pkg = find_package_for_resource_path("fonts/roboto/thin.ttf")
         assert font_pkg is not None
         assert font_pkg.name == "font_roboto"
 

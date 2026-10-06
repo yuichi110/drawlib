@@ -16,7 +16,7 @@ Colors = GoogleColors()
 Styles = GoogleStyles().patch_font(
     regular=Font.SANSSERIF_REGULAR,
     bold=Font.SANSSERIF_BOLD,
-    light=Font.SANSSERIF_LIGHT,
+    thin=Font.SANSSERIF_THIN,
 )
 ```
 

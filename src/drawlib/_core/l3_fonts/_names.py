@@ -107,6 +107,9 @@ class FontRoboto(FontBase):
     ROBOTO_THIN = "FontRoboto.ROBOTO_THIN"
     ROBOTO_REGULAR = "FontRoboto.ROBOTO_REGULAR"
     ROBOTO_BOLD = "FontRoboto.ROBOTO_BOLD"
+    THIN = ROBOTO_THIN
+    REGULAR = ROBOTO_REGULAR
+    BOLD = ROBOTO_BOLD
 
     # robotoserif
     SERIF_THIN = "FontRoboto.SERIF_THIN"

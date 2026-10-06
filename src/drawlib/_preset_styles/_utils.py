@@ -115,9 +115,10 @@ def _make_variants(
     """Generate 10 orthogonal variant styles for a specific color.
 
     Variants:
-        normal (bordered regular), bold, light, flat,
-        outline, outline_bold, outline_light,
-        dashed, dashed_bold, dashed_light
+        normal (bordered regular), bold, thin, flat,
+        outline, outline_bold, outline_thin,
+        dashed, dashed_bold, dashed_thin,
+        dotted, dotted_bold, dotted_thin
         (plus 'bordered' and 'solid' aliases).
 
     Args:

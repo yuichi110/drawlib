@@ -7,6 +7,8 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+from typing import Any
+
 import pytest
 from pydantic import ValidationError
 
@@ -345,6 +347,18 @@ class TestPresetStylesUnit:
         assert BaseStyles.DEFAULT_FONT == Font.SANSSERIF_REGULAR
         assert default_styles.Primary.text_size == DEFAULT_TEXT_SIZE
         assert default_styles.Primary.text_font == DEFAULT_FONT
+
+    def test_preset_styles_fail_fast_no_backward_compatibility_for_light_weight(self) -> None:
+        """Verifies that accessing old *Light weight styles or passing light= raises immediately."""
+        with pytest.raises(AttributeError):
+            _ = getattr(default_styles, "PrimaryLight")
+
+        with pytest.raises(AttributeError):
+            _ = getattr(default_styles, "BlueLight")
+
+        with pytest.raises(ValidationError):
+            kwargs: dict[str, Any] = {"light": FontJapanese.SANSSERIF_THIN}
+            default_styles.patch_font(**kwargs)
 
 
 @pytest.mark.image_threshold(93.0)
