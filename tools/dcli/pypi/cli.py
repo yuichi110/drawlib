@@ -21,14 +21,16 @@ import typer
 from tools.dcli.common import PROJECT_ROOT, console, err_console, run_command
 from tools.dcli.pypi.client import (
     LIB_NAME,
-    _get_new_version,
     check_new_version_ok,
     get_latest_version,
+    get_new_version,
 )
 from tools.dcli.pypi.client import (
     list_versions as client_list_versions,
 )
 from tools.dcli.pypi.pyproject import update_pyproject_toml
+
+_get_new_version = get_new_version
 
 app = typer.Typer(
     name="pypi",
@@ -47,7 +49,12 @@ def list_versions(
         test_pypi: Whether to inspect TestPyPI.
     """
     console.print("[bold cyan]Querying PyPI versions...[/bold cyan]")
-    versions = client_list_versions(LIB_NAME, test_pypi=test_pypi)
+    try:
+        versions = client_list_versions(LIB_NAME, test_pypi=test_pypi)
+    except Exception as e:
+        err_console.print(f"[bold red]Failed to fetch versions: {e}[/bold red]")
+        raise typer.Exit(code=1) from e
+
     for v in versions:
         console.print(f"  [yellow]{v}[/yellow]")
 
@@ -62,7 +69,12 @@ def get_latest(
         test_pypi: Whether to inspect TestPyPI.
     """
     console.print("[bold cyan]Querying latest PyPI version...[/bold cyan]")
-    latest = get_latest_version(LIB_NAME, test_pypi=test_pypi)
+    try:
+        latest = get_latest_version(LIB_NAME, test_pypi=test_pypi)
+    except Exception as e:
+        err_console.print(f"[bold red]Failed to fetch latest version: {e}[/bold red]")
+        raise typer.Exit(code=1) from e
+
     console.print(f"Latest version: [bold green]{latest}[/bold green]")
 
 
@@ -79,7 +91,7 @@ def check_version(
     """
     console.print("[bold cyan]Validating new version...[/bold cyan]")
     latest_version = get_latest_version(LIB_NAME, test_pypi)
-    new_version = _get_new_version()
+    new_version = get_new_version()
     try:
         check_new_version_ok(latest_version, new_version, allow_jump=allow_jump)
         console.print("[bold green]✓ Check success. Version is valid for release.[/bold green]")

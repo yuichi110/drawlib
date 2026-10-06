@@ -368,17 +368,3 @@ def sync_release_assets(
 
     target_py.write_text(formatted_code, encoding="utf-8")
     return True
-
-
-if __name__ == "__main__":
-    import sys
-
-    tag = sys.argv[1] if len(sys.argv) > 1 else "v0.3"
-    assets_dir = Path(f"release_assets/{tag}")
-    target_file = Path("src/drawlib/_release_assets.py")
-
-    print(f"Scanning release assets in {assets_dir}...")
-    packages = scan_asset_packages(assets_dir)
-    print(f"Found {len(packages)} packages.")
-    sync_release_assets(assets_dir, target_file, tag=tag)
-    print(f"Successfully generated and formatted {target_file}!")

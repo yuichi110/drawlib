@@ -13,7 +13,10 @@ import ast
 import os
 import re
 import sys
+from pathlib import Path
 from typing import Optional, Union
+
+from tools.dcli.common import PROJECT_ROOT
 
 TYPES_TO_CHECK = [
     "TypeAlpha",
@@ -116,25 +119,37 @@ def check_file(path: str) -> list[tuple[int, str, str]]:
     return violations
 
 
-def main() -> None:
-    """Main function to run the check across the source directory."""
-    target_dir = "src/drawlib/_core"
-    all_violations = []
-    for root, _, files in os.walk(target_dir):
+def find_docstring_violations(target_dir: Path | str | None = None) -> list[tuple[int, str, str]]:
+    """Scan directory for forbidden type aliases in @validate_call docstrings.
+
+    Args:
+        target_dir: Directory to scan. Defaults to PROJECT_ROOT / 'src/drawlib/_core'.
+
+    Returns:
+        list[tuple[int, str, str]]: List of (lineno, forbidden_type, filepath).
+    """
+    root_path = Path(target_dir) if target_dir else PROJECT_ROOT / "src" / "drawlib" / "_core"
+    all_violations: list[tuple[int, str, str]] = []
+    for root, _, files in os.walk(root_path):
         if "drawlib/_core/l2_types" in root:
             continue
         for f in files:
             if f.endswith(".py"):
                 p = os.path.join(root, f)
                 all_violations.extend(check_file(p))
+    return all_violations
 
-    if all_violations:
-        print(f"Found {len(all_violations)} violations in docstrings of @validate_call functions:")
-        for lineno, t, path in all_violations:
+
+def main() -> None:
+    """Run docstring check and report status to standard output."""
+    violations = find_docstring_violations()
+    if violations:
+        print(f"Found {len(violations)} violations in docstrings of @validate_call functions:")
+        for lineno, t, path in violations:
             print(f"{path}:{lineno}: Found forbidden type alias '{t}'")
         sys.exit(1)
-    else:
-        print("No forbidden type aliases found in @validate_call function docstrings.")
+
+    print("No forbidden type aliases found in @validate_call function docstrings.")
 
 
 if __name__ == "__main__":

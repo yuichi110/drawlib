@@ -33,7 +33,7 @@ from tools.dcli.assets.client import (
     resolve_github_token,
 )
 from tools.dcli.assets.sync import scan_asset_packages, sync_release_assets
-from tools.dcli.common import console, err_console
+from tools.dcli.common import PROJECT_ROOT, console, err_console
 
 app = typer.Typer(
     name="assets",
@@ -51,7 +51,7 @@ def _resolve_tag(tag: Optional[str]) -> str:
 
 def _resolve_assets_dir(tag: str) -> Path:
     """Locate local source directory for release assets."""
-    assets_dir = Path("release_assets") / tag
+    assets_dir = PROJECT_ROOT / "release_assets" / tag
     if not assets_dir.exists():
         err_console.print(f"[bold red]Error: Asset source directory not found: {assets_dir}[/bold red]")
         raise typer.Exit(code=1)

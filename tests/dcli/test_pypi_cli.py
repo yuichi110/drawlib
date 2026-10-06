@@ -87,7 +87,7 @@ def test_pypi_cli_check_version_success() -> None:
     """Test dcli pypi check-version success."""
     with (
         patch("tools.dcli.pypi.cli.get_latest_version", return_value="0.2.0"),
-        patch("tools.dcli.pypi.cli._get_new_version", return_value="0.2.1"),
+        patch("tools.dcli.pypi.cli.get_new_version", return_value="0.2.1"),
         patch("tools.dcli.pypi.cli.check_new_version_ok") as mock_check,
     ):
         result = runner.invoke(app, ["check-version"])
@@ -100,7 +100,7 @@ def test_pypi_cli_check_version_failure() -> None:
     """Test dcli pypi check-version failure."""
     with (
         patch("tools.dcli.pypi.cli.get_latest_version", return_value="0.2.1"),
-        patch("tools.dcli.pypi.cli._get_new_version", return_value="0.2.0"),
+        patch("tools.dcli.pypi.cli.get_new_version", return_value="0.2.0"),
         patch("tools.dcli.pypi.cli.check_new_version_ok", side_effect=ValueError("Invalid version")),
     ):
         result = runner.invoke(app, ["check-version"])

@@ -11,9 +11,7 @@
 
 import importlib.util
 import json
-import os
 import re
-import sys
 import urllib.request
 from typing import List, Tuple
 
@@ -25,48 +23,11 @@ PYPI_JSON_URL_TEMPLATE = "https://pypi.org/pypi/{package_name}/json"
 TEST_PYPI_JSON_URL_TEMPLATE = "https://test.pypi.org/pypi/{package_name}/json"
 
 
-def main() -> None:
-    """Main function."""
-    use_test_pypi = "--test_pypi" in sys.argv
-    allow_jump = "--allow_jump" in sys.argv
-    args = [arg for arg in sys.argv if arg not in {"--test_pypi", "--allow_jump"}]
-
-    if len(args) != 2:
-        print('Requires one command argument. "--get_latest_version", "--list_versions" or "--check_new_version_ok".')
-        print('Optional arguments: "--test_pypi", "--allow_jump"')
-        sys.exit(1)
-
-    command = args[1]
-    if command == "--get_latest_version":
-        print(get_latest_version(LIB_NAME, use_test_pypi))
-
-    elif command == "--list_versions":
-        for v in list_versions(LIB_NAME, use_test_pypi):
-            print(v)
-
-    elif command == "--check_new_version_ok":
-        latest_version = get_latest_version(LIB_NAME, use_test_pypi)
-        new_version = _get_new_version()
-        try:
-            check_new_version_ok(latest_version, new_version, allow_jump=allow_jump)
-            print("Check success.")
-        except Exception as e:
-            print(f"Check failed. {e}")
-            sys.exit(1)
-
-    else:
-        print(f"Argument not supported: {command}")
-        print('Requires one command argument. "--get_latest_version", "--list_versions" or "--check_new_version_ok".')
-        print('Optional arguments: "--test_pypi", "--allow_jump"')
-        sys.exit(1)
-
-
 def get_latest_version(package_name: str, test_pypi: bool = False) -> str:
     """Fetches the latest version of a package from PyPI, including pre-releases."""
     versions = list_versions(package_name, test_pypi=test_pypi)
     if not versions:
-        print(f"No versions found for package {package_name}")
-        sys.exit(1)
+        raise ValueError(f"No versions found for package '{package_name}'")
     return versions[0]
 
 
@@ -80,7 +41,7 @@ def list_versions(package_name: str, test_pypi: bool = False) -> List[str]:
     try:
         with urllib.request.urlopen(url) as response:  # noqa: S310
             if response.status != 200:
-                raise Exception(f"PyPI returns status code: {response.status}")
+                raise RuntimeError(f"PyPI returned status code: {response.status}")
 
             data = json.load(response)
             all_versions = data["releases"].keys()
@@ -88,9 +49,7 @@ def list_versions(package_name: str, test_pypi: bool = False) -> List[str]:
             return sorted_versions
 
     except Exception as e:
-        print(f"Failed to fetch versions for package {package_name}")
-        print(f"Error: {e}")
-        sys.exit(1)
+        raise RuntimeError(f"Failed to fetch versions for package '{package_name}': {e}") from e
 
 
 def check_new_version_ok(latest_version: str, new_version: str, allow_jump: bool = False) -> None:
@@ -129,23 +88,6 @@ def _parse_version(version: str) -> Tuple[int, int, int, str]:
     return tuple(parts_list)  # type: ignore
 
 
-def _test_parse_version() -> None:
-    """Test parse_version()"""
-    versions = [
-        "0.2.0.dev1",
-        "0.2.0.dev2",
-        "0.2.1.rc1",
-        "0.2.1.rc2",
-        "0.2.1",
-        "0.2.2",
-        "0.2.2.rc1",
-        "0.2.2.rc2",
-    ]
-
-    sorted_versions = sorted(versions, key=_parse_version)
-    print(sorted_versions)
-
-
 #
 # Private of check_new_version_ok()
 #
@@ -153,16 +95,16 @@ def _test_parse_version() -> None:
 
 def _handle_jump(message: str, latest_version: str, new_version: str, allow_jump: bool) -> None:
     if allow_jump:
-        print(f"WARNING: {message} (Allowed by --allow_jump)")
         return
 
-    print(f"ERROR: {message}")
-    print(f"Current latest: {latest_version}")
-    print(f"New version:    {new_version}")
-    raise ValueError("This is a version jump. Use --allow_jump if you want to skip version.")
+    raise ValueError(
+        f"Version jump detected: {message} (Current latest: {latest_version}, New version: {new_version}). "
+        "Use --allow-jump if you want to skip version."
+    )
 
 
-def _get_new_version() -> str:
+def get_new_version() -> str:
+    """Retrieve current library version from src/drawlib/__init__.py."""
     spec = importlib.util.spec_from_file_location("init", INIT_PATH)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Could not load module from {INIT_PATH}")
@@ -171,6 +113,9 @@ def _get_new_version() -> str:
     spec.loader.exec_module(module)
 
     return module.LIB_VERSION
+
+
+_get_new_version = get_new_version
 
 
 def _check_new_major_version_ok(
@@ -310,37 +255,3 @@ def _check_rc_transition(
         new_version,
         allow_jump,
     )
-
-
-def _test_check_new_version_ok() -> None:
-    for latest, new in [
-        ("0.1.1", "1.0.0.dev1"),
-        ("0.1.1", "1.1.0"),
-        ("0.1.1", "1.0.1"),
-        ("0.1.1", "1.0.0"),
-        ("0.1.1", "0.2.0.dev1"),
-        ("0.1.1", "0.2.1"),
-        ("0.1.1", "0.2.0"),
-        ("0.1.1", "0.1.2"),
-        ("0.1.1", "0.1.1"),
-        ("0.1.1", "0.1.1.rc1"),
-        ("0.1.1.dev1", "0.1.1.dev2"),
-        ("0.1.1.dev1", "0.1.1.dev3"),
-        ("0.1.1.dev1", "0.1.1.rc1"),
-        ("0.1.1.dev1", "0.1.1.rc2"),
-        ("0.1.1.dev1", "0.1.1"),
-        ("0.1.1.rc1", "0.1.1"),
-        ("0.1.1.rc1", "0.1.1.rc2"),
-        ("0.1.1.rc1", "0.1.1.rc3"),
-        ("0.1.1.rc1", "0.1.1.dev1"),
-    ]:
-        try:
-            print(f"Test latest {latest}, new {new}.")
-            check_new_version_ok(latest, new, allow_jump=True)
-            print("OK.")
-        except Exception as e:
-            print(f"NG. {str(e)}")
-
-
-if __name__ == "__main__":
-    main()

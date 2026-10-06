@@ -11,7 +11,6 @@
 
 from __future__ import annotations
 
-import argparse
 import hashlib
 import json
 import re
@@ -254,53 +253,3 @@ def normalize_all_gcp_icons(
     print(f"[✓] Output written to {dest_dir} (Manifest: {manifest_path.name})")
 
     return manifest
-
-
-def main() -> None:
-    """CLI entry point for normalizing GCP icon assets."""
-    parser = argparse.ArgumentParser(
-        description="Normalize Google Cloud architecture diagram icons into uniform 512x512 transparent PNGs.",
-    )
-    parser.add_argument(
-        "--src-dir",
-        type=Path,
-        default=PROJECT_ROOT / "original_assets/gcp",
-        help="Source directory containing original GCP assets (default: original_assets/gcp).",
-    )
-    parser.add_argument(
-        "--dest-dir",
-        type=Path,
-        default=PROJECT_ROOT / "release_assets/v0.3/icons/gcp",
-        help="Destination directory for normalized flat icons (default: release_assets/v0.3/icons/gcp).",
-    )
-    parser.add_argument(
-        "--size",
-        type=int,
-        default=512,
-        help="Canvas width/height (default: 512).",
-    )
-    parser.add_argument(
-        "--inner-size",
-        type=int,
-        default=460,
-        help="Target inner bounding size for artwork (default: 460).",
-    )
-    parser.add_argument(
-        "--no-aliases",
-        action="store_true",
-        help="Do not create common acronym alias files (e.g. gce.png, gke.png).",
-    )
-
-    args = parser.parse_args()
-
-    normalize_all_gcp_icons(
-        src_dir=args.src_dir,
-        dest_dir=args.dest_dir,
-        target_size=args.size,
-        inner_size=args.inner_size,
-        create_aliases=not args.no_aliases,
-    )
-
-
-if __name__ == "__main__":
-    main()

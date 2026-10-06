@@ -13,9 +13,9 @@ from __future__ import annotations
 
 import typer
 
-from tools.dcli.check.docstring import main as check_docstring_main
-from tools.dcli.check.lines import main as count_lines_main
-from tools.dcli.common import console, run_command
+from tools.dcli.check.docstring import find_docstring_violations
+from tools.dcli.check.lines import run_count_lines
+from tools.dcli.common import console, err_console, run_command
 
 app = typer.Typer(
     name="check",
@@ -59,14 +59,21 @@ def type_check() -> None:
 def docstring() -> None:
     """Validate that forbidden type aliases do not appear in @validate_call function docstrings."""
     console.print("[bold cyan]Checking @validate_call function docstring type annotations...[/bold cyan]")
-    check_docstring_main()
+    violations = find_docstring_violations()
+    if violations:
+        err_console.print(
+            f"[bold red]Found {len(violations)} violations in docstrings of @validate_call functions:[/bold red]"
+        )
+        for lineno, t, path in violations:
+            err_console.print(f"  [red]{path}:{lineno}[/red]: Found forbidden type alias '[yellow]{t}[/yellow]'")
+        raise typer.Exit(code=1)
     console.print("[bold green]✓ Docstring checks passed![/bold green]")
 
 
 @app.command("lines")
 def count_lines() -> None:
     """Count source code lines in the project."""
-    count_lines_main()
+    run_count_lines()
 
 
 @app.command("all")

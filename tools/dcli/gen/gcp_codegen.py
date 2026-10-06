@@ -11,7 +11,6 @@
 
 from __future__ import annotations
 
-import argparse
 import json
 import subprocess
 import sys
@@ -137,27 +136,3 @@ def generate_gcp_code(
     print(f"Formatting {output_file} with ruff...")
     format_code(output_file)
     print(f"Successfully generated {len(icon_names)} GCP icon functions in {output_file}!")
-
-
-def main() -> None:
-    """CLI entrypoint for generating GCP icon functions."""
-    parser = argparse.ArgumentParser(description="Generate GCP icon Python bindings.")
-    parser.add_argument(
-        "--manifest-file",
-        type=Path,
-        default=DEFAULT_MANIFEST_FILE,
-        help=f"Path to GCP manifest JSON file (default: {DEFAULT_MANIFEST_FILE}).",
-    )
-    parser.add_argument(
-        "--output-file",
-        type=Path,
-        default=DEFAULT_OUTPUT_FILE,
-        help=f"Output Python file (default: {DEFAULT_OUTPUT_FILE}).",
-    )
-    args = parser.parse_args()
-
-    generate_gcp_code(manifest_file=args.manifest_file, output_file=args.output_file)
-
-
-if __name__ == "__main__":
-    main()

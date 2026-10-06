@@ -11,7 +11,6 @@
 
 from __future__ import annotations
 
-import argparse
 from pathlib import Path
 
 from drawlib._release_assets import (
@@ -137,28 +136,3 @@ def generate_phosphor_code(output_path: Path = DEFAULT_OUTPUT_FILE, tag: str = D
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(full_code, encoding="utf-8")
     print(f"[✓] Generated Phosphor icon code directly at: {output_path}")
-
-
-def main() -> None:
-    """CLI entry point for generating Phosphor icon code."""
-    parser = argparse.ArgumentParser(description="Generate Phosphor icon Python bindings.")
-    parser.add_argument(
-        "--output",
-        "-o",
-        type=Path,
-        default=DEFAULT_OUTPUT_FILE,
-        help=f"Target file path (default: {DEFAULT_OUTPUT_FILE}).",
-    )
-    parser.add_argument(
-        "--tag",
-        type=str,
-        default=DEFAULT_RELEASE_TAG,
-        help=f"Release tag for downloading asset if missing (default: {DEFAULT_RELEASE_TAG}).",
-    )
-    args = parser.parse_args()
-
-    generate_phosphor_code(output_path=args.output, tag=args.tag)
-
-
-if __name__ == "__main__":
-    main()

@@ -11,7 +11,6 @@
 
 from __future__ import annotations
 
-import argparse
 import hashlib
 import io
 import json
@@ -198,38 +197,3 @@ def download_and_extract_gcp_icons(
     print(f"[✓] Successfully acquired {total_files_extracted} original Google Cloud icons!")
 
     return manifest
-
-
-def main() -> None:
-    """CLI entry point for downloading GCP original icon assets."""
-    parser = argparse.ArgumentParser(
-        description="Download and extract official Google Cloud architecture diagram icons.",
-    )
-    parser.add_argument(
-        "--output-dir",
-        type=Path,
-        default=PROJECT_ROOT / "original_assets/gcp",
-        help="Destination directory for original GCP assets (default: original_assets/gcp).",
-    )
-    parser.add_argument(
-        "--no-archives",
-        action="store_true",
-        help="Do not retain raw .zip archive files in _archives/ subdirectory.",
-    )
-    parser.add_argument(
-        "--no-docs",
-        action="store_true",
-        help="Do not download official overview guide PDF.",
-    )
-
-    args = parser.parse_args()
-
-    download_and_extract_gcp_icons(
-        output_dir=args.output_dir,
-        save_archives=not args.no_archives,
-        download_doc=not args.no_docs,
-    )
-
-
-if __name__ == "__main__":
-    main()

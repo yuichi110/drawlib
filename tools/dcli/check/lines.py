@@ -58,11 +58,18 @@ def print_lines_summary(target_path: Path, label: str) -> int:
     return total
 
 
-def main() -> None:
-    """Count lines across src and tests."""
+def run_count_lines() -> int:
+    """Count lines across src and tests and print summary."""
     t1 = print_lines_summary(SRC_DIR, "src/drawlib")
     t2 = print_lines_summary(TESTS_DIR, "tests")
-    console.print(f"[bold green]Grand Total: {t1 + t2} lines[/bold green]")
+    grand_total = t1 + t2
+    console.print(f"[bold green]Grand Total: {grand_total} lines[/bold green]")
+    return grand_total
+
+
+def main() -> None:
+    """Count lines across src and tests."""
+    run_count_lines()
 
 
 if __name__ == "__main__":

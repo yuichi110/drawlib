@@ -24,6 +24,25 @@ err_console = Console(stderr=True)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
+EXCLUDED_MODULES = frozenset({"__init__.py", "__main__.py", "common.py", "completion.py"})
+
+
+def discover_toolsets() -> list[str]:
+    """Scan tools/dcli directory for executable toolset modules or packages.
+
+    Returns:
+        list[str]: Sorted list of toolset module names.
+    """
+    dcli_dir = Path(__file__).resolve().parent
+    toolsets: set[str] = set()
+    for f in dcli_dir.glob("*.py"):
+        if f.name not in EXCLUDED_MODULES and not f.name.startswith("_"):
+            toolsets.add(f.stem)
+    for d in dcli_dir.iterdir():
+        if d.is_dir() and not d.name.startswith(("_", ".")) and (d / "__init__.py").exists():
+            toolsets.add(d.name)
+    return sorted(toolsets)
+
 
 def run_command(
     args: Sequence[str],

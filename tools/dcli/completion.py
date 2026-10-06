@@ -18,24 +18,9 @@ from pathlib import Path
 
 import typer
 
-EXCLUDED_MODULES = frozenset({"__init__.py", "__main__.py", "common.py", "completion.py"})
+from tools.dcli.common import EXCLUDED_MODULES, discover_toolsets
 
-
-def get_active_toolsets() -> list[str]:
-    """Scan the dcli directory to discover available executable CLI modules and packages.
-
-    Returns:
-        list[str]: Sorted list of active CLI toolset names.
-    """
-    dcli_dir = Path(__file__).resolve().parent
-    toolsets: set[str] = set()
-    for f in dcli_dir.glob("*.py"):
-        if f.name not in EXCLUDED_MODULES and not f.name.startswith("_"):
-            toolsets.add(f.stem)
-    for d in dcli_dir.iterdir():
-        if d.is_dir() and not d.name.startswith(("_", ".")) and (d / "__init__.py").exists():
-            toolsets.add(d.name)
-    return sorted(toolsets)
+get_active_toolsets = discover_toolsets
 
 
 def get_subcommand_candidates(toolset_name: str, prefix: str = "") -> list[str]:

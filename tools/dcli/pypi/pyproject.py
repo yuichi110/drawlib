@@ -88,11 +88,5 @@ def update_pyproject_toml() -> None:
     urls["Homepage"] = homepage
     urls["Repository"] = repository
 
-    # Write back
     with open(PYPROJECT_TOML_PATH, mode="w", encoding="utf8", newline="") as fout:
         fout.write(tomlkit.dumps(doc))
-
-
-if __name__ == "__main__":
-    update_pyproject_toml()
-    print("Successfully updated pyproject.toml metadata from src/drawlib/__init__.py")
