@@ -39,7 +39,7 @@ chart = RadarChart(
     categories=["Scalability", "Reliability", "Security", "Maintainability", "Latency"],
     axis_line_style=Styles.MutedDashed,
     axis_text_style=Styles.BlackBold.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
+    grid_style=Styles.MutedThin,
     scale_text_style=Styles.Muted.patch(text_size=8.5),
     value_text_style=Styles.BlackBold.patch(text_size=8.5),
     radius=24.0,                # Outer boundary spoke radius

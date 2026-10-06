@@ -120,7 +120,7 @@ class TestTable:
             odd_color=Colors.White,
             odd_text_style=styles.Black,
         )
-        t.set_style_border(top=styles.Black, top2=styles.BlackLight, bottom=styles.Black)
+        t.set_style_border(top=styles.Black, top2=styles.BlackThin, bottom=styles.Black)
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         save(f"{OUTPUT_DIR}test_table_custom_style.png")
 

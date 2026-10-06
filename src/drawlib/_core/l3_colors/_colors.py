@@ -98,7 +98,7 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
 
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
-        extra="allow",
+        extra="forbid",
         frozen=True,
     )
 
@@ -297,7 +297,7 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         """
         updates: dict[str, Any] = {}
         for k, v in kwargs.items():
-            if v is not None:
+            if k != "__class__" and v is not None:
                 target_key = _resolve_color_field_name(self.__class__, k)
                 try:
                     updates[target_key] = v if isinstance(v, Color) else Color(v)

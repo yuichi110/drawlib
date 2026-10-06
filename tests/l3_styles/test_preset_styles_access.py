@@ -92,7 +92,7 @@ class TestPresetStylesPascalCaseAccess:
         """Test GoogleStyles class attributes access."""
         assert isinstance(GoogleStyles.BlueFlat, Style)
         assert GoogleStyles.BlueFlat == google_styles.BlueFlat
-        assert GoogleStyles.CornflowerBlue1DashedLight == google_styles.CornflowerBlue1DashedLight
+        assert GoogleStyles.CornflowerBlue1DashedThin == google_styles.CornflowerBlue1DashedThin
         assert GoogleStyles.Primary == google_styles.Primary
 
         with pytest.raises(AttributeError):

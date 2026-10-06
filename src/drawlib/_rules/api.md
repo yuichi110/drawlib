@@ -238,7 +238,7 @@ Styles are systematically constructed as `<color>_<variant>`:
   - `Outline` / `Solid`: Transparent background with colored border.
   - `Dashed`, `DashedBold`, `DashedLight`: Dashed stroke for boundaries or groupings.
   - `Dotted`, `DottedBold`, `DottedLight`: Dotted stroke for ephemeral objects.
-- **Typography Styles**: `Styles.WhiteBold`, `Styles.PrimaryBold`, `Styles.MutedLight`, etc.
+- **Typography Styles**: `Styles.WhiteBold`, `Styles.PrimaryBold`, `Styles.MutedThin`, etc.
 
 ### 6.3 Custom Style and Color Construction
 

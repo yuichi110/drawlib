@@ -32,7 +32,7 @@ chart = AreaChart(
     axis_line_style=Styles.MutedDashed,
     categories=["2021", "2022", "2023", "2024", "2025"],
     axis_text_style=Styles.Muted.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
+    grid_style=Styles.MutedThin,
     width=80.0,
     height=55.0,
     title="Cumulative Revenue Streams",

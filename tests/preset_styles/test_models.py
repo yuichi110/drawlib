@@ -40,7 +40,7 @@ class TestPresetStyles:
         assert isinstance(preset, BaseStyles)
         assert isinstance(preset, DefaultStyles)
         assert isinstance(preset.Primary, Style)
-        assert isinstance(preset.PrimaryLight, Style)
+        assert isinstance(preset.PrimaryThin, Style)
         assert isinstance(preset.PrimaryBold, Style)
         assert isinstance(preset.PrimaryFlat, Style)
         assert isinstance(preset.PrimarySolid, Style)
@@ -68,8 +68,8 @@ class TestPresetStyles:
     def test_default_styles_completeness(self) -> None:
         """Verifies DefaultStyles provides all variants across all colors without omission."""
         preset = default_styles
-        assert len(preset.styles()) == 1792
-        variants = ["Flat", "Solid", "Dashed", "Bold", "Light"]
+        assert len(preset.styles()) == 2233
+        variants = ["Flat", "Solid", "Dashed", "Bold", "Thin", "Dotted"]
         colors = [
             "Red",
             "Green",
@@ -114,7 +114,7 @@ class TestPresetStyles:
         assert isinstance(preset, BaseStyles)
         assert isinstance(preset, GoogleStyles)
         assert isinstance(preset.Primary, Style)
-        assert isinstance(preset.PrimaryLight, Style)
+        assert isinstance(preset.PrimaryThin, Style)
         assert isinstance(preset.PrimaryBold, Style)
         assert isinstance(preset.PrimaryFlat, Style)
         assert isinstance(preset.PrimaryDashed, Style)
@@ -155,13 +155,13 @@ class TestPresetStyles:
         items = dict(preset)
         assert "Primary" in items
         assert items["Primary"] == preset.Primary
-        assert "PrimaryLight" in items
-        assert items["PrimaryLight"] == preset.PrimaryLight
+        assert "PrimaryThin" in items
+        assert items["PrimaryThin"] == preset.PrimaryThin
         assert "background_color" in items
 
         # __getitem__ test
         assert preset["Primary"] == preset.Primary
-        assert preset["PrimaryLight"] == preset.PrimaryLight
+        assert preset["PrimaryThin"] == preset.PrimaryThin
 
         # get test
         assert preset.get("Primary") == preset.Primary
@@ -181,7 +181,7 @@ class TestPresetStyles:
     def test_custom_user_defined_styles(self) -> None:
         """Verifies that users can define arbitrary style fields with full autocomplete and iteration."""
 
-        class MyCloudStyles(BaseStyles):
+        class MyCloudStyles(DefaultStyles):
             Vpc: Style
             Subnet: Style
             custom_note: str = "production"

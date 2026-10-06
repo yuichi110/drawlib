@@ -28,7 +28,7 @@ TreeNode.register_drawing_item(
 root = TreeNode(
     "src/",
     text_style=Styles.DarkBold,
-    line_style=Styles.DarkLight,
+    line_style=Styles.DarkThin,
     line_horizontal_margin=3.0,
     line_horizontal_length=3.0,
     line_vertical_margin=6.0,

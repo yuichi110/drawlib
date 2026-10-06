@@ -18,7 +18,7 @@ chart = BarChart(
     categories=["Dev", "Stage", "Prod"],
     axis_line_style=Styles.MutedDashed,
     axis_text_style=Styles.Muted.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
+    grid_style=Styles.MutedThin,
     value_text_style=Styles.BlackBold.patch(text_size=8.5),
     width=80,
     height=45,

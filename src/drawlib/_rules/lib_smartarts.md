@@ -93,9 +93,9 @@ Every SmartArt accepts:
 table = Table(
     cell_style=Styles.White,
     text_style=Styles.Primary,
-    header_cell_style=Styles.PrimaryLight,
+    header_cell_style=Styles.PrimaryThin,
     header_text_style=Styles.PrimaryBold,
-    border_style=Styles.MutedLight,
+    border_style=Styles.MutedThin,
     has_header=True,
 )
 ```
@@ -926,7 +926,7 @@ table = Table(
     text_style=Styles.Dark,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
-    border_style=Styles.MutedLight,
+    border_style=Styles.MutedThin,
 )
 table.draw(
     xy=(10, 55),

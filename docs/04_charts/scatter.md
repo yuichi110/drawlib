@@ -33,7 +33,7 @@ from drawlib.styles import Styles
 chart = ScatterChart(
     axis_line_style=Styles.MutedDashed,
     axis_text_style=Styles.Muted.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
+    grid_style=Styles.MutedThin,
     width=85.0,                 # Total chart bounding width
     height=52.0,                # Total chart bounding height
     title="Service Throughput vs Latency",

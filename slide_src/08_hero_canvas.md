@@ -40,7 +40,7 @@ for x, title, desc, title_style in pillars:
     text((x, 48), desc, style=Styles.Dark)
 
 # Bottom Feature Callout
-rectangle((96, 14), width=172, height=10, style=Styles.PrimaryLight,
+rectangle((96, 14), width=172, height=10, style=Styles.PrimaryThin,
           text="Zero Injected Chrome • Full Stage Freedom • 100% Code-Driven Visualization", text_style=Styles.PrimaryBold)
 
 save()

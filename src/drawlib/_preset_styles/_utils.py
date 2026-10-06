@@ -17,7 +17,7 @@ from drawlib._core.l3_fonts import Font, FontBase, FontFile
 from drawlib._core.l3_styles import (
     DEFAULT_FONT,
     DEFAULT_FONT_BOLD,
-    DEFAULT_FONT_LIGHT,
+    DEFAULT_FONT_THIN,
     DEFAULT_TEXT_SIZE,
     Style,
 )
@@ -30,7 +30,7 @@ def _resolve_target_font(
     field_name: str,
     regular: FontBase | FontFile | None,
     bold: FontBase | FontFile | None,
-    light: FontBase | FontFile | None,
+    thin: FontBase | FontFile | None,
 ) -> FontBase | FontFile | None:
     """Resolve target font for a specific style field based on naming convention.
 
@@ -38,15 +38,15 @@ def _resolve_target_font(
         field_name (str): Style attribute name.
         regular (FontBase | FontFile | None): Base font.
         bold (FontBase | FontFile | None): Bold font.
-        light (FontBase | FontFile | None): Light font.
+        thin (FontBase | FontFile | None): Thin font.
 
     Returns:
         FontBase | FontFile | None: Target font to apply.
     """
     if field_name == "Bold" or field_name.endswith("Bold"):
         return bold if bold is not None else regular
-    if field_name.endswith("Light"):
-        return light if light is not None else regular
+    if field_name.endswith("Thin"):
+        return thin if thin is not None else regular
     return regular
 
 
@@ -171,7 +171,7 @@ def _make_variants(
         icon_color=txt_col,
         icon_style="bold",
     )
-    bordered_light = Style(
+    bordered_thin = Style(
         supports={"shape", "line", "text", "icon"},
         shape_fill_color=color,
         shape_line_color=line_col,
@@ -184,7 +184,7 @@ def _make_variants(
         line_arrow_head_fill=False,
         text_color=txt_col,
         text_size=DEFAULT_TEXT_SIZE,
-        text_font=DEFAULT_FONT_LIGHT,
+        text_font=DEFAULT_FONT_THIN,
         text_halign="center",
         text_valign="center",
         icon_color=txt_col,
@@ -223,7 +223,7 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    outline_light = Style(
+    outline_thin = Style(
         supports={"shape", "line"},
         shape_fill_color=Colors.Transparent,
         shape_line_color=actual_line_col,
@@ -259,7 +259,7 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    dashed_light = Style(
+    dashed_thin = Style(
         supports={"shape", "line"},
         shape_fill_color=Colors.Transparent,
         shape_line_color=actual_line_col,
@@ -295,7 +295,7 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    dotted_light = Style(
+    dotted_thin = Style(
         supports={"shape", "line"},
         shape_fill_color=Colors.Transparent,
         shape_line_color=actual_line_col,
@@ -312,20 +312,20 @@ def _make_variants(
         "normal": bordered_regular,
         "bordered": bordered_regular,
         "bold": bordered_bold,
-        "light": bordered_light,
+        "thin": bordered_thin,
         "flat": flat,
         "outline": outline_regular,
         "solid": outline_regular,
         "outline_bold": outline_bold,
         "solid_bold": outline_bold,
-        "outline_light": outline_light,
-        "solid_light": outline_light,
+        "outline_thin": outline_thin,
+        "solid_thin": outline_thin,
         "dashed": dashed_regular,
         "dashed_bold": dashed_bold,
-        "dashed_light": dashed_light,
+        "dashed_thin": dashed_thin,
         "dotted": dotted_regular,
         "dotted_bold": dotted_bold,
-        "dotted_light": dotted_light,
+        "dotted_thin": dotted_thin,
     }
 
 

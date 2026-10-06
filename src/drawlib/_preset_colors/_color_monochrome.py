@@ -37,7 +37,9 @@ class MonochromeColors(BaseColors):
     Muted: Color = Gray1
     Light: Color = White
     Dark: Color = Gray8
+    Warning: Color | None = None
     Danger: Color | None = None
+    Success: Color | None = None
     Neutral: Color = Gray2
     Canvas: Color = White
 
@@ -74,6 +76,7 @@ class MonochromeColors(BaseColors):
         Light: ColorType | None = None,
         Neutral: ColorType | None = None,
         Dark: ColorType | None = None,
+        Warning: ColorType | None = None,
         Danger: ColorType | None = None,
         Success: ColorType | None = None,
         White: ColorType | None = None,
@@ -99,6 +102,7 @@ class MonochromeColors(BaseColors):
             Light: Light semantic color.
             Neutral: Neutral semantic color.
             Dark: Dark semantic color.
+            Warning: Warning semantic color.
             Danger: Danger semantic color.
             Success: Success semantic color.
             White: White neutral color.
@@ -116,7 +120,7 @@ class MonochromeColors(BaseColors):
         Returns:
             Self: New preset colors instance with updated attributes.
         """
-        passed = {k: v for k, v in locals().items() if k not in {"self", "kwargs"} and v is not None}
+        passed = {k: v for k, v in locals().items() if k not in {"self", "kwargs", "__class__"} and v is not None}
         return super().patch(**passed, **kwargs)
 
 

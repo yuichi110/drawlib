@@ -13,6 +13,7 @@ from drawlib._core.l3_styles._base_styles import (
     DEFAULT_FONT,
     DEFAULT_FONT_BOLD,
     DEFAULT_FONT_LIGHT,
+    DEFAULT_FONT_THIN,
     DEFAULT_TEXT_SIZE,
     BaseStyles,
 )
@@ -25,6 +26,7 @@ __all__ = [
     "DEFAULT_FONT",
     "DEFAULT_FONT_BOLD",
     "DEFAULT_FONT_LIGHT",
+    "DEFAULT_FONT_THIN",
     "DEFAULT_TEXT_SIZE",
     "BaseStyles",
     # _style_models.py

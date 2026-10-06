@@ -23,277 +23,299 @@ from drawlib._preset_styles._utils import _make_neutral_card, _make_variants
 class MonochromeStyles(BaseStyles):
     """Monochrome preset styles with complete typing for IDE autocompletion."""
 
-    # Black
-    Black: Style
-    BlackBordered: Style
-    BlackBold: Style
-    BlackLight: Style
-    BlackFlat: Style
-    BlackOutline: Style
-    BlackSolid: Style
-    BlackOutlineBold: Style
-    BlackSolidBold: Style
-    BlackOutlineLight: Style
-    BlackSolidLight: Style
-    BlackDashed: Style
-    BlackDashedBold: Style
-    BlackDashedLight: Style
-
-    # Gray1
-    Gray1: Style
-    Gray1Bordered: Style
-    Gray1Bold: Style
-    Gray1Light: Style
-    Gray1Flat: Style
-    Gray1Outline: Style
-    Gray1Solid: Style
-    Gray1OutlineBold: Style
-    Gray1SolidBold: Style
-    Gray1OutlineLight: Style
-    Gray1SolidLight: Style
-    Gray1Dashed: Style
-    Gray1DashedBold: Style
-    Gray1DashedLight: Style
-
-    # Gray2
-    Gray2: Style
-    Gray2Bordered: Style
-    Gray2Bold: Style
-    Gray2Light: Style
-    Gray2Flat: Style
-    Gray2Outline: Style
-    Gray2Solid: Style
-    Gray2OutlineBold: Style
-    Gray2SolidBold: Style
-    Gray2OutlineLight: Style
-    Gray2SolidLight: Style
-    Gray2Dashed: Style
-    Gray2DashedBold: Style
-    Gray2DashedLight: Style
-
-    # Gray3
-    Gray3: Style
-    Gray3Bordered: Style
-    Gray3Bold: Style
-    Gray3Light: Style
-    Gray3Flat: Style
-    Gray3Outline: Style
-    Gray3Solid: Style
-    Gray3OutlineBold: Style
-    Gray3SolidBold: Style
-    Gray3OutlineLight: Style
-    Gray3SolidLight: Style
-    Gray3Dashed: Style
-    Gray3DashedBold: Style
-    Gray3DashedLight: Style
-
-    # Gray4
-    Gray4: Style
-    Gray4Bordered: Style
-    Gray4Bold: Style
-    Gray4Light: Style
-    Gray4Flat: Style
-    Gray4Outline: Style
-    Gray4Solid: Style
-    Gray4OutlineBold: Style
-    Gray4SolidBold: Style
-    Gray4OutlineLight: Style
-    Gray4SolidLight: Style
-    Gray4Dashed: Style
-    Gray4DashedBold: Style
-    Gray4DashedLight: Style
-
-    # Gray5
-    Gray5: Style
-    Gray5Bordered: Style
-    Gray5Bold: Style
-    Gray5Light: Style
-    Gray5Flat: Style
-    Gray5Outline: Style
-    Gray5Solid: Style
-    Gray5OutlineBold: Style
-    Gray5SolidBold: Style
-    Gray5OutlineLight: Style
-    Gray5SolidLight: Style
-    Gray5Dashed: Style
-    Gray5DashedBold: Style
-    Gray5DashedLight: Style
-
-    # Gray6
-    Gray6: Style
-    Gray6Bordered: Style
-    Gray6Bold: Style
-    Gray6Light: Style
-    Gray6Flat: Style
-    Gray6Outline: Style
-    Gray6Solid: Style
-    Gray6OutlineBold: Style
-    Gray6SolidBold: Style
-    Gray6OutlineLight: Style
-    Gray6SolidLight: Style
-    Gray6Dashed: Style
-    Gray6DashedBold: Style
-    Gray6DashedLight: Style
-
-    # Gray7
-    Gray7: Style
-    Gray7Bordered: Style
-    Gray7Bold: Style
-    Gray7Light: Style
-    Gray7Flat: Style
-    Gray7Outline: Style
-    Gray7Solid: Style
-    Gray7OutlineBold: Style
-    Gray7SolidBold: Style
-    Gray7OutlineLight: Style
-    Gray7SolidLight: Style
-    Gray7Dashed: Style
-    Gray7DashedBold: Style
-    Gray7DashedLight: Style
-
-    # Gray8
-    Gray8: Style
-    Gray8Bordered: Style
-    Gray8Bold: Style
-    Gray8Light: Style
-    Gray8Flat: Style
-    Gray8Outline: Style
-    Gray8Solid: Style
-    Gray8OutlineBold: Style
-    Gray8SolidBold: Style
-    Gray8OutlineLight: Style
-    Gray8SolidLight: Style
-    Gray8Dashed: Style
-    Gray8DashedBold: Style
-    Gray8DashedLight: Style
-
-    # White
-    White: Style
-    WhiteBordered: Style
-    WhiteBold: Style
-    WhiteLight: Style
-    WhiteFlat: Style
-    WhiteOutline: Style
-    WhiteSolid: Style
-    WhiteOutlineBold: Style
-    WhiteSolidBold: Style
-    WhiteOutlineLight: Style
-    WhiteSolidLight: Style
-    WhiteDashed: Style
-    WhiteDashedBold: Style
-    WhiteDashedLight: Style
-
-    # Semantic Roles
     Primary: Style
     PrimaryBordered: Style
     PrimaryBold: Style
-    PrimaryLight: Style
+    PrimaryThin: Style
     PrimaryFlat: Style
     PrimaryOutline: Style
     PrimarySolid: Style
     PrimaryOutlineBold: Style
     PrimarySolidBold: Style
-    PrimaryOutlineLight: Style
-    PrimarySolidLight: Style
+    PrimaryOutlineThin: Style
+    PrimarySolidThin: Style
     PrimaryDashed: Style
     PrimaryDashedBold: Style
-    PrimaryDashedLight: Style
-
+    PrimaryDashedThin: Style
+    PrimaryDotted: Style
+    PrimaryDottedBold: Style
+    PrimaryDottedThin: Style
     Secondary: Style
     SecondaryBordered: Style
     SecondaryBold: Style
-    SecondaryLight: Style
+    SecondaryThin: Style
     SecondaryFlat: Style
     SecondaryOutline: Style
     SecondarySolid: Style
     SecondaryOutlineBold: Style
     SecondarySolidBold: Style
-    SecondaryOutlineLight: Style
-    SecondarySolidLight: Style
+    SecondaryOutlineThin: Style
+    SecondarySolidThin: Style
     SecondaryDashed: Style
     SecondaryDashedBold: Style
-    SecondaryDashedLight: Style
-
+    SecondaryDashedThin: Style
+    SecondaryDotted: Style
+    SecondaryDottedBold: Style
+    SecondaryDottedThin: Style
     Accent: Style
     AccentBordered: Style
     AccentBold: Style
-    AccentLight: Style
+    AccentThin: Style
     AccentFlat: Style
     AccentOutline: Style
     AccentSolid: Style
     AccentOutlineBold: Style
     AccentSolidBold: Style
-    AccentOutlineLight: Style
-    AccentSolidLight: Style
+    AccentOutlineThin: Style
+    AccentSolidThin: Style
     AccentDashed: Style
     AccentDashedBold: Style
-    AccentDashedLight: Style
-
+    AccentDashedThin: Style
+    AccentDotted: Style
+    AccentDottedBold: Style
+    AccentDottedThin: Style
     Muted: Style
     MutedBordered: Style
     MutedBold: Style
-    MutedLight: Style
+    MutedThin: Style
     MutedFlat: Style
     MutedOutline: Style
     MutedSolid: Style
     MutedOutlineBold: Style
     MutedSolidBold: Style
-    MutedOutlineLight: Style
-    MutedSolidLight: Style
+    MutedOutlineThin: Style
+    MutedSolidThin: Style
     MutedDashed: Style
     MutedDashedBold: Style
-    MutedDashedLight: Style
-
+    MutedDashedThin: Style
+    MutedDotted: Style
+    MutedDottedBold: Style
+    MutedDottedThin: Style
     Light: Style
     LightBordered: Style
     LightBold: Style
-    LightLight: Style
+    LightThin: Style
     LightFlat: Style
     LightOutline: Style
     LightSolid: Style
     LightOutlineBold: Style
     LightSolidBold: Style
-    LightOutlineLight: Style
-    LightSolidLight: Style
+    LightOutlineThin: Style
+    LightSolidThin: Style
     LightDashed: Style
     LightDashedBold: Style
-    LightDashedLight: Style
-
-    Dark: Style
-    DarkBordered: Style
-    DarkBold: Style
-    DarkLight: Style
-    DarkFlat: Style
-    DarkOutline: Style
-    DarkSolid: Style
-    DarkOutlineBold: Style
-    DarkSolidBold: Style
-    DarkOutlineLight: Style
-    DarkSolidLight: Style
-    DarkDashed: Style
-    DarkDashedBold: Style
-    DarkDashedLight: Style
-
-    # neutral
+    LightDashedThin: Style
+    LightDotted: Style
+    LightDottedBold: Style
+    LightDottedThin: Style
     Neutral: Style
     NeutralBordered: Style
     NeutralBold: Style
-    NeutralLight: Style
+    NeutralThin: Style
     NeutralFlat: Style
     NeutralOutline: Style
     NeutralSolid: Style
     NeutralOutlineBold: Style
     NeutralSolidBold: Style
-    NeutralOutlineLight: Style
-    NeutralSolidLight: Style
+    NeutralOutlineThin: Style
+    NeutralSolidThin: Style
     NeutralDashed: Style
     NeutralDashedBold: Style
-    NeutralDashedLight: Style
+    NeutralDashedThin: Style
     NeutralDotted: Style
     NeutralDottedBold: Style
-    NeutralDottedLight: Style
-
-    # Semantic Neutral Cards (Bordered & Flat)
+    NeutralDottedThin: Style
+    Dark: Style
+    DarkBordered: Style
+    DarkBold: Style
+    DarkThin: Style
+    DarkFlat: Style
+    DarkOutline: Style
+    DarkSolid: Style
+    DarkOutlineBold: Style
+    DarkSolidBold: Style
+    DarkOutlineThin: Style
+    DarkSolidThin: Style
+    DarkDashed: Style
+    DarkDashedBold: Style
+    DarkDashedThin: Style
+    DarkDotted: Style
+    DarkDottedBold: Style
+    DarkDottedThin: Style
+    White: Style
+    WhiteBordered: Style
+    WhiteBold: Style
+    WhiteThin: Style
+    WhiteFlat: Style
+    WhiteOutline: Style
+    WhiteSolid: Style
+    WhiteOutlineBold: Style
+    WhiteSolidBold: Style
+    WhiteOutlineThin: Style
+    WhiteSolidThin: Style
+    WhiteDashed: Style
+    WhiteDashedBold: Style
+    WhiteDashedThin: Style
+    WhiteDotted: Style
+    WhiteDottedBold: Style
+    WhiteDottedThin: Style
+    Gray1: Style
+    Gray1Bordered: Style
+    Gray1Bold: Style
+    Gray1Thin: Style
+    Gray1Flat: Style
+    Gray1Outline: Style
+    Gray1Solid: Style
+    Gray1OutlineBold: Style
+    Gray1SolidBold: Style
+    Gray1OutlineThin: Style
+    Gray1SolidThin: Style
+    Gray1Dashed: Style
+    Gray1DashedBold: Style
+    Gray1DashedThin: Style
+    Gray1Dotted: Style
+    Gray1DottedBold: Style
+    Gray1DottedThin: Style
+    Gray2: Style
+    Gray2Bordered: Style
+    Gray2Bold: Style
+    Gray2Thin: Style
+    Gray2Flat: Style
+    Gray2Outline: Style
+    Gray2Solid: Style
+    Gray2OutlineBold: Style
+    Gray2SolidBold: Style
+    Gray2OutlineThin: Style
+    Gray2SolidThin: Style
+    Gray2Dashed: Style
+    Gray2DashedBold: Style
+    Gray2DashedThin: Style
+    Gray2Dotted: Style
+    Gray2DottedBold: Style
+    Gray2DottedThin: Style
+    Gray3: Style
+    Gray3Bordered: Style
+    Gray3Bold: Style
+    Gray3Thin: Style
+    Gray3Flat: Style
+    Gray3Outline: Style
+    Gray3Solid: Style
+    Gray3OutlineBold: Style
+    Gray3SolidBold: Style
+    Gray3OutlineThin: Style
+    Gray3SolidThin: Style
+    Gray3Dashed: Style
+    Gray3DashedBold: Style
+    Gray3DashedThin: Style
+    Gray3Dotted: Style
+    Gray3DottedBold: Style
+    Gray3DottedThin: Style
+    Gray4: Style
+    Gray4Bordered: Style
+    Gray4Bold: Style
+    Gray4Thin: Style
+    Gray4Flat: Style
+    Gray4Outline: Style
+    Gray4Solid: Style
+    Gray4OutlineBold: Style
+    Gray4SolidBold: Style
+    Gray4OutlineThin: Style
+    Gray4SolidThin: Style
+    Gray4Dashed: Style
+    Gray4DashedBold: Style
+    Gray4DashedThin: Style
+    Gray4Dotted: Style
+    Gray4DottedBold: Style
+    Gray4DottedThin: Style
+    Gray5: Style
+    Gray5Bordered: Style
+    Gray5Bold: Style
+    Gray5Thin: Style
+    Gray5Flat: Style
+    Gray5Outline: Style
+    Gray5Solid: Style
+    Gray5OutlineBold: Style
+    Gray5SolidBold: Style
+    Gray5OutlineThin: Style
+    Gray5SolidThin: Style
+    Gray5Dashed: Style
+    Gray5DashedBold: Style
+    Gray5DashedThin: Style
+    Gray5Dotted: Style
+    Gray5DottedBold: Style
+    Gray5DottedThin: Style
+    Gray6: Style
+    Gray6Bordered: Style
+    Gray6Bold: Style
+    Gray6Thin: Style
+    Gray6Flat: Style
+    Gray6Outline: Style
+    Gray6Solid: Style
+    Gray6OutlineBold: Style
+    Gray6SolidBold: Style
+    Gray6OutlineThin: Style
+    Gray6SolidThin: Style
+    Gray6Dashed: Style
+    Gray6DashedBold: Style
+    Gray6DashedThin: Style
+    Gray6Dotted: Style
+    Gray6DottedBold: Style
+    Gray6DottedThin: Style
+    Gray7: Style
+    Gray7Bordered: Style
+    Gray7Bold: Style
+    Gray7Thin: Style
+    Gray7Flat: Style
+    Gray7Outline: Style
+    Gray7Solid: Style
+    Gray7OutlineBold: Style
+    Gray7SolidBold: Style
+    Gray7OutlineThin: Style
+    Gray7SolidThin: Style
+    Gray7Dashed: Style
+    Gray7DashedBold: Style
+    Gray7DashedThin: Style
+    Gray7Dotted: Style
+    Gray7DottedBold: Style
+    Gray7DottedThin: Style
+    Gray8: Style
+    Gray8Bordered: Style
+    Gray8Bold: Style
+    Gray8Thin: Style
+    Gray8Flat: Style
+    Gray8Outline: Style
+    Gray8Solid: Style
+    Gray8OutlineBold: Style
+    Gray8SolidBold: Style
+    Gray8OutlineThin: Style
+    Gray8SolidThin: Style
+    Gray8Dashed: Style
+    Gray8DashedBold: Style
+    Gray8DashedThin: Style
+    Gray8Dotted: Style
+    Gray8DottedBold: Style
+    Gray8DottedThin: Style
+    Black: Style
+    BlackBordered: Style
+    BlackBold: Style
+    BlackThin: Style
+    BlackFlat: Style
+    BlackOutline: Style
+    BlackSolid: Style
+    BlackOutlineBold: Style
+    BlackSolidBold: Style
+    BlackOutlineThin: Style
+    BlackSolidThin: Style
+    BlackDashed: Style
+    BlackDashedBold: Style
+    BlackDashedThin: Style
+    BlackDotted: Style
+    BlackDottedBold: Style
+    BlackDottedThin: Style
+    Canvas: Style
+    CanvasFlat: Style
+    GrayNeutral: Style
+    GrayNeutralFlat: Style
     PrimaryNeutral: Style
     PrimaryNeutralFlat: Style
     SecondaryNeutral: Style
@@ -308,10 +330,6 @@ class MonochromeStyles(BaseStyles):
     SuccessNeutralFlat: Style
     MutedNeutral: Style
     MutedNeutralFlat: Style
-
-    # Named Color Neutral Cards (Bordered & Flat)
-    GrayNeutral: Style
-    GrayNeutralFlat: Style
     BlueNeutral: Style
     BlueNeutralFlat: Style
     GreenNeutral: Style
@@ -335,9 +353,6 @@ class MonochromeStyles(BaseStyles):
     MagentaNeutral: Style
     MagentaNeutralFlat: Style
 
-    Canvas: Style
-    CanvasFlat: Style
-
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize preset styles instance.
 
@@ -349,242 +364,341 @@ class MonochromeStyles(BaseStyles):
     def patch(
         self,
         *,
-        Canvas: Style | None = None,
-        CanvasFlat: Style | None = None,
         BackgroundColor: ColorType | None = None,
         Width: int | None = None,
         Height: int | None = None,
         Dpi: int | None = None,
         SourcecodeFont: FontSourceCode | None = None,
         Colors: BaseColors | None = None,
+        Canvas: Style | None = None,
+        CanvasFlat: Style | None = None,
         Primary: Style | None = None,
         PrimaryBordered: Style | None = None,
         PrimaryBold: Style | None = None,
-        PrimaryLight: Style | None = None,
+        PrimaryThin: Style | None = None,
         PrimaryFlat: Style | None = None,
         PrimaryOutline: Style | None = None,
+        PrimarySolid: Style | None = None,
         PrimaryOutlineBold: Style | None = None,
-        PrimaryOutlineLight: Style | None = None,
+        PrimarySolidBold: Style | None = None,
+        PrimaryOutlineThin: Style | None = None,
+        PrimarySolidThin: Style | None = None,
         PrimaryDashed: Style | None = None,
         PrimaryDashedBold: Style | None = None,
-        PrimaryDashedLight: Style | None = None,
+        PrimaryDashedThin: Style | None = None,
+        PrimaryDotted: Style | None = None,
+        PrimaryDottedBold: Style | None = None,
+        PrimaryDottedThin: Style | None = None,
         Secondary: Style | None = None,
         SecondaryBordered: Style | None = None,
         SecondaryBold: Style | None = None,
-        SecondaryLight: Style | None = None,
+        SecondaryThin: Style | None = None,
         SecondaryFlat: Style | None = None,
         SecondaryOutline: Style | None = None,
+        SecondarySolid: Style | None = None,
         SecondaryOutlineBold: Style | None = None,
-        SecondaryOutlineLight: Style | None = None,
+        SecondarySolidBold: Style | None = None,
+        SecondaryOutlineThin: Style | None = None,
+        SecondarySolidThin: Style | None = None,
         SecondaryDashed: Style | None = None,
         SecondaryDashedBold: Style | None = None,
-        SecondaryDashedLight: Style | None = None,
+        SecondaryDashedThin: Style | None = None,
+        SecondaryDotted: Style | None = None,
+        SecondaryDottedBold: Style | None = None,
+        SecondaryDottedThin: Style | None = None,
         Accent: Style | None = None,
         AccentBordered: Style | None = None,
         AccentBold: Style | None = None,
-        AccentLight: Style | None = None,
+        AccentThin: Style | None = None,
         AccentFlat: Style | None = None,
         AccentOutline: Style | None = None,
+        AccentSolid: Style | None = None,
         AccentOutlineBold: Style | None = None,
-        AccentOutlineLight: Style | None = None,
+        AccentSolidBold: Style | None = None,
+        AccentOutlineThin: Style | None = None,
+        AccentSolidThin: Style | None = None,
         AccentDashed: Style | None = None,
         AccentDashedBold: Style | None = None,
-        AccentDashedLight: Style | None = None,
+        AccentDashedThin: Style | None = None,
+        AccentDotted: Style | None = None,
+        AccentDottedBold: Style | None = None,
+        AccentDottedThin: Style | None = None,
         Muted: Style | None = None,
         MutedBordered: Style | None = None,
         MutedBold: Style | None = None,
-        MutedLight: Style | None = None,
+        MutedThin: Style | None = None,
         MutedFlat: Style | None = None,
         MutedOutline: Style | None = None,
+        MutedSolid: Style | None = None,
         MutedOutlineBold: Style | None = None,
-        MutedOutlineLight: Style | None = None,
+        MutedSolidBold: Style | None = None,
+        MutedOutlineThin: Style | None = None,
+        MutedSolidThin: Style | None = None,
         MutedDashed: Style | None = None,
         MutedDashedBold: Style | None = None,
-        MutedDashedLight: Style | None = None,
+        MutedDashedThin: Style | None = None,
+        MutedDotted: Style | None = None,
+        MutedDottedBold: Style | None = None,
+        MutedDottedThin: Style | None = None,
         Light: Style | None = None,
         LightBordered: Style | None = None,
         LightBold: Style | None = None,
-        LightLight: Style | None = None,
+        LightThin: Style | None = None,
         LightFlat: Style | None = None,
         LightOutline: Style | None = None,
+        LightSolid: Style | None = None,
         LightOutlineBold: Style | None = None,
-        LightOutlineLight: Style | None = None,
+        LightSolidBold: Style | None = None,
+        LightOutlineThin: Style | None = None,
+        LightSolidThin: Style | None = None,
         LightDashed: Style | None = None,
         LightDashedBold: Style | None = None,
-        LightDashedLight: Style | None = None,
+        LightDashedThin: Style | None = None,
+        LightDotted: Style | None = None,
+        LightDottedBold: Style | None = None,
+        LightDottedThin: Style | None = None,
+        Neutral: Style | None = None,
+        NeutralBordered: Style | None = None,
+        NeutralBold: Style | None = None,
+        NeutralThin: Style | None = None,
+        NeutralFlat: Style | None = None,
+        NeutralOutline: Style | None = None,
+        NeutralSolid: Style | None = None,
+        NeutralOutlineBold: Style | None = None,
+        NeutralSolidBold: Style | None = None,
+        NeutralOutlineThin: Style | None = None,
+        NeutralSolidThin: Style | None = None,
+        NeutralDashed: Style | None = None,
+        NeutralDashedBold: Style | None = None,
+        NeutralDashedThin: Style | None = None,
+        NeutralDotted: Style | None = None,
+        NeutralDottedBold: Style | None = None,
+        NeutralDottedThin: Style | None = None,
         Dark: Style | None = None,
         DarkBordered: Style | None = None,
         DarkBold: Style | None = None,
-        DarkLight: Style | None = None,
+        DarkThin: Style | None = None,
         DarkFlat: Style | None = None,
         DarkOutline: Style | None = None,
+        DarkSolid: Style | None = None,
         DarkOutlineBold: Style | None = None,
-        DarkOutlineLight: Style | None = None,
+        DarkSolidBold: Style | None = None,
+        DarkOutlineThin: Style | None = None,
+        DarkSolidThin: Style | None = None,
         DarkDashed: Style | None = None,
         DarkDashedBold: Style | None = None,
-        DarkDashedLight: Style | None = None,
-        Danger: Style | None = None,
-        DangerBordered: Style | None = None,
-        DangerBold: Style | None = None,
-        DangerLight: Style | None = None,
-        DangerFlat: Style | None = None,
-        DangerOutline: Style | None = None,
-        DangerOutlineBold: Style | None = None,
-        DangerOutlineLight: Style | None = None,
-        DangerDashed: Style | None = None,
-        DangerDashedBold: Style | None = None,
-        DangerDashedLight: Style | None = None,
-        Success: Style | None = None,
-        SuccessBordered: Style | None = None,
-        SuccessBold: Style | None = None,
-        SuccessLight: Style | None = None,
-        SuccessFlat: Style | None = None,
-        SuccessOutline: Style | None = None,
-        SuccessOutlineBold: Style | None = None,
-        SuccessOutlineLight: Style | None = None,
-        SuccessDashed: Style | None = None,
-        SuccessDashedBold: Style | None = None,
-        SuccessDashedLight: Style | None = None,
-        Black: Style | None = None,
-        BlackBordered: Style | None = None,
-        BlackBold: Style | None = None,
-        BlackLight: Style | None = None,
-        BlackFlat: Style | None = None,
-        BlackOutline: Style | None = None,
-        BlackSolid: Style | None = None,
-        BlackOutlineBold: Style | None = None,
-        BlackSolidBold: Style | None = None,
-        BlackOutlineLight: Style | None = None,
-        BlackSolidLight: Style | None = None,
-        BlackDashed: Style | None = None,
-        BlackDashedBold: Style | None = None,
-        BlackDashedLight: Style | None = None,
-        Gray1: Style | None = None,
-        Gray1Bordered: Style | None = None,
-        Gray1Bold: Style | None = None,
-        Gray1Light: Style | None = None,
-        Gray1Flat: Style | None = None,
-        Gray1Outline: Style | None = None,
-        Gray1Solid: Style | None = None,
-        Gray1OutlineBold: Style | None = None,
-        Gray1SolidBold: Style | None = None,
-        Gray1OutlineLight: Style | None = None,
-        Gray1SolidLight: Style | None = None,
-        Gray1Dashed: Style | None = None,
-        Gray1DashedBold: Style | None = None,
-        Gray1DashedLight: Style | None = None,
-        Gray2: Style | None = None,
-        Gray2Bordered: Style | None = None,
-        Gray2Bold: Style | None = None,
-        Gray2Light: Style | None = None,
-        Gray2Flat: Style | None = None,
-        Gray2Outline: Style | None = None,
-        Gray2Solid: Style | None = None,
-        Gray2OutlineBold: Style | None = None,
-        Gray2SolidBold: Style | None = None,
-        Gray2OutlineLight: Style | None = None,
-        Gray2SolidLight: Style | None = None,
-        Gray2Dashed: Style | None = None,
-        Gray2DashedBold: Style | None = None,
-        Gray2DashedLight: Style | None = None,
-        Gray3: Style | None = None,
-        Gray3Bordered: Style | None = None,
-        Gray3Bold: Style | None = None,
-        Gray3Light: Style | None = None,
-        Gray3Flat: Style | None = None,
-        Gray3Outline: Style | None = None,
-        Gray3Solid: Style | None = None,
-        Gray3OutlineBold: Style | None = None,
-        Gray3SolidBold: Style | None = None,
-        Gray3OutlineLight: Style | None = None,
-        Gray3SolidLight: Style | None = None,
-        Gray3Dashed: Style | None = None,
-        Gray3DashedBold: Style | None = None,
-        Gray3DashedLight: Style | None = None,
-        Gray4: Style | None = None,
-        Gray4Bordered: Style | None = None,
-        Gray4Bold: Style | None = None,
-        Gray4Light: Style | None = None,
-        Gray4Flat: Style | None = None,
-        Gray4Outline: Style | None = None,
-        Gray4Solid: Style | None = None,
-        Gray4OutlineBold: Style | None = None,
-        Gray4SolidBold: Style | None = None,
-        Gray4OutlineLight: Style | None = None,
-        Gray4SolidLight: Style | None = None,
-        Gray4Dashed: Style | None = None,
-        Gray4DashedBold: Style | None = None,
-        Gray4DashedLight: Style | None = None,
-        Gray5: Style | None = None,
-        Gray5Bordered: Style | None = None,
-        Gray5Bold: Style | None = None,
-        Gray5Light: Style | None = None,
-        Gray5Flat: Style | None = None,
-        Gray5Outline: Style | None = None,
-        Gray5Solid: Style | None = None,
-        Gray5OutlineBold: Style | None = None,
-        Gray5SolidBold: Style | None = None,
-        Gray5OutlineLight: Style | None = None,
-        Gray5SolidLight: Style | None = None,
-        Gray5Dashed: Style | None = None,
-        Gray5DashedBold: Style | None = None,
-        Gray5DashedLight: Style | None = None,
-        Gray6: Style | None = None,
-        Gray6Bordered: Style | None = None,
-        Gray6Bold: Style | None = None,
-        Gray6Light: Style | None = None,
-        Gray6Flat: Style | None = None,
-        Gray6Outline: Style | None = None,
-        Gray6Solid: Style | None = None,
-        Gray6OutlineBold: Style | None = None,
-        Gray6SolidBold: Style | None = None,
-        Gray6OutlineLight: Style | None = None,
-        Gray6SolidLight: Style | None = None,
-        Gray6Dashed: Style | None = None,
-        Gray6DashedBold: Style | None = None,
-        Gray6DashedLight: Style | None = None,
-        Gray7: Style | None = None,
-        Gray7Bordered: Style | None = None,
-        Gray7Bold: Style | None = None,
-        Gray7Light: Style | None = None,
-        Gray7Flat: Style | None = None,
-        Gray7Outline: Style | None = None,
-        Gray7Solid: Style | None = None,
-        Gray7OutlineBold: Style | None = None,
-        Gray7SolidBold: Style | None = None,
-        Gray7OutlineLight: Style | None = None,
-        Gray7SolidLight: Style | None = None,
-        Gray7Dashed: Style | None = None,
-        Gray7DashedBold: Style | None = None,
-        Gray7DashedLight: Style | None = None,
-        Gray8: Style | None = None,
-        Gray8Bordered: Style | None = None,
-        Gray8Bold: Style | None = None,
-        Gray8Light: Style | None = None,
-        Gray8Flat: Style | None = None,
-        Gray8Outline: Style | None = None,
-        Gray8Solid: Style | None = None,
-        Gray8OutlineBold: Style | None = None,
-        Gray8SolidBold: Style | None = None,
-        Gray8OutlineLight: Style | None = None,
-        Gray8SolidLight: Style | None = None,
-        Gray8Dashed: Style | None = None,
-        Gray8DashedBold: Style | None = None,
-        Gray8DashedLight: Style | None = None,
+        DarkDashedThin: Style | None = None,
+        DarkDotted: Style | None = None,
+        DarkDottedBold: Style | None = None,
+        DarkDottedThin: Style | None = None,
         White: Style | None = None,
         WhiteBordered: Style | None = None,
         WhiteBold: Style | None = None,
-        WhiteLight: Style | None = None,
+        WhiteThin: Style | None = None,
         WhiteFlat: Style | None = None,
         WhiteOutline: Style | None = None,
         WhiteSolid: Style | None = None,
         WhiteOutlineBold: Style | None = None,
         WhiteSolidBold: Style | None = None,
-        WhiteOutlineLight: Style | None = None,
-        WhiteSolidLight: Style | None = None,
+        WhiteOutlineThin: Style | None = None,
+        WhiteSolidThin: Style | None = None,
         WhiteDashed: Style | None = None,
         WhiteDashedBold: Style | None = None,
-        WhiteDashedLight: Style | None = None,
+        WhiteDashedThin: Style | None = None,
+        WhiteDotted: Style | None = None,
+        WhiteDottedBold: Style | None = None,
+        WhiteDottedThin: Style | None = None,
+        Gray1: Style | None = None,
+        Gray1Bordered: Style | None = None,
+        Gray1Bold: Style | None = None,
+        Gray1Thin: Style | None = None,
+        Gray1Flat: Style | None = None,
+        Gray1Outline: Style | None = None,
+        Gray1Solid: Style | None = None,
+        Gray1OutlineBold: Style | None = None,
+        Gray1SolidBold: Style | None = None,
+        Gray1OutlineThin: Style | None = None,
+        Gray1SolidThin: Style | None = None,
+        Gray1Dashed: Style | None = None,
+        Gray1DashedBold: Style | None = None,
+        Gray1DashedThin: Style | None = None,
+        Gray1Dotted: Style | None = None,
+        Gray1DottedBold: Style | None = None,
+        Gray1DottedThin: Style | None = None,
+        Gray2: Style | None = None,
+        Gray2Bordered: Style | None = None,
+        Gray2Bold: Style | None = None,
+        Gray2Thin: Style | None = None,
+        Gray2Flat: Style | None = None,
+        Gray2Outline: Style | None = None,
+        Gray2Solid: Style | None = None,
+        Gray2OutlineBold: Style | None = None,
+        Gray2SolidBold: Style | None = None,
+        Gray2OutlineThin: Style | None = None,
+        Gray2SolidThin: Style | None = None,
+        Gray2Dashed: Style | None = None,
+        Gray2DashedBold: Style | None = None,
+        Gray2DashedThin: Style | None = None,
+        Gray2Dotted: Style | None = None,
+        Gray2DottedBold: Style | None = None,
+        Gray2DottedThin: Style | None = None,
+        Gray3: Style | None = None,
+        Gray3Bordered: Style | None = None,
+        Gray3Bold: Style | None = None,
+        Gray3Thin: Style | None = None,
+        Gray3Flat: Style | None = None,
+        Gray3Outline: Style | None = None,
+        Gray3Solid: Style | None = None,
+        Gray3OutlineBold: Style | None = None,
+        Gray3SolidBold: Style | None = None,
+        Gray3OutlineThin: Style | None = None,
+        Gray3SolidThin: Style | None = None,
+        Gray3Dashed: Style | None = None,
+        Gray3DashedBold: Style | None = None,
+        Gray3DashedThin: Style | None = None,
+        Gray3Dotted: Style | None = None,
+        Gray3DottedBold: Style | None = None,
+        Gray3DottedThin: Style | None = None,
+        Gray4: Style | None = None,
+        Gray4Bordered: Style | None = None,
+        Gray4Bold: Style | None = None,
+        Gray4Thin: Style | None = None,
+        Gray4Flat: Style | None = None,
+        Gray4Outline: Style | None = None,
+        Gray4Solid: Style | None = None,
+        Gray4OutlineBold: Style | None = None,
+        Gray4SolidBold: Style | None = None,
+        Gray4OutlineThin: Style | None = None,
+        Gray4SolidThin: Style | None = None,
+        Gray4Dashed: Style | None = None,
+        Gray4DashedBold: Style | None = None,
+        Gray4DashedThin: Style | None = None,
+        Gray4Dotted: Style | None = None,
+        Gray4DottedBold: Style | None = None,
+        Gray4DottedThin: Style | None = None,
+        Gray5: Style | None = None,
+        Gray5Bordered: Style | None = None,
+        Gray5Bold: Style | None = None,
+        Gray5Thin: Style | None = None,
+        Gray5Flat: Style | None = None,
+        Gray5Outline: Style | None = None,
+        Gray5Solid: Style | None = None,
+        Gray5OutlineBold: Style | None = None,
+        Gray5SolidBold: Style | None = None,
+        Gray5OutlineThin: Style | None = None,
+        Gray5SolidThin: Style | None = None,
+        Gray5Dashed: Style | None = None,
+        Gray5DashedBold: Style | None = None,
+        Gray5DashedThin: Style | None = None,
+        Gray5Dotted: Style | None = None,
+        Gray5DottedBold: Style | None = None,
+        Gray5DottedThin: Style | None = None,
+        Gray6: Style | None = None,
+        Gray6Bordered: Style | None = None,
+        Gray6Bold: Style | None = None,
+        Gray6Thin: Style | None = None,
+        Gray6Flat: Style | None = None,
+        Gray6Outline: Style | None = None,
+        Gray6Solid: Style | None = None,
+        Gray6OutlineBold: Style | None = None,
+        Gray6SolidBold: Style | None = None,
+        Gray6OutlineThin: Style | None = None,
+        Gray6SolidThin: Style | None = None,
+        Gray6Dashed: Style | None = None,
+        Gray6DashedBold: Style | None = None,
+        Gray6DashedThin: Style | None = None,
+        Gray6Dotted: Style | None = None,
+        Gray6DottedBold: Style | None = None,
+        Gray6DottedThin: Style | None = None,
+        Gray7: Style | None = None,
+        Gray7Bordered: Style | None = None,
+        Gray7Bold: Style | None = None,
+        Gray7Thin: Style | None = None,
+        Gray7Flat: Style | None = None,
+        Gray7Outline: Style | None = None,
+        Gray7Solid: Style | None = None,
+        Gray7OutlineBold: Style | None = None,
+        Gray7SolidBold: Style | None = None,
+        Gray7OutlineThin: Style | None = None,
+        Gray7SolidThin: Style | None = None,
+        Gray7Dashed: Style | None = None,
+        Gray7DashedBold: Style | None = None,
+        Gray7DashedThin: Style | None = None,
+        Gray7Dotted: Style | None = None,
+        Gray7DottedBold: Style | None = None,
+        Gray7DottedThin: Style | None = None,
+        Gray8: Style | None = None,
+        Gray8Bordered: Style | None = None,
+        Gray8Bold: Style | None = None,
+        Gray8Thin: Style | None = None,
+        Gray8Flat: Style | None = None,
+        Gray8Outline: Style | None = None,
+        Gray8Solid: Style | None = None,
+        Gray8OutlineBold: Style | None = None,
+        Gray8SolidBold: Style | None = None,
+        Gray8OutlineThin: Style | None = None,
+        Gray8SolidThin: Style | None = None,
+        Gray8Dashed: Style | None = None,
+        Gray8DashedBold: Style | None = None,
+        Gray8DashedThin: Style | None = None,
+        Gray8Dotted: Style | None = None,
+        Gray8DottedBold: Style | None = None,
+        Gray8DottedThin: Style | None = None,
+        Black: Style | None = None,
+        BlackBordered: Style | None = None,
+        BlackBold: Style | None = None,
+        BlackThin: Style | None = None,
+        BlackFlat: Style | None = None,
+        BlackOutline: Style | None = None,
+        BlackSolid: Style | None = None,
+        BlackOutlineBold: Style | None = None,
+        BlackSolidBold: Style | None = None,
+        BlackOutlineThin: Style | None = None,
+        BlackSolidThin: Style | None = None,
+        BlackDashed: Style | None = None,
+        BlackDashedBold: Style | None = None,
+        BlackDashedThin: Style | None = None,
+        BlackDotted: Style | None = None,
+        BlackDottedBold: Style | None = None,
+        BlackDottedThin: Style | None = None,
+        GrayNeutral: Style | None = None,
+        GrayNeutralFlat: Style | None = None,
+        PrimaryNeutral: Style | None = None,
+        PrimaryNeutralFlat: Style | None = None,
+        SecondaryNeutral: Style | None = None,
+        SecondaryNeutralFlat: Style | None = None,
+        AccentNeutral: Style | None = None,
+        AccentNeutralFlat: Style | None = None,
+        WarningNeutral: Style | None = None,
+        WarningNeutralFlat: Style | None = None,
+        DangerNeutral: Style | None = None,
+        DangerNeutralFlat: Style | None = None,
+        SuccessNeutral: Style | None = None,
+        SuccessNeutralFlat: Style | None = None,
+        MutedNeutral: Style | None = None,
+        MutedNeutralFlat: Style | None = None,
+        BlueNeutral: Style | None = None,
+        BlueNeutralFlat: Style | None = None,
+        GreenNeutral: Style | None = None,
+        GreenNeutralFlat: Style | None = None,
+        RedNeutral: Style | None = None,
+        RedNeutralFlat: Style | None = None,
+        OrangeNeutral: Style | None = None,
+        OrangeNeutralFlat: Style | None = None,
+        AmberNeutral: Style | None = None,
+        AmberNeutralFlat: Style | None = None,
+        PurpleNeutral: Style | None = None,
+        PurpleNeutralFlat: Style | None = None,
+        TealNeutral: Style | None = None,
+        TealNeutralFlat: Style | None = None,
+        PinkNeutral: Style | None = None,
+        PinkNeutralFlat: Style | None = None,
+        CyanNeutral: Style | None = None,
+        CyanNeutralFlat: Style | None = None,
+        YellowNeutral: Style | None = None,
+        YellowNeutralFlat: Style | None = None,
+        MagentaNeutral: Style | None = None,
+        MagentaNeutralFlat: Style | None = None,
         **kwargs: Any,  # noqa: ANN401
     ) -> Self:
         """Create a new copy of preset styles with updated attributes.
@@ -595,7 +709,7 @@ class MonochromeStyles(BaseStyles):
         Returns:
             Self: New preset styles instance with updated attributes.
         """
-        passed = {k: v for k, v in locals().items() if k not in {"self", "kwargs"} and v is not None}
+        passed = {k: v for k, v in locals().items() if k not in {"self", "kwargs", "__class__"} and v is not None}
         return super().patch(**passed, **kwargs)
 
     def __getattribute__(self, name: str) -> Any:  # noqa: ANN401
@@ -714,20 +828,20 @@ def _create_monochrome_styles() -> MonochromeStyles:
         styles_dict[role_name] = v["normal"]
         styles_dict[f"{role_name}Bordered"] = v["bordered"]
         styles_dict[f"{role_name}Bold"] = v["bold"]
-        styles_dict[f"{role_name}Light"] = v["light"]
+        styles_dict[f"{role_name}Thin"] = v["thin"]
         styles_dict[f"{role_name}Flat"] = v["flat"]
         styles_dict[f"{role_name}Outline"] = v["outline"]
         styles_dict[f"{role_name}Solid"] = v["solid"]
         styles_dict[f"{role_name}OutlineBold"] = v["outline_bold"]
         styles_dict[f"{role_name}SolidBold"] = v["solid_bold"]
-        styles_dict[f"{role_name}OutlineLight"] = v["outline_light"]
-        styles_dict[f"{role_name}SolidLight"] = v["solid_light"]
+        styles_dict[f"{role_name}OutlineThin"] = v["outline_thin"]
+        styles_dict[f"{role_name}SolidThin"] = v["solid_thin"]
         styles_dict[f"{role_name}Dashed"] = v["dashed"]
         styles_dict[f"{role_name}DashedBold"] = v["dashed_bold"]
-        styles_dict[f"{role_name}DashedLight"] = v["dashed_light"]
+        styles_dict[f"{role_name}DashedThin"] = v["dashed_thin"]
         styles_dict[f"{role_name}Dotted"] = v["dotted"]
         styles_dict[f"{role_name}DottedBold"] = v["dotted_bold"]
-        styles_dict[f"{role_name}DottedLight"] = v["dotted_light"]
+        styles_dict[f"{role_name}DottedThin"] = v["dotted_thin"]
 
     color_variants = {
         "White": _make_variants(white, border_color=black),
@@ -746,20 +860,20 @@ def _create_monochrome_styles() -> MonochromeStyles:
         styles_dict[cname] = v["normal"]
         styles_dict[f"{cname}Bordered"] = v["bordered"]
         styles_dict[f"{cname}Bold"] = v["bold"]
-        styles_dict[f"{cname}Light"] = v["light"]
+        styles_dict[f"{cname}Thin"] = v["thin"]
         styles_dict[f"{cname}Flat"] = v["flat"]
         styles_dict[f"{cname}Outline"] = v["outline"]
         styles_dict[f"{cname}Solid"] = v["solid"]
         styles_dict[f"{cname}OutlineBold"] = v["outline_bold"]
         styles_dict[f"{cname}SolidBold"] = v["solid_bold"]
-        styles_dict[f"{cname}OutlineLight"] = v["outline_light"]
-        styles_dict[f"{cname}SolidLight"] = v["solid_light"]
+        styles_dict[f"{cname}OutlineThin"] = v["outline_thin"]
+        styles_dict[f"{cname}SolidThin"] = v["solid_thin"]
         styles_dict[f"{cname}Dashed"] = v["dashed"]
         styles_dict[f"{cname}DashedBold"] = v["dashed_bold"]
-        styles_dict[f"{cname}DashedLight"] = v["dashed_light"]
+        styles_dict[f"{cname}DashedThin"] = v["dashed_thin"]
         styles_dict[f"{cname}Dotted"] = v["dotted"]
         styles_dict[f"{cname}DottedBold"] = v["dotted_bold"]
-        styles_dict[f"{cname}DottedLight"] = v["dotted_light"]
+        styles_dict[f"{cname}DottedThin"] = v["dotted_thin"]
 
     # Neutral Card Styles (Bordered & Flat)
     neutral_card, neutral_flat = _make_neutral_card(gray2, border_color=gray5, text_color=gray8)

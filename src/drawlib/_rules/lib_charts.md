@@ -871,7 +871,7 @@ chart = GanttChart(
     bar_radius=1.0,
     axis_text_style=Styles.Muted.patch(text_size=9.5),
     grid_style=Styles.MutedDashed,
-    zebra_style=Styles.MutedLight,
+    zebra_style=Styles.MutedThin,
     progress_text_style=Styles.WhiteBold.patch(text_size=8.5),
 )
 

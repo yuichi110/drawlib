@@ -64,7 +64,7 @@ table = Table(
     text_style=Styles.Primary.patch(text_size=9),
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold.patch(text_size=9.5),
-    border_style=Styles.MutedLight,
+    border_style=Styles.MutedThin,
 )
 
 table.set_style_cell_evenodd(

@@ -31,7 +31,7 @@ class TestTree:
         t = tn(
             "Root",
             text_style=styles.Primary,
-            line_style=styles.PrimaryLight,
+            line_style=styles.PrimaryThin,
             line_horizontal_margin=2,
             line_horizontal_length=2,
             line_vertical_margin=5,

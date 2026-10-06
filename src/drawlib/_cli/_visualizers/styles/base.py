@@ -39,33 +39,47 @@ console = Console()
 COL_HEADERS: list[str] = [
     "Bordered",
     "Bold",
-    "Light",
+    "Thin",
     "Flat",
     "Outline",
     "OutlineBold",
-    "OutlineLight",
+    "OutlineThin",
     "Dashed",
     "DashedBold",
-    "DashedLight",
+    "DashedThin",
 ]
 
 VARIANTS: list[str] = [
     "Bordered",
     "Bold",
-    "Light",
+    "Thin",
     "Flat",
     "Outline",
     "Solid",
     "OutlineBold",
     "SolidBold",
-    "OutlineLight",
-    "SolidLight",
+    "OutlineThin",
+    "SolidThin",
     "Dashed",
     "DashedBold",
-    "DashedLight",
+    "DashedThin",
+    "Dotted",
+    "DottedBold",
+    "DottedThin",
 ]
 
-SEMANTIC_ROLES: list[str] = ["Primary", "Secondary", "Accent", "Muted", "Danger", "Success", "Light", "Dark"]
+SEMANTIC_ROLES: list[str] = [
+    "Primary",
+    "Secondary",
+    "Accent",
+    "Muted",
+    "Danger",
+    "Success",
+    "Warning",
+    "Light",
+    "Dark",
+    "Neutral",
+]
 
 SYSTEM_FIELDS: set[str] = {
     "width",
@@ -101,18 +115,18 @@ def get_row_keys(styles: BaseStyles, base: str) -> list[str | None]:
     return [
         base if _has_key(base) else (f"{base}Bordered" if _has_key(f"{base}Bordered") else None),
         f"{base}Bold" if _has_key(f"{base}Bold") else None,
-        f"{base}Light" if _has_key(f"{base}Light") else None,
+        f"{base}Thin" if _has_key(f"{base}Thin") else None,
         f"{base}Flat" if _has_key(f"{base}Flat") else None,
         f"{base}Outline" if _has_key(f"{base}Outline") else (f"{base}Solid" if _has_key(f"{base}Solid") else None),
         f"{base}OutlineBold"
         if _has_key(f"{base}OutlineBold")
         else (f"{base}SolidBold" if _has_key(f"{base}SolidBold") else None),
-        f"{base}OutlineLight"
-        if _has_key(f"{base}OutlineLight")
-        else (f"{base}SolidLight" if _has_key(f"{base}SolidLight") else None),
+        f"{base}OutlineThin"
+        if _has_key(f"{base}OutlineThin")
+        else (f"{base}SolidThin" if _has_key(f"{base}SolidThin") else None),
         f"{base}Dashed" if _has_key(f"{base}Dashed") else None,
         f"{base}DashedBold" if _has_key(f"{base}DashedBold") else None,
-        f"{base}DashedLight" if _has_key(f"{base}DashedLight") else None,
+        f"{base}DashedThin" if _has_key(f"{base}DashedThin") else None,
     ]
 
 
@@ -154,8 +168,9 @@ def extract_base_colors(styles: BaseStyles, filter_color: str | None = None) -> 
     """
     base_colors: list[str] = []
     sorted_variants = sorted(VARIANTS, key=len, reverse=True)
-    for field_name in type(styles).model_fields:
-        if field_name in SYSTEM_FIELDS:
+    model_cls = styles if isinstance(styles, type) else type(styles)
+    for field_name in model_cls.model_fields:
+        if field_name in SYSTEM_FIELDS or field_name.endswith("Neutral") or field_name.endswith("NeutralFlat"):
             continue
         base = field_name
         for v in sorted_variants:

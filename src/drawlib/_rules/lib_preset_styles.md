@@ -131,9 +131,9 @@ Drawlib ships with three pre-built, production-ready style catalogs. Each catalo
 │ + background_color: ColorType = (255, 255, 255, 1.0)                                  │
 │ + sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO                      │
 ├───────────────────────────────────────────────────────────────────────────────────────┤
-│ Semantic Roles (13 orthogonal variants each: Bordered, Bold, Light, Flat, Outline,   │
-│                 OutlineBold, OutlineLight, Dashed, DashedBold, DashedLight,           │
-│                 Dotted, DottedBold, DottedLight):                                     │
+│ Semantic Roles (17 orthogonal variants each: Bordered, Bold, Thin, Flat, Outline,    │
+│                 OutlineBold, OutlineThin, Solid, SolidBold, SolidThin, Dashed,        │
+│                 DashedBold, DashedThin, Dotted, DottedBold, DottedThin):              │
 │   - Primary: Core application logic, main components                                  │
 │   - Secondary: Databases, message queues, auxiliary services                          │
 │   - Accent: Gateways, clients, focal points                                           │
@@ -157,8 +157,8 @@ The standard catalog optimized for technical documentation, flowcharts, and soft
 - **Primary Colors**: Blue (`#6F6FEF`), Black (`#000000`), White (`#FFFFFF`), Green (`#4FBF4F`), Red (`#EF5F5F`).
 - **Visual Design**:
   - `Primary`: Blue fill, black border (width 1.5), sans-serif regular font.
-  - `PrimaryLight`: Blue fill, black border (width 0.75), sans-serif light font, thin icons.
-  - `PrimaryBold`: Blue fill, black border (width 2.25), sans-serif bold font, regular icons.
+  - `PrimaryThin`: Blue fill, black border (width 0.75), sans-serif light font, thin icons.
+  - `PrimaryBold`: Blue fill, black border (width 2.5), sans-serif bold font, regular icons.
   - `PrimaryFlat`: Blue fill, blue border with `line_width=0` (borderless), fill-style icons.
   - `PrimarySolid`: Transparent fill, blue border (width 1.5), regular icons.
   - `PrimaryDashed`: Transparent fill, blue dashed border (width 1.5), regular icons.
@@ -180,8 +180,8 @@ Specially designed for printed engineering manuals, formal academic papers, pate
 - **Primary Colors**: Black (`#000000`), Gray1 (`#F5F5F5`) to Gray8 (`#191919`), White (`#FFFFFF`).
 - **Visual Design**:
   - `Primary`: White fill, black border (width 1.5), black text, sans-serif regular font.
-  - `PrimaryLight`: White fill, black border (width 0.75), sans-serif light font.
-  - `PrimaryBold`: White fill, black border (width 2.25), sans-serif bold font.
+  - `PrimaryThin`: White fill, black border (width 0.75), sans-serif light font.
+  - `PrimaryBold`: White fill, black border (width 2.5), sans-serif bold font.
   - `PrimaryFlat`: Solid black fill, black border with `line_width=0`.
   - `PrimarySolid`: Transparent fill, black border (width 1.5).
   - `PrimaryDashed`: Transparent fill, black dashed border (width 1.5).
@@ -213,8 +213,8 @@ An expressive, modern palette featuring systematic 6-tone chromatic scales, neut
 - **Primary Colors**: 8 chromatic hues across 6 tone levels (Blue, Green, Red, Orange, Amber, Purple, Teal, Pink), 8 gray levels (Gray1 to Gray8), Black, White, and standard primaries.
 - **Visual Design**:
   - `Primary`: Blue4 fill, Blue6 border (width 1.5), white text.
-  - `PrimaryLight`: Blue1 fill, Blue5 border (width 0.75), sans-serif light font.
-  - `PrimaryBold`: Blue4 fill, Blue6 border (width 2.25), sans-serif bold font.
+  - `PrimaryThin`: Blue1 fill, Blue5 border (width 0.75), sans-serif light font.
+  - `PrimaryBold`: Blue4 fill, Blue6 border (width 2.5), sans-serif bold font.
   - `PrimaryFlat`: Blue4 fill, borderless (`line_width=0`).
   - `PrimarySolid`: Transparent fill, Blue4 border (width 1.5).
   - `PrimaryDashed`: Transparent fill, Blue4 dashed border (width 1.5).
@@ -324,35 +324,35 @@ Every preset style follows a deterministic, composable PascalCase naming structu
    - **`Dotted`**: Transparent fill with a **dotted border outline** (`shape_line_style="dotted"`). Ideal for dependency links, soft boundaries, and degraded flows.
 
 3. **`<Weight>` (Stroke Width & Font Weight)**:
-   - **`Light`**: Line border width is halved (0.75 px). Font weight is light (`Font.SANSSERIF_LIGHT`). Icons render in thin style.
+   - **`Thin`**: Line border width is halved (0.75 px). Font weight is light (`Font.SANSSERIF_LIGHT`). Icons render in thin style.
    - **`(omitted / default)`**: Standard line border width (1.5 px). Font weight is regular (`Font.SANSSERIF_REGULAR`).
-   - **`Bold`**: Line border width is increased to 2.25 px. Font weight is bold (`Font.SANSSERIF_BOLD`).
+   - **`Bold`**: Line border width is increased to 2.5 px. Font weight is bold (`Font.SANSSERIF_BOLD`).
 
 ### 5.2. Combinations and Preset Examples
 
 | Style Token | Resolved Fill | Resolved Line | Line Style | Line Width | Font Weight |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `Styles.Primary` | Blue | Black | Solid | 1.5 | Regular |
-| `Styles.PrimaryLight` | Blue | Black | Solid | 0.75 | Light |
-| `Styles.PrimaryBold` | Blue | Black | Solid | 2.25 | Bold |
+| `Styles.PrimaryThin` | Blue | Black | Solid | 0.75 | Light |
+| `Styles.PrimaryBold` | Blue | Black | Solid | 2.5 | Bold |
 | `Styles.PrimaryFlat` | Blue | None | None | 0.0 | Regular |
 | `Styles.PrimarySolid` | Transparent | Blue | Solid | 1.5 | Regular |
 | `Styles.PrimaryDashed` | Transparent | Blue | Dashed | 1.5 | Regular |
 | `Styles.PrimaryDotted` | Transparent | Blue | Dotted | 1.5 | Regular |
-| `Styles.PrimarySolidLight` | Transparent | Blue | Solid | 0.75 | Light |
-| `Styles.PrimarySolidBold` | Transparent | Blue | Solid | 2.25 | Bold |
-| `Styles.PrimaryDashedLight` | Transparent | Blue | Dashed | 0.75 | Light |
-| `Styles.PrimaryDashedBold` | Transparent | Blue | Dashed | 2.25 | Bold |
-| `Styles.PrimaryDottedLight` | Transparent | Blue | Dotted | 0.75 | Light |
-| `Styles.PrimaryDottedBold` | Transparent | Blue | Dotted | 2.25 | Bold |
+| `Styles.PrimarySolidThin` | Transparent | Blue | Solid | 0.75 | Light |
+| `Styles.PrimarySolidBold` | Transparent | Blue | Solid | 2.5 | Bold |
+| `Styles.PrimaryDashedThin` | Transparent | Blue | Dashed | 0.75 | Light |
+| `Styles.PrimaryDashedBold` | Transparent | Blue | Dashed | 2.5 | Bold |
+| `Styles.PrimaryDottedThin` | Transparent | Blue | Dotted | 0.75 | Light |
+| `Styles.PrimaryDottedBold` | Transparent | Blue | Dotted | 2.5 | Bold |
 | `Styles.Warning` | Amber/Yellow | Black/Gray | Solid | 1.5 | Regular |
 | `Styles.WarningDotted` | Transparent | Amber/Yellow | Dotted | 1.5 | Regular |
 | `Styles.Red` | Red | Red | Solid | 1.5 | Regular |
-| `Styles.RedLight` | Red | Red | Solid | 0.75 | Light |
-| `Styles.RedBold` | Red | Red | Solid | 2.25 | Bold |
+| `Styles.RedThin` | Red | Red | Solid | 0.75 | Light |
+| `Styles.RedBold` | Red | Red | Solid | 2.5 | Bold |
 | `Styles.RedFlat` | Red | None | None | 0.0 | Regular |
 | `Styles.RedSolid` | Transparent | Red | Solid | 1.5 | Regular |
-| `Styles.RedSolidBold` | Transparent | Red | Solid | 2.25 | Bold |
+| `Styles.RedSolidBold` | Transparent | Red | Solid | 2.5 | Bold |
 | `Styles.TealDashed` | Transparent | Teal | Dashed | 1.5 | Regular |
 | `Styles.MutedFlat` | Muted | None | None | 0.0 | Regular |
 
@@ -485,7 +485,7 @@ CORP_GOLD = Color.from_hex("#F4A261")
 brand_preset = BaseStyles(
     background_color=(250, 250, 252, 1.0),
     Primary=Style(shape_fill_color=CORP_CYAN, shape_line_color=CORP_NAVY, shape_line_width=2.0),
-    PrimaryLight=Style(shape_fill_color=CORP_CYAN, shape_line_color=CORP_NAVY, shape_line_width=1.0),
+    PrimaryThin=Style(shape_fill_color=CORP_CYAN, shape_line_color=CORP_NAVY, shape_line_width=1.0),
     PrimaryBold=Style(shape_fill_color=CORP_GOLD, shape_line_color=CORP_NAVY, shape_line_width=3.0),
     PrimaryFlat=Style(shape_fill_color=CORP_CYAN, shape_line_width=0.0),
     PrimarySolid=Style(shape_fill_color=(0, 0, 0, 0.0), shape_line_color=CORP_NAVY, shape_line_width=2.0),
@@ -518,7 +518,7 @@ class CloudPlatformStyles(BaseStyles):
 
     # Standard preset roles
     Primary: Style
-    PrimaryLight: Style
+    PrimaryThin: Style
     PrimaryBold: Style
     PrimaryFlat: Style
     PrimarySolid: Style
@@ -541,7 +541,7 @@ def get_cloud_styles() -> CloudPlatformStyles:
 
     return CloudPlatformStyles(
         Primary=Style(fill_color=c_blue, line_color=c_gray, line_width=1.5),
-        PrimaryLight=Style(fill_color=c_blue, line_color=c_gray, line_width=0.75),
+        PrimaryThin=Style(fill_color=c_blue, line_color=c_gray, line_width=0.75),
         PrimaryBold=Style(fill_color=c_blue, line_color=c_gray, line_width=2.5),
         PrimaryFlat=Style(fill_color=c_blue, line_width=0),
         PrimarySolid=Style(fill_color=Colors.Transparent, line_color=c_blue, line_width=1.5),
@@ -879,15 +879,18 @@ Popular Default Colors:
 | Suffix | Fill Behavior | Outline Behavior | Border Line Style | Border Width | Font Weight |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `""` | Color Fill | Black/Color Border | Solid | 1.5 px | Regular |
-| `_light` | Color Fill | Black/Color Border | Solid | 0.75 px | Light |
-| `_bold` | Color Fill | Black/Color Border | Solid | 2.25 px | Bold |
+| `_thin` | Color Fill | Black/Color Border | Solid | 0.75 px | Light |
+| `_bold` | Color Fill | Black/Color Border | Solid | 2.5 px | Bold |
 | `_flat` | Color Fill | No Border | None | 0.0 px | Regular |
 | `_solid` | Transparent | Color Border | Solid | 1.5 px | Regular |
-| `_solid_light` | Transparent | Color Border | Solid | 0.75 px | Light |
-| `_solid_bold` | Transparent | Color Border | Solid | 2.25 px | Bold |
+| `_solid_thin` | Transparent | Color Border | Solid | 0.75 px | Light |
+| `_solid_bold` | Transparent | Color Border | Solid | 2.5 px | Bold |
 | `_dashed` | Transparent | Color Border | Dashed | 1.5 px | Regular |
-| `_dashed_light`| Transparent | Color Border | Dashed | 0.75 px | Light |
-| `_dashed_bold` | Transparent | Color Border | Dashed | 2.25 px | Bold |
+| `_dashed_thin`| Transparent | Color Border | Dashed | 0.75 px | Light |
+| `_dashed_bold` | Transparent | Color Border | Dashed | 2.5 px | Bold |
+| `_dotted` | Transparent | Color Border | Dotted | 1.5 px | Regular |
+| `_dotted_thin`| Transparent | Color Border | Dotted | 0.75 px | Light |
+| `_dotted_bold` | Transparent | Color Border | Dotted | 2.5 px | Bold |
 
 ### 11.3. Essential Code Snippets
 

@@ -23,6 +23,7 @@ from drawlib._core.l3_styles._style_models import Style
 DEFAULT_TEXT_SIZE: float = 16.0
 DEFAULT_FONT: Font = Font.SANSSERIF_REGULAR
 DEFAULT_FONT_BOLD: Font = Font.SANSSERIF_BOLD
+DEFAULT_FONT_THIN: Font = Font.SANSSERIF_LIGHT
 DEFAULT_FONT_LIGHT: Font = Font.SANSSERIF_LIGHT
 
 
@@ -30,7 +31,7 @@ def _resolve_target_font(
     field_name: str,
     regular: FontBase | FontFile | None,
     bold: FontBase | FontFile | None,
-    light: FontBase | FontFile | None,
+    thin: FontBase | FontFile | None,
 ) -> FontBase | FontFile | None:
     """Resolve target font for a specific style field based on naming convention.
 
@@ -38,15 +39,15 @@ def _resolve_target_font(
         field_name (str): Style attribute name.
         regular (FontBase | FontFile | None): Base font.
         bold (FontBase | FontFile | None): Bold font.
-        light (FontBase | FontFile | None): Light font.
+        thin (FontBase | FontFile | None): Thin font.
 
     Returns:
         FontBase | FontFile | None: Target font to apply.
     """
     if field_name == "Bold" or field_name.endswith("Bold"):
         return bold if bold is not None else regular
-    if field_name.endswith("Light"):
-        return light if light is not None else regular
+    if field_name.endswith("Thin"):
+        return thin if thin is not None else regular
     return regular
 
 
@@ -144,7 +145,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
 
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
-        extra="allow",
+        extra="forbid",
         frozen=True,
     )
 
@@ -159,6 +160,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     DEFAULT_TEXT_SIZE: ClassVar[float] = DEFAULT_TEXT_SIZE
     DEFAULT_FONT: ClassVar[Font] = DEFAULT_FONT
     DEFAULT_FONT_BOLD: ClassVar[Font] = DEFAULT_FONT_BOLD
+    DEFAULT_FONT_THIN: ClassVar[Font] = DEFAULT_FONT_THIN
     DEFAULT_FONT_LIGHT: ClassVar[Font] = DEFAULT_FONT_LIGHT
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
@@ -180,83 +182,85 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
 
         default_inst = self.__class__.get_default_instance()
         if default_inst is not None:
-            merged = {**default_inst.__dict__, **normalized}
+            known_fields = self.__class__.model_fields
+            filtered_default = {k: v for k, v in default_inst.__dict__.items() if k in known_fields}
+            merged = {**filtered_default, **normalized}
             super().__init__(**merged)
         else:
             super().__init__(**normalized)
 
-    # 4 Universal semantic roles available across all preset catalogs including monochrome (10 variants each)
+    # 4 Universal semantic roles available across all preset catalogs including monochrome (17 variants each)
     Primary: Style
     PrimaryBordered: Style | None = None
     PrimaryBold: Style | None = None
-    PrimaryLight: Style | None = None
+    PrimaryThin: Style | None = None
     PrimaryFlat: Style | None = None
     PrimaryOutline: Style | None = None
     PrimarySolid: Style | None = None
     PrimaryOutlineBold: Style | None = None
     PrimarySolidBold: Style | None = None
-    PrimaryOutlineLight: Style | None = None
-    PrimarySolidLight: Style | None = None
+    PrimaryOutlineThin: Style | None = None
+    PrimarySolidThin: Style | None = None
     PrimaryDashed: Style | None = None
     PrimaryDashedBold: Style | None = None
-    PrimaryDashedLight: Style | None = None
+    PrimaryDashedThin: Style | None = None
     PrimaryDotted: Style | None = None
     PrimaryDottedBold: Style | None = None
-    PrimaryDottedLight: Style | None = None
+    PrimaryDottedThin: Style | None = None
 
     Secondary: Style | None = None
     SecondaryBordered: Style | None = None
     SecondaryBold: Style | None = None
-    SecondaryLight: Style | None = None
+    SecondaryThin: Style | None = None
     SecondaryFlat: Style | None = None
     SecondaryOutline: Style | None = None
     SecondarySolid: Style | None = None
     SecondaryOutlineBold: Style | None = None
     SecondarySolidBold: Style | None = None
-    SecondaryOutlineLight: Style | None = None
-    SecondarySolidLight: Style | None = None
+    SecondaryOutlineThin: Style | None = None
+    SecondarySolidThin: Style | None = None
     SecondaryDashed: Style | None = None
     SecondaryDashedBold: Style | None = None
-    SecondaryDashedLight: Style | None = None
+    SecondaryDashedThin: Style | None = None
     SecondaryDotted: Style | None = None
     SecondaryDottedBold: Style | None = None
-    SecondaryDottedLight: Style | None = None
+    SecondaryDottedThin: Style | None = None
 
     Accent: Style | None = None
     AccentBordered: Style | None = None
     AccentBold: Style | None = None
-    AccentLight: Style | None = None
+    AccentThin: Style | None = None
     AccentFlat: Style | None = None
     AccentOutline: Style | None = None
     AccentSolid: Style | None = None
     AccentOutlineBold: Style | None = None
     AccentSolidBold: Style | None = None
-    AccentOutlineLight: Style | None = None
-    AccentSolidLight: Style | None = None
+    AccentOutlineThin: Style | None = None
+    AccentSolidThin: Style | None = None
     AccentDashed: Style | None = None
     AccentDashedBold: Style | None = None
-    AccentDashedLight: Style | None = None
+    AccentDashedThin: Style | None = None
     AccentDotted: Style | None = None
     AccentDottedBold: Style | None = None
-    AccentDottedLight: Style | None = None
+    AccentDottedThin: Style | None = None
 
     Muted: Style | None = None
     MutedBordered: Style | None = None
     MutedBold: Style | None = None
-    MutedLight: Style | None = None
+    MutedThin: Style | None = None
     MutedFlat: Style | None = None
     MutedOutline: Style | None = None
     MutedSolid: Style | None = None
     MutedOutlineBold: Style | None = None
     MutedSolidBold: Style | None = None
-    MutedOutlineLight: Style | None = None
-    MutedSolidLight: Style | None = None
+    MutedOutlineThin: Style | None = None
+    MutedSolidThin: Style | None = None
     MutedDashed: Style | None = None
     MutedDashedBold: Style | None = None
-    MutedDashedLight: Style | None = None
+    MutedDashedThin: Style | None = None
     MutedDotted: Style | None = None
     MutedDottedBold: Style | None = None
-    MutedDottedLight: Style | None = None
+    MutedDottedThin: Style | None = None
 
     # Extended semantic roles:
     # - warning, danger & success: Provided for color presets (giving 7 action/status roles total;
@@ -265,111 +269,111 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     Light: Style | None = None
     LightBordered: Style | None = None
     LightBold: Style | None = None
-    LightLight: Style | None = None
+    LightThin: Style | None = None
     LightFlat: Style | None = None
     LightOutline: Style | None = None
     LightSolid: Style | None = None
     LightOutlineBold: Style | None = None
     LightSolidBold: Style | None = None
-    LightOutlineLight: Style | None = None
-    LightSolidLight: Style | None = None
+    LightOutlineThin: Style | None = None
+    LightSolidThin: Style | None = None
     LightDashed: Style | None = None
     LightDashedBold: Style | None = None
-    LightDashedLight: Style | None = None
+    LightDashedThin: Style | None = None
     LightDotted: Style | None = None
     LightDottedBold: Style | None = None
-    LightDottedLight: Style | None = None
+    LightDottedThin: Style | None = None
 
     Dark: Style | None = None
     DarkBordered: Style | None = None
     DarkBold: Style | None = None
-    DarkLight: Style | None = None
+    DarkThin: Style | None = None
     DarkFlat: Style | None = None
     DarkOutline: Style | None = None
     DarkSolid: Style | None = None
     DarkOutlineBold: Style | None = None
     DarkSolidBold: Style | None = None
-    DarkOutlineLight: Style | None = None
-    DarkSolidLight: Style | None = None
+    DarkOutlineThin: Style | None = None
+    DarkSolidThin: Style | None = None
     DarkDashed: Style | None = None
     DarkDashedBold: Style | None = None
-    DarkDashedLight: Style | None = None
+    DarkDashedThin: Style | None = None
     DarkDotted: Style | None = None
     DarkDottedBold: Style | None = None
-    DarkDottedLight: Style | None = None
+    DarkDottedThin: Style | None = None
 
     Warning: Style | None = None
     WarningBordered: Style | None = None
     WarningBold: Style | None = None
-    WarningLight: Style | None = None
+    WarningThin: Style | None = None
     WarningFlat: Style | None = None
     WarningOutline: Style | None = None
     WarningSolid: Style | None = None
     WarningOutlineBold: Style | None = None
     WarningSolidBold: Style | None = None
-    WarningOutlineLight: Style | None = None
-    WarningSolidLight: Style | None = None
+    WarningOutlineThin: Style | None = None
+    WarningSolidThin: Style | None = None
     WarningDashed: Style | None = None
     WarningDashedBold: Style | None = None
-    WarningDashedLight: Style | None = None
+    WarningDashedThin: Style | None = None
     WarningDotted: Style | None = None
     WarningDottedBold: Style | None = None
-    WarningDottedLight: Style | None = None
+    WarningDottedThin: Style | None = None
 
     Danger: Style | None = None
     DangerBordered: Style | None = None
     DangerBold: Style | None = None
-    DangerLight: Style | None = None
+    DangerThin: Style | None = None
     DangerFlat: Style | None = None
     DangerOutline: Style | None = None
     DangerSolid: Style | None = None
     DangerOutlineBold: Style | None = None
     DangerSolidBold: Style | None = None
-    DangerOutlineLight: Style | None = None
-    DangerSolidLight: Style | None = None
+    DangerOutlineThin: Style | None = None
+    DangerSolidThin: Style | None = None
     DangerDashed: Style | None = None
     DangerDashedBold: Style | None = None
-    DangerDashedLight: Style | None = None
+    DangerDashedThin: Style | None = None
     DangerDotted: Style | None = None
     DangerDottedBold: Style | None = None
-    DangerDottedLight: Style | None = None
+    DangerDottedThin: Style | None = None
 
     Success: Style | None = None
     SuccessBordered: Style | None = None
     SuccessBold: Style | None = None
-    SuccessLight: Style | None = None
+    SuccessThin: Style | None = None
     SuccessFlat: Style | None = None
     SuccessOutline: Style | None = None
     SuccessSolid: Style | None = None
     SuccessOutlineBold: Style | None = None
     SuccessSolidBold: Style | None = None
-    SuccessOutlineLight: Style | None = None
-    SuccessSolidLight: Style | None = None
+    SuccessOutlineThin: Style | None = None
+    SuccessSolidThin: Style | None = None
     SuccessDashed: Style | None = None
     SuccessDashedBold: Style | None = None
-    SuccessDashedLight: Style | None = None
+    SuccessDashedThin: Style | None = None
     SuccessDotted: Style | None = None
     SuccessDottedBold: Style | None = None
-    SuccessDottedLight: Style | None = None
+    SuccessDottedThin: Style | None = None
 
     # Neutral role
     Neutral: Style | None = None
     NeutralBordered: Style | None = None
     NeutralBold: Style | None = None
-    NeutralLight: Style | None = None
+    NeutralThin: Style | None = None
     NeutralFlat: Style | None = None
     NeutralOutline: Style | None = None
     NeutralSolid: Style | None = None
     NeutralOutlineBold: Style | None = None
     NeutralSolidBold: Style | None = None
-    NeutralOutlineLight: Style | None = None
-    NeutralSolidLight: Style | None = None
+    NeutralOutlineThin: Style | None = None
+    NeutralSolidThin: Style | None = None
     NeutralDashed: Style | None = None
     NeutralDashedBold: Style | None = None
-    NeutralDashedLight: Style | None = None
+    NeutralDashedThin: Style | None = None
     NeutralDotted: Style | None = None
     NeutralDottedBold: Style | None = None
-    NeutralDottedLight: Style | None = None
+    NeutralDottedThin: Style | None = None
 
     # Semantic Neutral Cards (Bordered & Flat)
     PrimaryNeutral: Style | None = None
@@ -452,12 +456,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         raise KeyError(f'Style "{key}" is not found in {self.__class__.__name__}.')
 
     def __getattr__(self, name: str) -> Any:  # noqa: ANN401
-        """Allow fallback resolution for extra fields on instances."""
-        if name.startswith("__"):
-            raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-        extra = getattr(self, "__pydantic_extra__", None)
-        if extra is not None and name in extra:
-            return extra[name]
+        """Raise AttributeError for missing attributes."""
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
 
     def __dir__(self) -> list[str]:
@@ -502,7 +501,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         """
         updates: dict[str, Any] = {}
         for k, v in kwargs.items():
-            if v is not None:
+            if k != "__class__" and v is not None:
                 target_key = _resolve_style_field_name(self.__class__, k, v)
                 if target_key == "background_color":
                     try:
@@ -519,7 +518,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         regular: FontBase | FontFile | None = None,
         *,
         bold: FontBase | FontFile | None = None,
-        light: FontBase | FontFile | None = None,
+        thin: FontBase | FontFile | None = None,
         sourcecode: FontSourceCode | None = None,
         size: PosFloat | None = None,
     ) -> Self:
@@ -527,10 +526,10 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
 
         Args:
             regular (FontBase | FontFile | None): Default baseline font applied to all styles.
-                If provided without explicit bold/light overrides, it is also applied as fallback
-                for bold and light variants.
+                If provided without explicit bold/thin overrides, it is also applied as fallback
+                for bold and thin variants.
             bold (FontBase | FontFile | None): Font override for bold style variants ('Bold', '*Bold').
-            light (FontBase | FontFile | None): Font override for light style variants ('Light', '*Light').
+            thin (FontBase | FontFile | None): Font override for thin style variants ('Thin', '*Thin').
             sourcecode (FontSourceCode | None): Monospace source code font override.
             size (float | None): Font size override in points applied to all styles.
 
@@ -551,7 +550,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
                 continue
 
             patch_kwargs: dict[str, Any] = {}
-            target_font = _resolve_target_font(field_name, regular, bold, light)
+            target_font = _resolve_target_font(field_name, regular, bold, thin)
             if target_font is not None:
                 patch_kwargs["text_font"] = target_font
             if size is not None:
@@ -567,6 +566,7 @@ __all__ = [
     "DEFAULT_FONT",
     "DEFAULT_FONT_BOLD",
     "DEFAULT_FONT_LIGHT",
+    "DEFAULT_FONT_THIN",
     "DEFAULT_TEXT_SIZE",
     "BaseStyles",
 ]

@@ -18,7 +18,7 @@ table = Table(
     text_style=Styles.Dark,
     header_cell_style=Styles.PrimaryFlat,
     header_text_style=Styles.WhiteBold,
-    border_style=Styles.DarkLight,
+    border_style=Styles.DarkThin,
 )
 
 # Custom even/odd row styling using semantic tokens

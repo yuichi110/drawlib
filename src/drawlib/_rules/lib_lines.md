@@ -770,7 +770,7 @@ Examples of valid presets:
 - `Styles.Blue`: Solid blue line of regular width.
 - `Styles.RedDashed`: Dashed red line of regular width.
 - `Styles.GreenBold`: Solid green line of double thickness.
-- `Styles.GrayLight`: Solid subtle gray line for grids and boundaries.
+- `Styles.GrayThin`: Solid subtle gray line for grids and boundaries.
 - `Styles.PrimaryBold`: Standard primary line of double thickness.
 
 ### 9.4. Semantic Conventions for Software Architecture Lines

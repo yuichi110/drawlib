@@ -571,7 +571,7 @@ class GoogleColors(BaseColors):
         Returns:
             Self: New preset colors instance with updated attributes.
         """
-        passed = {k: v for k, v in locals().items() if k not in {"self", "kwargs"} and v is not None}
+        passed = {k: v for k, v in locals().items() if k not in {"self", "kwargs", "__class__"} and v is not None}
         return super().patch(**passed, **kwargs)
 
 

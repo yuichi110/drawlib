@@ -36,9 +36,9 @@ chart = GanttChart(
     columns=["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
     axis_line_style=Styles.MutedDashed,
     axis_text_style=Styles.Black.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
-    header_style=Styles.MutedLight,
-    zebra_style=Styles.MutedLight,
+    grid_style=Styles.MutedThin,
+    header_style=Styles.MutedThin,
+    zebra_style=Styles.MutedThin,
     progress_text_style=Styles.WhiteBold.patch(text_size=8.5),
     width=95.0,                 # Total chart bounding width
     label_width=28.0,           # Width reserved for task label column

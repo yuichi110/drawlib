@@ -107,8 +107,8 @@ def test_cli_styles_show_all_pages(tmp_path: Path) -> None:
     )
     assert res.returncode == 0
     assert "Success" in res.stdout
-    # Google has 112 base colors -> ceil(112 / 25) = 5 pages
-    for p in range(1, 6):
+    # Google has 140 base colors -> ceil(140 / 25) = 6 pages
+    for p in range(1, 7):
         page_file = tmp_path / f"google_all_{p}.png"
         assert page_file.exists()
         assert page_file.stat().st_size > 1000

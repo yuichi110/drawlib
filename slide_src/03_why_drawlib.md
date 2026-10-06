@@ -43,7 +43,7 @@ text((65, 76), "Illustration Approach Comparison",
 cell_style = Style(text_size=9, text_color=Colors.Black, text_font=FontRoboto.ROBOTO_REGULAR)
 table = Table(cell_style=Styles.WhiteFlat, text_style=cell_style,
               header_cell_style=Styles.PrimaryFlat, header_text_style=Styles.WhiteBold,
-              border_style=Styles.MutedLight)
+              border_style=Styles.MutedThin)
 table.set_style_cell_evenodd(even_color=Colors.Gray1, even_text_style=cell_style,
                              odd_color=Colors.White, odd_text_style=cell_style)
 data = [

@@ -18,7 +18,7 @@ chart = LineChart(
     axis_line_style=Styles.MutedDashed,
     categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     axis_text_style=Styles.Muted.patch(text_size=9.5),
-    grid_style=Styles.MutedLight,
+    grid_style=Styles.MutedThin,
     width=80,
     height=45,
     title="Monthly Active Users (k)",

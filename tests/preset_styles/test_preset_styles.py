@@ -56,7 +56,7 @@ class TestPresetStylesUnit:
         """Verifies BaseStyles provides required style attributes."""
         styles = default_styles
         assert isinstance(styles.Primary, Style)
-        assert isinstance(styles.PrimaryLight, Style)
+        assert isinstance(styles.PrimaryThin, Style)
         assert isinstance(styles.PrimaryBold, Style)
         assert isinstance(styles.PrimaryFlat, Style)
         assert isinstance(styles.PrimarySolid, Style)
@@ -75,8 +75,8 @@ class TestPresetStylesUnit:
                 bold = getattr(st, f"{role}Bold")
                 assert bold.supports == frozenset({"shape", "line", "text", "icon"})
 
-                light = getattr(st, f"{role}Light")
-                assert light.supports == frozenset({"shape", "line", "text", "icon"})
+                thin = getattr(st, f"{role}Thin")
+                assert thin.supports == frozenset({"shape", "line", "text", "icon"})
 
                 flat = getattr(st, f"{role}Flat")
                 assert flat.supports == frozenset({"shape", "icon"})
@@ -87,8 +87,8 @@ class TestPresetStylesUnit:
                 outline_bold = getattr(st, f"{role}OutlineBold")
                 assert outline_bold.supports == frozenset({"shape", "line"})
 
-                outline_light = getattr(st, f"{role}OutlineLight")
-                assert outline_light.supports == frozenset({"shape", "line"})
+                outline_thin = getattr(st, f"{role}OutlineThin")
+                assert outline_thin.supports == frozenset({"shape", "line"})
 
                 dashed = getattr(st, f"{role}Dashed")
                 assert dashed.supports == frozenset({"shape", "line"})
@@ -96,8 +96,8 @@ class TestPresetStylesUnit:
                 dashed_bold = getattr(st, f"{role}DashedBold")
                 assert dashed_bold.supports == frozenset({"shape", "line"})
 
-                dashed_light = getattr(st, f"{role}DashedLight")
-                assert dashed_light.supports == frozenset({"shape", "line"})
+                dashed_thin = getattr(st, f"{role}DashedThin")
+                assert dashed_thin.supports == frozenset({"shape", "line"})
 
     def test_palette_colors_10_variants(self) -> None:
         """Verifies palette colors provide 10 variants with accurate supports declaration."""
@@ -130,9 +130,9 @@ class TestPresetStylesUnit:
                 assert isinstance(bold, Style)
                 assert bold.supports == frozenset({"shape", "line", "text", "icon"})
 
-                light = getattr(st, f"{role}Light")
-                assert isinstance(light, Style)
-                assert light.supports == frozenset({"shape", "line", "text", "icon"})
+                thin = getattr(st, f"{role}Thin")
+                assert isinstance(thin, Style)
+                assert thin.supports == frozenset({"shape", "line", "text", "icon"})
 
                 flat = getattr(st, f"{role}Flat")
                 assert isinstance(flat, Style)
@@ -147,9 +147,9 @@ class TestPresetStylesUnit:
                 assert isinstance(outline_bold, Style)
                 assert outline_bold.supports == frozenset({"shape", "line"})
 
-                outline_light = getattr(st, f"{role}OutlineLight")
-                assert isinstance(outline_light, Style)
-                assert outline_light.supports == frozenset({"shape", "line"})
+                outline_thin = getattr(st, f"{role}OutlineThin")
+                assert isinstance(outline_thin, Style)
+                assert outline_thin.supports == frozenset({"shape", "line"})
 
                 dashed = getattr(st, f"{role}Dashed")
                 assert isinstance(dashed, Style)
@@ -159,9 +159,9 @@ class TestPresetStylesUnit:
                 assert isinstance(dashed_bold, Style)
                 assert dashed_bold.supports == frozenset({"shape", "line"})
 
-                dashed_light = getattr(st, f"{role}DashedLight")
-                assert isinstance(dashed_light, Style)
-                assert dashed_light.supports == frozenset({"shape", "line"})
+                dashed_thin = getattr(st, f"{role}DashedThin")
+                assert isinstance(dashed_thin, Style)
+                assert dashed_thin.supports == frozenset({"shape", "line"})
 
     def test_neutral_styles(self) -> None:
         """Verifies Neutral and tinted neutral card styles across presets."""
@@ -246,21 +246,21 @@ class TestPresetStylesUnit:
         assert new_styles.Blue.text_font == FontJapanese.SANSSERIF_REGULAR
         assert new_styles.BlueFlat.text_font == FontJapanese.SANSSERIF_REGULAR
 
-        # Bold and light fallback to regular when not explicitly overridden
+        # Bold and thin fallback to regular when not explicitly overridden
         assert new_styles.PrimaryBold.text_font == FontJapanese.SANSSERIF_REGULAR
         assert new_styles.BlueBold.text_font == FontJapanese.SANSSERIF_REGULAR
-        assert new_styles.PrimaryLight.text_font == FontJapanese.SANSSERIF_REGULAR
+        assert new_styles.PrimaryThin.text_font == FontJapanese.SANSSERIF_REGULAR
 
         # Original styles remain unchanged
         assert default_styles.Primary.text_font == original_font
         assert default_styles.PrimaryBold.text_font == Font.SANSSERIF_BOLD
 
     def test_preset_styles_patch_font_regular_and_variants(self) -> None:
-        """Verifies that patch_font overrides bold and light styles specifically."""
+        """Verifies that patch_font overrides bold and thin styles specifically."""
         new_styles = default_styles.patch_font(
             regular=FontJapanese.SANSSERIF_REGULAR,
             bold=FontJapanese.SANSSERIF_BOLD,
-            light=FontJapanese.SANSSERIF_LIGHT,
+            thin=FontJapanese.SANSSERIF_LIGHT,
         )
 
         # Base styles
@@ -271,9 +271,9 @@ class TestPresetStylesUnit:
         assert new_styles.PrimaryBold.text_font == FontJapanese.SANSSERIF_BOLD
         assert new_styles.BlueBold.text_font == FontJapanese.SANSSERIF_BOLD
 
-        # Light styles
-        assert new_styles.PrimaryLight.text_font == FontJapanese.SANSSERIF_LIGHT
-        assert new_styles.LightLight.text_font == FontJapanese.SANSSERIF_LIGHT
+        # Thin styles
+        assert new_styles.PrimaryThin.text_font == FontJapanese.SANSSERIF_LIGHT
+        assert new_styles.LightThin.text_font == FontJapanese.SANSSERIF_LIGHT
 
     def test_preset_styles_patch_font_bold_only(self) -> None:
         """Verifies that patching only bold modifies bold styles while preserving others."""
@@ -287,9 +287,9 @@ class TestPresetStylesUnit:
         assert new_styles.PrimaryBold.text_font == FontRoboto.ROBOTO_BOLD
         assert new_styles.BlueBold.text_font == FontRoboto.ROBOTO_BOLD
 
-        # Light styles remain default
-        assert new_styles.PrimaryLight.text_font == Font.SANSSERIF_LIGHT
-        assert new_styles.LightLight.text_font == Font.SANSSERIF_LIGHT
+        # Thin styles remain default
+        assert new_styles.PrimaryThin.text_font == Font.SANSSERIF_LIGHT
+        assert new_styles.LightThin.text_font == Font.SANSSERIF_LIGHT
 
     def test_preset_styles_patch_font_sourcecode(self) -> None:
         """Verifies that sourcecode_font is updated properly."""
@@ -308,7 +308,7 @@ class TestPresetStylesUnit:
         # Base and variant styles update their text_size
         assert new_styles.Primary.text_size == 14.0
         assert new_styles.PrimaryBold.text_size == 14.0
-        assert new_styles.PrimaryLight.text_size == 14.0
+        assert new_styles.PrimaryThin.text_size == 14.0
         assert new_styles.PrimaryFlat.text_size == 14.0
         assert new_styles.Blue.text_size == 14.0
 
