@@ -38,23 +38,55 @@ def get_active_toolsets() -> list[str]:
     return sorted(toolsets)
 
 
-def _suggest_subcommands(toolset_name: str, prefix: str) -> None:
-    """Print matching subcommands and groups for a given toolset.
+def get_subcommand_candidates(toolset_name: str, prefix: str = "") -> list[str]:
+    """Return matching subcommands and groups for a given toolset.
 
     Args:
         toolset_name: Name of the toolset module.
         prefix: Current partial word prefix to match.
+
+    Returns:
+        list[str]: Matching subcommand and group names.
     """
+    candidates: list[str] = []
     with contextlib.suppress(Exception):
         mod = importlib.import_module(f"tools.dcli.{toolset_name}")
         app_obj = getattr(mod, "app", None)
         if isinstance(app_obj, typer.Typer):
             for cmd in app_obj.registered_commands:
                 if cmd.name and cmd.name.startswith(prefix):
-                    print(cmd.name)
+                    candidates.append(cmd.name)
             for grp in app_obj.registered_groups:
                 if grp.name and grp.name.startswith(prefix):
-                    print(grp.name)
+                    candidates.append(grp.name)
+    return sorted(set(candidates))
+
+
+def get_completion_candidates(words: list[str], cword: int) -> list[str]:
+    """Calculate matching candidates based on parsed words and cursor word index.
+
+    Args:
+        words: Command line words list.
+        cword: 0-based index of the word currently being completed.
+
+    Returns:
+        list[str]: Matching completion candidates.
+    """
+    toolsets = get_active_toolsets()
+
+    # If completing the first argument (the toolset name)
+    if cword == 1:
+        prefix = words[1] if len(words) > 1 else ""
+        return [t for t in toolsets if t.startswith(prefix)]
+
+    # If completing subcommands/options of a specific toolset
+    if cword > 1 and len(words) > 1:
+        toolset_name = words[1]
+        if toolset_name in toolsets:
+            prefix = words[cword] if cword < len(words) else ""
+            return get_subcommand_candidates(toolset_name, prefix)
+
+    return []
 
 
 def complete() -> None:
@@ -68,22 +100,8 @@ def complete() -> None:
     except ValueError:
         cword = 0
 
-    toolsets = get_active_toolsets()
-
-    # If completing the first argument (the toolset name)
-    if cword == 1:
-        prefix = words[1] if len(words) > 1 else ""
-        for t in toolsets:
-            if t.startswith(prefix):
-                print(t)
-        return
-
-    # If completing subcommands/options of a specific toolset
-    if cword > 1 and len(words) > 1:
-        toolset_name = words[1]
-        if toolset_name in toolsets:
-            prefix = words[cword] if cword < len(words) else ""
-            _suggest_subcommands(toolset_name, prefix)
+    for candidate in get_completion_candidates(words, cword):
+        print(candidate)
 
 
 if __name__ == "__main__":
