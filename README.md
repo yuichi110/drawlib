@@ -64,8 +64,8 @@ Write Markdown files with embedded ```` ```drawlib ```` code blocks. A single `d
 - **4 Project Scaffolds (`drawlib init <type>`)**:
   - `drawlib init site`: Multi-page documentation website (`docs_html/`), GitHub Markdown (`docs/`), and PDF.
   - `drawlib init doc`: Linear technical specification / whitepaper (`*_html/`, `*_markdown/`, `*.pdf`).
-  - `drawlib init slide`: 16:9 presentation slide deck with native SVG text and keyboard navigation (`slide/`, `slide.pdf`).
-  - `drawlib init image`: Standalone batch Python illustration scripts (`readme_src/` -> `readme_images/`).
+  - `drawlib init slide`: 16:9 presentation slide deck with native SVG text and keyboard navigation (`slide_html/`, `slide.pdf`).
+  - `drawlib init images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`).
 
 ---
 
@@ -199,8 +199,8 @@ Compile or preview with the `drawlib` CLI:
 # Build HTML site, GitHub Markdown, or PDF
 ./docs_src/build.sh
 
-# Launch live-reload preview server at http://localhost:8000
-drawlib serve html docs_src/
+# Launch local HTTP server with broken-link check at http://localhost:8000
+drawlib serve docs_html/
 
 # Render a single diagram with coordinate grid (-g) for layout inspection
 drawlib show docs_src/index.md service_routing.png -g -o preview_grid.png
@@ -212,9 +212,9 @@ drawlib show docs_src/index.md service_routing.png -g -o preview_grid.png
 
 | Command | Description |
 | :--- | :--- |
-| `drawlib init <site\|doc\|slide\|image>` | Scaffold a new documentation, slide deck, or image project |
-| `drawlib build <html\|markdown\|pdf\|slide\|image>` | Compile source files into HTML, Markdown, PDF, Slide deck, or PNG/SVG images |
-| `drawlib serve <html\|slide> <src_dir>` | Start a local HTTP preview server with automatic rebuilds |
+| `drawlib init <site\|doc\|slide\|images>` | Scaffold a new documentation, slide deck, or image project |
+| `drawlib build <html\|markdown\|pdf\|image>` | Compile source files into HTML, Markdown, PDF, or PNG/WebP images |
+| `drawlib serve <html_dir> [--check]` | Start a local HTTP server for built HTML docs/slides with pre-flight link checks |
 | `drawlib show <file> [target] [-g]` | Render and inspect a single script or embedded Markdown diagram (with optional grid) |
 | `drawlib rules show [topic]` | On-demand CLI reference for AI agents to look up detailed API specs & best practices (`overview`, `style-guide`, `api`, `lib-*`) |
 | `drawlib cache <list\|download\|clear>` | Manage local font and icon asset caches (supports offline pre-caching via `--all`) |
