@@ -21,7 +21,7 @@ def test_roboto_mono():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontMonoSpace.ROBOTO_MONO_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontMonoSpace.ROBOTO_MONO_THIN),
     )
     text(
         (50, 30),
@@ -54,7 +54,7 @@ def test_sourcecodepro():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontMonoSpace.SOURCECODEPRO_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontMonoSpace.SOURCECODEPRO_THIN),
     )
     text(
         (50, 30),

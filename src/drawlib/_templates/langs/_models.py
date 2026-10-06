@@ -60,7 +60,7 @@ class StyleFontConfig:
     drawlib_font_module: str = "FontRoboto"
     font_regular_attr: str = "FontRoboto.REGULAR"
     font_bold_attr: str = "FontRoboto.BOLD"
-    font_light_attr: str = "FontRoboto.LIGHT"
+    font_thin_attr: str = "FontRoboto.THIN"
     activate_patch: bool = False
 
 
@@ -78,7 +78,7 @@ class LanguageConfig:
         drawlib_font_module: Drawlib font class name (e.g. 'FontJapanese', 'FontThai', 'FontRoboto').
         font_regular_attr: Drawlib font regular constant (e.g. 'FontJapanese.SANSSERIF_REGULAR').
         font_bold_attr: Drawlib font bold constant (e.g. 'FontJapanese.SANSSERIF_BOLD').
-        font_light_attr: Drawlib font light constant (e.g. 'FontJapanese.SANSSERIF_LIGHT').
+        font_thin_attr: Drawlib font thin constant (e.g. 'FontJapanese.SANSSERIF_THIN').
         activate_patch: Whether to activate Styles.patch_font by default in styles.py.
     """
 
@@ -91,7 +91,7 @@ class LanguageConfig:
     drawlib_font_module: str = "FontRoboto"
     font_regular_attr: str = "FontRoboto.REGULAR"
     font_bold_attr: str = "FontRoboto.BOLD"
-    font_light_attr: str = "FontRoboto.LIGHT"
+    font_thin_attr: str = "FontRoboto.THIN"
     activate_patch: bool = False
 
     @property

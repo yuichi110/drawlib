@@ -180,5 +180,5 @@ def test_maps_consistency() -> None:
         assert cfg.drawlib_font_module == style_cfg.drawlib_font_module
         assert cfg.font_regular_attr == style_cfg.font_regular_attr
         assert cfg.font_bold_attr == style_cfg.font_bold_attr
-        assert cfg.font_light_attr == style_cfg.font_light_attr
+        assert cfg.font_thin_attr == style_cfg.font_thin_attr
         assert cfg.activate_patch == style_cfg.activate_patch

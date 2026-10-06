@@ -21,7 +21,7 @@ def test_simplified_sans():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=BASE_STYLE.patch(text_font=FontChinese.SIMPLIFIED_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontChinese.SIMPLIFIED_SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -41,7 +41,7 @@ def test_simplified_serif():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=BASE_STYLE.patch(text_font=FontChinese.SIMPLIFIED_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontChinese.SIMPLIFIED_SERIF_THIN),
     )
     text(
         (50, 30),
@@ -61,7 +61,7 @@ def test_traditional_sans():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=BASE_STYLE.patch(text_font=FontChinese.TRADITIONAL_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontChinese.TRADITIONAL_SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -81,7 +81,7 @@ def test_traditional_serif():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=BASE_STYLE.patch(text_font=FontChinese.TRADITIONAL_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontChinese.TRADITIONAL_SERIF_THIN),
     )
     text(
         (50, 30),
@@ -101,7 +101,7 @@ def test_hongkong_sans():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=BASE_STYLE.patch(text_font=FontChinese.HONGKONG_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontChinese.HONGKONG_SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -121,7 +121,7 @@ def test_hongkong_serif():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=BASE_STYLE.patch(text_font=FontChinese.HONGKONG_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontChinese.HONGKONG_SERIF_THIN),
     )
     text(
         (50, 30),

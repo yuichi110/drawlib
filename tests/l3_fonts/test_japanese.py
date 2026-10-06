@@ -21,7 +21,7 @@ def test_sans():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontJapanese.SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontJapanese.SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -40,7 +40,7 @@ def test_serif():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontJapanese.SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontJapanese.SERIF_THIN),
     )
     text(
         (50, 30),
@@ -59,7 +59,7 @@ def test_mplus1p():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontJapanese.MPLUS1P_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontJapanese.MPLUS1P_THIN),
     )
     text(
         (50, 30),
@@ -78,7 +78,7 @@ def test_mplus_rounded1c():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontJapanese.MPLUSROUNDED1C_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontJapanese.MPLUSROUNDED1C_THIN),
     )
     text(
         (50, 30),

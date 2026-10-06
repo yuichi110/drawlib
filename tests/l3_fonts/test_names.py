@@ -52,8 +52,8 @@ class TestFontNames:
 
     def test_font_enum_member_values(self):
         """Test standard enum values are strings matching their class and name."""
-        assert Font.SANSSERIF_LIGHT.value == "Font.SANSSERIF_LIGHT"
-        assert FontJapanese.SANSSERIF_LIGHT.value == "FontJapanese.SANSSERIF_LIGHT"
+        assert Font.SANSSERIF_THIN.value == "Font.SANSSERIF_THIN"
+        assert FontJapanese.SANSSERIF_THIN.value == "FontJapanese.SANSSERIF_THIN"
 
     def test_font_pydantic_serialization(self):
         """Test font enum Pydantic serialization and deserialization."""
@@ -61,9 +61,9 @@ class TestFontNames:
         class MyModel(BaseModel):
             font: Font
 
-        m = MyModel(font=Font.SANSSERIF_LIGHT)
+        m = MyModel(font=Font.SANSSERIF_THIN)
         dumped = m.model_dump(mode="json")
-        assert dumped == {"font": "Font.SANSSERIF_LIGHT"}
+        assert dumped == {"font": "Font.SANSSERIF_THIN"}
 
         loaded = MyModel.model_validate(dumped)
-        assert loaded.font == Font.SANSSERIF_LIGHT
+        assert loaded.font == Font.SANSSERIF_THIN

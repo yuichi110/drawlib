@@ -56,10 +56,10 @@ uv run drawlib cache clear
 `Font` is the default family. It maps to Noto Sans / Noto Serif and supports Latin, Japanese (Kanji/Kana), Chinese (Simplified/Traditional), and Korean (Hangul) simultaneously:
 
 ```python
-Font.SANSSERIF_LIGHT
+Font.SANSSERIF_THIN
 Font.SANSSERIF_REGULAR    # Default font for shapes and canvas text
 Font.SANSSERIF_BOLD
-Font.SERIF_LIGHT
+Font.SERIF_THIN
 Font.SERIF_REGULAR
 Font.SERIF_BOLD
 ```
@@ -68,7 +68,7 @@ Font.SERIF_BOLD
 Tailored for clean Western technical documentation:
 
 - **`FontRoboto`**: Clean modern neo-grotesque sans-serif.
-  - `FontRoboto.ROBOTO_LIGHT`
+  - `FontRoboto.ROBOTO_THIN`
   - `FontRoboto.ROBOTO_REGULAR`
   - `FontRoboto.ROBOTO_BOLD`
   - `FontRoboto.MONO_REGULAR`

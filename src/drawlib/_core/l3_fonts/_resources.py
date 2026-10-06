@@ -26,8 +26,8 @@ from drawlib._core.l3_fonts._names import (
 )
 
 FONT_RESOURCES: dict[str, FontResource] = {
-    Font.SANSSERIF_LIGHT: FontResource(
-        path="cjk_japanese_noto_sans/light.otf",
+    Font.SANSSERIF_THIN: FontResource(
+        path="cjk_japanese_noto_sans/thin.otf",
         md5="88ce9ab7e76fed605c822b52605ac2fd",
     ),
     Font.SANSSERIF_REGULAR: FontResource(
@@ -38,8 +38,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="cjk_japanese_noto_sans/bold.otf",
         md5="64d01f4e75814352cc9dea68074f4067",
     ),
-    Font.SERIF_LIGHT: FontResource(
-        path="cjk_japanese_noto_serif/light.otf",
+    Font.SERIF_THIN: FontResource(
+        path="cjk_japanese_noto_serif/thin.otf",
         md5="0def63d37c63f0945d1046dae5ab4d83",
     ),
     Font.SERIF_REGULAR: FontResource(
@@ -50,8 +50,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="cjk_japanese_noto_serif/bold.otf",
         md5="ea7175c0325777d126622340f9c94a66",
     ),
-    FontSansSerif.LATO_LIGHT: FontResource(
-        path="sans_lato/light.ttf",
+    FontSansSerif.LATO_THIN: FontResource(
+        path="sans_lato/thin.ttf",
         md5="2bcc211c05fc425a57b2767a4cdcf174",
     ),
     FontSansSerif.LATO_REGULAR: FontResource(
@@ -62,8 +62,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="sans_lato/bold.ttf",
         md5="24b516c266d7341c954cb2918f1c8f38",
     ),
-    FontSansSerif.MONTSERRAT_LIGHT: FontResource(
-        path="sans_monstserrat/light.ttf",
+    FontSansSerif.MONTSERRAT_THIN: FontResource(
+        path="sans_monstserrat/thin.ttf",
         md5="94fbe93542f684134cad1d775947ca92",
     ),
     FontSansSerif.MONTSERRAT_REGULAR: FontResource(
@@ -74,8 +74,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="sans_monstserrat/bold.ttf",
         md5="ed86af2ed5bbaf879e9f2ec2e2eac929",
     ),
-    FontSansSerif.OSWALD_LIGHT: FontResource(
-        path="sans_oswald/light.ttf",
+    FontSansSerif.OSWALD_THIN: FontResource(
+        path="sans_oswald/thin.ttf",
         md5="fb3af9a7ffb259726bb3cb30b74ab7dc",
     ),
     FontSansSerif.OSWALD_REGULAR: FontResource(
@@ -86,8 +86,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="sans_oswald/bold.ttf",
         md5="c95751378db3c5c8bfd993b164e13422",
     ),
-    FontSansSerif.POPPINS_LIGHT: FontResource(
-        path="sans_poppins/light.ttf",
+    FontSansSerif.POPPINS_THIN: FontResource(
+        path="sans_poppins/thin.ttf",
         md5="fcc40ae9a542d001971e53eaed948410",
     ),
     FontSansSerif.POPPINS_REGULAR: FontResource(
@@ -98,8 +98,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="sans_poppins/bold.ttf",
         md5="08c20a487911694291bd8c5de41315ad",
     ),
-    FontSansSerif.RALEWAYS_LIGHT: FontResource(
-        path="sans_raleways/light.ttf",
+    FontSansSerif.RALEWAYS_THIN: FontResource(
+        path="sans_raleways/thin.ttf",
         md5="a36750fa9f5530b0c2760267df04ae37",
     ),
     FontSansSerif.RALEWAYS_REGULAR: FontResource(
@@ -118,8 +118,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="mono_courier/bold.ttf",
         md5="4acfa45d29d240044e0075a8e58f0862",
     ),
-    FontSerif.MERRIWEATHER_LIGHT: FontResource(
-        path="serif_merriweather/light.ttf",
+    FontSerif.MERRIWEATHER_THIN: FontResource(
+        path="serif_merriweather/thin.ttf",
         md5="eccb6c6a243a3d44219648b6cdbc58ce",
     ),
     FontSerif.MERRIWEATHER_REGULAR: FontResource(
@@ -130,8 +130,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="serif_merriweather/bold.ttf",
         md5="79ea53fed59f391498dfc6f2fbea97c2",
     ),
-    FontSerif.PLATYPI_LIGHT: FontResource(
-        path="serif_platypi/light.ttf",
+    FontSerif.PLATYPI_THIN: FontResource(
+        path="serif_platypi/thin.ttf",
         md5="113ff25ffa6c98594583200398ab5c71",
     ),
     FontSerif.PLATYPI_REGULAR: FontResource(
@@ -150,8 +150,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="serif_playfairdisplay/bold.ttf",
         md5="9b38798112efb7cf6eca1de031cec4ca",
     ),
-    FontMonoSpace.ROBOTO_MONO_LIGHT: FontResource(
-        path="roboto_mono/light.ttf",
+    FontMonoSpace.ROBOTO_MONO_THIN: FontResource(
+        path="roboto_mono/thin.ttf",
         md5="c9166464b1db95fc3cdf9b50fc7f98e2",
     ),
     FontMonoSpace.ROBOTO_MONO_REGULAR: FontResource(
@@ -170,8 +170,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="mono_courier/bold.ttf",
         md5="4acfa45d29d240044e0075a8e58f0862",
     ),
-    FontMonoSpace.SOURCECODEPRO_LIGHT: FontResource(
-        path="mono_source_code_pro/light.otf",
+    FontMonoSpace.SOURCECODEPRO_THIN: FontResource(
+        path="mono_source_code_pro/thin.otf",
         md5="93d429d024b482990231386a4eb49dd7",
     ),
     FontMonoSpace.SOURCECODEPRO_REGULAR: FontResource(
@@ -182,8 +182,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="mono_source_code_pro/bold.otf",
         md5="ec83816e7ec8fa6d3c3a60bdb8cf89de",
     ),
-    FontMonoSpace.SOURCEHANCODEJP_LIGHT: FontResource(
-        path="mono_source_han_code_jp/light.otf",
+    FontMonoSpace.SOURCEHANCODEJP_THIN: FontResource(
+        path="mono_source_han_code_jp/thin.otf",
         md5="ef1eb2fa9ff7c02e8a3336a70826ad47",
     ),
     FontMonoSpace.SOURCEHANCODEJP_REGULAR: FontResource(
@@ -194,8 +194,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="mono_source_han_code_jp/bold.otf",
         md5="dff5826247909bb8e04b8bf3be893386",
     ),
-    FontRoboto.ROBOTO_LIGHT: FontResource(
-        path="roboto/light.ttf",
+    FontRoboto.ROBOTO_THIN: FontResource(
+        path="roboto/thin.ttf",
         md5="881e150ab929e26d1f812c4342c15a7c",
     ),
     FontRoboto.ROBOTO_REGULAR: FontResource(
@@ -206,8 +206,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="roboto/bold.ttf",
         md5="b8e42971dec8d49207a8c8e2b919a6ac",
     ),
-    FontRoboto.SERIF_LIGHT: FontResource(
-        path="roboto_serif/light.ttf",
+    FontRoboto.SERIF_THIN: FontResource(
+        path="roboto_serif/thin.ttf",
         md5="4781a153250a8caf652b4f5b129c30ed",
     ),
     FontRoboto.SERIF_REGULAR: FontResource(
@@ -218,8 +218,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="roboto_serif/bold.ttf",
         md5="8ec6ab43edac2144cfd2494d522de733",
     ),
-    FontRoboto.MONO_LIGHT: FontResource(
-        path="roboto_mono/light.ttf",
+    FontRoboto.MONO_THIN: FontResource(
+        path="roboto_mono/thin.ttf",
         md5="c9166464b1db95fc3cdf9b50fc7f98e2",
     ),
     FontRoboto.MONO_REGULAR: FontResource(
@@ -230,8 +230,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="roboto_mono/bold.ttf",
         md5="90190d91283189e340b2a44fe560f2cd",
     ),
-    FontRoboto.CONDENSED_LIGHT: FontResource(
-        path="roboto_condensed/light.ttf",
+    FontRoboto.CONDENSED_THIN: FontResource(
+        path="roboto_condensed/thin.ttf",
         md5="68680c984f72eef7b2e2cf269382f2a6",
     ),
     FontRoboto.CONDENSED_REGULAR: FontResource(
@@ -242,8 +242,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="roboto_condensed/bold.ttf",
         md5="0233b881b26ce6cc3884c6944940d11b",
     ),
-    FontRoboto.SLAB_LIGHT: FontResource(
-        path="roboto_slab/light.ttf",
+    FontRoboto.SLAB_THIN: FontResource(
+        path="roboto_slab/thin.ttf",
         md5="4c63608980b784c679bbadeb18d9acf4",
     ),
     FontRoboto.SLAB_REGULAR: FontResource(
@@ -270,8 +270,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="mono_source_han_code_jp/regular.otf",
         md5="abcdbd5449ad6a30d540221a12f4a0b5",
     ),
-    FontArabic.SANSSERIF_LIGHT: FontResource(
-        path="arabic_noto_sans/light.ttf",
+    FontArabic.SANSSERIF_THIN: FontResource(
+        path="arabic_noto_sans/thin.ttf",
         md5="ffcfcc231a05032bca6e0819aa60eacb",
     ),
     FontArabic.SANSSERIF_REGULAR: FontResource(
@@ -282,8 +282,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="arabic_noto_sans/bold.ttf",
         md5="cda675687ed1576b7bda072838c0ed5f",
     ),
-    FontArabic.KUFI_LIGHT: FontResource(
-        path="arabic_noto_kufi/light.ttf",
+    FontArabic.KUFI_THIN: FontResource(
+        path="arabic_noto_kufi/thin.ttf",
         md5="23517c64b528b3c744bfb3be94e58836",
     ),
     FontArabic.KUFI_REGULAR: FontResource(
@@ -302,8 +302,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="arabic_noto_naskh/bold.ttf",
         md5="3e8ac1d70691caf5ddfd36fee8acce3d",
     ),
-    FontBrahmic.BENGALI_SANSSERIF_LIGHT: FontResource(
-        path="brahmic_bengali_noto_sans/light.ttf",
+    FontBrahmic.BENGALI_SANSSERIF_THIN: FontResource(
+        path="brahmic_bengali_noto_sans/thin.ttf",
         md5="7e54641bfed39afb0b9b957168eb7869",
     ),
     FontBrahmic.BENGALI_SANSSERIF_REGULAR: FontResource(
@@ -314,8 +314,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="brahmic_bengali_noto_sans/bold.ttf",
         md5="b4463ed2663bd59adff9ef090dabaa14",
     ),
-    FontBrahmic.BENGALI_SERIF_LIGHT: FontResource(
-        path="brahmic_bengali_noto_serif/light.ttf",
+    FontBrahmic.BENGALI_SERIF_THIN: FontResource(
+        path="brahmic_bengali_noto_serif/thin.ttf",
         md5="1890d63acffba90859e2bfb2bea18035",
     ),
     FontBrahmic.BENGALI_SERIF_REGULAR: FontResource(
@@ -326,8 +326,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="brahmic_bengali_noto_serif/bold.ttf",
         md5="eccf90709f61853a4aa1d184f8e54216",
     ),
-    FontBrahmic.DEVANAGARI_SANSSERIF_LIGHT: FontResource(
-        path="brahmic_devanagari_noto_sans/light.ttf",
+    FontBrahmic.DEVANAGARI_SANSSERIF_THIN: FontResource(
+        path="brahmic_devanagari_noto_sans/thin.ttf",
         md5="be21506bd5d277aa33b7d6d2563477af",
     ),
     FontBrahmic.DEVANAGARI_SANSSERIF_REGULAR: FontResource(
@@ -338,8 +338,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="brahmic_devanagari_noto_sans/bold.ttf",
         md5="bb252b622a58dc3bf433dbf5754e6f7e",
     ),
-    FontBrahmic.DEVANAGARI_SERIF_LIGHT: FontResource(
-        path="brahmic_devanagari_noto_serif/light.ttf",
+    FontBrahmic.DEVANAGARI_SERIF_THIN: FontResource(
+        path="brahmic_devanagari_noto_serif/thin.ttf",
         md5="bae0ad5209cfee6a43bbd3163b98056c",
     ),
     FontBrahmic.DEVANAGARI_SERIF_REGULAR: FontResource(
@@ -350,8 +350,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="brahmic_devanagari_noto_serif/bold.ttf",
         md5="bedfefb38fe53bc1fa18c5a651c1d7b3",
     ),
-    FontBrahmic.TAMIL_SANSSERIF_LIGHT: FontResource(
-        path="brahmic_tamil_noto_sans/light.ttf",
+    FontBrahmic.TAMIL_SANSSERIF_THIN: FontResource(
+        path="brahmic_tamil_noto_sans/thin.ttf",
         md5="b6ced5e5b7a0d6f2e763db77705cb7cc",
     ),
     FontBrahmic.TAMIL_SANSSERIF_REGULAR: FontResource(
@@ -362,8 +362,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="brahmic_tamil_noto_sans/bold.ttf",
         md5="df89701fdee0d1de9f7f6c7fbbae8874",
     ),
-    FontBrahmic.TAMIL_SERIF_LIGHT: FontResource(
-        path="brahmic_tamil_noto_serif/light.ttf",
+    FontBrahmic.TAMIL_SERIF_THIN: FontResource(
+        path="brahmic_tamil_noto_serif/thin.ttf",
         md5="0e5ddcae43424e9a547917ec1e997695",
     ),
     FontBrahmic.TAMIL_SERIF_REGULAR: FontResource(
@@ -374,8 +374,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="brahmic_tamil_noto_serif/bold.ttf",
         md5="32be9efedcdf21ad3cbb960b43f8e575",
     ),
-    FontBrahmic.TELUGU_SANSSERIF_LIGHT: FontResource(
-        path="brahmic_telugu_noto_sans/light.ttf",
+    FontBrahmic.TELUGU_SANSSERIF_THIN: FontResource(
+        path="brahmic_telugu_noto_sans/thin.ttf",
         md5="644489807d1b7ff280724920e6d46208",
     ),
     FontBrahmic.TELUGU_SANSSERIF_REGULAR: FontResource(
@@ -386,8 +386,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="brahmic_telugu_noto_sans/bold.ttf",
         md5="48dd5f30af67f36e23c885e341094d83",
     ),
-    FontBrahmic.TELUGU_SERIF_LIGHT: FontResource(
-        path="brahmic_telugu_noto_serif/light.ttf",
+    FontBrahmic.TELUGU_SERIF_THIN: FontResource(
+        path="brahmic_telugu_noto_serif/thin.ttf",
         md5="9e72f2730d10bd62e437360f30dc3e63",
     ),
     FontBrahmic.TELUGU_SERIF_REGULAR: FontResource(
@@ -398,8 +398,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="brahmic_telugu_noto_serif/bold.ttf",
         md5="b12935df488a2a17167e180ea3569360",
     ),
-    FontChinese.SIMPLIFIED_SANSSERIF_LIGHT: FontResource(
-        path="chinese_simplified_noto_sans/light.ttf",
+    FontChinese.SIMPLIFIED_SANSSERIF_THIN: FontResource(
+        path="chinese_simplified_noto_sans/thin.ttf",
         md5="d52d4d74290978e137446b7b62b1c5d2",
     ),
     FontChinese.SIMPLIFIED_SANSSERIF_REGULAR: FontResource(
@@ -410,8 +410,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="chinese_simplified_noto_sans/bold.ttf",
         md5="f8f91dd976cfe63e46490e63345e8c2e",
     ),
-    FontChinese.SIMPLIFIED_SERIF_LIGHT: FontResource(
-        path="chinese_simplified_noto_serif/light.ttf",
+    FontChinese.SIMPLIFIED_SERIF_THIN: FontResource(
+        path="chinese_simplified_noto_serif/thin.ttf",
         md5="33c62feebda55f521b6210671c9f3df8",
     ),
     FontChinese.SIMPLIFIED_SERIF_REGULAR: FontResource(
@@ -422,8 +422,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="chinese_simplified_noto_serif/bold.ttf",
         md5="848c527475e6444da5bc77f540f3d701",
     ),
-    FontChinese.TRADITIONAL_SANSSERIF_LIGHT: FontResource(
-        path="chinese_traditional_noto_sans/light.ttf",
+    FontChinese.TRADITIONAL_SANSSERIF_THIN: FontResource(
+        path="chinese_traditional_noto_sans/thin.ttf",
         md5="b00ec05f9416dcf69687be79e2c645d7",
     ),
     FontChinese.TRADITIONAL_SANSSERIF_REGULAR: FontResource(
@@ -434,8 +434,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="chinese_traditional_noto_sans/bold.ttf",
         md5="a4ee55b412c13458ec428c1f6821e283",
     ),
-    FontChinese.TRADITIONAL_SERIF_LIGHT: FontResource(
-        path="chinese_traditional_noto_serif/light.ttf",
+    FontChinese.TRADITIONAL_SERIF_THIN: FontResource(
+        path="chinese_traditional_noto_serif/thin.ttf",
         md5="d1b13a4bdcde44b480cee69815a375cd",
     ),
     FontChinese.TRADITIONAL_SERIF_REGULAR: FontResource(
@@ -446,8 +446,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="chinese_traditional_noto_serif/bold.ttf",
         md5="5144d59a55c50e9f23aea89041af0d23",
     ),
-    FontChinese.HONGKONG_SANSSERIF_LIGHT: FontResource(
-        path="chinese_hongkong_noto_sans/light.ttf",
+    FontChinese.HONGKONG_SANSSERIF_THIN: FontResource(
+        path="chinese_hongkong_noto_sans/thin.ttf",
         md5="c014c66923388c93ec4b0158687f1604",
     ),
     FontChinese.HONGKONG_SANSSERIF_REGULAR: FontResource(
@@ -458,8 +458,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="chinese_hongkong_noto_sans/bold.ttf",
         md5="f5fbe3e2e9478bfc00e255934fc1a842",
     ),
-    FontChinese.HONGKONG_SERIF_LIGHT: FontResource(
-        path="chinese_hongkong_noto_serif/light.ttf",
+    FontChinese.HONGKONG_SERIF_THIN: FontResource(
+        path="chinese_hongkong_noto_serif/thin.ttf",
         md5="c61d4737ea4a774853955b86b38fc871",
     ),
     FontChinese.HONGKONG_SERIF_REGULAR: FontResource(
@@ -470,8 +470,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="chinese_hongkong_noto_serif/bold.ttf",
         md5="08302783208cf67b70d2b53bbc3150b8",
     ),
-    FontJapanese.SANSSERIF_LIGHT: FontResource(
-        path="japanese_noto_sans/light.ttf",
+    FontJapanese.SANSSERIF_THIN: FontResource(
+        path="japanese_noto_sans/thin.ttf",
         md5="7d1e0e68062ba3ae1cc12009620f645d",
     ),
     FontJapanese.SANSSERIF_REGULAR: FontResource(
@@ -482,8 +482,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="japanese_noto_sans/bold.ttf",
         md5="4aec04fd98881db5fbc79075428727ef",
     ),
-    FontJapanese.SERIF_LIGHT: FontResource(
-        path="japanese_noto_serif/light.ttf",
+    FontJapanese.SERIF_THIN: FontResource(
+        path="japanese_noto_serif/thin.ttf",
         md5="0f3e1a61caa6528059bf62dae1902235",
     ),
     FontJapanese.SERIF_REGULAR: FontResource(
@@ -494,8 +494,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="japanese_noto_serif/bold.ttf",
         md5="9ec5752a714a1f0871b4ad04f0d6f283",
     ),
-    FontJapanese.MPLUS1P_LIGHT: FontResource(
-        path="japanese_mplus_1p/light.ttf",
+    FontJapanese.MPLUS1P_THIN: FontResource(
+        path="japanese_mplus_1p/thin.ttf",
         md5="01fea1cae2979588652514d83e9c0423",
     ),
     FontJapanese.MPLUS1P_REGULAR: FontResource(
@@ -506,8 +506,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="japanese_mplus_1p/bold.ttf",
         md5="aa140061f44d0dda19ab2573a0ad93d3",
     ),
-    FontJapanese.MPLUSROUNDED1C_LIGHT: FontResource(
-        path="japanese_mplus_rounded1c/light.ttf",
+    FontJapanese.MPLUSROUNDED1C_THIN: FontResource(
+        path="japanese_mplus_rounded1c/thin.ttf",
         md5="9c62a03e973fc7c73bfb935296a2b693",
     ),
     FontJapanese.MPLUSROUNDED1C_REGULAR: FontResource(
@@ -526,8 +526,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="japanese_sawarabi_mincho/regular.ttf",
         md5="568e086e3451178636c5f10761df2c45",
     ),
-    FontKorean.SANSSERIF_LIGHT: FontResource(
-        path="korean_noto_sans/light.ttf",
+    FontKorean.SANSSERIF_THIN: FontResource(
+        path="korean_noto_sans/thin.ttf",
         md5="e61301e66b058697c6031c39edb7c0d2",
     ),
     FontKorean.SANSSERIF_REGULAR: FontResource(
@@ -538,8 +538,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="korean_noto_sans/bold.ttf",
         md5="671db5f821991c90d7f8499bcf9fed7e",
     ),
-    FontKorean.SERIF_LIGHT: FontResource(
-        path="korean_noto_serif/light.ttf",
+    FontKorean.SERIF_THIN: FontResource(
+        path="korean_noto_serif/thin.ttf",
         md5="9922efae87ff1960a63efdc3466edd90",
     ),
     FontKorean.SERIF_REGULAR: FontResource(
@@ -550,8 +550,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="korean_noto_serif/bold.ttf",
         md5="8c4085a8e0d34353e2f0d9285abef61e",
     ),
-    FontThai.SANSSERIF_LIGHT: FontResource(
-        path="thai_noto_sans/light.ttf",
+    FontThai.SANSSERIF_THIN: FontResource(
+        path="thai_noto_sans/thin.ttf",
         md5="fa192df61c8ef9a6a204c6323fdae9dc",
     ),
     FontThai.SANSSERIF_REGULAR: FontResource(
@@ -562,8 +562,8 @@ FONT_RESOURCES: dict[str, FontResource] = {
         path="thai_noto_sans/bold.ttf",
         md5="1296256d14a6c704f87967dc06583a64",
     ),
-    FontThai.SERIF_LIGHT: FontResource(
-        path="thai_noto_serif/light.ttf",
+    FontThai.SERIF_THIN: FontResource(
+        path="thai_noto_serif/thin.ttf",
         md5="70c158b4144d83cba0f7266952ddad2f",
     ),
     FontThai.SERIF_REGULAR: FontResource(

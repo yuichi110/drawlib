@@ -137,7 +137,7 @@ def get_styles_font_patch(lang: str, style_theme: str = "default") -> str:
             f"Styles = {style_cls}().patch_font(\n"
             f"    regular={cfg.font_regular_attr},\n"
             f"    bold={cfg.font_bold_attr},\n"
-            f"    light={cfg.font_light_attr},\n"
+            f"    thin={cfg.font_thin_attr},\n"
             ")"
         )
 

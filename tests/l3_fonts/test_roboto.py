@@ -21,7 +21,7 @@ def test_roboto():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontRoboto.ROBOTO_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.ROBOTO_THIN),
     )
     text(
         (50, 30),
@@ -40,7 +40,7 @@ def test_roboto_serif():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontRoboto.SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.SERIF_THIN),
     )
     text(
         (50, 30),
@@ -59,7 +59,7 @@ def test_roboto_mono():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontRoboto.MONO_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.MONO_THIN),
     )
     text(
         (50, 30),
@@ -78,7 +78,7 @@ def test_roboto_condensed():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontRoboto.CONDENSED_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.CONDENSED_THIN),
     )
     text(
         (50, 30),
@@ -97,7 +97,7 @@ def test_roboto_slab():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontRoboto.SLAB_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.SLAB_THIN),
     )
     text(
         (50, 30),

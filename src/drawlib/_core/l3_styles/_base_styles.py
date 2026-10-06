@@ -23,8 +23,7 @@ from drawlib._core.l3_styles._style_models import Style
 DEFAULT_TEXT_SIZE: float = 16.0
 DEFAULT_FONT: Font = Font.SANSSERIF_REGULAR
 DEFAULT_FONT_BOLD: Font = Font.SANSSERIF_BOLD
-DEFAULT_FONT_THIN: Font = Font.SANSSERIF_LIGHT
-DEFAULT_FONT_LIGHT: Font = Font.SANSSERIF_LIGHT
+DEFAULT_FONT_THIN: Font = Font.SANSSERIF_THIN
 
 
 def _resolve_target_font(
@@ -161,7 +160,6 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     DEFAULT_FONT: ClassVar[Font] = DEFAULT_FONT
     DEFAULT_FONT_BOLD: ClassVar[Font] = DEFAULT_FONT_BOLD
     DEFAULT_FONT_THIN: ClassVar[Font] = DEFAULT_FONT_THIN
-    DEFAULT_FONT_LIGHT: ClassVar[Font] = DEFAULT_FONT_LIGHT
 
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize preset styles instance.
@@ -565,7 +563,6 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
 __all__ = [
     "DEFAULT_FONT",
     "DEFAULT_FONT_BOLD",
-    "DEFAULT_FONT_LIGHT",
     "DEFAULT_FONT_THIN",
     "DEFAULT_TEXT_SIZE",
     "BaseStyles",

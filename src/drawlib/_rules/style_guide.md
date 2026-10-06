@@ -138,7 +138,7 @@ from drawlib.styles import Colors, Styles
 Styles = Styles.patch_font(
     regular=FontJapanese.SANSSERIF_REGULAR,
     bold=FontJapanese.SANSSERIF_BOLD,
-    light=FontJapanese.SANSSERIF_LIGHT,
+    light=FontJapanese.SANSSERIF_THIN,
     size=14,
 )
 

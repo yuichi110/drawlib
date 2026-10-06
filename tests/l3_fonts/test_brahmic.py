@@ -21,7 +21,7 @@ def test_bengali_sans():
     text(
         (50, 10),
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
-        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -40,7 +40,7 @@ def test_bengali_serif():
     text(
         (50, 10),
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
-        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SERIF_THIN),
     )
     text(
         (50, 30),
@@ -59,7 +59,7 @@ def test_devanagari_sans():
     text(
         (50, 10),
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
-        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -78,7 +78,7 @@ def test_devanagari_serif():
     text(
         (50, 10),
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
-        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SERIF_THIN),
     )
     text(
         (50, 30),
@@ -97,7 +97,7 @@ def test_tamil_sans():
     text(
         (50, 10),
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
-        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -116,7 +116,7 @@ def test_tamil_serif():
     text(
         (50, 10),
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
-        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SERIF_THIN),
     )
     text(
         (50, 30),
@@ -135,7 +135,7 @@ def test_telugu_sans():
     text(
         (50, 10),
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
-        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -154,7 +154,7 @@ def test_telugu_serif():
     text(
         (50, 10),
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
-        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SERIF_THIN),
     )
     text(
         (50, 30),

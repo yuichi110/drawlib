@@ -324,7 +324,7 @@ Every preset style follows a deterministic, composable PascalCase naming structu
    - **`Dotted`**: Transparent fill with a **dotted border outline** (`shape_line_style="dotted"`). Ideal for dependency links, soft boundaries, and degraded flows.
 
 3. **`<Weight>` (Stroke Width & Font Weight)**:
-   - **`Thin`**: Line border width is halved (0.75 px). Font weight is light (`Font.SANSSERIF_LIGHT`). Icons render in thin style.
+   - **`Thin`**: Line border width is halved (0.75 px). Font weight is thin (`Font.SANSSERIF_THIN`). Icons render in thin style.
    - **`(omitted / default)`**: Standard line border width (1.5 px). Font weight is regular (`Font.SANSSERIF_REGULAR`).
    - **`Bold`**: Line border width is increased to 2.5 px. Font weight is bold (`Font.SANSSERIF_BOLD`).
 
@@ -438,14 +438,14 @@ Not every visual property applies to every drawing element. For example, lines d
 
 2. **Lines & Connectors (`line`, `lines`, `bezier`, `arrow`, `line_curved`)**:
    - Lines do not have an interior fill; they only have stroke properties (`line_color`, `line_width`, `line_style`).
-   - Suffixes `solid`, `dashed`, `light`, `bold` work seamlessly.
+   - Suffixes `solid`, `dashed`, `thin`, `bold` work seamlessly.
    - Applying `flat` to a line is an anti-pattern because `flat` sets `line_width=0`, making the line invisible.
 
 3. **Text (`text`, `text_vertical`, shape `text_style`)**:
    - Text elements only extract `text_color`, `text_size`, and `text_font`.
    - The `<color>` token controls `text_color`.
-   - Weight tokens `light` and `bold` automatically select corresponding typography fonts:
-     - `light` -> `Font.SANSSERIF_LIGHT`
+   - Weight tokens `thin` and `bold` automatically select corresponding typography fonts:
+     - `thin` -> `Font.SANSSERIF_THIN`
      - `default` -> `Font.SANSSERIF_REGULAR`
      - `bold` -> `Font.SANSSERIF_BOLD`
    - Outline tokens (`flat`, `solid`, `dashed`) have no effect on text glyphs.

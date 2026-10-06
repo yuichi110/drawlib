@@ -49,7 +49,7 @@ def test_merriweather():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontSerif.MERRIWEATHER_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontSerif.MERRIWEATHER_THIN),
     )
     text(
         (50, 30),
@@ -68,7 +68,7 @@ def test_platypi():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontSerif.PLATYPI_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontSerif.PLATYPI_THIN),
     )
     text(
         (50, 30),

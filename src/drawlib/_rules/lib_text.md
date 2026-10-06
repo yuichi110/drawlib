@@ -256,23 +256,23 @@ Instead, Drawlib bundles and manages standardized open-source font collections e
 Imported from `drawlib.fonts`:
 
 1. **`Font`**: Core standard weights
-   - `Font.SANSSERIF_LIGHT`, `Font.SANSSERIF_REGULAR`, `Font.SANSSERIF_BOLD`
-   - `Font.SERIF_LIGHT`, `Font.SERIF_REGULAR`, `Font.SERIF_BOLD`
+   - `Font.SANSSERIF_THIN`, `Font.SANSSERIF_REGULAR`, `Font.SANSSERIF_BOLD`
+   - `Font.SERIF_THIN`, `Font.SERIF_REGULAR`, `Font.SERIF_BOLD`
    - Default family: **Noto Sans CJK Japanese** (universal multilingual sans-serif).
 2. **`FontRoboto`**:
-   - `FontRoboto.ROBOTO_LIGHT`, `FontRoboto.ROBOTO_REGULAR`, `FontRoboto.ROBOTO_BOLD`
-   - `FontRoboto.SERIF_LIGHT`, `FontRoboto.SERIF_REGULAR`, `FontRoboto.SERIF_BOLD`
-   - `FontRoboto.MONO_LIGHT`, `FontRoboto.MONO_REGULAR`, `FontRoboto.MONO_BOLD`
+   - `FontRoboto.ROBOTO_THIN`, `FontRoboto.ROBOTO_REGULAR`, `FontRoboto.ROBOTO_BOLD`
+   - `FontRoboto.SERIF_THIN`, `FontRoboto.SERIF_REGULAR`, `FontRoboto.SERIF_BOLD`
+   - `FontRoboto.MONO_THIN`, `FontRoboto.MONO_REGULAR`, `FontRoboto.MONO_BOLD`
 3. **`FontSansSerif`**:
-   - `FontSansSerif.LATO_LIGHT`, `LATO_REGULAR`, `LATO_BOLD`
-   - `FontSansSerif.MONTSERRAT_LIGHT`, `MONTSERRAT_REGULAR`, `MONTSERRAT_BOLD`
-   - `FontSansSerif.OSWALD_LIGHT`, `OSWALD_REGULAR`, `OSWALD_BOLD`
-   - `FontSansSerif.POPPINS_LIGHT`, `POPPINS_REGULAR`, `POPPINS_BOLD`
-   - `FontSansSerif.RALEWAYS_LIGHT`, `RALEWAYS_REGULAR`, `RALEWAYS_BOLD`
+   - `FontSansSerif.LATO_THIN`, `LATO_REGULAR`, `LATO_BOLD`
+   - `FontSansSerif.MONTSERRAT_THIN`, `MONTSERRAT_REGULAR`, `MONTSERRAT_BOLD`
+   - `FontSansSerif.OSWALD_THIN`, `OSWALD_REGULAR`, `OSWALD_BOLD`
+   - `FontSansSerif.POPPINS_THIN`, `POPPINS_REGULAR`, `POPPINS_BOLD`
+   - `FontSansSerif.RALEWAYS_THIN`, `RALEWAYS_REGULAR`, `RALEWAYS_BOLD`
 4. **`FontSerif`**:
    - `FontSerif.COURIER_REGULAR`, `COURIER_BOLD`
-   - `FontSerif.MERRIWEATHER_LIGHT`, `MERRIWEATHER_REGULAR`, `MERRIWEATHER_BOLD`
-   - `FontSerif.PLATYPI_LIGHT`, `PLATYPI_REGULAR`, `PLATYPI_BOLD`
+   - `FontSerif.MERRIWEATHER_THIN`, `MERRIWEATHER_REGULAR`, `MERRIWEATHER_BOLD`
+   - `FontSerif.PLATYPI_THIN`, `PLATYPI_REGULAR`, `PLATYPI_BOLD`
    - `FontSerif.PLAYFAIRDISPLAY_REGULAR`, `PLAYFAIRDISPLAY_BOLD`
 5. **`FontMonoSpace` / `FontSourceCode`**:
    - `FontMonoSpace.ROBOTO_MONO_REGULAR`, `FontMonoSpace.COURIER_REGULAR`, `FontMonoSpace.SOURCECODEPRO_REGULAR`, `FontMonoSpace.SOURCEHANCODEJP_REGULAR`

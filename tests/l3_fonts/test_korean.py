@@ -21,7 +21,7 @@ def test_sans():
     text(
         (50, 10),
         "Hello World. 오늘은 날씨가 좋네요。",
-        style=BASE_STYLE.patch(text_font=FontKorean.SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontKorean.SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -40,7 +40,7 @@ def test_serif():
     text(
         (50, 10),
         "Hello World. 오늘은 날씨가 좋네요。",
-        style=BASE_STYLE.patch(text_font=FontKorean.SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontKorean.SERIF_THIN),
     )
     text(
         (50, 30),

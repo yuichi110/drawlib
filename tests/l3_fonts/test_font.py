@@ -21,7 +21,7 @@ def test_sans():
     text(
         (10, 5),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_THIN),
     )
     text(
         (10, 10),
@@ -60,7 +60,7 @@ def test_serif():
     text(
         (10, 5),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=Font.SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=Font.SERIF_THIN),
     )
     text(
         (10, 10),

@@ -33,7 +33,7 @@ def _build_languages() -> dict[str, LanguageConfig]:
             drawlib_font_module=style_cfg.drawlib_font_module,
             font_regular_attr=style_cfg.font_regular_attr,
             font_bold_attr=style_cfg.font_bold_attr,
-            font_light_attr=style_cfg.font_light_attr,
+            font_thin_attr=style_cfg.font_thin_attr,
             activate_patch=style_cfg.activate_patch,
         )
     return languages

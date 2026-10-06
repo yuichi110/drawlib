@@ -21,7 +21,7 @@ def test_lato():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontSansSerif.LATO_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontSansSerif.LATO_THIN),
     )
     text(
         (50, 30),
@@ -40,7 +40,7 @@ def test_raleways():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontSansSerif.RALEWAYS_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontSansSerif.RALEWAYS_THIN),
     )
     text(
         (50, 30),
@@ -59,7 +59,7 @@ def test_montserrat():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontSansSerif.MONTSERRAT_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontSansSerif.MONTSERRAT_THIN),
     )
     text(
         (50, 30),
@@ -78,7 +78,7 @@ def test_oswald():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontSansSerif.OSWALD_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontSansSerif.OSWALD_THIN),
     )
     text(
         (50, 30),
@@ -97,7 +97,7 @@ def test_poppins():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=BASE_STYLE.patch(text_font=FontSansSerif.POPPINS_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontSansSerif.POPPINS_THIN),
     )
     text(
         (50, 30),

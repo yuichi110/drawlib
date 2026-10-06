@@ -21,7 +21,7 @@ def test_kufi():
     text(
         (50, 10),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=BASE_STYLE.patch(text_font=FontArabic.KUFI_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontArabic.KUFI_THIN),
     )
     text(
         (50, 30),
@@ -54,7 +54,7 @@ def test_sans():
     text(
         (50, 10),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=BASE_STYLE.patch(text_font=FontArabic.SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontArabic.SANSSERIF_THIN),
     )
     text(
         (50, 30),

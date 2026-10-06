@@ -21,7 +21,7 @@ def test_sans():
     text(
         (50, 10),
         "Hello World. วันนี้อากาศดีจังเลย",
-        style=BASE_STYLE.patch(text_font=FontThai.SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontThai.SANSSERIF_THIN),
     )
     text(
         (50, 30),
@@ -40,7 +40,7 @@ def test_serif():
     text(
         (50, 10),
         "Hello World. วันนี้อากาศดีจังเลย",
-        style=BASE_STYLE.patch(text_font=FontThai.SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontThai.SERIF_THIN),
     )
     text(
         (50, 30),
