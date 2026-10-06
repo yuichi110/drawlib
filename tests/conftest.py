@@ -24,6 +24,7 @@ from tests.utils import check_image_match
 REPO_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_TESTS_DIR = REPO_ROOT / "output_tests"
 TESTS_DIR = REPO_ROOT / "tests"
+TESTS_DRAWLIB_DIR = TESTS_DIR / "drawlib"
 
 
 def _get_output_files(target_dir: Optional[Path] = None) -> dict[Path, float]:
@@ -45,7 +46,7 @@ def _get_answers_file_path(gen_file_abs: Path, test_module_abs: Path) -> Optiona
     Returns None if the generated file does not belong to this test module or has no answer file.
     """
     try:
-        subpath = test_module_abs.parent.relative_to(TESTS_DIR)
+        subpath = test_module_abs.parent.relative_to(TESTS_DRAWLIB_DIR)
         rel_gen = gen_file_abs.relative_to(OUTPUT_TESTS_DIR)
     except ValueError:
         return None
@@ -85,7 +86,7 @@ def pytest_runtest_call(item):
     """Intercept the test function execution to verify generated images in the call phase (FAILED status)."""
     test_module_path = Path(item.module.__file__)
     try:
-        subpath = test_module_path.parent.relative_to(TESTS_DIR)
+        subpath = test_module_path.parent.relative_to(TESTS_DRAWLIB_DIR)
         module_output_dir = OUTPUT_TESTS_DIR / subpath
     except ValueError:
         module_output_dir = OUTPUT_TESTS_DIR

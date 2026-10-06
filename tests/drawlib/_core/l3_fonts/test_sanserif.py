@@ -1,0 +1,112 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+from drawlib.canvas import save
+from drawlib.fonts import FontSansSerif
+from drawlib.styles import Colors
+from drawlib.text import text
+from drawlib.types import Style
+
+OUTPUT_DIR = "../../../../output_tests/_core/l3_fonts/sansserif/"
+BASE_STYLE = Style(text_color=Colors.Black, text_size=16)
+
+
+def test_lato():
+    text(
+        (50, 10),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.LATO_THIN),
+    )
+    text(
+        (50, 30),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.LATO_REGULAR),
+    )
+    text(
+        (50, 50),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.LATO_BOLD),
+    )
+    save(f"{OUTPUT_DIR}test_lato.png")
+
+
+def test_raleways():
+    text(
+        (50, 10),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.RALEWAYS_THIN),
+    )
+    text(
+        (50, 30),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.RALEWAYS_REGULAR),
+    )
+    text(
+        (50, 50),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.RALEWAYS_BOLD),
+    )
+    save(f"{OUTPUT_DIR}test_raleways.png")
+
+
+def test_montserrat():
+    text(
+        (50, 10),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.MONTSERRAT_THIN),
+    )
+    text(
+        (50, 30),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.MONTSERRAT_REGULAR),
+    )
+    text(
+        (50, 50),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.MONTSERRAT_BOLD),
+    )
+    save(f"{OUTPUT_DIR}test_montserrat.png")
+
+
+def test_oswald():
+    text(
+        (50, 10),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.OSWALD_THIN),
+    )
+    text(
+        (50, 30),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.OSWALD_REGULAR),
+    )
+    text(
+        (50, 50),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.OSWALD_BOLD),
+    )
+    save(f"{OUTPUT_DIR}test_oswald.png")
+
+
+def test_poppins():
+    text(
+        (50, 10),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.POPPINS_THIN),
+    )
+    text(
+        (50, 30),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.POPPINS_REGULAR),
+    )
+    text(
+        (50, 50),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontSansSerif.POPPINS_BOLD),
+    )
+    save(f"{OUTPUT_DIR}test_poppins.png")

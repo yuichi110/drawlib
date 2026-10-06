@@ -1,0 +1,34 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+from drawlib.canvas import save
+from drawlib.fonts import FontFile
+from drawlib.styles import Colors
+from drawlib.text import text
+from drawlib.types import Style
+
+FONT_AVENGER = "../../../assets/avenger/regular.ttf"
+FONT_MPLUS1P = "../../../assets/mplus1p/regular.ttf"
+
+OUTPUT_DIR = "../../../../output_tests/_core/l3_fonts/font_file/"
+BASE_STYLE = Style(text_color=Colors.Black, text_size=16)
+
+
+def test():
+    text(
+        (20, 30),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontFile(FONT_MPLUS1P)),
+    )
+    text(
+        (20, 70),
+        "Hello World. あいうえお",
+        style=BASE_STYLE.patch(text_font=FontFile(FONT_AVENGER)),
+    )
+    save(f"{OUTPUT_DIR}test.png")

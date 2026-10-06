@@ -1,0 +1,55 @@
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+from drawlib.canvas import save
+from drawlib.fonts import FontKorean
+from drawlib.styles import Colors
+from drawlib.text import text
+from drawlib.types import Style
+
+OUTPUT_DIR = "../../../../output_tests/_core/l3_fonts/korean/"
+BASE_STYLE = Style(text_color=Colors.Black, text_size=16)
+
+
+def test_sans():
+    text(
+        (50, 10),
+        "Hello World. 오늘은 날씨가 좋네요。",
+        style=BASE_STYLE.patch(text_font=FontKorean.SANSSERIF_THIN),
+    )
+    text(
+        (50, 30),
+        "Hello World. 오늘은 날씨가 좋네요。",
+        style=BASE_STYLE.patch(text_font=FontKorean.SANSSERIF_REGULAR),
+    )
+    text(
+        (50, 50),
+        "Hello World. 오늘은 날씨가 좋네요。",
+        style=BASE_STYLE.patch(text_font=FontKorean.SANSSERIF_BOLD),
+    )
+    save(f"{OUTPUT_DIR}test_sans.png")
+
+
+def test_serif():
+    text(
+        (50, 10),
+        "Hello World. 오늘은 날씨가 좋네요。",
+        style=BASE_STYLE.patch(text_font=FontKorean.SERIF_THIN),
+    )
+    text(
+        (50, 30),
+        "Hello World. 오늘은 날씨가 좋네요。",
+        style=BASE_STYLE.patch(text_font=FontKorean.SERIF_REGULAR),
+    )
+    text(
+        (50, 50),
+        "Hello World. 오늘은 날씨가 좋네요。",
+        style=BASE_STYLE.patch(text_font=FontKorean.SERIF_BOLD),
+    )
+    save(f"{OUTPUT_DIR}test_serif.png")

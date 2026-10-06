@@ -60,7 +60,7 @@ def test_all(
     cov_report: bool = typer.Option(False, "--cov-report", help="Show line-by-line coverage report."),
     parallel: bool = typer.Option(True, "--parallel/--no-parallel", help="Run tests in parallel via pytest-xdist."),
 ) -> None:
-    """Run the complete test suite across all tests.
+    """Run the complete test suite across all tests (drawlib + dcli).
 
     Args:
         cov: Whether to run coverage.
@@ -69,6 +69,36 @@ def test_all(
     """
     _run_pytest("tests/", cov=cov, cov_report=cov_report, parallel=parallel)
     console.print("[bold green]✓ All tests passed successfully![/bold green]")
+
+
+@app.command("drawlib")
+def test_drawlib(
+    cov: bool = typer.Option(True, "--cov/--no-cov", help="Enable/disable coverage tracking."),
+    cov_report: bool = typer.Option(False, "--cov-report", help="Show line-by-line coverage report."),
+    parallel: bool = typer.Option(True, "--parallel/--no-parallel", help="Run tests in parallel via pytest-xdist."),
+) -> None:
+    """Run all unit and integration tests for drawlib package.
+
+    Args:
+        cov: Whether to run coverage.
+        cov_report: Whether to output terminal coverage report.
+        parallel: Whether to run tests in parallel.
+    """
+    _run_pytest("tests/drawlib/", cov=cov, cov_report=cov_report, parallel=parallel)
+    console.print("[bold green]✓ All drawlib tests passed successfully![/bold green]")
+
+
+@app.command("dcli")
+def test_dcli(
+    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
+) -> None:
+    """Run tests for dcli developer CLI tools.
+
+    Args:
+        cov: Whether to collect coverage.
+    """
+    _run_pytest("tests/dcli/", cov=cov)
+    console.print("[bold green]✓ All dcli tests passed successfully![/bold green]")
 
 
 @app.command("target")
@@ -89,12 +119,12 @@ def test_target(
 def test_core(
     cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
 ) -> None:
-    """Run l1_core unit tests.
+    """Run _core unit tests.
 
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/l1_core/", cov=cov)
+    _run_pytest("tests/drawlib/_core/", cov=cov)
 
 
 @app.command("types")
@@ -106,7 +136,7 @@ def test_types(
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/l2_types/", cov=cov)
+    _run_pytest("tests/drawlib/_core/l2_types/", cov=cov)
 
 
 @app.command("styles")
@@ -118,7 +148,7 @@ def test_styles(
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/l3_styles/", cov=cov)
+    _run_pytest("tests/drawlib/_core/l3_styles/", cov=cov)
 
 
 @app.command("fonts")
@@ -130,7 +160,7 @@ def test_fonts(
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/l3_fonts/", cov=cov)
+    _run_pytest("tests/drawlib/_core/l3_fonts/", cov=cov)
 
 
 @app.command("images")
@@ -142,7 +172,7 @@ def test_images(
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/l3_images/", cov=cov)
+    _run_pytest("tests/drawlib/_core/l3_images/", cov=cov)
 
 
 @app.command("preset-styles")
@@ -154,7 +184,7 @@ def test_preset_styles(
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/preset_styles/", cov=cov)
+    _run_pytest("tests/drawlib/preset_styles/", cov=cov)
 
 
 @app.command("canvas")
@@ -166,19 +196,91 @@ def test_canvas(
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/l4_canvas/", cov=cov)
+    _run_pytest("tests/drawlib/_core/l4_canvas/", cov=cov)
 
 
 @app.command("icons")
 def test_icons(
     cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
 ) -> None:
-    """Run l6_icons unit tests.
+    """Run icons unit tests.
 
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/l6_icons/", cov=cov)
+    _run_pytest("tests/drawlib/icons/", cov=cov)
+
+
+@app.command("smartarts")
+def test_smartarts(
+    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
+) -> None:
+    """Run smartarts unit tests.
+
+    Args:
+        cov: Whether to collect coverage.
+    """
+    _run_pytest("tests/drawlib/smartarts/", cov=cov)
+
+
+@app.command("charts")
+def test_charts(
+    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
+) -> None:
+    """Run charts unit tests.
+
+    Args:
+        cov: Whether to collect coverage.
+    """
+    _run_pytest("tests/drawlib/charts/", cov=cov)
+
+
+@app.command("diagrams")
+def test_diagrams(
+    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
+) -> None:
+    """Run diagrams unit tests.
+
+    Args:
+        cov: Whether to collect coverage.
+    """
+    _run_pytest("tests/drawlib/diagrams/", cov=cov)
+
+
+@app.command("graph")
+def test_graph(
+    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
+) -> None:
+    """Run graph layout unit tests.
+
+    Args:
+        cov: Whether to collect coverage.
+    """
+    _run_pytest("tests/drawlib/graph/", cov=cov)
+
+
+@app.command("slide")
+def test_slide(
+    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
+) -> None:
+    """Run slide presentation unit tests.
+
+    Args:
+        cov: Whether to collect coverage.
+    """
+    _run_pytest("tests/drawlib/slide/", cov=cov)
+
+
+@app.command("anim")
+def test_anim(
+    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
+) -> None:
+    """Run animation unit tests.
+
+    Args:
+        cov: Whether to collect coverage.
+    """
+    _run_pytest("tests/drawlib/anim/", cov=cov)
 
 
 @app.command("cli")
@@ -190,7 +292,7 @@ def test_cli(
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/cli/", cov=cov)
+    _run_pytest("tests/drawlib/cli/", cov=cov)
 
 
 @app.command("doc-builder")
@@ -202,19 +304,7 @@ def test_doc_builder(
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/doc_builder/", cov=cov)
-
-
-@app.command("smartarts")
-def test_smartarts(
-    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
-) -> None:
-    """Run l7_smartarts unit tests.
-
-    Args:
-        cov: Whether to collect coverage.
-    """
-    _run_pytest("tests/l7_smartarts/", cov=cov)
+    _run_pytest("tests/drawlib/doc_builder/", cov=cov)
 
 
 if __name__ == "__main__":
