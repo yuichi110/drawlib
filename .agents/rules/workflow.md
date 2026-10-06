@@ -13,8 +13,8 @@ This repository is the main development repository for the `drawlib` library, an
 Whenever adding features, modifying drawing logic, or fixing bugs in `src/drawlib/`, follow this end-to-end lifecycle:
 
 ```text
-1. Implement & Unit Test ──> 2. Quality Check (check all) ──> 3. Update Docs & Rules (Dogfooding)
-                                                                            │
+1. Implement & Unit Test ──> 2. Code Check (code-check all) ──> 3. Update Docs & Rules (Dogfooding)
+                                                                                 │
    6. Complete <── 5. Visual Review & Self-Repair Loop <── 4. Build Docs & Render Images
 ```
 
@@ -29,7 +29,7 @@ Whenever adding features, modifying drawing logic, or fixing bugs in `src/drawli
 ### Step 2: Code Quality Verification (Mandatory)
 - Run the full static analysis suite and resolve all lint, type, and docstring issues:
   ```bash
-  ./dcli check all
+  ./dcli code-check all
   ```
 
 ### Step 3: Dogfooding via Documentation & Rules Update
@@ -69,9 +69,9 @@ When updating icon sets, fonts, or external binary assets:
    ```
 2. **Asset Archiving & Sync**:
    ```bash
-   ./dcli assets build
-   ./dcli assets upload --dry-run
-   ./dcli assets sync --check
+   ./dcli release-assets build
+   ./dcli release-assets upload --dry-run
+   ./dcli release-assets sync --check
    ```
 
 ---
@@ -87,13 +87,14 @@ When preparing a new release version of `drawlib`:
    ```
 2. **Full Regression & Dogfooding Build**:
    ```bash
-   ./dcli check all
+   ./dcli code-check all
    ./dcli test all
    ./dcli docs build --all
    ```
 3. **Publish & Clean-Room Verification**:
    ```bash
    ./dcli pypi publish --test-pypi
+   ./dcli docker test --test-pypi <VER>
    ./dcli pypi publish
-   ./dcli docker build-image --version <VER> --repo pypi
+   ./dcli docker test --pypi <VER>
    ```

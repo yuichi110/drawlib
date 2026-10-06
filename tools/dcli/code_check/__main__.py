@@ -6,9 +6,9 @@
 # This software is provided "as is", without warranty of any kind,
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
+"""Code check toolset entrypoint."""
 
-"""Code quality and static analysis toolset."""
+from tools.dcli.code_check.cli import app
 
-from tools.dcli.check.cli import app
-
-__all__ = ["app"]
+if __name__ == "__main__":
+    app()

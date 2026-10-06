@@ -13,12 +13,12 @@ from __future__ import annotations
 
 import typer
 
-from tools.dcli.check.docstring import find_docstring_violations
-from tools.dcli.check.lines import run_count_lines
+from tools.dcli.code_check.docstring import find_docstring_violations
+from tools.dcli.code_check.lines import run_count_lines
 from tools.dcli.common import console, err_console, run_command
 
 app = typer.Typer(
-    name="check",
+    name="code-check",
     help="Perform linting, static type checking, docstring validation, and line counts.",
     no_args_is_help=True,
 )

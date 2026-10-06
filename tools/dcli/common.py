@@ -31,16 +31,16 @@ def discover_toolsets() -> list[str]:
     """Scan tools/dcli directory for executable toolset modules or packages.
 
     Returns:
-        list[str]: Sorted list of toolset module names.
+        list[str]: Sorted list of CLI toolset names (kebab-case).
     """
     dcli_dir = Path(__file__).resolve().parent
     toolsets: set[str] = set()
     for f in dcli_dir.glob("*.py"):
         if f.name not in EXCLUDED_MODULES and not f.name.startswith("_"):
-            toolsets.add(f.stem)
+            toolsets.add(f.stem.replace("_", "-"))
     for d in dcli_dir.iterdir():
         if d.is_dir() and not d.name.startswith(("_", ".")) and (d / "__init__.py").exists():
-            toolsets.add(d.name)
+            toolsets.add(d.name.replace("_", "-"))
     return sorted(toolsets)
 
 

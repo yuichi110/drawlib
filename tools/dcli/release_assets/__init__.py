@@ -9,10 +9,10 @@
 
 """Release asset management toolset for GitHub Releases."""
 
-from tools.dcli.assets.builder import build_package_zip
-from tools.dcli.assets.cli import _resolve_tag, app
-from tools.dcli.assets.client import GitHubReleaseClient, resolve_github_token
-from tools.dcli.assets.sync import scan_asset_packages, sync_release_assets
+from tools.dcli.release_assets.builder import build_package_zip
+from tools.dcli.release_assets.cli import _resolve_tag, app
+from tools.dcli.release_assets.client import GitHubReleaseClient, resolve_github_token
+from tools.dcli.release_assets.sync import scan_asset_packages, sync_release_assets
 
 __all__ = [
     "GitHubReleaseClient",

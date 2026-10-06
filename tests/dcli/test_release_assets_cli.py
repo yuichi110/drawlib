@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for tools/dcli/assets.py and tools/scripts/release_assets_tool.py."""
+"""Unit tests for tools/dcli/release_assets."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ from drawlib._release_assets import (
     AssetManifestItem,
     ReleaseAssetPackageName,
 )
-from tools.dcli.assets import (
+from tools.dcli.release_assets import (
     GitHubReleaseClient,
     _resolve_tag,
     app,

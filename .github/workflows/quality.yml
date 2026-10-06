@@ -32,4 +32,4 @@ jobs:
 
     - name: Run code quality checks
       run: |
-        ./dcli check all
+        ./dcli code-check all

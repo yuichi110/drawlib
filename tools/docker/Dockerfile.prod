@@ -1,0 +1,50 @@
+ARG PYTHON_VERSION=3.12
+FROM python:${PYTHON_VERSION}-slim
+
+ARG INSTALL_SOURCE=local
+ARG DRAWLIB_VERSION=""
+ARG WITH_PDF=false
+ARG WITH_ASSETS=false
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install system dependencies for matplotlib
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglx-mesa0 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp/drawlib_build
+COPY pyproject.toml README_PYPI.md LICENSE.txt ./
+COPY src/ ./src/
+
+# Install drawlib (from local source or PyPI, with optional [pdf] extras)
+RUN if [ "${INSTALL_SOURCE}" = "pypi" ]; then \
+        if [ "${WITH_PDF}" = "true" ]; then \
+            pip install --no-cache-dir "drawlib[pdf]==${DRAWLIB_VERSION}"; \
+        else \
+            pip install --no-cache-dir "drawlib==${DRAWLIB_VERSION}"; \
+        fi; \
+    else \
+        if [ "${WITH_PDF}" = "true" ]; then \
+            pip install --no-cache-dir ".[pdf]"; \
+        else \
+            pip install --no-cache-dir "."; \
+        fi; \
+    fi && rm -rf /tmp/drawlib_build
+
+# Optional: Install Playwright Chromium and OS dependencies for PDF generation
+RUN if [ "${WITH_PDF}" = "true" ]; then \
+        playwright install --with-deps chromium && \
+        rm -rf /var/lib/apt/lists/*; \
+    fi
+
+# Optional: Pre-download all font and icon assets for air-gapped / offline usage
+RUN if [ "${WITH_ASSETS}" = "true" ]; then \
+        drawlib cache download --all; \
+    fi
+
+WORKDIR /workspace
+CMD ["drawlib", "--help"]

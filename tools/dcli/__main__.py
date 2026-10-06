@@ -79,7 +79,8 @@ def main(
     for toolset in available_toolsets:
         desc = "No description available."
         with contextlib.suppress(Exception):
-            mod = importlib.import_module(f"tools.dcli.{toolset}")
+            mod_name = toolset.replace("-", "_")
+            mod = importlib.import_module(f"tools.dcli.{mod_name}")
             if mod.__doc__:
                 lines = [line.strip() for line in mod.__doc__.splitlines() if line.strip()]
                 if lines:
@@ -88,8 +89,8 @@ def main(
 
     console.print(table)
     console.print()
-    console.print("[dim]Example: ./dcli check all[/dim]")
-    console.print("[dim]         ./dcli test cli[/dim]")
+    console.print("[dim]Example: ./dcli code-check all[/dim]")
+    console.print("[dim]         ./dcli test target cli[/dim]")
     console.print("[dim]         ./dcli docs build[/dim]")
     console.print()
 

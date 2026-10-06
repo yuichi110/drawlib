@@ -30,11 +30,11 @@ All routine development operations—linting, static analysis, testing, document
 
 ### Code Quality & Static Analysis
 ```bash
-./dcli check all          # Run Ruff linter/formatter, Ty static type checker, and docstring checks
-./dcli check lint --fix   # Automatically fix autofixable Ruff lint issues
-./dcli check type         # Run Ty static type checker only
-./dcli check docstring    # Validate public docstring type annotation rules
-./dcli check lines        # Print source and test code line counts
+./dcli code-check all        # Run Ruff linter/formatter, Ty static type checker, and docstring checks
+./dcli code-check lint --fix # Automatically fix autofixable Ruff lint issues
+./dcli code-check type       # Run Ty static type checker only
+./dcli code-check docstring  # Validate public docstring type annotation rules
+./dcli code-check lines      # Print source and test code line counts
 ```
 
 ### Testing via Pytest
@@ -65,7 +65,7 @@ When working with an AI coding assistant (Antigravity, Gemini, Claude, etc.), th
 
 ### Specification References
 If you prefer browsing the rule specifications directly:
-- **Developer CLI (`dcli`)**: [`.agents/rules/dcli.md`](.agents/rules/dcli.md) — Exhaustive command reference for `assets`, `check`, `codegen`, `docker`, `docs`, `pypi`, and `test`.
+- **Developer CLI (`dcli`)**: [`.agents/rules/dcli.md`](.agents/rules/dcli.md) — Exhaustive command reference for `code-check`, `codegen`, `docker`, `docs`, `pypi`, `release-assets`, and `test`.
 - **Development Workflow**: [`.agents/rules/workflow.md`](.agents/rules/workflow.md) — Lifecycles for code changes, doc sync, asset management, and releases.
 - **System Architecture**: [`.agents/rules/architecture.md`](.agents/rules/architecture.md) — Package hierarchy, public facades, and internal layered engine (`l1` ~ `l4`).
 - **Coding & Style Guidelines**: [`.agents/rules/code-style-guide.md`](.agents/rules/code-style-guide.md) — Python 3.11+ standards, naming conventions, type hints, and docstrings.

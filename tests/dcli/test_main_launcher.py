@@ -21,7 +21,7 @@ runner = CliRunner()
 def test_discover_toolsets() -> None:
     """Test discovering available CLI toolsets."""
     toolsets = discover_toolsets()
-    expected = {"assets", "check", "codegen", "docker", "docs", "pypi", "test"}
+    expected = {"code-check", "codegen", "docker", "docs", "pypi", "release-assets", "test"}
     assert expected == set(toolsets)
     assert "__init__" not in toolsets
     assert "common" not in toolsets
@@ -34,7 +34,8 @@ def test_launcher_help_table() -> None:
     assert result.exit_code == 0
     assert "Drawlib Development CLI (dcli)" in result.output
     assert "Available Toolsets" in result.output
-    assert "check" in result.output
+    assert "code-check" in result.output
+    assert "release-assets" in result.output
     assert "test" in result.output
     assert "docs" in result.output
 

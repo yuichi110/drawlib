@@ -58,18 +58,19 @@ if [ $# -lt 1 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
 fi
 
 CLI_NAME="$1"
+CLI_MOD="${CLI_NAME//-/_}"
 shift
 
 # Check if the target toolset file or package exists inside tools/dcli/
 # Exclude base/system directories or module entrypoints
-if { [ ! -f "${SCRIPT_DIR}/tools/dcli/${CLI_NAME}.py" ] && [ ! -d "${SCRIPT_DIR}/tools/dcli/${CLI_NAME}" ]; } || \
-   [ "${CLI_NAME}" = "__init__" ] || \
-   [ "${CLI_NAME}" = "__main__" ] || \
-   [ "${CLI_NAME}" = "common" ] || \
-   [ "${CLI_NAME}" = "completion" ] || \
-   [[ "${CLI_NAME}" == _* ]]; then
+if { [ ! -f "${SCRIPT_DIR}/tools/dcli/${CLI_MOD}.py" ] && [ ! -d "${SCRIPT_DIR}/tools/dcli/${CLI_MOD}" ]; } || \
+   [ "${CLI_MOD}" = "__init__" ] || \
+   [ "${CLI_MOD}" = "__main__" ] || \
+   [ "${CLI_MOD}" = "common" ] || \
+   [ "${CLI_MOD}" = "completion" ] || \
+   [[ "${CLI_MOD}" == _* ]]; then
   exec uv run python -m "tools.dcli" --invalid-toolset "${CLI_NAME}"
 fi
 
 # Execute the target CLI script as a module under tools.dcli.*
-exec uv run python -m "tools.dcli.${CLI_NAME}" "$@"
+exec uv run python -m "tools.dcli.${CLI_MOD}" "$@"

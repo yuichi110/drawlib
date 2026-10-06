@@ -1,0 +1,41 @@
+ARG PYTHON_VERSION=3.12
+FROM python:${PYTHON_VERSION}-slim
+
+ARG PYPI_URL=https://pypi.org/simple/
+ARG DRAWLIB_VERSION
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install system dependencies for matplotlib
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglx-mesa0 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install test runner dependencies
+RUN pip install --no-cache-dir \
+    pytest \
+    pytest-cov \
+    pytest-xdist
+
+# Verify that the exact version of drawlib exists in the designated repository
+RUN pip index versions drawlib \
+    --pre \
+    --index-url ${PYPI_URL} \
+    | grep -E "Available versions:.*(\s|,)${DRAWLIB_VERSION}(,|$)"
+
+# Install drawlib from the specified PyPI / TestPyPI repository
+RUN pip install --no-cache-dir \
+    --index-url ${PYPI_URL} \
+    --extra-index-url https://pypi.org/simple/ \
+    drawlib==${DRAWLIB_VERSION}
+
+# Copy test suite and assets
+COPY tests/ ./tests/
+RUN mkdir -p output_tests
+
+CMD ["pytest", "-n", "auto", "tests/drawlib/"]

@@ -23,7 +23,7 @@ from tools.dcli.common import console, err_console, run_command
 
 app = typer.Typer(
     name="docker",
-    help="Manage local Docker daemon and test container images.",
+    help="Build production drawlib images and run clean-room container tests.",
     no_args_is_help=True,
 )
 
@@ -50,10 +50,38 @@ def _is_daemon_running() -> bool:
     return res.returncode == 0
 
 
+def _ensure_docker_ready() -> None:
+    """Verify both Docker CLI and daemon are ready.
+
+    Raises:
+        typer.Exit: If CLI is missing or daemon is not running.
+    """
+    _check_docker_cli()
+    if not _is_daemon_running():
+        err_console.print("[bold red]Error: Docker daemon is not running.[/bold red]")
+        raise typer.Exit(code=1)
+
+
+def _resolve_prod_image_tag(
+    custom_tag: Optional[str],
+    with_pdf: bool,
+    with_assets: bool,
+) -> str:
+    """Resolve full image name and tag for production build."""
+    if custom_tag:
+        return custom_tag if ":" in custom_tag else f"drawlib:{custom_tag}"
+    if with_pdf and with_assets:
+        return "drawlib:full"
+    if with_pdf:
+        return "drawlib:pdf"
+    if with_assets:
+        return "drawlib:assets"
+    return "drawlib:slim"
+
+
 @app.command("status")
-@app.command("daemon-status", hidden=True)
 def status() -> None:
-    """Check Docker daemon status."""
+    """Check Docker CLI and daemon status."""
     _check_docker_cli()
     if _is_daemon_running():
         console.print("[bold green]Docker daemon is running.[/bold green]")
@@ -61,73 +89,161 @@ def status() -> None:
         console.print("[bold yellow]Docker daemon is NOT running or not responding.[/bold yellow]")
 
 
-@app.command("build-image")
-def build_image(
-    version: str = typer.Option(..., "--version", "-v", help="Drawlib version to test."),
-    python: str = typer.Option("3.12", "--python", help="Python base version (e.g. 3.11, 3.12)."),
-    repo: str = typer.Option("pypi", "--repo", help="PyPI repository ('pypi' or 'test-pypi')."),
+@app.command("build")
+def build(
+    pdf: bool = typer.Option(False, "--pdf", help="Include PDF conversion engine (Playwright + Chromium)."),
+    assets: bool = typer.Option(False, "--assets", help="Pre-download all font and icon packages for offline usage."),
+    full: bool = typer.Option(False, "--full", help="Build full offline-ready image (--pdf + --assets)."),
+    python: str = typer.Option("3.12", "--python", help="Python base version (e.g. 3.11, 3.12, 3.13)."),
+    pypi: Optional[str] = typer.Option(
+        None,
+        "--pypi",
+        help="Install specified drawlib version from PyPI instead of local source.",
+    ),
+    tag: Optional[str] = typer.Option(
+        None,
+        "--tag",
+        "-t",
+        help="Custom image tag (defaults to 'slim', 'pdf', 'assets', or 'full').",
+    ),
 ) -> None:
-    """Build test Docker image using Dockerfile.pypi_test.
+    """Build production drawlib Docker image (slim, pdf, assets, or full)."""
+    _ensure_docker_ready()
 
-    Args:
-        version: Drawlib version to test.
-        python: Python version.
-        repo: Repository to install drawlib from.
-
-    Raises:
-        typer.Exit: If daemon is not running.
-    """
-    _check_docker_cli()
-    if not _is_daemon_running():
-        err_console.print("[bold red]Error: Docker daemon is not running.[/bold red]")
-        raise typer.Exit(code=1)
-
-    pypi_url = "https://test.pypi.org/simple/" if repo == "test-pypi" else "https://pypi.org/simple/"
-    tag = f"p{python}_{repo}_d{version}"
+    with_pdf = pdf or full
+    with_assets = assets or full
+    image_ref = _resolve_prod_image_tag(tag, with_pdf=with_pdf, with_assets=with_assets)
+    install_source = "pypi" if pypi else "local"
 
     cmd = [
         "docker",
         "build",
         "-f",
-        "tools/docker/Dockerfile.pypi_test",
+        "tools/docker/Dockerfile.prod",
         "--build-arg",
         f"PYTHON_VERSION={python}",
         "--build-arg",
-        f"PYPI_URL={pypi_url}",
+        f"INSTALL_SOURCE={install_source}",
         "--build-arg",
-        f"DRAWLIB_VERSION={version}",
+        f"DRAWLIB_VERSION={pypi or ''}",
+        "--build-arg",
+        f"WITH_PDF={'true' if with_pdf else 'false'}",
+        "--build-arg",
+        f"WITH_ASSETS={'true' if with_assets else 'false'}",
         "-t",
-        f"test-drawlib:{tag}",
+        image_ref,
         ".",
     ]
-    run_command(cmd, desc=f"Building test image test-drawlib:{tag}...")
-    console.print(f"[bold green]✓ Image test-drawlib:{tag} built successfully![/bold green]")
+    run_command(cmd, desc=f"Building production image {image_ref}...")
+    console.print(f"[bold green]✓ Image {image_ref} built successfully![/bold green]")
 
 
-@app.command("list-images")
+@app.command("test")
+def test(
+    pypi: Optional[str] = typer.Option(
+        None,
+        "--pypi",
+        help="Test specified drawlib version installed from official PyPI.",
+    ),
+    test_pypi: Optional[str] = typer.Option(
+        None,
+        "--test-pypi",
+        help="Test specified drawlib version installed from TestPyPI.",
+    ),
+    python: str = typer.Option("3.12", "--python", help="Python base version (e.g. 3.11, 3.12, 3.13)."),
+) -> None:
+    """Build clean-room test image (local or PyPI) and run pytest inside container."""
+    if pypi and test_pypi:
+        err_console.print("[bold red]Error: Cannot specify both --pypi and --test-pypi.[/bold red]")
+        raise typer.Exit(code=1)
+
+    _ensure_docker_ready()
+
+    if pypi or test_pypi:
+        version = pypi or test_pypi or ""
+        repo_label = "test-pypi" if test_pypi else "pypi"
+        pypi_url = "https://test.pypi.org/simple/" if test_pypi else "https://pypi.org/simple/"
+        image_ref = f"test-drawlib:p{python}_{repo_label}_d{version}"
+        build_cmd = [
+            "docker",
+            "build",
+            "-f",
+            "tools/docker/Dockerfile.test_pypi",
+            "--build-arg",
+            f"PYTHON_VERSION={python}",
+            "--build-arg",
+            f"PYPI_URL={pypi_url}",
+            "--build-arg",
+            f"DRAWLIB_VERSION={version}",
+            "-t",
+            image_ref,
+            ".",
+        ]
+    else:
+        image_ref = f"test-drawlib:p{python}_local"
+        build_cmd = [
+            "docker",
+            "build",
+            "-f",
+            "tools/docker/Dockerfile.test_local",
+            "--build-arg",
+            f"PYTHON_VERSION={python}",
+            "-t",
+            image_ref,
+            ".",
+        ]
+
+    run_command(build_cmd, desc=f"Building test image {image_ref}...")
+    run_command(
+        ["docker", "run", "--rm", image_ref],
+        desc=f"Running pytest inside container {image_ref}...",
+    )
+    console.print(f"[bold green]✓ Container tests passed in {image_ref}![/bold green]")
+
+
+@app.command("list")
 def list_images() -> None:
-    """List all test-drawlib Docker images."""
+    """List all drawlib and test-drawlib Docker images."""
     _check_docker_cli()
-    run_command(["docker", "images", "test-drawlib"], desc="Listing test-drawlib images...")
+    run_command(
+        [
+            "docker",
+            "images",
+            "--filter",
+            "reference=drawlib",
+            "--filter",
+            "reference=test-drawlib",
+        ],
+        desc="Listing drawlib Docker images...",
+    )
 
 
-@app.command("prune-images")
+@app.command("prune")
 def prune_images() -> None:
-    """Remove all test-drawlib Docker images."""
+    """Remove all drawlib and test-drawlib Docker images."""
     _check_docker_cli()
     proc = subprocess.run(
-        ["docker", "images", "test-drawlib", "-q"],  # noqa: S603, S607
+        [
+            "docker",
+            "images",
+            "--filter",
+            "reference=drawlib",
+            "--filter",
+            "reference=test-drawlib",
+            "-q",
+        ],  # noqa: S603, S607
         capture_output=True,
         text=True,
         check=False,
     )
-    image_ids = [line.strip() for line in proc.stdout.splitlines() if line.strip()]
+    # Deduplicate image IDs while preserving order
+    image_ids = list(dict.fromkeys(line.strip() for line in proc.stdout.splitlines() if line.strip()))
     if not image_ids:
-        console.print("[yellow]No test-drawlib images found.[/yellow]")
+        console.print("[yellow]No drawlib or test-drawlib images found.[/yellow]")
         return
 
-    run_command(["docker", "rmi", *image_ids], desc="Removing test-drawlib images...")
-    console.print("[bold green]✓ All test-drawlib images removed.[/bold green]")
+    run_command(["docker", "rmi", "-f", *image_ids], desc="Removing drawlib Docker images...")
+    console.print("[bold green]✓ All drawlib Docker images removed.[/bold green]")
 
 
 if __name__ == "__main__":

@@ -6,9 +6,9 @@
 # This software is provided "as is", without warranty of any kind,
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
-"""Assets toolset entrypoint."""
+"""Release assets toolset entrypoint."""
 
-from tools.dcli.assets.cli import app
+from tools.dcli.release_assets.cli import app
 
 if __name__ == "__main__":
     app()

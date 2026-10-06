@@ -34,7 +34,8 @@ def test_dcli_script_no_args() -> None:
     assert proc.returncode == 0
     assert "Drawlib Development CLI (dcli)" in proc.stdout
     assert "Available Toolsets" in proc.stdout
-    assert "check" in proc.stdout
+    assert "code-check" in proc.stdout
+    assert "release-assets" in proc.stdout
     assert "test" in proc.stdout
 
 
@@ -66,9 +67,9 @@ def test_dcli_script_invalid_toolset() -> None:
 
 
 def test_dcli_script_subcommand_dispatch() -> None:
-    """Test ./dcli check --help dispatches properly to the check toolset."""
+    """Test ./dcli code-check --help dispatches properly to the code_check toolset."""
     proc = subprocess.run(
-        [str(DCLI_PATH), "check", "--help"],
+        [str(DCLI_PATH), "code-check", "--help"],
         capture_output=True,
         text=True,
         cwd=str(PROJECT_ROOT),
@@ -97,7 +98,8 @@ def test_dcli_script_autocomplete_toolsets() -> None:
     )
     assert proc.returncode == 0
     candidates = [line.strip() for line in proc.stdout.splitlines() if line.strip()]
-    assert "check" in candidates
+    assert "code-check" in candidates
+    assert "release-assets" in candidates
     assert "test" in candidates
     assert "docs" in candidates
 
@@ -106,7 +108,7 @@ def test_dcli_script_autocomplete_subcommands() -> None:
     """Test ./dcli autocompletion hook for toolset subcommands."""
     env = os.environ.copy()
     env["_DCLI_COMPLETE"] = "complete"
-    env["COMP_WORDS"] = "./dcli check "
+    env["COMP_WORDS"] = "./dcli code-check "
     env["COMP_CWORD"] = "2"
 
     proc = subprocess.run(

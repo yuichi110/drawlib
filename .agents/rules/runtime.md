@@ -23,6 +23,6 @@ This document describes the runtime environment, Python versions, and command ex
 ## 3. Command Execution Standards
 - **Python Execution**: Always execute scripts or modules via `uv run python` or `./dcli`.
 - **Examples**:
-  - `./dcli check all` or `uv run python -m drawlib`
+  - `./dcli code-check all` or `uv run python -m drawlib`
   - `./dcli test all` or `./dcli test target <path_or_shortcut>`
-  - `./dcli check lint` or `./dcli check type`
+  - `./dcli code-check lint` or `./dcli code-check type`

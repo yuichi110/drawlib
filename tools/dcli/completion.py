@@ -35,7 +35,8 @@ def get_subcommand_candidates(toolset_name: str, prefix: str = "") -> list[str]:
     """
     candidates: list[str] = []
     with contextlib.suppress(Exception):
-        mod = importlib.import_module(f"tools.dcli.{toolset_name}")
+        mod_name = toolset_name.replace("-", "_")
+        mod = importlib.import_module(f"tools.dcli.{mod_name}")
         app_obj = getattr(mod, "app", None)
         if isinstance(app_obj, typer.Typer):
             for cmd in app_obj.registered_commands:
@@ -66,7 +67,7 @@ def get_completion_candidates(words: list[str], cword: int) -> list[str]:
 
     # If completing subcommands/options of a specific toolset
     if cword > 1 and len(words) > 1:
-        toolset_name = words[1]
+        toolset_name = words[1].replace("_", "-")
         if toolset_name in toolsets:
             prefix = words[cword] if cword < len(words) else ""
             return get_subcommand_candidates(toolset_name, prefix)

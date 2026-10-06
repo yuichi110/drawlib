@@ -7,14 +7,14 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for tools/dcli/check."""
+"""Unit tests for tools/dcli/code_check."""
 
 from __future__ import annotations
 
 from typer.testing import CliRunner
 
-from tools.dcli.check import app
-from tools.dcli.check.lines import count_lines_in_file
+from tools.dcli.code_check import app
+from tools.dcli.code_check.lines import count_lines_in_file
 
 runner = CliRunner()
 

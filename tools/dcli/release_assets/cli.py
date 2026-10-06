@@ -27,16 +27,16 @@ from drawlib._release_assets import (
     ReleaseAssetPackageName,
     get_all_release_asset_packages,
 )
-from tools.dcli.assets.builder import build_package_zip
-from tools.dcli.assets.client import (
+from tools.dcli.common import PROJECT_ROOT, console, err_console
+from tools.dcli.release_assets.builder import build_package_zip
+from tools.dcli.release_assets.client import (
     GitHubReleaseClient,
     resolve_github_token,
 )
-from tools.dcli.assets.sync import scan_asset_packages, sync_release_assets
-from tools.dcli.common import PROJECT_ROOT, console, err_console
+from tools.dcli.release_assets.sync import scan_asset_packages, sync_release_assets
 
 app = typer.Typer(
-    name="assets",
+    name="release-assets",
     help="Build, verify, upload, and remove font/icon release asset packages on GitHub Releases.",
     no_args_is_help=True,
 )
@@ -123,7 +123,7 @@ def sync_assets_command(
         if not is_synced:
             err_console.print(
                 "[bold red]Error: src/drawlib/_release_assets.py is NOT in sync with release_assets/."
-                " Run './dcli assets sync' to update.[/bold red]"
+                " Run './dcli release-assets sync' to update.[/bold red]"
             )
             raise typer.Exit(code=1)
         console.print("[bold green]✓ src/drawlib/_release_assets.py is up-to-date and in sync![/bold green]")
@@ -201,7 +201,7 @@ def inspect_remote(
         console.print(
             Panel(
                 f"[yellow]Release tag '[bold]{resolved_tag}[/bold]' does not exist on GitHub yet.[/yellow]\n"
-                f"Run [bold]./dcli assets upload[/bold] to create the release and upload assets.",
+                f"Run [bold]./dcli release-assets upload[/bold] to create the release and upload assets.",
                 title="Remote Release Status",
                 border_style="yellow",
             )

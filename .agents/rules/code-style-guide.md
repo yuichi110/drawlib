@@ -13,7 +13,7 @@ This document defines the coding standards and style guidelines for the `drawlib
 - **Formatting & Linting**: 
     - Use `ruff` for both linting and formatting.
     - Max line length is **120** characters.
-    - Use `ty` for static type checking (`./dcli check type` or `uv run ty check`).
+    - Use `ty` for static type checking (`./dcli code-check type` or `uv run ty check`).
 
 ## 2. Naming Conventions
 - **Modules and Packages**: `snake_case`. Keep names short and descriptive.
