@@ -2,14 +2,16 @@
 
 Drawlib は、"Illustrated Documentation as Code" を支える統合描画・ドキュメント作成プラットフォームです。ドキュメント構築パイプラインに加え、低レベルの基本図形描画から高度なシステムアーキテクチャ設計までをカバーする 4 つの描画レイヤーを提供しています。
 
-## 3.1 4 つのコンポーネントレイヤー
+## 3.1 描画・ドキュメントコンポーネントレイヤー
 
 | レイヤー | 提供モジュール | 主な用途・描画対象 |
 | :--- | :--- | :--- |
-| **1. Primitives (基本要素)** | `drawlib.shapes`, `lines`, `text`, `icons` | 四角形、円、ポリゴン、矢印、テキスト、Phosphor/FontAwesome アイコン |
-| **2. SmartArts (構造化)** | `drawlib.smartarts` | プロセスシェブロン、表組み、マインドマップ、ツリー階層、吹き出し |
-| **3. Charts (定量データ)** | `drawlib.charts` | ガントチャート、棒グラフ、折れ線グラフ、面グラフ、円グラフ、レーダー |
-| **4. Diagrams (システム設計)** | `drawlib.diagrams` | クラウド構成図、フロー図、シーケンス図、ER図、クラス図、ステート図 |
+| **1. Primitives (基本要素)** | `drawlib.shapes`, `lines`, `text`, `icons`, `images` | 23種の幾何図形、折れ線・曲線矢印、リッチテキスト、Phosphor/FontAwesome/GCP アイコン |
+| **2. SmartArts (構造化)** | `drawlib.smartarts` | プロセスシェブロン、表組み、マインドマップ、ツリー階層、サイクル図、吹き出し |
+| **3. Charts (定量データ)** | `drawlib.charts` | ガントチャート、棒グラフ、折れ線グラフ、面グラフ、円グラフ、レーダー、散布図 |
+| **4. Diagrams & Graphs (システム設計)** | `drawlib.diagrams`, `drawlib.graph` | クラウド構成図、フロー図、シーケンス図、ER図、クラス図、ステート図、Pure Python 自動レイアウトソルバー |
+| **5. Presentation & Animation** | `drawlib.slide`, `drawlib.anim` | 16:9 プレゼンテーションスライドデッキ、APNG / Animated WebP ネイティブ生成 |
+| **6. Builder & CLI (ドキュメント基盤)** | `drawlib._builder`, `drawlib._cli` | Markdown からの HTML / PDF / Markdown / 画像一括コンパイル、プレビューサーバー |
 
 ## 3.2 統一デザインシステムとセマンティックカラー
 

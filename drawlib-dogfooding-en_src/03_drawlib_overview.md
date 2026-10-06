@@ -2,14 +2,16 @@
 
 Drawlib is an integrated platform for Illustrated Documentation as Code. It unifies document building with a 4-layer drawing architecture, ranging from geometric primitives to full system topologies.
 
-## 3.1 Four Component Layers
+## 3.1 Drawing & Documentation Component Layers
 
 | Layer | Primary Modules | Description & Use Cases |
 | :--- | :--- | :--- |
-| **1. Primitives** | `drawlib.shapes`, `lines`, `text`, `icons` | Rectangles, circles, wedges, polygons, arrows, text, and Phosphor/GCP vector icons |
-| **2. SmartArts** | `drawlib.smartarts` | Sequential chevrons, comparison tables, radial mindmaps, organizational trees, and callouts |
-| **3. Charts** | `drawlib.charts` | Gantt schedules, bar charts, time-series line/area plots, pie charts, and radar charts |
-| **4. Diagrams** | `drawlib.diagrams` | Cloud VPC architectures, workflow flowcharts, sequence diagrams, ER diagrams, and UML classes |
+| **1. Primitives** | `drawlib.shapes`, `lines`, `text`, `icons`, `images` | 23 geometric shapes, orthogonal & curved connectors, rich typography, and Phosphor/FontAwesome/GCP icons |
+| **2. SmartArts** | `drawlib.smartarts` | Sequential chevrons, comparison tables, radial mindmaps, organizational trees, and circular cycle loops |
+| **3. Charts** | `drawlib.charts` | Gantt schedules, bar charts, time-series line/area plots, pie charts, scatter plots, and radar charts |
+| **4. Diagrams & Graphs** | `drawlib.diagrams`, `drawlib.graph` | Cloud VPC architectures, workflow flowcharts, sequence diagrams, ER diagrams, UML classes, and Pure-Python auto-layout solvers |
+| **5. Presentation & Animation** | `drawlib.slide`, `drawlib.anim` | 16:9 presentation slide decks, native APNG & Animated WebP generation |
+| **6. Builder & CLI** | `drawlib._builder`, `drawlib._cli` | HTML / PDF / Markdown multi-target compilation, live-reload preview server |
 
 ## 3.2 Unified Design System and Semantic Colors
 
