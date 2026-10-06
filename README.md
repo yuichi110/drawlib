@@ -75,7 +75,7 @@ Drawlib is engineered from the ground up for **AI-native documentation and diagr
 ![AI Inner Loop and Human Outer Loop](readme_images/06_ai_agent_loop.png)
 
 - **AI Inner Loop (Autonomous Visual Self-Correction)**:
-  1. **On-Demand Spec Lookup (`drawlib rules show`)**: The AI agent **autonomously queries `drawlib rules show <topic>`** whenever it needs detailed API specifications, coordinate rules, or visual design best practices.
+  1. **On-Demand Spec & Codebase Lookup**: The AI agent autonomously queries **`drawlib rules show <topic>`** for detailed API specifications and design best practices, while directly inspecting **repository source code, schemas, and design docs** as the single source of truth.
   2. **Code Synthesis & Grid Preview (`drawlib show -g`)**: The agent writes Python drawing blocks and Markdown prose, then renders a headless preview with a coordinate grid overlay.
   3. **Multimodal Inspection & Self-Repair**: The agent visually inspects the rendered PNG for text clipping, overlapping labels, or style imbalances, repairing coordinates and styles autonomously until the diagram passes inspection.
 - **Human Outer Loop (Intent & Review)**:

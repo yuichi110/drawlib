@@ -18,11 +18,11 @@ from drawlib.text import text
 
 setup(width=120, height=70, dpi=200, color=Colors.Canvas)
 
-# AI Inner Loop Container (Autonomous Zone: x=19..85, y=11..67.5)
-rectangle((52, 39.25), width=66, height=56.5, r=3, style=Styles.MutedDashed)
-phosphor.arrows_clockwise((24.5, 64.2), width=3.8, style=Styles.Primary)
+# AI Inner Loop Container (Autonomous Zone: x=19..85, y=11..68.0)
+rectangle((52, 39.5), width=66, height=57, r=3, style=Styles.MutedDashed)
+phosphor.arrows_clockwise((24.5, 65.0), width=3.8, style=Styles.Primary)
 text(
-    (53.5, 64.2),
+    (53.5, 65.0),
     "AI Inner Loop (Autonomous Visual Self-Correction)",
     style=Styles.PrimaryBold.patch(text_size=8.6),
 )
@@ -41,15 +41,28 @@ phosphor.robot((26.5, 36), width=5.6, style=Styles.White)
 text((38, 38.5), "AI Coding Agent", style=Styles.WhiteBold.patch(text_size=8.8))
 text((38, 33.5), "Write / Fix Python\n& Markdown Code", style=Styles.White.patch(text_size=7.2))
 
-# 3. Above Agent: On-Demand Rules, Specs & Best Practices (x=22..48, y=50.25..60.75)
-rectangle((35, 55.5), width=26, height=10.5, r=2, style=Styles.PrimaryNeutral)
-phosphor.book_open_text((26.5, 55.5), width=4.8, style=Styles.Primary)
-text((38, 57.2), "Specs & Best Practices", style=Styles.DarkBold.patch(text_size=7.6))
-text((38, 53.5), "drawlib rules show", style=Styles.PrimaryBold.patch(text_size=7.0))
+# 3A. Top-Left above Agent: On-Demand Rules, Specs & Best Practices (x=22..48, y=52.5..62.0)
+rectangle((35, 57.25), width=26, height=9.5, r=2, style=Styles.PrimaryNeutral)
+phosphor.book_open_text((26.5, 57.25), width=4.5, style=Styles.Primary)
+text((38.0, 58.8), "Specs & Best Practices", style=Styles.DarkBold.patch(text_size=7.4))
+text((38.0, 55.4), "drawlib rules show", style=Styles.PrimaryBold.patch(text_size=6.8))
 
-# Agent autonomously queries Specs & Best Practices (<->)
-line((35, 44.5), (35, 50.25), arrow_head="<->", style=Styles.PrimaryBold)
-text((40.5, 47.4), "Lookup", style=Styles.PrimaryBold.patch(text_size=7.2))
+# 3B. Top-Right: Repository Code & Design Docs (x=53.5..81.5, y=52.5..62.0)
+rectangle((67.5, 57.25), width=28, height=9.5, r=2, style=Styles.PrimaryNeutral)
+phosphor.file_code((58.5, 57.25), width=4.5, style=Styles.Primary)
+text((70.2, 58.8), "Repo Code & Design Docs", style=Styles.DarkBold.patch(text_size=7.4))
+text((70.2, 55.4), "Source Code, Schemas & MD", style=Styles.Muted.patch(text_size=6.6))
+
+# Agent autonomously queries both Specs & Repo Context (<->) via y=48.5 corridor
+line((31, 44.5), (31, 52.5), arrow_head="<->", style=Styles.PrimaryBold)
+lines_curved(
+    [(42, 44.5), (42, 48.5), (67.5, 48.5), (67.5, 52.5)],
+    r=1.8,
+    arrow_head="<->",
+    style=Styles.PrimaryBold,
+)
+text((26.2, 48.5), "Lookup", style=Styles.PrimaryBold.patch(text_size=6.8))
+text((54.8, 50.3), "Inspect", style=Styles.PrimaryBold.patch(text_size=6.8))
 
 # 4. Center-Right: Headless Render Preview with Coordinate Grid (x=55.5..81.5, y=27.5..44.5)
 line((48, 36), (55.5, 36), arrow_head="->", style=Styles.DarkBold)
