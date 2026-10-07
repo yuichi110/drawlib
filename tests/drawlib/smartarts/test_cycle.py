@@ -38,8 +38,8 @@ class TestCycleUnit:
         assert c._arrow_type == "arc"
         assert len(c.items) == 0
 
-    def test_append_and_extend(self) -> None:
-        """Test adding items via append and extend."""
+    def test_add_and_mutation(self) -> None:
+        """Test adding items via add() and mutating returned CycleItem."""
         styles = default_styles
         c = Cycle(
             style=styles.PrimarySolid,
@@ -47,50 +47,40 @@ class TestCycleUnit:
             description_style=styles.White,
             arrow_style=styles.PrimarySolid,
         )
-        c.append("Plan", style=styles.PrimarySolid, description="Define goals")
+        item1 = c.add("Plan", style=styles.PrimarySolid, description="Define goals")
         assert len(c.items) == 1
-        assert c.items[0].text == "Plan"
-        assert c.items[0].description == "Define goals"
+        assert c.items[0] is item1
+        assert item1.text == "Plan"
+        assert item1.description == "Define goals"
+        assert item1.show is True
 
-        c.extend(["Do", "Check", "Act"], styles=styles.PrimarySolid, descriptions=["Execute", "Review", "Improve"])
+        item2 = c.add("Do", style=styles.PrimarySolid, description="Execute", show=False)
+        item3 = c.add("Check", style=styles.PrimarySolid, description="Review")
+        item4 = c.add("Act", style=styles.PrimarySolid, description="Improve")
         assert len(c.items) == 4
-        assert c.items[1].text == "Do"
-        assert c.items[1].description == "Execute"
-        assert c.items[2].text == "Check"
-        assert c.items[2].description == "Review"
-        assert c.items[3].text == "Act"
-        assert c.items[3].description == "Improve"
+        assert item2.text == "Do"
+        assert item2.show is False
+        assert item3.text == "Check"
+        assert item4.text == "Act"
 
-    def test_insert(self) -> None:
-        """Test inserting item at specific index."""
-        styles = default_styles
-        c = Cycle(
-            style=styles.PrimarySolid,
-            text_style=styles.WhiteBold,
-            description_style=styles.White,
-            arrow_style=styles.PrimarySolid,
-        )
-        c.append("Plan", style=styles.PrimarySolid)
-        c.append("Act", style=styles.PrimarySolid)
-        c.insert(1, "Do", style=styles.PrimarySolid, description="Intermediate step")
-
-        assert len(c.items) == 3
-        assert c.items[0].text == "Plan"
-        assert c.items[1].text == "Do"
-        assert c.items[1].description == "Intermediate step"
-        assert c.items[2].text == "Act"
+        item2.show = True
+        item2.style = styles.RedFlat
+        assert c.items[1].show is True
+        assert c.items[1].style == styles.RedFlat
 
     def test_set_center(self) -> None:
         """Test configuring center node for Radial Cycle."""
         styles = default_styles
         c = Cycle(style=styles.PrimarySolid, text_style=styles.WhiteBold)
-        c.set_center(text="Core", style=styles.PrimarySolid, description="Central Hub", radius=12.0)
-        assert c._center_text == "Core"
-        assert c._center_description == "Central Hub"
-        assert c._center_radius == 12.0
+        center = c.set_center(text="Core", style=styles.PrimarySolid, description="Central Hub", radius=12.0)
+        assert c.center is center
+        assert center.text == "Core"
+        assert center.description == "Central Hub"
+        assert center.radius == 12.0
+        assert center.show is True
 
     def test_cycle_missing_style_raises_error(self) -> None:
-        """Verify that missing mandatory styles raises ValidationError on __init__."""
+        """Verify that missing mandatory styles raises ValidationError on __init__ or ValueError on draw."""
         with pytest.raises(ValidationError):
             Cycle()  # type: ignore
 
@@ -107,7 +97,7 @@ class TestCycleUnit:
             arrow_color_mode="monochrome",
         )
         with pytest.raises(ValueError, match="Neither default 'arrow_style' nor item 'arrow_style' was provided"):
-            c_no_arrow.append("Plan")
+            c_no_arrow.add("Plan")
 
         c_no_desc = Cycle(
             style=styles.PrimarySolid,
@@ -117,7 +107,7 @@ class TestCycleUnit:
         with pytest.raises(
             ValueError, match="Neither default 'description_style' nor item 'description_style' was provided"
         ):
-            c_no_desc.append("Plan", description="Detail")
+            c_no_desc.add("Plan", description="Detail")
 
 
 class TestCycleRendering:
@@ -136,10 +126,10 @@ class TestCycleRendering:
                 description_style=styles.White,
                 arrow_style=styles.PrimarySolid,
             )
-            c.append("Plan", style=styles.PrimarySolid, description="Define objectives")
-            c.append("Do", style=styles.PrimarySolid, description="Implement plan")
-            c.append("Check", style=styles.PrimarySolid, description="Verify outcomes")
-            c.append("Act", style=styles.PrimarySolid, description="Standardize & scale")
+            c.add("Plan", style=styles.PrimarySolid, description="Define objectives")
+            c.add("Do", style=styles.PrimarySolid, description="Implement plan")
+            c.add("Check", style=styles.PrimarySolid, description="Verify outcomes")
+            c.add("Act", style=styles.PrimarySolid, description="Standardize & scale")
 
             c.draw(xy=(50.0, 50.0), radius=32.0)
 
@@ -165,7 +155,8 @@ class TestCycleRendering:
                 center_text_style=styles.WhiteBold,
                 center_description_style=styles.White,
             )
-            c.extend(["Plan", "Do", "Check", "Act"], styles=styles.PrimarySolid)
+            for label in ["Plan", "Do", "Check", "Act"]:
+                c.add(label, style=styles.PrimarySolid)
 
             c.draw(xy=(50.0, 50.0), radius=34.0)
 
@@ -188,10 +179,10 @@ class TestCycleRendering:
                 description_placement="outside",
                 node_radius=7.0,
             )
-            c.append("Stage 1", style=styles.PrimarySolid, description="Discover")
-            c.append("Stage 2", style=styles.PrimarySolid, description="Define")
-            c.append("Stage 3", style=styles.PrimarySolid, description="Develop")
-            c.append("Stage 4", style=styles.PrimarySolid, description="Deliver")
+            c.add("Stage 1", style=styles.PrimarySolid, description="Discover")
+            c.add("Stage 2", style=styles.PrimarySolid, description="Define")
+            c.add("Stage 3", style=styles.PrimarySolid, description="Develop")
+            c.add("Stage 4", style=styles.PrimarySolid, description="Deliver")
 
             c.draw(xy=(50.0, 50.0), radius=30.0)
 
@@ -215,11 +206,11 @@ class TestCycleRendering:
                 node_size=(20.0, 10.0),
                 arrow_color_mode="monochrome",
             )
-            c.append("Identify", style=styles.PrimarySolid, description="Pinpoint issues")
-            c.append("Design", style=styles.PrimarySolid, description="Create blueprint")
-            c.append("Execute", style=styles.PrimarySolid, description="Deploy solution")
-            c.append("Review", style=styles.PrimarySolid, description="Measure impact")
-            c.append("Iterate", style=styles.PrimarySolid, description="Refine process")
+            c.add("Identify", style=styles.PrimarySolid, description="Pinpoint issues")
+            c.add("Design", style=styles.PrimarySolid, description="Create blueprint")
+            c.add("Execute", style=styles.PrimarySolid, description="Deploy solution")
+            c.add("Review", style=styles.PrimarySolid, description="Measure impact")
+            c.add("Iterate", style=styles.PrimarySolid, description="Refine process")
 
             c.draw(xy=(50.0, 50.0), radius=35.0)
 
@@ -241,7 +232,8 @@ class TestCycleRendering:
                 arrow_type="line",
                 arrow_width=2.5,
             )
-            c.extend(["Spring", "Summer", "Autumn", "Winter"], styles=styles.PrimarySolid)
+            for label in ["Spring", "Summer", "Autumn", "Winter"]:
+                c.add(label, style=styles.PrimarySolid)
 
             c.draw(xy=(50.0, 50.0), radius=30.0)
 
@@ -262,7 +254,8 @@ class TestCycleRendering:
                 arrow_style=styles.PrimarySolid,
                 clockwise=False,
             )
-            c.extend(["A", "B", "C"], styles=styles.PrimarySolid)
+            for label in ["A", "B", "C"]:
+                c.add(label, style=styles.PrimarySolid)
 
             c.draw(xy=(50.0, 50.0), radius=28.0)
 
@@ -283,8 +276,8 @@ class TestCycleRendering:
                 description_style=styles.White,
                 arrow_style=styles.PrimarySolid,
             )
-            c.append("Input", style=styles.PrimarySolid, description="Feedback")
-            c.append("Output", style=styles.PrimarySolid, description="Response")
+            c.add("Input", style=styles.PrimarySolid, description="Feedback")
+            c.add("Output", style=styles.PrimarySolid, description="Response")
 
             c.draw(xy=(50.0, 50.0), radius=30.0)
 
@@ -313,7 +306,7 @@ class TestCycleRendering:
                 text_style=styles.WhiteBold,
                 arrow_style=styles.PrimarySolid,
             )
-            c2.append("Solo", style=styles.PrimarySolid)
+            c2.add("Solo", style=styles.PrimarySolid)
             c2.draw(xy=(50.0, 50.0))
 
             canvas.save(str(out_file))
@@ -321,7 +314,7 @@ class TestCycleRendering:
             assert out_file.stat().st_size > 0
 
     def test_render_bottom_left_align(self) -> None:
-        """Test rendering with bottom-left bounding alignment."""
+        """Test rendering with bottom-left bounding alignment and scale."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_bottom_left.png"
             canvas.clear()
@@ -332,9 +325,12 @@ class TestCycleRendering:
                 text_style=styles.WhiteBold,
                 arrow_style=styles.PrimarySolid,
             )
-            c.extend(["Alpha", "Beta", "Gamma"], styles=[styles.GreenFlat, styles.BlueFlat, styles.RedFlat])
+            c.add("Alpha", style=styles.GreenFlat)
+            b = c.add("Beta", style=styles.BlueFlat, show=False)
+            c.add("Gamma", style=styles.RedFlat)
+            assert b.show is False
 
-            c.draw(xy=(10.0, 10.0), radius=30.0, align="bottom_left")
+            c.draw(xy=(10.0, 10.0), radius=30.0, align="bottom_left", scale=0.8)
 
             canvas.save(str(out_file))
             assert out_file.exists()

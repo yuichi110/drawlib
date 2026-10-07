@@ -9,7 +9,9 @@
 
 """Canvas's base class implementation module."""
 
+import contextlib
 import math
+from collections.abc import Iterable, Iterator
 from typing import Any, Final
 
 import matplotlib
@@ -18,7 +20,18 @@ import matplotlib.font_manager
 import matplotlib.lines
 import matplotlib.text
 import PIL.Image
-from matplotlib import pyplot
+from matplotlib import offsetbox, pyplot
+from matplotlib.patches import (
+    Circle,
+    Ellipse,
+    FancyArrowPatch,
+    PathPatch,
+    Polygon,
+    RegularPolygon,
+    Wedge,
+)
+from matplotlib.path import Path
+from matplotlib.text import Text
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (
@@ -39,6 +52,125 @@ from drawlib._core.l3_styles import (
 
 matplotlib.rcParams["svg.fonttype"] = "none"
 matplotlib.rcParams["svg.hashsalt"] = "drawlib"
+
+
+def _as_any(val: object) -> Any:  # noqa: ANN401
+    return val
+
+
+def _apply_artist_transform(  # noqa: C901, PLR0912
+    artist: matplotlib.artist.Artist,
+    s: float,
+    tx: float,
+    ty: float,
+) -> None:
+    """Apply similarity transform (scale s + translation (tx, ty)) to a Matplotlib artist in place."""
+    if isinstance(artist, FancyArrowPatch):
+        pos_a_b = _as_any(getattr(artist, "_posA_posB", None))
+        if pos_a_b is not None:
+            pos_a, pos_b = pos_a_b
+            artist.set_positions(
+                (float(pos_a[0]) * s + tx, float(pos_a[1]) * s + ty),
+                (float(pos_b[0]) * s + tx, float(pos_b[1]) * s + ty),
+            )
+        else:
+            orig_path = _as_any(getattr(artist, "_path_original", None))
+            if orig_path is not None:
+                new_verts = [(float(vx) * s + tx, float(vy) * s + ty) for vx, vy in _as_any(orig_path.vertices)]
+                setattr(artist, "_path_original", Path(vertices=new_verts, codes=orig_path.codes))
+        lw = artist.get_linewidth()
+        if lw:
+            artist.set_linewidth(float(lw) * s)
+        ms = artist.get_mutation_scale()
+        if ms:
+            artist.set_mutation_scale(float(ms) * s)
+    elif isinstance(artist, PathPatch):
+        orig_path = _as_any(artist.get_path())
+        new_verts = [(float(vx) * s + tx, float(vy) * s + ty) for vx, vy in _as_any(orig_path.vertices)]
+        artist.set_path(Path(vertices=new_verts, codes=orig_path.codes))
+        lw = artist.get_linewidth()
+        if lw:
+            artist.set_linewidth(float(lw) * s)
+    elif isinstance(artist, Polygon):
+        new_verts = [(float(vx) * s + tx, float(vy) * s + ty) for vx, vy in _as_any(artist.get_xy())]
+        artist.set_xy(new_verts)
+        lw = artist.get_linewidth()
+        if lw:
+            artist.set_linewidth(float(lw) * s)
+    elif isinstance(artist, Circle):
+        center = _as_any(artist.get_center())
+        artist.set_center((float(center[0]) * s + tx, float(center[1]) * s + ty))
+        artist.set_radius(float(artist.get_radius()) * s)
+        lw = artist.get_linewidth()
+        if lw:
+            artist.set_linewidth(float(lw) * s)
+    elif isinstance(artist, Ellipse):
+        center = _as_any(artist.get_center())
+        artist.set_center((float(center[0]) * s + tx, float(center[1]) * s + ty))
+        artist.set_width(float(artist.get_width()) * s)
+        artist.set_height(float(artist.get_height()) * s)
+        lw = artist.get_linewidth()
+        if lw:
+            artist.set_linewidth(float(lw) * s)
+    elif isinstance(artist, RegularPolygon):
+        xy = _as_any(artist.xy)
+        artist.xy = (float(xy[0]) * s + tx, float(xy[1]) * s + ty)
+        artist.radius = float(artist.radius) * s
+        lw = artist.get_linewidth()
+        if lw:
+            artist.set_linewidth(float(lw) * s)
+    elif isinstance(artist, Wedge):
+        center = _as_any(artist.center)
+        artist.set_center((float(center[0]) * s + tx, float(center[1]) * s + ty))
+        artist.set_radius(float(artist.r) * s)
+        if artist.width is not None:
+            artist.set_width(float(artist.width) * s)
+        lw = artist.get_linewidth()
+        if lw:
+            artist.set_linewidth(float(lw) * s)
+    elif isinstance(artist, Text):
+        pos = _as_any(artist.get_position())
+        artist.set_position((float(pos[0]) * s + tx, float(pos[1]) * s + ty))
+        artist.set_fontsize(float(artist.get_fontsize()) * s)
+        bbox_patch = artist.get_bbox_patch()
+        if bbox_patch is not None:
+            lw = bbox_patch.get_linewidth()
+            if lw:
+                bbox_patch.set_linewidth(float(lw) * s)
+    elif isinstance(artist, offsetbox.AnnotationBbox):
+        xy = _as_any(artist.xy)
+        new_xy = (float(xy[0]) * s + tx, float(xy[1]) * s + ty)
+        artist.xy = new_xy
+        artist.xybox = new_xy
+        ob = _as_any(artist.offsetbox)
+        if hasattr(ob, "get_zoom") and hasattr(ob, "set_zoom"):
+            ob.set_zoom(float(ob.get_zoom()) * s)
+
+
+class _TransformArtistList(list[matplotlib.artist.Artist]):
+    """Artist list that transparently applies active CanvasBase spatial transforms on append/extend."""
+
+    def __init__(self, canvas_base: "CanvasBase") -> None:
+        super().__init__()
+        self._canvas_base = canvas_base
+
+    def append(self, item: matplotlib.artist.Artist) -> None:
+        stack = self._canvas_base._transform_stack
+        if stack:
+            s, tx, ty = stack[-1]
+            _apply_artist_transform(item, s, tx, ty)
+        super().append(item)
+
+    def extend(self, iterable: Iterable[matplotlib.artist.Artist]) -> None:
+        stack = self._canvas_base._transform_stack
+        if stack:
+            s, tx, ty = stack[-1]
+            items = list(iterable)
+            for item in items:
+                _apply_artist_transform(item, s, tx, ty)
+            super().extend(items)
+        else:
+            super().extend(iterable)
 
 
 class CanvasBase:
@@ -79,7 +211,8 @@ class CanvasBase:
         self._grid_centerstyle = self.DEFAULT_GRID_CENTERSTYLE
         self._grid_xpitch: PosInt | None = None
         self._grid_ypitch: PosInt | None = None
-        self._artists: list[matplotlib.artist.Artist] = []
+        self._transform_stack: list[tuple[float, float, float]] = []
+        self._artists: list[matplotlib.artist.Artist] = _TransformArtistList(self)
         self._active_animation: Any | None = None
 
         # it is decleared only for typing system
@@ -88,6 +221,46 @@ class CanvasBase:
 
         # initialize fig and ax
         self.setup()
+
+    @contextlib.contextmanager
+    def transform(
+        self,
+        origin: Coordinate = (0.0, 0.0),
+        scale: float = 1.0,
+        translate: tuple[float, float] = (0.0, 0.0),
+    ) -> Iterator[None]:
+        """Context manager that scales and translates all artists added within its scope.
+
+        Args:
+            origin: Anchor coordinate (ox, oy) around which scaling is performed.
+            scale: Proportional scale factor (> 0). Defaults to 1.0.
+            translate: Additional (dx, dy) translation offset. Defaults to (0.0, 0.0).
+        """
+        s_loc = float(scale)
+        if s_loc <= 0.0:
+            raise ValueError(f"scale must be positive (> 0), but got {scale}.")
+        dx, dy = float(translate[0]), float(translate[1])
+        if s_loc == 1.0 and dx == 0.0 and dy == 0.0:
+            yield
+            return
+
+        ox, oy = float(origin[0]), float(origin[1])
+        tx_loc = ox * (1.0 - s_loc) + dx
+        ty_loc = oy * (1.0 - s_loc) + dy
+
+        if self._transform_stack:
+            s_out, tx_out, ty_out = self._transform_stack[-1]
+            s_comp = s_out * s_loc
+            tx_comp = s_out * tx_loc + tx_out
+            ty_comp = s_out * ty_loc + ty_out
+        else:
+            s_comp, tx_comp, ty_comp = s_loc, tx_loc, ty_loc
+
+        self._transform_stack.append((s_comp, tx_comp, ty_comp))
+        try:
+            yield
+        finally:
+            self._transform_stack.pop()
 
     @validate_call
     def clear(self) -> None:
@@ -162,7 +335,7 @@ class CanvasBase:
         # Default values should be set at __init__() and load them via calling clear().
 
         if len(self._artists) != 0:
-            self._artists = []
+            self._artists.clear()
 
         def config_size_dpi() -> None:
             if width is not None:

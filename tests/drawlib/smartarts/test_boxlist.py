@@ -28,9 +28,10 @@ class TestBoxList:
         clear()
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
-        b.extend(["1", "2"])
-        b.append("3", style=styles.RedSolid, text_style=styles.RedBold)
-        b.append("4")
+        b.add("1")
+        b.add("2")
+        b.add("3", style=styles.RedSolid, text_style=styles.RedBold)
+        b.add("4")
         b.draw((10, 10), 8, 6)
         save(f"{OUTPUT_DIR}test_boxlist_left.png")
 
@@ -39,9 +40,10 @@ class TestBoxList:
         clear()
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
-        b.extend(["1", "2"])
-        b.append("3", style=styles.RedSolid, text_style=styles.RedBold)
-        b.append("4")
+        b.add("1")
+        b.add("2")
+        b.add("3", style=styles.RedSolid, text_style=styles.RedBold)
+        b.add("4")
         b.draw((90, 10), 8, 6, "right")
         save(f"{OUTPUT_DIR}test_boxlist_right.png")
 
@@ -50,9 +52,10 @@ class TestBoxList:
         clear()
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
-        b.extend(["1", "2"])
-        b.append("3", style=styles.RedSolid, text_style=styles.RedBold)
-        b.append("4")
+        b.add("1")
+        b.add("2")
+        b.add("3", style=styles.RedSolid, text_style=styles.RedBold)
+        b.add("4")
         b.draw((10, 10), 8, 6, "bottom")
         save(f"{OUTPUT_DIR}test_boxlist_bottom.png")
 
@@ -61,32 +64,34 @@ class TestBoxList:
         clear()
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
-        b.extend(["1", "2"])
-        b.append("3", style=styles.RedSolid, text_style=styles.RedBold)
-        b.append("4")
+        b.add("1")
+        b.add("2")
+        b.add("3", style=styles.RedSolid, text_style=styles.RedBold)
+        b.add("4")
         b.draw((10, 90), 8, 6, "top")
         save(f"{OUTPUT_DIR}test_boxlist_top.png")
 
     def test_boxlist_item_operations(self) -> None:
-        """Verify item manipulation methods (append, insert, extend) work properly."""
+        """Verify item manipulation methods (add, mutation, show, scale) work properly."""
+        clear()
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
-        b.append("item1")
+        item1 = b.add("item1")
         assert len(b._list) == 1
-        assert b._list[0].text == "item1"
-        assert not b._list[0].is_custom_style
+        assert item1.text == "item1"
+        assert item1.show is True
 
-        b.extend(["item2", "item3"])
+        item2 = b.add("item2")
+        item3 = b.add("item3", show=False)
         assert len(b._list) == 3
-        assert b._list[1].text == "item2"
-        assert b._list[2].text == "item3"
+        assert item2.text == "item2"
+        assert item3.show is False
 
-        b.insert(1, "inserted", style=styles.RedSolid, text_style=styles.RedBold)
-        assert len(b._list) == 4
-        assert b._list[1].text == "inserted"
-        assert b._list[1].is_custom_style
-        assert b._list[2].text == "item2"
-        assert b._list[3].text == "item3"
+        # Mutate item2 style post-add
+        item2.style = styles.RedSolid
+        item2.text_style = styles.RedBold
+        b.draw((10, 10), 8, 6, scale=1.2)
+        save(f"{OUTPUT_DIR}test_boxlist_mutation.png")
 
     def test_boxlist_missing_style_raises_error(self) -> None:
         """Verify that missing default styles raises ValidationError on __init__."""

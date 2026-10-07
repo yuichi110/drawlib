@@ -76,12 +76,13 @@ class Canvas(
             pyplot.show()
             return
 
-        temp_artists = self._artists
-        self._artists = []
+        temp_artists = list(self._artists)
+        self._artists.clear()
         self._draw_grid(zorder)
         pyplot.show()
         self._remove_artists_from_ax()  # remove grid
-        self._artists = temp_artists
+        self._artists.clear()
+        self._artists.extend(temp_artists)
         self._remove_artists_from_ax()  # remove drawing items
 
     @validate_call
@@ -102,12 +103,13 @@ class Canvas(
         buf = io.BytesIO()
 
         if is_grid:
-            temp_artists = self._artists
-            self._artists = []
+            temp_artists = list(self._artists)
+            self._artists.clear()
             self._draw_grid(zorder)
             pyplot.savefig(buf, format="png")
             self._remove_artists_from_ax()  # remove grid
-            self._artists = temp_artists
+            self._artists.clear()
+            self._artists.extend(temp_artists)
             self._remove_artists_from_ax()  # remove drawing items
         else:
             pyplot.savefig(buf, format="png")
@@ -170,8 +172,8 @@ class Canvas(
                 self._remove_artists_from_ax()  # remove drawing items
                 return
 
-        temp_artists = self._artists
-        self._artists = []
+        temp_artists = list(self._artists)
+        self._artists.clear()
         self._draw_grid(zorder)
 
         # save grid image
@@ -183,7 +185,8 @@ class Canvas(
             pyplot.savefig(grid_image_file_path, **save_kwargs)
 
         self._remove_artists_from_ax()  # remove grid
-        self._artists = temp_artists
+        self._artists.clear()
+        self._artists.extend(temp_artists)
         self._remove_artists_from_ax()  # remove drawing items
 
     def _remove_artists_from_ax(self) -> None:
@@ -355,6 +358,7 @@ get_dimage = canvas.get_dimage
 save = canvas.save
 show = canvas.show
 shape = canvas.shape
+transform = canvas.transform
 
 
 # image

@@ -18,16 +18,16 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import rectangle
+from drawlib._core.l4_canvas import rectangle, transform
 
 
-class _Item(BaseModel):
-    """Internal item class for BoxList."""
+class BoxListItem(BaseModel):
+    """Item class for BoxList."""
 
     text: str
     style: Style
     text_style: Style
-    is_custom_style: bool
+    show: bool = True
 
 
 class BoxList:
@@ -48,79 +48,43 @@ class BoxList:
         """
         self._style = style.patch(text_halign="center", text_valign="center")
         self._text_style = text_style
-        self._list: list[_Item] = []
+        self._list: list[BoxListItem] = []
 
     @validate_call
-    def append(
+    def add(
         self,
         text: str,
         *,
         style: Style | None = None,
         text_style: Style | None = None,
-    ) -> None:
-        """Append a box item to the list.
+        show: bool = True,
+    ) -> BoxListItem:
+        """Add a box item to the list.
 
         Args:
             text: Text to display in the box.
             style: Style for the box. If None, default style is used.
             text_style: Style for the text inside the box. If None, default text_style is used.
+            show: Whether to render this box item. Defaults to True.
+
+        Returns:
+            BoxListItem: The created box item instance.
         """
-        self.extend([text], style=style, text_style=text_style)
+        resolved_style = (
+            style.patch(text_halign="center", text_valign="center")
+            if style is not None
+            else self._style
+        )
+        resolved_text_style = text_style if text_style is not None else self._text_style
 
-    @validate_call
-    def insert(
-        self,
-        index: int,
-        text: str,
-        *,
-        style: Style | None = None,
-        text_style: Style | None = None,
-    ) -> None:
-        """Insert a box item at the specified index.
-
-        Args:
-            index: Index where the item should be inserted.
-            text: Text to display in the box.
-            style: Style for the box. If None, default style is used.
-            text_style: Style for the text inside the box. If None, default text_style is used.
-        """
-        is_custom_style = style is not None or text_style is not None
-
-        if style is not None:
-            resolved_style = style.patch(text_halign="center", text_valign="center")
-        else:
-            resolved_style = self._style
-
-        if text_style is not None:
-            resolved_text_style = text_style
-        else:
-            resolved_text_style = self._text_style
-
-        item = _Item(
+        item = BoxListItem(
             text=text,
             style=resolved_style,
             text_style=resolved_text_style,
-            is_custom_style=is_custom_style,
+            show=show,
         )
-        self._list.insert(index, item)
-
-    @validate_call
-    def extend(
-        self,
-        texts: list[str],
-        *,
-        style: Style | None = None,
-        text_style: Style | None = None,
-    ) -> None:
-        """Extend the list with multiple box items.
-
-        Args:
-            texts: List of text strings to add as boxes.
-            style: Style for the boxes. If None, default style is used.
-            text_style: Style for the text inside the boxes. If None, default text_style is used.
-        """
-        for text in texts:
-            self.insert(len(self._list), text, style=style, text_style=text_style)
+        self._list.append(item)
+        return item
 
     @validate_call
     def draw(
@@ -129,6 +93,7 @@ class BoxList:
         box_width: PosFloat,
         box_height: PosFloat,
         align: Literal["left", "right", "bottom", "top"] = "left",
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draw a list of boxes at the specified location.
 
@@ -137,36 +102,44 @@ class BoxList:
             box_width: The width of each box.
             box_height: The height of each box.
             align: The alignment of the boxes relative to the starting point.
+            scale: Proportional scale factor around xy. Defaults to 1.0.
         """
-        for index, item in enumerate(self._list):
-            if item.is_custom_style:
-                continue
+        with transform(origin=xy, scale=scale):
+            for index, item in enumerate(self._list):
+                if not item.show:
+                    continue
+                is_custom = item.style != self._style or item.text_style != self._text_style
+                if is_custom:
+                    continue
 
-            self._draw_cell(
-                start_xy=xy,
-                index=index,
-                text=item.text,
-                box_width=box_width,
-                box_height=box_height,
-                style=item.style,
-                text_style=item.text_style,
-                align=align,
-            )
+                self._draw_cell(
+                    start_xy=xy,
+                    index=index,
+                    text=item.text,
+                    box_width=box_width,
+                    box_height=box_height,
+                    style=item.style.patch(text_halign="center", text_valign="center"),
+                    text_style=item.text_style,
+                    align=align,
+                )
 
-        for index, item in enumerate(self._list):
-            if not item.is_custom_style:
-                continue
+            for index, item in enumerate(self._list):
+                if not item.show:
+                    continue
+                is_custom = item.style != self._style or item.text_style != self._text_style
+                if not is_custom:
+                    continue
 
-            self._draw_cell(
-                start_xy=xy,
-                index=index,
-                text=item.text,
-                box_width=box_width,
-                box_height=box_height,
-                style=item.style,
-                text_style=item.text_style,
-                align=align,
-            )
+                self._draw_cell(
+                    start_xy=xy,
+                    index=index,
+                    text=item.text,
+                    box_width=box_width,
+                    box_height=box_height,
+                    style=item.style.patch(text_halign="center", text_valign="center"),
+                    text_style=item.text_style,
+                    align=align,
+                )
 
     @staticmethod
     def _draw_cell(

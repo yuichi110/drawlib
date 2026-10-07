@@ -11,13 +11,13 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, Self
 
 from pydantic import validate_call
 
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import ellipse, get_charwidth_from_fontsize, line, rectangle
+from drawlib._core.l4_canvas import ellipse, get_charwidth_from_fontsize, line, rectangle, transform
 
 
 class MindMapNode:
@@ -44,6 +44,7 @@ class MindMapNode:
         line_length: PosFloat | None = None,
         xy_shift: Coordinate | None = None,
         children: list[MindMapNode] | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize MindMapNode.
 
@@ -61,6 +62,7 @@ class MindMapNode:
             line_length: Distance between parent and child hierarchy levels.
             xy_shift: Optional coordinate shift (dx, dy) to fine-tune this node's position.
             children: List of child MindMapNode instances.
+            show: Whether to render this mindmap node. Defaults to True.
         """
         self._text = text
         self._branch = branch
@@ -75,6 +77,7 @@ class MindMapNode:
         self._line_length = line_length
         self._xy_shift = xy_shift
         self._children: list[MindMapNode] = [] if children is None else children
+        self.show: bool = show
 
         # Internal layout computation attributes
         self._resolved_w: float = 0.0
@@ -82,11 +85,145 @@ class MindMapNode:
         self._extent_w: float = 0.0
         self._extent_h: float = 0.0
 
+    @property
+    def text(self) -> str:
+        """Return or set the node text."""
+        return self._text
+
+    @text.setter
+    def text(self, value: str) -> None:
+        self._text = value
+
+    @property
+    def branch(self) -> Literal["bottom", "top", "left", "right"] | None:
+        """Return or set the node branch direction."""
+        return self._branch
+
+    @branch.setter
+    def branch(self, value: Literal["bottom", "top", "left", "right"] | None) -> None:
+        self._branch = value
+
+    @property
+    def shape(self) -> Literal["rectangle", "oval", "none"] | None:
+        """Return or set the node shape."""
+        return self._shape
+
+    @shape.setter
+    def shape(self, value: Literal["rectangle", "oval", "none"] | None) -> None:
+        self._shape = value
+
+    @property
+    def size(self) -> tuple[PosFloat, PosFloat] | None:
+        """Return or set the node size."""
+        return self._size
+
+    @size.setter
+    def size(self, value: tuple[PosFloat, PosFloat] | None) -> None:
+        self._size = value
+
+    @property
+    def style(self) -> Style | None:
+        """Return or set the node style."""
+        return self._style
+
+    @style.setter
+    def style(self, value: Style | None) -> None:
+        self._style = value
+
+    @property
+    def r(self) -> PosFloat | None:
+        """Return or set the node corner radius."""
+        return self._r
+
+    @r.setter
+    def r(self, value: PosFloat | None) -> None:
+        self._r = value
+
+    @property
+    def text_style(self) -> Style | None:
+        """Return or set the node text style."""
+        return self._text_style
+
+    @text_style.setter
+    def text_style(self, value: Style | None) -> None:
+        self._text_style = value
+
+    @property
+    def line_style(self) -> Style | None:
+        """Return or set the node connector line style."""
+        return self._line_style
+
+    @line_style.setter
+    def line_style(self, value: Style | None) -> None:
+        self._line_style = value
+
+    @property
+    def children(self) -> list[MindMapNode]:
+        """Return the child nodes."""
+        return self._children
+
+    @validate_call
+    def add(  # noqa: PLR0913
+        self,
+        text: str,
+        *,
+        branch: Literal["bottom", "top", "left", "right"] | None = None,
+        shape: Literal["rectangle", "oval", "none"] | None = None,
+        size: tuple[PosFloat, PosFloat] | None = None,
+        style: Style | None = None,
+        r: PosFloat | None = None,
+        text_style: Style | None = None,
+        line_style: Style | None = None,
+        horizontal_margin: PosFloat | None = None,
+        vertical_margin: PosFloat | None = None,
+        line_length: PosFloat | None = None,
+        xy_shift: Coordinate | None = None,
+        show: bool = True,
+    ) -> Self:
+        """Create and append a child MindMapNode, returning the created child.
+
+        Args:
+            text: Text content displayed in the child node.
+            branch: Branch direction for the child node ("bottom", "top", "left", "right").
+            shape: Shape of the child node ("rectangle", "oval", "none").
+            size: Size of the child node as (width, height).
+            style: Shape style object for the child node.
+            r: Corner radius when shape is "rectangle".
+            text_style: Style object for child text.
+            line_style: Style object for connecting lines.
+            horizontal_margin: Horizontal margin between sibling subtrees.
+            vertical_margin: Vertical margin between sibling subtrees.
+            line_length: Distance between parent and child hierarchy levels.
+            xy_shift: Optional coordinate shift (dx, dy) to fine-tune the child node's position.
+            show: Whether to render the child node. Defaults to True.
+
+        Returns:
+            MindMapNode: The newly created child MindMapNode instance.
+        """
+        child = type(self)(
+            text=text,
+            branch=branch,
+            shape=shape,
+            size=size,
+            style=style,
+            r=r,
+            text_style=text_style,
+            line_style=line_style,
+            horizontal_margin=horizontal_margin,
+            vertical_margin=vertical_margin,
+            line_length=line_length,
+            xy_shift=xy_shift,
+            show=show,
+        )
+        self._children.append(child)
+        return child
+
     @validate_call
     def draw(
         self,
         xy: Coordinate,
         branch: Literal["bottom", "top", "left", "right"] = "bottom",
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draw the mindmap tree rooted at this node.
 
@@ -95,6 +232,7 @@ class MindMapNode:
         Args:
             xy: Center coordinates (x, y) of the root node.
             branch: Default branch direction for child nodes ("bottom", "top", "left", "right").
+            scale: Proportional scale factor around xy. Defaults to 1.0.
 
         Raises:
             ValueError: If root node is missing mandatory style, text_style, or line_style.
@@ -133,19 +271,20 @@ class MindMapNode:
         if self._xy_shift is not None:
             root_cx += self._xy_shift[0]
             root_cy += self._xy_shift[1]
-        self._layout_and_draw(
-            center_xy=(root_cx, root_cy),
-            current_branch=root_branch,
-            parent_shape=root_shape,
-            parent_size=root_size,
-            parent_style=self._style,
-            parent_r=root_r,
-            parent_text_style=self._text_style,
-            parent_line_style=self._line_style,
-            parent_h_margin=root_h_margin,
-            parent_v_margin=root_v_margin,
-            parent_line_len=root_line_len,
-        )
+        with transform(origin=xy, scale=scale):
+            self._layout_and_draw(
+                center_xy=(root_cx, root_cy),
+                current_branch=root_branch,
+                parent_shape=root_shape,
+                parent_size=root_size,
+                parent_style=self._style,
+                parent_r=root_r,
+                parent_text_style=self._text_style,
+                parent_line_style=self._line_style,
+                parent_h_margin=root_h_margin,
+                parent_v_margin=root_v_margin,
+                parent_line_len=root_line_len,
+            )
 
     def _get_children_by_branch(
         self,
@@ -283,40 +422,41 @@ class MindMapNode:
         bw, bh = self._resolved_w, self._resolved_h
 
         # 1. Draw node shape
-        if shape == "rectangle":
-            rectangle(
-                xy=(cx, cy),
-                width=bw,
-                height=bh,
-                r=r_val,
-                style=node_style,
-                text=self._text,
-                text_style=text_style,
-            )
-        elif shape == "oval":
-            ellipse(
-                xy=(cx, cy),
-                width=bw,
-                height=bh,
-                style=node_style,
-                text=self._text,
-                text_style=text_style,
-            )
-        else:  # shape == "none" (transparent box)
-            transparent_style = node_style.patch(
-                shape_line_width=0,
-                shape_line_color=(0, 0, 0, 0.0),
-                shape_fill_color=(0, 0, 0, 0.0),
-                shape_fill_alpha=0.0,
-            )
-            rectangle(
-                xy=(cx, cy),
-                width=bw,
-                height=bh,
-                style=transparent_style,
-                text=self._text,
-                text_style=text_style,
-            )
+        if self.show:
+            if shape == "rectangle":
+                rectangle(
+                    xy=(cx, cy),
+                    width=bw,
+                    height=bh,
+                    r=r_val,
+                    style=node_style,
+                    text=self._text,
+                    text_style=text_style,
+                )
+            elif shape == "oval":
+                ellipse(
+                    xy=(cx, cy),
+                    width=bw,
+                    height=bh,
+                    style=node_style,
+                    text=self._text,
+                    text_style=text_style,
+                )
+            else:  # shape == "none" (transparent box)
+                transparent_style = node_style.patch(
+                    shape_line_width=0,
+                    shape_line_color=(0, 0, 0, 0.0),
+                    shape_fill_color=(0, 0, 0, 0.0),
+                    shape_fill_alpha=0.0,
+                )
+                rectangle(
+                    xy=(cx, cy),
+                    width=bw,
+                    height=bh,
+                    style=transparent_style,
+                    text=self._text,
+                    text_style=text_style,
+                )
 
         if not self._children:
             return
@@ -346,6 +486,7 @@ class MindMapNode:
                     parent_h_margin=h_margin,
                     parent_v_margin=v_margin,
                     parent_line_len=line_len,
+                    parent_show=self.show,
                 )
             elif b == "top":
                 self._connect_and_layout_top(
@@ -365,6 +506,7 @@ class MindMapNode:
                     parent_h_margin=h_margin,
                     parent_v_margin=v_margin,
                     parent_line_len=line_len,
+                    parent_show=self.show,
                 )
             elif b == "right":
                 self._connect_and_layout_right(
@@ -384,6 +526,7 @@ class MindMapNode:
                     parent_h_margin=h_margin,
                     parent_v_margin=v_margin,
                     parent_line_len=line_len,
+                    parent_show=self.show,
                 )
             else:  # "left"
                 self._connect_and_layout_left(
@@ -403,6 +546,7 @@ class MindMapNode:
                     parent_h_margin=h_margin,
                     parent_v_margin=v_margin,
                     parent_line_len=line_len,
+                    parent_show=self.show,
                 )
 
     @staticmethod
@@ -423,6 +567,7 @@ class MindMapNode:
         parent_h_margin: float,
         parent_v_margin: float,
         parent_line_len: float,
+        parent_show: bool = True,
     ) -> None:
         parent_pt = (cx, cy - bh / 2.0)
         junction_y = cy - bh / 2.0 - line_len / 2.0
@@ -440,21 +585,27 @@ class MindMapNode:
             child_positions.append((child, child_cx, child_cy))
             cur_x += child._extent_w + h_margin
 
-        if len(group) == 1:
-            c, c_cx, c_cy = child_positions[0]
-            child_top = (c_cx, c_cy + c._resolved_h / 2.0)
-            if abs(c_cx - cx) < 1e-6:
-                line(xy1=parent_pt, xy2=child_top, style=line_style)
+        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
+        if parent_show and visible_positions:
+            if len(group) == 1 and len(visible_positions) == 1:
+                c, c_cx, c_cy = visible_positions[0]
+                child_top = (c_cx, c_cy + c._resolved_h / 2.0)
+                if abs(c_cx - cx) < 1e-6:
+                    line(xy1=parent_pt, xy2=child_top, style=line_style)
+                else:
+                    line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
+                    line(xy1=(cx, junction_y), xy2=(c_cx, junction_y), style=line_style)
+                    line(xy1=(c_cx, junction_y), xy2=child_top, style=line_style)
             else:
                 line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
-                line(xy1=(cx, junction_y), xy2=(c_cx, junction_y), style=line_style)
-                line(xy1=(c_cx, junction_y), xy2=child_top, style=line_style)
-        else:
-            line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
-            all_xs = [cx] + [pos[1] for pos in child_positions]
-            line(xy1=(min(all_xs), junction_y), xy2=(max(all_xs), junction_y), style=line_style)
-            for child, child_cx, child_cy in child_positions:
-                line(xy1=(child_cx, junction_y), xy2=(child_cx, child_cy + child._resolved_h / 2.0), style=line_style)
+                all_xs = [cx] + [pos[1] for pos in visible_positions]
+                line(xy1=(min(all_xs), junction_y), xy2=(max(all_xs), junction_y), style=line_style)
+                for child, child_cx, child_cy in visible_positions:
+                    line(
+                        xy1=(child_cx, junction_y),
+                        xy2=(child_cx, child_cy + child._resolved_h / 2.0),
+                        style=line_style,
+                    )
 
         for child, child_cx, child_cy in child_positions:
             child._layout_and_draw(
@@ -489,6 +640,7 @@ class MindMapNode:
         parent_h_margin: float,
         parent_v_margin: float,
         parent_line_len: float,
+        parent_show: bool = True,
     ) -> None:
         parent_pt = (cx, cy + bh / 2.0)
         junction_y = cy + bh / 2.0 + line_len / 2.0
@@ -506,21 +658,27 @@ class MindMapNode:
             child_positions.append((child, child_cx, child_cy))
             cur_x += child._extent_w + h_margin
 
-        if len(group) == 1:
-            c, c_cx, c_cy = child_positions[0]
-            child_bottom = (c_cx, c_cy - c._resolved_h / 2.0)
-            if abs(c_cx - cx) < 1e-6:
-                line(xy1=parent_pt, xy2=child_bottom, style=line_style)
+        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
+        if parent_show and visible_positions:
+            if len(group) == 1 and len(visible_positions) == 1:
+                c, c_cx, c_cy = visible_positions[0]
+                child_bottom = (c_cx, c_cy - c._resolved_h / 2.0)
+                if abs(c_cx - cx) < 1e-6:
+                    line(xy1=parent_pt, xy2=child_bottom, style=line_style)
+                else:
+                    line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
+                    line(xy1=(cx, junction_y), xy2=(c_cx, junction_y), style=line_style)
+                    line(xy1=(c_cx, junction_y), xy2=child_bottom, style=line_style)
             else:
                 line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
-                line(xy1=(cx, junction_y), xy2=(c_cx, junction_y), style=line_style)
-                line(xy1=(c_cx, junction_y), xy2=child_bottom, style=line_style)
-        else:
-            line(xy1=parent_pt, xy2=(cx, junction_y), style=line_style)
-            all_xs = [cx] + [pos[1] for pos in child_positions]
-            line(xy1=(min(all_xs), junction_y), xy2=(max(all_xs), junction_y), style=line_style)
-            for child, child_cx, child_cy in child_positions:
-                line(xy1=(child_cx, junction_y), xy2=(child_cx, child_cy - child._resolved_h / 2.0), style=line_style)
+                all_xs = [cx] + [pos[1] for pos in visible_positions]
+                line(xy1=(min(all_xs), junction_y), xy2=(max(all_xs), junction_y), style=line_style)
+                for child, child_cx, child_cy in visible_positions:
+                    line(
+                        xy1=(child_cx, junction_y),
+                        xy2=(child_cx, child_cy - child._resolved_h / 2.0),
+                        style=line_style,
+                    )
 
         for child, child_cx, child_cy in child_positions:
             child._layout_and_draw(
@@ -555,6 +713,7 @@ class MindMapNode:
         parent_h_margin: float,
         parent_v_margin: float,
         parent_line_len: float,
+        parent_show: bool = True,
     ) -> None:
         parent_pt = (cx + bw / 2.0, cy)
         junction_x = cx + bw / 2.0 + line_len / 2.0
@@ -572,21 +731,27 @@ class MindMapNode:
             child_positions.append((child, child_cx, child_cy))
             cur_y -= child._extent_h + v_margin
 
-        if len(group) == 1:
-            c, c_cx, c_cy = child_positions[0]
-            child_left = (c_cx - c._resolved_w / 2.0, c_cy)
-            if abs(c_cy - cy) < 1e-6:
-                line(xy1=parent_pt, xy2=child_left, style=line_style)
+        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
+        if parent_show and visible_positions:
+            if len(group) == 1 and len(visible_positions) == 1:
+                c, c_cx, c_cy = visible_positions[0]
+                child_left = (c_cx - c._resolved_w / 2.0, c_cy)
+                if abs(c_cy - cy) < 1e-6:
+                    line(xy1=parent_pt, xy2=child_left, style=line_style)
+                else:
+                    line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
+                    line(xy1=(junction_x, cy), xy2=(junction_x, c_cy), style=line_style)
+                    line(xy1=(junction_x, c_cy), xy2=child_left, style=line_style)
             else:
                 line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
-                line(xy1=(junction_x, cy), xy2=(junction_x, c_cy), style=line_style)
-                line(xy1=(junction_x, c_cy), xy2=child_left, style=line_style)
-        else:
-            line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
-            all_ys = [cy] + [pos[2] for pos in child_positions]
-            line(xy1=(junction_x, min(all_ys)), xy2=(junction_x, max(all_ys)), style=line_style)
-            for child, child_cx, child_cy in child_positions:
-                line(xy1=(junction_x, child_cy), xy2=(child_cx - child._resolved_w / 2.0, child_cy), style=line_style)
+                all_ys = [cy] + [pos[2] for pos in visible_positions]
+                line(xy1=(junction_x, min(all_ys)), xy2=(junction_x, max(all_ys)), style=line_style)
+                for child, child_cx, child_cy in visible_positions:
+                    line(
+                        xy1=(junction_x, child_cy),
+                        xy2=(child_cx - child._resolved_w / 2.0, child_cy),
+                        style=line_style,
+                    )
 
         for child, child_cx, child_cy in child_positions:
             child._layout_and_draw(
@@ -621,6 +786,7 @@ class MindMapNode:
         parent_h_margin: float,
         parent_v_margin: float,
         parent_line_len: float,
+        parent_show: bool = True,
     ) -> None:
         parent_pt = (cx - bw / 2.0, cy)
         junction_x = cx - bw / 2.0 - line_len / 2.0
@@ -638,21 +804,27 @@ class MindMapNode:
             child_positions.append((child, child_cx, child_cy))
             cur_y -= child._extent_h + v_margin
 
-        if len(group) == 1:
-            c, c_cx, c_cy = child_positions[0]
-            child_right = (c_cx + c._resolved_w / 2.0, c_cy)
-            if abs(c_cy - cy) < 1e-6:
-                line(xy1=parent_pt, xy2=child_right, style=line_style)
+        visible_positions = [(c, c_cx, c_cy) for (c, c_cx, c_cy) in child_positions if c.show]
+        if parent_show and visible_positions:
+            if len(group) == 1 and len(visible_positions) == 1:
+                c, c_cx, c_cy = visible_positions[0]
+                child_right = (c_cx + c._resolved_w / 2.0, c_cy)
+                if abs(c_cy - cy) < 1e-6:
+                    line(xy1=parent_pt, xy2=child_right, style=line_style)
+                else:
+                    line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
+                    line(xy1=(junction_x, cy), xy2=(junction_x, c_cy), style=line_style)
+                    line(xy1=(junction_x, c_cy), xy2=child_right, style=line_style)
             else:
                 line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
-                line(xy1=(junction_x, cy), xy2=(junction_x, c_cy), style=line_style)
-                line(xy1=(junction_x, c_cy), xy2=child_right, style=line_style)
-        else:
-            line(xy1=parent_pt, xy2=(junction_x, cy), style=line_style)
-            all_ys = [cy] + [pos[2] for pos in child_positions]
-            line(xy1=(junction_x, min(all_ys)), xy2=(junction_x, max(all_ys)), style=line_style)
-            for child, child_cx, child_cy in child_positions:
-                line(xy1=(junction_x, child_cy), xy2=(child_cx + child._resolved_w / 2.0, child_cy), style=line_style)
+                all_ys = [cy] + [pos[2] for pos in visible_positions]
+                line(xy1=(junction_x, min(all_ys)), xy2=(junction_x, max(all_ys)), style=line_style)
+                for child, child_cx, child_cy in visible_positions:
+                    line(
+                        xy1=(junction_x, child_cy),
+                        xy2=(child_cx + child._resolved_w / 2.0, child_cy),
+                        style=line_style,
+                    )
 
         for child, child_cx, child_cy in child_positions:
             child._layout_and_draw(

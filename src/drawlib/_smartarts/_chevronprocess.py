@@ -20,10 +20,11 @@ from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import chevron as canvas_chevron
 from drawlib._core.l4_canvas import polygon as canvas_polygon
 from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._core.l4_canvas import transform
 
 
-class _ChevronItem(BaseModel):
-    """Internal container for a single step in ChevronProcess."""
+class ChevronItem(BaseModel):
+    """Container for a single step in ChevronProcess."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
@@ -32,6 +33,7 @@ class _ChevronItem(BaseModel):
     text_style: Style
     description_style: Style
     description: str = ""
+    show: bool = True
 
 
 class ChevronProcess:
@@ -65,15 +67,15 @@ class ChevronProcess:
         self._corner_angle = float(corner_angle)
         self._spacing = float(spacing)
         self._flat_left_end = bool(flat_left_end)
-        self._items: list[_ChevronItem] = []
+        self._items: list[ChevronItem] = []
 
     @property
-    def items(self) -> list[_ChevronItem]:
+    def items(self) -> list[ChevronItem]:
         """Return the registered chevron items."""
         return self._items
 
     @validate_call
-    def append(
+    def add(
         self,
         text: str,
         *,
@@ -81,8 +83,9 @@ class ChevronProcess:
         style: Style | None = None,
         text_style: Style | None = None,
         description_style: Style | None = None,
-    ) -> None:
-        """Append a step to the chevron process.
+        show: bool = True,
+    ) -> ChevronItem:
+        """Add a step to the chevron process.
 
         Args:
             text: Primary step title text.
@@ -90,96 +93,25 @@ class ChevronProcess:
             style: Custom Style for this chevron block. If None, default style is used.
             text_style: Custom Style for the title text. If None, default text_style is used.
             description_style: Custom Style for the description text. If None, default description_style is used.
-        """
-        self.insert(
-            len(self._items),
-            text=text,
-            description=description,
-            style=style,
-            text_style=text_style,
-            description_style=description_style,
-        )
+            show: Whether to render this chevron item. Defaults to True.
 
-    @validate_call
-    def extend(
-        self,
-        texts: list[str],
-        *,
-        descriptions: list[str] | None = None,
-        styles: list[Style] | Style | None = None,
-        text_styles: list[Style] | Style | None = None,
-        description_styles: list[Style] | Style | None = None,
-    ) -> None:
-        """Extend the process with multiple step titles and optional descriptions/styles.
-
-        Args:
-            texts: List of step title texts.
-            descriptions: Optional list of corresponding descriptions.
-            styles: Optional Style applied to all steps or a list of Styles matching texts length.
-            text_styles: Optional Style applied to all step titles or a list of Styles.
-            description_styles: Optional Style applied to all descriptions or a list of Styles.
-
-        Raises:
-            ValueError: If a provided style list length does not match texts length.
-        """
-        n = len(texts)
-
-        def _resolve_list(val: list[Style] | Style | None, name: str) -> list[Style | None]:
-            if val is None:
-                return [None] * n
-            if isinstance(val, Style):
-                return [val] * n
-            if len(val) != n:
-                raise ValueError(f"Length of '{name}' ({len(val)}) must match length of 'texts' ({n}).")
-            return list(val)
-
-        style_list = _resolve_list(styles, "styles")
-        text_style_list = _resolve_list(text_styles, "text_styles")
-        desc_style_list = _resolve_list(description_styles, "description_styles")
-
-        for i, text in enumerate(texts):
-            desc = descriptions[i] if descriptions and i < len(descriptions) else ""
-            self.append(
-                text=text,
-                description=desc,
-                style=style_list[i],
-                text_style=text_style_list[i],
-                description_style=desc_style_list[i],
-            )
-
-    @validate_call
-    def insert(
-        self,
-        index: int,
-        text: str,
-        *,
-        description: str = "",
-        style: Style | None = None,
-        text_style: Style | None = None,
-        description_style: Style | None = None,
-    ) -> None:
-        """Insert a step at the specified index.
-
-        Args:
-            index: Position index to insert the step.
-            text: Primary step title text.
-            description: Optional supporting description text.
-            style: Custom Style for this chevron block. If None, default style is used.
-            text_style: Custom Style for the title text. If None, default text_style is used.
-            description_style: Custom Style for the description text. If None, default description_style is used.
+        Returns:
+            ChevronItem: The created chevron item instance.
         """
         effective_style = style if style is not None else self._style
         effective_text_style = text_style if text_style is not None else self._text_style
         effective_desc_style = description_style if description_style is not None else self._description_style
 
-        item = _ChevronItem(
+        item = ChevronItem(
             text=text,
             style=effective_style,
             text_style=effective_text_style,
             description_style=effective_desc_style,
             description=description,
+            show=show,
         )
-        self._items.insert(index, item)
+        self._items.append(item)
+        return item
 
     @validate_call
     def draw(
@@ -188,6 +120,7 @@ class ChevronProcess:
         width: PosFloat = 90.0,
         height: PosFloat = 12.0,
         item_width: PosFloat | None = None,
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draw the chevron process diagram at the specified location.
 
@@ -196,6 +129,7 @@ class ChevronProcess:
             width: Overall width allocated for the entire process. Used when item_width is None.
             height: Height of each chevron block.
             item_width: Optional explicit width per chevron block. If None, calculated evenly from width.
+            scale: Proportional scale factor around xy. Defaults to 1.0.
         """
         num_items = len(self._items)
         if num_items == 0:
@@ -218,35 +152,14 @@ class ChevronProcess:
 
         total_w = w_item + x_indent
 
-        if not self._flat_left_end:
-            # All items are standard chevrons centered at cx_i
-            cx_0 = x0 + total_w / 2.0
-            for i, item in enumerate(self._items):
-                cx = cx_0 + i * (w_item + self._spacing)
-                canvas_chevron(
-                    xy=(cx, cy),
-                    width=w_item,
-                    height=h,
-                    corner_angle=self._corner_angle,
-                    style=item.style,
-                )
-                self._draw_item_texts(item, cx, cy, h)
-        else:
-            # First item is a flat-backed pentagon, subsequent items are chevrons
-            for i, item in enumerate(self._items):
-                if i == 0:
-                    points = [
-                        (x0, y0),
-                        (x0, y0 + h),
-                        (x0 + w_item, y0 + h),
-                        (x0 + w_item + x_indent, cy),
-                        (x0 + w_item, y0),
-                    ]
-                    canvas_polygon(xys=points, style=item.style)
-                    cx = x0 + (w_item + x_indent * 0.35) / 2.0
-                else:
-                    # Align indentation with the previous chevron's tip + spacing
-                    cx = x0 + (1.5 + (i - 1)) * w_item + i * self._spacing + 0.5 * x_indent
+        with transform(origin=xy, scale=scale):
+            if not self._flat_left_end:
+                # All items are standard chevrons centered at cx_i
+                cx_0 = x0 + total_w / 2.0
+                for i, item in enumerate(self._items):
+                    if not item.show:
+                        continue
+                    cx = cx_0 + i * (w_item + self._spacing)
                     canvas_chevron(
                         xy=(cx, cy),
                         width=w_item,
@@ -254,11 +167,37 @@ class ChevronProcess:
                         corner_angle=self._corner_angle,
                         style=item.style,
                     )
-                self._draw_item_texts(item, cx, cy, h)
+                    self._draw_item_texts(item, cx, cy, h)
+            else:
+                # First item is a flat-backed pentagon, subsequent items are chevrons
+                for i, item in enumerate(self._items):
+                    if not item.show:
+                        continue
+                    if i == 0:
+                        points = [
+                            (x0, y0),
+                            (x0, y0 + h),
+                            (x0 + w_item, y0 + h),
+                            (x0 + w_item + x_indent, cy),
+                            (x0 + w_item, y0),
+                        ]
+                        canvas_polygon(xys=points, style=item.style)
+                        cx = x0 + (w_item + x_indent * 0.35) / 2.0
+                    else:
+                        # Align indentation with the previous chevron's tip + spacing
+                        cx = x0 + (1.5 + (i - 1)) * w_item + i * self._spacing + 0.5 * x_indent
+                        canvas_chevron(
+                            xy=(cx, cy),
+                            width=w_item,
+                            height=h,
+                            corner_angle=self._corner_angle,
+                            style=item.style,
+                        )
+                    self._draw_item_texts(item, cx, cy, h)
 
     @staticmethod
     def _draw_item_texts(
-        item: _ChevronItem,
+        item: ChevronItem,
         cx: float,
         cy: float,
         h: float,

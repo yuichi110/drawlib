@@ -51,67 +51,33 @@ class TestChevronProcessUnit:
                 text_style=Styles.WhiteBold,
             )
 
-    def test_append_and_extend(self) -> None:
-        """Test adding items via append and extend using defaults and overrides."""
+    def test_add_and_mutate(self) -> None:
+        """Test adding items via add() and mutating returned ChevronItem instances."""
         cp = ChevronProcess(
             style=Styles.PrimarySolid,
             text_style=Styles.WhiteBold,
             description_style=Styles.White,
         )
-        cp.append("Step 1", description="Init scope")
+        s1 = cp.add("Step 1", description="Init scope")
         assert len(cp.items) == 1
-        assert cp.items[0].text == "Step 1"
-        assert cp.items[0].description == "Init scope"
-        assert cp.items[0].style == Styles.PrimarySolid
-        assert cp.items[0].text_style == Styles.WhiteBold
-        assert cp.items[0].description_style == Styles.White
+        assert s1.text == "Step 1"
+        assert s1.description == "Init scope"
+        assert s1.style == Styles.PrimarySolid
+        assert s1.text_style == Styles.WhiteBold
+        assert s1.description_style == Styles.White
+        assert s1.show is True
 
-        # Extend without styles (inherits default styles)
-        cp.extend(["Step 2", "Step 3"], descriptions=["Dev", "QA"])
+        s2 = cp.add("Step 2", description="Dev", style=Styles.AccentFlat)
+        s3 = cp.add("Step 3", description="QA", show=False)
         assert len(cp.items) == 3
-        assert cp.items[1].text == "Step 2"
-        assert cp.items[1].description == "Dev"
-        assert cp.items[2].text == "Step 3"
-        assert cp.items[2].description == "QA"
+        assert s2.style == Styles.AccentFlat
+        assert s3.show is False
 
-        # Extend with overriding single style and list of styles
-        cp.extend(
-            ["Step 4", "Step 5"],
-            styles=[Styles.AccentFlat, Styles.SuccessFlat],
-            descriptions=["Deploy", "Monitor"],
-        )
-        assert len(cp.items) == 5
-        assert cp.items[3].style == Styles.AccentFlat
-        assert cp.items[4].style == Styles.SuccessFlat
-
-    def test_extend_mismatch_length_raises(self) -> None:
-        """Verify that extend raises ValueError on length mismatch."""
-        cp = ChevronProcess(
-            style=Styles.PrimarySolid,
-            text_style=Styles.WhiteBold,
-            description_style=Styles.White,
-        )
-        with pytest.raises(ValueError, match="Length of 'styles'"):
-            cp.extend(["Step 1", "Step 2"], styles=[Styles.PrimaryFlat])
-
-    def test_insert(self) -> None:
-        """Test inserting item at specific index."""
-        cp = ChevronProcess(
-            style=Styles.PrimarySolid,
-            text_style=Styles.WhiteBold,
-            description_style=Styles.White,
-        )
-        cp.append("Step 1")
-        cp.append("Step 3")
-        cp.insert(1, "Step 2", description="Middle step", style=Styles.AccentFlat)
-
-        assert len(cp.items) == 3
-        assert cp.items[0].text == "Step 1"
-        assert cp.items[1].text == "Step 2"
-        assert cp.items[1].description == "Middle step"
-        assert cp.items[1].style == Styles.AccentFlat
-        assert cp.items[2].text == "Step 3"
-        assert cp.items[2].style == Styles.PrimarySolid
+        # Mutate returned item
+        s2.style = Styles.SuccessFlat
+        s2.text = "Step 2 Updated"
+        assert cp.items[1].style == Styles.SuccessFlat
+        assert cp.items[1].text == "Step 2 Updated"
 
 
 class TestChevronProcessRendering:
@@ -128,11 +94,11 @@ class TestChevronProcessRendering:
                 text_style=Styles.WhiteBold,
                 description_style=Styles.White,
             )
-            cp.append("Requirements")
-            cp.append("Design")
-            cp.append("Implementation")
-            cp.append("Verification")
-            cp.append("Deployment")
+            cp.add("Requirements")
+            cp.add("Design")
+            cp.add("Implementation")
+            cp.add("Verification")
+            cp.add("Deployment")
 
             cp.draw(xy=(5.0, 40.0), width=90.0, height=14.0)
 
@@ -153,9 +119,9 @@ class TestChevronProcessRendering:
                 corner_angle=50.0,
                 spacing=2.0,
             )
-            cp.append("Phase 1: Planning", description="Scope & Specs")
-            cp.append("Phase 2: Build", description="Core & Unit Tests")
-            cp.append("Phase 3: Ship", description="Canary Release")
+            cp.add("Phase 1: Planning", description="Scope & Specs")
+            cp.add("Phase 2: Build", description="Core & Unit Tests")
+            cp.add("Phase 3: Ship", description="Canary Release")
 
             cp.draw(xy=(10.0, 40.0), width=80.0, height=16.0)
 
@@ -176,9 +142,10 @@ class TestChevronProcessRendering:
                 flat_left_end=True,
                 spacing=1.2,
             )
-            cp.extend(["Step 1", "Step 2", "Step 3"])
+            for t in ("Step 1", "Step 2", "Step 3"):
+                cp.add(t)
 
-            cp.draw(xy=(5.0, 40.0), width=90.0, height=12.0)
+            cp.draw(xy=(5.0, 40.0), width=90.0, height=12.0, scale=0.9)
 
             canvas.save(str(out_file))
             assert out_file.exists()
@@ -195,12 +162,12 @@ class TestChevronProcessRendering:
                 text_style=Styles.WhiteBold,
                 description_style=Styles.White,
             )
-            cp.append("Alpha")
-            cp.append(
+            cp.add("Alpha")
+            cp.add(
                 "Beta",
                 style=Styles.Primary.patch(shape_fill_color=(239, 68, 68, 1.0), shape_line_width=1.5),
             )
-            cp.append("GA", style=Styles.SuccessFlat)
+            cp.add("GA", style=Styles.SuccessFlat, show=False)
 
             cp.draw(xy=(10.0, 45.0), width=80.0, height=12.0, item_width=22.0)
 

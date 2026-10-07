@@ -198,3 +198,24 @@ class TestMindMapNode:
         root_no_line_style = MindMapNode("Root", style=styles.PrimarySolid, text_style=styles.WhiteBold)
         with pytest.raises(ValueError, match='Root of MindMapNode must be initialized with "line_style".'):
             root_no_line_style.draw(xy=(50.0, 50.0))
+
+    def test_mindmap_add_and_scale(self) -> None:
+        """Verify MindMapNode.add(), show flag, and scale parameter."""
+        clear()
+        styles = default_styles
+        root = MindMapNode(
+            "Root",
+            shape="oval",
+            size=(22.0, 10.0),
+            style=styles.PrimarySolid,
+            text_style=styles.WhiteBold,
+            line_style=styles.PrimarySolid,
+        )
+        n1 = root.add("Branch 1", branch="right", shape="rectangle")
+        n2 = root.add("Branch 2", branch="left", shape="rectangle", show=False)
+        n1_1 = n1.add("Leaf 1")
+        assert len(root.children) == 2
+        assert n2.show is False
+        n1_1.style = styles.SecondarySolid
+        root.draw(xy=(50.0, 50.0), scale=0.8)
+        save(f"{OUTPUT_DIR}test_mindmap_add_scale.png")

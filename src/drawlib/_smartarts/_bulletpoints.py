@@ -16,7 +16,7 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import circle, text
+from drawlib._core.l4_canvas import circle, text, transform
 
 
 class _BulletPointsShape(BaseModel):
@@ -27,12 +27,22 @@ class _BulletPointsShape(BaseModel):
     args: dict
 
 
-class _BulletPointsText(BaseModel):
-    """Text settings for a specific indent level."""
+class BulletPointItem(BaseModel):
+    """Bullet point item model."""
 
     indent: int
     text: str
-    style: Style
+    text_style: Style
+    show: bool = True
+
+    @property
+    def style(self) -> Style:
+        """Alias for text_style."""
+        return self.text_style
+
+    @style.setter
+    def style(self, value: Style) -> None:
+        self.text_style = value
 
 
 class BulletPoints:
@@ -58,7 +68,7 @@ class BulletPoints:
         self._indent_width = indent_width
 
         self._indent_level = 0
-        self._bullet_texts: list[_BulletPointsText] = []
+        self._bullet_texts: list[BulletPointItem] = []
         self._bullet_shape_map: dict[int, _BulletPointsShape] = {}
         self._ensure_default_bullets(text_style)
 
@@ -113,61 +123,67 @@ class BulletPoints:
         text: str,
         *,
         text_style: Style | None = None,
-    ) -> None:
+        show: bool = True,
+    ) -> BulletPointItem:
         """Add a bullet point text item.
 
         Args:
             text: Text to display for this bullet point.
             text_style: Custom style for this bullet point text. If None, default text_style is used.
+            show: Whether to render this bullet point item. Defaults to True.
+
+        Returns:
+            BulletPointItem: The created bullet point item instance.
         """
         style_resolved = text_style if text_style is not None else self._text_style
         self._ensure_default_bullets(style_resolved)
         style_resolved = style_resolved.patch(text_halign="left", text_valign="center")
 
-        self._bullet_texts.append(
-            _BulletPointsText(
-                indent=self._indent_level,
-                text=text,
-                style=style_resolved,
-            )
+        item = BulletPointItem(
+            indent=self._indent_level,
+            text=text,
+            text_style=style_resolved,
+            show=show,
         )
+        self._bullet_texts.append(item)
+        return item
 
     @validate_call
     def draw(
         self,
         xy: Coordinate,
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draws the list of bullet points starting from the specified location.
 
         Args:
             xy: The starting point (x, y) to draw the bullet points.
+            scale: Proportional scale factor around xy. Defaults to 1.0.
         """
-        y = xy[1]
-        for bullet_text in self._bullet_texts:
-            indent = bullet_text.indent
-            text_ = bullet_text.text
-            text_style = bullet_text.style
+        with transform(origin=xy, scale=scale):
+            y = xy[1]
+            for bullet_text in self._bullet_texts:
+                if bullet_text.show:
+                    indent = bullet_text.indent
+                    text_ = bullet_text.text
+                    text_style = bullet_text.text_style.patch(text_halign="left", text_valign="center")
 
-            x = xy[0] + self._indent_width * indent
-            text(
-                xy=(x, y),
-                text=text_,
-                style=text_style,
-            )
+                    x = xy[0] + self._indent_width * indent
+                    text(
+                        xy=(x, y),
+                        text=text_,
+                        style=text_style,
+                    )
 
-            if indent == 0:
-                ...
-            elif indent not in self._bullet_shape_map:
-                ...
-            else:
-                bps = self._bullet_shape_map[indent]
-                function = bps.function
-                shapestyle = bps.style
-                args = bps.args
+                    if indent != 0 and indent in self._bullet_shape_map:
+                        bps = self._bullet_shape_map[indent]
+                        function = bps.function
+                        shapestyle = bps.style
+                        args = dict(bps.args)
 
-                x = xy[0] + self._indent_width * (indent - 0.5)
-                args["xy"] = (x, y)
-                args["style"] = shapestyle
-                function(**args)
+                        x = xy[0] + self._indent_width * (indent - 0.5)
+                        args["xy"] = (x, y)
+                        args["style"] = shapestyle
+                        function(**args)
 
-            y -= self._vertical_margin
+                y -= self._vertical_margin

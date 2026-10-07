@@ -111,3 +111,22 @@ class TestGridLayout:
 
         with pytest.raises(ValidationError):
             GridLayout(num_column=2, num_row=2, text_style=styles.PrimaryBold)  # type: ignore
+
+    def test_gridlayout_item_and_scale(self) -> None:
+        """Verify GridItem return, mutation, show flag, and scale parameter."""
+        clear()
+        styles = default_styles
+        gl = GridLayout(
+            num_column=2,
+            num_row=2,
+            r=2,
+            style=styles.PrimarySolid,
+            text_style=styles.PrimaryBold,
+        )
+        item_a = gl.add((0, 0), 1, 1, text="A")
+        item_b = gl.add((0, 1), 1, 1, text="B", show=False)
+        item_a.style = styles.SecondarySolid
+        assert item_a.text == "A"
+        assert item_b.show is False
+        gl.draw((10, 10), 30, 30, 1, scale=0.8)
+        save(f"{OUTPUT_DIR}test_gridlayout_scale.png")

@@ -223,17 +223,17 @@ for step in steps:
 
 ### Step 1: `smartarts`（＋ 共通の Canvas `scale` 基盤）と `anim` サンプル検証
 1. **Canvas スケーリング基盤の実装 (`_core/l4_canvas`)**
-   - [ ] `Canvas` に空間変換（基準点 `origin`、スケール倍率 `scale`、オフセット `translate`）を透過的に適用するコンテキストマネージャまたは変換レイヤを実装する。
-   - [ ] 図形 (`shapes`)、線 (`lines`)、テキスト (`text` の `text_size` やシフト量)、画像・アイコン (`images`) が `scale` 倍で正確にスケーリングされる単体テストを追加する。
+   - [x] `Canvas` に空間変換（基準点 `origin`、スケール倍率 `scale`、オフセット `translate`）を透過的に適用するコンテキストマネージャまたは変換レイヤを実装する。
+   - [x] 図形 (`shapes`)、線 (`lines`)、テキスト (`text` の `text_size` やシフト量)、画像・アイコン (`images`) が `scale` 倍で正確にスケーリングされる単体テストを追加する。
 2. **`smartarts` の改修**
-   - [ ] `BoxList`, `ChevronProcess`, `Cycle` の `append()` / `insert()` / `extend()` を廃止して `add()` に一本化し、`BulletPoints`, `GridLayout`, `Pyramid` とともに `add()` が要素インスタンスを返すように更新する。
-   - [ ] `TreeNode.add()` および `MindMapNode.add()` メソッドを追加する。
-   - [ ] 全 SmartArt の要素インスタンスに `show: bool = True` を追加し、全体レイアウトを維持したまま非表示化できるようにする。
-   - [ ] `Pyramid` や `GridLayout` 等のスタイル合成を `add()` 時から `draw()` 時に遅延させ、追加後の属性上書き（`item.style = ...`, `item.text_style = ...`, `item.text = ...`）が完全に反映されるようにする。
-   - [ ] 全 SmartArt の `draw()` / `draw_flexible()` に `scale: PosFloat = 1.0` を追加する。
-   - [ ] 既存の `tests/drawlib/smartarts/`・ドキュメント・ルール内の `.append()` 呼び出しを `.add()` に更新し、単体テストを追加する。
+   - [x] `BoxList`, `ChevronProcess`, `Cycle` の `append()` / `insert()` / `extend()` を廃止して `add()` に一本化し、`BulletPoints`, `GridLayout`, `Pyramid` とともに `add()` が要素インスタンスを返すように更新する。
+   - [x] `TreeNode.add()` および `MindMapNode.add()` メソッドを追加する。
+   - [x] 全 SmartArt の要素インスタンスに `show: bool = True` を追加し、全体レイアウトを維持したまま非表示化できるようにする。
+   - [x] `Pyramid` や `GridLayout` 等のスタイル合成を `add()` 時から `draw()` 時に遅延させ、追加後の属性上書き（`item.style = ...`, `item.text_style = ...`, `item.text = ...`）が完全に反映されるようにする。
+   - [x] 全 SmartArt の `draw()` / `draw_flexible()` に `scale: PosFloat = 1.0` を追加する。
+   - [x] 既存の `tests/drawlib/smartarts/`・ドキュメント・ルール内の `.append()` 呼び出しを `.add()` に更新し、単体テストを追加する。
 3. **`anim` サンプル作成と視覚確認 (Visual Check)**
-   - [ ] `ChevronProcess` や `BoxList`, `Pyramid` を使い、「`show` によるステップの順次出現」「`style` 上書きによるアクティブステップのハイライト遷移」「`xy` と `scale` による移動・拡大縮小」のアニメーションサンプルを作成・描画し、文字サイズやレイアウト崩れがないか視覚確認する。
+   - [x] `ChevronProcess` や `BoxList`, `Pyramid` を使い、「`show` によるステップの順次出現」「`style` 上書きによるアクティブステップのハイライト遷移」「`xy` と `scale` による移動・拡大縮小」のアニメーションサンプルを作成・描画し、文字サイズやレイアウト崩れがないか視覚確認する。
 
 ### Step 2: `charts` の拡張と `anim` サンプル検証
 1. **`charts` の改修**

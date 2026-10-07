@@ -61,3 +61,18 @@ class TestBulletPoints:
         """Verify that missing text_style raises ValidationError on __init__."""
         with pytest.raises(ValidationError):
             BulletPoints(vertical_margin=4, indent_width=4)  # type: ignore
+
+    def test_bulletpoints_item_and_scale(self) -> None:
+        """Verify BulletPointItem return, mutation, show flag, and scale parameter."""
+        clear()
+        styles = default_styles
+        b = BulletPoints(text_style=styles.Black, vertical_margin=4, indent_width=4)
+        item1 = b.add("Item 1")
+        item2 = b.add("Item 2", show=False)
+        item3 = b.add("Item 3")
+        assert item1.text == "Item 1"
+        assert item2.show is False
+        item3.style = styles.PrimaryBold
+        assert item3.text_style == styles.PrimaryBold
+        b.draw((10, 80), scale=0.8)
+        save(f"{OUTPUT_DIR}test_bulletpoints_scale.png")

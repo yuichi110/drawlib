@@ -138,3 +138,24 @@ class TestTree:
         )
         with pytest.raises(ValueError, match='Root of TreeNode must be initialized with "line_horizontal_margin"'):
             t3.draw((10, 80))
+
+    def test_tree_add_and_scale(self) -> None:
+        """Verify TreeNode.add(), show flag, and scale parameter."""
+        clear()
+        styles = default_styles
+        root = TreeNode(
+            "Root",
+            text_style=styles.Primary,
+            line_style=styles.PrimaryThin,
+            line_horizontal_margin=2,
+            line_horizontal_length=2,
+            line_vertical_margin=5,
+        )
+        c1 = root.add("Child 1")
+        c2 = root.add("Child 2", show=False)
+        c1_1 = c1.add("Child 1-1")
+        assert len(root.children) == 2
+        assert c2.show is False
+        c1_1.text_style = styles.PrimaryBold
+        root.draw((10, 80), scale=0.8)
+        save(f"{OUTPUT_DIR}test_tree_add_scale.png")

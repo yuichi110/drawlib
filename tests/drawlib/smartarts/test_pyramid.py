@@ -96,10 +96,17 @@ class TestPyramid:
             Pyramid(text_style=styles.PrimaryBold)  # type: ignore
 
     def test_pyramid_item_override_style(self) -> None:
-        """Verify adding item with custom style override."""
+        """Verify adding item with custom style override, show flag, and scale."""
+        clear()
         styles = default_styles
         p = Pyramid(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
-        p.add(text="Custom", style=styles.SecondarySolid, text_style=styles.WhiteBold)
-        assert len(p._items) == 1
-        assert p._items[0].style == styles.SecondarySolid
-        assert p._items[0].text_style == styles.WhiteBold
+        item1 = p.add(text="Custom", style=styles.SecondarySolid, text_style=styles.WhiteBold)
+        item2 = p.add(text="Hidden", show=False)
+        item3 = p.add(text="Base")
+        assert len(p._items) == 3
+        assert item1.style == styles.SecondarySolid
+        assert item1.text_style == styles.WhiteBold
+        assert item2.show is False
+        item3.style = styles.GreenFlat
+        p.draw((10, 10), 30, 30, 2, scale=0.8)
+        save(f"{OUTPUT_DIR}test_pyramid_scale.png")

@@ -19,7 +19,7 @@ from pydantic import BaseModel, validate_call
 from drawlib._core.l2_types import Coordinate, PosFloat, PosInt
 from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import line, rectangle
+from drawlib._core.l4_canvas import line, rectangle, transform
 
 
 class _CellStyleOrder(BaseModel):
@@ -281,6 +281,7 @@ class Table:
         width: PosFloat,
         height: PosFloat,
         data: list[list[Any]],
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draws the table with equal-sized cells.
 
@@ -289,6 +290,7 @@ class Table:
             width (float): The total width of the table.
             height (float): The total height of the table.
             data (List[List[Any]]): The data to be displayed in the table.
+            scale (float): Proportional scale factor around xy. Defaults to 1.0.
         """
         num_rows = len(data)
         num_cols = len(data[0])
@@ -300,6 +302,7 @@ class Table:
             column_widths=column_widths,
             row_heights=row_heights,
             data=data,
+            scale=scale,
         )
 
     @validate_call
@@ -309,6 +312,7 @@ class Table:
         column_widths: list[PosFloat],
         row_heights: list[PosFloat],
         data: list[list[Any]],
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draws the table with flexible cell sizes.
 
@@ -317,6 +321,7 @@ class Table:
             column_widths (List[float]): A list of widths for each column.
             row_heights (List[float]): A list of heights for each row.
             data (List[List[Any]]): The data to be displayed in the table.
+            scale (float): Proportional scale factor around xy. Defaults to 1.0.
         """
         # create blank matrix
         matrix: list[list[_CellInfo]] = []
@@ -343,15 +348,16 @@ class Table:
         )
         self._update_cell_style(matrix)
 
-        # draw matrix
-        self._draw_cells(matrix=matrix)
+        with transform(origin=xy, scale=scale):
+            # draw matrix
+            self._draw_cells(matrix=matrix)
 
-        # draw border line
-        self._draw_border_lines(
-            xy=xy,
-            column_widths=column_widths,
-            row_heights=row_heights,
-        )
+            # draw border line
+            self._draw_border_lines(
+                xy=xy,
+                column_widths=column_widths,
+                row_heights=row_heights,
+            )
 
     # private
 

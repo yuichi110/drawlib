@@ -18,7 +18,7 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import line, text
+from drawlib._core.l4_canvas import line, text, transform
 
 
 class _TreeNodeDrawingItem(BaseModel):
@@ -41,7 +41,7 @@ class TreeNode:
 
     _drawing_item_map: dict[str, _TreeNodeDrawingItem] = {}
 
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         text: str,
         *,
@@ -51,6 +51,7 @@ class TreeNode:
         line_horizontal_length: PosFloat | None = None,
         line_vertical_margin: PosFloat | None = None,
         children: list[TreeNode] | None = None,
+        show: bool = True,
     ) -> None:
         """Initializes a TreeNode instance with specific text, styles, and optional children.
 
@@ -62,6 +63,7 @@ class TreeNode:
             line_horizontal_length: Length of horizontal connector line. Inherited if not overridden.
             line_vertical_margin: Vertical margin between child nodes. Inherited if not overridden.
             children: A list of child nodes connected to this node. Defaults to None.
+            show: Whether to render this tree node. Defaults to True.
         """
         self._text = text
         self._text_style = text_style
@@ -71,10 +73,81 @@ class TreeNode:
         self._line_vertical_margin = line_vertical_margin
         self._children: list[TreeNode] = children if children is not None else []
         self._drawing_item_name: str | None = None
+        self.show: bool = show
+
+    @property
+    def text(self) -> str:
+        """Return or set the node text."""
+        return self._text
+
+    @text.setter
+    def text(self, value: str) -> None:
+        self._text = value
+
+    @property
+    def text_style(self) -> Style | None:
+        """Return or set the node text style."""
+        return self._text_style
+
+    @text_style.setter
+    def text_style(self, value: Style | None) -> None:
+        self._text_style = value
+
+    @property
+    def line_style(self) -> Style | None:
+        """Return or set the node connector line style."""
+        return self._line_style
+
+    @line_style.setter
+    def line_style(self, value: Style | None) -> None:
+        self._line_style = value
+
+    @property
+    def children(self) -> list[TreeNode]:
+        """Return the child nodes."""
+        return self._children
+
+    @validate_call
+    def add(  # noqa: PLR0913
+        self,
+        text: str,
+        *,
+        text_style: Style | None = None,
+        line_style: Style | None = None,
+        line_horizontal_margin: PosFloat | None = None,
+        line_horizontal_length: PosFloat | None = None,
+        line_vertical_margin: PosFloat | None = None,
+        show: bool = True,
+    ) -> Self:
+        """Create and append a child TreeNode, returning the created child.
+
+        Args:
+            text: The text content for the child tree node.
+            text_style: The text style for the child node. Inherited if None.
+            line_style: The line style for connecting lines. Inherited if None.
+            line_horizontal_margin: Horizontal margin between node and connector line. Inherited if None.
+            line_horizontal_length: Length of horizontal connector line. Inherited if None.
+            line_vertical_margin: Vertical margin between child nodes. Inherited if None.
+            show: Whether to render the child node. Defaults to True.
+
+        Returns:
+            TreeNode: The newly created child TreeNode instance.
+        """
+        child = type(self)(
+            text=text,
+            text_style=text_style,
+            line_style=line_style,
+            line_horizontal_margin=line_horizontal_margin,
+            line_horizontal_length=line_horizontal_length,
+            line_vertical_margin=line_vertical_margin,
+            show=show,
+        )
+        self._children.append(child)
+        return child
 
     @classmethod
     @validate_call
-    def register_drawing_item(
+    def register_drawing_item(  # noqa: PLR0913
         cls,
         name: str,
         location: Literal["before", "after"],
@@ -128,11 +201,16 @@ class TreeNode:
         return self
 
     @validate_call
-    def draw(self, xy: Coordinate) -> None:
+    def draw(
+        self,
+        xy: Coordinate,
+        scale: PosFloat = 1.0,
+    ) -> None:
         """Draw the tree node and its children.
 
         Args:
             xy: The coordinates to start drawing.
+            scale: Proportional scale factor around xy. Defaults to 1.0.
 
         Raises:
             ValueError: If any required style or margin is missing on the root node.
@@ -148,16 +226,17 @@ class TreeNode:
         if self._line_vertical_margin is None:
             raise ValueError('Root of TreeNode must be initialized with "line_vertical_margin".')
 
-        self._draw(
-            xy=xy,
-            effective_text_style=self._text_style,
-            effective_line_style=self._line_style,
-            effective_line_horizontal_margin=self._line_horizontal_margin,
-            effective_line_horizontal_length=self._line_horizontal_length,
-            effective_line_vertical_margin=self._line_vertical_margin,
-        )
+        with transform(origin=xy, scale=scale):
+            self._draw(
+                xy=xy,
+                effective_text_style=self._text_style,
+                effective_line_style=self._line_style,
+                effective_line_horizontal_margin=self._line_horizontal_margin,
+                effective_line_horizontal_length=self._line_horizontal_length,
+                effective_line_vertical_margin=self._line_vertical_margin,
+            )
 
-    def _draw(  # noqa: C901
+    def _draw(  # noqa: C901, PLR0912, PLR0913
         self,
         xy: Coordinate,
         effective_text_style: Style,
@@ -192,45 +271,47 @@ class TreeNode:
             effective_line_vertical_margin = self._line_vertical_margin
 
         # draw text
-        patched_text_style = effective_text_style.patch(text_halign="left")
-        if self._drawing_item_name is None:
-            text(xy=xy, text=self._text, style=patched_text_style)
-
-        else:
-            drawing_item = self._drawing_item_map[self._drawing_item_name]
-
-            if drawing_item.location == "before":
-                args = drawing_item.args
-                args["xy"] = xy
-                args["style"] = drawing_item.style
-                drawing_item.function(**args)
-
-                text(xy=(xy[0] + drawing_item.padding_width, xy[1]), text=self._text, style=patched_text_style)
-
-            else:
+        if self.show:
+            patched_text_style = effective_text_style.patch(text_halign="left")
+            if self._drawing_item_name is None:
                 text(xy=xy, text=self._text, style=patched_text_style)
 
-                args = drawing_item.args
-                args["xy"] = (xy[0] + drawing_item.padding_width, xy[1])
-                args["style"] = drawing_item.style
-                drawing_item.function(**args)
+            else:
+                drawing_item = self._drawing_item_map[self._drawing_item_name]
+
+                if drawing_item.location == "before":
+                    args = dict(drawing_item.args)
+                    args["xy"] = xy
+                    args["style"] = drawing_item.style
+                    drawing_item.function(**args)
+
+                    text(xy=(xy[0] + drawing_item.padding_width, xy[1]), text=self._text, style=patched_text_style)
+
+                else:
+                    text(xy=xy, text=self._text, style=patched_text_style)
+
+                    args = dict(drawing_item.args)
+                    args["xy"] = (xy[0] + drawing_item.padding_width, xy[1])
+                    args["style"] = drawing_item.style
+                    drawing_item.function(**args)
 
         # draw children
         horizontal_line_x1 = xy[0] + effective_line_horizontal_margin
         horizontal_line_x2 = horizontal_line_x1 + effective_line_horizontal_length * 2 / 3
         child_x = horizontal_line_x1 + effective_line_horizontal_margin
         child_y = xy[1]
-        child_y_previous = child_y
+        last_visible_child_y: float | None = None
         for child in self._children:
             child_y -= effective_line_vertical_margin
-            # draw child horizontal line
-            line(
-                xy1=(horizontal_line_x1, child_y),
-                xy2=(horizontal_line_x2, child_y),
-                style=effective_line_style,
-            )
+            if self.show and child.show:
+                # draw child horizontal line
+                line(
+                    xy1=(horizontal_line_x1, child_y),
+                    xy2=(horizontal_line_x2, child_y),
+                    style=effective_line_style,
+                )
+                last_visible_child_y = child_y
             # draw child
-            child_y_previous = child_y
             child_y = child._draw(
                 xy=(child_x, child_y),
                 effective_text_style=effective_text_style,
@@ -240,10 +321,10 @@ class TreeNode:
                 effective_line_vertical_margin=effective_line_vertical_margin,
             )
         # draw children vertical line
-        if xy[1] != child_y_previous:
+        if self.show and last_visible_child_y is not None:
             line(
                 (horizontal_line_x1, xy[1] - effective_line_vertical_margin / 2),
-                (horizontal_line_x1, child_y_previous),
+                (horizontal_line_x1, last_visible_child_y),
                 style=effective_line_style,
             )
         return child_y

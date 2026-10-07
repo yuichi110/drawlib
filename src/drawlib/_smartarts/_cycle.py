@@ -25,10 +25,11 @@ from drawlib._core.l4_canvas import circle as canvas_circle
 from drawlib._core.l4_canvas import line_arc as canvas_line_arc
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._core.l4_canvas import transform
 
 
-class _CycleItem(BaseModel):
-    """Internal container for a single step in Cycle."""
+class CycleItem(BaseModel):
+    """Container for a single step in Cycle."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
@@ -38,6 +39,21 @@ class _CycleItem(BaseModel):
     text_style: Style | None = None
     description_style: Style | None = None
     arrow_style: Style | None = None
+    show: bool = True
+
+
+class CycleCenter(BaseModel):
+    """Container for the center node in a Radial Cycle."""
+
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    text: str
+    description: str = ""
+    radius: float = 10.0
+    style: Style | None = None
+    text_style: Style | None = None
+    description_style: Style | None = None
+    show: bool = True
 
 
 class Cycle:
@@ -114,33 +130,43 @@ class Cycle:
         self._description_style = description_style
         self._arrow_style = arrow_style
 
-        self._center_text = center_text
-        self._center_description = center_description
-        self._center_radius = float(center_radius)
-        self._center_style = center_style
-        self._center_text_style = center_text_style or text_style
-        self._center_description_style = center_description_style or description_style
+        resolved_center_text_style = center_text_style or text_style
+        resolved_center_desc_style = center_description_style or description_style
 
         if bool(center_text.strip()):
-            if self._center_style is None:
+            if center_style is None:
                 raise ValueError("'center_style' was not provided for center node.")
-            if self._center_text_style is None:
+            if resolved_center_text_style is None:
                 raise ValueError("Neither 'center_text_style' nor 'text_style' was provided for center node.")
-            if bool(center_description.strip()) and self._center_description_style is None:
+            if bool(center_description.strip()) and resolved_center_desc_style is None:
                 raise ValueError(
                     "Neither 'center_description_style' nor 'description_style' "
                     "was provided for center node description."
                 )
 
-        self._items: list[_CycleItem] = []
+        self._center = CycleCenter(
+            text=center_text,
+            description=center_description,
+            radius=float(center_radius),
+            style=center_style,
+            text_style=resolved_center_text_style,
+            description_style=resolved_center_desc_style,
+            show=True,
+        )
+        self._items: list[CycleItem] = []
 
     @property
-    def items(self) -> list[_CycleItem]:
+    def items(self) -> list[CycleItem]:
         """Return the registered cycle items."""
         return self._items
 
+    @property
+    def center(self) -> CycleCenter:
+        """Return the center node model."""
+        return self._center
+
     @validate_call
-    def append(
+    def add(  # noqa: PLR0913
         self,
         text: str,
         *,
@@ -149,8 +175,9 @@ class Cycle:
         text_style: Style | None = None,
         description_style: Style | None = None,
         arrow_style: Style | None = None,
-    ) -> None:
-        """Append a step to the cycle.
+        show: bool = True,
+    ) -> CycleItem:
+        """Add a step to the cycle.
 
         Args:
             text: Primary step title text.
@@ -159,90 +186,10 @@ class Cycle:
             text_style: Custom Style for the title text. If None, default text_style is used.
             description_style: Custom Style for the description text. If None, default description_style is used.
             arrow_style: Custom Style for the arrow following this step.
-        """
-        self.insert(
-            len(self._items),
-            text=text,
-            style=style,
-            description=description,
-            text_style=text_style,
-            description_style=description_style,
-            arrow_style=arrow_style,
-        )
+            show: Whether to render this step node. Defaults to True.
 
-    @validate_call
-    def extend(
-        self,
-        texts: list[str],
-        *,
-        styles: list[Style] | Style | None = None,
-        descriptions: list[str] | None = None,
-        text_styles: list[Style] | Style | None = None,
-        description_styles: list[Style] | Style | None = None,
-        arrow_styles: list[Style] | Style | None = None,
-    ) -> None:
-        """Extend the cycle with multiple step titles and optional styles/descriptions.
-
-        Args:
-            texts: List of step title texts.
-            styles: A single Style applied to all steps or a list of Styles matching texts length.
-            descriptions: Optional list of corresponding descriptions.
-            text_styles: Optional Style applied to all step titles or a list of Styles.
-            description_styles: Optional Style applied to all descriptions or a list of Styles.
-            arrow_styles: Optional Style applied to all connecting arrows or a list of Styles.
-
-        Raises:
-            ValueError: If a provided style list length does not match texts length.
-        """
-        n = len(texts)
-
-        def _resolve_list(val: list[Style] | Style | None, name: str) -> list[Style | None]:
-            if val is None:
-                return [None] * n
-            if isinstance(val, Style):
-                return [val] * n
-            if len(val) != n:
-                raise ValueError(f"Length of '{name}' ({len(val)}) must match length of 'texts' ({n}).")
-            return list(val)
-
-        style_list = _resolve_list(styles, "styles")
-        text_style_list = _resolve_list(text_styles, "text_styles")
-        desc_style_list = _resolve_list(description_styles, "description_styles")
-        arrow_style_list = _resolve_list(arrow_styles, "arrow_styles")
-
-        for i, text in enumerate(texts):
-            desc = descriptions[i] if descriptions and i < len(descriptions) else ""
-            self.append(
-                text=text,
-                style=style_list[i],
-                description=desc,
-                text_style=text_style_list[i],
-                description_style=desc_style_list[i],
-                arrow_style=arrow_style_list[i],
-            )
-
-    @validate_call
-    def insert(
-        self,
-        index: int,
-        text: str,
-        *,
-        style: Style | None = None,
-        description: str = "",
-        text_style: Style | None = None,
-        description_style: Style | None = None,
-        arrow_style: Style | None = None,
-    ) -> None:
-        """Insert a step at the specified index.
-
-        Args:
-            index: Position index to insert the step.
-            text: Primary step title text.
-            style: Style for this step node. If None, default style is used.
-            description: Optional supporting description text.
-            text_style: Custom Style for the title text. If None, default text_style is used.
-            description_style: Custom Style for the description text. If None, default description_style is used.
-            arrow_style: Custom Style for the arrow following this step.
+        Returns:
+            CycleItem: The created cycle item instance.
         """
         effective_style = style if style is not None else self._style
         effective_text_style = text_style if text_style is not None else self._text_style
@@ -264,18 +211,20 @@ class Cycle:
                 f"Neither default 'arrow_style' nor item 'arrow_style' was provided for arrow after '{text}'."
             )
 
-        item = _CycleItem(
+        item = CycleItem(
             text=text,
             style=effective_style,
             description=description,
             text_style=effective_text_style,
             description_style=effective_description_style,
             arrow_style=effective_arrow_style,
+            show=show,
         )
-        self._items.insert(index, item)
+        self._items.append(item)
+        return item
 
     @validate_call
-    def set_center(
+    def set_center(  # noqa: PLR0913
         self,
         text: str,
         *,
@@ -284,7 +233,8 @@ class Cycle:
         radius: PosFloat | None = None,
         text_style: Style | None = None,
         description_style: Style | None = None,
-    ) -> None:
+        show: bool = True,
+    ) -> CycleCenter:
         """Configure the optional center node for a Radial Cycle.
 
         Args:
@@ -294,19 +244,25 @@ class Cycle:
             radius: Radius of the center circle. If None, retains current center_radius.
             text_style: Custom Style for the center title text.
             description_style: Custom Style for the center description text.
+            show: Whether to render the center node. Defaults to True.
+
+        Returns:
+            CycleCenter: The center node configuration instance.
         """
-        self._center_text = text
-        self._center_description = description
+        self._center.text = text
+        self._center.description = description
+        self._center.show = show
         if radius is not None:
-            self._center_radius = float(radius)
+            self._center.radius = float(radius)
         if style is not None:
-            self._center_style = style
-        elif self._center_style is None:
+            self._center.style = style
+        elif self._center.style is None:
             raise ValueError("'style' is required when setting center node.")
         if text_style is not None:
-            self._center_text_style = text_style
+            self._center.text_style = text_style
         if description_style is not None:
-            self._center_description_style = description_style
+            self._center.description_style = description_style
+        return self._center
 
     @validate_call
     def draw(
@@ -314,6 +270,7 @@ class Cycle:
         xy: Coordinate,
         radius: PosFloat = 35.0,
         align: Literal["center", "bottom_left"] = "center",
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draw the cycle diagram at the specified coordinate.
 
@@ -322,6 +279,7 @@ class Cycle:
             radius: Orbit radius from diagram center to step nodes. Defaults to 35.0.
             align: Anchor alignment ("center" if xy is center, "bottom_left" if xy is bottom-left bounding corner).
                 Defaults to "center".
+            scale: Proportional scale factor around xy. Defaults to 1.0.
         """
         orbit_r = float(radius)
         num_items = len(self._items)
@@ -337,42 +295,45 @@ class Cycle:
             offset = orbit_r + node_half_extent + extra_margin
             cx, cy = float(xy[0]) + offset, float(xy[1]) + offset
 
-        if num_items == 0:
-            if self._center_text:
+        with transform(origin=xy, scale=scale):
+            if num_items == 0:
+                if self._center.text and self._center.show:
+                    self._draw_center_node(cx, cy)
+                return
+
+            angles = self._compute_item_angles(num_items)
+
+            # 1. Draw connecting arrows if multiple items exist
+            if num_items >= 2 and self._arrow_type != "none":
+                self._draw_arrows(cx, cy, orbit_r, num_items, angles)
+
+            # 2. Draw center node if specified
+            if self._center.text and self._center.show:
                 self._draw_center_node(cx, cy)
-            return
 
-        angles = self._compute_item_angles(num_items)
+            # 3. Draw nodes and their texts
+            for i, item in enumerate(self._items):
+                if not item.show:
+                    continue
+                ang_rad = math.radians(angles[i])
+                nx = cx + orbit_r * math.cos(ang_rad)
+                ny = cy + orbit_r * math.sin(ang_rad)
+                node_style = item.style
 
-        # 1. Draw connecting arrows if multiple items exist
-        if num_items >= 2 and self._arrow_type != "none":
-            self._draw_arrows(cx, cy, orbit_r, num_items, angles)
+                # Render shape
+                if self._node_shape == "circle":
+                    canvas_circle(xy=(nx, ny), radius=self._node_radius, style=node_style)
+                elif self._node_shape == "rectangle":
+                    canvas_rectangle(
+                        xy=(nx, ny),
+                        width=self._node_size[0],
+                        height=self._node_size[1],
+                        r=2.0,
+                        style=node_style,
+                    )
 
-        # 2. Draw center node if specified
-        if self._center_text:
-            self._draw_center_node(cx, cy)
-
-        # 3. Draw nodes and their texts
-        for i, item in enumerate(self._items):
-            ang_rad = math.radians(angles[i])
-            nx = cx + orbit_r * math.cos(ang_rad)
-            ny = cy + orbit_r * math.sin(ang_rad)
-            node_style = item.style
-
-            # Render shape
-            if self._node_shape == "circle":
-                canvas_circle(xy=(nx, ny), radius=self._node_radius, style=node_style)
-            elif self._node_shape == "rectangle":
-                canvas_rectangle(
-                    xy=(nx, ny),
-                    width=self._node_size[0],
-                    height=self._node_size[1],
-                    r=2.0,
-                    style=node_style,
-                )
-
-            # Render texts
-            self._draw_item_texts(item, node_style, nx, ny, ang_rad)
+                # Render texts
+                self._draw_item_texts(item, node_style, nx, ny, ang_rad)
 
     def _compute_item_angles(self, num_items: int) -> list[float]:
         """Compute angular placement for each item in degrees."""
@@ -414,6 +375,8 @@ class Cycle:
 
         for i in range(num_items):
             next_i = (i + 1) % num_items
+            if not (self._items[i].show and self._items[next_i].show):
+                continue
             arrow_style = self._resolve_arrow_style(i, next_i)
 
             if self._clockwise:
@@ -501,7 +464,7 @@ class Cycle:
 
     def _draw_item_texts(
         self,
-        item: _CycleItem,
+        item: CycleItem,
         node_style: Style,
         nx: float,
         ny: float,
@@ -596,13 +559,14 @@ class Cycle:
 
     def _draw_center_node(self, cx: float, cy: float) -> None:
         """Render the center node for Radial Cycle diagrams."""
-        c_style = self._center_style or Style(
+        center = self._center
+        c_style = center.style or Style(
             shape_fill_color=(245, 247, 250, 1.0),
             shape_line_color=(185, 195, 210, 1.0),
             shape_line_width=1.5,
             shape_line_style="solid",
         )
-        canvas_circle(xy=(cx, cy), radius=self._center_radius, style=c_style)
+        canvas_circle(xy=(cx, cy), radius=center.radius, style=c_style)
 
         fill_color = c_style.shape_fill_color
         fill_alpha = c_style.shape_fill_alpha
@@ -619,8 +583,8 @@ class Cycle:
             light_color=(255, 255, 255, 0.92),
         )
 
-        has_desc = bool(self._center_description.strip())
-        t_style = self._center_text_style or Style(
+        has_desc = bool(center.description.strip())
+        t_style = center.text_style or Style(
             text_size=11.0,
             text_font=Font.SANSSERIF_BOLD,
             text_color=def_center_title_col,
@@ -629,16 +593,16 @@ class Cycle:
         )
 
         if not has_desc:
-            canvas_text(xy=(cx, cy), text=self._center_text, style=t_style)
+            canvas_text(xy=(cx, cy), text=center.text, style=t_style)
         else:
-            title_y = cy + self._center_radius * 0.22
-            desc_y = cy - self._center_radius * 0.35
-            d_style = self._center_description_style or Style(
+            title_y = cy + center.radius * 0.22
+            desc_y = cy - center.radius * 0.35
+            d_style = center.description_style or Style(
                 text_size=7.5,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=def_center_desc_col,
                 text_halign="center",
                 text_valign="center",
             )
-            canvas_text(xy=(cx, title_y), text=self._center_text, style=t_style)
-            canvas_text(xy=(cx, desc_y), text=self._center_description, style=d_style)
+            canvas_text(xy=(cx, title_y), text=center.text, style=t_style)
+            canvas_text(xy=(cx, desc_y), text=center.description, style=d_style)

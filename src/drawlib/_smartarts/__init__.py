@@ -9,13 +9,13 @@
 
 """Package for smart arts modules."""
 
-from drawlib._smartarts._boxlist import BoxList
-from drawlib._smartarts._bulletpoints import BulletPoints
-from drawlib._smartarts._chevronprocess import ChevronProcess
-from drawlib._smartarts._cycle import Cycle
-from drawlib._smartarts._gridlayout import GridLayout
+from drawlib._smartarts._boxlist import BoxList, BoxListItem
+from drawlib._smartarts._bulletpoints import BulletPointItem, BulletPoints
+from drawlib._smartarts._chevronprocess import ChevronItem, ChevronProcess
+from drawlib._smartarts._cycle import Cycle, CycleCenter, CycleItem
+from drawlib._smartarts._gridlayout import GridItem, GridLayout
 from drawlib._smartarts._mindmap import MindMapNode
-from drawlib._smartarts._pyramid import Pyramid
+from drawlib._smartarts._pyramid import Pyramid, PyramidItem
 from drawlib._smartarts._sourcecode import (
     SourceCode,
     SourceCodeStyles,
@@ -27,12 +27,19 @@ from drawlib._smartarts._tree import TreeNode
 
 __all__ = [
     "BoxList",
+    "BoxListItem",
+    "BulletPointItem",
     "BulletPoints",
+    "ChevronItem",
     "ChevronProcess",
     "Cycle",
+    "CycleCenter",
+    "CycleItem",
+    "GridItem",
     "GridLayout",
     "MindMapNode",
     "Pyramid",
+    "PyramidItem",
     "SourceCode",
     "SourceCodeStyles",
     "Table",

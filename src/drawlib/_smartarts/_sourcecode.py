@@ -34,7 +34,7 @@ from drawlib._core.l1_core import get_script_relative_path
 from drawlib._core.l2_types import Coordinate, FilePath, FontBase, FontFile, PosFloat
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import TextUtil, canvas, rectangle, text
+from drawlib._core.l4_canvas import TextUtil, canvas, rectangle, text, transform
 
 
 class SourceCodeStyles(BaseModel):
@@ -485,7 +485,7 @@ class SourceCode:
 
     @classmethod
     @validate_call
-    def draw(  # noqa: C901
+    def draw(  # noqa: C901, PLR0913
         cls,
         xy: Coordinate,
         width: PosFloat,
@@ -496,6 +496,7 @@ class SourceCode:
         code_lang: str | None = None,
         show_linenum: bool = False,
         r: PosFloat = 1.5,
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draw syntax-highlighted source code on the canvas.
 
@@ -509,6 +510,7 @@ class SourceCode:
                        If None, language is inferred from `file` or code content.
             show_linenum: Whether to display line numbers in a gutter.
             r: Corner radius of the container box. Defaults to 1.5.
+            scale: Proportional scale factor around xy. Defaults to 1.0.
 
         Raises:
             ValueError: If neither or both `code` and `file` are provided.
@@ -585,44 +587,45 @@ class SourceCode:
 
         box_h = pad_y * 2.0 + num_lines * line_height
 
-        # Draw outer container rectangle
-        cx = xy[0] + width / 2.0
-        cy = xy[1] - box_h / 2.0
-        rectangle(
-            xy=(cx, cy),
-            width=width,
-            height=box_h,
-            r=r,
-            style=styles.box_style,
-        )
+        with transform(origin=xy, scale=scale):
+            # Draw outer container rectangle
+            cx = xy[0] + width / 2.0
+            cy = xy[1] - box_h / 2.0
+            rectangle(
+                xy=(cx, cy),
+                width=width,
+                height=box_h,
+                r=r,
+                style=styles.box_style,
+            )
 
-        # Draw line numbers
-        if show_linenum:
-            line_num_style = styles.linenum_style.patch(text_halign="right", text_valign="center")
-            for i in range(num_lines):
+            # Draw line numbers
+            if show_linenum:
+                line_num_style = styles.linenum_style.patch(text_halign="right", text_valign="center")
+                for i in range(num_lines):
+                    line_y = xy[1] - pad_y - (i + 0.5) * line_height
+                    line_str = f"{i + 1} "
+                    num_x = xy[0] + pad_x + gutter_w
+                    text(
+                        xy=(num_x, line_y),
+                        text=line_str,
+                        style=line_num_style,
+                    )
+
+            # Draw syntax-highlighted code tokens
+            code_start_x = xy[0] + pad_x + gutter_w + (get_dx(" ", styles.default) if show_linenum else 0.0)
+            for i, line_toks in enumerate(token_lines):
                 line_y = xy[1] - pad_y - (i + 0.5) * line_height
-                line_str = f"{i + 1} "
-                num_x = xy[0] + pad_x + gutter_w
-                text(
-                    xy=(num_x, line_y),
-                    text=line_str,
-                    style=line_num_style,
-                )
-
-        # Draw syntax-highlighted code tokens
-        code_start_x = xy[0] + pad_x + gutter_w + (get_dx(" ", styles.default) if show_linenum else 0.0)
-        for i, line_toks in enumerate(token_lines):
-            line_y = xy[1] - pad_y - (i + 0.5) * line_height
-            token_x = code_start_x
-            for tok_type, tok_val in line_toks:
-                tok_style = cls._map_token_to_style(tok_type, styles)
-                tok_style = tok_style.patch(text_halign="left", text_valign="center")
-                text(
-                    xy=(token_x, line_y),
-                    text=tok_val,
-                    style=tok_style,
-                )
-                token_x += get_dx(tok_val, tok_style)
+                token_x = code_start_x
+                for tok_type, tok_val in line_toks:
+                    tok_style = cls._map_token_to_style(tok_type, styles)
+                    tok_style = tok_style.patch(text_halign="left", text_valign="center")
+                    text(
+                        xy=(token_x, line_y),
+                        text=tok_val,
+                        style=tok_style,
+                    )
+                    token_x += get_dx(tok_val, tok_style)
 
     @staticmethod
     @validate_call
@@ -691,7 +694,7 @@ class SourceCode:
 
 
 @validate_call
-def sourcecode(
+def sourcecode(  # noqa: PLR0913
     xy: Coordinate,
     width: PosFloat,
     code: str | None = None,
@@ -701,6 +704,7 @@ def sourcecode(
     code_lang: str | None = None,
     show_linenum: bool = False,
     r: PosFloat = 1.5,
+    scale: PosFloat = 1.0,
 ) -> None:
     """Draw syntax-highlighted source code on the canvas.
 
@@ -715,6 +719,7 @@ def sourcecode(
         code_lang: Programming language for highlighting (e.g. 'python', 'json').
         show_linenum: Whether to display line numbers.
         r: Corner radius of the container box. Defaults to 1.5.
+        scale: Proportional scale factor around xy. Defaults to 1.0.
     """
     SourceCode.draw(
         xy=xy,
@@ -725,6 +730,7 @@ def sourcecode(
         code_lang=code_lang,
         show_linenum=show_linenum,
         r=r,
+        scale=scale,
     )
 
 

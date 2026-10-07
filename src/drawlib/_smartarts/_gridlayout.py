@@ -14,18 +14,22 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.l2_types import Angle, Coordinate, PosFloat, PosInt
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import rectangle
+from drawlib._core.l4_canvas import rectangle, transform
 
 
-class _GridLayoutItem(BaseModel):
-    """Internal class for storing grid layout item information."""
+class GridItem(BaseModel):
+    """Class for storing grid layout item information."""
 
-    column_range: tuple[PosInt, PosInt]
-    row_range: tuple[PosInt, PosInt]
+    position: tuple[PosInt, PosInt]
+    width: PosInt
+    height: PosInt
     r: PosFloat
     style: Style
     text: str
     text_style: Style
+    text_angle: Angle = 0.0
+    text_xy_shift: Coordinate | None = None
+    show: bool = True
 
 
 class GridLayout:
@@ -62,10 +66,10 @@ class GridLayout:
         self._text_angle = text_angle
         self._text_xy_shift = text_xy_shift
 
-        self._items: list[_GridLayoutItem] = []
+        self._items: list[GridItem] = []
 
     @validate_call
-    def add(  # noqa: C901
+    def add(  # noqa: PLR0913
         self,
         position: tuple[PosInt, PosInt],
         width: PosInt,
@@ -77,7 +81,8 @@ class GridLayout:
         text_style: Style | None = None,
         text_angle: Angle | None = None,
         text_xy_shift: Coordinate | None = None,
-    ) -> None:
+        show: bool = True,
+    ) -> GridItem:
         """Add a cell spanning one or more grid positions.
 
         Args:
@@ -90,6 +95,10 @@ class GridLayout:
             text_style: Style for the text. If None, default text_style is used.
             text_angle: Angle for the text. If None, default text_angle is used.
             text_xy_shift: (x, y) offset shift for the text. If None, default text_xy_shift is used.
+            show: Whether to render this grid cell. Defaults to True.
+
+        Returns:
+            GridItem: The created grid cell item instance.
 
         Raises:
             ValueError: If width/height < 1 or position is out of grid bounds.
@@ -114,32 +123,27 @@ class GridLayout:
 
         cell_r = r if r is not None else self._r
         resolved_style = style if style is not None else self._style
-        resolved_style = resolved_style.patch(text_halign="left", text_valign="bottom")
-
         resolved_text_style = text_style if text_style is not None else self._text_style
         resolved_angle = text_angle if text_angle is not None else self._text_angle
         resolved_shift = text_xy_shift if text_xy_shift is not None else self._text_xy_shift
 
-        patch_kwargs: dict = {}
-        if resolved_angle != 0.0:
-            patch_kwargs["text_angle"] = resolved_angle
-        if resolved_shift is not None:
-            patch_kwargs["text_xy_shift"] = resolved_shift
-        if patch_kwargs:
-            resolved_text_style = resolved_text_style.patch(**patch_kwargs)
-
-        item = _GridLayoutItem(
-            column_range=(column_start, column_end),
-            row_range=(row_start, row_end),
+        item = GridItem(
+            position=(column_start, row_start),
+            width=width,
+            height=height,
             r=cell_r,
             text=text,
             style=resolved_style,
             text_style=resolved_text_style,
+            text_angle=resolved_angle,
+            text_xy_shift=resolved_shift,
+            show=show,
         )
         self._items.append(item)
+        return item
 
     @validate_call
-    def draw(
+    def draw(  # noqa: PLR0913
         self,
         xy: Coordinate,
         width: PosFloat,
@@ -147,16 +151,18 @@ class GridLayout:
         margin: PosFloat,
         outer_r: PosFloat | None = None,
         outer_style: Style | None = None,
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draw the grid layout.
 
         Args:
-            xy (Tuple[float, float]): The x and y coordinates of the top-left corner of the grid.
+            xy (Tuple[float, float]): The x and y coordinates of the bottom-left corner of the grid.
             width (float): The total width of the grid.
             height (float): The total height of the grid.
             margin (float): The margin between grid items.
             outer_r (int, optional): The radius for the outer grid border. Default is 0.
             outer_style (Style, optional): The style for the outer grid border.
+            scale (float): Proportional scale factor around xy. Defaults to 1.0.
         """
         if outer_style is None:
             column_widths = [(width - margin * (self._num_column - 1)) / self._num_column] * self._num_column
@@ -177,10 +183,11 @@ class GridLayout:
             row_margins=row_margins,
             outer_r=outer_r,
             outer_style=outer_style,
+            scale=scale,
         )
 
     @validate_call
-    def draw_flexible(  # noqa: C901
+    def draw_flexible(  # noqa: C901, PLR0912, PLR0913
         self,
         xy: Coordinate,
         column_widths: list[PosFloat],
@@ -189,17 +196,19 @@ class GridLayout:
         row_margins: list[PosFloat],
         outer_r: PosFloat | None = None,
         outer_style: Style | None = None,
+        scale: PosFloat = 1.0,
     ) -> None:
         """Draw the grid layout with flexible column widths and row heights.
 
         Args:
-            xy (Tuple[float, float]): The x and y coordinates of the top-left corner of the grid.
+            xy (Tuple[float, float]): The x and y coordinates of the bottom-left corner of the grid.
             column_widths (List[float]): The widths of each column.
             column_margins (List[float]): The margins between columns.
             row_heights (List[float]): The heights of each row.
             row_margins (List[float]): The margins between rows.
             outer_r (int, optional): The radius for the outer grid border. Default is 0.
             outer_style (Style, optional): The style for the outer grid border.
+            scale (float): Proportional scale factor around xy. Defaults to 1.0.
 
         Raises:
             ValueError: If the lengths of column_widths, column_margins, row_heights, or row_margins are incorrect.
@@ -214,63 +223,72 @@ class GridLayout:
         if len(row_margins) != self._num_row + 1:
             raise ValueError('Length of arg "row_margins" does not match to num of rows + 1')
 
-        # draw outer rectangle
-        if outer_style is not None:
-            outer_style = outer_style.patch(text_halign="left", text_valign="bottom")
-            if outer_r is None:
-                outer_r = self._r
+        with transform(origin=xy, scale=scale):
+            # draw outer rectangle
+            if outer_style is not None:
+                outer_style = outer_style.patch(text_halign="left", text_valign="bottom")
+                if outer_r is None:
+                    outer_r = self._r
 
-            rectangle(
-                xy=xy,
-                width=sum(column_widths) + sum(column_margins),
-                height=sum(row_heights) + sum(row_margins),
-                r=outer_r,
-                style=outer_style,
-            )
+                rectangle(
+                    xy=xy,
+                    width=sum(column_widths) + sum(column_margins),
+                    height=sum(row_heights) + sum(row_margins),
+                    r=outer_r,
+                    style=outer_style,
+                )
 
-        # utility
-        def get_position(column_index: int, row_index: int) -> Coordinate:
-            x, y = xy
-            if column_index == 0:
-                new_x = x + column_margins[0]
-            else:
-                new_x = x + sum(column_margins[: column_index + 1]) + sum(column_widths[:column_index])
+            # utility
+            def get_position(column_index: int, row_index: int) -> Coordinate:
+                x, y = xy
+                if column_index == 0:
+                    new_x = x + column_margins[0]
+                else:
+                    new_x = x + sum(column_margins[: column_index + 1]) + sum(column_widths[:column_index])
 
-            if row_index == 0:
-                new_y = y + row_margins[0]
-            else:
-                new_y = y + sum(row_margins[: row_index + 1]) + sum(row_heights[:row_index])
+                if row_index == 0:
+                    new_y = y + row_margins[0]
+                else:
+                    new_y = y + sum(row_margins[: row_index + 1]) + sum(row_heights[:row_index])
 
-            return (new_x, new_y)
+                return (new_x, new_y)
 
-        for item in self._items:
-            column_range = item.column_range
-            row_range = item.row_range
-            r = item.r
-            style = item.style
-            text = item.text
-            text_style = item.text_style
+            for item in self._items:
+                if not item.show:
+                    continue
 
-            cr0 = column_range[0]
-            cr1 = column_range[1]
-            rr0 = row_range[0]
-            rr1 = row_range[1]
+                cr0 = item.position[0]
+                cr1 = item.position[0] + item.width - 1
+                rr0 = item.position[1]
+                rr1 = item.position[1] + item.height - 1
 
-            item_xy_left_bottom = get_position(cr0, rr0)
-            t = get_position(cr1, rr1)
-            item_xy_right_top = (t[0] + column_widths[cr1], t[1] + row_heights[rr1])
+                r = item.r
+                style = item.style.patch(text_halign="left", text_valign="bottom")
+                text = item.text
+                text_style = item.text_style
+                patch_kwargs: dict = {}
+                if item.text_angle != 0.0:
+                    patch_kwargs["text_angle"] = item.text_angle
+                if item.text_xy_shift is not None:
+                    patch_kwargs["text_xy_shift"] = item.text_xy_shift
+                if patch_kwargs:
+                    text_style = text_style.patch(**patch_kwargs)
 
-            width, height = (
-                item_xy_right_top[0] - item_xy_left_bottom[0],
-                item_xy_right_top[1] - item_xy_left_bottom[1],
-            )
+                item_xy_left_bottom = get_position(cr0, rr0)
+                t = get_position(cr1, rr1)
+                item_xy_right_top = (t[0] + column_widths[cr1], t[1] + row_heights[rr1])
 
-            rectangle(
-                xy=item_xy_left_bottom,
-                width=width,
-                height=height,
-                r=r,
-                style=style,
-                text=text,
-                text_style=text_style,
-            )
+                width, height = (
+                    item_xy_right_top[0] - item_xy_left_bottom[0],
+                    item_xy_right_top[1] - item_xy_left_bottom[1],
+                )
+
+                rectangle(
+                    xy=item_xy_left_bottom,
+                    width=width,
+                    height=height,
+                    r=r,
+                    style=style,
+                    text=text,
+                    text_style=text_style,
+                )
