@@ -82,7 +82,7 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         src_dir="slide_about_drawlib_src",
         script_rel_path="slide_about_drawlib_src/build.sh",
         description="16:9 Presentation Slide Deck (About Drawlib)",
-        clean_paths=("slide_about_drawlib_html", "slide_about_drawlib.pdf"),
+        clean_paths=("slide_about_drawlib_html", "slide_about_drawlib.pdf", "slide_about_drawlib_images"),
     ),
 )
 

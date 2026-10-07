@@ -10,6 +10,7 @@ This directory contains slide Markdown files and drawing code compiled into an i
   - `build.sh`: Master build script to run all builds.
   - `build_html.sh`: Fast interactive HTML deck compiler.
   - `build_pdf.sh`: Vector presentation PDF compiler (1 slide per page).
+  - `build_image.sh`: Standalone diagram image extractor.
   - `serve.sh`: Local preview server with live reloading.
   - `styles.py`: Global styles script (themes, styles, font presets).
   - `utils.py`: Slide macro helpers (cards, tables, timelines, flows).
