@@ -7,4 +7,4 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Root of v0.2 asset package."""
+"""Root of drawlib cached asset package."""

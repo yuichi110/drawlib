@@ -79,10 +79,10 @@ class ReleaseAssetPackage(BaseModel):
         return f"https://github.com/{repo_owner}/{repo_name}/releases/download/{tag}/{self.archive_name}"
 
     def get_local_dir(self) -> Path:
-        """Get the absolute local destination directory for this package in drawlib._assets.
+        """Get the absolute local destination directory for this package in drawlib._cached_assets.
 
         Returns:
-            Path: Local directory path, e.g. '.../drawlib/_assets/fonts/roboto'.
+            Path: Local directory path, e.g. '.../drawlib/_cached_assets/fonts/roboto'.
         """
         base_dir = Path(ASSETS_DIR_PATH)
         return base_dir / self.target_rel_path

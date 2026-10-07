@@ -722,3 +722,74 @@ Note block one.
         assert "<li>Bullet item A</li>" in html_content
         assert html_content.count('<aside class="slide-notes" hidden></aside>') == 1
         assert 'id="btn-presenter"' in html_content
+
+    def test_build_slide_svg_font_auto_bundling_and_cache(self, tmp_path: Path) -> None:
+        """Verify SVG font auto-bundling copies used fonts and injects @font-face even on cache hit."""
+        src_dir = tmp_path / "slide_src"
+        out_dir_1 = tmp_path / "slide_out_1"
+        out_dir_2 = tmp_path / "slide_out_2"
+        src_dir.mkdir()
+
+        custom_font_path = (
+            Path(__file__).resolve().parents[2] / "assets" / "avenger" / "regular.ttf"
+        ).as_posix()
+
+        (src_dir / "01_fonts.md").write_text(
+            f"""::: block (80, 40) (1760, 900)
+```drawlib file:fonts_demo.svg
+from drawlib.canvas import setup, clear
+from drawlib.fonts import FontFile, FontRoboto
+from drawlib.icons import phosphor
+from drawlib.styles import Colors, Style, Styles
+from drawlib.text import text
+
+clear()
+setup(width=100, height=50)
+custom_font = FontFile("{custom_font_path}")
+text((20, 40), "Regular Text", style=Style(text_color=Colors.Black, text_font=FontRoboto.ROBOTO_REGULAR, text_size=14))
+text((20, 25), "Bold Text", style=Style(text_color=Colors.Black, text_font=FontRoboto.ROBOTO_BOLD, text_size=14))
+text((20, 10), "Custom Font", style=Style(text_color=Colors.Black, text_font=custom_font, text_size=14))
+phosphor.rocket((75, 25), width=12, style=Styles.Primary)
+```
+:::
+""",
+            encoding="utf-8",
+        )
+
+        # 1. Build with cache enabled (cold cache -> populates SQLite cache)
+        result_html_1 = build_slide(str(src_dir), str(out_dir_1), no_cache=False)
+        html_1 = Path(result_html_1).read_text(encoding="utf-8")
+        css_1 = (out_dir_1 / "style.css").read_text(encoding="utf-8")
+        svg_disk_1 = (out_dir_1 / "images" / "01_fonts" / "fonts_demo.svg").read_text(encoding="utf-8")
+
+        # Verify SVG on disk has metadata comment, while inline HTML strips it
+        assert "<!-- drawlib-svg-fonts:" in svg_disk_1
+        assert "<!-- drawlib-svg-fonts:" not in html_1
+
+        # Verify collision-free drawlib-* font families in inline SVG
+        assert "drawlib-roboto-regular" in html_1
+        assert "drawlib-roboto-bold" in html_1
+        assert "drawlib-phosphor-regular" in html_1
+        assert "drawlib-custom-regular-" in html_1
+
+        # Verify font files copied into _assets/fonts/
+        assert (out_dir_1 / "_assets" / "fonts" / "roboto" / "regular.ttf").is_file()
+        assert (out_dir_1 / "_assets" / "fonts" / "roboto" / "bold.ttf").is_file()
+        assert (out_dir_1 / "_assets" / "fonts" / "phosphor" / "regular.ttf").is_file()
+        custom_fonts_dir = out_dir_1 / "_assets" / "fonts" / "custom"
+        assert custom_fonts_dir.is_dir()
+        assert len(list(custom_fonts_dir.glob("*_regular.ttf"))) == 1
+
+        # Verify @font-face declarations in style.css
+        assert "font-family: 'drawlib-roboto-regular';" in css_1
+        assert "src: url('_assets/fonts/roboto/regular.ttf') format('truetype');" in css_1
+        assert "font-family: 'drawlib-roboto-bold';" in css_1
+        assert "font-family: 'drawlib-phosphor-regular';" in css_1
+
+        # 2. Rebuild into a fresh output directory using warm cache
+        build_slide(str(src_dir), str(out_dir_2), no_cache=False)
+        css_2 = (out_dir_2 / "style.css").read_text(encoding="utf-8")
+        assert (out_dir_2 / "_assets" / "fonts" / "roboto" / "regular.ttf").is_file()
+        assert (out_dir_2 / "_assets" / "fonts" / "roboto" / "bold.ttf").is_file()
+        assert (out_dir_2 / "_assets" / "fonts" / "phosphor" / "regular.ttf").is_file()
+        assert "font-family: 'drawlib-phosphor-regular';" in css_2

@@ -11,6 +11,6 @@
 **/*.pyc
 **/*.pyo
 **/*.pyd
-src/drawlib/_assets/*
-!src/drawlib/_assets/__init__.py
-!src/drawlib/_assets/.gitignore
+src/drawlib/_cached_assets/*
+!src/drawlib/_cached_assets/__init__.py
+!src/drawlib/_cached_assets/.gitignore

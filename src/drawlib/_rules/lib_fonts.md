@@ -34,7 +34,7 @@ from drawlib.fonts import (
 ```
 
 ### On-Demand Download & Local Caching
-To keep the base Drawlib installation lightweight (~few megabytes), fonts are downloaded dynamically upon first access and cached in the package asset directory (`drawlib/_assets/fonts/`).
+To keep the base Drawlib installation lightweight (~few megabytes), fonts are downloaded dynamically upon first access and cached in the package asset directory (`drawlib/_cached_assets/fonts/`).
 
 You can inspect and manage cached font files using CLI commands:
 ```bash

@@ -39,7 +39,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 15px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #174ea6" x="360" y="53.947716" transform="rotate(-0 360 53.947716)">Illustration Approach Comparison</text>
+     <text style="font-size: 15px; font-family: 'drawlib-roboto-bold', 'Roboto'; text-anchor: middle; fill: #174ea6" x="360" y="53.947716" transform="rotate(-0 360 53.947716)">Illustration Approach Comparison</text>
     </g>
    </g>
    <g id="patch_3">
@@ -52,7 +52,7 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="110.769231" y="107.6453" transform="rotate(-0 110.769231 107.6453)">Capability</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="110.769231" y="107.6453" transform="rotate(-0 110.769231 107.6453)">Capability</text>
     </g>
    </g>
    <g id="patch_4">
@@ -65,7 +65,7 @@ z
    </g>
    <g id="text_3">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="260.307692" y="107.691707" transform="rotate(-0 260.307692 107.691707)">GUI Tools</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="260.307692" y="107.691707" transform="rotate(-0 260.307692 107.691707)">GUI Tools</text>
     </g>
    </g>
    <g id="patch_5">
@@ -78,7 +78,7 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="420.923077" y="107.691707" transform="rotate(-0 420.923077 107.691707)">Text DSLs</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="420.923077" y="107.691707" transform="rotate(-0 420.923077 107.691707)">Text DSLs</text>
     </g>
    </g>
    <g id="patch_6">
@@ -91,7 +91,7 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="592.615385" y="107.691707" transform="rotate(-0 592.615385 107.691707)">Drawlib</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="592.615385" y="107.691707" transform="rotate(-0 592.615385 107.691707)">Drawlib</text>
     </g>
    </g>
    <g id="patch_7">
@@ -104,7 +104,7 @@ z
    </g>
    <g id="text_6">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="110.769231" y="151.999399" transform="rotate(-0 110.769231 151.999399)">Git &amp; Code Review</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="110.769231" y="151.999399" transform="rotate(-0 110.769231 151.999399)">Git &amp; Code Review</text>
     </g>
    </g>
    <g id="patch_8">
@@ -117,7 +117,7 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="260.307692" y="152.115415" transform="rotate(-0 260.307692 152.115415)">Binary diffs (poor)</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="260.307692" y="152.115415" transform="rotate(-0 260.307692 152.115415)">Binary diffs (poor)</text>
     </g>
    </g>
    <g id="patch_9">
@@ -130,7 +130,7 @@ z
    </g>
    <g id="text_8">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="420.923077" y="152.115415" transform="rotate(-0 420.923077 152.115415)">Text-based (good)</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="420.923077" y="152.115415" transform="rotate(-0 420.923077 152.115415)">Text-based (good)</text>
     </g>
    </g>
    <g id="patch_10">
@@ -143,7 +143,7 @@ z
    </g>
    <g id="text_9">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="592.615385" y="152.115415" transform="rotate(-0 592.615385 152.115415)">Pure Python (native)</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="592.615385" y="152.115415" transform="rotate(-0 592.615385 152.115415)">Pure Python (native)</text>
     </g>
    </g>
    <g id="patch_11">
@@ -156,7 +156,7 @@ z
    </g>
    <g id="text_10">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="110.769231" y="196.214279" transform="rotate(-0 110.769231 196.214279)">Layout Precision</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="110.769231" y="196.214279" transform="rotate(-0 110.769231 196.214279)">Layout Precision</text>
     </g>
    </g>
    <g id="patch_12">
@@ -169,7 +169,7 @@ z
    </g>
    <g id="text_11">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="260.307692" y="196.285294" transform="rotate(-0 260.307692 196.285294)">Manual dragging</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="260.307692" y="196.285294" transform="rotate(-0 260.307692 196.285294)">Manual dragging</text>
     </g>
    </g>
    <g id="patch_13">
@@ -182,7 +182,7 @@ z
    </g>
    <g id="text_12">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="420.923077" y="196.285294" transform="rotate(-0 420.923077 196.285294)">Rigid &amp; unpredictable</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="420.923077" y="196.285294" transform="rotate(-0 420.923077 196.285294)">Rigid &amp; unpredictable</text>
     </g>
    </g>
    <g id="patch_14">
@@ -195,7 +195,7 @@ z
    </g>
    <g id="text_13">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="592.615385" y="196.353498" transform="rotate(-0 592.615385 196.353498)">Pixel-perfect math</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="592.615385" y="196.353498" transform="rotate(-0 592.615385 196.353498)">Pixel-perfect math</text>
     </g>
    </g>
    <g id="patch_15">
@@ -208,7 +208,7 @@ z
    </g>
    <g id="text_14">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="110.769231" y="240.614784" transform="rotate(-0 110.769231 240.614784)">Rich Components</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="110.769231" y="240.614784" transform="rotate(-0 110.769231 240.614784)">Rich Components</text>
     </g>
    </g>
    <g id="patch_16">
@@ -221,7 +221,7 @@ z
    </g>
    <g id="text_15">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="260.307692" y="240.614784" transform="rotate(-0 260.307692 240.614784)">Unstandardized</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="260.307692" y="240.614784" transform="rotate(-0 260.307692 240.614784)">Unstandardized</text>
     </g>
    </g>
    <g id="patch_17">
@@ -234,7 +234,7 @@ z
    </g>
    <g id="text_16">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="420.923077" y="240.614784" transform="rotate(-0 420.923077 240.614784)">Limited primitives</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="420.923077" y="240.614784" transform="rotate(-0 420.923077 240.614784)">Limited primitives</text>
     </g>
    </g>
    <g id="patch_18">
@@ -247,7 +247,7 @@ z
    </g>
    <g id="text_17">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="592.615385" y="240.592987" transform="rotate(-0 592.615385 240.592987)">22 Shapes + Diagrams</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="592.615385" y="240.592987" transform="rotate(-0 592.615385 240.592987)">22 Shapes + Diagrams</text>
     </g>
    </g>
    <g id="patch_19">
@@ -260,7 +260,7 @@ z
    </g>
    <g id="text_18">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="110.769231" y="284.922476" transform="rotate(-0 110.769231 284.922476)">CI/CD Automation</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="110.769231" y="284.922476" transform="rotate(-0 110.769231 284.922476)">CI/CD Automation</text>
     </g>
    </g>
    <g id="patch_20">
@@ -273,7 +273,7 @@ z
    </g>
    <g id="text_19">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="260.307692" y="284.922476" transform="rotate(-0 260.307692 284.922476)">Manual export</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="260.307692" y="284.922476" transform="rotate(-0 260.307692 284.922476)">Manual export</text>
     </g>
    </g>
    <g id="patch_21">
@@ -286,7 +286,7 @@ z
    </g>
    <g id="text_20">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="420.923077" y="284.922476" transform="rotate(-0 420.923077 284.922476)">CLI supported</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="420.923077" y="284.922476" transform="rotate(-0 420.923077 284.922476)">CLI supported</text>
     </g>
    </g>
    <g id="patch_22">
@@ -299,7 +299,7 @@ z
    </g>
    <g id="text_21">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="592.615385" y="284.922476" transform="rotate(-0 592.615385 284.922476)">Native CLI &amp; cache</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="592.615385" y="284.922476" transform="rotate(-0 592.615385 284.922476)">Native CLI &amp; cache</text>
     </g>
    </g>
    <g id="patch_23">
@@ -312,7 +312,7 @@ z
    </g>
    <g id="text_22">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="110.769231" y="329.137356" transform="rotate(-0 110.769231 329.137356)">Design System</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="110.769231" y="329.137356" transform="rotate(-0 110.769231 329.137356)">Design System</text>
     </g>
    </g>
    <g id="patch_24">
@@ -325,7 +325,7 @@ z
    </g>
    <g id="text_23">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="260.307692" y="329.230168" transform="rotate(-0 260.307692 329.230168)">Drifts over time</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="260.307692" y="329.230168" transform="rotate(-0 260.307692 329.230168)">Drifts over time</text>
     </g>
    </g>
    <g id="patch_25">
@@ -338,7 +338,7 @@ z
    </g>
    <g id="text_24">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="420.923077" y="329.230168" transform="rotate(-0 420.923077 329.230168)">Hard to customize</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="420.923077" y="329.230168" transform="rotate(-0 420.923077 329.230168)">Hard to customize</text>
     </g>
    </g>
    <g id="patch_26">
@@ -351,7 +351,7 @@ z
    </g>
    <g id="text_25">
     <g clip-path="url(#p6059a4d50c)">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="592.615385" y="329.183762" transform="rotate(-0 592.615385 329.183762)">Global Style Tokens</text>
+     <text style="font-size: 9px; font-family: 'drawlib-roboto-regular', 'Roboto'; text-anchor: middle" x="592.615385" y="329.183762" transform="rotate(-0 592.615385 329.183762)">Global Style Tokens</text>
     </g>
    </g>
    <g id="patch_27">
@@ -421,4 +421,5 @@ L 681.230769 348.923077
    <rect x="0" y="0" width="720" height="470.769231"/>
   </clipPath>
  </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-roboto-bold","rel_path":"_assets/fonts/roboto/bold.ttf","src":"builtin:fonts/roboto/bold.ttf","format":"truetype"},{"family":"drawlib-roboto-regular","rel_path":"_assets/fonts/roboto/regular.ttf","src":"builtin:fonts/roboto/regular.ttf","format":"truetype"}] -->
 </svg>

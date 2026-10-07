@@ -56,17 +56,17 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #1a73e8" x="86.4" y="134.26375" transform="rotate(-0 86.4 134.26375)">99.99%</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1a73e8" x="86.4" y="134.26375" transform="rotate(-0 86.4 134.26375)">99.99%</text>
     </g>
    </g>
    <g id="text_2">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="316.8" y="111.227813" transform="rotate(-0 316.8 111.227813)">System Availability</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="111.227813" transform="rotate(-0 316.8 111.227813)">System Availability</text>
     </g>
    </g>
    <g id="text_3">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #5f6368" x="316.8" y="157.213867" transform="rotate(-0 316.8 157.213867)">Tier-1 SLA production target</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="157.213867" transform="rotate(-0 316.8 157.213867)">Tier-1 SLA production target</text>
     </g>
    </g>
    <g id="patch_4">
@@ -97,17 +97,17 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #34a853" x="86.4" y="307.06375" transform="rotate(-0 86.4 307.06375)">1.2s</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #34a853" x="86.4" y="307.06375" transform="rotate(-0 86.4 307.06375)">1.2s</text>
     </g>
    </g>
    <g id="text_5">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="316.8" y="284.006328" transform="rotate(-0 316.8 284.006328)">Fast Build Time</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="284.006328" transform="rotate(-0 316.8 284.006328)">Fast Build Time</text>
     </g>
    </g>
    <g id="text_6">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #5f6368" x="316.8" y="330.077617" transform="rotate(-0 316.8 330.077617)">Sub-second SQLite cache hit</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="330.077617" transform="rotate(-0 316.8 330.077617)">Sub-second SQLite cache hit</text>
     </g>
    </g>
    <g id="patch_6">
@@ -138,17 +138,17 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #ea4335" x="86.4" y="479.86375" transform="rotate(-0 86.4 479.86375)">100%</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #ea4335" x="86.4" y="479.86375" transform="rotate(-0 86.4 479.86375)">100%</text>
     </g>
    </g>
    <g id="text_8">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #202124" x="316.8" y="456.729844" transform="rotate(-0 316.8 456.729844)">Verified Coverage</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="456.729844" transform="rotate(-0 316.8 456.729844)">Verified Coverage</text>
     </g>
    </g>
    <g id="text_9">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #5f6368" x="316.8" y="502.813867" transform="rotate(-0 316.8 502.813867)">Unit and integration tests passing</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="502.813867" transform="rotate(-0 316.8 502.813867)">Unit and integration tests passing</text>
     </g>
    </g>
   </g>
@@ -158,4 +158,5 @@ z
    <rect x="0" y="0" width="720" height="604.8"/>
   </clipPath>
  </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"}] -->
 </svg>

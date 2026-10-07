@@ -149,3 +149,17 @@ def test_pypi_cli_dep_releases_json() -> None:
         result = runner.invoke(app, ["dep-releases", "drawlib", "--format", "json"])
         assert result.exit_code == 0
         assert '"version": "0.3.0"' in result.output
+
+
+def test_pypi_cli_publish_purges_cache() -> None:
+    """Test dcli pypi publish clears cached assets via drawlib cache clear --all before building."""
+    with (
+        patch("tools.dcli.pypi.cli.update_pyproject"),
+        patch("tools.dcli.pypi.cli.check_version"),
+        patch("tools.dcli.pypi.cli.run_command") as mock_run,
+    ):
+        result = runner.invoke(app, ["publish", "--test-pypi", "--token", "dummy-token"])
+        assert result.exit_code == 0
+        cmds = [call.args[0] for call in mock_run.call_args_list]
+        assert ["uv", "run", "drawlib", "cache", "clear", "--all"] in cmds
+        assert ["uv", "build"] in cmds

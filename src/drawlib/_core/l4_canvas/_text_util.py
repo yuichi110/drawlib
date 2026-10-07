@@ -9,10 +9,17 @@
 
 """Text utility module for canvas operations."""
 
-from typing import Any
+import contextlib
+import functools
+import hashlib
+import os
+import re
+from typing import Any, NamedTuple
 
+from matplotlib import ft2font
 from matplotlib.font_manager import FontProperties
 
+from drawlib._core.l1_core import FONT_DIR_PATH, FONT_ICON_DIR_PATH
 from drawlib._core.l3_colors import (
     BaseColors,
     ColorUtil,
@@ -26,6 +33,88 @@ from drawlib._core.l3_fonts import (
 from drawlib._core.l3_styles import (
     Style,
 )
+
+
+class SvgFontInfo(NamedTuple):
+    """Resolved SVG font family and bundling metadata for a font file."""
+
+    unique_family: str
+    ttf_family: str
+    rel_bundle_path: str
+    src_spec: str
+    font_format: str
+
+
+@functools.lru_cache(maxsize=256)
+def _resolve_svg_font_info_cached(norm_abs: str, file_exists: bool) -> SvgFontInfo:
+    """Internal cached resolver for SVG font metadata."""
+    font_dir_abs = os.path.abspath(FONT_DIR_PATH)
+    icon_dir_abs = os.path.abspath(FONT_ICON_DIR_PATH)
+
+    if norm_abs.startswith(font_dir_abs + os.sep):
+        rel_sub = os.path.relpath(norm_abs, font_dir_abs).replace("\\", "/")
+        stem = os.path.splitext(rel_sub)[0]
+        slug = re.sub(r"[^a-zA-Z0-9-]+", "-", stem).strip("-").lower()
+        unique_family = f"drawlib-{slug}"
+        rel_bundle_path = f"_assets/fonts/{rel_sub}"
+        src_spec = f"builtin:fonts/{rel_sub}"
+    elif norm_abs.startswith(icon_dir_abs + os.sep):
+        rel_sub = os.path.relpath(norm_abs, icon_dir_abs).replace("\\", "/")
+        stem = os.path.splitext(rel_sub)[0]
+        slug = re.sub(r"[^a-zA-Z0-9-]+", "-", stem).strip("-").lower()
+        unique_family = f"drawlib-{slug}"
+        rel_bundle_path = f"_assets/fonts/{rel_sub}"
+        src_spec = f"builtin:fonticons/{rel_sub}"
+    else:
+        h = hashlib.md5()  # noqa: S324
+        if file_exists:
+            with open(norm_abs, "rb") as f:
+                for chunk in iter(lambda: f.read(65536), b""):
+                    h.update(chunk)
+        else:
+            h.update(norm_abs.encode("utf-8"))
+        hash8 = h.hexdigest()[:8]
+        base_name = os.path.basename(norm_abs)
+        stem_clean = re.sub(r"[^a-zA-Z0-9-]+", "-", os.path.splitext(base_name)[0]).strip("-").lower() or "font"
+        unique_family = f"drawlib-custom-{stem_clean}-{hash8}"
+        rel_bundle_path = f"_assets/fonts/custom/{hash8}_{base_name}"
+        src_spec = norm_abs
+
+    ttf_family = ""
+    if file_exists:
+        with contextlib.suppress(Exception):
+            ttf_family = str(ft2font.FT2Font(norm_abs).family_name or "").strip()
+
+    ext = os.path.splitext(norm_abs)[1].lower()
+    if ext == ".otf":
+        font_format = "opentype"
+    elif ext == ".woff2":
+        font_format = "woff2"
+    elif ext == ".woff":
+        font_format = "woff"
+    else:
+        font_format = "truetype"
+
+    return SvgFontInfo(
+        unique_family=unique_family,
+        ttf_family=ttf_family,
+        rel_bundle_path=rel_bundle_path,
+        src_spec=src_spec,
+        font_format=font_format,
+    )
+
+
+def resolve_svg_font_info(abs_path: str) -> SvgFontInfo:
+    """Resolve collision-free SVG font-family alias and bundle path metadata for a font file.
+
+    Args:
+        abs_path: Path to the font file (.ttf, .otf, .woff, .woff2).
+
+    Returns:
+        SvgFontInfo: Resolved metadata for SVG text styling and @font-face bundling.
+    """
+    norm_abs = os.path.abspath(abs_path)
+    return _resolve_svg_font_info_cached(norm_abs, os.path.isfile(norm_abs))
 
 
 class TextUtil:
@@ -78,7 +167,12 @@ class TextUtil:
             raise ValueError("text_font and text_size must be set in Style.")
 
         if isinstance(style.text_font, FontFile):
-            return FontProperties(size=style.text_size, fname=style.text_font.file)
+            file_path = style.text_font.file
+            info = resolve_svg_font_info(file_path)
+            families = [info.unique_family]
+            if info.ttf_family and info.ttf_family != info.unique_family:
+                families.append(info.ttf_family)
+            return FontProperties(family=families, size=style.text_size, fname=file_path)
 
         font_target = style.text_font
         if not isinstance(font_target, FontBase):
@@ -87,7 +181,11 @@ class TextUtil:
         meta = get_font_metadata(font_target)
         file_path, md5_hash = meta.abs_path, meta.md5
         download_if_not_exist(file_path=file_path, md5_hash=md5_hash)
-        return FontProperties(size=style.text_size, fname=file_path)
+        info = resolve_svg_font_info(file_path)
+        families = [info.unique_family]
+        if info.ttf_family and info.ttf_family != info.unique_family:
+            families.append(info.ttf_family)
+        return FontProperties(family=families, size=style.text_size, fname=file_path)
 
     @staticmethod
     def get_bbox_dict(

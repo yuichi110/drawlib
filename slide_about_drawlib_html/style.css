@@ -1018,3 +1018,40 @@ body.presenter-mode.is-resizing-row * {
     display: none !important;
   }
 }
+
+/* Auto-bundled Drawlib SVG Fonts */
+@font-face {
+  font-family: 'drawlib-cjk-japanese-noto-sans-bold';
+  src: url('_assets/fonts/cjk_japanese_noto_sans/bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-cjk-japanese-noto-sans-regular';
+  src: url('_assets/fonts/cjk_japanese_noto_sans/regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-roboto-bold';
+  src: url('_assets/fonts/roboto/bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-roboto-regular';
+  src: url('_assets/fonts/roboto/regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-phosphor-regular';
+  src: url('_assets/fonts/phosphor/regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}

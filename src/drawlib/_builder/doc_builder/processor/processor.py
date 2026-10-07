@@ -155,6 +155,7 @@ class DrawlibBlockProcessor:
                 else os.getcwd()
             )
             eff_target = cache_target_file or target_abs_path
+            eff_salt = f"{extra_cache_salt}:svg-fonts-v1" if fmt == "svg" else extra_cache_salt
             cache_key, code_hash = self._cache.compute_keys(
                 code=code,
                 config_hash=self.config_hash,
@@ -162,7 +163,7 @@ class DrawlibBlockProcessor:
                 project_root=self.project_root,
                 source_file=source_filename,
                 target_file=eff_target,
-                extra_salt=extra_cache_salt,
+                extra_salt=eff_salt,
             )
             cached = self._cache.get(cache_key, image_format=fmt)
             if cached is not None:

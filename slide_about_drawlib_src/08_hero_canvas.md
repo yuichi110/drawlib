@@ -8,9 +8,10 @@ utils.draw_page_number()
 ::: block (0, 0) (1920, 1080)
 ```drawlib file:full_hero_canvas.svg
 from drawlib.canvas import clear, save, setup
+from drawlib.icons import phosphor
 from drawlib.shapes import rectangle, circle
 from drawlib.lines import line
-from drawlib.styles import Styles, Colors
+from drawlib.styles import Style, Styles, Colors
 from drawlib.text import text
 
 clear()
@@ -28,19 +29,21 @@ rectangle((96, 90), width=172, height=14, style=Styles.PrimaryFlat,
 
 # 4 Architectural Pillars
 pillars = [
-    (29, "1. Deterministic", "Cartesian geometry\nVersion-controlled\nReproducible builds", Styles.PrimaryBold),
-    (74, "2. Native SVG", "Ctrl+F Searchable text\nInfinite resolution\nClean DOM integration", Styles.SecondaryBold),
-    (119, "3. Multi-Target", "Images, PDF Books\nDocumentation sites\nInteractive HTML decks", Styles.AccentBold),
-    (164, "4. AI Autonomous", "Clean token hierarchy\nMulti-modal review loop\nStructured container syntax", Styles.DarkBold),
+    (29, phosphor.compass, "1. Deterministic", "Cartesian geometry\nVersion-controlled\nReproducible builds", Styles.PrimaryBold, Styles.Primary),
+    (74, phosphor.file_svg, "2. Native SVG", "Ctrl+F Searchable text\nInfinite resolution\nClean DOM integration", Styles.SecondaryBold, Styles.Secondary),
+    (119, phosphor.stack, "3. Multi-Target", "Images, PDF Books\nDocumentation sites\nInteractive HTML decks", Styles.AccentBold, Styles.Accent),
+    (164, phosphor.robot, "4. AI Autonomous", "Clean token hierarchy\nMulti-modal review loop\nStructured container syntax", Styles.DarkBold, Styles.Dark),
 ]
 
-for x, title, desc, title_style in pillars:
-    rectangle((x, 50), width=39, height=48, style=Styles.MutedFlat)
-    text((x, 66), title, style=title_style)
-    text((x, 48), desc, style=Styles.Dark)
+desc_style = Styles.Dark.patch(text_size=11, text_line_spacing=1.45)
+for x, icon_fn, title, desc, title_style, icon_style in pillars:
+    rectangle((x, 50), width=39, height=48, style=Styles.Neutral)
+    icon_fn((x, 66.5), width=7.5, style=icon_style)
+    text((x, 57), title, style=title_style.patch(text_size=13.5))
+    text((x, 40), desc, style=desc_style)
 
 # Bottom Feature Callout
-rectangle((96, 14), width=172, height=10, style=Styles.PrimaryThin,
+rectangle((96, 14), width=172, height=10, style=Styles.PrimaryNeutral,
           text="Zero Injected Chrome • Full Stage Freedom • 100% Code-Driven Visualization", text_style=Styles.PrimaryBold)
 
 save()

@@ -13,9 +13,9 @@ import pytest
 from matplotlib.font_manager import FontProperties
 
 from drawlib._core.l2_types import FontFile
-from drawlib._core.l3_fonts import FontSansSerif
+from drawlib._core.l3_fonts import FontRoboto, FontSansSerif
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas._text_util import TextUtil
+from drawlib._core.l4_canvas._text_util import TextUtil, resolve_svg_font_info
 from drawlib.styles import Colors
 
 
@@ -73,8 +73,16 @@ class TestTextUtil:
         assert isinstance(props, FontProperties)
         assert props.get_size() == 18.0
         assert props.get_file() == font_path
+        families = props.get_family()
+        assert len(families) >= 1
+        assert families[0].startswith("drawlib-custom-regular-")
 
-        # 2. Test Style with FontSansSerif
+        info_custom = resolve_svg_font_info(font_path)
+        assert info_custom.unique_family == families[0]
+        assert info_custom.rel_bundle_path.startswith("_assets/fonts/custom/")
+        assert info_custom.rel_bundle_path.endswith("_regular.ttf")
+
+        # 2. Test Style with FontSansSerif and FontRoboto (collision-free family names)
         style_sans = Style(text_font=FontSansSerif.LATO_REGULAR, text_size=15.0)
         props_sans = TextUtil.get_font_properties(style_sans)
         assert isinstance(props_sans, FontProperties)
@@ -84,6 +92,13 @@ class TestTextUtil:
         if isinstance(font_file_path, bytes):
             font_file_path = font_file_path.decode("utf-8")
         assert "lato" in font_file_path.lower() or "ttf" in font_file_path.lower()
+        assert props_sans.get_family()[0] == "drawlib-sans-lato-regular"
+
+        props_reg = TextUtil.get_font_properties(Style(text_font=FontRoboto.ROBOTO_REGULAR, text_size=12.0))
+        props_bold = TextUtil.get_font_properties(Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=12.0))
+        assert props_reg.get_family()[0] == "drawlib-roboto-regular"
+        assert props_bold.get_family()[0] == "drawlib-roboto-bold"
+        assert props_reg.get_family()[0] != props_bold.get_family()[0]
 
         # 3. Invalid types raise TypeError
         with pytest.raises(TypeError):

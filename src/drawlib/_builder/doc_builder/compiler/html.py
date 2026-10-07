@@ -35,6 +35,7 @@ from drawlib._builder.doc_builder.navbar import (
 from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.progress import check_document_output_duplicates
+from drawlib._slide._assets import bundle_svg_fonts
 
 
 def build_html(
@@ -203,6 +204,7 @@ def build_html(
         out_dir_abs,
         excluded_files=excluded,
     )
+    bundle_svg_fonts(out_dir_abs, css_file_path=style_css_path)
     return out_dir_abs
 
 

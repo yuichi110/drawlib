@@ -147,7 +147,7 @@ def _rewrite_image_paths_to_runtime(content: str, topic: str) -> str:
         str: Markdown content with image links rewritten to PYTHON_RUNTIME/site-packages/...
     """
     file_stem = topic.replace("-", "_")
-    prefix = f"PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/{file_stem}_images/"
+    prefix = f"PYTHON_RUNTIME/site-packages/drawlib/_cached_assets/rules/{file_stem}_images/"
 
     # 1. Standard Markdown image syntax: ![alt](<file_stem>_images/<file>)
     md_pattern = rf"!\[(.*?)\]\({re.escape(file_stem)}_images/([^)]+)\)"
@@ -165,7 +165,7 @@ def _rewrite_image_paths_to_runtime(content: str, topic: str) -> str:
 
 
 def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
-    """Compile a single rule topic and its illustrations into _assets/rules/.
+    """Compile a single rule topic and its illustrations into _cached_assets/rules/.
 
     Args:
         topic: Topic name to compile.
@@ -224,7 +224,7 @@ def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
 
 
 def build_all_rules(force: bool = False, quiet: bool = False) -> list[str]:
-    """Compile all available rule topics and illustrations into _assets/rules/.
+    """Compile all available rule topics and illustrations into _cached_assets/rules/.
 
     Args:
         force: If True, recompile even if up-to-date.

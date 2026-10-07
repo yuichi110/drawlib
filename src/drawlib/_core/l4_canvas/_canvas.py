@@ -12,10 +12,12 @@
 
 import contextlib
 import io
+import json
 import os
 from typing import Any, Literal
 
 from matplotlib import pyplot
+from matplotlib.text import Text
 from PIL import Image
 from pydantic import validate_call
 
@@ -36,6 +38,7 @@ from drawlib._core.l4_canvas._images import CanvasImageFeature
 from drawlib._core.l4_canvas._lines import CanvasLineFeature
 from drawlib._core.l4_canvas._shapes import CanvasShapeFeature
 from drawlib._core.l4_canvas._text import CanvasTextFeature
+from drawlib._core.l4_canvas._text_util import resolve_svg_font_info
 
 
 class Canvas(
@@ -159,8 +162,11 @@ class Canvas(
 
         save_kwargs: dict[str, Any] = {"format": format} if format is not None else {}
         _, ext = os.path.splitext(file_path)
-        if (format and str(format).lower() == "svg") or ext.lower() == ".svg":
+        is_svg = bool((format and str(format).lower() == "svg") or ext.lower() == ".svg")
+        svg_font_records: list[dict[str, str]] = []
+        if is_svg:
             save_kwargs["metadata"] = {"Date": None}
+            svg_font_records = self._collect_svg_font_metadata()
 
         # save normal image
         if self._grid_only:
@@ -168,6 +174,8 @@ class Canvas(
             ...
         else:
             pyplot.savefig(file_path, **save_kwargs)
+            if is_svg and svg_font_records:
+                self._inject_svg_font_metadata(file_path, svg_font_records)
             if not is_grid:
                 self._remove_artists_from_ax()  # remove drawing items
                 return
@@ -179,15 +187,58 @@ class Canvas(
         # save grid image
         if self._grid_only:
             pyplot.savefig(file_path, **save_kwargs)
+            if is_svg and svg_font_records:
+                self._inject_svg_font_metadata(file_path, svg_font_records)
         else:
             name, extension = os.path.splitext(file_path)
             grid_image_file_path = f"{name}_grid{extension}"
             pyplot.savefig(grid_image_file_path, **save_kwargs)
+            if is_svg and svg_font_records:
+                self._inject_svg_font_metadata(grid_image_file_path, svg_font_records)
 
         self._remove_artists_from_ax()  # remove grid
         self._artists.clear()
         self._artists.extend(temp_artists)
         self._remove_artists_from_ax()  # remove drawing items
+
+    def _collect_svg_font_metadata(self) -> list[dict[str, str]]:
+        """Collect unique font metadata records from active Text artists on the canvas."""
+        seen_families: set[str] = set()
+        records: list[dict[str, str]] = []
+        for artist in self._artists:
+            if isinstance(artist, Text) and artist.get_text():
+                fp = artist.get_fontproperties()
+                fname = fp.get_file() if fp is not None else None
+                if isinstance(fname, bytes):
+                    fname = fname.decode("utf-8")
+                if fname:
+                    info = resolve_svg_font_info(str(fname))
+                    if info.unique_family not in seen_families:
+                        seen_families.add(info.unique_family)
+                        records.append({
+                            "family": info.unique_family,
+                            "rel_path": info.rel_bundle_path,
+                            "src": info.src_spec,
+                            "format": info.font_format,
+                        })
+        return records
+
+    @staticmethod
+    def _inject_svg_font_metadata(svg_file_path: str, records: list[dict[str, str]]) -> None:
+        """Embed drawlib-svg-fonts JSON comment into a saved SVG file."""
+        if not records or not os.path.isfile(svg_file_path):
+            return
+        with contextlib.suppress(OSError):
+            with open(svg_file_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            payload = json.dumps(records, ensure_ascii=False, separators=(",", ":"))
+            comment = f"<!-- drawlib-svg-fonts: {payload} -->\n"
+            if "</svg>" in content:
+                content = content.replace("</svg>", f"{comment}</svg>", 1)
+            else:
+                content = f"{content}\n{comment}"
+            with open(svg_file_path, "w", encoding="utf-8") as f:
+                f.write(content)
 
     def _remove_artists_from_ax(self) -> None:
         """Remove all artists from the axis.

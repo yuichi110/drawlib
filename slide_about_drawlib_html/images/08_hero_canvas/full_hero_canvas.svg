@@ -55,7 +55,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #ffffff" x="360" y="72.16375" transform="rotate(-0 360 72.16375)">FULL CANVAS STAGE — 1920 × 1080 PURE DRAWING STAGE</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="72.16375" transform="rotate(-0 360 72.16375)">FULL CANVAS STAGE — 1920 × 1080 PURE DRAWING STAGE</text>
     </g>
    </g>
    <g id="patch_5">
@@ -64,22 +64,27 @@ L 35.625 127.5
 L 181.875 127.5 
 L 181.875 307.5 
 z
-" clip-path="url(#p6494dea2b6)" style="fill: #cccccc"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_2">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="108.75" y="162.16375" transform="rotate(-0 108.75 162.16375)">1. Deterministic</text>
+     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4285f4" x="108.75" y="167.40625" transform="rotate(-0 108.75 167.40625)"></text>
     </g>
    </g>
    <g id="text_3">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(35.55 210.253)">Cartesian geometry</text>
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="108.75" y="195.185039" transform="rotate(-0 108.75 195.185039)">1. Deterministic</text>
+    </g>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(58.425 242.672609)">Cartesian geometry</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(39.45375 229.535)">Version-controlled</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(61.108828 258.117813)">Version-controlled</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(33.8125 248.482)">Reproducible builds</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(57.230469 273.332703)">Reproducible builds</text>
     </g>
    </g>
    <g id="patch_6">
@@ -88,22 +93,27 @@ L 204.375 127.5
 L 350.625 127.5 
 L 350.625 307.5 
 z
-" clip-path="url(#p6494dea2b6)" style="fill: #cccccc"/>
-   </g>
-   <g id="text_4">
-    <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #674ea7" x="277.5" y="162.16375" transform="rotate(-0 277.5 162.16375)">2. Native SVG</text>
-    </g>
+" clip-path="url(#p6494dea2b6)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_5">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(195.2175 210.4205)">Ctrl+F Searchable text</text>
+     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #674ea7" x="277.5" y="166.5" transform="rotate(-0 277.5 166.5)"></text>
+    </g>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #674ea7" x="277.5" y="195.185039" transform="rotate(-0 277.5 195.185039)">2. Native SVG</text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(220.930781 242.787766)">Ctrl+F Searchable text</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(210.955 229.3675)">Infinite resolution</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(231.750313 258.002656)">Infinite resolution</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(193.19375 248.3145)">Clean DOM integration</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(219.539453 273.217547)">Clean DOM integration</text>
     </g>
    </g>
    <g id="patch_7">
@@ -112,22 +122,27 @@ L 373.125 127.5
 L 519.375 127.5 
 L 519.375 307.5 
 z
-" clip-path="url(#p6494dea2b6)" style="fill: #cccccc"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
-   <g id="text_6">
+   <g id="text_8">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #f57c00" x="446.25" y="162.04375" transform="rotate(-0 446.25 162.04375)">3. Multi-Target</text>
+     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #f57c00" x="446.25" y="168.3125" transform="rotate(-0 446.25 168.3125)"></text>
     </g>
    </g>
-   <g id="text_7">
+   <g id="text_9">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(375.4025 210.4205)">Images, PDF Books</text>
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="446.25" y="195.083789" transform="rotate(-0 446.25 195.083789)">3. Multi-Target</text>
+    </g>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(397.542344 242.787766)">Images, PDF Books</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(368.85 229.7025)">Documentation sites</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(393.0375 258.232969)">Documentation sites</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(359.4 248.6495)">Interactive HTML decks</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(386.540625 273.447859)">Interactive HTML decks</text>
     </g>
    </g>
    <g id="patch_8">
@@ -136,22 +151,27 @@ L 541.875 127.5
 L 688.125 127.5 
 L 688.125 307.5 
 z
-" clip-path="url(#p6494dea2b6)" style="fill: #cccccc"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #efefef; stroke: #cccccc; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
-   <g id="text_8">
+   <g id="text_11">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #434343" x="615" y="162.16375" transform="rotate(-0 615 162.16375)">4. AI Autonomous</text>
+     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #434343" x="615" y="167.859375" transform="rotate(-0 615 167.859375)"></text>
     </g>
    </g>
-   <g id="text_9">
+   <g id="text_12">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(533.32625 210.508)">Clean token hierarchy</text>
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="615" y="195.185039" transform="rotate(-0 615 195.185039)">4. AI Autonomous</text>
+    </g>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(558.849297 242.847922)">Clean token hierarchy</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(524.12625 229.535)">Multi-modal review loop</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(552.524297 258.117813)">Multi-modal review loop</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #434343" transform="translate(510.98375 248.482)">Structured container syntax</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(543.488828 273.332703)">Structured container syntax</text>
     </g>
    </g>
    <g id="patch_9">
@@ -160,11 +180,11 @@ L 37.5 333.75
 L 682.5 333.75 
 L 682.5 371.25 
 z
-" clip-path="url(#p6494dea2b6)" style="fill: #4285f4; stroke: #434343; stroke-width: 0.75; stroke-linejoin: miter"/>
+" clip-path="url(#p6494dea2b6)" style="fill: #e8f0fe; stroke: #669df6; stroke-width: 1.5; stroke-linejoin: miter"/>
    </g>
-   <g id="text_10">
+   <g id="text_14">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #4285f4" x="360" y="357.04375" transform="rotate(-0 360 357.04375)">Zero Injected Chrome • Full Stage Freedom • 100% Code-Driven Visualization</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="360" y="357.04375" transform="rotate(-0 360 357.04375)">Zero Injected Chrome • Full Stage Freedom • 100% Code-Driven Visualization</text>
     </g>
    </g>
   </g>
@@ -174,4 +194,5 @@ z
    <rect x="0" y="0" width="720" height="405"/>
   </clipPath>
  </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-phosphor-regular","rel_path":"_assets/fonts/phosphor/regular.ttf","src":"builtin:fonticons/phosphor/regular.ttf","format":"truetype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
 </svg>

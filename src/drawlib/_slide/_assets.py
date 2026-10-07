@@ -11,15 +11,145 @@
 
 from __future__ import annotations
 
+import contextlib
+import json
 import os
 import re
 import shutil
 from typing import TYPE_CHECKING, Optional
 
+from drawlib._core.l1_core import FONT_DIR_PATH, FONT_ICON_DIR_PATH
+from drawlib._core.l3_external import download_if_not_exist
 from drawlib._templates import get_css, get_slide_js
 
 if TYPE_CHECKING:
     from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions
+
+_PATTERN_SVG_FONTS_COMMENT = re.compile(r"<!--\s*drawlib-svg-fonts:\s*(\[.*?\])\s*-->")
+
+
+def _resolve_font_src_spec(src_spec: str) -> str:
+    """Resolve portable font source spec to an absolute local file path, downloading if needed."""
+    if src_spec.startswith("builtin:fonts/"):
+        rel_sub = src_spec.removeprefix("builtin:fonts/")
+        abs_src = os.path.join(FONT_DIR_PATH, *rel_sub.split("/"))
+        if not os.path.isfile(abs_src):
+            with contextlib.suppress(Exception):
+                download_if_not_exist(file_path=abs_src)
+        return abs_src
+    if src_spec.startswith("builtin:fonticons/"):
+        rel_sub = src_spec.removeprefix("builtin:fonticons/")
+        abs_src = os.path.join(FONT_ICON_DIR_PATH, *rel_sub.split("/"))
+        if not os.path.isfile(abs_src):
+            with contextlib.suppress(Exception):
+                download_if_not_exist(file_path=abs_src)
+        return abs_src
+    return src_spec
+
+
+def _extract_svg_font_records_from_file(svg_path: str) -> list[dict[str, str]]:
+    """Extract drawlib-svg-fonts metadata records from a single SVG file."""
+    records: list[dict[str, str]] = []
+    with contextlib.suppress(OSError):
+        with open(svg_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        for match in _PATTERN_SVG_FONTS_COMMENT.finditer(content):
+            with contextlib.suppress(json.JSONDecodeError, TypeError):
+                items = json.loads(match.group(1))
+                if not isinstance(items, list):
+                    continue
+                for item in items:
+                    if not isinstance(item, dict):
+                        continue
+                    fam = str(item.get("family", "")).strip()
+                    rel_p = str(item.get("rel_path", "")).strip()
+                    src_p = str(item.get("src", "")).strip()
+                    fmt = str(item.get("format", "truetype")).strip()
+                    if fam and rel_p and src_p:
+                        records.append({"family": fam, "rel_path": rel_p, "src": src_p, "format": fmt})
+    return records
+
+
+def _collect_svg_font_records(output_abs: str) -> list[dict[str, str]]:
+    """Walk output_abs and collect deduplicated SVG font records."""
+    seen_families: set[str] = set()
+    bundled_records: list[dict[str, str]] = []
+    for root, dirnames, files in os.walk(output_abs):
+        dirnames[:] = [d for d in sorted(dirnames) if not d.startswith(".")]
+        for fname in sorted(files):
+            if not fname.lower().endswith(".svg") or fname.startswith("."):
+                continue
+            for rec in _extract_svg_font_records_from_file(os.path.join(root, fname)):
+                if rec["family"] not in seen_families:
+                    seen_families.add(rec["family"])
+                    bundled_records.append(rec)
+    return bundled_records
+
+
+def _write_svg_font_faces_css(
+    output_abs: str,
+    css_file_path: str,
+    active_records: list[dict[str, str]],
+) -> None:
+    """Write idempotent @font-face declarations to css_file_path."""
+    css_dir = os.path.dirname(os.path.abspath(css_file_path))
+    marker = "/* Auto-bundled Drawlib SVG Fonts */"
+    css_blocks: list[str] = [f"\n{marker}"]
+    for rec in active_records:
+        dst_abs = os.path.normpath(os.path.join(output_abs, rec["rel_path"]))
+        rel_url = os.path.relpath(dst_abs, css_dir).replace(os.sep, "/")
+        css_blocks.append(
+            f"@font-face {{\n"
+            f"  font-family: '{rec['family']}';\n"
+            f"  src: url('{rel_url}') format('{rec['format']}');\n"
+            f"  font-weight: normal;\n"
+            f"  font-style: normal;\n"
+            f"  font-display: block;\n"
+            f"}}"
+        )
+    with open(css_file_path, "r", encoding="utf-8") as cf:
+        existing_css = cf.read()
+    if marker in existing_css:
+        existing_css = existing_css.split(marker, 1)[0].rstrip() + "\n"
+    with open(css_file_path, "w", encoding="utf-8") as cf:
+        cf.write(existing_css + "\n".join(css_blocks) + "\n")
+
+
+def bundle_svg_fonts(
+    output_abs: str,
+    css_file_path: Optional[str] = None,
+) -> list[dict[str, str]]:
+    """Scan generated SVG files in output_abs, copy used fonts to _assets/fonts/, and inject @font-face CSS.
+
+    Args:
+        output_abs: Absolute path to the build output directory.
+        css_file_path: Optional path to style.css where @font-face declarations should be appended.
+
+    Returns:
+        list[dict[str, str]]: List of bundled font metadata records.
+    """
+    if not os.path.isdir(output_abs):
+        return []
+
+    bundled_records = _collect_svg_font_records(output_abs)
+    if not bundled_records:
+        return []
+
+    active_records: list[dict[str, str]] = []
+    for rec in bundled_records:
+        abs_src = _resolve_font_src_spec(rec["src"])
+        if not os.path.isfile(abs_src):
+            continue
+        dst_path = os.path.normpath(os.path.join(output_abs, rec["rel_path"]))
+        os.makedirs(os.path.dirname(dst_path), exist_ok=True)
+        if os.path.abspath(abs_src) != os.path.abspath(dst_path):
+            shutil.copy2(abs_src, dst_path)
+        active_records.append(rec)
+
+    if active_records and css_file_path and os.path.isfile(css_file_path):
+        _write_svg_font_faces_css(output_abs, css_file_path, active_records)
+
+    return active_records
 
 
 def format_asset_markup(
@@ -45,7 +175,8 @@ def format_asset_markup(
             with open(svg_disk, encoding="utf-8") as f:
                 svg_content = f.read()
             svg_clean = re.sub(r"<\?xml[^>]*\?>", "", svg_content)
-            svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean).strip()
+            svg_clean = re.sub(r"<!DOCTYPE[^>]*>", "", svg_clean)
+            svg_clean = _PATTERN_SVG_FONTS_COMMENT.sub("", svg_clean).strip()
             svg_clean = re.sub(
                 r"<svg\s+",
                 '<svg class="slide-vector-graphic" style="width: 100%; height: 100%; object-fit: contain;" ',
@@ -114,7 +245,7 @@ def copy_static_assets(input_abs: str, output_abs: str) -> None:
 
 
 def deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> None:
-    """Deploy style.css, slide.js, and static assets to the output directory.
+    """Deploy style.css, slide.js, static assets, and auto-bundled SVG fonts to the output directory.
 
     Args:
         input_abs: Input directory containing potential style.css overrides and assets.
@@ -132,7 +263,8 @@ def deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> Non
     else:
         css_content = get_css(name=deck_theme, target="slide")
 
-    with open(os.path.join(output_abs, "style.css"), "w", encoding="utf-8") as f:
+    style_css_out = os.path.join(output_abs, "style.css")
+    with open(style_css_out, "w", encoding="utf-8") as f:
         f.write(css_content)
 
     with open(os.path.join(output_abs, "slide.js"), "w", encoding="utf-8") as f:
@@ -145,3 +277,5 @@ def deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> Non
             if os.path.exists(out_assets_dir):
                 shutil.rmtree(out_assets_dir)
             shutil.copytree(local_assets_dir, out_assets_dir)
+
+    bundle_svg_fonts(output_abs, css_file_path=style_css_out)

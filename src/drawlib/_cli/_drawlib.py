@@ -85,6 +85,7 @@ def _ensure_overview_rules_cached() -> None:
 
 @app.callback()
 def main_callback(
+    ctx: typer.Context,
     version: Annotated[
         bool,
         typer.Option(
@@ -126,7 +127,8 @@ def main_callback(
     else:
         dutil_settings.set_logging_mode("normal")
 
-    _ensure_overview_rules_cached()
+    if ctx.invoked_subcommand != "cache":
+        _ensure_overview_rules_cached()
 
 
 def call_command() -> None:

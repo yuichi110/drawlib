@@ -102,15 +102,15 @@ class TestPackageResolution:
 
     def test_find_package_for_file_path(self):
         """Verify file path mapping in download module."""
-        pkg1 = _find_package_for_file_path("/path/to/drawlib/_assets/fonts/roboto/regular.ttf")
+        pkg1 = _find_package_for_file_path("/path/to/drawlib/_cached_assets/fonts/roboto/regular.ttf")
         assert pkg1 is not None
         assert pkg1.name == "font_roboto"
 
-        pkg2 = _find_package_for_file_path("C:\\drawlib\\_assets\\fonticons\\phosphor\\bold.ttf")
+        pkg2 = _find_package_for_file_path("C:\\drawlib\\_cached_assets\\fonticons\\phosphor\\bold.ttf")
         assert pkg2 is not None
         assert pkg2.name == "icon_phosphor"
 
-        pkg3 = _find_package_for_file_path("/path/to/drawlib/_assets/icons/gcp/compute_engine.png")
+        pkg3 = _find_package_for_file_path("/path/to/drawlib/_cached_assets/icons/gcp/compute_engine.png")
         assert pkg3 is not None
         assert pkg3.name == "icon_gcp"
 

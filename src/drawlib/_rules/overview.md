@@ -431,7 +431,7 @@ build_html(
 When writing or debugging Drawlib code, you can inspect detailed rules, full API signatures, and complete code examples on demand for any domain.
 
 Execute `drawlib rules show <topic>` in your terminal or review the summarized rules below.
-When called, Drawlib automatically compiles illustrations on demand, caches companion PNG images in `drawlib/_assets/rules/`, and provides relative image links that AI coding agents can directly inspect with their image viewing tools (`view_file`) for multimodal spatial verification.
+When called, Drawlib automatically compiles illustrations on demand, caches companion PNG images in `drawlib/_cached_assets/rules/`, and provides relative image links that AI coding agents can directly inspect with their image viewing tools (`view_file`) for multimodal spatial verification.
 
 ```bash
 # List all available topics and cache status:

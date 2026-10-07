@@ -15,7 +15,7 @@ import os
 
 from pydantic import validate_call
 
-import drawlib._assets
+import drawlib._cached_assets
 from drawlib._core.l2_types import Angle, Coordinate, IconStyle, PosFloat
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontMetadata, FontResource
@@ -64,7 +64,7 @@ class FontIconProvider:
             raise ValueError(f"Font style '{font}' not found for icon provider '{self.name}'.")
 
         paths = [p for p in resource.path.split("/") if p]
-        dir_path = os.path.join(os.path.dirname(drawlib._assets.__file__), self.asset_subdir)
+        dir_path = os.path.join(os.path.dirname(drawlib._cached_assets.__file__), self.asset_subdir)
         abs_path = os.path.join(dir_path, *paths)
 
         return FontMetadata(

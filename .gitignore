@@ -4,10 +4,10 @@
 .pypirc
 uv.lock
 
-# assets
-src/drawlib/_assets/*
-!src/drawlib/_assets/__init__.py
-!src/drawlib/_assets/.gitignore
+# cached assets
+src/drawlib/_cached_assets/*
+!src/drawlib/_cached_assets/__init__.py
+!src/drawlib/_cached_assets/.gitignore
 
 
 # output of generators

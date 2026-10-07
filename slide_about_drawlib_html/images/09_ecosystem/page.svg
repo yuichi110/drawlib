@@ -31,7 +31,7 @@ z
   <g id="axes_1">
    <g id="text_1">
     <g clip-path="url(#pede7cadf2a)">
-     <text style="font-size: 65px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #808080" x="360" y="95.566295" transform="rotate(-0 360 95.566295)">9 / 9</text>
+     <text style="font-size: 65px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #808080" x="360" y="95.566295" transform="rotate(-0 360 95.566295)">9 / 9</text>
     </g>
    </g>
   </g>
@@ -41,4 +41,5 @@ z
    <rect x="0" y="0" width="720" height="154.285714"/>
   </clipPath>
  </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
 </svg>

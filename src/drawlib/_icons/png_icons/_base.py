@@ -35,7 +35,7 @@ class PngIconProvider:
         Args:
             name: Vendor/family name of the icon collection (e.g. 'gcp').
             package_name: Package identifier in RELEASE_ASSET_PACKAGES (e.g. 'icon_gcp').
-            asset_subdir: Relative subdirectory path under drawlib._assets (e.g. 'icons/gcp').
+            asset_subdir: Relative subdirectory path under drawlib._cached_assets (e.g. 'icons/gcp').
         """
         self.name = name
         self.package_name = package_name

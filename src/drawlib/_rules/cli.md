@@ -850,7 +850,7 @@ drawlib rules
 ├── show <TOPIC>            Display rules and examples for a topic (e.g. lib-shapes, overview)
 │   ├── --rebuild, -r       Force regenerate illustrations even if cached
 │   └── --raw               Display raw Markdown without building or checking cache
-├── build [TOPIC]           Pre-build illustrations into _assets/rules/
+├── build [TOPIC]           Pre-build illustrations into _cached_assets/rules/
 │   ├── --all, -a           Compile illustrations for all topics
 │   └── --force, -f         Force recompile even if up-to-date
 └── clear                   Delete all cached rule documents and generated images
@@ -897,11 +897,11 @@ drawlib rules
 ---
 
 ### 9.2 On-Demand Multimodal Illustration Pairing:
-When an AI agent or developer runs `drawlib rules show <topic>`, Drawlib automatically checks if the rendered document and its companion illustration images are cached under `drawlib/_assets/rules/`.
+When an AI agent or developer runs `drawlib rules show <topic>`, Drawlib automatically checks if the rendered document and its companion illustration images are cached under `drawlib/_cached_assets/rules/`.
 - **First Call**: If not cached or if source rules were modified, Drawlib compiles code blocks on demand, generates companion PNG illustrations, and injects an agent instruction banner with local image paths.
 - **Subsequent Calls**: Instant retrieval directly from local cache.
 - **Multimodal Grounding**: AI coding assistants can view the companion images using their file viewing tools (`view_file`, etc.) to visually verify geometric layouts, alignments, and aesthetics alongside the Python source code.
-- **PyPI Safety**: All cached rule assets reside inside `_assets/rules/` which is ignored by Git and automatically purged before package publishing, keeping wheel distributions minimal.
+- **PyPI Safety**: All cached rule assets reside inside `_cached_assets/rules/` which is ignored by Git and automatically purged before package publishing, keeping wheel distributions minimal.
 
 ### 9.3 Usage Examples:
 ```bash

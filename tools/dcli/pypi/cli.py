@@ -181,7 +181,7 @@ def publish(
     if dist_dir.exists():
         shutil.rmtree(dist_dir)
 
-    run_command(["uv", "run", "python", "-m", "drawlib", "--purge_font_cache"], desc="Purging font cache...")
+    run_command(["uv", "run", "drawlib", "cache", "clear", "--all"], desc="Purging cached assets...")
     run_command(["uv", "build"], desc="Building wheel and sdist distributions...")
 
     publish_cmd = ["uv", "publish"]
