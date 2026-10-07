@@ -19,7 +19,7 @@ All documentation, guides, slides, and README illustrations in this repository a
 | **`quickstart`** | `quickstart_src/` | `doc` | `quickstart_html/`, `quickstart.pdf`, `quickstart_markdown/`, `quickstart_images/` | Linear quickstart guide & PDF |
 | **`dogfooding`** | `drawlib-dogfooding_src/` | `doc` | `drawlib-dogfooding_html/`, `drawlib-dogfooding.pdf`, `drawlib-dogfooding_markdown/`, `drawlib-dogfooding_images/` | Dogfooding technical whitepaper (Japanese) |
 | **`dogfooding-en`** | `drawlib-dogfooding-en_src/` | `doc` | `drawlib-dogfooding-en_html/`, `drawlib-dogfooding-en.pdf`, `drawlib-dogfooding-en_markdown/`, `drawlib-dogfooding-en_images/` | Dogfooding technical whitepaper (English) |
-| **`slide`** | `slide_src/` | `slide` | `slide/`, `slide.pdf` | 16:9 presentation slide deck (HTML & PDF) |
+| **`slide`** | `slide_about_drawlib_src/` | `slide` | `slide_about_drawlib_html/`, `slide_about_drawlib.pdf` | 16:9 presentation slide deck (HTML & PDF) |
 | **`readme`** | `readme_src/` | `image` | `readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
 
 - **Source of Truth**: Always edit files inside `<name>_src/` (and `build.sh` / `navbar.md` within it). Never manually edit generated output folders or PDFs.

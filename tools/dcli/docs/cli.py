@@ -64,7 +64,9 @@ SERVE_TARGET_MAP: dict[str, str] = {
     "dogfooding": "drawlib-dogfooding_html",
     "dogfooding-en": "drawlib-dogfooding-en_html",
     "quickstart": "quickstart_html",
-    "slide": "slide",
+    "slide": "slide_about_drawlib_html",
+    "slide_about_drawlib": "slide_about_drawlib_html",
+    "slide-about-drawlib": "slide_about_drawlib_html",
 }
 
 

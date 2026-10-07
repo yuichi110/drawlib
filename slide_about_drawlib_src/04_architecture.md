@@ -28,8 +28,13 @@ from drawlib.styles import Styles
 
 clear()
 setup(width=115, height=75)
-arch = ArchitectureDiagram(node_style=Styles.PrimaryFlat, edge_style=Styles.Primary,
-                           title="Scalable Microservices Topology (GCP)")
+arch = ArchitectureDiagram(
+    node_style=Styles.PrimaryFlat,
+    node_text_style=Styles.DarkBold,
+    edge_style=Styles.Primary,
+    edge_text_style=Styles.Dark,
+    title="Scalable Microservices Topology (GCP)",
+)
 
 client = arch.add(Node("Client App", icon=GcpIcon.APP_ENGINE, icon_size=7.5), (14.0, 42.0))
 gateway = arch.add(Node("API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY, icon_size=7.5), (38.0, 42.0))

@@ -79,10 +79,10 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
     ),
     BuildTarget(
         name="slide",
-        src_dir="slide_src",
-        script_rel_path="slide_src/build.sh",
-        description="16:9 Presentation Slide Deck",
-        clean_paths=("slide", "slide.pdf"),
+        src_dir="slide_about_drawlib_src",
+        script_rel_path="slide_about_drawlib_src/build.sh",
+        description="16:9 Presentation Slide Deck (About Drawlib)",
+        clean_paths=("slide_about_drawlib_html", "slide_about_drawlib.pdf"),
     ),
 )
 
@@ -92,6 +92,8 @@ TARGET_MAP: dict[str, BuildTarget] = {
 # Convenience aliases
 TARGET_MAP["docs"] = TARGET_MAP["site"]
 TARGET_MAP["doc"] = TARGET_MAP["site"]
+TARGET_MAP["slide_about_drawlib"] = TARGET_MAP["slide"]
+TARGET_MAP["slide-about-drawlib"] = TARGET_MAP["slide"]
 
 
 def clean_target_artifacts(targets: Sequence[BuildTarget]) -> None:

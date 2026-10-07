@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ "slide_src" = "." ]; then
+if [ "slide_about_drawlib_src" = "." ]; then
     cd "$SCRIPT_DIR"
 else
     PARENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -26,5 +26,5 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
 fi
 
 echo "Building HTML Slide Deck..."
-$DRAWLIB_CMD build slide slide_src/ -o slide/
-echo "Slide HTML build complete: slide/index.html"
+$DRAWLIB_CMD build slide slide_about_drawlib_src/ -o slide_about_drawlib_html/
+echo "Slide HTML build complete: slide_about_drawlib_html/index.html"

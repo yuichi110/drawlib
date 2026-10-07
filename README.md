@@ -9,7 +9,7 @@ Drawlib is a declarative Python drawing library and integrated documentation com
 - **Official Website & Documentation**: [https://www.drawlib.com/](https://www.drawlib.com/)
 - **Repository Guides & Whitepapers**:
   - [Quickstart Guide (PDF)](quickstart.pdf)
-  - [16:9 Presentation Slide Deck (PDF)](slide.pdf)
+  - [16:9 Presentation Slide Deck (PDF)](slide_about_drawlib.pdf)
   - [Dogfooding Whitepaper — English (PDF)](drawlib-dogfooding-en.pdf) | [日本語版 (PDF)](drawlib-dogfooding.pdf)
 
 ---

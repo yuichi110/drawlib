@@ -6,7 +6,7 @@ This directory contains slide Markdown files and drawing code compiled into an i
 
 ## 1. Directory Structure
 
-- `slide_src/`: Source slide files and configuration (**Source of Truth**).
+- `slide_about_drawlib_src/`: Source slide files and configuration (**Source of Truth**).
   - `build.sh`: Master build script to run all builds (HTML + PDF).
   - `build_html.sh`: Fast interactive HTML deck compiler.
   - `build_pdf.sh`: Vector presentation PDF compiler (1 slide per page).
@@ -16,8 +16,8 @@ This directory contains slide Markdown files and drawing code compiled into an i
   - `slide.css`: Presentation styling and theme variables.
   - `01_title.md` ... `09_ecosystem.md`: Slide Markdown files.
   - `_assets/`: Static image assets (logos, mascots).
-- `slide/`: Generated interactive HTML slide deck (`slide/index.html`).
-- `slide.pdf`: Generated vector PDF presentation.
+- `slide_about_drawlib_html/`: Generated interactive HTML slide deck (`slide_about_drawlib_html/index.html`).
+- `slide_about_drawlib.pdf`: Generated vector PDF presentation.
 
 ---
 
@@ -25,8 +25,8 @@ This directory contains slide Markdown files and drawing code compiled into an i
 
 ### Using the Build Scripts
 ```bash
-./build_html.sh   # Compile interactive HTML slide deck (slide/)
-./build_pdf.sh    # Compile vector PDF presentation (slide.pdf)
+./build_html.sh   # Compile interactive HTML slide deck (slide_about_drawlib_html/)
+./build_pdf.sh    # Compile vector PDF presentation (slide_about_drawlib.pdf)
 ./build.sh        # Run HTML and PDF builds sequentially
 ```
 
@@ -37,6 +37,6 @@ This directory contains slide Markdown files and drawing code compiled into an i
 
 ### Using the Drawlib CLI Directly
 ```bash
-drawlib build slide slide_src/ -o slide/
-drawlib build pdf slide_src/ -o slide.pdf
+drawlib build slide slide_about_drawlib_src/ -o slide_about_drawlib_html/
+drawlib build pdf slide_about_drawlib_src/ -o slide_about_drawlib.pdf
 ```
