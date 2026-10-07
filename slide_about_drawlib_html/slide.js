@@ -471,6 +471,81 @@
     };
   }
 
+  function syncOverviewCanvases() {
+    const thumbs = document.querySelectorAll('.overview-thumb');
+    thumbs.forEach((thumb, idx) => {
+      const origSlide = slides[idx];
+      if (!origSlide) return;
+      const origCanvases = origSlide.querySelectorAll('canvas.drawlib-anim-canvas');
+      const cloneCanvases = thumb.querySelectorAll('canvas.drawlib-anim-canvas');
+      origCanvases.forEach((origCanvas, cIdx) => {
+        const cloneCanvas = cloneCanvases[cIdx];
+        if (cloneCanvas && origCanvas.width > 0 && origCanvas.height > 0) {
+          cloneCanvas.width = origCanvas.width;
+          cloneCanvas.height = origCanvas.height;
+          const ctx = cloneCanvas.getContext('2d');
+          if (ctx) {
+            ctx.clearRect(0, 0, cloneCanvas.width, cloneCanvas.height);
+            ctx.drawImage(origCanvas, 0, 0);
+          }
+        }
+      });
+    });
+  }
+
+  function updateOverviewScale() {
+    const thumbs = document.querySelectorAll('.overview-thumb');
+    thumbs.forEach(thumb => {
+      const thumbStage = thumb.querySelector('.overview-thumb-stage');
+      if (!thumbStage) return;
+      const w = thumb.clientWidth;
+      if (w > 0) {
+        const scale = w / STAGE_WIDTH;
+        thumbStage.style.transform = `scale(${scale})`;
+      }
+    });
+  }
+
+  function initOverviewThumbs() {
+    const thumbs = document.querySelectorAll('.overview-thumb');
+    thumbs.forEach((thumb, idx) => {
+      const origSlide = slides[idx];
+      if (!origSlide) return;
+      const slideBody = origSlide.querySelector('.slide-body');
+      if (!slideBody) return;
+
+      const thumbStage = document.createElement('div');
+      thumbStage.className = 'overview-thumb-stage';
+
+      const bodyClone = slideBody.cloneNode(true);
+      const idSuffix = `-ov-${idx + 1}`;
+      bodyClone.querySelectorAll('[id]').forEach(el => {
+        const oldId = el.getAttribute('id');
+        if (oldId) {
+          el.setAttribute('id', oldId + idSuffix);
+        }
+      });
+      bodyClone.querySelectorAll('*').forEach(el => {
+        for (let i = 0; i < el.attributes.length; i++) {
+          const attr = el.attributes[i];
+          if (!attr.value) continue;
+          if (attr.value.includes('url(#')) {
+            attr.value = attr.value.replace(/url\(#([^)]+)\)/g, `url(#$1${idSuffix})`);
+          } else if (
+            (attr.name === 'href' || attr.name === 'xlink:href') &&
+            attr.value.startsWith('#')
+          ) {
+            attr.value = attr.value + idSuffix;
+          }
+        }
+      });
+
+      thumbStage.appendChild(bodyClone);
+      thumb.insertBefore(thumbStage, thumb.firstChild);
+      thumb.classList.add('has-preview');
+    });
+  }
+
   function initAllAnimPlayers() {
     const readyPromises = [];
     slides.forEach((slide, idx) => {
@@ -488,7 +563,9 @@
         slideAnimPlayers.set(slideIdx, players);
       }
     });
-    window.__drawlibAnimReady = Promise.all(readyPromises);
+    window.__drawlibAnimReady = Promise.all(readyPromises).then(() => {
+      syncOverviewCanvases();
+    });
   }
 
   /**
@@ -504,6 +581,9 @@
     const scale = Math.min(scaleX, scaleY);
 
     stage.style.transform = `scale(${scale})`;
+    if (isOverviewOpen) {
+      updateOverviewScale();
+    }
   }
 
   /**
@@ -575,6 +655,8 @@
     isOverviewOpen = !isOverviewOpen;
     if (isOverviewOpen) {
       modal.classList.add('active');
+      syncOverviewCanvases();
+      updateOverviewScale();
     } else {
       modal.classList.remove('active');
     }
@@ -682,6 +764,7 @@
   window.addEventListener('resize', updateScale);
   window.addEventListener('DOMContentLoaded', () => {
     updateScale();
+    initOverviewThumbs();
     initAllAnimPlayers();
     setupKeyboard();
     setupControls();

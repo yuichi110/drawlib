@@ -9,7 +9,7 @@ utils.draw_page_number()
 # Modular Drawing Helpers
 :::
 
-::: block (80, 140) (740, 840)
+::: block (80, 140) (740, 840) font:24px
 ## Reusable Python Helpers in utils.py
 
 Drawlib eliminates rigid DSL wrappers in favor of pure, reusable Python functions:

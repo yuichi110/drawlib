@@ -64,7 +64,7 @@ def draw_pipeline_state(active_step: str) -> None:
 
 
 clear()
-setup(width=138, height=70)
+setup(width=138, height=78)
 anim = Animation(fps=1.0, loop=0)
 for step, dur in zip(["push", "detect", "check", "cache", "build", "deploy"], [0.8, 0.8, 0.8, 1.0, 0.8, 1.5]):
     with anim.frame(duration=dur):

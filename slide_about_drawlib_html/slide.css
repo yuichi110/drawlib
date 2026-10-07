@@ -117,7 +117,7 @@ h3 {
 }
 
 p, ul, ol {
-  font-size: 26px;
+  font-size: 1em;
   line-height: 1.6;
   color: var(--slide-text);
 }
@@ -175,12 +175,14 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  font-size: 26px;
   z-index: 10;
 }
 
 .slide-block.compact,
 .slide-text-box.compact {
-  line-height: 1.35;
+  font-size: 23px;
+  line-height: 1.4;
 }
 
 .slide-block.compact h1, .slide-text-box.compact h1 { margin-bottom: 14px; }
@@ -189,8 +191,7 @@ hr {
 .slide-block.compact p, .slide-text-box.compact p,
 .slide-block.compact ul, .slide-text-box.compact ul,
 .slide-block.compact ol, .slide-text-box.compact ol {
-  font-size: 0.9em;
-  line-height: 1.35;
+  line-height: 1.4;
   margin-bottom: 10px;
 }
 .slide-block.compact li, .slide-text-box.compact li { margin-bottom: 6px; }
@@ -450,25 +451,51 @@ hr {
 }
 
 .overview-thumb {
-  background: #ffffff;
+  background: var(--slide-bg, #ffffff);
   aspect-ratio: 16 / 9;
   border-radius: 8px;
   cursor: pointer;
-  border: 3px solid transparent;
+  outline: 3px solid transparent;
   padding: 20px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s, border-color 0.2s;
+  transition: transform 0.2s, outline-color 0.2s;
+}
+
+.overview-thumb.has-preview {
+  padding: 0;
 }
 
 .overview-thumb:hover {
   transform: translateY(-4px);
-  border-color: var(--slide-primary);
+  outline-color: var(--slide-primary);
 }
 
 .overview-thumb.current {
-  border-color: var(--slide-accent);
+  outline-color: var(--slide-accent);
+}
+
+.overview-thumb-stage {
+  width: var(--slide-width);
+  height: var(--slide-height);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  pointer-events: none;
+  user-select: none;
+  background-color: var(--slide-bg);
+  overflow: hidden;
+}
+
+.overview-thumb-stage .anim-play-badge {
+  display: none !important;
+}
+
+.overview-thumb.has-preview .thumb-title,
+.overview-thumb.has-preview .thumb-number {
+  display: none;
 }
 
 .thumb-title {
