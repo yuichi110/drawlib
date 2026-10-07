@@ -4,7 +4,7 @@ trigger: always_on
 
 # Development Workflow & Lifecycle for drawlib
 
-This repository is the main development repository for the `drawlib` library, and simultaneously serves as a **live dogfooding environment** where the repository's own documentation projects (`docs_src/`, `quickstart_src/`, `drawlib-dogfooding_src/`, `slide_about_drawlib_src/`, `readme_src/`) test and validate `drawlib` in real-world scenarios.
+This repository is the main development repository for the `drawlib` library, and simultaneously serves as a **live dogfooding environment** where the repository's own documentation projects (`docs/docs_src/`, `docs/quickstart_src/`, `docs/drawlib-dogfooding_src/`, `docs/slide_about_drawlib_src/`, `docs/readme_src/`) test and validate `drawlib` in real-world scenarios.
 
 ---
 
@@ -36,7 +36,7 @@ Whenever adding features, modifying drawing logic, or fixing bugs in `src/drawli
 ### Step 3: Dogfooding via Documentation & Rules Update
 - If public APIs, parameters, styles, or visual behaviors change:
   1. Update embedded agent rules in `src/drawlib/_rules/` (`api.md`, `lib_*.md`, etc.).
-  2. Update or add real usage examples in the repository's documentation sources (`docs_src/`, `quickstart_src/`, `drawlib-dogfooding_src/`, `slide_about_drawlib_src/`, or `readme_src/`).
+  2. Update or add real usage examples in the repository's documentation sources (`docs/docs_src/`, `docs/quickstart_src/`, `docs/drawlib-dogfooding_src/`, `docs/slide_about_drawlib_src/`, or `docs/readme_src/`).
 
 ### Step 4: Build Documentation & Render Images
 - Test your library changes against the documentation projects to verify that real-world builds succeed:
@@ -46,7 +46,7 @@ Whenever adding features, modifying drawing logic, or fixing bugs in `src/drawli
   ```
 - Or render specific diagrams with the coordinate grid (`-g`) for close inspection:
   ```bash
-  uv run drawlib show docs_src/path/to/page.md <diagram.png> -g -o .drawlib/scratch/preview.png
+  uv run drawlib show docs/docs_src/path/to/page.md <diagram.png> -g -o .drawlib/scratch/preview.png
   ```
 
 ### Step 5: Visual Inspection & Self-Healing Iteration

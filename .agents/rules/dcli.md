@@ -61,12 +61,12 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 ./dcli docs serve [TARGET] [--port/-p 8000] [--no-browser] [--skip-check] [--check]
 ```
 - **Available `TARGET` names**:
-  - `site` *(default)*: Main documentation site (`docs_src/` -> `docs_html/`, `docs/`)
-  - `quickstart`: Quickstart guide & PDF (`quickstart_src/`)
-  - `dogfooding`: Dogfooding whitepaper JP (`drawlib-dogfooding_src/`)
-  - `dogfooding-en`: Dogfooding whitepaper EN (`drawlib-dogfooding-en_src/`)
-  - `slide` (`slide_about_drawlib`): 16:9 presentation slide deck (`slide_about_drawlib_src/`)
-  - `readme`: Standalone README illustration scripts (`readme_src/`)
+  - `site` *(default)*: Main documentation site (`docs/docs_src/` -> `docs/docs_html/`, `docs/docs_markdown/`)
+  - `quickstart`: Quickstart guide & PDF (`docs/quickstart_src/`)
+  - `dogfooding`: Dogfooding whitepaper JP (`docs/drawlib-dogfooding_src/`)
+  - `dogfooding-en`: Dogfooding whitepaper EN (`docs/drawlib-dogfooding-en_src/`)
+  - `slide` (`slide_about_drawlib`): 16:9 presentation slide deck (`docs/slide_about_drawlib_src/`)
+  - `readme`: Standalone README illustration scripts (`docs/readme_src/`)
   - `all`: Build all targets sequentially
 
 ### 2.4. `codegen` — Icon & Binding Code Generation

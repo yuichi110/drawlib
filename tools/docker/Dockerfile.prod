@@ -21,7 +21,7 @@ COPY pyproject.toml ./
 COPY src/ ./src/
 
 # Install drawlib (from local source or PyPI, with optional [pdf] extras)
-RUN touch README_PYPI.md && \
+RUN mkdir -p docs && touch docs/README_PYPI.md && \
     if [ "${INSTALL_SOURCE}" = "pypi" ]; then \
         if [ "${WITH_PDF}" = "true" ]; then \
             pip install --no-cache-dir "drawlib[pdf]==${DRAWLIB_VERSION}"; \

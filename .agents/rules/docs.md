@@ -13,16 +13,16 @@ This document describes the documentation projects hosted in this repository and
 
 All documentation, guides, slides, and README illustrations in this repository are standard Drawlib projects scaffolded via `drawlib init`:
 
-| Build Target (`./dcli docs build <target>`) | Source Directory (`*_src/`) | Template Type (`drawlib init`) | Generated Outputs (Do NOT edit directly) | Description |
+| Build Target (`./dcli docs build <target>`) | Source Directory (`docs/*_src/`) | Template Type (`drawlib init`) | Generated Outputs (Do NOT edit directly) | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| **`site`** | `docs_src/` | `site` | `docs/`, `docs_html/`, `docs_images/` | Official multi-page documentation website & GitHub Markdown |
-| **`quickstart`** | `quickstart_src/` | `doc` | `quickstart_html/`, `quickstart.pdf`, `quickstart_markdown/`, `quickstart_images/` | Linear quickstart guide & PDF |
-| **`dogfooding`** | `drawlib-dogfooding_src/` | `doc` | `drawlib-dogfooding_html/`, `drawlib-dogfooding.pdf`, `drawlib-dogfooding_markdown/`, `drawlib-dogfooding_images/` | Dogfooding technical whitepaper (Japanese) |
-| **`dogfooding-en`** | `drawlib-dogfooding-en_src/` | `doc` | `drawlib-dogfooding-en_html/`, `drawlib-dogfooding-en.pdf`, `drawlib-dogfooding-en_markdown/`, `drawlib-dogfooding-en_images/` | Dogfooding technical whitepaper (English) |
-| **`slide`** | `slide_about_drawlib_src/` | `slide` | `slide_about_drawlib_html/`, `slide_about_drawlib.pdf`, `slide_about_drawlib_images/` | 16:9 presentation slide deck (HTML & PDF) |
-| **`readme`** | `readme_src/` | `image` | `readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
+| **`site`** | `docs/docs_src/` | `site` | `docs/docs_markdown/`, `docs/docs_html/`, `docs/docs_images/` | Official multi-page documentation website & GitHub Markdown |
+| **`quickstart`** | `docs/quickstart_src/` | `doc` | `docs/quickstart_html/`, `docs/quickstart.pdf`, `docs/quickstart_markdown/`, `docs/quickstart_images/` | Linear quickstart guide & PDF |
+| **`dogfooding`** | `docs/drawlib-dogfooding_src/` | `doc` | `docs/drawlib-dogfooding_html/`, `docs/drawlib-dogfooding.pdf`, `docs/drawlib-dogfooding_markdown/`, `docs/drawlib-dogfooding_images/` | Dogfooding technical whitepaper (Japanese) |
+| **`dogfooding-en`** | `docs/drawlib-dogfooding-en_src/` | `doc` | `docs/drawlib-dogfooding-en_html/`, `docs/drawlib-dogfooding-en.pdf`, `docs/drawlib-dogfooding-en_markdown/`, `docs/drawlib-dogfooding-en_images/` | Dogfooding technical whitepaper (English) |
+| **`slide`** | `docs/slide_about_drawlib_src/` | `slide` | `docs/slide_about_drawlib_html/`, `docs/slide_about_drawlib.pdf`, `docs/slide_about_drawlib_images/` | 16:9 presentation slide deck (HTML & PDF) |
+| **`readme`** | `docs/readme_src/` | `image` | `docs/readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
 
-- **Source of Truth**: Always edit files inside `<name>_src/` (and `build.sh` / `navbar.md` within it). Never manually edit generated output folders or PDFs.
+- **Source of Truth**: Always edit files inside `docs/<name>_src/` (and `build.sh` / `navbar.md` within it). Never manually edit generated output folders or PDFs.
 - **Build & Preview**:
   ```bash
   ./dcli docs build <target>          # e.g. ./dcli docs build site (or --all)

@@ -3,18 +3,20 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ "__SRC_DIR__" = "." ]; then
+if [ "slide_about_drawlib_src" = "." ]; then
     cd "$SCRIPT_DIR"
 else
     PARENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
     cd "$PARENT_DIR"
 fi
 
-if [ ! -f "__OUT_HTML_DIR__/index.html" ]; then
-    if [ -f "$SCRIPT_DIR/build_html.sh" ]; then
-        "$SCRIPT_DIR/build_html.sh"
-    elif [ -f "$SCRIPT_DIR/build.sh" ]; then
-        "$SCRIPT_DIR/build.sh"
+if [ ! -f "slide_about_drawlib_html/index.html" ]; then
+    if [ -f "slide_about_drawlib_src/build_html.sh" ]; then
+        "./slide_about_drawlib_src/build_html.sh"
+    elif [ -f "slide_about_drawlib_src/build.sh" ]; then
+        "./slide_about_drawlib_src/build.sh"
+    elif [ -f "./build.sh" ]; then
+        "./build.sh"
     fi
 fi
 
@@ -30,4 +32,4 @@ fi
 
 PORT="${1:-8000}"
 echo "Serving presentation at http://localhost:${PORT}..."
-$DRAWLIB_CMD serve __OUT_HTML_DIR__/ -p "${PORT}"
+$DRAWLIB_CMD serve slide_about_drawlib_html/ -p "${PORT}"

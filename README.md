@@ -4,13 +4,13 @@
 
 Drawlib is a declarative Python drawing library and integrated documentation compiler designed for software engineers and **autonomous AI coding agents**. Instead of maintaining brittle diagrams in external GUI tools (draw.io, Visio, PowerPoint) and manually pasting exported images into wikis, Drawlib lets you author, version-control, and build architectural diagrams, data charts, technical documents, and presentation slide decks entirely from code in Git.
 
-![Drawlib Hero Concept](readme_images/01_hero_concept.png)
+![Drawlib Hero Concept](docs/readme_images/01_hero_concept.png)
 
 - **Official Website & Documentation**: [https://www.drawlib.com/](https://www.drawlib.com/)
 - **Repository Guides & Whitepapers**:
-  - [Quickstart Guide (PDF)](quickstart.pdf)
-  - [16:9 Presentation Slide Deck (PDF)](slide_about_drawlib.pdf)
-  - [Dogfooding Whitepaper — English (PDF)](drawlib-dogfooding-en.pdf) | [日本語版 (PDF)](drawlib-dogfooding.pdf)
+  - [Quickstart Guide (PDF)](docs/quickstart.pdf)
+  - [16:9 Presentation Slide Deck (PDF)](docs/slide_about_drawlib.pdf)
+  - [Dogfooding Whitepaper — English (PDF)](docs/drawlib-dogfooding-en.pdf) | [日本語版 (PDF)](docs/drawlib-dogfooding.pdf)
 
 ---
 
@@ -19,7 +19,7 @@ Drawlib is a declarative Python drawing library and integrated documentation com
 ### 1. Cloud & Software Engineering Diagrams
 Stop assembling complex architectures out of raw coordinates. Drawlib provides high-level diagramming engines (`drawlib.diagrams`, `drawlib.graph`) and standardized icon sets (`drawlib.icons.gcp`, `phosphor`, `fontawesome`):
 
-![Cloud Architecture Showcase](readme_images/02_showcase_diagrams.png)
+![Cloud Architecture Showcase](docs/readme_images/02_showcase_diagrams.png)
 
 - **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) with nested clusters, `offset()` fine-tuning, and standalone code export (`export_code()`).
 - **Technical Diagrams (`drawlib.diagrams`)**:
@@ -33,7 +33,7 @@ Stop assembling complex architectures out of raw coordinates. Drawlib provides h
 ### 2. Quantitative Charts & SmartArt Infographics
 Compose presentation-ready infographics (`drawlib.smartarts`) and quantitative data plots (`drawlib.charts`) side by side on the same canvas:
 
-![Charts and SmartArts Showcase](readme_images/03_showcase_charts_smartarts.png)
+![Charts and SmartArts Showcase](docs/readme_images/03_showcase_charts_smartarts.png)
 
 - **SmartArts (`drawlib.smartarts`)**: `ChevronProcess`, `Cycle`, `Table`, `TreeNode`, `MindMapNode`, `Pyramid`, `BoxList`, `BulletPoints`, `GridLayout`, and syntax-highlighted `SourceCode`.
 - **Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, and `GanttChart` styled with the same design tokens as your diagrams.
@@ -43,7 +43,7 @@ Compose presentation-ready infographics (`drawlib.smartarts`) and quantitative d
 ### 3. Rich Primitives & Semantic Design System
 At its foundation, Drawlib separates **Content** (geometry, coordinates, structure) from **Style** (colors, typography, borders, themes)—just like HTML and CSS:
 
-![Primitives and Styles Showcase](readme_images/04_showcase_primitives.png)
+![Primitives and Styles Showcase](docs/readme_images/04_showcase_primitives.png)
 
 - **5 Core Primitive Categories**:
   - **Icons (`drawlib.icons`)**: 1,500+ Phosphor icons (5 weights), FontAwesome, and official Google Cloud (GCP) icons.
@@ -59,7 +59,7 @@ At its foundation, Drawlib separates **Content** (geometry, coordinates, structu
 ### 4. Illustrated Documentation & Slide as Code
 Write Markdown files with embedded ```` ```drawlib ```` code blocks. A single `drawlib build` command compiles your repository into multiple publication formats:
 
-![Documentation as Code Workflow](readme_images/05_workflow_doc_as_code.png)
+![Documentation as Code Workflow](docs/readme_images/05_workflow_doc_as_code.png)
 
 - **4 Project Scaffolds (`drawlib init <type>`)**:
   - `drawlib init site`: Multi-page documentation website (`docs_html/`), GitHub Markdown (`docs/`), and PDF.
@@ -72,7 +72,7 @@ Write Markdown files with embedded ```` ```drawlib ```` code blocks. A single `d
 ### 5. AI Inner Loop & Human Outer Loop
 Drawlib is engineered from the ground up for **AI-native documentation and diagram engineering** (Claude Code, Cursor, Gemini, Codex), separating high-frequency visual self-correction from high-level human review:
 
-![AI Inner Loop and Human Outer Loop](readme_images/06_ai_agent_loop.png)
+![AI Inner Loop and Human Outer Loop](docs/readme_images/06_ai_agent_loop.png)
 
 - **AI Inner Loop (Autonomous Visual Self-Correction)**:
   1. **On-Demand Spec & Codebase Lookup**: The AI agent autonomously queries **`drawlib rules show <topic>`** for detailed API specifications and design best practices, while directly inspecting **repository source code, schemas, and design docs** as the single source of truth.

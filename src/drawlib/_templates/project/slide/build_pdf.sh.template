@@ -10,7 +10,7 @@ else
 fi
 
 if [ -z "${DRAWLIB_CMD:-}" ]; then
-    if [ -f "uv.lock" ] && command -v uv &> /dev/null; then
+    if ( [ -f "uv.lock" ] || [ -f "../uv.lock" ] ) && command -v uv &> /dev/null; then
         DRAWLIB_CMD="uv run drawlib"
     elif command -v drawlib &> /dev/null; then
         DRAWLIB_CMD="drawlib"

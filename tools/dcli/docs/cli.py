@@ -58,15 +58,15 @@ def build(
 
 
 SERVE_TARGET_MAP: dict[str, str] = {
-    "site": "docs_html",
-    "docs": "docs_html",
-    "docs_html": "docs_html",
-    "dogfooding": "drawlib-dogfooding_html",
-    "dogfooding-en": "drawlib-dogfooding-en_html",
-    "quickstart": "quickstart_html",
-    "slide": "slide_about_drawlib_html",
-    "slide_about_drawlib": "slide_about_drawlib_html",
-    "slide-about-drawlib": "slide_about_drawlib_html",
+    "site": "docs/docs_html",
+    "docs": "docs/docs_html",
+    "docs_html": "docs/docs_html",
+    "dogfooding": "docs/drawlib-dogfooding_html",
+    "dogfooding-en": "docs/drawlib-dogfooding-en_html",
+    "quickstart": "docs/quickstart_html",
+    "slide": "docs/slide_about_drawlib_html",
+    "slide_about_drawlib": "docs/slide_about_drawlib_html",
+    "slide-about-drawlib": "docs/slide_about_drawlib_html",
 }
 
 

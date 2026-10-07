@@ -13,9 +13,7 @@ This document describes the project structure and architectural principles of th
   - `_core/`: Core drawing engine implementation details (`l1_core`, `l2_types`, `l3_colors`, `l3_external`, `l3_fonts`, `l3_images`, `l3_math`, `l3_styles`, `l4_canvas`).
   - `_preset_styles/`, `_charts/`, `_diagrams/`, `_graph/`, `_smartarts/`, `_icons/`, `_anim/`, `_slide/`, `_templates/`: Domain implementations and styling/template assets.
   - `_cli/`, `_builder/`, `_http_server/`: CLI entrypoint, doc & image build engines, and local preview server.
-- `docs_src/`: Source of truth for documentation and technical guides written in Markdown.
-- `docs/`: Generated Markdown documentation for GitHub repository browsing (do not edit directly).
-- `docs_html/`: Generated static HTML site for web hosting (do not edit directly).
+- `docs/`: Documentation projects (`docs/*_src/` sources of truth) and their generated outputs (`docs/docs_html/`, `docs/docs_markdown/`, etc.; do not edit generated outputs directly).
 - `tests/`: Contains unit and integration tests.
 - `tools/`: Project developer CLI (`tools/dcli/`).
 - `.agents/`: Agent instructions, rules (`.agents/rules/`), and feature/architecture design plans (`.agents/plans/`). Always write design and implementation plans to `.agents/plans/` (never create a root-level `plans/` directory).

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ "__SRC_DIR__" = "." ]; then
+if [ "quickstart_src" = "." ]; then
     cd "$SCRIPT_DIR"
 else
     PARENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -25,7 +25,10 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
     fi
 fi
 
-echo "Using Drawlib command: $DRAWLIB_CMD"
-echo "Building PDF document..."
-$DRAWLIB_CMD build pdf __SRC_DIR__/ -o __OUT_PDF__ --generate-index
-echo "PDF build complete: __OUT_PDF__"
+if [ ! -d "quickstart_html" ]; then
+    echo "Output directory 'quickstart_html' does not exist. Running build_html.sh first..."
+    "$SCRIPT_DIR/build_html.sh"
+fi
+
+echo "Starting local preview server on http://localhost:8000 ..."
+$DRAWLIB_CMD serve quickstart_html/

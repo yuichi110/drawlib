@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ "__SRC_DIR__" = "." ]; then
+if [ "quickstart_src" = "." ]; then
     cd "$SCRIPT_DIR"
 else
     PARENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -26,6 +26,6 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
 fi
 
 echo "Using Drawlib command: $DRAWLIB_CMD"
-echo "Building PDF document..."
-$DRAWLIB_CMD build pdf __SRC_DIR__/ -o __OUT_PDF__ --generate-index
-echo "PDF build complete: __OUT_PDF__"
+echo "Extracting standalone diagram images..."
+$DRAWLIB_CMD build image quickstart_src/ -o quickstart_images/
+echo "Image extraction complete: quickstart_images/"
