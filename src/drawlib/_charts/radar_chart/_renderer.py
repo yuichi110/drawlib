@@ -15,9 +15,15 @@ import math
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._axis import _get_nice_step
-from drawlib._charts._common._style_utils import ensure_line_style, ensure_shape_style, ensure_text_style
+from drawlib._charts._common._style_utils import (
+    clamp_ratio,
+    ensure_line_style,
+    ensure_shape_style,
+    ensure_text_style,
+    resolve_series_color,
+    with_alpha,
+)
 from drawlib._charts._common._types import ColorType, FormatterType
-from drawlib._core.l3_colors import Color
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
 from drawlib._core.l4_canvas import line as canvas_line
@@ -29,20 +35,6 @@ from drawlib._core.l4_canvas import text as canvas_text
 if TYPE_CHECKING:
     from drawlib._charts.radar_chart._chart import RadarChart
     from drawlib._charts.radar_chart._series import Series
-
-
-def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
-    """Return an RGBA color tuple replacing alpha with given ratio."""
-    c = color if isinstance(color, Color) else Color(color)
-    return (c.r, c.g, c.b, float(alpha))
-
-
-def _resolve_series_colors(series_list: list[Series]) -> list[ColorType]:
-    """Resolve fill/stroke colors for all series."""
-    return [
-        s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0)
-        for s in series_list
-    ]
 
 
 def _format_value(fmt: FormatterType, value: float) -> str:
@@ -167,6 +159,7 @@ def _draw_series_markers_and_labels(
     chart: RadarChart,
     s: Series,
     pts: list[tuple[float, float]],
+    v_ratios: list[float],
     color: ColorType,
 ) -> None:
     """Render vertex markers and value text labels for a single series."""
@@ -178,14 +171,17 @@ def _draw_series_markers_and_labels(
         shape_line_color=color,
         shape_line_width=1.5,
     )
-    for (px, py), val in zip(pts, s.values, strict=False):
+    for (px, py), val, v_dr in zip(pts, s.values, v_ratios, strict=False):
+        if v_dr <= 0.0:
+            continue
+
         if s.point_shape == "circle":
             canvas_circle(xy=(px, py), radius=s.point_size, style=marker_style)
         elif s.point_shape == "square":
             side = s.point_size * 1.6
             canvas_rectangle(xy=(px, py), width=side, height=side, style=marker_style)
 
-        if chart.value_text_style is not None:
+        if chart.value_text_style is not None and v_dr >= 0.5:
             v_str = _format_value(chart.value_format, val)
             v_style = ensure_text_style(chart.value_text_style, halign="center", valign="bottom")
             canvas_text(xy=(px, py + s.point_size + 1.2), text=v_str, style=v_style)
@@ -204,28 +200,36 @@ def _draw_series(
     if span <= 0:
         return
 
+    num_cats = len(angles)
     for s_idx, s in enumerate(chart.series):
         if not s.show or not s.values:
             continue
 
-        dr = max(0.0, min(1.0, float(s.draw_ratio)))
+        dr = clamp_ratio(s.draw_ratio)
         if dr <= 0.0:
             continue
 
         color = series_colors[s_idx]
         pts: list[tuple[float, float]] = []
+        v_ratios: list[float] = []
 
         for i, a in enumerate(angles):
             val = s.values[i] if i < len(s.values) else chart.min_value
             clamped_val = max(chart.min_value, min(eff_max, val))
             ratio = (clamped_val - chart.min_value) / span
-            r = chart.radius * ratio * dr
+            v_dr = (
+                max(0.0, min(1.0, dr * num_cats - i))
+                if (s.draw_direction == "left_to_right" and dr < 1.0)
+                else dr
+            )
+            v_ratios.append(v_dr)
+            r = chart.radius * ratio * v_dr
             pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
 
         # 1. Filled transparent polygon
         if s.fill_alpha > 0.0:
             fill_style = Style(
-                shape_fill_color=_with_alpha(color, s.fill_alpha),
+                shape_fill_color=with_alpha(color, s.fill_alpha),
                 shape_line_color=(0, 0, 0, 0.0),
                 shape_line_width=0,
             )
@@ -242,7 +246,7 @@ def _draw_series(
         canvas_lines(xys=pts + [pts[0]], style=stroke_style)
 
         # 3. Vertex markers and labels
-        _draw_series_markers_and_labels(chart, s, pts, color)
+        _draw_series_markers_and_labels(chart, s, pts, v_ratios, color)
 
 
 def draw_radar_chart(chart: RadarChart, xy: tuple[float, float]) -> None:
@@ -273,7 +277,7 @@ def draw_radar_chart(chart: RadarChart, xy: tuple[float, float]) -> None:
     # Angular progression: top spoke is 90 degrees, progressing clockwise
     angles = [math.radians(90.0 - i * (360.0 / num_cats)) for i in range(num_cats)]
     eff_max = _calculate_max_value(chart)
-    series_colors = _resolve_series_colors(chart.series)
+    series_colors = [resolve_series_color(s.style) for s in chart.series]
 
     has_title = bool(chart.title and chart.title_style is not None)
     center_x = c_min_x + chart_w / 2.0

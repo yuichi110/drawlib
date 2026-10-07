@@ -14,12 +14,17 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._axis import calculate_axis_range_and_ticks, value_to_ratio
+from drawlib._charts._common._style_utils import (
+    clamp_ratio,
+    ensure_line_style,
+    ensure_shape_style,
+    ensure_text_style,
+)
 from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
 
 if TYPE_CHECKING:
-    from drawlib._charts._common._axis import Axis
     from drawlib._charts.bar_chart._chart import BarChart
     from drawlib._charts.bar_chart._series import Series
     from drawlib._core.l3_styles import Style
@@ -41,7 +46,7 @@ def draw_bar_chart(chart: BarChart, xy: tuple[float, float]) -> None:
             xy=(bx + cw / 2.0, by + ch / 2.0),
             width=cw,
             height=ch,
-            style=chart.background_style,
+            style=ensure_shape_style(chart.background_style),
         )
 
     # 2. Title
@@ -49,7 +54,7 @@ def draw_bar_chart(chart: BarChart, xy: tuple[float, float]) -> None:
     if chart.title and chart.title_style is not None:
         title_h = 4.5
         title_y = by + ch - 2.5
-        title_style = chart.title_style.patch(text_halign="center", text_valign="center")
+        title_style = ensure_text_style(chart.title_style, halign="center", valign="center")
         canvas_text(xy=(bx + cw / 2.0, title_y), text=chart.title, style=title_style)
 
     # 3. Margins
@@ -136,10 +141,10 @@ def _draw_vertical_grid_and_ticks(
     grid_style = val_axis.grid_style or chart.grid_style
     tick_label_style = val_axis.tick_label_style or chart.axis_text_style
     if tick_label_style is not None:
-        tick_label_style = tick_label_style.patch(
-            text_halign="right",
-            text_valign="center",
-            text_angle=val_axis.tick_label_angle,
+        tick_label_style = ensure_text_style(
+            tick_label_style.patch(text_angle=val_axis.tick_label_angle),
+            halign="right",
+            valign="center",
         )
 
     for tick in ticks:
@@ -147,7 +152,7 @@ def _draw_vertical_grid_and_ticks(
         tick_y = p_min_y + ratio * plot_h
 
         if val_axis.show_grid and grid_style is not None and 0.001 < ratio < 0.999:
-            canvas_line(xy1=(p_min_x, tick_y), xy2=(p_max_x, tick_y), style=grid_style)
+            canvas_line(xy1=(p_min_x, tick_y), xy2=(p_max_x, tick_y), style=ensure_line_style(grid_style))
 
         if val_axis.show_ticks and tick_label_style is not None:
             formatted_tick = val_axis.format_value(tick)
@@ -164,10 +169,10 @@ def _draw_vertical_category_labels(
     cat_label_style = chart.x_axis.tick_label_style or chart.axis_text_style
     if cat_label_style is None:
         return
-    cat_label_style = cat_label_style.patch(
-        text_halign="center",
-        text_valign="top",
-        text_angle=chart.x_axis.tick_label_angle,
+    cat_label_style = ensure_text_style(
+        cat_label_style.patch(text_angle=chart.x_axis.tick_label_angle),
+        halign="center",
+        valign="top",
     )
     for c_idx, cat in enumerate(chart.categories):
         cat_cx = p_min_x + (c_idx + 0.5) * slot_w
@@ -183,7 +188,7 @@ def _get_bar_cat_ratio(
     """Compute effective bar drawing ratio [0.0, 1.0] for category c_idx."""
     if not series.show:
         return 0.0
-    r = max(0.0, min(1.0, float(series.draw_ratio)))
+    r = clamp_ratio(series.draw_ratio)
     if r <= 0.0 or r >= 1.0 or cat_count <= 0:
         return r
     if orientation == "vertical":
@@ -239,12 +244,12 @@ def _draw_vertical_grouped_bars(
                 width=bar_w,
                 height=h,
                 r=chart.r,
-                style=series.style,
+                style=ensure_shape_style(series.style),
             )
 
             if val_label_style is not None:
                 lbl = val_axis.format_value(v)
-                v_style = val_label_style.patch(text_halign="center", text_valign="bottom")
+                v_style = ensure_text_style(val_label_style, halign="center", valign="bottom")
                 canvas_text(xy=(bar_cx, p_min_y + val_ratio * plot_h + 0.8), text=lbl, style=v_style)
 
 
@@ -291,13 +296,13 @@ def _draw_vertical_stacked_bars(
                 width=bar_w,
                 height=h,
                 r=chart.r,
-                style=series.style,
+                style=ensure_shape_style(series.style),
             )
 
         if val_label_style is not None and any_drawn:
             top_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             lbl = val_axis.format_value(accum_val)
-            v_style = val_label_style.patch(text_halign="center", text_valign="bottom")
+            v_style = ensure_text_style(val_label_style, halign="center", valign="bottom")
             canvas_text(xy=(cat_cx, p_min_y + top_ratio * plot_h + 0.8), text=lbl, style=v_style)
 
 
@@ -322,7 +327,7 @@ def _render_vertical_bars(
     base_y = p_min_y + base_ratio * plot_h
     axis_line_style = val_axis.line_style or chart.axis_line_style
     if val_axis.show_axis_line and axis_line_style is not None:
-        canvas_line(xy1=(p_min_x, base_y), xy2=(p_max_x, base_y), style=axis_line_style)
+        canvas_line(xy1=(p_min_x, base_y), xy2=(p_max_x, base_y), style=ensure_line_style(axis_line_style))
 
     cat_count = len(chart.categories)
     slot_w = plot_w / max(1, cat_count)
@@ -374,10 +379,10 @@ def _draw_horizontal_grid_and_ticks(
     grid_style = val_axis.grid_style or chart.grid_style
     tick_label_style = val_axis.tick_label_style or chart.axis_text_style
     if tick_label_style is not None:
-        tick_label_style = tick_label_style.patch(
-            text_halign="center",
-            text_valign="top",
-            text_angle=val_axis.tick_label_angle,
+        tick_label_style = ensure_text_style(
+            tick_label_style.patch(text_angle=val_axis.tick_label_angle),
+            halign="center",
+            valign="top",
         )
 
     for tick in ticks:
@@ -385,7 +390,7 @@ def _draw_horizontal_grid_and_ticks(
         tick_x = p_min_x + ratio * plot_w
 
         if val_axis.show_grid and grid_style is not None and 0.001 < ratio < 0.999:
-            canvas_line(xy1=(tick_x, p_min_y), xy2=(tick_x, p_max_y), style=grid_style)
+            canvas_line(xy1=(tick_x, p_min_y), xy2=(tick_x, p_max_y), style=ensure_line_style(grid_style))
 
         if val_axis.show_ticks and tick_label_style is not None:
             formatted_tick = val_axis.format_value(tick)
@@ -402,10 +407,10 @@ def _draw_horizontal_category_labels(
     cat_label_style = chart.y_axis.tick_label_style or chart.axis_text_style
     if cat_label_style is None:
         return
-    cat_label_style = cat_label_style.patch(
-        text_halign="right",
-        text_valign="center",
-        text_angle=chart.y_axis.tick_label_angle,
+    cat_label_style = ensure_text_style(
+        cat_label_style.patch(text_angle=chart.y_axis.tick_label_angle),
+        halign="right",
+        valign="center",
     )
     for c_idx, cat in enumerate(chart.categories):
         cat_cy = p_max_y - (c_idx + 0.5) * slot_h
@@ -455,12 +460,12 @@ def _draw_horizontal_grouped_bars(
                 width=w,
                 height=bar_h,
                 r=chart.r,
-                style=series.style,
+                style=ensure_shape_style(series.style),
             )
 
             if val_label_style is not None:
                 lbl = val_axis.format_value(v)
-                v_style = val_label_style.patch(text_halign="left", text_valign="center")
+                v_style = ensure_text_style(val_label_style, halign="left", valign="center")
                 canvas_text(xy=(p_min_x + val_ratio * plot_w + 1.2, bar_cy), text=lbl, style=v_style)
 
 
@@ -507,13 +512,13 @@ def _draw_horizontal_stacked_bars(
                 width=w,
                 height=bar_h,
                 r=chart.r,
-                style=series.style,
+                style=ensure_shape_style(series.style),
             )
 
         if val_label_style is not None and any_drawn:
             top_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             lbl = val_axis.format_value(accum_val)
-            v_style = val_label_style.patch(text_halign="left", text_valign="center")
+            v_style = ensure_text_style(val_label_style, halign="left", valign="center")
             canvas_text(xy=(p_min_x + top_ratio * plot_w + 1.2, cat_cy), text=lbl, style=v_style)
 
 
@@ -538,7 +543,7 @@ def _render_horizontal_bars(
     base_x = p_min_x + base_ratio * plot_w
     axis_line_style = val_axis.line_style or chart.axis_line_style
     if val_axis.show_axis_line and axis_line_style is not None:
-        canvas_line(xy1=(base_x, p_min_y), xy2=(base_x, p_max_y), style=axis_line_style)
+        canvas_line(xy1=(base_x, p_min_y), xy2=(base_x, p_max_y), style=ensure_line_style(axis_line_style))
 
     cat_count = len(chart.categories)
     slot_h = plot_h / max(1, cat_count)

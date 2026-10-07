@@ -15,11 +15,17 @@ import math
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
-from drawlib._charts._common._style_utils import ensure_line_style, ensure_shape_style, ensure_text_style
-from drawlib._charts._common._types import ColorType, LineStyle
+from drawlib._charts._common._style_utils import (
+    clamp_ratio,
+    ensure_line_style,
+    ensure_shape_style,
+    ensure_text_style,
+    resolve_series_color,
+    with_alpha,
+)
+from drawlib._charts._common._types import ColorType
 from drawlib._charts.area_chart._series import Series as AreaSeries
 from drawlib._charts.line_chart._series import Series as LineSeries
-from drawlib._core.l3_colors import Color
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle as canvas_circle
 from drawlib._core.l4_canvas import line as canvas_line
@@ -36,19 +42,28 @@ if TYPE_CHECKING:
     from drawlib._charts.line_chart._line import LineChart
 
 
-def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
-    """Return an RGBA color tuple replacing alpha with given ratio."""
-    c = color if isinstance(color, Color) else Color(color)
-    return (c.r, c.g, c.b, float(alpha))
+def _build_series_stroke_style(s: LineSeries | AreaSeries, color: ColorType) -> Style:
+    """Build normalized stroke Style for a line or area series."""
+    stroke_style = s.style
+    if stroke_style.line_color is None or stroke_style.line_width is None:
+        default_stroke_style = Style(
+            line_color=color,
+            line_width=s.line_width,
+            line_style=s.line_style,
+        )
+        stroke_style = default_stroke_style.patch(s.style)
+    return ensure_line_style(stroke_style)
 
 
-def _resolve_series_colors(series_list: list[LineSeries] | list[AreaSeries]) -> list[ColorType]:
-    """Resolve fill/stroke colors for all series."""
-    colors: list[ColorType] = []
-    for s in series_list:
-        color = s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0)
-        colors.append(color)
-    return colors
+def _build_area_fill_style(chart: AreaChart, s: AreaSeries, color: ColorType) -> Style:
+    """Build polygon fill Style for an area series."""
+    alpha = s.fill_alpha if s.fill_alpha is not None else chart.fill_alpha
+    fill_color = s.style.shape_fill_color or with_alpha(color, alpha)
+    return Style(
+        shape_fill_color=fill_color,
+        shape_line_color=Colors.Transparent,
+        shape_line_width=0.0,
+    )
 
 
 def _clip_polyline_left_to_right(
@@ -113,10 +128,10 @@ def _draw_grid_and_ticks(
     grid_style = val_axis.grid_style or chart.grid_style
     tick_label_style = val_axis.tick_label_style or chart.axis_text_style
     if tick_label_style is not None:
-        tick_label_style = tick_label_style.patch(
-            text_halign="right",
-            text_valign="center",
-            text_angle=val_axis.tick_label_angle,
+        tick_label_style = ensure_text_style(
+            tick_label_style.patch(text_angle=val_axis.tick_label_angle),
+            halign="right",
+            valign="center",
         )
 
     for tick in ticks:
@@ -124,7 +139,7 @@ def _draw_grid_and_ticks(
         tick_y = p_min_y + ratio * plot_h
 
         if val_axis.show_grid and grid_style is not None and 0.001 < ratio < 0.999:
-            canvas_line(xy1=(p_min_x, tick_y), xy2=(p_max_x, tick_y), style=grid_style)
+            canvas_line(xy1=(p_min_x, tick_y), xy2=(p_max_x, tick_y), style=ensure_line_style(grid_style))
 
         if val_axis.show_ticks and tick_label_style is not None:
             formatted_tick = val_axis.format_value(tick)
@@ -142,14 +157,76 @@ def _draw_category_labels(
     cat_label_style = cat_axis.tick_label_style or chart.axis_text_style
     if cat_label_style is None:
         return
-    cat_label_style = cat_label_style.patch(
-        text_halign="center",
-        text_valign="top",
-        text_angle=cat_axis.tick_label_angle,
+    cat_label_style = ensure_text_style(
+        cat_label_style.patch(text_angle=cat_axis.tick_label_angle),
+        halign="center",
+        valign="top",
     )
     for c_idx, cat in enumerate(chart.categories):
         cat_cx = p_min_x + (c_idx + 0.5) * slot_w
         canvas_text(xy=(cat_cx, p_min_y - 1.8), text=cat, style=cat_label_style)
+
+
+def _prepare_cartesian_frame(
+    chart: LineChart | AreaChart,
+    xy: tuple[float, float],
+    data_min: float,
+    data_max: float,
+    *,
+    is_bar: bool,
+    clamp_base_at_zero: bool,
+) -> tuple[float, float, float, float, float, float, float, float, list[ColorType]]:
+    """Render background, title, grid, baseline, and category labels, returning plot geometry."""
+    c_min_x, c_min_y = float(xy[0]), float(xy[1])
+    c_max_x = c_min_x + chart.width
+    c_max_y = c_min_y + chart.height
+
+    if chart.background_style is not None:
+        canvas_rectangle(
+            xy=((c_min_x + c_max_x) / 2.0, (c_min_y + c_max_y) / 2.0),
+            width=chart.width,
+            height=chart.height,
+            style=ensure_shape_style(chart.background_style),
+        )
+
+    has_title = bool(chart.title and chart.title_style is not None)
+    if chart.title and chart.title_style is not None:
+        t_style = ensure_text_style(chart.title_style, halign="center", valign="bottom")
+        canvas_text(xy=((c_min_x + c_max_x) / 2.0, c_max_y - 3.5), text=chart.title, style=t_style)
+
+    has_axis_text = (
+        chart.axis_text_style is not None
+        or chart.x_axis.tick_label_style is not None
+        or chart.y_axis.tick_label_style is not None
+    )
+    p_min_x, p_min_y, p_max_x, p_max_y = _calculate_plot_bounds(
+        xy, chart.width, chart.height, has_title=has_title, has_axis_text=has_axis_text
+    )
+    plot_w = p_max_x - p_min_x
+    plot_h = p_max_y - p_min_y
+
+    series_colors = [resolve_series_color(s.style) for s in chart.series]
+
+    val_axis = chart.y_axis
+    eff_min, eff_max, ticks = calculate_axis_range_and_ticks(val_axis, data_min, data_max, is_bar=is_bar)
+    _draw_grid_and_ticks(chart, val_axis, ticks, eff_min, eff_max, p_min_x, p_min_y, p_max_x, plot_h)
+
+    if val_axis.scale == "log":
+        base_val = eff_min
+    else:
+        base_val = max(0.0, eff_min) if clamp_base_at_zero else 0.0
+    base_ratio = value_to_ratio(base_val, eff_min, eff_max, val_axis.scale)
+    base_y = p_min_y + base_ratio * plot_h
+
+    axis_line_style = val_axis.line_style or chart.axis_line_style
+    if val_axis.show_axis_line and axis_line_style is not None:
+        canvas_line(xy1=(p_min_x, base_y), xy2=(p_max_x, base_y), style=ensure_line_style(axis_line_style))
+
+    num_cats = len(chart.categories)
+    slot_w = plot_w / max(1, num_cats)
+    _draw_category_labels(chart, p_min_x, p_min_y, slot_w)
+
+    return p_min_x, p_min_y, plot_h, slot_w, eff_min, eff_max, base_val, base_y, series_colors
 
 
 def _render_markers_and_labels(
@@ -176,7 +253,7 @@ def _render_markers_and_labels(
 
         if val_label_style is not None:
             lbl = val_axis.format_value(v)
-            v_style = val_label_style.patch(text_halign="center", text_valign="bottom")
+            v_style = ensure_text_style(val_label_style, halign="center", valign="bottom")
             canvas_text(xy=(px, py + point_size + 1.4), text=lbl, style=v_style)
 
 
@@ -197,7 +274,7 @@ def _draw_single_line_series(
     """Render a single series polyline, markers, and value labels."""
     if not s.show:
         return
-    dr = max(0.0, min(1.0, float(s.draw_ratio)))
+    dr = clamp_ratio(s.draw_ratio)
     if dr <= 0.0:
         return
 
@@ -219,20 +296,13 @@ def _draw_single_line_series(
         marker_pts = pts
         marker_vals = s.values[: len(pts)]
 
-    stroke_style = s.style
-    if stroke_style.line_color is None or stroke_style.line_width is None:
-        default_stroke_style = Style(
-            line_color=color,
-            line_width=s.line_width,
-            line_style=s.line_style,
-        )
-        stroke_style = default_stroke_style.patch(s.style)
+    stroke_style = _build_series_stroke_style(s, color)
 
     if len(line_pts) >= 2:
         if chart.smooth and len(line_pts) >= 3:
-            canvas_lines_curved(xys=line_pts, r=slot_w * 0.4, style=ensure_line_style(stroke_style))
+            canvas_lines_curved(xys=line_pts, r=slot_w * 0.4, style=stroke_style)
         else:
-            canvas_lines(xys=line_pts, style=ensure_line_style(stroke_style))
+            canvas_lines(xys=line_pts, style=stroke_style)
 
     if chart.show_points and s.point_shape != "none":
         _render_markers_and_labels(
@@ -248,56 +318,31 @@ def _draw_single_line_series(
 
 def draw_line_chart(chart: LineChart, xy: tuple[float, float]) -> None:
     """Render a complete LineChart onto the canvas."""
-    c_min_x, c_min_y = float(xy[0]), float(xy[1])
-    c_max_x = c_min_x + chart.width
-    c_max_y = c_min_y + chart.height
-
-    if chart.background_style is not None:
-        canvas_rectangle(
-            xy=((c_min_x + c_max_x) / 2.0, (c_min_y + c_max_y) / 2.0),
-            width=chart.width,
-            height=chart.height,
-            style=ensure_shape_style(chart.background_style),
-        )
-
-    has_title = bool(chart.title and chart.title_style is not None)
-    if chart.title and chart.title_style is not None:
-        t_style = ensure_text_style(chart.title_style, halign="center", valign="bottom")
-        canvas_text(xy=((c_min_x + c_max_x) / 2.0, c_max_y - 3.5), text=chart.title, style=t_style)
-
-    has_axis_text = (
-        chart.axis_text_style is not None
-        or chart.x_axis.tick_label_style is not None
-        or chart.y_axis.tick_label_style is not None
-    )
-    plot_bounds = _calculate_plot_bounds(
-        xy, chart.width, chart.height, has_title=has_title, has_axis_text=has_axis_text
-    )
-    p_min_x, p_min_y, p_max_x, p_max_y = plot_bounds
-    plot_w = p_max_x - p_min_x
-    plot_h = p_max_y - p_min_y
-
-    series_colors = _resolve_series_colors(chart.series)
-
     all_vals = [v for s in chart.series for v in s.values]
     data_min = min(all_vals) if all_vals else 0.0
     data_max = max(all_vals) if all_vals else 10.0
-    val_axis = chart.y_axis
 
-    eff_min, eff_max, ticks = calculate_axis_range_and_ticks(val_axis, data_min, data_max, is_bar=False)
-    _draw_grid_and_ticks(chart, val_axis, ticks, eff_min, eff_max, p_min_x, p_min_y, p_max_x, plot_h)
-
-    base_val = eff_min if val_axis.scale == "log" else max(0.0, eff_min)
-    base_ratio = value_to_ratio(base_val, eff_min, eff_max, val_axis.scale)
-    base_y = p_min_y + base_ratio * plot_h
-    axis_line_style = val_axis.line_style or chart.axis_line_style
-    if val_axis.show_axis_line and axis_line_style is not None:
-        canvas_line(xy1=(p_min_x, base_y), xy2=(p_max_x, base_y), style=ensure_line_style(axis_line_style))
+    (
+        p_min_x,
+        p_min_y,
+        plot_h,
+        slot_w,
+        eff_min,
+        eff_max,
+        _,
+        base_y,
+        series_colors,
+    ) = _prepare_cartesian_frame(
+        chart,
+        xy,
+        data_min,
+        data_max,
+        is_bar=False,
+        clamp_base_at_zero=True,
+    )
 
     num_cats = len(chart.categories)
-    slot_w = plot_w / max(1, num_cats)
-    _draw_category_labels(chart, p_min_x, p_min_y, slot_w)
-
+    val_axis = chart.y_axis
     for s_idx, s in enumerate(chart.series):
         if not s.values or num_cats == 0:
             continue
@@ -319,37 +364,6 @@ def draw_line_chart(chart: LineChart, xy: tuple[float, float]) -> None:
 
 def draw_area_chart(chart: AreaChart, xy: tuple[float, float]) -> None:
     """Render a complete AreaChart onto the canvas."""
-    c_min_x, c_min_y = float(xy[0]), float(xy[1])
-    c_max_x = c_min_x + chart.width
-    c_max_y = c_min_y + chart.height
-
-    if chart.background_style is not None:
-        canvas_rectangle(
-            xy=((c_min_x + c_max_x) / 2.0, (c_min_y + c_max_y) / 2.0),
-            width=chart.width,
-            height=chart.height,
-            style=ensure_shape_style(chart.background_style),
-        )
-
-    has_title = bool(chart.title and chart.title_style is not None)
-    if chart.title and chart.title_style is not None:
-        t_style = ensure_text_style(chart.title_style, halign="center", valign="bottom")
-        canvas_text(xy=((c_min_x + c_max_x) / 2.0, c_max_y - 3.5), text=chart.title, style=t_style)
-
-    has_axis_text = (
-        chart.axis_text_style is not None
-        or chart.x_axis.tick_label_style is not None
-        or chart.y_axis.tick_label_style is not None
-    )
-    plot_bounds = _calculate_plot_bounds(
-        xy, chart.width, chart.height, has_title=has_title, has_axis_text=has_axis_text
-    )
-    p_min_x, p_min_y, p_max_x, p_max_y = plot_bounds
-    plot_w = p_max_x - p_min_x
-    plot_h = p_max_y - p_min_y
-
-    series_colors = _resolve_series_colors(chart.series)
-
     num_cats = len(chart.categories)
     data_min = 0.0
     data_max = 10.0
@@ -364,19 +378,24 @@ def draw_area_chart(chart: AreaChart, xy: tuple[float, float]) -> None:
             data_min = min(0.0, *all_vals)
             data_max = max(all_vals)
 
-    val_axis = chart.y_axis
-    eff_min, eff_max, ticks = calculate_axis_range_and_ticks(val_axis, data_min, data_max, is_bar=True)
-    _draw_grid_and_ticks(chart, val_axis, ticks, eff_min, eff_max, p_min_x, p_min_y, p_max_x, plot_h)
-
-    base_val = eff_min if val_axis.scale == "log" else 0.0
-    base_ratio = value_to_ratio(base_val, eff_min, eff_max, val_axis.scale)
-    base_y = p_min_y + base_ratio * plot_h
-    axis_line_style = val_axis.line_style or chart.axis_line_style
-    if val_axis.show_axis_line and axis_line_style is not None:
-        canvas_line(xy1=(p_min_x, base_y), xy2=(p_max_x, base_y), style=axis_line_style)
-
-    slot_w = plot_w / max(1, num_cats)
-    _draw_category_labels(chart, p_min_x, p_min_y, slot_w)
+    (
+        p_min_x,
+        p_min_y,
+        plot_h,
+        slot_w,
+        eff_min,
+        eff_max,
+        base_val,
+        base_y,
+        series_colors,
+    ) = _prepare_cartesian_frame(
+        chart,
+        xy,
+        data_min,
+        data_max,
+        is_bar=True,
+        clamp_base_at_zero=False,
+    )
 
     val_label_style = chart.value_text_style
 
@@ -430,7 +449,7 @@ def _draw_overlap_areas(
         if not s.values or num_cats == 0 or not s.show:
             continue
 
-        dr = max(0.0, min(1.0, float(s.draw_ratio)))
+        dr = clamp_ratio(s.draw_ratio)
         if dr <= 0.0:
             continue
 
@@ -455,24 +474,8 @@ def _draw_overlap_areas(
 
         if len(line_pts) >= 2:
             poly_pts = [(line_pts[0][0], base_y)] + line_pts + [(line_pts[-1][0], base_y)]
-            alpha = s.fill_alpha if s.fill_alpha is not None else chart.fill_alpha
-            fill_color = s.style.shape_fill_color or _with_alpha(color, alpha)
-            fill_style = Style(
-                shape_fill_color=fill_color,
-                shape_line_color=Colors.Transparent,
-                shape_line_width=0.0,
-            )
-            canvas_polygon(xys=poly_pts, style=fill_style)
-
-            stroke_style = s.style
-            if stroke_style.line_color is None or stroke_style.line_width is None:
-                default_stroke_style = Style(
-                    line_color=color,
-                    line_width=s.line_width,
-                    line_style=s.line_style,
-                )
-                stroke_style = default_stroke_style.patch(s.style)
-            canvas_lines(xys=line_pts, style=stroke_style)
+            canvas_polygon(xys=poly_pts, style=_build_area_fill_style(chart, s, color))
+            canvas_lines(xys=line_pts, style=_build_series_stroke_style(s, color))
 
         if chart.show_points and s.point_shape != "none":
             _render_markers_and_labels(
@@ -507,7 +510,7 @@ def _draw_stacked_areas(
         if not s.values or num_cats == 0 or not s.show:
             continue
 
-        dr = max(0.0, min(1.0, float(s.draw_ratio)))
+        dr = clamp_ratio(s.draw_ratio)
         if dr <= 0.0:
             continue
 
@@ -544,24 +547,8 @@ def _draw_stacked_areas(
         if len(line_pts_cur) >= 2:
             # Closed polygon: upper curve forward, lower curve reversed
             poly_pts = line_pts_cur + list(reversed(line_pts_prev))
-            alpha = s.fill_alpha if s.fill_alpha is not None else chart.fill_alpha
-            fill_color = s.style.shape_fill_color or _with_alpha(color, alpha)
-            fill_style = Style(
-                shape_fill_color=fill_color,
-                shape_line_color=Colors.Transparent,
-                shape_line_width=0.0,
-            )
-            canvas_polygon(xys=poly_pts, style=fill_style)
-
-            stroke_style = s.style
-            if stroke_style.line_color is None or stroke_style.line_width is None:
-                default_stroke_style = Style(
-                    line_color=color,
-                    line_width=s.line_width,
-                    line_style=s.line_style,
-                )
-                stroke_style = default_stroke_style.patch(s.style)
-            canvas_lines(xys=line_pts_cur, style=stroke_style)
+            canvas_polygon(xys=poly_pts, style=_build_area_fill_style(chart, s, color))
+            canvas_lines(xys=line_pts_cur, style=_build_series_stroke_style(s, color))
 
         if chart.show_points and s.point_shape != "none":
             _render_markers_and_labels(

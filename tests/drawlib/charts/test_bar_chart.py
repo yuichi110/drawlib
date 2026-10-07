@@ -292,9 +292,7 @@ class TestBarChartRendering:
                 width=70.0,
                 height=45.0,
             )
-            s_style = Style(
-                shape_fill_color=(50, 100, 200, 1.0), shape_line_color=(0, 0, 0, 0.0), shape_line_width=0.0
-            )
+            s_style = Style(shape_fill_color=(50, 100, 200, 1.0))
             s1 = chart.add_series("S1", [10.0, 20.0, 30.0, 40.0], style=s_style, draw_ratio=0.5)
             s2 = chart.add_series(
                 "S2",

@@ -231,6 +231,7 @@ class TestRadarChartRendering:
             chart = RadarChart(
                 categories=["A", "B", "C", "D"],
                 axis_line_style=Style(line_color=(203, 213, 225)),
+                value_text_style=Style(text_size=8.0, text_color=(30, 41, 59)),
                 radius=20.0,
             )
             chart.configure_axis(min_value=10.0, max_value=100.0, levels=3, scale_format="{:.0f}")
@@ -239,12 +240,21 @@ class TestRadarChartRendering:
             assert chart.levels == 3
 
             s1 = chart.add_series("S1", [80, 70, 90, 60], style=Style(line_color=(50, 100, 200)), draw_ratio=0.5)
-            s2 = chart.add_series("S2", [50, 60, 70, 80], style=Style(line_color=(200, 50, 100)), show=False)
+            s2 = chart.add_series(
+                "S2",
+                [65, 85, 75, 95],
+                style=Style(line_color=(40, 180, 120)),
+                draw_ratio=0.6,
+                draw_direction="left_to_right",
+            )
+            s3 = chart.add_series("S3", [50, 60, 70, 80], style=Style(line_color=(200, 50, 100)), show=False)
             assert s1.draw_ratio == 0.5
-            assert s2.show is False
+            assert s2.draw_direction == "left_to_right"
+            assert s3.show is False
 
             orig_size = chart.get_size()
             chart.draw(xy=(10.0, 10.0), radius=15.0, width=45.0, height=45.0, scale=0.9)
+            chart.draw(xy=(60.0, 10.0), width=64.0)
             assert chart.radius == 20.0
             assert chart.get_size() == orig_size
 

@@ -14,7 +14,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
-from drawlib._charts._common._style_utils import ensure_line_style, ensure_shape_style, ensure_text_style
+from drawlib._charts._common._style_utils import (
+    clamp_ratio,
+    ensure_line_style,
+    ensure_shape_style,
+    ensure_text_style,
+)
 from drawlib._charts._common._types import PointShape
 from drawlib._charts.scatter_chart._point import Point
 from drawlib._core.l3_styles import Style
@@ -210,7 +215,7 @@ def _collect_all_points(
 
     # Series points
     for s in chart.series:
-        s_ratio = max(0.0, min(1.0, float(s.draw_ratio))) if s.show else 0.0
+        s_ratio = clamp_ratio(s.draw_ratio) if s.show else 0.0
         for pt in s.points:
             pt_style = s.style.patch(pt.style)
             eff_ratio = s_ratio if pt.show else 0.0

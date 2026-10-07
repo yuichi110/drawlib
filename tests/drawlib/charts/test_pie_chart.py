@@ -210,6 +210,7 @@ class TestPieChartRendering:
 
             orig_size = chart.get_size()
             chart.draw(xy=(10.0, 10.0), radius=15.0, width=40.0, height=40.0, scale=0.85)
+            chart.draw(xy=(60.0, 10.0), width=68.0)
             assert chart.radius == 20.0
             assert chart.get_size() == orig_size
 

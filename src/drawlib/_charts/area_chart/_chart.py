@@ -11,16 +11,14 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from pydantic import validate_call
 
+from drawlib._charts._common._base import draw_with_box_overrides
 from drawlib._charts._common._types import AreaMode, DrawDirection, LineStyle, PointShape
 from drawlib._charts.area_chart._series import Series
 from drawlib._charts.line_chart import _renderer as _renderer_module
 from drawlib._charts.line_chart._base import CartesianChartBase
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import canvas
 
 
 class AreaChart(CartesianChartBase):
@@ -163,13 +161,11 @@ class AreaChart(CartesianChartBase):
             height: Optional temporary height override for this draw call.
             scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
-        orig_w, orig_h = self.width, self.height
-        try:
-            if width is not None:
-                self.width = float(width)
-            if height is not None:
-                self.height = float(height)
-            with canvas.transform(origin=xy, scale=scale):
-                _renderer_module.draw_area_chart(self, xy)
-        finally:
-            self.width, self.height = orig_w, orig_h
+        draw_with_box_overrides(
+            self,
+            _renderer_module.draw_area_chart,
+            xy,
+            width=width,
+            height=height,
+            scale=scale,
+        )

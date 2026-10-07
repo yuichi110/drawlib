@@ -11,19 +11,16 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from pydantic import validate_call
 
-import drawlib._charts._common._legend as _legend_module
-from drawlib._charts._common._types import DrawDirection, FormatterType, Orientation
+from drawlib._charts._common._base import RadialChartMixin
+from drawlib._charts._common._types import DrawDirection, FormatterType
 from drawlib._charts.pie_chart import _renderer as _renderer_module
 from drawlib._charts.pie_chart._slice import Slice
-from drawlib._core import l4_canvas as canvas
 from drawlib._core.l3_styles import Style
 
 
-class PieChart:
+class PieChart(RadialChartMixin):
     """Represents a 2D pie or donut chart."""
 
     @validate_call
@@ -122,17 +119,6 @@ class PieChart:
         self._slices.append(s)
         return s
 
-    def get_size(self) -> tuple[float, float]:
-        """Get the total dimensions (width, height) of this chart."""
-        if self._custom_width is not None and self._custom_height is not None:
-            return (self._custom_width, self._custom_height)
-
-        diameter = self.radius * 2.0
-        has_title = bool(self.title and self.title_style is not None)
-        w = self._custom_width if self._custom_width is not None else diameter + 8.0
-        h = self._custom_height if self._custom_height is not None else diameter + 8.0 + (6.0 if has_title else 0.0)
-        return (w, h)
-
     def draw(
         self,
         xy: tuple[float, float] = (0.0, 0.0),
@@ -151,62 +137,11 @@ class PieChart:
             height: Optional temporary override for chart container height.
             scale: Uniform scaling factor applied around xy. Defaults to 1.0.
         """
-        orig_radius = self.radius
-        orig_w, orig_h = self._custom_width, self._custom_height
-        try:
-            if width is not None:
-                self._custom_width = float(width)
-            if height is not None:
-                self._custom_height = float(height)
-            if radius is not None:
-                self.radius = float(radius)
-            elif width is not None or height is not None:
-                has_title = bool(self.title and self.title_style is not None)
-                eff_w, eff_h = self.get_size()
-                avail_w = max(2.0, eff_w - 8.0)
-                avail_h = max(2.0, eff_h - 8.0 - (6.0 if has_title else 0.0))
-                self.radius = min(avail_w, avail_h) / 2.0
-            with canvas.transform(origin=xy, scale=scale):
-                _renderer_module.draw_pie_chart(self, xy)
-        finally:
-            self.radius = orig_radius
-            self._custom_width, self._custom_height = orig_w, orig_h
-
-    def draw_legend(
-        self,
-        xy: tuple[float, float],
-        text_style: Style,
-        orientation: Orientation = "vertical",
-        swatch_size: tuple[float, float] = (2.4, 1.2),
-        item_gap: float = 4.0,
-        *,
-        scale: float = 1.0,
-    ) -> None:
-        """Render legend for slices at coordinate xy.
-
-        Args:
-            xy: Starting placement coordinate (x, y).
-            text_style: Base Style for legend text labels.
-            orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
-            swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
-            item_gap: Spacing between consecutive legend items. Defaults to 4.0.
-            scale: Uniform scaling factor applied around xy. Defaults to 1.0.
-        """
-        items = [
-            (
-                s.name,
-                s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
-                s.legend_text_style,
-                s.show,
-            )
-            for s in self._slices
-        ]
-        _legend_module.draw_legend(
-            items=items,
-            xy=xy,
-            text_style=text_style,
-            orientation=orientation,
-            swatch_size=swatch_size,
-            item_gap=item_gap,
+        self._draw_with_radial_overrides(
+            _renderer_module.draw_pie_chart,
+            xy,
+            radius=radius,
+            width=width,
+            height=height,
             scale=scale,
         )

@@ -11,20 +11,17 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from pydantic import validate_call
 
-import drawlib._charts._common._legend as _legend_module
 import drawlib._charts.bar_chart._renderer as _renderer_module
 from drawlib._charts._common._axis import Axis
-from drawlib._charts._common._types import BarMode, DrawDirection, FormatterType, Orientation, ScaleType
+from drawlib._charts._common._base import AxisChartMixin, draw_with_box_overrides
+from drawlib._charts._common._types import BarMode, DrawDirection, FormatterType, Orientation
 from drawlib._charts.bar_chart._series import Series
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import canvas
 
 
-class BarChart:
+class BarChart(AxisChartMixin):
     """Configurable container and builder for vertical and horizontal bar charts."""
 
     @validate_call
@@ -143,94 +140,6 @@ class BarChart:
         self._series.append(s)
         return s
 
-    def configure_y_axis(
-        self,
-        scale: ScaleType | None = None,
-        min_value: float | None = None,
-        max_value: float | None = None,
-        ticks: list[float] | None = None,
-        tick_step: float | None = None,
-        format: FormatterType = None,  # noqa: A002
-        unit: str | None = None,
-        label: str | None = None,
-        show_grid: bool | None = None,
-        grid_style: Style | None = None,
-        show_axis_line: bool | None = None,
-        line_style: Style | None = None,
-        show_ticks: bool | None = None,
-        tick_label_style: Style | None = None,
-        tick_label_angle: float | None = None,
-    ) -> Axis:
-        """Configure Y-axis parameters in a single call.
-
-        Returns:
-            Axis: The updated Y-axis instance for chaining.
-        """
-        self.y_axis.configure(
-            scale=scale,
-            min_value=min_value,
-            max_value=max_value,
-            ticks=ticks,
-            tick_step=tick_step,
-            format=format,
-            unit=unit,
-            label=label,
-            show_grid=show_grid,
-            grid_style=grid_style,
-            show_axis_line=show_axis_line,
-            line_style=line_style,
-            show_ticks=show_ticks,
-            tick_label_style=tick_label_style,
-            tick_label_angle=tick_label_angle,
-        )
-        return self.y_axis
-
-    def configure_x_axis(
-        self,
-        scale: ScaleType | None = None,
-        min_value: float | None = None,
-        max_value: float | None = None,
-        ticks: list[float] | None = None,
-        tick_step: float | None = None,
-        format: FormatterType = None,  # noqa: A002
-        unit: str | None = None,
-        label: str | None = None,
-        show_grid: bool | None = None,
-        grid_style: Style | None = None,
-        show_axis_line: bool | None = None,
-        line_style: Style | None = None,
-        show_ticks: bool | None = None,
-        tick_label_style: Style | None = None,
-        tick_label_angle: float | None = None,
-    ) -> Axis:
-        """Configure X-axis parameters in a single call.
-
-        Returns:
-            Axis: The updated X-axis instance for chaining.
-        """
-        self.x_axis.configure(
-            scale=scale,
-            min_value=min_value,
-            max_value=max_value,
-            ticks=ticks,
-            tick_step=tick_step,
-            format=format,
-            unit=unit,
-            label=label,
-            show_grid=show_grid,
-            grid_style=grid_style,
-            show_axis_line=show_axis_line,
-            line_style=line_style,
-            show_ticks=show_ticks,
-            tick_label_style=tick_label_style,
-            tick_label_angle=tick_label_angle,
-        )
-        return self.x_axis
-
-    def get_size(self) -> tuple[float, float]:
-        """Get the dimensions (width, height) of this chart."""
-        return (self.width, self.height)
-
     def draw(
         self,
         xy: tuple[float, float] = (0.0, 0.0),
@@ -247,52 +156,11 @@ class BarChart:
             height: Optional temporary height override for this draw call.
             scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
-        orig_w, orig_h = self.width, self.height
-        try:
-            if width is not None:
-                self.width = float(width)
-            if height is not None:
-                self.height = float(height)
-            with canvas.transform(origin=xy, scale=scale):
-                _renderer_module.draw_bar_chart(self, xy)
-        finally:
-            self.width, self.height = orig_w, orig_h
-
-    def draw_legend(
-        self,
-        xy: tuple[float, float],
-        text_style: Style,
-        orientation: Orientation = "vertical",
-        swatch_size: tuple[float, float] = (2.4, 1.2),
-        item_gap: float = 4.0,
-        *,
-        scale: float = 1.0,
-    ) -> None:
-        """Render legend for series at coordinate xy.
-
-        Args:
-            xy: Starting placement coordinate (x, y).
-            text_style: Base Style for legend text labels.
-            orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
-            swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
-            item_gap: Spacing between consecutive legend items. Defaults to 4.0.
-            scale: Proportional scaling factor around xy. Defaults to 1.0.
-        """
-        items = [
-            (
-                s.name,
-                s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
-                s.legend_text_style,
-                s.show,
-            )
-            for s in self._series
-        ]
-        _legend_module.draw_legend(
-            items=items,
-            xy=xy,
-            text_style=text_style,
-            orientation=orientation,
-            swatch_size=swatch_size,
-            item_gap=item_gap,
+        draw_with_box_overrides(
+            self,
+            _renderer_module.draw_bar_chart,
+            xy,
+            width=width,
+            height=height,
             scale=scale,
         )

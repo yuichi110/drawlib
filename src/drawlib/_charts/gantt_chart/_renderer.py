@@ -13,14 +13,18 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._style_utils import ensure_line_style, ensure_shape_style, ensure_text_style
-from drawlib._charts._common._types import ColorType
+from drawlib._charts._common._style_utils import (
+    clamp_ratio,
+    ensure_line_style,
+    ensure_shape_style,
+    ensure_text_style,
+    with_alpha,
+)
 from drawlib._charts.gantt_chart._item import (
     Milestone,
     Section,
     Task,
 )
-from drawlib._core.l3_colors import Color
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
@@ -29,12 +33,6 @@ from drawlib._core.l4_canvas import text as canvas_text
 
 if TYPE_CHECKING:
     from drawlib._charts.gantt_chart._chart import GanttChart
-
-
-def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
-    """Return an RGBA color tuple with updated alpha ratio."""
-    c = color if isinstance(color, Color) else Color(color)
-    return (c.r, c.g, c.b, float(alpha))
 
 
 def _resolve_time(chart: GanttChart, val: str | float, is_end: bool = False) -> float:
@@ -229,21 +227,32 @@ def _draw_task_row(
             style=label_style,
         )
 
-    dr = max(0.0, min(1.0, float(task.draw_ratio)))
+    dr = clamp_ratio(task.draw_ratio)
     if dr <= 0.0:
         return
 
-    eff_bx2 = bx1 + (bx2 - bx1) * dr
-    bar_w = max(0.5, eff_bx2 - bx1)
-    bar_h = chart.row_height * 0.58
-    bar_cx = (bx1 + eff_bx2) / 2.0
+    full_bar_h = chart.row_height * 0.58
+    if task.draw_direction == "bottom_to_top":
+        eff_bx2 = bx2
+        bar_w = max(0.5, bx2 - bx1)
+        bar_cx = (bx1 + bx2) / 2.0
+        bar_bottom = row_cy - full_bar_h / 2.0
+        bar_h = max(0.2, full_bar_h * dr)
+        bar_cy = bar_bottom + bar_h / 2.0
+    else:
+        eff_bx2 = bx1 + (bx2 - bx1) * dr
+        bar_w = max(0.5, eff_bx2 - bx1)
+        bar_cx = (bx1 + eff_bx2) / 2.0
+        bar_h = full_bar_h
+        bar_cy = row_cy
+
     task_shape = ensure_shape_style(task.style)
     color = task_shape.shape_fill_color or (50, 100, 200, 1.0)
 
     if task.progress <= 0.0:
         # Solid scheduled bar
         canvas_rectangle(
-            xy=(bar_cx, row_cy),
+            xy=(bar_cx, bar_cy),
             width=bar_w,
             height=bar_h,
             r=chart.bar_radius,
@@ -252,12 +261,12 @@ def _draw_task_row(
     else:
         # Background bar (remaining/total span)
         bg_style = Style(
-            shape_fill_color=_with_alpha(color, 0.28),
-            shape_line_color=_with_alpha(color, 0.5),
+            shape_fill_color=with_alpha(color, 0.28),
+            shape_line_color=with_alpha(color, 0.5),
             shape_line_width=0.8,
         )
         canvas_rectangle(
-            xy=(bar_cx, row_cy),
+            xy=(bar_cx, bar_cy),
             width=bar_w,
             height=bar_h,
             r=chart.bar_radius,
@@ -268,7 +277,7 @@ def _draw_task_row(
         prog_w = max(0.2, bar_w * task.progress)
         prog_cx = bx1 + prog_w / 2.0
         canvas_rectangle(
-            xy=(prog_cx, row_cy),
+            xy=(prog_cx, bar_cy),
             width=prog_w,
             height=bar_h,
             r=chart.bar_radius,
@@ -281,10 +290,10 @@ def _draw_task_row(
             pct_label = f"{int(round(task.progress * 100))}%"
             if prog_w >= 4.0:
                 p_text_style = ensure_text_style(eff_p_style, halign="center", valign="center")
-                canvas_text(xy=(prog_cx, row_cy), text=pct_label, style=p_text_style)
+                canvas_text(xy=(prog_cx, bar_cy), text=pct_label, style=p_text_style)
             else:
                 p_text_style = ensure_text_style(eff_p_style, halign="left", valign="center")
-                canvas_text(xy=(eff_bx2 + 1.0, row_cy), text=pct_label, style=p_text_style)
+                canvas_text(xy=(eff_bx2 + 1.0, bar_cy), text=pct_label, style=p_text_style)
 
 
 def _draw_milestone_row(
@@ -342,8 +351,8 @@ def _draw_dependencies(chart: GanttChart, x_tl_start: float, col_w: float) -> No
             not dep.show
             or not dep.from_task.show
             or not dep.to_task.show
-            or dep.from_task.draw_ratio <= 0.0
-            or dep.to_task.draw_ratio <= 0.0
+            or clamp_ratio(dep.from_task.draw_ratio) <= 0.0
+            or clamp_ratio(dep.to_task.draw_ratio) <= 0.0
         ):
             continue
 

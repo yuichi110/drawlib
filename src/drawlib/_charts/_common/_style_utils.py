@@ -13,11 +13,29 @@ from __future__ import annotations
 
 from typing import Literal
 
+from drawlib._charts._common._types import ColorType
+from drawlib._core.l3_colors import Color
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 
 _BASE_LINE_STYLE = Style(line_color=(30, 41, 59, 1.0), line_width=1.0)
 _BASE_TEXT_STYLE = Style(text_color=(30, 41, 59, 1.0), text_size=10.0, text_font=Font.SANSSERIF_REGULAR)
+
+
+def clamp_ratio(ratio: float) -> float:
+    """Clamp spatial rendering ratio into [0.0, 1.0]."""
+    return max(0.0, min(1.0, float(ratio)))
+
+
+def with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
+    """Return an RGBA color tuple replacing alpha with given ratio."""
+    c = color if isinstance(color, Color) else Color(color)
+    return (c.r, c.g, c.b, float(alpha))
+
+
+def resolve_series_color(style: Style) -> ColorType:
+    """Extract primary color from a series/slice Style for legend swatches and strokes."""
+    return style.line_color or style.shape_fill_color or style.shape_line_color or (30, 41, 59, 1.0)
 
 
 def ensure_line_style(style: Style) -> Style:

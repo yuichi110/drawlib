@@ -14,7 +14,7 @@ from __future__ import annotations
 import math
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._style_utils import ensure_shape_style, ensure_text_style
+from drawlib._charts._common._style_utils import clamp_ratio, ensure_shape_style, ensure_text_style
 from drawlib._charts._common._types import FormatterType
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
@@ -101,7 +101,7 @@ def _draw_pie_slices(
         if not s.show:
             continue
 
-        dr = max(0.0, min(1.0, float(s.draw_ratio)))
+        dr = clamp_ratio(s.draw_ratio)
         if dr <= 0.0:
             continue
 
