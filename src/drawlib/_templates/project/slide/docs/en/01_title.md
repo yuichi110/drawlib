@@ -12,3 +12,9 @@ Declarative Python Diagramming & Modern Presentation Decks
 ::: block (1360, 260) (400, 480)
 ![Sample Asset](_assets/linux.png)
 :::
+
+::: note
+Welcome to your **Drawlib Slide Deck**!
+- Press `P` or `S` (or click the `🗒` icon) to open **Presenter View** in a second window.
+- Speaker notes written inside `::: note` blocks appear here.
+:::

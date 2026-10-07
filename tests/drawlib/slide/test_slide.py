@@ -23,6 +23,7 @@ from drawlib._slide import (
     BoundingBox,
     build_slide,
 )
+from drawlib._slide._blocks import extract_slide_notes
 from drawlib._slide.base import reset_slide_context, set_slide_context
 from drawlib._templates import get_css, get_slide_js, init_project, list_slide_css
 from drawlib.canvas import clear, save, setup
@@ -660,3 +661,64 @@ rectangle((20, 10), width=10, height=10, style=Styles.Neutral)
 
         # Static block without playback options -> standard <img>
         assert '<img src="images/01_anim/static_box.png"' in html_content
+
+    def test_extract_slide_notes_single_and_multiple(self) -> None:
+        """Verify extract_slide_notes extracts ::: note / ::: notes and joins multiple blocks with a blank line."""
+        raw = """::: block (80, 40) (1760, 60)
+# Slide Title
+:::
+
+::: note
+First speaker note paragraph.
+:::
+
+::: notes
+Second speaker note with **bold** text.
+:::
+"""
+        cleaned, notes_html = extract_slide_notes(raw)
+        assert "::: note" not in cleaned
+        assert "First speaker note paragraph." not in cleaned
+        assert "# Slide Title" in cleaned
+        assert "<p>First speaker note paragraph.</p>" in notes_html
+        assert "<p>Second speaker note with <strong>bold</strong> text.</p>" in notes_html
+
+    def test_build_slide_speaker_notes_and_presenter_button(self, tmp_path: Path) -> None:
+        """Verify build_slide compiles ::: note blocks into .slide-notes and emits #btn-presenter."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        (src_dir / "01_with_notes.md").write_text(
+            """::: block (80, 40) (1760, 60)
+# Slide With Notes
+:::
+
+::: note
+Note block one.
+:::
+
+::: note
+- Bullet item A
+- Bullet item B
+:::
+""",
+            encoding="utf-8",
+        )
+
+        (src_dir / "02_no_notes.md").write_text(
+            """::: block (80, 40) (1760, 60)
+# Slide Without Notes
+:::
+""",
+            encoding="utf-8",
+        )
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        html_content = Path(result_html).read_text(encoding="utf-8")
+
+        assert '<aside class="slide-notes" hidden>' in html_content
+        assert "<p>Note block one.</p>" in html_content
+        assert "<li>Bullet item A</li>" in html_content
+        assert html_content.count('<aside class="slide-notes" hidden></aside>') == 1
+        assert 'id="btn-presenter"' in html_content

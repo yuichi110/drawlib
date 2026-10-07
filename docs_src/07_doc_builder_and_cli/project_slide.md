@@ -114,6 +114,25 @@ uv run drawlib serve slide_html/
 - **`←` / `PageUp`**: Previous slide
 - **`F`**: Toggle full screen
 - **`O` / `Esc`**: Toggle slide overview grid
+- **`P` / `S`**: Open **Presenter View** in a synchronized companion window
+- **`A`**: Play / pause / resume animation on the current slide
+
+### Speaker Notes (`::: note`) & Presenter View:
+Add speaker notes to any slide using `::: note` (or `::: notes`) blocks. If a slide contains multiple `::: note` blocks, they are automatically joined with a blank line (`\n\n`) and rendered as Markdown in **Presenter View** (while remaining completely hidden on the main presentation screen and in PDF exports):
+
+```markdown
+::: note
+**Key Talking Points**:
+- Emphasize single source of truth in Git.
+- Click **Play Animation** (or press `A`) to step through the pipeline.
+:::
+```
+
+Pressing **`P`** or **`S`** (or clicking the `🗒` button in the bottom-right control bar) opens **Presenter View** (`?presenter=1`), featuring:
+- **Left Column**: Vertical scrollable list of live slide thumbnails for instant jumping.
+- **Right Top**: Live 16:9 preview of the current slide.
+- **Right Middle (Control Bar)**: `◀ Prev` / `Next ▶` navigation, **`▶ Play Animation` button** (synchronized with the main window; automatically disabled/grayed out on slides without animations), and an elapsed presentation timer (`00:00`).
+- **Right Bottom (Speaker Notes)**: Compiled speaker notes with `A-` / `A+` font-size controls.
 
 ### Interactive Animation Playback (`anim-trigger`, `anim-loop`, `anim-pause`):
 When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams inside slides, you can attach playback control attributes to the ````drawlib```` code fence:

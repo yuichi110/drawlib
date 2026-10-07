@@ -12,3 +12,9 @@ Declarative Python Diagramming & Modern Presentation Decks
 ::: block (1360, 260) (400, 480)
 ![Sample Asset](_assets/linux.png)
 :::
+
+::: note
+**Drawlib スライドデッキ**へようこそ！
+- `P` または `S` キー（もしくは右下の `🗒` ボタン）で別ウィンドウの**プレゼンタービュー**を開けます。
+- `::: note` ブロックに記述したスピーカーノートがこのパネルに表示されます。
+:::

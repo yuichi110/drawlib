@@ -61,3 +61,14 @@ save()
 ::: block (80, 1010) (820, 30) font:14px
 *Drawlib: Illustration as Code*
 :::
+
+::: note
+**Left Column Talking Points**:
+- Contrast fragile GUI diagrams (Visio / draw.io) and rigid DSLs (Mermaid) against declarative Python code.
+:::
+
+::: note
+**Right Column Talking Points**:
+- Highlight the comparison matrix rendered natively with `drawlib.smartarts.Table`.
+- Emphasize Git-friendly diffs and unified design tokens (`Styles`, `Colors`).
+:::

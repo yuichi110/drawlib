@@ -22,6 +22,41 @@ PATTERN_CONTAINER_BOX: Final[re.Pattern[str]] = re.compile(
     re.DOTALL,
 )
 
+PATTERN_SLIDE_NOTE: Final[re.Pattern[str]] = re.compile(
+    r"(?:\n|^)[ \t]*:::+[ \t]*notes?(?:[ \t]+[^\n]*)?\n(.*?)\n[ \t]*:::+",
+    re.DOTALL | re.IGNORECASE,
+)
+
+
+def extract_slide_notes(text: str) -> tuple[str, str]:
+    r"""Extract ::: note / ::: notes blocks from slide Markdown and render them to HTML.
+
+    Multiple note blocks in the same slide are joined with a blank line ('\n\n')
+    before converting Markdown to HTML.
+
+    Args:
+        text: Raw slide Markdown text.
+
+    Returns:
+        tuple[str, str]: (cleaned_markdown_without_notes, rendered_notes_html).
+    """
+    note_chunks: list[str] = []
+
+    def replacer(match: re.Match[str]) -> str:
+        chunk = match.group(1).strip()
+        if chunk:
+            note_chunks.append(chunk)
+        return "\n"
+
+    normalized = "\n" + text if not text.startswith("\n") else text
+    cleaned_md = PATTERN_SLIDE_NOTE.sub(replacer, normalized).strip()
+    if not note_chunks:
+        return cleaned_md, ""
+
+    combined_notes_md = "\n\n".join(note_chunks)
+    rendered_notes_html = parse_markdown_to_html(combined_notes_md).strip()
+    return cleaned_md, rendered_notes_html
+
 
 def parse_box_coordinates(
     header_opts: str,

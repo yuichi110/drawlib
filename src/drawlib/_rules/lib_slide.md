@@ -158,9 +158,24 @@ HTML presentation decks compiled with Drawlib feature an ultra-lightweight, zero
 | `Left Arrow` / `PageUp` | Previous Slide | Return to the preceding slide. |
 | `Home` / `End` | Start / End | Jump to the first or last slide. |
 | `F` | Fullscreen | Toggle browser fullscreen presentation mode. |
+| `P` / `S` | Presenter View | Open synchronized dual-window Presenter View (`?presenter=1`). |
+| `A` | Play / Pause Animation | Trigger or pause interactive animations on the current slide. |
 | `O` / `Esc` | Overview Grid | Toggle slide overview thumbnail grid for instant jumping. |
 
-### 5.1. Interactive `<canvas>` Animation Playback (`anim-trigger`, `anim-loop`, `anim-pause`)
+### 5.1. Speaker Notes (`::: note`) & Presenter View (`?presenter=1`)
+Author speaker notes inside any slide Markdown file using `::: note` (or `::: notes`). Multiple `::: note` blocks in the same slide are joined with a blank line (`\n\n`) and compiled to HTML inside `<aside class="slide-notes" hidden>`:
+```markdown
+::: note
+- Mention that **Drawlib** unifies code, docs, and slides.
+- Press `A` or click **Play Animation** to step through the diagram.
+:::
+```
+- Pressing `P` or `S` (or clicking `#btn-presenter` `🗒` in `.slide-controls`) opens **Presenter View** in a companion window synchronized via `BroadcastChannel` + `postMessage`.
+- Presenter View provides a 2-column layout:
+  - **Left column**: Vertical scrollable list of live slide thumbnails.
+  - **Right column**: Current slide 16:9 preview (top), control bar with `◀ Prev`, `Next ▶`, **`▶ Play Animation` button** (disabled when the slide has no animations), and elapsed timer (middle), and Speaker Notes with `A-` / `A+` font-size controls (bottom).
+
+### 5.2. Interactive `<canvas>` Animation Playback (`anim-trigger`, `anim-loop`, `anim-pause`)
 For APNG (`.png` / `.apng`) and Animated WebP (`.webp`) blocks in slides, attach playback attributes to the ````drawlib```` fence:
 - `anim-trigger:click` (`auto` | `click`): Hold at Frame 0 (`READY`) until clicked.
 - `anim-loop:once` (`once` | `infinite`): Stop at the final frame (`ENDED`); click again to replay from Frame 0.

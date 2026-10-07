@@ -75,3 +75,10 @@ save()
 ::: block (80, 1010) (820, 30) font:14px
 *Drawlib: Illustration as Code*
 :::
+
+::: note
+**Interactive Animation Demo (`workflow_pipeline.webp`)**:
+- Click **Play Animation** (or press `A`) in Presenter View to start the pipeline animation on both screens.
+- The animation automatically pauses at **Frame 2** (`In Cache?`) and **Frame 4** (`Build Slide/HTML`).
+- Click **Resume Animation** (or press `A`) to advance past each pause point.
+:::

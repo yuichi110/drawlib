@@ -21,7 +21,11 @@ from drawlib._builder._common import resolve_styles_and_utils
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.processor.options import parse_block_info
 from drawlib._slide._assets import copy_static_assets, deploy_slide_assets, format_asset_markup
-from drawlib._slide._blocks import PATTERN_CONTAINER_BOX, process_container_blocks
+from drawlib._slide._blocks import (
+    PATTERN_CONTAINER_BOX,
+    extract_slide_notes,
+    process_container_blocks,
+)
 from drawlib._slide.base import reset_slide_context, set_slide_context
 
 _PATTERN_DRAWLIB: Final[re.Pattern[str]] = re.compile(
@@ -152,20 +156,28 @@ def _process_drawlib_blocks(
 def _assemble_slide_section(
     rendered_body: str,
     idx: int,
+    notes_html: str = "",
 ) -> str:
     """Assemble final slide <section> markup on the 1920x1080 stage.
 
     Args:
         rendered_body: HTML body snippet containing positioned slide-block elements.
         idx: Slide index.
+        notes_html: Optional HTML snippet of speaker notes for Presenter View.
 
     Returns:
         str: Slide <section> HTML markup.
     """
     active_cls = " active" if idx == 1 else ""
+    notes_block = (
+        f'      <aside class="slide-notes" hidden>\n{notes_html}\n      </aside>\n'
+        if notes_html
+        else '      <aside class="slide-notes" hidden></aside>\n'
+    )
     return (
         f'    <section class="slide{active_cls}" data-slide-index="{idx}">\n'
         f'      <div class="slide-body">\n{rendered_body.strip()}\n      </div>\n'
+        f"{notes_block}"
         f"    </section>"
     )
 
@@ -233,8 +245,13 @@ def build_slide(
 
         ctx_token = set_slide_context(index=idx, total=total_slides)
         try:
-            # If no ::: block or ::: box is in raw_content, auto-wrap in default stage block
-            text_to_search = "\n" + raw_content if not raw_content.startswith("\n") else raw_content
+            content_without_notes, notes_html = extract_slide_notes(raw_content)
+            # If no ::: block or ::: box is in content_without_notes, auto-wrap in default stage block
+            text_to_search = (
+                "\n" + content_without_notes
+                if not content_without_notes.startswith("\n")
+                else content_without_notes
+            )
             if not PATTERN_CONTAINER_BOX.search(text_to_search):
                 text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
 
@@ -252,6 +269,7 @@ def build_slide(
             slide_section = _assemble_slide_section(
                 rendered_body=rendered_body,
                 idx=idx,
+                notes_html=notes_html,
             )
             slides_html_list.append(slide_section)
         finally:
@@ -297,6 +315,7 @@ def build_slide(
         '  <button id="btn-prev" title="Previous Slide (Left Arrow)">◀</button>\n'
         '  <button id="btn-next" title="Next Slide (Right Arrow)">▶</button>\n'
         '  <button id="btn-overview" title="Slide Overview (O / Esc)">☵</button>\n'
+        '  <button id="btn-presenter" title="Presenter View (P / S)">🗒</button>\n'
         '  <button id="btn-fullscreen" title="Fullscreen (F)">⛶</button>\n'
         "</div>\n\n"
         "<!-- Overview Modal Grid -->\n"
