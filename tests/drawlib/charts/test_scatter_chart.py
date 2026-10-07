@@ -200,3 +200,37 @@ class TestScatterChartRendering:
             canvas.save(str(out_file))
             assert out_file.exists()
             assert out_file.stat().st_size > 0
+
+    def test_lifecycle_and_spatial_overrides(self) -> None:
+        """Test ScatterChart show, draw_ratio, draw_direction, and spatial overrides."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_file = Path(tmpdir) / "scatter_lifecycle.png"
+            canvas.clear()
+
+            chart = ScatterChart(axis_line_style=Styles.Primary, width=70.0, height=45.0)
+            p1 = chart.add(xy=(10.0, 20.0), style=Styles.PrimaryFlat, show=False)
+            assert p1.show is False
+
+            s1 = chart.add_series(
+                name="Group A",
+                data=[(10.0, 10.0), (50.0, 50.0), (90.0, 90.0)],
+                style=Styles.PrimaryFlat,
+                draw_ratio=0.5,
+                draw_direction="left_to_right",
+            )
+            s2 = chart.add_series(
+                name="Group B",
+                data=[(20.0, 20.0), (60.0, 60.0), (80.0, 80.0)],
+                style=Styles.SecondaryFlat,
+                draw_ratio=0.5,
+                draw_direction="bottom_to_top",
+            )
+            assert s1.draw_ratio == 0.5
+            assert s2.draw_direction == "bottom_to_top"
+
+            chart.draw(xy=(10.0, 10.0), width=80.0, height=50.0, scale=0.8)
+            assert chart.get_size() == (70.0, 45.0)
+
+            canvas.save(str(out_file))
+            assert out_file.exists()
+            assert out_file.stat().st_size > 0

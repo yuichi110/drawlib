@@ -22,6 +22,7 @@ from drawlib._core.l4_canvas import wedge as canvas_wedge
 
 if TYPE_CHECKING:
     from drawlib._charts.pie_chart._chart import PieChart
+    from drawlib._charts.pie_chart._slice import Slice
 
 
 def _format_slice_label(fmt: FormatterType, pct: float, value: float) -> str:
@@ -34,6 +35,45 @@ def _format_slice_label(fmt: FormatterType, pct: float, value: float) -> str:
     if callable(fmt):
         return str(fmt(pct))
     return f"{pct:.1f}%"
+
+
+def _compute_slice_wedge_params(
+    chart: PieChart,
+    s: Slice,
+    slice_start: float,
+    next_angle: float,
+    span: float,
+    dr: float,
+    ring_width: float | None,
+) -> tuple[float, float | None, float, float]:
+    """Compute effective radius, ring_width, angle_start, and angle_end for a slice."""
+    if s.draw_direction == "left_to_right":
+        eff_span = span * dr
+        theta1, theta2 = (
+            (slice_start - eff_span, slice_start)
+            if chart.clockwise
+            else (slice_start, slice_start + eff_span)
+        )
+        eff_radius = chart.radius
+        eff_ring_width = ring_width
+    else:
+        eff_span = span
+        theta1, theta2 = (next_angle, slice_start) if chart.clockwise else (slice_start, next_angle)
+        if chart.hole_ratio > 0.0:
+            inner_r = chart.radius * chart.hole_ratio
+            eff_ring_width = (chart.radius - inner_r) * dr
+            eff_radius = inner_r + eff_ring_width
+        else:
+            eff_radius = chart.radius * dr
+            eff_ring_width = None
+
+    if eff_span >= 360.0 - 1e-6:
+        w_start, w_end = 0.0, 360.0
+    else:
+        w_start = theta1 % 360.0
+        w_end = theta2 % 360.0
+
+    return eff_radius, eff_ring_width, w_start, w_end
 
 
 def _draw_pie_slices(
@@ -53,23 +93,21 @@ def _draw_pie_slices(
 
         pct = (s.value / total_val) * 100.0
         span = (s.value / total_val) * 360.0
+        slice_start = cur_angle
+        next_angle = cur_angle - span if chart.clockwise else cur_angle + span
+        mid_angle = (cur_angle + next_angle) / 2.0
+        cur_angle = next_angle
 
-        if chart.clockwise:
-            next_angle = cur_angle - span
-            theta1, theta2 = next_angle, cur_angle
-            mid_angle = (cur_angle + next_angle) / 2.0
-            cur_angle = next_angle
-        else:
-            next_angle = cur_angle + span
-            theta1, theta2 = cur_angle, next_angle
-            mid_angle = (cur_angle + next_angle) / 2.0
-            cur_angle = next_angle
+        if not s.show:
+            continue
 
-        if span >= 360.0 - 1e-6:
-            w_start, w_end = 0.0, 360.0
-        else:
-            w_start = theta1 % 360.0
-            w_end = theta2 % 360.0
+        dr = max(0.0, min(1.0, float(s.draw_ratio)))
+        if dr <= 0.0:
+            continue
+
+        eff_radius, eff_ring_width, w_start, w_end = _compute_slice_wedge_params(
+            chart, s, slice_start, next_angle, span, dr, ring_width
+        )
 
         mid_rad = math.radians(mid_angle)
         exp_x = s.explode * math.cos(mid_rad)
@@ -78,14 +116,14 @@ def _draw_pie_slices(
         slice_style = ensure_shape_style(s.style)
         canvas_wedge(
             xy=(cx + exp_x, cy + exp_y),
-            radius=chart.radius,
-            width=ring_width,
+            radius=eff_radius,
+            width=eff_ring_width,
             angle_start=w_start,
             angle_end=w_end,
             style=slice_style,
         )
 
-        if chart.value_text_style is not None and pct >= 4.0:
+        if chart.value_text_style is not None and pct >= 4.0 and dr >= 0.6:
             lx = cx + exp_x + lbl_r * math.cos(mid_rad)
             ly = cy + exp_y + lbl_r * math.sin(mid_rad)
             lbl_text = _format_slice_label(chart.value_format, pct, s.value)

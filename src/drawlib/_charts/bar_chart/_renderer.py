@@ -21,6 +21,7 @@ from drawlib._core.l4_canvas import text as canvas_text
 if TYPE_CHECKING:
     from drawlib._charts._common._axis import Axis
     from drawlib._charts.bar_chart._chart import BarChart
+    from drawlib._charts.bar_chart._series import Series
     from drawlib._core.l3_styles import Style
 
 
@@ -173,6 +174,28 @@ def _draw_vertical_category_labels(
         canvas_text(xy=(cat_cx, p_min_y - 1.8), text=cat, style=cat_label_style)
 
 
+def _get_bar_cat_ratio(
+    c_idx: int,
+    cat_count: int,
+    series: Series,
+    orientation: str,
+) -> float:
+    """Compute effective bar drawing ratio [0.0, 1.0] for category c_idx."""
+    if not series.show:
+        return 0.0
+    r = max(0.0, min(1.0, float(series.draw_ratio)))
+    if r <= 0.0 or r >= 1.0 or cat_count <= 0:
+        return r
+    if orientation == "vertical":
+        if series.draw_direction == "left_to_right":
+            return max(0.0, min(1.0, r * cat_count - c_idx))
+        return r
+    if series.draw_direction == "bottom_to_top":
+        bottom_idx = (cat_count - 1) - c_idx
+        return max(0.0, min(1.0, r * cat_count - bottom_idx))
+    return r
+
+
 def _draw_vertical_grouped_bars(
     chart: BarChart,
     p_min_x: float,
@@ -199,9 +222,14 @@ def _draw_vertical_grouped_bars(
             if c_idx >= len(series.values):
                 continue
 
+            cat_r = _get_bar_cat_ratio(c_idx, cat_count, series, "vertical")
+            if cat_r <= 0.0:
+                continue
+
             v = series.values[c_idx]
             bar_cx = start_x + (s_idx + 0.5) * bar_w
-            val_ratio = value_to_ratio(v, eff_min, eff_max, val_axis.scale)
+            full_val_ratio = value_to_ratio(v, eff_min, eff_max, val_axis.scale)
+            val_ratio = base_ratio + (full_val_ratio - base_ratio) * cat_r
 
             h = max(0.1, abs(val_ratio - base_ratio) * plot_h)
             bar_cy = p_min_y + ((base_ratio + val_ratio) / 2.0) * plot_h
@@ -239,12 +267,18 @@ def _draw_vertical_stacked_bars(
     for c_idx in range(cat_count):
         cat_cx = p_min_x + (c_idx + 0.5) * slot_w
         accum_val = base_val
+        any_drawn = False
 
         for series in chart.series:
             if c_idx >= len(series.values):
                 continue
 
-            v = series.values[c_idx]
+            cat_r = _get_bar_cat_ratio(c_idx, cat_count, series, "vertical")
+            if cat_r <= 0.0:
+                continue
+
+            any_drawn = True
+            v = series.values[c_idx] * cat_r
             prev_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             accum_val += v
             next_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
@@ -260,7 +294,7 @@ def _draw_vertical_stacked_bars(
                 style=series.style,
             )
 
-        if val_label_style is not None:
+        if val_label_style is not None and any_drawn:
             top_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             lbl = val_axis.format_value(accum_val)
             v_style = val_label_style.patch(text_halign="center", text_valign="bottom")
@@ -404,9 +438,14 @@ def _draw_horizontal_grouped_bars(
             if c_idx >= len(series.values):
                 continue
 
+            cat_r = _get_bar_cat_ratio(c_idx, cat_count, series, "horizontal")
+            if cat_r <= 0.0:
+                continue
+
             v = series.values[c_idx]
             bar_cy = start_y - (s_idx + 0.5) * bar_h
-            val_ratio = value_to_ratio(v, eff_min, eff_max, val_axis.scale)
+            full_val_ratio = value_to_ratio(v, eff_min, eff_max, val_axis.scale)
+            val_ratio = base_ratio + (full_val_ratio - base_ratio) * cat_r
 
             w = max(0.1, abs(val_ratio - base_ratio) * plot_w)
             bar_cx = p_min_x + ((base_ratio + val_ratio) / 2.0) * plot_w
@@ -444,12 +483,18 @@ def _draw_horizontal_stacked_bars(
     for c_idx in range(cat_count):
         cat_cy = p_max_y - (c_idx + 0.5) * slot_h
         accum_val = base_val
+        any_drawn = False
 
         for series in chart.series:
             if c_idx >= len(series.values):
                 continue
 
-            v = series.values[c_idx]
+            cat_r = _get_bar_cat_ratio(c_idx, cat_count, series, "horizontal")
+            if cat_r <= 0.0:
+                continue
+
+            any_drawn = True
+            v = series.values[c_idx] * cat_r
             prev_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             accum_val += v
             next_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
@@ -465,7 +510,7 @@ def _draw_horizontal_stacked_bars(
                 style=series.style,
             )
 
-        if val_label_style is not None:
+        if val_label_style is not None and any_drawn:
             top_ratio = value_to_ratio(accum_val, eff_min, eff_max, val_axis.scale)
             lbl = val_axis.format_value(accum_val)
             v_style = val_label_style.patch(text_halign="left", text_valign="center")

@@ -15,11 +15,12 @@ from typing import TYPE_CHECKING
 
 from pydantic import validate_call
 
-from drawlib._charts._common._types import LineStyle, PointShape
+from drawlib._charts._common._types import DrawDirection, LineStyle, PointShape
 from drawlib._charts.line_chart import _renderer as _renderer_module
 from drawlib._charts.line_chart._base import CartesianChartBase
 from drawlib._charts.line_chart._series import Series
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import canvas
 
 
 class LineChart(CartesianChartBase):
@@ -95,6 +96,10 @@ class LineChart(CartesianChartBase):
         point_shape: PointShape | None = None,
         point_size: float | None = None,
         legend_text_style: Style | None = None,
+        *,
+        show: bool = True,
+        draw_ratio: float = 1.0,
+        draw_direction: DrawDirection = "left_to_right",
     ) -> Series:
         """Add a new line series to the chart.
 
@@ -107,6 +112,9 @@ class LineChart(CartesianChartBase):
             point_shape: Custom marker shape or inherited from chart defaults.
             point_size: Custom marker size or inherited from chart defaults.
             legend_text_style: Optional custom text style for this series in legend.
+            show: Whether to render this series on the canvas. Defaults to True.
+            draw_ratio: Spatial rendering ratio from 0.0 to 1.0. Defaults to 1.0.
+            draw_direction: Partial rendering direction ("left_to_right" or "bottom_to_top").
 
         Returns:
             Series: The newly created and registered series.
@@ -122,14 +130,36 @@ class LineChart(CartesianChartBase):
             point_shape=shape,
             point_size=size,
             legend_text_style=legend_text_style,
+            show=show,
+            draw_ratio=draw_ratio,
+            draw_direction=draw_direction,
         )
         self._series.append(s)
         return s
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    def draw(
+        self,
+        xy: tuple[float, float] = (0.0, 0.0),
+        *,
+        width: float | None = None,
+        height: float | None = None,
+        scale: float = 1.0,
+    ) -> None:
         """Render this line chart onto the canvas anchored at bottom-left coordinate xy.
 
         Args:
             xy: Base canvas coordinate (x, y) where the bottom-left of the chart is placed.
+            width: Optional temporary width override for this draw call.
+            height: Optional temporary height override for this draw call.
+            scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
-        _renderer_module.draw_line_chart(self, xy)
+        orig_w, orig_h = self.width, self.height
+        try:
+            if width is not None:
+                self.width = float(width)
+            if height is not None:
+                self.height = float(height)
+            with canvas.transform(origin=xy, scale=scale):
+                _renderer_module.draw_line_chart(self, xy)
+        finally:
+            self.width, self.height = orig_w, orig_h

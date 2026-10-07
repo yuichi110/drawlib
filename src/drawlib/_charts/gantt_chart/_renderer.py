@@ -176,6 +176,9 @@ def _draw_section_row(
     row_cy: float,
 ) -> None:
     """Render full-width section header banner."""
+    if not section.show:
+        return
+
     full_w = right_x - left_x
     if section.style is not None:
         canvas_rectangle(
@@ -204,15 +207,6 @@ def _draw_task_row(
     col_w: float,
 ) -> None:
     """Render single task label, scheduled bar, and progress."""
-    # Label text
-    if chart.axis_text_style is not None:
-        label_style = ensure_text_style(chart.axis_text_style, halign="left", valign="center")
-        canvas_text(
-            xy=(left_x + 1.5, row_cy),
-            text=task.name,
-            style=label_style,
-        )
-
     start_t = _resolve_time(chart, task.start, is_end=False)
     end_t = _resolve_time(chart, task.end, is_end=True)
     if end_t <= start_t:
@@ -223,9 +217,26 @@ def _draw_task_row(
     task._cached_start_x = bx1
     task._cached_end_x = bx2
 
-    bar_w = max(0.5, bx2 - bx1)
+    if not task.show:
+        return
+
+    # Label text
+    if chart.axis_text_style is not None:
+        label_style = ensure_text_style(chart.axis_text_style, halign="left", valign="center")
+        canvas_text(
+            xy=(left_x + 1.5, row_cy),
+            text=task.name,
+            style=label_style,
+        )
+
+    dr = max(0.0, min(1.0, float(task.draw_ratio)))
+    if dr <= 0.0:
+        return
+
+    eff_bx2 = bx1 + (bx2 - bx1) * dr
+    bar_w = max(0.5, eff_bx2 - bx1)
     bar_h = chart.row_height * 0.58
-    bar_cx = (bx1 + bx2) / 2.0
+    bar_cx = (bx1 + eff_bx2) / 2.0
     task_shape = ensure_shape_style(task.style)
     color = task_shape.shape_fill_color or (50, 100, 200, 1.0)
 
@@ -273,7 +284,7 @@ def _draw_task_row(
                 canvas_text(xy=(prog_cx, row_cy), text=pct_label, style=p_text_style)
             else:
                 p_text_style = ensure_text_style(eff_p_style, halign="left", valign="center")
-                canvas_text(xy=(bx2 + 1.0, row_cy), text=pct_label, style=p_text_style)
+                canvas_text(xy=(eff_bx2 + 1.0, row_cy), text=pct_label, style=p_text_style)
 
 
 def _draw_milestone_row(
@@ -285,6 +296,13 @@ def _draw_milestone_row(
     col_w: float,
 ) -> None:
     """Render milestone label and diamond marker."""
+    at_t = _resolve_point_time(chart, milestone.at)
+    mx = x_tl_start + at_t * col_w
+    milestone._cached_at_x = mx
+
+    if not milestone.show:
+        return
+
     if chart.axis_text_style is not None:
         label_style = ensure_text_style(chart.axis_text_style, halign="left", valign="center")
         canvas_text(
@@ -292,10 +310,6 @@ def _draw_milestone_row(
             text=milestone.name,
             style=label_style,
         )
-
-    at_t = _resolve_point_time(chart, milestone.at)
-    mx = x_tl_start + at_t * col_w
-    milestone._cached_at_x = mx
 
     d_size = chart.row_height * 0.65
     canvas_rhombus(xy=(mx, row_cy), width=d_size, height=d_size, style=ensure_shape_style(milestone.style))
@@ -324,6 +338,15 @@ def _draw_dependencies(chart: GanttChart, x_tl_start: float, col_w: float) -> No
     min_exit = 1.5
 
     for dep in chart.dependencies:
+        if (
+            not dep.show
+            or not dep.from_task.show
+            or not dep.to_task.show
+            or dep.from_task.draw_ratio <= 0.0
+            or dep.to_task.draw_ratio <= 0.0
+        ):
+            continue
+
         x1 = dep.from_task._cached_end_x
         y1 = dep.from_task._cached_row_y
         x2 = dep.to_task._cached_start_x
@@ -377,6 +400,9 @@ def _draw_markers(
 ) -> None:
     """Render vertical reference lines and header badges."""
     for mark in chart.markers:
+        if not mark.show:
+            continue
+
         at_t = _resolve_point_time(chart, mark.at)
         mx = x_tl_start + at_t * col_w
         canvas_line(xy1=(mx, rows_top), xy2=(mx, rows_bottom), style=ensure_line_style(mark.style))

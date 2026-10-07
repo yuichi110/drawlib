@@ -189,3 +189,30 @@ class TestPieChartRendering:
             canvas.save(str(out_file))
             assert out_file.exists()
             assert out_file.stat().st_size > 0
+
+    def test_lifecycle_and_spatial_overrides(self) -> None:
+        """Test PieChart Slice show, draw_ratio, draw_direction, and radius/width/height/scale overrides."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_file = Path(tmpdir) / "pie_lifecycle.png"
+            canvas.clear()
+
+            chart = PieChart(radius=20.0, hole_ratio=0.5)
+            s1 = chart.add_slice(
+                "A", 40.0, style=Style(shape_fill_color=(50, 100, 200)), draw_ratio=0.5, draw_direction="left_to_right"
+            )
+            s2 = chart.add_slice(
+                "B", 35.0, style=Style(shape_fill_color=(100, 150, 250)), draw_ratio=0.6, draw_direction="bottom_to_top"
+            )
+            s3 = chart.add_slice("C", 25.0, style=Style(shape_fill_color=(200, 100, 50)), show=False)
+            assert s1.draw_direction == "left_to_right"
+            assert s2.draw_direction == "bottom_to_top"
+            assert s3.show is False
+
+            orig_size = chart.get_size()
+            chart.draw(xy=(10.0, 10.0), radius=15.0, width=40.0, height=40.0, scale=0.85)
+            assert chart.radius == 20.0
+            assert chart.get_size() == orig_size
+
+            canvas.save(str(out_file))
+            assert out_file.exists()
+            assert out_file.stat().st_size > 0

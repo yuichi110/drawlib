@@ -199,26 +199,29 @@ def _draw_point_marker(
 
 def _collect_all_points(
     chart: ScatterChart,
-) -> list[tuple[Point, Style, PointShape]]:
-    """Gather all points for plotting."""
-    all_points: list[tuple[Point, Style, PointShape]] = []
+) -> list[tuple[Point, Style, PointShape, float, str]]:
+    """Gather all points for plotting with their effective (show, draw_ratio, draw_direction) metadata."""
+    all_points: list[tuple[Point, Style, PointShape, float, str]] = []
 
     # Standalone points
     for pt in chart.points:
-        all_points.append((pt, pt.style, pt.shape))
+        ratio = 1.0 if pt.show else 0.0
+        all_points.append((pt, pt.style, pt.shape, ratio, "left_to_right"))
 
     # Series points
     for s in chart.series:
+        s_ratio = max(0.0, min(1.0, float(s.draw_ratio))) if s.show else 0.0
         for pt in s.points:
             pt_style = s.style.patch(pt.style)
-            all_points.append((pt, pt_style, pt.shape or s.shape))
+            eff_ratio = s_ratio if pt.show else 0.0
+            all_points.append((pt, pt_style, pt.shape or s.shape, eff_ratio, s.draw_direction))
 
     return all_points
 
 
 def _draw_points_and_labels(
     chart: ScatterChart,
-    all_points: list[tuple[Point, Style, PointShape]],
+    all_points: list[tuple[Point, Style, PointShape, float, str]],
     eff_min_x: float,
     eff_max_x: float,
     eff_min_y: float,
@@ -231,9 +234,18 @@ def _draw_points_and_labels(
     plot_h: float,
 ) -> None:
     """Render scatter markers and optional text labels on the canvas."""
-    for pt, pt_style, shape in all_points:
+    for pt, pt_style, shape, dr, direction in all_points:
+        if dr <= 0.0:
+            continue
+
         ratio_x = value_to_ratio(pt.xy[0], eff_min_x, eff_max_x, x_axis.scale)
         ratio_y = value_to_ratio(pt.xy[1], eff_min_y, eff_max_y, y_axis.scale)
+
+        if dr < 1.0:
+            if direction == "bottom_to_top" and ratio_y > dr + 1e-6:
+                continue
+            if direction == "left_to_right" and ratio_x > dr + 1e-6:
+                continue
 
         cx = p_min_x + ratio_x * plot_w
         cy = p_min_y + ratio_y * plot_h
@@ -262,8 +274,8 @@ def render_scatter_chart(chart: ScatterChart, xy: tuple[float, float]) -> None:
 
     all_points = _collect_all_points(chart)
 
-    all_xs = [pt.xy[0] for pt, _, _ in all_points]
-    all_ys = [pt.xy[1] for pt, _, _ in all_points]
+    all_xs = [pt.xy[0] for pt, _, _, _, _ in all_points]
+    all_ys = [pt.xy[1] for pt, _, _, _, _ in all_points]
 
     data_min_x = min(all_xs) if all_xs else 0.0
     data_max_x = max(all_xs) if all_xs else 10.0

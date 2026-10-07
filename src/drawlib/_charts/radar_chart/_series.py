@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._charts._common._types import LineStyle, PointShape
+from drawlib._charts._common._types import DrawDirection, LineStyle, PointShape
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -33,6 +33,9 @@ class Series:
         point_shape: PointShape = "circle",
         point_size: float = 0.8,
         legend_text_style: Style | None = None,
+        show: bool = True,
+        draw_ratio: float = 1.0,
+        draw_direction: DrawDirection = "bottom_to_top",
     ) -> None:
         """Initialize Series.
 
@@ -46,6 +49,9 @@ class Series:
             point_shape: Marker shape ("circle", "square", "none"). Defaults to "circle".
             point_size: Radius or half-width of the vertex markers. Defaults to 0.8.
             legend_text_style: Optional custom text style for this series in legend.
+            show: Whether this series is rendered. Defaults to True.
+            draw_ratio: Spatial rendering progress ratio in [0.0, 1.0]. Defaults to 1.0.
+            draw_direction: Direction of partial rendering ("bottom_to_top" or "left_to_right").
         """
         self.name = name
         self.values = [float(v) for v in values]
@@ -56,3 +62,6 @@ class Series:
         self.point_shape: PointShape = point_shape
         self.point_size = float(point_size)
         self.legend_text_style: Style | None = legend_text_style
+        self.show: bool = show
+        self.draw_ratio: float = float(draw_ratio)
+        self.draw_direction: DrawDirection = draw_direction

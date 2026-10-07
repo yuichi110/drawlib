@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import math
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
@@ -48,6 +49,29 @@ def _resolve_series_colors(series_list: list[LineSeries] | list[AreaSeries]) -> 
         color = s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0)
         colors.append(color)
     return colors
+
+
+def _clip_polyline_left_to_right(
+    pts: list[tuple[float, float]],
+    draw_ratio: float,
+) -> tuple[list[tuple[float, float]], int]:
+    """Clip polyline vertices horizontally according to draw_ratio in [0.0, 1.0]."""
+    m = len(pts)
+    if m == 0 or draw_ratio <= 0.0:
+        return ([], 0)
+    if draw_ratio >= 1.0 or m == 1:
+        return (list(pts), m)
+
+    pos = draw_ratio * (m - 1)
+    k = int(math.floor(pos))
+    frac = pos - k
+    clipped = list(pts[: k + 1])
+    reached_count = k + 1
+    if k < m - 1 and frac > 1e-6:
+        x0, y0 = pts[k]
+        x1, y1 = pts[k + 1]
+        clipped.append((x0 + (x1 - x0) * frac, y0 + (y1 - y0) * frac))
+    return (clipped, reached_count)
 
 
 def _calculate_plot_bounds(
@@ -165,18 +189,35 @@ def _draw_single_line_series(
     plot_h: float,
     p_min_x: float,
     p_min_y: float,
+    base_y: float,
     eff_min: float,
     eff_max: float,
     val_axis: Axis,
 ) -> None:
     """Render a single series polyline, markers, and value labels."""
+    if not s.show:
+        return
+    dr = max(0.0, min(1.0, float(s.draw_ratio)))
+    if dr <= 0.0:
+        return
+
     pts: list[tuple[float, float]] = []
     for c_idx in range(min(num_cats, len(s.values))):
         v = s.values[c_idx]
         ratio = value_to_ratio(v, eff_min, eff_max, val_axis.scale)
         px = p_min_x + (c_idx + 0.5) * slot_w
-        py = p_min_y + ratio * plot_h
+        full_py = p_min_y + ratio * plot_h
+        py = base_y + (full_py - base_y) * dr if s.draw_direction == "bottom_to_top" else full_py
         pts.append((px, py))
+
+    if s.draw_direction == "left_to_right" and dr < 1.0:
+        line_pts, reached_count = _clip_polyline_left_to_right(pts, dr)
+        marker_pts = pts[:reached_count]
+        marker_vals = s.values[:reached_count]
+    else:
+        line_pts = pts
+        marker_pts = pts
+        marker_vals = s.values[: len(pts)]
 
     stroke_style = s.style
     if stroke_style.line_color is None or stroke_style.line_width is None:
@@ -187,16 +228,16 @@ def _draw_single_line_series(
         )
         stroke_style = default_stroke_style.patch(s.style)
 
-    if len(pts) >= 2:
-        if chart.smooth and len(pts) >= 3:
-            canvas_lines_curved(xys=pts, r=slot_w * 0.4, style=ensure_line_style(stroke_style))
+    if len(line_pts) >= 2:
+        if chart.smooth and len(line_pts) >= 3:
+            canvas_lines_curved(xys=line_pts, r=slot_w * 0.4, style=ensure_line_style(stroke_style))
         else:
-            canvas_lines(xys=pts, style=ensure_line_style(stroke_style))
+            canvas_lines(xys=line_pts, style=ensure_line_style(stroke_style))
 
     if chart.show_points and s.point_shape != "none":
         _render_markers_and_labels(
-            pts=pts,
-            values=s.values[: len(pts)],
+            pts=marker_pts,
+            values=marker_vals,
             point_shape=s.point_shape,
             point_size=s.point_size,
             color=color,
@@ -261,7 +302,18 @@ def draw_line_chart(chart: LineChart, xy: tuple[float, float]) -> None:
         if not s.values or num_cats == 0:
             continue
         _draw_single_line_series(
-            chart, s, series_colors[s_idx], num_cats, slot_w, plot_h, p_min_x, p_min_y, eff_min, eff_max, val_axis
+            chart,
+            s,
+            series_colors[s_idx],
+            num_cats,
+            slot_w,
+            plot_h,
+            p_min_x,
+            p_min_y,
+            base_y,
+            eff_min,
+            eff_max,
+            val_axis,
         )
 
 
@@ -375,7 +427,11 @@ def _draw_overlap_areas(
     val_axis = chart.y_axis
 
     for s_idx, s in enumerate(chart.series):
-        if not s.values or num_cats == 0:
+        if not s.values or num_cats == 0 or not s.show:
+            continue
+
+        dr = max(0.0, min(1.0, float(s.draw_ratio)))
+        if dr <= 0.0:
             continue
 
         color = series_colors[s_idx]
@@ -384,11 +440,21 @@ def _draw_overlap_areas(
             v = s.values[c_idx]
             ratio = value_to_ratio(v, eff_min, eff_max, val_axis.scale)
             px = p_min_x + (c_idx + 0.5) * slot_w
-            py = p_min_y + ratio * plot_h
+            full_py = p_min_y + ratio * plot_h
+            py = base_y + (full_py - base_y) * dr if s.draw_direction == "bottom_to_top" else full_py
             pts.append((px, py))
 
-        if len(pts) >= 2:
-            poly_pts = [(pts[0][0], base_y)] + pts + [(pts[-1][0], base_y)]
+        if s.draw_direction == "left_to_right" and dr < 1.0:
+            line_pts, reached_count = _clip_polyline_left_to_right(pts, dr)
+            marker_pts = pts[:reached_count]
+            marker_vals = s.values[:reached_count]
+        else:
+            line_pts = pts
+            marker_pts = pts
+            marker_vals = s.values[: len(pts)]
+
+        if len(line_pts) >= 2:
+            poly_pts = [(line_pts[0][0], base_y)] + line_pts + [(line_pts[-1][0], base_y)]
             alpha = s.fill_alpha if s.fill_alpha is not None else chart.fill_alpha
             fill_color = s.style.shape_fill_color or _with_alpha(color, alpha)
             fill_style = Style(
@@ -406,12 +472,12 @@ def _draw_overlap_areas(
                     line_style=s.line_style,
                 )
                 stroke_style = default_stroke_style.patch(s.style)
-            canvas_lines(xys=pts, style=stroke_style)
+            canvas_lines(xys=line_pts, style=stroke_style)
 
         if chart.show_points and s.point_shape != "none":
             _render_markers_and_labels(
-                pts=pts,
-                values=s.values[: len(pts)],
+                pts=marker_pts,
+                values=marker_vals,
                 point_shape=s.point_shape,
                 point_size=s.point_size,
                 color=color,
@@ -438,7 +504,11 @@ def _draw_stacked_areas(
     accum_prev = [base_val] * num_cats
 
     for s_idx, s in enumerate(chart.series):
-        if not s.values or num_cats == 0:
+        if not s.values or num_cats == 0 or not s.show:
+            continue
+
+        dr = max(0.0, min(1.0, float(s.draw_ratio)))
+        if dr <= 0.0:
             continue
 
         color = series_colors[s_idx]
@@ -446,8 +516,9 @@ def _draw_stacked_areas(
         pts_cur: list[tuple[float, float]] = []
         pts_prev: list[tuple[float, float]] = []
 
+        v_scale = dr if s.draw_direction == "bottom_to_top" else 1.0
         for c_idx in range(num_cats):
-            v = s.values[c_idx] if c_idx < len(s.values) else 0.0
+            v = (s.values[c_idx] if c_idx < len(s.values) else 0.0) * v_scale
             prev_v = accum_prev[c_idx]
             cur_v = prev_v + v
             accum_cur.append(cur_v)
@@ -459,31 +530,43 @@ def _draw_stacked_areas(
             pts_cur.append((px, py_cur))
             pts_prev.append((px, py_prev))
 
-        # Closed polygon: upper curve forward, lower curve reversed
-        poly_pts = pts_cur + list(reversed(pts_prev))
-        alpha = s.fill_alpha if s.fill_alpha is not None else chart.fill_alpha
-        fill_color = s.style.shape_fill_color or _with_alpha(color, alpha)
-        fill_style = Style(
-            shape_fill_color=fill_color,
-            shape_line_color=Colors.Transparent,
-            shape_line_width=0.0,
-        )
-        canvas_polygon(xys=poly_pts, style=fill_style)
+        if s.draw_direction == "left_to_right" and dr < 1.0:
+            line_pts_cur, reached_count = _clip_polyline_left_to_right(pts_cur, dr)
+            line_pts_prev, _ = _clip_polyline_left_to_right(pts_prev, dr)
+            marker_pts = pts_cur[:reached_count]
+            marker_vals = s.values[:reached_count]
+        else:
+            line_pts_cur = pts_cur
+            line_pts_prev = pts_prev
+            marker_pts = pts_cur
+            marker_vals = s.values[: len(pts_cur)]
 
-        stroke_style = s.style
-        if stroke_style.line_color is None or stroke_style.line_width is None:
-            default_stroke_style = Style(
-                line_color=color,
-                line_width=s.line_width,
-                line_style=s.line_style,
+        if len(line_pts_cur) >= 2:
+            # Closed polygon: upper curve forward, lower curve reversed
+            poly_pts = line_pts_cur + list(reversed(line_pts_prev))
+            alpha = s.fill_alpha if s.fill_alpha is not None else chart.fill_alpha
+            fill_color = s.style.shape_fill_color or _with_alpha(color, alpha)
+            fill_style = Style(
+                shape_fill_color=fill_color,
+                shape_line_color=Colors.Transparent,
+                shape_line_width=0.0,
             )
-            stroke_style = default_stroke_style.patch(s.style)
-        canvas_lines(xys=pts_cur, style=stroke_style)
+            canvas_polygon(xys=poly_pts, style=fill_style)
+
+            stroke_style = s.style
+            if stroke_style.line_color is None or stroke_style.line_width is None:
+                default_stroke_style = Style(
+                    line_color=color,
+                    line_width=s.line_width,
+                    line_style=s.line_style,
+                )
+                stroke_style = default_stroke_style.patch(s.style)
+            canvas_lines(xys=line_pts_cur, style=stroke_style)
 
         if chart.show_points and s.point_shape != "none":
             _render_markers_and_labels(
-                pts=pts_cur,
-                values=s.values[: len(pts_cur)],
+                pts=marker_pts,
+                values=marker_vals,
                 point_shape=s.point_shape,
                 point_size=s.point_size,
                 color=color,

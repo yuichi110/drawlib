@@ -262,3 +262,41 @@ class TestGanttChartRendering:
             canvas.save(str(out_file))
             assert out_file.exists()
             assert out_file.stat().st_size > 0
+
+    def test_lifecycle_and_spatial_overrides(self) -> None:
+        """Test GanttChart items show, draw_ratio, and draw() spatial overrides."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_file = Path(tmpdir) / "gantt_lifecycle.png"
+            canvas.clear()
+
+            chart = GanttChart(
+                columns=["W1", "W2", "W3", "W4"],
+                axis_line_style=Style(line_color=(200, 200, 200)),
+                axis_text_style=Style(text_size=9.0),
+                width=80.0,
+            )
+            sec = chart.add_section("Phase 1", show=True)
+            t1 = chart.add_task(
+                "Design", start="W1", end="W2", style=Style(shape_fill_color=(50, 100, 200)), draw_ratio=0.5
+            )
+            t2 = chart.add_task(
+                "Build", start="W2", end="W4", style=Style(shape_fill_color=(40, 200, 120)), show=False
+            )
+            ms = chart.add_milestone("Launch", at="W4", style=Style(shape_fill_color=(255, 200, 0)), show=False)
+            mk = chart.add_marker(at=1.5, style=Style(line_color=(239, 68, 68)), show=False)
+            dep = chart.add_dependency(t1, t2, show=True)
+
+            assert sec.show is True
+            assert t1.draw_ratio == 0.5
+            assert t2.show is False
+            assert ms.show is False
+            assert mk.show is False
+            assert dep.show is True
+
+            orig_size = chart.get_size()
+            chart.draw(xy=(10.0, 10.0), width=70.0, height=35.0, scale=0.85)
+            assert chart.get_size() == orig_size
+
+            canvas.save(str(out_file))
+            assert out_file.exists()
+            assert out_file.stat().st_size > 0

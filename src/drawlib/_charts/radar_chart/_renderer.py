@@ -205,7 +205,11 @@ def _draw_series(
         return
 
     for s_idx, s in enumerate(chart.series):
-        if not s.values:
+        if not s.show or not s.values:
+            continue
+
+        dr = max(0.0, min(1.0, float(s.draw_ratio)))
+        if dr <= 0.0:
             continue
 
         color = series_colors[s_idx]
@@ -215,7 +219,7 @@ def _draw_series(
             val = s.values[i] if i < len(s.values) else chart.min_value
             clamped_val = max(chart.min_value, min(eff_max, val))
             ratio = (clamped_val - chart.min_value) / span
-            r = chart.radius * ratio
+            r = chart.radius * ratio * dr
             pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
 
         # 1. Filled transparent polygon

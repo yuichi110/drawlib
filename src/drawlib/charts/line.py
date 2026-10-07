@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import (
+    DrawDirection,
     FormatterType,
     LegendPosition,
     LineStyle,
@@ -25,6 +26,7 @@ from drawlib._charts.line_chart import (
 
 __all__ = [
     "Axis",
+    "DrawDirection",
     "FormatterType",
     "LegendPosition",
     "LineChart",

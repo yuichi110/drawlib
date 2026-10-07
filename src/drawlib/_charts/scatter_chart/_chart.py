@@ -17,10 +17,11 @@ from pydantic import validate_call
 
 import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._axis import Axis
-from drawlib._charts._common._types import FormatterType, Orientation, PointShape, ScaleType
+from drawlib._charts._common._types import DrawDirection, FormatterType, Orientation, PointShape, ScaleType
 from drawlib._charts.scatter_chart import _renderer as _renderer_module
 from drawlib._charts.scatter_chart._point import Point, Series
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import canvas
 
 
 class ScatterChart:
@@ -177,6 +178,8 @@ class ScatterChart:
         shape: PointShape | None = None,
         label: str = "",
         label_style: Style | None = None,
+        *,
+        show: bool = True,
     ) -> Point:
         """Add a single data point to the scatter chart.
 
@@ -187,6 +190,7 @@ class ScatterChart:
             shape: Custom marker shape ("circle", "square", "rhombus", "triangle").
             label: Optional text label displayed next to the point.
             label_style: Optional Style for the label text.
+            show: Whether to render this point on the canvas. Defaults to True.
 
         Returns:
             Point: The newly created and registered point.
@@ -201,6 +205,7 @@ class ScatterChart:
             shape=eff_shape,
             label=label,
             label_style=label_style,
+            show=show,
         )
         self._points.append(point)
         return point
@@ -213,6 +218,10 @@ class ScatterChart:
         radius: float | None = None,
         shape: PointShape | None = None,
         legend_text_style: Style | None = None,
+        *,
+        show: bool = True,
+        draw_ratio: float = 1.0,
+        draw_direction: DrawDirection = "left_to_right",
     ) -> Series:
         """Add a named group of points to the scatter chart.
 
@@ -223,6 +232,9 @@ class ScatterChart:
             radius: Default radius for points in this series.
             shape: Shape for points in this series.
             legend_text_style: Optional custom text style for this series in legend.
+            show: Whether to render this series on the canvas. Defaults to True.
+            draw_ratio: Spatial rendering ratio from 0.0 to 1.0. Defaults to 1.0.
+            draw_direction: Partial rendering direction ("left_to_right" or "bottom_to_top").
 
         Returns:
             Series: The newly created and registered series.
@@ -256,6 +268,9 @@ class ScatterChart:
             radius=eff_radius,
             shape=eff_shape,
             legend_text_style=legend_text_style,
+            show=show,
+            draw_ratio=draw_ratio,
+            draw_direction=draw_direction,
         )
         self._series.append(series_obj)
         return series_obj
@@ -264,13 +279,32 @@ class ScatterChart:
         """Get the dimensions (width, height) of this chart."""
         return (self.width, self.height)
 
-    def draw(self, xy: tuple[float, float]) -> None:
+    def draw(
+        self,
+        xy: tuple[float, float] = (0.0, 0.0),
+        *,
+        width: float | None = None,
+        height: float | None = None,
+        scale: float = 1.0,
+    ) -> None:
         """Render the scatter chart onto the canvas.
 
         Args:
-            xy: Bottom-left coordinate tuple (x, y) of the chart bounding box.
+            xy: Bottom-left coordinate tuple (x, y) of the chart bounding box. Defaults to (0.0, 0.0).
+            width: Optional temporary width override for this draw call.
+            height: Optional temporary height override for this draw call.
+            scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
-        _renderer_module.render_scatter_chart(self, xy)
+        orig_w, orig_h = self.width, self.height
+        try:
+            if width is not None:
+                self.width = float(width)
+            if height is not None:
+                self.height = float(height)
+            with canvas.transform(origin=xy, scale=scale):
+                _renderer_module.render_scatter_chart(self, xy)
+        finally:
+            self.width, self.height = orig_w, orig_h
 
     def draw_legend(
         self,
@@ -279,6 +313,8 @@ class ScatterChart:
         orientation: Orientation = "vertical",
         swatch_size: tuple[float, float] = (2.4, 1.2),
         item_gap: float = 4.0,
+        *,
+        scale: float = 1.0,
     ) -> None:
         """Render legend for series at coordinate xy.
 
@@ -288,12 +324,14 @@ class ScatterChart:
             orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
             swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
             item_gap: Spacing between consecutive legend items. Defaults to 4.0.
+            scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
         items = [
             (
                 s.name,
                 s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
                 s.legend_text_style,
+                s.show,
             )
             for s in self._series
         ]
@@ -304,4 +342,5 @@ class ScatterChart:
             orientation=orientation,
             swatch_size=swatch_size,
             item_gap=item_gap,
+            scale=scale,
         )

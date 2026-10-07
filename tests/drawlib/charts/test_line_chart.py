@@ -253,3 +253,54 @@ class TestLineAndAreaRendering:
             canvas.save(str(out_file))
             assert out_file.exists()
             assert out_file.stat().st_size > 0
+
+    def test_lifecycle_and_spatial_overrides(self) -> None:
+        """Test LineChart and AreaChart show, draw_ratio, draw_direction, and spatial overrides."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_file = Path(tmpdir) / "line_area_lifecycle.png"
+            canvas.clear()
+
+            line_chart = LineChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
+                categories=["Jan", "Feb", "Mar", "Apr"],
+                width=70.0,
+                height=45.0,
+            )
+            l_style = Style(line_color=(50, 100, 200, 1.0), line_width=2.0)
+            s1 = line_chart.add_series("A", [10.0, 30.0, 20.0, 40.0], style=l_style, draw_ratio=0.55)
+            s2 = line_chart.add_series(
+                "B",
+                [15.0, 25.0, 35.0, 45.0],
+                style=l_style,
+                draw_ratio=0.5,
+                draw_direction="bottom_to_top",
+            )
+            line_chart.add_series("Hidden", [50.0, 60.0, 70.0, 80.0], style=l_style, show=False)
+            assert s1.draw_direction == "left_to_right"
+            assert s2.draw_direction == "bottom_to_top"
+
+            line_chart.draw(xy=(5.0, 10.0), width=40.0, height=35.0, scale=0.9)
+            assert line_chart.get_size() == (70.0, 45.0)
+
+            area_chart = AreaChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
+                categories=["Q1", "Q2", "Q3", "Q4"],
+                width=70.0,
+                height=45.0,
+                mode="stack",
+            )
+            a_style = Style(shape_fill_color=(50, 100, 200, 1.0))
+            area_chart.add_series("S1", [10.0, 20.0, 30.0, 40.0], style=a_style, draw_ratio=0.65)
+            area_chart.add_series(
+                "S2",
+                [10.0, 15.0, 20.0, 25.0],
+                style=a_style,
+                draw_ratio=0.5,
+                draw_direction="bottom_to_top",
+            )
+            area_chart.draw(xy=(50.0, 10.0), width=40.0, height=35.0, scale=0.9)
+            assert area_chart.get_size() == (70.0, 45.0)
+
+            canvas.save(str(out_file))
+            assert out_file.exists()
+            assert out_file.stat().st_size > 0

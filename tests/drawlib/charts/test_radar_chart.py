@@ -221,3 +221,33 @@ class TestRadarChartRendering:
             canvas.save(str(out_file))
             assert out_file.exists()
             assert out_file.stat().st_size > 0
+
+    def test_lifecycle_and_configure_axis(self) -> None:
+        """Test RadarChart configure_axis, show, draw_ratio, and spatial overrides."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_file = Path(tmpdir) / "radar_lifecycle.png"
+            canvas.clear()
+
+            chart = RadarChart(
+                categories=["A", "B", "C", "D"],
+                axis_line_style=Style(line_color=(203, 213, 225)),
+                radius=20.0,
+            )
+            chart.configure_axis(min_value=10.0, max_value=100.0, levels=3, scale_format="{:.0f}")
+            assert chart.min_value == 10.0
+            assert chart.max_value == 100.0
+            assert chart.levels == 3
+
+            s1 = chart.add_series("S1", [80, 70, 90, 60], style=Style(line_color=(50, 100, 200)), draw_ratio=0.5)
+            s2 = chart.add_series("S2", [50, 60, 70, 80], style=Style(line_color=(200, 50, 100)), show=False)
+            assert s1.draw_ratio == 0.5
+            assert s2.show is False
+
+            orig_size = chart.get_size()
+            chart.draw(xy=(10.0, 10.0), radius=15.0, width=45.0, height=45.0, scale=0.9)
+            assert chart.radius == 20.0
+            assert chart.get_size() == orig_size
+
+            canvas.save(str(out_file))
+            assert out_file.exists()
+            assert out_file.stat().st_size > 0

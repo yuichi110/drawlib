@@ -18,9 +18,10 @@ from pydantic import validate_call
 import drawlib._charts._common._legend as _legend_module
 import drawlib._charts.bar_chart._renderer as _renderer_module
 from drawlib._charts._common._axis import Axis
-from drawlib._charts._common._types import BarMode, FormatterType, Orientation, ScaleType
+from drawlib._charts._common._types import BarMode, DrawDirection, FormatterType, Orientation, ScaleType
 from drawlib._charts.bar_chart._series import Series
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import canvas
 
 
 class BarChart:
@@ -106,6 +107,10 @@ class BarChart:
         values: list[float],
         style: Style,
         legend_text_style: Style | None = None,
+        *,
+        show: bool = True,
+        draw_ratio: float = 1.0,
+        draw_direction: DrawDirection | None = None,
     ) -> Series:
         """Add a data series to the chart.
 
@@ -114,11 +119,27 @@ class BarChart:
             values: Numerical values corresponding to categories.
             style: Style object defining bar outline and fill.
             legend_text_style: Optional custom text style for this series in legend.
+            show: Whether to render this series on the canvas. Defaults to True.
+            draw_ratio: Spatial rendering ratio from 0.0 to 1.0. Defaults to 1.0.
+            draw_direction: Partial rendering direction ("bottom_to_top" or "left_to_right").
 
         Returns:
             Series: The newly created and registered series.
         """
-        s = Series(name=name, values=values, style=style, legend_text_style=legend_text_style)
+        eff_dir: DrawDirection = (
+            draw_direction
+            if draw_direction is not None
+            else ("bottom_to_top" if self.orientation == "vertical" else "left_to_right")
+        )
+        s = Series(
+            name=name,
+            values=values,
+            style=style,
+            legend_text_style=legend_text_style,
+            show=show,
+            draw_ratio=draw_ratio,
+            draw_direction=eff_dir,
+        )
         self._series.append(s)
         return s
 
@@ -210,13 +231,32 @@ class BarChart:
         """Get the dimensions (width, height) of this chart."""
         return (self.width, self.height)
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    def draw(
+        self,
+        xy: tuple[float, float] = (0.0, 0.0),
+        *,
+        width: float | None = None,
+        height: float | None = None,
+        scale: float = 1.0,
+    ) -> None:
         """Render this bar chart onto the canvas at base coordinate xy (bottom-left).
 
         Args:
             xy: Canvas placement coordinate (x, y) where the bottom-left of the chart is anchored.
+            width: Optional temporary width override for this draw call.
+            height: Optional temporary height override for this draw call.
+            scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
-        _renderer_module.draw_bar_chart(self, xy)
+        orig_w, orig_h = self.width, self.height
+        try:
+            if width is not None:
+                self.width = float(width)
+            if height is not None:
+                self.height = float(height)
+            with canvas.transform(origin=xy, scale=scale):
+                _renderer_module.draw_bar_chart(self, xy)
+        finally:
+            self.width, self.height = orig_w, orig_h
 
     def draw_legend(
         self,
@@ -225,6 +265,8 @@ class BarChart:
         orientation: Orientation = "vertical",
         swatch_size: tuple[float, float] = (2.4, 1.2),
         item_gap: float = 4.0,
+        *,
+        scale: float = 1.0,
     ) -> None:
         """Render legend for series at coordinate xy.
 
@@ -234,12 +276,14 @@ class BarChart:
             orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
             swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
             item_gap: Spacing between consecutive legend items. Defaults to 4.0.
+            scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
         items = [
             (
                 s.name,
                 s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
                 s.legend_text_style,
+                s.show,
             )
             for s in self._series
         ]
@@ -250,4 +294,5 @@ class BarChart:
             orientation=orientation,
             swatch_size=swatch_size,
             item_gap=item_gap,
+            scale=scale,
         )

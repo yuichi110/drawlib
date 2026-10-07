@@ -17,6 +17,7 @@ from pydantic import validate_call
 
 import drawlib._charts._common._legend as _legend_module
 from drawlib._charts._common._types import (
+    DrawDirection,
     FormatterType,
     GridShape,
     LineStyle,
@@ -25,6 +26,7 @@ from drawlib._charts._common._types import (
 )
 from drawlib._charts.radar_chart import _renderer as _renderer_module
 from drawlib._charts.radar_chart._series import Series
+from drawlib._core import l4_canvas as canvas
 from drawlib._core.l3_styles import Style
 
 
@@ -113,6 +115,35 @@ class RadarChart:
         """List of registered Series."""
         return list(self._series)
 
+    def configure_axis(
+        self,
+        *,
+        min_value: float | None = None,
+        max_value: float | None = None,
+        levels: int | None = None,
+        scale_format: FormatterType = None,
+    ) -> RadarChart:
+        """Configure radial scale bounds, concentric ring count, and scale formatter.
+
+        Args:
+            min_value: Optional baseline value at the center origin.
+            max_value: Optional outer boundary value.
+            levels: Optional number of concentric grid rings.
+            scale_format: Optional formatter string or function for scale levels.
+
+        Returns:
+            RadarChart: Self for method chaining.
+        """
+        if min_value is not None:
+            self.min_value = float(min_value)
+        if max_value is not None:
+            self.max_value = float(max_value)
+        if levels is not None:
+            self.levels = max(1, int(levels))
+        if scale_format is not None:
+            self.scale_format = scale_format
+        return self
+
     def add_series(
         self,
         name: str,
@@ -124,6 +155,10 @@ class RadarChart:
         point_shape: PointShape = "circle",
         point_size: float = 0.8,
         legend_text_style: Style | None = None,
+        *,
+        show: bool = True,
+        draw_ratio: float = 1.0,
+        draw_direction: DrawDirection = "bottom_to_top",
     ) -> Series:
         """Add a new data series to the radar chart.
 
@@ -137,6 +172,9 @@ class RadarChart:
             point_shape: Marker shape ("circle", "square", "none"). Defaults to "circle".
             point_size: Marker radius. Defaults to 0.8.
             legend_text_style: Optional custom text style for this series in legend.
+            show: Whether this series is rendered. Defaults to True.
+            draw_ratio: Spatial rendering progress ratio in [0.0, 1.0]. Defaults to 1.0.
+            draw_direction: Direction of partial rendering ("bottom_to_top" or "left_to_right").
 
         Returns:
             Series: The newly created and registered series.
@@ -151,6 +189,9 @@ class RadarChart:
             point_shape=point_shape,
             point_size=point_size,
             legend_text_style=legend_text_style,
+            show=show,
+            draw_ratio=draw_ratio,
+            draw_direction=draw_direction,
         )
         self._series.append(s)
         return s
@@ -167,13 +208,45 @@ class RadarChart:
         h = self._custom_height if self._custom_height is not None else diameter + pad + (6.0 if has_title else 0.0)
         return (w, h)
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    def draw(
+        self,
+        xy: tuple[float, float] = (0.0, 0.0),
+        *,
+        radius: float | None = None,
+        width: float | None = None,
+        height: float | None = None,
+        scale: float = 1.0,
+    ) -> None:
         """Render this radar chart onto the canvas anchored at bottom-left coordinate xy.
 
         Args:
             xy: Base canvas placement coordinate (x, y) where the bottom-left corner is anchored.
+            radius: Optional temporary override for radar web outer radius.
+            width: Optional temporary override for chart container width.
+            height: Optional temporary override for chart container height.
+            scale: Uniform scaling factor applied around xy. Defaults to 1.0.
         """
-        _renderer_module.draw_radar_chart(self, xy)
+        orig_radius = self.radius
+        orig_w, orig_h = self._custom_width, self._custom_height
+        try:
+            if width is not None:
+                self._custom_width = float(width)
+            if height is not None:
+                self._custom_height = float(height)
+            if radius is not None:
+                self.radius = float(radius)
+            elif width is not None or height is not None:
+                has_title = bool(self.title and self.title_style is not None)
+                pad = 16.0 if self.axis_text_style is not None else 8.0
+                eff_w, eff_h = self.get_size()
+                avail_w = max(2.0, eff_w - pad)
+                avail_h = max(2.0, eff_h - pad - (6.0 if has_title else 0.0))
+                self.radius = min(avail_w, avail_h) / 2.0
+            with canvas.transform(origin=xy, scale=scale):
+                _renderer_module.draw_radar_chart(self, xy)
+        finally:
+            self.radius = orig_radius
+            self._custom_width, self._custom_height = orig_w, orig_h
 
     def draw_legend(
         self,
@@ -182,6 +255,8 @@ class RadarChart:
         orientation: Orientation = "vertical",
         swatch_size: tuple[float, float] = (2.4, 1.2),
         item_gap: float = 4.0,
+        *,
+        scale: float = 1.0,
     ) -> None:
         """Render legend for series at coordinate xy.
 
@@ -191,12 +266,14 @@ class RadarChart:
             orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
             swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
             item_gap: Spacing between consecutive legend items. Defaults to 4.0.
+            scale: Uniform scaling factor applied around xy. Defaults to 1.0.
         """
         items = [
             (
                 s.name,
                 s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
                 s.legend_text_style,
+                s.show,
             )
             for s in self._series
         ]
@@ -207,4 +284,5 @@ class RadarChart:
             orientation=orientation,
             swatch_size=swatch_size,
             item_gap=item_gap,
+            scale=scale,
         )

@@ -42,3 +42,6 @@ LineStyle = Literal["solid", "dashed", "dotted", "dashdot"]
 
 # Radar chart grid shape
 GridShape = Literal["polygon", "circle"]
+
+# Spatial partial rendering direction for chart elements
+DrawDirection = Literal["bottom_to_top", "left_to_right"]

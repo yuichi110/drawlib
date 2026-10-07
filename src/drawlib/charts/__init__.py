@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+from drawlib._charts._common._types import DrawDirection
 from drawlib.charts import (
     area,
     bar,
@@ -22,6 +23,7 @@ from drawlib.charts import (
 )
 
 __all__ = [
+    "DrawDirection",
     "area",
     "bar",
     "gantt",

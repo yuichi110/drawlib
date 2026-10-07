@@ -75,6 +75,8 @@ class CartesianChartBase:
         orientation: Orientation = "vertical",
         swatch_size: tuple[float, float] = (2.4, 1.2),
         item_gap: float = 4.0,
+        *,
+        scale: float = 1.0,
     ) -> None:
         """Render legend for series at coordinate xy.
 
@@ -84,12 +86,14 @@ class CartesianChartBase:
             orientation: Legend orientation ("vertical" or "horizontal"). Defaults to "vertical".
             swatch_size: (width, height) size of color swatches. Defaults to (2.4, 1.2).
             item_gap: Spacing between consecutive legend items. Defaults to 4.0.
+            scale: Proportional scaling factor around xy. Defaults to 1.0.
         """
         items = [
             (
                 s.name,
                 s.style.line_color or s.style.shape_fill_color or s.style.shape_line_color or (30, 41, 59, 1.0),
                 getattr(s, "legend_text_style", None),
+                bool(getattr(s, "show", True)),
             )
             for s in getattr(self, "_series", [])
         ]
@@ -100,6 +104,7 @@ class CartesianChartBase:
             orientation=orientation,
             swatch_size=swatch_size,
             item_gap=item_gap,
+            scale=scale,
         )
 
     def configure_y_axis(

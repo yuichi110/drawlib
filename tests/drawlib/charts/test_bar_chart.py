@@ -278,3 +278,41 @@ class TestBarChartRendering:
             canvas.save(str(out_file))
             assert out_file.exists()
             assert out_file.stat().st_size > 0
+
+    def test_lifecycle_and_spatial_overrides(self) -> None:
+        """Test BarChart show, draw_ratio, draw_direction, and draw() spatial overrides."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_file = Path(tmpdir) / "bar_lifecycle.png"
+            canvas.clear()
+
+            chart = BarChart(
+                axis_line_style=_DEFAULT_AXIS_LINE,
+                axis_text_style=_DEFAULT_TEXT,
+                categories=["Q1", "Q2", "Q3", "Q4"],
+                width=70.0,
+                height=45.0,
+            )
+            s_style = Style(
+                shape_fill_color=(50, 100, 200, 1.0), shape_line_color=(0, 0, 0, 0.0), shape_line_width=0.0
+            )
+            s1 = chart.add_series("S1", [10.0, 20.0, 30.0, 40.0], style=s_style, draw_ratio=0.5)
+            s2 = chart.add_series(
+                "S2",
+                [15.0, 25.0, 35.0, 45.0],
+                style=s_style,
+                draw_ratio=0.6,
+                draw_direction="left_to_right",
+            )
+            s3 = chart.add_series("Hidden", [100.0, 200.0, 300.0, 400.0], style=s_style, show=False)
+
+            assert s1.draw_direction == "bottom_to_top"
+            assert s2.draw_direction == "left_to_right"
+            assert s3.show is False
+
+            chart.draw(xy=(10.0, 10.0), width=80.0, height=50.0, scale=0.8)
+            chart.draw_legend(xy=(10.0, 65.0), text_style=_DEFAULT_TEXT, scale=0.8)
+            assert chart.get_size() == (70.0, 45.0)
+
+            canvas.save(str(out_file))
+            assert out_file.exists()
+            assert out_file.stat().st_size > 0

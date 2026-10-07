@@ -12,6 +12,7 @@
 from __future__ import annotations
 
 from drawlib._charts._common._types import (
+    DrawDirection,
     FormatterType,
     GridShape,
     LegendPosition,
@@ -22,6 +23,7 @@ from drawlib._charts.radar_chart import (
 )
 
 __all__ = [
+    "DrawDirection",
     "FormatterType",
     "GridShape",
     "LegendPosition",

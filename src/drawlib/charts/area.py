@@ -16,6 +16,7 @@ from drawlib._charts._common._types import (
     AreaMode as Mode,
 )
 from drawlib._charts._common._types import (
+    DrawDirection,
     FormatterType,
     LegendPosition,
 )
@@ -27,6 +28,7 @@ from drawlib._charts.area_chart import (
 __all__ = [
     "AreaChart",
     "Axis",
+    "DrawDirection",
     "FormatterType",
     "LegendPosition",
     "Mode",

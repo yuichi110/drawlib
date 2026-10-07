@@ -11,13 +11,14 @@
 
 from __future__ import annotations
 
-from drawlib._charts._common._types import FormatterType
+from drawlib._charts._common._types import DrawDirection, FormatterType
 from drawlib._charts.pie_chart import (
     PieChart,
     Slice,
 )
 
 __all__ = [
+    "DrawDirection",
     "FormatterType",
     "PieChart",
     "Slice",

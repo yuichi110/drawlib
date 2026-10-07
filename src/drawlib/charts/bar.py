@@ -16,6 +16,7 @@ from drawlib._charts._common._types import (
     BarMode as Mode,
 )
 from drawlib._charts._common._types import (
+    DrawDirection,
     FormatterType,
     LegendPosition,
     Orientation,
@@ -28,6 +29,7 @@ from drawlib._charts.bar_chart import (
 __all__ = [
     "Axis",
     "BarChart",
+    "DrawDirection",
     "FormatterType",
     "LegendPosition",
     "Mode",

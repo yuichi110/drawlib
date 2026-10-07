@@ -15,6 +15,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import validate_call
 
+from drawlib._charts._common._types import DrawDirection
 from drawlib._charts.gantt_chart import _renderer as _renderer_module
 from drawlib._charts.gantt_chart._item import (
     Dependency,
@@ -23,6 +24,7 @@ from drawlib._charts.gantt_chart._item import (
     Section,
     Task,
 )
+from drawlib._core import l4_canvas as canvas
 from drawlib._core.l3_styles import Style
 
 
@@ -126,6 +128,10 @@ class GanttChart:
         style: Style,
         progress: float = 0.0,
         progress_text_style: Style | None = None,
+        *,
+        show: bool = True,
+        draw_ratio: float = 1.0,
+        draw_direction: DrawDirection = "left_to_right",
     ) -> Task:
         """Add a scheduled task to the chart.
 
@@ -136,6 +142,9 @@ class GanttChart:
             style: Style defining task bar appearance.
             progress: Progress ratio from 0.0 to 1.0. Defaults to 0.0.
             progress_text_style: Optional Style for progress percentage text.
+            show: Whether this task is rendered. Defaults to True.
+            draw_ratio: Spatial rendering progress ratio in [0.0, 1.0]. Defaults to 1.0.
+            draw_direction: Direction of partial rendering ("left_to_right" or "bottom_to_top").
 
         Returns:
             Task: The newly registered task item.
@@ -147,6 +156,9 @@ class GanttChart:
             style=style,
             progress=progress,
             progress_text_style=progress_text_style,
+            show=show,
+            draw_ratio=draw_ratio,
+            draw_direction=draw_direction,
         )
         self._items.append(task)
         return task
@@ -156,6 +168,8 @@ class GanttChart:
         name: str,
         style: Style | None = None,
         text_style: Style | None = None,
+        *,
+        show: bool = True,
     ) -> Section:
         """Add a category section divider row.
 
@@ -163,6 +177,7 @@ class GanttChart:
             name: Section label text.
             style: Optional Style overriding section banner appearance.
             text_style: Optional Style overriding section text typography.
+            show: Whether this section is rendered. Defaults to True.
 
         Returns:
             Section: The newly registered section item.
@@ -171,6 +186,7 @@ class GanttChart:
             name=name,
             style=style,
             text_style=text_style,
+            show=show,
         )
         self._items.append(section)
         return section
@@ -180,6 +196,8 @@ class GanttChart:
         name: str,
         at: str | float,
         style: Style,
+        *,
+        show: bool = True,
     ) -> Milestone:
         """Add a milestone marker event.
 
@@ -187,6 +205,7 @@ class GanttChart:
             name: Milestone title displayed in the label column.
             at: Column name or numerical index where the diamond is anchored.
             style: Style defining diamond marker appearance.
+            show: Whether this milestone is rendered. Defaults to True.
 
         Returns:
             Milestone: The newly registered milestone item.
@@ -195,6 +214,7 @@ class GanttChart:
             name=name,
             at=at,
             style=style,
+            show=show,
         )
         self._items.append(milestone)
         return milestone
@@ -205,6 +225,8 @@ class GanttChart:
         style: Style,
         label: str = "",
         label_style: Style | None = None,
+        *,
+        show: bool = True,
     ) -> Marker:
         """Add a vertical reference highlight line (e.g. today).
 
@@ -213,6 +235,7 @@ class GanttChart:
             style: Style defining line appearance.
             label: Badge text displayed above the line. Defaults to "".
             label_style: Optional Style for marker label text.
+            show: Whether this marker is rendered. Defaults to True.
 
         Returns:
             Marker: The newly registered marker item.
@@ -222,6 +245,7 @@ class GanttChart:
             style=style,
             label=label,
             label_style=label_style,
+            show=show,
         )
         self._markers.append(marker)
         return marker
@@ -231,6 +255,8 @@ class GanttChart:
         from_task: Task,
         to_task: Task,
         style: Style | None = None,
+        *,
+        show: bool = True,
     ) -> Dependency:
         """Add an orthogonal dependency arrow connecting two tasks.
 
@@ -238,6 +264,7 @@ class GanttChart:
             from_task: Source task.
             to_task: Target task.
             style: Optional Style overriding arrow appearance.
+            show: Whether this dependency arrow is rendered. Defaults to True.
 
         Returns:
             Dependency: The newly registered dependency.
@@ -246,6 +273,7 @@ class GanttChart:
             from_task=from_task,
             to_task=to_task,
             style=style,
+            show=show,
         )
         self._dependencies.append(dep)
         return dep
@@ -260,10 +288,29 @@ class GanttChart:
         calculated_h = title_h + self.header_height + len(self._items) * self.row_height + padding_y
         return (self.width, max(20.0, calculated_h))
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    def draw(
+        self,
+        xy: tuple[float, float] = (0.0, 0.0),
+        *,
+        width: float | None = None,
+        height: float | None = None,
+        scale: float = 1.0,
+    ) -> None:
         """Render this Gantt chart onto the canvas anchored at bottom-left coordinate xy.
 
         Args:
             xy: Base canvas placement coordinate (x, y) where the bottom-left corner is anchored.
+            width: Optional temporary override for chart container width.
+            height: Optional temporary override for chart container height.
+            scale: Uniform scaling factor applied around xy. Defaults to 1.0.
         """
-        _renderer_module.draw_gantt_chart(self, xy)
+        orig_w, orig_h = self.width, self.height
+        try:
+            if width is not None:
+                self.width = float(width)
+            if height is not None:
+                self.height = float(height)
+            with canvas.transform(origin=xy, scale=scale):
+                _renderer_module.draw_gantt_chart(self, xy)
+        finally:
+            self.width, self.height = orig_w, orig_h

@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+from drawlib._charts._common._types import DrawDirection
 from drawlib._charts.gantt_chart import (
     Dependency,
     GanttChart,
@@ -22,6 +23,7 @@ from drawlib._charts.gantt_chart import (
 
 __all__ = [
     "Dependency",
+    "DrawDirection",
     "GanttChart",
     "Marker",
     "Milestone",
