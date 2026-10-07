@@ -52,22 +52,19 @@ data = [
     ["Payment Broker", "HTTPS", "45 ms", "DEGRADED"],
 ]
 
-table.add(data)
-table.draw(xy=(10, 52), width=100, height=40)
+table.draw(xy=(10, 52), width=100, height=40, data=data)
 ```
 
 ---
 
-## 2. Geometry, Row Registration & Coordinate Mechanics
+## 2. Geometry, Data Matrix & Coordinate Mechanics
 
 - **Top-Left Anchor `(x, y)`**: The coordinate passed to `draw(xy=...)` specifies the **top-left corner** of the first table cell.
 - **Downward Flow**: Rows move downward (`y - row_height`), while columns extend to the right (`x + col_width`).
-- **Registering Rows (`table.add(...)`)**:
-  - `table.add(row_or_matrix, *, show: bool = True) -> Self`: Accepts either a single row (`list[Any]`) or a 2D matrix (`list[list[Any]]`).
-  - When `show=False` on a row, its cell backgrounds and text are hidden while the outer grid and row height remain fixed.
+- **2D Data Matrix (`data`)**: Passed as a 2D list (`list[list[Any]]`) to `draw()` or `draw_flexible()`. When `has_header=True` (default), row `0` is styled using `header_cell_style` and `header_text_style`.
 - **Sizing & Scaling Modes**:
-  - `draw(xy, width, height, data=None, *, scale: float = 1.0)`: Distributes `width` and `height` equally across all columns and rows, scaling dimensions and font sizes by `scale`.
-  - `draw_flexible(xy, column_widths, row_heights, data=None, *, scale: float = 1.0)`: Provides custom widths per column (e.g. `column_widths=[30, 20, 25, 25]`) and custom heights per row.
+  - `draw(xy, width, height, data, scale: float = 1.0)`: Distributes `width` and `height` equally across all columns and rows, scaling dimensions and font sizes by `scale`.
+  - `draw_flexible(xy, column_widths, row_heights, data, scale: float = 1.0)`: Provides custom widths per column (e.g. `column_widths=[30, 20, 25, 25]`) and custom heights per row.
 
 ---
 

@@ -60,7 +60,7 @@ Options are specified space-delimited on the opening code fence line:
 
 > [!NOTE]
 > **Animations in Code Blocks (APNG & WebP)**:
-> Embedded `drawlib` blocks fully support generating multi-frame animated illustrations using `from drawlib.anim import Animation`. The document compiler automatically outputs an animated PNG (APNG) or Animated WebP file based on the file extension. See [Animations (APNG & WebP)](../02_drawing_primitives/animation.md) for full details.
+> Embedded `drawlib` blocks fully support generating multi-frame animated illustrations using `from drawlib.anim import Animation`. The document compiler automatically outputs an animated PNG (APNG) or Animated WebP file based on the file extension. See [Animations Overview (APNG & WebP)](../06_animations/overview.md) for full details.
 
 ---
 

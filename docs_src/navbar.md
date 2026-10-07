@@ -19,7 +19,6 @@
 - [Text & Typography](./02_drawing_primitives/text_and_fonts.md)
 - [Standardized Icons](./02_drawing_primitives/icons.md)
 - [Images & Dimage](./02_drawing_primitives/images.md)
-- [Animations (APNG & WebP)](./02_drawing_primitives/animation.md)
 - [Styles & Theming](./02_drawing_primitives/styles_and_theming.md)
 
 ## 3. SmartArts
@@ -52,19 +51,26 @@
 - [ER Diagrams](./05_diagrams/er.md)
 - [State Machine Diagrams](./05_diagrams/state_diagram.md)
 
-## 6. Document Builder & CLI
-- [Documentation as Code Overview](./06_doc_builder_and_cli/overview.md)
-- [Markdown Code Block Syntax](./06_doc_builder_and_cli/code_blocks.md)
-- [CLI Reference](./06_doc_builder_and_cli/cli_reference.md)
-- [Linear Document Project (`doc`)](./06_doc_builder_and_cli/project_doc.md)
-- [Doc Site Project (`site`)](./06_doc_builder_and_cli/project_site.md)
-- [Slide Deck Project (`slide`)](./06_doc_builder_and_cli/project_slide.md)
-- [Image Project (`image`)](./06_doc_builder_and_cli/project_image.md)
-- [Templates & CSS Customization](./06_doc_builder_and_cli/customization.md)
+## 6. Animations
+- [Animations Overview](./06_animations/overview.md)
+- [Animating Primitives & Colors](./06_animations/primitives.md)
+- [Animating SmartArts](./06_animations/smartarts.md)
+- [Animating Charts](./06_animations/charts.md)
+- [Animating Diagrams & Graphs](./06_animations/diagrams_and_graphs.md)
 
-## 7. AI Agents & Advanced Integration
-- [AI Agent Instructions & Rules](./07_ai_agents_and_advanced/ai_agent_instructions.md)
-- [Autonomous Verification Loop](./07_ai_agents_and_advanced/multimodal_feedback_loop.md)
-- [Programmatic API](./07_ai_agents_and_advanced/programmatic_api.md)
-- [Algorithmic Layout & Math](./07_ai_agents_and_advanced/math_and_layout.md)
-- [Troubleshooting & Debugging](./07_ai_agents_and_advanced/debugging.md)
+## 7. Document Builder & CLI
+- [Documentation as Code Overview](./07_doc_builder_and_cli/overview.md)
+- [Markdown Code Block Syntax](./07_doc_builder_and_cli/code_blocks.md)
+- [CLI Reference](./07_doc_builder_and_cli/cli_reference.md)
+- [Linear Document Project (`doc`)](./07_doc_builder_and_cli/project_doc.md)
+- [Doc Site Project (`site`)](./07_doc_builder_and_cli/project_site.md)
+- [Slide Deck Project (`slide`)](./07_doc_builder_and_cli/project_slide.md)
+- [Image Project (`image`)](./07_doc_builder_and_cli/project_image.md)
+- [Templates & CSS Customization](./07_doc_builder_and_cli/customization.md)
+
+## 8. AI Agents & Advanced Integration
+- [AI Agent Instructions & Rules](./08_ai_agents_and_advanced/ai_agent_instructions.md)
+- [Autonomous Verification Loop](./08_ai_agents_and_advanced/multimodal_feedback_loop.md)
+- [Programmatic API](./08_ai_agents_and_advanced/programmatic_api.md)
+- [Algorithmic Layout & Math](./08_ai_agents_and_advanced/math_and_layout.md)
+- [Troubleshooting & Debugging](./08_ai_agents_and_advanced/debugging.md)

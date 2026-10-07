@@ -42,8 +42,7 @@ data = [
     ["Cycle", "PDCA & Feedback Loops", "Center (cx, cy)"],
     ["Table", "Comparison & Schema Tables", "Top-Left (x, y)"],
 ]
-tbl.add(data)
-tbl.draw(xy=(10, 32), width=100, height=22)
+tbl.draw(xy=(10, 32), width=100, height=22, data=data)
 ```
 
 ---
@@ -54,7 +53,7 @@ tbl.draw(xy=(10, 32), width=100, height=22)
 | :--- | :--- | :--- | :--- |
 | **`ChevronProcess`** | Phased pipelines, CI/CD stages, migration roadmaps | Bottom-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
 | **`Cycle`** | PDCA devops loops, circular lifecycles, state loops | Center `(cx, cy)` | `add(..., show=True)`, `set_center()`, `draw(..., scale=1.0)` |
-| **`Table`** | Service SLAs, specification matrices, DB schemas | Top-Left `(x, y)` | `add(..., show=True)`, `set_style_cell_*()`, `draw(..., scale=1.0)` |
+| **`Table`** | Service SLAs, specification matrices, DB schemas | Top-Left `(x, y)` | `set_style_cell_*()`, `draw(xy, w, h, data, scale=1.0)` |
 | **`TreeNode`** | Directory hierarchies, org charts, taxonomy trees | Top-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
 | **`MindMapNode`** | Brainstorming nodes, radial feature maps | Center `(cx, cy)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
 | **`GridLayout`** | Layered architectures, dashboard card grids | Bottom-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |

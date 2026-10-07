@@ -56,14 +56,16 @@ Explore the comprehensive guides below:
 1. [**Getting Started**](./01_getting_started/overview.md)
    - Core philosophy, installation, quickstart, coordinate principles, project scaffolding, and AI agent configuration.
 2. [**Drawing Primitives & Styles**](./02_drawing_primitives/canvas.md)
-   - Low-level vector shapes, lines, connectors, typography, icons, image processing, APNG & WebP animations, and preset themes.
+   - Low-level vector shapes, lines, connectors, typography, icons, image processing, preset themes, and color interpolation.
 3. [**SmartArts**](./03_smartarts/overview.md)
    - High-level infographics: process pipelines, cyclical loops, data tables, hierarchical trees, and mindmaps.
 4. [**Charts**](./04_charts/overview.md)
    - Declarative data plotting: bar, line, area, pie, radar, scatter, and project Gantt charts.
 5. [**Technical Diagrams**](./05_diagrams/overview.md)
    - Engineering diagrams: auto-layout graphs (`drawlib.graph`), cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, and state machines.
-6. [**Document Builder & CLI**](./06_doc_builder_and_cli/overview.md)
+6. [**Animations (APNG & WebP)**](./06_animations/overview.md)
+   - Multi-frame animations, smooth color transitions, progressive component reveals, arrow growth (`draw_ratio`), and camera pan/zoom across all Drawlib modules.
+7. [**Document Builder & CLI**](./07_doc_builder_and_cli/overview.md)
    - Documentation as Code: Markdown block syntax, CLI reference, project templates (`site`, `doc`, `slide`, `image`), and custom theming.
-7. [**AI Agents & Advanced Integration**](./07_ai_agents_and_advanced/ai_agent_instructions.md)
+8. [**AI Agents & Advanced Integration**](./08_ai_agents_and_advanced/ai_agent_instructions.md)
    - Autonomous agent instructions, visual self-correction feedback loop, programmatic Python APIs, and math utilities.

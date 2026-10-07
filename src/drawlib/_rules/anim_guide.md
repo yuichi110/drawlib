@@ -24,7 +24,7 @@ Standard image viewers, GitHub file previews, and vector PDF compilation render 
 ### 1.3. Target Frame Rates & Final Frame Hold Duration
 | Animation Type | Recommended `fps` | Frame `duration` Strategy |
 | :--- | :--- | :--- |
-| **Continuous Motion / Transitions** (moving packets, growing bars, growing arrows, color fades, pan/zoom) | `fps=8.0` – `12.0` | Use default frame duration (`0.08s` – `0.12s`) during motion, and hold the final completed state with `duration=2.0` – `3.0`. |
+| **Continuous Motion / Transitions** (moving packets, growing bars/lines via `draw_ratio`, color fades, pan/zoom) | `fps=8.0` – `12.0` | Use default frame duration (`0.08s` – `0.14s`) during motion, and hold the final completed state with `duration=2.0` – `3.0`. |
 | **Step-by-Step Architectural Walkthrough** (revealing pipeline stages, chart series, or diagram nodes one by one) | `fps=1.0` – `2.0` | Use `0.6s` – `1.0s` per step, and hold the final completed diagram with `duration=2.5` – `3.0` so viewers can read the full diagram before it loops. |
 
 ---
@@ -35,8 +35,8 @@ Drawlib's unified component lifecycle (`add()` -> `draw()`) supports two clean l
 
 | Target Module | Recommended Loop Pattern | Why |
 | :--- | :--- | :--- |
-| **Primitives** (`shapes`, `lines`, `text`, `icons`)<br>**SmartArts** (`ChevronProcess`, `Table`, `GridLayout`, etc.)<br>**Charts** (`BarChart`, `LineChart`, `PieChart`, etc.) | **Pattern A: In-Frame Build**<br>Instantiate and call `add(..., show=...)` -> `draw()` inside `with anim.frame():` | Lightweight builders that automatically preserve full container widths and chart axis scales even when items have `show=False`. |
-| **Diagrams** (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`)<br>**Auto-Layout Graphs** (`ArchitectureGraph`, `LayerGraph`, etc.)<br>**Node Trees** (`TreeNode`, `MindMapNode`) | **Pattern B: Pre-Build & Mutate**<br>Build topology once outside the loop, then mutate `.show` / `.style` / `.draw_ratio` and call `draw()` inside `with anim.frame():` | Avoids re-declaring complex graph topologies or re-running layout solvers on every frame; automatically hides connected edges when `node.show = False`. |
+| **Primitives** (`shapes`, `lines`, `text`, `icons`)<br>**SmartArts** (`ChevronProcess`, `Table`, `GridLayout`, `Cycle`, etc.) | **Pattern A: In-Frame Build**<br>Instantiate and call `add(..., show=...)` -> `draw()` inside `with anim.frame():` | Lightweight builders that automatically preserve full container widths, row heights, and cycle slots even when items have `show=False`. |
+| **Charts** (`BarChart`, `LineChart`, `PieChart`, `GanttChart`, etc.)<br>**Diagrams** (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`)<br>**Auto-Layout Graphs** (`ArchitectureGraph`, `LayerGraph`, etc.)<br>**Node Trees** (`TreeNode`, `MindMapNode`) | **Pattern B: Pre-Build & Mutate**<br>Build topology/series once outside the loop, then mutate `.show` / `.style` / `.draw_ratio` and call `draw()` inside `with anim.frame():` | Avoids re-declaring series or topologies on every frame; locks automatic chart axes (`min_value`/`max_value`) and graph node coordinates; automatically hides connected diagram edges when `node.show = False`. |
 
 ### Three Universal Loop Rules
 1. **Hoist Invariant Data Outside the Loop**: Define canvas `setup()`, `Animation()`, color palettes, coordinate arrays, and static data tables once before the `for` loop.
@@ -95,9 +95,9 @@ save("primitive_packet_fade.png")
 
 ## 4. SmartArts (`drawlib.smartarts`) Animation Patterns
 
-### 4.1. Builder-Based SmartArts (`ChevronProcess`, `Table`, `GridLayout`, `BulletList`, `CycleDiagram`)
-All SmartArt builders accept `show: bool = True` on `add()` (or `add_row()` on `Table`) and defer rendering until `draw(xy=(x, y), ...)` is called.
-- **Layout Preservation**: Items with `show=False` still occupy their calculated column/cell/angle slot. Revealing items step by step via `show=(i <= step)` never shifts or resizes already-visible items.
+### 4.1. Builder-Based SmartArts (`ChevronProcess`, `Table`, `GridLayout`, `BulletPoints`, `Cycle`)
+All SmartArt builders accept `show: bool = True` on `add()` and defer rendering until `draw(xy=(x, y), ..., scale=1.0)` is called.
+- **Layout Preservation**: Items with `show=False` still occupy their calculated column/row/cell/angle slot. Revealing items step by step via `show=(i <= step)` never shifts or resizes already-visible items.
 - **Active Step Highlighting**: Highlight the newly revealed step (`i == step`) with `Styles.PrimaryFlat` (`Styles.WhiteBold` text) and settle previous steps (`i < step`) into calm `Styles.PrimaryNeutral` (`Styles.DarkBold` text).
 
 ```python
@@ -113,7 +113,12 @@ stages = ["Plan", "Build", "Test", "Deploy"]
 for step in range(len(stages)):
     is_last = (step == len(stages) - 1)
     with anim.frame(duration=2.5 if is_last else 0.8):
-        proc = ChevronProcess(style=Styles.Neutral, text_style=Styles.DarkBold, flat_left_end=True)
+        proc = ChevronProcess(
+            style=Styles.Neutral,
+            text_style=Styles.DarkBold,
+            description_style=Styles.Dark,
+            flat_left_end=True,
+        )
         for i, name in enumerate(stages):
             style = Styles.PrimaryFlat if i == step else Styles.PrimaryNeutral
             t_style = Styles.WhiteBold if i == step else Styles.DarkBold
@@ -124,85 +129,49 @@ save("chevron_steps.png")
 ```
 
 ### 4.2. Node-Based Hierarchies (`TreeNode`, `MindMapNode`)
-For `TreeNode` and `MindMapNode`, `add()` returns the child node instance. You can build the hierarchy once outside the loop and mutate `.show`, `.style`, and `.text_style` across frames before calling `root.draw(xy=...)`:
-- When `child.show = False`, the child node, its connector branch from the parent, and its entire subtree are hidden while still reserving their layout space so sibling branches remain stationary.
-
-```python
-from drawlib.anim import Animation
-from drawlib.canvas import save, setup
-from drawlib.smartarts import TreeNode
-from drawlib.styles import Styles
-
-setup(width=100, height=60)
-anim = Animation(fps=1.5)
-
-root = TreeNode("API Gateway", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-auth = root.add("Auth Service", style=Styles.PrimaryNeutral, show=False)
-orders = root.add("Order Service", style=Styles.PrimaryNeutral, show=False)
-
-for step in range(3):
-    auth.show = (step >= 1)
-    orders.show = (step >= 2)
-    with anim.frame(duration=2.5 if step == 2 else 0.8):
-        root.draw(xy=(50, 48))
-
-save("tree_reveal.png")
-```
+For `TreeNode` and `MindMapNode`, you can instantiate the node hierarchy once outside the loop and mutate `.show` across frames before calling `root.draw(xy=..., scale=1.0)`:
+- When `child.show = False`, the child node, its incoming connector branch from the parent, and its entire subtree are hidden while still reserving their vertical/radial layout slots so sibling branches remain stationary.
 
 ---
 
 ## 5. Statistical & Project Charts (`drawlib.charts`) Animation Patterns
 
-All 7 chart classes (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`) separate data registration (`add()`) from rendering (`draw(xy, width, height)`).
+All 7 chart classes (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`) return mutable element objects (`Series`, `Slice`, `Task`, `Point`) from their registration methods (`add_series`, `add_slice`, `add_task`, `add`).
 
-### 5.1. Progressive Series / Task Reveal (`add(..., show=...)`)
-Register all series, slices, or Gantt tasks in every frame and control visibility with `show=(i <= step)`:
-- **Stable Axis Scaling**: Hidden series (`show=False`) are still included when Drawlib calculates automatic `max_value`, `xlim`/`ylim`, Radar polygon radius, or Gantt date ranges, ensuring the chart axes and gridlines never jump when a new series appears.
+### 5.1. Progressive Series Reveal (`s.show`)
+Build the chart once outside the loop and toggle `s.show = (i <= step)` across frames. Because Drawlib calculates automatic `min_value` / `max_value`, pie proportions, and Gantt row heights across **all registered elements regardless of `show=False`**, the chart axes and gridlines remain 100% locked across frames.
 
-```python
-from drawlib.anim import Animation
-from drawlib.canvas import save, setup
-from drawlib.charts import LineChart
-from drawlib.styles import Styles
-
-setup(width=100, height=65)
-anim = Animation(fps=1.2)
-
-categories = ["Q1", "Q2", "Q3", "Q4"]
-series_data = [
-    ("2024 Baseline", [40, 48, 52, 60], Styles.Secondary),
-    ("2025 Actual", [50, 68, 82, 95], Styles.Primary),
-]
-
-for step in range(len(series_data)):
-    is_last = (step == len(series_data) - 1)
-    with anim.frame(duration=2.5 if is_last else 1.0):
-        chart = LineChart(title="Quarterly Revenue ($M)", categories=categories)
-        for i, (label, values, style) in enumerate(series_data):
-            chart.add(label, values, style=style, show=(i <= step))
-        chart.draw(xy=(12, 10), width=78, height=45)
-
-save("line_series_reveal.png")
-```
-
-### 5.2. Value Growth Animation (Pinning `max_value` / `ylim`)
-When animating bar heights, line values, or radar polygons growing from `0%` to `100%` via `[v * r for v in targets]`, **always set an explicit `max_value=...` (or `ylim=...`) on the chart constructor**. Otherwise, automatic axis scaling will rescale the Y-axis to the scaled values on every frame:
+### 5.2. Partial Spatial Growth (`s.draw_ratio` & `s.draw_direction`)
+Every `Series`, `Slice`, and `Task` supports `draw_ratio: float` (`0.0` to `1.0`) and `draw_direction: DrawDirection` (`"bottom_to_top"` or `"left_to_right"`):
+- **`BarChart` / `RadarChart`**: Default `"bottom_to_top"` grows bars vertically from the baseline (or expands the radar polygon radially outward).
+- **`LineChart` / `AreaChart` / `PieChart` / `GanttChart`**: Default `"left_to_right"` sweeps curves, wedges, or task bars progressively along the axis/angle.
 
 ```python
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
 
-setup(width=100, height=65)
+setup(width=105, height=64)
 anim = Animation(fps=10.0)
-targets = [45, 85, 65]
+
+chart = BarChart(
+    categories=["v1", "v2", "v3"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    grid_style=Styles.MutedThin,
+    width=80,
+    height=44,
+    title="Service Throughput (RPS)",
+    title_style=Styles.BlackBold.patch(text_size=12.5),
+)
+chart.configure_y_axis(min_value=0, max_value=100)
+s1 = chart.add_series("RPS", [45, 85, 65], style=Styles.PrimaryFlat)
 
 for r in [0.2, 0.4, 0.6, 0.8, 1.0]:
+    s1.draw_ratio = r
     with anim.frame(duration=2.0 if r == 1.0 else 0.12):
-        chart = BarChart(title="Service Throughput (RPS)", categories=["v1", "v2", "v3"], max_value=100)
-        chart.add("RPS", [round(v * r, 1) for v in targets], style=Styles.PrimaryFlat)
-        chart.draw(xy=(12, 10), width=78, height=45)
+        chart.draw(xy=(12, 8))
 
 save("bar_growth.png")
 ```
@@ -222,7 +191,7 @@ All 6 diagram engines (`FlowDiagram`, `ArchitectureDiagram`, `SequenceDiagram`, 
    - Mutate `node.style = Styles.PrimaryFlat` or `edge.style = Styles.PrimaryBold` between frames to highlight active request paths.
 3. **Progressive Arrow & Line Drawing (`edge.draw_ratio`, `edge.draw_direction`)**:
    - All connection objects (`Edge`, `Transition`, `Relationship`, `Message`, `Junction`) support `draw_ratio: float` (`0.0` to `1.0`) and `draw_direction: Literal["forward", "backward"]`.
-   - Animating `edge.draw_ratio` across `[0.3, 0.6, 1.0]` smoothly grows the connector line and traveling arrowhead from source to target.
+   - Animating `edge.draw_ratio` across `[0.35, 0.7, 1.0]` smoothly grows the connector line and traveling arrowhead from source to target.
 4. **Camera Pan & Zoom (`draw(xy=..., scale=...)`)**:
    - Calling `d.draw(xy=(ox, oy), scale=s)` translates and scales all diagram coordinates, dimensions, and font sizes—enabling smooth slide-in transitions or camera zoom-outs.
 
@@ -270,7 +239,7 @@ save("flow_walkthrough.png")
 ```
 
 ### 6.3. Auto-Layout Graph Animation (`drawlib.graph`)
-For `drawlib.graph` solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), run `layout = g.calc()` **once** before the animation loop to solve the layout, then mutate `layout.nodes[id]`, `layout.edges`, or `layout.clusters[id]` and call `layout.draw(xy=..., scale=...)` inside `with anim.frame():`:
+For `drawlib.graph` solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), `g.node(id, label, ...)` returns a mutable `Node` declaration (`node.show`, `node.style`, `node.text_style`). Because `g.calc()` solves coordinates across the full topology regardless of `show=False`, mutating `node.show` / `node.style` and calling `g.draw(margin=..., scale=...)` inside `with anim.frame():` keeps all node coordinates and cluster boxes fixed:
 
 ```python
 from drawlib.anim import Animation
@@ -278,30 +247,27 @@ from drawlib.canvas import save, setup
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
 
-setup(width=100, height=45)
+setup(width=110, height=42)
 anim = Animation(fps=1.5)
 
 g = LayerGraph(direction="LR")
-g.node("ingest", "Ingest", layer=0, style=Styles.PrimaryNeutral)
-g.node("transform", "Transform", layer=1, style=Styles.PrimaryNeutral)
-g.node("serve", "Serve", layer=2, style=Styles.PrimaryNeutral)
+nodes = [
+    g.node("ingest", "Ingest", layer=0),
+    g.node("transform", "Transform", layer=1),
+    g.node("serve", "Serve", layer=2),
+]
 g.edge("ingest", "transform")
 g.edge("transform", "serve")
 
-# Compute layout once before the loop
-layout = g.calc(xy=(10, 10), width=80, height=25)
-order = ["ingest", "transform", "serve"]
-
-for step, active_id in enumerate(order):
-    for i, nid in enumerate(order):
-        node = layout.nodes[nid]
+for step in range(len(nodes)):
+    for i, node in enumerate(nodes):
         node.show = (i <= step)
         node.style = Styles.PrimaryFlat if i == step else Styles.PrimaryNeutral
         node.text_style = Styles.WhiteBold if i == step else Styles.DarkBold
 
-    is_last = (step == len(order) - 1)
+    is_last = (step == len(nodes) - 1)
     with anim.frame(duration=2.5 if is_last else 0.8):
-        layout.draw()
+        g.draw(margin=8.0)
 
 save("graph_layer_steps.png")
 ```
