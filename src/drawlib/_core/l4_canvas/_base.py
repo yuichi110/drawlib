@@ -11,7 +11,7 @@
 
 import contextlib
 import math
-from collections.abc import Iterable, Iterator
+from collections.abc import Generator, Iterable
 from typing import Any, Final
 
 import matplotlib
@@ -232,7 +232,7 @@ class CanvasBase:
         origin: Coordinate = (0.0, 0.0),
         scale: float = 1.0,
         translate: tuple[float, float] = (0.0, 0.0),
-    ) -> Iterator[None]:
+    ) -> Generator[None, None, None]:
         """Context manager that scales and translates all artists added within its scope.
 
         Args:
