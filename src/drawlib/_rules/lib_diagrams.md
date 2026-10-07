@@ -115,6 +115,20 @@ tap_junction = main_edge.add_point((50.0, 50.0))
 tap_junction.connect(consumer_2, label="Audit Stream", routing="orthogonal", padding=1.5)
 ```
 
+### 2.5 Unified Component Lifecycle (`show`, Mutable Elements, and `scale`)
+All six diagram classes (`ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`) follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Register Elements -> 3. Mutate State -> 4. Render via `draw()`**):
+
+1. **Element Visibility (`show: bool = True`) & Layout Stability**:
+   - Every element constructor (`Node`, `NodeGroup`, `Junction`, `Edge`, `Start`/`Process`/`Decision`/`Data`/`End`, `Lane`, `Participant`, `ParticipantGroup`, `Message`, `Note`, `Block`, `State`/`InitialState`/`FinalState`/`ChoiceState`/`ForkJoinState`, `StateTransition`, `ClassNode`, `ClassRelationship`, `Entity`, `Relationship`) and registration method (`add()`, `connect()`, `fork()`, `junction()`, `add_lane()`, `request()`, `reply()`, `note()`, `loop()`/`alt()`/`opt()`/`par()`) accepts `show: bool = True` and returns the mutable element instance.
+   - Setting `elem.show = False` skips rendering that element while **keeping the diagram's total bounding box (`get_size()`), node coordinates, `NodeGroup` auto-bounds, `FlowDiagram` swimlanes, and `SequenceDiagram` vertical message timelines completely unchanged**.
+2. **Automatic Connected Edge & Dangling `Junction` Hiding**:
+   - When a node, group, participant, state, class, or entity has `show = False`, any edge, message, transition, or relationship connected to it (`start.show == False` or `end.show == False`) is automatically hidden during `draw()`.
+   - For `Junction` fan-out / merge topologies (such as `node.fork([t1, t2])`), if all outgoing branches from a `Junction` (or all incoming stems into a `Junction`) are hidden, the dangling pass-through stem is automatically hidden as well.
+3. **In-Place Property Mutation**:
+   - Returned element objects expose mutable `.show`, `.style`, `.text_style`, `.text` / `.name` / `.title`, and `.label` attributes that are evaluated dynamically on each `draw()` call.
+4. **Proportional Scaling (`scale: float = 1.0`)**:
+   - Every diagram's `draw(xy=(0.0, 0.0), *, scale: float = 1.0)` method applies a uniform canvas transformation anchored at `xy`, proportionally scaling all coordinates, shapes, stroke widths, arrowheads, icons, and font sizes.
+
 ---
 
 ## 3. ArchitectureDiagram: Microservices, Cloud Nodes, and Boundaries
@@ -154,9 +168,10 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 | `margin` | `float` | `5.0` | Outer margin around all elements. |
 | `style` | `Style \| None` | `None` | Optional Style for container background card. |
 
-- `d.add(item, xy) -> Node | NodeGroup`: Places a node or group.
-- `d.connect(source, target, label="", routing="orthogonal", padding=0.0) -> Edge`: Creates connection edge.
-- `d.draw(xy=(0.0, 0.0))`: Renders diagram at bottom-left coordinate `xy`.
+- `d.add(item, xy, *, show=None) -> Node | NodeGroup | Junction`: Places a node, group, or junction (optionally overriding `item.show`).
+- `d.connect(source, target, label="", arrow="->", routing="orthogonal", style=None, text_style=None, padding=0.0, show=True) -> Edge`: Creates and registers a connection edge.
+- `d.junction(xy, *, show=True) -> Junction`: Creates and registers a branching waypoint junction.
+- `d.draw(xy=(0.0, 0.0), *, scale=1.0)`: Renders diagram at bottom-left coordinate `xy` with optional proportional `scale`.
 
 #### `Node` Class:
 | Parameter | Type | Default | Description |
@@ -166,9 +181,12 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon square. |
 | `text_position` | `"bottom"` \| `"top"` \| `"left"` \| `"right"` | `"bottom"` | Label placement relative to icon center. |
 | `style` | `Style \| None` | `None` | Optional typography or node background style. |
+| `text_style` | `Style \| None` | `None` | Optional explicit style override for the label text. |
+| `show` | `bool` | `True` | Whether to render this node (and its connected edges). |
 
 - **Icon-Centric Coordinates**: The coordinate `xy` passed to `d.add(node, xy)` **strictly defines the center of the icon**. The text label is positioned relative to the icon according to `text_position` without shifting the icon's position. This ensures perfectly straight wire routing between aligned icons.
-- `node.fork(targets, at_x=None, at_y=None, padding=0.0)`: Creates a 1-to-N bus fan-out via an automatic intermediate junction.
+- `node.connect(target, label="", arrow="->", routing="orthogonal", style=None, text_style=None, padding=0.0, show=True) -> Edge`: Connects this node to `target`.
+- `node.fork(targets, at_x=None, at_y=None, style=None, padding=0.0, show=True) -> list[Edge]`: Creates a 1-to-N bus fan-out via an automatic intermediate junction.
 
 #### `NodeGroup` Class:
 | Parameter | Type | Default | Description |
@@ -176,8 +194,10 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 | `title` | `str` | `""` | Group banner title (e.g. `"VPC Network (10.0.0.0/16)"`). |
 | `padding` | `float` | `6.0` | Inner margin around enclosed child nodes. |
 | `style` | `Style \| None` | `None` | Style for group background fill and boundary border. |
+| `text_style` | `Style \| None` | `None` | Optional style override for the group title. |
+| `show` | `bool` | `True` | Whether to render the group boundary box and title. |
 
-- **Auto-Bounding**: Automatically computes its bounding box to enclose all child nodes and nested groups with configurable padding.
+- **Auto-Bounding**: Automatically computes its bounding box to enclose all child nodes and nested groups with configurable padding (even when child nodes have `show=False`).
 - **Group as Connectable**: You can connect directly to or from a group's boundary box.
 
 #### Built-in Icons:
@@ -295,13 +315,20 @@ d.draw(xy=(5.0, 5.0))
 | `Junction` | Zero-Size Coordinate | `"junction"`| `0.0 x 0.0` | Wire tap, waypoint, or merge junction |
 | `Lane` | Boundary Band | `"lane"` | Dynamic | Department, role, or microservice boundary |
 
-### 4.3 Node Arguments & Geometric Styling
+### 4.3 Node Arguments, Registration & Rendering
 All flow nodes inherit from `FlowNode` and accept standard geometric customization arguments:
 - `text`: Label centered inside shape (multiline supported via `\n`).
 - `width` / `height`: Boundary dimensions in canvas units.
 - `r`: Corner rounding radius.
 - `style`: Fill color, border stroke color, line width, and line style.
 - `text_style`: Typography style for the centered text.
+- `show`: `bool = True` (initial visibility flag; can also be overridden in `flow.add(..., show=...)` or mutated via `node.show = ...`).
+
+#### Registration, Connections & Rendering:
+- `flow.add(node, xy=(x, y), *, show: bool = True) -> FlowNode`
+- `flow.add_lane(name, width=..., height=..., header_size=..., *, show: bool = True) -> Lane`
+- `node.connect(other, label="", start_side=None, end_side=None, routing="orthogonal", arrow="->", style=None, text_style=None, bend=0.25, show: bool = True) -> Edge`
+- `flow.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`
 
 ### 4.4 Swimlane Architecture & Global Coordinates
 In `FlowDiagram`, swimlanes provide a structured visual background and column/row headers without trapping nodes inside isolated local coordinates.  
@@ -421,30 +448,32 @@ flow.draw(xy=(8.0, 5.0))
 from drawlib.diagrams.sequence import Block, Message, Note, Participant, ParticipantGroup, SequenceDiagram
 ```
 
-#### Constructor & Participant Management:
+#### Constructor, Participant Management & Rendering:
 - `SequenceDiagram(node_style, edge_style, edge_text_style, title="", width=None, height=None, margin=5.0, autonumber=False, style=None, title_style=None)`
-- `d.add(Participant(name, icon=None, icon_size=8.0, style=None)) -> Participant`
-- `d.add(ParticipantGroup(title="", padding=4.0, style=None)) -> ParticipantGroup`
+- `d.add(Participant(name, icon=None, icon_size=8.0, style=None, show=True), *, show: bool = True) -> Participant`
+- `d.add(ParticipantGroup(title="", padding=4.0, style=None, show=True), *, show: bool = True) -> ParticipantGroup`
+- `group.add(Participant(...), *, show: bool = True) -> Participant`
+- `d.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`
 
-#### Message Verbs:
-- **`a.request(b, label, is_async=False)`**: Synchronous call rendered as a solid line with a filled arrowhead (`―▶`). If `is_async=True`, renders an open stick arrowhead (`―>`).
-- **`b.reply(a, label, is_async=False)`**: Response or return value rendered as a dashed line with a filled arrowhead (`---▶`). If `is_async=True`, renders an open stick arrowhead (`--->`).
-- **`a.connect(b, label, arrow="<->")`**: Bidirectional persistent communication (e.g. WebSocket connection or gRPC streaming channel).
-- **`p.request(p, label)`**: Self-call loop rendered as a 3-segment orthogonal loop returning to the caller's lifeline.
+#### Message Verbs (all return a mutable `Message` instance):
+- **`a.request(b, label, is_async=False, show=True) -> Message`**: Synchronous call rendered as a solid line with a filled arrowhead (`―▶`). If `is_async=True`, renders an open stick arrowhead (`―>`).
+- **`b.reply(a, label, is_async=False, show=True) -> Message`**: Response or return value rendered as a dashed line with a filled arrowhead (`---▶`). If `is_async=True`, renders an open stick arrowhead (`--->`).
+- **`a.connect(b, label, arrow="<->", show=True) -> Message`**: Bidirectional persistent communication (e.g. WebSocket connection or gRPC streaming channel).
+- **`p.request(p, label, show=True) -> Message`**: Self-call loop rendered as a 3-segment orthogonal loop returning to the caller's lifeline.
 
 #### Execution Controls:
 - **Activation Boxes**: `p.activate()` and `p.deactivate()` render execution rectangles along the participant's vertical lifeline.
 - **Autonumbering**: Setting `SequenceDiagram(..., autonumber=True)` automatically prepends chronological sequential numbers (`1.`, `2.`, `3.`, ...) to message labels.
-- **Sticky Notes**:
-  - `p.note(text, pos="left"|"right")`: Annotates a single participant's lifeline.
-  - `d.note(text, over=[p1, p2])`: Spans centered across multiple lifelines.
+- **Sticky Notes** (return a mutable `Note` instance):
+  - `p.note(text, pos="left"|"right", show=True) -> Note`: Annotates a single participant's lifeline.
+  - `d.note(text, over=[p1, p2], show=True) -> Note`: Spans centered across multiple lifelines.
 
 #### Structured Condition Frames (`Block` via Python `with`):
-Indented Python `with` statements naturally structure condition frames in the diagram:
-- `with d.loop("Condition"):` (Loop / repeat frame)
-- `with d.alt("Condition A"):` and `with d.else_("Condition B"):` (Alternative branch frame)
-- `with d.opt("Condition"):` (Optional execution frame)
-- `with d.par("Description"):` (Concurrent parallel steps)
+Indented Python `with` statements naturally structure condition frames in the diagram and yield a mutable `Block` instance:
+- `with d.loop("Condition", show=True) as blk:` (Loop / repeat frame)
+- `with d.alt("Condition A", show=True) as blk:` and `with d.else_("Condition B"):` (Alternative branch frame)
+- `with d.opt("Condition", show=True) as blk:` (Optional execution frame)
+- `with d.par("Description", show=True) as blk:` (Concurrent parallel steps)
 
 ### 5.3 Production Examples
 
@@ -567,20 +596,24 @@ d.draw(xy=(5.0, 5.0))
 - **`ChoiceState(name)`**: Diamond shape representing dynamic conditional branching.
 - **`ForkJoinState(orientation="horizontal"|"vertical", length=20.0)`**: Solid synchronization bar for concurrent state splits and joins.
 
-### 6.3 Action Compartments & Transition Syntax
+### 6.3 Action Compartments, Registration & Transition Syntax
+- **Registration & Rendering**:
+  - `sd.add(state_or_note, xy=(x, y), *, show: bool = True) -> StateNode | StateNote`
+  - `sd.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`
 - **Internal Actions**: Pass `entry="..."`, `do="..."`, or `exit="..."` during `State` creation, or chain with `state.add_action("custom", "...")`.
-- **Transitions with `sd.connect(...)`**:
+- **Transitions with `sd.connect(...) -> Transition`**:
   ```python
-  sd.connect(
+  tr = sd.connect(
       s1,
       s2,
       event="submit",
       guard="is_valid",
       action="save()",
       bend=0.25,  # Curved arc
+      show=True,
   )
   ```
-  Automatically formats formal UML labels: `event [guard] / action`.
+  Automatically formats formal UML labels: `event [guard] / action`, and returns a mutable `Transition` object (`tr.show`, `tr.style`, `tr.draw_ratio`, `tr.draw_direction`).
 - **Self-Transitions**: Call `sd.connect(state, state, side="top", event="tick")`.
 
 ### 6.4 Production Examples
@@ -704,7 +737,10 @@ sd.draw(xy=(0.0, 0.0))
    └──────────────────────────┘
 ```
 
-### 7.2 ClassNode Configuration
+### 7.2 ClassNode Configuration, Registration & Rendering
+- **Registration & Rendering**:
+  - `cd.add(node, xy=(x, y), *, show: bool = True) -> ClassNode`
+  - `cd.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`
 - **Attributes**: `node.add_attribute(name, type, is_public=True, is_static=False, default_value="")`.
   - Symbols: `+` (public), `-` (private), `#` (protected), `~` (package).
   - Batch: `node.add_attributes([("id", "int", True), ("secret", "str", False)])`.
@@ -714,7 +750,7 @@ sd.draw(xy=(0.0, 0.0))
 - **Abstract Classes**: `ClassNode(name="Entity", is_abstract=True)` renders `«abstract»`.
 
 ### 7.3 The 6 UML Relationship Types
-Relationships between classes are registered cleanly at the diagram level via `cd.connect(source, target, relationship_type=...)`:
+Relationships between classes are registered cleanly at the diagram level via `cd.connect(source, target, relationship_type=..., ..., show: bool = True) -> Relationship`:
 
 | `relationship_type` | UML Relationship | Line Stroke | End Marker | Description |
 |---|---|---|---|---|
@@ -725,7 +761,7 @@ Relationships between classes are registered cleanly at the diagram level via `c
 | `"association"` | **Association** | Solid | None (or Open Arrow) | Structural reference |
 | `"dependency"` | **Dependency** | Dashed | Open Arrow (at target) | Client depends on supplier |
 
-`cd.connect(...)` supports `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, and `label`.
+`cd.connect(...)` supports `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, `label`, and `show: bool = True`, returning a mutable `Relationship` instance (`rel.show`, `rel.style`, `rel.draw_ratio`, `rel.draw_direction`).
 
 ### 7.4 Production Examples
 
@@ -850,7 +886,10 @@ cd.draw(xy=(0.0, 0.0))
   └──────────────────────┘            └──────────────────────┘
 ```
 
-### 8.2 Entity Configuration & Column Modeling
+### 8.2 Entity Configuration, Registration & Column Modeling
+- **Registration & Rendering**:
+  - `er.add(entity, xy=(x, y), *, show: bool = True) -> Entity`
+  - `er.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`
 - **Primary & Foreign Keys**: `entity.add_column("id", type="INT", pk=True)` displays `[PK]`. `fk=True` displays `[FK]`.
 - **Nullable**: `nullable=False` marks mandatory fields.
 - **Batch Additions**:
@@ -874,10 +913,10 @@ cd.draw(xy=(0.0, 0.0))
 | `"*:*"` | Zero or more (`o<`) | Zero or more (`o<`) | Many-to-Many |
 
 ### 8.4 Column-Level Anchoring
-By passing `start_column="col_a"` and `end_column="col_b"`, connection lines align vertically with the exact table rows of foreign and primary keys:
+By passing `start_column="col_a"` and `end_column="col_b"`, connection lines align vertically with the exact table rows of foreign and primary keys (`entity.connect(...)` returns a mutable `Relationship` instance and accepts `show: bool = True`):
 
 ```python
-users.connect(
+rel = users.connect(
     orders,
     cardinality="1:*",
     start_side="right",
@@ -885,6 +924,7 @@ users.connect(
     start_column="id",       # Anchors to 'id' row in users
     end_column="user_id",    # Anchors to 'user_id' row in orders
     label="places",
+    show=True,
 )
 ```
 

@@ -35,13 +35,16 @@ from drawlib.graph import (
 )
 ```
 
-### Core Declaration Methods
-- **`g.node(id, label=None, *, style=None, text_style=None, shape="rectangle", icon=None, width=None, height=None, ...)`**
+### Core Declaration & Execution Methods
+- **`g.node(id, label=None, *, style=None, text_style=None, shape="rectangle", icon=None, width=None, height=None, ..., show: bool = True) -> Node`**
   - Supported `shape` values: `"rectangle"` *(default)*, `"rounded_rectangle"`, `"circle"`.
-- **`g.edge(src, dst, label=None, *, style=None, text_style=None, arrow_head="->", line_style=None)`**
-  - Connects `src` to `dst` (automatically creating undeclared nodes with default styling).
-- **`g.cluster(id, nodes, label=None, *, style=None, text_style=None, padding=4.0, parent=None, order=None, pos=None)`**
+  - Setting `show=False` keeps the node in the layout calculation (`calc()`) so coordinates remain fixed, while skipping the node and its connected edges during rendering (`draw()`).
+- **`g.edge(src, dst, label=None, *, style=None, text_style=None, arrow_head="->", line_style=None, show: bool = True) -> Edge`**
+  - Connects `src` to `dst` (automatically creating undeclared nodes with default styling). Automatically hidden during rendering if `show=False` or if either endpoint node has `show=False`.
+- **`g.cluster(id, nodes, label=None, *, style=None, text_style=None, padding=4.0, parent=None, order=None, pos=None, show: bool = True) -> Cluster`**
   - Encloses `nodes` inside a labeled boundary container (defaults to `Styles.MutedDashed`). Supports nesting via `parent="<cluster_id>"`.
+- **`g.draw(xy=(0.0, 0.0), *, width=None, height=None, margin=10.0, scale: float = 1.0) -> GraphLayout`** and **`layout.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**
+  - Renders all visible clusters, edges, and nodes onto the active canvas, translated by `xy` and proportionally scaled by `scale`.
 
 ---
 

@@ -42,7 +42,8 @@ data = [
     ["Cycle", "PDCA & Feedback Loops", "Center (cx, cy)"],
     ["Table", "Comparison & Schema Tables", "Top-Left (x, y)"],
 ]
-tbl.draw(xy=(10, 32), width=100, height=22, data=data)
+tbl.add(data)
+tbl.draw(xy=(10, 32), width=100, height=22)
 ```
 
 ---
@@ -51,15 +52,16 @@ tbl.draw(xy=(10, 32), width=100, height=22, data=data)
 
 | Component | Primary Use Case | Anchor System | Key Methods |
 | :--- | :--- | :--- | :--- |
-| **`ChevronProcess`** | Phased pipelines, CI/CD stages, migration roadmaps | Bottom-Left `(x, y)` | `add()`, `draw()` |
-| **`Cycle`** | PDCA devops loops, circular lifecycles, state loops | Center `(cx, cy)` | `add()`, `set_center()`, `draw()` |
-| **`Table`** | Service SLAs, specification matrices, DB schemas | Top-Left `(x, y)` | `draw()`, `set_style_cell_*()` |
-| **`TreeNode`** | Directory hierarchies, org charts, taxonomy trees | Top-Left `(x, y)` | `add()`, `draw()` |
-| **`MindMapNode`** | Brainstorming nodes, radial feature maps | Center `(cx, cy)` | `add()`, `draw()` |
-| **`GridLayout`** | Layered architectures, dashboard card grids | Bottom-Left `(x, y)` | `add()`, `draw()` |
-| **`Pyramid`** | Testing pyramids, tiered memory/cache hierarchies | Bottom-Left `(x, y)` | `add()`, `draw()` |
-| **`BulletPoints`** | Architectural takeaways, RFC key points | Top-Left `(x, y)` | `add()`, `draw()` |
-| **`SourceCode`** | Syntax-highlighted code blocks in diagrams | Top-Left `(x, y)` | `draw()` |
+| **`ChevronProcess`** | Phased pipelines, CI/CD stages, migration roadmaps | Bottom-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
+| **`Cycle`** | PDCA devops loops, circular lifecycles, state loops | Center `(cx, cy)` | `add(..., show=True)`, `set_center()`, `draw(..., scale=1.0)` |
+| **`Table`** | Service SLAs, specification matrices, DB schemas | Top-Left `(x, y)` | `add(..., show=True)`, `set_style_cell_*()`, `draw(..., scale=1.0)` |
+| **`TreeNode`** | Directory hierarchies, org charts, taxonomy trees | Top-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
+| **`MindMapNode`** | Brainstorming nodes, radial feature maps | Center `(cx, cy)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
+| **`GridLayout`** | Layered architectures, dashboard card grids | Bottom-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
+| **`Pyramid`** | Testing pyramids, tiered memory/cache hierarchies | Bottom-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
+| **`BoxList`** | Linear horizontal or vertical card sequences | Directional `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
+| **`BulletPoints`** | Architectural takeaways, RFC key points | Top-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
+| **`SourceCode`** | Syntax-highlighted code blocks in diagrams | Top-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
 
 ---
 
@@ -72,3 +74,14 @@ Understanding anchor points is essential when combining SmartArts with other ele
   You specify the bottom-left coordinate `(x, y)`. The bounding container extends rightward and upward (`y` increases).
 - **Center Anchored (`Cycle`, `MindMapNode`)**:  
   You specify the center coordinate `(cx, cy)`. The diagram expands symmetrically or radially around the center.
+
+---
+
+## 4. Unified Component Lifecycle (`add()`, `show`, and `scale`)
+
+All SmartArts components follow a consistent 3-step lifecycle:
+1. **Configure (`__init__`)**: Instantiate the component with default styles, spacing, and layout parameters.
+2. **Register Content (`add(..., show: bool = True)`)**: Populate stages, rows, cards, or child nodes.
+   - Setting `show=False` hides that specific item during rendering while **preserving the full geometry and layout slots of all sibling items** (preventing layout shifts when revealing items step-by-step).
+3. **Render (`draw(xy=..., ..., scale: float = 1.0)`)**: Render the component onto the canvas at anchor `xy`.
+   - Passing `scale` (e.g. `scale=0.8` or `scale=1.2`) proportionally scales all dimensions, spacing, line widths, and font sizes relative to the anchor `xy`.

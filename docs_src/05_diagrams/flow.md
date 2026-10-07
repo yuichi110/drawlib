@@ -35,13 +35,19 @@
 
 ---
 
-## 2. Global Coordinate Architecture
+## 2. Global Coordinate Architecture & Core Methods
 
 In Drawlib's `FlowDiagram`, swimlanes provide a structured visual background and column/row headers **without trapping nodes inside local relative coordinates**.
 
 All nodes share a single global canvas coordinate system. This means:
 - Steps occurring at the same stage in different departments can be placed at the exact same vertical $Y$ coordinate.
 - Connecting lines cross swimlane boundaries cleanly with automatic orthogonal right-angle routing.
+
+### Core Registration, Connection & Rendering Methods
+- **`flow.add(node, xy=(x, y), *, show: bool = True) -> FlowNode`**: Places a flow node at `(x, y)` and returns the mutable `FlowNode` instance (`node.show`, `node.style`, `node.text_style`). If `show=False`, the node and its connected edges are hidden during rendering while diagram bounds remain unchanged.
+- **`flow.add_lane(name, width=..., height=..., header_size=..., *, show: bool = True) -> Lane`**: Adds a vertical or horizontal swimlane (`show=False` hides the lane visual while keeping subsequent lane offsets fixed).
+- **`node.connect(other, label="", start_side=None, end_side=None, routing="orthogonal", arrow="->", style=None, text_style=None, bend=0.25, show: bool = True) -> Edge`**: Connects two nodes and returns a mutable `Edge` (`edge.show`, `edge.style`, `edge.draw_ratio`, `edge.draw_direction`).
+- **`flow.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the diagram at `xy`, proportionally scaling all coordinates, lane widths/heights, node dimensions, and font sizes by `scale`.
 
 ---
 

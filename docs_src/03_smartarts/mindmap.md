@@ -80,5 +80,10 @@ MindMapNode(
     line_length: float | None = None,
     xy_shift: tuple[float, float] | None = None,
     children: list[MindMapNode] | None = None,
+    show: bool = True,
 )
 ```
+
+### Methods
+- **`node.add(child: MindMapNode | list[MindMapNode], *, show: bool = True) -> Self`**: Appends child node(s) and sets their visibility (`show`). Hidden nodes (`show=False`) preserve their full radial branch allocation so visible sibling branches do not jump, while hiding the node, its incoming connector, and its descendants.
+- **`root.draw(xy: tuple[float, float], *, scale: float = 1.0) -> None`**: Renders the mindmap centered at `xy`, proportionally scaling node sizes, connector lengths, margins, and typography by `scale`.

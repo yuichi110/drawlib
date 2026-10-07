@@ -60,21 +60,28 @@ Every SmartArt accepts:
 - A predefined theme style from `drawlib.styles.Styles`: `Styles.Primary`, `Styles.SecondaryFlat`, `Styles.WhiteBold`, `Styles.PrimaryBold`, etc.
 - `None`: falls back to default component styles or canvas theme defaults.
 
+### 1.4 Unified Component Lifecycle (`add()`, `show`, Deferred Mutation & `scale`)
+All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Register via `add()` -> 3. Mutate State -> 4. Render via `draw()`**):
+1. **Standardized Registration (`add(..., show=True)`)**: Every item-based SmartArt (`BoxList`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BulletPoints`, `TreeNode`, `MindMapNode`) uses `.add(...)` to register elements and returns a reference to the newly created item object.
+2. **Layout-Preserving Visibility (`item.show`)**: Every item exposes `item.show: bool = True`. Setting `item.show = False` skips drawing that specific element while **keeping the overall component geometry, item widths, orbit angles, and grid/tree coordinates completely unchanged**.
+3. **Deferred Style & Text Evaluation**: Item attributes (`item.style`, `item.text_style`, `item.text`, `item.description`, etc.) are resolved lazily inside `draw()`. Mutating an item's style or text between `draw()` calls immediately reflects on the next render without reconstructing the component.
+4. **Proportional Scaling (`scale: float = 1.0`)**: Every `draw(...)` and `draw_flexible(...)` method accepts `scale: float = 1.0`. Passing `scale != 1.0` uniformly scales all shapes, margins, corner radii, line widths, and font sizes relative to the anchor coordinate `xy`.
+
 ---
 ## 2. Quick Reference Matrix
 
 | Component | Anchor Point | Layout Direction | Key Methods | Typical Architecture Use Cases |
 | :--- | :--- | :--- | :--- | :--- |
-| `Table` | Top-Left `(x, y)` | Downward & Rightward | `set_style_*()`, `draw()`, `draw_flexible()` | Service matrices, SLA comparisons, feature tables |
-| `TreeNode` | Top-Left `(x, y)` | Downward tree lines | `add()`, `register_drawing_item()`, `draw()` | Monorepo directories, file trees, package layouts |
-| `BoxList` | Directional `(x, y)` | `"left"`, `"right"`, `"bottom"`, `"top"` | `add()`, `draw()` | Microservice cards, pipeline stages, status badges |
-| `MindMapNode` | Center `(x, y)` | Radial (4 directions) | `add()`, `draw(branch=...)` | Architecture overviews, decision trees, org charts |
-| `ChevronProcess` | Bottom-Left `(x, y)` | Horizontal linear | `add()`, `draw()` | CI/CD pipelines, ETL workflows, order lifecycles |
-| `Cycle` | Center / Bottom-Left | Radial circular | `add()`, `set_center()`, `draw()` | PDCA DevOps loops, token refresh cycles, state machines |
-| `GridLayout` | Bottom-Left `(x, y)` | Matrix grid cells | `add()`, `draw()`, `draw_flexible()` | Multi-tier architecture layers, dashboard panels |
-| `Pyramid` | Bottom-Left `(x, y)` | Stacked layers | `add()`, `draw()`, `draw_flexible()` | Defense-in-depth, testing pyramid, memory hierarchies |
-| `BulletPoints` | Top-Left `(x, y)` | Downward list | `add()`, `set_indent()`, `set_bullet_style()`, `draw()` | Architecture takeaways, RFC summaries, feature lists |
-| `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw()`, `get_text()` | Embedded configuration, code samples, API payloads |
+| `Table` | Top-Left `(x, y)` | Downward & Rightward | `set_style_*()`, `draw(scale=1.0)`, `draw_flexible(scale=1.0)` | Service matrices, SLA comparisons, feature tables |
+| `TreeNode` | Top-Left `(x, y)` | Downward tree lines | `add(show=True)`, `register_drawing_item()`, `draw(scale=1.0)` | Monorepo directories, file trees, package layouts |
+| `BoxList` | Directional `(x, y)` | `"left"`, `"right"`, `"bottom"`, `"top"` | `add(show=True)`, `draw(scale=1.0)` | Microservice cards, pipeline stages, status badges |
+| `MindMapNode` | Center `(x, y)` | Radial (4 directions) | `add(show=True)`, `draw(branch=..., scale=1.0)` | Architecture overviews, decision trees, org charts |
+| `ChevronProcess` | Bottom-Left `(x, y)` | Horizontal linear | `add(show=True)`, `draw(scale=1.0)` | CI/CD pipelines, ETL workflows, order lifecycles |
+| `Cycle` | Center / Bottom-Left | Radial circular | `add(show=True)`, `set_center(show=True)`, `draw(scale=1.0)` | PDCA DevOps loops, token refresh cycles, state machines |
+| `GridLayout` | Bottom-Left `(x, y)` | Matrix grid cells | `add(show=True)`, `draw(scale=1.0)`, `draw_flexible(scale=1.0)` | Multi-tier architecture layers, dashboard panels |
+| `Pyramid` | Bottom-Left `(x, y)` | Stacked layers | `add(show=True)`, `draw(scale=1.0)`, `draw_flexible(scale=1.0)` | Defense-in-depth, testing pyramid, memory hierarchies |
+| `BulletPoints` | Top-Left `(x, y)` | Downward list | `add(show=True)`, `set_indent()`, `set_bullet_style()`, `draw(scale=1.0)` | Architecture takeaways, RFC summaries, feature lists |
+| `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw(scale=1.0)`, `get_text()` | Embedded configuration, code samples, API payloads |
 
 ---
 ## 3. Component 1: Table
@@ -85,8 +92,8 @@ Every SmartArt accepts:
 - **Anchor**: Top-Left coordinate `xy=(x, y)`. The first row starts at `y`, and subsequent rows move downward (`y - row_height`).
 - **Data Shape**: 2D list of any serializable values (`list[list[Any]]`).
 - **Sizing Modes**:
-  - `draw(xy, width, height, data)`: Uniform column widths (`width / cols`) and row heights (`height / rows`).
-  - `draw_flexible(xy, column_widths, row_heights, data)`: Explicit per-column and per-row sizing.
+  - `draw(xy, width, height, data, scale=1.0)`: Uniform column widths (`width / cols`) and row heights (`height / rows`), with optional proportional scaling around `xy`.
+  - `draw_flexible(xy, column_widths, row_heights, data, scale=1.0)`: Explicit per-column and per-row sizing, with optional proportional scaling around `xy`.
 
 ### 3.2 Constructor & Style Methods
 ```python
@@ -177,7 +184,7 @@ save()
 - **Anchor**: Top-Left coordinate `xy=(x, y)`. Root text is drawn at `xy`, and descendant branches step downward: `child_y = current_y - line_vertical_margin`.
 - **Root Node Requirement**: Root `TreeNode` must define settings for propagation: `text_style`, `line_style`, `line_horizontal_margin`, `line_horizontal_length`, and `line_vertical_margin`. Child nodes inherit these settings automatically via cascading unless individually overridden.
 
-### 4.2 Constructor Parameters
+### 4.2 Constructor & Node Methods
 ```python
 TreeNode(
     text: str,
@@ -188,8 +195,11 @@ TreeNode(
     line_horizontal_length: float | None = None,
     line_vertical_margin: float | None = None,
     children: list[TreeNode] | None = None,
+    show: bool = True,
 )
 ```
+- `node.add(child: TreeNode | str, *, text_style=None, line_style=None, ..., show: bool = True) -> TreeNode`: Appends a child `TreeNode` (or constructs one from a string) and returns the child `TreeNode` instance. Setting `child.show = False` hides the node and its connector tick while preserving vertical row spacing for all sibling/following nodes.
+- `node.draw(xy, scale=1.0)`: Renders the tree hierarchy starting at top-left `xy` with optional proportional scaling.
 
 ### 4.3 Custom Drawing Items (Icons & Badges)
 Register icon functions (e.g. Phosphor icons) before or after node text:
@@ -313,7 +323,7 @@ save()
 2. **Pass 2 (Orthogonal Drawing)**: Draws connector lines from parent nodes to auto-calculated junction lines, branching out to child nodes.
 - **Anchor**: Root coordinate `xy=(x, y)` specifies the **center point** of the root node.
 
-### 6.2 Constructor Parameters
+### 6.2 Constructor & Node Methods
 ```python
 MindMapNode(
     text: str,
@@ -330,8 +340,11 @@ MindMapNode(
     line_length: float | None = None,
     xy_shift: tuple[float, float] | None = None,
     children: list[MindMapNode] | None = None,
+    show: bool = True,
 )
 ```
+- `node.add(child: MindMapNode | str, *, branch=None, shape=None, ..., show: bool = True) -> MindMapNode`: Appends a child `MindMapNode` (or creates one from a string) and returns the child `MindMapNode` instance. Setting `child.show = False` hides that node and its connector branch while keeping the full two-pass subtree bounding coordinates unchanged.
+- `node.draw(xy, branch="right", scale=1.0)`: Renders the mindmap centered at `xy` with optional proportional `scale`.
 
 ### 6.3 Shapes & Layout Options
 - `shape`: `"rectangle"` (rounded via `r`), `"oval"`, or `"none"` (clean text label).
@@ -506,6 +519,7 @@ Cycle(
 - `description_placement`: `"inside"` (inside node body) or `"outside"` (radiates outward).
 - `add(text, *, style=None, text_style=None, description="", description_style=None, arrow_style=None, show=True) -> _CycleItem`: Adds an individual step and returns the mutable item instance.
 - `set_center(text, *, style=None, text_style=None, description="", radius=None, description_style=None, show=True) -> _CycleCenter`: Configures central hub node and returns the mutable center instance.
+- `draw(xy, radius=35.0, align="center", scale=1.0)`: Renders the circular cycle anchored at `xy` with orbit radius `radius` and optional proportional `scale`.
 
 ### 8.4 Production Example: SRE Incident Response Lifecycle
 ```drawlib show-code
@@ -580,9 +594,9 @@ GridLayout(
 )
 ```
 
-Adding items to the grid:
+Adding items to the grid (returns the mutable `_GridLayoutItem` instance):
 ```python
-grid.add(
+item = grid.add(
     position: tuple[int, int],  # (column_start, row_start)
     width: int,                 # Number of columns spanned
     height: int,                # Number of rows spanned
@@ -593,12 +607,13 @@ grid.add(
     text_style: Style | None = None,
     text_angle: float | None = None,
     text_xy_shift: tuple[float, float] | None = None,
-)
+    show: bool = True,
+) -> _GridLayoutItem
 ```
 
 ### 9.3 Drawing Modes
-- `draw(xy, width, height, margin, outer_r=None, outer_style=None)`: Even column and row dimensions with uniform `margin` gutters between cells and around borders.
-- `draw_flexible(xy, column_widths, column_margins, row_heights, row_margins, outer_r=None, outer_style=None)`: Custom widths and heights for each individual column and row.
+- `draw(xy, width, height, margin, outer_r=None, outer_style=None, scale=1.0)`: Even column and row dimensions with uniform `margin` gutters between cells and around borders, plus optional proportional `scale`.
+- `draw_flexible(xy, column_widths, column_margins, row_heights, row_margins, outer_r=None, outer_style=None, scale=1.0)`: Custom widths and heights for each individual column and row, plus optional proportional `scale`.
 
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
 ```drawlib show-code
@@ -665,22 +680,23 @@ Pyramid(
 )
 ```
 
-Adding tiers:
+Adding tiers (returns the mutable `_PyramidItem` instance):
 ```python
-pyramid.add(
+tier = pyramid.add(
     text: str,
     *,
     style: Style | None = None,
     text_style: Style | None = None,
     text_angle: float | None = None,
     text_xy_shift: tuple[float, float] | None = None,
-)
+    show: bool = True,
+) -> _PyramidItem
 ```
 
 ### 10.3 Drawing APIs
-- `draw(xy, width, height, margin, align="bottom", order="vertex_to_base")`: Uniform tier heights:
+- `draw(xy, width, height, margin, align="bottom", order="vertex_to_base", scale=1.0)`: Uniform tier heights with optional proportional `scale`:
   $$\text{tier\_height} = \frac{\text{height} - (N - 1) \cdot \text{margin}}{N}$$
-- `draw_flexible(xy, width, item_heights, margins, align="bottom", order="vertex_to_base")`: Explicit heights per tier.
+- `draw_flexible(xy, width, item_heights, margins, align="bottom", order="vertex_to_base", scale=1.0)`: Explicit heights per tier with optional proportional `scale`.
 
 ### 10.4 Production Example: Software Testing Pyramid
 ```drawlib show-code
@@ -729,8 +745,8 @@ BulletPoints(
 
 - `set_indent(level: int)`: Changes active indent level for all subsequent `add()` calls.
 - `set_bullet_style(indent_level: int, function: Callable, style: Style, args: dict)`: Overrides bullet marker shape for a specific indent level (e.g. `circle`, `rectangle`, or Phosphor icon functions).
-- `add(text: str, *, text_style: Style | None = None)`: Appends an item at current active indent level.
-- `draw(xy: tuple[float, float])`: Renders bullet points starting from `xy`.
+- `add(text: str, *, text_style: Style | None = None, show: bool = True) -> _BulletPointItem`: Appends an item at current active indent level and returns the mutable `_BulletPointItem` instance.
+- `draw(xy: tuple[float, float], scale: float = 1.0)`: Renders bullet points starting from `xy` with optional proportional `scale`.
 
 ### 11.3 Production Example: Architecture Decision RFC Summary
 ```drawlib show-code
@@ -806,6 +822,7 @@ SourceCode.draw(
     code_lang: str | None = None,      # Language: "python", "json", "yaml", "sql", etc.
     show_linenum: bool = False,        # Whether to show line numbers in a gutter
     r: float = 1.5,                    # Corner radius of the container box
+    scale: float = 1.0,                # Proportional scaling anchored at xy
 )
 ```
 

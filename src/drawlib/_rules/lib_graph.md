@@ -81,7 +81,7 @@ All five solvers inherit from `BaseGraph` and share a unified fluent builder int
 ### 2.1. Declaring Nodes, Edges, and Clusters
 
 #### `g.node(...) -> Node`
-Registers a node in the graph.
+Registers a node in the graph and returns a mutable `Node` declaration object (`node.show`, `node.style`, `node.text_style`, `node.label`).
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -97,9 +97,12 @@ Registers a node in the graph.
 | `ring` | `int \| None` | `None` | Explicit concentric ring index for `RadialGraph` (`0` = center hub). |
 | `row`, `col` | `int \| None` | `None` | Explicit 0-based grid coordinates for `GridGraph`. |
 | `group`, `subgroup` | `str \| None` | `None` | Optional container/group and nested subgroup IDs for `ArchitectureGraph`. |
+| `show` | `bool` | `True` | Visibility flag. Hidden nodes (`show=False`) keep their layout slot during `calc()`, but are skipped during rendering along with any connected edges. |
+
+*(Solver-specific convenience methods `.child(..., show=True)`, `.spoke(..., show=True)`, and `.cell(..., show=True)` also accept `show: bool = True`.)*
 
 #### `g.edge(...) -> Edge`
-Registers a directed or undirected connection between two nodes. If `src` or `dst` has not been declared via `.node()`, it is automatically created with default styling.
+Registers a directed or undirected connection between two nodes and returns a mutable `Edge` declaration object (`edge.show`, `edge.style`, `edge.text_style`, `edge.label`). If `src` or `dst` has not been declared via `.node()`, it is automatically created with default styling.
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -110,9 +113,10 @@ Registers a directed or undirected connection between two nodes. If `src` or `ds
 | `text_style` | `Style \| None` | `None` | Text style for edge label. |
 | `arrow_head` | `Literal["->", "<-", "<->", "-"]` | `"->"` | Arrowhead direction (`"->"`, `"<-"`, `"<->"`, `"-"`). |
 | `line_style` | `Literal["solid", "dashed", "dotted"] \| None` | `None` | Optional per-edge stroke style override. |
+| `show` | `bool` | `True` | Visibility flag. Also automatically skipped during rendering if either endpoint node has `show=False`. |
 
 #### `g.cluster(...) -> Cluster` and `g.group(...) -> Cluster`
-Groups nodes inside a visual boundary container (such as a VPC, subnet, or stage box).
+Groups nodes inside a visual boundary container (such as a VPC, subnet, or stage box) and returns a mutable `Cluster` declaration object (`cluster.show`, `cluster.style`, `cluster.text_style`, `cluster.label`).
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -125,15 +129,16 @@ Groups nodes inside a visual boundary container (such as a VPC, subnet, or stage
 | `parent` | `str \| None` | `None` | Parent cluster ID for nested containers (e.g., Subnet inside a VPC). |
 | `order` | `int \| None` | `None` | Explicit sorting priority among sibling clusters (`ArchitectureGraph`). |
 | `pos` | `Literal["top", "bottom", "left", "right", "center"] \| None` | `None` | Compass zone placement relative to the canvas (`ArchitectureGraph`). |
+| `show` | `bool` | `True` | Visibility flag for the container box (`cluster_row(..., show=True)` and `cluster_column(..., show=True)` in `GridGraph` also accept `show`). |
 
 ### 2.2. Layout Calculation, Rendering, and Code Export
 
 Every graph solver provides three terminal execution methods:
 
 - **`g.calc(*, width=None, height=None, margin=10.0) -> GraphLayout`**:
-  Computes all node positions, cluster bounds, and edge waypoints, returning a `GraphLayout` object without drawing anything. If `setup()` was already called on `drawlib.canvas`, `width` and `height` automatically default to the active canvas dimensions.
-- **`g.draw(*, width=None, height=None, margin=10.0) -> GraphLayout`**:
-  Computes the layout via `calc()`, renders all clusters, edges, and nodes in proper z-order onto the active canvas, and returns the `GraphLayout`.
+  Computes all node positions, cluster bounds, and edge waypoints across the full topology (regardless of `show=False`), returning a `GraphLayout` object without drawing anything. If `setup()` was already called on `drawlib.canvas`, `width` and `height` automatically default to the active canvas dimensions.
+- **`g.draw(xy=(0.0, 0.0), *, width=None, height=None, margin=10.0, scale: float = 1.0) -> GraphLayout`**:
+  Computes the layout via `calc()`, renders all visible (`show=True`) clusters, edges, and nodes in proper z-order onto the active canvas (translated by `xy` and scaled by `scale`), and returns the `GraphLayout`.
 - **`g.export_code(*, width=None, height=None, margin=10.0) -> str`**:
   Computes the layout and returns a complete, formatted Python script using `drawlib.shapes`, `drawlib.lines`, and `drawlib.text` with exact numeric coordinates.
 
@@ -394,13 +399,14 @@ save()
 ## 4. Layout Models & Post-Calculation Adjustment (`GraphLayout`)
 
 Calling `layout = g.calc()` returns a mutable `GraphLayout` container holding computed geometries:
-- `layout.nodes`: `dict[str, NodeLayout]` — each `NodeLayout` has `.id`, `.x`, `.y`, `.width`, `.height`, `.label`, `.shape`, `.icon`, `.style`, `.text_style`.
-- `layout.edges`: `list[EdgeLayout]` — each `EdgeLayout` has `.src`, `.dst`, `.points` (`list[tuple[float, float]]`), `.label`, `.style`, `.text_style`, `.arrow_head`, `.line_style`.
-- `layout.clusters`: `dict[str, ClusterLayout]` — each `ClusterLayout` has `.id`, `.cx`, `.cy`, `.width`, `.height`, `.label`, `.style`, `.text_style`.
+- `layout.nodes`: `dict[str, NodeLayout]` — each `NodeLayout` has `.id`, `.x`, `.y`, `.width`, `.height`, `.label`, `.shape`, `.icon`, `.style`, `.text_style`, `.show`.
+- `layout.edges`: `list[EdgeLayout]` — each `EdgeLayout` has `.src`, `.dst`, `.points` (`list[tuple[float, float]]`), `.label`, `.style`, `.text_style`, `.arrow_head`, `.line_style`, `.show`.
+- `layout.clusters`: `dict[str, ClusterLayout]` — each `ClusterLayout` has `.id`, `.cx`, `.cy`, `.width`, `.height`, `.label`, `.style`, `.text_style`, `.show`.
+- `layout.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`: Renders the computed layout onto the active canvas, translating by `xy`, scaling by `scale`, and skipping any elements where `.show=False` (including edges connected to hidden endpoint nodes).
 
 ### 4.1. Inspecting & Offsetting Coordinates (`calc()` + `offset()`)
 
-Use `layout.offset(id, dx=..., dy=...)` to shift a node or an entire cluster (along with its enclosed nodes and attached edge endpoints) before calling `layout.draw()`. You can also read `layout.nodes[id].x` and `.y` to attach custom callouts or primitives.
+Use `layout.offset(id, dx=..., dy=...)` to shift a node or an entire cluster (along with its enclosed nodes and attached edge endpoints) before calling `layout.draw()`. You can also read `layout.nodes[id].x` and `.y` to attach custom callouts or primitives, or mutate `layout.nodes[id].show` / `.style` across frames without re-running the layout solver.
 
 ```drawlib show-code 700px center file:lib_graph_offset.png caption:"Fine-Tuning Computed Layout with offset() and Custom Annotations"
 from drawlib.canvas import save, setup

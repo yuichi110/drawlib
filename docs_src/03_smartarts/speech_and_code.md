@@ -78,9 +78,22 @@ bubblespeech(
 ## 3. Syntax-Highlighted Code Blocks (`SourceCode`)
 
 `SourceCode` renders syntax-highlighted code snippets directly as sharp vector shapes and text.
-Unlike stateful SmartArts (`Table`, `TreeNode`), `SourceCode` is stateless: you draw code directly via `SourceCode.draw(...)` or the `sourcecode(...)` function alias.
+It supports both the **unified instance lifecycle** (`sc = SourceCode(...); sc.add(..., show=True); sc.draw(xy, width, scale=1.0)`) for line-by-line or block-by-block progressive visibility, and a **stateless one-shot call** (`SourceCode.draw(xy, width, code=..., styles=..., scale=1.0)`).
 
-### Drawing Method
+### Instance Lifecycle (`add()` -> `draw()`)
+```python
+sc = SourceCode(
+    styles: SourceCodeStyles,
+    code_lang: str | None = "python",
+    show_linenum: bool = False,
+    r: float = 1.5,
+)
+sc.add(code: str | None = None, *, file: str | None = None, show: bool = True)
+sc.draw(xy: tuple[float, float], width: float, *, scale: float = 1.0)
+```
+- Each `sc.add(...)` call appends one or more lines of code. If `show=False`, the container box height and line number gutter still reserve space for those lines, while their text is hidden.
+
+### Stateless One-Shot Drawing
 ```python
 SourceCode.draw(
     xy: tuple[float, float],           # Top-left corner (x, y) of the code container
@@ -92,6 +105,7 @@ SourceCode.draw(
     code_lang: str | None = None,      # Language: "python", "json", "yaml", "sql", etc.
     show_linenum: bool = False,        # Whether to show line numbers in a gutter
     r: float = 1.5,                    # Corner radius of the container box
+    scale: float = 1.0,                # Proportional scale factor relative to `xy`
 )
 ```
 

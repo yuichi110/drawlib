@@ -64,6 +64,7 @@ d = ArchitectureDiagram(
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon square. |
 | `text_position` | `"bottom"` \| `"top"` \| `"left"` \| `"right"` | `"bottom"` | Label placement relative to icon center. |
 | `style` | `Style \| None` | `None` | Optional typography or node background style. |
+| `show` | `bool` | `True` | Visibility flag (connected edges auto-hide when `False`). |
 
 #### `NodeGroup` Class
 | Parameter | Type | Default | Description |
@@ -71,6 +72,13 @@ d = ArchitectureDiagram(
 | `title` | `str` | `""` | Group banner title (e.g. `"VPC Network (10.0.0.0/16)"`). |
 | `padding` | `float` | `6.0` | Inner margin around enclosed child nodes. |
 | `style` | `Style \| None` | `None` | Style for group background fill and boundary border. |
+| `show` | `bool` | `True` | Visibility flag (hides group box, child nodes, and connected edges when `False`, while preserving outer auto-bounds). |
+
+#### Registration, Connection & Rendering Methods
+- `d.add(item, xy=(x, y), *, show: bool = True) -> Node | NodeGroup | Junction` (also available on `group.add(...)`)
+- `d.connect(src, dst, label="", ..., show: bool = True) -> Edge` (or `node.connect(dst, ..., show: bool = True) -> Edge`)
+- `node.fork(targets, at_x=None, at_y=None, ..., show: bool = True) -> list[Edge]`
+- `d.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`
 
 ---
 

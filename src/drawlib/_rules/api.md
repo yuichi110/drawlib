@@ -265,7 +265,10 @@ rectangle((50, 22), width=80, height=28, style=custom_style, text="Custom Style 
 
 ## 7. High-Level Diagrams (`drawlib.diagrams`)
 
-Always prefer high-level diagrams over manually drawing raw rectangles and connectors.
+Always prefer high-level diagrams over manually drawing raw rectangles and connectors. Every diagram and auto-layout graph follows the unified component lifecycle:
+- **Mutable Element References & Visibility (`show`)**: Registration methods (`add()`, `connect()`, `fork()`, `junction()`, `add_lane()`, `request()`, `reply()`, `note()`, `loop()`/`alt()`/`opt()`/`par()`, `node()`, `edge()`, `cluster()`) accept `show: bool = True` and return the mutable element instance. Mutating `.show = False`, `.style`, `.text_style`, or `.text` / `.label` updates rendering on the next `draw()` without shifting the diagram's layout bounds, swimlanes, or sequence timelines.
+- **Automatic Edge & Dangling Junction Hiding**: Hiding a node (`node.show = False`) automatically hides all connected edges (and any dangling `Junction` pass-through stems whose outgoing or incoming branches are all hidden).
+- **Proportional Scaling (`scale`)**: Every diagram supports `diag.draw(xy=(0.0, 0.0), *, scale=1.0)`, uniformly scaling all coordinates, shapes, stroke widths, arrowheads, icons, and font sizes relative to `xy`.
 
 ### 7.1 Architecture Diagram (`drawlib.diagrams.architecture`)
 Builds cloud topologies, microservice meshes, VPC boundaries, and icon-annotated infrastructure.
@@ -359,7 +362,7 @@ seq.draw()
 - **ER Diagram** (`drawlib.diagrams.er.ERDiagram`): Relational tables, columns, primary keys, foreign keys, Crow's foot cardinality.
 
 ### 7.5 Declarative Auto-Layout Graphs (`drawlib.graph`)
-When you want automatic coordinate computation from topological declarations (`node`, `edge`, `cluster`) with support for post-layout tweaking (`calc()` + `offset()`) or code scaffolding (`export_code()`):
+When you want automatic coordinate computation from topological declarations (`node(..., show=True)`, `edge(..., show=True)`, `cluster(..., show=True)`) with support for post-layout tweaking (`calc()` + `offset()`), translation/scaling (`g.draw(xy=(0, 0), width=None, height=None, margin=10.0, scale=1.0)` / `layout.draw(xy=(0, 0), scale=1.0)`), or code scaffolding (`export_code()`):
 - **`ArchitectureGraph`**: 2-level macro/micro container packing and 5-zone compass positioning (`pos="left"|"center"|"right"|"top"|"bottom"`, `parent=...`).
 - **`LayerGraph`**: Sugiyama hierarchical DAG solver with `.tier()` stage pinning.
 - **`TreeGraph`**: Reingold-Tilford compact tree solver with `.child()`.
@@ -370,20 +373,20 @@ When you want automatic coordinate computation from topological declarations (`n
 
 ## 8. SmartArts Structured Components (`drawlib.smartarts`)
 
-High-level automated components for business and technical concepts:
+High-level automated components for business and technical concepts. Every stateful SmartArt standardizes element registration via `add(..., show=True)` (returning a mutable item instance with `.show`, `.style`, `.text_style`, `.text` evaluated lazily at `draw()` time) and supports proportional scaling via `draw(..., scale=1.0)` / `draw_flexible(..., scale=1.0)`:
 
 | Component | Anchor | Typical Use Case | Primary Usage |
 | :--- | :--- | :--- | :--- |
-| `Table` | Top-Left `(x, y)` | Comparison matrix, data schemas | `t = Table(...); t.draw(xy, width, height)` |
-| `TreeNode` | Top-Left `(x, y)` | Directory trees, org charts | `node = TreeNode("Root", ...); node.add("Child"); node.draw(xy)` |
-| `MindMapNode` | Center `(x, y)` | Radial concept maps | `root = MindMapNode("Topic", ...); root.add("Sub"); root.draw(xy)` |
-| `ChevronProcess` | Bottom-Left `(x, y)` | Linear pipelines & phases | `p = ChevronProcess(...); p.add(...); p.draw(xy, width, height)` |
-| `Cycle` | Center `(x, y)` | Feedback loops, CI/CD cycles | `c = Cycle(...); c.add(...); c.draw(xy, radius)` |
-| `GridLayout` | Bottom-Left `(x, y)` | Component matrices, layer decks | `g = GridLayout(...); g.add(...); g.draw(xy, width, height)` |
-| `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `p = Pyramid(...); p.add(...); p.draw(xy, width, height)` |
-| `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.add(...); b.draw(xy, width, height)` |
-| `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.add(...); b.draw(xy)` |
-| `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=...)` |
+| `Table` | Top-Left `(x, y)` | Comparison matrix, data schemas | `t = Table(...); t.draw(xy, width, height, data, scale=1.0)` |
+| `TreeNode` | Top-Left `(x, y)` | Directory trees, org charts | `node = TreeNode("Root", ...); node.add("Child", show=True); node.draw(xy, scale=1.0)` |
+| `MindMapNode` | Center `(x, y)` | Radial concept maps | `root = MindMapNode("Topic", ...); root.add("Sub", show=True); root.draw(xy, scale=1.0)` |
+| `ChevronProcess` | Bottom-Left `(x, y)` | Linear pipelines & phases | `p = ChevronProcess(...); p.add(..., show=True); p.draw(xy, width, height, scale=1.0)` |
+| `Cycle` | Center `(x, y)` | Feedback loops, CI/CD cycles | `c = Cycle(...); c.add(..., show=True); c.draw(xy, radius, scale=1.0)` |
+| `GridLayout` | Bottom-Left `(x, y)` | Component matrices, layer decks | `g = GridLayout(...); g.add(..., show=True); g.draw(xy, width, height, margin, scale=1.0)` |
+| `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `p = Pyramid(...); p.add(..., show=True); p.draw(xy, width, height, margin, scale=1.0)` |
+| `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.add(..., show=True); b.draw(xy, box_width, box_height, scale=1.0)` |
+| `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.add(..., show=True); b.draw(xy, scale=1.0)` |
+| `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=..., scale=1.0)` |
 
 ```drawlib show-code file:smartarts_chevron.png
 from drawlib.canvas import setup

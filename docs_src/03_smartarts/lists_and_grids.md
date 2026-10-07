@@ -39,7 +39,8 @@ save()
 
 `GridLayout` organizes cards across a grid of `num_column` columns and `num_row` rows:
 - **Anchor**: Bottom-Left `(x, y)`. Row 0 is the bottom row; Column 0 is the left column.
-- **Cell Spanning**: A card at `position=(col, row)` can span `width` columns and `height` rows.
+- **Cell Spanning**: `grid.add(position=(col, row), width=1, height=1, text="", style=None, text_style=None, r=None, show: bool = True)` spans `width` columns and `height` rows. Setting `show=False` hides the cell card while preserving the matrix grid.
+- **Rendering**: `grid.draw(xy, width, height, margin, outer_margin=0.0, *, scale: float = 1.0)` renders all visible cells and proportionally scales geometry and typography by `scale`.
 
 ```drawlib show-code 550px center file:smartarts_gridlayout.png caption:"GridLayout Spanning"
 from drawlib.canvas import save, setup
@@ -61,16 +62,19 @@ save()
 
 `Pyramid` renders hierarchical trapezoids crowned by an apex triangle:
 - **Anchor**: Bottom-Left `(x, y)`.
-- **`order`**:
-  - `"vertex_to_base"`: First added item is positioned at the apex; subsequent items widen toward the base.
-  - `"base_to_vertex"`: First added item starts at the wide base.
-- **`align`**: `"bottom"` (standard upright pyramid), `"top"` (inverted funnel), `"left"`, `"right"`.
+- **`pyramid.add(text="", style=None, text_style=None, show: bool = True)`**: Appends a tier. Hidden tiers (`show=False`) keep their trapezoid slice reserved so remaining tiers stay in their exact positions.
+- **`pyramid.draw(xy, width, height, margin, align="bottom", order="vertex_to_base", *, scale: float = 1.0)`**:
+  - **`order`**: `"vertex_to_base"` (first item at apex) or `"base_to_vertex"` (first item at wide base).
+  - **`align`**: `"bottom"` (standard upright pyramid), `"top"` (inverted funnel), `"left"`, `"right"`.
+  - **`scale`**: Proportionally scales dimensions, margins, and font sizes relative to `xy`.
 
 ---
 
 ## 4. BoxList (Linear Card Sequences)
 
 `BoxList` sequences cards along one axis (`align="left"`, `"right"`, `"top"`, or `"bottom"`):
+- **`bl.add(text, width=None, height=None, r=None, style=None, text_style=None, show: bool = True)`**: Adds a box to the sequence (`show=False` reserves the box slot and spacing without drawing the box).
+- **`bl.draw(xy, box_width, box_height, box_margin=2.0, align="left", *, scale: float = 1.0)`**: Renders the sequence anchored at `xy` with proportional scaling via `scale`.
 
 ```drawlib show-code 550px center file:smartarts_boxlist.png caption:"BoxList Sequence"
 from drawlib.canvas import save, setup
@@ -91,6 +95,8 @@ save()
 ## 5. BulletPoints (Formatted Text Lists)
 
 `BulletPoints` renders nested lists starting from a top-left coordinate `(x, y)`:
+- **`bp.add(text, style=None, text_style=None, show: bool = True)`**: Appends a bullet item at the current indent level (`show=False` keeps vertical spacing fixed for subsequent items).
+- **`bp.draw(xy, *, scale: float = 1.0)`**: Renders all visible bullet points anchored at `xy`, scaling indent width, vertical margin, icon size, and font size by `scale`.
 
 ```drawlib show-code 550px center file:smartarts_bulletpoints.png caption:"BulletPoints List"
 from drawlib.canvas import save, setup

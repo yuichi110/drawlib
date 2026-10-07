@@ -61,6 +61,11 @@ init = sd.add(InitialState(), xy=(10.0, 40.0))
 sd.connect(init, active, event="login", guard="token_valid", action="init_session()")
 ```
 
+### Registration, Transitions & Rendering Methods
+- **`sd.add(item, xy=(x, y), *, show: bool = True) -> StateNode | StateNote`**: Places a state, pseudo-state, or note at `(x, y)` and returns the mutable element (`node.show`, `node.style`, `node.text_style`). If `show=False`, the state and any transitions connected to it are skipped during `draw()` while diagram bounds stay fixed.
+- **`sd.connect(src, dst, event="", guard="", action="", ..., bend=0.0, show: bool = True) -> Transition`**: Registers a state transition and returns a mutable `Transition` instance (`tr.show`, `tr.style`, `tr.draw_ratio`, `tr.draw_direction`).
+- **`sd.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the state diagram at `xy`, proportionally scaling state positions, dimensions, curved arcs, and font sizes by `scale`.
+
 ---
 
 ## 3. Session Lifecycle State Machine
