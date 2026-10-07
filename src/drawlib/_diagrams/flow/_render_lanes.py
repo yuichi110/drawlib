@@ -49,6 +49,9 @@ def render_lanes(
         cur_x = bx
         for i, lane in enumerate(lanes):
             lane_w = lane.size
+            if not lane.show:
+                cur_x += lane_w
+                continue
             lane_h = dh
             bg_color = DEFAULT_LANE_ALT_BG if i % 2 == 1 else DEFAULT_LANE_BG
             default_lane_style = Style(
@@ -108,6 +111,9 @@ def render_lanes(
         cur_y = by + dh
         for i, lane in enumerate(lanes):
             lane_h = lane.size
+            if not lane.show:
+                cur_y -= lane_h
+                continue
             lane_w = dw
             lane_y = cur_y - lane_h
             bg_color = DEFAULT_LANE_ALT_BG if i % 2 == 1 else DEFAULT_LANE_BG

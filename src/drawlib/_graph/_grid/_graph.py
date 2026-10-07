@@ -16,6 +16,7 @@ from typing import Literal
 from drawlib._core.l4_canvas import canvas
 from drawlib._graph._common._base import BaseGraph
 from drawlib._graph._common._models import (
+    Cluster,
     ClusterLayout,
     EdgeLayout,
     GraphLayout,
@@ -82,8 +83,8 @@ class GridGraph(BaseGraph):
         self.col_sep: float | None = col_sep
         self.row_sep: float | None = row_sep
         self.edge_routing: Literal["smart", "orthogonal", "straight"] = edge_routing
-        self._row_clusters: list[tuple[int, str, str | None, Style | None, Style | None, float]] = []
-        self._col_clusters: list[tuple[int, str, str | None, Style | None, Style | None, float]] = []
+        self._row_clusters: list[tuple[int, str]] = []
+        self._col_clusters: list[tuple[int, str]] = []
 
     def cell(
         self,
@@ -98,6 +99,7 @@ class GridGraph(BaseGraph):
         icon: str | None = None,
         width: float | None = None,
         height: float | None = None,
+        show: bool = True,
     ) -> Node:
         """Convenience method to register a grid cell node at an optional (row, col) position.
 
@@ -112,6 +114,7 @@ class GridGraph(BaseGraph):
             icon: Optional icon name or path.
             width: Custom width for this node.
             height: Custom height for this node.
+            show: Whether to render this cell node.
 
         Returns:
             The registered Node object.
@@ -127,6 +130,7 @@ class GridGraph(BaseGraph):
             height=height,
             row=row,
             col=col,
+            show=show,
         )
 
     def cluster_row(
@@ -138,7 +142,8 @@ class GridGraph(BaseGraph):
         style: Style | None = None,
         text_style: Style | None = None,
         padding: float = 4.0,
-    ) -> None:
+        show: bool = True,
+    ) -> Cluster:
         """Register a cluster grouping all nodes in a specific row.
 
         The actual member nodes are dynamically resolved during calc() based on
@@ -151,13 +156,25 @@ class GridGraph(BaseGraph):
             style: Box and border style for the cluster boundary.
             text_style: Text style for the cluster label.
             padding: Margin surrounding the member nodes.
+            show: Whether to render this row cluster.
+
+        Returns:
+            The registered Cluster object.
 
         Raises:
             ValueError: If cluster_id is already registered.
         """
-        if cluster_id in self._clusters or any(cid == cluster_id for _, cid, _, _, _, _ in self._row_clusters):
-            raise ValueError(f"Cluster '{cluster_id}' is already registered in the graph.")
-        self._row_clusters.append((row, cluster_id, label, style, text_style, padding))
+        c = self.cluster(
+            id=cluster_id,
+            nodes=[],
+            label=label,
+            style=style,
+            text_style=text_style,
+            padding=padding,
+            show=show,
+        )
+        self._row_clusters.append((row, cluster_id))
+        return c
 
     def cluster_column(
         self,
@@ -168,7 +185,8 @@ class GridGraph(BaseGraph):
         style: Style | None = None,
         text_style: Style | None = None,
         padding: float = 4.0,
-    ) -> None:
+        show: bool = True,
+    ) -> Cluster:
         """Register a cluster grouping all nodes in a specific column.
 
         The actual member nodes are dynamically resolved during calc() based on
@@ -181,13 +199,25 @@ class GridGraph(BaseGraph):
             style: Box and border style for the cluster boundary.
             text_style: Text style for the cluster label.
             padding: Margin surrounding the member nodes.
+            show: Whether to render this column cluster.
+
+        Returns:
+            The registered Cluster object.
 
         Raises:
             ValueError: If cluster_id is already registered.
         """
-        if cluster_id in self._clusters or any(cid == cluster_id for _, cid, _, _, _, _ in self._col_clusters):
-            raise ValueError(f"Cluster '{cluster_id}' is already registered in the graph.")
-        self._col_clusters.append((col, cluster_id, label, style, text_style, padding))
+        c = self.cluster(
+            id=cluster_id,
+            nodes=[],
+            label=label,
+            style=style,
+            text_style=text_style,
+            padding=padding,
+            show=show,
+        )
+        self._col_clusters.append((col, cluster_id))
+        return c
 
     def calc(  # noqa: C901
         self,
@@ -249,6 +279,7 @@ class GridGraph(BaseGraph):
                 label=node.label or nid,
                 shape=node.shape,
                 icon=node.icon,
+                show=node.show,
             )
 
         # Route Edges
@@ -266,22 +297,23 @@ class GridGraph(BaseGraph):
                     dst_port=dst_port,
                     waypoints=waypoints,
                     label=edge.label,
-                    style=edge.style or self.default_edge_style,
+                    style=self._resolve_edge_style(edge),
                     text_style=edge.text_style or self.default_edge_text_style,
                     arrow_head=edge.arrow_head,
+                    show=edge.show,
                 )
             )
 
         # Dynamic row/col clusters into self._clusters
-        for r_idx, cid, lbl, st, t_st, pad in self._row_clusters:
+        for r_idx, cid in self._row_clusters:
             row_nodes = [nid for nid, (r, _) in slot_map.items() if r == r_idx]
-            if row_nodes and cid not in self._clusters:
-                self.cluster(cid, nodes=row_nodes, label=lbl, style=st, text_style=t_st, padding=pad)
+            if cid in self._clusters:
+                self._clusters[cid].nodes = row_nodes
 
-        for c_idx, cid, lbl, st, t_st, pad in self._col_clusters:
+        for c_idx, cid in self._col_clusters:
             col_nodes = [nid for nid, (_, c) in slot_map.items() if c == c_idx]
-            if col_nodes and cid not in self._clusters:
-                self.cluster(cid, nodes=col_nodes, label=lbl, style=st, text_style=t_st, padding=pad)
+            if cid in self._clusters:
+                self._clusters[cid].nodes = col_nodes
 
         # Compute Clusters
         clusters_layout: dict[str, ClusterLayout] = {}
@@ -316,6 +348,7 @@ class GridGraph(BaseGraph):
                     style=cluster.style or Styles.MutedDashed,
                     text_style=c_text_style,
                     shape="rectangle",
+                    show=cluster.show,
                 )
 
         return GraphLayout(

@@ -211,6 +211,8 @@ def draw_single_edge(
     default_edge_text_style: Style,
 ) -> None:
     """Draw a single edge and its label."""
+    if not edge.show or not edge.start.show or not edge.end.show:
+        return
     if edge.start not in canvas_xy_map or edge.end not in canvas_xy_map:
         return
 

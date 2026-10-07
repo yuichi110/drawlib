@@ -33,6 +33,7 @@ class NodeGroup:
         padding: float = 5.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize NodeGroup.
 
@@ -43,6 +44,7 @@ class NodeGroup:
             padding: Padding around member components when auto-calculating bounds.
             style: Style object for the boundary box (border, background color).
             text_style: Style object for the title text.
+            show: Whether to render this group boundary. Defaults to True.
         """
         self.title = title
         self.width = float(width) if width is not None else None
@@ -50,6 +52,7 @@ class NodeGroup:
         self.padding = float(padding)
         self.style = style
         self.text_style = text_style
+        self.show = bool(show)
 
         self._items: list[tuple[DiagramItem, tuple[float, float]]] = []
         self._local_xy: tuple[float, float] = (0.0, 0.0)
@@ -66,12 +69,13 @@ class NodeGroup:
         """Get the list of direct child items in this group."""
         return [item for item, _ in self._items]
 
-    def add(self, item: ItemT, xy: tuple[float, float]) -> ItemT:
+    def add(self, item: ItemT, xy: tuple[float, float], *, show: bool | None = None) -> ItemT:
         """Add a child Node, NodeGroup, or Junction to this group at local coordinate xy.
 
         Args:
             item: Child component.
             xy: Local coordinate (x, y) relative to this group's bottom-left origin.
+            show: Optional override for item.show.
 
         Returns:
             ItemT: Added component for convenient assignment.
@@ -80,6 +84,8 @@ class NodeGroup:
         item._local_xy = pt
         item._parent_group = self
         item._diagram = self._diagram
+        if show is not None:
+            item.show = bool(show)
         self._items.append((item, pt))
 
         # Propagate diagram reference to nested elements
@@ -173,6 +179,7 @@ class NodeGroup:
         routing: RoutingType = "orthogonal",
         style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> Edge:
         """Connect this group's boundary to a target element.
 
@@ -183,6 +190,7 @@ class NodeGroup:
             routing: Path routing strategy ("orthogonal", "direct", "curved").
             style: Optional Style object for the line.
             padding: Gap distance between nodes and line ends (float or (start, end) tuple).
+            show: Whether to render this edge. Defaults to True.
 
         Returns:
             Edge: Created connection object.
@@ -195,6 +203,7 @@ class NodeGroup:
             routing=routing,
             style=style,
             padding=padding,
+            show=show,
         )
         if self._diagram is not None:
             self._diagram.add_edge(edge)

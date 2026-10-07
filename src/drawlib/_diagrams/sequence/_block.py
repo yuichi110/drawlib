@@ -32,6 +32,7 @@ class Block:
         diagram: SequenceDiagram | None = None,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Block.
 
@@ -41,12 +42,14 @@ class Block:
             diagram: Parent SequenceDiagram instance.
             style: Optional Style object for the boundary box.
             text_style: Optional Style object for the label text.
+            show: Whether to render this block frame. Defaults to True.
         """
         self.block_type = block_type
         self.label = label
         self.diagram = diagram
         self.style = style
         self.text_style = text_style
+        self.show = bool(show)
         self.start_event_idx: int = -1
         self.end_event_idx: int = -1
         self.involved_participants: set[Participant] = set()

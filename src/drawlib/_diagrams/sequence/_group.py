@@ -28,6 +28,7 @@ class ParticipantGroup:
         padding: float = 4.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize ParticipantGroup.
 
@@ -36,11 +37,13 @@ class ParticipantGroup:
             padding: Padding around enclosed participant header cards. Defaults to 4.0.
             style: Optional Style object for the boundary box.
             text_style: Optional Style object for the title text.
+            show: Whether to render this group boundary. Defaults to True.
         """
         self.title = title
         self.padding = float(padding)
         self.style = style
         self.text_style = text_style
+        self.show = bool(show)
         self._participants: list[Participant] = []
         self._diagram: SequenceDiagram | None = None
 
@@ -49,15 +52,18 @@ class ParticipantGroup:
         """Get the list of member participants in this group."""
         return list(self._participants)
 
-    def add(self, participant: Participant) -> Participant:
+    def add(self, participant: Participant, *, show: bool | None = None) -> Participant:
         """Add a participant to this group.
 
         Args:
             participant: Participant instance.
+            show: Optional override for participant.show.
 
         Returns:
             Participant: The added participant for chaining or variable assignment.
         """
+        if show is not None:
+            participant.show = bool(show)
         if participant not in self._participants:
             self._participants.append(participant)
         if self._diagram is not None and participant not in self._diagram.participants:

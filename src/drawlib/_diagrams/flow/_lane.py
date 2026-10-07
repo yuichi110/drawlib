@@ -28,6 +28,7 @@ class Lane:
         text_style: Style | None = None,
         header_size: float = 6.0,
         header_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Lane.
 
@@ -38,6 +39,7 @@ class Lane:
             text_style: Style for the header title text.
             header_size: Height of the header section in vertical mode (or width in horizontal mode). Defaults to 6.0.
             header_style: Optional specific Style for the header card background.
+            show: Whether to render this swimlane. Defaults to True.
         """
         self.title = title
         self.size = float(size)
@@ -45,3 +47,4 @@ class Lane:
         self.text_style = text_style
         self.header_size = float(header_size)
         self.header_style = header_style
+        self.show = bool(show)

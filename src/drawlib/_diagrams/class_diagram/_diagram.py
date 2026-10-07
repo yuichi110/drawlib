@@ -16,7 +16,9 @@ from typing import TYPE_CHECKING
 from pydantic import validate_call
 
 import drawlib._diagrams.class_diagram._renderer as _renderer_module
+from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import transform
 from drawlib._diagrams.class_diagram._class_node import ClassNode
 from drawlib._diagrams.class_diagram._relationship import ClassRelationship
 from drawlib._diagrams.class_diagram._types import PaddingType, RelationshipType, RoutingType, Side
@@ -72,18 +74,22 @@ class ClassDiagram:
         self,
         class_node: ClassNode,
         xy: tuple[float, float] = (0.0, 0.0),
+        show: bool | None = None,
     ) -> ClassNode:
         """Add a ClassNode to the diagram at the specified relative center coordinate.
 
         Args:
             class_node: ClassNode to register.
             xy: Center placement coordinate (cx, cy).
+            show: Optional visibility override for the class node.
 
         Returns:
             ClassNode: The added class node for chaining.
         """
         class_node._local_xy = (float(xy[0]), float(xy[1]))
         class_node._diagram = self
+        if show is not None:
+            class_node.show = show
         self.classes.append(class_node)
         return class_node
 
@@ -120,6 +126,7 @@ class ClassDiagram:
         text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> ClassRelationship:
         """Create and register a relationship between two classes.
 
@@ -141,6 +148,7 @@ class ClassDiagram:
             text_style: Style object overriding relationship labels.
             routing: Line path routing strategy ('orthogonal', 'direct').
             padding: Gap distance between class borders and line ends.
+            show: Whether to render this relationship.
 
         Returns:
             ClassRelationship: Newly created and registered relationship.
@@ -162,6 +170,7 @@ class ClassDiagram:
             text_style=text_style,
             routing=routing,
             padding=padding,
+            show=show,
         )
         return self.add_relationship(rel)
 
@@ -210,10 +219,13 @@ class ClassDiagram:
 
         return (max(w, 10.0), max(h, 10.0))
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    @validate_call
+    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
         """Render the complete class diagram onto the canvas anchored at bottom-left coordinate xy.
 
         Args:
             xy: Base canvas placement coordinate (x, y).
+            scale: Proportional scale factor anchored at xy.
         """
-        _renderer_module.draw_class_diagram(self, xy)
+        with transform(origin=xy, scale=scale):
+            _renderer_module.draw_class_diagram(self, xy)

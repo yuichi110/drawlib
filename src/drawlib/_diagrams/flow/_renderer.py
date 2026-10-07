@@ -118,6 +118,8 @@ def _render_nodes(
 ) -> None:
     """Render all FlowNodes."""
     for node in nodes:
+        if not node.show:
+            continue
         cx, cy = canvas_xy_map[node]
         w, h = node.width, node.height
 

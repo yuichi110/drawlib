@@ -31,6 +31,7 @@ class Process(FlowNode):
         angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Process.
 
@@ -42,6 +43,7 @@ class Process(FlowNode):
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
+            show: Whether to render this node. Defaults to True.
         """
         super().__init__(
             text=text,
@@ -52,6 +54,7 @@ class Process(FlowNode):
             style=style,
             text_style=text_style,
             shape_type="process",
+            show=show,
         )
 
 
@@ -66,6 +69,7 @@ class Decision(FlowNode):
         angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Decision.
 
@@ -76,6 +80,7 @@ class Decision(FlowNode):
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
+            show: Whether to render this node. Defaults to True.
         """
         super().__init__(
             text=text,
@@ -86,6 +91,7 @@ class Decision(FlowNode):
             style=style,
             text_style=text_style,
             shape_type="decision",
+            show=show,
         )
 
 
@@ -101,6 +107,7 @@ class Start(FlowNode):
         angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Start.
 
@@ -112,6 +119,7 @@ class Start(FlowNode):
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
+            show: Whether to render this node. Defaults to True.
         """
         super().__init__(
             text=text,
@@ -122,6 +130,7 @@ class Start(FlowNode):
             style=style,
             text_style=text_style,
             shape_type="start",
+            show=show,
         )
 
 
@@ -137,6 +146,7 @@ class End(FlowNode):
         angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize End.
 
@@ -148,6 +158,7 @@ class End(FlowNode):
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
+            show: Whether to render this node. Defaults to True.
         """
         super().__init__(
             text=text,
@@ -158,6 +169,7 @@ class End(FlowNode):
             style=style,
             text_style=text_style,
             shape_type="end",
+            show=show,
         )
 
 
@@ -172,6 +184,7 @@ class Data(FlowNode):
         angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Data.
 
@@ -182,6 +195,7 @@ class Data(FlowNode):
             angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
+            show: Whether to render this node. Defaults to True.
         """
         super().__init__(
             text=text,
@@ -192,4 +206,5 @@ class Data(FlowNode):
             style=style,
             text_style=text_style,
             shape_type="data",
+            show=show,
         )

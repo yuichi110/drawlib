@@ -14,6 +14,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal
 
+from pydantic import validate_call
+
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._graph._common._code_generator import generate_code
 from drawlib._graph._common._renderer import render_layout
 from drawlib.styles import Style, Styles
@@ -37,6 +40,7 @@ class Node:
     layer: int | None = None
     group: str | None = None
     subgroup: str | None = None
+    show: bool = True
 
 
 @dataclass
@@ -50,6 +54,7 @@ class Edge:
     text_style: Style | None = None
     arrow_head: Literal["->", "<-", "<->", "-"] = "->"
     line_style: Literal["solid", "dashed", "dotted"] | None = None
+    show: bool = True
 
 
 @dataclass
@@ -65,6 +70,7 @@ class Cluster:
     parent: str | None = None
     order: int | None = None
     pos: Literal["top", "bottom", "left", "right", "center"] | None = None
+    show: bool = True
 
 
 @dataclass
@@ -80,6 +86,7 @@ class NodeLayout:
     text_style: Style | None = None
     shape: str = "rectangle"
     icon: str | None = None
+    show: bool = True
 
     @property
     def x(self) -> float:
@@ -125,6 +132,7 @@ class EdgeLayout:
     style: Style = field(default_factory=lambda: Styles.DarkBold)
     text_style: Style = field(default_factory=lambda: Styles.Dark)
     arrow_head: Literal["", "->", "<-", "<->", "-"] = "->"
+    show: bool = True
 
     @property
     def points(self) -> list[tuple[float, float]]:
@@ -142,6 +150,7 @@ class ClusterLayout:
     style: Style
     text_style: Style
     shape: Literal["rectangle", "circle"] = "rectangle"
+    show: bool = True
 
     @property
     def cx(self) -> float:
@@ -220,6 +229,7 @@ class GraphLayout:
             label=nl.label,
             shape=nl.shape,
             icon=nl.icon,
+            show=nl.show,
         )
 
         # Shift incident edge ports
@@ -229,9 +239,15 @@ class GraphLayout:
             if edge.dst == node_id:
                 edge.dst_port = (round(edge.dst_port[0] + dx, 2), round(edge.dst_port[1] + dy, 2))
 
-    def draw(self) -> None:
-        """Render this layout directly onto the active Drawlib canvas."""
-        render_layout(self)
+    @validate_call
+    def draw(self, *, xy: Coordinate = (0.0, 0.0), scale: PosFloat = 1.0) -> None:
+        """Render this layout directly onto the active Drawlib canvas.
+
+        Args:
+            xy: Placement offset coordinate (x, y) for the layout origin.
+            scale: Proportional scale factor anchored at xy.
+        """
+        render_layout(self, xy=xy, scale=scale)
 
     def to_code(self) -> str:
         """Export this layout as standalone executable Drawlib Python source code.

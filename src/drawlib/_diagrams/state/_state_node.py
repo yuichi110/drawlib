@@ -33,6 +33,7 @@ class StateNodeBase:
         width: float = 20.0,
         height: float = 12.0,
         style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize StateNodeBase.
 
@@ -41,11 +42,13 @@ class StateNodeBase:
             width: Width of the state shape.
             height: Height of the state shape.
             style: Optional Style object overriding visual appearance.
+            show: Whether to render this state node.
         """
         self.name = name
         self.width = float(width)
         self.height = float(height)
         self.style = style
+        self.show = show
 
         self._local_xy: tuple[float, float] = (0.0, 0.0)
         self._diagram: StateDiagram | None = None
@@ -118,6 +121,7 @@ class State(StateNodeBase):
         height: float | None = None,
         size: tuple[float, float] | None = None,
         style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize State.
 
@@ -132,6 +136,7 @@ class State(StateNodeBase):
             height: Optional height of the state shape.
             size: Optional shorthand (width, height) tuple overriding width and height.
             style: Optional Style object overriding border, fill, and text colors.
+            show: Whether to render this state node.
         """
         valid_shapes = {"box", "oval", "circle", "double_circle", "text_only"}
         if shape not in valid_shapes:
@@ -152,7 +157,7 @@ class State(StateNodeBase):
         # Dimensions
         init_w, init_h = _compute_state_default_size(shape, width, height, size)
 
-        super().__init__(name=name, width=init_w, height=init_h, style=style)
+        super().__init__(name=name, width=init_w, height=init_h, style=style, show=show)
         self.custom_width = width is not None or size is not None
         self.custom_height = height is not None or size is not None
 
@@ -202,6 +207,7 @@ class InitialState(StateNodeBase):
         name: str = "",
         radius: float = 1.75,
         style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize InitialState.
 
@@ -209,10 +215,11 @@ class InitialState(StateNodeBase):
             name: Optional label text.
             radius: Radius of the filled circle (default: 1.75).
             style: Optional Style overriding circle color.
+            show: Whether to render this state node.
         """
         self.radius = float(radius)
         size = self.radius * 2.0
-        super().__init__(name=name, width=size, height=size, style=style)
+        super().__init__(name=name, width=size, height=size, style=style, show=show)
 
 
 class FinalState(StateNodeBase):
@@ -223,6 +230,7 @@ class FinalState(StateNodeBase):
         name: str = "",
         radius: float = 2.2,
         style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize FinalState.
 
@@ -230,10 +238,11 @@ class FinalState(StateNodeBase):
             name: Optional label text.
             radius: Outer radius of the final state circle (default: 2.2).
             style: Optional Style overriding circle colors.
+            show: Whether to render this state node.
         """
         self.radius = float(radius)
         size = self.radius * 2.0
-        super().__init__(name=name, width=size, height=size, style=style)
+        super().__init__(name=name, width=size, height=size, style=style, show=show)
 
 
 class ChoiceState(StateNodeBase):
@@ -244,6 +253,7 @@ class ChoiceState(StateNodeBase):
         name: str = "",
         size: float = 4.5,
         style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize ChoiceState.
 
@@ -251,9 +261,10 @@ class ChoiceState(StateNodeBase):
             name: Optional label text.
             size: Width and height of the diamond (default: 4.5).
             style: Optional Style overriding diamond appearance.
+            show: Whether to render this state node.
         """
         self.size = float(size)
-        super().__init__(name=name, width=self.size, height=self.size, style=style)
+        super().__init__(name=name, width=self.size, height=self.size, style=style, show=show)
 
 
 class ForkJoinState(StateNodeBase):
@@ -266,6 +277,7 @@ class ForkJoinState(StateNodeBase):
         length: float = 16.0,
         thickness: float = 1.8,
         style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize ForkJoinState.
 
@@ -275,6 +287,7 @@ class ForkJoinState(StateNodeBase):
             length: Length of the synchronization bar (default: 16.0).
             thickness: Thickness of the synchronization bar (default: 1.8).
             style: Optional Style overriding bar fill color.
+            show: Whether to render this state node.
         """
         valid_orientations = {"horizontal", "vertical"}
         if orientation not in valid_orientations:
@@ -291,7 +304,7 @@ class ForkJoinState(StateNodeBase):
             w = self.thickness
             h = self.length
 
-        super().__init__(name=name, width=w, height=h, style=style)
+        super().__init__(name=name, width=w, height=h, style=style, show=show)
 
 
 def _compute_state_default_size(

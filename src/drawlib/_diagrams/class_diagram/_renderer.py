@@ -73,10 +73,16 @@ def draw_class_diagram(diagram: ClassDiagram, base_xy: tuple[float, float]) -> N
 
     # 3. Render Relationships (Edges, UML markers, labels)
     for rel in diagram.relationships:
+        if not rel.show:
+            continue
+        if (rel.start is not None and not rel.start.show) or (rel.end is not None and not rel.end.show):
+            continue
         render_relationship(rel, canvas_xy_map, diagram.edge_style, diagram.edge_text_style)
 
     # 4. Render Class Nodes (Cards, Header, Compartments)
     for c in diagram.classes:
+        if not c.show:
+            continue
         class_canvas_xy = canvas_xy_map[c]
         render_class_node(c, class_canvas_xy, diagram.node_style, diagram.header_style)
 

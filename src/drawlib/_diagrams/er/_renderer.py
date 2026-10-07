@@ -71,10 +71,16 @@ def draw_er_diagram(diagram: ERDiagram, base_xy: tuple[float, float]) -> None:
 
     # 3. Render Relationships (Edges & Crow's Foot markers)
     for rel in diagram.relationships:
+        if not rel.show:
+            continue
+        if (rel.start is not None and not rel.start.show) or (rel.end is not None and not rel.end.show):
+            continue
         _render_relationship(rel, canvas_xy_map, diagram.edge_style, diagram.edge_text_style)
 
     # 4. Render Entities (Cards, Headers, Columns)
     for entity, _ in diagram._entities:
+        if not entity.show:
+            continue
         ent_canvas_xy = canvas_xy_map[entity]
         _render_entity(entity, ent_canvas_xy, diagram.node_style, diagram.header_style)
 

@@ -17,7 +17,9 @@ from pydantic import validate_call
 
 import drawlib._diagrams.er._relationship as _relationship_module
 import drawlib._diagrams.er._renderer as _renderer_module
+from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import transform
 from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
 
 if TYPE_CHECKING:
@@ -80,12 +82,13 @@ class ERDiagram:
         """Get list of relationships registered in the diagram."""
         return list(self._relationships)
 
-    def add(self, entity: Entity, xy: tuple[float, float]) -> Entity:
+    def add(self, entity: Entity, xy: tuple[float, float], show: bool | None = None) -> Entity:
         """Add an Entity to the diagram at center coordinate xy.
 
         Args:
             entity: Entity instance to place.
             xy: Center coordinate (cx, cy) of the entity in the diagram.
+            show: Optional visibility override for the entity.
 
         Returns:
             Entity: The added entity for chaining or assignment.
@@ -93,6 +96,8 @@ class ERDiagram:
         pt = (float(xy[0]), float(xy[1]))
         entity._local_xy = pt
         entity._diagram = self
+        if show is not None:
+            entity.show = show
         self._entities.append((entity, pt))
         return entity
 
@@ -124,6 +129,7 @@ class ERDiagram:
         text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> Relationship:
         """Create and register a relationship between two entities.
 
@@ -140,6 +146,7 @@ class ERDiagram:
             text_style: Optional Style object for the relationship label text.
             routing: Path routing strategy ("orthogonal" or "direct").
             padding: Gap distance between entity borders and line ends.
+            show: Whether to render this relationship.
 
         Returns:
             Relationship: Newly created and registered relationship.
@@ -157,6 +164,7 @@ class ERDiagram:
             text_style=text_style,
             routing=routing,
             padding=padding,
+            show=show,
         )
         self.add_relationship(rel)
         return rel
@@ -184,10 +192,13 @@ class ERDiagram:
         final_h = self.height if self.height is not None else max_y + 10.0
         return (final_w, final_h)
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    @validate_call
+    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
         """Render the complete ER diagram onto the canvas at base coordinate xy.
 
         Args:
             xy: Base canvas coordinate (x, y) where diagram's bottom-left origin is placed.
+            scale: Proportional scale factor anchored at xy.
         """
-        _renderer_module.draw_er_diagram(self, xy)
+        with transform(origin=xy, scale=scale):
+            _renderer_module.draw_er_diagram(self, xy)

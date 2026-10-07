@@ -104,6 +104,8 @@ class RadialGraph(BaseGraph):
         edge_label: str | None = None,
         edge_style: Style | None = None,
         arrow_head: Literal["->", "<-", "<->", "-"] = "->",
+        show: bool = True,
+        edge_show: bool = True,
     ) -> Node:
         """Convenience method to register a spoke node connected from an existing parent/hub.
 
@@ -121,6 +123,8 @@ class RadialGraph(BaseGraph):
             edge_label: Annotation text on connecting edge.
             edge_style: Style of connecting edge.
             arrow_head: Arrowhead decoration ("->", "<-", "<->", "-").
+            show: Whether to render the spoke node.
+            edge_show: Whether to render the connecting edge.
 
         Returns:
             The registered spoke Node object.
@@ -138,6 +142,7 @@ class RadialGraph(BaseGraph):
             width=width,
             height=height,
             ring=ring,
+            show=show,
         )
         self.edge(
             src=parent,
@@ -145,6 +150,7 @@ class RadialGraph(BaseGraph):
             label=edge_label,
             style=edge_style,
             arrow_head=arrow_head,
+            show=edge_show,
         )
         return n
 
@@ -214,6 +220,7 @@ class RadialGraph(BaseGraph):
                 label=node.label or nid,
                 shape=node.shape,
                 icon=node.icon,
+                show=node.show,
             )
 
         # Route Edges directly with boundary intersections
@@ -231,9 +238,10 @@ class RadialGraph(BaseGraph):
                     dst_port=dst_port,
                     waypoints=waypoints,
                     label=edge.label,
-                    style=edge.style or self.default_edge_style,
+                    style=self._resolve_edge_style(edge),
                     text_style=edge.text_style or self.default_edge_text_style,
                     arrow_head=edge.arrow_head,
+                    show=edge.show,
                 )
             )
 
@@ -288,6 +296,7 @@ class RadialGraph(BaseGraph):
                     style=cluster.style or Styles.MutedDashed,
                     text_style=c_text_style,
                     shape="rectangle",
+                    show=cluster.show,
                 )
 
         return GraphLayout(

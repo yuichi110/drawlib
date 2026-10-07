@@ -16,7 +16,9 @@ from typing import TYPE_CHECKING, TypeVar
 from pydantic import validate_call
 
 import drawlib._diagrams.state._renderer as _renderer_module
+from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import transform
 from drawlib._diagrams.state._state_node import State, StateNodeBase
 from drawlib._diagrams.state._transition import StateTransition
 from drawlib._diagrams.state._types import LoopSide, PaddingType, RoutingType, Side
@@ -74,6 +76,7 @@ class StateDiagram:
         width: float | None = None,
         height: float | None = None,
         style: Style | None = None,
+        show: bool | None = None,
     ) -> NodeT:
         """Add a State or pseudo-state to the diagram at the specified center coordinate.
 
@@ -83,6 +86,7 @@ class StateDiagram:
             width: Optional width override for the state.
             height: Optional height override for the state.
             style: Optional Style override for the state.
+            show: Optional visibility override for the state.
 
         Returns:
             NodeT: The added state node instance for convenient chaining or assignment.
@@ -100,6 +104,8 @@ class StateDiagram:
                 item.custom_height = True
         if style is not None:
             item.style = style if item.style is None else item.style.patch(style)
+        if show is not None:
+            item.show = show
 
         if item not in self.states:
             self.states.append(item)
@@ -139,6 +145,7 @@ class StateDiagram:
         loop_width: float | None = None,
         loop_height: float | None = None,
         loop_ratio: float = 0.88,
+        show: bool = True,
     ) -> StateTransition:
         """Create and register a transition between two states (or self-loop if source == target).
 
@@ -160,6 +167,7 @@ class StateDiagram:
             loop_width: Width of loop ellipse when source == target.
             loop_height: Height of loop ellipse when source == target.
             loop_ratio: Arc coverage ratio along ellipse circumference when source == target.
+            show: Whether to render this transition.
 
         Returns:
             StateTransition: Newly created and registered transition.
@@ -180,6 +188,7 @@ class StateDiagram:
                 loop_height=loop_height,
                 loop_ratio=loop_ratio,
                 is_loop=True,
+                show=show,
             )
             return self.add_transition(trans)
 
@@ -197,6 +206,7 @@ class StateDiagram:
             style=style,
             text_style=text_style,
             padding=padding,
+            show=show,
         )
         return self.add_transition(trans)
 
@@ -263,10 +273,13 @@ class StateDiagram:
 
         return (max(w, 10.0), max(h, 10.0))
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    @validate_call
+    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
         """Render the complete state diagram onto the canvas anchored at coordinate xy.
 
         Args:
             xy: Base canvas placement coordinate (x, y).
+            scale: Proportional scale factor anchored at xy.
         """
-        _renderer_module.draw_state_diagram(self, xy)
+        with transform(origin=xy, scale=scale):
+            _renderer_module.draw_state_diagram(self, xy)

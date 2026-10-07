@@ -40,6 +40,7 @@ class Relationship:
         text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> None:
         """Initialize Relationship.
 
@@ -56,6 +57,7 @@ class Relationship:
             text_style: Optional Style object for the relationship label text.
             routing: Routing strategy ("orthogonal" or "direct").
             padding: Gap distance between entity borders and line ends.
+            show: Whether to render this relationship.
         """
         valid_cardinalities = {"1:*", "1:1", "1:1..*", "1:0..1", "0..1:1", "0..1:*", "*:*"}
         if cardinality not in valid_cardinalities:
@@ -83,5 +85,6 @@ class Relationship:
         self.text_style = text_style
         self.routing: RoutingType = routing
         self.padding: PaddingType = padding
+        self.show = show
 
         self._diagram: ERDiagram | None = None

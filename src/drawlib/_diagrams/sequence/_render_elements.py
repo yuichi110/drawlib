@@ -120,6 +120,8 @@ def render_lifelines(
         line_style="dashed",
     )
     for participant in participants:
+        if not participant.show:
+            continue
         nx = bx + participant_x_map[participant]
         applied = default_lifeline_style.patch(participant.lifeline_style)
         canvas_line(
@@ -146,6 +148,8 @@ def render_activation_bars(
     bar_width = 2.4
 
     for participant in participants:
+        if not participant.show:
+            continue
         nx = bx + participant_x_map[participant]
         for start_rel, end_rel in resolved_acts.get(participant, []):
             y_start = by + (y_origin_top - start_rel)
@@ -214,6 +218,8 @@ def render_headers(
     """Draw all participant headers."""
     bx, by = base_xy
     for participant in participants:
+        if not participant.show:
+            continue
         nx = bx + participant_x_map[participant]
         hw, hh = participant.get_header_size()
         render_participant_header(participant, (nx, by + header_cy), hw, hh, default_node_style)
@@ -234,7 +240,7 @@ def render_groups(
         shape_line_style="dashed",
     )
     for group in groups:
-        if not group.participants:
+        if not group.show or not group.participants:
             continue
         xs = [bx + participant_x_map[p] for p in group.participants if p in participant_x_map]
         if not xs:
@@ -273,7 +279,9 @@ def render_single_message(  # noqa: C901
     default_edge_text_style: Style,
 ) -> None:
     """Draw a single horizontal message or self-call loop."""
-    bx, by = base_xy
+    if not message.show or not message.source.show or not message.target.show:
+        return
+    bx, _ = base_xy
     sx = bx + participant_x_map[message.source]
     tx = bx + participant_x_map[message.target]
 
@@ -368,7 +376,13 @@ def render_note(
     base_xy: tuple[float, float],
 ) -> None:
     """Draw a sticky note annotation card."""
-    bx, by = base_xy
+    if not note.show:
+        return
+    if note.on is not None and not note.on.show:
+        return
+    if note.over is not None and any(not p.show for p in note.over):
+        return
+    bx, _ = base_xy
     default_note_style = Style(
         shape_fill_color=(255, 252, 235, 0.95),
         shape_line_color=(220, 210, 160, 1.0),
@@ -420,6 +434,8 @@ def render_blocks(
     )
 
     for block in blocks:
+        if not block.show:
+            continue
         start_rel, end_rel = block_bounds_y.get(block, (0.0, 10.0))
         y_top = by + (y_origin_top - start_rel)
         y_bot = by + (y_origin_top - end_rel)

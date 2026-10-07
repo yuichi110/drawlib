@@ -74,10 +74,16 @@ def draw_state_diagram(diagram: StateDiagram, base_xy: tuple[float, float]) -> N
 
     # 3. Transitions
     for trans in diagram.transitions:
+        if not trans.show:
+            continue
+        if (trans.start is not None and not trans.start.show) or (trans.end is not None and not trans.end.show):
+            continue
         render_transition(trans, canvas_xy_map, diagram.edge_style, diagram.edge_text_style)
 
     # 4. State Nodes
     for node in diagram.states:
+        if not node.show:
+            continue
         node_canvas_xy = canvas_xy_map[node]
         render_node(node, node_canvas_xy, diagram.node_style)
 

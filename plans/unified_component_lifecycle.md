@@ -247,12 +247,12 @@ for step in steps:
 
 ### Step 3: `diagrams` および `graph` の拡張と `anim` サンプル検証
 1. **`diagrams` / `graph` の改修**
-   - [ ] 全6種の `diagrams` および `graph` の要素（`Node`, `Edge`, `Cluster` 等）に `show: bool = True` を追加し、レイアウト（座標）を維持したまま個別表示・非表示を切り替えられるようにする（非表示ノードに接続するエッジの自動非表示を含む）。
-   - [ ] 全6種の `diagrams` の `draw()` に `scale: PosFloat = 1.0` を追加する。
-   - [ ] `graph`（`BaseGraph.draw()` および `GraphLayout.draw()`）に `xy: Coordinate = (0.0, 0.0)` と `scale: PosFloat = 1.0` を追加する。
-   - [ ] ノードやエッジの `show` / `style` / `label` を書き換えながら再描画する単体テストを追加する。
+   - [x] 全6種の `diagrams` および `graph` の要素（`Node`, `Edge`, `Cluster` 等）に `show: bool = True` を追加し、レイアウト（座標）を維持したまま個別表示・非表示を切り替えられるようにする（非表示ノードに接続するエッジの自動非表示を含む）。
+   - [x] 全6種の `diagrams` の `draw()` に `scale: PosFloat = 1.0` を追加する。
+   - [x] `graph`（`BaseGraph.draw()` および `GraphLayout.draw()`）に `xy: Coordinate = (0.0, 0.0)` と `scale: PosFloat = 1.0` を追加する。
+   - [x] ノードやエッジの `show` / `style` / `label` を書き換えながら再描画する単体テストを追加する。
 2. **`anim` サンプル作成と視覚確認 (Visual Check)**
-   - [ ] `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `BaseGraph` 等を使い、「オートレイアウトや全体配置を固定したままノードとエッジが順番に出現する」「処理フローに沿ってノードがハイライトされる」「図全体がズーム・移動する」アニメーションサンプルを作成・描画して視覚確認する。
+   - [x] `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `BaseGraph` 等を使い、「オートレイアウトや全体配置を固定したままノードとエッジが順番に出現する」「処理フローに沿ってノードがハイライトされる」「図全体がズーム・移動する」アニメーションサンプルを作成・描画して視覚確認する。
 
 ### Step 4: ドキュメント・エージェントルール更新と全体ドッグフーディング
 - [ ] `src/drawlib/_rules/`（`lib_smartarts.md`, `lib_charts.md`, `lib_diagrams.md`, `lib_graph.md`, `lib_anim.md`, `api.md`）に、統一された `add()`・`show`・`draw_ratio` / `draw_direction`・`draw(xy, width, height, scale)` の仕様を反映する。

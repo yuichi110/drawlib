@@ -19,7 +19,9 @@ import drawlib._diagrams.flow._edge as _edge_module
 import drawlib._diagrams.flow._junction as _junction_module
 import drawlib._diagrams.flow._lane as _lane_module
 import drawlib._diagrams.flow._renderer as _renderer_module
+from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import transform
 from drawlib._diagrams.flow._types import (
     ArrowType,
     Connectable,
@@ -96,12 +98,13 @@ class FlowDiagram:
         """Get list of swimlanes in the diagram."""
         return list(self._lanes)
 
-    def add(self, item: ItemT, xy: tuple[float, float]) -> ItemT:
+    def add(self, item: ItemT, xy: tuple[float, float], *, show: bool | None = None) -> ItemT:
         """Add a FlowNode or Junction to the diagram at coordinate xy (shape center).
 
         Args:
             item: FlowNode or Junction instance.
             xy: Coordinate (x, y) for the center of the item.
+            show: Optional override for item.show.
 
         Returns:
             ItemT: The added item for convenient assignment or chaining.
@@ -109,19 +112,24 @@ class FlowDiagram:
         pt = (float(xy[0]), float(xy[1]))
         item._local_xy = pt
         item._diagram = self
+        if show is not None:
+            item.show = bool(show)
         self._items.append((item, pt))
         return item
 
-    def add_edge(self, edge: FlowEdge) -> FlowEdge:
+    def add_edge(self, edge: FlowEdge, *, show: bool | None = None) -> FlowEdge:
         """Register a FlowEdge connection with this diagram.
 
         Args:
             edge: FlowEdge instance to register.
+            show: Optional override for edge.show.
 
         Returns:
             FlowEdge: The registered edge.
         """
         edge._diagram = self
+        if show is not None:
+            edge.show = bool(show)
         if edge not in self._edges:
             self._edges.append(edge)
         return edge
@@ -136,6 +144,7 @@ class FlowDiagram:
         text_style: Style | None = None,
         header_size: float = 6.0,
         header_style: Style | None = None,
+        show: bool = True,
     ) -> Lane:
         """Add a swimlane to the diagram.
 
@@ -148,6 +157,7 @@ class FlowDiagram:
             text_style: Style for the header title text.
             header_size: Size of the header area (height for vertical, width for horizontal).
             header_style: Optional specific Style for the header card background.
+            show: Whether to render this swimlane. Defaults to True.
 
         Returns:
             Lane: The created swimlane.
@@ -166,6 +176,7 @@ class FlowDiagram:
             text_style=text_style,
             header_size=header_size,
             header_style=header_style,
+            show=show,
         )
         self._lanes.append(lane)
         return lane
@@ -182,6 +193,7 @@ class FlowDiagram:
         style: Style | None = None,
         text_style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> FlowEdge:
         """Create and register an edge between two connectables.
 
@@ -196,6 +208,7 @@ class FlowDiagram:
             style: Optional Style object for the line.
             text_style: Optional Style object for label text.
             padding: Gap distance between nodes and line ends.
+            show: Whether to render this edge. Defaults to True.
 
         Returns:
             FlowEdge: Newly created edge.
@@ -211,20 +224,22 @@ class FlowDiagram:
             style=style,
             text_style=text_style,
             padding=padding,
+            show=show,
         )
         self.add_edge(edge)
         return edge
 
-    def junction(self, xy: tuple[float, float]) -> Junction:
+    def junction(self, xy: tuple[float, float], *, show: bool = True) -> Junction:
         """Create and register a Junction at the given coordinate xy.
 
         Args:
             xy: Coordinate (x, y) in the diagram.
+            show: Whether to allow rendering connections through this junction. Defaults to True.
 
         Returns:
             Junction: The created and registered junction.
         """
-        j = _junction_module.Junction(xy)
+        j = _junction_module.Junction(xy, show=show)
         self.add(j, xy)
         return j
 
@@ -257,10 +272,13 @@ class FlowDiagram:
         final_h = self.height if self.height is not None else (max_y if max_y > 0 else 100.0)
         return (final_w, final_h)
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    @validate_call
+    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
         """Render the complete flow diagram onto the canvas at base coordinate xy.
 
         Args:
             xy: Base canvas coordinate (x, y) where diagram's bottom-left origin is placed.
+            scale: Proportional scale factor (> 0) anchored at xy. Defaults to 1.0.
         """
-        _renderer_module.draw_diagram(self, xy)
+        with transform(origin=xy, scale=scale):
+            _renderer_module.draw_diagram(self, xy)

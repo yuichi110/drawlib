@@ -37,6 +37,7 @@ class FlowEdge:
         style: Style | None = None,
         text_style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> None:
         """Initialize FlowEdge.
 
@@ -51,6 +52,7 @@ class FlowEdge:
             style: Style object for the line (color, width, dash style).
             text_style: Style object for the label text.
             padding: Gap distance between elements and line ends (float or (start, end) tuple).
+            show: Whether to render this edge. Defaults to True.
         """
         if arrow is None:
             resolved_arrow = "-" if isinstance(end, _junction_module.Junction) else "->"
@@ -81,6 +83,7 @@ class FlowEdge:
         self.style = style
         self.text_style = text_style
         self.padding = padding
+        self.show = bool(show)
         self._waypoints: list[tuple[float, float]] = []
         self._diagram: FlowDiagram | None = None
 

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Literal
 
+from drawlib._core.l4_canvas import transform
 from drawlib.lines import line, lines
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
@@ -29,6 +30,8 @@ if TYPE_CHECKING:
 def _draw_clusters(clusters: dict[str, ClusterLayout]) -> None:
     """Draw cluster boundaries and header labels in background layer."""
     for cluster in clusters.values():
+        if not cluster.show:
+            continue
         if cluster.shape == "circle":
             circle(
                 (cluster.cx, cluster.cy),
@@ -52,9 +55,14 @@ def _draw_clusters(clusters: dict[str, ClusterLayout]) -> None:
                 text((tx, ty), text=cluster.label, style=cluster.text_style)
 
 
-def _draw_edges(edges: list[EdgeLayout]) -> None:
+def _draw_edges(edges: list[EdgeLayout], nodes: dict[str, NodeLayout]) -> None:
     """Draw connector lines and edge labels."""
     for edge in edges:
+        if not edge.show:
+            continue
+        if (edge.src in nodes and not nodes[edge.src].show) or (edge.dst in nodes and not nodes[edge.dst].show):
+            continue
+
         arrow: Literal["", "->", "<-", "<->"]
         if edge.arrow_head in {"", "-"}:
             arrow = ""
@@ -92,6 +100,8 @@ def _draw_edges(edges: list[EdgeLayout]) -> None:
 def _draw_nodes(nodes: dict[str, NodeLayout]) -> None:
     """Draw nodes in foreground layer."""
     for node in nodes.values():
+        if not node.show:
+            continue
         n_kwargs: dict[str, Any] = {}
         if node.text_style is not None:
             n_kwargs["text_style"] = node.text_style
@@ -125,7 +135,12 @@ def _draw_nodes(nodes: dict[str, NodeLayout]) -> None:
             )
 
 
-def render_layout(layout: GraphLayout) -> None:
+def render_layout(
+    layout: GraphLayout,
+    *,
+    xy: tuple[float, float] = (0.0, 0.0),
+    scale: float = 1.0,
+) -> None:
     """Render a computed GraphLayout onto the active Drawlib canvas.
 
     Draws elements in strictly managed Z-order layers:
@@ -136,7 +151,10 @@ def render_layout(layout: GraphLayout) -> None:
 
     Args:
         layout: Complete geometrical graph layout object.
+        xy: Placement offset coordinate (x, y) for the layout origin.
+        scale: Proportional scale factor anchored at xy.
     """
-    _draw_clusters(layout.clusters)
-    _draw_edges(layout.edges)
-    _draw_nodes(layout.nodes)
+    with transform(origin=(0.0, 0.0), scale=scale, translate=xy):
+        _draw_clusters(layout.clusters)
+        _draw_edges(layout.edges, layout.nodes)
+        _draw_nodes(layout.nodes)

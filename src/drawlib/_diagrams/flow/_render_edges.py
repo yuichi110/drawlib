@@ -235,6 +235,8 @@ def render_edges(
 ) -> None:
     """Render all FlowEdge connections."""
     for edge in edges:
+        if not edge.show or not edge.start.show or not edge.end.show:
+            continue
         if edge.start not in canvas_xy_map or edge.end not in canvas_xy_map:
             continue
 

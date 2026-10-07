@@ -36,6 +36,7 @@ class Entity:
         row_height: float = 3.2,
         style: Style | None = None,
         header_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Entity.
 
@@ -49,6 +50,7 @@ class Entity:
             row_height: Height of each column row (default: 3.2).
             style: Optional Style for the main entity box and border.
             header_style: Optional Style for the entity header background and text.
+            show: Whether to render this entity.
         """
         if size is not None:
             self.width = float(size[0])
@@ -62,6 +64,7 @@ class Entity:
         self.row_height = float(row_height)
         self.style = style
         self.header_style = header_style
+        self.show = show
 
         self.columns: list[ColumnInfo] = []
         self._local_xy: tuple[float, float] = (0.0, 0.0)
@@ -201,6 +204,7 @@ class Entity:
         text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> Relationship:
         """Connect this entity to a target entity.
 
@@ -216,6 +220,7 @@ class Entity:
             text_style: Optional Style for relationship label text.
             routing: Path routing strategy ("orthogonal" or "direct").
             padding: Gap distance between entity and line ends.
+            show: Whether to render this relationship.
 
         Returns:
             Relationship: Newly created relationship object.
@@ -233,6 +238,7 @@ class Entity:
             text_style=text_style,
             routing=routing,
             padding=padding,
+            show=show,
         )
         if self._diagram is not None:
             self._diagram.add_relationship(rel)

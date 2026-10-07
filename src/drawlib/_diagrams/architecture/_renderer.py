@@ -148,6 +148,8 @@ def _render_groups(
     )
 
     for group in groups:
+        if not group.show:
+            continue
         gx, gy = canvas_xy_map[group]
         min_x, min_y, max_x, max_y = group.get_bounds()
         w = max_x - min_x
@@ -231,6 +233,8 @@ def _render_nodes(
 ) -> None:
     """Draw Layer 2: Nodes (cards, icons, labels)."""
     for node in nodes:
+        if not node.show:
+            continue
         nx, ny = canvas_xy_map[node]
         if node.style:
             min_x, min_y, max_x, max_y = node.get_bounds()

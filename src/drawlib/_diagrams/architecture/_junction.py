@@ -26,13 +26,15 @@ if TYPE_CHECKING:
 class Junction:
     """Lightweight connectable waypoint / branch point in an architecture diagram."""
 
-    def __init__(self, xy: tuple[float, float]) -> None:
+    def __init__(self, xy: tuple[float, float], *, show: bool = True) -> None:
         """Initialize Junction.
 
         Args:
             xy: Local coordinate (x, y) of the junction point.
+            show: Whether to allow rendering connections through this junction. Defaults to True.
         """
         self._local_xy = (float(xy[0]), float(xy[1]))
+        self.show = bool(show)
         self._diagram: ArchitectureDiagram | None = None
         self._parent_group: NodeGroup | None = None
 
@@ -82,6 +84,7 @@ class Junction:
         routing: RoutingType = "orthogonal",
         style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> Edge:
         """Connect this junction to a target element.
 
@@ -92,6 +95,7 @@ class Junction:
             routing: Path routing strategy ("orthogonal", "direct", "curved").
             style: Optional Style object for the line.
             padding: Gap distance between nodes and line ends (float or (start, end) tuple).
+            show: Whether to render this edge. Defaults to True.
 
         Returns:
             Edge: Created connection object.
@@ -104,6 +108,7 @@ class Junction:
             routing=routing,
             style=style,
             padding=padding,
+            show=show,
         )
         if self._diagram is not None:
             self._diagram.add_edge(edge)

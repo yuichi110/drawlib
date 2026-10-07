@@ -35,6 +35,7 @@ class Message:
         style: Style | None = None,
         text_style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> None:
         """Initialize Message.
 
@@ -48,6 +49,7 @@ class Message:
             style: Optional line Style (color, width, dash).
             text_style: Optional text Style for label.
             padding: Gap clearance between lifeline and line endpoints. Defaults to 0.0.
+            show: Whether to render this message. Defaults to True.
         """
         self.source = source
         self.target = target
@@ -58,6 +60,7 @@ class Message:
         self.style = style
         self.text_style = text_style
         self.padding = padding
+        self.show = bool(show)
         self.number: int | None = None
         self._diagram: SequenceDiagram | None = None
 

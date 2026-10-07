@@ -32,6 +32,7 @@ class Note:
         pos: NotePosition = "right",
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Note.
 
@@ -42,6 +43,7 @@ class Note:
             pos: Position relative to lifeline ("left", "right", "over"). Defaults to "right".
             style: Style for the note background card.
             text_style: Style for the note text.
+            show: Whether to render this note. Defaults to True.
         """
         self.text = text
         self.on = on
@@ -49,6 +51,7 @@ class Note:
         self.pos = pos
         self.style = style
         self.text_style = text_style
+        self.show = bool(show)
         self._diagram: SequenceDiagram | None = None
 
     def set_text(self, text: str) -> Note:

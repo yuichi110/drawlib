@@ -14,6 +14,9 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Literal
 
+from pydantic import validate_call
+
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._graph._common._code_generator import generate_code
 from drawlib._graph._common._models import Cluster, Edge, GraphLayout, Node
 from drawlib._graph._common._renderer import render_layout
@@ -65,6 +68,13 @@ class BaseGraph(ABC):
         self._edges: list[Edge] = []
         self._clusters: dict[str, Cluster] = {}
 
+    def _resolve_edge_style(self, edge: Edge) -> Style:
+        """Resolve effective Style for an edge, applying line_style if specified."""
+        style = edge.style or self.default_edge_style
+        if edge.line_style is not None:
+            style = style.patch(Style(line_style=edge.line_style))
+        return style
+
     def node(
         self,
         id: str,
@@ -82,6 +92,7 @@ class BaseGraph(ABC):
         layer: int | None = None,
         group: str | None = None,
         subgroup: str | None = None,
+        show: bool = True,
     ) -> Node:
         """Register a node in the graph.
 
@@ -100,6 +111,7 @@ class BaseGraph(ABC):
             layer: Optional layer/rank index (for layered layouts).
             group: Optional container/group ID (for architecture layouts).
             subgroup: Optional nested subgroup ID (for architecture layouts).
+            show: Whether to render this node.
 
         Returns:
             The registered Node object.
@@ -125,6 +137,7 @@ class BaseGraph(ABC):
             layer=layer,
             group=group,
             subgroup=subgroup,
+            show=show,
         )
         self._nodes[id] = n
         return n
@@ -139,6 +152,7 @@ class BaseGraph(ABC):
         text_style: Style | None = None,
         arrow_head: Literal["->", "<-", "<->", "-"] = "->",
         line_style: Literal["solid", "dashed", "dotted"] | None = None,
+        show: bool = True,
     ) -> Edge:
         """Register a directed or undirected connection between two nodes.
 
@@ -150,6 +164,7 @@ class BaseGraph(ABC):
             text_style: Text styling for the edge label.
             arrow_head: Arrowhead decoration ("->", "<-", "<->", "-").
             line_style: Stroke style ("solid", "dashed", "dotted").
+            show: Whether to render this edge.
 
         Returns:
             The registered Edge object.
@@ -162,6 +177,7 @@ class BaseGraph(ABC):
             text_style=text_style,
             arrow_head=arrow_head,
             line_style=line_style,
+            show=show,
         )
         self._edges.append(e)
         return e
@@ -178,6 +194,7 @@ class BaseGraph(ABC):
         parent: str | None = None,
         order: int | None = None,
         pos: Literal["top", "bottom", "left", "right", "center"] | None = None,
+        show: bool = True,
     ) -> Cluster:
         """Register a grouping boundary surrounding a subset of nodes.
 
@@ -191,6 +208,7 @@ class BaseGraph(ABC):
             parent: Optional parent group/cluster ID for nested boundaries.
             order: Optional sequence index among peer containers.
             pos: Optional 2D macro spatial position ("top", "bottom", "left", "right", "center").
+            show: Whether to render this cluster boundary.
 
         Returns:
             The registered Cluster object.
@@ -211,6 +229,7 @@ class BaseGraph(ABC):
             parent=parent,
             order=order,
             pos=pos,
+            show=show,
         )
         self._clusters[id] = c
         return c
@@ -227,6 +246,7 @@ class BaseGraph(ABC):
         parent: str | None = None,
         order: int | None = None,
         pos: Literal["top", "bottom", "left", "right", "center"] | None = None,
+        show: bool = True,
     ) -> Cluster:
         """Register an architectural container / group (e.g. VPC, subnet, zone).
 
@@ -240,6 +260,7 @@ class BaseGraph(ABC):
             parent: Optional parent container ID (e.g. Subnet in VPC).
             order: Optional ordering rank among peer containers.
             pos: Optional 2D macro spatial position ("top", "bottom", "left", "right", "center").
+            show: Whether to render this container boundary.
 
         Returns:
             The registered Cluster object.
@@ -254,6 +275,7 @@ class BaseGraph(ABC):
             parent=parent,
             order=order,
             pos=pos,
+            show=show,
         )
 
     @abstractmethod
@@ -275,25 +297,30 @@ class BaseGraph(ABC):
             A GraphLayout containing all computed geometries.
         """
 
+    @validate_call
     def draw(
         self,
         *,
+        xy: Coordinate = (0.0, 0.0),
         width: float | None = None,
         height: float | None = None,
         margin: float = 10.0,
+        scale: PosFloat = 1.0,
     ) -> GraphLayout:
         """Calculate layout and render immediately onto the active Drawlib canvas.
 
         Args:
-            width: Target canvas width.
-            height: Target canvas height.
+            xy: Placement offset coordinate (x, y) for the layout origin.
+            width: Target layout width.
+            height: Target layout height.
             margin: Outer margin surrounding the diagram.
+            scale: Proportional scale factor anchored at xy.
 
         Returns:
             The calculated GraphLayout that was rendered.
         """
         layout = self.calc(width=width, height=height, margin=margin)
-        render_layout(layout)
+        render_layout(layout, xy=xy, scale=scale)
         return layout
 
     def export_code(

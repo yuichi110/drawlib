@@ -35,6 +35,7 @@ class ClassNode:
         row_height: float = 3.2,
         style: Style | None = None,
         header_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize ClassNode.
 
@@ -49,6 +50,7 @@ class ClassNode:
             row_height: Height of each attribute and method row (default: 3.2).
             style: Optional Style overriding the main box border and body fill.
             header_style: Optional Style overriding the header compartment background and text.
+            show: Whether to render this class node.
         """
         if size is not None:
             self.width = float(size[0])
@@ -64,6 +66,7 @@ class ClassNode:
         self.row_height = float(row_height)
         self.style = style
         self.header_style = header_style
+        self.show = show
 
         self.attributes: list[AttributeInfo] = []
         self.methods: list[MethodInfo] = []

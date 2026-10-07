@@ -95,6 +95,8 @@ class TreeGraph(BaseGraph):
         edge_label: str | None = None,
         edge_style: Style | None = None,
         arrow_head: Literal["->", "<-", "<->", "-"] = "->",
+        show: bool = True,
+        edge_show: bool = True,
     ) -> Node:
         """Convenience method to register a child node and connect it from its parent.
 
@@ -111,6 +113,8 @@ class TreeGraph(BaseGraph):
             edge_label: Annotation text on connecting edge.
             edge_style: Style of connecting edge.
             arrow_head: Arrowhead decoration ("->", "<-", "<->", "-").
+            show: Whether to render the child node.
+            edge_show: Whether to render the connecting edge.
 
         Returns:
             The registered child Node object.
@@ -127,6 +131,7 @@ class TreeGraph(BaseGraph):
             icon=icon,
             width=width,
             height=height,
+            show=show,
         )
         self.edge(
             src=parent,
@@ -134,6 +139,7 @@ class TreeGraph(BaseGraph):
             label=edge_label,
             style=edge_style,
             arrow_head=arrow_head,
+            show=edge_show,
         )
         return n
 
@@ -279,6 +285,7 @@ class TreeGraph(BaseGraph):
                     label=node.label or nid,
                     shape=node.shape,
                     icon=node.icon,
+                    show=node.show,
                 )
 
         else:  # "LR"
@@ -327,6 +334,7 @@ class TreeGraph(BaseGraph):
                     label=node.label or nid,
                     shape=node.shape,
                     icon=node.icon,
+                    show=node.show,
                 )
 
         # Route Edges
@@ -348,9 +356,10 @@ class TreeGraph(BaseGraph):
                     dst_port=dst_port,
                     waypoints=waypoints,
                     label=edge.label,
-                    style=edge.style or self.default_edge_style,
+                    style=self._resolve_edge_style(edge),
                     text_style=edge.text_style or self.default_edge_text_style,
                     arrow_head=edge.arrow_head,
+                    show=edge.show,
                 )
             )
 
@@ -386,6 +395,7 @@ class TreeGraph(BaseGraph):
                     bbox=(cx, cy, cw, ch),
                     style=cluster.style or Styles.MutedDashed,
                     text_style=c_text_style,
+                    show=cluster.show,
                 )
 
         return GraphLayout(

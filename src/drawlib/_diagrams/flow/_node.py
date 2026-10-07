@@ -36,6 +36,7 @@ class FlowNode:
         style: Style | None = None,
         text_style: Style | None = None,
         shape_type: ShapeType = "process",
+        show: bool = True,
     ) -> None:
         """Initialize FlowNode.
 
@@ -48,6 +49,7 @@ class FlowNode:
             style: Style object for the shape (fill color, border color/width).
             text_style: Style object for the label text.
             shape_type: Shape type ("process", "decision", "start", "end", "data").
+            show: Whether to render this node. Defaults to True.
         """
         self.text = text
         self.width = float(width)
@@ -57,6 +59,7 @@ class FlowNode:
         self.style = style
         self.text_style = text_style
         self.shape_type: ShapeType = shape_type
+        self.show = bool(show)
 
         self._local_xy: tuple[float, float] = (0.0, 0.0)
         self._diagram: FlowDiagram | None = None
@@ -133,6 +136,7 @@ class FlowNode:
         style: Style | None = None,
         text_style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> FlowEdge:
         """Connect this node to a target element.
 
@@ -146,6 +150,7 @@ class FlowNode:
             style: Optional Style object for the line.
             text_style: Optional Style object for the label text.
             padding: Gap distance between elements and line ends.
+            show: Whether to render this edge. Defaults to True.
 
         Returns:
             FlowEdge: Created connection object.
@@ -161,6 +166,7 @@ class FlowNode:
             style=style,
             text_style=text_style,
             padding=padding,
+            show=show,
         )
         if self._diagram is not None:
             self._diagram.add_edge(edge)
@@ -175,6 +181,7 @@ class FlowNode:
         at_y: float | None = None,
         style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> list[FlowEdge]:
         """Branch from this node to multiple targets via an intermediate junction.
 
@@ -184,6 +191,7 @@ class FlowNode:
             at_y: Optional Y coordinate for branch junction.
             style: Optional Style object for all connections.
             padding: Gap distance between elements and line ends.
+            show: Whether to render the created edges. Defaults to True.
 
         Returns:
             list[FlowEdge]: Created edges connecting this node to targets via junction.
@@ -191,14 +199,14 @@ class FlowNode:
         cx, cy = self._local_xy
         jx = float(at_x) if at_x is not None else cx + self.width
         jy = float(at_y) if at_y is not None else cy
-        j = _junction_module.Junction((jx, jy))
+        j = _junction_module.Junction((jx, jy), show=show)
 
         if self._diagram is not None:
             self._diagram.add(j, (jx, jy))
 
         start_pad = padding if isinstance(padding, (int, float)) else padding[0]
         end_pad = padding if isinstance(padding, (int, float)) else padding[1]
-        edges = [self.connect(j, arrow="-", style=style, padding=(start_pad, 0.0))]
+        edges = [self.connect(j, arrow="-", style=style, padding=(start_pad, 0.0), show=show)]
         for tgt in targets:
-            edges.append(j.connect(tgt, style=style, padding=(0.0, end_pad)))
+            edges.append(j.connect(tgt, style=style, padding=(0.0, end_pad), show=show))
         return edges

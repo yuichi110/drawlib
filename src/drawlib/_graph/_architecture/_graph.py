@@ -149,6 +149,7 @@ class ArchitectureGraph(BaseGraph):
                 label=node.label or nid,
                 shape=node.shape,
                 icon=node.icon,
+                show=node.show,
             )
 
         # Route Edges
@@ -181,9 +182,10 @@ class ArchitectureGraph(BaseGraph):
                     dst_port=dst_port,
                     waypoints=waypoints,
                     label=edge.label,
-                    style=edge.style or self.default_edge_style,
+                    style=self._resolve_edge_style(edge),
                     text_style=edge.text_style or self.default_edge_text_style,
                     arrow_head=edge.arrow_head,
+                    show=edge.show,
                 )
             )
 
@@ -206,6 +208,7 @@ class ArchitectureGraph(BaseGraph):
                 if cluster_meta and cluster_meta.text_style
                 else default_cluster_text_style
             )
+            c_show = cluster_meta.show if cluster_meta is not None else True
             clusters_layout[cid] = ClusterLayout(
                 id=cid,
                 label=lbl,
@@ -213,6 +216,7 @@ class ArchitectureGraph(BaseGraph):
                 style=style,
                 text_style=t_style,
                 shape="rectangle",
+                show=c_show,
             )
 
         return GraphLayout(

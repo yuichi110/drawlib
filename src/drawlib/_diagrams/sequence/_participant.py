@@ -39,6 +39,7 @@ class Participant:
         icon_style: Style | None = None,
         text_style: Style | None = None,
         lifeline_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Participant.
 
@@ -53,6 +54,7 @@ class Participant:
             icon_style: Style for participant icon.
             text_style: Style for label text.
             lifeline_style: Style for vertical lifeline.
+            show: Whether to render this participant and its lifeline. Defaults to True.
         """
         self.text = text
         self.icon = icon
@@ -64,6 +66,7 @@ class Participant:
         self.icon_style = icon_style
         self.text_style = text_style
         self.lifeline_style = lifeline_style
+        self.show = bool(show)
 
         self._fixed_x: float | None = None
         self._diagram: SequenceDiagram | None = None
@@ -88,6 +91,7 @@ class Participant:
         is_async: bool = False,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> Message:
         """Send a request message (solid line) from this participant to target.
 
@@ -97,16 +101,24 @@ class Participant:
             is_async: True for open stick arrow; False for solid filled arrow. Defaults to False.
             style: Optional Style object for the message line.
             text_style: Optional Style object for the label text.
+            show: Whether to render this message. Defaults to True.
 
         Returns:
             Message: Created message.
         """
         if self._diagram is not None:
             return self._diagram.request(
-                self, target, label=label, is_async=is_async, style=style, text_style=text_style
+                self, target, label=label, is_async=is_async, style=style, text_style=text_style, show=show
             )
         return _message_module.Message(
-            self, target, label=label, is_reply=False, is_async=is_async, style=style, text_style=text_style
+            self,
+            target,
+            label=label,
+            is_reply=False,
+            is_async=is_async,
+            style=style,
+            text_style=text_style,
+            show=show,
         )
 
     def reply(
@@ -116,6 +128,7 @@ class Participant:
         is_async: bool = False,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> Message:
         """Send a response/return message (dashed line) from this participant to target.
 
@@ -125,14 +138,24 @@ class Participant:
             is_async: True for open stick arrow; False for solid filled arrow. Defaults to False.
             style: Optional Style object for the response line.
             text_style: Optional Style object for the label text.
+            show: Whether to render this message. Defaults to True.
 
         Returns:
             Message: Created message.
         """
         if self._diagram is not None:
-            return self._diagram.reply(self, target, label=label, is_async=is_async, style=style, text_style=text_style)
+            return self._diagram.reply(
+                self, target, label=label, is_async=is_async, style=style, text_style=text_style, show=show
+            )
         return _message_module.Message(
-            self, target, label=label, is_reply=True, is_async=is_async, style=style, text_style=text_style
+            self,
+            target,
+            label=label,
+            is_reply=True,
+            is_async=is_async,
+            style=style,
+            text_style=text_style,
+            show=show,
         )
 
     def connect(
@@ -143,6 +166,7 @@ class Participant:
         is_async: bool = False,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> Message:
         """Connect to target with a custom arrow (e.g. bidirectional stream '<->').
 
@@ -153,16 +177,31 @@ class Participant:
             is_async: True for open stick arrow; False for solid filled arrow. Defaults to False.
             style: Optional Style object.
             text_style: Optional Style object for the label text.
+            show: Whether to render this message. Defaults to True.
 
         Returns:
             Message: Created message.
         """
         if self._diagram is not None:
             return self._diagram.connect(
-                self, target, label=label, arrow=arrow, is_async=is_async, style=style, text_style=text_style
+                self,
+                target,
+                label=label,
+                arrow=arrow,
+                is_async=is_async,
+                style=style,
+                text_style=text_style,
+                show=show,
             )
         return _message_module.Message(
-            self, target, label=label, arrow=arrow, is_async=is_async, style=style, text_style=text_style
+            self,
+            target,
+            label=label,
+            arrow=arrow,
+            is_async=is_async,
+            style=style,
+            text_style=text_style,
+            show=show,
         )
 
     def note(
@@ -170,6 +209,7 @@ class Participant:
         text: str,
         pos: Literal["left", "right"] = "right",
         style: Style | None = None,
+        show: bool = True,
     ) -> Note:
         """Attach a sticky note annotation card beside this participant's lifeline.
 
@@ -177,13 +217,14 @@ class Participant:
             text: Note content text.
             pos: Position relative to lifeline ("left" or "right"). Defaults to "right".
             style: Optional Style object for the card.
+            show: Whether to render this note. Defaults to True.
 
         Returns:
             Note: Created note instance.
         """
         if self._diagram is not None:
-            return self._diagram.note(text, on=self, pos=pos, style=style)
-        return _note_module.Note(text, on=self, pos=pos, style=style)
+            return self._diagram.note(text, on=self, pos=pos, style=style, show=show)
+        return _note_module.Note(text, on=self, pos=pos, style=style, show=show)
 
     def activate(self) -> None:
         """Start an active execution span on this participant's lifeline."""

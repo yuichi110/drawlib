@@ -21,7 +21,9 @@ import drawlib._diagrams.sequence._message as _message_module
 import drawlib._diagrams.sequence._note as _note_module
 import drawlib._diagrams.sequence._participant as _participant_module
 import drawlib._diagrams.sequence._renderer as _renderer_module
+from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import transform
 from drawlib._diagrams.sequence._types import ArrowType, NotePosition
 
 if TYPE_CHECKING:
@@ -104,25 +106,41 @@ class SequenceDiagram:
         return list(self._events)
 
     @overload
-    def add(self, item: Participant, x: float | None = None) -> Participant: ...
+    def add(
+        self,
+        item: Participant,
+        x: float | None = None,
+        *,
+        show: bool | None = None,
+    ) -> Participant: ...
 
     @overload
-    def add(self, item: ParticipantGroup) -> ParticipantGroup: ...
+    def add(
+        self,
+        item: ParticipantGroup,
+        *,
+        show: bool | None = None,
+    ) -> ParticipantGroup: ...
 
     def add(
         self,
         item: Participant | ParticipantGroup,
         x: float | None = None,
+        *,
+        show: bool | None = None,
     ) -> Participant | ParticipantGroup:
         """Add a participant or participant group to the diagram.
 
         Args:
             item: Participant or ParticipantGroup instance.
             x: Optional explicitly fixed X coordinate for participant (ignored for group).
+            show: Optional override for item.show.
 
         Returns:
             Participant | ParticipantGroup: The added participant or group.
         """
+        if show is not None:
+            item.show = bool(show)
         if isinstance(item, _participant_module.Participant):
             if item not in self._participants:
                 self._participants.append(item)
@@ -149,6 +167,7 @@ class SequenceDiagram:
         is_async: bool = False,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> Message:
         """Record a synchronous or asynchronous request message (solid line).
 
@@ -159,6 +178,7 @@ class SequenceDiagram:
             is_async: True for open stick arrow; False for solid triangular arrow. Defaults to False.
             style: Optional line Style.
             text_style: Optional text Style for label.
+            show: Whether to render this message. Defaults to True.
 
         Returns:
             Message: Created message.
@@ -172,6 +192,7 @@ class SequenceDiagram:
             arrow="->",
             style=style,
             text_style=text_style,
+            show=show,
         )
         self._record_message(message)
         return message
@@ -184,6 +205,7 @@ class SequenceDiagram:
         is_async: bool = False,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> Message:
         """Record a response/return message (dashed line).
 
@@ -194,6 +216,7 @@ class SequenceDiagram:
             is_async: True for open stick arrow; False for solid triangular arrow. Defaults to False.
             style: Optional line Style.
             text_style: Optional text Style for label.
+            show: Whether to render this message. Defaults to True.
 
         Returns:
             Message: Created message.
@@ -207,6 +230,7 @@ class SequenceDiagram:
             arrow="->",
             style=style,
             text_style=text_style,
+            show=show,
         )
         self._record_message(message)
         return message
@@ -220,6 +244,7 @@ class SequenceDiagram:
         is_async: bool = False,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> Message:
         """Record a custom connection message (e.g. bidirectional stream '<->').
 
@@ -231,6 +256,7 @@ class SequenceDiagram:
             is_async: True for open stick arrow; False for solid triangular arrow. Defaults to False.
             style: Optional line Style.
             text_style: Optional text Style for label.
+            show: Whether to render this message. Defaults to True.
 
         Returns:
             Message: Created message.
@@ -244,6 +270,7 @@ class SequenceDiagram:
             arrow=arrow,
             style=style,
             text_style=text_style,
+            show=show,
         )
         self._record_message(message)
         return message
@@ -255,6 +282,7 @@ class SequenceDiagram:
         over: list[Participant] | None = None,
         pos: NotePosition = "right",
         style: Style | None = None,
+        show: bool = True,
     ) -> Note:
         """Record a sticky note annotation at the current timeline step.
 
@@ -264,11 +292,12 @@ class SequenceDiagram:
             over: List of participants to span note across.
             pos: Position relative to lifeline ("left", "right", "over"). Defaults to "right".
             style: Optional Style for note card.
+            show: Whether to render this note. Defaults to True.
 
         Returns:
             Note: Created note instance.
         """
-        note_item = _note_module.Note(text=text, on=on, over=over, pos=pos, style=style)
+        note_item = _note_module.Note(text=text, on=on, over=over, pos=pos, style=style, show=show)
         note_item._diagram = self
         self._events.append(note_item)
         for block in self._active_blocks:
@@ -278,60 +307,65 @@ class SequenceDiagram:
                 block.involved_participants.update(over)
         return note_item
 
-    def loop(self, label: str = "") -> Block:
+    def loop(self, label: str = "", *, show: bool = True) -> Block:
         """Create a loop block context manager for repeated steps.
 
         Args:
             label: Condition or description text.
+            show: Whether to render this block frame. Defaults to True.
 
         Returns:
             Block: Context manager.
         """
-        return _block_module.Block("loop", label=label, diagram=self)
+        return _block_module.Block("loop", label=label, diagram=self, show=show)
 
-    def alt(self, label: str = "") -> Block:
+    def alt(self, label: str = "", *, show: bool = True) -> Block:
         """Create an alt block context manager for alternative conditional branches.
 
         Args:
             label: Condition text.
+            show: Whether to render this block frame. Defaults to True.
 
         Returns:
             Block: Context manager.
         """
-        return _block_module.Block("alt", label=label, diagram=self)
+        return _block_module.Block("alt", label=label, diagram=self, show=show)
 
-    def else_(self, label: str = "") -> Block:
+    def else_(self, label: str = "", *, show: bool = True) -> Block:
         """Create an else branch block context manager.
 
         Args:
             label: Condition or description text.
+            show: Whether to render this block frame. Defaults to True.
 
         Returns:
             Block: Context manager.
         """
-        return _block_module.Block("else", label=label, diagram=self)
+        return _block_module.Block("else", label=label, diagram=self, show=show)
 
-    def opt(self, label: str = "") -> Block:
+    def opt(self, label: str = "", *, show: bool = True) -> Block:
         """Create an optional execution block context manager.
 
         Args:
             label: Condition text.
+            show: Whether to render this block frame. Defaults to True.
 
         Returns:
             Block: Context manager.
         """
-        return _block_module.Block("opt", label=label, diagram=self)
+        return _block_module.Block("opt", label=label, diagram=self, show=show)
 
-    def par(self, label: str = "") -> Block:
+    def par(self, label: str = "", *, show: bool = True) -> Block:
         """Create a parallel execution block context manager.
 
         Args:
             label: Description text.
+            show: Whether to render this block frame. Defaults to True.
 
         Returns:
             Block: Context manager.
         """
-        return _block_module.Block("par", label=label, diagram=self)
+        return _block_module.Block("par", label=label, diagram=self, show=show)
 
     def space(self, dy: float = 5.0) -> None:
         """Advance timeline vertically by an extra distance for spacing.
@@ -377,10 +411,13 @@ class SequenceDiagram:
         """Estimate the total diagram width and height in coordinate units."""
         return _renderer_module._compute_diagram_size(self)
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    @validate_call
+    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
         """Render the complete sequence diagram onto the active canvas.
 
         Args:
             xy: Bottom-left placement coordinate on the canvas. Defaults to (0.0, 0.0).
+            scale: Proportional scale factor (> 0) anchored at xy. Defaults to 1.0.
         """
-        _renderer_module.draw_sequence_diagram(self, xy=xy)
+        with transform(origin=xy, scale=scale):
+            _renderer_module.draw_sequence_diagram(self, xy=xy)

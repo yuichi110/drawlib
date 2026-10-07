@@ -45,6 +45,7 @@ class Node:
         text_angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        show: bool = True,
     ) -> None:
         """Initialize Node.
 
@@ -58,6 +59,7 @@ class Node:
             text_angle: Rotation angle in degrees for the label text.
             style: Optional Style object for the node background/card.
             text_style: Optional Style object for the label text.
+            show: Whether to render this node. Defaults to True.
         """
         self.text = text
         self.icon = icon
@@ -68,6 +70,7 @@ class Node:
         self.text_margin = float(text_margin)
         self.text_angle = float(text_angle)
         self.text_style = text_style
+        self.show = bool(show)
 
         self._local_xy: tuple[float, float] = (0.0, 0.0)
         self._diagram: ArchitectureDiagram | None = None
@@ -177,6 +180,7 @@ class Node:
         routing: RoutingType = "orthogonal",
         style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> Edge:
         """Connect this node to a target element.
 
@@ -187,6 +191,7 @@ class Node:
             routing: Path routing strategy ("orthogonal", "direct", "curved").
             style: Optional Style object for the line.
             padding: Gap distance between nodes and line ends (float or (start, end) tuple).
+            show: Whether to render this edge. Defaults to True.
 
         Returns:
             Edge: Created connection object.
@@ -199,6 +204,7 @@ class Node:
             routing=routing,
             style=style,
             padding=padding,
+            show=show,
         )
         if self._diagram is not None:
             self._diagram.add_edge(edge)
@@ -228,6 +234,7 @@ class Node:
         at_y: float | None = None,
         style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> list[Edge]:
         """Branch from this node to multiple targets via an intermediate junction.
 
@@ -237,6 +244,7 @@ class Node:
             at_y: Optional Y coordinate for the branch junction.
             style: Optional Style object for all connections.
             padding: Gap distance between nodes and line ends.
+            show: Whether to render the created edges. Defaults to True.
 
         Returns:
             list[Edge]: Created edges connecting this node to targets via the junction.
@@ -244,14 +252,14 @@ class Node:
         ax, ay = self.get_absolute_xy()
         jx = float(at_x) if at_x is not None else ax + self.icon_size * 2.0
         jy = float(at_y) if at_y is not None else ay
-        j = _junction_module.Junction((jx, jy))
+        j = _junction_module.Junction((jx, jy), show=show)
 
         if self._diagram is not None:
             self._diagram.add(j, (jx, jy))
 
         start_pad = padding if isinstance(padding, (int, float)) else padding[0]
         end_pad = padding if isinstance(padding, (int, float)) else padding[1]
-        edges = [self.connect(j, arrow="-", style=style, padding=(start_pad, 0.0))]
+        edges = [self.connect(j, arrow="-", style=style, padding=(start_pad, 0.0), show=show)]
         for tgt in targets:
-            edges.append(j.connect(tgt, style=style, padding=(0.0, end_pad)))
+            edges.append(j.connect(tgt, style=style, padding=(0.0, end_pad), show=show))
         return edges

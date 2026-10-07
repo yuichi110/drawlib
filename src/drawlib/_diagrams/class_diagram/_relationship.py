@@ -43,6 +43,7 @@ class ClassRelationship:
         text_style: Style | None = None,
         routing: RoutingType = "orthogonal",
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> None:
         """Initialize ClassRelationship.
 
@@ -63,6 +64,7 @@ class ClassRelationship:
             text_style: Optional Style object overriding relationship label text.
             routing: Path routing strategy ('orthogonal' or 'direct').
             padding: Gap distance between class borders and line endpoints.
+            show: Whether to render this relationship.
         """
         type_aliases: dict[str, str] = {
             "inherit": "inheritance",
@@ -109,5 +111,6 @@ class ClassRelationship:
         self.text_style = text_style
         self.routing: RoutingType = routing
         self.padding: PaddingType = padding
+        self.show = show
 
         self._diagram: ClassDiagram | None = None

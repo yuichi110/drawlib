@@ -19,7 +19,9 @@ import drawlib._diagrams.architecture._edge as _edge_module
 import drawlib._diagrams.architecture._group as _group_module
 import drawlib._diagrams.architecture._junction as _junction_module
 import drawlib._diagrams.architecture._renderer as _renderer_module
+from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import transform
 from drawlib._diagrams.architecture._types import ArrowType, Connectable, DiagramItem, ItemT, PaddingType, RoutingType
 
 if TYPE_CHECKING:
@@ -80,12 +82,13 @@ class ArchitectureDiagram:
         """Get list of edges in the diagram."""
         return list(self._edges)
 
-    def add(self, item: ItemT, xy: tuple[float, float]) -> ItemT:
+    def add(self, item: ItemT, xy: tuple[float, float], *, show: bool | None = None) -> ItemT:
         """Add a Node, NodeGroup, or Junction to the diagram at local relative coordinate xy.
 
         Args:
             item: Node, NodeGroup, or Junction instance.
             xy: Local coordinate (x, y) relative to the diagram.
+            show: Optional override for item.show.
 
         Returns:
             ItemT: The added item for convenient assignment or chaining.
@@ -93,6 +96,8 @@ class ArchitectureDiagram:
         pt = (float(xy[0]), float(xy[1]))
         item._local_xy = pt
         item._diagram = self
+        if show is not None:
+            item.show = bool(show)
         self._items.append((item, pt))
 
         if isinstance(item, _group_module.NodeGroup):
@@ -100,16 +105,19 @@ class ArchitectureDiagram:
 
         return item
 
-    def add_edge(self, edge: Edge) -> Edge:
+    def add_edge(self, edge: Edge, *, show: bool | None = None) -> Edge:
         """Register an Edge connection with this diagram.
 
         Args:
             edge: Edge instance to register.
+            show: Optional override for edge.show.
 
         Returns:
             Edge: The registered edge.
         """
         edge._diagram = self
+        if show is not None:
+            edge.show = bool(show)
         if edge not in self._edges:
             self._edges.append(edge)
         return edge
@@ -124,6 +132,7 @@ class ArchitectureDiagram:
         style: Style | None = None,
         text_style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> Edge:
         """Create and register an edge between two connectables.
 
@@ -136,6 +145,7 @@ class ArchitectureDiagram:
             style: Optional Style object for the line.
             text_style: Optional Style object for the label text.
             padding: Gap distance between nodes and line ends (float or (start, end) tuple).
+            show: Whether to render this edge. Defaults to True.
 
         Returns:
             Edge: Newly created edge.
@@ -149,20 +159,22 @@ class ArchitectureDiagram:
             style=style,
             text_style=text_style,
             padding=padding,
+            show=show,
         )
         self.add_edge(edge)
         return edge
 
-    def junction(self, xy: tuple[float, float]) -> Junction:
+    def junction(self, xy: tuple[float, float], *, show: bool = True) -> Junction:
         """Create and register a Junction at the given relative coordinate xy.
 
         Args:
             xy: Relative coordinate (x, y) in the diagram.
+            show: Whether to allow rendering connections through this junction. Defaults to True.
 
         Returns:
             Junction: The created and registered junction.
         """
-        j = _junction_module.Junction(xy)
+        j = _junction_module.Junction(xy, show=show)
         self.add(j, xy)
         return j
 
@@ -185,10 +197,13 @@ class ArchitectureDiagram:
         final_h = self.height if self.height is not None else max_y
         return (final_w, final_h)
 
-    def draw(self, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+    @validate_call
+    def draw(self, xy: tuple[float, float] = (0.0, 0.0), *, scale: PosFloat = 1.0) -> None:
         """Render the complete diagram onto the canvas at base coordinate xy.
 
         Args:
             xy: Base canvas coordinate (x, y) where diagram's bottom-left origin is placed.
+            scale: Proportional scale factor (> 0) anchored at xy. Defaults to 1.0.
         """
-        _renderer_module.draw_diagram(self, xy)
+        with transform(origin=xy, scale=scale):
+            _renderer_module.draw_diagram(self, xy)

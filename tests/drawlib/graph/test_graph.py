@@ -946,3 +946,97 @@ class TestArchitectureGraph:
         e_bot = layout.edges[1]
         assert e_bot.src == "mainframe" and e_bot.dst == "service"
         assert e_bot.src_port[1] < e_bot.dst_port[1]  # Flows upward
+
+
+class TestGraphLifecycle:
+    """Test suite for unified component lifecycle in Graph solvers (show, mutate, xy, scale)."""
+
+    def setup_method(self) -> None:
+        """Reset canvas before each test."""
+        clear()
+
+    def test_show_preserves_auto_layout_coordinates(self) -> None:
+        """Verify show=False keeps node coordinates identical while skipping rendering of hidden nodes/edges."""
+        g = LayerGraph(direction="LR")
+        c = g.cluster("tier1", ["n1", "n2"], label="Tier 1")
+        n1 = g.node("n1", "Node 1")
+        n2 = g.node("n2", "Node 2")
+        n3 = g.node("n3", "Node 3")
+        e1 = g.edge("n1", "n2", label="step 1", line_style="dashed")
+        e2 = g.edge("n2", "n3", label="step 2")
+
+        full_layout = g.calc(width=120.0, height=60.0)
+        assert full_layout.edges[0].style.line_style == "dashed"
+
+        clear()
+        g.draw(width=120.0, height=60.0)
+        full_artists = len(canvas._artists)
+        assert full_artists > 0
+
+        # Hide n3 -> auto-layout coordinates must remain 100% identical, and n3 + e2 are not drawn
+        clear()
+        n3.show = False
+        partial_layout = g.draw(width=120.0, height=60.0)
+        for nid in ("n1", "n2", "n3"):
+            assert partial_layout.nodes[nid].xy == full_layout.nodes[nid].xy
+        partial_artists = len(canvas._artists)
+        assert 0 < partial_artists < full_artists
+
+        # Hide all elements
+        clear()
+        c.show = False
+        n1.show = False
+        n2.show = False
+        e1.show = False
+        e2.show = False
+        g.draw(width=120.0, height=60.0)
+        assert len(canvas._artists) == 0
+
+    def test_layout_draw_xy_scale_and_mutation(self) -> None:
+        """Verify GraphLayout.draw and BaseGraph.draw support xy and scale, and preserve show on offset."""
+        g = TreeGraph(direction="TB")
+        root = g.node("root", "Root")
+        c1 = g.child("root", "c1", "Child 1", show=False)
+        c2 = g.child("root", "c2", "Child 2")
+
+        layout = g.calc(width=100.0, height=60.0)
+        assert layout.nodes["c1"].show is False
+        assert layout.nodes["c2"].show is True
+
+        # Offset preserves show flag
+        layout.offset("c1", dx=2.0, dy=1.0)
+        assert layout.nodes["c1"].show is False
+
+        clear()
+        layout.draw(xy=(10.0, 15.0), scale=0.5)
+        assert len(canvas._artists) > 0
+
+        # Reveal c1 and mutate root style
+        clear()
+        c1.show = True
+        root.style = Styles.AccentFlat
+        g.draw(xy=(5.0, 5.0), width=100.0, height=60.0, scale=0.75)
+        assert len(canvas._artists) > 0
+        assert c2.show is True
+
+    def test_grid_and_radial_convenience_show(self) -> None:
+        """Verify GridGraph and RadialGraph convenience methods propagate show."""
+        grid = GridGraph(columns=2)
+        cell1 = grid.cell("a", row=0, col=0, show=False)
+        cell2 = grid.cell("b", row=0, col=1)
+        row_cl = grid.cluster_row(0, "r0", label="Row 0", show=False)
+        assert cell1.show is False
+        assert cell2.show is True
+        assert row_cl.show is False
+
+        gl = grid.calc(width=80.0, height=50.0)
+        assert gl.nodes["a"].show is False
+        assert gl.clusters["r0"].show is False
+
+        radial = RadialGraph(hub="hub")
+        radial.node("hub", "Hub")
+        sp = radial.spoke("hub", "s1", "Spoke 1", show=False, edge_show=False)
+        assert sp.show is False
+        rl = radial.calc(width=80.0, height=80.0)
+        assert rl.nodes["s1"].show is False
+        assert rl.edges[0].show is False

@@ -25,13 +25,15 @@ if TYPE_CHECKING:
 class Junction:
     """Lightweight connectable waypoint / branch point in a flow diagram."""
 
-    def __init__(self, xy: tuple[float, float]) -> None:
+    def __init__(self, xy: tuple[float, float], *, show: bool = True) -> None:
         """Initialize Junction.
 
         Args:
             xy: Local coordinate (x, y) of the junction point.
+            show: Whether to allow rendering connections through this junction. Defaults to True.
         """
         self._local_xy = (float(xy[0]), float(xy[1]))
+        self.show = bool(show)
         self._diagram: FlowDiagram | None = None
 
     @property
@@ -87,6 +89,7 @@ class Junction:
         style: Style | None = None,
         text_style: Style | None = None,
         padding: PaddingType = 0.0,
+        show: bool = True,
     ) -> FlowEdge:
         """Connect this junction to a target element.
 
@@ -100,6 +103,7 @@ class Junction:
             style: Optional Style object for the line.
             text_style: Optional Style object for label text.
             padding: Gap distance between elements and line ends.
+            show: Whether to render this edge. Defaults to True.
 
         Returns:
             FlowEdge: Created connection object.
@@ -115,6 +119,7 @@ class Junction:
             style=style,
             text_style=text_style,
             padding=padding,
+            show=show,
         )
         if self._diagram is not None:
             self._diagram.add_edge(edge)

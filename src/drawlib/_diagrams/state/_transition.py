@@ -44,6 +44,7 @@ class StateTransition:
         loop_height: float | None = None,
         loop_ratio: float = 0.88,
         is_loop: bool = False,
+        show: bool = True,
     ) -> None:
         """Initialize StateTransition.
 
@@ -66,6 +67,7 @@ class StateTransition:
             loop_height: Optional height of loop ellipse.
             loop_ratio: Arc coverage ratio along ellipse circumference (default 0.88).
             is_loop: Whether this transition was created as an explicit self-loop.
+            show: Whether to render this transition.
         """
         valid_sides = {
             "left",
@@ -105,6 +107,7 @@ class StateTransition:
         self.loop_height = float(loop_height) if loop_height is not None else None
         self.loop_ratio = float(loop_ratio)
         self.is_loop = is_loop or (start is end)
+        self.show = show
 
         self._diagram: StateDiagram | None = None
 
