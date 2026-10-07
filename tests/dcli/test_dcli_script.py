@@ -16,9 +16,14 @@ from __future__ import annotations
 import os
 import re
 import subprocess
+import sys
 from pathlib import Path
 
+import pytest
+
 from tools.dcli.common import PROJECT_ROOT
+
+pytestmark = pytest.mark.skipif(sys.platform == "win32", reason="POSIX bash script execution")
 
 DCLI_PATH = PROJECT_ROOT / "dcli"
 _ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-9;]*[a-zA-Z]")

@@ -58,7 +58,7 @@ class TestColors:
     def test_immutability(self) -> None:
         """Test that modifying attributes on frozen instances raises ValidationError."""
         with pytest.raises(ValidationError):
-            default_colors.Red = Color(0, 0, 0)
+            setattr(default_colors, "Red", Color(0, 0, 0))
 
     def test_patch(self) -> None:
         """Test that patch() returns a new instance with updated color."""

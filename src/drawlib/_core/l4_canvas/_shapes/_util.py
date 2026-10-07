@@ -184,7 +184,7 @@ class ShapeUtil:
                 vertices.extend([b2[0], b2[1]])
                 codes.extend([Path.CURVE3, Path.CURVE3])
             elif len(p) == 3:
-                b3 = cast(Bezier3, p)
+                b3 = p
                 vertices.extend([b3[0], b3[1], b3[2]])
                 codes.extend([Path.CURVE4, Path.CURVE4, Path.CURVE4])
             else:
@@ -206,7 +206,7 @@ class ShapeUtil:
                 minus_2points(b2[1], offset),
             )
         if len(p) == 3:
-            b3 = cast(Bezier3, p)
+            b3 = p
             return (
                 minus_2points(b3[0], offset),
                 minus_2points(b3[1], offset),
@@ -232,7 +232,7 @@ class ShapeUtil:
             rx2, ry2 = rotate_point(b2[1], angle=angle)
             return ((rx1 + cx, ry1 + cy), (rx2 + cx, ry2 + cy))
         if len(p) == 3:
-            b3 = cast(Bezier3, p)
+            b3 = p
             rx1, ry1 = rotate_point(b3[0], angle=angle)
             rx2, ry2 = rotate_point(b3[1], angle=angle)
             rx3, ry3 = rotate_point(b3[2], angle=angle)

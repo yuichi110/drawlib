@@ -23,7 +23,7 @@ class TestGetFontMetadata:
         """Test get_font_metadata resolves correctly for standard fonts."""
         meta = get_font_metadata(Font.SANSSERIF_THIN)
         assert meta.path == "cjk_japanese_noto_sans/thin.otf"
-        assert meta.abs_path.endswith("cjk_japanese_noto_sans/thin.otf")
+        assert meta.abs_path.replace("\\", "/").endswith("cjk_japanese_noto_sans/thin.otf")
         assert meta.url == ""
         assert meta.md5 == "88ce9ab7e76fed605c822b52605ac2fd"
 

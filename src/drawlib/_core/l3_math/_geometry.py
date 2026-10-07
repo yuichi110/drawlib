@@ -122,7 +122,7 @@ def get_rotated_path_points(
                 rotate_point(b2[1], angle=angle, center=center),
             ))
         elif len(pt) == 3:
-            b3 = cast(Bezier3, pt)
+            b3 = pt
             rotated.append((
                 rotate_point(b3[0], angle=angle, center=center),
                 rotate_point(b3[1], angle=angle, center=center),

@@ -263,7 +263,7 @@ class CanvasLineFeature(CanvasBase):
             return
 
         xys = LineUtil._remove_consecutive_duplicates(list(xys))
-        path_points = []
+        path_points: PathPoints = []
         last_i = len(xys) - 2
         for i, xy in enumerate(xys):
             if i == 0:
@@ -316,10 +316,10 @@ class CanvasLineFeature(CanvasBase):
                 raise ValueError()
             if length == 2:
                 if isinstance(p[0], tuple):
-                    vertices.extend([p[0], p[1]])  # type: ignore
+                    vertices.extend([p[0], p[1]])
                     codes.extend([Path.CURVE3] * 2)
                 else:
-                    vertices.append(p)  # type: ignore
+                    vertices.append(p)
                     codes.append(Path.LINETO)
             else:
                 vertices.extend([p[0], p[1], p[2]])  # type: ignore

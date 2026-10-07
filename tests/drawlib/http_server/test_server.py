@@ -11,6 +11,7 @@
 
 import threading
 import time
+import urllib.error
 import urllib.request
 
 import pytest
@@ -43,13 +44,22 @@ def test_serve_docs_serves_files(tmp_path) -> None:
         daemon=True,
     )
     server_thread.start()
-    time.sleep(0.4)
 
     url = f"http://localhost:{port}/index.html"
-    with urllib.request.urlopen(url) as response:
-        assert response.status == 200
-        content = response.read().decode("utf-8")
-        assert "<h1>Server Test Page</h1>" in content
+    last_err: Exception | None = None
+    for _ in range(30):
+        try:
+            with urllib.request.urlopen(url, timeout=2.0) as response:
+                assert response.status == 200
+                content = response.read().decode("utf-8")
+                assert "<h1>Server Test Page</h1>" in content
+                last_err = None
+                break
+        except urllib.error.URLError as e:
+            last_err = e
+            time.sleep(0.2)
+    if last_err is not None:
+        raise last_err
 
 
 def test_scan_broken_links(tmp_path) -> None:

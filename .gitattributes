@@ -1,0 +1,2 @@
+# Prevent CRLF conversion in release_assets so deterministic zip SHA-256 hashes match across OSes
+tools/release_assets/** -text

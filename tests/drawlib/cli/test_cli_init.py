@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -82,7 +83,8 @@ def test_cli_init_doc_default(tmp_path: Path) -> None:
     ]:
         s = tmp_path / "doc_src" / script
         assert s.is_file()
-        assert os.stat(s).st_mode & 0o111 != 0
+        if sys.platform != "win32":
+            assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build outputs
     assert not (tmp_path / "doc_markdown").exists()
@@ -112,7 +114,8 @@ def test_cli_init_site_default(tmp_path: Path) -> None:
     for script in ["build.sh", "build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"]:
         s = tmp_path / "docs_src" / script
         assert s.is_file()
-        assert os.stat(s).st_mode & 0o111 != 0
+        if sys.platform != "win32":
+            assert os.stat(s).st_mode & 0o111 != 0
 
     # No automatic initial build outputs
     assert not (tmp_path / "docs_html").exists()
@@ -138,7 +141,8 @@ def test_cli_init_slide_default(tmp_path: Path) -> None:
     for script in ["build.sh", "build_html.sh", "build_pdf.sh", "build_image.sh", "serve.sh"]:
         s = tmp_path / "slide_src" / script
         assert s.is_file()
-        assert os.stat(s).st_mode & 0o111 != 0
+        if sys.platform != "win32":
+            assert os.stat(s).st_mode & 0o111 != 0
 
     assert not (tmp_path / "slide_html").exists()
     assert not (tmp_path / "slide_images").exists()
@@ -162,7 +166,8 @@ def test_cli_init_images_default(tmp_path: Path) -> None:
     for script in ["build.sh", "build_image.sh"]:
         s = tmp_path / "images_src" / script
         assert s.is_file()
-        assert os.stat(s).st_mode & 0o111 != 0
+        if sys.platform != "win32":
+            assert os.stat(s).st_mode & 0o111 != 0
 
     # Next steps outputs correctly
     assert "./images_src/build.sh" in res.stdout
@@ -190,6 +195,7 @@ def test_cli_init_custom_target(tmp_path: Path) -> None:
     assert "manual_html" in build_html_content
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="POSIX bash script execution")
 def test_cli_init_run_build_sh(tmp_path: Path) -> None:
     """Test executing the scaffolded build_html.sh script compiles the documentation."""
     res = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
