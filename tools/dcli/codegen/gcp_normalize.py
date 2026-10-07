@@ -188,11 +188,11 @@ def normalize_all_gcp_icons(
     inner_size: int = 460,
     create_aliases: bool = True,
 ) -> dict[str, Any]:
-    """Normalize all GCP icons from original_assets/gcp into a flat release directory.
+    """Normalize all GCP icons from tools/original_assets/gcp into a flat release directory.
 
     Args:
-        src_dir: Source directory containing original assets (e.g. original_assets/gcp).
-        dest_dir: Target directory for normalized flat icons (e.g. release_assets/v0.3/icons/gcp).
+        src_dir: Source directory containing original assets (e.g. tools/original_assets/gcp).
+        dest_dir: Target directory for normalized flat icons (e.g. tools/release_assets/v0.3/icons/gcp).
         target_size: Final square canvas size (default: 512).
         inner_size: Inner content area size (default: 460).
         create_aliases: Whether to create convenience alias files (e.g. gce.png -> compute_engine.png).

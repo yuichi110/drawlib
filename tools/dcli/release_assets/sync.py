@@ -340,7 +340,7 @@ def generate_release_assets_code(packages: list[dict[str, object]], tag: str = "
 
 
 def sync_release_assets(
-    assets_root: Path = Path("release_assets/v0.3"),
+    assets_root: Path = Path("tools/release_assets/v0.3"),
     target_py: Path = Path("src/drawlib/_release_assets.py"),
     tag: str = "v0.3",
     check: bool = False,

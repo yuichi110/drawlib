@@ -333,7 +333,7 @@ gcp.gke((60, 20), width=10)
 GCP icons are official 256x256 PNG assets packaged under `RELEASE_ASSET_PACKAGES["icon_gcp"]`. Drawlib manages these assets automatically:
 
 1. **Local Asset Check**: When `gcp.<service>()` is called, `PngIconProvider` checks `drawlib._cached_assets/icons/gcp/<service>.png`.
-2. **Developer Workspace Fallback**: If running in developer mode, it checks `release_assets/v0.3/icons/gcp/`.
+2. **Developer Workspace Fallback**: If running in developer mode, it checks `tools/release_assets/v0.3/icons/gcp/`.
 3. **Automated Lazy Download**: If missing, `ensure_asset_available()` downloads the verified package archive from GitHub Releases and extracts it to the local cache.
 
 ---

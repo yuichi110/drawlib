@@ -62,16 +62,16 @@ class PngIconProvider:
         local_dir = pkg.get_local_dir()
         icon_path = local_dir / filename
 
-        # If missing locally in _assets, check developer release_assets or download from GitHub Releases
+        # If missing locally in _cached_assets, check developer tools/release_assets or download from GitHub Releases
         if not icon_path.is_file():
-            dev_source = Path("release_assets") / "v0.3" / self.asset_subdir / filename
+            dev_source = Path("tools") / "release_assets" / "v0.3" / self.asset_subdir / filename
             if dev_source.is_file():
                 return str(dev_source.resolve())
 
             ensure_asset_available(f"{self.asset_subdir}/{filename}")
 
         if not icon_path.is_file():
-            dev_source = Path("release_assets") / "v0.3" / self.asset_subdir / filename
+            dev_source = Path("tools") / "release_assets" / "v0.3" / self.asset_subdir / filename
             if dev_source.is_file():
                 return str(dev_source.resolve())
             raise FileNotFoundError(f"Icon '{icon_name}' not found at '{icon_path}'.")

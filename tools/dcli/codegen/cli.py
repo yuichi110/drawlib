@@ -54,12 +54,12 @@ def gen_icon_gcp(
         help="Only normalize existing original GCP assets into release_assets.",
     ),
     src_dir: str = typer.Option(
-        "original_assets/gcp",
+        "tools/original_assets/gcp",
         "--src-dir",
         help="Source directory for original GCP assets.",
     ),
     dest_dir: str = typer.Option(
-        "release_assets/v0.3/icons/gcp",
+        "tools/release_assets/v0.3/icons/gcp",
         "--dest-dir",
         help="Destination directory for normalized flat release assets.",
     ),

@@ -59,9 +59,9 @@ def test_resolve_github_token(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_build_package_zip() -> None:
     """Test building deterministic zip binary."""
     root = Path(__file__).resolve().parents[2]
-    assets_dir = root / "release_assets" / "v0.3"
+    assets_dir = root / "tools" / "release_assets" / "v0.3"
     if not assets_dir.exists():
-        pytest.skip("release_assets/v0.3 not found.")
+        pytest.skip("tools/release_assets/v0.3 not found.")
 
     pkg = RELEASE_ASSET_PACKAGES.font_roboto
     zip_bytes = build_package_zip(pkg, assets_dir)

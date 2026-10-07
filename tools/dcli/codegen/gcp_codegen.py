@@ -18,7 +18,7 @@ from pathlib import Path
 
 from tools.dcli.common import PROJECT_ROOT
 
-DEFAULT_MANIFEST_FILE = PROJECT_ROOT / "release_assets/v0.3/icons/gcp/manifest.json"
+DEFAULT_MANIFEST_FILE = PROJECT_ROOT / "tools/release_assets/v0.3/icons/gcp/manifest.json"
 DEFAULT_OUTPUT_FILE = PROJECT_ROOT / "src/drawlib/_icons/png_icons/gcp/_generated.py"
 
 GCP_HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)

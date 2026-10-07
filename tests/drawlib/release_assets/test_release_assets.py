@@ -184,11 +184,11 @@ def test_release_asset_package_name_enum() -> None:
 
 
 def test_all_declared_files_exist_on_disk() -> None:
-    """Verify that all files declared in RELEASE_ASSET_PACKAGES exist in release_assets/v0.3/."""
+    """Verify that all files declared in RELEASE_ASSET_PACKAGES exist in tools/release_assets/v0.3/."""
     root = Path(__file__).resolve().parents[3]
-    assets_dir = root / "release_assets" / "v0.3"
+    assets_dir = root / "tools" / "release_assets" / "v0.3"
     if not assets_dir.exists():
-        pytest.skip("release_assets/v0.3 not present on this machine.")
+        pytest.skip("tools/release_assets/v0.3 not present on this machine.")
 
     for pkg in get_all_release_asset_packages():
         pkg_dir = assets_dir / pkg.source_rel_path
@@ -202,9 +202,9 @@ def test_all_declared_files_exist_on_disk() -> None:
 def test_deterministic_zip_hashes_match_all_packages() -> None:
     """Verify that deterministic ZIP generation matches the exact archive_sha256 for all packages."""
     root = Path(__file__).resolve().parents[3]
-    assets_dir = root / "release_assets" / "v0.3"
+    assets_dir = root / "tools" / "release_assets" / "v0.3"
     if not assets_dir.exists():
-        pytest.skip("release_assets/v0.3 not present on this machine.")
+        pytest.skip("tools/release_assets/v0.3 not present on this machine.")
 
     for pkg in get_all_release_asset_packages():
         assert len(pkg.archive_sha256) == 64

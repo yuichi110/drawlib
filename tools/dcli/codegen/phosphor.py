@@ -20,7 +20,7 @@ from drawlib._release_assets import (
 )
 from tools.dcli.common import PROJECT_ROOT
 
-PHOSPHOR_CSS_LOCAL = PROJECT_ROOT / "release_assets/v0.3/fonticons/phosphor/regular.css"
+PHOSPHOR_CSS_LOCAL = PROJECT_ROOT / "tools/release_assets/v0.3/fonticons/phosphor/regular.css"
 DEFAULT_OUTPUT_FILE = PROJECT_ROOT / "src/drawlib/_icons/font_icons/phosphor/_generated.py"
 
 PHOSPHOR_HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)

@@ -90,7 +90,7 @@ def download_and_extract_gcp_icons(
     """Download all official Google Cloud icon packages and extract cleanly.
 
     Args:
-        output_dir: Path to directory where original assets are saved (e.g. original_assets/gcp).
+        output_dir: Path to directory where original assets are saved (e.g. tools/original_assets/gcp).
         save_archives: Whether to store original .zip files in _archives/ folder.
         download_doc: Whether to download official overview PDF guide into docs/.
 

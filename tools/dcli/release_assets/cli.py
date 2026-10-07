@@ -51,7 +51,7 @@ def _resolve_tag(tag: Optional[str]) -> str:
 
 def _resolve_assets_dir(tag: str) -> Path:
     """Locate local source directory for release assets."""
-    assets_dir = PROJECT_ROOT / "release_assets" / tag
+    assets_dir = PROJECT_ROOT / "tools" / "release_assets" / tag
     if not assets_dir.exists():
         err_console.print(f"[bold red]Error: Asset source directory not found: {assets_dir}[/bold red]")
         raise typer.Exit(code=1)
@@ -109,7 +109,7 @@ def sync_assets_command(
         help="Check whether src/drawlib/_release_assets.py is synchronized without modifying it.",
     ),
 ) -> None:
-    """Scan release_assets/ directory, calculate deterministic hashes, and synchronize _release_assets.py."""
+    """Scan tools/release_assets/ directory, calculate deterministic hashes, and synchronize _release_assets.py."""
     resolved_tag = _resolve_tag(tag)
     assets_dir = _resolve_assets_dir(resolved_tag)
     target_py = Path("src/drawlib/_release_assets.py")
@@ -122,7 +122,7 @@ def sync_assets_command(
         is_synced = sync_release_assets(assets_dir, target_py, tag=resolved_tag, check=True)
         if not is_synced:
             err_console.print(
-                "[bold red]Error: src/drawlib/_release_assets.py is NOT in sync with release_assets/."
+                "[bold red]Error: src/drawlib/_release_assets.py is NOT in sync with tools/release_assets/."
                 " Run './dcli release-assets sync' to update.[/bold red]"
             )
             raise typer.Exit(code=1)

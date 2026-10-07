@@ -76,7 +76,7 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 ```
 
 ### 2.5. `release-assets` — GitHub Release Asset Management
-Manages external binary packages (fonts & icons) stored in `release_assets/<tag>/` and hosted on GitHub Releases:
+Manages external binary packages (fonts & icons) stored in `tools/release_assets/<tag>/` and hosted on GitHub Releases:
 ```bash
 ./dcli release-assets list [--tag VER]
 ./dcli release-assets sync [--tag VER] [--check]

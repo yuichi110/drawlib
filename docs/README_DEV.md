@@ -82,10 +82,9 @@ If you prefer browsing the rule specifications directly:
 drawlib/
 ├── src/drawlib/        # Main library source code (public facades & _core engine)
 ├── tests/              # Test suite (tests/drawlib and tests/dcli)
-├── tools/dcli/         # Developer CLI implementation (Python + Typer + Rich)
+├── tools/              # Developer CLI (dcli), release_assets/, and original_assets/
 ├── dcli                # Shell launcher & autocompletion wrapper
 ├── docs/               # Documentation projects (*_src/), outputs, README_DEV.md & README_PYPI.md
-├── release_assets/     # Font and icon asset source files for GitHub Releases
 ├── .agents/rules/      # Living developer guidelines and AI instructions
 └── pyproject.toml      # Project metadata, dependencies, and tool configs
 ```
