@@ -541,13 +541,94 @@ body.presenter-mode .slide-controls {
   display: none !important;
 }
 
+body.presenter-mode.is-resizing-col,
+body.presenter-mode.is-resizing-col * {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+
+body.presenter-mode.is-resizing-row,
+body.presenter-mode.is-resizing-row * {
+  cursor: row-resize !important;
+  user-select: none !important;
+}
+
 .presenter-layout {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: var(--pv-sidebar-width, 300px) 6px minmax(360px, 1fr);
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background: #0f141c;
+}
+
+/* Horizontal & Vertical Drag Resizers */
+.presenter-resizer-col {
+  width: 6px;
+  height: 100vh;
+  background: #1a2332;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: col-resize;
+  position: relative;
+  z-index: 20;
+  transition: background 0.15s;
+}
+
+.presenter-resizer-col::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 36px;
+  border-radius: 2px;
+  background: rgba(148, 163, 184, 0.45);
+}
+
+.presenter-resizer-col:hover,
+.presenter-resizer-col.active {
+  background: #0284c7;
+}
+
+.presenter-resizer-col:hover::after,
+.presenter-resizer-col.active::after {
+  background: #ffffff;
+}
+
+.presenter-resizer-row {
+  width: 100%;
+  height: 6px;
+  background: #1a2332;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: row-resize;
+  position: relative;
+  z-index: 20;
+  transition: background 0.15s;
+}
+
+.presenter-resizer-row::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(148, 163, 184, 0.45);
+}
+
+.presenter-resizer-row:hover,
+.presenter-resizer-row.active {
+  background: #0284c7;
+}
+
+.presenter-resizer-row:hover::after,
+.presenter-resizer-row.active::after {
+  background: #ffffff;
 }
 
 /* Left Column: Vertical Slide List */
@@ -555,8 +636,9 @@ body.presenter-mode .slide-controls {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  min-width: 0;
+  min-height: 0;
   background: #141b26;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
@@ -573,7 +655,11 @@ body.presenter-mode .slide-controls {
 
 .presenter-thumb-list {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #475569 rgba(15, 23, 42, 0.5);
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -629,11 +715,13 @@ body.presenter-mode .slide-controls {
   transform: none;
 }
 
-/* Right Column: Top Preview, Middle Controls, Bottom Speaker Notes */
+/* Right Column: Top Preview, Middle Controls, Resizer, Bottom Speaker Notes */
 .presenter-main {
   display: grid;
-  grid-template-rows: minmax(220px, 54fr) auto minmax(180px, 46fr);
+  grid-template-rows: minmax(140px, 1fr) auto 6px var(--pv-notes-height, 42vh);
   height: 100vh;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
   background: #0f141c;
 }
@@ -643,6 +731,8 @@ body.presenter-mode .slide-controls {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
   background: #090d12;
   padding: 12px;
@@ -672,7 +762,6 @@ body.presenter-mode .slide-controls {
   padding: 10px 20px;
   background: #18212f;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
 }
 
@@ -774,6 +863,8 @@ body.presenter-mode .slide-controls {
 .presenter-notes-pane {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
   background: #131a24;
 }
@@ -786,6 +877,8 @@ body.presenter-mode .slide-controls {
   background: rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   flex-shrink: 0;
+  cursor: row-resize;
+  user-select: none;
 }
 
 .presenter-notes-title {
@@ -803,11 +896,37 @@ body.presenter-mode .slide-controls {
 
 .presenter-notes-content {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #475569 rgba(15, 23, 42, 0.5);
   padding: 18px 24px;
   font-size: 1.15rem;
   line-height: 1.65;
   color: #f1f5f9;
+}
+
+.presenter-notes-content::-webkit-scrollbar,
+.presenter-thumb-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.presenter-notes-content::-webkit-scrollbar-track,
+.presenter-thumb-list::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.presenter-notes-content::-webkit-scrollbar-thumb,
+.presenter-thumb-list::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 5px;
+  border: 2px solid rgba(15, 23, 42, 0.55);
+}
+
+.presenter-notes-content::-webkit-scrollbar-thumb:hover,
+.presenter-thumb-list::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
 }
 
 .presenter-notes-content p,

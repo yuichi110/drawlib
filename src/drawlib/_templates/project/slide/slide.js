@@ -764,6 +764,7 @@
         notesContent.innerHTML = '<p class="presenter-notes-empty">No speaker notes for this slide.</p>';
         notesContent.classList.add('empty');
       }
+      notesContent.scrollTop = 0;
     }
 
     // 4. Update sidebar active highlight & auto-scroll
@@ -784,7 +785,7 @@
     document.body.classList.add('presenter-mode');
     document.title = `Presenter View — ${document.title}`;
 
-    // Build 2-column Presenter Layout
+    // Build 2-column Presenter Layout with horizontal resizer
     const layout = document.createElement('div');
     layout.className = 'presenter-layout';
 
@@ -824,7 +825,13 @@
     sidebar.appendChild(sidebarHeader);
     sidebar.appendChild(thumbList);
 
-    // Right column: Top = Current Slide Preview, Middle = Control Bar, Bottom = Speaker Notes
+    // Horizontal splitter between left sidebar and right main area
+    const resizerCol = document.createElement('div');
+    resizerCol.id = 'pv-resizer-col';
+    resizerCol.className = 'presenter-resizer-col';
+    resizerCol.setAttribute('title', 'Drag left/right to resize slide list');
+
+    // Right column: Top = Current Slide Preview, Middle = Control Bar, Resizer, Bottom = Speaker Notes
     const mainCol = document.createElement('main');
     mainCol.className = 'presenter-main';
 
@@ -857,11 +864,17 @@
       </div>
     `;
 
+    // Vertical splitter above Speaker Notes
+    const resizerRow = document.createElement('div');
+    resizerRow.id = 'pv-resizer-row';
+    resizerRow.className = 'presenter-resizer-row';
+    resizerRow.setAttribute('title', 'Drag up/down to resize speaker notes');
+
     // Right Bottom: Speaker Notes
     const notesPane = document.createElement('section');
     notesPane.className = 'presenter-notes-pane';
     notesPane.innerHTML = `
-      <div class="presenter-notes-header">
+      <div id="pv-notes-header" class="presenter-notes-header" title="Drag up/down to resize speaker notes">
         <span class="presenter-notes-title">Speaker Notes</span>
         <div class="presenter-notes-tools">
           <button id="pv-notes-font-dec" class="pv-btn pv-btn-sm" title="Decrease font size">A-</button>
@@ -873,11 +886,76 @@
 
     mainCol.appendChild(previewPane);
     mainCol.appendChild(toolbar);
+    mainCol.appendChild(resizerRow);
     mainCol.appendChild(notesPane);
 
     layout.appendChild(sidebar);
+    layout.appendChild(resizerCol);
     layout.appendChild(mainCol);
     document.body.insertBefore(layout, document.body.firstChild);
+
+    // Bind horizontal resizer (left sidebar width)
+    function startColResize(e) {
+      e.preventDefault();
+      const startX = e.clientX;
+      const startWidth = sidebar.getBoundingClientRect().width;
+      document.body.classList.add('is-resizing-col');
+      resizerCol.classList.add('active');
+
+      function onMouseMove(moveEvent) {
+        const minW = 160;
+        const maxW = Math.max(minW, window.innerWidth - 400);
+        const newW = Math.max(minW, Math.min(maxW, Math.round(startWidth + (moveEvent.clientX - startX))));
+        layout.style.setProperty('--pv-sidebar-width', `${newW}px`);
+        updateScale();
+      }
+
+      function onMouseUp() {
+        document.body.classList.remove('is-resizing-col');
+        resizerCol.classList.remove('active');
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+      }
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    }
+    resizerCol.addEventListener('mousedown', startColResize);
+
+    // Bind vertical resizer (speaker notes height)
+    function startRowResize(e) {
+      if (e.target && e.target.closest('button')) {
+        return;
+      }
+      e.preventDefault();
+      const startY = e.clientY;
+      const startHeight = notesPane.getBoundingClientRect().height;
+      document.body.classList.add('is-resizing-row');
+      resizerRow.classList.add('active');
+
+      function onMouseMove(moveEvent) {
+        const minH = 100;
+        const maxH = Math.max(minH, window.innerHeight - 220);
+        const newH = Math.max(minH, Math.min(maxH, Math.round(startHeight - (moveEvent.clientY - startY))));
+        mainCol.style.setProperty('--pv-notes-height', `${newH}px`);
+        updateScale();
+      }
+
+      function onMouseUp() {
+        document.body.classList.remove('is-resizing-row');
+        resizerRow.classList.remove('active');
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+      }
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    }
+    resizerRow.addEventListener('mousedown', startRowResize);
+    const notesHeader = document.getElementById('pv-notes-header');
+    if (notesHeader) {
+      notesHeader.addEventListener('mousedown', startRowResize);
+    }
 
     // Bind Toolbar Controls
     const btnPrev = document.getElementById('pv-btn-prev');
