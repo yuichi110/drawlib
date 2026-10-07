@@ -24,6 +24,9 @@ from drawlib._builder._common.cache import (
     hash_file,
     hash_text,
 )
+from drawlib.canvas import clear, save, setup
+from drawlib.shapes import circle
+from drawlib.styles import Styles
 from drawlib.tools import build_html, build_image, build_markdown, build_pdf
 
 
@@ -330,3 +333,55 @@ def test_compute_keys_differentiates_source_and_target_files(tmp_path: Path) -> 
     # Different target file
     key_s1_t2, _ = BuildImageCache.compute_keys(code, source_file=src1, target_file=tgt2)
     assert key_s1_t1 != key_s1_t2
+
+
+def test_build_cache_creates_gitignore_and_cachedir_tag(tmp_path: Path) -> None:
+    """Verify that BuildImageCache and CliImageCache create .gitignore and CACHEDIR.TAG in cache dir."""
+    cache_dir = tmp_path / ".drawlib"
+    db_path = str(cache_dir / "cache.db")
+
+    BuildImageCache(db_path=db_path)
+
+    gitignore = cache_dir / ".gitignore"
+    cachedir_tag = cache_dir / "CACHEDIR.TAG"
+    assert gitignore.is_file()
+    assert cachedir_tag.is_file()
+    assert gitignore.read_text(encoding="utf-8") == "# Created by drawlib automatically.\n*\n"
+    assert cachedir_tag.read_text(encoding="utf-8").startswith("Signature: 8a477f597d28d172789f06886806bc55\n")
+
+    # Verify CliImageCache also creates them in a fresh directory
+    cli_cache_dir = tmp_path / ".drawlib_cli"
+    CliImageCache(db_path=str(cli_cache_dir / "cache.db"))
+    assert (cli_cache_dir / ".gitignore").is_file()
+    assert (cli_cache_dir / "CACHEDIR.TAG").is_file()
+
+
+def test_build_cache_preserves_existing_gitignore_and_cachedir_tag(tmp_path: Path) -> None:
+    """Verify that existing .gitignore and CACHEDIR.TAG files are not overwritten."""
+    cache_dir = tmp_path / ".drawlib"
+    cache_dir.mkdir(parents=True)
+
+    gitignore = cache_dir / ".gitignore"
+    cachedir_tag = cache_dir / "CACHEDIR.TAG"
+    gitignore.write_text("# Custom user gitignore\n*.db\n", encoding="utf-8")
+    cachedir_tag.write_text("Signature: 8a477f597d28d172789f06886806bc55\n# Custom tag\n", encoding="utf-8")
+
+    BuildImageCache(db_path=str(cache_dir / "cache.db"))
+
+    assert gitignore.read_text(encoding="utf-8") == "# Custom user gitignore\n*.db\n"
+    assert cachedir_tag.read_text(encoding="utf-8") == "Signature: 8a477f597d28d172789f06886806bc55\n# Custom tag\n"
+
+
+def test_canvas_save_into_drawlib_dir_creates_gitignore_and_cachedir_tag(tmp_path: Path) -> None:
+    """Verify that saving an image into .drawlib/scratch/ creates .drawlib/.gitignore and CACHEDIR.TAG."""
+    cache_dir = tmp_path / ".drawlib"
+    out_file = cache_dir / "scratch" / "preview.png"
+
+    clear()
+    setup(width=50, height=50)
+    circle((25, 25), radius=10, style=Styles.Neutral)
+    save(str(out_file))
+
+    assert out_file.is_file()
+    assert (cache_dir / ".gitignore").is_file()
+    assert (cache_dir / "CACHEDIR.TAG").is_file()

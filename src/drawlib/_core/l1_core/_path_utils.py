@@ -9,12 +9,43 @@
 
 """Utility module."""
 
+import contextlib
 import inspect
 import os
 import os.path
+from typing import Final
 
 from drawlib._core.l1_core._logging import logger
 from drawlib._core.l1_core._settings import dutil_settings
+
+CACHE_GITIGNORE_CONTENT: Final[str] = "# Created by drawlib automatically.\n*\n"
+CACHE_TAG_CONTENT: Final[str] = (
+    "Signature: 8a477f597d28d172789f06886806bc55\n"
+    "# This file is a cache directory tag created by drawlib.\n"
+    "# For information about cache directory tags, see:\n"
+    "#\thttps://bford.info/cachedir/spec.html\n"
+)
+
+
+def ensure_cache_dir_ignores(cache_dir: str) -> None:
+    """Create cache directory and ensure `.gitignore` and `CACHEDIR.TAG` exist inside it.
+
+    Args:
+        cache_dir (str): Path to the cache directory (e.g. `.drawlib`).
+    """
+    os.makedirs(cache_dir, exist_ok=True)
+
+    gitignore_path = os.path.join(cache_dir, ".gitignore")
+    if not os.path.exists(gitignore_path):
+        with contextlib.suppress(OSError):
+            with open(gitignore_path, "w", encoding="utf-8") as f:
+                f.write(CACHE_GITIGNORE_CONTENT)
+
+    cachedir_tag_path = os.path.join(cache_dir, "CACHEDIR.TAG")
+    if not os.path.exists(cachedir_tag_path):
+        with contextlib.suppress(OSError):
+            with open(cachedir_tag_path, "w", encoding="utf-8") as f:
+                f.write(CACHE_TAG_CONTENT)
 
 
 def get_package_root_path() -> str:

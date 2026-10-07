@@ -21,6 +21,11 @@ from typing import Optional
 import matplotlib
 
 from drawlib import LIB_VERSION
+from drawlib._core.l1_core import (
+    CACHE_GITIGNORE_CONTENT,
+    CACHE_TAG_CONTENT,
+    ensure_cache_dir_ignores,
+)
 
 DEFAULT_CACHE_REL_PATH = os.path.join(".drawlib", "cache.db")
 DEFAULT_MAX_CACHE_BYTES = 1024 * 1024 * 1024  # 1 GiB
@@ -167,7 +172,7 @@ class BuildImageCache:
     def _connect(self) -> sqlite3.Connection:
         parent = os.path.dirname(self._db_path)
         if parent:
-            os.makedirs(parent, exist_ok=True)
+            ensure_cache_dir_ignores(parent)
         conn = sqlite3.connect(self._db_path, timeout=30.0)
         conn.execute("PRAGMA journal_mode=WAL;")
         conn.execute("PRAGMA synchronous=NORMAL;")
@@ -547,7 +552,7 @@ class CliImageCache:
     def _connect(self) -> sqlite3.Connection:
         parent = os.path.dirname(self._db_path)
         if parent:
-            os.makedirs(parent, exist_ok=True)
+            ensure_cache_dir_ignores(parent)
         conn = sqlite3.connect(self._db_path, timeout=30.0)
         conn.execute("PRAGMA journal_mode=WAL;")
         conn.execute("PRAGMA synchronous=NORMAL;")

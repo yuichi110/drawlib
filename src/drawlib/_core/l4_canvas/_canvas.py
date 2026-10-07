@@ -21,6 +21,7 @@ from pydantic import validate_call
 
 from drawlib._core.l1_core import (
     dutil_settings,
+    ensure_cache_dir_ignores,
     get_script_path,
     get_script_relative_path,
     logger,
@@ -284,6 +285,15 @@ class Canvas(
         """
         directory = os.path.dirname(file_path)
         os.makedirs(name=directory, exist_ok=True)
+        curr = os.path.abspath(directory)
+        while True:
+            if os.path.basename(curr) == ".drawlib":
+                ensure_cache_dir_ignores(curr)
+                break
+            parent = os.path.dirname(curr)
+            if parent == curr or not parent:
+                break
+            curr = parent
 
     def _draw_grid(self, zorder: int) -> None:
         """Draw grid lines on the canvas.
