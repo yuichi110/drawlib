@@ -404,6 +404,15 @@ hr {
   padding: 8px 14px;
   border-radius: 30px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.slide-controls.visible,
+.slide-controls:hover {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .slide-controls button {

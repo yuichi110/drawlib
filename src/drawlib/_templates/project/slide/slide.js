@@ -720,6 +720,7 @@
   }
 
   function setupControls() {
+    const controls = document.querySelector('.slide-controls');
     const btnPrev = document.getElementById('btn-prev');
     const btnNext = document.getElementById('btn-next');
     const btnOverview = document.getElementById('btn-overview');
@@ -729,6 +730,27 @@
     if (btnNext) btnNext.addEventListener('click', nextSlide);
     if (btnOverview) btnOverview.addEventListener('click', toggleOverview);
     if (btnFullscreen) btnFullscreen.addEventListener('click', toggleFullscreen);
+
+    let controlsHideTimer = null;
+    function showControlsTemporarily() {
+      if (!controls) return;
+      controls.classList.add('visible');
+      if (controlsHideTimer) {
+        clearTimeout(controlsHideTimer);
+      }
+      controlsHideTimer = setTimeout(() => {
+        if (!controls.matches(':hover')) {
+          controls.classList.remove('visible');
+        }
+      }, 1000);
+    }
+
+    window.addEventListener('mousemove', showControlsTemporarily, { passive: true });
+    window.addEventListener('mousedown', showControlsTemporarily, { passive: true });
+    window.addEventListener('touchstart', showControlsTemporarily, { passive: true });
+    if (controls) {
+      controls.addEventListener('mouseleave', showControlsTemporarily);
+    }
 
     // Close overview on click outside
     const modal = document.querySelector('.overview-modal');
