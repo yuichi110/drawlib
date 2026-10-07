@@ -11,21 +11,24 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
-from PIL.Image import Image
-
-import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
-import drawlib._icons.png_icons.gcp._generated as gcp_gen
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import image as canvas_image
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._diagrams._common import (
+    draw_diagram_icon,
+    render_diagram_background,
+    render_diagram_title,
+)
+from drawlib._diagrams._common import (
+    draw_enum_icon as _common_draw_enum_icon,
+)
+from drawlib._diagrams._common import (
+    draw_image_icon as _common_draw_image_icon,
+)
 from drawlib._diagrams.architecture._group import NodeGroup
-from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
 from drawlib._diagrams.architecture._junction import Junction
 from drawlib._diagrams.architecture._node import Node
 from drawlib._diagrams.architecture._render_edges import (
@@ -36,7 +39,6 @@ from drawlib._diagrams.architecture._render_edges import (
     resolve_connection_endpoints,
 )
 from drawlib._diagrams.architecture._types import Connectable, DiagramItem, IconType
-from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
@@ -81,39 +83,6 @@ def _resolve_coordinates(
     return canvas_xy_map, all_groups, all_nodes, all_junctions
 
 
-def _draw_enum_icon(
-    icon: GcpIcon | PhosphorIcon,
-    canvas_xy: tuple[float, float],
-    icon_size: float,
-    style: Style,
-) -> None:
-    """Draw a GCP or Phosphor icon from generated function modules."""
-    if isinstance(icon, GcpIcon):
-        func = getattr(gcp_gen, icon.value, None)
-    else:
-        func = getattr(phosphor_gen, icon.value, None)
-    if func:
-        func(xy=canvas_xy, width=icon_size, style=style)
-
-
-def _draw_image_icon(
-    icon: CustomIcon | Dimage | Image | str | Path,
-    canvas_xy: tuple[float, float],
-    icon_size: float,
-    style: Style,
-) -> None:
-    """Draw a raster image icon (CustomIcon, Dimage, PIL Image, or path)."""
-    if isinstance(icon, CustomIcon):
-        img = icon.dimage
-    elif isinstance(icon, Image):
-        img = Dimage(icon)
-    elif isinstance(icon, Dimage):
-        img = icon
-    else:
-        img = str(icon)
-    canvas_image(xy=canvas_xy, width=icon_size, image=img, style=style)
-
-
 def _draw_icon(
     icon: IconType,
     canvas_xy: tuple[float, float],
@@ -121,18 +90,7 @@ def _draw_icon(
     icon_style: Style | None,
 ) -> None:
     """Draw an icon at canvas_xy with size icon_size."""
-    if icon is None:
-        return
-
-    default_style = Style(icon_color=(50, 50, 50, 1.0), image_border_width=0)
-    applied_style = default_style.patch(icon_style)
-
-    if isinstance(icon, (GcpIcon, PhosphorIcon)):
-        _draw_enum_icon(icon, canvas_xy, icon_size, applied_style)
-    elif isinstance(icon, (CustomIcon, Dimage, Image, str, Path)):
-        _draw_image_icon(icon, canvas_xy, icon_size, applied_style)
-    elif callable(icon):
-        icon(xy=canvas_xy, width=icon_size, style=applied_style)
+    draw_diagram_icon(icon, canvas_xy, icon_size, icon_style, fallback_box=False)
 
 
 def _render_groups(
@@ -266,18 +224,13 @@ def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0
     base_xy = (float(xy[0]), float(xy[1]))
     canvas_xy_map, all_groups, all_nodes, _ = _resolve_coordinates(diagram, base_xy)
 
-    if diagram.style:
+    if diagram.style is not None:
         dw, dh = diagram.get_size()
-        bg_style = Style(
-            shape_fill_color=Colors.White,
-            shape_line_color=Colors.Transparent,
-            shape_line_width=0.0,
-        ).patch(diagram.style)
-        canvas_rectangle(
-            xy=(base_xy[0] + dw / 2.0, base_xy[1] + dh / 2.0),
+        render_diagram_background(
+            center_xy=(base_xy[0] + dw / 2.0, base_xy[1] + dh / 2.0),
             width=dw,
             height=dh,
-            style=bg_style,
+            style=diagram.style,
         )
 
     _render_groups(all_groups, canvas_xy_map)
@@ -286,21 +239,20 @@ def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0
 
     if diagram.title:
         _, dh = diagram.get_size()
-        base_title_style = Style(
-            text_size=15,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=(40, 40, 45, 1.0),
-            text_halign="left",
-            text_valign="bottom",
+        render_diagram_title(
+            xy=(base_xy[0] + 1.0, base_xy[1] + dh + 2.0),
+            title=diagram.title,
+            title_style=diagram.title_style,
+            default_size=15.0,
+            default_color=(40, 40, 45, 1.0),
+            default_halign="left",
+            default_valign="bottom",
         )
-        if diagram.title_style:
-            title_style = base_title_style.patch(diagram.title_style)
-        else:
-            title_style = base_title_style
-        canvas_text(xy=(base_xy[0] + 1.0, base_xy[1] + dh + 2.0), text=diagram.title, style=title_style)
 
 
 # Re-exports for test compatibility
+_draw_enum_icon = _common_draw_enum_icon
+_draw_image_icon = _common_draw_image_icon
 _apply_edge_padding = apply_edge_padding
 _draw_edges = draw_edges
 _draw_single_edge = draw_single_edge

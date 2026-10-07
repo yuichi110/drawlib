@@ -15,17 +15,10 @@ from typing import Literal
 
 from drawlib._core.l4_canvas import canvas
 from drawlib._graph._common._base import BaseGraph
-from drawlib._graph._common._models import (
-    ClusterLayout,
-    EdgeLayout,
-    GraphLayout,
-    Node,
-    NodeLayout,
-)
+from drawlib._graph._common._models import EdgeLayout, GraphLayout, Node
 from drawlib._graph._common._routing import route_orthogonal_edge, route_straight_edge
 from drawlib._graph._tree._solver import solve_buchheim_tree
-from drawlib.fonts import Font
-from drawlib.styles import Style, Styles
+from drawlib.styles import Style
 
 
 class TreeGraph(BaseGraph):
@@ -152,11 +145,7 @@ class TreeGraph(BaseGraph):
         Raises:
             ValueError: If cycles or multiple parents are detected.
         """
-        for edge in self._edges:
-            if edge.src not in self._nodes:
-                self.node(edge.src)
-            if edge.dst not in self._nodes:
-                self.node(edge.dst)
+        self._ensure_edge_nodes()
 
         parent_map: dict[str, str] = {}
         children_map: dict[str, list[str]] = {nid: [] for nid in self._nodes}
@@ -237,7 +226,7 @@ class TreeGraph(BaseGraph):
         avail_w = max(w - 2.0 * margin, max_nw)
         avail_h = max(h - 2.0 * margin, max_nh)
 
-        nodes_layout: dict[str, NodeLayout] = {}
+        node_coords: dict[str, tuple[float, float]] = {}
 
         if self.direction == "TB":
             min_step_x = max_nw + 4.0
@@ -269,24 +258,11 @@ class TreeGraph(BaseGraph):
             origin_x = (w - tree_width) / 2.0 + max_nw / 2.0
             top_y = (h + tree_height) / 2.0 - max_nh / 2.0
 
-            for nid, node in self._nodes.items():
+            for nid in self._nodes:
                 lx, ld = logical_coords[nid]
-                nw = node.width or self.default_node_width
-                nh = node.height or self.default_node_height
                 cx = origin_x + (lx - min_lx) * step_x
                 cy = top_y - ld * step_y
-                nodes_layout[nid] = NodeLayout(
-                    id=nid,
-                    xy=(round(cx, 2), round(cy, 2)),
-                    width=nw,
-                    height=nh,
-                    style=node.style or self.default_node_style,
-                    text_style=node.text_style or self.default_node_text_style,
-                    label=node.label or nid,
-                    shape=node.shape,
-                    icon=node.icon,
-                    show=node.show,
-                )
+                node_coords[nid] = (round(cx, 2), round(cy, 2))
 
         else:  # "LR"
             min_step_x = max_nw + 6.0
@@ -318,26 +294,14 @@ class TreeGraph(BaseGraph):
             origin_x = (w - tree_width) / 2.0 + max_nw / 2.0
             top_y = (h + tree_height) / 2.0 - max_nh / 2.0
 
-            for nid, node in self._nodes.items():
+            for nid in self._nodes:
                 lx, ld = logical_coords[nid]
-                nw = node.width or self.default_node_width
-                nh = node.height or self.default_node_height
                 cx = origin_x + ld * step_x
                 cy = top_y - (lx - min_lx) * step_y
-                nodes_layout[nid] = NodeLayout(
-                    id=nid,
-                    xy=(round(cx, 2), round(cy, 2)),
-                    width=nw,
-                    height=nh,
-                    style=node.style or self.default_node_style,
-                    text_style=node.text_style or self.default_node_text_style,
-                    label=node.label or nid,
-                    shape=node.shape,
-                    icon=node.icon,
-                    show=node.show,
-                )
+                node_coords[nid] = (round(cx, 2), round(cy, 2))
 
-        # Route Edges
+        nodes_layout = self._build_nodes_layout(node_coords)
+
         edges_layout: list[EdgeLayout] = []
         for edge in self._edges:
             src_nl = nodes_layout[edge.src]
@@ -348,55 +312,9 @@ class TreeGraph(BaseGraph):
             else:
                 src_port, waypoints, dst_port = route_straight_edge(src_nl, dst_nl, direction=self.direction)
 
-            edges_layout.append(
-                EdgeLayout(
-                    src=edge.src,
-                    dst=edge.dst,
-                    src_port=src_port,
-                    dst_port=dst_port,
-                    waypoints=waypoints,
-                    label=edge.label,
-                    style=self._resolve_edge_style(edge),
-                    text_style=edge.text_style or self.default_edge_text_style,
-                    arrow_head=edge.arrow_head,
-                    show=edge.show,
-                )
-            )
+            edges_layout.append(self._build_edge_layout(edge, src_port, waypoints, dst_port))
 
-        # Compute Clusters
-        clusters_layout: dict[str, ClusterLayout] = {}
-        default_cluster_text_style = Style(
-            text_size=10,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=(100, 100, 105, 1.0),
-            text_halign="left",
-            text_valign="top",
-        )
-        for cid, cluster in self._clusters.items():
-            member_nodes = [nodes_layout[nid] for nid in cluster.nodes if nid in nodes_layout]
-            if member_nodes:
-                top_extra = 3.5 if cluster.label else 0.0
-                min_x = min(n.left for n in member_nodes) - cluster.padding
-                max_x = max(n.right for n in member_nodes) + cluster.padding
-                min_y = min(n.bottom for n in member_nodes) - cluster.padding
-                max_y = max(n.top for n in member_nodes) + cluster.padding + top_extra
-                cw = round(max_x - min_x, 2)
-                ch = round(max_y - min_y, 2)
-                cx = round((min_x + max_x) / 2.0, 2)
-                cy = round((min_y + max_y) / 2.0, 2)
-                c_text_style = (
-                    default_cluster_text_style.patch(cluster.text_style)
-                    if cluster.text_style is not None
-                    else default_cluster_text_style
-                )
-                clusters_layout[cid] = ClusterLayout(
-                    id=cid,
-                    label=cluster.label,
-                    bbox=(cx, cy, cw, ch),
-                    style=cluster.style or Styles.MutedDashed,
-                    text_style=c_text_style,
-                    show=cluster.show,
-                )
+        clusters_layout = self._build_clusters_layout(nodes_layout)
 
         return GraphLayout(
             nodes=nodes_layout,

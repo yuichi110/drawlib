@@ -23,6 +23,11 @@ from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import lines as canvas_lines
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._diagrams._common import (
+    is_edge_visible,
+    render_diagram_background,
+    render_diagram_title,
+)
 from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
 from drawlib._preset_colors import DefaultColors as Colors
 
@@ -45,35 +50,30 @@ def draw_er_diagram(diagram: ERDiagram, base_xy: tuple[float, float]) -> None:
     if diagram.style is not None:
         dw, dh = diagram.get_size()
         bx, by = base_xy
-        bg_style = Style(
-            shape_fill_color=Colors.White,
-            shape_line_color=Colors.Transparent,
-            shape_line_width=0.0,
-        ).patch(diagram.style)
-        canvas_rectangle(xy=(bx + dw / 2.0, by + dh / 2.0), width=dw, height=dh, style=bg_style)
+        render_diagram_background(
+            center_xy=(bx + dw / 2.0, by + dh / 2.0),
+            width=dw,
+            height=dh,
+            style=diagram.style,
+        )
 
     # 2. Render Diagram Title if specified
     if diagram.title:
         dw, dh = diagram.get_size()
         bx, by = base_xy
-        base_title_style = Style(
-            text_size=18,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=(30, 41, 59, 1.0),
-            text_halign="center",
-            text_valign="bottom",
+        render_diagram_title(
+            xy=(bx + dw / 2.0, by + dh + 2.0),
+            title=diagram.title,
+            title_style=diagram.title_style,
+            default_size=18.0,
+            default_color=(30, 41, 59, 1.0),
+            default_halign="center",
+            default_valign="bottom",
         )
-        if diagram.title_style:
-            title_style = base_title_style.patch(diagram.title_style)
-        else:
-            title_style = base_title_style
-        canvas_text(xy=(bx + dw / 2.0, by + dh + 2.0), text=diagram.title, style=title_style)
 
     # 3. Render Relationships (Edges & Crow's Foot markers)
     for rel in diagram.relationships:
-        if not rel.show:
-            continue
-        if (rel.start is not None and not rel.start.show) or (rel.end is not None and not rel.end.show):
+        if not is_edge_visible(rel):
             continue
         _render_relationship(rel, canvas_xy_map, diagram.edge_style, diagram.edge_text_style)
 

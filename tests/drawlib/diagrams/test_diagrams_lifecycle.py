@@ -28,7 +28,7 @@ class TestArchitectureDiagramLifecycle:
     """Lifecycle tests for ArchitectureDiagram (show, mutate, scale)."""
 
     def test_show_and_connected_edge_auto_hide(self) -> None:
-        """Verify show=False preserves size and hides nodes, groups, junctions, and connected edges."""
+        """Verify show=False preserves size and hides nodes, groups, junctions, and dangling pass-throughs."""
         canvas.clear()
         d = ArchitectureDiagram(
             node_style=Styles.Neutral,
@@ -36,19 +36,21 @@ class TestArchitectureDiagramLifecycle:
             node_text_style=Styles.Dark,
             edge_text_style=Styles.Dark,
         )
-        vpc = d.add(NodeGroup("VPC", width=70.0, height=40.0), (50.0, 50.0))
-        n1 = vpc.add(Node("API", icon=PhosphorIcon.CLOUD), (-15.0, 0.0))
+        vpc = d.add(NodeGroup("VPC", width=70.0, height=50.0), (50.0, 50.0))
+        n1 = vpc.add(Node("API", icon=PhosphorIcon.CLOUD), (-20.0, 0.0))
         j = d.add(Junction((50.0, 50.0)), (50.0, 50.0))
-        n2 = vpc.add(Node("DB", icon=PhosphorIcon.DATABASE), (15.0, 0.0))
-        e1 = d.connect(n1, j, label="req")
-        e2 = d.connect(j, n2, label="sql")
+        n2 = vpc.add(Node("DB1", icon=PhosphorIcon.DATABASE), (20.0, 12.0))
+        n3 = vpc.add(Node("DB2", icon=PhosphorIcon.DATABASE), (20.0, -12.0))
+        e1 = d.connect(n1, j, label="req", arrow="-")
+        e2 = d.connect(j, n2, label="sql1")
+        e3 = d.connect(j, n3, label="sql2")
 
         full_size = d.get_size()
         d.draw()
         full_artists = len(canvas._artists)
         assert full_artists > 0
 
-        # Hide n2 -> n2 and e2 should be skipped, but size remains identical
+        # Hide n2 -> n2 and e2 should be skipped, but e1 and e3 remain visible; size remains identical
         canvas.clear()
         n2.show = False
         assert d.get_size() == full_size
@@ -56,12 +58,18 @@ class TestArchitectureDiagramLifecycle:
         partial_artists = len(canvas._artists)
         assert 0 < partial_artists < full_artists
 
-        # Hide junction j -> e1 is also skipped
+        # Hide n3 -> now all outgoing edges of j (e2, e3) are hidden, so dangling pass-through e1 is auto-hidden!
+        canvas.clear()
+        n3.show = False
+        d.draw()
+        both_targets_hidden_artists = len(canvas._artists)
+        assert 0 < both_targets_hidden_artists < partial_artists
+
+        # Explicitly hiding j does not change artist count since e1 was already auto-hidden as a dangling stem
         canvas.clear()
         j.show = False
         d.draw()
-        j_hidden_artists = len(canvas._artists)
-        assert 0 < j_hidden_artists < partial_artists
+        assert len(canvas._artists) == both_targets_hidden_artists
 
         # Hide all
         canvas.clear()
@@ -69,8 +77,25 @@ class TestArchitectureDiagramLifecycle:
         n1.show = False
         e1.show = False
         e2.show = False
+        e3.show = False
         d.draw()
         assert len(canvas._artists) == 0
+
+    def test_waypoints_included_in_get_size(self) -> None:
+        """Verify edge waypoints are included in ArchitectureDiagram.get_size() bounding box."""
+        d = ArchitectureDiagram(
+            node_style=Styles.Neutral,
+            edge_style=Styles.Primary,
+            node_text_style=Styles.Dark,
+            edge_text_style=Styles.Dark,
+        )
+        n1 = d.add(Node("A"), (20.0, 20.0))
+        n2 = d.add(Node("B"), (40.0, 20.0))
+        size_no_waypoints = d.get_size()
+
+        d.connect(n1, n2).via((30.0, 90.0))
+        size_with_waypoints = d.get_size()
+        assert size_with_waypoints[1] > size_no_waypoints[1]
 
     def test_mutate_and_scale(self) -> None:
         """Verify mutating node/edge styles and drawing with xy and scale."""

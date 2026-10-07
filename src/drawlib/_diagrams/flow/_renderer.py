@@ -18,13 +18,12 @@ from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import parallelogram as canvas_parallelogram
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import rhombus as canvas_rhombus
-from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._diagrams._common import render_diagram_background, render_diagram_title
 from drawlib._diagrams.flow._junction import Junction
 from drawlib._diagrams.flow._node import FlowNode
 from drawlib._diagrams.flow._render_edges import render_edges
 from drawlib._diagrams.flow._render_lanes import render_lanes
 from drawlib._diagrams.flow._types import Connectable
-from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.flow._diagram import FlowDiagram
@@ -43,18 +42,12 @@ def draw_diagram(diagram: FlowDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> 
     bx, by = base_xy
 
     # Layer 0: Canvas Background
-    if diagram.style is not None:
-        bg_style = Style(
-            shape_fill_color=Colors.White,
-            shape_line_color=Colors.Transparent,
-            shape_line_width=0.0,
-        ).patch(diagram.style)
-        canvas_rectangle(
-            xy=(bx + dw / 2.0, by + dh / 2.0),
-            width=dw,
-            height=dh,
-            style=bg_style,
-        )
+    render_diagram_background(
+        center_xy=(bx + dw / 2.0, by + dh / 2.0),
+        width=dw,
+        height=dh,
+        style=diagram.style,
+    )
 
     # Layer 1: Swimlanes
     if diagram.lanes:
@@ -67,19 +60,15 @@ def draw_diagram(diagram: FlowDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> 
     _render_nodes(all_nodes, canvas_xy_map, diagram.node_style)
 
     # Layer 4: Title
-    if diagram.title:
-        base_title_style = Style(
-            text_size=16,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=(30, 41, 59, 1.0),
-            text_halign="center",
-            text_valign="bottom",
-        )
-        if diagram.title_style:
-            title_style = base_title_style.patch(diagram.title_style)
-        else:
-            title_style = base_title_style
-        canvas_text(xy=(bx + dw / 2.0, by + dh + 2.0), text=diagram.title, style=title_style)
+    render_diagram_title(
+        xy=(bx + dw / 2.0, by + dh + 2.0),
+        title=diagram.title,
+        title_style=diagram.title_style,
+        default_size=16.0,
+        default_color=(30, 41, 59, 1.0),
+        default_halign="center",
+        default_valign="bottom",
+    )
 
 
 def _resolve_coordinates(

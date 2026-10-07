@@ -11,22 +11,22 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Literal
 
-from PIL.Image import Image
-
-import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
-import drawlib._icons.png_icons.gcp._generated as gcp_gen
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_images import Dimage
 from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import image as canvas_image
 from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import lines as canvas_lines
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
-from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
+from drawlib._diagrams._common import (
+    draw_diagram_icon,
+    draw_image_icon,
+)
+from drawlib._diagrams._common import (
+    draw_enum_icon as _common_draw_enum_icon,
+)
+from drawlib._diagrams.architecture._icons import GcpIcon, PhosphorIcon
 from drawlib._diagrams.sequence._block import Block
 from drawlib._diagrams.sequence._group import ParticipantGroup
 from drawlib._diagrams.sequence._layout import estimate_note_size, parse_message_padding
@@ -34,7 +34,6 @@ from drawlib._diagrams.sequence._message import Message
 from drawlib._diagrams.sequence._note import Note
 from drawlib._diagrams.sequence._participant import Participant
 from drawlib._diagrams.sequence._types import IconType, PaddingType
-from drawlib._preset_colors import DefaultColors as Colors
 
 
 def draw_enum_icon(
@@ -44,45 +43,7 @@ def draw_enum_icon(
     applied_style: Style,
 ) -> None:
     """Draw a phosphor or GCP icon enum."""
-    cx, cy = canvas_xy
-    fallback_style = Style(
-        shape_fill_color=Colors.Transparent,
-        shape_line_color=(150, 150, 150, 1.0),
-        shape_line_width=1.0,
-    )
-    if isinstance(icon, PhosphorIcon):
-        p_name = icon.name.lower()
-        if hasattr(phosphor_gen, p_name):
-            getattr(phosphor_gen, p_name)(xy=(cx, cy), width=icon_size, style=applied_style)
-        else:
-            canvas_rectangle(xy=(cx, cy), width=icon_size, height=icon_size, style=fallback_style)
-    else:
-        g_name = icon.name.lower()
-        if hasattr(gcp_gen, g_name):
-            getattr(gcp_gen, g_name)(xy=(cx, cy), width=icon_size, style=applied_style)
-        else:
-            canvas_rectangle(xy=(cx, cy), width=icon_size, height=icon_size, style=fallback_style)
-
-
-def draw_image_icon(
-    icon: CustomIcon | Dimage | Image | str | Path,
-    canvas_xy: tuple[float, float],
-    icon_size: float,
-    applied_style: Style,
-) -> None:
-    """Draw an image-based icon or file."""
-    cx, cy = canvas_xy
-    img: str | Dimage
-    if isinstance(icon, CustomIcon):
-        img = icon.dimage
-    elif isinstance(icon, Image):
-        img = Dimage(icon)
-    elif isinstance(icon, Dimage):
-        img = icon
-    else:
-        img = str(icon)
-
-    canvas_image(xy=(cx, cy), image=img, width=icon_size, style=applied_style)
+    _common_draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=True)
 
 
 def draw_icon(
@@ -92,17 +53,7 @@ def draw_icon(
     icon_style: Style | None = None,
 ) -> None:
     """Draw icon representation at coordinate with given size."""
-    if icon is None:
-        return
-
-    default_style = Style(icon_color=(50, 50, 50, 1.0), image_border_width=0)
-    applied_style = default_style.patch(icon_style)
-    if isinstance(icon, (GcpIcon, PhosphorIcon)):
-        draw_enum_icon(icon, canvas_xy, icon_size, applied_style)
-    elif isinstance(icon, (CustomIcon, Dimage, Image, str, Path)):
-        draw_image_icon(icon, canvas_xy, icon_size, applied_style)
-    elif callable(icon):
-        icon(xy=canvas_xy, width=icon_size, style=applied_style)
+    draw_diagram_icon(icon, canvas_xy, icon_size, icon_style, fallback_box=True)
 
 
 def render_lifelines(
@@ -485,3 +436,21 @@ def render_blocks(
             text=tag,
             style=block_text_style,
         )
+
+
+__all__ = [
+    "draw_enum_icon",
+    "draw_horizontal_message",
+    "draw_icon",
+    "draw_image_icon",
+    "draw_self_call",
+    "render_activation_bars",
+    "render_blocks",
+    "render_groups",
+    "render_headers",
+    "render_lifelines",
+    "render_message_label",
+    "render_note",
+    "render_participant_header",
+    "render_single_message",
+]

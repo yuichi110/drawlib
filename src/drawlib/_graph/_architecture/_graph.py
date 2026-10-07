@@ -20,10 +20,8 @@ from drawlib._graph._common._models import (
     ClusterLayout,
     EdgeLayout,
     GraphLayout,
-    NodeLayout,
 )
 from drawlib._graph._common._routing import route_orthogonal_edge, route_straight_edge
-from drawlib.fonts import Font
 from drawlib.styles import Style, Styles
 
 
@@ -99,12 +97,7 @@ class ArchitectureGraph(BaseGraph):
         if not self._nodes and not self._edges and not self._clusters:
             return GraphLayout(width=w, height=h)
 
-        # Auto-register nodes mentioned in edges
-        for edge in self._edges:
-            if edge.src not in self._nodes:
-                self.node(edge.src)
-            if edge.dst not in self._nodes:
-                self.node(edge.dst)
+        self._ensure_edge_nodes()
 
         # Auto-register nodes mentioned in clusters
         for cluster in self._clusters.values():
@@ -133,24 +126,7 @@ class ArchitectureGraph(BaseGraph):
             default_node_height=self.default_node_height,
         )
 
-        # Build NodeLayout objects
-        nodes_layout: dict[str, NodeLayout] = {}
-        for nid, (nx, ny) in node_coords.items():
-            node = self._nodes[nid]
-            nw = node.width or self.default_node_width
-            nh = node.height or self.default_node_height
-            nodes_layout[nid] = NodeLayout(
-                id=nid,
-                xy=(nx, ny),
-                width=nw,
-                height=nh,
-                style=node.style or self.default_node_style,
-                text_style=node.text_style or self.default_node_text_style,
-                label=node.label or nid,
-                shape=node.shape,
-                icon=node.icon,
-                show=node.show,
-            )
+        nodes_layout = self._build_nodes_layout(node_coords)
 
         # Route Edges
         is_compass = any(c.pos is not None for c in self._clusters.values())
@@ -174,30 +150,11 @@ class ArchitectureGraph(BaseGraph):
             else:
                 src_port, waypoints, dst_port = route_straight_edge(src_nl, dst_nl, direction=edge_dir)
 
-            edges_layout.append(
-                EdgeLayout(
-                    src=edge.src,
-                    dst=edge.dst,
-                    src_port=src_port,
-                    dst_port=dst_port,
-                    waypoints=waypoints,
-                    label=edge.label,
-                    style=self._resolve_edge_style(edge),
-                    text_style=edge.text_style or self.default_edge_text_style,
-                    arrow_head=edge.arrow_head,
-                    show=edge.show,
-                )
-            )
+            edges_layout.append(self._build_edge_layout(edge, src_port, waypoints, dst_port))
 
         # Build ClusterLayout objects for containers
         clusters_layout: dict[str, ClusterLayout] = {}
-        default_cluster_text_style = Style(
-            text_size=10,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=(100, 100, 105, 1.0),
-            text_halign="left",
-            text_valign="top",
-        )
+        default_cluster_text_style = self._default_cluster_text_style()
 
         for cid, (cx, cy, cw, ch) in cluster_boxes.items():
             cluster_meta = self._clusters.get(cid)

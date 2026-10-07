@@ -20,11 +20,9 @@ from drawlib._graph._common._models import (
     EdgeLayout,
     GraphLayout,
     Node,
-    NodeLayout,
 )
 from drawlib._graph._common._routing import route_radial_edge
 from drawlib._graph._radial._solver import solve_radial_layout
-from drawlib.fonts import Font
 from drawlib.styles import Style, Styles
 
 
@@ -154,7 +152,7 @@ class RadialGraph(BaseGraph):
         )
         return n
 
-    def calc(  # noqa: C901
+    def calc(
         self,
         *,
         width: float | None = None,
@@ -177,12 +175,7 @@ class RadialGraph(BaseGraph):
         if not self._nodes and not self._edges:
             return GraphLayout(width=w, height=h)
 
-        # Auto-register nodes mentioned in edges
-        for edge in self._edges:
-            if edge.src not in self._nodes:
-                self.node(edge.src)
-            if edge.dst not in self._nodes:
-                self.node(edge.dst)
+        self._ensure_edge_nodes()
 
         # Determine origin center
         cx, cy = self.center if self.center is not None else (round(w / 2.0, 2), round(h / 2.0, 2))
@@ -204,24 +197,7 @@ class RadialGraph(BaseGraph):
             default_node_height=self.default_node_height,
         )
 
-        # Build NodeLayout objects
-        nodes_layout: dict[str, NodeLayout] = {}
-        for nid, (nx, ny) in node_coords.items():
-            node = self._nodes[nid]
-            nw = node.width or self.default_node_width
-            nh = node.height or self.default_node_height
-            nodes_layout[nid] = NodeLayout(
-                id=nid,
-                xy=(nx, ny),
-                width=nw,
-                height=nh,
-                style=node.style or self.default_node_style,
-                text_style=node.text_style or self.default_node_text_style,
-                label=node.label or nid,
-                shape=node.shape,
-                icon=node.icon,
-                show=node.show,
-            )
+        nodes_layout = self._build_nodes_layout(node_coords)
 
         # Route Edges directly with boundary intersections
         edges_layout: list[EdgeLayout] = []
@@ -230,30 +206,11 @@ class RadialGraph(BaseGraph):
             dst_nl = nodes_layout[edge.dst]
 
             src_port, waypoints, dst_port = route_radial_edge(src_nl, dst_nl)
-            edges_layout.append(
-                EdgeLayout(
-                    src=edge.src,
-                    dst=edge.dst,
-                    src_port=src_port,
-                    dst_port=dst_port,
-                    waypoints=waypoints,
-                    label=edge.label,
-                    style=self._resolve_edge_style(edge),
-                    text_style=edge.text_style or self.default_edge_text_style,
-                    arrow_head=edge.arrow_head,
-                    show=edge.show,
-                )
-            )
+            edges_layout.append(self._build_edge_layout(edge, src_port, waypoints, dst_port))
 
         # Compute Clusters
         clusters_layout: dict[str, ClusterLayout] = {}
-        default_cluster_text_style = Style(
-            text_size=10,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=(100, 100, 105, 1.0),
-            text_halign="left",
-            text_valign="top",
-        )
+        default_cluster_text_style = self._default_cluster_text_style()
 
         # Optional Ring Guideline Circles
         if self.draw_ring_guides:
@@ -272,32 +229,7 @@ class RadialGraph(BaseGraph):
                     )
 
         # User-defined clusters
-        for cid, cluster in self._clusters.items():
-            member_nodes = [nodes_layout[nid] for nid in cluster.nodes if nid in nodes_layout]
-            if member_nodes:
-                top_extra = 3.5 if cluster.label else 0.0
-                min_x = min(n.left for n in member_nodes) - cluster.padding
-                max_x = max(n.right for n in member_nodes) + cluster.padding
-                min_y = min(n.bottom for n in member_nodes) - cluster.padding
-                max_y = max(n.top for n in member_nodes) + cluster.padding + top_extra
-                cw = round(max_x - min_x, 2)
-                ch = round(max_y - min_y, 2)
-                cl_cx = round((min_x + max_x) / 2.0, 2)
-                cl_cy = round((min_y + max_y) / 2.0, 2)
-                c_text_style = (
-                    default_cluster_text_style.patch(cluster.text_style)
-                    if cluster.text_style is not None
-                    else default_cluster_text_style
-                )
-                clusters_layout[cid] = ClusterLayout(
-                    id=cid,
-                    label=cluster.label,
-                    bbox=(cl_cx, cl_cy, cw, ch),
-                    style=cluster.style or Styles.MutedDashed,
-                    text_style=c_text_style,
-                    shape="rectangle",
-                    show=cluster.show,
-                )
+        clusters_layout.update(self._build_clusters_layout(nodes_layout))
 
         return GraphLayout(
             nodes=nodes_layout,

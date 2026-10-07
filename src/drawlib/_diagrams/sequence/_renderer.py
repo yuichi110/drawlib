@@ -13,10 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import rectangle as canvas_rectangle
-from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._diagrams._common import render_diagram_background, render_diagram_title
 from drawlib._diagrams.sequence._layout import (
     compute_diagram_size,
     compute_timeline_y,
@@ -33,7 +30,6 @@ from drawlib._diagrams.sequence._render_elements import (
     render_note,
     render_single_message,
 )
-from drawlib._preset_colors import DefaultColors as Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.sequence._diagram import SequenceDiagram
@@ -63,13 +59,12 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
     y_lifeline_bottom = max(pad_bottom + 2.0, y_origin_top - timeline_h - 4.0)
 
     # Layer 0: Diagram Background
-    if diagram.style:
-        bg_style = Style(
-            shape_fill_color=Colors.White,
-            shape_line_color=Colors.Transparent,
-            shape_line_width=0.0,
-        ).patch(diagram.style)
-        canvas_rectangle(xy=(bx + dw / 2.0, by + dh / 2.0), width=dw, height=dh, style=bg_style)
+    render_diagram_background(
+        center_xy=(bx + dw / 2.0, by + dh / 2.0),
+        width=dw,
+        height=dh,
+        style=diagram.style,
+    )
 
     # Layer 1: Participant Groups
     render_groups(diagram.groups, participant_x_map, header_cy, (bx, by))
@@ -107,17 +102,15 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
 
     # Layer 7: Diagram Title
     if diagram.title:
-        title_color = diagram.edge_text_style.text_color or (35, 35, 45, 1.0)
-        title_style = Style(
-            text_size=15,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=title_color,
-            text_halign="left",
-            text_valign="bottom",
+        render_diagram_title(
+            xy=(bx + pad_left, by + dh - pad_top - title_extra + 1.0),
+            title=diagram.title,
+            title_style=diagram.title_style,
+            default_size=15.0,
+            default_color=diagram.edge_text_style.text_color or (35, 35, 45, 1.0),
+            default_halign="left",
+            default_valign="bottom",
         )
-        if diagram.title_style:
-            title_style = title_style.patch(diagram.title_style)
-        canvas_text(xy=(bx + pad_left, by + dh - pad_top - title_extra + 1.0), text=diagram.title, style=title_style)
 
 
 # Internal re-export for diagram sizing query

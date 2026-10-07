@@ -21,6 +21,7 @@ from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import lines as canvas_lines
 from drawlib._core.l4_canvas import polygon as canvas_polygon
 from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._diagrams._common import apply_edge_padding
 from drawlib._diagrams.class_diagram._types import Side
 
 if TYPE_CHECKING:
@@ -45,7 +46,7 @@ def render_relationship(
     path = _compute_relationship_path(rel, canvas_xy_map)
 
     if rel.padding != 0.0:
-        path = _apply_padding(path, rel.padding)
+        path = apply_edge_padding(path, rel.padding)
 
     is_dashed = rel.relationship_type in {"realization", "dependency"}
     base_style = default_edge_style.patch(line_style="dashed") if is_dashed else default_edge_style
@@ -258,35 +259,6 @@ def _compute_relationship_path(
         cast(MathSide, end_side),
         rel.routing,
     )
-
-
-def _apply_padding(
-    path: list[tuple[float, float]],
-    padding: float | tuple[float, float],
-) -> list[tuple[float, float]]:
-    """Offset start and end anchors by the padding distance."""
-    if len(path) < 2:
-        return path
-
-    result = list(path)
-    pad_s = padding[0] if isinstance(padding, tuple) else float(padding)
-    pad_e = padding[1] if isinstance(padding, tuple) else float(padding)
-
-    if pad_s > 0:
-        dx = result[1][0] - result[0][0]
-        dy = result[1][1] - result[0][1]
-        dist = math.hypot(dx, dy)
-        if dist > pad_s:
-            result[0] = (result[0][0] + (pad_s / dist) * dx, result[0][1] + (pad_s / dist) * dy)
-
-    if pad_e > 0:
-        dx = result[-2][0] - result[-1][0]
-        dy = result[-2][1] - result[-1][1]
-        dist = math.hypot(dx, dy)
-        if dist > pad_e:
-            result[-1] = (result[-1][0] + (pad_e / dist) * dx, result[-1][1] + (pad_e / dist) * dy)
-
-    return result
 
 
 def _render_relationship_markers(

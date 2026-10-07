@@ -11,7 +11,6 @@
 
 from __future__ import annotations
 
-import math
 from typing import TYPE_CHECKING, Literal
 
 from drawlib._core.l3_fonts import Font
@@ -19,8 +18,14 @@ from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line as canvas_line
 from drawlib._core.l4_canvas import lines as canvas_lines
 from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._diagrams._common import (
+    apply_edge_padding,
+    apply_segment_padding,
+    parse_padding,
+    resolve_visible_edges_with_junctions,
+)
 from drawlib._diagrams.flow._junction import Junction
-from drawlib._diagrams.flow._types import Connectable, PaddingType, Side
+from drawlib._diagrams.flow._types import Connectable, Side
 
 if TYPE_CHECKING:
     from drawlib._diagrams.flow._edge import FlowEdge
@@ -155,77 +160,6 @@ def compute_edge_points(
     return compute_orthogonal_points(start_pt, end_pt, start_side, end_side)
 
 
-def parse_padding(padding: PaddingType) -> tuple[float, float]:
-    """Extract (start_pad, end_pad) from PaddingType."""
-    if isinstance(padding, (int, float)):
-        val = float(padding)
-        return val, val
-    return float(padding[0]), float(padding[1])
-
-
-def apply_segment_padding(
-    p0: tuple[float, float],
-    p1: tuple[float, float],
-    start_pad: float,
-    end_pad: float,
-) -> list[tuple[float, float]]:
-    """Trim a 2-point segment by start and end padding."""
-    dist = math.hypot(p1[0] - p0[0], p1[1] - p0[1])
-    if dist < 1e-6:
-        return [p0, p1]
-
-    if start_pad + end_pad >= dist:
-        scale = (dist * 0.9) / (start_pad + end_pad)
-        sp = start_pad * scale
-        ep = end_pad * scale
-    else:
-        sp = start_pad
-        ep = end_pad
-
-    dx = (p1[0] - p0[0]) / dist
-    dy = (p1[1] - p0[1]) / dist
-    new_p0 = (p0[0] + dx * sp, p0[1] + dy * sp)
-    new_p1 = (p1[0] - dx * ep, p1[1] - dy * ep)
-    return [new_p0, new_p1]
-
-
-def apply_edge_padding(
-    pts: list[tuple[float, float]],
-    padding: PaddingType,
-) -> list[tuple[float, float]]:
-    """Shorten the start and end of an edge path by padding distance."""
-    if len(pts) < 2:
-        return pts
-
-    start_pad, end_pad = parse_padding(padding)
-    if start_pad <= 0.0 and end_pad <= 0.0:
-        return pts
-
-    if len(pts) == 2:
-        return apply_segment_padding(pts[0], pts[1], start_pad, end_pad)
-
-    result = list(pts)
-    if start_pad > 0.0:
-        p0, p1 = result[0], result[1]
-        dist_start = math.hypot(p1[0] - p0[0], p1[1] - p0[1])
-        if dist_start > 1e-6:
-            sp = min(start_pad, dist_start * 0.9)
-            dx = (p1[0] - p0[0]) / dist_start
-            dy = (p1[1] - p0[1]) / dist_start
-            result[0] = (p0[0] + dx * sp, p0[1] + dy * sp)
-
-    if end_pad > 0.0:
-        p_prev, p_last = result[-2], result[-1]
-        dist_end = math.hypot(p_last[0] - p_prev[0], p_last[1] - p_prev[1])
-        if dist_end > 1e-6:
-            ep = min(end_pad, dist_end * 0.9)
-            dx = (p_prev[0] - p_last[0]) / dist_end
-            dy = (p_prev[1] - p_last[1]) / dist_end
-            result[-1] = (p_last[0] + dx * ep, p_last[1] + dy * ep)
-
-    return result
-
-
 def render_edges(
     edges: list[FlowEdge],
     canvas_xy_map: dict[Connectable, tuple[float, float]],
@@ -234,9 +168,8 @@ def render_edges(
     default_edge_text_style: Style,
 ) -> None:
     """Render all FlowEdge connections."""
-    for edge in edges:
-        if not edge.show or not edge.start.show or not edge.end.show:
-            continue
+    visible_edges = resolve_visible_edges_with_junctions(edges, Junction)
+    for edge in visible_edges:
         if edge.start not in canvas_xy_map or edge.end not in canvas_xy_map:
             continue
 
@@ -295,3 +228,15 @@ def render_edges(
             label_style = base_label_style.patch(applied_text_style)
 
             canvas_text(xy=(lx, ly), text=edge.label, style=label_style)
+
+
+__all__ = [
+    "apply_edge_padding",
+    "apply_segment_padding",
+    "compute_edge_points",
+    "compute_orthogonal_points",
+    "get_item_anchors",
+    "parse_padding",
+    "render_edges",
+    "resolve_connection_endpoints",
+]

@@ -18,7 +18,15 @@ from pydantic import validate_call
 
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._graph._common._code_generator import generate_code
-from drawlib._graph._common._models import Cluster, Edge, GraphLayout, Node
+from drawlib._graph._common._models import (
+    Cluster,
+    ClusterLayout,
+    Edge,
+    EdgeLayout,
+    GraphLayout,
+    Node,
+    NodeLayout,
+)
 from drawlib._graph._common._renderer import render_layout
 from drawlib.fonts import Font
 from drawlib.styles import Style, Styles
@@ -74,6 +82,105 @@ class BaseGraph(ABC):
         if edge.line_style is not None:
             style = style.patch(Style(line_style=edge.line_style))
         return style
+
+    def _ensure_edge_nodes(self) -> None:
+        """Auto-register any nodes referenced by edges that have not been explicitly registered."""
+        for edge in self._edges:
+            if edge.src not in self._nodes:
+                self.node(edge.src)
+            if edge.dst not in self._nodes:
+                self.node(edge.dst)
+
+    def _build_nodes_layout(
+        self,
+        node_coords: dict[str, tuple[float, float]],
+    ) -> dict[str, NodeLayout]:
+        """Build NodeLayout dictionary from computed (x, y) coordinates."""
+        nodes_layout: dict[str, NodeLayout] = {}
+        for nid, (nx, ny) in node_coords.items():
+            node = self._nodes[nid]
+            nw = node.width or self.default_node_width
+            nh = node.height or self.default_node_height
+            nodes_layout[nid] = NodeLayout(
+                id=nid,
+                xy=(nx, ny),
+                width=nw,
+                height=nh,
+                style=node.style or self.default_node_style,
+                text_style=node.text_style or self.default_node_text_style,
+                label=node.label or nid,
+                shape=node.shape,
+                icon=node.icon,
+                show=node.show,
+            )
+        return nodes_layout
+
+    def _build_edge_layout(
+        self,
+        edge: Edge,
+        src_port: tuple[float, float],
+        waypoints: list[tuple[float, float]],
+        dst_port: tuple[float, float],
+    ) -> EdgeLayout:
+        """Construct an EdgeLayout from an Edge and routed port/waypoint coordinates."""
+        return EdgeLayout(
+            src=edge.src,
+            dst=edge.dst,
+            src_port=src_port,
+            dst_port=dst_port,
+            waypoints=waypoints,
+            label=edge.label,
+            style=self._resolve_edge_style(edge),
+            text_style=edge.text_style or self.default_edge_text_style,
+            arrow_head=edge.arrow_head,
+            show=edge.show,
+        )
+
+    @staticmethod
+    def _default_cluster_text_style() -> Style:
+        """Return default text style for cluster/container boundaries."""
+        return Style(
+            text_size=10,
+            text_font=Font.SANSSERIF_BOLD,
+            text_color=(100, 100, 105, 1.0),
+            text_halign="left",
+            text_valign="top",
+        )
+
+    def _build_clusters_layout(
+        self,
+        nodes_layout: dict[str, NodeLayout],
+    ) -> dict[str, ClusterLayout]:
+        """Compute bounding-box ClusterLayout dictionary from member NodeLayouts."""
+        clusters_layout: dict[str, ClusterLayout] = {}
+        default_cluster_text_style = self._default_cluster_text_style()
+        for cid, cluster in self._clusters.items():
+            member_nodes = [nodes_layout[nid] for nid in cluster.nodes if nid in nodes_layout]
+            if member_nodes:
+                top_extra = 3.5 if cluster.label else 0.0
+                min_x = min(n.left for n in member_nodes) - cluster.padding
+                max_x = max(n.right for n in member_nodes) + cluster.padding
+                min_y = min(n.bottom for n in member_nodes) - cluster.padding
+                max_y = max(n.top for n in member_nodes) + cluster.padding + top_extra
+                cw = round(max_x - min_x, 2)
+                ch = round(max_y - min_y, 2)
+                cl_cx = round((min_x + max_x) / 2.0, 2)
+                cl_cy = round((min_y + max_y) / 2.0, 2)
+                c_text_style = (
+                    default_cluster_text_style.patch(cluster.text_style)
+                    if cluster.text_style is not None
+                    else default_cluster_text_style
+                )
+                clusters_layout[cid] = ClusterLayout(
+                    id=cid,
+                    label=cluster.label,
+                    bbox=(cl_cx, cl_cy, cw, ch),
+                    style=cluster.style or Styles.MutedDashed,
+                    text_style=c_text_style,
+                    shape="rectangle",
+                    show=cluster.show,
+                )
+        return clusters_layout
 
     def node(
         self,

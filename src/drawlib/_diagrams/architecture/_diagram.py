@@ -183,7 +183,7 @@ class ArchitectureDiagram:
         if self.width is not None and self.height is not None:
             return (self.width, self.height)
 
-        if not self._items:
+        if not self._items and not self._edges:
             return (100.0, 100.0)
 
         max_x = 0.0
@@ -193,8 +193,13 @@ class ArchitectureDiagram:
             max_x = max(max_x, ix + c_max_x)
             max_y = max(max_y, iy + c_max_y)
 
-        final_w = self.width if self.width is not None else max_x
-        final_h = self.height if self.height is not None else max_y
+        for edge in self._edges:
+            for wx, wy in edge.waypoints:
+                max_x = max(max_x, wx)
+                max_y = max(max_y, wy)
+
+        final_w = self.width if self.width is not None else (max_x if max_x > 0 else 100.0)
+        final_h = self.height if self.height is not None else (max_y if max_y > 0 else 100.0)
         return (final_w, final_h)
 
     @validate_call
