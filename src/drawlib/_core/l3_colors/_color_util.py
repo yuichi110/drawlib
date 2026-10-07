@@ -9,6 +9,8 @@
 
 """Color utility module for style and canvas operations."""
 
+from pydantic import validate_call
+
 from drawlib._core.l2_types import (
     ColorRGBA,
 )
@@ -18,12 +20,82 @@ from drawlib._core.l3_colors._color import (
 )
 
 
+@validate_call
+def get_intermediate_colors(
+    color1: ColorType,
+    color2: ColorType,
+    num: int = 1,
+    *,
+    include_ends: bool = False,
+) -> list[Color]:
+    """Calculate a sequence of evenly spaced intermediate colors between two colors.
+
+    Divides the linear RGBA transition from ``color1`` to ``color2`` into ``num + 1``
+    equal intervals and returns the ``num`` interior intermediate colors (or ``num + 2``
+    colors including ``color1`` and ``color2`` when ``include_ends=True``).
+
+    Args:
+        color1: Starting color (Color instance, RGB/RGBA tuple, or hex string).
+        color2: Ending color (Color instance, RGB/RGBA tuple, or hex string).
+        num: Number of intermediate colors to generate (must be >= 1). Defaults to 1.
+        include_ends: If True, includes ``color1`` at the start and ``color2`` at the
+            end of the returned list. Defaults to False.
+
+    Returns:
+        list[Color]: List of interpolated Color instances.
+
+    Raises:
+        ValueError: If ``num`` is less than 1.
+    """
+    if num < 1:
+        raise ValueError(f"num must be >= 1, got {num}.")
+
+    c1 = color1 if isinstance(color1, Color) else Color(color1)
+    c2 = color2 if isinstance(color2, Color) else Color(color2)
+
+    steps = num + 1
+    mids: list[Color] = []
+    for i in range(1, num + 1):
+        t = i / steps
+        r = round(c1.r + (c2.r - c1.r) * t)
+        g = round(c1.g + (c2.g - c1.g) * t)
+        b = round(c1.b + (c2.b - c1.b) * t)
+        a = round(c1.alpha + (c2.alpha - c1.alpha) * t, 5)
+        mids.append(Color(r, g, b, alpha=a))
+
+    if include_ends:
+        return [c1, *mids, c2]
+    return mids
+
+
+@validate_call
+def get_intermediate_color(
+    color1: ColorType,
+    color2: ColorType,
+) -> Color:
+    """Calculate the midpoint (50%) intermediate color between two colors.
+
+    This is a convenience wrapper around ``get_intermediate_colors(color1, color2, num=1)[0]``.
+
+    Args:
+        color1: First color (Color instance, RGB/RGBA tuple, or hex string).
+        color2: Second color (Color instance, RGB/RGBA tuple, or hex string).
+
+    Returns:
+        Color: The midpoint interpolated Color instance.
+    """
+    return get_intermediate_colors(color1, color2, num=1, include_ends=False)[0]
+
+
 class ColorUtil:
     """A utility class for color conversion operations."""
 
     def __init__(self) -> None:
         """Raise TypeError to prevent instantiation of utility class."""
         raise TypeError(f"'{self.__class__.__name__}' is a static utility class and cannot be instantiated.")
+
+    get_intermediate_color = staticmethod(get_intermediate_color)
+    get_intermediate_colors = staticmethod(get_intermediate_colors)
 
     @staticmethod
     def get_mplot_rgba(
@@ -211,4 +283,8 @@ class ColorUtil:
         return dark_color if lum > threshold else light_color
 
 
-__all__ = ["ColorUtil"]
+__all__ = [
+    "ColorUtil",
+    "get_intermediate_color",
+    "get_intermediate_colors",
+]

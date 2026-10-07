@@ -866,13 +866,16 @@ drawlib rules
 | `agent-instruction` | AI agent bootstrap instructions, workflow loop, and capabilities. |
 | `overview` | Canvas lifecycle, coordinate system, core imports, and workflow. |
 | `style-guide` | Diagram design principles, visual hierarchy, 6-color semantic system, and layout best practices. |
+| `anim-guide` | Animation design principles, loop idioms, and component animation patterns across all modules. |
 | `project` | Project scaffolding (`init`), 4 template types (`site`, `doc`, `slide`, `image`), `docs_src/` layout, `navbar.md` rules, and build pipelines. |
 | `cli` | Document compilation, export, preview, and cache CLI commands. |
+| `api` | Comprehensive API index and quick reference cheat sheet for all Drawlib modules. |
 
 #### Library Modules (`drawlib.*`):
 | Topic Name | Description |
 | :--- | :--- |
 | `lib-canvas` | Canvas configuration, coordinate space, clear/save lifecycle, and background. |
+| `lib-anim` | Animation configuration, formats (APNG, Animated WebP), and multi-step diagram flows. |
 | `lib-shapes` | Rectangles, circles, ellipses, wedges, and polygons. |
 | `lib-lines` | Straight, curved, and chained lines with arrowheads. |
 | `lib-text` | Text rendering, formatting, alignment, and fonts. |
@@ -887,7 +890,9 @@ drawlib rules
 | `lib-smartarts` | Tables, trees, mindmaps, and structured visual elements. |
 | `lib-charts` | Bar, line, pie, scatter, radar, area, and Gantt charts. |
 | `lib-diagrams` | Flowcharts, sequence, state, class, ER, and architecture diagrams. |
+| `lib-graph` | Declarative graph layout solvers (Architecture, Layer, Tree, Radial, Grid) and code export. |
 | `lib-tools` | Python developer API for document building, diagram export, and cache management. |
+| `lib-slide` | 16:9 presentation slide deck stage, SlideContext, current_slide, and stage layout blocks. |
 
 ---
 

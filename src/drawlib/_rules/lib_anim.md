@@ -183,22 +183,12 @@ To output WebP animations in Markdown, simply name the target file with `.webp` 
 
 ---
 
-## 8. Poster Frame Best Practice (Static & PDF Compatibility)
+## 8. Cross-Component Animation Design & Loop Best Practices (`anim-guide`)
 
-According to the APNG specification, standard image viewers, OS file managers, and vector PDF compilation render only the **first frame (Frame 1)** as a fallback static image.
+For complete animation loop idioms and component-specific animation patterns across **Primitives** (`get_intermediate_colors`), **SmartArts** (`show=False` slot reservation), **Charts** (`max_value` pinning & series reveal), **Diagrams** (`.show`, `.draw_ratio`, pan/zoom), and **Auto-Layout Graphs** (`layout = g.calc()`), consult the dedicated Animation Guide:
 
-> [!TIP]
-> **Poster Frame Principle**:
-> Never leave Frame 1 blank or unstyled. Always ensure Frame 1 presents a meaningful overview diagram or complete baseline architecture so that printed PDF reports and GitHub file previews communicate technical concepts clearly even without animation playback.
+```bash
+uv run drawlib rules show anim-guide
+```
 
----
-
-## 9. Animation Checklist for Technical Diagrams
-
-1. **Target Framerate**:
-   Use `fps=10.0` for smooth continuous motion (e.g. moving packets) or `fps=1.0–2.0` for step-by-step architectural sequences.
-2. **Final Frame Hold Duration**:
-   When explaining multi-step workflows, set a longer duration on the final completed frame (e.g. `duration=2.0` or `3.0`) before the animation loops so viewers can absorb the completed architecture.
-3. **Format Selection**:
-   Prefer `.png` (APNG) for general documentation and slide presentations where universal browser and PDF compatibility is required. Use `.webp` for web-only documentation sites where minimum payload size is prioritized.
 

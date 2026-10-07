@@ -14,7 +14,12 @@ Provides the active preset styles and corresponding theme colors for drawings.
 
 from __future__ import annotations
 
-from drawlib.preset_colors import Color, DefaultColors
+from drawlib.preset_colors import (
+    Color,
+    DefaultColors,
+    get_intermediate_color,
+    get_intermediate_colors,
+)
 from drawlib.preset_styles import DefaultStyles, Style
 
 # Active design tokens
@@ -26,4 +31,6 @@ __all__ = [
     "Colors",
     "Style",
     "Styles",
+    "get_intermediate_color",
+    "get_intermediate_colors",
 ]

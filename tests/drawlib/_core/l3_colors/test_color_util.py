@@ -9,7 +9,18 @@
 
 import pytest
 
-from drawlib._core.l3_colors import ColorUtil
+from drawlib._core.l3_colors import (
+    Color,
+    ColorUtil,
+    get_intermediate_color,
+    get_intermediate_colors,
+)
+from drawlib.styles import (
+    get_intermediate_color as styles_get_intermediate_color,
+)
+from drawlib.styles import (
+    get_intermediate_colors as styles_get_intermediate_colors,
+)
 
 
 class TestColorUtil:
@@ -70,3 +81,33 @@ class TestColorUtil:
         """Verifies that instantiating ColorUtil directly raises a TypeError."""
         with pytest.raises(TypeError):
             ColorUtil()
+
+    def test_get_intermediate_color(self) -> None:
+        """Verifies get_intermediate_color returns the exact 50% midpoint Color."""
+        mid = get_intermediate_color(Color(0, 100, 200), Color(100, 200, 0))
+        assert isinstance(mid, Color)
+        assert mid == Color(50, 150, 100)
+
+        # Accepts hex strings and tuples as well
+        mid2 = styles_get_intermediate_color("#000000", (200, 100, 50, 0.5))
+        assert mid2 == Color(100, 50, 25, alpha=0.75)
+
+    def test_get_intermediate_colors(self) -> None:
+        """Verifies get_intermediate_colors generates evenly spaced colors with or without ends."""
+        c1 = Color(0, 0, 0, alpha=0.0)
+        c2 = Color(100, 200, 40, alpha=1.0)
+
+        mids = get_intermediate_colors(c1, c2, num=3)
+        assert len(mids) == 3
+        assert mids[0] == Color(25, 50, 10, alpha=0.25)
+        assert mids[1] == Color(50, 100, 20, alpha=0.5)
+        assert mids[2] == Color(75, 150, 30, alpha=0.75)
+
+        with_ends = styles_get_intermediate_colors(c1, c2, num=3, include_ends=True)
+        assert len(with_ends) == 5
+        assert with_ends[0] == c1
+        assert with_ends[1:4] == mids
+        assert with_ends[4] == c2
+
+        with pytest.raises(ValueError, match="num must be >= 1"):
+            get_intermediate_colors(c1, c2, num=0)

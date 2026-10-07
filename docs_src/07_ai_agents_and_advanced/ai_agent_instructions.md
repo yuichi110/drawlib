@@ -67,6 +67,7 @@ uv run drawlib rules show lib-diagrams          # Architecture, flow, sequence, 
 uv run drawlib rules show lib-charts            # Bar, line, area, pie, radar, gantt
 uv run drawlib rules show lib-smartarts         # Tables, trees, mindmaps, cycle loops
 uv run drawlib rules show style-guide           # 6-color semantic system & typography
+uv run drawlib rules show anim-guide            # Animation loop idioms & component animation patterns
 ```
 
 ---

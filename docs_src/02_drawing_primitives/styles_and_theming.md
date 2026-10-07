@@ -104,6 +104,18 @@ danger_badge = Styles.DangerFlat.patch(
 )
 ```
 
+### Interpolating Intermediate Colors (`get_intermediate_color` & `get_intermediate_colors`)
+When creating smooth color transitions (such as multi-frame animations or custom heatmaps), use the pure helper functions in `drawlib.styles`:
+- **`get_intermediate_color(color1, color2) -> Color`**: Returns the exact 50% midpoint `Color` between `color1` and `color2`.
+- **`get_intermediate_colors(color1, color2, num=1, *, include_ends=False) -> list[Color]`**: Returns `num` evenly spaced intermediate `Color` objects between `color1` and `color2` (or `num + 2` colors including both endpoints when `include_ends=True`).
+
+```python
+from drawlib.styles import Colors, Styles, get_intermediate_color, get_intermediate_colors
+
+mid = get_intermediate_color(Colors.White, Colors.Primary)
+steps = get_intermediate_colors(Colors.White, Colors.Primary, num=3, include_ends=True)
+```
+
 ---
 
 ## 6. Official Preset Style Catalogs & Typography Patching

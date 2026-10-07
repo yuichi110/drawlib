@@ -15,6 +15,8 @@ from drawlib._core.l3_colors._color import (
 )
 from drawlib._core.l3_colors._color_util import (
     ColorUtil,
+    get_intermediate_color,
+    get_intermediate_colors,
 )
 from drawlib._core.l3_colors._colors import (
     BaseColors,
@@ -26,6 +28,8 @@ __all__ = [
     "ColorType",
     # _color_util.py
     "ColorUtil",
+    "get_intermediate_color",
+    "get_intermediate_colors",
     # _colors.py
     "BaseColors",
 ]

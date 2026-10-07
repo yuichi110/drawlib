@@ -12,7 +12,7 @@ This document serves as the unified, high-speed API index and cheat sheet coveri
 from drawlib.canvas import canvas, clear, get_dimage, save, setup, show
 
 # 2. Design Tokens & Styling (Always PascalCase!)
-from drawlib.styles import Colors, Styles
+from drawlib.styles import Colors, Styles, get_intermediate_color, get_intermediate_colors
 from drawlib.types import Color, Style
 from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, MonochromeColors
 
@@ -240,7 +240,10 @@ Styles are systematically constructed as `<color>_<variant>`:
   - `Dotted`, `DottedBold`, `DottedThin`: Dotted stroke for ephemeral objects.
 - **Typography Styles**: `Styles.WhiteBold`, `Styles.PrimaryBold`, `Styles.MutedThin`, etc.
 
-### 6.3 Custom Style and Color Construction
+### 6.3 Custom Style, Color Construction & Color Interpolation
+
+- **`get_intermediate_color(color1, color2) -> Color`**: Returns the 50% midpoint `Color` between `color1` and `color2`.
+- **`get_intermediate_colors(color1, color2, num=1, *, include_ends=False) -> list[Color]`**: Returns `num` evenly spaced intermediate `Color` instances between `color1` and `color2` (or `num + 2` including both endpoints when `include_ends=True`).
 
 ```drawlib show-code file:custom_style.png
 from drawlib.canvas import setup

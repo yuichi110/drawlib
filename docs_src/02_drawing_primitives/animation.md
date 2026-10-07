@@ -185,7 +185,115 @@ with anim.frame(duration=3.0):
 
 ---
 
-## 7. Embedded Markdown Code Blocks
+## 7. Component Animation Best Practices & Loop Idioms
+
+Drawlib's high-level components (`smartarts`, `charts`, `diagrams`, and `graph`) are designed from the ground up to work seamlessly with `Animation`. Depending on the module, use one of two clean loop patterns with `clear=True` (default):
+
+| Module Category | Recommended Loop Idiom | Key Benefit |
+| :--- | :--- | :--- |
+| **Primitives / SmartArts / Charts** | **In-Frame Build**: Construct inside `with anim.frame():` using `add(..., show=...)` and `draw()`. | Hidden items (`show=False`) automatically reserve layout slots and chart axis limits (`max_value`, `xlim`/`ylim`). |
+| **Diagrams / Auto-Layout Graphs** | **Pre-Build & Mutate**: Construct once before the loop, then mutate `.show`, `.style`, or `.draw_ratio` inside `with anim.frame():`. | Avoids re-declaring topologies; connected edges and dangling junctions hide automatically when a node is hidden. |
+
+### 7.1. Primitives & Smooth Color Transitions (`get_intermediate_colors`)
+Use `get_intermediate_colors(color1, color2, num=..., include_ends=True)` from `drawlib.styles` with `.patch(shape_fill_color=c)` to animate smooth color fades:
+
+```python
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Colors, Styles, get_intermediate_colors
+
+setup(width=80, height=35)
+anim = Animation(fps=10.0)
+
+for i, bg in enumerate(get_intermediate_colors(Colors.White, Colors.Primary, num=4, include_ends=True)):
+    with anim.frame(duration=1.5 if i == 4 else 0.12):
+        card_style = Styles.Neutral.patch(shape_fill_color=bg)
+        text_style = Styles.WhiteBold if i >= 3 else Styles.DarkBold
+        rectangle((40, 17.5), width=40, height=16, style=card_style, text="Active Node", text_style=text_style)
+
+save()
+```
+
+### 7.2. SmartArts Progressive Reveal (`add(..., show=...)`)
+Pass `show=(i <= step)` when adding stages or rows, and highlight the active step via conditional styles:
+
+```python
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.smartarts import ChevronProcess
+from drawlib.styles import Styles
+
+setup(width=110, height=35)
+anim = Animation(fps=1.5)
+stages = ["Plan", "Build", "Test", "Deploy"]
+
+for step in range(len(stages)):
+    with anim.frame(duration=2.5 if step == len(stages) - 1 else 0.8):
+        proc = ChevronProcess(style=Styles.Neutral, text_style=Styles.DarkBold, flat_left_end=True)
+        for i, name in enumerate(stages):
+            style = Styles.PrimaryFlat if i == step else Styles.PrimaryNeutral
+            t_style = Styles.WhiteBold if i == step else Styles.DarkBold
+            proc.add(name, style=style, text_style=t_style, show=(i <= step))
+        proc.draw(xy=(5, 10), width=100, height=15)
+
+save()
+```
+
+### 7.3. Charts: Series Reveal vs. Value Growth
+- **Series Reveal**: Add all series and toggle `show=(i <= step)`. Even when `show=False`, the chart includes all series when computing axis bounds so the Y-axis never jumps.
+- **Value Growth**: Pin `max_value` (or `ylim`) on the chart constructor and multiply values by a progress ratio `r`:
+
+```python
+for r in [0.25, 0.5, 0.75, 1.0]:
+    with anim.frame(duration=2.0 if r == 1.0 else 0.15):
+        chart = BarChart(title="Score", categories=["A", "B", "C"], max_value=100)
+        chart.add("2026", [round(v * r, 1) for v in [45, 85, 65]], style=Styles.PrimaryFlat)
+        chart.draw(xy=(12, 10), width=78, height=45)
+```
+
+### 7.4. Diagrams & Graphs: Mutating `.show`, `.style`, `.draw_ratio`, and `scale`
+Pre-build the diagram once, keep references to nodes and edges, and mutate their attributes per frame:
+
+```python
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.diagrams.flow import End, FlowDiagram, Process, Start
+from drawlib.styles import Styles
+
+setup(width=110, height=40)
+anim = Animation(fps=8.0)
+
+flow = FlowDiagram(node_style=Styles.Neutral, edge_style=Styles.DarkBold, edge_text_style=Styles.Dark)
+n1 = flow.add(Start("Start"), xy=(20, 20))
+n2 = flow.add(Process("Validate", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), xy=(55, 20), show=False)
+n3 = flow.add(End("Done", style=Styles.SecondaryNeutral), xy=(90, 20), show=False)
+e1 = n1.connect(n2)
+e2 = n2.connect(n3)
+
+with anim.frame(duration=0.5):
+    flow.draw()
+
+n2.show = True
+for r in [0.4, 0.8, 1.0]:
+    with anim.frame(duration=0.15):
+        e1.draw_ratio = r
+        flow.draw()
+
+n2.style = Styles.PrimaryNeutral
+n2.text_style = Styles.DarkBold
+n3.show = True
+for r in [0.4, 0.8, 1.0]:
+    with anim.frame(duration=2.0 if r == 1.0 else 0.15):
+        e2.draw_ratio = r
+        flow.draw()
+
+save()
+```
+
+---
+
+## 8. Embedded Markdown Code Blocks
 
 You can embed animations directly inside Markdown documents using the ````drawlib```` code fence. The document compiler automatically compiles the code block into an animated file:
 
@@ -215,7 +323,7 @@ To output Animated WebP instead of APNG, specify a `.webp` extension in the `fil
 
 ---
 
-## 8. Built-in Lossless Compression & Performance
+## 9. Built-in Lossless Compression & Performance
 
 Drawlib automatically applies multi-tier lossless optimization when saving animations:
 

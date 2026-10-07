@@ -39,6 +39,7 @@ GENERAL_TOPICS: Final[dict[str, str]] = {
     "agent-instruction": "AI agent bootstrap instructions, workflow loop, and capabilities",
     "overview": "Canvas lifecycle, coordinate system, core imports, and workflow",
     "style-guide": "Diagram design principles, visual hierarchy, 6-color semantic system, and layout best practices",
+    "anim-guide": "Animation design principles, loop idioms, and component animation patterns across all modules",
     "project": "Project scaffolding (init), directory structure (docs_src), navbar rules, and build workflows",
     "cli": "Document compilation, export, preview, and cache CLI commands",
     "api": "Comprehensive API index and quick reference cheat sheet for all Drawlib modules",

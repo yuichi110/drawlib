@@ -20,9 +20,14 @@ Drawlib separates visual presentation (themes, palettes, typography) from diagra
 | Concept | `drawlib.styles` | `drawlib.utils` |
 | :--- | :--- | :--- |
 | **Primary File** | `styles.py` (or custom file via `--styles` / `-s`) | `utils.py` (or custom file via `--utils` / `-u`) |
-| **Core Exports** | `Styles` (active preset styles), `Colors` (active color palette) | User-defined functions, classes, and constants |
+| **Core Exports** | `Styles`, `Colors`, `get_intermediate_color()`, `get_intermediate_colors()` | User-defined functions, classes, and constants |
 | **Default Fallback** | `Styles = DefaultStyles()`, `Colors = DefaultColors()` | Empty container (raises actionable `AttributeError`) |
 | **Typical Usage** | `from drawlib.styles import Colors, Styles` (Mandatory) | `from drawlib.utils import draw_service_box, API_PORT` |
+
+### Color Interpolation Utilities (`get_intermediate_color` / `get_intermediate_colors`)
+`drawlib.styles` (and `drawlib.preset_colors`) provides pure functions for computing intermediate colors (ideal for custom palettes, gradients, and multi-frame color transitions):
+- `get_intermediate_color(color1, color2) -> Color`: Returns the 50% midpoint `Color` between `color1` and `color2` (wrapper around `get_intermediate_colors(color1, color2, num=1)[0]`).
+- `get_intermediate_colors(color1, color2, num=1, *, include_ends=False) -> list[Color]`: Divides the transition between `color1` and `color2` into `num + 1` equal intervals and returns `num` intermediate `Color` objects (or `num + 2` including `color1` and `color2` when `include_ends=True`).
 
 ---
 

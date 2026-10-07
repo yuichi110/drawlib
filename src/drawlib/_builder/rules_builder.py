@@ -27,6 +27,7 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "agent-instruction",
     "overview",
     "style-guide",
+    "anim-guide",
     "project",
     "cli",
     "api",

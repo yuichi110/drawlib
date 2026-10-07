@@ -88,6 +88,7 @@ Query specific detailed rule manuals as needed:
 ```bash
 uv run drawlib rules show overview      # Geometry, coordinate space (0,0 at bottom-left), lifecycle
 uv run drawlib rules show style-guide   # Color tokens, typography, 50%+ neutral rule
+uv run drawlib rules show anim-guide    # Animation loop idioms and component animation patterns
 uv run drawlib rules show project       # Project structures, navbar.md, build options
 uv run drawlib rules show cli           # CLI commands (build, show, init, serve, cache)
 uv run drawlib rules show api           # Complete API index & symbol cheat sheet

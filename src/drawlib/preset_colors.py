@@ -9,7 +9,11 @@
 
 """Public preset colors module for drawlib."""
 
-from drawlib._core.l3_colors import Color
+from drawlib._core.l3_colors import (
+    Color,
+    get_intermediate_color,
+    get_intermediate_colors,
+)
 from drawlib._preset_colors import (
     CssColors,
     DefaultColors,
@@ -35,4 +39,6 @@ __all__ = [
     "DefaultColors6",
     "GoogleColors",
     "MonochromeColors",
+    "get_intermediate_color",
+    "get_intermediate_colors",
 ]
