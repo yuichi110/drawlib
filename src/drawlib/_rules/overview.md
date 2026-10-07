@@ -569,7 +569,9 @@ drawlib rules show <topic> --rebuild
   from drawlib.smartarts import ChevronProcess, Table
   from drawlib.styles import Styles
   cp = ChevronProcess(style=Styles.PrimaryFlat, text_style=Styles.WhiteBold, description_style=Styles.White)
-  cp.extend(["Plan", "Build", "Deploy"])
+  cp.add("Plan")
+  cp.add("Build")
+  cp.add("Deploy")
   cp.draw((10, 20), width=80, height=15)
   Table((10, 50), data=[["Header A", "Header B"], ["Val 1", "Val 2"]]).draw()
   ```

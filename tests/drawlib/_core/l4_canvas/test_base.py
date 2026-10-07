@@ -12,6 +12,7 @@
 import os
 
 import pytest
+from matplotlib.patches import Circle
 
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import (
@@ -211,3 +212,46 @@ class TestCanvasBase:
         # Check font sizes
         assert get_charwidth_from_fontsize(12) > 0
         assert get_fontsize_from_charwidth(2) > 0
+
+    def test_transform_primitives(self) -> None:
+        """Verify canvas.transform scales coordinates, shapes, lines, and text proportionally."""
+        clear()
+        setup(width=100, height=100)
+        with canvas.transform(origin=(20, 20), scale=0.5, translate=(10, 5)):
+            canvas.circle((40, 40), radius=10, style=Styles.Primary)
+            canvas.ellipse((40, 40), width=20, height=10, style=Styles.Primary)
+            canvas.regularpolygon((40, 40), num_vertex=5, radius=10, style=Styles.Primary)
+            canvas.wedge((40, 40), radius=10, width=4, style=Styles.Primary)
+            canvas.polygon([(20, 20), (40, 20), (30, 40)], style=Styles.Primary)
+            canvas.rectangle((20, 20), width=20, height=10, r=2.0, style=Styles.Primary, text="Box")
+            canvas.line((20, 20), (40, 40), style=Styles.Primary, arrow_head="->")
+            canvas.line_curved((20, 20), (40, 40), bend=0.2, style=Styles.Primary, arrow_head="->")
+            canvas.text(
+                (40, 40),
+                "Scaled",
+                style=Styles.DarkBold.patch(text_bg_fill_color=Colors.White, text_bg_line_width=2.0),
+            )
+
+        # Verify Circle (first artist) was scaled by 0.5 around (20, 20) + translated by (10, 5):
+        # x' = 20 + (40 - 20) * 0.5 + 10 = 40.0, y' = 20 + (40 - 20) * 0.5 + 5 = 35.0, r' = 5.0
+        circle_artist = canvas._artists[0]
+        assert isinstance(circle_artist, Circle)
+        assert circle_artist.get_center() == (40.0, 35.0)
+        assert abs(float(circle_artist.get_radius()) - 5.0) < 1e-5
+
+    def test_transform_nesting_and_validation(self) -> None:
+        """Verify nested canvas.transform composes correctly and rejects non-positive scale."""
+        clear()
+        setup(width=100, height=100)
+        with canvas.transform(origin=(10, 10), scale=2.0):
+            with canvas.transform(origin=(10, 10), scale=0.5):
+                canvas.circle((30, 20), radius=8, style=Styles.Primary)
+
+        circle_artist = canvas._artists[0]
+        assert isinstance(circle_artist, Circle)
+        assert circle_artist.get_center() == (30.0, 20.0)
+        assert abs(float(circle_artist.get_radius()) - 8.0) < 1e-5
+
+        with pytest.raises(ValueError, match="scale must be positive"):
+            with canvas.transform(scale=0.0):
+                pass

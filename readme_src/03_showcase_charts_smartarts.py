@@ -25,16 +25,16 @@ pipeline = ChevronProcess(
     spacing=1.5,
     flat_left_end=True,
 )
-pipeline.append(
+pipeline.add(
     "1. Author",
     description="Python & Markdown",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=9.5),
     description_style=Styles.White.patch(text_size=7.5),
 )
-pipeline.append("2. Validate", description="dcli code-check", style=Styles.Neutral)
-pipeline.append("3. Render", description="drawlib build", style=Styles.SecondaryNeutral)
-pipeline.append("4. Publish", description="HTML / PDF / Slide", style=Styles.SuccessNeutral)
+pipeline.add("2. Validate", description="dcli code-check", style=Styles.Neutral)
+pipeline.add("3. Render", description="drawlib build", style=Styles.SecondaryNeutral)
+pipeline.add("4. Publish", description="HTML / PDF / Slide", style=Styles.SuccessNeutral)
 pipeline.draw(xy=(6, 48), width=108, height=15)
 
 # Bottom-Left section: Declarative BarChart (bottom-left anchor)

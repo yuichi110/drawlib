@@ -77,13 +77,13 @@ class TestBoxList:
         styles = default_styles
         b = BoxList(style=styles.PrimarySolid, text_style=styles.PrimaryBold)
         item1 = b.add("item1")
-        assert len(b._list) == 1
+        assert len(b.items) == 1
         assert item1.text == "item1"
         assert item1.show is True
 
         item2 = b.add("item2")
         item3 = b.add("item3", show=False)
-        assert len(b._list) == 3
+        assert len(b.items) == 3
         assert item2.text == "item2"
         assert item3.show is False
 

@@ -72,6 +72,11 @@ class BulletPoints:
         self._bullet_shape_map: dict[int, _BulletPointsShape] = {}
         self._ensure_default_bullets(text_style)
 
+    @property
+    def items(self) -> list[BulletPointItem]:
+        """Return the registered bullet point items."""
+        return self._bullet_texts
+
     def _ensure_default_bullets(self, ref_style: Style) -> None:
         """Register default circle bullet shapes using text color."""
         text_color = ref_style.text_color
@@ -137,7 +142,6 @@ class BulletPoints:
         """
         style_resolved = text_style if text_style is not None else self._text_style
         self._ensure_default_bullets(style_resolved)
-        style_resolved = style_resolved.patch(text_halign="left", text_valign="center")
 
         item = BulletPointItem(
             indent=self._indent_level,

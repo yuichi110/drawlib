@@ -77,6 +77,11 @@ class Pyramid:
 
         self._items: list[PyramidItem] = []
 
+    @property
+    def items(self) -> list[PyramidItem]:
+        """Return the registered pyramid items."""
+        return self._items
+
     @validate_call
     def add(
         self,

@@ -40,10 +40,10 @@ pipeline = ChevronProcess(
     flat_left_end=True,
 )
 
-pipeline.append("1. Commit", description="Git Push", style=Styles.PrimaryFlat)
-pipeline.append("2. Test", description="pytest / linter", style=Styles.SecondaryFlat)
-pipeline.append("3. Build", description="Docker Container", style=Styles.AccentFlat)
-pipeline.append("4. Deploy", description="Cloud Run (Prod)", style=Styles.SuccessFlat)
+pipeline.add("1. Commit", description="Git Push", style=Styles.PrimaryFlat)
+pipeline.add("2. Test", description="pytest / linter", style=Styles.SecondaryFlat)
+pipeline.add("3. Build", description="Docker Container", style=Styles.AccentFlat)
+pipeline.add("4. Deploy", description="Cloud Run (Prod)", style=Styles.SuccessFlat)
 
 pipeline.draw(xy=(10, 8), width=100, height=20)
 ```

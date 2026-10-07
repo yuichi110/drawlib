@@ -35,11 +35,10 @@ pipeline = ChevronProcess(
     spacing=1.5,
     flat_left_end=True,
 )
-pipeline.extend(
-    texts=["1. Spec", "2. Develop", "3. Test", "4. Deploy"],
-    styles=Styles.PrimaryFlat,
-    descriptions=["Task triage", "AI pair-prog", "pytest verify", "CI delivery"],
-)
+pipeline.add("1. Spec", description="Task triage")
+pipeline.add("2. Develop", description="AI pair-prog")
+pipeline.add("3. Test", description="pytest verify")
+pipeline.add("4. Deploy", description="CI delivery")
 pipeline.draw(xy=(8, 48), width=94, height=12)
 
 # 2. Feature Matrix (Table)

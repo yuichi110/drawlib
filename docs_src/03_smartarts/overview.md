@@ -22,10 +22,10 @@ proc = ChevronProcess(
     flat_left_end=True,
     spacing=2.0,
 )
-proc.append("Plan")
-proc.append("Code", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-proc.append("Test")
-proc.append("Deploy", style=Styles.SecondaryNeutral)
+proc.add("Plan")
+proc.add("Code", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+proc.add("Test")
+proc.add("Deploy", style=Styles.SecondaryNeutral)
 proc.draw(xy=(10, 42), width=100, height=12)
 
 # 2. Table: Structured comparison and schema datasets
@@ -51,14 +51,14 @@ tbl.draw(xy=(10, 32), width=100, height=22, data=data)
 
 | Component | Primary Use Case | Anchor System | Key Methods |
 | :--- | :--- | :--- | :--- |
-| **`ChevronProcess`** | Phased pipelines, CI/CD stages, migration roadmaps | Bottom-Left `(x, y)` | `append()`, `extend()`, `draw()` |
-| **`Cycle`** | PDCA devops loops, circular lifecycles, state loops | Center `(cx, cy)` | `append()`, `set_center()`, `draw()` |
+| **`ChevronProcess`** | Phased pipelines, CI/CD stages, migration roadmaps | Bottom-Left `(x, y)` | `add()`, `draw()` |
+| **`Cycle`** | PDCA devops loops, circular lifecycles, state loops | Center `(cx, cy)` | `add()`, `set_center()`, `draw()` |
 | **`Table`** | Service SLAs, specification matrices, DB schemas | Top-Left `(x, y)` | `draw()`, `set_style_cell_*()` |
-| **`TreeNode`** | Directory hierarchies, org charts, taxonomy trees | Top-Left `(x, y)` | `draw()`, `add_child()` |
-| **`MindMapNode`** | Brainstorming nodes, radial feature maps | Center `(cx, cy)` | `draw()`, `add_child()` |
+| **`TreeNode`** | Directory hierarchies, org charts, taxonomy trees | Top-Left `(x, y)` | `add()`, `draw()` |
+| **`MindMapNode`** | Brainstorming nodes, radial feature maps | Center `(cx, cy)` | `add()`, `draw()` |
 | **`GridLayout`** | Layered architectures, dashboard card grids | Bottom-Left `(x, y)` | `add()`, `draw()` |
 | **`Pyramid`** | Testing pyramids, tiered memory/cache hierarchies | Bottom-Left `(x, y)` | `add()`, `draw()` |
-| **`BulletPoints`** | Architectural takeaways, RFC key points | Top-Left `(x, y)` | `draw()` |
+| **`BulletPoints`** | Architectural takeaways, RFC key points | Top-Left `(x, y)` | `add()`, `draw()` |
 | **`SourceCode`** | Syntax-highlighted code blocks in diagrams | Top-Left `(x, y)` | `draw()` |
 
 ---

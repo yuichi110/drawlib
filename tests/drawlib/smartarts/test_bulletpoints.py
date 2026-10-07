@@ -70,6 +70,7 @@ class TestBulletPoints:
         item1 = b.add("Item 1")
         item2 = b.add("Item 2", show=False)
         item3 = b.add("Item 3")
+        assert len(b.items) == 3
         assert item1.text == "Item 1"
         assert item2.show is False
         item3.style = styles.PrimaryBold

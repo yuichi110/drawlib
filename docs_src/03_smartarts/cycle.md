@@ -29,16 +29,16 @@ cycle = Cycle(
     arrow_color_mode="monochrome",
     description_placement="inside",
 )
-cycle.append(
+cycle.add(
     "1. Plan",
     description="Sprint Goal",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=9),
     description_style=Styles.White.patch(text_size=7),
 )
-cycle.append("2. Do", description="Build Feature")
-cycle.append("3. Check", description="Code Review")
-cycle.append("4. Act", description="Retro & Deploy", style=Styles.SecondaryNeutral)
+cycle.add("2. Do", description="Build Feature")
+cycle.add("3. Check", description="Code Review")
+cycle.add("4. Act", description="Retro & Deploy", style=Styles.SecondaryNeutral)
 
 cycle.set_center(
     text="Agile",
@@ -97,13 +97,11 @@ Cycle(
 ```
 
 ### Adding Steps and Center Hub
-- **`append(text, *, description="", style=None, text_style=None, description_style=None, arrow_style=None)`**:  
-  Appends a step to the circular perimeter.
-- **`extend(texts, *, styles=None, text_styles=None, descriptions=None, description_styles=None, arrow_styles=None)`**:  
-  Appends multiple steps with shared or per-item styles.
-- **`set_center(text, *, description="", radius=None, style=None, text_style=None, description_style=None)`**:  
-  Adds an optional central focal node to create a radial cycle.
+- **`add(text, *, description="", style=None, text_style=None, description_style=None, arrow_style=None, show=True) -> CycleItem`**:  
+  Adds a step to the circular perimeter and returns a mutable `CycleItem` instance.
+- **`set_center(text, *, description="", radius=None, style=None, text_style=None, description_style=None, show=True) -> CycleCenter`**:  
+  Configures an optional central focal node to create a radial cycle and returns the `CycleCenter` instance.
 
 ### Drawing
-- **`draw(xy, radius=28.0)`**:  
-  Renders the circular cycle centered at `xy` with orbit radius `radius`.
+- **`draw(xy, radius=35.0, align="center", scale=1.0)`**:  
+  Renders the circular cycle anchored at `xy` with orbit radius `radius` and optional proportional `scale`.

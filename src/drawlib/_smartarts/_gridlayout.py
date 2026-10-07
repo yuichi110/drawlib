@@ -68,6 +68,11 @@ class GridLayout:
 
         self._items: list[GridItem] = []
 
+    @property
+    def items(self) -> list[GridItem]:
+        """Return the registered grid layout items."""
+        return self._items
+
     @validate_call
     def add(  # noqa: PLR0913
         self,

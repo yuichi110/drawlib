@@ -22,17 +22,17 @@ pipeline = ChevronProcess(
     spacing=2.0,
     flat_left_end=True,
 )
-pipeline.append("1. Commit", description="Lint & Tests")
-pipeline.append("2. Build", description="Docker Image")
-pipeline.append(
+pipeline.add("1. Commit", description="Lint & Tests")
+pipeline.add("2. Build", description="Docker Image")
+pipeline.add(
     "3. Security",
     description="Vulnerability Scan",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=10),
     description_style=Styles.White.patch(text_size=7.5),
 )
-pipeline.append("4. Staging", description="E2E Validation")
-pipeline.append("5. Production", description="Canary Release", style=Styles.SecondaryNeutral)
+pipeline.add("4. Staging", description="E2E Validation")
+pipeline.add("5. Production", description="Canary Release", style=Styles.SecondaryNeutral)
 
 pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 ```
@@ -64,13 +64,9 @@ ChevronProcess(
 ```
 
 ### Adding Steps
-- **`append(text, *, description="", style=None, text_style=None, description_style=None)`**:  
-  Appends a new process stage. If styles are omitted, constructor defaults are used.
-- **`extend(texts, *, descriptions=None, styles=None, text_styles=None, description_styles=None)`**:  
-  Appends multiple stage titles. Styles default to constructor defaults or can be overridden with a shared `Style` or list of `Style` objects.
-- **`insert(index, text, *, description="", style=None, text_style=None, description_style=None)`**:  
-  Inserts a stage at a specified index with optional style overrides.
+- **`add(text, *, description="", style=None, text_style=None, description_style=None, show=True) -> ChevronItem`**:  
+  Adds a new process stage and returns a mutable `ChevronItem` instance. If styles are omitted, constructor defaults are used.
 
 ### Drawing
-- **`draw(xy, width=90.0, height=12.0, item_width=None)`**:  
+- **`draw(xy, width=90.0, height=12.0, item_width=None, scale=1.0)`**:  
   Renders the pipeline onto the active canvas. If `item_width` is omitted, Drawlib divides `width` equally among all stages.

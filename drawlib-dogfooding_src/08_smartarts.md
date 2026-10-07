@@ -35,11 +35,10 @@ pipeline = ChevronProcess(
     spacing=1.5,
     flat_left_end=True,
 )
-pipeline.extend(
-    texts=["1. 要件定義", "2. 実装", "3. テスト", "4. デプロイ"],
-    styles=Styles.PrimaryFlat,
-    descriptions=["Issue 整理", "AI ペアプロ", "pytest 検証", "CI 自動配信"],
-)
+pipeline.add("1. 要件定義", description="Issue 整理")
+pipeline.add("2. 実装", description="AI ペアプロ")
+pipeline.add("3. テスト", description="pytest 検証")
+pipeline.add("4. デプロイ", description="CI 自動配信")
 pipeline.draw(xy=(8, 48), width=94, height=12)
 
 # 2. 比較表の定義 (Table)

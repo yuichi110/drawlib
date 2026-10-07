@@ -375,14 +375,14 @@ High-level automated components for business and technical concepts:
 | Component | Anchor | Typical Use Case | Primary Usage |
 | :--- | :--- | :--- | :--- |
 | `Table` | Top-Left `(x, y)` | Comparison matrix, data schemas | `t = Table(...); t.draw(xy, width, height)` |
-| `TreeNode` | Top-Left `(x, y)` | Directory trees, org charts | `node = TreeNode("Root", children=[...]); node.draw(xy)` |
-| `MindMapNode` | Center `(x, y)` | Radial concept maps | `root = MindMapNode("Topic", children=[...]); root.draw(xy)` |
-| `ChevronProcess` | Bottom-Left `(x, y)` | Linear pipelines & phases | `p = ChevronProcess(...); p.append(...); p.draw(xy, width, height)` |
-| `Cycle` | Center `(x, y)` | Feedback loops, CI/CD cycles | `c = Cycle(...); c.draw(xy, radius)` |
-| `GridLayout` | Bottom-Left `(x, y)` | Component matrices, layer decks | `g = GridLayout(...); g.draw(xy, width, height)` |
-| `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `p = Pyramid(...); p.draw(xy, width, height)` |
-| `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.draw(xy, width, height)` |
-| `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.draw(xy, width, height)` |
+| `TreeNode` | Top-Left `(x, y)` | Directory trees, org charts | `node = TreeNode("Root", ...); node.add("Child"); node.draw(xy)` |
+| `MindMapNode` | Center `(x, y)` | Radial concept maps | `root = MindMapNode("Topic", ...); root.add("Sub"); root.draw(xy)` |
+| `ChevronProcess` | Bottom-Left `(x, y)` | Linear pipelines & phases | `p = ChevronProcess(...); p.add(...); p.draw(xy, width, height)` |
+| `Cycle` | Center `(x, y)` | Feedback loops, CI/CD cycles | `c = Cycle(...); c.add(...); c.draw(xy, radius)` |
+| `GridLayout` | Bottom-Left `(x, y)` | Component matrices, layer decks | `g = GridLayout(...); g.add(...); g.draw(xy, width, height)` |
+| `Pyramid` | Bottom-Left `(x, y)` | Tiered hierarchy stacks | `p = Pyramid(...); p.add(...); p.draw(xy, width, height)` |
+| `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.add(...); b.draw(xy, width, height)` |
+| `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.add(...); b.draw(xy)` |
 | `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=...)` |
 
 ```drawlib show-code file:smartarts_chevron.png
@@ -397,10 +397,10 @@ process = ChevronProcess(
     text_style=Styles.DarkBold,
     description_style=Styles.Muted,
 )
-process.append("1. Ingest")
-process.append("2. Transform", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
-process.append("3. Validate")
-process.append("4. Export", style=Styles.SecondaryNeutral)
+process.add("1. Ingest")
+process.add("2. Transform", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+process.add("3. Validate")
+process.add("4. Export", style=Styles.SecondaryNeutral)
 process.draw((10, 8), width=100, height=18)
 ```
 

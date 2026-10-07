@@ -46,9 +46,14 @@ class BoxList:
             style: The default style for the boxes.
             text_style: The default style for the text inside the boxes.
         """
-        self._style = style.patch(text_halign="center", text_valign="center")
+        self._style = style
         self._text_style = text_style
         self._list: list[BoxListItem] = []
+
+    @property
+    def items(self) -> list[BoxListItem]:
+        """Return the registered box list items."""
+        return self._list
 
     @validate_call
     def add(
@@ -70,11 +75,7 @@ class BoxList:
         Returns:
             BoxListItem: The created box item instance.
         """
-        resolved_style = (
-            style.patch(text_halign="center", text_valign="center")
-            if style is not None
-            else self._style
-        )
+        resolved_style = style if style is not None else self._style
         resolved_text_style = text_style if text_style is not None else self._text_style
 
         item = BoxListItem(
@@ -104,42 +105,27 @@ class BoxList:
             align: The alignment of the boxes relative to the starting point.
             scale: Proportional scale factor around xy. Defaults to 1.0.
         """
+        default_patched_style = self._style.patch(text_halign="center", text_valign="center")
         with transform(origin=xy, scale=scale):
-            for index, item in enumerate(self._list):
-                if not item.show:
-                    continue
-                is_custom = item.style != self._style or item.text_style != self._text_style
-                if is_custom:
-                    continue
+            for is_custom_pass in (False, True):
+                for index, item in enumerate(self._list):
+                    if not item.show:
+                        continue
+                    patched_style = item.style.patch(text_halign="center", text_valign="center")
+                    is_custom = patched_style != default_patched_style or item.text_style != self._text_style
+                    if is_custom != is_custom_pass:
+                        continue
 
-                self._draw_cell(
-                    start_xy=xy,
-                    index=index,
-                    text=item.text,
-                    box_width=box_width,
-                    box_height=box_height,
-                    style=item.style.patch(text_halign="center", text_valign="center"),
-                    text_style=item.text_style,
-                    align=align,
-                )
-
-            for index, item in enumerate(self._list):
-                if not item.show:
-                    continue
-                is_custom = item.style != self._style or item.text_style != self._text_style
-                if not is_custom:
-                    continue
-
-                self._draw_cell(
-                    start_xy=xy,
-                    index=index,
-                    text=item.text,
-                    box_width=box_width,
-                    box_height=box_height,
-                    style=item.style.patch(text_halign="center", text_valign="center"),
-                    text_style=item.text_style,
-                    align=align,
-                )
+                    self._draw_cell(
+                        start_xy=xy,
+                        index=index,
+                        text=item.text,
+                        box_width=box_width,
+                        box_height=box_height,
+                        style=patched_style,
+                        text_style=item.text_style,
+                        align=align,
+                    )
 
     @staticmethod
     def _draw_cell(

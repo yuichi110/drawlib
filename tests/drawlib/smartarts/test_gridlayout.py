@@ -126,6 +126,7 @@ class TestGridLayout:
         item_a = gl.add((0, 0), 1, 1, text="A")
         item_b = gl.add((0, 1), 1, 1, text="B", show=False)
         item_a.style = styles.SecondarySolid
+        assert len(gl.items) == 2
         assert item_a.text == "A"
         assert item_b.show is False
         gl.draw((10, 10), 30, 30, 1, scale=0.8)

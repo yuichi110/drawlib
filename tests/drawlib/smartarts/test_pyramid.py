@@ -103,7 +103,7 @@ class TestPyramid:
         item1 = p.add(text="Custom", style=styles.SecondarySolid, text_style=styles.WhiteBold)
         item2 = p.add(text="Hidden", show=False)
         item3 = p.add(text="Base")
-        assert len(p._items) == 3
+        assert len(p.items) == 3
         assert item1.style == styles.SecondarySolid
         assert item1.text_style == styles.WhiteBold
         assert item2.show is False

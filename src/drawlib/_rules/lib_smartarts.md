@@ -66,14 +66,14 @@ Every SmartArt accepts:
 | Component | Anchor Point | Layout Direction | Key Methods | Typical Architecture Use Cases |
 | :--- | :--- | :--- | :--- | :--- |
 | `Table` | Top-Left `(x, y)` | Downward & Rightward | `set_style_*()`, `draw()`, `draw_flexible()` | Service matrices, SLA comparisons, feature tables |
-| `TreeNode` | Top-Left `(x, y)` | Downward tree lines | `register_drawing_item()`, `draw()` | Monorepo directories, file trees, package layouts |
-| `BoxList` | Directional `(x, y)` | `"left"`, `"right"`, `"bottom"`, `"top"` | `append()`, `extend()`, `draw()` | Microservice cards, pipeline stages, status badges |
-| `MindMapNode` | Center `(x, y)` | Radial (4 directions) | `draw(branch=...)` | Architecture overviews, decision trees, org charts |
-| `ChevronProcess` | Bottom-Left `(x, y)` | Horizontal linear | `append()`, `extend()`, `draw()` | CI/CD pipelines, ETL workflows, order lifecycles |
-| `Cycle` | Center / Bottom-Left | Radial circular | `append()`, `set_center()`, `draw()` | PDCA DevOps loops, token refresh cycles, state machines |
+| `TreeNode` | Top-Left `(x, y)` | Downward tree lines | `add()`, `register_drawing_item()`, `draw()` | Monorepo directories, file trees, package layouts |
+| `BoxList` | Directional `(x, y)` | `"left"`, `"right"`, `"bottom"`, `"top"` | `add()`, `draw()` | Microservice cards, pipeline stages, status badges |
+| `MindMapNode` | Center `(x, y)` | Radial (4 directions) | `add()`, `draw(branch=...)` | Architecture overviews, decision trees, org charts |
+| `ChevronProcess` | Bottom-Left `(x, y)` | Horizontal linear | `add()`, `draw()` | CI/CD pipelines, ETL workflows, order lifecycles |
+| `Cycle` | Center / Bottom-Left | Radial circular | `add()`, `set_center()`, `draw()` | PDCA DevOps loops, token refresh cycles, state machines |
 | `GridLayout` | Bottom-Left `(x, y)` | Matrix grid cells | `add()`, `draw()`, `draw_flexible()` | Multi-tier architecture layers, dashboard panels |
 | `Pyramid` | Bottom-Left `(x, y)` | Stacked layers | `add()`, `draw()`, `draw_flexible()` | Defense-in-depth, testing pyramid, memory hierarchies |
-| `BulletPoints` | Top-Left `(x, y)` | Downward list | `set_indent()`, `set_bullet_style()`, `draw()` | Architecture takeaways, RFC summaries, feature lists |
+| `BulletPoints` | Top-Left `(x, y)` | Downward list | `add()`, `set_indent()`, `set_bullet_style()`, `draw()` | Architecture takeaways, RFC summaries, feature lists |
 | `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw()`, `get_text()` | Embedded configuration, code samples, API payloads |
 
 ---
@@ -269,10 +269,8 @@ save()
 
 ### 5.2 BoxList Methods
 - `BoxList(*, style: Style, text_style: Style)`: Initializes mandatory default box and text styles.
-- `append(text, *, style=None, text_style=None)`: Appends a card with optional custom style override.
-- `insert(index, text, *, style=None, text_style=None)`: Inserts a card at a specified index.
-- `extend(texts, *, style=None, text_style=None)`: Batches multiple cards using default or uniform custom styles.
-- `draw(xy, box_width, box_height, align="left")`: Renders all cards in specified orientation.
+- `add(text, *, style=None, text_style=None, show=True) -> _BoxListItem`: Adds a card with optional custom style override and returns the mutable item instance.
+- `draw(xy, box_width, box_height, align="left", scale=1.0)`: Renders all cards in specified orientation.
 
 ### 5.3 Production Example: Horizontal Service Pipeline & Status Cards
 ```drawlib show-code
@@ -286,20 +284,21 @@ pipeline = BoxList(
     style=Styles.Neutral,
     text_style=Styles.DarkBold.patch(text_size=10),
 )
-pipeline.append("1. Ingestion")
-pipeline.append("2. Validation")
+pipeline.add("1. Ingestion")
+pipeline.add("2. Validation")
 # Highlighted hero step
-pipeline.append(
+pipeline.add(
     "3. ML Inference",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=10),
 )
-pipeline.append("4. Persistence", style=Styles.SecondaryNeutral)
-pipeline.append("5. Dispatch")
+pipeline.add("4. Persistence", style=Styles.SecondaryNeutral)
+pipeline.add("5. Dispatch")
 pipeline.draw(xy=(8, 30), box_width=18, box_height=10, align="left")
 
 status_list = BoxList(style=Styles.NeutralFlat, text_style=Styles.DarkBold.patch(text_size=9))
-status_list.extend(["Cluster A: OK", "Cluster B: OK", "Cluster C: SYNC"])
+for label in ("Cluster A: OK", "Cluster B: OK", "Cluster C: SYNC"):
+    status_list.add(label)
 status_list.draw(xy=(8, 5), box_width=25, box_height=6, align="left")
 save()
 ```
@@ -424,10 +423,8 @@ ChevronProcess(
 ```
 
 ### 7.3 Step Management & Drawing
-- `append(text, *, description="", style=None, text_style=None, description_style=None)`: Appends an individual step with optional style overrides.
-- `extend(texts, *, descriptions=None, styles=None, text_styles=None, description_styles=None)`: Appends multiple step titles with optional descriptions and shared/list styles.
-- `insert(index, text, *, description="", style=None, text_style=None, description_style=None)`: Inserts a step at a given position.
-- `draw(xy, width=90.0, height=12.0, item_width=None)`:
+- `add(text, *, description="", style=None, text_style=None, description_style=None, show=True) -> _ChevronItem`: Adds an individual step with optional style overrides and returns the mutable item instance.
+- `draw(xy, width=90.0, height=12.0, item_width=None, scale=1.0)`:
   - `width`: Total bounding width allocated; individual block widths are computed automatically:
     $$\text{item\_width} = \frac{\text{width} - (\text{num\_items} - 1) \cdot \text{spacing} - x_{\text{indent}}}{\text{num\_items}}$$
   - `item_width`: If provided, overrides automatic width distribution.
@@ -448,18 +445,18 @@ pipeline = ChevronProcess(
     spacing=2.0,
     flat_left_end=True,
 )
-pipeline.append("1. Commit", description="Lint / Hooks")
-pipeline.append("2. Build", description="Docker Image")
+pipeline.add("1. Commit", description="Lint / Hooks")
+pipeline.add("2. Build", description="Docker Image")
 # Active Stage Highlight
-pipeline.append(
+pipeline.add(
     text="3. Security",
     description="SAST & CVE",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=9.5),
     description_style=Styles.White.patch(text_size=8),
 )
-pipeline.append("4. Staging", description="Integration")
-pipeline.append("5. Production", description="Canary Deploy", style=Styles.SecondaryNeutral)
+pipeline.add("4. Staging", description="Integration")
+pipeline.add("5. Production", description="Canary Deploy", style=Styles.SecondaryNeutral)
 pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 save()
 ```
@@ -507,9 +504,8 @@ Cycle(
 ### 8.3 Key Configuration Options
 - `arrow_color_mode`: `"match_source"` (matches preceding node), `"match_target"` (matches succeeding node), `"monochrome"`.
 - `description_placement`: `"inside"` (inside node body) or `"outside"` (radiates outward).
-- `append(text, *, style=None, text_style=None, description="", description_style=None, arrow_style=None)`: Appends an individual step.
-- `extend(texts, *, styles=None, text_styles=None, descriptions=None, description_styles=None, arrow_styles=None)`: Appends multiple step titles.
-- `set_center(text, *, style=None, text_style=None, description="", radius=None, description_style=None)`: Configures central hub node.
+- `add(text, *, style=None, text_style=None, description="", description_style=None, arrow_style=None, show=True) -> _CycleItem`: Adds an individual step and returns the mutable item instance.
+- `set_center(text, *, style=None, text_style=None, description="", radius=None, description_style=None, show=True) -> _CycleCenter`: Configures central hub node and returns the mutable center instance.
 
 ### 8.4 Production Example: SRE Incident Response Lifecycle
 ```drawlib show-code
@@ -535,17 +531,17 @@ incident_cycle = Cycle(
     arrow_color_mode="monochrome",
     description_placement="inside",
 )
-incident_cycle.append(
+incident_cycle.add(
     "1. Detect",
     description="Alert Fires",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=9),
     description_style=Styles.White.patch(text_size=7),
 )
-incident_cycle.append("2. Triage", description="Assess Scope", style=Styles.PrimaryNeutral)
-incident_cycle.append("3. Mitigate", description="Failover", style=Styles.SecondaryNeutral)
-incident_cycle.append("4. Resolve", description="Root Fix", style=Styles.Neutral)
-incident_cycle.append("5. Learn", description="Action Items", style=Styles.Neutral)
+incident_cycle.add("2. Triage", description="Assess Scope", style=Styles.PrimaryNeutral)
+incident_cycle.add("3. Mitigate", description="Failover", style=Styles.SecondaryNeutral)
+incident_cycle.add("4. Resolve", description="Root Fix", style=Styles.Neutral)
+incident_cycle.add("5. Learn", description="Action Items", style=Styles.Neutral)
 
 incident_cycle.set_center(
     text="SRE",
@@ -908,10 +904,10 @@ pipeline = ChevronProcess(
     spacing=1.5,
     flat_left_end=True,
 )
-pipeline.append("1. Plan", description="Arch Review")
-pipeline.append("2. Build", description="Docker Image")
-pipeline.append("3. Test", description="E2E Verified", style=Styles.SecondaryNeutral)
-pipeline.append(
+pipeline.add("1. Plan", description="Arch Review")
+pipeline.add("2. Build", description="Docker Image")
+pipeline.add("3. Test", description="E2E Verified", style=Styles.SecondaryNeutral)
+pipeline.add(
     "4. Deploy",
     description="Production",
     style=Styles.PrimaryFlat,

@@ -25,6 +25,7 @@ from matplotlib.patches import (
     Circle,
     Ellipse,
     FancyArrowPatch,
+    Patch,
     PathPatch,
     Polygon,
     RegularPolygon,
@@ -58,73 +59,76 @@ def _as_any(val: object) -> Any:  # noqa: ANN401
     return val
 
 
-def _apply_artist_transform(  # noqa: C901, PLR0912
-    artist: matplotlib.artist.Artist,
+def _transform_fancy_arrow_patch(
+    artist: FancyArrowPatch,
     s: float,
     tx: float,
     ty: float,
 ) -> None:
-    """Apply similarity transform (scale s + translation (tx, ty)) to a Matplotlib artist in place."""
+    """Transform geometry of a FancyArrowPatch in place."""
+    pos_a_b = _as_any(getattr(artist, "_posA_posB", None))
+    if pos_a_b is not None:
+        pos_a, pos_b = pos_a_b
+        artist.set_positions(
+            (float(pos_a[0]) * s + tx, float(pos_a[1]) * s + ty),
+            (float(pos_b[0]) * s + tx, float(pos_b[1]) * s + ty),
+        )
+    else:
+        orig_path = _as_any(getattr(artist, "_path_original", None))
+        if orig_path is not None:
+            new_verts = [(float(vx) * s + tx, float(vy) * s + ty) for vx, vy in _as_any(orig_path.vertices)]
+            setattr(artist, "_path_original", Path(vertices=new_verts, codes=orig_path.codes))
+    ms = artist.get_mutation_scale()
+    if ms:
+        artist.set_mutation_scale(float(ms) * s)
+
+
+def _apply_patch_geometry_transform(
+    artist: Patch,
+    s: float,
+    tx: float,
+    ty: float,
+) -> None:
+    """Transform geometry of a Matplotlib Patch subclass in place."""
     if isinstance(artist, FancyArrowPatch):
-        pos_a_b = _as_any(getattr(artist, "_posA_posB", None))
-        if pos_a_b is not None:
-            pos_a, pos_b = pos_a_b
-            artist.set_positions(
-                (float(pos_a[0]) * s + tx, float(pos_a[1]) * s + ty),
-                (float(pos_b[0]) * s + tx, float(pos_b[1]) * s + ty),
-            )
-        else:
-            orig_path = _as_any(getattr(artist, "_path_original", None))
-            if orig_path is not None:
-                new_verts = [(float(vx) * s + tx, float(vy) * s + ty) for vx, vy in _as_any(orig_path.vertices)]
-                setattr(artist, "_path_original", Path(vertices=new_verts, codes=orig_path.codes))
-        lw = artist.get_linewidth()
-        if lw:
-            artist.set_linewidth(float(lw) * s)
-        ms = artist.get_mutation_scale()
-        if ms:
-            artist.set_mutation_scale(float(ms) * s)
+        _transform_fancy_arrow_patch(artist, s, tx, ty)
     elif isinstance(artist, PathPatch):
         orig_path = _as_any(artist.get_path())
         new_verts = [(float(vx) * s + tx, float(vy) * s + ty) for vx, vy in _as_any(orig_path.vertices)]
         artist.set_path(Path(vertices=new_verts, codes=orig_path.codes))
-        lw = artist.get_linewidth()
-        if lw:
-            artist.set_linewidth(float(lw) * s)
     elif isinstance(artist, Polygon):
         new_verts = [(float(vx) * s + tx, float(vy) * s + ty) for vx, vy in _as_any(artist.get_xy())]
         artist.set_xy(new_verts)
-        lw = artist.get_linewidth()
-        if lw:
-            artist.set_linewidth(float(lw) * s)
     elif isinstance(artist, Circle):
         center = _as_any(artist.get_center())
         artist.set_center((float(center[0]) * s + tx, float(center[1]) * s + ty))
         artist.set_radius(float(artist.get_radius()) * s)
-        lw = artist.get_linewidth()
-        if lw:
-            artist.set_linewidth(float(lw) * s)
     elif isinstance(artist, Ellipse):
         center = _as_any(artist.get_center())
         artist.set_center((float(center[0]) * s + tx, float(center[1]) * s + ty))
         artist.set_width(float(artist.get_width()) * s)
         artist.set_height(float(artist.get_height()) * s)
-        lw = artist.get_linewidth()
-        if lw:
-            artist.set_linewidth(float(lw) * s)
     elif isinstance(artist, RegularPolygon):
         xy = _as_any(artist.xy)
         artist.xy = (float(xy[0]) * s + tx, float(xy[1]) * s + ty)
         artist.radius = float(artist.radius) * s
-        lw = artist.get_linewidth()
-        if lw:
-            artist.set_linewidth(float(lw) * s)
     elif isinstance(artist, Wedge):
         center = _as_any(artist.center)
         artist.set_center((float(center[0]) * s + tx, float(center[1]) * s + ty))
         artist.set_radius(float(artist.r) * s)
         if artist.width is not None:
             artist.set_width(float(artist.width) * s)
+
+
+def _apply_artist_transform(
+    artist: matplotlib.artist.Artist,
+    s: float,
+    tx: float,
+    ty: float,
+) -> None:
+    """Apply similarity transform (scale s + translation (tx, ty)) to a Matplotlib artist in place."""
+    if isinstance(artist, Patch):
+        _apply_patch_geometry_transform(artist, s, tx, ty)
         lw = artist.get_linewidth()
         if lw:
             artist.set_linewidth(float(lw) * s)
