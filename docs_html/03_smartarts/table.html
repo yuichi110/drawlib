@@ -110,10 +110,6 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/animation.html" >Animations (APNG & WebP)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
                             </li>
                             
@@ -237,67 +233,94 @@
                         </ul>
                     
                         
-                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        <div class="sidebar-heading">6. Animations</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../06_animations/overview.html" >Animations Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                                <a href="../06_animations/primitives.html" >Animating Primitives & Colors</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                                <a href="../06_animations/smartarts.html" >Animating SmartArts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                                <a href="../06_animations/charts.html" >Animating Charts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                                <a href="../06_animations/diagrams_and_graphs.html" >Animating Diagrams & Graphs</a>
                             </li>
                             
                         </ul>
                     
                         
-                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        <div class="sidebar-heading">7. Document Builder & CLI</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                                <a href="../07_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                                <a href="../07_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                                <a href="../07_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                                <a href="../07_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                                <a href="../07_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
                             </li>
                             
                         </ul>
@@ -323,14 +346,15 @@
   <figcaption class="drawlib-caption">Service Status Matrix with Table</figcaption>
 </figure>
 <hr />
-<h2>2. Geometry &amp; Coordinate Mechanics</h2>
+<h2>2. Geometry, Data Matrix &amp; Coordinate Mechanics</h2>
 <ul>
 <li><strong>Top-Left Anchor <code>(x, y)</code></strong>: The coordinate passed to <code>draw(xy=...)</code> specifies the <strong>top-left corner</strong> of the first table cell.</li>
 <li><strong>Downward Flow</strong>: Rows move downward (<code>y - row_height</code>), while columns extend to the right (<code>x + col_width</code>).</li>
-<li><strong>Sizing Modes</strong>:
+<li><strong>2D Data Matrix (<code>data</code>)</strong>: Passed as a 2D list (<code>list[list[Any]]</code>) to <code>draw()</code> or <code>draw_flexible()</code>. When <code>has_header=True</code> (default), row <code>0</code> is styled using <code>header_cell_style</code> and <code>header_text_style</code>.</li>
+<li><strong>Sizing &amp; Scaling Modes</strong>:
 <ul>
-<li><code>draw(xy, width, height, data)</code>: Distributes <code>width</code> and <code>height</code> equally across all columns and rows.</li>
-<li><code>draw_flexible(xy, column_widths, row_heights, data)</code>: Provides custom widths per column (e.g. <code>column_widths=[30, 20, 25, 25]</code>).</li>
+<li><code>draw(xy, width, height, data, scale: float = 1.0)</code>: Distributes <code>width</code> and <code>height</code> equally across all columns and rows, scaling dimensions and font sizes by <code>scale</code>.</li>
+<li><code>draw_flexible(xy, column_widths, row_heights, data, scale: float = 1.0)</code>: Provides custom widths per column (e.g. <code>column_widths=[30, 20, 25, 25]</code>) and custom heights per row.</li>
 </ul>
 </li>
 </ul>

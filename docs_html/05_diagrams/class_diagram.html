@@ -110,10 +110,6 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/animation.html" >Animations (APNG & WebP)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
                             </li>
                             
@@ -237,67 +233,94 @@
                         </ul>
                     
                         
-                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        <div class="sidebar-heading">6. Animations</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../06_animations/overview.html" >Animations Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                                <a href="../06_animations/primitives.html" >Animating Primitives & Colors</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                                <a href="../06_animations/smartarts.html" >Animating SmartArts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                                <a href="../06_animations/charts.html" >Animating Charts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                                <a href="../06_animations/diagrams_and_graphs.html" >Animating Diagrams & Graphs</a>
                             </li>
                             
                         </ul>
                     
                         
-                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        <div class="sidebar-heading">7. Document Builder & CLI</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                                <a href="../07_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                                <a href="../07_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                                <a href="../07_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                                <a href="../07_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                                <a href="../07_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
                             </li>
                             
                         </ul>
@@ -428,7 +451,12 @@
 </tr>
 </tbody>
 </table>
-<p><code>cd.connect(...)</code> accepts <code>start_side</code>, <code>end_side</code>, <code>start_multiplicity</code> (<code>&quot;1&quot;</code>, <code>&quot;0..1&quot;</code>), <code>end_multiplicity</code> (<code>&quot;*&quot;</code>, <code>&quot;1..*&quot;</code>), <code>start_role</code>, <code>end_role</code>, and <code>label</code>.</p>
+<p><code>cd.connect(...)</code> accepts <code>start_side</code>, <code>end_side</code>, <code>start_multiplicity</code> (<code>&quot;1&quot;</code>, <code>&quot;0..1&quot;</code>), <code>end_multiplicity</code> (<code>&quot;*&quot;</code>, <code>&quot;1..*&quot;</code>), <code>start_role</code>, <code>end_role</code>, <code>label</code>, and <code>show: bool = True</code>, returning a mutable <code>Relationship</code> instance (<code>rel.show</code>, <code>rel.style</code>, <code>rel.draw_ratio</code>, <code>rel.draw_direction</code>).</p>
+<h3>Registration &amp; Rendering Lifecycle</h3>
+<ul>
+<li><strong><code>cd.add(node, xy=(x, y), *, show: bool = True) -&gt; ClassNode</code></strong>: Registers a class card at <code>(x, y)</code> and returns the mutable <code>ClassNode</code> (<code>node.show</code>, <code>node.style</code>). Hiding a class (<code>show=False</code>) also automatically hides all relationships connected to it while keeping diagram bounds fixed.</li>
+<li><strong><code>cd.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -&gt; None</code></strong>: Renders the class diagram at <code>xy</code>, proportionally scaling card widths, compartment heights, UML markers, and typography by <code>scale</code>.</li>
+</ul>
 <hr />
 <h2>4. E-Commerce Domain Model</h2>
 <p>The following example combines inheritance, composition, and interface dependency:</p>

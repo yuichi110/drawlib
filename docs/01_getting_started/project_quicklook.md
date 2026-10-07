@@ -78,4 +78,4 @@ Open `http://localhost:8000` in your browser to inspect the full documentation s
 ---
 
 > [!NOTE]
-> For in-depth guides on code block attributes (`show-code`, `fold-code`, `caption:`), custom HTML templates, CSS theming, and Chromium PDF exports, see **[Chapter 6: Document Builder & CLI](../06_doc_builder_and_cli/overview.md)**.
+> For in-depth guides on code block attributes (`show-code`, `fold-code`, `caption:`), custom HTML templates, CSS theming, and Chromium PDF exports, see **[Chapter 7: Document Builder & CLI](../07_doc_builder_and_cli/overview.md)**.

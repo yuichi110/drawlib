@@ -150,3 +150,23 @@ When animating technical illustrations, **prefer `clear=True` (default per-frame
 4. **Built-in Lossless Compression**:
    - **APNG (`.png`)**: Automatically crops sub-frame delta bounding boxes and applies maximum Zlib (`compress_level=9`) + Huffman (`optimize=True`) compression.
    - **Animated WebP (`.webp`)**: Encodes with lossless sub-frame minimization (`lossless=True`, `minimize_size=True`), typically ~50% smaller than APNG.
+
+---
+
+## 7. Interactive Playback Control in Presentation Slides (`slide`)
+
+In 16:9 presentation slide decks (`drawlib init slide`), animated `.png` (APNG) and `.webp` blocks can be controlled interactively via `<canvas>` playback options on the ````drawlib```` fence:
+
+````markdown
+```drawlib file:pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
+from drawlib.anim import Animation
+...
+```
+````
+
+| Option | Values | Default | Description |
+| :--- | :--- | :--- | :--- |
+| **`anim-trigger`** | `auto` \| `click` | `auto` | `auto` starts playback as soon as the slide appears; `click` holds on Frame 0 (`READY`) until the presenter clicks the diagram. |
+| **`anim-loop`** | `once` \| `infinite` | `infinite` (`once` when `anim-pause` is set) | `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously. |
+| **`anim-pause`** | Comma-separated 0-based frame indices (e.g. `2,4`) | `None` | Pauses playback (`PAUSED`) immediately upon rendering each listed frame index. Clicking the diagram resumes playback from `frame + 1` until the next pause point or end. |
+

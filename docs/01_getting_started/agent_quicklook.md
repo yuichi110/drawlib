@@ -92,4 +92,4 @@ Teach your agent to follow Drawlib's autonomous self-correction loop when creati
 ---
 
 > [!TIP]
-> For complete system prompts, rule topic catalogues, and advanced automated CI/CD integration, proceed to **[Chapter 7: AI Agents & Advanced Integration](../07_ai_agents_and_advanced/ai_agent_instructions.md)**.
+> For complete system prompts, rule topic catalogues, and advanced automated CI/CD integration, proceed to **[Chapter 8: AI Agents & Advanced Integration](../08_ai_agents_and_advanced/ai_agent_instructions.md)**.

@@ -75,7 +75,7 @@ All diagram elements (nodes, entities, classes, boundaries, and junctions) imple
 
 ---
 
-## 3. Waypoints & Bus Lines with `Junction`
+## 4. Waypoints & Bus Lines with `Junction`
 
 A `Junction` represents a zero-dimension coordinate `(x, y)` on the canvas. It allows you to:
 - **Fork Bus Lines**: Split a single wire into multiple downstream connections.
@@ -84,7 +84,22 @@ A `Junction` represents a zero-dimension coordinate `(x, y)` on the canvas. It a
 
 ---
 
-## 4. Chapter Navigation
+## 5. Unified Component Lifecycle (`show`, Mutable Elements, and `scale`)
+
+All diagram classes (`ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, `ERDiagram`) and `drawlib.graph` solvers share a unified lifecycle for static and multi-frame rendering:
+
+1. **Visibility Control (`show: bool = True`)**:
+   - Every element constructor (`Node`, `NodeGroup`, `FlowNode`, `Lane`, `Participant`, `ParticipantGroup`, `State`, `ClassNode`, `Entity`) and registration method (`d.add(..., show=True)`, `.connect(..., show=True)`, `g.node(..., show=True)`, `g.edge(..., show=True)`, `g.cluster(..., show=True)`) accepts `show: bool = True`.
+   - **Fixed-Layout Guarantee**: Hidden elements (`show=False`) still participate in bounding-box, group, lane, lifeline, and graph layout calculations so visible elements never jump or shift when toggling `.show`.
+   - **Connected Edge & Dangling `Junction` Auto-Hiding**: If either endpoint of a connection (`Edge`, `Transition`, `Relationship`, `Message`) has `show=False` (or is inside a hidden group), the connection is automatically skipped during `draw()`. Furthermore, if an intermediate `Junction` has no visible downstream path, its upstream wire segment is also automatically hidden.
+2. **Mutable Element Instances**:
+   - `d.add(...)` and `.connect(...)` return the registered element instance (`Node`, `Edge`, `Transition`, `Relationship`, `Message`, `Block`, `Note`), allowing in-place mutation of `.show`, `.style`, `.text_style`, `.draw_ratio` (`0.0` to `1.0` partial wire drawing), and `.draw_direction` (`"forward"` | `"backward"`).
+3. **Proportional Scaling & Translation (`draw(xy=(0.0, 0.0), *, scale: float = 1.0)`)**:
+   - Every diagram's `draw(xy=(0.0, 0.0), *, scale: float = 1.0)` (as well as `g.draw(xy=(0.0, 0.0), ..., scale=1.0)` and `layout.draw(xy=(0.0, 0.0), *, scale=1.0)`) translates the diagram by `xy` and proportionally scales all node coordinates, widths/heights, icon sizes, line widths, and font sizes by `scale`.
+
+---
+
+## 6. Chapter Navigation
 
 Explore each dedicated diagram guide:
 - [Auto-Layout Graphs (`drawlib.graph`)](./graph.md): Declarative layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), `offset()`, and `export_code()`.

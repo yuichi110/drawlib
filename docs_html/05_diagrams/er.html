@@ -110,10 +110,6 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/animation.html" >Animations (APNG & WebP)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
                             </li>
                             
@@ -237,67 +233,94 @@
                         </ul>
                     
                         
-                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        <div class="sidebar-heading">6. Animations</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../06_animations/overview.html" >Animations Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                                <a href="../06_animations/primitives.html" >Animating Primitives & Colors</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                                <a href="../06_animations/smartarts.html" >Animating SmartArts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                                <a href="../06_animations/charts.html" >Animating Charts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                                <a href="../06_animations/diagrams_and_graphs.html" >Animating Diagrams & Graphs</a>
                             </li>
                             
                         </ul>
                     
                         
-                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        <div class="sidebar-heading">7. Document Builder & CLI</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                                <a href="../07_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                                <a href="../07_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                                <a href="../07_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                                <a href="../07_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                                <a href="../07_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
                             </li>
                             
                         </ul>
@@ -394,6 +417,12 @@
 <td><code>None</code></td>
 <td>Optional styling for table border and header.</td>
 </tr>
+<tr>
+<td><code>show</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Visibility flag (connected relationships auto-hide when <code>False</code>).</td>
+</tr>
 </tbody>
 </table>
 <h4>Column Properties (<code>add_column</code>)</h4>
@@ -439,6 +468,12 @@
 </tr>
 </tbody>
 </table>
+<h4>Registration, Connections &amp; Rendering</h4>
+<ul>
+<li><strong><code>er.add(entity, xy=(x, y), *, show: bool = True) -&gt; Entity</code></strong>: Places an entity table at <code>(x, y)</code> and returns the mutable <code>Entity</code>.</li>
+<li><strong><code>entity.connect(other, cardinality=&quot;1:*&quot;, ..., show: bool = True) -&gt; Relationship</code></strong>: Connects two entities with Crow's Foot notation and returns a mutable <code>Relationship</code> (<code>rel.show</code>, <code>rel.style</code>, <code>rel.draw_ratio</code>, <code>rel.draw_direction</code>).</li>
+<li><strong><code>er.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -&gt; None</code></strong>: Renders the ER diagram at <code>xy</code>, proportionally scaling table geometry, Crow's Foot markers, and font sizes by <code>scale</code>.</li>
+</ul>
 <hr />
 <h2>3. Supported Cardinality Notations</h2>
 <table>

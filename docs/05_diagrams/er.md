@@ -65,6 +65,7 @@ save()
 | `width` | `float` | `30.0` | Table bounding width in canvas units. |
 | `height` | `float \| None` | `None` | Optional height override (calculated from rows if None). |
 | `style` | `Style \| None` | `None` | Optional styling for table border and header. |
+| `show` | `bool` | `True` | Visibility flag (connected relationships auto-hide when `False`). |
 
 #### Column Properties (`add_column`)
 | Parameter | Type | Default | Description |
@@ -74,6 +75,11 @@ save()
 | `pk` | `bool` | `False` | When True, displays the `[PK]` badge. |
 | `fk` | `bool` | `False` | When True, displays the `[FK]` badge. |
 | `nullable` | `bool` | `True` | Whether field allows NULL values. |
+
+#### Registration, Connections & Rendering
+- **`er.add(entity, xy=(x, y), *, show: bool = True) -> Entity`**: Places an entity table at `(x, y)` and returns the mutable `Entity`.
+- **`entity.connect(other, cardinality="1:*", ..., show: bool = True) -> Relationship`**: Connects two entities with Crow's Foot notation and returns a mutable `Relationship` (`rel.show`, `rel.style`, `rel.draw_ratio`, `rel.draw_direction`).
+- **`er.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the ER diagram at `xy`, proportionally scaling table geometry, Crow's Foot markers, and font sizes by `scale`.
 
 ---
 

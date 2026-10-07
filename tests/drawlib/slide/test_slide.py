@@ -449,6 +449,7 @@ class TestSlideCli:
         assert (src_dir / "01_title.md").is_file()
         assert (src_dir / "02_agenda.md").is_file()
         assert (src_dir / "build.sh").is_file()
+        assert (src_dir / "build_image.sh").is_file()
         assert (src_dir / "serve.sh").is_file()
         assert (src_dir / "slide.css").is_file()
         assert (src_dir / "utils.py").is_file()
@@ -609,3 +610,53 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
         svg4 = (out_dir / "images" / "04_fourth" / "page.svg").read_text(encoding="utf-8")
         assert "1 / 4" in svg1
         assert "4 / 4" in svg4
+
+    def test_build_slide_anim_playback_markup(self, tmp_path: Path) -> None:
+        """Verify animated drawlib blocks with anim-trigger/loop/pause emit <canvas> player markup."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        src_dir.mkdir()
+
+        (src_dir / "01_anim.md").write_text(
+            """::: block (80, 140) (800, 500)
+```drawlib file:flow.png anim-trigger:click anim-loop:once anim-pause:2,4
+from drawlib.canvas import clear, save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+for i in range(6):
+    clear()
+    setup(width=40, height=20)
+    rectangle((10 + i * 3, 10), width=6, height=6, style=Styles.PrimaryFlat)
+    save()
+```
+:::
+
+::: block (920, 140) (800, 500)
+```drawlib file:static_box.png
+from drawlib.canvas import clear, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+clear()
+setup(width=40, height=20)
+rectangle((20, 10), width=10, height=10, style=Styles.Neutral)
+```
+:::
+""",
+            encoding="utf-8",
+        )
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        html_content = Path(result_html).read_text(encoding="utf-8")
+
+        # Animated block with playback options -> canvas container + play badge
+        assert 'class="drawlib-image drawlib-anim-container"' in html_content
+        assert 'data-anim-trigger="click"' in html_content
+        assert 'data-anim-loop="once"' in html_content
+        assert 'data-anim-pause="2,4"' in html_content
+        assert '<canvas class="drawlib-anim-canvas" data-src="images/01_anim/flow.png"' in html_content
+        assert 'class="anim-play-badge"' in html_content
+
+        # Static block without playback options -> standard <img>
+        assert '<img src="images/01_anim/static_box.png"' in html_content

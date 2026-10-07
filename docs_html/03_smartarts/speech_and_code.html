@@ -110,10 +110,6 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/animation.html" >Animations (APNG & WebP)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
                             </li>
                             
@@ -237,67 +233,94 @@
                         </ul>
                     
                         
-                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        <div class="sidebar-heading">6. Animations</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../06_animations/overview.html" >Animations Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                                <a href="../06_animations/primitives.html" >Animating Primitives & Colors</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                                <a href="../06_animations/smartarts.html" >Animating SmartArts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                                <a href="../06_animations/charts.html" >Animating Charts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                                <a href="../06_animations/diagrams_and_graphs.html" >Animating Diagrams & Graphs</a>
                             </li>
                             
                         </ul>
                     
                         
-                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        <div class="sidebar-heading">7. Document Builder & CLI</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                                <a href="../07_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                                <a href="../07_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                                <a href="../07_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                                <a href="../07_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                                <a href="../07_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
                             </li>
                             
                         </ul>
@@ -350,8 +373,21 @@
 <hr />
 <h2>3. Syntax-Highlighted Code Blocks (<code>SourceCode</code>)</h2>
 <p><code>SourceCode</code> renders syntax-highlighted code snippets directly as sharp vector shapes and text.
-Unlike stateful SmartArts (<code>Table</code>, <code>TreeNode</code>), <code>SourceCode</code> is stateless: you draw code directly via <code>SourceCode.draw(...)</code> or the <code>sourcecode(...)</code> function alias.</p>
-<h3>Drawing Method</h3>
+It supports both the <strong>unified instance lifecycle</strong> (<code>sc = SourceCode(...); sc.add(..., show=True); sc.draw(xy, width, scale=1.0)</code>) for line-by-line or block-by-block progressive visibility, and a <strong>stateless one-shot call</strong> (<code>SourceCode.draw(xy, width, code=..., styles=..., scale=1.0)</code>).</p>
+<h3>Instance Lifecycle (<code>add()</code> -&gt; <code>draw()</code>)</h3>
+<pre><code class="language-python"><span class="n">sc</span> <span class="o">=</span> <span class="n">SourceCode</span><span class="p">(</span>
+    <span class="n">styles</span><span class="p">:</span> <span class="n">SourceCodeStyles</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">show_linenum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span>
+</code></pre>
+<ul>
+<li>Each <code>sc.add(...)</code> call appends one or more lines of code. If <code>show=False</code>, the container box height and line number gutter still reserve space for those lines, while their text is hidden.</li>
+</ul>
+<h3>Stateless One-Shot Drawing</h3>
 <pre><code class="language-python"><span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>           <span class="c1"># Top-left corner (x, y) of the code container</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                      <span class="c1"># Total container width</span>
@@ -362,6 +398,7 @@ Unlike stateful SmartArts (<code>Table</code>, <code>TreeNode</code>), <code>Sou
     <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>      <span class="c1"># Language: &quot;python&quot;, &quot;json&quot;, &quot;yaml&quot;, &quot;sql&quot;, etc.</span>
     <span class="n">show_linenum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>        <span class="c1"># Whether to show line numbers in a gutter</span>
     <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>                    <span class="c1"># Corner radius of the container box</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>                <span class="c1"># Proportional scale factor relative to `xy`</span>
 <span class="p">)</span>
 </code></pre>
 <h3>Style Management (<code>SourceCodeStyles</code>)</h3>

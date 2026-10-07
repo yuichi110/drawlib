@@ -256,6 +256,8 @@ def export_html_file_to_pdf(
                 page.goto(f"file://{abs_input}", wait_until="networkidle")
                 with contextlib.suppress(Exception):
                     page.evaluate("() => document.fonts.ready")
+                with contextlib.suppress(Exception):
+                    page.evaluate("() => window.__drawlibAnimReady")
                 if prefer_css_page_size:
                     page.pdf(
                         path=abs_output,

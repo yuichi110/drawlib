@@ -17,13 +17,14 @@ The `Table` component renders 2D tabular data, comparison matrices, and database
 
 ---
 
-## 2. Geometry & Coordinate Mechanics
+## 2. Geometry, Data Matrix & Coordinate Mechanics
 
 - **Top-Left Anchor `(x, y)`**: The coordinate passed to `draw(xy=...)` specifies the **top-left corner** of the first table cell.
 - **Downward Flow**: Rows move downward (`y - row_height`), while columns extend to the right (`x + col_width`).
-- **Sizing Modes**:
-  - `draw(xy, width, height, data)`: Distributes `width` and `height` equally across all columns and rows.
-  - `draw_flexible(xy, column_widths, row_heights, data)`: Provides custom widths per column (e.g. `column_widths=[30, 20, 25, 25]`).
+- **2D Data Matrix (`data`)**: Passed as a 2D list (`list[list[Any]]`) to `draw()` or `draw_flexible()`. When `has_header=True` (default), row `0` is styled using `header_cell_style` and `header_text_style`.
+- **Sizing & Scaling Modes**:
+  - `draw(xy, width, height, data, scale: float = 1.0)`: Distributes `width` and `height` equally across all columns and rows, scaling dimensions and font sizes by `scale`.
+  - `draw_flexible(xy, column_widths, row_heights, data, scale: float = 1.0)`: Provides custom widths per column (e.g. `column_widths=[30, 20, 25, 25]`) and custom heights per row.
 
 ---
 

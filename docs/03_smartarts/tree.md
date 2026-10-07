@@ -18,10 +18,13 @@ It automates vertical branch alignment, indentation levels, and tree connector l
 
 ---
 
-## 2. Geometry & Coordinate Mechanics
+## 2. Geometry, Lifecycle & Coordinate Mechanics
 
-- **Top-Left Anchor `(x, y)`**: The coordinate passed to `root.draw(xy=...)` represents the **top-left corner** of the root node text.
+- **Top-Left Anchor `(x, y)`**: The coordinate passed to `root.draw(xy=..., *, scale: float = 1.0)` represents the **top-left corner** of the root node text. Passing `scale` proportionally scales indentation, vertical spacing, icons, and text sizes relative to `xy`.
 - **Downward & Rightward Flow**: Sub-directories and files branch downward and indent horizontally to the right.
+- **Visibility (`show: bool = True`)**:
+  - Both `TreeNode(text, ..., show: bool = True)` and `node.add(child, *, show: bool = True)` control node visibility.
+  - Setting `show=False` hides the node, its incoming branch line, and its subtree while **preserving the exact vertical Y-coordinates of all subsequent sibling nodes**.
 - **Root Node Style & Margin Requirements**:  
   When instantiating the root `TreeNode`, both styles and all three layout spacing arguments must be configured (child nodes inherit them automatically via cascading):
   - `text_style`: Default text style for node labels.

@@ -159,6 +159,13 @@ HTML presentation decks compiled with Drawlib feature an ultra-lightweight, zero
 | `F` | Fullscreen | Toggle browser fullscreen presentation mode. |
 | `O` / `Esc` | Overview Grid | Toggle slide overview thumbnail grid for instant jumping. |
 
+### 5.1. Interactive `<canvas>` Animation Playback (`anim-trigger`, `anim-loop`, `anim-pause`)
+For APNG (`.png` / `.apng`) and Animated WebP (`.webp`) blocks in slides, attach playback attributes to the ````drawlib```` fence:
+- `anim-trigger:click` (`auto` | `click`): Hold at Frame 0 (`READY`) until clicked.
+- `anim-loop:once` (`once` | `infinite`): Stop at the final frame (`ENDED`); click again to replay from Frame 0.
+- `anim-pause:2,4`: Pause at 0-based frame indices `2` and `4` (`PAUSED`); click to step forward.
+
+
 ---
 
 ## 6. Vector PDF Compilation (`build_pdf.sh`)

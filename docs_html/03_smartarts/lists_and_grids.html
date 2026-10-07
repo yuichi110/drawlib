@@ -110,10 +110,6 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/animation.html" >Animations (APNG & WebP)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
                             </li>
                             
@@ -237,67 +233,94 @@
                         </ul>
                     
                         
-                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        <div class="sidebar-heading">6. Animations</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../06_animations/overview.html" >Animations Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                                <a href="../06_animations/primitives.html" >Animating Primitives & Colors</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                                <a href="../06_animations/smartarts.html" >Animating SmartArts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                                <a href="../06_animations/charts.html" >Animating Charts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                                <a href="../06_animations/diagrams_and_graphs.html" >Animating Diagrams & Graphs</a>
                             </li>
                             
                         </ul>
                     
                         
-                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        <div class="sidebar-heading">7. Document Builder & CLI</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                                <a href="../07_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                                <a href="../07_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                                <a href="../07_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                                <a href="../07_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                                <a href="../07_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
                             </li>
                             
                         </ul>
@@ -333,7 +356,8 @@
 <p><code>GridLayout</code> organizes cards across a grid of <code>num_column</code> columns and <code>num_row</code> rows:</p>
 <ul>
 <li><strong>Anchor</strong>: Bottom-Left <code>(x, y)</code>. Row 0 is the bottom row; Column 0 is the left column.</li>
-<li><strong>Cell Spanning</strong>: A card at <code>position=(col, row)</code> can span <code>width</code> columns and <code>height</code> rows.</li>
+<li><strong>Cell Spanning</strong>: <code>grid.add(position=(col, row), width=1, height=1, text=&quot;&quot;, style=None, text_style=None, r=None, show: bool = True)</code> spans <code>width</code> columns and <code>height</code> rows. Setting <code>show=False</code> hides the cell card while preserving the matrix grid.</li>
+<li><strong>Rendering</strong>: <code>grid.draw(xy, width, height, margin, outer_margin=0.0, *, scale: float = 1.0)</code> renders all visible cells and proportionally scales geometry and typography by <code>scale</code>.</li>
 </ul>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridLayout</span>
@@ -356,17 +380,22 @@
 <p><code>Pyramid</code> renders hierarchical trapezoids crowned by an apex triangle:</p>
 <ul>
 <li><strong>Anchor</strong>: Bottom-Left <code>(x, y)</code>.</li>
-<li><strong><code>order</code></strong>:
+<li><strong><code>pyramid.add(text=&quot;&quot;, style=None, text_style=None, show: bool = True)</code></strong>: Appends a tier. Hidden tiers (<code>show=False</code>) keep their trapezoid slice reserved so remaining tiers stay in their exact positions.</li>
+<li><strong><code>pyramid.draw(xy, width, height, margin, align=&quot;bottom&quot;, order=&quot;vertex_to_base&quot;, *, scale: float = 1.0)</code></strong>:
 <ul>
-<li><code>&quot;vertex_to_base&quot;</code>: First added item is positioned at the apex; subsequent items widen toward the base.</li>
-<li><code>&quot;base_to_vertex&quot;</code>: First added item starts at the wide base.</li>
+<li><strong><code>order</code></strong>: <code>&quot;vertex_to_base&quot;</code> (first item at apex) or <code>&quot;base_to_vertex&quot;</code> (first item at wide base).</li>
+<li><strong><code>align</code></strong>: <code>&quot;bottom&quot;</code> (standard upright pyramid), <code>&quot;top&quot;</code> (inverted funnel), <code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>.</li>
+<li><strong><code>scale</code></strong>: Proportionally scales dimensions, margins, and font sizes relative to <code>xy</code>.</li>
 </ul>
 </li>
-<li><strong><code>align</code></strong>: <code>&quot;bottom&quot;</code> (standard upright pyramid), <code>&quot;top&quot;</code> (inverted funnel), <code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>.</li>
 </ul>
 <hr />
 <h2>4. BoxList (Linear Card Sequences)</h2>
 <p><code>BoxList</code> sequences cards along one axis (<code>align=&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, or <code>&quot;bottom&quot;</code>):</p>
+<ul>
+<li><strong><code>bl.add(text, width=None, height=None, r=None, style=None, text_style=None, show: bool = True)</code></strong>: Adds a box to the sequence (<code>show=False</code> reserves the box slot and spacing without drawing the box).</li>
+<li><strong><code>bl.draw(xy, box_width, box_height, box_margin=2.0, align=&quot;left&quot;, *, scale: float = 1.0)</code></strong>: Renders the sequence anchored at <code>xy</code> with proportional scaling via <code>scale</code>.</li>
+</ul>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoxList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
@@ -386,6 +415,10 @@
 <hr />
 <h2>5. BulletPoints (Formatted Text Lists)</h2>
 <p><code>BulletPoints</code> renders nested lists starting from a top-left coordinate <code>(x, y)</code>:</p>
+<ul>
+<li><strong><code>bp.add(text, style=None, text_style=None, show: bool = True)</code></strong>: Appends a bullet item at the current indent level (<code>show=False</code> keeps vertical spacing fixed for subsequent items).</li>
+<li><strong><code>bp.draw(xy, *, scale: float = 1.0)</code></strong>: Renders all visible bullet points anchored at <code>xy</code>, scaling indent width, vertical margin, icon size, and font size by <code>scale</code>.</li>
+</ul>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">BulletPoints</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>

@@ -59,6 +59,13 @@ db = vpc.add(Participant("Cloud SQL", icon=GcpIcon.CLOUD_SQL))
 client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER))
 ```
 
+### Registration, Message & Rendering Methods
+- **`d.add(item, *, show: bool = True) -> Participant | ParticipantGroup`** (and `group.add(participant, *, show: bool = True) -> Participant`): Registers a participant or group (`show=False` hides the lifeline/group and any attached messages while keeping horizontal column spacing fixed).
+- **`a.request(b, label="", is_async=False, show: bool = True) -> Message`**, **`b.reply(a, label="", is_async=False, show: bool = True) -> Message`**, **`a.connect(b, label="", arrow="<->", show: bool = True) -> Message`**: Records a chronological message step and returns a mutable `Message` instance (`msg.show`, `msg.style`, `msg.draw_ratio`, `msg.draw_direction`). Hidden messages (`show=False`) keep their vertical `step_y` row reserved.
+- **`p.note(text, pos="left"|"right", show: bool = True) -> Note`** and **`d.note(text, over=[p1, p2], show: bool = True) -> Note`**: Attaches a sticky note and returns a mutable `Note` instance.
+- **`with d.loop(cond, show=True) as blk:`** (also `alt`, `opt`, `par`): Yields a mutable `Block` instance (`blk.show`, `blk.style`).
+- **`d.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the sequence diagram at `xy`, proportionally scaling column widths, vertical steps, icons, and typography by `scale`.
+
 ---
 
 ## 3. Distributed Transaction Pipeline

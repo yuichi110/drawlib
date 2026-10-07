@@ -271,3 +271,19 @@ for step in range(len(nodes)):
 
 save("graph_layer_steps.png")
 ```
+
+---
+
+## 7. Slide Presentation Playback Controls (`anim-trigger`, `anim-loop`, `anim-pause`)
+
+When embedding animated `.png` (APNG) or `.webp` blocks inside a `slide` presentation project (`drawlib build slide`), use code-fence options to control interactive `<canvas>` playback in `slide.js`:
+
+````markdown
+```drawlib file:pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
+```
+````
+
+- **`anim-trigger: auto | click`**: `click` holds on Frame 0 (`READY`) until the presenter clicks the diagram; `auto` starts playback on slide entry.
+- **`anim-loop: once | infinite`**: `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously.
+- **`anim-pause: <frame_indices>`**: Comma-separated 0-based frame indices (e.g. `anim-pause:2,4`) where playback pauses (`PAUSED`) until the next click.
+

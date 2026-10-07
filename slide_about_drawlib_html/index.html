@@ -1329,15 +1329,19 @@ z
 <li>Only modified diagram code triggers full Python execution</li>
 </ul>
 </li>
-<li><strong>Dynamic Animations</strong>: Render looping animated WebP diagrams natively using <code>Animation</code></li>
+<li><strong>Dynamic Animations</strong>: Render interactive APNG / WebP diagrams with click-to-play and frame-level pause (<code>anim-trigger:click anim-loop:once anim-pause:2,4</code>)</li>
 </ul>
 
 </div>
 
 
 <div class="slide-block slide-text-box" style="position: absolute; left: 880.0px; top: 140.0px; width: 960.0px; height: 840.0px;">
-<figure class="drawlib-image">
-  <img src="images/05_workflows/workflow_pipeline.webp" alt="Illustration" class="slide-raster-graphic" style="width: 100%; height: 100%; object-fit: contain;" />
+<figure class="drawlib-image drawlib-anim-container" data-anim-trigger="click" data-anim-loop="once" data-anim-pause="2,4">
+  <canvas class="drawlib-anim-canvas" data-src="images/05_workflows/workflow_pipeline.webp" role="img" aria-label="Illustration"></canvas>
+  <div class="anim-play-badge" title="Click to play / continue animation">
+    <svg class="play-icon" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20" fill="currentColor"></polygon></svg>
+    <svg class="replay-icon" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="currentColor"></path></svg>
+  </div>
 </figure>
 </div>
 

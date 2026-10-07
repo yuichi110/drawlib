@@ -126,7 +126,7 @@ def _process_drawlib_blocks(
         eff_fmt = options.format or default_format or "svg"
         if options.file:
             dl_file = options.file
-            if not dl_file.endswith((".svg", ".png", ".webp")):
+            if not dl_file.endswith((".svg", ".png", ".apng", ".webp")):
                 dl_file = f"{dl_file}.{eff_fmt}"
         else:
             dl_file = f"drawlib_{idx}_{counter}.{eff_fmt}"
@@ -144,7 +144,7 @@ def _process_drawlib_blocks(
             source_filename=file_path,
             no_cache=options.no_cache,
         )
-        return format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs)
+        return format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs, options=options)
 
     return _PATTERN_DRAWLIB.sub(replacer, text)
 

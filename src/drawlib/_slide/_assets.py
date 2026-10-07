@@ -14,14 +14,19 @@ from __future__ import annotations
 import os
 import re
 import shutil
+from typing import TYPE_CHECKING, Optional
 
 from drawlib._templates import get_css, get_slide_js
+
+if TYPE_CHECKING:
+    from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions
 
 
 def format_asset_markup(
     file_name: str,
     alt_text: str,
     output_abs: str = "",
+    options: Optional[DrawlibBlockOptions] = None,
 ) -> str:
     """Format HTML markup for a rendered slide asset to fill its parent block container.
 
@@ -29,6 +34,7 @@ def format_asset_markup(
         file_name: Image filename or relative path on disk.
         alt_text: Alt text attribute.
         output_abs: Absolute path to output directory for inlining SVGs.
+        options: Parsed drawlib block options for animation playback controls.
 
     Returns:
         str: Generated HTML snippet.
@@ -51,6 +57,35 @@ def format_asset_markup(
                 f"  {svg_clean}\n"
                 f"</figure>\n"
             )
+
+    has_anim_opts = options is not None and (
+        options.anim_trigger is not None
+        or options.anim_loop is not None
+        or bool(options.anim_pause)
+    )
+    if has_anim_opts and options is not None and file_name.lower().endswith((".png", ".apng", ".webp")):
+        trigger = options.anim_trigger or "auto"
+        loop = options.anim_loop or ("once" if options.anim_pause else "infinite")
+        pause_attr = (
+            f' data-anim-pause="{",".join(str(p) for p in options.anim_pause)}"'
+            if options.anim_pause
+            else ""
+        )
+        return (
+            f'\n<figure class="drawlib-image drawlib-anim-container" '
+            f'data-anim-trigger="{trigger}" data-anim-loop="{loop}"{pause_attr}>\n'
+            f'  <canvas class="drawlib-anim-canvas" data-src="{file_name}" '
+            f'role="img" aria-label="{alt_text}"></canvas>\n'
+            f'  <div class="anim-play-badge" title="Click to play / continue animation">\n'
+            f'    <svg class="play-icon" viewBox="0 0 24 24">'
+            f'<polygon points="6 4 20 12 6 20" fill="currentColor"></polygon></svg>\n'
+            f'    <svg class="replay-icon" viewBox="0 0 24 24">'
+            f'<path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4'
+            f'c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="currentColor"></path></svg>\n'
+            f"  </div>\n"
+            f"</figure>\n"
+        )
+
     return (
         f'\n<figure class="drawlib-image">\n'
         f'  <img src="{file_name}" alt="{alt_text}" class="slide-raster-graphic" '
@@ -69,7 +104,7 @@ def copy_static_assets(input_abs: str, output_abs: str) -> None:
     for asset_file in os.listdir(input_abs):
         asset_lower = asset_file.lower()
         if (
-            asset_lower.endswith((".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ttf", ".woff", ".woff2"))
+            asset_lower.endswith((".png", ".apng", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ttf", ".woff", ".woff2"))
             and not asset_lower.startswith(".")
         ):
             src_p = os.path.join(input_abs, asset_file)

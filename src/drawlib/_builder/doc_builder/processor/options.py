@@ -35,6 +35,9 @@ class DrawlibBlockOptions(BaseModel):
     size: Optional[tuple[float, float]] = None
     z_index: Optional[int] = None
     no_cache: bool = False
+    anim_trigger: Optional[Literal["auto", "click"]] = None
+    anim_loop: Optional[Literal["once", "infinite"]] = None
+    anim_pause: Optional[list[int]] = None
 
 
 class ExtractedBlockInfo(BaseModel):
@@ -62,7 +65,7 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
     if not info:
         return options
 
-    # 1. Pre-process explicit xy: (...) / pos: (...) and size: (...) / dim: (...)
+    # 1. Pre-process explicit xy: (...) / pos: (...) and size: (...) / dim: (...) and anim-pause
     xy_m = re.search(r"(?:xy|pos|position):\s*\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)", info, re.I)
     if xy_m:
         options.xy = (float(xy_m.group(1)), float(xy_m.group(2)))
@@ -72,6 +75,21 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
     if size_m:
         options.size = (float(size_m.group(1)), float(size_m.group(2)))
         info = info[: size_m.start()] + " " + info[size_m.end() :]
+
+    pause_m = re.search(
+        r"(?:anim[-_])?pause[=:]\s*[\(\[]?\s*([0-9]+(?:\s*,\s*[0-9]+)*)\s*[\)\]]?",
+        info,
+        re.I,
+    )
+    if pause_m:
+        raw_pauses = [
+            int(p.strip())
+            for p in pause_m.group(1).split(",")
+            if p.strip().isdigit() and int(p.strip()) > 0
+        ]
+        if raw_pauses:
+            options.anim_pause = sorted(set(raw_pauses))
+        info = info[: pause_m.start()] + " " + info[pause_m.end() :]
 
     # 2. Pre-process standalone tuple shorthands: (x, y) and (w, h)
     tuple_pattern = r"\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)"
@@ -122,7 +140,7 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.align = val_clean.lower()
         elif key_lower in {"format", "fmt"}:
             fmt = val_clean.lower()
-            if fmt in {"png", "webp", "svg"}:
+            if fmt in {"png", "webp", "svg", "apng"}:
                 options.format = fmt
         elif key_lower in {"slot", "s"}:
             options.slot = val_clean.lower()
@@ -155,6 +173,32 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.z_index = int(val_clean)
             except ValueError:
                 pass
+        elif key_lower in {"anim-trigger", "anim_trigger", "anim"}:
+            val_trig = val_clean.lower()
+            if val_trig in {"click", "manual"}:
+                options.anim_trigger = "click"
+            elif val_trig == "auto":
+                options.anim_trigger = "auto"
+        elif key_lower in {"anim-loop", "anim_loop", "loop"}:
+            val_loop = val_clean.lower()
+            if val_loop in {"once", "1", "false", "no"}:
+                options.anim_loop = "once"
+            elif val_loop in {"infinite", "loop", "0", "true", "yes"}:
+                options.anim_loop = "infinite"
+        elif key_lower in {"anim-pause", "anim_pause", "pause"}:
+            pauses: list[int] = []
+            for part in val_clean.strip("()[]").split(","):
+                part_s = part.strip()
+                if not part_s:
+                    continue
+                try:
+                    p_val = int(part_s)
+                    if p_val > 0:
+                        pauses.append(p_val)
+                except ValueError:
+                    pass
+            if pauses:
+                options.anim_pause = sorted(set(pauses))
         elif not key_lower:
             val_lower = val_clean.lower()
             if val_lower in {"no-cache", "no_cache", "nocache"}:
@@ -167,7 +211,7 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.code = "hide"
             elif val_lower in {"left", "center", "right"}:
                 options.align = val_lower
-            elif val_lower in {"png", "webp", "svg"}:
+            elif val_lower in {"png", "webp", "svg", "apng"}:
                 options.format = val_lower
             elif val_lower.startswith("slot:"):
                 options.slot = val_lower[5:].strip()
@@ -204,13 +248,13 @@ def resolve_block_image_paths(
     Raises:
         ValueError: If require_file is True and options.file is missing.
     """
-    eff_format = options.format if options.format in {"png", "webp", "svg"} else default_format
-    ext = "svg" if eff_format == "svg" else ("webp" if eff_format == "webp" else "png")
+    eff_format = options.format if options.format in {"png", "webp", "svg", "apng"} else default_format
+    ext = eff_format if eff_format in {"svg", "webp", "apng"} else "png"
 
     if options.file:
         raw_file = options.file.strip()
         _, file_ext = os.path.splitext(raw_file)
-        if file_ext.lower() in {".png", ".webp", ".svg"}:
+        if file_ext.lower() in {".png", ".webp", ".svg", ".apng"}:
             img_name = raw_file
         else:
             img_name = f"{raw_file}.{ext}"

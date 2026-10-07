@@ -83,7 +83,11 @@ Relationships between classes are registered cleanly at the diagram level via `c
 | `"association"` | **Association** | Solid | None (or Open Arrow) | Structural reference |
 | `"dependency"` | **Dependency** | Dashed | Open Arrow (at target) | Uses-a dependency |
 
-`cd.connect(...)` accepts `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, and `label`.
+`cd.connect(...)` accepts `start_side`, `end_side`, `start_multiplicity` (`"1"`, `"0..1"`), `end_multiplicity` (`"*"`, `"1..*"`), `start_role`, `end_role`, `label`, and `show: bool = True`, returning a mutable `Relationship` instance (`rel.show`, `rel.style`, `rel.draw_ratio`, `rel.draw_direction`).
+
+### Registration & Rendering Lifecycle
+- **`cd.add(node, xy=(x, y), *, show: bool = True) -> ClassNode`**: Registers a class card at `(x, y)` and returns the mutable `ClassNode` (`node.show`, `node.style`). Hiding a class (`show=False`) also automatically hides all relationships connected to it while keeping diagram bounds fixed.
+- **`cd.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`**: Renders the class diagram at `xy`, proportionally scaling card widths, compartment heights, UML markers, and typography by `scale`.
 
 ---
 

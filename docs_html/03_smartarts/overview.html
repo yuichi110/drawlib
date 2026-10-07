@@ -110,10 +110,6 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/animation.html" >Animations (APNG & WebP)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
                             </li>
                             
@@ -237,67 +233,94 @@
                         </ul>
                     
                         
-                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        <div class="sidebar-heading">6. Animations</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../06_animations/overview.html" >Animations Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                                <a href="../06_animations/primitives.html" >Animating Primitives & Colors</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                                <a href="../06_animations/smartarts.html" >Animating SmartArts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                                <a href="../06_animations/charts.html" >Animating Charts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                                <a href="../06_animations/diagrams_and_graphs.html" >Animating Diagrams & Graphs</a>
                             </li>
                             
                         </ul>
                     
                         
-                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        <div class="sidebar-heading">7. Document Builder & CLI</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                                <a href="../07_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                                <a href="../07_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                                <a href="../07_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                                <a href="../07_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                                <a href="../07_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
                             </li>
                             
                         </ul>
@@ -339,55 +362,61 @@ The <code>drawlib.smartarts</code> module eliminates this boilerplate by providi
 <td style="text-align:left"><strong><code>ChevronProcess</code></strong></td>
 <td style="text-align:left">Phased pipelines, CI/CD stages, migration roadmaps</td>
 <td style="text-align:left">Bottom-Left <code>(x, y)</code></td>
-<td style="text-align:left"><code>add()</code>, <code>draw()</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>Cycle</code></strong></td>
 <td style="text-align:left">PDCA devops loops, circular lifecycles, state loops</td>
 <td style="text-align:left">Center <code>(cx, cy)</code></td>
-<td style="text-align:left"><code>add()</code>, <code>set_center()</code>, <code>draw()</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>set_center()</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>Table</code></strong></td>
 <td style="text-align:left">Service SLAs, specification matrices, DB schemas</td>
 <td style="text-align:left">Top-Left <code>(x, y)</code></td>
-<td style="text-align:left"><code>draw()</code>, <code>set_style_cell_*()</code></td>
+<td style="text-align:left"><code>set_style_cell_*()</code>, <code>draw(xy, w, h, data, scale=1.0)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>TreeNode</code></strong></td>
 <td style="text-align:left">Directory hierarchies, org charts, taxonomy trees</td>
 <td style="text-align:left">Top-Left <code>(x, y)</code></td>
-<td style="text-align:left"><code>add()</code>, <code>draw()</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>MindMapNode</code></strong></td>
 <td style="text-align:left">Brainstorming nodes, radial feature maps</td>
 <td style="text-align:left">Center <code>(cx, cy)</code></td>
-<td style="text-align:left"><code>add()</code>, <code>draw()</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>GridLayout</code></strong></td>
 <td style="text-align:left">Layered architectures, dashboard card grids</td>
 <td style="text-align:left">Bottom-Left <code>(x, y)</code></td>
-<td style="text-align:left"><code>add()</code>, <code>draw()</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>Pyramid</code></strong></td>
 <td style="text-align:left">Testing pyramids, tiered memory/cache hierarchies</td>
 <td style="text-align:left">Bottom-Left <code>(x, y)</code></td>
-<td style="text-align:left"><code>add()</code>, <code>draw()</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>BoxList</code></strong></td>
+<td style="text-align:left">Linear horizontal or vertical card sequences</td>
+<td style="text-align:left">Directional <code>(x, y)</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>BulletPoints</code></strong></td>
 <td style="text-align:left">Architectural takeaways, RFC key points</td>
 <td style="text-align:left">Top-Left <code>(x, y)</code></td>
-<td style="text-align:left"><code>add()</code>, <code>draw()</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>SourceCode</code></strong></td>
 <td style="text-align:left">Syntax-highlighted code blocks in diagrams</td>
 <td style="text-align:left">Top-Left <code>(x, y)</code></td>
-<td style="text-align:left"><code>draw()</code></td>
+<td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
 </tbody>
 </table>
@@ -402,6 +431,22 @@ You specify the bottom-left coordinate <code>(x, y)</code>. The bounding contain
 <li><strong>Center Anchored (<code>Cycle</code>, <code>MindMapNode</code>)</strong>:<br />
 You specify the center coordinate <code>(cx, cy)</code>. The diagram expands symmetrically or radially around the center.</li>
 </ul>
+<hr />
+<h2>4. Unified Component Lifecycle (<code>add()</code>, <code>show</code>, and <code>scale</code>)</h2>
+<p>All SmartArts components follow a consistent 3-step lifecycle:</p>
+<ol>
+<li><strong>Configure (<code>__init__</code>)</strong>: Instantiate the component with default styles, spacing, and layout parameters.</li>
+<li><strong>Register Content (<code>add(..., show: bool = True)</code>)</strong>: Populate stages, rows, cards, or child nodes.
+<ul>
+<li>Setting <code>show=False</code> hides that specific item during rendering while <strong>preserving the full geometry and layout slots of all sibling items</strong> (preventing layout shifts when revealing items step-by-step).</li>
+</ul>
+</li>
+<li><strong>Render (<code>draw(xy=..., ..., scale: float = 1.0)</code>)</strong>: Render the component onto the canvas at anchor <code>xy</code>.
+<ul>
+<li>Passing <code>scale</code> (e.g. <code>scale=0.8</code> or <code>scale=1.2</code>) proportionally scales all dimensions, spacing, line widths, and font sizes relative to the anchor <code>xy</code>.</li>
+</ul>
+</li>
+</ol>
 
             </main>
         </div>

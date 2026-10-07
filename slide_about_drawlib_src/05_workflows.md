@@ -19,11 +19,11 @@ Technical diagrams shouldn't slow down your deployment cycles:
 - **SQLite Hash Caching**:
   - Unchanged blocks are restored in **< 1ms**
   - Only modified diagram code triggers full Python execution
-- **Dynamic Animations**: Render looping animated WebP diagrams natively using `Animation`
+- **Dynamic Animations**: Render interactive APNG / WebP diagrams with click-to-play and frame-level pause (`anim-trigger:click anim-loop:once anim-pause:2,4`)
 :::
 
 ::: block (880, 140) (960, 840)
-```drawlib file:workflow_pipeline.webp
+```drawlib file:workflow_pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
 from drawlib.anim import Animation
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start

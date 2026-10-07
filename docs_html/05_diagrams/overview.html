@@ -110,10 +110,6 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../02_drawing_primitives/animation.html" >Animations (APNG & WebP)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
                                 <a href="../02_drawing_primitives/styles_and_theming.html" >Styles & Theming</a>
                             </li>
                             
@@ -237,67 +233,94 @@
                         </ul>
                     
                         
-                        <div class="sidebar-heading">6. Document Builder & CLI</div>
+                        <div class="sidebar-heading">6. Animations</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
+                                <a href="../06_animations/overview.html" >Animations Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                                <a href="../06_animations/primitives.html" >Animating Primitives & Colors</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                                <a href="../06_animations/smartarts.html" >Animating SmartArts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                                <a href="../06_animations/charts.html" >Animating Charts</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../06_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                                <a href="../06_animations/diagrams_and_graphs.html" >Animating Diagrams & Graphs</a>
                             </li>
                             
                         </ul>
                     
                         
-                        <div class="sidebar-heading">7. AI Agents & Advanced Integration</div>
+                        <div class="sidebar-heading">7. Document Builder & CLI</div>
                         
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                                <a href="../07_doc_builder_and_cli/overview.html" >Documentation as Code Overview</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                                <a href="../07_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                                <a href="../07_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                                <a href="../07_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../07_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                                <a href="../07_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/project_image.html" >Image Project (`image`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
                             </li>
                             
                         </ul>
@@ -425,7 +448,7 @@ Generates a quadratic Bezier or arc curve between nodes. A positive bend curves 
 </li>
 </ul>
 <hr />
-<h2>3. Waypoints &amp; Bus Lines with <code>Junction</code></h2>
+<h2>4. Waypoints &amp; Bus Lines with <code>Junction</code></h2>
 <p>A <code>Junction</code> represents a zero-dimension coordinate <code>(x, y)</code> on the canvas. It allows you to:</p>
 <ul>
 <li><strong>Fork Bus Lines</strong>: Split a single wire into multiple downstream connections.</li>
@@ -433,7 +456,29 @@ Generates a quadratic Bezier or arc curve between nodes. A positive bend curves 
 <li><strong>Dynamic Insertion</strong>: Calling <code>edge.add_point(xy)</code> converts an intermediate edge coordinate into a reusable <code>Junction</code>.</li>
 </ul>
 <hr />
-<h2>4. Chapter Navigation</h2>
+<h2>5. Unified Component Lifecycle (<code>show</code>, Mutable Elements, and <code>scale</code>)</h2>
+<p>All diagram classes (<code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, <code>SequenceDiagram</code>, <code>StateDiagram</code>, <code>ClassDiagram</code>, <code>ERDiagram</code>) and <code>drawlib.graph</code> solvers share a unified lifecycle for static and multi-frame rendering:</p>
+<ol>
+<li><strong>Visibility Control (<code>show: bool = True</code>)</strong>:
+<ul>
+<li>Every element constructor (<code>Node</code>, <code>NodeGroup</code>, <code>FlowNode</code>, <code>Lane</code>, <code>Participant</code>, <code>ParticipantGroup</code>, <code>State</code>, <code>ClassNode</code>, <code>Entity</code>) and registration method (<code>d.add(..., show=True)</code>, <code>.connect(..., show=True)</code>, <code>g.node(..., show=True)</code>, <code>g.edge(..., show=True)</code>, <code>g.cluster(..., show=True)</code>) accepts <code>show: bool = True</code>.</li>
+<li><strong>Fixed-Layout Guarantee</strong>: Hidden elements (<code>show=False</code>) still participate in bounding-box, group, lane, lifeline, and graph layout calculations so visible elements never jump or shift when toggling <code>.show</code>.</li>
+<li><strong>Connected Edge &amp; Dangling <code>Junction</code> Auto-Hiding</strong>: If either endpoint of a connection (<code>Edge</code>, <code>Transition</code>, <code>Relationship</code>, <code>Message</code>) has <code>show=False</code> (or is inside a hidden group), the connection is automatically skipped during <code>draw()</code>. Furthermore, if an intermediate <code>Junction</code> has no visible downstream path, its upstream wire segment is also automatically hidden.</li>
+</ul>
+</li>
+<li><strong>Mutable Element Instances</strong>:
+<ul>
+<li><code>d.add(...)</code> and <code>.connect(...)</code> return the registered element instance (<code>Node</code>, <code>Edge</code>, <code>Transition</code>, <code>Relationship</code>, <code>Message</code>, <code>Block</code>, <code>Note</code>), allowing in-place mutation of <code>.show</code>, <code>.style</code>, <code>.text_style</code>, <code>.draw_ratio</code> (<code>0.0</code> to <code>1.0</code> partial wire drawing), and <code>.draw_direction</code> (<code>&quot;forward&quot;</code> | <code>&quot;backward&quot;</code>).</li>
+</ul>
+</li>
+<li><strong>Proportional Scaling &amp; Translation (<code>draw(xy=(0.0, 0.0), *, scale: float = 1.0)</code>)</strong>:
+<ul>
+<li>Every diagram's <code>draw(xy=(0.0, 0.0), *, scale: float = 1.0)</code> (as well as <code>g.draw(xy=(0.0, 0.0), ..., scale=1.0)</code> and <code>layout.draw(xy=(0.0, 0.0), *, scale=1.0)</code>) translates the diagram by <code>xy</code> and proportionally scales all node coordinates, widths/heights, icon sizes, line widths, and font sizes by <code>scale</code>.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>6. Chapter Navigation</h2>
 <p>Explore each dedicated diagram guide:</p>
 <ul>
 <li><a href="./graph.html">Auto-Layout Graphs (<code>drawlib.graph</code>)</a>: Declarative layout solvers (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, <code>GridGraph</code>), <code>offset()</code>, and <code>export_code()</code>.</li>

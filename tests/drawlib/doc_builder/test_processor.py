@@ -436,3 +436,28 @@ def test_block_processor_honors_no_cache(tmp_path) -> None:
     # Render with no_cache=True
     processor.render_block_to_file(code, img_path, no_cache=True)
     assert (out_dir / "test.png").exists()
+
+
+def test_parse_block_info_anim_options() -> None:
+    """Verify parse_block_info parses anim-trigger, anim-loop, and anim-pause options."""
+    default_opts = parse_block_info("file:flow.png")
+    assert default_opts.anim_trigger is None
+    assert default_opts.anim_loop is None
+    assert default_opts.anim_pause is None
+
+    opts1 = parse_block_info("file:flow.png anim-trigger:click anim-loop:once anim-pause:2,4")
+    assert opts1.anim_trigger == "click"
+    assert opts1.anim_loop == "once"
+    assert opts1.anim_pause == [2, 4]
+
+    opts2 = parse_block_info("file:flow.apng format:apng anim_trigger:auto anim_loop:infinite anim_pause:4,9,0,4")
+    assert opts2.file == "flow.apng"
+    assert opts2.format == "apng"
+    assert opts2.anim_trigger == "auto"
+    assert opts2.anim_loop == "infinite"
+    assert opts2.anim_pause == [4, 9]
+
+    opts_shorthand = parse_block_info("file:flow.webp anim:click loop:once pause:1,3,5")
+    assert opts_shorthand.anim_trigger == "click"
+    assert opts_shorthand.anim_loop == "once"
+    assert opts_shorthand.anim_pause == [1, 3, 5]

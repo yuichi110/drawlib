@@ -139,6 +139,8 @@ class DrawlibBlockProcessor:
             fmt = "svg"
         elif ext_lower == ".webp":
             fmt = "webp"
+        elif ext_lower == ".apng":
+            fmt = "apng"
         else:
             fmt = "png"
         grid_abs_path = f"{stem}_grid{ext_dot}"
