@@ -356,6 +356,25 @@
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
     <span class="n">bar_radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>             <span class="c1"># Rounded corners for task duration bars</span>
 <span class="p">)</span>
+
+<span class="c1"># Register sections, tasks, milestones, markers, and dependencies with visibility &amp; partial rendering</span>
+<span class="n">sec</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">&quot;1. Core Services&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span>
+    <span class="s2">&quot;Storage Engine&quot;</span><span class="p">,</span>
+    <span class="n">start</span><span class="o">=</span><span class="s2">&quot;Apr&quot;</span><span class="p">,</span>
+    <span class="n">end</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">progress</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
+    <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">draw_direction</span><span class="o">=</span><span class="s2">&quot;left_to_right&quot;</span><span class="p">,</span>  <span class="c1"># &quot;left_to_right&quot; (duration extension) or &quot;bottom_to_top&quot; (vertical bar growth)</span>
+<span class="p">)</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_milestone</span><span class="p">(</span><span class="s2">&quot;Alpha Freeze&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mk</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkDashed</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Today&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dep</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Render chart with optional dimension overrides and uniform proportional scaling</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Engineering Release Roadmap with Dependencies</h2>

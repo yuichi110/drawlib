@@ -41,6 +41,21 @@ chart = ScatterChart(
     default_radius=1.0,         # Default radius for points
     default_shape="circle",     # "circle", "square", "rhombus", "triangle"
 )
+
+# Register standalone points and series with visibility and partial rendering controls
+p1 = chart.add(xy=(100.0, 18.0), style=Styles.MutedFlat, label="Baseline", show=True)
+s1 = chart.add_series(
+    name="Async Rust Engine",
+    data=[(300, 18.0), (500, 19.5), (700, 21.0)],
+    style=Styles.PrimaryFlat,
+    show=True,
+    draw_ratio=1.0,
+    draw_direction="left_to_right",  # "left_to_right" (X-range sweep) or "bottom_to_top" (Y-rise & radius scale)
+)
+
+# Render chart and legend with optional size overrides and uniform scaling
+chart.draw(xy=(10.0, 10.0), width=None, height=None, scale=1.0)
+chart.draw_legend(xy=(35.0, 56.0), text_style=Styles.Muted, orientation="horizontal", scale=1.0)
 ```
 
 ---

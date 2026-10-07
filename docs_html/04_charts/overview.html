@@ -403,6 +403,76 @@
 <pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">)</span>
 </code></pre>
+<hr />
+<h2>4. Component Lifecycle, Partial Rendering &amp; Spatial Scaling</h2>
+<p>All Drawlib charts follow the unified 4-phase component lifecycle (<strong>1. Instantiate -&gt; 2. Register Elements -&gt; 3. Mutate State -&gt; 4. Render</strong>), making it effortless to create step-by-step slide builds, progressive data reveals, and multi-chart dashboards:</p>
+<h3>1. Element Visibility (<code>show</code>) &amp; Stable Axis Bounds</h3>
+<p>Every element registration method (<code>add_series</code>, <code>add_slice</code>, <code>add</code>, <code>add_task</code>, <code>add_section</code>, <code>add_milestone</code>, <code>add_marker</code>, <code>add_dependency</code>) accepts <code>show: bool = True</code> and returns the mutable element instance (<code>Series</code>, <code>Slice</code>, <code>Point</code>, <code>Task</code>, etc.).</p>
+<ul>
+<li>Toggling <code>elem.show = False</code> (or <code>draw_ratio = 0.0</code>) hides that element during rendering while <strong>preserving the full 100% dataset's automatic axis scale, pie total proportion, and Gantt row layout</strong>. Axes never jump when series are revealed sequentially across slides or animation frames.</li>
+</ul>
+<h3>2. Partial Spatial Rendering (<code>draw_ratio</code> &amp; <code>draw_direction</code>)</h3>
+<p><code>Series</code>, <code>Slice</code>, and <code>Task</code> objects support <code>draw_ratio: float = 1.0</code> (<code>0.0</code> to <code>1.0</code>) and <code>draw_direction: DrawDirection</code> (<code>&quot;bottom_to_top&quot;</code> or <code>&quot;left_to_right&quot;</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Chart Class</th>
+<th style="text-align:left">Default <code>draw_direction</code></th>
+<th style="text-align:left"><code>&quot;bottom_to_top&quot;</code> Behavior</th>
+<th style="text-align:left"><code>&quot;left_to_right&quot;</code> Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>BarChart</code></strong></td>
+<td style="text-align:left"><code>&quot;bottom_to_top&quot;</code></td>
+<td style="text-align:left">All bars grow simultaneously from the baseline toward target value.</td>
+<td style="text-align:left">Bars reveal sequentially category-by-category from left to right.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>LineChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">All vertices rise simultaneously from the baseline toward target <code>y</code>.</td>
+<td style="text-align:left">Curve extends continuously from left to right along arc length.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>AreaChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">Area polygon and top contour rise from the baseline / lower stack.</td>
+<td style="text-align:left">Area polygon and top contour sweep continuously from left to right.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ScatterChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">Points rise from the bottom axis toward target <code>y</code> (<code>radius * r</code>).</td>
+<td style="text-align:left">Points reveal left-to-right across the X-axis range.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>PieChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">Wedge grows radially outward from inner hole to outer radius.</td>
+<td style="text-align:left">Wedge sweeps angularly from <code>start_angle</code> across <code>sweep_angle * r</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>RadarChart</code></strong></td>
+<td style="text-align:left"><code>&quot;bottom_to_top&quot;</code></td>
+<td style="text-align:left">Polygon expands radially outward from center <code>min_value</code>.</td>
+<td style="text-align:left">Polygon sweeps spoke-by-spoke around the perimeter.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>GanttChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">Task bar grows vertically from its bottom edge to full height.</td>
+<td style="text-align:left">Task bar extends horizontally from <code>start</code> toward <code>end</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>3. Spatial Overrides &amp; Proportional Scaling (<code>scale</code>)</h3>
+<p>Every <code>draw()</code> call accepts optional temporary layout overrides (<code>width</code>, <code>height</code>, and <code>radius</code> on <code>PieChart</code>/<code>RadarChart</code>) as well as <code>scale: float = 1.0</code> (also supported on <code>draw_legend()</code>). Passing <code>scale != 1.0</code> scales the entire chart—including plot geometry, stroke widths, point markers, and font sizes—proportionally from <code>xy</code>:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/charts_lifecycle_partial_scale.png" alt="overview_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Partial Spatial Rendering (draw_ratio) and Proportional Scaling (scale)</figcaption>
+</figure>
 
             </main>
         </div>

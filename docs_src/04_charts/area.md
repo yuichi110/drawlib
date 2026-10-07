@@ -42,6 +42,20 @@ chart = AreaChart(
     smooth=False,               # Smooth spline curve or straight lines
     show_points=False,          # Draw vertex markers
 )
+
+# Register series with optional visibility, partial rendering, and sweep direction
+s1 = chart.add_series(
+    "Enterprise Cloud",
+    [40.0, 70.0, 110.0, 160.0, 225.0],
+    style=Styles.PrimaryFlat,
+    show=True,
+    draw_ratio=1.0,
+    draw_direction="left_to_right",  # "left_to_right" or "bottom_to_top"
+)
+
+# Render chart and legend with optional spatial overrides and uniform scaling
+chart.draw(xy=(10.0, 15.0), width=None, height=None, scale=1.0)
+chart.draw_legend(xy=(20.0, 72.0), text_style=Styles.Muted, orientation="horizontal", scale=1.0)
 ```
 
 ---

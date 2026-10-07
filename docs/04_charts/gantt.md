@@ -48,6 +48,25 @@ chart = GanttChart(
     title_style=Styles.BlackBold.patch(text_size=13.0),
     bar_radius=1.0,             # Rounded corners for task duration bars
 )
+
+# Register sections, tasks, milestones, markers, and dependencies with visibility & partial rendering
+sec = chart.add_section("1. Core Services", show=True)
+t1 = chart.add_task(
+    "Storage Engine",
+    start="Apr",
+    end=2.2,
+    style=Styles.PrimaryFlat,
+    progress=0.85,
+    show=True,
+    draw_ratio=1.0,
+    draw_direction="left_to_right",  # "left_to_right" (duration extension) or "bottom_to_top" (vertical bar growth)
+)
+m1 = chart.add_milestone("Alpha Freeze", at="Jun", style=Styles.PrimaryFlat, show=True)
+mk = chart.add_marker(at=1.7, style=Styles.DarkDashed, label="Today", show=True)
+dep = chart.add_dependency(t1, t1, show=True)
+
+# Render chart with optional dimension overrides and uniform proportional scaling
+chart.draw(xy=(8.0, 10.0), width=None, height=None, scale=1.0)
 ```
 
 ---

@@ -76,9 +76,9 @@ from drawlib.styles import Styles
 
 setup(width=110, height=35)
 bl = BoxList(style=Styles.Neutral, text_style=Styles.DarkBold)
-bl.append("Step 1")
-bl.append("Step 2", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)  # Highlighted hero step
-bl.append("Step 3")
+bl.add("Step 1")
+bl.add("Step 2", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)  # Highlighted hero step
+bl.add("Step 3")
 bl.draw(xy=(17, 10), box_width=25, box_height=15, align="left")
 save()
 ```

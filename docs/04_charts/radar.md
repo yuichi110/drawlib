@@ -51,6 +51,24 @@ chart = RadarChart(
     title_style=Styles.BlackBold.patch(text_size=13.0),
     value_format="{:.0f}",
 )
+
+# Fluent radial axis configuration
+chart.configure_axis(min_value=0.0, max_value=100.0, levels=5, scale_format="{:.0f}")
+
+# Register series with optional visibility, partial rendering, and radial/perimeter direction
+s1 = chart.add_series(
+    "Microservices",
+    [95, 80, 75, 85, 60],
+    style=Styles.PrimaryFlat,
+    fill_alpha=0.3,
+    show=True,
+    draw_ratio=1.0,
+    draw_direction="bottom_to_top",  # "bottom_to_top" (radial expansion) or "left_to_right" (spoke-by-spoke sweep)
+)
+
+# Render chart and legend with optional radius/size overrides and uniform scaling
+chart.draw(xy=(8.0, 8.0), width=None, height=None, radius=None, scale=1.0)
+chart.draw_legend(xy=(72.0, 55.0), text_style=Styles.Black, scale=1.0)
 ```
 
 ---

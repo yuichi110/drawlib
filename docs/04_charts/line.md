@@ -62,7 +62,11 @@ chart.add_series(
     point_shape: PointShape | None = None,
     point_size: float | None = None,
     legend_text_style: Style | None = None,
-)
-chart.draw(xy=(0.0, 0.0))
-chart.draw_legend(xy, text_style=Styles.Black, orientation="vertical")
+    *,
+    show: bool = True,
+    draw_ratio: float = 1.0,
+    draw_direction: DrawDirection = "left_to_right",
+) -> Series
+chart.draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0)
+chart.draw_legend(xy, text_style=Styles.Black, orientation="vertical", *, scale: float = 1.0)
 ```

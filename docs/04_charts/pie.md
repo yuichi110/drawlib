@@ -45,6 +45,21 @@ chart = PieChart(
     value_text_style=Styles.WhiteBold.patch(text_size=9.0),  # Percentage labels on slices
     value_format="{:.1f}%",     # Formatter for percentage badges
 )
+
+# Register slices with optional visibility, partial rendering, and angular/radial direction
+s1 = chart.add_slice(
+    "Cloud Infrastructure",
+    620.0,
+    style=Styles.PrimaryFlat,
+    explode=0.0,
+    show=True,
+    draw_ratio=1.0,
+    draw_direction="left_to_right",  # "left_to_right" (angular sweep) or "bottom_to_top" (radial growth)
+)
+
+# Render chart and legend with optional radius/size overrides and uniform scaling
+chart.draw(xy=(10.0, 8.0), width=None, height=None, radius=None, scale=1.0)
+chart.draw_legend(xy=(64.0, 48.0), text_style=Styles.Black, scale=1.0)
 ```
 
 ---

@@ -353,6 +353,21 @@
     <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>  <span class="c1"># Percentage labels on slices</span>
     <span class="n">value_format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2">%&quot;</span><span class="p">,</span>     <span class="c1"># Formatter for percentage badges</span>
 <span class="p">)</span>
+
+<span class="c1"># Register slices with optional visibility, partial rendering, and angular/radial direction</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span>
+    <span class="s2">&quot;Cloud Infrastructure&quot;</span><span class="p">,</span>
+    <span class="mf">620.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">explode</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">draw_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">draw_direction</span><span class="o">=</span><span class="s2">&quot;left_to_right&quot;</span><span class="p">,</span>  <span class="c1"># &quot;left_to_right&quot; (angular sweep) or &quot;bottom_to_top&quot; (radial growth)</span>
+<span class="p">)</span>
+
+<span class="c1"># Render chart and legend with optional radius/size overrides and uniform scaling</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Donut Chart with Center KPI Badge</h2>

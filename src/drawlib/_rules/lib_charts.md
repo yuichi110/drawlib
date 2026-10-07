@@ -17,16 +17,17 @@ Drawlib charts adhere to four foundational principles:
 ### 1.2 Module Structure & Imports
 All public chart types, series models, configuration classes, and enums are organized into dedicated submodules under `drawlib.charts`:
 
-- `drawlib.charts.bar`: `BarChart`, `Series`, `Mode`, `Axis`, `Orientation`
-- `drawlib.charts.line`: `LineChart`, `Series`, `Axis`, `LineStyle`, `PointShape`
-- `drawlib.charts.area`: `AreaChart`, `Series`, `Mode`, `Axis`
-- `drawlib.charts.pie`: `PieChart`, `Slice`, `ColorType`, `FormatterType`
-- `drawlib.charts.radar`: `RadarChart`, `Series`, `GridShape`
-- `drawlib.charts.scatter`: `ScatterChart`, `Series`, `Point`, `Axis`, `ScaleType`, `PointShape`
-- `drawlib.charts.gantt`: `GanttChart`, `Task`, `Milestone`, `Section`, `Marker`, `Dependency`
+- `drawlib.charts.bar`: `BarChart`, `Series`, `Mode`, `Axis`, `Orientation`, `DrawDirection`
+- `drawlib.charts.line`: `LineChart`, `Series`, `Axis`, `LineStyle`, `PointShape`, `DrawDirection`
+- `drawlib.charts.area`: `AreaChart`, `Series`, `Mode`, `Axis`, `DrawDirection`
+- `drawlib.charts.pie`: `PieChart`, `Slice`, `ColorType`, `FormatterType`, `DrawDirection`
+- `drawlib.charts.radar`: `RadarChart`, `Series`, `GridShape`, `DrawDirection`
+- `drawlib.charts.scatter`: `ScatterChart`, `Series`, `Point`, `Axis`, `ScaleType`, `PointShape`, `DrawDirection`
+- `drawlib.charts.gantt`: `GanttChart`, `Task`, `Milestone`, `Section`, `Marker`, `Dependency`, `DrawDirection`
 
 ```python
-# Import from dedicated chart submodules
+# Import from dedicated chart submodules (or directly from drawlib.charts)
+from drawlib.charts import DrawDirection
 from drawlib.charts.bar import BarChart, Series
 from drawlib.charts.line import LineChart, Series
 from drawlib.charts.area import AreaChart, Series
@@ -54,11 +55,14 @@ from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Sect
 
 ## 2. Core Architecture & Data Model Fundamentals
 
-### 2.1 Placement Coordinates and Bounding Dimensions
-Every chart class implements a consistent positioning and measurement interface:
-- **`draw(xy=(x, y))`**: Renders the chart body onto the canvas. The `xy` tuple defines the **bottom-left corner** of the chart's total bounding container (including margins and titles).
-- **`draw_legend(xy=(x, y), text_style: Style, orientation="vertical" | "horizontal", ...)`**: Renders the legend independently at the specified coordinate.
-- **`get_size() -> tuple[float, float]`**: Returns `(width, height)` representing the total bounding box dimensions on the canvas.
+### 2.1 Placement Coordinates, Spatial Overrides, and Proportional Scaling
+Every chart class implements a consistent positioning, sizing override, and uniform scaling interface:
+- **`draw(xy=(x, y), *, width=None, height=None, [radius=None], scale=1.0)`**: Renders the chart body onto the canvas.
+  - The `xy` tuple defines the **bottom-left corner** of the chart's total bounding container (including margins and titles).
+  - Passing `width`, `height`, or `radius` (on `PieChart` / `RadarChart`) temporarily overrides the layout dimensions for that `draw()` call without permanently mutating the chart instance.
+  - Passing `scale != 1.0` applies a uniform proportional canvas transformation anchored at `xy`, scaling all geometry, stroke widths, marker radii, and font sizes together.
+- **`draw_legend(xy=(x, y), text_style: Style, orientation="vertical" | "horizontal", swatch_size=(2.4, 1.2), item_gap=4.0, *, scale=1.0)`**: Renders the legend independently at the specified coordinate, with optional proportional scaling anchored at `xy`.
+- **`get_size() -> tuple[float, float]`**: Returns `(width, height)` representing the unscaled total bounding box dimensions on the canvas.
 
 ```text
    (x, y + height) ┌──────────────────────────────────────┐
@@ -103,7 +107,7 @@ class Axis:
 - **Unit Append**: If `unit` is supplied (e.g. `unit="ms"` or `unit="M$"`), it is automatically appended to formatted labels if not already present.
 
 #### Axis Configuration Pattern:
-Axes are typically configured via the chart's `configure_x_axis()` and `configure_y_axis()` helper methods:
+Axes are typically configured via the chart's `configure_x_axis()` and `configure_y_axis()` helper methods (or `configure_axis()` on `RadarChart`):
 
 ```python
 # Fluent in-place configuration of ticks, labels, and formatting
@@ -136,6 +140,26 @@ from drawlib.styles import Styles
 chart.add_series("Series 1", [10, 20, 30], style=Styles.PrimaryFlat)
 chart.add_series("Series 2", [15, 25, 35], style=Styles.SecondaryFlat)
 ```
+
+### 2.4 Component Lifecycle, Visibility (`show`), and Partial Spatial Rendering (`draw_ratio` & `draw_direction`)
+All charts follow Drawlib's unified 4-phase component lifecycle (**1. Instantiate -> 2. Register Elements -> 3. Mutate State -> 4. Render**), enabling step-by-step slide builds and smooth keyframe animations without reconstructing the chart:
+
+1. **Element Visibility (`show: bool = True`)**:
+   - Every factory method (`add_series`, `add_slice`, `add`, `add_task`, `add_section`, `add_milestone`, `add_marker`, `add_dependency`) accepts `show: bool = True` and returns the mutable element object (`Series`, `Slice`, `Point`, `Task`, `Section`, `Milestone`, `Marker`, `Dependency`).
+   - Setting `elem.show = False` (or `draw_ratio = 0.0`) suppresses drawing of the element while **preserving the full 100% dataset's automatic axis scale, pie total proportion, and Gantt row positions**. Axes and layouts never jump or rescale when series or tasks are toggled during animations.
+   - In `GanttChart`, hiding a `Task` (`task.show = False`) also automatically hides any `Dependency` arrows connected to `from_task` or `to_task`.
+2. **Partial Spatial Rendering (`draw_ratio: float = 1.0`, `draw_direction: DrawDirection`)**:
+   - `Series` (`BarChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`), `Slice` (`PieChart`), and `Task` (`GanttChart`) support `draw_ratio` (`0.0` to `1.0`) and `draw_direction` (`"bottom_to_top"` or `"left_to_right"`):
+
+| Chart Class | Default `draw_direction` | `"bottom_to_top"` (Value / Radial Growth) | `"left_to_right"` (Category / Angular / Temporal Sweep) |
+| :--- | :--- | :--- | :--- |
+| **`BarChart`** | `"bottom_to_top"` | All bars grow simultaneously from baseline toward target value (`v * r`). | Bars reveal sequentially across categories from index `0` to `N-1`, interpolating the active frontier bar. |
+| **`LineChart`** | `"left_to_right"` | All vertices rise simultaneously from the baseline toward target `y`. | Polyline / spline curve extends continuously from left to right along arc length; points & labels appear as reached. |
+| **`AreaChart`** | `"left_to_right"` | Area polygon and top boundary rise simultaneously from baseline / lower stack boundary. | Area polygon and top boundary sweep continuously from left to right; points appear as reached. |
+| **`ScatterChart`** | `"left_to_right"` | Points rise from the bottom axis toward target `y` (`radius` scales by `r`). | Points sweep left-to-right across the X-axis data range (`x <= x_min + (x_max - x_min) * r`). |
+| **`PieChart`** | `"left_to_right"` | Wedge grows radially outward from the inner edge (`hole_ratio`) toward outer `radius`. | Wedge sweeps angularly from its `start_angle` across `sweep_angle * r` (labels shown at `r >= 0.5`). |
+| **`RadarChart`** | `"bottom_to_top"` | All spoke vertices expand radially outward from center `min_value` (`r * radius`). | Polygon sweeps spoke-by-spoke around the perimeter from spoke `0` to `N-1`, interpolating the frontier spoke. |
+| **`GanttChart`** | `"left_to_right"` | Task bar grows vertically from its bottom edge (`row_y + pad`) to full height (`bar_h * r`). | Task bar extends horizontally from `start` toward `start + (end - start) * r`. |
 
 ---
 
@@ -174,13 +198,13 @@ chart.add_series("Series 2", [15, 25, 35], style=Styles.SecondaryFlat)
 | `background_style`| `Style \| None` | `None` | Background container card style (fill, border). |
 
 ### 3.3 Methods & Data Model
-- `add_series(name: str, values: list[float], style: Style, legend_text_style: Style | None = None) -> Series`
+- `add_series(name: str, values: list[float], style: Style, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "bottom_to_top") -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical axis (value axis for vertical, category axis for horizontal).
 - `configure_x_axis(...) -> Axis`: Configures horizontal axis (category axis for vertical, value axis for horizontal).
-- `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Renders chart body at bottom-left position `xy`.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
+- `draw(xy: tuple[float, float] = (0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders chart body at bottom-left position `xy`.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
-`Series` encapsulates `name: str`, `values: list[float]`, `style: Style`, and `legend_text_style: Style | None`.
+`Series` encapsulates `name: str`, `values: list[float]`, `style: Style`, `legend_text_style: Style | None`, `show: bool`, `draw_ratio: float`, and `draw_direction: DrawDirection`.
 
 ### 3.4 Production Examples
 
@@ -308,13 +332,13 @@ chart.draw(xy=(10.0, 10.0))
 | `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 4.3 Methods & Data Model
-- `add_series(name: str, values: list[float], style: Style, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None, legend_text_style: Style | None = None) -> Series`
+- `add_series(name: str, values: list[float], style: Style, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "left_to_right") -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical value axis scale and ticks.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
-- `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
+- `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders chart on canvas.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
-`Series` captures `name`, `values`, `style`, `line_width`, `line_style`, `point_shape`, `point_size`, and `legend_text_style`.
+`Series` captures `name`, `values`, `style`, `line_width`, `line_style`, `point_shape`, `point_size`, `legend_text_style`, `show`, `draw_ratio`, and `draw_direction`.
 
 ### 4.4 Production Examples
 
@@ -411,13 +435,13 @@ chart.draw(xy=(10.0, 12.0))
 | `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 5.3 Methods & Data Model
-- `add_series(name: str, values: list[float], style: Style, fill_alpha: float | None = None, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None, legend_text_style: Style | None = None) -> Series`
+- `add_series(name: str, values: list[float], style: Style, fill_alpha: float | None = None, line_width: float = 2.0, line_style: LineStyle = "solid", point_shape: PointShape | None = None, point_size: float | None = None, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "left_to_right") -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical value axis scale and ticks.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
-- `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
+- `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders chart on canvas.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
-`Series` tracks `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, `point_size`, and `legend_text_style`.
+`Series` tracks `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, `point_size`, `legend_text_style`, `show`, `draw_ratio`, and `draw_direction`.
 
 ### 5.4 Production Examples
 
@@ -516,12 +540,12 @@ chart.draw(xy=(10.0, 12.0))
 | `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 6.3 Methods & Data Model
-- `add_slice(name: str, value: float, style: Style, explode: float = 0.0, legend_text_style: Style | None = None) -> Slice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
+- `add_slice(name: str, value: float, style: Style, explode: float = 0.0, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "left_to_right") -> Slice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
 - `get_size() -> tuple[float, float]`: Computes required bounding box dimensions based on radius and title.
-- `draw(xy=(0.0, 0.0))`: Renders chart body on canvas.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
+- `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, radius: float | None = None, scale: float = 1.0) -> None`: Renders chart body on canvas.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
-`Slice` encapsulates `name: str`, `value: float`, `style: Style`, `explode: float`, and `legend_text_style: Style | None`.
+`Slice` encapsulates `name: str`, `value: float`, `style: Style`, `explode: float`, `legend_text_style: Style | None`, `show: bool`, `draw_ratio: float`, and `draw_direction: DrawDirection`.
 
 ### 6.4 Production Examples
 
@@ -615,12 +639,13 @@ chart.draw_legend(xy=(68.0, 48.0), text_style=Styles.Muted.patch(text_size=9.0),
 | `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 7.3 Methods & Data Model
-- `add_series(name: str, values: list[float], style: Style, fill_alpha: float = 0.25, line_width: float = 2.0, line_style: LineStyle = "solid", show_points: bool = True, point_shape: PointShape = "circle", point_size: float = 0.8, legend_text_style: Style | None = None) -> Series`
+- `add_series(name: str, values: list[float], style: Style, fill_alpha: float = 0.25, line_width: float = 2.0, line_style: LineStyle = "solid", show_points: bool = True, point_shape: PointShape = "circle", point_size: float = 0.8, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "bottom_to_top") -> Series`
+- `configure_axis(min_value: float | None = None, max_value: float | None = None, levels: int | None = None, scale_format: FormatterType = None) -> RadarChart`: Configures radial scale bounds, concentric contour count, and scale label formatting.
 - `get_size() -> tuple[float, float]`: Returns total computed bounding dimensions.
-- `draw(xy=(0.0, 0.0))`: Renders radar chart body on canvas.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
+- `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, radius: float | None = None, scale: float = 1.0) -> None`: Renders radar chart body on canvas.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
-`Series` maintains `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, `point_size`, and `legend_text_style`.
+`Series` maintains `name`, `values`, `style`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, `point_size`, `legend_text_style`, `show`, `draw_ratio`, and `draw_direction`.
 
 ### 7.4 Production Examples
 
@@ -711,15 +736,15 @@ chart.draw_legend(xy=(24.0, 10.0), text_style=Styles.Muted.patch(text_size=9.0),
 | `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 8.3 Methods & Data Models
-- `add(xy: tuple[float, float], style: Style, radius: float | None = None, shape: PointShape | None = None, label: str = "", label_style: Style | None = None, legend_text_style: Style | None = None) -> Point`: Adds an individual standalone point.
-- `add_series(name: str, data: list[tuple[float, float]] | list[tuple[float, float, float]], style: Style, radius: float | None = None, shape: PointShape | None = None, legend_text_style: Style | None = None) -> Series`: Adds a named series of `(x, y)` or `(x, y, radius)` points.
+- `add(xy: tuple[float, float], style: Style, radius: float | None = None, shape: PointShape | None = None, label: str = "", label_style: Style | None = None, legend_text_style: Style | None = None, *, show: bool = True) -> Point`: Adds an individual standalone point.
+- `add_series(name: str, data: list[tuple[float, float]] | list[tuple[float, float, float]], style: Style, radius: float | None = None, shape: PointShape | None = None, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "left_to_right") -> Series`: Adds a named series of `(x, y)` or `(x, y, radius)` points.
 - `configure_x_axis(...) -> Axis`: Configures the continuous numerical horizontal axis.
 - `configure_y_axis(...) -> Axis`: Configures the continuous numerical vertical axis.
 - `get_size() -> tuple[float, float]`: Returns container dimensions.
-- `draw(xy)`: Renders scatter chart body at bottom-left coordinate `xy`.
-- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: float = 3.0, item_gap: float = 4.0) -> None`: Renders standalone legend.
+- `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders scatter chart body at bottom-left coordinate `xy`.
+- `draw_legend(xy: tuple[float, float], text_style: Style, orientation: Orientation = "vertical", swatch_size: tuple[float, float] = (2.4, 1.2), item_gap: float = 4.0, *, scale: float = 1.0) -> None`: Renders standalone legend.
 
-`Point` represents `xy`, `style`, `radius`, `shape`, `label`, and `legend_text_style`. `Series` groups member points under `name` with `legend_text_style`.
+`Point` represents `xy`, `style`, `radius`, `shape`, `label`, `label_style`, `legend_text_style`, and `show`. `Series` groups member points under `name` with `legend_text_style`, `show`, `draw_ratio`, and `draw_direction`.
 
 ### 8.4 Production Examples
 
@@ -839,15 +864,15 @@ chart.draw_legend(xy=(25.0, 56.0), text_style=Styles.Muted.patch(text_size=9.0),
 | `background_style`| `Style \| None` | `None` | Background container card style. |
 
 ### 9.3 Methods & Schedule Models
-- `add_task(name: str, start: str | float, end: str | float, style: Style, progress: float = 0.0, progress_text_style: Style | None = None) -> Task`
-- `add_section(name: str, style: Style | None = None) -> Section`
-- `add_milestone(name: str, at: str | float, style: Style) -> Milestone`
-- `add_marker(at: str | float, style: Style, label: str = "") -> Marker`
-- `add_dependency(from_task: Task, to_task: Task, style: Style | None = None) -> Dependency`
+- `add_task(name: str, start: str | float, end: str | float, style: Style, progress: float = 0.0, progress_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "left_to_right") -> Task`
+- `add_section(name: str, style: Style | None = None, *, show: bool = True) -> Section`
+- `add_milestone(name: str, at: str | float, style: Style, *, show: bool = True) -> Milestone`
+- `add_marker(at: str | float, style: Style, label: str = "", *, show: bool = True) -> Marker`
+- `add_dependency(from_task: Task, to_task: Task, style: Style | None = None, *, show: bool = True) -> Dependency`
 - `get_size() -> tuple[float, float]`: Returns total computed dimensions.
-- `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
+- `draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0) -> None`: Renders chart on canvas.
 
-Data models include `Task`, `Section`, `Milestone`, `Marker`, and `Dependency`.
+Data models include `Task` (`show`, `draw_ratio`, `draw_direction`), `Section` (`show`), `Milestone` (`show`), `Marker` (`show`), and `Dependency` (`show`).
 
 ### 9.4 Production Examples
 

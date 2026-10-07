@@ -43,13 +43,9 @@ ChevronProcess(
 ```
 
 ### Adding Steps
-- **`append(text, *, description="", style=None, text_style=None, description_style=None)`**:  
-  Appends a new process stage. If styles are omitted, constructor defaults are used.
-- **`extend(texts, *, descriptions=None, styles=None, text_styles=None, description_styles=None)`**:  
-  Appends multiple stage titles. Styles default to constructor defaults or can be overridden with a shared `Style` or list of `Style` objects.
-- **`insert(index, text, *, description="", style=None, text_style=None, description_style=None)`**:  
-  Inserts a stage at a specified index with optional style overrides.
+- **`add(text, *, description="", style=None, text_style=None, description_style=None, show=True) -> ChevronItem`**:  
+  Adds a new process stage and returns a mutable `ChevronItem` instance. If styles are omitted, constructor defaults are used.
 
 ### Drawing
-- **`draw(xy, width=90.0, height=12.0, item_width=None)`**:  
+- **`draw(xy, width=90.0, height=12.0, item_width=None, scale=1.0)`**:  
   Renders the pipeline onto the active canvas. If `item_width` is omitted, Drawlib divides `width` equally among all stages.

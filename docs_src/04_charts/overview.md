@@ -86,3 +86,72 @@ All charts are anchored by their **bottom-left corner** via `draw(xy=(x, y))`. L
 chart.draw(xy=(15, 10))
 chart.draw_legend(xy=(85, 50), text_style=Styles.Black)
 ```
+
+---
+
+## 4. Component Lifecycle, Partial Rendering & Spatial Scaling
+
+All Drawlib charts follow the unified 4-phase component lifecycle (**1. Instantiate -> 2. Register Elements -> 3. Mutate State -> 4. Render**), making it effortless to create step-by-step slide builds, progressive data reveals, and multi-chart dashboards:
+
+### 1. Element Visibility (`show`) & Stable Axis Bounds
+Every element registration method (`add_series`, `add_slice`, `add`, `add_task`, `add_section`, `add_milestone`, `add_marker`, `add_dependency`) accepts `show: bool = True` and returns the mutable element instance (`Series`, `Slice`, `Point`, `Task`, etc.).
+- Toggling `elem.show = False` (or `draw_ratio = 0.0`) hides that element during rendering while **preserving the full 100% dataset's automatic axis scale, pie total proportion, and Gantt row layout**. Axes never jump when series are revealed sequentially across slides or animation frames.
+
+### 2. Partial Spatial Rendering (`draw_ratio` & `draw_direction`)
+`Series`, `Slice`, and `Task` objects support `draw_ratio: float = 1.0` (`0.0` to `1.0`) and `draw_direction: DrawDirection` (`"bottom_to_top"` or `"left_to_right"`):
+
+| Chart Class | Default `draw_direction` | `"bottom_to_top"` Behavior | `"left_to_right"` Behavior |
+| :--- | :--- | :--- | :--- |
+| **`BarChart`** | `"bottom_to_top"` | All bars grow simultaneously from the baseline toward target value. | Bars reveal sequentially category-by-category from left to right. |
+| **`LineChart`** | `"left_to_right"` | All vertices rise simultaneously from the baseline toward target `y`. | Curve extends continuously from left to right along arc length. |
+| **`AreaChart`** | `"left_to_right"` | Area polygon and top contour rise from the baseline / lower stack. | Area polygon and top contour sweep continuously from left to right. |
+| **`ScatterChart`** | `"left_to_right"` | Points rise from the bottom axis toward target `y` (`radius * r`). | Points reveal left-to-right across the X-axis range. |
+| **`PieChart`** | `"left_to_right"` | Wedge grows radially outward from inner hole to outer radius. | Wedge sweeps angularly from `start_angle` across `sweep_angle * r`. |
+| **`RadarChart`** | `"bottom_to_top"` | Polygon expands radially outward from center `min_value`. | Polygon sweeps spoke-by-spoke around the perimeter. |
+| **`GanttChart`** | `"left_to_right"` | Task bar grows vertically from its bottom edge to full height. | Task bar extends horizontally from `start` toward `end`. |
+
+### 3. Spatial Overrides & Proportional Scaling (`scale`)
+Every `draw()` call accepts optional temporary layout overrides (`width`, `height`, and `radius` on `PieChart`/`RadarChart`) as well as `scale: float = 1.0` (also supported on `draw_legend()`). Passing `scale != 1.0` scales the entire chart—including plot geometry, stroke widths, point markers, and font sizes—proportionally from `xy`:
+
+```drawlib 650px center file:charts_lifecycle_partial_scale.png caption:"Partial Spatial Rendering (draw_ratio) and Proportional Scaling (scale)"
+from drawlib.canvas import setup
+from drawlib.charts.bar import BarChart
+from drawlib.charts.line import LineChart
+from drawlib.styles import Styles
+
+setup(width=115, height=58)
+
+# Left: BarChart with partial series rendering (draw_ratio)
+bar = BarChart(
+    categories=["Q1", "Q2", "Q3", "Q4"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=9.0),
+    grid_style=Styles.MutedThin,
+    width=48,
+    height=38,
+    title="Partial Growth (draw_ratio=0.6)",
+    title_style=Styles.BlackBold.patch(text_size=11.0),
+    r=0.8,
+)
+bar.add_series("2025 Baseline", [20, 28, 34, 42], style=Styles.SecondaryNeutral, draw_ratio=1.0)
+bar.add_series("2026 Actual", [25, 36, 48, 60], style=Styles.PrimaryFlat, draw_ratio=0.6)
+bar.draw(xy=(6, 10))
+bar.draw_legend(xy=(10, 52), text_style=Styles.Muted.patch(text_size=8.5), orientation="horizontal")
+
+# Right: LineChart rendered at compact 0.75x proportional scale
+line = LineChart(
+    categories=["M1", "M2", "M3", "M4", "M5"],
+    axis_line_style=Styles.MutedDashed,
+    axis_text_style=Styles.Muted.patch(text_size=10.0),
+    grid_style=Styles.MutedThin,
+    width=60,
+    height=46,
+    title="Scaled Trend (scale=0.75, ratio=0.75)",
+    title_style=Styles.BlackBold.patch(text_size=12.0),
+    smooth=True,
+)
+line.add_series("Target", [30, 45, 60, 80, 100], style=Styles.SecondaryNeutral, line_style="dashed")
+line.add_series("Active", [32, 54, 78, 95, 120], style=Styles.PrimaryFlat, line_width=2.5, draw_ratio=0.75)
+line.draw(xy=(62, 10), scale=0.75)
+line.draw_legend(xy=(68, 47), text_style=Styles.Muted.patch(text_size=10.0), orientation="horizontal", scale=0.75)
+```

@@ -160,9 +160,9 @@ for step in steps:
 | **`LineChart`** | `Series` | `"left_to_right"` | 各データ点のY座標がベースライン（下）から上へ `draw_ratio` 倍に立ち上がる | 左端の点から右端の点へ向かって、折れ線が `draw_ratio` のX位置まで補間描画される |
 | **`AreaChart`** | `Series` | `"left_to_right"` | 各データ点のY座標（および塗りつぶし領域）が下から上へ `draw_ratio` 倍に立ち上がる | 左端から右端へ向かって、折れ線と塗りつぶし領域が `draw_ratio` のX位置まで進行する |
 | **`ScatterChart`** | `Series` | `"left_to_right"` | Y軸の下から上へ向かって、`draw_ratio` の範囲内にあるデータ点が描画される | X軸の左から右へ向かって、`draw_ratio` の範囲内にあるデータ点が描画される |
-| **`PieChart`** | `Slice` | 扇形展開 | 中心から外周（半径方向）に向かって `draw_ratio` 倍の半径で描画 | 開始角度から時計回りに中心角を `draw_ratio` 倍だけ展開して描画（デフォルト） |
-| **`RadarChart`** | `Series` | 放射展開 | 中心（`min_value`）から各頂点（外周）に向かって `draw_ratio` 倍の位置にポリゴンを展開 | 同左 |
-| **`GanttChart`** | `Task` | `"left_to_right"` | ➖（水平バーのため `"left_to_right"` と同等） | タスクの `start`（左端）から `end`（右端）に向かってバーの長さを `draw_ratio` 倍だけ描画（内部の `task.progress` 完了率バーとも共存） |
+| **`PieChart`** | `Slice` | `"left_to_right"` | 中心から外周（半径方向）に向かって `draw_ratio` 倍の半径で描画 | 開始角度から時計回りに中心角を `draw_ratio` 倍だけ展開して描画（デフォルト） |
+| **`RadarChart`** | `Series` | `"bottom_to_top"` | 中心（`min_value`）から各頂点（外周）に向かって一斉に `draw_ratio` 倍の位置にポリゴンを展開 | 12時方向の頂点から時計回りに順次 `draw_ratio` に応じて頂点を展開 |
+| **`GanttChart`** | `Task` | `"left_to_right"` | タスクバーの高さが下端から上方向へ `draw_ratio` 倍に伸長 | タスクの `start`（左端）から `end`（右端）に向かってバーの長さを `draw_ratio` 倍だけ描画（内部の `task.progress` 完了率バーとも共存） |
 
 ---
 
@@ -237,13 +237,13 @@ for step in steps:
 
 ### Step 2: `charts` の拡張と `anim` サンプル検証
 1. **`charts` の改修**
-   - [ ] 全7種のチャート要素（`Series`, `Slice`, `Task` 等）に `show: bool = True`、`draw_ratio: float = 1.0`、`draw_direction: DrawDirection` を追加する。
-   - [ ] `BarChart`, `LineChart`, `AreaChart`, `ScatterChart`, `PieChart`, `RadarChart`, `GanttChart` の各レンダラーで `"bottom_to_top"`（下→上）および `"left_to_right"`（左→右）の部分描画ロジックを実装する。
-   - [ ] 軸の絶対値指定（`min_value`, `max_value`）の整備と、`show=False` / `draw_ratio < 1.0` 時でも元データ基準で軸スケールを安定計算する仕組みを実装する。
-   - [ ] 全チャートの `draw()` に `width`, `height`（または `radius`）, `scale` のオーバーライド引数を追加し、インスタンス自身のデフォルト寸法を破壊せずに一時的な描画サイズとして計算されるようにする。
-   - [ ] `show`, `draw_ratio`, `draw_direction`, `scale` の単体テストを追加する。
+   - [x] 全7種のチャート要素（`Series`, `Slice`, `Task` 等）に `show: bool = True`、`draw_ratio: float = 1.0`、`draw_direction: DrawDirection` を追加する。
+   - [x] `BarChart`, `LineChart`, `AreaChart`, `ScatterChart`, `PieChart`, `RadarChart`, `GanttChart` の各レンダラーで `"bottom_to_top"`（下→上）および `"left_to_right"`（左→右）の部分描画ロジックを実装する。
+   - [x] 軸の絶対値指定（`min_value`, `max_value`）の整備と、`show=False` / `draw_ratio < 1.0` 時でも元データ基準で軸スケールを安定計算する仕組みを実装する。
+   - [x] 全チャートの `draw()` に `width`, `height`（または `radius`）, `scale` のオーバーライド引数を追加し、インスタンス自身のデフォルト寸法を破壊せずに一時的な描画サイズとして計算されるようにする。
+   - [x] `show`, `draw_ratio`, `draw_direction`, `scale` の単体テストを追加する。
 2. **`anim` サンプル作成と視覚確認 (Visual Check)**
-   - [ ] `BarChart`（下→上への伸長、左→右への順次出現）、`LineChart` / `AreaChart`（左→右への折れ線伸長）、`PieChart` / `RadarChart`（展開アニメーション）、およびチャート全体のズームイン／移動のアニメーションサンプルを作成・描画し、軸目盛りの安定性や補間描画の美しさを視覚確認する。
+   - [x] `BarChart`（下→上への伸長、左→右への順次出現）、`LineChart` / `AreaChart`（左→右への折れ線伸長）、`PieChart` / `RadarChart`（展開アニメーション）、およびチャート全体のズームイン／移動のアニメーションサンプルを作成・描画し、軸目盛りの安定性や補間描画の美しさを視覚確認する。
 
 ### Step 3: `diagrams` および `graph` の拡張と `anim` サンプル検証
 1. **`diagrams` / `graph` の改修**

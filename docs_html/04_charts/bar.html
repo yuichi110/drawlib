@@ -364,11 +364,11 @@ It supports multi-series grouping, stacked bars, custom corner radii, value anno
 </code></pre>
 <h3>Adding Data &amp; Rendering</h3>
 <ul>
-<li><strong><code>add_series(name: str, values: list[float], style: Style, legend_text_style: Style | None = None)</code></strong>:<br />
-Registers a series. <code>values</code> must align with the length of <code>categories</code>.</li>
-<li><strong><code>draw(xy=(0.0, 0.0))</code></strong>:<br />
-Renders the chart body anchored at bottom-left <code>xy</code>.</li>
-<li><strong><code>draw_legend(xy, text_style, orientation=&quot;vertical&quot;, swatch_size=(2.4, 1.2), item_gap=4.0)</code></strong>:<br />
+<li><strong><code>add_series(name: str, values: list[float], style: Style, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = &quot;bottom_to_top&quot;) -&gt; Series</code></strong>:<br />
+Registers a series and returns the mutable <code>Series</code> instance. <code>values</code> must align with the length of <code>categories</code>. Supports visibility toggling (<code>show</code>), partial rendering (<code>draw_ratio</code>), and growth direction (<code>&quot;bottom_to_top&quot;</code> or <code>&quot;left_to_right&quot;</code>).</li>
+<li><strong><code>draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0)</code></strong>:<br />
+Renders the chart body anchored at bottom-left <code>xy</code>, with optional temporary dimension overrides (<code>width</code>, <code>height</code>) and proportional scaling (<code>scale</code>).</li>
+<li><strong><code>draw_legend(xy, text_style, orientation=&quot;vertical&quot;, swatch_size=(2.4, 1.2), item_gap=4.0, *, scale: float = 1.0)</code></strong>:<br />
 Renders the series legend at coordinate <code>xy</code>.</li>
 </ul>
 

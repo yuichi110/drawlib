@@ -408,7 +408,19 @@ process.draw((10, 8), width=100, height=18)
 
 ## 9. Statistical & Project Charts (`drawlib.charts`)
 
-Drawlib charts render directly into the unified vector canvas alongside architectural diagrams:
+Drawlib charts render directly into the unified vector canvas alongside architectural diagrams. Every chart supports:
+- **Element-Level Visibility & Partial Rendering**: Returned elements (`Series`, `Slice`, `Point`, `Task`, `Section`, `Milestone`, `Marker`, `Dependency`) expose mutable `.show: bool = True`, and quantitative elements (`Series`, `Slice`, `Task`) expose `.draw_ratio: float = 1.0` (`0.0` to `1.0`) and `.draw_direction: DrawDirection` (`"bottom_to_top"` or `"left_to_right"`). Axis scales and layout slots remain locked to the full 100% dataset even when elements are hidden or partially drawn.
+- **Spatial Overrides & Uniform Scaling**: `chart.draw(xy, *, width=None, height=None, radius=None, scale=1.0)` and `chart.draw_legend(xy, text_style, ..., scale=1.0)` allow temporary container resizing and uniform proportional scaling around `xy`.
+
+| Chart Class | Element Factory Methods | `draw()` Spatial Overrides |
+| :--- | :--- | :--- |
+| `BarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction=...) -> Series` | `draw(xy, *, width=None, height=None, scale=1.0)` |
+| `LineChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, scale=1.0)` |
+| `AreaChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, scale=1.0)` |
+| `ScatterChart` | `add(..., show=True) -> Point`, `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, scale=1.0)` |
+| `PieChart` | `add_slice(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Slice` | `draw(xy, *, radius=None, width=None, height=None, scale=1.0)` |
+| `RadarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="bottom_to_top") -> Series` | `draw(xy, *, radius=None, width=None, height=None, scale=1.0)` |
+| `GanttChart` | `add_task(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Task`, `add_section`, `add_milestone`, `add_marker`, `add_dependency` | `draw(xy, *, width=None, height=None, scale=1.0)` |
 
 ```drawlib show-code file:charts_example.png
 from drawlib.canvas import setup

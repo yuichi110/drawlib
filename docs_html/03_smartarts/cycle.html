@@ -368,17 +368,15 @@ $$\theta_i = \text{start_angle} \mp \left(i \cdot \frac{360^\circ}{N}\right)$$</
 </code></pre>
 <h3>Adding Steps and Center Hub</h3>
 <ul>
-<li><strong><code>append(text, *, description=&quot;&quot;, style=None, text_style=None, description_style=None, arrow_style=None)</code></strong>:<br />
-Appends a step to the circular perimeter.</li>
-<li><strong><code>extend(texts, *, styles=None, text_styles=None, descriptions=None, description_styles=None, arrow_styles=None)</code></strong>:<br />
-Appends multiple steps with shared or per-item styles.</li>
-<li><strong><code>set_center(text, *, description=&quot;&quot;, radius=None, style=None, text_style=None, description_style=None)</code></strong>:<br />
-Adds an optional central focal node to create a radial cycle.</li>
+<li><strong><code>add(text, *, description=&quot;&quot;, style=None, text_style=None, description_style=None, arrow_style=None, show=True) -&gt; CycleItem</code></strong>:<br />
+Adds a step to the circular perimeter and returns a mutable <code>CycleItem</code> instance.</li>
+<li><strong><code>set_center(text, *, description=&quot;&quot;, radius=None, style=None, text_style=None, description_style=None, show=True) -&gt; CycleCenter</code></strong>:<br />
+Configures an optional central focal node to create a radial cycle and returns the <code>CycleCenter</code> instance.</li>
 </ul>
 <h3>Drawing</h3>
 <ul>
-<li><strong><code>draw(xy, radius=28.0)</code></strong>:<br />
-Renders the circular cycle centered at <code>xy</code> with orbit radius <code>radius</code>.</li>
+<li><strong><code>draw(xy, radius=35.0, align=&quot;center&quot;, scale=1.0)</code></strong>:<br />
+Renders the circular cycle anchored at <code>xy</code> with orbit radius <code>radius</code> and optional proportional <code>scale</code>.</li>
 </ul>
 
             </main>

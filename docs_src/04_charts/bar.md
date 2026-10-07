@@ -73,9 +73,9 @@ BarChart(
 ```
 
 ### Adding Data & Rendering
-- **`add_series(name: str, values: list[float], style: Style, legend_text_style: Style | None = None)`**:  
-  Registers a series. `values` must align with the length of `categories`.
-- **`draw(xy=(0.0, 0.0))`**:  
-  Renders the chart body anchored at bottom-left `xy`.
-- **`draw_legend(xy, text_style, orientation="vertical", swatch_size=(2.4, 1.2), item_gap=4.0)`**:  
+- **`add_series(name: str, values: list[float], style: Style, legend_text_style: Style | None = None, *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "bottom_to_top") -> Series`**:  
+  Registers a series and returns the mutable `Series` instance. `values` must align with the length of `categories`. Supports visibility toggling (`show`), partial rendering (`draw_ratio`), and growth direction (`"bottom_to_top"` or `"left_to_right"`).
+- **`draw(xy=(0.0, 0.0), *, width: float | None = None, height: float | None = None, scale: float = 1.0)`**:  
+  Renders the chart body anchored at bottom-left `xy`, with optional temporary dimension overrides (`width`, `height`) and proportional scaling (`scale`).
+- **`draw_legend(xy, text_style, orientation="vertical", swatch_size=(2.4, 1.2), item_gap=4.0, *, scale: float = 1.0)`**:  
   Renders the series legend at coordinate `xy`.
