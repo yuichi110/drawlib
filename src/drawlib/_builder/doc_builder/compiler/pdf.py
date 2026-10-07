@@ -23,6 +23,37 @@ from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
 from drawlib._builder.doc_builder.merger import build_merged_html
 
 
+def _is_slide_project_dir(input_abs: str) -> bool:
+    """Return True if input_abs is a slide presentation source directory."""
+    if not os.path.isdir(input_abs):
+        return False
+    if os.path.isfile(os.path.join(input_abs, "slide.css")):
+        return True
+    style_css = os.path.join(input_abs, "style.css")
+    if os.path.isfile(style_css):
+        try:
+            with open(style_css, "r", encoding="utf-8") as f:
+                css_text = f.read()
+            if (
+                "--slide-width" in css_text
+                or ".presentation-stage" in css_text
+                or "1920px 1080px" in css_text
+                or "16in 9in" in css_text
+            ):
+                return True
+        except OSError:
+            pass
+    build_html_sh = os.path.join(input_abs, "build_html.sh")
+    if os.path.isfile(build_html_sh):
+        try:
+            with open(build_html_sh, "r", encoding="utf-8") as f:
+                if "build slide" in f.read():
+                    return True
+        except OSError:
+            pass
+    return False
+
+
 def build_pdf(
     input_path: Optional[str] = None,
     output_file: Optional[str] = None,
@@ -66,7 +97,7 @@ def build_pdf(
     input_abs = os.path.abspath(resolved_input)
 
     # 1. Slide presentation project directory
-    if os.path.isdir(input_abs) and os.path.isfile(os.path.join(input_abs, "slide.css")):
+    if _is_slide_project_dir(input_abs):
         import tempfile
 
         from drawlib._builder.doc_builder.exporter_pdf import export_html_file_to_pdf

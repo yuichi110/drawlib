@@ -15,7 +15,7 @@ Every Drawlib site and PDF project contains a Jinja2 template (`template.html`) 
 - `{{ title }}`: The title of the current document or site brand.
 - `{{ body }}`: The compiled HTML content parsed from Markdown and embedded diagrams.
 - `{{ nav_sections }}` / `{{ nav_items }}`: Structured navigation tree for the sidebar (in `site` projects).
-- `{{ css_href }}`: Relative path to `style.css` (or `slide.css`).
+- `{{ css_href }}`: Relative path to `style.css`.
 - `{{ custom_css }}`: Injected inline CSS overrides.
 
 ---

@@ -189,20 +189,16 @@ def _deploy_stylesheet(
     created_files: list[Path],
     lang: str = "en",
 ) -> None:
-    """Deploy custom or synthesized style.css or slide.css."""
-    if project_type in {"site", "doc"}:
-        target: Literal["site", "doc"] = "site" if project_type == "site" else "doc"
+    """Deploy custom or synthesized style.css."""
+    if project_type in {"site", "doc", "slide"}:
+        target: Literal["site", "doc", "slide"] = (
+            "site" if project_type == "site" else ("doc" if project_type == "doc" else "slide")
+        )
         css_content = get_css(name=style or "default", target=target, lang=lang)
         style_css_target = src_dir / "style.css"
         style_css_target.write_text(css_content, encoding="utf-8")
         if style_css_target not in created_files:
             created_files.append(style_css_target)
-    elif project_type == "slide":
-        css_content = get_css(name=style or "default", target="slide", lang=lang)
-        slide_css_target = src_dir / "slide.css"
-        slide_css_target.write_text(css_content, encoding="utf-8")
-        if slide_css_target not in created_files:
-            created_files.append(slide_css_target)
 
 
 def _deploy_shared_templates(

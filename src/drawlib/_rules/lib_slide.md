@@ -92,10 +92,11 @@ slide_src/
 ├── _assets/               # Presentation images and icons
 ├── styles.py              # Deck-wide styling and color overrides
 ├── utils.py               # Slide layout helpers (cards, badges, grids)
-├── slide.css              # Custom presentation stylesheet
+├── style.css              # Custom presentation stylesheet
 ├── build.sh               # Master build script
 ├── build_html.sh          # HTML presentation deck compilation
 ├── build_pdf.sh           # Vector PDF export via headless Chromium
+├── build_image.sh         # Standalone diagram image extraction
 └── serve.sh               # Local presentation preview server
 ```
 
@@ -187,6 +188,6 @@ All fonts, embedded SVG vectors, and Drawlib diagram primitives are preserved wi
 2. **Typography Hierarchy**:
    Use `text_size=18–24` for diagram headings and `text_size=12–14` for node labels to ensure legibility across projectors and shared screens.
 3. **Contrast & Theme Harmony**:
-   Align diagram themes with the presentation stylesheet (`slide.css`) using `Styles.PrimaryFlat` and `Styles.WhiteBold`.
+   Align diagram themes with the presentation stylesheet (`style.css`) using `Styles.PrimaryFlat` and `Styles.WhiteBold`.
 4. **Slide Counter Placement**:
    Place `current_slide.text` in bottom-right corner with subtle muted styling (`Styles.MutedSmall`).

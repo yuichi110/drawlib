@@ -284,7 +284,7 @@ def build_slide(
         "family=Google+Sans:wght@400;500;700&"
         "family=Inter:wght@400;500;600;700&"
         'family=JetBrains+Mono:wght@400;600&display=swap">\n'
-        '  <link rel="stylesheet" href="slide.css">\n'
+        '  <link rel="stylesheet" href="style.css">\n'
         "</head>\n"
         "<body>\n\n"
         '<div class="presentation-viewport">\n'

@@ -14,7 +14,7 @@ This directory contains slide Markdown files and drawing code compiled into an i
   - `serve.sh`: Local preview server.
   - `styles.py`: Global styles script (themes, styles, font presets).
   - `utils.py`: Slide macro helpers (cards, tables, timelines, flows).
-  - `slide.css`: Presentation styling and theme variables.
+  - `style.css`: Presentation styling and theme variables.
   - `01_title.md` ... `09_ecosystem.md`: Slide Markdown files.
   - `_assets/`: Static image assets (logos, mascots).
 - `slide_about_drawlib_html/`: Generated interactive HTML slide deck (`slide_about_drawlib_html/index.html`).

@@ -247,7 +247,7 @@ text((50, 10), current_slide.text, style=Styles.Dark)
         assert 'data-slide-index="3"' in index_content
 
         # Assets
-        assert (out_dir / "slide.css").is_file()
+        assert (out_dir / "style.css").is_file()
         assert (out_dir / "slide.js").is_file()
         assert (out_dir / "images" / "02_agenda" / "agenda.svg").is_file()
         assert (out_dir / "images" / "03_features" / "diag.svg").is_file()
@@ -412,7 +412,7 @@ text((96, 20), current_slide.text, style=Styles.White)
         assert not (out_dir / "obsolete.svg").exists()
         assert not (out_dir / "images" / "old_slide").exists()
         assert (out_dir / "index.html").is_file()
-        assert (out_dir / "slide.css").is_file()
+        assert (out_dir / "style.css").is_file()
 
 
 class TestSlideCli:
@@ -435,7 +435,7 @@ class TestSlideCli:
         res = run_drawlib_cli(["build", "slide", str(src_dir), "-o", str(out_dir), "--theme", "google", "--no-cache"])
         assert res.returncode == 0
         assert (out_dir / "index.html").is_file()
-        assert (out_dir / "slide.css").is_file()
+        assert (out_dir / "style.css").is_file()
 
     def test_cli_init_slide(self, tmp_path: Path) -> None:
         """Verify `drawlib init slide` scaffolding."""
@@ -451,13 +451,13 @@ class TestSlideCli:
         assert (src_dir / "build.sh").is_file()
         assert (src_dir / "build_image.sh").is_file()
         assert (src_dir / "serve.sh").is_file()
-        assert (src_dir / "slide.css").is_file()
+        assert (src_dir / "style.css").is_file()
         assert (src_dir / "utils.py").is_file()
         assert (src_dir / "styles.py").is_file()
 
     @pytest.mark.parametrize("style_name", ["default", "google", "monochrome"])
     def test_cli_init_slide_styles(self, tmp_path: Path, style_name: str) -> None:
-        """Verify `drawlib init slide --style <style>` deploys matching utils.py and slide.css."""
+        """Verify `drawlib init slide --style <style>` deploys matching utils.py and style.css."""
         target_dir = tmp_path / f"deck_{style_name}"
         target_dir.mkdir()
         res = run_drawlib_cli(["init", "slide", "--style", style_name], cwd=str(target_dir))
@@ -466,7 +466,7 @@ class TestSlideCli:
         src_dir = target_dir / "slide_src"
         utils_content = (src_dir / "utils.py").read_text(encoding="utf-8")
         styles_content = (src_dir / "styles.py").read_text(encoding="utf-8")
-        css_content = (src_dir / "slide.css").read_text(encoding="utf-8")
+        css_content = (src_dir / "style.css").read_text(encoding="utf-8")
 
         assert "draw_curved_agenda" in utils_content
         assert "draw_kpi_cards" in utils_content

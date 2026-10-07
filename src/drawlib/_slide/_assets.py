@@ -114,21 +114,25 @@ def copy_static_assets(input_abs: str, output_abs: str) -> None:
 
 
 def deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> None:
-    """Deploy slide.css, slide.js, and static assets to the output directory.
+    """Deploy style.css, slide.js, and static assets to the output directory.
 
     Args:
-        input_abs: Input directory containing potential slide.css overrides and assets.
+        input_abs: Input directory containing potential style.css overrides and assets.
         output_abs: Output directory.
         deck_theme: Chosen CSS theme name.
     """
-    local_css_path = os.path.join(input_abs, "slide.css")
-    if os.path.isfile(local_css_path):
-        with open(local_css_path, "r", encoding="utf-8") as f:
+    local_style_css = os.path.join(input_abs, "style.css")
+    local_slide_css = os.path.join(input_abs, "slide.css")
+    if os.path.isfile(local_style_css):
+        with open(local_style_css, "r", encoding="utf-8") as f:
+            css_content = f.read()
+    elif os.path.isfile(local_slide_css):
+        with open(local_slide_css, "r", encoding="utf-8") as f:
             css_content = f.read()
     else:
         css_content = get_css(name=deck_theme, target="slide")
 
-    with open(os.path.join(output_abs, "slide.css"), "w", encoding="utf-8") as f:
+    with open(os.path.join(output_abs, "style.css"), "w", encoding="utf-8") as f:
         f.write(css_content)
 
     with open(os.path.join(output_abs, "slide.js"), "w", encoding="utf-8") as f:

@@ -129,7 +129,7 @@ def test_cli_init_slide_default(tmp_path: Path) -> None:
     assert (tmp_path / "slide_src" / "README.md").is_file()
     assert (tmp_path / "slide_src" / "styles.py").is_file()
     assert (tmp_path / "slide_src" / "utils.py").is_file()
-    assert (tmp_path / "slide_src" / "slide.css").is_file()
+    assert (tmp_path / "slide_src" / "style.css").is_file()
     assert (tmp_path / "slide_src" / "01_title.md").is_file()
     assert (tmp_path / "slide_src" / "02_agenda.md").is_file()
     assert (tmp_path / "slide_src" / "03_architecture.md").is_file()

@@ -357,7 +357,7 @@ def test_cli_build_pdf_slide_project(tmp_path) -> None:
 
     slide_dir = tmp_path / "slide_src"
     slide_dir.mkdir()
-    (slide_dir / "slide.css").write_text("@media print { @page { size: 16in 9in; } }", encoding="utf-8")
+    (slide_dir / "style.css").write_text("@media print { @page { size: 16in 9in; } }", encoding="utf-8")
     (slide_dir / "01_title.md").write_text("# Slide Title\n\nPresentation slide content.", encoding="utf-8")
 
     out_pdf = tmp_path / "presentation.pdf"
