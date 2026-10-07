@@ -18,6 +18,7 @@ This document describes the project structure and architectural principles of th
 - `docs_html/`: Generated static HTML site for web hosting (do not edit directly).
 - `tests/`: Contains unit and integration tests.
 - `tools/`: Project developer CLI (`tools/dcli/`).
+- `.agents/`: Agent instructions, rules (`.agents/rules/`), and feature/architecture design plans (`.agents/plans/`). Always write design and implementation plans to `.agents/plans/` (never create a root-level `plans/` directory).
 - `pyproject.toml`: Project metadata and tool configurations (Ruff, Ty, uv).
 
 ## 2. Package Architecture

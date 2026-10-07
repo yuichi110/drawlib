@@ -18,7 +18,8 @@ Whenever adding features, modifying drawing logic, or fixing bugs in `src/drawli
    6. Complete <── 5. Visual Review & Self-Repair Loop <── 4. Build Docs & Render Images
 ```
 
-### Step 1: Implementation & Unit Tests
+### Step 1: Planning, Implementation & Unit Tests
+- **Design & Implementation Plans**: When creating or updating feature/architecture design plans in the repository, always place them under `.agents/plans/` (e.g., `.agents/plans/<feature_name>.md`). Do not create a root-level `plans/` directory.
 - Respect the internal layer hierarchy (`l1_core` -> `l2_types` -> `l3_*` -> `l4_canvas` -> domain modules -> public facades).
 - Write or update code in `src/drawlib/` (or `tools/dcli/`) and add unit tests in `tests/`.
 - Run targeted unit tests:
