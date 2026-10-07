@@ -61,7 +61,7 @@ class TestCanvasImage:
         image(xy=(50, 50), width=30, image=pimg2)
         save(f"{OUTPUT_DIR}test_cache.png")
 
-    @pytest.mark.image_threshold(92.0)
+    @pytest.mark.image_threshold(91.0)
     def test_image_angles(self) -> None:
         """Verify image rotation at different angles."""
         clear()

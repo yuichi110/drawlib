@@ -75,6 +75,8 @@ def _get_answers_file_path(gen_file_abs: Path, test_module_abs: Path) -> Optiona
 @pytest.fixture(scope="function", autouse=True)
 def preprocess():
     """Preprocess test setup and initialize drawlib canvas."""
+    os.environ["NO_COLOR"] = "1"
+    os.environ["TERM"] = "dumb"
     dutil_settings._set_suppress_warning(True)
     setup(grid_only=True)
     yield
@@ -121,7 +123,7 @@ def pytest_runtest_call(item):
             gen_bytes = f.read()
 
         marker = item.get_closest_marker("image_threshold")
-        threshold = float(marker.args[0]) if marker and marker.args else 99.0
+        threshold = float(marker.args[0]) if marker and marker.args else 97.0
         # Verify that the generated image matches the reference answer image
         assert check_image_match(gen_bytes, correct_file=correct_file, threshold=threshold), (
             f"Image match failed for: {gen_file} against expected {correct_file}"

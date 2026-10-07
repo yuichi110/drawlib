@@ -12,12 +12,20 @@
 from __future__ import annotations
 
 import os
+import re
 from pathlib import Path
 from typing import Sequence
 
 from typer.testing import CliRunner
 
 from drawlib._cli._drawlib import app
+
+_ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-9;]*[a-zA-Z]")
+
+
+def _strip_ansi(text: str) -> str:
+    """Remove ANSI escape sequences from CLI output."""
+    return _ANSI_ESCAPE_RE.sub("", text)
 
 
 class CliResult:
@@ -26,8 +34,8 @@ class CliResult:
     def __init__(self, exit_code: int, stdout: str, stderr: str = "") -> None:
         self.returncode: int = exit_code
         self.exit_code: int = exit_code
-        self.stdout: str = stdout
-        self.stderr: str = stderr
+        self.stdout: str = _strip_ansi(stdout)
+        self.stderr: str = _strip_ansi(stderr)
 
     def __repr__(self) -> str:
         """Return developer-friendly string representation of CliResult."""
@@ -56,7 +64,12 @@ def run_drawlib_cli(args: Sequence[str], cwd: str | None = None) -> CliResult:
     try:
         if cwd is not None:
             os.chdir(cwd)
-        result = runner.invoke(app, list(args), catch_exceptions=True)
+        result = runner.invoke(
+            app,
+            list(args),
+            env={"NO_COLOR": "1", "TERM": "dumb"},
+            catch_exceptions=True,
+        )
         return CliResult(
             exit_code=result.exit_code,
             stdout=result.stdout,

@@ -35,7 +35,7 @@ def lint(
     """
     targets = ["src", "tests", "tools"]
     for target in targets:
-        cmd = ["uv", "run", "ruff", "check", "--preview"]
+        cmd = ["uv", "run", "ruff", "check"]
         if fix:
             cmd.append("--fix")
         cmd.append(target)

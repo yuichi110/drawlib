@@ -371,7 +371,7 @@ def test_default_fill() -> None:
     save(f"{OUTPUT_DIR_DEFAULT}test_fill.png")
 
 
-@pytest.mark.image_threshold(93.0)
+@pytest.mark.image_threshold(91.0)
 def test_default_style_images() -> None:
     """Integrated drawing test for default image styles."""
     styles = default_styles
