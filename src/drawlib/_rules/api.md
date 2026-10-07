@@ -19,7 +19,7 @@ from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, Monoch
 # 3. Drawing Primitives
 from drawlib.shapes import (
     arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, bubblespeech, chevron,
-    circle, cylinder, donuts, ellipse, fan, parallelogram, polygon, rectangle,
+    circle, cylinder, donuts, ellipse, face, fan, parallelogram, polygon, rectangle,
     regularpolygon, rhombus, shape, star, trapezoid, triangle, wedge,
 )
 from drawlib.lines import (
@@ -112,6 +112,7 @@ Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted
 | `rectangle(xy, width, height, ...)` | `r: float = 0`, `angle: float = 0` | Rectangle or rounded rectangle (`r > 0`). |
 | `circle(xy, radius, ...)` | `radius: float` | Perfect circle centered at `xy`. |
 | `cylinder(xy, width, height, ...)` | `disks: int = 1`, `angle: float = 0` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
+| `face(xy, radius, ...)` | `mood: str = "smile"`, `angle: float = 0` | Expressive face (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`) centered at `xy`. |
 | `ellipse(xy, width, height, ...)` | `angle: float = 0` | Ellipse centered at `xy` with rotation angle. |
 | `wedge(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Circular sector / wedge slice from `angle1` to `angle2`. |
 | `fan(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Fan shape (wedge with arc perimeter). |

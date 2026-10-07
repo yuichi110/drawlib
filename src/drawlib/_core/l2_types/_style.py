@@ -64,6 +64,10 @@ TailEdge = Annotated[
     Literal["left", "top", "right", "bottom"],
     BeforeValidator(_normalize_str),
 ]
+FaceMood = Annotated[
+    Literal["smile", "neutral", "sad", "angry", "surprised"],
+    BeforeValidator(_normalize_str),
+]
 IconStyle = Annotated[
     Literal["thin", "light", "regular", "bold", "fill"],
     BeforeValidator(_normalize_str),
@@ -81,6 +85,7 @@ __all__ = [
     "Angle90",
     "ArrowHead",
     "Bend",
+    "FaceMood",
     "HAlign",
     "IconStyle",
     "LineStyle",

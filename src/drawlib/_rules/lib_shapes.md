@@ -1,6 +1,6 @@
 # Drawlib Shapes Guidelines
 
-Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 23 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
+Comprehensive architectural manual and API specification for `drawlib.shapes`. This guide details all 24 shape primitives, coordinate geometry, alignment engines, vector construction rules, and production diagram patterns.
 
 ---
 
@@ -22,6 +22,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
   - [2.5 `fan`](#25-fan)
   - [2.6 `arc`](#26-arc)
   - [2.7 `cylinder`](#27-cylinder)
+  - [2.8 `face`](#28-face)
 - [3. Polygon & Planar Geometric Primitives](#3-polygon--planar-geometric-primitives)
   - [3.1 `rectangle`](#31-rectangle)
   - [3.2 `parallelogram`](#32-parallelogram)
@@ -57,7 +58,7 @@ Comprehensive architectural manual and API specification for `drawlib.shapes`. T
 
 ### 1.1 Package Facade & Exports
 
-The `drawlib.shapes` module re-exports 23 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
+The `drawlib.shapes` module re-exports 24 functions implemented across internal canvas engines (`drawlib._core.l4_canvas._shapes`).
 
 ```python
 from drawlib.shapes import (
@@ -73,6 +74,7 @@ from drawlib.shapes import (
     cylinder,
     donuts,
     ellipse,
+    face,
     fan,
     parallelogram,
     polygon,
@@ -119,7 +121,7 @@ Shape functions fall into three distinct coordinate anchoring categories:
 
 1. **Center-Anchored Shapes (`is_default_center = True`)**:
    The input `xy=(x, y)` parameter specifies the exact **geometric center** of the shape.
-   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `arrow_l`, `arrow_u`, `arrow_arc`.
+   - Functions: `circle`, `cylinder`, `donuts`, `ellipse`, `face`, `wedge`, `fan`, `arc`, `regularpolygon`, `star`, `arrow_l`, `arrow_u`, `arrow_arc`.
 2. **Bottom-Left Anchored Shapes (`is_default_center = False`)**:
    The input `xy=(x, y)` parameter specifies the **bottom-left corner of the shape's unrotated bounding box**.
    - Functions: `rectangle`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `chevron`, `shape` (when `is_default_center=False`).
@@ -717,6 +719,53 @@ cylinder((30, 25), width=26, height=32, style=Styles.PrimaryFlat, text="Users DB
 
 # 2. Multi-disk storage cluster (3 disks, calm tinted-neutral card)
 cylinder((80, 25), width=28, height=34, disks=3, style=Styles.SecondaryNeutral, text="Data Lake")
+save()
+```
+
+---
+
+### 2.8 `face`
+
+Draws an expressive face circle with eyes, optional eyebrows, and a configurable facial expression (`mood`), ideal for actors, user personas, customer journey states, and incident/health indicators.
+
+#### Signature
+```python
+def face(
+    xy: tuple[float, float],
+    radius: float,
+    *,
+    style: Style,
+    mood: Literal["smile", "neutral", "sad", "angry", "surprised"] = "smile",
+    angle: float = 0.0,
+    text: str = "",
+    text_style: Style | None = None,
+) -> None:
+    ...
+```
+
+#### Parameter Breakdown
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the face circle. |
+| `radius` | `float` | *Required* | Radius of the face circle ($> 0$). |
+| `style` | `Style` | *Required* | Shape fill and stroke style. Eyes and mouth automatically derive their color from `shape_line_color` (or contrasting `text_color`/white on flat styles). |
+| `mood` | `str` | `"smile"` | Facial expression: `"smile"`, `"neutral"`, `"sad"`, `"angry"`, or `"surprised"`. |
+| `angle` | `float` | `0.0` | Counterclockwise rotation angle in degrees. |
+| `text` | `str` | `""` | Embedded text label (can be shifted below the face using `text_xy_shift`). |
+| `text_style` | `Style \| None` | `None` | Text formatting style. |
+
+#### Code Examples
+```drawlib show-code
+from drawlib.canvas import save, setup
+from drawlib.shapes import face
+from drawlib.styles import Styles
+
+setup(width=120, height=45)
+
+face((20, 22.5), radius=10, style=Styles.SuccessNeutral, mood="smile")
+face((50, 22.5), radius=10, style=Styles.Neutral, mood="neutral")
+face((80, 22.5), radius=10, style=Styles.WarningNeutral, mood="sad")
+face((105, 22.5), radius=10, style=Styles.DangerNeutral, mood="angry")
 save()
 ```
 
@@ -2326,6 +2375,7 @@ save()
 | `fan`    | Center `(x, y)` | `radius`, `angle_start/end` | No | Yes | Yes | No |
 | `arc`    | Center `(x, y)` | `width`, `height`, `angle_start/end` | No | Yes | Yes | No |
 | `cylinder` | Center `(x, y)` | `width`, `height`, `disks` | No | Yes | Yes | No |
+| `face`   | Center `(x, y)` | `radius`, `mood` | No | Yes | Yes | No |
 | `rectangle` | Center `(x, y)` | `width`, `height` | **Yes** | Yes | Yes | No |
 | `parallelogram` | Center `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
 | `rhombus` | Center `(x, y)` | `width`, `height` | No | Yes | Yes | No |

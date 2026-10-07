@@ -104,7 +104,41 @@ save()
 
 ---
 
-## 5. Rectangular & Planar Polygons
+## 5. Expressive Actor & Status Faces (`face`)
+
+For user actors in conceptual diagrams, customer journey stages, and operational health indicators, `face` renders an expressive face circle with eyes, optional eyebrows, and five built-in facial moods (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`) derived automatically from a single `style`:
+
+```drawlib show-code 650px center file:shapes_face.png caption:"Expressive Actor and Status Faces (face)"
+from drawlib.canvas import save, setup
+from drawlib.shapes import face
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=120, height=50)
+
+faces = [
+    ("smile", Styles.SuccessNeutral),
+    ("neutral", Styles.Neutral),
+    ("sad", Styles.WarningNeutral),
+    ("angry", Styles.DangerNeutral),
+    ("surprised", Styles.PrimaryNeutral),
+]
+
+for i, (mood, st) in enumerate(faces):
+    cx = 16 + i * 22
+    face((cx, 29), radius=9, style=st, mood=mood)
+    text((cx, 13), f'mood="{mood}"', style=Styles.Muted.patch(text_size=10))
+
+save()
+```
+
+- **`face(xy, radius, *, style, mood="smile", angle=0.0, text="", text_style=None)`**:
+  - `mood`: Facial expression (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, or `"surprised"`).
+  - Eyes, eyebrows, and mouth automatically derive their color from `style.shape_line_color` (or contrasting `text_color` / white on borderless flat styles like `Styles.PrimaryFlat`).
+
+---
+
+## 6. Rectangular & Planar Polygons
 
 ### `rectangle(xy, width, height, r=0.0, angle=0.0, ...)`
 Draws a rectangle centered at `xy`. 
@@ -132,7 +166,7 @@ save()
 
 ---
 
-## 6. Custom Vector Shapes (`shape`)
+## 7. Custom Vector Shapes (`shape`)
 
 For irregular geometries that do not match predefined primitives, `shape` allows you to construct custom vector polygons using **local path coordinates**:
 
@@ -157,7 +191,7 @@ save()
 
 ---
 
-## 7. Callout Speech Bubbles (`bubblespeech`)
+## 8. Callout Speech Bubbles (`bubblespeech`)
 
 For callouts, annotations, and explanatory speech bubbles, `bubblespeech` creates a speech bubble with an integrated pointer tail pointing directly at target coordinates:
 

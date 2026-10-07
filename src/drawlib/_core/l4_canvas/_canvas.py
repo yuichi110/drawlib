@@ -395,6 +395,7 @@ arc = canvas.arc
 circle = canvas.circle
 cylinder = canvas.cylinder
 ellipse = canvas.ellipse
+face = canvas.face
 polygon = canvas.polygon
 rectangle = canvas.rectangle
 regularpolygon = canvas.regularpolygon

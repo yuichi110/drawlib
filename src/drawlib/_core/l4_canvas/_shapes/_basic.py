@@ -27,6 +27,7 @@ from drawlib._core.l2_types import (
     Angle,
     Coordinate,
     Coordinates,
+    FaceMood,
     NumVertex,
     PathPoints,
     PosFloat,
@@ -898,6 +899,303 @@ class CanvasShapeBasicFeature(CanvasBase):
                     style=effective_text_style,
                 )
             )
+
+    @validate_call
+    def face(
+        self,
+        xy: Coordinate,
+        radius: PosFloat,
+        *,
+        style: Style,
+        mood: FaceMood = "smile",
+        angle: Angle = 0.0,
+        text: str = "",
+        text_style: Style | None = None,
+    ) -> None:
+        """Draw an expressive face shape on the canvas.
+
+        Args:
+            xy: Center coordinates (x, y) of the face circle.
+            radius: Radius of the face circle.
+            style: Style object (required).
+            mood: Facial expression ("smile", "neutral", "sad", "angry", or "surprised").
+            angle: Rotation angle in degrees (default is 0.0).
+            text: Text to display inside shape.
+            text_style: Style object for text.
+        """
+        style, text_style = ShapeUtil.format_styles(
+            style,
+            text_style,
+        )
+
+        if radius <= 0:
+            raise ValueError(f"radius must be positive, but got radius={radius}.")
+
+        width = radius * 2.0
+        height = radius * 2.0
+        xy, style = ShapeUtil.apply_alignment(
+            xy=xy,
+            width=width,
+            height=height,
+            angle=angle,
+            style=style,
+            is_default_center=True,
+        )
+        cx, cy = xy
+
+        face_fill, stroke_color, feature_color, feature_w = _get_face_colors(style)
+        line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
+        line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
+
+        self._artists.append(
+            Circle(
+                xy=(cx, cy),
+                radius=radius,
+                facecolor=face_fill,
+                edgecolor=stroke_color,
+                linewidth=line_w,
+                linestyle=line_style,
+                zorder=1,
+            )
+        )
+
+        rad = math.radians(angle)
+        cos_a = math.cos(rad)
+        sin_a = math.sin(rad)
+
+        self._artists.extend(
+            _build_face_feature_patches(
+                cx=cx,
+                cy=cy,
+                radius=radius,
+                mood=mood,
+                cos_a=cos_a,
+                sin_a=sin_a,
+                feature_color=feature_color,
+                feature_w=feature_w,
+            )
+        )
+
+        if text:
+            effective_text_style = ShapeUtil.resolve_embedded_text_style(style, text_style)
+            self._artists.append(
+                ShapeUtil.get_shape_text(
+                    xy=xy,
+                    text=text,
+                    angle=angle,
+                    style=effective_text_style,
+                )
+            )
+
+
+def _get_face_colors(
+    style: Style,
+) -> tuple[
+    tuple[float, float, float, float] | str,
+    tuple[float, float, float, float] | str,
+    tuple[float, float, float, float],
+    float,
+]:
+    """Derive face fill, outline stroke, and inner feature color/width from Style.
+
+    Args:
+        style: Shape style object.
+
+    Returns:
+        A tuple of (face_fill, stroke_color, feature_color, feature_line_w).
+    """
+    line_w = style.shape_line_width if style.shape_line_width is not None else 0.0
+    raw_stroke = (
+        ColorUtil.get_mplot_rgba(style.shape_line_color)
+        if style.shape_line_color is not None
+        else (0.0, 0.0, 0.0, 0.0)
+    )
+    has_stroke = style.shape_line_color is not None and line_w > 0 and raw_stroke[3] > 0.0
+
+    if style.shape_fill_color is None:
+        face_fill: tuple[float, float, float, float] | str = "none"
+    else:
+        raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.shape_fill_alpha)
+        face_fill = "none" if raw_fill[3] <= 0.0 else raw_fill
+
+    stroke_color: tuple[float, float, float, float] | str = raw_stroke if has_stroke else "none"
+
+    if has_stroke:
+        feature_color = raw_stroke
+        feature_w = line_w
+    elif style.text_color is not None:
+        feature_color = ColorUtil.get_mplot_rgba(style.text_color)
+        feature_w = 1.5
+    else:
+        contrast_col = ColorUtil.get_contrast_text_color(style.shape_fill_color, style.shape_fill_alpha)
+        feature_color = ColorUtil.get_mplot_rgba(contrast_col)
+        feature_w = 1.5
+
+    if style.shape_fill_alpha is not None and 0.0 < style.shape_fill_alpha < 1.0:
+        feature_color = (
+            feature_color[0],
+            feature_color[1],
+            feature_color[2],
+            round(feature_color[3] * style.shape_fill_alpha, 5),
+        )
+        if isinstance(stroke_color, tuple):
+            stroke_color = (
+                stroke_color[0],
+                stroke_color[1],
+                stroke_color[2],
+                round(stroke_color[3] * style.shape_fill_alpha, 5),
+            )
+
+    return face_fill, stroke_color, feature_color, feature_w
+
+
+def _build_face_feature_patches(
+    cx: float,
+    cy: float,
+    radius: float,
+    mood: str,
+    cos_a: float,
+    sin_a: float,
+    feature_color: tuple[float, float, float, float],
+    feature_w: float,
+) -> list[Circle | PathPatch]:
+    """Generate eye, eyebrow, and mouth patches for a face shape.
+
+    Args:
+        cx: Center x coordinate.
+        cy: Center y coordinate.
+        radius: Face circle radius.
+        mood: Facial expression name.
+        cos_a: Cosine of rotation angle.
+        sin_a: Sine of rotation angle.
+        feature_color: RGBA color for eyes, eyebrows, and mouth.
+        feature_w: Line width for mouth and eyebrows.
+
+    Returns:
+        List of Circle and PathPatch artists for facial features.
+    """
+
+    def xform_pt(lx: float, ly: float) -> tuple[float, float]:
+        return (cx + lx * cos_a - ly * sin_a, cy + lx * sin_a + ly * cos_a)
+
+    eye_x = radius * 0.32
+    eye_y = radius * 0.13 if mood == "angry" else radius * 0.20
+    eye_r = radius * 0.105 if mood == "angry" else radius * 0.11
+
+    left_eye = Circle(
+        xy=xform_pt(-eye_x, eye_y),
+        radius=eye_r,
+        facecolor=feature_color,
+        edgecolor="none",
+        linewidth=0,
+        zorder=1,
+    )
+    right_eye = Circle(
+        xy=xform_pt(eye_x, eye_y),
+        radius=eye_r,
+        facecolor=feature_color,
+        edgecolor="none",
+        linewidth=0,
+        zorder=1,
+    )
+    patches: list[Circle | PathPatch] = [left_eye, right_eye]
+
+    if mood == "angry":
+        brow_verts = [
+            xform_pt(-radius * 0.48, radius * 0.40),
+            xform_pt(-radius * 0.15, radius * 0.25),
+            xform_pt(radius * 0.48, radius * 0.40),
+            xform_pt(radius * 0.15, radius * 0.25),
+        ]
+        brow_codes = [Path.MOVETO, Path.LINETO, Path.MOVETO, Path.LINETO]
+        patches.append(
+            PathPatch(
+                Path(vertices=brow_verts, codes=brow_codes),
+                facecolor="none",
+                edgecolor=feature_color,
+                linewidth=feature_w,
+                capstyle="round",
+                joinstyle="round",
+                zorder=1,
+            )
+        )
+
+    if mood == "smile":
+        m_verts = [
+            xform_pt(-radius * 0.44, -radius * 0.18),
+            xform_pt(-radius * 0.24, -radius * 0.54),
+            xform_pt(radius * 0.24, -radius * 0.54),
+            xform_pt(radius * 0.44, -radius * 0.18),
+        ]
+        m_codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4]
+    elif mood == "neutral":
+        m_verts = [
+            xform_pt(-radius * 0.36, -radius * 0.28),
+            xform_pt(radius * 0.36, -radius * 0.28),
+        ]
+        m_codes = [Path.MOVETO, Path.LINETO]
+    elif mood in {"sad", "angry"}:
+        m_verts = [
+            xform_pt(-radius * 0.42, -radius * 0.42),
+            xform_pt(-radius * 0.22, -radius * 0.14),
+            xform_pt(radius * 0.22, -radius * 0.14),
+            xform_pt(radius * 0.42, -radius * 0.42),
+        ]
+        m_codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4]
+    else:
+        # "surprised": open 'O' ellipse mouth
+        rx = radius * 0.16
+        ry = radius * 0.20
+        my = -radius * 0.30
+        kappa = 0.5522847498307936
+        kx = rx * kappa
+        ky = ry * kappa
+        local_o = [
+            (rx, my),
+            (rx, my + ky),
+            (kx, my + ry),
+            (0.0, my + ry),
+            (-kx, my + ry),
+            (-rx, my + ky),
+            (-rx, my),
+            (-rx, my - ky),
+            (-kx, my - ry),
+            (0.0, my - ry),
+            (kx, my - ry),
+            (rx, my - ky),
+            (rx, my),
+            (rx, my),
+        ]
+        m_verts = [xform_pt(lx, ly) for lx, ly in local_o]
+        m_codes = [
+            Path.MOVETO,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CURVE4,
+            Path.CLOSEPOLY,
+        ]
+
+    patches.append(
+        PathPatch(
+            Path(vertices=m_verts, codes=m_codes),
+            facecolor="none",
+            edgecolor=feature_color,
+            linewidth=feature_w,
+            capstyle="round",
+            joinstyle="round",
+            zorder=1,
+        )
+    )
+    return patches
 
 
 __all__ = ["CanvasShapeBasicFeature"]
