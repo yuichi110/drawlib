@@ -14,7 +14,7 @@ from typing import Literal
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.l2_types import Angle, Coordinate, PosFloat
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import transform, trapezoid, triangle
 
@@ -25,23 +25,14 @@ class PyramidItem(BaseModel):
     style: Style
     text: str
     text_style: Style
-    text_angle: Angle = 0.0
-    text_xy_shift: Coordinate | None = None
     show: bool = True
 
 
 def _resolve_pyramid_text_style(item: PyramidItem, *, ensure_angle: bool = False) -> Style:
     """Resolve effective text style for a pyramid item at draw time."""
     text_style = item.text_style
-    patch_kwargs: dict = {}
-    if item.text_angle != 0.0:
-        patch_kwargs["angle"] = item.text_angle
-    elif ensure_angle and text_style.angle is None:
-        patch_kwargs["angle"] = 0
-    if item.text_xy_shift is not None:
-        patch_kwargs["xy_abs_shift"] = item.text_xy_shift
-    if patch_kwargs:
-        text_style = text_style.patch(**patch_kwargs)
+    if ensure_angle and text_style.angle is None:
+        text_style = text_style.patch(angle=0)
     return text_style
 
 
@@ -49,8 +40,7 @@ class Pyramid:
     """Class for rendering smart art pyramids.
 
     This class provides methods to create and manipulate pyramid-shaped smart art
-    diagrams. It supports custom styles, text styles, text angles, and text position
-    adjustments.
+    diagrams. It supports custom styles and text styles.
     """
 
     @validate_call
@@ -59,21 +49,15 @@ class Pyramid:
         *,
         style: Style,
         text_style: Style,
-        text_angle: Angle = 0.0,
-        text_xy_shift: Coordinate | None = None,
     ) -> None:
         """Initializes a Pyramid instance with default styles and settings.
 
         Args:
             style: The default style for the pyramid shapes.
             text_style: The default text style for the pyramid shapes.
-            text_angle: The default rotation angle for the text within the pyramid shapes. Defaults to 0.0.
-            text_xy_shift: The default x and y shift for the text within the pyramid shapes. Defaults to None.
         """
         self._style = style
         self._text_style = text_style
-        self._text_angle = text_angle
-        self._text_xy_shift = text_xy_shift
 
         self._items: list[PyramidItem] = []
 
@@ -89,8 +73,6 @@ class Pyramid:
         *,
         style: Style | None = None,
         text_style: Style | None = None,
-        text_angle: Angle | None = None,
-        text_xy_shift: Coordinate | None = None,
         show: bool = True,
     ) -> PyramidItem:
         """Add an item to the pyramid.
@@ -99,8 +81,6 @@ class Pyramid:
             text: Text to display within the pyramid shape.
             style: Style for this pyramid shape. If None, default style is used.
             text_style: Text style for this pyramid shape. If None, default text_style is used.
-            text_angle: Rotation angle for the text. If None, default text_angle is used.
-            text_xy_shift: Position shift for the text. If None, default text_xy_shift is used.
             show: Whether to render this pyramid layer. Defaults to True.
 
         Returns:
@@ -108,15 +88,11 @@ class Pyramid:
         """
         resolved_style = style if style is not None else self._style
         resolved_text_style = text_style if text_style is not None else self._text_style
-        resolved_text_angle = text_angle if text_angle is not None else self._text_angle
-        resolved_text_xy_shift = text_xy_shift if text_xy_shift is not None else self._text_xy_shift
 
         item = PyramidItem(
             text=text,
             style=resolved_style,
             text_style=resolved_text_style,
-            text_angle=resolved_text_angle,
-            text_xy_shift=resolved_text_xy_shift,
             show=show,
         )
         self._items.append(item)

@@ -199,8 +199,14 @@ def draw_diagram_icon(
     if icon is None:
         return
 
-    default_style = Style(icon_color=(50, 50, 50, 1.0), image_border_width=0)
-    applied_style = default_style.patch(icon_style)
+    base_icon_color = (
+        (icon_style.icon_color or icon_style.shape_line_color or (50, 50, 50, 1.0))
+        if icon_style is not None
+        else (50, 50, 50, 1.0)
+    )
+    default_style = Style(icon_color=base_icon_color, image_border_width=0)
+    applied_style = default_style.patch(icon_style) if icon_style is not None else default_style
+    applied_style = applied_style.patch(image_border_width=0)
 
     if isinstance(icon, (GcpIcon, PhosphorIcon)):
         draw_enum_icon(icon, canvas_xy, icon_size, applied_style, fallback_box=fallback_box)
@@ -208,6 +214,67 @@ def draw_diagram_icon(
         draw_image_icon(icon, canvas_xy, icon_size, applied_style)
     elif callable(icon):
         icon(xy=canvas_xy, width=icon_size, style=applied_style)
+
+
+def render_icon_text_card(
+    canvas_xy: tuple[float, float],
+    card_size: tuple[float, float],
+    *,
+    text: str = "",
+    icon: IconType = None,
+    icon_size: float = 8.0,
+    style: Style | None = None,
+    text_style: Style | None = None,
+    card_style: Style | None = None,
+    default_node_style: Style,
+    default_node_text_style: Style,
+    default_node_card_style: Style | None = None,
+    fallback_box: bool = False,
+) -> None:
+    """Render a unified card (optional), icon/image (optional), and text (optional) at canvas_xy."""
+    cx, cy = canvas_xy
+    card_w, card_h = card_size
+
+    resolved_card_style: Style | None = None
+    if default_node_card_style is not None and card_style is not None:
+        resolved_card_style = default_node_card_style.patch(card_style)
+    elif card_style is not None:
+        resolved_card_style = card_style
+    elif default_node_card_style is not None:
+        resolved_card_style = default_node_card_style
+
+    if resolved_card_style is not None:
+        canvas_rectangle(xy=(cx, cy), width=card_w, height=card_h, style=resolved_card_style)
+
+    if icon is not None and text:
+        is_multiline = "\n" in text
+        eff_h = max(card_h, icon_size + 4.0)
+        top_margin = max(1.0, (eff_h - icon_size) * (0.12 if is_multiline else 0.18))
+        icon_top = cy + eff_h / 2.0 - top_margin
+        iy = icon_top - icon_size / 2.0
+        icon_bottom = iy - icon_size / 2.0
+        card_bottom = cy - eff_h / 2.0
+        ty = (icon_bottom + card_bottom) / 2.0 + (0.65 if is_multiline else 0.25)
+    else:
+        iy = cy
+        ty = cy
+
+    if icon is not None:
+        applied_icon_style = default_node_style.patch(style) if style is not None else default_node_style
+        draw_diagram_icon(icon, (cx, iy), icon_size, applied_icon_style, fallback_box=fallback_box)
+
+    if text:
+        base_text_style = Style(
+            text_size=12.0,
+            text_font=Font.SANSSERIF_REGULAR,
+            text_color=(35, 35, 40, 1.0),
+            text_halign="center",
+            text_valign="center",
+        )
+        applied_text_style = base_text_style.patch(default_node_text_style)
+        if text_style is not None:
+            applied_text_style = applied_text_style.patch(text_style)
+        canvas_text(xy=(cx, ty), text=text, style=applied_text_style)
 
 
 def is_edge_visible(edge: object) -> bool:

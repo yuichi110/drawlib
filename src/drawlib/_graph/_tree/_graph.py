@@ -82,7 +82,6 @@ class TreeGraph(BaseGraph):
         style: Style | None = None,
         text_style: Style | None = None,
         shape: Literal["rectangle", "circle", "rounded_rectangle"] = "rectangle",
-        icon: str | None = None,
         width: float | None = None,
         height: float | None = None,
         edge_label: str | None = None,
@@ -100,7 +99,6 @@ class TreeGraph(BaseGraph):
             style: Shape styling for child node.
             text_style: Text styling for child node label.
             shape: Shape geometry of child node.
-            icon: Optional icon name or path.
             width: Custom width for child node.
             height: Custom height for child node.
             edge_label: Annotation text on connecting edge.
@@ -121,7 +119,6 @@ class TreeGraph(BaseGraph):
             style=style,
             text_style=text_style,
             shape=shape,
-            icon=icon,
             width=width,
             height=height,
             show=show,

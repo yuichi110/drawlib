@@ -110,7 +110,6 @@ class BaseGraph(ABC):
                 text_style=node.text_style or self.default_node_text_style,
                 label=node.label or nid,
                 shape=node.shape,
-                icon=node.icon,
                 show=node.show,
             )
         return nodes_layout
@@ -190,7 +189,6 @@ class BaseGraph(ABC):
         style: Style | None = None,
         text_style: Style | None = None,
         shape: Literal["rectangle", "circle", "rounded_rectangle"] = "rectangle",
-        icon: str | None = None,
         width: float | None = None,
         height: float | None = None,
         ring: int | None = None,
@@ -209,7 +207,6 @@ class BaseGraph(ABC):
             style: Shape styling for this node.
             text_style: Text styling for the node label.
             shape: Shape geometry ("rectangle", "circle", "rounded_rectangle").
-            icon: Optional icon name or path.
             width: Custom width for this node.
             height: Custom height for this node.
             ring: Optional concentric ring number (for radial layouts).
@@ -235,7 +232,6 @@ class BaseGraph(ABC):
             style=style,
             text_style=text_style,
             shape=shape,
-            icon=icon,
             width=width,
             height=height,
             ring=ring,

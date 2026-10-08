@@ -158,10 +158,11 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 #### `ArchitectureDiagram` Class:
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `node_style` | `Style` | *(Required)* | Default style for nodes and card backgrounds. |
+| `node_style` | `Style` | *(Required)* | Default style for node icons and images. |
 | `node_text_style` | `Style` | *(Required)* | Default typography style for node labels. |
 | `edge_style` | `Style` | *(Required)* | Default style for connection lines and arrowheads. |
 | `edge_text_style` | `Style` | *(Required)* | Default typography style for connection edge labels. |
+| `node_card_style` | `Style \| None` | `None` | Default style for node card backgrounds (transparent if `None`). |
 | `title` | `str` | `""` | Diagram title text rendered at top. |
 | `title_style` | `Style \| None` | `None` | Optional typography style for diagram title. |
 | `width` / `height` | `float \| None` | `None` | Optional canvas bounding dimensions override. |
@@ -176,15 +177,16 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 #### `Node` Class:
 | Parameter | Type | Default | Description |
 |---|---|---|---|
+| `card_size` | `tuple[float, float]` | *(Required)* | Card bounding box `(width, height)` in canvas units. |
 | `text` | `str` | `""` | Node label text (supports `\n`). |
-| `icon` | `IconType \| None` | `None` | PhosphorIcon, GcpIcon, or CustomIcon. |
-| `icon_size` | `float` | `8.0` | Outer width and height of the icon square. |
-| `text_position` | `"bottom"` \| `"top"` \| `"left"` \| `"right"` | `"bottom"` | Label placement relative to icon center. |
-| `style` | `Style \| None` | `None` | Optional typography or node background style. |
-| `text_style` | `Style \| None` | `None` | Optional explicit style override for the label text. |
+| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
+| `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
+| `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
+| `text_style` | `Style \| None` | `None` | Optional explicit style override for the label text (supports `xy_shift`, `angle`). |
+| `card_style` | `Style \| None` | `None` | Optional style override for the card background/border (transparent if `None` and `node_card_style` is `None`). |
 | `show` | `bool` | `True` | Whether to render this node (and its connected edges). |
 
-- **Icon-Centric Coordinates**: The coordinate `xy` passed to `d.add(node, xy)` **strictly defines the center of the icon**. The text label is positioned relative to the icon according to `text_position` without shifting the icon's position. This ensures perfectly straight wire routing between aligned icons.
+- **Card-Centric Coordinates**: The coordinate `xy` passed to `d.add(node, xy)` defines the **center of the node card** `card_size=(width, height)`. When both `icon` and `text` are provided, the icon is placed in the upper middle of the card and the label in the lower portion (adjustable via `text_style=Styles.DarkBold.patch(xy_shift=...)`).
 - `node.connect(target, label="", arrow="->", routing="orthogonal", style=None, text_style=None, padding=0.0, show=True) -> Edge`: Connects this node to `target`.
 - `node.fork(targets, at_x=None, at_y=None, style=None, padding=0.0, show=True) -> list[Edge]`: Creates a 1-to-N bus fan-out via an automatic intermediate junction.
 
@@ -200,10 +202,10 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 - **Auto-Bounding**: Automatically computes its bounding box to enclose all child nodes and nested groups with configurable padding (even when child nodes have `show=False`).
 - **Group as Connectable**: You can connect directly to or from a group's boundary box.
 
-#### Built-in Icons:
+#### Built-in Icons & Images:
 - `GcpIcon`: 259 official Google Cloud icons (`GcpIcon.COMPUTE_ENGINE`, `GcpIcon.CLOUD_RUN`, `GcpIcon.CLOUD_SQL`, `GcpIcon.BIGQUERY`, etc.).
 - `PhosphorIcon`: 1,531 modern interface icons (`PhosphorIcon.USER`, `PhosphorIcon.DATABASE`, `PhosphorIcon.BROWSER`, etc.).
-- `CustomIcon(image)`: Wraps file paths, PIL Images, or `Dimage` instances.
+- Direct callables/images: `phosphor.*` or `gcp.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
 
 ### 3.3 Production Examples
 
@@ -214,40 +216,41 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, No
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=155, height=95)
+canvas.setup(width=165, height=102)
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="Production Multi-Tier Cloud VPC",
 )
 
 # Outer VPC Network boundary
-vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(28.0, 8.0))
+vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(32.0, 8.0))
 
 # Public Subnet with Load Balancer (local coordinates inside vpc)
 public_subnet = vpc.add(NodeGroup(title="Public Subnet (10.0.1.0/24)", padding=5.0), xy=(6.0, 6.0))
-lb = public_subnet.add(Node("Cloud Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(14.0, 30.0))
+lb = public_subnet.add(Node((26, 17), "Cloud Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(16.0, 30.0))
 
 # Private Subnet with Application Pods (local coordinates inside vpc)
-private_subnet = vpc.add(NodeGroup(title="Private Subnet (10.0.2.0/24)", padding=5.0), xy=(42.0, 6.0))
-gke1 = private_subnet.add(Node("API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 44.0))
-gke2 = private_subnet.add(Node("API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 16.0))
+private_subnet = vpc.add(NodeGroup(title="Private Subnet (10.0.2.0/24)", padding=5.0), xy=(48.0, 6.0))
+gke1 = private_subnet.add(Node((20, 16), "API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 44.0))
+gke2 = private_subnet.add(Node((20, 16), "API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(14.0, 16.0))
 
 # External Actor and Managed Services (global diagram coordinates outside vpc)
-user = d.add(Node("Client User", icon=PhosphorIcon.USER, icon_size=8.0), xy=(8.0, 44.0))
-db = d.add(Node("Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(132.0, 58.0))
-storage = d.add(Node("Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(132.0, 30.0))
+user = d.add(Node((18, 16), "Client User", icon=PhosphorIcon.USER, icon_size=8.0), xy=(9.0, 44.0))
+db = d.add(Node((24, 18), "Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(140.0, 58.0))
+storage = d.add(Node((24, 18), "Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(140.0, 30.0))
 
 # Connections
-d.connect(user, lb, label="HTTPS (443)", padding=2.0)
-lb.fork([gke1, gke2], at_x=66.0, padding=2.0)
-d.connect(gke1, db, label="SQL Query", padding=2.0)
-d.connect(gke2, storage, label="Asset Sync", padding=2.0)
+d.connect(user, lb, label="HTTPS (443)", padding=1.5)
+lb.fork([gke1, gke2], at_x=73.0, padding=1.5)
+d.connect(gke1, db, label="SQL Query", padding=1.5)
+d.connect(gke2, storage, label="Asset Sync", padding=1.5)
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(4.0, 4.0))
 ```
 
 #### Example 3.3.2: Event-Driven Kafka Streaming Mesh
@@ -257,29 +260,30 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, 
 from drawlib.styles import Styles
 
 canvas.clear()
-canvas.setup(width=125, height=80)
+canvas.setup(width=132, height=84)
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="Event-Driven Message Streaming Topology",
 )
 
-cluster = d.add(NodeGroup(title="Streaming Event Mesh", padding=6.0), xy=(28.0, 10.0))
-broker1 = cluster.add(Node("Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(16.0, 40.0))
-broker2 = cluster.add(Node("Kafka Broker 2", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(16.0, 14.0))
+cluster = d.add(NodeGroup(title="Streaming Event Mesh", padding=6.0), xy=(30.0, 10.0))
+broker1 = cluster.add(Node((22, 16), "Kafka Broker 1", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(17.0, 40.0))
+broker2 = cluster.add(Node((22, 16), "Kafka Broker 2", icon=PhosphorIcon.STACK, icon_size=7.0), xy=(17.0, 14.0))
 
-pub = d.add(Node("Event Ingest\nProducer", icon=PhosphorIcon.BROADCAST, icon_size=7.5), xy=(8.0, 37.0))
-analytics = d.add(Node("Realtime Analytics\nConsumer", icon=PhosphorIcon.CHART_BAR, icon_size=7.5), xy=(98.0, 50.0))
-archiver = d.add(Node("Parquet Lakehouse\nArchiver", icon=PhosphorIcon.HARD_DRIVES, icon_size=7.5), xy=(98.0, 24.0))
+pub = d.add(Node((20, 17), "Event Ingest\nProducer", icon=PhosphorIcon.BROADCAST, icon_size=7.5), xy=(9.0, 37.0))
+analytics = d.add(Node((26, 17), "Realtime Analytics\nConsumer", icon=PhosphorIcon.CHART_BAR, icon_size=7.5), xy=(104.0, 50.0))
+archiver = d.add(Node((26, 17), "Parquet Lakehouse\nArchiver", icon=PhosphorIcon.HARD_DRIVES, icon_size=7.5), xy=(104.0, 24.0))
 
-pub.fork([broker1, broker2], at_x=24.0, padding=1.5)
+pub.fork([broker1, broker2], at_x=25.0, padding=1.5)
 d.connect(broker1, analytics, label="Consumer Group A", padding=1.5)
 d.connect(broker2, archiver, label="Consumer Group B", padding=1.5)
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(4.0, 4.0))
 ```
 
 ---
@@ -449,8 +453,8 @@ from drawlib.diagrams.sequence import Block, Message, Note, Participant, Partici
 ```
 
 #### Constructor, Participant Management & Rendering:
-- `SequenceDiagram(node_style, edge_style, edge_text_style, title="", width=None, height=None, margin=5.0, autonumber=False, style=None, title_style=None)`
-- `d.add(Participant(name, icon=None, icon_size=8.0, style=None, show=True), *, show: bool = True) -> Participant`
+- `SequenceDiagram(node_style, node_text_style, edge_style, edge_text_style, node_card_style=None, title="", width=None, height=None, margin=5.0, autonumber=False, style=None, title_style=None)`
+- `d.add(Participant(card_size, text="", icon=None, icon_size=8.0, style=None, text_style=None, card_style=None, lifeline_style=None, show=True), *, show: bool = True) -> Participant`
 - `d.add(ParticipantGroup(title="", padding=4.0, style=None, show=True), *, show: bool = True) -> ParticipantGroup`
 - `group.add(Participant(...), *, show: bool = True) -> Participant`
 - `d.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`
@@ -487,9 +491,11 @@ canvas.clear()
 canvas.setup(width=165, height=140)
 
 d = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="Microservices Distributed Transaction Pipeline",
     autonumber=True,
     col_width=38.0,
@@ -497,7 +503,7 @@ d = SequenceDiagram(
 )
 
 # 1. Participants: Client on the left, Backend services in VPC group on the right
-client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER, icon_size=7.5))
+client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER, icon_size=7.5))
 
 backend = d.add(
     ParticipantGroup(
@@ -506,9 +512,11 @@ backend = d.add(
         style=Styles.MutedDashed,
     )
 )
-api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, style=Styles.PrimaryNeutral))
-worker = backend.add(Participant("GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
-db = backend.add(Participant("Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
+api = backend.add(
+    Participant((22, 16), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, card_style=Styles.PrimaryNeutral)
+)
+worker = backend.add(Participant((22, 16), "GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
+db = backend.add(Participant((22, 16), "Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
 
 # 2. Interactions
 client.request(api, "POST /api/v1/checkout")
@@ -540,14 +548,16 @@ canvas.clear()
 canvas.setup(width=85, height=80)
 
 d = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="WebSocket Real-Time Live Sync",
 )
 
-app = d.add(Participant("Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
-gateway = d.add(Participant("WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5, style=Styles.PrimaryNeutral))
+app = d.add(Participant((22, 15), "Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
+gateway = d.add(Participant((22, 15), "WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5, card_style=Styles.PrimaryNeutral))
 
 app.request(gateway, "GET /ws HTTP/1.1 (Upgrade: websocket)")
 gateway.reply(app, "101 Switching Protocols")

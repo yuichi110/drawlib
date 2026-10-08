@@ -43,24 +43,26 @@ from drawlib.diagrams.sequence import (
 from drawlib.styles import Styles
 
 d = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="Checkout Transaction Pipeline",
     autonumber=True,            # Auto-number messages (1., 2., 3., ...)
 )
 
 # Participant group for clustered backend services
 vpc = d.add(ParticipantGroup(title="Google Cloud VPC", padding=4.0))
-api = vpc.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, style=Styles.PrimaryNeutral))
-db = vpc.add(Participant("Cloud SQL", icon=GcpIcon.CLOUD_SQL))
+api = vpc.add(Participant((22, 16), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, card_style=Styles.PrimaryNeutral))
+db = vpc.add(Participant((22, 16), "Cloud SQL", icon=GcpIcon.CLOUD_SQL))
 
 # External participant
-client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER))
+client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER))
 ```
 
 ### Registration, Message & Rendering Methods
-- **`d.add(item, *, show: bool = True) -> Participant | ParticipantGroup`** (and `group.add(participant, *, show: bool = True) -> Participant`): Registers a participant or group (`show=False` hides the lifeline/group and any attached messages while keeping horizontal column spacing fixed).
+- **`d.add(item, *, show: bool = True) -> Participant | ParticipantGroup`** (and `group.add(participant, *, show: bool = True) -> Participant`): Registers a participant (`Participant(card_size, text="", icon=None, icon_size=8.0, style=None, text_style=None, card_style=None, lifeline_style=None, show=True)`) or group (`show=False` hides the lifeline/group and any attached messages while keeping horizontal column spacing fixed).
 - **`a.request(b, label="", is_async=False, show: bool = True) -> Message`**, **`b.reply(a, label="", is_async=False, show: bool = True) -> Message`**, **`a.connect(b, label="", arrow="<->", show: bool = True) -> Message`**: Records a chronological message step and returns a mutable `Message` instance (`msg.show`, `msg.style`, `msg.draw_ratio`, `msg.draw_direction`). Hidden messages (`show=False`) keep their vertical `step_y` row reserved.
 - **`p.note(text, pos="left"|"right", show: bool = True) -> Note`** and **`d.note(text, over=[p1, p2], show: bool = True) -> Note`**: Attaches a sticky note and returns a mutable `Note` instance.
 - **`with d.loop(cond, show=True) as blk:`** (also `alt`, `opt`, `par`): Yields a mutable `Block` instance (`blk.show`, `blk.style`).
@@ -81,9 +83,11 @@ canvas.clear()
 canvas.setup(width=165, height=140)
 
 d = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="Microservices Distributed Transaction Pipeline",
     autonumber=True,
     col_width=38.0,
@@ -91,7 +95,7 @@ d = SequenceDiagram(
 )
 
 # 1. Participants: Client on the left, Backend services in VPC group on the right
-client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER, icon_size=7.5))
+client = d.add(Participant((24, 17), "Web Browser", icon=PhosphorIcon.BROWSER, icon_size=7.5))
 
 backend = d.add(
     ParticipantGroup(
@@ -100,9 +104,11 @@ backend = d.add(
         style=Styles.MutedDashed,
     )
 )
-api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, style=Styles.PrimaryNeutral))
-worker = backend.add(Participant("GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
-db = backend.add(Participant("Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
+api = backend.add(
+    Participant((24, 17), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=7.5, card_style=Styles.PrimaryNeutral)
+)
+worker = backend.add(Participant((24, 17), "GKE Pod\n(Worker)", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5))
+db = backend.add(Participant((24, 17), "Cloud SQL\n(Database)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5))
 
 # 2. Interactions
 client.request(api, "POST /api/v1/checkout")
@@ -139,14 +145,16 @@ canvas.clear()
 canvas.setup(width=85, height=80)
 
 d = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="WebSocket Real-Time Live Sync",
 )
 
-app = d.add(Participant("Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
-gateway = d.add(Participant("WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5, style=Styles.PrimaryNeutral))
+app = d.add(Participant((22, 15), "Mobile App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5))
+gateway = d.add(Participant((22, 15), "WS Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.5, card_style=Styles.PrimaryNeutral))
 
 app.request(gateway, "GET /ws HTTP/1.1 (Upgrade: websocket)")
 gateway.reply(app, "101 Switching Protocols")

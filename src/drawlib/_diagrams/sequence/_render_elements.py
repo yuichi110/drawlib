@@ -22,6 +22,7 @@ from drawlib._core.l4_canvas import text as canvas_text
 from drawlib._diagrams._common import (
     draw_diagram_icon,
     draw_image_icon,
+    render_icon_text_card,
 )
 from drawlib._diagrams._common import (
     draw_enum_icon as _common_draw_enum_icon,
@@ -118,45 +119,24 @@ def render_participant_header(
     header_w: float,
     header_h: float,
     default_node_style: Style,
+    default_node_text_style: Style,
+    default_node_card_style: Style | None = None,
 ) -> None:
     """Render a participant's top card, icon, and label."""
-    cx, cy = canvas_xy
-    card_style = default_node_style.patch(participant.style) if participant.style is not None else default_node_style
-    canvas_rectangle(xy=(cx, cy), width=header_w, height=header_h, style=card_style)
-
-    if participant.icon is not None:
-        draw_icon(participant.icon, (cx, cy), participant.icon_size, participant.icon_style)
-
-    if not participant.text:
-        return
-
-    font_size = (
-        float(participant.text_style.text_size)
-        if participant.text_style and participant.text_style.text_size is not None
-        else 12.0
+    render_icon_text_card(
+        canvas_xy=canvas_xy,
+        card_size=(header_w, header_h),
+        text=participant.text,
+        icon=participant.icon,
+        icon_size=participant.icon_size,
+        style=participant.style,
+        text_style=participant.text_style,
+        card_style=participant.card_style,
+        default_node_style=default_node_style,
+        default_node_text_style=default_node_text_style,
+        default_node_card_style=default_node_card_style,
+        fallback_box=True,
     )
-    text_color = card_style.text_color or (35, 35, 40, 1.0)
-    text_style = Style(
-        text_size=font_size,
-        text_font=Font.SANSSERIF_BOLD if participant.icon is None else Font.SANSSERIF_REGULAR,
-        text_color=text_color,
-        text_halign="center",
-        text_valign="center",
-        angle=participant.text_angle,
-    )
-    if participant.text_style:
-        text_style = text_style.patch(participant.text_style)
-
-    if participant.icon is None:
-        canvas_text(xy=(cx, cy), text=participant.text, style=text_style)
-    else:
-        half_icon = participant.icon_size / 2.0
-        ty = (
-            cy - half_icon - participant.text_margin
-            if participant.text_position == "bottom"
-            else cy + half_icon + participant.text_margin
-        )
-        canvas_text(xy=(cx, ty), text=participant.text, style=text_style)
 
 
 def render_headers(
@@ -165,6 +145,8 @@ def render_headers(
     header_cy: float,
     base_xy: tuple[float, float],
     default_node_style: Style,
+    default_node_text_style: Style,
+    default_node_card_style: Style | None = None,
 ) -> None:
     """Draw all participant headers."""
     bx, by = base_xy
@@ -173,7 +155,15 @@ def render_headers(
             continue
         nx = bx + participant_x_map[participant]
         hw, hh = participant.get_header_size()
-        render_participant_header(participant, (nx, by + header_cy), hw, hh, default_node_style)
+        render_participant_header(
+            participant,
+            (nx, by + header_cy),
+            hw,
+            hh,
+            default_node_style,
+            default_node_text_style,
+            default_node_card_style,
+        )
 
 
 def render_groups(

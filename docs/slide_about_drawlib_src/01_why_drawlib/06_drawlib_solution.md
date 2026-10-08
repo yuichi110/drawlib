@@ -13,23 +13,24 @@ from drawlib.diagrams.architecture import (
 from drawlib.styles import Styles
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
 )
 vpc = d.add(NodeGroup("Production Cloud VPC", padding=7), (26, 8))
-client = d.add(Node("Web Client", icon=PhosphorIcon.GLOBE), (8, 42))
+client = d.add(Node((18, 16), "Web Client", icon=PhosphorIcon.GLOBE), (8, 42))
 gw = vpc.add(
-    Node("API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY,
-         style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
+    Node((20, 16), "API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY,
+         card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
     (16, 34),
 )
-sql = vpc.add(Node("Cloud SQL", icon=GcpIcon.CLOUD_SQL), (54, 50))
-bq = vpc.add(Node("BigQuery", icon=GcpIcon.BIGQUERY), (54, 18))
+sql = vpc.add(Node((20, 16), "Cloud SQL", icon=GcpIcon.CLOUD_SQL), (54, 50))
+bq = vpc.add(Node((20, 16), "BigQuery", icon=GcpIcon.BIGQUERY), (54, 18))
 
 d.connect(client, gw, label="HTTPS")
-gw.fork([sql, bq], at_x=58, padding=2.0)
+gw.fork([sql, bq], at_x=58, padding=1.5)
 d.draw()
 ```
 
@@ -53,10 +54,11 @@ clear()
 setup(width=105, height=84)
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold.patch(text_size=10),
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark.patch(text_size=9),
+    node_card_style=Styles.Neutral,
     title="Production Cloud VPC Architecture",
     title_style=Styles.DarkBold.patch(text_size=13),
 )
@@ -66,25 +68,26 @@ vpc = d.add(
     xy=(28.0, 10.0),
 )
 client = d.add(
-    Node("Web Client", icon=PhosphorIcon.GLOBE, icon_size=9.0),
+    Node((18, 17), "Web Client", icon=PhosphorIcon.GLOBE, icon_size=9.0),
     xy=(9.0, 42.0),
 )
 gw = vpc.add(
     Node(
+        (20, 17),
         "API Gateway",
         icon=GcpIcon.CLOUD_API_GATEWAY,
         icon_size=9.5,
-        style=Styles.PrimaryFlat,
+        card_style=Styles.PrimaryFlat,
         text_style=Styles.WhiteBold.patch(text_size=10),
     ),
     xy=(15.0, 32.0),
 )
 sql = vpc.add(
-    Node("Cloud SQL\n(Primary)", icon=GcpIcon.CLOUD_SQL, icon_size=9.0, style=Styles.SecondaryNeutral),
+    Node((22, 18), "Cloud SQL\n(Primary)", icon=GcpIcon.CLOUD_SQL, icon_size=9.0, card_style=Styles.SecondaryNeutral),
     xy=(50.0, 48.0),
 )
 bq = vpc.add(
-    Node("BigQuery\n(Analytics)", icon=GcpIcon.BIGQUERY, icon_size=9.0, style=Styles.Neutral),
+    Node((22, 18), "BigQuery\n(Analytics)", icon=GcpIcon.BIGQUERY, icon_size=9.0, card_style=Styles.White),
     xy=(50.0, 16.0),
 )
 

@@ -40,6 +40,7 @@ class ArchitectureDiagram:
         node_text_style: Style,
         edge_style: Style,
         edge_text_style: Style,
+        node_card_style: Style | None = None,
         title: str = "",
         title_style: Style | None = None,
         width: float | None = None,
@@ -49,10 +50,11 @@ class ArchitectureDiagram:
         """Initialize ArchitectureDiagram.
 
         Args:
-            node_style: Mandatory base Style object for nodes in the diagram.
+            node_style: Mandatory base Style object for node icons/images in the diagram.
             node_text_style: Mandatory base Style object for node labels in the diagram.
             edge_style: Mandatory base Style object for edges in the diagram.
             edge_text_style: Mandatory base Style object for edge labels in the diagram.
+            node_card_style: Optional base Style object for node card background/border. Defaults to None (transparent).
             title: Optional diagram title.
             title_style: Optional Style object for the diagram title.
             width: Optional fixed width of the diagram.
@@ -63,6 +65,7 @@ class ArchitectureDiagram:
         self.node_text_style = node_text_style
         self.edge_style = edge_style
         self.edge_text_style = edge_text_style
+        self.node_card_style = node_card_style
         self.title = title
         self.title_style = title_style
         self.width = float(width) if width is not None else None

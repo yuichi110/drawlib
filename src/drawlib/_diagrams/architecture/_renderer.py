@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING
 
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
@@ -21,6 +21,7 @@ from drawlib._diagrams._common import (
     draw_diagram_icon,
     render_diagram_background,
     render_diagram_title,
+    render_icon_text_card,
 )
 from drawlib._diagrams._common import (
     draw_enum_icon as _common_draw_enum_icon,
@@ -134,84 +135,32 @@ def _render_groups(
             canvas_text(xy=(tx, ty), text=group.title, style=title_style)
 
 
-def _render_node_label(node: Node, nx: float, ny: float, default_node_text_style: Style) -> None:
-    """Render label text for a node."""
-    if not node.text:
-        return
-
-    pos = node.text_position
-    margin = node.text_margin
-    half_size = node.icon_size / 2.0
-
-    halign: Literal["left", "center", "right"]
-    valign: Literal["top", "center", "bottom"]
-
-    if pos == "top":
-        tx = nx
-        ty = ny + half_size + margin
-        halign = "center"
-        valign = "bottom"
-    elif pos == "left":
-        tx = nx - half_size - margin
-        ty = ny
-        halign = "right"
-        valign = "center"
-    elif pos == "right":
-        tx = nx + half_size + margin
-        ty = ny
-        halign = "left"
-        valign = "center"
-    else:
-        # "bottom"
-        tx = nx
-        ty = ny - half_size - margin
-        halign = "center"
-        valign = "top"
-
-    font_size = float(node.text_style.text_size) if node.text_style and node.text_style.text_size is not None else 13.0
-    base_style = Style(
-        text_size=font_size,
-        text_font=Font.SANSSERIF_REGULAR,
-        text_halign=halign,
-        text_valign=valign,
-        angle=node.text_angle,
-    )
-    applied_style = base_style.patch(default_node_text_style)
-    if node.text_style:
-        applied_style = applied_style.patch(node.text_style)
-
-    canvas_text(xy=(tx, ty), text=node.text, style=applied_style)
-
-
 def _render_nodes(
     nodes: list[Node],
     canvas_xy_map: dict[Connectable, tuple[float, float]],
     default_node_style: Style,
     default_node_text_style: Style,
+    default_node_card_style: Style | None = None,
 ) -> None:
     """Draw Layer 2: Nodes (cards, icons, labels)."""
     for node in nodes:
         if not node.show:
             continue
         nx, ny = canvas_xy_map[node]
-        if node.style:
-            min_x, min_y, max_x, max_y = node.get_bounds()
-            nw = max_x - min_x
-            nh = max_y - min_y
-            cx = nx + (min_x + max_x) / 2.0
-            cy = ny + (min_y + max_y) / 2.0
-            applied_card = default_node_style.patch(node.style)
-            canvas_rectangle(xy=(cx, cy), width=nw, height=nh, style=applied_card)
-
-        default_icon_style = Style(
-            icon_color=default_node_style.icon_color or default_node_style.shape_line_color or (50, 50, 50, 1.0),
-            image_border_width=0,
+        render_icon_text_card(
+            canvas_xy=(nx, ny),
+            card_size=node.card_size,
+            text=node.text,
+            icon=node.icon,
+            icon_size=node.icon_size,
+            style=node.style,
+            text_style=node.text_style,
+            card_style=node.card_style,
+            default_node_style=default_node_style,
+            default_node_text_style=default_node_text_style,
+            default_node_card_style=default_node_card_style,
+            fallback_box=False,
         )
-        applied_icon_style = (
-            default_icon_style.patch(node.icon_style) if node.icon_style is not None else default_icon_style
-        )
-        _draw_icon(node.icon, (nx, ny), node.icon_size, applied_icon_style)
-        _render_node_label(node, nx, ny, default_node_text_style)
 
 
 def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> None:
@@ -235,7 +184,13 @@ def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0
 
     _render_groups(all_groups, canvas_xy_map)
     draw_edges(diagram._edges, canvas_xy_map, base_xy, diagram.edge_style, diagram.edge_text_style)
-    _render_nodes(all_nodes, canvas_xy_map, diagram.node_style, diagram.node_text_style)
+    _render_nodes(
+        all_nodes,
+        canvas_xy_map,
+        diagram.node_style,
+        diagram.node_text_style,
+        diagram.node_card_style,
+    )
 
     if diagram.title:
         _, dh = diagram.get_size()

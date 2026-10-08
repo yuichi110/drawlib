@@ -92,7 +92,6 @@ class Axis:
         unit: str = "",
         label: str = "",
         label_style: Style | None = None,
-        tick_label_angle: float = 0.0,
     ) -> None:
         ...
 ```
@@ -119,7 +118,6 @@ chart.configure_y_axis(
     format="${:,.0f}",
     unit="k",
     label="Operating Budget (USD)",
-    tick_label_angle=45.0,  # Angled labels for compact layouts
 )
 ```
 

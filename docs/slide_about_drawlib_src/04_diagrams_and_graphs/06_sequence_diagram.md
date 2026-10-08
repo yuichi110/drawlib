@@ -17,7 +17,7 @@ utils.draw_page_number()
 
 ### Expressive Python Idioms
 - **Participants & Groups**:
-  - `d.add(Participant("Name", icon=GcpIcon.CLOUD_RUN))`
+  - `d.add(Participant((18, 13), "Name", icon=GcpIcon.CLOUD_RUN))`
   - `vpc = d.add(ParticipantGroup(title="Zero-Trust Mesh", style=Styles.MutedDashed))`
 - **Message Verbs (`autonumber=True`)**:
   - `a.request(b, "label")`: Solid synchronous call arrow (`―▶`).
@@ -47,9 +47,11 @@ clear()
 setup(width=108, height=84)
 
 d = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold.patch(text_size=7.0),
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark.patch(text_size=6.8),
+    node_card_style=Styles.Neutral,
     title="OAuth2 / JWT Microservice Request & Token Refresh Flow",
     title_style=Styles.DarkBold.patch(text_size=9.2),
     autonumber=True,
@@ -58,7 +60,7 @@ d = SequenceDiagram(
 )
 
 # 1. Participants & Mesh Group
-client = d.add(Participant("SPA Client", icon=PhosphorIcon.BROWSER, icon_size=6.0))
+client = d.add(Participant((18, 13), "SPA Client", icon=PhosphorIcon.BROWSER, icon_size=6.0))
 
 mesh = d.add(
     ParticipantGroup(
@@ -69,26 +71,29 @@ mesh = d.add(
 )
 gateway = mesh.add(
     Participant(
+        (18, 13),
         "API Gateway",
         icon=GcpIcon.CLOUD_RUN,
         icon_size=6.0,
-        style=Styles.PrimaryNeutral,
+        card_style=Styles.PrimaryNeutral,
     )
 )
 auth = mesh.add(
     Participant(
+        (18, 13),
         "Auth / JWKS",
         icon=PhosphorIcon.SHIELD_CHECK,
         icon_size=6.0,
-        style=Styles.SecondaryNeutral,
+        card_style=Styles.SecondaryNeutral,
     )
 )
 orders = mesh.add(
     Participant(
+        (18, 13),
         "Order Service",
         icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE,
         icon_size=6.0,
-        style=Styles.Neutral,
+        card_style=Styles.Neutral,
     )
 )
 

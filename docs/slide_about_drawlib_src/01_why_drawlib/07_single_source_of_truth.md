@@ -55,33 +55,36 @@ pipeline.draw(xy=(6, 57), width=98.0, height=16.0)
 text((8, 49), "2. One Source Directory -> Four Publishing Targets", style=Styles.DarkBold.patch(text_size=11, text_halign="left"))
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold.patch(text_size=9.0),
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark.patch(text_size=8.0),
+    node_card_style=Styles.White,
 )
 
 sot = d.add(
     NodeGroup(title="Git SoT (*_src/)", padding=5.5, style=Styles.PrimaryNeutral),
     xy=(4.0, 4.0),
 )
-src_md = sot.add(Node("Markdown +\ndrawlib Blocks", icon=PhosphorIcon.FILE_CODE, icon_size=7.5), xy=(13.0, 26.0))
-theme_py = sot.add(Node("styles.py &\nutils.py", icon=PhosphorIcon.PALETTE, icon_size=7.5), xy=(13.0, 9.0))
+src_md = sot.add(Node((20, 15), "Markdown +\ndrawlib Blocks", icon=PhosphorIcon.FILE_CODE, icon_size=7.5), xy=(13.0, 26.0))
+theme_py = sot.add(Node((20, 15), "styles.py &\nutils.py", icon=PhosphorIcon.PALETTE, icon_size=7.5), xy=(13.0, 9.0))
 
 compiler = d.add(
     Node(
+        (20, 15),
         "drawlib build",
         icon=PhosphorIcon.CPU,
         icon_size=8.5,
-        style=Styles.PrimaryFlat,
+        style=Styles.White,
+        card_style=Styles.PrimaryFlat,
         text_style=Styles.WhiteBold.patch(text_size=9.0),
     ),
     xy=(48.0, 21.0),
 )
 
-out_site = d.add(Node("HTML Docs Site", icon=PhosphorIcon.GLOBE, icon_size=7.5, style=Styles.SecondaryNeutral), xy=(84.0, 36.0))
-out_pdf = d.add(Node("Vector PDF Spec", icon=PhosphorIcon.FILE_PDF, icon_size=7.5, style=Styles.Neutral), xy=(84.0, 21.0))
-out_slide = d.add(Node("16:9 Slide Deck", icon=PhosphorIcon.PRESENTATION_CHART, icon_size=7.5, style=Styles.BlueNeutral), xy=(84.0, 6.0))
+out_site = d.add(Node((20, 14), "HTML Docs Site", icon=PhosphorIcon.GLOBE, icon_size=7.5, card_style=Styles.SecondaryNeutral), xy=(84.0, 36.0))
+out_pdf = d.add(Node((20, 14), "Vector PDF Spec", icon=PhosphorIcon.FILE_PDF, icon_size=7.5, card_style=Styles.Neutral), xy=(84.0, 21.0))
+out_slide = d.add(Node((20, 14), "16:9 Slide Deck", icon=PhosphorIcon.PRESENTATION_CHART, icon_size=7.5, card_style=Styles.BlueNeutral), xy=(84.0, 6.0))
 
 d.connect(src_md, compiler, padding=1.2)
 d.connect(theme_py, compiler, padding=1.2)

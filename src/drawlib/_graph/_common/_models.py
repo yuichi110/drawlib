@@ -31,7 +31,6 @@ class Node:
     style: Style | None = None
     text_style: Style | None = None
     shape: Literal["rectangle", "circle", "rounded_rectangle"] = "rectangle"
-    icon: str | None = None
     width: float | None = None
     height: float | None = None
     ring: int | None = None
@@ -85,7 +84,6 @@ class NodeLayout:
     label: str
     text_style: Style | None = None
     shape: str = "rectangle"
-    icon: str | None = None
     show: bool = True
 
     @property
@@ -228,7 +226,6 @@ class GraphLayout:
             text_style=nl.text_style,
             label=nl.label,
             shape=nl.shape,
-            icon=nl.icon,
             show=nl.show,
         )
 

@@ -43,24 +43,26 @@ from drawlib.diagrams.sequence import (
 from drawlib.styles import Styles
 
 d = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="Checkout Transaction Pipeline",
     autonumber=True,            # Auto-number messages (1., 2., 3., ...)
 )
 
 # Participant group for clustered backend services
 vpc = d.add(ParticipantGroup(title="Google Cloud VPC", padding=4.0))
-api = vpc.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, style=Styles.PrimaryNeutral))
-db = vpc.add(Participant("Cloud SQL", icon=GcpIcon.CLOUD_SQL))
+api = vpc.add(Participant((22, 16), "Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, card_style=Styles.PrimaryNeutral))
+db = vpc.add(Participant((22, 16), "Cloud SQL", icon=GcpIcon.CLOUD_SQL))
 
 # External participant
-client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER))
+client = d.add(Participant((22, 16), "Web Browser", icon=PhosphorIcon.BROWSER))
 ```
 
 ### Registration, Message & Rendering Methods
-- **`d.add(item, *, show: bool = True) -> Participant | ParticipantGroup`** (and `group.add(participant, *, show: bool = True) -> Participant`): Registers a participant or group (`show=False` hides the lifeline/group and any attached messages while keeping horizontal column spacing fixed).
+- **`d.add(item, *, show: bool = True) -> Participant | ParticipantGroup`** (and `group.add(participant, *, show: bool = True) -> Participant`): Registers a participant (`Participant(card_size, text="", icon=None, icon_size=8.0, style=None, text_style=None, card_style=None, lifeline_style=None, show=True)`) or group (`show=False` hides the lifeline/group and any attached messages while keeping horizontal column spacing fixed).
 - **`a.request(b, label="", is_async=False, show: bool = True) -> Message`**, **`b.reply(a, label="", is_async=False, show: bool = True) -> Message`**, **`a.connect(b, label="", arrow="<->", show: bool = True) -> Message`**: Records a chronological message step and returns a mutable `Message` instance (`msg.show`, `msg.style`, `msg.draw_ratio`, `msg.draw_direction`). Hidden messages (`show=False`) keep their vertical `step_y` row reserved.
 - **`p.note(text, pos="left"|"right", show: bool = True) -> Note`** and **`d.note(text, over=[p1, p2], show: bool = True) -> Note`**: Attaches a sticky note and returns a mutable `Note` instance.
 - **`with d.loop(cond, show=True) as blk:`** (also `alt`, `opt`, `par`): Yields a mutable `Block` instance (`blk.show`, `blk.style`).

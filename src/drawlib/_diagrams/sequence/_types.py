@@ -32,9 +32,6 @@ ArrowType = Union[Literal["->", "<->", "-"], str]
 # Note position relative to participant lifeline
 NotePosition = Literal["left", "right", "over"]
 
-# Participant label placement relative to icon
-TextPosition = Literal["bottom", "top", "left", "right"]
-
 # Control block types
 BlockType = Literal["loop", "alt", "else", "opt", "par", "critical", "break"]
 

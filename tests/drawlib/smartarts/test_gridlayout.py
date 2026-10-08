@@ -53,8 +53,8 @@ class TestGridLayout:
             style=styles.PrimarySolid,
             text_style=styles.PrimaryBold,
         )
-        gl.add((0, 0), 1, 1, text="A", text_angle=270)
-        gl.add((0, 1), 1, 1, text="B", text_angle=90)
+        gl.add((0, 0), 1, 1, text="A", text_style=styles.PrimaryBold.patch(angle=270))
+        gl.add((0, 1), 1, 1, text="B", text_style=styles.PrimaryBold.patch(angle=90))
         gl.add((0, 2), 1, 1, text="C")
         gl.add((1, 0), 1, 3, text="D")
         gl.add((2, 0), 1, 1, text="E")
@@ -72,8 +72,8 @@ class TestGridLayout:
             style=styles.PrimarySolid,
             text_style=styles.PrimaryBold,
         )
-        gl.add((0, 0), 1, 1, text="A", text_xy_shift=(3, 3))
-        gl.add((0, 1), 1, 1, text="B", text_xy_shift=(-3, -3))
+        gl.add((0, 0), 1, 1, text="A", text_style=styles.PrimaryBold.patch(xy_shift=(3, 3)))
+        gl.add((0, 1), 1, 1, text="B", text_style=styles.PrimaryBold.patch(xy_shift=(-3, -3)))
         gl.add((0, 2), 1, 1, text="C")
         gl.add((1, 0), 1, 3, text="D")
         gl.add((2, 0), 1, 1, text="E")

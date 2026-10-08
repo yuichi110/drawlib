@@ -284,22 +284,29 @@ from drawlib.styles import Styles
 
 setup(width=120, height=60)
 diag = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
 )
 
 # 1. Container Boundaries / Groups
 group = diag.add(NodeGroup(title="Production VPC", width=100, height=44), (10, 8))
 
 # 2. Nodes with Built-in Cloud / Phosphor Icons (1 hero focal node, 2 neutral nodes)
-client = diag.add(Node(text="Web Client", icon=PhosphorIcon.GLOBE), (25, 30))
+client = diag.add(Node((18, 16), text="Web Client", icon=PhosphorIcon.GLOBE), (25, 30))
 gateway = diag.add(
-    Node(text="API Gateway", icon=GcpIcon.CLOUD_API_GATEWAY, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold),
+    Node(
+        (20, 16),
+        text="API Gateway",
+        icon=GcpIcon.CLOUD_API_GATEWAY,
+        card_style=Styles.PrimaryFlat,
+        text_style=Styles.WhiteBold,
+    ),
     (60, 30),
 )
-db = diag.add(Node(text="Cloud SQL", icon=GcpIcon.CLOUD_SQL, style=Styles.SecondaryNeutral), (95, 30))
+db = diag.add(Node((18, 16), text="Cloud SQL", icon=GcpIcon.CLOUD_SQL, card_style=Styles.SecondaryNeutral), (95, 30))
 
 # 3. Smart Boundary-Clipping Edges
 diag.connect(client, gateway, label="HTTPS")
@@ -344,13 +351,15 @@ from drawlib.styles import Styles
 
 setup(width=100, height=60)
 seq = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
 )
-user = seq.add(Participant("User"))
-auth = seq.add(Participant("Auth API", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold))
-db = seq.add(Participant("Database", style=Styles.SecondaryNeutral))
+user = seq.add(Participant((18, 8), "User"))
+auth = seq.add(Participant((18, 8), "Auth API", card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold))
+db = seq.add(Participant((18, 8), "Database", card_style=Styles.SecondaryNeutral))
 
 seq.request(user, auth, label="POST /login")
 seq.request(auth, db, label="SELECT user")

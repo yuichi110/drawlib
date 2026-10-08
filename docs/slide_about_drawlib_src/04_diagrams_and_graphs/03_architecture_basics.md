@@ -16,9 +16,9 @@ utils.draw_page_number()
 In naive diagramming tools, adding a 2-line label underneath an icon shifts the node's bounding center downward, causing horizontal arrows between aligned icons to develop ugly Z-bends.
 
 ### 3 Core Innovations
-1. **Icon-Centric Coordinates (`xy` = Icon Center)**:
-   - When you call `d.add(Node("Label", icon=...), xy=(x, y))`, `(x, y)` is strictly the **center of the icon square**.
-   - Labels placed at `text_position="bottom" | "top" | "left" | "right"` never shift the icon center—so nodes sharing the same `y` always connect with a razor-straight horizontal line!
+1. **Card-Centric Coordinates (`xy` = Card Center)**:
+   - When you call `d.add(Node((w, h), "Label", icon=...), xy=(x, y))`, `(x, y)` is strictly the **center of the node card** `(w, h)`.
+   - Multi-line labels fit inside the card without shifting the card's center—so nodes sharing the same `y` always connect with a razor-straight horizontal line!
 2. **Auto-Bounding `NodeGroup` Containers**:
    - Calling `group = d.add(NodeGroup(title="...", padding=6.0), xy=(gx, gy))` creates a relative coordinate group that automatically expands its boundary box to enclose all child nodes and nested subgroups.
 3. **1-to-N Bus Fan-Out (`node.fork()`)**:
@@ -43,28 +43,31 @@ clear()
 setup(width=104, height=84)
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold.patch(text_size=8.0),
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark.patch(text_size=7.5),
-    title="Icon-Centric Alignment, Auto-Bounding NodeGroup & node.fork()",
+    node_card_style=Styles.Neutral,
+    title="Card-Centric Alignment, Auto-Bounding NodeGroup & node.fork()",
     title_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
 # 1. External Client & Ingress Gateway (Aligned at Y = 38.0 -> Straight wire!)
 client = d.add(
-    Node("Mobile & Web\nClient App\n(3-line label)", icon=PhosphorIcon.DEVICES, icon_size=8.0),
+    Node((18, 17), "Mobile & Web\nClient App\n(3-line label)", icon=PhosphorIcon.DEVICES, icon_size=8.0),
     xy=(10.0, 38.0),
 )
 gateway = d.add(
     Node(
+        (18, 17),
         "API Gateway",
         icon=PhosphorIcon.SHIELD_CHECK,
         icon_size=8.5,
-        style=Styles.PrimaryFlat,
+        style=Styles.White,
+        card_style=Styles.PrimaryFlat,
         text_style=Styles.WhiteBold.patch(text_size=8.0),
     ),
-    xy=(34.0, 38.0),
+    xy=(36.0, 38.0),
 )
 
 # 2. Auto-Bounding NodeGroup with 3 Worker Services
@@ -77,21 +80,21 @@ cluster = d.add(
     xy=(58.0, 8.0),
 )
 w1 = cluster.add(
-    Node("Auth Worker", icon=PhosphorIcon.KEY, icon_size=7.5, style=Styles.PrimaryNeutral),
+    Node((18, 15), "Auth Worker", icon=PhosphorIcon.KEY, icon_size=7.5, card_style=Styles.PrimaryNeutral),
     xy=(16.0, 52.0),
 )
 w2 = cluster.add(
-    Node("Order Worker", icon=PhosphorIcon.PACKAGE, icon_size=7.5, style=Styles.SecondaryNeutral),
+    Node((18, 15), "Order Worker", icon=PhosphorIcon.PACKAGE, icon_size=7.5, card_style=Styles.SecondaryNeutral),
     xy=(16.0, 30.0),
 )
 w3 = cluster.add(
-    Node("Audit Logger", icon=PhosphorIcon.FILE_TEXT, icon_size=7.5, style=Styles.Neutral),
+    Node((18, 15), "Audit Logger", icon=PhosphorIcon.FILE_TEXT, icon_size=7.5, card_style=Styles.Neutral),
     xy=(16.0, 8.0),
 )
 
 # 3. Straight connection & 1-to-3 fork() fan-out
-d.connect(client, gateway, label="Straight Y=38", padding=2.0)
-gateway.fork([w1, w2, w3], at_x=52.0, padding=2.0)
+d.connect(client, gateway, label="Straight Y=38", padding=1.5)
+gateway.fork([w1, w2, w3], at_x=52.0, padding=1.5)
 
 d.draw(xy=(4.0, 6.0))
 
@@ -99,12 +102,12 @@ d.draw(xy=(4.0, 6.0))
 rectangle((26, 13), width=42, height=11, r=1.5, style=Styles.BlueNeutral)
 text(
     (26, 15.2),
-    "1. Icon-Centric xy=(x, 38.0)",
+    "1. Card-Centric xy=(x, 38.0)",
     style=Styles.DarkBold.patch(text_size=7.8),
 )
 text(
     (26, 10.8),
-    "Multi-line text never shifts the icon center!",
+    "Multi-line text never shifts the card center!",
     style=Styles.Dark.patch(text_size=7.0),
 )
 
@@ -114,7 +117,7 @@ save()
 
 ::: note
 - This slide illustrates the three core design mechanics of `ArchitectureDiagram`:
-  1. **Icon-Centric Alignment**: Look at `Mobile & Web Client App` (which has a 3-line label) and `API Gateway` (which has a 1-line label). Because both are placed at `y=38.0`, their icons are horizontally aligned and the `"Straight Y=38"` arrow between them is completely flat without any vertical jog.
+  1. **Card-Centric Alignment**: Look at `Mobile & Web Client App` (which has a 3-line label) and `API Gateway` (which has a 1-line label). Because both are placed at `y=38.0`, their cards are horizontally aligned and the `"Straight Y=38"` arrow between them is completely flat without any vertical jog.
   2. **`gateway.fork([w1, w2, w3], at_x=52.0)`**: Instead of drawing three overlapping diagonal lines from the gateway, `.fork()` places a clean vertical bus at `x=52.0` and branches orthogonally into each worker.
   3. **Auto-Bounding `NodeGroup`**: The dashed container around the three workers calculates its width and height automatically from the enclosed nodes plus `padding=6.5`.
 :::

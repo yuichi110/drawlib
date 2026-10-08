@@ -42,8 +42,10 @@ class SequenceDiagram:
         self,
         *,
         node_style: Style,
+        node_text_style: Style,
         edge_style: Style,
         edge_text_style: Style,
+        node_card_style: Style | None = None,
         title: str = "",
         autonumber: bool = False,
         width: float | None = None,
@@ -57,9 +59,11 @@ class SequenceDiagram:
         """Initialize SequenceDiagram.
 
         Args:
-            node_style: Mandatory base Style object for participant headers in the diagram.
+            node_style: Mandatory base Style object for participant icons/images in the diagram.
+            node_text_style: Mandatory base Style object for participant labels in the diagram.
             edge_style: Mandatory base Style object for message arrows in the diagram.
             edge_text_style: Mandatory base Style object for message labels in the diagram.
+            node_card_style: Optional base Style object for participant header cards. Defaults to None (transparent).
             title: Diagram title.
             autonumber: Whether to automatically number message arrows (1, 2, 3...).
             width: Optional fixed width of the diagram canvas area.
@@ -71,8 +75,10 @@ class SequenceDiagram:
             title_style: Style for title text.
         """
         self.node_style = node_style
+        self.node_text_style = node_text_style
         self.edge_style = edge_style
         self.edge_text_style = edge_text_style
+        self.node_card_style = node_card_style
         self.title = title
         self.autonumber = autonumber
         self.width = float(width) if width is not None else None

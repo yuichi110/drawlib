@@ -98,7 +98,15 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
             render_note(event, abs_y, participant_x_map, (bx, by))
 
     # Layer 6: Participant Headers
-    render_headers(diagram.participants, participant_x_map, header_cy, (bx, by), diagram.node_style)
+    render_headers(
+        diagram.participants,
+        participant_x_map,
+        header_cy,
+        (bx, by),
+        diagram.node_style,
+        diagram.node_text_style,
+        diagram.node_card_style,
+    )
 
     # Layer 7: Diagram Title
     if diagram.title:

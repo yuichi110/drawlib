@@ -12,7 +12,7 @@
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.l2_types import Angle, Coordinate, PosFloat, PosInt
+from drawlib._core.l2_types import Coordinate, PosFloat, PosInt
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import rectangle, transform
 
@@ -27,8 +27,6 @@ class GridItem(BaseModel):
     style: Style
     text: str
     text_style: Style
-    text_angle: Angle = 0.0
-    text_xy_shift: Coordinate | None = None
     show: bool = True
 
 
@@ -44,8 +42,6 @@ class GridLayout:
         style: Style,
         text_style: Style,
         r: PosFloat = 0.0,
-        text_angle: Angle = 0.0,
-        text_xy_shift: Coordinate | None = None,
     ) -> None:
         """Initializes a GridLayout instance.
 
@@ -55,16 +51,12 @@ class GridLayout:
             style: The default style for the cell rectangles.
             text_style: The default text style for the cell text.
             r: The default radius for the rectangles. Defaults to 0.0.
-            text_angle: The default angle for the text inside the rectangles. Defaults to 0.0.
-            text_xy_shift: The default (x, y) offset shift for the text. Defaults to None.
         """
         self._num_column = num_column
         self._num_row = num_row
         self._r = r
         self._style = style
         self._text_style = text_style
-        self._text_angle = text_angle
-        self._text_xy_shift = text_xy_shift
 
         self._items: list[GridItem] = []
 
@@ -84,8 +76,6 @@ class GridLayout:
         style: Style | None = None,
         text: str = "",
         text_style: Style | None = None,
-        text_angle: Angle | None = None,
-        text_xy_shift: Coordinate | None = None,
         show: bool = True,
     ) -> GridItem:
         """Add a cell spanning one or more grid positions.
@@ -98,8 +88,6 @@ class GridLayout:
             style: Style for the cell rectangle. If None, default style is used.
             text: Text to display inside the cell.
             text_style: Style for the text. If None, default text_style is used.
-            text_angle: Angle for the text. If None, default text_angle is used.
-            text_xy_shift: (x, y) offset shift for the text. If None, default text_xy_shift is used.
             show: Whether to render this grid cell. Defaults to True.
 
         Returns:
@@ -129,8 +117,6 @@ class GridLayout:
         cell_r = r if r is not None else self._r
         resolved_style = style if style is not None else self._style
         resolved_text_style = text_style if text_style is not None else self._text_style
-        resolved_angle = text_angle if text_angle is not None else self._text_angle
-        resolved_shift = text_xy_shift if text_xy_shift is not None else self._text_xy_shift
 
         item = GridItem(
             position=(column_start, row_start),
@@ -140,8 +126,6 @@ class GridLayout:
             text=text,
             style=resolved_style,
             text_style=resolved_text_style,
-            text_angle=resolved_angle,
-            text_xy_shift=resolved_shift,
             show=show,
         )
         self._items.append(item)
@@ -271,13 +255,6 @@ class GridLayout:
                 style = item.style.patch(text_halign="left", text_valign="bottom")
                 text = item.text
                 text_style = item.text_style
-                patch_kwargs: dict = {}
-                if item.text_angle != 0.0:
-                    patch_kwargs["angle"] = item.text_angle
-                if item.text_xy_shift is not None:
-                    patch_kwargs["xy_shift"] = item.text_xy_shift
-                if patch_kwargs:
-                    text_style = text_style.patch(**patch_kwargs)
 
                 item_xy_left_bottom = get_position(cr0, rr0)
                 t = get_position(cr1, rr1)

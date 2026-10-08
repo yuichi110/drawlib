@@ -352,7 +352,7 @@
  └──────────────────────────────────────────────────────────────┘
 </code></pre>
 <ul>
-<li><strong>Icon-Centric Coordinates</strong>: When placing a node via <code>d.add(node, xy=(x, y))</code>, the coordinate strictly defines the <strong>center of the icon</strong>. The text label is offset according to <code>text_position</code> (<code>&quot;bottom&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>), ensuring that horizontally or vertically aligned icons maintain perfectly straight wire connections.</li>
+<li><strong>Card-Centric Coordinates</strong>: When placing a node via <code>d.add(node, xy=(x, y))</code>, the coordinate defines the <strong>center of the node card</strong> <code>card_size=(width, height)</code>. When both <code>icon</code> and <code>text</code> are present, the icon is positioned in the upper middle and the text label in the lower portion (adjustable via <code>text_style=Styles.DarkBold.patch(xy_shift=...)</code>). If neither <code>node_card_style</code> nor <code>card_style</code> is provided, the card background is transparent.</li>
 <li><strong>Hierarchical Auto-Bounding (<code>NodeGroup</code>)</strong>: Groups automatically compute their outer boundary boxes to enclose all enclosed nodes and nested sub-groups with configurable padding.</li>
 <li><strong>Connectable Boundaries</strong>: You can connect edges directly to or from a group's perimeter box as well as individual nodes.</li>
 <li><strong>1-to-N Fan-Out (<code>fork</code>)</strong>: Easily split a single connection line into multiple downstream destinations using an automatic intermediate bus line.</li>
@@ -363,10 +363,11 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
-    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
     <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
     <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Production Multi-Tier Cloud VPC"</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
@@ -386,7 +387,7 @@
 <td><code>node_style</code></td>
 <td><code>Style</code></td>
 <td><em>(Required)</em></td>
-<td>Default style for nodes and card backgrounds.</td>
+<td>Default style for node icons and images.</td>
 </tr>
 <tr>
 <td><code>node_text_style</code></td>
@@ -405,6 +406,12 @@
 <td><code>Style</code></td>
 <td><em>(Required)</em></td>
 <td>Default style for connection text labels.</td>
+</tr>
+<tr>
+<td><code>node_card_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Default style for node card backgrounds (transparent if <code>None</code>).</td>
 </tr>
 <tr>
 <td><code>title</code></td>
@@ -456,6 +463,12 @@
 </thead>
 <tbody>
 <tr>
+<td><code>card_size</code></td>
+<td><code>tuple[float, float]</code></td>
+<td><em>(Required)</em></td>
+<td>Card bounding box <code>(width, height)</code> in canvas units.</td>
+</tr>
+<tr>
 <td><code>text</code></td>
 <td><code>str</code></td>
 <td><code>&quot;&quot;</code></td>
@@ -463,27 +476,33 @@
 </tr>
 <tr>
 <td><code>icon</code></td>
-<td><code>IconType | None</code></td>
+<td><code>IconType</code></td>
 <td><code>None</code></td>
-<td><code>PhosphorIcon</code>, <code>GcpIcon</code>, or <code>CustomIcon</code>.</td>
+<td><code>PhosphorIcon</code>, <code>GcpIcon</code>, icon callable, <code>CustomIcon</code>, <code>Dimage</code>, <code>PIL.Image</code>, or path.</td>
 </tr>
 <tr>
 <td><code>icon_size</code></td>
 <td><code>float</code></td>
 <td><code>8.0</code></td>
-<td>Outer width and height of the icon square.</td>
-</tr>
-<tr>
-<td><code>text_position</code></td>
-<td><code>&quot;bottom&quot;</code> | <code>&quot;top&quot;</code> | <code>&quot;left&quot;</code> | <code>&quot;right&quot;</code></td>
-<td><code>&quot;bottom&quot;</code></td>
-<td>Label placement relative to icon center.</td>
+<td>Outer width and height of the icon/image.</td>
 </tr>
 <tr>
 <td><code>style</code></td>
 <td><code>Style | None</code></td>
 <td><code>None</code></td>
-<td>Optional typography or node background style.</td>
+<td>Optional style override for the icon or image.</td>
+</tr>
+<tr>
+<td><code>text_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional style override for the label text (supports <code>xy_shift</code>, <code>angle</code>).</td>
+</tr>
+<tr>
+<td><code>card_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional style override for the card background/border (transparent if <code>None</code> and <code>node_card_style</code> is <code>None</code>).</td>
 </tr>
 <tr>
 <td><code>show</code></td>
@@ -554,7 +573,7 @@
 <hr />
 <h2>5. Best Practices &amp; Guidelines</h2>
 <ol>
-<li><strong>Keep Coordinates Icon-Centric</strong>: When aligning multiple nodes in a row or column, give them the exact same X or Y coordinate. The text labels will not alter the position of the icon or connections.</li>
+<li><strong>Align Node Centers</strong>: When aligning multiple nodes in a row or column, give them the exact same X or Y coordinate so horizontal and vertical connections stay straight.</li>
 <li><strong>Use <code>fork</code> for Fan-Out</strong>: Avoid drawing multiple crossing lines from a single node. Use <code>node.fork([n1, n2, ...], at_x=...)</code> to create clean right-angle bus routes.</li>
 <li><strong>Padded Boundaries</strong>: Always set <code>padding</code> on <code>NodeGroup</code> (typically <code>5.0</code> to <code>7.0</code>) to give enclosed components breathing room from the border lines.</li>
 </ol>

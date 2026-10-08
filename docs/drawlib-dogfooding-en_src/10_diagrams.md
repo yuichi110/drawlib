@@ -11,13 +11,14 @@ from drawlib.canvas import setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
 
-setup(width=115, height=65)
+setup(width=155, height=78)
 
 diag = ArchitectureDiagram(
     node_style=Styles.PrimaryFlat,
     node_text_style=Styles.Black,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Black,
+    node_card_style=Styles.Neutral,
     title="Cloud Microservices Architecture",
 )
 
@@ -27,25 +28,24 @@ vpc = diag.add(
         title="Production Cloud VPC (us-central1)",
         padding=6.0,
     ),
-    xy=(32.0, 6.0),
+    xy=(40.0, 6.0),
 )
 
 # Services Inside VPC (vpc.add)
-gw = vpc.add(Node("API Gateway", icon=GcpIcon.APIGEE, icon_size=7.5), xy=(12.0, 24.0))
-auth = vpc.add(Node("Auth Service", icon=GcpIcon.SECURITY_COMMAND_CENTER, icon_size=7.5), xy=(38.0, 36.0))
-order = vpc.add(Node("Order Service", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5), xy=(38.0, 12.0))
-db = vpc.add(Node("Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5), xy=(64.0, 24.0))
+gw = vpc.add(Node((22, 16), "API Gateway", icon=GcpIcon.APIGEE, icon_size=7.5, card_style=Styles.PrimaryNeutral), xy=(15.0, 26.0))
+auth = vpc.add(Node((24, 16), "Auth Service", icon=GcpIcon.SECURITY_COMMAND_CENTER, icon_size=7.5), xy=(48.0, 38.0))
+order = vpc.add(Node((24, 16), "Order Service", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=7.5), xy=(48.0, 14.0))
+db = vpc.add(Node((26, 17), "Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=7.5), xy=(90.0, 26.0))
 
 # External Client Node (diag.add)
-client = diag.add(Node("Client User\n(Web/Mobile)", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5), xy=(12.0, 30.0))
+client = diag.add(Node((22, 17), "Client User\n(Web/Mobile)", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=7.5), xy=(13.0, 32.0))
 
 # Inter-Service Connections
-diag.connect(client, gw, label="HTTPS (443)", padding=2.0)
-diag.connect(gw, auth, label="gRPC", padding=2.0)
-diag.connect(gw, order, label="gRPC", padding=2.0)
-diag.connect(order, db, label="SQL Query", padding=2.0)
+diag.connect(client, gw, label="HTTPS (443)", padding=1.5)
+gw.fork([auth, order], at_x=71.0, padding=1.5)
+diag.connect(order, db, label="SQL Query", padding=1.5)
 
-diag.draw(xy=(5.0, 4.0))
+diag.draw(xy=(3.0, 3.0))
 ```
 
 ## 10.2 Auto-Layout Graph Engine (`drawlib.graph`)

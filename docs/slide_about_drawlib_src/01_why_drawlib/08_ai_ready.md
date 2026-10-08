@@ -27,25 +27,28 @@ clear()
 setup(width=105, height=84)
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold.patch(text_size=9.5),
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark.patch(text_size=8.5),
+    node_card_style=Styles.Neutral,
     title="Human + AI Agent Collaborative Loop",
     title_style=Styles.DarkBold.patch(text_size=13),
 )
 
 # Left: Collaborators
 human = d.add(
-    Node("Human Engineer\n(Intent & Review)", icon=PhosphorIcon.USER, icon_size=9.0, style=Styles.SecondaryNeutral),
+    Node((22, 18), "Human Engineer\n(Intent & Review)", icon=PhosphorIcon.USER, icon_size=9.0, card_style=Styles.SecondaryNeutral),
     xy=(14.0, 56.0),
 )
 agent = d.add(
     Node(
+        (22, 18),
         "AI Coding Agent\n(Autonomous Loop)",
         icon=PhosphorIcon.ROBOT,
         icon_size=9.5,
-        style=Styles.PrimaryFlat,
+        style=Styles.White,
+        card_style=Styles.PrimaryFlat,
         text_style=Styles.WhiteBold.patch(text_size=9.5),
     ),
     xy=(14.0, 22.0),
@@ -57,28 +60,28 @@ workspace = d.add(
     xy=(36.0, 8.0),
 )
 rules_node = workspace.add(
-    Node("Rules Catalog\n(drawlib rules)", icon=PhosphorIcon.BOOK_OPEN, icon_size=8.5, style=Styles.Neutral),
+    Node((22, 17), "Rules Catalog\n(drawlib rules)", icon=PhosphorIcon.BOOK_OPEN, icon_size=8.5, card_style=Styles.White),
     xy=(15.0, 52.0),
 )
 code_node = workspace.add(
-    Node("Declarative Code\n(.md & .py)", icon=PhosphorIcon.CODE, icon_size=8.5, style=Styles.Neutral),
+    Node((22, 17), "Declarative Code\n(.md & .py)", icon=PhosphorIcon.CODE, icon_size=8.5, card_style=Styles.White),
     xy=(15.0, 28.0),
 )
 grid_node = workspace.add(
-    Node("Grid Preview (-g)\n& Multimodal Check", icon=PhosphorIcon.EYE, icon_size=8.5, style=Styles.BlueNeutral),
+    Node((22, 17), "Grid Preview (-g)\n& Multimodal Check", icon=PhosphorIcon.EYE, icon_size=8.5, card_style=Styles.BlueNeutral),
     xy=(45.0, 28.0),
 )
 output_node = workspace.add(
-    Node("Verified Output\n(Site / PDF / Slides)", icon=PhosphorIcon.CHECK_CIRCLE, icon_size=8.5, style=Styles.SecondaryNeutral),
+    Node((22, 17), "Verified Output\n(Site / PDF / Slides)", icon=PhosphorIcon.CHECK_CIRCLE, icon_size=8.5, card_style=Styles.SecondaryNeutral),
     xy=(45.0, 52.0),
 )
 
-d.connect(human, code_node, label="Architecture Goal", padding=1.5)
-d.connect(rules_node, agent, label="API Specs", padding=1.5)
-d.connect(agent, code_node, label="Write / Fix", padding=1.5)
-d.connect(code_node, grid_node, label="Render -g", padding=1.5)
-d.connect(grid_node, agent, label="Visual Feedback", padding=1.5)
-d.connect(grid_node, output_node, label="Pass", padding=1.5)
+d.connect(human, code_node, label="Architecture Goal", padding=1.2)
+d.connect(rules_node, agent, label="API Specs", padding=1.2)
+d.connect(agent, code_node, label="Write / Fix", padding=1.2)
+d.connect(code_node, grid_node, label="Render -g", padding=1.2)
+d.connect(grid_node, agent, label="Visual Feedback", padding=1.2)
+d.connect(grid_node, output_node, label="Pass", padding=1.2)
 
 d.draw(xy=(4.0, 5.0))
 save()

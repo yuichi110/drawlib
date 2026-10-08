@@ -589,8 +589,6 @@ GridLayout(
     style: Style,
     text_style: Style,
     r: float = 0.0,
-    text_angle: float = 0.0,
-    text_xy_shift: tuple[float, float] | None = None,
 )
 ```
 
@@ -605,8 +603,6 @@ item = grid.add(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-    text_angle: float | None = None,
-    text_xy_shift: tuple[float, float] | None = None,
     show: bool = True,
 ) -> _GridLayoutItem
 ```
@@ -675,8 +671,6 @@ Pyramid(
     *,
     style: Style,
     text_style: Style,
-    text_angle: float = 0.0,
-    text_xy_shift: tuple[float, float] | None = None,
 )
 ```
 
@@ -687,8 +681,6 @@ tier = pyramid.add(
     *,
     style: Style | None = None,
     text_style: Style | None = None,
-    text_angle: float | None = None,
-    text_xy_shift: tuple[float, float] | None = None,
     show: bool = True,
 ) -> _PyramidItem
 ```

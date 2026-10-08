@@ -78,7 +78,6 @@ def _draw_y_grid_and_ticks(
         tick_label_style = tick_label_style.patch(
             text_halign="right",
             text_valign="center",
-            angle=y_axis.tick_label_angle,
         )
 
     for tick in ticks:
@@ -111,7 +110,6 @@ def _draw_x_grid_and_ticks(
         tick_label_style = tick_label_style.patch(
             text_halign="center",
             text_valign="top",
-            angle=x_axis.tick_label_angle,
         )
 
     for tick in ticks:

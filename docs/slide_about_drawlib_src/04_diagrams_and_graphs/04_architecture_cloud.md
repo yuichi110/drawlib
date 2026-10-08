@@ -42,10 +42,11 @@ clear()
 setup(width=110, height=84)
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold.patch(text_size=7.2),
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark.patch(text_size=6.8),
+    node_card_style=Styles.White,
     title="Production Multi-Subnet Google Cloud VPC Architecture",
     title_style=Styles.DarkBold.patch(text_size=9.5),
 )
@@ -71,6 +72,7 @@ public_subnet = vpc.add(
 )
 lb = public_subnet.add(
     Node(
+        (16, 15),
         "Cloud Load\nBalancing",
         icon=GcpIcon.CLOUD_LOAD_BALANCING,
         icon_size=7.0,
@@ -89,6 +91,7 @@ private_subnet = vpc.add(
 )
 gke1 = private_subnet.add(
     Node(
+        (17, 14),
         "GKE API Pod 1",
         icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE,
         icon_size=7.0,
@@ -97,6 +100,7 @@ gke1 = private_subnet.add(
 )
 gke2 = private_subnet.add(
     Node(
+        (17, 14),
         "GKE API Pod 2",
         icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE,
         icon_size=7.0,
@@ -106,31 +110,35 @@ gke2 = private_subnet.add(
 
 # External Client & Managed Data Tier
 user = d.add(
-    Node("Client User", icon=PhosphorIcon.USER, icon_size=7.0),
+    Node((15, 14), "Client User", icon=PhosphorIcon.USER, icon_size=7.0, card_style=Styles.Neutral),
     xy=(6.0, 35.0),
 )
 db = d.add(
     Node(
+        (18, 15),
         "Cloud SQL\n(PostgreSQL)",
         icon=GcpIcon.CLOUD_SQL,
         icon_size=7.0,
+        card_style=Styles.Neutral,
     ),
     xy=(94.0, 46.0),
 )
 storage = d.add(
     Node(
+        (18, 15),
         "Cloud Storage\n(Object Store)",
         icon=GcpIcon.CLOUD_STORAGE,
         icon_size=7.0,
+        card_style=Styles.Neutral,
     ),
     xy=(94.0, 24.0),
 )
 
 # Orthogonal connections & fan-out
-d.connect(user, lb, label="HTTPS", padding=1.5)
-lb.fork([gke1, gke2], at_x=48.0, padding=1.5)
-d.connect(gke1, db, label="SQL", padding=1.5)
-d.connect(gke2, storage, label="GCS Sync", padding=1.5)
+d.connect(user, lb, label="HTTPS", padding=1.2)
+lb.fork([gke1, gke2], at_x=48.0, padding=1.2)
+d.connect(gke1, db, label="SQL", padding=1.2)
+d.connect(gke2, storage, label="GCS Sync", padding=1.2)
 
 d.draw(xy=(2.0, 6.0))
 

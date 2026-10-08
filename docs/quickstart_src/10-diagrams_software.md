@@ -11,19 +11,31 @@ from drawlib.canvas import setup
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 from drawlib.styles import Styles
 
-setup(width=120, height=65)
+setup(width=125, height=88)
 
 d = SequenceDiagram(
-    node_style=Styles.PrimaryFlat,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.Primary,
     edge_text_style=Styles.Black,
+    node_card_style=Styles.Neutral,
     title="OAuth 2.0 Token Exchange Sequence",
 )
 
-client = d.add(Participant("Client App", icon=PhosphorIcon.DESKTOP, icon_size=7.0))
-gateway = d.add(Participant("API Gateway", icon=PhosphorIcon.CLOUD, icon_size=7.0))
-auth = d.add(Participant("Auth Server", icon=PhosphorIcon.LOCK, icon_size=7.0))
-user_db = d.add(Participant("User DB", icon=PhosphorIcon.DATABASE, icon_size=7.0))
+client = d.add(Participant((20, 15), "Client App", icon=PhosphorIcon.DESKTOP, icon_size=7.0))
+gateway = d.add(
+    Participant(
+        (20, 15),
+        "API Gateway",
+        icon=PhosphorIcon.CLOUD,
+        icon_size=7.0,
+        style=Styles.White,
+        card_style=Styles.PrimaryFlat,
+        text_style=Styles.WhiteBold,
+    )
+)
+auth = d.add(Participant((20, 15), "Auth Server", icon=PhosphorIcon.LOCK, icon_size=7.0))
+user_db = d.add(Participant((20, 15), "User DB", icon=PhosphorIcon.DATABASE, icon_size=7.0))
 
 client.request(gateway, "POST /v1/auth/token")
 gateway.request(auth, "Validate Client Secret")
@@ -32,7 +44,7 @@ user_db.reply(auth, "Hash Verified")
 auth.reply(gateway, "Issued JWT & Refresh Token")
 gateway.reply(client, "200 OK (access_token)")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(4.0, 2.0))
 ```
 
 ## 2. Decision & Process Flows (`FlowDiagram`)

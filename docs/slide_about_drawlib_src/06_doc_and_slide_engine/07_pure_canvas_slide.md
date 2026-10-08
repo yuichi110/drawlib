@@ -66,25 +66,26 @@ rectangle((50.0, 48.0), width=88.0, height=72.0, r=2.5, style=Styles.White)
 text((50.0, 79.0), "1. Cloud Topology (drawlib.diagrams.architecture)", style=Styles.DarkBold.patch(text_size=10.5))
 
 diag = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold.patch(text_size=8.0),
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark.patch(text_size=7.5),
+    node_card_style=Styles.White,
 )
 vpc = diag.add(
     NodeGroup(title="Regional Cloud VPC", padding=5.5, style=Styles.PrimaryNeutral),
     xy=(22.0, 6.0),
 )
-n_user = diag.add(Node("Users", icon=PhosphorIcon.USERS, icon_size=6.5), xy=(7.0, 22.0))
-n_lb = vpc.add(Node("Cloud LB", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=6.5), xy=(9.0, 16.0))
-n_run = vpc.add(Node("Cloud Run", icon=GcpIcon.CLOUD_RUN, icon_size=6.5), xy=(28.0, 16.0))
-n_sql = vpc.add(Node("Cloud SQL", icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(47.0, 24.0))
-n_bq = vpc.add(Node("BigQuery", icon=GcpIcon.BIGQUERY, icon_size=6.5), xy=(47.0, 8.0))
+n_user = diag.add(Node((14, 13), "Users", icon=PhosphorIcon.USERS, icon_size=6.5, card_style=Styles.Neutral), xy=(7.0, 22.0))
+n_lb = vpc.add(Node((15, 13), "Cloud LB", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=6.5), xy=(9.0, 16.0))
+n_run = vpc.add(Node((15, 13), "Cloud Run", icon=GcpIcon.CLOUD_RUN, icon_size=6.5), xy=(28.0, 16.0))
+n_sql = vpc.add(Node((15, 13), "Cloud SQL", icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(47.0, 24.0))
+n_bq = vpc.add(Node((15, 13), "BigQuery", icon=GcpIcon.BIGQUERY, icon_size=6.5), xy=(47.0, 8.0))
 
-diag.connect(n_user, n_lb, label="HTTPS", padding=1.2)
-diag.connect(n_lb, n_run, label="gRPC", padding=1.2)
-diag.connect(n_run, n_sql, label="OLTP", padding=1.2)
-diag.connect(n_run, n_bq, label="OLAP", padding=1.2)
+diag.connect(n_user, n_lb, label="HTTPS", padding=1.0)
+diag.connect(n_lb, n_run, label="gRPC", padding=1.0)
+diag.connect(n_run, n_sql, label="OLTP", padding=1.0)
+diag.connect(n_run, n_bq, label="OLAP", padding=1.0)
 diag.draw(xy=(8.0, 16.0))
 
 # 4. Top-Right Zone: Quantitative BarChart Card (X: 98..186, Y: 49..84)

@@ -41,9 +41,6 @@ ArrowType = Union[Literal["->", "<-", "<->", "-"], str]
 # Edge padding type (float or (start_padding, end_padding))
 PaddingType = Union[float, tuple[float, float]]
 
-# Node label placement relative to icon
-TextPosition = Literal["bottom", "top", "left", "right"]
-
 # Node icon types supported
 IconFunction = Callable[..., object]
 IconType = Union[

@@ -85,14 +85,16 @@ setup(width=115, height=58)
 anim = Animation(fps=10.0)
 
 seq = SequenceDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     autonumber=True,
 )
-client = seq.add(Participant("Client", style=Styles.PrimaryNeutral, text_style=Styles.DarkBold))
-api = seq.add(Participant("API Server", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold))
-db = seq.add(Participant("Database", style=Styles.SecondaryNeutral, text_style=Styles.DarkBold))
+client = seq.add(Participant((20, 9), "Client", card_style=Styles.PrimaryNeutral, text_style=Styles.DarkBold))
+api = seq.add(Participant((20, 9), "API Server", card_style=Styles.PrimaryFlat, text_style=Styles.WhiteBold))
+db = seq.add(Participant((20, 9), "Database", card_style=Styles.SecondaryNeutral, text_style=Styles.DarkBold))
 
 m1 = client.request(api, "POST /orders")
 m2 = api.request(db, "INSERT order", show=False)

@@ -37,25 +37,28 @@ class TestSequenceParticipantAndMessage:
 
     def test_participant_creation(self) -> None:
         """Verify Participant creation and properties."""
-        p1 = Participant("Web Server", icon=PhosphorIcon.BROWSER, icon_size=10.0)
+        p1 = Participant((20.0, 16.0), "Web Server", icon=PhosphorIcon.BROWSER, icon_size=10.0)
+        assert p1.card_size == (20.0, 16.0)
+        assert p1.get_header_size() == (20.0, 16.0)
+        assert p1.get_size() == (20.0, 16.0)
         assert p1.text == "Web Server"
         assert p1.icon == PhosphorIcon.BROWSER
         assert p1.icon_size == 10.0
 
-        p2 = Participant("Auth Service")
+        p2 = Participant((18.0, 8.0), "Auth Service")
         assert isinstance(p2, Participant)
         assert p2.text == "Auth Service"
 
     def test_participant_fixed_x(self) -> None:
         """Verify explicit x coordinate pinning on participant."""
-        p = Participant("Database")
+        p = Participant((18.0, 8.0), "Database")
         p.set_x(45.0)
         assert p._fixed_x == 45.0
 
     def test_message_creation_request_and_reply(self) -> None:
         """Verify Message creation, request (solid), and reply (dashed) semantics."""
-        p1 = Participant("Client")
-        p2 = Participant("Server")
+        p1 = Participant((18.0, 8.0), "Client")
+        p2 = Participant((18.0, 8.0), "Server")
 
         # Request: solid line
         m1 = p1.request(p2, "GET /data")
@@ -76,8 +79,8 @@ class TestSequenceParticipantAndMessage:
 
     def test_message_async_and_bidirectional(self) -> None:
         """Verify asynchronous messages and bidirectional connection streams."""
-        p1 = Participant("Publisher")
-        p2 = Participant("Subscriber")
+        p1 = Participant((18.0, 8.0), "Publisher")
+        p2 = Participant((18.0, 8.0), "Subscriber")
 
         async_msg = p1.request(p2, "Notify", is_async=True)
         assert async_msg.is_async is True
@@ -88,14 +91,14 @@ class TestSequenceParticipantAndMessage:
 
     def test_message_self_call(self) -> None:
         """Verify self-call identification."""
-        p = Participant("Service")
+        p = Participant((18.0, 8.0), "Service")
         self_msg = p.request(p, "Internal Validation")
         assert self_msg.is_self_call is True
 
     def test_message_fluent_setters(self) -> None:
         """Verify Message fluent setter methods."""
-        p1 = Participant("A")
-        p2 = Participant("B")
+        p1 = Participant((16.0, 8.0), "A")
+        p2 = Participant((16.0, 8.0), "B")
         m = Message(p1, p2)
 
         m.set_label("Ping").set_reply(True).set_async(True).set_arrow("<->").set_padding(2.0)
@@ -111,8 +114,8 @@ class TestSequenceNoteAndBlock:
 
     def test_note_creation(self) -> None:
         """Verify Note initialization on single and multiple participants."""
-        p1 = Participant("A")
-        p2 = Participant("B")
+        p1 = Participant((16.0, 8.0), "A")
+        p2 = Participant((16.0, 8.0), "B")
 
         note1 = Note("User credentials checked", on=p1, pos="right")
         assert note1.text == "User credentials checked"
@@ -127,11 +130,12 @@ class TestSequenceNoteAndBlock:
         """Verify Block context manager records boundary events in Diagram."""
         d = SequenceDiagram(
             node_style=Styles.PrimaryFlat,
+            node_text_style=Styles.DarkBold,
             edge_style=Styles.Primary,
             edge_text_style=Styles.Dark,
         )
-        client = d.add(Participant("Client"))
-        server = d.add(Participant("Server"))
+        client = d.add(Participant((18.0, 8.0), "Client"))
+        server = d.add(Participant((18.0, 8.0), "Server"))
 
         with d.loop("Retry 3 times") as loop_block:
             assert isinstance(loop_block, Block)
@@ -150,14 +154,15 @@ class TestSequenceNoteAndBlock:
         """Verify ParticipantGroup clustering box."""
         d = SequenceDiagram(
             node_style=Styles.PrimaryFlat,
+            node_text_style=Styles.DarkBold,
             edge_style=Styles.Primary,
             edge_text_style=Styles.Dark,
             margin=6.0,
         )
         assert d.margin == 6.0
         group = d.add(ParticipantGroup("Internal Cluster", padding=6.0))
-        p1 = group.add(Participant("Service Alpha"))
-        p2 = group.add(Participant("Service Beta"))
+        p1 = group.add(Participant((20.0, 8.0), "Service Alpha"))
+        p2 = group.add(Participant((20.0, 8.0), "Service Beta"))
 
         assert p1 in group.participants
         assert p2 in group.participants
@@ -172,12 +177,13 @@ class TestSequenceDiagramLifecycle:
         """Verify automatic sequential numbering of message arrows."""
         d = SequenceDiagram(
             node_style=Styles.PrimaryFlat,
+            node_text_style=Styles.DarkBold,
             edge_style=Styles.Primary,
             edge_text_style=Styles.Dark,
             autonumber=True,
         )
-        p1 = d.add(Participant("A"))
-        p2 = d.add(Participant("B"))
+        p1 = d.add(Participant((16.0, 8.0), "A"))
+        p2 = d.add(Participant((16.0, 8.0), "B"))
 
         m1 = p1.request(p2, "First", text_style=Styles.Accent)
         m2 = p2.reply(p1, "Second")
@@ -192,11 +198,12 @@ class TestSequenceDiagramLifecycle:
         """Verify participant lifeline activation tracking."""
         d = SequenceDiagram(
             node_style=Styles.PrimaryFlat,
+            node_text_style=Styles.DarkBold,
             edge_style=Styles.Primary,
             edge_text_style=Styles.Dark,
         )
-        client = d.add(Participant("Client"))
-        server = d.add(Participant("Server"))
+        client = d.add(Participant((18.0, 8.0), "Client"))
+        server = d.add(Participant((18.0, 8.0), "Server"))
 
         client.request(server, "Request")
         server.activate()
@@ -212,7 +219,7 @@ class TestSequenceDiagramLifecycle:
 
     def test_sequence_diagram_style_validation(self) -> None:
         """Verify ValidationError or TypeError when invalid styles are supplied."""
-        # Missing required edge_text_style
+        # Missing required node_text_style / edge_text_style
         with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(  # type: ignore
                 node_style=Styles.PrimaryFlat,
@@ -222,6 +229,7 @@ class TestSequenceDiagramLifecycle:
         with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(
                 node_style="invalid",  # type: ignore
+                node_text_style=Styles.Dark,
                 edge_style=Styles.Primary,
                 edge_text_style=Styles.Dark,
             )
@@ -229,6 +237,7 @@ class TestSequenceDiagramLifecycle:
         with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(
                 node_style=Styles.PrimaryFlat,
+                node_text_style=Styles.Dark,
                 edge_style="invalid",  # type: ignore
                 edge_text_style=Styles.Dark,
             )
@@ -236,6 +245,7 @@ class TestSequenceDiagramLifecycle:
         with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(
                 node_style=Styles.PrimaryFlat,
+                node_text_style=Styles.Dark,
                 edge_style=Styles.Primary,
                 edge_text_style=Styles.Dark,
                 style="invalid",  # type: ignore
@@ -244,6 +254,7 @@ class TestSequenceDiagramLifecycle:
         with pytest.raises((ValidationError, TypeError)):
             SequenceDiagram(
                 node_style=Styles.PrimaryFlat,
+                node_text_style=Styles.Dark,
                 edge_style=Styles.Primary,
                 edge_text_style=Styles.Dark,
                 title_style="invalid",  # type: ignore
@@ -259,16 +270,18 @@ class TestSequenceDiagramRenderingEndToEnd:
 
         d = SequenceDiagram(
             node_style=Styles.PrimaryFlat,
+            node_text_style=Styles.Dark,
             edge_style=Styles.Primary,
             edge_text_style=Styles.Dark,
+            node_card_style=Styles.Neutral,
             title="OAuth2 Authentication Flow",
             autonumber=True,
         )
 
-        user = d.add(Participant("User", icon=PhosphorIcon.USER, icon_size=8.0))
-        client = d.add(Participant("SPA Client", icon=PhosphorIcon.BROWSER, icon_size=8.0))
-        auth = d.add(Participant("Auth Server", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))
-        db = d.add(Participant("Database", icon=GcpIcon.CLOUD_SQL, icon_size=8.0))
+        user = d.add(Participant((18.0, 14.0), "User", icon=PhosphorIcon.USER, icon_size=8.0))
+        client = d.add(Participant((18.0, 14.0), "SPA Client", icon=PhosphorIcon.BROWSER, icon_size=8.0))
+        auth = d.add(Participant((18.0, 14.0), "Auth Server", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))
+        db = d.add(Participant((18.0, 14.0), "Database", icon=GcpIcon.CLOUD_SQL, icon_size=8.0))
 
         user.request(client, "Click Login")
         client.request(auth, "POST /oauth/token")
@@ -307,6 +320,7 @@ class TestSequenceDiagramRenderingEndToEnd:
 
         d = SequenceDiagram(
             node_style=Styles.PrimaryFlat,
+            node_text_style=Styles.Dark,
             edge_style=Styles.Primary,
             edge_text_style=Styles.Dark,
             title="Microservices Event Stream",
@@ -320,10 +334,12 @@ class TestSequenceDiagramRenderingEndToEnd:
                 ),
             )
         )
-        api = backend.add(Participant("API Gateway", icon=custom_icon, icon_size=8.0))
-        worker = backend.add(Participant("Worker Pod", icon=PhosphorIcon.CPU, icon_size=8.0))
+        api = backend.add(
+            Participant((18.0, 14.0), "API Gateway", icon=custom_icon, icon_size=8.0, card_style=Styles.PrimaryNeutral)
+        )
+        worker = backend.add(Participant((18.0, 14.0), "Worker Pod", icon=PhosphorIcon.CPU, icon_size=8.0))
 
-        client = d.add(Participant("External Client", icon=PhosphorIcon.GLOBE, icon_size=8.0))
+        client = d.add(Participant((18.0, 14.0), "External Client", icon=PhosphorIcon.GLOBE, icon_size=8.0))
 
         client.request(api, "Enqueue Task")
         api.request(worker, "Dispatch Job", is_async=True)

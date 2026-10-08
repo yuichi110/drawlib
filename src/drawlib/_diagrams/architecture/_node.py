@@ -21,7 +21,6 @@ from drawlib._diagrams.architecture._types import (
     IconType,
     PaddingType,
     RoutingType,
-    TextPosition,
 )
 
 if TYPE_CHECKING:
@@ -36,40 +35,34 @@ class Node:
 
     def __init__(
         self,
+        card_size: tuple[float, float],
         text: str = "",
         icon: IconType = None,
         icon_size: float = 8.0,
-        icon_style: Style | None = None,
-        text_position: TextPosition = "bottom",
-        text_margin: float = 1.5,
-        text_angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
+        card_style: Style | None = None,
         show: bool = True,
     ) -> None:
         """Initialize Node.
 
         Args:
+            card_size: (width, height) dimensions of the node card bounding box.
             text: Label text for this node.
-            icon: Icon enumeration, CustomIcon, Dimage, file path, or drawing function.
-            icon_size: Width/size of the icon.
-            icon_style: Optional Style object for the icon.
-            text_position: Alignment of label relative to the icon ("bottom", "top", "left", "right").
-            text_margin: Margin between icon and label.
-            text_angle: Rotation angle in degrees for the label text.
-            style: Optional Style object for the node background/card.
+            icon: Icon enumeration, CustomIcon, Dimage, PIL Image, file path, or drawing function.
+            icon_size: Width/size of the icon. Defaults to 8.0.
+            style: Optional Style object for the icon or image.
             text_style: Optional Style object for the label text.
+            card_style: Optional Style object for the node card background/border.
             show: Whether to render this node. Defaults to True.
         """
+        self.card_size: tuple[float, float] = (float(card_size[0]), float(card_size[1]))
         self.text = text
         self.icon = icon
         self.icon_size = float(icon_size)
-        self.icon_style = icon_style
         self.style = style
-        self.text_position = text_position
-        self.text_margin = float(text_margin)
-        self.text_angle = float(text_angle)
         self.text_style = text_style
+        self.card_style = card_style
         self.show = bool(show)
 
         self._local_xy: tuple[float, float] = (0.0, 0.0)
@@ -78,99 +71,47 @@ class Node:
 
     @property
     def xy(self) -> tuple[float, float]:
-        """Get the relative coordinate (x, y) of the icon center."""
+        """Get the relative coordinate (x, y) of the node card center."""
         return self._local_xy
 
     @property
     def center(self) -> tuple[float, float]:
-        """Get the center coordinate of the icon."""
+        """Get the center coordinate of the node card."""
         return self._local_xy
 
-    def _estimate_text_dimensions(self) -> tuple[float, float]:
-        """Estimate text width and height based on font size and lines."""
-        if not self.text:
-            return (0.0, 0.0)
-        lines = self.text.split("\n")
-        num_lines = len(lines)
-        max_len = max(len(line) for line in lines) if lines else 0
-
-        font_size = 14.0
-        if self.text_style is not None and self.text_style.text_size is not None:
-            font_size = float(self.text_style.text_size)
-
-        line_height = font_size * 0.18
-        char_width = font_size * 0.065
-        text_w = max_len * char_width
-        text_h = num_lines * line_height
-        return (text_w, text_h)
-
     def get_bounds(self) -> tuple[float, float, float, float]:
-        """Get visual bounding box [min_x, min_y, max_x, max_y] relative to icon center (0, 0)."""
-        half = self.icon_size / 2.0
-        min_x = -half
-        max_x = half
-        min_y = -half
-        max_y = half
-
-        if not self.text:
-            return (min_x, min_y, max_x, max_y)
-
-        text_w, text_h = self._estimate_text_dimensions()
-        half_tw = text_w / 2.0
-
-        if self.text_position == "bottom":
-            min_y = -half - self.text_margin - text_h
-            min_x = min(min_x, -half_tw)
-            max_x = max(max_x, half_tw)
-        elif self.text_position == "top":
-            max_y = half + self.text_margin + text_h
-            min_x = min(min_x, -half_tw)
-            max_x = max(max_x, half_tw)
-        elif self.text_position == "left":
-            min_x = -half - self.text_margin - text_w
-            min_y = min(min_y, -text_h / 2.0)
-            max_y = max(max_y, text_h / 2.0)
-        elif self.text_position == "right":
-            max_x = half + self.text_margin + text_w
-            min_y = min(min_y, -text_h / 2.0)
-            max_y = max(max_y, text_h / 2.0)
-
-        return (min_x, min_y, max_x, max_y)
+        """Get visual bounding box [min_x, min_y, max_x, max_y] relative to node center (0, 0)."""
+        half_w = self.card_size[0] / 2.0
+        half_h = self.card_size[1] / 2.0
+        return (-half_w, -half_h, half_w, half_h)
 
     def get_size(self) -> tuple[float, float]:
-        """Get the overall visual bounding box (width, height) including icon and label."""
-        min_x, min_y, max_x, max_y = self.get_bounds()
-        return (max_x - min_x, max_y - min_y)
+        """Get the overall card bounding box (width, height)."""
+        return self.card_size
 
     @property
     def left(self) -> tuple[float, float]:
-        """Get left anchor coordinate on the icon horizontal axis."""
+        """Get left anchor coordinate on the card boundary."""
         x, y = self._local_xy
-        return (x - self.icon_size / 2.0, y)
+        return (x - self.card_size[0] / 2.0, y)
 
     @property
     def right(self) -> tuple[float, float]:
-        """Get right anchor coordinate on the icon horizontal axis."""
+        """Get right anchor coordinate on the card boundary."""
         x, y = self._local_xy
-        return (x + self.icon_size / 2.0, y)
+        return (x + self.card_size[0] / 2.0, y)
 
     @property
     def top(self) -> tuple[float, float]:
-        """Get top anchor coordinate avoiding text collisions."""
+        """Get top anchor coordinate on the card boundary."""
         x, y = self._local_xy
-        _, text_h = self._estimate_text_dimensions()
-        if self.text and self.text_position == "top":
-            return (x, y + self.icon_size / 2.0 + self.text_margin + text_h)
-        return (x, y + self.icon_size / 2.0)
+        return (x, y + self.card_size[1] / 2.0)
 
     @property
     def bottom(self) -> tuple[float, float]:
-        """Get bottom anchor coordinate avoiding text collisions."""
+        """Get bottom anchor coordinate on the card boundary."""
         x, y = self._local_xy
-        _, text_h = self._estimate_text_dimensions()
-        if self.text and self.text_position == "bottom":
-            return (x, y - self.icon_size / 2.0 - self.text_margin - text_h)
-        return (x, y - self.icon_size / 2.0)
+        return (x, y - self.card_size[1] / 2.0)
 
     def connect(
         self,
@@ -250,7 +191,7 @@ class Node:
             list[Edge]: Created edges connecting this node to targets via the junction.
         """
         ax, ay = self.get_absolute_xy()
-        jx = float(at_x) if at_x is not None else ax + self.icon_size * 2.0
+        jx = float(at_x) if at_x is not None else ax + self.card_size[0]
         jy = float(at_y) if at_y is not None else ay
         j = _junction_module.Junction((jx, jy), show=show)
 

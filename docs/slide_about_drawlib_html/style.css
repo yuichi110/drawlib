@@ -1120,8 +1120,8 @@ body.presenter-mode.is-resizing-row * {
   font-display: block;
 }
 @font-face {
-  font-family: 'drawlib-phosphor-thin';
-  src: url('_assets/fonts/phosphor/thin.ttf') format('truetype');
+  font-family: 'drawlib-phosphor-regular';
+  src: url('_assets/fonts/phosphor/regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -1155,8 +1155,8 @@ body.presenter-mode.is-resizing-row * {
   font-display: block;
 }
 @font-face {
-  font-family: 'drawlib-phosphor-regular';
-  src: url('_assets/fonts/phosphor/regular.ttf') format('truetype');
+  font-family: 'drawlib-phosphor-thin';
+  src: url('_assets/fonts/phosphor/thin.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;

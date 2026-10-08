@@ -133,7 +133,6 @@ class AxisChartMixin(LegendChartMixin):
         line_style: Style | None = None,
         show_ticks: bool | None = None,
         tick_label_style: Style | None = None,
-        tick_label_angle: float | None = None,
     ) -> Axis:
         """Configure Y-axis parameters in a single call.
 
@@ -155,7 +154,6 @@ class AxisChartMixin(LegendChartMixin):
             line_style=line_style,
             show_ticks=show_ticks,
             tick_label_style=tick_label_style,
-            tick_label_angle=tick_label_angle,
         )
         return self.y_axis
 
@@ -175,7 +173,6 @@ class AxisChartMixin(LegendChartMixin):
         line_style: Style | None = None,
         show_ticks: bool | None = None,
         tick_label_style: Style | None = None,
-        tick_label_angle: float | None = None,
     ) -> Axis:
         """Configure X-axis parameters in a single call.
 
@@ -197,7 +194,6 @@ class AxisChartMixin(LegendChartMixin):
             line_style=line_style,
             show_ticks=show_ticks,
             tick_label_style=tick_label_style,
-            tick_label_angle=tick_label_angle,
         )
         return self.x_axis
 

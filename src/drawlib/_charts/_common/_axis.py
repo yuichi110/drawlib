@@ -39,7 +39,6 @@ class Axis:
         line_style: Style | None = None,
         show_ticks: bool = True,
         tick_label_style: Style | None = None,
-        tick_label_angle: float = 0.0,
         label_style: Style | None = None,
     ) -> None:
         """Initialize Axis.
@@ -59,7 +58,6 @@ class Axis:
             line_style: Optional Style for the baseline stroke.
             show_ticks: Whether to render tick labels. Defaults to True.
             tick_label_style: Optional Style for tick label typography.
-            tick_label_angle: Rotation angle in degrees for tick labels. Defaults to 0.0.
             label_style: Optional Style for axis title label typography.
         """
         self.scale: ScaleType = scale
@@ -76,7 +74,6 @@ class Axis:
         self.line_style: Style | None = line_style
         self.show_ticks: bool = show_ticks
         self.tick_label_style: Style | None = tick_label_style
-        self.tick_label_angle: float = float(tick_label_angle)
         self.label_style: Style | None = label_style
 
     def configure(
@@ -95,7 +92,6 @@ class Axis:
         line_style: Style | None = None,
         show_ticks: bool | None = None,
         tick_label_style: Style | None = None,
-        tick_label_angle: float | None = None,
         label_style: Style | None = None,
     ) -> None:
         """Update multiple axis configuration options in place.
@@ -115,7 +111,6 @@ class Axis:
             line_style: Optional Style for baseline stroke.
             show_ticks: Whether to render tick labels.
             tick_label_style: Optional Style for tick label typography.
-            tick_label_angle: Rotation angle in degrees for tick labels.
             label_style: Optional Style for axis title label typography.
         """
         opts: dict[str, object] = {
@@ -133,7 +128,6 @@ class Axis:
             "line_style": line_style,
             "show_ticks": show_ticks,
             "tick_label_style": tick_label_style,
-            "tick_label_angle": float(tick_label_angle) if tick_label_angle is not None else None,
             "label_style": label_style,
         }
         for k, v in opts.items():

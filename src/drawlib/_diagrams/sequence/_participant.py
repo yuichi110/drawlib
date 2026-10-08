@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING, Literal
 
 import drawlib._diagrams.sequence._message as _message_module
 import drawlib._diagrams.sequence._note as _note_module
-from drawlib._diagrams.sequence._types import ArrowType, IconType, TextPosition
+from drawlib._diagrams.sequence._types import ArrowType, IconType
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -29,42 +29,36 @@ class Participant:
 
     def __init__(
         self,
+        card_size: tuple[float, float],
         text: str = "",
         icon: IconType = None,
         icon_size: float = 8.0,
-        text_position: TextPosition = "bottom",
-        text_margin: float = 2.0,
-        text_angle: float = 0.0,
         style: Style | None = None,
-        icon_style: Style | None = None,
         text_style: Style | None = None,
+        card_style: Style | None = None,
         lifeline_style: Style | None = None,
         show: bool = True,
     ) -> None:
         """Initialize Participant.
 
         Args:
+            card_size: (width, height) dimensions of the participant header card.
             text: Participant display name / label.
-            icon: Icon identifier (GcpIcon, PhosphorIcon, CustomIcon, or image path).
+            icon: Icon identifier (GcpIcon, PhosphorIcon, CustomIcon, Dimage, PIL Image, path, or function).
             icon_size: Size of icon in coordinate units. Defaults to 8.0.
-            text_position: Placement of label relative to icon ("bottom", "top", "left", "right").
-            text_margin: Clearance between icon boundary and label text. Defaults to 2.0.
-            text_angle: Rotation angle of label text in degrees. Defaults to 0.0.
-            style: Style for participant header card.
-            icon_style: Style for participant icon.
-            text_style: Style for label text.
+            style: Optional Style for participant icon or image.
+            text_style: Optional Style for label text.
+            card_style: Optional Style for participant header card background/border.
             lifeline_style: Style for vertical lifeline.
             show: Whether to render this participant and its lifeline. Defaults to True.
         """
+        self.card_size: tuple[float, float] = (float(card_size[0]), float(card_size[1]))
         self.text = text
         self.icon = icon
         self.icon_size = float(icon_size)
-        self.text_position: TextPosition = text_position
-        self.text_margin = float(text_margin)
-        self.text_angle = float(text_angle)
         self.style = style
-        self.icon_style = icon_style
         self.text_style = text_style
+        self.card_style = card_style
         self.lifeline_style = lifeline_style
         self.show = bool(show)
 
@@ -241,28 +235,9 @@ class Participant:
                 break
 
     def get_header_size(self) -> tuple[float, float]:
-        """Estimate width and height of the participant's header card."""
-        font_size = (
-            float(self.text_style.text_size)
-            if self.text_style is not None and self.text_style.text_size is not None
-            else 12.0
-        )
-        # Text dimension approximations
-        lines = self.text.split("\n") if self.text else []
-        max_line_len = max((len(line) for line in lines), default=0)
-        text_w = max_line_len * (font_size * 0.065)
-        text_h = len(lines) * (font_size * 0.18) if lines else 0.0
+        """Get width and height of the participant's header card."""
+        return self.card_size
 
-        if self.icon is None:
-            w = max(text_w + 6.0, 16.0)
-            h = max(text_h + 4.0, 8.0)
-            return w, h
-
-        # If icon exists
-        if self.text_position in {"bottom", "top"}:
-            w = max(self.icon_size + 4.0, text_w + 4.0)
-            h = self.icon_size + self.text_margin + text_h + 2.0
-        else:
-            w = self.icon_size + self.text_margin + text_w + 4.0
-            h = max(self.icon_size + 2.0, text_h + 2.0)
-        return max(w, 16.0), max(h, 8.0)
+    def get_size(self) -> tuple[float, float]:
+        """Get width and height of the participant's header card."""
+        return self.card_size

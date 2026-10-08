@@ -90,7 +90,6 @@ Registers a node in the graph and returns a mutable `Node` declaration object (`
 | `style` | `Style \| None` | `None` | Visual style for the node shape (defaults to solver's `default_node_style`, typically `Styles.PrimaryFlat`). |
 | `text_style` | `Style \| None` | `None` | Optional explicit style override for the node label. |
 | `shape` | `Literal["rectangle", "circle", "rounded_rectangle"]` | `"rectangle"` | Shape geometry (`"rectangle"`, `"circle"`, `"rounded_rectangle"`). |
-| `icon` | `str \| None` | `None` | Optional icon name or path. |
 | `width` | `float \| None` | `None` | Explicit node width in canvas units (defaults to solver's `default_node_width`). |
 | `height` | `float \| None` | `None` | Explicit node height in canvas units (defaults to solver's `default_node_height`). |
 | `layer` | `int \| None` | `None` | Explicit rank/layer index for `LayerGraph` (`0` = first rank). |
@@ -399,7 +398,7 @@ save()
 ## 4. Layout Models & Post-Calculation Adjustment (`GraphLayout`)
 
 Calling `layout = g.calc()` returns a mutable `GraphLayout` container holding computed geometries:
-- `layout.nodes`: `dict[str, NodeLayout]` — each `NodeLayout` has `.id`, `.x`, `.y`, `.width`, `.height`, `.label`, `.shape`, `.icon`, `.style`, `.text_style`, `.show`.
+- `layout.nodes`: `dict[str, NodeLayout]` — each `NodeLayout` has `.id`, `.x`, `.y`, `.width`, `.height`, `.label`, `.shape`, `.style`, `.text_style`, `.show`.
 - `layout.edges`: `list[EdgeLayout]` — each `EdgeLayout` has `.src`, `.dst`, `.points` (`list[tuple[float, float]]`), `.label`, `.style`, `.text_style`, `.arrow_head`, `.line_style`, `.show`.
 - `layout.clusters`: `dict[str, ClusterLayout]` — each `ClusterLayout` has `.id`, `.cx`, `.cy`, `.width`, `.height`, `.label`, `.style`, `.text_style`, `.show`.
 - `layout.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -> None`: Renders the computed layout onto the active canvas, translating by `xy`, scaling by `scale`, and skipping any elements where `.show=False` (including edges connected to hidden endpoint nodes).

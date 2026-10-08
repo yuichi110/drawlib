@@ -18,7 +18,7 @@
  └──────────────────────────────────────────────────────────────┘
 ```
 
-- **Icon-Centric Coordinates**: When placing a node via `d.add(node, xy=(x, y))`, the coordinate strictly defines the **center of the icon**. The text label is offset according to `text_position` (`"bottom"`, `"top"`, `"left"`, `"right"`), ensuring that horizontally or vertically aligned icons maintain perfectly straight wire connections.
+- **Card-Centric Coordinates**: When placing a node via `d.add(node, xy=(x, y))`, the coordinate defines the **center of the node card** `card_size=(width, height)`. When both `icon` and `text` are present, the icon is positioned in the upper middle and the text label in the lower portion (adjustable via `text_style=Styles.DarkBold.patch(xy_shift=...)`). If neither `node_card_style` nor `card_style` is provided, the card background is transparent.
 - **Hierarchical Auto-Bounding (`NodeGroup`)**: Groups automatically compute their outer boundary boxes to enclose all enclosed nodes and nested sub-groups with configurable padding.
 - **Connectable Boundaries**: You can connect edges directly to or from a group's perimeter box as well as individual nodes.
 - **1-to-N Fan-Out (`fork`)**: Easily split a single connection line into multiple downstream destinations using an automatic intermediate bus line.
@@ -32,10 +32,11 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, No
 from drawlib.styles import Styles
 
 d = ArchitectureDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Primary,
     node_text_style=Styles.DarkBold,
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.Dark,
+    node_card_style=Styles.Neutral,
     title="Production Multi-Tier Cloud VPC",
 )
 ```
@@ -45,10 +46,11 @@ d = ArchitectureDiagram(
 #### `ArchitectureDiagram` Class
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `node_style` | `Style` | *(Required)* | Default style for nodes and card backgrounds. |
+| `node_style` | `Style` | *(Required)* | Default style for node icons and images. |
 | `node_text_style` | `Style` | *(Required)* | Default style for node text labels. |
 | `edge_style` | `Style` | *(Required)* | Default style for connection lines and arrowheads. |
 | `edge_text_style` | `Style` | *(Required)* | Default style for connection text labels. |
+| `node_card_style` | `Style \| None` | `None` | Default style for node card backgrounds (transparent if `None`). |
 | `title` | `str` | `""` | Optional banner title for the diagram. |
 | `title_style` | `Style \| None` | `None` | Optional style for diagram title. |
 | `width` | `float \| None` | `None` | Explicit diagram canvas width, or `None` for auto-fit. |
@@ -59,11 +61,13 @@ d = ArchitectureDiagram(
 #### `Node` Class
 | Parameter | Type | Default | Description |
 |---|---|---|---|
+| `card_size` | `tuple[float, float]` | *(Required)* | Card bounding box `(width, height)` in canvas units. |
 | `text` | `str` | `""` | Node label text (supports `\n`). |
-| `icon` | `IconType \| None` | `None` | `PhosphorIcon`, `GcpIcon`, or `CustomIcon`. |
-| `icon_size` | `float` | `8.0` | Outer width and height of the icon square. |
-| `text_position` | `"bottom"` \| `"top"` \| `"left"` \| `"right"` | `"bottom"` | Label placement relative to icon center. |
-| `style` | `Style \| None` | `None` | Optional typography or node background style. |
+| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
+| `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
+| `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
+| `text_style` | `Style \| None` | `None` | Optional style override for the label text (supports `xy_shift`, `angle`). |
+| `card_style` | `Style \| None` | `None` | Optional style override for the card background/border (transparent if `None` and `node_card_style` is `None`). |
 | `show` | `bool` | `True` | Visibility flag (connected edges auto-hide when `False`). |
 
 #### `NodeGroup` Class
@@ -114,6 +118,6 @@ You can also use general architecture icons from `PhosphorIcon` to model messagi
 
 ## 5. Best Practices & Guidelines
 
-1. **Keep Coordinates Icon-Centric**: When aligning multiple nodes in a row or column, give them the exact same X or Y coordinate. The text labels will not alter the position of the icon or connections.
+1. **Align Node Centers**: When aligning multiple nodes in a row or column, give them the exact same X or Y coordinate so horizontal and vertical connections stay straight.
 2. **Use `fork` for Fan-Out**: Avoid drawing multiple crossing lines from a single node. Use `node.fork([n1, n2, ...], at_x=...)` to create clean right-angle bus routes.
 3. **Padded Boundaries**: Always set `padding` on `NodeGroup` (typically `5.0` to `7.0`) to give enclosed components breathing room from the border lines.
