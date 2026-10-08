@@ -438,6 +438,8 @@ class TestSlideCli:
         assert res.returncode == 0
         assert (out_dir / "index.html").is_file()
         assert (out_dir / "style.css").is_file()
+        assert (out_dir / "README.md").is_file()
+        assert "Presenter View" in (out_dir / "README.md").read_text(encoding="utf-8")
 
     def test_cli_init_slide(self, tmp_path: Path) -> None:
         """Verify `drawlib init slide` scaffolding."""

@@ -190,6 +190,15 @@ def get_slide_js() -> str:
     return _read_template_resource("project", "slide", "slide.js")
 
 
+def get_slide_readme() -> str:
+    """Get the standalone viewer README.md content for compiled HTML slide decks.
+
+    Returns:
+        str: Markdown instructions for viewing and controlling the compiled slide deck.
+    """
+    return _read_template_resource("project", "slide", "output_readme.md")
+
+
 def export_css(
     name: str,
     output_path: Optional[str] = None,

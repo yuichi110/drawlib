@@ -21,7 +21,7 @@ from typing import TYPE_CHECKING, Optional
 
 from drawlib._core.l1_core import FONT_DIR_PATH, FONT_ICON_DIR_PATH
 from drawlib._core.l3_external import download_if_not_exist
-from drawlib._templates import get_css, get_slide_js
+from drawlib._templates import get_css, get_slide_js, get_slide_readme
 
 if TYPE_CHECKING:
     from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions
@@ -278,6 +278,11 @@ def deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> Non
 
     with open(os.path.join(output_abs, "slide.js"), "w", encoding="utf-8") as f:
         f.write(get_slide_js())
+
+    readme_out = os.path.join(output_abs, "README.md")
+    if os.path.abspath(output_abs) != os.path.abspath(input_abs) or not os.path.exists(readme_out):
+        with open(readme_out, "w", encoding="utf-8") as f:
+            f.write(get_slide_readme())
 
     for asset_dir_name in ("_assets", "assets"):
         local_assets_dir = os.path.join(input_abs, asset_dir_name)
