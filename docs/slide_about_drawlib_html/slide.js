@@ -426,7 +426,7 @@
         if (badge) badge.setAttribute('title', `Paused at frame ${currentFrame} — click to continue`);
       } else if (newState === 'ENDED') {
         container.classList.add('ended');
-        if (badge) badge.setAttribute('title', 'Click to replay animation');
+        if (badge) badge.setAttribute('title', 'Click to reset to first frame');
       } else {
         if (badge) badge.setAttribute('title', 'Click to play animation');
       }
@@ -511,8 +511,10 @@
         // Resume from the frame after the paused frame
         advanceFromWait();
       } else if (state === 'ENDED') {
-        // Replay from Frame 0
-        startFromBeginning();
+        // Reset to Frame 0 and hold in READY state
+        clearTimer();
+        drawFrame(0);
+        setState('READY');
       } else if (state === 'PLAYING') {
         // Allow manual pause on click while playing
         clearTimer();

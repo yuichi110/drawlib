@@ -251,7 +251,7 @@ When a ````drawlib```` block outputs an animated image (**`.png` APNG recommende
 | Fence Attribute | Values | Default | Behavior |
 | :--- | :--- | :--- | :--- |
 | `anim-trigger:<mode>` | `auto` \| `click` | `auto` | `click` holds playback at Frame 0 (`READY` badge) until the user clicks the diagram, presses `A`, or clicks **Play Animation** in Presenter View. |
-| `anim-loop:<mode>` | `infinite` \| `once` | `infinite` | `once` stops at the final frame (`ENDED` badge); clicking again or pressing `A` replays from Frame 0. |
+| `anim-loop:<mode>` | `infinite` \| `once` | `infinite` | `once` stops at the final frame (`ENDED` badge); clicking again or pressing `A` resets to Frame 0 (`READY` state). |
 | `anim-pause:<frames>` | Comma-separated 0-based indices (e.g. `2,4`) | *(none)* | Automatically pauses playback upon reaching the specified 0-based frame indices (`PAUSED` badge); click or press `A` to resume to the next step. |
 
 #### Interactive Animation Example in a Slide:
