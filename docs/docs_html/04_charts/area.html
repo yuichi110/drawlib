@@ -346,7 +346,7 @@
 <li><strong><code>mode=&quot;overlap&quot;</code></strong>: Each series polygon starts at the baseline ($Y=0$) and overlaps with preceding series. Use a semi-transparent opacity (<code>fill_alpha=0.3</code> to <code>0.5</code>) to make underlying curves visible.</li>
 <li><strong><code>mode=&quot;stack&quot;</code></strong>: Each series rests directly on top of the preceding one, showing cumulative totals (e.g., total gross revenue broken down by product line).</li>
 </ul>
-<pre><code class="language-text">       mode=&quot;overlap&quot; (Semi-transparent)           mode=&quot;stack&quot; (Cumulative Total)
+<pre><code class="language-text">       mode="overlap" (Semi-transparent)           mode="stack" (Cumulative Total)
    Y ▲                                         Y ▲
      │        ▲                                  │         ▲ Total
      │       ╱ █╲    ▲                           │        ╱█╲
@@ -361,14 +361,14 @@
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">AreaChart</span><span class="p">(</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
-    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;2021&quot;</span><span class="p">,</span> <span class="s2">&quot;2022&quot;</span><span class="p">,</span> <span class="s2">&quot;2023&quot;</span><span class="p">,</span> <span class="s2">&quot;2024&quot;</span><span class="p">,</span> <span class="s2">&quot;2025&quot;</span><span class="p">],</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"2021"</span><span class="p">,</span> <span class="s2">"2022"</span><span class="p">,</span> <span class="s2">"2023"</span><span class="p">,</span> <span class="s2">"2024"</span><span class="p">,</span> <span class="s2">"2025"</span><span class="p">],</span>
     <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
     <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
     <span class="n">width</span><span class="o">=</span><span class="mf">80.0</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mf">55.0</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Cumulative Revenue Streams&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Cumulative Revenue Streams"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
-    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;stack&quot;</span><span class="p">,</span>               <span class="c1"># &quot;stack&quot; or &quot;overlap&quot;</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">"stack"</span><span class="p">,</span>               <span class="c1"># "stack" or "overlap"</span>
     <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>            <span class="c1"># Polygon fill opacity (0.0 to 1.0)</span>
     <span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>               <span class="c1"># Smooth spline curve or straight lines</span>
     <span class="n">show_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>          <span class="c1"># Draw vertex markers</span>
@@ -376,17 +376,17 @@
 
 <span class="c1"># Register series with optional visibility, partial rendering, and sweep direction</span>
 <span class="n">s1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span>
-    <span class="s2">&quot;Enterprise Cloud&quot;</span><span class="p">,</span>
+    <span class="s2">"Enterprise Cloud"</span><span class="p">,</span>
     <span class="p">[</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">110.0</span><span class="p">,</span> <span class="mf">160.0</span><span class="p">,</span> <span class="mf">225.0</span><span class="p">],</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
     <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">draw_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">draw_direction</span><span class="o">=</span><span class="s2">&quot;left_to_right&quot;</span><span class="p">,</span>  <span class="c1"># &quot;left_to_right&quot; or &quot;bottom_to_top&quot;</span>
+    <span class="n">draw_direction</span><span class="o">=</span><span class="s2">"left_to_right"</span><span class="p">,</span>  <span class="c1"># "left_to_right" or "bottom_to_top"</span>
 <span class="p">)</span>
 
 <span class="c1"># Render chart and legend with optional spatial overrides and uniform scaling</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. Cumulative Stacked Area Chart</h2>

@@ -366,12 +366,12 @@ You can author diagrams either as <strong>standalone Python scripts</strong> (<c
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
 
 <span class="c1"># Step 4: Draw main entities and connectors</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Client&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Client"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Server"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
 <span class="c1"># Connection line with arrowhead</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">&quot;REST API&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">"REST API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
 <span class="c1"># Step 5: Save image (defaults to client_server.png)</span>
 <span class="n">save</span><span class="p">()</span>
@@ -395,7 +395,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 
 Here is our primary service flow:
 
-<span class="sb">```drawlib</span><span class="w"> </span>600px center file:client_server_communication.png caption:&quot;Client-Server REST Communication&quot;
+<span class="sb">```drawlib</span><span class="w"> </span>600px center file:client_server_communication.png caption:"Client-Server REST Communication"
 <span class="s">from drawlib.canvas import setup</span>
 <span class="s">from drawlib.shapes import rectangle, circle</span>
 <span class="s">from drawlib.lines import line</span>
@@ -405,10 +405,10 @@ Here is our primary service flow:
 <span class="s">setup(width=100, height=50)</span>
 
 <span class="s">rectangle((50, 25), width=90, height=40, style=Styles.MutedDashed)</span>
-<span class="s">circle((25, 25), radius=12, style=Styles.Neutral, text=&quot;Client&quot;)</span>
-<span class="s">rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text=&quot;Server&quot;, text_style=Styles.WhiteBold)</span>
-<span class="s">line((37, 25), (63, 25), arrow_head=&quot;-&gt;&quot;, style=Styles.DarkBold)</span>
-<span class="s">text((50, 30), &quot;REST API&quot;, style=Styles.Dark)</span>
+<span class="s">circle((25, 25), radius=12, style=Styles.Neutral, text="Client")</span>
+<span class="s">rectangle((75, 25), width=24, height=20, style=Styles.PrimaryFlat, text="Server", text_style=Styles.WhiteBold)</span>
+<span class="s">line((37, 25), (63, 25), arrow_head="-&gt;", style=Styles.DarkBold)</span>
+<span class="s">text((50, 30), "REST API", style=Styles.Dark)</span>
 <span class="sb">```</span>
 </code></pre>
 <p>When compiled with <code>drawlib build html</code> or <code>drawlib build markdown</code>, the code fence is executed and replaced with the rendered image:</p>

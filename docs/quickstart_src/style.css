@@ -310,6 +310,47 @@ body {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
 }
 
+.doc-chapter + .doc-chapter,
+.doc-toc + .doc-chapter,
+.doc-chapter + .doc-toc {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rtd-border-color);
+}
+
+.doc-toc,
+.pdf-toc {
+    padding: 0.5rem 0;
+}
+
+.doc-toc h2,
+.pdf-toc h2 {
+    font-size: 1.5rem;
+    color: var(--rtd-heading-color);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: none;
+}
+
+.doc-toc ul,
+.pdf-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.doc-toc li,
+.pdf-toc li {
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--rtd-border-color);
+    font-size: 1rem;
+}
+
+.doc-toc li:last-child,
+.pdf-toc li:last-child {
+    border-bottom: none;
+}
+
 @media (max-width: 768px) {
     .main-container {
         margin: 1rem;
@@ -344,6 +385,16 @@ body {
         background-color: transparent !important;
     }
 
+    .doc-chapter + .doc-chapter,
+    .doc-toc + .doc-chapter,
+    .doc-chapter + .doc-toc {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        page-break-before: always;
+        break-before: page;
+    }
+
     .page-break {
         page-break-after: always;
         break-after: page;
@@ -364,4 +415,5 @@ body {
         page-break-after: avoid;
     }
 }
+
 

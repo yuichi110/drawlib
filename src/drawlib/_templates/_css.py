@@ -199,6 +199,15 @@ def get_slide_readme() -> str:
     return _read_template_resource("project", "slide", "output_readme.md")
 
 
+def get_html_readme() -> str:
+    """Get the standalone viewer README.md content for compiled HTML documentation directories.
+
+    Returns:
+        str: Markdown instructions for viewing the compiled HTML documentation.
+    """
+    return _read_template_resource("project", "_shared", "output_html_readme.md")
+
+
 def export_css(
     name: str,
     output_path: Optional[str] = None,

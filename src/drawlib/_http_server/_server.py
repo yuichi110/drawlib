@@ -37,7 +37,13 @@ class _CustomHTTPServer(ThreadingHTTPServer):
 
 
 class _CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
-    """Custom request handler that reports referer on 404 error."""
+    """Custom request handler that disables browser caching and reports referer on 404 error."""
+
+    def end_headers(self) -> None:
+        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
+        super().end_headers()
 
     def send_error(self, code: int, message: str | None = None, explain: str | None = None) -> None:
         if code == 404:

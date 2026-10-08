@@ -213,7 +213,9 @@ def test_cli_init_run_build_sh(tmp_path: Path) -> None:
         check=False,
     )
     assert build_res.returncode == 0
-    assert (tmp_path / "doc_html" / "01_overview.html").is_file()
+    assert (tmp_path / "doc_html" / "index.html").is_file()
+    assert (tmp_path / "doc_html" / "README.md").is_file()
+    assert not (tmp_path / "doc_html" / "01_overview.html").exists()
 
 
 def test_cli_init_conflict_and_force(tmp_path: Path) -> None:

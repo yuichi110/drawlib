@@ -356,13 +356,13 @@
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>           <span class="c1"># Bottom-left corner of the bubble body</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                      <span class="c1"># Bubble body width</span>
     <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                     <span class="c1"># Bubble body height</span>
-    <span class="n">tail_edge</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">],</span>
+    <span class="n">tail_edge</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">,</span> <span class="s2">"left"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">],</span>
     <span class="n">tail_start_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>          <span class="c1"># Float in [0.0, 1.0] along edge</span>
     <span class="n">tail_end_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>            <span class="c1"># Float in [0.0, 1.0] along edge</span>
     <span class="n">tail_vertex_xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="c1"># Exact target point coordinate</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
-    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
@@ -377,7 +377,7 @@ It supports both the <strong>unified instance lifecycle</strong> (<code>sc = Sou
 <h3>Instance Lifecycle (<code>add()</code> -&gt; <code>draw()</code>)</h3>
 <pre><code class="language-python"><span class="n">sc</span> <span class="o">=</span> <span class="n">SourceCode</span><span class="p">(</span>
     <span class="n">styles</span><span class="p">:</span> <span class="n">SourceCodeStyles</span><span class="p">,</span>
-    <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">"python"</span><span class="p">,</span>
     <span class="n">show_linenum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>
 <span class="p">)</span>
@@ -395,7 +395,7 @@ It supports both the <strong>unified instance lifecycle</strong> (<code>sc = Sou
     <span class="o">*</span><span class="p">,</span>
     <span class="n">styles</span><span class="p">:</span> <span class="n">SourceCodeStyles</span><span class="p">,</span>          <span class="c1"># Required style configuration</span>
     <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>           <span class="c1"># Path to code file (alternative to `code`)</span>
-    <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>      <span class="c1"># Language: &quot;python&quot;, &quot;json&quot;, &quot;yaml&quot;, &quot;sql&quot;, etc.</span>
+    <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>      <span class="c1"># Language: "python", "json", "yaml", "sql", etc.</span>
     <span class="n">show_linenum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>        <span class="c1"># Whether to show line numbers in a gutter</span>
     <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>                    <span class="c1"># Corner radius of the container box</span>
     <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>                <span class="c1"># Proportional scale factor relative to `xy`</span>
@@ -407,10 +407,10 @@ It supports both the <strong>unified instance lifecycle</strong> (<code>sc = Sou
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="c1"># 1. Standard theme with Japanese CJK font (tofu prevention)</span>
-<span class="n">styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">&quot;ja&quot;</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">)</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"ja"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">)</span>
 
-<span class="c1"># 2. Built-in themes: &quot;default&quot;, &quot;monochrome&quot;, &quot;dark&quot;, &quot;google&quot;</span>
-<span class="n">dark_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dark&quot;</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+<span class="c1"># 2. Built-in themes: "default", "monochrome", "dark", "google"</span>
+<span class="n">dark_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dark"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">)</span>
 
 <span class="c1"># 3. Patch specific token styles</span>
 <span class="n">custom_styles</span> <span class="o">=</span> <span class="n">dark_styles</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
@@ -422,10 +422,10 @@ It supports both the <strong>unified instance lifecycle</strong> (<code>sc = Sou
 <h3>Reading External Files</h3>
 <p>You can load code directly using <code>file=&quot;path/to/script.py&quot;</code> or retrieve the text via <code>SourceCode.get_text()</code>:</p>
 <pre><code class="language-python"><span class="c1"># Direct rendering from file</span>
-<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;src/main.py&quot;</span><span class="p">,</span> <span class="n">styles</span><span class="o">=</span><span class="n">styles</span><span class="p">,</span> <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"src/main.py"</span><span class="p">,</span> <span class="n">styles</span><span class="o">=</span><span class="n">styles</span><span class="p">,</span> <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Helper function</span>
-<span class="n">code_text</span> <span class="o">=</span> <span class="n">SourceCode</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="s2">&quot;src/main.py&quot;</span><span class="p">)</span>
+<span class="n">code_text</span> <span class="o">=</span> <span class="n">SourceCode</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="s2">"src/main.py"</span><span class="p">)</span>
 </code></pre>
 
             </main>

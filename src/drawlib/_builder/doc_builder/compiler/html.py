@@ -12,6 +12,7 @@
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import sys
 from typing import Any, Optional
@@ -36,6 +37,7 @@ from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.progress import check_document_output_duplicates
 from drawlib._slide._assets import bundle_svg_fonts
+from drawlib._templates import get_html_readme
 
 
 def build_html(
@@ -48,7 +50,12 @@ def build_html(
     no_cache: bool = False,
     css_mode: str = "external",
 ) -> str:
-    """Compile a Markdown/HTML documentation directory into a static HTML site.
+    """Compile a Markdown/HTML documentation directory into a static HTML site or single-page document.
+
+    When ``navbar.md`` is present (`site` project), each Markdown/HTML file is compiled
+    into a corresponding HTML file with a navigation sidebar. When ``navbar.md`` is absent
+    (`doc` project), all chapters are merged in filename order into a single standalone
+    ``index.html`` with a Table of Contents, matching PDF compilation behavior.
 
     Args:
         input_dir (str): Directory containing Markdown (.md), HTML, and site assets.
@@ -101,21 +108,23 @@ def build_html(
         style_css_path = os.path.join(out_dir_abs, "style.css")
         if os.path.abspath(style_css_path) != os.path.abspath(css_file):
             os.makedirs(os.path.dirname(style_css_path), exist_ok=True)
-            shutil.copy2(css_file, style_css_path)
+            shutil.copyfile(css_file, style_css_path)
 
     cache = BuildImageCache(enabled=not no_cache)
     html_tasks: list[tuple[str, str, bool]] = []
 
     for root, dirnames, files in os.walk(input_abs):
         if out_dir_abs != input_abs:
-            dirnames[:] = [
+            dirnames[:] = sorted(
                 d
                 for d in dirnames
                 if not (
                     os.path.abspath(os.path.join(root, d)) == out_dir_abs
                     or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
                 )
-            ]
+            )
+        else:
+            dirnames.sort()
         for fname in sorted(files):
             if fname.startswith("."):
                 continue
@@ -152,48 +161,66 @@ def build_html(
     image_width = len(str(max(max_blocks, 0)))
     root_index_dest_abs = os.path.join(out_dir_abs, "index.html")
 
-    for idx, ((src_abs, dest_abs, is_md), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
-        rel_css_href = (
-            os.path.relpath(style_css_path, os.path.dirname(dest_abs)).replace(os.sep, "/")
-            if style_css_path
-            else None
-        )
-        rel_index_url = os.path.relpath(root_index_dest_abs, os.path.dirname(dest_abs)).replace(os.sep, "/")
-        if is_md and active_navbar_path and navbar_sections is not None:
-            cur_sections, cur_items = resolve_navbar_for_page(
-                sections=navbar_sections,
-                root_dir_abs=input_abs,
-                out_dir_abs=out_dir_abs,
-                current_src_abs=src_abs,
-                current_dest_abs=dest_abs,
+    if active_navbar_path and navbar_sections is not None:
+        for idx, ((src_abs, dest_abs, is_md), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
+            rel_css_href = (
+                os.path.relpath(style_css_path, os.path.dirname(dest_abs)).replace(os.sep, "/")
+                if style_css_path
+                else None
             )
-        else:
-            cur_sections, cur_items = None, None
+            rel_index_url = os.path.relpath(root_index_dest_abs, os.path.dirname(dest_abs)).replace(os.sep, "/")
+            if is_md:
+                cur_sections, cur_items = resolve_navbar_for_page(
+                    sections=navbar_sections,
+                    root_dir_abs=input_abs,
+                    out_dir_abs=out_dir_abs,
+                    current_src_abs=src_abs,
+                    current_dest_abs=dest_abs,
+                )
+            else:
+                cur_sections, cur_items = None, None
 
-        processor = _compile_single_html_file(
-            src_abs=src_abs,
-            dest_abs=dest_abs,
+            processor = _compile_single_html_file(
+                src_abs=src_abs,
+                dest_abs=dest_abs,
+                image_format=image_format,
+                styles_path=styles_abs,
+                utils_path=utils_abs,
+                css_path=css_file,
+                css_href=rel_css_href,
+                template_path=template_file,
+                processor=processor,
+                progress=FileBuildProgress(
+                    idx,
+                    total_files,
+                    file_name=disp_name,
+                    name_width=name_width,
+                    image_width=image_width,
+                ),
+                no_cache=no_cache,
+                cache=cache,
+                nav_sections=cur_sections,
+                nav_items=cur_items,
+                index_url=rel_index_url,
+                site_title=site_title,
+                project_root=input_abs,
+            )
+    else:
+        _compile_merged_doc_html(
+            html_tasks=html_tasks,
+            display_names=display_names,
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
             image_format=image_format,
             styles_path=styles_abs,
             utils_path=utils_abs,
             css_path=css_file,
-            css_href=rel_css_href,
+            css_href=("style.css" if style_css_path else None),
             template_path=template_file,
-            processor=processor,
-            progress=FileBuildProgress(
-                idx,
-                total_files,
-                file_name=disp_name,
-                name_width=name_width,
-                image_width=image_width,
-            ),
+            name_width=name_width,
+            image_width=image_width,
             no_cache=no_cache,
             cache=cache,
-            nav_sections=cur_sections,
-            nav_items=cur_items,
-            index_url=rel_index_url,
-            site_title=site_title,
-            project_root=input_abs,
         )
 
     excluded: set[str] = {template_file, css_file}
@@ -205,29 +232,148 @@ def build_html(
         excluded_files=excluded,
     )
     bundle_svg_fonts(out_dir_abs, css_file_path=style_css_path)
+
+    readme_out = os.path.join(out_dir_abs, "README.md")
+    if out_dir_abs != input_abs or not os.path.exists(readme_out):
+        os.makedirs(out_dir_abs, exist_ok=True)
+        with open(readme_out, "w", encoding="utf-8") as f:
+            f.write(get_html_readme())
+
     return out_dir_abs
 
 
-def _compile_single_html_file(
+def _compile_merged_doc_html(
+    *,
+    html_tasks: list[tuple[str, str, bool]],
+    display_names: list[str],
+    input_abs: str,
+    out_dir_abs: str,
+    image_format: str,
+    styles_path: Optional[str],
+    utils_path: Optional[str],
+    css_path: Optional[str],
+    css_href: Optional[str],
+    template_path: Optional[str],
+    name_width: int,
+    image_width: int,
+    no_cache: bool,
+    cache: BuildImageCache,
+) -> None:
+    """Compile and merge all chapters in a linear doc project into a single index.html."""
+    if (
+        out_dir_abs != input_abs
+        and os.path.isdir(out_dir_abs)
+        and not os.path.exists(os.path.join(out_dir_abs, ".git"))
+    ):
+        for entry in os.listdir(out_dir_abs):
+            if entry.lower().endswith((".html", ".htm")) and entry.lower() != "index.html":
+                stale_html = os.path.join(out_dir_abs, entry)
+                if os.path.isfile(stale_html):
+                    os.remove(stale_html)
+
+    chapter_anchors: dict[str, str] = {}
+    for idx, (src_abs, _, _) in enumerate(html_tasks, start=1):
+        stem = os.path.splitext(os.path.basename(src_abs))[0]
+        slug = re.sub(r"[^a-zA-Z0-9_-]+", "-", stem).strip("-").lower() or f"doc-{idx}"
+        anchor_id = f"chapter-{idx}-{slug}"
+        chapter_anchors[src_abs] = anchor_id
+        chapter_anchors[os.path.basename(src_abs)] = anchor_id
+        chapter_anchors[f"{stem}.md"] = anchor_id
+        chapter_anchors[f"{stem}.html"] = anchor_id
+
+    chapters_html: list[str] = []
+    toc_entries: list[tuple[str, str]] = []
+    inferred_title: Optional[str] = None
+    processor: Optional[DrawlibBlockProcessor] = None
+    total_files = len(html_tasks)
+
+    for idx, ((src_abs, dest_abs, _), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
+        progress = FileBuildProgress(
+            idx,
+            total_files,
+            file_name=disp_name,
+            name_width=name_width,
+            image_width=image_width,
+        )
+        chapter_body, chapter_title, processor = _compile_chapter_body(
+            src_abs=src_abs,
+            dest_abs=dest_abs,
+            image_format=image_format,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            processor=processor,
+            progress=progress,
+            no_cache=no_cache,
+            cache=cache,
+            project_root=input_abs,
+        )
+        if inferred_title is None:
+            inferred_title = chapter_title
+
+        anchor_id = chapter_anchors[src_abs]
+        toc_entries.append((anchor_id, chapter_title))
+
+        def _rewrite_link(match: re.Match[str], _anchors: dict[str, str] = chapter_anchors) -> str:
+            href_target = match.group(1)
+            base_target = os.path.basename(href_target.split("#")[0])
+            if base_target in _anchors:
+                return f'href="#{_anchors[base_target]}"'
+            return match.group(0)
+
+        chapter_body = re.sub(
+            r'href=["\'](?!https?://|//|#)([^"\']+\.(?:md|html))(#[^"\']*)?["\']',
+            _rewrite_link,
+            chapter_body,
+            flags=re.IGNORECASE,
+        )
+
+        chapters_html.append(f'<section id="{anchor_id}" class="doc-chapter pdf-chapter">\n{chapter_body}\n</section>')
+
+    body_parts: list[str] = []
+    index_entries = toc_entries[1:]
+    if len(index_entries) > 0:
+        toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)
+        toc_html = (
+            f'<nav class="doc-toc pdf-toc">\n  <h2>Table of Contents</h2>\n  <ul>\n{toc_items}\n  </ul>\n</nav>'
+        )
+        body_parts.append(chapters_html[0])
+        body_parts.append(toc_html)
+        body_parts.extend(chapters_html[1:])
+    else:
+        body_parts.extend(chapters_html)
+
+    combined_body = "\n\n".join(body_parts)
+    full_html = render_html_document(
+        body_html=combined_body,
+        title=inferred_title or "Drawlib Document",
+        custom_css_path=css_path,
+        css_href=css_href,
+        nav_items=[],
+        nav_sections=None,
+        template_path=template_path,
+        index_url="index.html",
+        site_title=None,
+    )
+
+    index_dest_abs = os.path.join(out_dir_abs, "index.html")
+    os.makedirs(out_dir_abs, exist_ok=True)
+    with open(index_dest_abs, "w", encoding="utf-8") as f:
+        f.write(full_html)
+
+
+def _compile_chapter_body(
     src_abs: str,
     dest_abs: str,
     image_format: str,
     styles_path: Optional[str] = None,
     utils_path: Optional[str] = None,
-    css_path: Optional[str] = None,
-    css_href: Optional[str] = None,
-    template_path: Optional[str] = None,
     processor: Optional[DrawlibBlockProcessor] = None,
     progress: Optional[FileBuildProgress] = None,
     no_cache: bool = False,
     cache: Optional[BuildImageCache] = None,
-    nav_sections: Optional[list[dict[str, Any]]] = None,
-    nav_items: Optional[list[dict[str, Any]]] = None,
-    index_url: Optional[str] = None,
-    site_title: Optional[str] = None,
     project_root: Optional[str] = None,
-) -> DrawlibBlockProcessor | None:
-    """Compile a single Markdown or HTML file into HTML."""
+) -> tuple[str, str, DrawlibBlockProcessor | None]:
+    """Compile a single source file into an HTML body fragment and title."""
     with open(src_abs, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -305,22 +451,6 @@ def _compile_single_html_file(
         else:
             body_html = extract_html_body(content)
             doc_title = extract_title(content, os.path.basename(src_abs))
-
-        full_html = render_html_document(
-            body_html=body_html,
-            title=doc_title,
-            custom_css_path=css_path,
-            css_href=css_href,
-            nav_items=(nav_items or []),
-            nav_sections=nav_sections,
-            template_path=template_path,
-            index_url=(index_url or "index.html"),
-            site_title=site_title,
-        )
-
-        os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-        with open(dest_abs, "w", encoding="utf-8") as f:
-            f.write(full_html)
     finally:
         os.chdir(orig_cwd)
         if sys_path_added and src_dir in sys.path:
@@ -328,5 +458,57 @@ def _compile_single_html_file(
 
     if progress is not None:
         progress.update(total_steps, total_steps, done=True)
+
+    return body_html, doc_title, processor
+
+
+def _compile_single_html_file(
+    src_abs: str,
+    dest_abs: str,
+    image_format: str,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
+    css_path: Optional[str] = None,
+    css_href: Optional[str] = None,
+    template_path: Optional[str] = None,
+    processor: Optional[DrawlibBlockProcessor] = None,
+    progress: Optional[FileBuildProgress] = None,
+    no_cache: bool = False,
+    cache: Optional[BuildImageCache] = None,
+    nav_sections: Optional[list[dict[str, Any]]] = None,
+    nav_items: Optional[list[dict[str, Any]]] = None,
+    index_url: Optional[str] = None,
+    site_title: Optional[str] = None,
+    project_root: Optional[str] = None,
+) -> DrawlibBlockProcessor | None:
+    """Compile a single Markdown or HTML file into HTML."""
+    body_html, doc_title, processor = _compile_chapter_body(
+        src_abs=src_abs,
+        dest_abs=dest_abs,
+        image_format=image_format,
+        styles_path=styles_path,
+        utils_path=utils_path,
+        processor=processor,
+        progress=progress,
+        no_cache=no_cache,
+        cache=cache,
+        project_root=project_root,
+    )
+
+    full_html = render_html_document(
+        body_html=body_html,
+        title=doc_title,
+        custom_css_path=css_path,
+        css_href=css_href,
+        nav_items=(nav_items or []),
+        nav_sections=nav_sections,
+        template_path=template_path,
+        index_url=(index_url or "index.html"),
+        site_title=site_title,
+    )
+
+    os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+    with open(dest_abs, "w", encoding="utf-8") as f:
+        f.write(full_html)
 
     return processor

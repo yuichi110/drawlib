@@ -52,28 +52,31 @@
 
 html, body {
     font-family: var(--rtd-body-font);
-    font-size: 14.5px;
+    font-size: 16px;
     line-height: 1.68;
     color: var(--rtd-text-color);
-    background-color: #ffffff;
+    background-color: var(--rtd-surface-bg);
     margin: 0;
     padding: 0;
     overflow-x: hidden;
 }
 
-.doc-layout,
-.content-wrapper,
-.main-container,
-.main-content {
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    background-color: transparent !important;
-    overflow: visible !important;
+.main-container {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    background-color: var(--rtd-content-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 12px;
+    padding: 3rem 3.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
 }
 
 .sidebar,
@@ -81,6 +84,28 @@ html, body {
 .footer,
 hr {
     display: none !important;
+}
+
+@media print {
+    html, body {
+        font-size: 14.5px;
+        background-color: #ffffff;
+    }
+
+    .doc-layout,
+    .content-wrapper,
+    .main-container,
+    .main-content {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
+        overflow: visible !important;
+    }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -254,28 +279,41 @@ th {
     text-align: center;
 }
 
+.doc-chapter + .doc-chapter,
+.doc-toc + .doc-chapter,
+.doc-chapter + .doc-toc {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rtd-border-color);
+}
+
+.doc-toc,
 .pdf-toc {
     padding: 1rem 0;
 }
 
+.doc-toc h2,
 .pdf-toc h2 {
     font-size: 1.75rem;
     color: #1a73e8;
     margin-bottom: 1.25rem;
 }
 
+.doc-toc ul,
 .pdf-toc ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
+.doc-toc li,
 .pdf-toc li {
     padding: 0.55rem 0;
     border-bottom: 1px dashed #e8eaed;
     font-size: 1.02rem;
 }
 
+.doc-toc li:last-child,
 .pdf-toc li:last-child {
     border-bottom: none;
 }
@@ -283,4 +321,5 @@ th {
 .drawlib-code-details {
     display: none !important;
 }
+
 

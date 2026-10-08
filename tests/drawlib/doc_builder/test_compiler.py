@@ -510,20 +510,32 @@ def test_build_html_directory_missing_index_error(tmp_path) -> None:
 
 
 def test_build_html_directory_without_navbar(tmp_path) -> None:
-    """Test directory build without navbar.md compiles standalone HTML files."""
+    """Test directory build without navbar.md merges chapters into a single standalone index.html."""
     src_dir = tmp_path / "src_no_navbar"
     out_dir = tmp_path / "out_no_navbar"
     src_dir.mkdir()
     _setup_template_and_css(src_dir)
-    (src_dir / "index.md").write_text("# Home\n\nContent without navbar.", encoding="utf-8")
+    (src_dir / "02_details.md").write_text("# 2. Details\n\nDeep dive content.", encoding="utf-8")
+    (src_dir / "00_cover.md").write_text("# Cover Title\n\nSee [Details](02_details.md).", encoding="utf-8")
+    (src_dir / "01_overview.md").write_text("# 1. Overview\n\nOverview content.", encoding="utf-8")
 
     res_dir = build_html(input_dir=str(src_dir), output_dir=str(out_dir))
     assert res_dir == str(out_dir)
     out_file = out_dir / "index.html"
     assert out_file.exists()
+    assert not (out_dir / "00_cover.html").exists()
+    assert not (out_dir / "01_overview.html").exists()
+    assert not (out_dir / "02_details.html").exists()
+    assert (out_dir / "README.md").is_file()
+
     content = out_file.read_text(encoding="utf-8")
-    assert "Home" in content
     assert "nav-item" not in content
+    pos_cover = content.index('id="chapter-1-00_cover"')
+    pos_toc = content.index('<nav class="doc-toc pdf-toc">')
+    pos_overview = content.index('id="chapter-2-01_overview"')
+    pos_details = content.index('id="chapter-3-02_details"')
+    assert pos_cover < pos_toc < pos_overview < pos_details
+    assert 'href="#chapter-3-02_details"' in content
 
 
 def test_build_html_navbar_broken_link_error(tmp_path) -> None:

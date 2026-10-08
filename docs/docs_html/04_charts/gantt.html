@@ -349,7 +349,7 @@
  │ ◆ Beta Code Freeze   │              │              │       ◆      │              │
  └──────────────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
                                                        │
-                                                 Today&#39;s Marker
+                                                 Today's Marker
 </code></pre>
 <ul>
 <li><strong>Section Dividers (<code>add_section</code>)</strong>: Categorize tasks into functional domains (e.g. &quot;Core Engine&quot;, &quot;Observability&quot;).</li>
@@ -364,7 +364,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">GanttChart</span><span class="p">(</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apr&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;Aug&quot;</span><span class="p">,</span> <span class="s2">&quot;Sep&quot;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Apr"</span><span class="p">,</span> <span class="s2">"May"</span><span class="p">,</span> <span class="s2">"Jun"</span><span class="p">,</span> <span class="s2">"Jul"</span><span class="p">,</span> <span class="s2">"Aug"</span><span class="p">,</span> <span class="s2">"Sep"</span><span class="p">],</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
     <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
     <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
@@ -375,25 +375,25 @@
     <span class="n">label_width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>           <span class="c1"># Width reserved for task label column</span>
     <span class="n">header_height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>          <span class="c1"># Height of the top timeline header band</span>
     <span class="n">row_height</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>             <span class="c1"># Height allocated per task/milestone row</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Engineering Roadmap (2026)&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Engineering Roadmap (2026)"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
     <span class="n">bar_radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>             <span class="c1"># Rounded corners for task duration bars</span>
 <span class="p">)</span>
 
 <span class="c1"># Register sections, tasks, milestones, markers, and dependencies with visibility &amp; partial rendering</span>
-<span class="n">sec</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">&quot;1. Core Services&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sec</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s2">"1. Core Services"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">t1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span>
-    <span class="s2">&quot;Storage Engine&quot;</span><span class="p">,</span>
-    <span class="n">start</span><span class="o">=</span><span class="s2">&quot;Apr&quot;</span><span class="p">,</span>
+    <span class="s2">"Storage Engine"</span><span class="p">,</span>
+    <span class="n">start</span><span class="o">=</span><span class="s2">"Apr"</span><span class="p">,</span>
     <span class="n">end</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
     <span class="n">progress</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
     <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">draw_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">draw_direction</span><span class="o">=</span><span class="s2">&quot;left_to_right&quot;</span><span class="p">,</span>  <span class="c1"># &quot;left_to_right&quot; (duration extension) or &quot;bottom_to_top&quot; (vertical bar growth)</span>
+    <span class="n">draw_direction</span><span class="o">=</span><span class="s2">"left_to_right"</span><span class="p">,</span>  <span class="c1"># "left_to_right" (duration extension) or "bottom_to_top" (vertical bar growth)</span>
 <span class="p">)</span>
-<span class="n">m1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_milestone</span><span class="p">(</span><span class="s2">&quot;Alpha Freeze&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;Jun&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">mk</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkDashed</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Today&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_milestone</span><span class="p">(</span><span class="s2">"Alpha Freeze"</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">"Jun"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mk</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkDashed</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Today"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">dep</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">add_dependency</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Render chart with optional dimension overrides and uniform proportional scaling</span>

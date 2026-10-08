@@ -372,12 +372,12 @@
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_html</span>
 
 <span class="n">build_html</span><span class="p">(</span>
-    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;docs_src/&quot;</span><span class="p">,</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;docs_html/&quot;</span><span class="p">,</span>
-    <span class="n">styles_path</span><span class="o">=</span><span class="s2">&quot;docs_src/styles.py&quot;</span><span class="p">,</span>  <span class="c1"># Optional custom styles script</span>
-    <span class="n">utils_path</span><span class="o">=</span><span class="s2">&quot;docs_src/utils.py&quot;</span><span class="p">,</span>    <span class="c1"># Optional drawing helper script</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s2">"docs_src/"</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">"docs_html/"</span><span class="p">,</span>
+    <span class="n">styles_path</span><span class="o">=</span><span class="s2">"docs_src/styles.py"</span><span class="p">,</span>  <span class="c1"># Optional custom styles script</span>
+    <span class="n">utils_path</span><span class="o">=</span><span class="s2">"docs_src/utils.py"</span><span class="p">,</span>    <span class="c1"># Optional drawing helper script</span>
     <span class="n">no_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>                    <span class="c1"># Set True to bypass SQLite cache</span>
-    <span class="n">image_format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span>                <span class="c1"># &quot;png&quot; or &quot;webp&quot;</span>
+    <span class="n">image_format</span><span class="o">=</span><span class="s2">"png"</span><span class="p">,</span>                <span class="c1"># "png" or "webp"</span>
 <span class="p">)</span>
 </code></pre>
 <h3>2.2 <code>build_markdown()</code></h3>
@@ -385,9 +385,9 @@
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_markdown</span>
 
 <span class="n">build_markdown</span><span class="p">(</span>
-    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;docs_src/&quot;</span><span class="p">,</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;docs/&quot;</span><span class="p">,</span>
-    <span class="n">styles_path</span><span class="o">=</span><span class="s2">&quot;docs_src/styles.py&quot;</span><span class="p">,</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s2">"docs_src/"</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">"docs/"</span><span class="p">,</span>
+    <span class="n">styles_path</span><span class="o">=</span><span class="s2">"docs_src/styles.py"</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <h3>2.3 <code>build_pdf()</code></h3>
@@ -395,8 +395,8 @@
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_pdf</span>
 
 <span class="n">build_pdf</span><span class="p">(</span>
-    <span class="n">inputs</span><span class="o">=</span><span class="s2">&quot;docs_src/&quot;</span><span class="p">,</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;docs.pdf&quot;</span><span class="p">,</span>
+    <span class="n">inputs</span><span class="o">=</span><span class="s2">"docs_src/"</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">"docs.pdf"</span><span class="p">,</span>
     <span class="n">generate_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>               <span class="c1"># Generate Table of Contents</span>
     <span class="n">page_break</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                   <span class="c1"># Page break before each chapter</span>
 <span class="p">)</span>
@@ -408,16 +408,16 @@
 
 <span class="c1"># Extract block 1 from Markdown with coordinate grid:</span>
 <span class="n">export_code_block</span><span class="p">(</span>
-    <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;docs_src/architecture.md&quot;</span><span class="p">,</span>
-    <span class="n">target</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>                        <span class="c1"># 1-based index or target filename</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;.drawlib/scratch/arch.png&quot;</span><span class="p">,</span>
+    <span class="n">file_path</span><span class="o">=</span><span class="s2">"docs_src/architecture.md"</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span>                        <span class="c1"># 1-based index or target filename</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">".drawlib/scratch/arch.png"</span><span class="p">,</span>
     <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                         <span class="c1"># Overlay coordinate grid</span>
 <span class="p">)</span>
 
 <span class="c1"># Export from standalone Python script:</span>
 <span class="n">export_code_block</span><span class="p">(</span>
-    <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;scripts/diagram.py&quot;</span><span class="p">,</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;assets/diagram.png&quot;</span><span class="p">,</span>
+    <span class="n">file_path</span><span class="o">=</span><span class="s2">"scripts/diagram.py"</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">"assets/diagram.png"</span><span class="p">,</span>
     <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
@@ -427,14 +427,14 @@
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">styles</span>
 
 <span class="n">canvas</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-<span class="n">shapes</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;In-Memory&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">shapes</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"In-Memory"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">styles</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
 <span class="c1"># Export directly to Dimage object</span>
 <span class="n">dimage</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">export_dimage</span><span class="p">()</span>
 
 <span class="c1"># Access underlying PIL Image or save</span>
 <span class="n">pil_image</span> <span class="o">=</span> <span class="n">dimage</span><span class="o">.</span><span class="n">image</span>
-<span class="n">dimage</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output.png&quot;</span><span class="p">)</span>
+<span class="n">dimage</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"output.png"</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>5. Automated Visual Regression Testing with Pytest</h2>
@@ -443,11 +443,11 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_code_block</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_architecture_diagram_renders</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
-    <span class="n">target_png</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;test_diagram.png&quot;</span>
+    <span class="n">target_png</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">"test_diagram.png"</span>
     
     <span class="n">export_code_block</span><span class="p">(</span>
-        <span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;docs_src/index.md&quot;</span><span class="p">,</span>
-        <span class="n">target</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="s2">"docs_src/index.md"</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="s2">"1"</span><span class="p">,</span>
         <span class="n">output_path</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">target_png</span><span class="p">),</span>
         <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span>

@@ -409,8 +409,8 @@
 <pre><code class="language-text">Step 1: Declare Topology (Fast Draft)       Step 2: Export Clean Code (Fine Tuning)
 ┌──────────────────────────────────────┐    ┌──────────────────────────────────────┐
 │ g = ArchitectureGraph()              │    │ # Generated Drawlib Python Code      │
-│ g.cluster(&quot;vpc&quot;, [&quot;api&quot;, &quot;db&quot;])      │───►│ client_xy = (25.0, 30.0)             │
-│ g.edge(&quot;client&quot;, &quot;api&quot;)              │    │ rectangle(client_xy, width=28, ...)  │
+│ g.cluster("vpc", ["api", "db"])      │───►│ client_xy = (25.0, 30.0)             │
+│ g.edge("client", "api")              │    │ rectangle(client_xy, width=28, ...)  │
 │ g.export_code()                      │    │ line(client_xy, api_xy, ...)         │
 └──────────────────────────────────────┘    └──────────────────────────────────────┘
 </code></pre>
@@ -425,7 +425,7 @@
 <p>All diagram elements (nodes, entities, classes, boundaries, and junctions) implement the <code>Connectable</code> protocol:</p>
 <pre><code class="language-text">       Orthogonal Z-Bend                 Direct Straight                  Curved Arc (bend)
     ┌─────┐        ┌─────┐           ┌─────┐         ┌─────┐          ┌─────┐  . - ~ - .  ┌─────┐
-    │  A  ├──┐     │  B  │           │  A  │────────►│  B  │          │  A  ├&#39;           &#39;┤  B  │
+    │  A  ├──┐     │  B  │           │  A  │────────►│  B  │          │  A  ├'           '┤  B  │
     └─────┘  └───►─┴─────┘           └─────┘         └─────┘          └─────┘             └─────┘
 </code></pre>
 <h3>Connection Routing Strategies</h3>

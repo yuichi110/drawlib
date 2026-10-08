@@ -372,16 +372,16 @@ When instantiating the root <code>TreeNode</code>, both styles and all three lay
 <h2>3. Registering Icons (<code>register_drawing_item</code>)</h2>
 <p>You can attach vector icons or visual badges to tree items using <code>register_drawing_item</code>:</p>
 <pre><code class="language-python"><span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;custom_badge&quot;</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span>  <span class="c1"># &quot;before&quot; or &quot;after&quot; the label text</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"custom_badge"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>  <span class="c1"># "before" or "after" the label text</span>
     <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
     <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">,</span>
-    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">},</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">},</span>
 <span class="p">)</span>
 
 <span class="c1"># Apply to node</span>
-<span class="n">node</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">&quot;custom_badge&quot;</span><span class="p">)</span>
+<span class="n">node</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">"config.yaml"</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"custom_badge"</span><span class="p">)</span>
 </code></pre>
 
             </main>

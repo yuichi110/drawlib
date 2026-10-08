@@ -406,20 +406,20 @@
 <h3>1. Dimension Instantiation &amp; Mandatory Anchor</h3>
 <p>Specify category labels and a mandatory <code>axis_line_style</code> (the structural anchor) during initialization:</p>
 <pre><code class="language-python"><span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
-    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;US&quot;</span><span class="p">,</span> <span class="s2">&quot;EU&quot;</span><span class="p">,</span> <span class="s2">&quot;APAC&quot;</span><span class="p">],</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"US"</span><span class="p">,</span> <span class="s2">"EU"</span><span class="p">,</span> <span class="s2">"APAC"</span><span class="p">],</span>
     <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
     <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">,</span>
     <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Regional Distribution&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Regional Distribution"</span><span class="p">,</span>
     <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <h3>2. Adding Data Series</h3>
 <p>Add data series directly with explicit styles:</p>
-<pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">&quot;Allocated&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">240</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">&quot;Available&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">210</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+<pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Allocated"</span><span class="p">,</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">240</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Available"</span><span class="p">,</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">210</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
 </code></pre>
 <h3>3. Rendering via Bottom-Left Anchor &amp; Decoupled Legend</h3>
 <p>All charts are anchored by their <strong>bottom-left corner</strong> via <code>draw(xy=(x, y))</code>. Legends are rendered independently wherever desired via <code>draw_legend(xy=(x, y), text_style=...)</code>:</p>

@@ -23,7 +23,8 @@
     padding: 1.25rem 1.5rem;
 }
 
-.site-title {
+.site-title,
+.sidebar-brand {
     font-family: var(--rtd-font);
     color: var(--rtd-heading-color);
     font-size: 1.25rem;
@@ -34,12 +35,14 @@
     gap: 0.5rem;
 }
 
-.site-title:hover {
+.site-title:hover,
+.sidebar-brand:hover {
     color: var(--rtd-brand-color);
     text-decoration: none;
 }
 
-.nav-tree {
+.nav-tree,
+.sidebar-menu {
     padding: 1rem 0;
     flex: 1;
 }
@@ -48,7 +51,8 @@
     margin-bottom: 1.25rem;
 }
 
-.nav-section-title {
+.nav-section-title,
+.sidebar-heading {
     font-family: var(--rtd-font);
     font-size: 0.75rem;
     font-weight: 700;
@@ -56,12 +60,14 @@
     letter-spacing: 0.05em;
     color: var(--rtd-muted-color);
     padding: 0.5rem 1.5rem;
+    margin-top: 0.5rem;
 }
 
-.nav-items {
+.nav-items,
+.nav-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 0.75rem 0;
 }
 
 .nav-item {

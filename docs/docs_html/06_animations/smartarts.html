@@ -368,10 +368,10 @@
     <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">items</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">proc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;1. Plan&quot;</span><span class="p">),</span>
-    <span class="n">proc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;2. Build&quot;</span><span class="p">),</span>
-    <span class="n">proc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;3. Verify&quot;</span><span class="p">),</span>
-    <span class="n">proc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;4. Deploy&quot;</span><span class="p">),</span>
+    <span class="n">proc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Plan"</span><span class="p">),</span>
+    <span class="n">proc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Build"</span><span class="p">),</span>
+    <span class="n">proc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. Verify"</span><span class="p">),</span>
+    <span class="n">proc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Deploy"</span><span class="p">),</span>
 <span class="p">]</span>
 
 <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
@@ -410,10 +410,10 @@
 <span class="p">)</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="s2">&quot;Service&quot;</span><span class="p">,</span> <span class="s2">&quot;SLA Target&quot;</span><span class="p">,</span> <span class="s2">&quot;P95 Latency&quot;</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">&quot;API Gateway&quot;</span><span class="p">,</span> <span class="s2">&quot;99.99%&quot;</span><span class="p">,</span> <span class="s2">&quot;12 ms&quot;</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">&quot;Auth Service&quot;</span><span class="p">,</span> <span class="s2">&quot;99.95%&quot;</span><span class="p">,</span> <span class="s2">&quot;18 ms&quot;</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">&quot;Order Engine&quot;</span><span class="p">,</span> <span class="s2">&quot;99.90%&quot;</span><span class="p">,</span> <span class="s2">&quot;24 ms&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Service"</span><span class="p">,</span> <span class="s2">"SLA Target"</span><span class="p">,</span> <span class="s2">"P95 Latency"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="s2">"99.99%"</span><span class="p">,</span> <span class="s2">"12 ms"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Auth Service"</span><span class="p">,</span> <span class="s2">"99.95%"</span><span class="p">,</span> <span class="s2">"18 ms"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Order Engine"</span><span class="p">,</span> <span class="s2">"99.90%"</span><span class="p">,</span> <span class="s2">"24 ms"</span><span class="p">],</span>
 <span class="p">]</span>
 
 <span class="k">for</span> <span class="n">row_idx</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]:</span>
@@ -449,28 +449,28 @@
 <span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 
 <span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;folder&quot;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span> <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">},</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"folder"</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span> <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">},</span>
 <span class="p">)</span>
 <span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span> <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">},</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"file"</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span> <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">},</span>
 <span class="p">)</span>
 
-<span class="n">n_api</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">&quot;api.py&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">)</span>
-<span class="n">n_auth</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">&quot;auth.py&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">)</span>
-<span class="n">n_services</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">&quot;services/&quot;</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">n_api</span><span class="p">,</span> <span class="n">n_auth</span><span class="p">],</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span>
-<span class="n">n_main</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">&quot;main.py&quot;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">)</span>
+<span class="n">n_api</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">"api.py"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">n_auth</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">"auth.py"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">n_services</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">"services/"</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">n_api</span><span class="p">,</span> <span class="n">n_auth</span><span class="p">],</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
+<span class="n">n_main</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">"main.py"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
 
 <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span>
-    <span class="s2">&quot;src/&quot;</span><span class="p">,</span>
+    <span class="s2">"src/"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
     <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">,</span>
     <span class="n">line_horizontal_margin</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
     <span class="n">line_horizontal_length</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
     <span class="n">line_vertical_margin</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
     <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">n_services</span><span class="p">,</span> <span class="n">n_main</span><span class="p">],</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder"</span><span class="p">)</span>
 
 <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>

@@ -129,7 +129,7 @@ def test_cli_build_html_with_custom_template(tmp_path) -> None:
     )
 
     assert res.returncode == 0
-    out_html = out_dir / "sample.html"
+    out_html = out_dir / "index.html"
     assert out_html.exists()
     assert "<body class='cli-custom'>" in out_html.read_text(encoding="utf-8")
 

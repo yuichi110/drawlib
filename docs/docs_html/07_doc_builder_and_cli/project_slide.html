@@ -343,10 +343,10 @@
 <hr />
 <h2>1. Project Initialization</h2>
 <p>Scaffold a presentation project using <code>drawlib init</code>:</p>
-<pre><code class="language-bash"><span class="c1"># Scaffold standard slide project in current directory (creates &#39;slide_src/&#39;):</span>
+<pre><code class="language-bash"><span class="c1"># Scaffold standard slide project in current directory (creates 'slide_src/'):</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>slide
 
-<span class="c1"># With custom target name, theme, and language (creates &#39;my_deck_src/&#39;):</span>
+<span class="c1"># With custom target name, theme, and language (creates 'my_deck_src/'):</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
 </code></pre>
 <hr />
@@ -407,7 +407,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <p>Each Markdown file in <code>slide_src/</code> represents a single slide. Use standard Markdown alongside helper components from <code>utils.py</code>:</p>
 <pre><code class="language-markdown"><span class="gh"># Architecture Overview</span>
 
-&lt;div class=&quot;subtitle&quot;&gt;Event-Driven Ingestion Pipeline&lt;/div&gt;
+&lt;div class="subtitle"&gt;Event-Driven Ingestion Pipeline&lt;/div&gt;
 
 <span class="sb">```drawlib</span><span class="w"> </span>1500px center file:arch_flow.png
 <span class="s">from drawlib.canvas import setup</span>
@@ -416,11 +416,11 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <span class="s">from drawlib.styles import Styles</span>
 
 <span class="s">setup(width=160, height=50)</span>
-<span class="s">rectangle((30, 25), width=35, height=20, style=Styles.Neutral, text=&quot;Producer&quot;)</span>
-<span class="s">rectangle((80, 25), width=35, height=20, style=Styles.PrimaryFlat, text=&quot;Kafka&quot;, text_style=Styles.WhiteBold)</span>
-<span class="s">rectangle((130, 25), width=35, height=20, style=Styles.SecondaryNeutral, text=&quot;Consumer&quot;)</span>
-<span class="s">line((47.5, 25), (62.5, 25), arrow_head=&quot;-&gt;&quot;, style=Styles.DarkBold)</span>
-<span class="s">line((97.5, 25), (112.5, 25), arrow_head=&quot;-&gt;&quot;, style=Styles.DarkBold)</span>
+<span class="s">rectangle((30, 25), width=35, height=20, style=Styles.Neutral, text="Producer")</span>
+<span class="s">rectangle((80, 25), width=35, height=20, style=Styles.PrimaryFlat, text="Kafka", text_style=Styles.WhiteBold)</span>
+<span class="s">rectangle((130, 25), width=35, height=20, style=Styles.SecondaryNeutral, text="Consumer")</span>
+<span class="s">line((47.5, 25), (62.5, 25), arrow_head="-&gt;", style=Styles.DarkBold)</span>
+<span class="s">line((97.5, 25), (112.5, 25), arrow_head="-&gt;", style=Styles.DarkBold)</span>
 <span class="sb">```</span>
 </code></pre>
 <hr />

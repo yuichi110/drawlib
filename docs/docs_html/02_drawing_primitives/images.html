@@ -369,8 +369,8 @@ You can combine raster graphics (company logos, cloud service icons, application
 <p>By default, <code>(x, y)</code> anchors the center of the image. To position an image by its bottom-left corner:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">bottom_left_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_halign</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">text_valign</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
-<span class="n">image</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;logo.png&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">bottom_left_style</span><span class="p">)</span>
+<span class="n">bottom_left_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_valign</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">image</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">"logo.png"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">bottom_left_style</span><span class="p">)</span>
 </code></pre>
 <hr />
 <h2>3. In-Memory Image Manipulation (<code>Dimage</code>)</h2>
@@ -378,7 +378,7 @@ You can combine raster graphics (company logos, cloud service icons, application
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dimage</span>
 
 <span class="c1"># 1. Load from file</span>
-<span class="n">dimg</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;assets/screenshot.png&quot;</span><span class="p">)</span>
+<span class="n">dimg</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">"assets/screenshot.png"</span><span class="p">)</span>
 
 <span class="c1"># 2. Inspect dimensions</span>
 <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">dimg</span><span class="o">.</span><span class="n">get_image_size</span><span class="p">()</span>
@@ -401,15 +401,15 @@ This enables recursive nesting and reusable sub-diagram templates:</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
 <span class="c1"># 1. Render a sub-component in-memory</span>
-<span class="n">sub_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="n">sub_code</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">from drawlib.canvas import save, setup</span>
 <span class="s2">from drawlib.shapes import circle</span>
 <span class="s2">from drawlib.styles import Styles</span>
 
 <span class="s2">setup(width=40, height=40)</span>
-<span class="s2">circle((20, 20), radius=15, style=Styles.PrimaryFlat, text=&quot;Pod&quot;, text_style=Styles.WhiteBold.patch(text_size=36))</span>
+<span class="s2">circle((20, 20), radius=15, style=Styles.PrimaryFlat, text="Pod", text_style=Styles.WhiteBold.patch(text_size=36))</span>
 <span class="s2">save()</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
 <span class="n">sub_diagram</span> <span class="o">=</span> <span class="n">get_dimage_from_code</span><span class="p">(</span><span class="n">sub_code</span><span class="p">)</span>
 
@@ -417,7 +417,7 @@ This enables recursive nesting and reusable sub-diagram templates:</p>
 <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
 <span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">sub_diagram</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">&quot;Host Canvas with Embedded Sub-Diagram&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s2">"Host Canvas with Embedded Sub-Diagram"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
