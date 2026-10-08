@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -56,17 +56,17 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1a73e8" x="86.4" y="134.26375" transform="rotate(-0 86.4 134.26375)">99.99%</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1a73e8" x="86.4" y="135.68" transform="rotate(-0 86.4 135.68)">99.99%</text>
     </g>
    </g>
    <g id="text_2">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="111.227813" transform="rotate(-0 316.8 111.227813)">System Availability</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="111.607656" transform="rotate(-0 316.8 111.607656)">System Availability</text>
     </g>
    </g>
    <g id="text_3">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="157.213867" transform="rotate(-0 316.8 157.213867)">Tier-1 SLA production target</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="157.507383" transform="rotate(-0 316.8 157.507383)">Tier-1 SLA production target</text>
     </g>
    </g>
    <g id="patch_4">
@@ -97,17 +97,17 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #34a853" x="86.4" y="307.06375" transform="rotate(-0 86.4 307.06375)">1.2s</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #34a853" x="86.4" y="308.48" transform="rotate(-0 86.4 308.48)">1.2s</text>
     </g>
    </g>
    <g id="text_5">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="284.006328" transform="rotate(-0 316.8 284.006328)">Fast Build Time</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="284.98" transform="rotate(-0 316.8 284.98)">Fast Build Time</text>
     </g>
    </g>
    <g id="text_6">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="330.077617" transform="rotate(-0 316.8 330.077617)">Sub-second SQLite cache hit</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="330.486016" transform="rotate(-0 316.8 330.486016)">Sub-second SQLite cache hit</text>
     </g>
    </g>
    <g id="patch_6">
@@ -138,17 +138,17 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #ea4335" x="86.4" y="479.86375" transform="rotate(-0 86.4 479.86375)">100%</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #ea4335" x="86.4" y="481.28" transform="rotate(-0 86.4 481.28)">100%</text>
     </g>
    </g>
    <g id="text_8">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="456.729844" transform="rotate(-0 316.8 456.729844)">Verified Coverage</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #202124" x="316.8" y="457.103672" transform="rotate(-0 316.8 457.103672)">Verified Coverage</text>
     </g>
    </g>
    <g id="text_9">
     <g clip-path="url(#pb273a69aa4)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="502.813867" transform="rotate(-0 316.8 502.813867)">Unit and integration tests passing</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6368" x="316.8" y="503.107383" transform="rotate(-0 316.8 503.107383)">Unit and integration tests passing</text>
     </g>
    </g>
   </g>

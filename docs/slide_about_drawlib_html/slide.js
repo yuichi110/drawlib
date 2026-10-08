@@ -305,22 +305,37 @@
   }
 
   /**
-   * Decode all frames from an APNG or Animated WebP asset URL.
+   * Decode all frames from an APNG or Animated WebP asset (via inline Base64 or URL).
    */
-  async function decodeAnimationFrames(src) {
+  async function decodeAnimationFrames(src, base64Data) {
     const lower = src.toLowerCase();
     const mimeType = lower.endsWith('.webp') ? 'image/webp' : 'image/png';
 
-    let buffer;
-    try {
-      const response = await fetch(src);
-      if (!response.ok) {
+    let buffer = null;
+    if (base64Data) {
+      try {
+        const binStr = window.atob(base64Data);
+        const bytes = new Uint8Array(binStr.length);
+        for (let i = 0; i < binStr.length; i++) {
+          bytes[i] = binStr.charCodeAt(i);
+        }
+        buffer = bytes.buffer;
+      } catch (_b64Err) {
+        buffer = null;
+      }
+    }
+
+    if (!buffer) {
+      try {
+        const response = await fetch(src);
+        if (!response.ok) {
+          return await loadStaticImageFrame(src);
+        }
+        buffer = await response.arrayBuffer();
+      } catch (_err) {
+        // Fallback for file:// protocol when data-base64 is absent
         return await loadStaticImageFrame(src);
       }
-      buffer = await response.arrayBuffer();
-    } catch (_err) {
-      // Fallback for file:// protocol (e.g., headless PDF export)
-      return await loadStaticImageFrame(src);
     }
 
     // 1. Primary path: WebCodecs ImageDecoder API (Chrome, Edge, Firefox)
@@ -377,6 +392,7 @@
 
     const ctx = canvas.getContext('2d');
     const src = canvas.getAttribute('data-src') || '';
+    const base64Data = canvas.getAttribute('data-base64') || '';
     const trigger = (container.getAttribute('data-anim-trigger') || 'auto').toLowerCase();
     const loopMode = (container.getAttribute('data-anim-loop') || 'infinite').toLowerCase();
     const rawPause = container.getAttribute('data-anim-pause') || '';
@@ -532,7 +548,7 @@
 
     container.addEventListener('click', (e) => handleClick(e, false));
 
-    const readyPromise = decodeAnimationFrames(src).then(decoded => {
+    const readyPromise = decodeAnimationFrames(src, base64Data).then(decoded => {
       frames = decoded;
       if (frames.length > 0) {
         drawFrame(0);
@@ -564,6 +580,9 @@
     thumbStage.className = 'overview-thumb-stage';
 
     const bodyClone = slideBody.cloneNode(true);
+    bodyClone.querySelectorAll('canvas.drawlib-anim-canvas[data-base64]').forEach(el => {
+      el.removeAttribute('data-base64');
+    });
     bodyClone.querySelectorAll('[id]').forEach(el => {
       const oldId = el.getAttribute('id');
       if (oldId) {

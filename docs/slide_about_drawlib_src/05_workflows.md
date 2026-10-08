@@ -19,11 +19,11 @@ Technical diagrams shouldn't slow down your deployment cycles:
 - **SQLite Hash Caching**:
   - Unchanged blocks are restored in **< 1ms**
   - Only modified diagram code triggers full Python execution
-- **Dynamic Animations**: Render interactive APNG / WebP diagrams with click-to-play and frame-level pause (`anim-trigger:click anim-loop:once anim-pause:2,4`)
+- **Dynamic Animations**: Render interactive APNG diagrams with click-to-play and frame-level pause (`anim-trigger:click anim-loop:once anim-pause:2,4`)
 :::
 
 ::: block (880, 140) (960, 840)
-```drawlib file:workflow_pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
+```drawlib file:workflow_pipeline.png anim-trigger:click anim-loop:once anim-pause:2,4
 from drawlib.anim import Animation
 from drawlib.canvas import clear, save, setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
@@ -77,7 +77,7 @@ save()
 :::
 
 ::: note
-**Interactive Animation Demo (`workflow_pipeline.webp`)**:
+**Interactive Animation Demo (`workflow_pipeline.png`)**:
 - Click **Play Animation** (or press `A`) in Presenter View to start the pipeline animation on both screens.
 - The animation automatically pauses at **Frame 2** (`In Cache?`) and **Frame 4** (`Build Slide/HTML`).
 - Click **Resume Animation** (or press `A`) to advance past each pause point.

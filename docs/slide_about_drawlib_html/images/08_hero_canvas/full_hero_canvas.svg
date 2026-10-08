@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -55,7 +55,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="72.16375" transform="rotate(-0 360 72.16375)">FULL CANVAS STAGE — 1920 × 1080 PURE DRAWING STAGE</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="73.58" transform="rotate(-0 360 73.58)">FULL CANVAS STAGE — 1920 × 1080 PURE DRAWING STAGE</text>
     </g>
    </g>
    <g id="patch_5">
@@ -68,23 +68,23 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4285f4" x="108.75" y="167.40625" transform="rotate(-0 108.75 167.40625)"></text>
+     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4285f4" x="108.75" y="168.3125" transform="rotate(-0 108.75 168.3125)"></text>
     </g>
    </g>
    <g id="text_3">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="108.75" y="195.185039" transform="rotate(-0 108.75 195.185039)">1. Deterministic</text>
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="108.75" y="196.38" transform="rotate(-0 108.75 196.38)">1. Deterministic</text>
     </g>
    </g>
    <g id="text_4">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(58.425 242.672609)">Cartesian geometry</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(58.490313 241.9375)">Cartesian geometry</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(61.108828 258.117813)">Version-controlled</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(61.417344 259.306328)">Version-controlled</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(57.230469 273.332703)">Reproducible builds</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(57.350781 274.067813)">Reproducible builds</text>
     </g>
    </g>
    <g id="patch_6">
@@ -97,23 +97,23 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #674ea7" x="277.5" y="166.5" transform="rotate(-0 277.5 166.5)"></text>
+     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #674ea7" x="277.5" y="168.3125" transform="rotate(-0 277.5 168.3125)"></text>
     </g>
    </g>
    <g id="text_6">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #674ea7" x="277.5" y="195.185039" transform="rotate(-0 277.5 195.185039)">2. Native SVG</text>
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #674ea7" x="277.5" y="196.38" transform="rotate(-0 277.5 196.38)">2. Native SVG</text>
     </g>
    </g>
    <g id="text_7">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(220.930781 242.787766)">Ctrl+F Searchable text</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(221.518594 243.356328)">Ctrl+F Searchable text</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(231.750313 258.002656)">Infinite resolution</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(231.892969 259.378516)">Infinite resolution</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(219.539453 273.217547)">Clean DOM integration</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(220.000937 273.952656)">Clean DOM integration</text>
     </g>
    </g>
    <g id="patch_7">
@@ -131,18 +131,18 @@ z
    </g>
    <g id="text_9">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="446.25" y="195.083789" transform="rotate(-0 446.25 195.083789)">3. Multi-Target</text>
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #f57c00" x="446.25" y="195.549961" transform="rotate(-0 446.25 195.549961)">3. Multi-Target</text>
     </g>
    </g>
    <g id="text_10">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(397.542344 242.787766)">Images, PDF Books</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(397.624844 242.052656)">Images, PDF Books</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(393.0375 258.232969)">Documentation sites</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(393.334844 259.191172)">Documentation sites</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(386.540625 273.447859)">Interactive HTML decks</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(386.854297 275.256328)">Interactive HTML decks</text>
     </g>
    </g>
    <g id="patch_8">
@@ -155,23 +155,23 @@ z
    </g>
    <g id="text_11">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #434343" x="615" y="167.859375" transform="rotate(-0 615 167.859375)"></text>
+     <text style="font-size: 29px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #434343" x="615" y="168.3125" transform="rotate(-0 615 168.3125)"></text>
     </g>
    </g>
    <g id="text_12">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="615" y="195.185039" transform="rotate(-0 615 195.185039)">4. AI Autonomous</text>
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #434343" x="615" y="196.38" transform="rotate(-0 615 196.38)">4. AI Autonomous</text>
     </g>
    </g>
    <g id="text_13">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(558.849297 242.847922)">Clean token hierarchy</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(559.338281 242.140312)">Clean token hierarchy</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(552.524297 258.117813)">Multi-modal review loop</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(552.529453 258.117813)">Multi-modal review loop</text>
     </g>
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(543.488828 273.332703)">Structured container syntax</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #434343" transform="translate(544.154844 274.040313)">Structured container syntax</text>
     </g>
    </g>
    <g id="patch_9">
@@ -184,7 +184,7 @@ z
    </g>
    <g id="text_14">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="360" y="357.04375" transform="rotate(-0 360 357.04375)">Zero Injected Chrome • Full Stage Freedom • 100% Code-Driven Visualization</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="360" y="357.59625" transform="rotate(-0 360 357.59625)">Zero Injected Chrome • Full Stage Freedom • 100% Code-Driven Visualization</text>
     </g>
    </g>
   </g>

@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -31,7 +31,7 @@ z
   <g id="axes_1">
    <g id="text_1">
     <g clip-path="url(#pede7cadf2a)">
-     <text style="font-size: 65px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #808080" x="360" y="95.566295" transform="rotate(-0 360 95.566295)">2 / 9</text>
+     <text style="font-size: 65px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #808080" x="360" y="99.923326" transform="rotate(-0 360 99.923326)">2 / 9</text>
     </g>
    </g>
   </g>

@@ -246,7 +246,7 @@ In slide projects, ````drawlib```` blocks default to **inline SVG** (`file:<name
   - Both browser viewing (`index.html`) and headless Chromium PDF export (`build_pdf.sh`) render custom fonts and Phosphor/FontAwesome icons identically without requiring system-installed fonts.
 
 ### 5.2. Interactive `<canvas>` Animations (`anim-trigger`, `anim-loop`, `anim-pause`)
-When a ````drawlib```` block outputs an animated image (`.webp`, `.png` APNG, or `.apng`), `slide.js` renders it inside an interactive `<canvas class="drawlib-anim-canvas">` player. You can control playback directly from the code fence attributes:
+When a ````drawlib```` block outputs an animated image (**`.png` APNG recommended and default**, or `.apng` / `.webp`), Drawlib embeds its Base64 payload (`data-base64`) into an interactive `<canvas class="drawlib-anim-canvas">` player so it works seamlessly both over HTTP and when opened directly via `file://`. You can control playback directly from the code fence attributes:
 
 | Fence Attribute | Values | Default | Behavior |
 | :--- | :--- | :--- | :--- |
@@ -257,7 +257,7 @@ When a ````drawlib```` block outputs an animated image (`.webp`, `.png` APNG, or
 #### Interactive Animation Example in a Slide:
 ````markdown
 ::: block (880, 140) (960, 840)
-```drawlib file:workflow_pipeline.webp anim-trigger:click anim-loop:once anim-pause:2,4
+```drawlib file:workflow_pipeline.png anim-trigger:click anim-loop:once anim-pause:2,4
 from drawlib.anim import Animation
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle

@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import base64
 import importlib.machinery
 import importlib.util
 from importlib.resources import files
@@ -613,23 +614,26 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
         assert "4 / 4" in svg4
 
     def test_build_slide_anim_playback_markup(self, tmp_path: Path) -> None:
-        """Verify animated drawlib blocks with anim-trigger/loop/pause emit <canvas> player markup."""
+        """Verify animated drawlib blocks with anim-trigger/loop/pause emit <canvas> player markup with data-base64."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
         src_dir.mkdir()
 
         (src_dir / "01_anim.md").write_text(
             """::: block (80, 140) (800, 500)
-```drawlib file:flow.png anim-trigger:click anim-loop:once anim-pause:2,4
+```drawlib file:flow anim-trigger:click anim-loop:once anim-pause:2,4
+from drawlib.anim import Animation
 from drawlib.canvas import clear, save, setup
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
+clear()
+setup(width=40, height=20)
+anim = Animation(fps=2.0, loop=0)
 for i in range(6):
-    clear()
-    setup(width=40, height=20)
-    rectangle((10 + i * 3, 10), width=6, height=6, style=Styles.PrimaryFlat)
-    save()
+    with anim.frame(duration=0.5):
+        rectangle((10 + i * 3, 10), width=6, height=6, style=Styles.PrimaryFlat)
+save()
 ```
 :::
 
@@ -651,12 +655,20 @@ rectangle((20, 10), width=10, height=10, style=Styles.Neutral)
         result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
         html_content = Path(result_html).read_text(encoding="utf-8")
 
-        # Animated block with playback options -> canvas container + play badge
+        # Animated block without extension defaults to APNG (.png)
+        anim_file = out_dir / "images" / "01_anim" / "flow.png"
+        assert anim_file.is_file()
+        expected_b64 = base64.b64encode(anim_file.read_bytes()).decode("ascii")
+
+        # Animated block with playback options -> canvas container + play badge + data-base64
         assert 'class="drawlib-image drawlib-anim-container"' in html_content
         assert 'data-anim-trigger="click"' in html_content
         assert 'data-anim-loop="once"' in html_content
         assert 'data-anim-pause="2,4"' in html_content
-        assert '<canvas class="drawlib-anim-canvas" data-src="images/01_anim/flow.png"' in html_content
+        assert (
+            f'<canvas class="drawlib-anim-canvas" data-src="images/01_anim/flow.png" '
+            f'data-base64="{expected_b64}"'
+        ) in html_content
         assert 'class="anim-play-badge"' in html_content
 
         # Static block without playback options -> standard <img>

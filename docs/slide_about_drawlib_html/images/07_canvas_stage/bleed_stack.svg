@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -47,7 +47,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#pd93f942d08)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="360" y="78.189388" transform="rotate(-0 360 78.189388)">Full-Bleed Stage Stack (Y: 0 ~ 1080)</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4285f4" x="360" y="78.565638" transform="rotate(-0 360 78.565638)">Full-Bleed Stage Stack (Y: 0 ~ 1080)</text>
     </g>
    </g>
    <g id="patch_4">
@@ -60,7 +60,7 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#pd93f942d08)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="195.524158" transform="rotate(-0 360 195.524158)">Anycast Global Edge / Cloud Armor</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="196.116658" transform="rotate(-0 360 196.116658)">Anycast Global Edge / Cloud Armor</text>
     </g>
    </g>
    <g id="patch_5">
@@ -73,7 +73,7 @@ z
    </g>
    <g id="text_3">
     <g clip-path="url(#pd93f942d08)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="371.890689" transform="rotate(-0 360 371.890689)">Service Mesh &amp; Regional Pods</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="372.443189" transform="rotate(-0 360 372.443189)">Service Mesh &amp; Regional Pods</text>
     </g>
    </g>
    <g id="patch_6">
@@ -86,7 +86,7 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pd93f942d08)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="548.337219" transform="rotate(-0 360 548.337219)">Pub/Sub &amp; Kafka Event Stream</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="549.265969" transform="rotate(-0 360 549.265969)">Pub/Sub &amp; Kafka Event Stream</text>
     </g>
    </g>
    <g id="patch_7">
@@ -99,7 +99,7 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pd93f942d08)">
-     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="710.073622" transform="rotate(-0 360 710.073622)">Spanner &amp; Multi-Cloud Data Lake</text>
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="710.626122" transform="rotate(-0 360 710.626122)">Spanner &amp; Multi-Cloud Data Lake</text>
     </g>
    </g>
    <g id="patch_8">

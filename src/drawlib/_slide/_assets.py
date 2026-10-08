@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import base64
 import contextlib
 import json
 import os
@@ -163,7 +164,7 @@ def format_asset_markup(
     Args:
         file_name: Image filename or relative path on disk.
         alt_text: Alt text attribute.
-        output_abs: Absolute path to output directory for inlining SVGs.
+        output_abs: Absolute path to output directory for inlining SVGs and Base64 animation data.
         options: Parsed drawlib block options for animation playback controls.
 
     Returns:
@@ -202,10 +203,18 @@ def format_asset_markup(
             if options.anim_pause
             else ""
         )
+        base64_attr = ""
+        if output_abs:
+            anim_disk = os.path.normpath(os.path.join(output_abs, file_name))
+            if os.path.isfile(anim_disk):
+                with contextlib.suppress(OSError):
+                    with open(anim_disk, "rb") as af:
+                        b64_data = base64.b64encode(af.read()).decode("ascii")
+                    base64_attr = f' data-base64="{b64_data}"'
         return (
             f'\n<figure class="drawlib-image drawlib-anim-container" '
             f'data-anim-trigger="{trigger}" data-anim-loop="{loop}"{pause_attr}>\n'
-            f'  <canvas class="drawlib-anim-canvas" data-src="{file_name}" '
+            f'  <canvas class="drawlib-anim-canvas" data-src="{file_name}"{base64_attr} '
             f'role="img" aria-label="{alt_text}"></canvas>\n'
             f'  <div class="anim-play-badge" title="Click to play / continue animation">\n'
             f'    <svg class="play-icon" viewBox="0 0 24 24">'

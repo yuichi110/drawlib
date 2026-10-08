@@ -127,7 +127,15 @@ def _process_drawlib_blocks(
         code = match.group(2).strip()
         options = parse_block_info(info_str)
 
+        has_anim = (
+            options.anim_trigger is not None
+            or options.anim_loop is not None
+            or bool(options.anim_pause)
+            or "Animation(" in code
+        )
         eff_fmt = options.format or default_format or "svg"
+        if has_anim and eff_fmt == "svg":
+            eff_fmt = "png"
         if options.file:
             dl_file = options.file
             if not dl_file.endswith((".svg", ".png", ".apng", ".webp")):
