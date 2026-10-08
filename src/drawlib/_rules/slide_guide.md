@@ -69,7 +69,7 @@ slide_src/
 └── serve.sh               # Live-reload preview server (drawlib serve)
 ```
 
-- **File Discovery Rules**: All `.md` / `.markdown` files in `slide_src/` (except `README.md`, `navbar.md`, and dotfiles) are compiled in sorted filename order (`01_...`, `02_...`, `03_...`).
+- **File Discovery & Chapter Subdirectories**: All `.md` / `.markdown` files in `slide_src/` and any nested chapter subdirectories (e.g., `00_opening/01_title.md`, `01_why_drawlib/01_section.md` — skipping directories starting with `.` or `_`, `README.md`, and `navbar.md`) are discovered recursively and compiled in sorted relative-path order. Slides inside chapter subdirectories automatically inherit root `styles.py`, `utils.py`, and `_assets/`.
 - **Pure Markdown & Zero Frontmatter**: Do not add YAML frontmatter (`---`) at the top of slide files. Every visual element on a slide is placed inside one or more `::: block` containers.
 
 ---

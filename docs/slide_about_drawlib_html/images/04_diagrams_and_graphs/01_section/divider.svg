@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="405pt" viewBox="0 0 720 405" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 405 
+L 720 405 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 270 405 
+L 270 0 
+L 720 0 
+L 720 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #f8fafc"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 0 405 
+L 0 0 
+L 270 0 
+L 270 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #0f172a"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 52.5 150 
+C 76.368279 150 99.262188 140.517032 116.13961 123.63961 
+C 133.017032 106.762188 142.5 83.868279 142.5 60 
+C 142.5 36.131721 133.017032 13.237812 116.13961 -3.63961 
+C 99.262188 -20.517032 76.368279 -30 52.5 -30 
+C 28.631721 -30 5.737812 -20.517032 -11.13961 -3.63961 
+C -28.017032 13.237812 -37.5 36.131721 -37.5 60 
+C -37.5 83.868279 -28.017032 106.762188 -11.13961 123.63961 
+C 5.737812 140.517032 28.631721 150 52.5 150 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #1e293b; stroke: #334155; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 187.5 405 
+C 201.423163 405 214.777943 399.468269 224.623106 389.623106 
+C 234.468269 379.777943 240 366.423163 240 352.5 
+C 240 338.576837 234.468269 325.222057 224.623106 315.376894 
+C 214.777943 305.531731 201.423163 300 187.5 300 
+C 173.576837 300 160.222057 305.531731 150.376894 315.376894 
+C 140.531731 325.222057 135 338.576837 135 352.5 
+C 135 366.423163 140.531731 379.777943 150.376894 389.623106 
+C 160.222057 399.468269 173.576837 405 187.5 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #1e293b; stroke: #334155; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 267.375 405 
+L 267.375 0 
+L 272.625 0 
+L 272.625 405 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4f46e5"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #818cf8" x="135" y="147.44" transform="rotate(-0 135 147.44)">CHAPTER</text>
+    </g>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 54px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="135" y="230.52" transform="rotate(-0 135 230.52)">04</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 65.25 312.375 
+C 66.542865 312.375 67.782952 311.861339 68.697146 310.947146 
+C 69.611339 310.032952 70.125 308.792865 70.125 307.5 
+C 70.125 306.207135 69.611339 304.967048 68.697146 304.052854 
+C 67.782952 303.138661 66.542865 302.625 65.25 302.625 
+C 63.957135 302.625 62.717048 303.138661 61.802854 304.052854 
+C 60.888661 304.967048 60.375 306.207135 60.375 307.5 
+C 60.375 308.792865 60.888661 310.032952 61.802854 310.947146 
+C 62.717048 311.861339 63.957135 312.375 65.25 312.375 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4f46e5"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 88.5 312.375 
+C 89.792865 312.375 91.032952 311.861339 91.947146 310.947146 
+C 92.861339 310.032952 93.375 308.792865 93.375 307.5 
+C 93.375 306.207135 92.861339 304.967048 91.947146 304.052854 
+C 91.032952 303.138661 89.792865 302.625 88.5 302.625 
+C 87.207135 302.625 85.967048 303.138661 85.052854 304.052854 
+C 84.138661 304.967048 83.625 306.207135 83.625 307.5 
+C 83.625 308.792865 84.138661 310.032952 85.052854 310.947146 
+C 85.967048 311.861339 87.207135 312.375 88.5 312.375 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4f46e5"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 111.75 312.375 
+C 113.042865 312.375 114.282952 311.861339 115.197146 310.947146 
+C 116.111339 310.032952 116.625 308.792865 116.625 307.5 
+C 116.625 306.207135 116.111339 304.967048 115.197146 304.052854 
+C 114.282952 303.138661 113.042865 302.625 111.75 302.625 
+C 110.457135 302.625 109.217048 303.138661 108.302854 304.052854 
+C 107.388661 304.967048 106.875 306.207135 106.875 307.5 
+C 106.875 308.792865 107.388661 310.032952 108.302854 310.947146 
+C 109.217048 311.861339 110.457135 312.375 111.75 312.375 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4f46e5"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 135 315.375 
+C 137.088474 315.375 139.091691 314.54524 140.568466 313.068466 
+C 142.04524 311.591691 142.875 309.588474 142.875 307.5 
+C 142.875 305.411526 142.04524 303.408309 140.568466 301.931534 
+C 139.091691 300.45476 137.088474 299.625 135 299.625 
+C 132.911526 299.625 130.908309 300.45476 129.431534 301.931534 
+C 127.95476 303.408309 127.125 305.411526 127.125 307.5 
+C 127.125 309.588474 127.95476 311.591691 129.431534 313.068466 
+C 130.908309 314.54524 132.911526 315.375 135 315.375 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #6366f1; stroke: #c7d2fe; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 158.25 312.375 
+C 159.542865 312.375 160.782952 311.861339 161.697146 310.947146 
+C 162.611339 310.032952 163.125 308.792865 163.125 307.5 
+C 163.125 306.207135 162.611339 304.967048 161.697146 304.052854 
+C 160.782952 303.138661 159.542865 302.625 158.25 302.625 
+C 156.957135 302.625 155.717048 303.138661 154.802854 304.052854 
+C 153.888661 304.967048 153.375 306.207135 153.375 307.5 
+C 153.375 308.792865 153.888661 310.032952 154.802854 310.947146 
+C 155.717048 311.861339 156.957135 312.375 158.25 312.375 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #334155"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 181.5 312.375 
+C 182.792865 312.375 184.032952 311.861339 184.947146 310.947146 
+C 185.861339 310.032952 186.375 308.792865 186.375 307.5 
+C 186.375 306.207135 185.861339 304.967048 184.947146 304.052854 
+C 184.032952 303.138661 182.792865 302.625 181.5 302.625 
+C 180.207135 302.625 178.967048 303.138661 178.052854 304.052854 
+C 177.138661 304.967048 176.625 306.207135 176.625 307.5 
+C 176.625 308.792865 177.138661 310.032952 178.052854 310.947146 
+C 178.967048 311.861339 180.207135 312.375 181.5 312.375 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #334155"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 204.75 312.375 
+C 206.042865 312.375 207.282952 311.861339 208.197146 310.947146 
+C 209.111339 310.032952 209.625 308.792865 209.625 307.5 
+C 209.625 306.207135 209.111339 304.967048 208.197146 304.052854 
+C 207.282952 303.138661 206.042865 302.625 204.75 302.625 
+C 203.457135 302.625 202.217048 303.138661 201.302854 304.052854 
+C 200.388661 304.967048 199.875 306.207135 199.875 307.5 
+C 199.875 308.792865 200.388661 310.032952 201.302854 310.947146 
+C 202.217048 311.861339 203.457135 312.375 204.75 312.375 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #334155"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 322.5 90 
+L 322.5 89.625 
+Q 322.5 80.25 331.875 80.25 
+L 403.125 80.25 
+Q 412.5 80.25 412.5 89.625 
+L 412.5 90.375 
+Q 412.5 99.75 403.125 99.75 
+L 331.875 99.75 
+Q 322.5 99.75 322.5 90.375 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #e0e7ff; stroke: #c7d2fe; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4338ca" x="367.5" y="93.61" transform="rotate(-0 367.5 93.61)">Part 4 of 7</text>
+    </g>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 22px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #0f172a" x="322.5" y="142.007344" transform="rotate(-0 322.5 142.007344)">Domain Diagrams &amp; Auto-Layout Graphs</text>
+    </g>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #475569" x="322.5" y="174.405" transform="rotate(-0 322.5 174.405)">6 Purpose-Built Software Diagram Engines &amp; 5 Declarative Graph Solvers</text>
+    </g>
+   </g>
+   <g id="patch_15">
+    <path d="M 322.5 198.75 
+L 667.5 198.75 
+" clip-path="url(#p6494dea2b6)" style="fill: none; stroke: #cbd5e1; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 322.5 238.5 
+L 322.5 231.75 
+Q 322.5 225 329.25 225 
+L 660.75 225 
+Q 667.5 225 667.5 231.75 
+L 667.5 245.25 
+Q 667.5 252 660.75 252 
+L 329.25 252 
+Q 322.5 252 322.5 245.25 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #e2e8f0; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 343.125 247.125 
+C 345.412377 247.125 347.606376 246.216216 349.223796 244.598796 
+C 350.841216 242.981376 351.75 240.787377 351.75 238.5 
+C 351.75 236.212623 350.841216 234.018624 349.223796 232.401204 
+C 347.606376 230.783784 345.412377 229.875 343.125 229.875 
+C 340.837623 229.875 338.643624 230.783784 337.026204 232.401204 
+C 335.408784 234.018624 334.5 236.212623 334.5 238.5 
+C 334.5 240.787377 335.408784 242.981376 337.026204 244.598796 
+C 338.643624 246.216216 340.837623 247.125 343.125 247.125 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4f46e5"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="343.125" y="241.35" transform="rotate(-0 343.125 241.35)">4.1</text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="361.875" y="241.844414" transform="rotate(-0 361.875 241.844414)">Cloud &amp; Microservice Topologies (ArchitectureDiagram)</text>
+    </g>
+   </g>
+   <g id="patch_18">
+    <path d="M 322.5 274.5 
+L 322.5 267.75 
+Q 322.5 261 329.25 261 
+L 660.75 261 
+Q 667.5 261 667.5 267.75 
+L 667.5 281.25 
+Q 667.5 288 660.75 288 
+L 329.25 288 
+Q 322.5 288 322.5 281.25 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #e2e8f0; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 343.125 283.125 
+C 345.412377 283.125 347.606376 282.216216 349.223796 280.598796 
+C 350.841216 278.981376 351.75 276.787377 351.75 274.5 
+C 351.75 272.212623 350.841216 270.018624 349.223796 268.401204 
+C 347.606376 266.783784 345.412377 265.875 343.125 265.875 
+C 340.837623 265.875 338.643624 266.783784 337.026204 268.401204 
+C 335.408784 270.018624 334.5 272.212623 334.5 274.5 
+C 334.5 276.787377 335.408784 278.981376 337.026204 280.598796 
+C 338.643624 282.216216 340.837623 283.125 343.125 283.125 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4f46e5"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="343.125" y="277.35" transform="rotate(-0 343.125 277.35)">4.2</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="361.875" y="277.844414" transform="rotate(-0 361.875 277.844414)">Workflows &amp; API Lifelines (FlowDiagram, SequenceDiagram)</text>
+    </g>
+   </g>
+   <g id="patch_20">
+    <path d="M 322.5 310.5 
+L 322.5 303.75 
+Q 322.5 297 329.25 297 
+L 660.75 297 
+Q 667.5 297 667.5 303.75 
+L 667.5 317.25 
+Q 667.5 324 660.75 324 
+L 329.25 324 
+Q 322.5 324 322.5 317.25 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #e2e8f0; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 343.125 319.125 
+C 345.412377 319.125 347.606376 318.216216 349.223796 316.598796 
+C 350.841216 314.981376 351.75 312.787377 351.75 310.5 
+C 351.75 308.212623 350.841216 306.018624 349.223796 304.401204 
+C 347.606376 302.783784 345.412377 301.875 343.125 301.875 
+C 340.837623 301.875 338.643624 302.783784 337.026204 304.401204 
+C 335.408784 306.018624 334.5 308.212623 334.5 310.5 
+C 334.5 312.787377 335.408784 314.981376 337.026204 316.598796 
+C 338.643624 318.216216 340.837623 319.125 343.125 319.125 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4f46e5"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="343.125" y="313.35" transform="rotate(-0 343.125 313.35)">4.3</text>
+    </g>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="361.875" y="313.844414" transform="rotate(-0 361.875 313.844414)">Data &amp; OOP Structural Models (ERDiagram, ClassDiagram, StateDiagram)</text>
+    </g>
+   </g>
+   <g id="patch_22">
+    <path d="M 322.5 346.5 
+L 322.5 339.75 
+Q 322.5 333 329.25 333 
+L 660.75 333 
+Q 667.5 333 667.5 339.75 
+L 667.5 353.25 
+Q 667.5 360 660.75 360 
+L 329.25 360 
+Q 322.5 360 322.5 353.25 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #ffffff; stroke: #e2e8f0; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 343.125 355.125 
+C 345.412377 355.125 347.606376 354.216216 349.223796 352.598796 
+C 350.841216 350.981376 351.75 348.787377 351.75 346.5 
+C 351.75 344.212623 350.841216 342.018624 349.223796 340.401204 
+C 347.606376 338.783784 345.412377 337.875 343.125 337.875 
+C 340.837623 337.875 338.643624 338.783784 337.026204 340.401204 
+C 335.408784 342.018624 334.5 344.212623 334.5 346.5 
+C 334.5 348.787377 335.408784 350.981376 337.026204 352.598796 
+C 338.643624 354.216216 340.837623 355.125 343.125 355.125 
+z
+" clip-path="url(#p6494dea2b6)" style="fill: #4f46e5"/>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="343.125" y="349.35" transform="rotate(-0 343.125 349.35)">4.4</text>
+    </g>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #1e293b" x="361.875" y="349.844414" transform="rotate(-0 361.875 349.844414)">Declarative Auto-Layout Engine (drawlib.graph: 5 Specialized Solvers)</text>
+    </g>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#p6494dea2b6)">
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #94a3b8" x="682.5" y="391.279219" transform="rotate(-0 682.5 391.279219)">31 / 64</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p6494dea2b6">
+   <rect x="0" y="0" width="720" height="405"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="617.142857pt" viewBox="0 0 720 617.142857" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 617.142857 
+L 720 617.142857 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 14.693878 308.571429 
+L 14.693878 40.408163 
+Q 14.693878 22.040816 33.061224 22.040816 
+L 686.938776 22.040816 
+Q 705.306122 22.040816 705.306122 40.408163 
+L 705.306122 576.734694 
+Q 705.306122 595.102041 686.938776 595.102041 
+L 33.061224 595.102041 
+Q 14.693878 595.102041 14.693878 576.734694 
+z
+" clip-path="url(#pecbf88852a)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="69.785379" transform="rotate(-0 360 69.785379)">Drawlib Repository Dogfooding &amp; Quality Gate Ecosystem</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 51.428571 154.285714 
+L 51.428571 123.061224 
+Q 51.428571 108.367347 66.122449 108.367347 
+L 653.877551 108.367347 
+Q 668.571429 108.367347 668.571429 123.061224 
+L 668.571429 185.510204 
+Q 668.571429 200.204082 653.877551 200.204082 
+L 66.122449 200.204082 
+Q 51.428571 200.204082 51.428571 185.510204 
+z
+" clip-path="url(#pecbf88852a)" style="fill: #4862da"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 8.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(241.890937 152.313964)">Core Library (src/drawlib/)   +   Development CLI (./dcli)</text>
+    </g>
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 8.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(211.12325 162.029714)">code-check all (Ruff + Ty)   •   test all (pytest + xdist)   •   docs build --all</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 42.244898 312.244898 
+L 42.244898 270.367347 
+Q 42.244898 257.142857 55.469388 257.142857 
+L 223.714286 257.142857 
+Q 236.938776 257.142857 236.938776 270.367347 
+L 236.938776 354.122449 
+Q 236.938776 367.346939 223.714286 367.346939 
+L 55.469388 367.346939 
+Q 42.244898 367.346939 42.244898 354.122449 
+z
+" clip-path="url(#pecbf88852a)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="139.591837" y="291.616061" transform="rotate(-0 139.591837 291.616061)">1. docs_src/ (site)</text>
+    </g>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(107.408212 331.410327)">Official Multi-Page</text>
+    </g>
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(96.926149 339.998327)">Docs Portal + Markdown</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 262.653061 312.244898 
+L 262.653061 270.367347 
+Q 262.653061 257.142857 275.877551 257.142857 
+L 444.122449 257.142857 
+Q 457.346939 257.142857 457.346939 270.367347 
+L 457.346939 354.122449 
+Q 457.346939 367.346939 444.122449 367.346939 
+L 275.877551 367.346939 
+Q 262.653061 367.346939 262.653061 354.122449 
+z
+" clip-path="url(#pecbf88852a)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="291.560944" transform="rotate(-0 360 291.560944)">2. quickstart_src/ (doc)</text>
+    </g>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(327.790844 331.660889)">Quickstart Manual</text>
+    </g>
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(321.48225 339.747764)">HTML + A4 Vector PDF</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 483.061224 312.244898 
+L 483.061224 270.367347 
+Q 483.061224 257.142857 496.285714 257.142857 
+L 664.530612 257.142857 
+Q 677.755102 257.142857 677.755102 270.367347 
+L 677.755102 354.122449 
+Q 677.755102 367.346939 664.530612 367.346939 
+L 496.285714 367.346939 
+Q 483.061224 367.346939 483.061224 354.122449 
+z
+" clip-path="url(#pecbf88852a)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="580.408163" y="291.442077" transform="rotate(-0 580.408163 291.442077)">3. dogfooding_src/ (doc)</text>
+    </g>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(543.543413 331.489889)">JP &amp; EN Whitepapers</text>
+    </g>
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(541.890413 339.918764)">HTML + A4 Vector PDF</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 145.102041 459.183673 
+L 145.102041 417.306122 
+Q 145.102041 404.081633 158.326531 404.081633 
+L 326.571429 404.081633 
+Q 339.795918 404.081633 339.795918 417.306122 
+L 339.795918 501.061224 
+Q 339.795918 514.285714 326.571429 514.285714 
+L 158.326531 514.285714 
+Q 145.102041 514.285714 145.102041 501.061224 
+z
+" clip-path="url(#pecbf88852a)" style="fill: #8037c3"/>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="242.44898" y="438.644485" transform="rotate(-0 242.44898 438.644485)">4. slide_about_drawlib_src/</text>
+    </g>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(200.807511 478.428665)">This 64-Slide 16:9 Deck!</text>
+    </g>
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(200.951792 486.028665)">HTML + Vector slide.pdf</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 380.204082 459.183673 
+L 380.204082 417.306122 
+Q 380.204082 404.081633 393.428571 404.081633 
+L 561.673469 404.081633 
+Q 574.897959 404.081633 574.897959 417.306122 
+L 574.897959 501.061224 
+Q 574.897959 514.285714 561.673469 514.285714 
+L 393.428571 514.285714 
+Q 380.204082 514.285714 380.204082 501.061224 
+z
+" clip-path="url(#pecbf88852a)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="477.55102" y="438.380852" transform="rotate(-0 477.55102 438.380852)">5. readme_src/ (image)</text>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(442.351145 478.428665)">GitHub README.md</text>
+    </g>
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(442.214583 486.028665)">Hero Banner Scripts</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 139.591837 202.040816 
+L 139.591837 252.878384 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 143.591837 244.878384 
+L 139.591837 252.878384 
+L 135.591837 244.878384 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 360 202.040816 
+L 360 252.878384 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 364 244.878384 
+L 360 252.878384 
+L 356 244.878384 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 580.408163 202.040816 
+L 580.408163 252.878384 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 584.408163 244.878384 
+L 580.408163 252.878384 
+L 576.408163 244.878384 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 242.44898 367.346939 
+L 242.44898 399.81716 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 246.44898 391.81716 
+L 242.44898 399.81716 
+L 238.44898 391.81716 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 477.55102 367.346939 
+L 477.55102 399.81716 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 481.55102 391.81716 
+L 477.55102 399.81716 
+L 473.55102 391.81716 
+" clip-path="url(#pecbf88852a)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 51.428571 554.693878 
+L 51.428571 541.836735 
+Q 51.428571 530.816327 62.44898 530.816327 
+L 657.55102 530.816327 
+Q 668.571429 530.816327 668.571429 541.836735 
+L 668.571429 567.55102 
+Q 668.571429 578.571429 657.55102 578.571429 
+L 62.44898 578.571429 
+Q 51.428571 578.571429 51.428571 567.55102 
+z
+" clip-path="url(#pecbf88852a)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#pecbf88852a)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="360" y="557.40126" transform="rotate(-0 360 557.40126)">Continuous Feedback Loop: Every Library Change Is Verified Against Real Production Docs &amp; Slides</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pecbf88852a">
+   <rect x="0" y="0" width="720" height="617.142857"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

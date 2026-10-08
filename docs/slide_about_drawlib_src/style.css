@@ -1,3 +1,91 @@
+/* drawlib Modern Developer Light Theme (default.css)
+ * Inspired by VitePress (Vue/Vite) & Tailwind CSS documentation
+ */
+:root {
+    --rtd-sidebar-bg: #f8fafc;
+    --rtd-sidebar-header: #f8fafc;
+    --rtd-sidebar-text: #475569;
+    --rtd-sidebar-hover: #f1f5f9;
+    --rtd-sidebar-active: #eef2ff;
+    --rtd-sidebar-active-text: #4338ca;
+    --rtd-brand-color: #4f46e5;
+    --rtd-brand-dark: #3730a3;
+    --rtd-heading-color: #0f172a;
+    --rtd-text-color: #334155;
+    --rtd-muted-color: #64748b;
+    --rtd-bg-color: #f8fafc;
+    --rtd-content-bg: #ffffff;
+    --rtd-surface-bg: #f1f5f9;
+    --rtd-border-color: #e2e8f0;
+    --rtd-code-bg: #f8fafc;
+    --rtd-inline-code-bg: #eef2ff;
+    --rtd-inline-code-color: #4338ca;
+    --rtd-note-bg: #eef2ff;
+    --rtd-note-border: #6366f1;
+    --rtd-code-keyword: #4f46e5;
+    --rtd-code-string: #16a34a;
+    --rtd-code-comment: #64748b;
+    --rtd-code-number: #d97706;
+    --rtd-code-function: #2563eb;
+    --rtd-code-type: #9333ea;
+    --rtd-code-operator: #475569;
+    --rtd-code-builtin: #0284c7;
+    --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "Yu Gothic", Meiryo, system-ui, sans-serif;
+    --rtd-mono-font: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Noto Sans Mono CJK JP", monospace;
+    --sidebar-width: 280px;
+
+  --slide-primary: #4f46e5;
+  --slide-secondary: #16a34a;
+  --slide-accent: #d97706;
+  --slide-yellow: #f59e0b;
+  --slide-border: #e2e8f0;
+  --slide-card-bg: #f8fafc;
+  --slide-code-bg: #1e1b4b;
+  --slide-code-text: #e0e7ff;
+}
+
+
+/* drawlib Code Highlighting and Code Blocks */
+code {
+    font-family: var(--rtd-mono-font);
+    font-size: 0.88em;
+    background-color: var(--rtd-inline-code-bg);
+    color: var(--rtd-inline-code-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+pre {
+    background-color: var(--rtd-code-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+}
+
+/* Pygments syntax highlighting tokens */
+pre code .k, pre code .kc, pre code .kd, pre code .kn, pre code .kp, pre code .kr, pre code .kt { color: var(--rtd-code-keyword); font-weight: 600; }
+pre code .s, pre code .sa, pre code .sb, pre code .sc, pre code .dl, pre code .sd, pre code .s2, pre code .se, pre code .sh, pre code .si, pre code .sx, pre code .sr, pre code .s1, pre code .ss { color: var(--rtd-code-string); }
+pre code .c, pre code .ch, pre code .cm, pre code .cp, pre code .cpf, pre code .c1, pre code .cs { color: var(--rtd-code-comment); font-style: italic; }
+pre code .m, pre code .mb, pre code .mf, pre code .mh, pre code .mi, pre code .mo, pre code .il { color: var(--rtd-code-number); }
+pre code .nf, pre code .fm { color: var(--rtd-code-function); }
+pre code .nc, pre code .ne, pre code .nn, pre code .nt { color: var(--rtd-code-type); font-weight: 600; }
+pre code .na, pre code .nd, pre code .py { color: var(--rtd-code-type); font-weight: 600; }
+pre code .nb, pre code .bp { color: var(--rtd-code-builtin); }
+pre code .o, pre code .ow { color: var(--rtd-code-operator); }
+pre code .err { color: #ef4444; }
+
+
 @font-face {
   font-family: "Phosphor";
   src: url("Phosphor.ttf") format("truetype");
@@ -5,26 +93,24 @@
   font-style: normal;
   font-display: block;
 }
-
 :root {
   --slide-width: 1920px;
   --slide-height: 1080px;
 
-  /* Google Editorial Palette */
-  --slide-bg: #ffffff;
-  --slide-text: #202124;
-  --slide-text-muted: #5f6368;
-  --slide-primary: #1a73e8;
-  --slide-secondary: #188038;
-  --slide-accent: #ea4335;
-  --slide-yellow: #fbbc04;
-  --slide-border: #dadce0;
-  --slide-card-bg: #f8f9fa;
-  --slide-code-bg: #282c34;
+  --slide-bg: var(--rtd-content-bg, #ffffff);
+  --slide-text: var(--rtd-text-color, #202124);
+  --slide-text-muted: var(--rtd-muted-color, #5f6368);
+  --slide-primary: var(--rtd-brand-color, #1a73e8);
+  --slide-secondary: var(--rtd-code-string, #188038);
+  --slide-accent: var(--rtd-code-function, #ea4335);
+  --slide-yellow: var(--rtd-code-number, #fbbc04);
+  --slide-border: var(--rtd-border-color, #dadce0);
+  --slide-card-bg: var(--rtd-surface-bg, #f8f9fa);
+  --slide-code-bg: var(--rtd-code-bg, #282c34);
   --slide-code-text: #abb2bf;
-  --slide-font: "Google Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --slide-mono-font: "JetBrains Mono", "Roboto Mono", monospace;
-  --slide-header-footer-color: #80868b;
+  --slide-font: var(--rtd-font, "Google Sans", "Inter", sans-serif);
+  --slide-mono-font: var(--rtd-mono-font, "JetBrains Mono", monospace);
+  --slide-header-footer-color: var(--rtd-muted-color, #80868b);
 }
 
 * {
@@ -309,7 +395,6 @@ hr {
   align-items: center;
   justify-content: center;
 }
-
 
 /* Transparent Searchable Text Layer for Drawlib Images */
 .text-overlay-container {

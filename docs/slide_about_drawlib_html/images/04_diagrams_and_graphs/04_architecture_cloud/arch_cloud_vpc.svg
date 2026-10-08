@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="549.818182pt" viewBox="0 0 720 549.818182" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 549.818182 
+L 720 549.818182 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 166.581818 468.130909 
+L 166.581818 68.727273 
+L 555.807273 68.727273 
+L 555.807273 468.130909 
+L 166.581818 468.130909 
+z
+" clip-path="url(#p2281568558)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #505055" x="182.945455" y="92.378182" transform="rotate(-0 182.945455 92.378182)">VPC Network (10.0.0.0/16)</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 202.581818 376.625455 
+L 202.581818 202.909091 
+L 321.054545 202.909091 
+L 321.054545 376.625455 
+z
+" clip-path="url(#p2281568558)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #505055" x="218.945455" y="226.56" transform="rotate(-0 218.945455 226.56)">Public Subnet (10.0.1.0/24)</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 383.465455 432.130909 
+L 383.465455 130.909091 
+L 519.807273 130.909091 
+L 519.807273 432.130909 
+z
+" clip-path="url(#p2281568558)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #505055" x="399.829091" y="154.56" transform="rotate(-0 399.829091 154.56)">Private Subnet (10.0.2.0/24)</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 85.090909 281.454545 
+L 226.295824 281.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 218.295824 277.454545 
+L 226.295824 281.454545 
+L 218.295824 285.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <g id="patch_6">
+     <path d="M 144.361097 286.894545 
+L 169.820722 286.894545 
+L 169.820722 276.014545 
+L 144.361097 276.014545 
+z
+" clip-path="url(#p2281568558)" style="fill: #ffffff; fill-opacity: 0.9"/>
+    </g>
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="157.090909" y="284.038545" transform="rotate(-0 157.090909 284.038545)">HTTPS</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 294.545455 281.454545 
+L 327.272727 281.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 327.272727 281.454545 
+L 378 281.454545 
+L 378 209.454545 
+L 416.114006 209.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 408.114006 205.454545 
+L 416.114006 209.454545 
+L 408.114006 213.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 327.272727 281.454545 
+L 378 281.454545 
+L 378 353.454545 
+L 416.114006 353.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 408.114006 349.454545 
+L 416.114006 353.454545 
+L 408.114006 357.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 484.363636 209.454545 
+L 592.841279 209.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 584.841279 205.454545 
+L 592.841279 209.454545 
+L 584.841279 213.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g id="patch_11">
+     <path d="M 531.564813 215.112358 
+L 548.435187 215.112358 
+L 548.435187 203.796733 
+L 531.564813 203.796733 
+z
+" clip-path="url(#p2281568558)" style="fill: #ffffff; fill-opacity: 0.9"/>
+    </g>
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="540" y="211.820733" transform="rotate(-0 540 211.820733)">SQL</text>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 484.363636 353.454545 
+L 592.841279 353.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 584.841279 349.454545 
+L 592.841279 353.454545 
+L 584.841279 357.454545 
+" clip-path="url(#p2281568558)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <g id="patch_13">
+     <path d="M 523.146625 359.282358 
+L 556.853375 359.282358 
+L 556.853375 347.626733 
+L 523.146625 347.626733 
+z
+" clip-path="url(#p2281568558)" style="fill: #ffffff; fill-opacity: 0.9"/>
+    </g>
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 6.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="540" y="355.650733" transform="rotate(-0 540 355.650733)">GCS Sync</text>
+    </g>
+   </g>
+   <g id="AnnotationBbox_1">
+    <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAD8AAABACAYAAACtK6/LAAADCklEQVR4nO2bv2sUQRTH3yzRFQVB/BcE8z9oJSqIpaS0EY0I1vYWgtgFsVC4Qv+CSDAkWNgYrEzijxQRLGKjBiyMMefdzd5YaHJ7u7Mz782+3bnbm0+1Nzvz5n3nx9vZmT2AQGDiEOkf86syEWI4LcviWmI0+PhaHO1fP1+TfZsDnPbaXYBXG3h7U+kbsichiiKjeKUkgLl9Dkhk35pRKbOzaWQvASFEoc1EKpK9yJ4lC074OOAg3hHFldH1fj69hHiFcCQFesDYMvKNPKL4tFiBc0TlLiqmyKd8OlG8Q6uL1EVd+g8wV8gw5wlzUCCyM9Zs6ywG8cQ5WnLKZicevdSAGqI9MTBacGs7fakpbSorJndrDwJD1Pec1+J3wWQX77dzKsUunjlCVwfdSb34rB1RdKMsJnvUuuixRS++0A73HDXZw9aFaSS9Lc8BjwP3DkGVvN4abCII6AkAgG576+bT29NPXCrV2fu2uXJ54cH5Raqt+MgxuPro5397CgRIAQCwunD/9Nv5u59MZVHP+Qi6uUbqSxlTHTXZU5AcdrHV+fNbY0/Bofio1V4Dhn2a/fmPe4lqmPjBACje7BrQMPE0gvhJpbniKw14SrEu9yxnJURwS2NUjbOtvRF5tVGAXdFtrb+4uPxw5qUpz5gN+6zwcn3iUTzWcdMhhDDkEVZtHsVj53iRQFFw/Y8vH5bWbZYrFM8dJvi3vFAvNt8/v5njrDQ+eepCNk3ubn9MOjtfuepo72zv2fJ42UE8d283Nyx+bC6ffffsykqdfoxZtOcliJ9UgvhJJYj3Rzio9EYY9n7IDnnezREMzhXeuDN35tLMrdf4EvqNiKX3kljzsJ0k6fxqzZ44TjQCAFV9kJRLwu/A2Ovy9h2eDo0zuSSbw9iozzszRiDg8fYmBWbxLh8b+Hvc1djzriKrWwgxi6+iF6sbGSP0nMfk4x0FvOJJn8JTd2+z1+Ubgle8ADA6xXzAVZYKFjk1RW+GGcC/yPH9nwIC/AFvjP5/VF68a08by43IoXAgEGgUfwGb6chmsW8NVgAAAABJRU5ErkJggg==" id="image6e9212ae51" transform="scale(1 -1) translate(0 -46.08)" x="239.04" y="-258.218182" width="45.36" height="46.08"/>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(241.964744 312.875131)">Cloud Load</text>
+    </g>
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(244.222057 320.075131)">Balancing</text>
+    </g>
+   </g>
+   <g id="AnnotationBbox_2">
+    <image xlink:href="data:image/png;base64,
+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" id="image334fe2edd7" transform="scale(1 -1) translate(0 -46.08)" x="428.4" y="-186.218182" width="46.08" height="46.08"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="451.636364" y="244.917818" transform="rotate(-0 451.636364 244.917818)">GKE API Pod 1</text>
+    </g>
+   </g>
+   <g id="AnnotationBbox_3">
+    <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAJNElEQVR4nO1be1BU1xn/zr2XXWBBwcTHmPiYNFXj28orYK0lili16oKPxBBrIIyJj0rVOlM0ZqK2Vo1GE9MIITFaRcW90MRHIRGiNYpcjI6vUeNMGm2ZanyCLLt37z1f/8CFXVjuY1+kU35/wOy53/nO7/vud17fORegAx3oQHvh2UExUHj83s325EDaq+HiatGBCJzz962a79Nfn/JTS7B5BN0Bf62oqQyPeDLe0zOklL71Rqrhwpmv5GDxCZoDFq/ekTQ69aUTWmQRUU6LM3Lqkr4jKA6wVNkkQhhWbz1KrdfS46P6B4KTEwF1AF9lpwCEaG8FH/93r3Dp7PFXVmaP3eVPbk4ExAEl1XXXKRp/AgCNNim0wrIsyrKsygOR0rfmT2AvCBX+ogkAfnbAyvcPzRkRP25Hc0nb1td8f3X3gvQhLzt/F1VaRZblQrS0Y441+I23XxSFhplg97F7lBCiqs9gZOVJQ1mPA1zWsi2hE6bPs2rRw3F459cjjF294esKnx3AC6IMAIznp80RIMsOcXqCyahFZ+7mkikjR/2qRF0Soer4od+tW2LerI1ta3jtgM/OyfWSQw5X7eQAcHjftpCPNuZIetuwnLY9IgxjUpNDREyLM7bxEpSh2wHz/vDBmJRpWZpGokP7tqYUbFz6hX5a7th/qt7KcSFhanKUymJ6fJimKHNClwMsVfbW/dxDAFBZltITwjQNaFoxccYbkLnsXVSXBGAYhk4dyWlad2hygKXKLhNCVENMkh22zPG9wuoe3tOi1itMfum3w+fmbDirJoeIWMbnT96+bsEhJTlFBxQev3/LGGbq5qK2RRV83Bh43Qe9RXG1RBGpygts5Ks0bSqSJizbot+11EOglM9P0Wt8n+ETSfZH9dT5O7xrP2bsn+1UqU5LTIvhGHOsgQAhCt1CPcC93nCwHGufMoIN1Vsv+2M7BZQJILoQJ0AlB0le+wjvXC0zn99pLtaqzxwTwgAAWKpEVF89tIZXYVt6XoKDZ2yGXoNTNNeZ+ccLZdkFVgRUXvY+2T+FT15dK0f1HaVZd8o7Mt32hQgl1VLzdkIjvIoABABCCJmQU4IMF4Ifzglp05HPz1ofOmTcggZ1jS5gGOZnr/0dGc6IXy5vW/eAaX9J6RmTUSrZGtXfvCsjEE5XHOiPAAJyXmZ4UyNUcpDsAivO3njty5aiWfkPbe7Gt/V6PHOmkp0kr32EsfNPznQtN3UfSJLX1NGeMRmlzjKpofZSxYpI3fZ4PQbkZYaT8Yt4c59hqRYAAFP00y9kF1jx2qnCnr2Hph4NNUU/563ulojsOXRv8uraPRf3z+UGz9opA2DzC0DJ+tWKKNXVYlvwKetSutXMAwDJzKu9z7JcFABAv+dfrGl86mmJ7MPWg2GYwbM+pa5RVJ4b4fNeRkPIqI8qBdmdovMywwkiuuTynNx0jkoa+NRU7xjtD+MBNDlAezv5WSYPEeXfnAtSyXaleME//KUvqKu3HyOC6AB/dwX/IIgOCNSY4Bv+h7pAYBzXDg4ggAA0L8vU1Lb1h6v0X5X54Wr1AoGgOgAppTsX9yb5meGtkhXXPs9pKM+NINY717cEk1PQHFBz5djg/NciWFvdnaayzKWbu1mq7G65wsrNwxeX50YQQKpre+wtAn7+FmI04raX2VaOPnDaJjMMwwAA8IKID+795+Cr43tPdj4vX9GJ7Rk7lxkwZasEGtLkzVBP0rpCWwR4Mf4gUlq4fABpafzfvqGUF0R0Gu9EVJcek3hBxL79hjS9lBrhE1q+IpJ5eKN6g/aW9Y0V2hygc/ypLnk7Oj8rgq27c6OpbNOe6j28IKIsS4raNu0+4yg6ZbW5lp3ZPub35bkRhHChfp8K/N4FXLfKTnjMJiuA5TgjXyUiwxKcOrI5H3B0OceYug7wF1UA0BIBPvj8QKVV5AUR9RjfBAJAKRJeEHH+m3mjncX1P1zxnpAHqDvAi+n3yCVZ4gURGY2HnUpAAHhh8m+O8YKIUzOWaJLXg4DMAhMGsZylsuEuYdkuvupy+l/riXCj0OOZQMOEELB1QFpC2BPmWAORRPsjVeE2Xhsi4vZ1C3voPw4nbv+UEPB1wIykyMhwUwTsqrhLG++KeGDVqghBluX70xPCfY4gNehfByCwn5216zrptdY/grQ4I3O46MOJbSt+XILUYY41Er3Gz83ZEMELYrNCjYOBYpDs/bq21mAIjXSh51blwd1bJ19N7ZWkhygAQHF1w21EtqurPkTE2aO7MDZbvS5dIxLHw8otn7ub26Lve3001hrueqKe6J7ICyKuev+wrptc02LCujWSatR34/rF9WlxRt3Gl3wjy62Md6OpHgaKDpiV1KmT5LC7ZHk9Y1j82CuW0zZpzKQMr/asN7+7rOn+oBOflN0UeEFEKsuMko2IgMvnJClOxaoRMCMx8ilzrIEgKh1CAhCGYRetKqBFlVZRTacLRZe/6ni38NwveEHEztHdY5pqtfG2b9f8c11anJH59rKgOF5pngXS4gzM0Nhfcqu2HbETwrTpOJblQnhBRLv94eUXR3UdpKyVAACqzlY9nn6GbLNcdhDG9bKl5zMHSqXa9Pjwzioqm6BrDDgvVEhpcaHsv298m60mazR2HsgLIhaU3lioLKlsvqXK5vig+Ap1N741EAHNsQaix3gALxdCC9MG5ZtjDURyNKhedY/u0mOrpcpOnx0YY9DTxv5Ttd817iMYxShFRHx70aSwtDiDV7b4tBKckdi5tznWQCiVHUpyhBCy/tOTdl4QVbM87xVdWMoLInJcaN/mUs+jxIO7t19PizMy506V2TwKaIBfVoLp8WGGhOSphmXr9tlUdn6EF0SkVG5Ijw9zS4IOGJbIrc2vsHu+i+Su0iHaH8xMioz2B3e/p1rfO3Ah9ak+/Y/oqoSAoOFKtcMh1s9MjIjwmpwHBOy2+L6va2+HGEJ9vsrqxMebloYcLNyq+7KlGgL+vcDeE3W1BqPx8XJaX8ISAODimWPj3pw3rtXlC38hKB9MDBzxc7Im76iuNDeltC49PrRToDg5EdRvhjIW/um5aa8suawkI8kO24wEk+q1WH+hXb4aswiiTDxMwSfKiphNubN/XKengYSlyibzgog5a3ZltDeXDnSgA/+f+C86MWRh84OfzQAAAABJRU5ErkJggg==" id="image334fe2edd7" transform="scale(1 -1) translate(0 -46.08)" x="428.4" y="-330.218182" width="46.08" height="46.08"/>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="451.636364" y="388.917818" transform="rotate(-0 451.636364 388.917818)">GKE API Pod 2</text>
+    </g>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 47px; font-family: 'drawlib-phosphor-thin', 'Phosphor-Thin'; text-anchor: middle; fill: #323a48" x="52.363636" y="302.017045" transform="rotate(-0 52.363636 302.017045)"></text>
+    </g>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="52.363636" y="316.917818" transform="rotate(-0 52.363636 316.917818)">Client User</text>
+    </g>
+   </g>
+   <g id="AnnotationBbox_4">
+    <image xlink:href="data:image/png;base64,
+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" id="image52c59c7c52" transform="scale(1 -1) translate(0 -46.08)" x="605.52" y="-186.218182" width="46.08" height="46.08"/>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(610.086324 240.583756)">Cloud SQL</text>
+    </g>
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(605.140824 248.366506)">(PostgreSQL)</text>
+    </g>
+   </g>
+   <g id="AnnotationBbox_5">
+    <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAD70lEQVR4nO2bT0hUQRzHf/PeW5Nd/0WylSKJllAgIfiHgso/KNihS7eQ6NS1LkaoEYZ2Ec8dwshDIB3qFojperKDFtHBIEIs7A8KZunquvve/Dr0h515+96+fX/cWfd9Lut7M/Ob33xnfvNm3jwBfHzyGsLfOHmvtTtUd+hFNpxxHVSgZGnsz5+YUCMDBwN8Fin5om7gXPu+aTwHIQGlfXgL+fuMAGWNRyf3zqXM0HnuElL6LGKgi1WXUNJloBomrBqTZMLGGAJSiqoNv9wBEQBAF/fJmApAVbr9pud5yGp9jROXmZEqhQJfFi5NVFkt7wXtw49MoydnQsAr8l6AtHOAKFwYXN+SlQImHJHSpcidklondnNiBLQNb1K+8QAARJJq2oZ+OZpkhRegdWgjQYAYPgUJkeSzvYtjdu0LL4BElLRheqC06ppt+3YLigQhxHY79oUATtgXAiCi7a2C+AIQKW3jYj+WR+2aF16Amb6gZNbDCKC9Gq3vtWtfeAEAACIDxZIcKNxJvoeIGNv8Ph3pL3K0mMuZleDULSXohd2cGAFekvcCMEvMzpGdhBaPM2GBGo1ZNiZLhUxZAASN7jpz0RlEDjA+zfQXMW3m5gAJAGTOgFwIlkFI1pQAEMio/N7jcgh49ebOOxgB1pafXc2WI9lC12XNtyevFJeeH8+GM15CAqDNDpYXqpvRbLvi4+Pj4yMMusdg4qXi3kHsP0sm6yNm7YjmeVMXMsmmAmyMNPy/phTUI5F55qyQWQrHpxR3DzItOEkML5zZTYUk6bf/zEqQBN0/hkfuN1VaNvF8O0y4X0yR5gQEZ0KavhGKJ2A71K1aPh7n5494CFdCZ7SsHo+vdpjrk/cvRAwFECE+9wJDAUTc2T+uP37iV2czjXa20Ken68rdsKkTQMSe76+tDK52NOHFcNmHGEUSpZS0lpeurXY0YUOJtSnKqF06AUTr+b7aCrhRXfF3E6/3brLplKU+M2qX8JPgzepKXQP5G+sdTZa/ZOMRXoBU8L2pOjjgyUkB3MQXINsOOAUBQAKwvYkTXoDe98sFZukEAI7Nvjb9HNYM4QUY/7qWePszet0o/cGnb4ejGrVtX3gBAAC6FhYfhqfnyeed3ScKAS1AQFvejt0PT8+Tux9XVp3YzpnvAwAAGufe9QBAT2alzF8f5cQIcIb52pYdASoBVJPWWVpmVfH/GYCq8Reee0GJ7htL/aqZcTDa1ZKIatRhWPBDLvna6ltPpxjXE56eZxIchIDRHoSvmJikebX7tC4yIwCVM3mcpKvE/aZ5IRYjQM3cgumCIjMHzARCS7kyscjbTeVtHOh2BtX5+PjkAb8B9fYLco5trzoAAAAASUVORK5CYII=" id="imagef3cb91dd58" transform="scale(1 -1) translate(0 -46.08)" x="605.52" y="-330.218182" width="46.08" height="46.08"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(603.592824 384.482506)">Cloud Storage</text>
+    </g>
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 7.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(603.719386 392.567881)">(Object Store)</text>
+    </g>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#p2281568558)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="19.636364" y="58.662262" transform="rotate(-0 19.636364 58.662262)">Production Multi-Subnet Google Cloud VPC Architecture</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2281568558">
+   <rect x="0" y="0" width="720" height="549.818182"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"},{"family":"drawlib-phosphor-thin","rel_path":"_assets/fonts/phosphor/thin.ttf","src":"builtin:fonticons/phosphor/thin.ttf","format":"truetype"}] -->
+</svg>

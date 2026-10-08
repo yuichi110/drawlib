@@ -853,27 +853,42 @@ def build_image(
             require_file=False,
         )
         md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
-        for md_file in all_md_files:
-            try:
-                with open(md_file, "r", encoding="utf-8") as f:
-                    content = f.read()
-            except OSError:
-                continue
+        root_target_dir = (
+            resolved_targets[0]
+            if (len(resolved_targets) == 1 and os.path.isdir(resolved_targets[0]))
+            else None
+        )
+        orig_cwd = os.getcwd()
+        try:
+            if root_target_dir:
+                os.chdir(root_target_dir)
+            for md_file in all_md_files:
+                try:
+                    with open(md_file, "r", encoding="utf-8") as f:
+                        content = f.read()
+                except OSError:
+                    continue
 
-            if not md_pattern.search(content):
-                continue
+                if not md_pattern.search(content):
+                    continue
 
-            stem = os.path.splitext(os.path.basename(md_file))[0]
-            fmt = str(format or "png")
-            processor.process_markdown(
-                markdown_text=content,
-                doc_base_name=stem,
-                output_dir=out_img_dir,
-                image_format=fmt,
-                source_filename=md_file,
-            )
-            if md_file not in executed:
-                executed.append(md_file)
+                if root_target_dir:
+                    rel_md = os.path.relpath(md_file, root_target_dir)
+                    stem = os.path.splitext(rel_md)[0].replace(os.sep, "/")
+                else:
+                    stem = os.path.splitext(os.path.basename(md_file))[0]
+                fmt = str(format or "png")
+                processor.process_markdown(
+                    markdown_text=content,
+                    doc_base_name=stem,
+                    output_dir=out_img_dir,
+                    image_format=fmt,
+                    source_filename=md_file,
+                )
+                if md_file not in executed:
+                    executed.append(md_file)
+        finally:
+            os.chdir(orig_cwd)
 
     if not executed:
         raise ValueError("No valid Python files or Markdown files with drawing code were executed.")

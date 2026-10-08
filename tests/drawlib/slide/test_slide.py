@@ -807,3 +807,59 @@ phosphor.rocket((75, 25), width=12, style=Styles.Primary)
         assert (out_dir_2 / "_assets" / "fonts" / "roboto" / "bold.ttf").is_file()
         assert (out_dir_2 / "_assets" / "fonts" / "phosphor" / "regular.ttf").is_file()
         assert "font-family: 'drawlib-phosphor-regular';" in css_2
+
+    def test_build_slide_with_chapter_subdirectories(self, tmp_path: Path) -> None:
+        """Verify slides in chapter subdirectories sort in order, resolve root utils/styles, and avoid collisions."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide_out"
+        src_dir.mkdir()
+
+        (src_dir / "utils.py").write_text(
+            """from drawlib.canvas import clear, setup
+from drawlib.slide import current_slide
+from drawlib.styles import Styles
+from drawlib.text import text
+
+def draw_page_number():
+    clear()
+    setup(width=14, height=3, alpha=0.0)
+    text((7, 1.5), current_slide.text, style=Styles.Black)
+""",
+            encoding="utf-8",
+        )
+
+        ch0 = src_dir / "00_opening"
+        ch1 = src_dir / "01_chapter_one"
+        ch0.mkdir()
+        ch1.mkdir()
+
+        slide_tpl = """::: block (80, 140) (1760, 840)
+# {title}
+:::
+
+::: block (1700, 1010) (140, 30)
+```drawlib file:page.svg
+import utils
+utils.draw_page_number()
+```
+:::
+"""
+        (ch0 / "01_title.md").write_text(slide_tpl.format(title="Opening Slide"), encoding="utf-8")
+        (ch1 / "01_section.md").write_text(slide_tpl.format(title="Chapter 1 Divider"), encoding="utf-8")
+        (ch1 / "02_content.md").write_text(slide_tpl.format(title="Chapter 1 Content"), encoding="utf-8")
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        html = Path(result_html).read_text(encoding="utf-8")
+
+        assert "Opening Slide" in html
+        assert "Chapter 1 Divider" in html
+        assert "Chapter 1 Content" in html
+        assert html.index("Opening Slide") < html.index("Chapter 1 Divider") < html.index("Chapter 1 Content")
+
+        svg1 = (out_dir / "images" / "00_opening" / "01_title" / "page.svg").read_text(encoding="utf-8")
+        svg2 = (out_dir / "images" / "01_chapter_one" / "01_section" / "page.svg").read_text(encoding="utf-8")
+        svg3 = (out_dir / "images" / "01_chapter_one" / "02_content" / "page.svg").read_text(encoding="utf-8")
+        assert "1 / 3" in svg1
+        assert "2 / 3" in svg2
+        assert "3 / 3" in svg3
+

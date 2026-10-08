@@ -35,19 +35,29 @@ def render_code_with_context(
     from drawlib._builder.doc_builder.processor.processor import DrawlibBlockProcessor
 
     processor = DrawlibBlockProcessor(styles_path=styles_path, utils_path=utils_path, no_cache=no_cache)
+    exec_dir = file_dir
+    if (
+        processor.project_root
+        and not os.path.exists(os.path.join(file_dir, "_assets"))
+        and os.path.exists(os.path.join(processor.project_root, "_assets"))
+    ):
+        exec_dir = processor.project_root
+
     orig_cwd = os.getcwd()
-    sys_path_added = False
+    added_paths: list[str] = []
     try:
-        os.chdir(file_dir)
-        if file_dir not in sys.path:
-            sys.path.insert(0, file_dir)
-            sys_path_added = True
+        os.chdir(exec_dir)
+        for p in (file_dir, processor.project_root):
+            if p and p not in sys.path:
+                sys.path.insert(0, p)
+                added_paths.append(p)
 
         processor.render_block_to_file(code, dest_abs, source_filename=source_filename, grid=grid)
     finally:
         os.chdir(orig_cwd)
-        if sys_path_added and file_dir in sys.path:
-            sys.path.remove(file_dir)
+        for p in added_paths:
+            if p in sys.path:
+                sys.path.remove(p)
 
 
 def export_code_block(

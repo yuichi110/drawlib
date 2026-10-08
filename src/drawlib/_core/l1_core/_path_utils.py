@@ -149,4 +149,13 @@ def get_script_relative_path(path: str) -> str:
     script_path = get_script_path()
     script_parent_dir = os.path.dirname(script_path)
     merged_path = os.path.join(script_parent_dir, path)
+    if not os.path.exists(merged_path):
+        cur = os.path.dirname(script_parent_dir)
+        for _ in range(3):
+            if not cur or cur == os.path.dirname(cur):
+                break
+            cand = os.path.join(cur, path)
+            if os.path.exists(cand):
+                return os.path.realpath(cand)
+            cur = os.path.dirname(cur)
     return os.path.realpath(merged_path)

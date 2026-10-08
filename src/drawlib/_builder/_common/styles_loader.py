@@ -182,6 +182,28 @@ def load_styles_and_utils(
     load_utils(utils_path=utils_path, shared_globals=shared_globals)
 
 
+def _find_project_search_dirs(base_dir: str) -> list[str]:
+    """Return base_dir and any ancestor project root directory (up to 3 levels up)."""
+    dirs = [base_dir]
+    curr = base_dir
+    for _ in range(3):
+        parent = os.path.dirname(curr)
+        if not parent or parent == curr:
+            break
+        is_project_root = (
+            os.path.basename(parent).endswith("_src")
+            or os.path.isfile(os.path.join(parent, "style.css"))
+            or os.path.isfile(os.path.join(parent, "build.sh"))
+            or os.path.isfile(os.path.join(parent, "navbar.md"))
+            or os.path.isdir(os.path.join(parent, "_assets"))
+        )
+        if is_project_root:
+            dirs.append(parent)
+            break
+        curr = parent
+    return dirs
+
+
 def resolve_styles_and_utils(
     input_path: str,
     styles_path: Optional[str] = None,
@@ -199,18 +221,23 @@ def resolve_styles_and_utils(
     """
     input_abs = os.path.abspath(input_path)
     base_dir = input_abs if os.path.isdir(input_abs) else os.path.dirname(input_abs)
+    search_dirs = _find_project_search_dirs(base_dir)
 
     resolved_styles = styles_path
     if not resolved_styles:
-        cand = os.path.join(base_dir, "styles.py")
-        if os.path.isfile(cand):
-            resolved_styles = cand
+        for d in search_dirs:
+            cand = os.path.join(d, "styles.py")
+            if os.path.isfile(cand):
+                resolved_styles = cand
+                break
 
     resolved_utils = utils_path
     if not resolved_utils:
-        cand = os.path.join(base_dir, "utils.py")
-        if os.path.isfile(cand):
-            resolved_utils = cand
+        for d in search_dirs:
+            cand = os.path.join(d, "utils.py")
+            if os.path.isfile(cand):
+                resolved_utils = cand
+                break
 
     return (
         os.path.abspath(resolved_styles) if resolved_styles else None,

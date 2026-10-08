@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="590.4pt" viewBox="0 0 720 590.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 590.4 
+L 720 590.4 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 28.8 172.8 
+L 28.8 57.6 
+Q 28.8 36 50.4 36 
+L 669.6 36 
+Q 691.2 36 691.2 57.6 
+L 691.2 288 
+Q 691.2 309.6 669.6 309.6 
+L 50.4 309.6 
+Q 28.8 309.6 28.8 288 
+L 28.8 172.8 
+z
+" clip-path="url(#p5a0ea125fc)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #8c98aa; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="57.6" y="68.144414" transform="rotate(-0 57.6 68.144414)">Traditional Fragmented Workflow (Disconnected Silos)</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 57.6 194.4 
+L 57.6 133.2 
+Q 57.6 115.2 75.6 115.2 
+L 212.4 115.2 
+Q 230.4 115.2 230.4 133.2 
+L 230.4 255.6 
+Q 230.4 273.6 212.4 273.6 
+L 75.6 273.6 
+Q 57.6 273.6 57.6 255.6 
+z
+" clip-path="url(#p5a0ea125fc)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 48px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #323a48" x="144" y="179.4" transform="rotate(-0 144 179.4)"></text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(126.1925 228.627617)">Git Repo</text>
+    </g>
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(114.765312 237.935117)">(Source Code)</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 273.6 194.4 
+L 273.6 133.2 
+Q 273.6 115.2 291.6 115.2 
+L 428.4 115.2 
+Q 446.4 115.2 446.4 133.2 
+L 446.4 255.6 
+Q 446.4 273.6 428.4 273.6 
+L 291.6 273.6 
+Q 273.6 273.6 273.6 255.6 
+z
+" clip-path="url(#p5a0ea125fc)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 48px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="360" y="179.4" transform="rotate(-0 360 179.4)"></text>
+    </g>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(336.417812 229.031367)">GUI Canvas</text>
+    </g>
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(327.312852 237.531367)">(Draw.io / Visio)</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 489.6 194.4 
+L 489.6 133.2 
+Q 489.6 115.2 507.6 115.2 
+L 644.4 115.2 
+Q 662.4 115.2 662.4 133.2 
+L 662.4 255.6 
+Q 662.4 273.6 644.4 273.6 
+L 507.6 273.6 
+Q 489.6 273.6 489.6 255.6 
+z
+" clip-path="url(#p5a0ea125fc)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 48px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #323a48" x="576" y="179.4" transform="rotate(-0 576 179.4)"></text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(548.715 229.031367)">External Wiki</text>
+    </g>
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(548.689102 237.531367)">(Static PNGs)</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 230.4 194.4 
+L 271.363932 194.4 
+" clip-path="url(#p5a0ea125fc)" style="fill: none; stroke-dasharray: 7.4,3.2; stroke-dashoffset: 0; stroke: #be3a44; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 263.363932 190.4 
+L 271.363932 194.4 
+L 263.363932 198.4 
+" clip-path="url(#p5a0ea125fc)" style="fill: none; stroke-dasharray: 7.4,3.2; stroke-dashoffset: 0; stroke: #be3a44; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #be3a44" transform="translate(238.395703 150.3)">Manual</text>
+    </g>
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #be3a44" transform="translate(237.922852 157.8)">Redraw</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 446.4 194.4 
+L 487.363932 194.4 
+" clip-path="url(#p5a0ea125fc)" style="fill: none; stroke-dasharray: 7.4,3.2; stroke-dashoffset: 0; stroke: #be3a44; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 479.363932 190.4 
+L 487.363932 194.4 
+L 479.363932 198.4 
+" clip-path="url(#p5a0ea125fc)" style="fill: none; stroke-dasharray: 7.4,3.2; stroke-dashoffset: 0; stroke: #be3a44; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #be3a44" transform="translate(454.395703 149.94375)">Manual</text>
+    </g>
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 7.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #be3a44" transform="translate(455.782617 157.44375)">Export</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 28.8 453.6 
+L 28.8 367.2 
+Q 28.8 345.6 50.4 345.6 
+L 669.6 345.6 
+Q 691.2 345.6 691.2 367.2 
+L 691.2 540 
+Q 691.2 561.6 669.6 561.6 
+L 50.4 561.6 
+Q 28.8 561.6 28.8 540 
+z
+" clip-path="url(#p5a0ea125fc)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 10.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="57.6" y="377.744414" transform="rotate(-0 57.6 377.744414)">The Drawlib Paradigm: Single Source of Truth in Git</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 72 475.2 
+L 72 439.2 
+Q 72 421.2 90 421.2 
+L 313.2 421.2 
+Q 331.2 421.2 331.2 439.2 
+L 331.2 511.2 
+Q 331.2 529.2 313.2 529.2 
+L 90 529.2 
+Q 72 529.2 72 511.2 
+z
+" clip-path="url(#p5a0ea125fc)" style="fill: #4862da"/>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(168.179297 473.071406)">Git Repository</text>
+    </g>
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(150.749023 483.56)">(.py + .md + styles.py)</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 432 475.2 
+L 432 439.2 
+Q 432 421.2 450 421.2 
+L 630 421.2 
+Q 648 421.2 648 439.2 
+L 648 511.2 
+Q 648 529.2 630 529.2 
+L 450 529.2 
+Q 432 529.2 432 511.2 
+z
+" clip-path="url(#p5a0ea125fc)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(495.126602 473.670352)">Deterministic Build</text>
+    </g>
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(495.928164 483.170352)">(Site / PDF / Slides)</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 331.2 475.2 
+L 429.540325 475.2 
+" clip-path="url(#p5a0ea125fc)" style="fill: none; stroke: #323a48; stroke-width: 2.2; stroke-linecap: round"/>
+    <path d="M 421.540325 471.2 
+L 429.540325 475.2 
+L 421.540325 479.2 
+" clip-path="url(#p5a0ea125fc)" style="fill: none; stroke: #323a48; stroke-width: 2.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p5a0ea125fc)">
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="381.6" y="446.03" transform="rotate(-0 381.6 446.03)">drawlib build</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5a0ea125fc">
+   <rect x="0" y="0" width="720" height="590.4"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-phosphor-bold","rel_path":"_assets/fonts/phosphor/bold.ttf","src":"builtin:fonticons/phosphor/bold.ttf","format":"truetype"}] -->
+</svg>

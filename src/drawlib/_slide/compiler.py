@@ -77,23 +77,30 @@ def _clean_output_dir(output_abs: str, input_abs: str) -> None:
 
 
 def _collect_slide_files(input_abs: str) -> list[str]:
-    """Discover and alphabetically sort candidate markdown slide files.
+    """Discover and alphabetically sort candidate markdown slide files (including chapter subdirectories).
 
     Args:
         input_abs: Absolute path to source directory.
 
     Returns:
-        list[str]: Sorted list of filenames.
+        list[str]: Sorted list of relative POSIX file paths.
     """
-    files = [
-        f
-        for f in os.listdir(input_abs)
-        if (f.endswith(".md") or f.endswith(".markdown"))
-        and not f.startswith(".")
-        and f.lower() not in {"navbar.md", "readme.md"}
-    ]
-    files.sort()
-    return files
+    rel_files: list[str] = []
+    for root, dirnames, files in os.walk(input_abs):
+        dirnames[:] = sorted(
+            d for d in dirnames if not d.startswith(".") and not d.startswith("_")
+        )
+        for f in sorted(files):
+            if (
+                (f.endswith(".md") or f.endswith(".markdown"))
+                and not f.startswith(".")
+                and f.lower() not in {"navbar.md", "readme.md"}
+            ):
+                abs_p = os.path.join(root, f)
+                rel_p = os.path.relpath(abs_p, input_abs).replace(os.sep, "/")
+                rel_files.append(rel_p)
+    rel_files.sort()
+    return rel_files
 
 
 def _process_drawlib_blocks(
@@ -103,6 +110,7 @@ def _process_drawlib_blocks(
     file_path: str,
     idx: int,
     default_format: str,
+    input_abs: Optional[str] = None,
 ) -> str:
     """Execute and replace ```drawlib blocks.
 
@@ -113,12 +121,20 @@ def _process_drawlib_blocks(
         file_path: Absolute path to slide source file.
         idx: Slide index.
         default_format: Default image format.
+        input_abs: Optional source root directory for computing relative image subdirectories.
 
     Returns:
         str: Transformed markdown text.
     """
     counter = 0
-    md_stem = Path(file_path).stem if file_path else f"slide_{idx}"
+    if file_path and input_abs:
+        try:
+            rel_no_ext = os.path.splitext(os.path.relpath(file_path, input_abs))[0].replace(os.sep, "/")
+            md_stem = rel_no_ext if not rel_no_ext.startswith("..") else Path(file_path).stem
+        except ValueError:
+            md_stem = Path(file_path).stem
+    else:
+        md_stem = Path(file_path).stem if file_path else f"slide_{idx}"
 
     def replacer(match: re.Match[str]) -> str:
         nonlocal counter
@@ -246,50 +262,56 @@ def build_slide(
     slides_html_list: list[str] = []
     thumbs_html_list: list[str] = []
 
-    for idx, filename in enumerate(candidate_files, start=1):
-        file_path = os.path.join(input_abs, filename)
-        with open(file_path, "r", encoding="utf-8") as f:
-            raw_content = f.read()
+    orig_cwd = os.getcwd()
+    try:
+        os.chdir(input_abs)
+        for idx, filename in enumerate(candidate_files, start=1):
+            file_path = os.path.join(input_abs, filename)
+            with open(file_path, "r", encoding="utf-8") as f:
+                raw_content = f.read()
 
-        ctx_token = set_slide_context(index=idx, total=total_slides)
-        try:
-            content_without_notes, notes_html = extract_slide_notes(raw_content)
-            # If no ::: block or ::: box is in content_without_notes, auto-wrap in default stage block
-            text_to_search = (
-                "\n" + content_without_notes
-                if not content_without_notes.startswith("\n")
-                else content_without_notes
+            ctx_token = set_slide_context(index=idx, total=total_slides)
+            try:
+                content_without_notes, notes_html = extract_slide_notes(raw_content)
+                # If no ::: block or ::: box is in content_without_notes, auto-wrap in default stage block
+                text_to_search = (
+                    "\n" + content_without_notes
+                    if not content_without_notes.startswith("\n")
+                    else content_without_notes
+                )
+                if not PATTERN_CONTAINER_BOX.search(text_to_search):
+                    text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
+
+                t_drawlib = _process_drawlib_blocks(
+                    text_to_search,
+                    output_abs,
+                    processor,
+                    file_path,
+                    idx,
+                    image_format,
+                    input_abs=input_abs,
+                )
+                t_containers = process_container_blocks(t_drawlib)
+                rendered_body = t_containers.strip()
+
+                slide_section = _assemble_slide_section(
+                    rendered_body=rendered_body,
+                    idx=idx,
+                    notes_html=notes_html,
+                )
+                slides_html_list.append(slide_section)
+            finally:
+                reset_slide_context(ctx_token)
+
+            curr_thumb = " current" if idx == 1 else ""
+            thumbs_html_list.append(
+                f'    <div class="overview-thumb{curr_thumb}" data-slide-target="{idx}">\n'
+                f'      <div class="thumb-title">Slide {idx}</div>\n'
+                f'      <div class="thumb-number">{idx} / {total_slides}</div>\n'
+                f"    </div>"
             )
-            if not PATTERN_CONTAINER_BOX.search(text_to_search):
-                text_to_search = f"::: block (80, 140) (1760, 840)\n{text_to_search.strip()}\n:::"
-
-            t_drawlib = _process_drawlib_blocks(
-                text_to_search,
-                output_abs,
-                processor,
-                file_path,
-                idx,
-                image_format,
-            )
-            t_containers = process_container_blocks(t_drawlib)
-            rendered_body = t_containers.strip()
-
-            slide_section = _assemble_slide_section(
-                rendered_body=rendered_body,
-                idx=idx,
-                notes_html=notes_html,
-            )
-            slides_html_list.append(slide_section)
-        finally:
-            reset_slide_context(ctx_token)
-
-        curr_thumb = " current" if idx == 1 else ""
-        thumbs_html_list.append(
-            f'    <div class="overview-thumb{curr_thumb}" data-slide-target="{idx}">\n'
-            f'      <div class="thumb-title">Slide {idx}</div>\n'
-            f'      <div class="thumb-number">{idx} / {total_slides}</div>\n'
-            f"    </div>"
-        )
+    finally:
+        os.chdir(orig_cwd)
 
     copy_static_assets(input_abs, output_abs)
     deploy_slide_assets(input_abs, output_abs, deck_theme)
