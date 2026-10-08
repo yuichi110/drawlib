@@ -158,7 +158,7 @@ class TestShapeUtil:
             shape_line_style="dashed",
             shape_line_color=(255, 0, 0),
             shape_fill_color=(0, 255, 0, 0.5),
-            shape_fill_alpha=0.8,
+            alpha=0.8,
         )
         options = ShapeUtil.get_shape_options(style)
         assert options["linewidth"] == 2.5

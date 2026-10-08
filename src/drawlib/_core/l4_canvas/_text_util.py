@@ -151,6 +151,7 @@ class TextUtil:
             "horizontalalignment": style.halign if style.halign is not None else "center",
             "verticalalignment": style.valign if style.valign is not None else "center",
             "linespacing": style.text_line_spacing,
+            "alpha": style.alpha,
         }
 
         return {k: v for k, v in options.items() if v is not None}
@@ -216,7 +217,7 @@ class TextUtil:
             "edgecolor": lcolor,
             "linestyle": style.text_bg_line_style if style.text_bg_line_style is not None else "solid",
             "linewidth": style.text_bg_line_width if style.text_bg_line_width is not None else 1.0,
-            "alpha": style.text_bg_fill_alpha,
+            "alpha": style.alpha,
         }
 
         return {k: v for k, v in bbox_dict.items() if v is not None}

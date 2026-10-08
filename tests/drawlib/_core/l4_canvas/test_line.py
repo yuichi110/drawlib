@@ -38,7 +38,7 @@ class TestCanvasLine:
         line((10, 10), (90, 90), style=s_def)
 
         # With line styling
-        style = Style(line_width=3, line_color=Colors.Red, line_style="dashdot", line_alpha=0.5)
+        style = Style(line_width=3, line_color=Colors.Red, line_style="dashdot", alpha=0.5)
         line((20, 80), (80, 20), style=style)
 
         # Arrowheads and arrow fill
@@ -95,7 +95,7 @@ class TestCanvasLine:
         """Verify quadratic and cubic Bezier line drawing."""
         clear()
 
-        style = Style(line_width=3, line_color=Colors.Red, line_style="dotted", line_alpha=1)
+        style = Style(line_width=3, line_color=Colors.Red, line_style="dotted", alpha=1)
         line_bezier1((20, 20), (50, 50), (80, 20), style=style)
         line_bezier2((20, 20), (20, 50), (80, 50), (80, 20), style=style)
 

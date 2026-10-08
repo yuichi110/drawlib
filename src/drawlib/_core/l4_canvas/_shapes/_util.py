@@ -68,7 +68,7 @@ class ShapeUtil:
 
         # Automatic contrast resolution
         fill_color = shape_style.shape_fill_color
-        fill_alpha = shape_style.shape_fill_alpha
+        fill_alpha = shape_style.alpha
         text_col = ColorUtil.get_contrast_text_color(
             fill_color,
             fill_alpha,
@@ -360,7 +360,7 @@ class ShapeUtil:
             "edgecolor": lcolor,
             "linestyle": style.shape_line_style if style.shape_line_style is not None else "solid",
             "linewidth": style.shape_line_width,
-            "alpha": style.shape_fill_alpha,
+            "alpha": style.alpha,
         }
 
         return {k: v for k, v in options.items() if v is not None}

@@ -102,7 +102,7 @@ class TestCanvasPatches:
                 shape_line_width=5,
                 shape_line_style="dashdot",
                 shape_fill_color=Colors.Blue,
-                shape_fill_alpha=0.7,
+                alpha=0.7,
             ),
         )
 

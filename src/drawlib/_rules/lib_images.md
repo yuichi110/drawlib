@@ -41,7 +41,7 @@ image(
 | `width` | `float` | Required | Width of the image in canvas units. Height is calculated automatically from the image aspect ratio. |
 | `image` | `str \| Image \| Dimage`| Required | Filesystem path to an image file (`.png`, `.jpg`, `.webp`), a PIL `Image`, or a `Dimage`. |
 | `angle` | `float` | `0.0` | Counter-clockwise rotation angle in degrees around the anchor point. |
-| `style` | `Style \| None` | `None` | Style controlling transparency (`image_alpha`), tint color (`image_tint_color`), or border (`image_border_width`, `image_border_color`). |
+| `style` | `Style \| None` | `None` | Style controlling transparency (`alpha`), tint color (`image_tint_color`), or border (`image_border_width`, `image_border_color`). |
 
 ### Anchor Alignment
 By default, `(x, y)` corresponds to the **geometric center** of the image in canvas coordinates.
@@ -170,7 +170,7 @@ badge_img = get_dimage_from_code(badge_code)
 rectangle((50, 25), width=80, height=36, r=4, style=Styles.MutedDashed)
 
 # Place image with alpha transparency
-image_style = Styles.Primary.patch(image_alpha=0.6)
+image_style = Styles.Primary.patch(alpha=0.6)
 image((50, 25), width=20, image=badge_img, style=image_style)
 text((50, 12), "Watermarked Badge", style=Styles.DarkBold)
 save()

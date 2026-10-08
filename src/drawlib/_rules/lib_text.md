@@ -211,8 +211,7 @@ When pre-defined styles are insufficient, pass a custom `Style` instance to cont
 
 ### 5.2. Text Background Box Attributes in `Style`
 Drawlib can automatically render a padded background rectangle behind the text block (useful for overlaying readable text across busy diagram lines):
-- **`text_bg_fill_color` (tuple | str | Color)**: Background fill color.
-- **`text_bg_fill_alpha` (float)**: Transparency of background fill (`0.0` transparent to `1.0` opaque).
+- **`text_bg_fill_color` (tuple | str | Color)**: Background fill color (use an RGBA tuple or `Color(..., alpha=...)` for semi-transparent background fill).
 - **`text_bg_line_color` (tuple | str | Color)**: Border color of the background box.
 - **`text_bg_line_width` (float)**: Border stroke width (set to `0` for borderless background).
 - **`text_bg_line_style` (str)**: Border line pattern (`"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`).
@@ -235,7 +234,6 @@ badge_style = Style(
     halign="center",
     valign="center",
     text_bg_fill_color=Colors.Navy,
-    text_bg_fill_alpha=0.9,
     text_bg_line_color=CssColors.LightBlue,
     text_bg_line_width=1.5,
     text_bg_line_style="solid",

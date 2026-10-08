@@ -53,6 +53,7 @@ def font_icon(
         xy_shift=style_obj.xy_shift,
         xy_abs_shift=style_obj.xy_abs_shift,
         angle=style_obj.angle,
+        alpha=style_obj.alpha,
     )
 
     # draw icon as text

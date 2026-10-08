@@ -246,7 +246,6 @@ def _render_entity(
         height=h,
         style=Style(
             shape_fill_color=Colors.Transparent,
-            shape_fill_alpha=0.0,
             shape_line_color=border_color,
             shape_line_width=box_style.shape_line_width or 1.5,
         ),
@@ -472,8 +471,7 @@ def _render_relationship_label(
     base_label_style = Style(
         text_size=9.5,
         text_font=Font.SANSSERIF_REGULAR,
-        text_bg_fill_color=Colors.White,
-        text_bg_fill_alpha=0.9,
+        text_bg_fill_color=(255, 255, 255, 0.9),
         text_bg_line_color=(226, 232, 240, 1.0),
         text_bg_line_width=0.5,
         halign="center",

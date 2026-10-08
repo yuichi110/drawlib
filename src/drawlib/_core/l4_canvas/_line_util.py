@@ -81,7 +81,7 @@ class LineUtil:
             "linewidth": style.line_width,
             "linestyle": style.line_style if style.line_style is not None else "solid",
             "color": color,
-            "alpha": style.line_alpha,
+            "alpha": style.alpha,
         }
 
         if not arrow_head:

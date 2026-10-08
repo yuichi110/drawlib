@@ -418,7 +418,7 @@ Vector icons and raster GCP icons handle color customization differently:
 
 2. **GCP Multi-Color Icons**:
    - **Default**: Preserves official Google brand colors (Red, Blue, Green, Yellow).
-   - **Alpha Transparency (`image_alpha`)**: Fades the entire icon (useful for background or inactive states).
+   - **Alpha Transparency (`alpha`)**: Fades the entire icon (useful for background or inactive states).
    - **Silhouette Color Mask (`image_tint_color`)**: Replaces the multi-color artwork with a solid flat silhouette mask.
    - **Border Outline (`image_border_color`, `image_border_width`, `image_border_style`)**: Draws an explicit boundary frame around the icon bounding box.
 
@@ -436,8 +436,8 @@ gcp.cloud_run((18, 25), width=11, style=Styles.Primary)
 text((18, 10), "Default Multi-color", style=Styles.Primary.patch(text_size=8))
 
 # 2. Semi-transparent (decommissioned / background service)
-gcp.cloud_run((45, 25), width=11, style=Styles.Primary.patch(image_alpha=0.35))
-text((45, 10), "image_alpha=0.35", style=Styles.Primary.patch(text_size=8))
+gcp.cloud_run((45, 25), width=11, style=Styles.Primary.patch(alpha=0.35))
+text((45, 10), "alpha=0.35", style=Styles.Primary.patch(text_size=8))
 
 # 3. Solid color silhouette mask
 gcp.cloud_run((72, 25), width=11, style=Styles.Primary.patch(image_tint_color=Colors.Red))

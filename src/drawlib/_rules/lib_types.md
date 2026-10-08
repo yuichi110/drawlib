@@ -35,7 +35,6 @@ Style(
 
     # Shape Properties (rectangle, circle, polygon, etc.)
     shape_fill_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
-    shape_fill_alpha: float | None = None,
     shape_line_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     shape_line_width: float | None = None,
     shape_line_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
@@ -44,7 +43,6 @@ Style(
     line_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     line_width: float | None = None,
     line_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
-    line_alpha: float | None = None,
     line_arrow_head_fill: bool | None = None,
     line_arrow_head_scale: float | None = None,
 
@@ -55,7 +53,6 @@ Style(
     text_flip: bool | None = None,
     text_line_spacing: float | None = None,
     text_bg_fill_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
-    text_bg_fill_alpha: float | None = None,
     text_bg_line_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     text_bg_line_width: float | None = None,
     text_bg_line_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
@@ -66,7 +63,6 @@ Style(
 
     # Image Properties
     image_tint_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
-    image_alpha: float | None = None,
     image_border_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     image_border_width: float | None = None,
     image_border_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
@@ -77,6 +73,7 @@ Style(
     xy_shift: tuple[float, float] | None = None,
     xy_abs_shift: tuple[float, float] | None = None,
     angle: float | None = None,
+    alpha: float | None = None,
 )
 ```
 
@@ -85,7 +82,6 @@ Style(
 | :--- | :--- | :--- |
 | `supports` | `frozenset` | Declared targets (`"shape"`, `"line"`, `"text"`, `"icon"`, `"image"`). Inferred if omitted. |
 | `shape_fill_color` | `ColorType` | Background/interior fill color for shapes (`tuple`, `Color`, or hex `str`). |
-| `shape_fill_alpha` | `float` | Shape fill opacity (`0.0` = fully transparent, `1.0` = fully opaque). |
 | `shape_line_color` | `ColorType` | Shape border stroke color. |
 | `shape_line_width` | `float` | Shape border stroke thickness in points. |
 | `shape_line_style` | `str` | Shape border pattern: `"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`. |
@@ -106,6 +102,7 @@ Style(
 | `xy_shift` | `tuple` | Normalized relative offset `(dx, dy)` in the target's rotated coordinate space. |
 | `xy_abs_shift` | `tuple` | Absolute coordinate offset `(dx, dy)` in canvas units. |
 | `angle` | `float` | Counter-clockwise rotation angle in degrees. |
+| `alpha` | `float` | Overall element opacity (`0.0` = fully transparent, `1.0` = fully opaque). |
 
 ### Immutability & Derivation via `.patch()`
 In Drawlib v0.3, `Style` instances are strictly **frozen** and immutable (`frozen=True`, `extra="forbid"`). Attempting to mutate an attribute directly raises an error.

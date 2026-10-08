@@ -176,7 +176,7 @@ class TestCanvasBase:
             style=s_def.patch(
                 shape_line_color=Colors.Blue,
                 shape_fill_color=Colors.Yellow,
-                shape_fill_alpha=0.5,
+                alpha=0.5,
                 shape_line_style="dashed",
                 shape_line_width=3,
             ),

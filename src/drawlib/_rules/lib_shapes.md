@@ -186,7 +186,7 @@ from drawlib.types import Style
 
 custom_shape_style = Style(
     shape_fill_color=CssColors.AliceBlue,      # Interior fill color (RGB, RGBA, or hex)
-    shape_fill_alpha=0.85,                     # Opacity float: 0.0 (transparent) to 1.0 (opaque)
+    alpha=0.85,                                # Opacity float: 0.0 (transparent) to 1.0 (opaque)
     shape_line_color=CssColors.SteelBlue,      # Stroke boundary color
     shape_line_width=2.5,                      # Stroke thickness in points (0 disables border)
     shape_line_style="dashed",                 # "solid" | "dashed" | "dotted" | "dashdot"
@@ -198,14 +198,14 @@ custom_shape_style = Style(
 #### System Defaults (`SYSTEM_DEFAULT_SHAPE_STYLE`)
 Unless overridden, all shapes inherit these baseline attributes:
 - `shape_fill_color`: `Colors.White` `(255, 255, 255)`
-- `shape_fill_alpha`: `1.0` (fully opaque)
+- `alpha`: `1.0` (fully opaque)
 - `shape_line_color`: `Colors.Black` `(0, 0, 0)`
 - `shape_line_width`: `1.0`
 - `shape_line_style`: `"solid"`
 - `halign`: `"center"`
 - `valign`: `"center"`
 
-To eliminate a shape's border line entirely, explicitly set `shape_line_width=0`. To make a shape completely hollow/transparent, pass `shape_fill_alpha=0.0`.
+To eliminate a shape's border line entirely, explicitly set `shape_line_width=0`. To make a shape interior hollow/transparent, pass `shape_fill_color=Colors.Transparent`.
 
 ---
 
@@ -310,7 +310,7 @@ circle(
     angle=35,
     style=Styles.Primary.patch(
         shape_fill_color=CssColors.DeepSkyBlue,
-        shape_fill_alpha=0.3,
+        alpha=0.3,
         shape_line_style="dashed",
         shape_line_width=2,
     ),
@@ -580,7 +580,7 @@ fan(
     angle_end=150,
     style=Styles.Primary.patch(
         shape_fill_color=CssColors.LightGreen,
-        shape_fill_alpha=0.4,
+        alpha=0.4,
         shape_line_color=CssColors.ForestGreen,
         shape_line_width=1.5,
     ),

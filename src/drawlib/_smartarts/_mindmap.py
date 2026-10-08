@@ -447,7 +447,7 @@ class MindMapNode:
                     shape_line_width=0,
                     shape_line_color=(0, 0, 0, 0.0),
                     shape_fill_color=(0, 0, 0, 0.0),
-                    shape_fill_alpha=0.0,
+                    alpha=0.0,
                 )
                 rectangle(
                     xy=(cx, cy),

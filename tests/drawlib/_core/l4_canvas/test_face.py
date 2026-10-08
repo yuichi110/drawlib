@@ -87,7 +87,7 @@ class TestCanvasFace:
 
     def test_face_alpha_transparency(self) -> None:
         """Verify semi-transparent face styling."""
-        style = Styles.PrimaryNeutral.patch(shape_fill_alpha=0.5)
+        style = Styles.PrimaryNeutral.patch(alpha=0.5)
         face((50, 50), radius=10, style=style, mood="smile")
         assert len(canvas._artists) == 4
 

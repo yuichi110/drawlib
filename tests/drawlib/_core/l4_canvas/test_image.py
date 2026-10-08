@@ -108,7 +108,7 @@ class TestCanvasImage:
             xy=(50, 50),
             width=30,
             image=IMAGE_FILE,
-            style=Style(image_alpha=0.1),
+            style=Style(alpha=0.1),
         )
         save(f"{OUTPUT_DIR}test_file_effects.png")
 

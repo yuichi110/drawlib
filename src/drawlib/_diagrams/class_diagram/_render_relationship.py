@@ -427,7 +427,6 @@ def _render_relationship_annotations(
             text_size=8.5,
             text_font=Font.SANSSERIF_REGULAR,
             text_bg_fill_color=(255, 255, 255, 0.9),
-            text_bg_fill_alpha=0.9,
             text_bg_line_color=(226, 232, 240, 1.0),
             text_bg_line_width=0.5,
             halign="center",

@@ -48,7 +48,7 @@ class TestCanvasGcp:
         gcp.compute_engine(
             xy=(25, 25),
             width=20,
-            style=Style(image_alpha=0.4),
+            style=Style(alpha=0.4),
         )
         # Silhouette fill color
         gcp.compute_engine(

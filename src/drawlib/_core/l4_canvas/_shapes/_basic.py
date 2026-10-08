@@ -54,7 +54,7 @@ def _get_cylinder_fill_colors(
     """
     if style.shape_fill_color is None:
         return "none", "none"
-    raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.shape_fill_alpha)
+    raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
     if raw_fill[3] <= 0.0:
         return "none", "none"
     top_fill = (
@@ -1015,7 +1015,7 @@ def _get_face_colors(
     if style.shape_fill_color is None:
         face_fill: tuple[float, float, float, float] | str = "none"
     else:
-        raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.shape_fill_alpha)
+        raw_fill = ColorUtil.get_mplot_rgba(style.shape_fill_color, alpha=style.alpha)
         face_fill = "none" if raw_fill[3] <= 0.0 else raw_fill
 
     stroke_color: tuple[float, float, float, float] | str = raw_stroke if has_stroke else "none"
@@ -1027,23 +1027,23 @@ def _get_face_colors(
         feature_color = ColorUtil.get_mplot_rgba(style.text_color)
         feature_w = 1.5
     else:
-        contrast_col = ColorUtil.get_contrast_text_color(style.shape_fill_color, style.shape_fill_alpha)
+        contrast_col = ColorUtil.get_contrast_text_color(style.shape_fill_color, style.alpha)
         feature_color = ColorUtil.get_mplot_rgba(contrast_col)
         feature_w = 1.5
 
-    if style.shape_fill_alpha is not None and 0.0 < style.shape_fill_alpha < 1.0:
+    if style.alpha is not None and 0.0 < style.alpha < 1.0:
         feature_color = (
             feature_color[0],
             feature_color[1],
             feature_color[2],
-            round(feature_color[3] * style.shape_fill_alpha, 5),
+            round(feature_color[3] * style.alpha, 5),
         )
         if isinstance(stroke_color, tuple):
             stroke_color = (
                 stroke_color[0],
                 stroke_color[1],
                 stroke_color[2],
-                round(stroke_color[3] * style.shape_fill_alpha, 5),
+                round(stroke_color[3] * style.alpha, 5),
             )
 
     return face_fill, stroke_color, feature_color, feature_w

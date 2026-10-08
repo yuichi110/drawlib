@@ -176,13 +176,13 @@ class TestShapeProperties:
         """Test valid shape property values."""
         s = Style(
             shape_fill_color=Colors.Blue,
-            shape_fill_alpha=0.8,
+            alpha=0.8,
             shape_line_color=Colors.Black,
             shape_line_width=2.0,
             shape_line_style="dashed",
         )
         assert s.shape_fill_color == Colors.Blue
-        assert s.shape_fill_alpha == 0.8
+        assert s.alpha == 0.8
         assert s.shape_line_color == Colors.Black
         assert s.shape_line_width == 2.0
         assert s.shape_line_style == "dashed"
@@ -194,7 +194,7 @@ class TestShapeProperties:
         with pytest.raises(ValueError):
             Style(shape_line_width=-1.0)
         with pytest.raises(ValueError):
-            Style(shape_fill_alpha=1.5)
+            Style(alpha=1.5)
 
 
 class TestLineProperties:
@@ -206,14 +206,14 @@ class TestLineProperties:
             line_color=Colors.Green,
             line_width=3.0,
             line_style="dotted",
-            line_alpha=0.9,
+            alpha=0.9,
             line_arrow_head_fill=True,
             line_arrow_head_scale=15.0,
         )
         assert s.line_color == Colors.Green
         assert s.line_width == 3.0
         assert s.line_style == "dotted"
-        assert s.line_alpha == 0.9
+        assert s.alpha == 0.9
         assert s.line_arrow_head_fill is True
         assert s.line_arrow_head_scale == 15.0
 
@@ -237,12 +237,12 @@ class TestTextProperties:
             halign="center",
             valign="bottom",
             angle=45.0,
+            alpha=0.5,
             text_flip=True,
             text_line_spacing=1.5,
             xy_shift=(2.0, 3.0),
             xy_abs_shift=(1.0, -1.0),
             text_bg_fill_color=Colors.Gray3,
-            text_bg_fill_alpha=0.5,
             text_bg_line_color=Colors.Black,
             text_bg_line_width=1.0,
             text_bg_line_style="solid",
@@ -253,6 +253,7 @@ class TestTextProperties:
         assert s.halign == "center"
         assert s.valign == "bottom"
         assert s.angle == 45.0
+        assert s.alpha == 0.5
         assert s.text_flip is True
         assert s.text_line_spacing == 1.5
         assert s.xy_shift == (2.0, 3.0)
@@ -299,13 +300,13 @@ class TestImageProperties:
         """Test valid image property values."""
         s = Style(
             image_tint_color=Colors.Gray3,
-            image_alpha=0.7,
+            alpha=0.7,
             image_border_color=Colors.Black,
             image_border_width=2.0,
             image_border_style="solid",
         )
         assert s.image_tint_color == Colors.Gray3
-        assert s.image_alpha == 0.7
+        assert s.alpha == 0.7
         assert s.image_border_color == Colors.Black
         assert s.image_border_width == 2.0
         assert s.image_border_style == "solid"
@@ -315,4 +316,4 @@ class TestImageProperties:
         with pytest.raises(ValueError):
             Style(image_border_width=-1.0)
         with pytest.raises(ValueError):
-            Style(image_alpha=2.0)
+            Style(alpha=2.0)

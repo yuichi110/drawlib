@@ -95,7 +95,7 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
         x, y = self._shift_xy(x, y, width, height, style)
 
         im = self._convert_dimg_to_numpyarray(dimg)
-        imagebox = offsetbox.OffsetImage(im, zoom=zoom, alpha=style.image_alpha)
+        imagebox = offsetbox.OffsetImage(im, zoom=zoom, alpha=style.alpha)
         ab = offsetbox.AnnotationBbox(imagebox, (x, y), frameon=False)
 
         self._artists.append(ab)
@@ -183,7 +183,7 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
             shape_line_width=style.image_border_width,
             shape_line_color=border_color,
             shape_fill_color=BaseColors.Transparent,
-            shape_fill_alpha=style.image_alpha,
+            alpha=style.alpha,
         )
         self.rectangle(xy=xy, width=width, height=height, angle=angle, style=shapestyle)
 

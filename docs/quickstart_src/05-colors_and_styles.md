@@ -62,7 +62,7 @@ from drawlib.styles import Styles
 
 # Derive a custom style by modifying specific attributes
 callout_style = Styles.AccentFlat.patch(
-    shape_fill_alpha=0.85,
+    alpha=0.85,
     text_size=11.0,
     shape_line_width=1.5,
 )

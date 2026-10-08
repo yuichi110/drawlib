@@ -86,7 +86,7 @@ class TestLineUtil:
             line_width=3.5,
             line_style="dashed",
             line_color=(255, 0, 0),
-            line_alpha=0.9,
+            alpha=0.9,
             line_arrow_head_scale=15.0,
             line_arrow_head_fill=True,
         )

@@ -180,7 +180,6 @@ def render_class_node(
         r=1.0,
         style=Style(
             shape_fill_color=Colors.Transparent,
-            shape_fill_alpha=0.0,
             shape_line_color=border_color,
             shape_line_width=1.5,
         ),

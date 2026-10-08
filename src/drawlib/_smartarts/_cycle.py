@@ -452,7 +452,7 @@ class Cycle:
         if self._node_shape == "none":
             return (40, 40, 40, 1.0), (80, 80, 80, 1.0)
         fill_color = node_style.shape_fill_color
-        fill_alpha = node_style.shape_fill_alpha
+        fill_alpha = node_style.alpha
         title_color = ColorUtil.get_contrast_text_color(fill_color, fill_alpha)
         desc_color = ColorUtil.get_contrast_text_color(
             fill_color,
@@ -569,7 +569,7 @@ class Cycle:
         canvas_circle(xy=(cx, cy), radius=center.radius, style=c_style)
 
         fill_color = c_style.shape_fill_color
-        fill_alpha = c_style.shape_fill_alpha
+        fill_alpha = c_style.alpha
         def_center_title_col = ColorUtil.get_contrast_text_color(
             fill_color,
             fill_alpha,

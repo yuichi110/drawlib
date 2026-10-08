@@ -141,7 +141,6 @@ class Style(BaseModel):
 
     # --- Shape Properties (rectangle, circle, polygon, etc.) ---
     shape_fill_color: ColorType | None = None
-    shape_fill_alpha: Alpha | None = None
     shape_line_color: ColorType | None = None
     shape_line_width: PosFloat | None = None
     shape_line_style: LineStyle | None = None
@@ -150,7 +149,6 @@ class Style(BaseModel):
     line_color: ColorType | None = None
     line_width: PosFloat | None = None
     line_style: LineStyle | None = None
-    line_alpha: Alpha | None = None
     line_arrow_head_fill: bool | None = None
     line_arrow_head_scale: PosFloat | None = None
 
@@ -161,7 +159,6 @@ class Style(BaseModel):
     text_flip: bool | None = None
     text_line_spacing: PosFloat | None = None
     text_bg_fill_color: ColorType | None = None
-    text_bg_fill_alpha: Alpha | None = None
     text_bg_line_color: ColorType | None = None
     text_bg_line_width: PosFloat | None = None
     text_bg_line_style: LineStyle | None = None
@@ -172,17 +169,17 @@ class Style(BaseModel):
 
     # --- Image Properties (image) ---
     image_tint_color: ColorType | None = None
-    image_alpha: Alpha | None = None
     image_border_color: ColorType | None = None
     image_border_width: PosFloat | None = None
     image_border_style: LineStyle | None = None
 
-    # --- Offset & Transform Properties (halign, valign, xy_shift, xy_abs_shift, angle) ---
+    # --- Offset & Transform Properties (halign, valign, xy_shift, xy_abs_shift, angle, alpha) ---
     halign: HAlign | None = None
     valign: VAlign | None = None
     xy_shift: Coordinate | None = None
     xy_abs_shift: Coordinate | None = None
     angle: Angle | None = None
+    alpha: Alpha | None = None
 
     def patch(
         self,
@@ -191,7 +188,6 @@ class Style(BaseModel):
         supports: frozenset[SupportType] | set[SupportType] | list[SupportType] | None = None,
         # Shape Properties
         shape_fill_color: ColorType | None = None,
-        shape_fill_alpha: Alpha | None = None,
         shape_line_color: ColorType | None = None,
         shape_line_width: PosFloat | None = None,
         shape_line_style: LineStyle | None = None,
@@ -199,7 +195,6 @@ class Style(BaseModel):
         line_color: ColorType | None = None,
         line_width: PosFloat | None = None,
         line_style: LineStyle | None = None,
-        line_alpha: Alpha | None = None,
         line_arrow_head_fill: bool | None = None,
         line_arrow_head_scale: PosFloat | None = None,
         # Text Properties
@@ -209,7 +204,6 @@ class Style(BaseModel):
         text_flip: bool | None = None,
         text_line_spacing: PosFloat | None = None,
         text_bg_fill_color: ColorType | None = None,
-        text_bg_fill_alpha: Alpha | None = None,
         text_bg_line_color: ColorType | None = None,
         text_bg_line_width: PosFloat | None = None,
         text_bg_line_style: LineStyle | None = None,
@@ -218,7 +212,6 @@ class Style(BaseModel):
         icon_style: IconStyle | None = None,
         # Image Properties
         image_tint_color: ColorType | None = None,
-        image_alpha: Alpha | None = None,
         image_border_color: ColorType | None = None,
         image_border_width: PosFloat | None = None,
         image_border_style: LineStyle | None = None,
@@ -228,6 +221,7 @@ class Style(BaseModel):
         xy_shift: Coordinate | None = None,
         xy_abs_shift: Coordinate | None = None,
         angle: Angle | None = None,
+        alpha: Alpha | None = None,
     ) -> Style:
         """Return a new Style instance with updated attributes.
 
@@ -235,14 +229,12 @@ class Style(BaseModel):
             other: Another Style whose non-None attributes will be applied first.
             supports: Supported target declaration (shape, line, text, icon, image).
             shape_fill_color: Fill color for shapes.
-            shape_fill_alpha: Alpha transparency for shape fill.
             shape_line_color: Border line color for shapes.
             shape_line_width: Border line width for shapes.
             shape_line_style: Border line style for shapes.
             line_color: Stroke color for lines.
             line_width: Stroke width for lines.
             line_style: Stroke style for lines.
-            line_alpha: Alpha transparency for lines.
             line_arrow_head_fill: Whether arrowhead is filled.
             line_arrow_head_scale: Arrowhead scale multiplier.
             text_color: Font color for text.
@@ -251,14 +243,12 @@ class Style(BaseModel):
             text_flip: Whether text is flipped horizontally.
             text_line_spacing: Line spacing multiplier for multi-line text.
             text_bg_fill_color: Background box fill color for text.
-            text_bg_fill_alpha: Background box fill alpha for text.
             text_bg_line_color: Background box border line color for text.
             text_bg_line_width: Background box border line width for text.
             text_bg_line_style: Background box border line style for text.
             icon_color: Color for icons.
             icon_style: Icon style variant.
             image_tint_color: Tint color for images.
-            image_alpha: Alpha transparency for images.
             image_border_color: Border line color for images.
             image_border_width: Border line width for images.
             image_border_style: Border line style for images.
@@ -267,6 +257,7 @@ class Style(BaseModel):
             xy_shift: Relative XY coordinate shift.
             xy_abs_shift: Absolute XY coordinate shift.
             angle: Rotation angle in degrees.
+            alpha: Overall opacity (0.0 = transparent, 1.0 = opaque).
 
         Returns:
             Style: New Style instance with updated attributes.
@@ -311,20 +302,18 @@ class Style(BaseModel):
 Style.Transparent = Style(
     supports=ALL_SUPPORTS,
     shape_fill_color=Color(0, 0, 0, 0.0),
-    shape_fill_alpha=0.0,
     shape_line_color=Color(0, 0, 0, 0.0),
     shape_line_width=0.0,
     shape_line_style="solid",
     line_color=Color(0, 0, 0, 0.0),
     line_width=0.0,
     line_style="solid",
-    line_alpha=0.0,
     text_color=Color(0, 0, 0, 0.0),
     text_size=12.0,
     text_font=FontEnum.SANSSERIF_REGULAR,
     icon_color=Color(0, 0, 0, 0.0),
     icon_style="regular",
-    image_alpha=0.0,
+    alpha=0.0,
 )
 
 

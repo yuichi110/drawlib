@@ -82,7 +82,7 @@ class TestCanvasCylinder:
 
     def test_cylinder_alpha_transparency(self) -> None:
         """Verify semi-transparent cylinder styling."""
-        style = Styles.PrimaryFlat.patch(shape_fill_alpha=0.4)
+        style = Styles.PrimaryFlat.patch(alpha=0.4)
         cylinder((50, 50), width=20, height=30, style=style)
         assert len(canvas._artists) == 2
 

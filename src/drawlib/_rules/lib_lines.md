@@ -739,7 +739,7 @@ custom_style = Styles.Primary.patch(
     line_color=Colors.Red,        # Stroke color (RGB/RGBA tuple, Colors.*, or hex)
     line_width=2.5,               # Stroke width in points (default: 1.0)
     line_style="dashed",          # Stroke pattern: "solid" | "dashed" | "dotted" | "dashdot"
-    line_alpha=0.85,              # Overall opacity [0.0 (transparent) to 1.0 (opaque)]
+    alpha=0.85,                   # Overall opacity [0.0 (transparent) to 1.0 (opaque)]
     line_arrow_head_fill=True,    # Filled arrowhead triangle
     line_arrow_head_scale=24.0,   # Arrowhead size
 )

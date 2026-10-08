@@ -37,7 +37,7 @@ image(
 - **`width`**: Width of the image in canvas units. The height scales proportionally.
 - **`image`**: File path (`.png`, `.jpg`, `.svg`), PIL `Image` instance, or `Dimage` object.
 - **`angle`**: Counter-clockwise rotation angle around `xy`.
-- **`style`**: Optional styling controlling opacity (`image_alpha`) or alignment.
+- **`style`**: Optional styling controlling opacity (`alpha`) or alignment.
 
 ### Changing Anchor Alignment
 By default, `(x, y)` anchors the center of the image. To position an image by its bottom-left corner:
