@@ -153,3 +153,11 @@ def test_all_css_presets_have_syntax_highlighting_styles() -> None:
         content = get_css(preset["name"], target="pdf")
         assert "--rtd-code-keyword" in content, f"Missing --rtd-code-keyword in pdf preset '{preset['name']}'"
         assert "pre code .k" in content, f"Missing 'pre code .k' rule in pdf preset '{preset['name']}'"
+        assert "font-size: 0.76rem;" in content, f"Missing compact table font-size in pdf preset '{preset['name']}'"
+        assert "font-size: 0.75rem !important;" in content, f"Missing compact pre font-size in pdf '{preset['name']}'"
+        assert "th code, td code" in content, f"Missing 'th code, td code' rule in pdf preset '{preset['name']}'"
+
+    doc_css = get_css("google", target="doc")
+    assert "font-size: 0.76rem;" in doc_css
+    assert "font-size: 0.75rem !important;" in doc_css
+    assert "th code, td code" in doc_css
