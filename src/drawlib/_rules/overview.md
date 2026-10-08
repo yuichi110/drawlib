@@ -734,15 +734,15 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.22. Presentation Slides & Stage (`lib-slide`)
-- **Command**: `drawlib rules show lib-slide`
-- **Scope**: Universal 16:9 widescreen presentation stage (1920x1080), dynamic `current_slide` runtime proxy, container layout blocks (`::: block`, `::: box`), standalone HTML deck (`slide.js`), and vector PDF presentation export.
+### 5.22. Presentation Slides & Stage (`lib-slide` & `slide-guide`)
+- **Commands**: `drawlib rules show slide-guide` (Markdown block syntax & stage layouts) and `drawlib rules show lib-slide` (Python API)
+- **Scope**: Universal 16:9 widescreen presentation stage (1920x1080), container layout blocks (`::: block`, `::: note`), dynamic `current_slide` runtime proxy, `SlideContext`, `BoundingBox`, `build_slide()`, interactive `<canvas>` animations, Presenter View (`?presenter=1`), and vector PDF presentation export.
 - **Key Syntax**:
   ```python
   from drawlib.slide import BoundingBox, current_slide
-  text((1800, 50), current_slide.text, style=Styles.MutedSmall)
+  text((7, 1.5), current_slide.text, style=Styles.MutedSmall)
   ```
-- **When to read**: Refer to this rule when authoring presentation slide decks, configuring slide templates, or troubleshooting slide coordinate layouts.
+- **When to read**: Refer to `slide-guide` when authoring presentation slide decks, placing `::: block` containers, or adding speaker notes, and `lib-slide` when using the `drawlib.slide` Python API.
 
 ---
 

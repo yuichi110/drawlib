@@ -47,6 +47,7 @@ def test_cli_rules_list() -> None:
         "overview",
         "style-guide",
         "anim-guide",
+        "slide-guide",
         "project",
         "cli",
         "api",
@@ -80,6 +81,7 @@ def test_cli_rules_list() -> None:
         ("overview", "# Drawlib Agent Drawing Guidelines"),
         ("style-guide", "# Drawlib Diagram Style Guide & Aesthetic Philosophy"),
         ("anim-guide", "# Drawlib Animation Design & Best Practices Guide"),
+        ("slide-guide", "# Drawlib Slide Authoring & Stage Layout Guide"),
         ("project", "# Drawlib Project Architecture & Scaffolding Guidelines"),
         ("cli", "# Drawlib CLI Guidelines"),
         ("api", "# Drawlib API Reference & Cheat Sheet"),
@@ -128,6 +130,10 @@ def test_cli_rules_show_underscore_normalization() -> None:
     res_anim = run_drawlib_cli(["rules", "show", "anim_guide"])
     assert res_anim.returncode == 0
     assert "# Drawlib Animation Design & Best Practices Guide" in res_anim.stdout
+
+    res_slide = run_drawlib_cli(["rules", "show", "slide_guide"])
+    assert res_slide.returncode == 0
+    assert "# Drawlib Slide Authoring & Stage Layout Guide" in res_slide.stdout
 
 
 @pytest.mark.parametrize(

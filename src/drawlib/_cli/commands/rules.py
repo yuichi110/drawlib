@@ -40,6 +40,7 @@ GENERAL_TOPICS: Final[dict[str, str]] = {
     "overview": "Canvas lifecycle, coordinate system, core imports, and workflow",
     "style-guide": "Diagram design principles, visual hierarchy, 6-color semantic system, and layout best practices",
     "anim-guide": "Animation design principles, loop idioms, and component animation patterns across all modules",
+    "slide-guide": "16:9 presentation slide authoring, ::: block/note syntax, stage layouts, and Presenter View",
     "project": "Project scaffolding (init), directory structure (docs_src), navbar rules, and build workflows",
     "cli": "Document compilation, export, preview, and cache CLI commands",
     "api": "Comprehensive API index and quick reference cheat sheet for all Drawlib modules",
@@ -64,7 +65,7 @@ LIBRARY_TOPICS: Final[dict[str, str]] = {
     "lib-diagrams": "Flowcharts, sequence, state, class, ER, and architecture diagrams",
     "lib-graph": "Declarative graph layout solvers (Architecture, Layer, Tree, Radial, Grid) and code export",
     "lib-tools": "Python developer API for document building, diagram export, and cache management",
-    "lib-slide": "16:9 presentation slide deck stage, SlideContext, current_slide, and stage layout blocks",
+    "lib-slide": "Python API for presentation slides (current_slide, SlideContext, BoundingBox, build_slide)",
 }
 
 TOPIC_DESCRIPTIONS: Final[dict[str, str]] = {
