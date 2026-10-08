@@ -45,11 +45,12 @@ def test_serve_docs_serves_files(tmp_path) -> None:
     )
     server_thread.start()
 
-    url = f"http://localhost:{port}/index.html"
+    url = f"http://127.0.0.1:{port}/index.html"
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     last_err: Exception | None = None
     for _ in range(30):
         try:
-            with urllib.request.urlopen(url, timeout=2.0) as response:
+            with opener.open(url, timeout=2.0) as response:
                 assert response.status == 200
                 content = response.read().decode("utf-8")
                 assert "<h1>Server Test Page</h1>" in content

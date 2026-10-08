@@ -31,6 +31,7 @@ def create_deterministic_zip_bytes(source_dir: Path, files: list[str]) -> bytes:
             fpath = source_dir / fname
             data = fpath.read_bytes()
             zinfo = zipfile.ZipInfo(filename=fname, date_time=(2026, 1, 1, 0, 0, 0))
+            zinfo.create_system = 3
             zinfo.external_attr = 0o644 << 16
             zf.writestr(zinfo, data)
     return buf.getvalue()

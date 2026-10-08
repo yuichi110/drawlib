@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import functools
 import os
+import socketserver
 import sys
 import threading
 import time
@@ -20,6 +21,19 @@ import webbrowser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 from drawlib._http_server._link_scanner import scan_broken_links
+
+
+class _CustomHTTPServer(ThreadingHTTPServer):
+    """ThreadingHTTPServer that avoids slow reverse DNS lookups in server_bind."""
+
+    allow_reuse_address = True
+
+    def server_bind(self) -> None:
+        """Bind socket without calling socket.getfqdn, which can stall on macOS."""
+        socketserver.TCPServer.server_bind(self)
+        host, port = self.server_address[:2]
+        self.server_name = str(host) if host else "localhost"
+        self.server_port = int(port)
 
 
 class _CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
@@ -101,7 +115,7 @@ def serve_docs(
     server_address = ("", port)
 
     try:
-        httpd = ThreadingHTTPServer(server_address, handler_class)
+        httpd = _CustomHTTPServer(server_address, handler_class)
     except OSError as e:
         print(f"Error starting server on port {port}: {e}", file=sys.stderr)
         raise
