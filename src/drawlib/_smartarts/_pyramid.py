@@ -35,11 +35,11 @@ def _resolve_pyramid_text_style(item: PyramidItem, *, ensure_angle: bool = False
     text_style = item.text_style
     patch_kwargs: dict = {}
     if item.text_angle != 0.0:
-        patch_kwargs["text_angle"] = item.text_angle
-    elif ensure_angle and text_style.text_angle is None:
-        patch_kwargs["text_angle"] = 0
+        patch_kwargs["angle"] = item.text_angle
+    elif ensure_angle and text_style.angle is None:
+        patch_kwargs["angle"] = 0
     if item.text_xy_shift is not None:
-        patch_kwargs["text_xy_abs_shift"] = item.text_xy_shift
+        patch_kwargs["xy_abs_shift"] = item.text_xy_shift
     if patch_kwargs:
         text_style = text_style.patch(**patch_kwargs)
     return text_style

@@ -93,7 +93,7 @@ class TestCanvasArrow:
             head="->",
             text="Hello Drawlib",
             style=s_def,
-            text_style=s_def.patch(text_xy_shift=(2.5, 2.5)),
+            text_style=s_def.patch(xy_shift=(2.5, 2.5)),
         )
 
         # Other heads

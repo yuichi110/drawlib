@@ -142,7 +142,7 @@ def render_participant_header(
         text_color=text_color,
         text_halign="center",
         text_valign="center",
-        text_angle=participant.text_angle,
+        angle=participant.text_angle,
     )
     if participant.text_style:
         text_style = text_style.patch(participant.text_style)

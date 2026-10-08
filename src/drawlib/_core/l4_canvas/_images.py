@@ -27,6 +27,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_colors import BaseColors
 from drawlib._core.l3_images import Dimage
+from drawlib._core.l3_math import rotate_point
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._shapes._basic import CanvasShapeBasicFeature
 
@@ -62,8 +63,25 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
         """
         if style is None:
             style = Style(image_border_width=0)
+        if angle == 0.0 and style.angle is not None:
+            angle = style.angle
 
         x, y = xy
+        if style.xy_shift is not None:
+            x_shift, y_shift = style.xy_shift
+            if angle == 0:
+                x += x_shift
+                y += y_shift
+            else:
+                rx_shift, ry_shift = rotate_point((x_shift, y_shift), angle=angle)
+                x += rx_shift
+                y += ry_shift
+
+        if style.xy_abs_shift is not None:
+            x += style.xy_abs_shift[0]
+            y += style.xy_abs_shift[1]
+
+        base_xy = (x, y)
         dimg = Dimage(image, copy=True)
 
         if style.image_tint_color is not None:
@@ -81,7 +99,7 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
         ab = offsetbox.AnnotationBbox(imagebox, (x, y), frameon=False)
 
         self._artists.append(ab)
-        self._draw_border(xy, width, height, angle, style)
+        self._draw_border(base_xy, width, height, angle, style)
 
     @staticmethod
     def _rotate_image(dimg: Dimage, angle: Angle, style: Style) -> tuple[Dimage, Style]:

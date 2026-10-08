@@ -71,7 +71,7 @@ rectangle(
     r=2.5,
     style=Styles.PrimaryFlat,
     text="Shape Center\n(cx, cy)",
-    text_style=Styles.WhiteBold.patch(text_size=10, text_xy_shift=(0, 3.5)),
+    text_style=Styles.WhiteBold.patch(text_size=10, xy_shift=(0, 3.5)),
 )
 circle((cx, cy - 4.5), radius=1.6, style=Styles.WhiteFlat)
 

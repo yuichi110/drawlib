@@ -50,6 +50,9 @@ def font_icon(
         text_font=FontFile(file),
         text_halign="center",
         text_valign="center",
+        xy_shift=style_obj.xy_shift,
+        xy_abs_shift=style_obj.xy_abs_shift,
+        angle=style_obj.angle,
     )
 
     # draw icon as text

@@ -129,7 +129,7 @@ def _draw_grid_and_ticks(
     tick_label_style = val_axis.tick_label_style or chart.axis_text_style
     if tick_label_style is not None:
         tick_label_style = ensure_text_style(
-            tick_label_style.patch(text_angle=val_axis.tick_label_angle),
+            tick_label_style.patch(angle=val_axis.tick_label_angle),
             halign="right",
             valign="center",
         )
@@ -158,7 +158,7 @@ def _draw_category_labels(
     if cat_label_style is None:
         return
     cat_label_style = ensure_text_style(
-        cat_label_style.patch(text_angle=cat_axis.tick_label_angle),
+        cat_label_style.patch(angle=cat_axis.tick_label_angle),
         halign="center",
         valign="top",
     )

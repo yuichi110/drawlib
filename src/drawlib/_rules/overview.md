@@ -211,7 +211,7 @@ rectangle(
     height=bh,
     style=Styles.MutedDashed,
     text="Subsystem Boundary",
-    text_style=Styles.DarkBold.patch(text_xy_shift=(0, bh / 2 - 4)),
+    text_style=Styles.DarkBold.patch(xy_shift=(0, bh / 2 - 4)),
 )
 
 for i, xy in enumerate(nodes):

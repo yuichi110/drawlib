@@ -310,13 +310,13 @@ class ShapeUtil:
         """Get text object drawn inside shape center."""
         shape_angle = angle if angle is not None else 0.0
 
-        text_angle = style.text_angle if style.text_angle is not None else shape_angle
+        text_angle = style.angle if style.angle is not None else shape_angle
         if style.text_flip is not None and style.text_flip:
             text_angle = (text_angle + 180) % 360
 
         x, y = xy
-        if style.text_xy_shift is not None:
-            x_shift, y_shift = style.text_xy_shift
+        if style.xy_shift is not None:
+            x_shift, y_shift = style.xy_shift
             if shape_angle == 0:
                 x += x_shift
                 y += y_shift
@@ -325,9 +325,9 @@ class ShapeUtil:
                 x += rx_shift
                 y += ry_shift
 
-        if style.text_xy_abs_shift is not None:
-            x += style.text_xy_abs_shift[0]
-            y += style.text_xy_abs_shift[1]
+        if style.xy_abs_shift is not None:
+            x += style.xy_abs_shift[0]
+            y += style.xy_abs_shift[1]
 
         options = TextUtil.get_text_options(style)
         if "horizontalalignment" in options:

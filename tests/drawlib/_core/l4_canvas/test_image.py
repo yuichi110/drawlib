@@ -15,6 +15,7 @@ import pytest
 from PIL import Image
 
 from drawlib._core.l3_images import Dimage
+from drawlib._core.l4_canvas import canvas
 from drawlib.canvas import clear, save, setup
 from drawlib.images import image
 from drawlib.styles import Colors
@@ -134,3 +135,16 @@ class TestCanvasImage:
                 image=IMAGE_FILE,
                 style=Style(text_halign="invalid_halign"),
             )
+
+    def test_image_style_shift_and_angle(self) -> None:
+        """Verify that image() respects xy_shift, xy_abs_shift, and angle on Style."""
+        clear()
+        image(
+            xy=(50.0, 50.0),
+            width=20.0,
+            image=IMAGE_FILE,
+            style=Style(image_border_width=0, xy_shift=(4.0, 6.0), xy_abs_shift=(1.0, -1.0)),
+        )
+        ab = canvas._artists[-1]
+        assert getattr(ab, "xy") == (55.0, 55.0)
+

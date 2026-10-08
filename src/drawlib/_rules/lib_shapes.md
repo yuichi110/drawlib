@@ -213,7 +213,7 @@ To eliminate a shape's border line entirely, explicitly set `shape_line_width=0`
 
 Almost all shapes accept `text` and `text_style` parameters.
 - Text is automatically rendered at the centroid $(C_x, C_y)$ of the shape.
-- Text automatically rotates with the shape's `angle` unless overridden by `text_angle`.
+- Text automatically rotates with the shape's `angle` unless overridden by `angle` in `text_style`.
 - Text styling and font size can be customized through `text_style=Style(text_size=...)` or by patching preset styles like `Styles.WhiteBold.patch(text_size=...).`
 
 ```python
@@ -225,15 +225,15 @@ custom_text_style = Style(
     text_color=CssColors.MidnightBlue,
     text_size=18,
     text_font=FontRoboto.ROBOTO_BOLD,
-    text_angle=0.0,                  # Freeze text horizontally even if shape rotates
+    angle=0.0,                       # Freeze text horizontally even if shape rotates
     text_flip=False,                 # Invert 180 degrees if True
-    text_xy_shift=(0.0, -3.0),       # Relative micro-adjustment offset (dx, dy)
+    xy_shift=(0.0, -3.0),            # Relative micro-adjustment offset (dx, dy)
 )
 ```
 
 #### Shift Semantics
-- `text_xy_shift=(dx, dy)`: Moves the text relative to the shape's coordinate system. If the shape is rotated, the offset vector $(dx, dy)$ rotates with it.
-- `text_xy_abs_shift=(dx, dy)`: Moves the text along the absolute, unrotated canvas axes.
+- `xy_shift=(dx, dy)`: Moves the text relative to the shape's coordinate system. If the shape is rotated, the offset vector $(dx, dy)$ rotates with it.
+- `xy_abs_shift=(dx, dy)`: Moves the text along the absolute, unrotated canvas axes.
 
 ---
 
@@ -751,7 +751,7 @@ def face(
 | `style` | `Style` | *Required* | Shape fill and stroke style. Eyes and mouth automatically derive their color from `shape_line_color` (or contrasting `text_color`/white on flat styles). |
 | `mood` | `str` | `"smile"` | Facial expression: `"smile"`, `"neutral"`, `"sad"`, `"angry"`, or `"surprised"`. |
 | `angle` | `float` | `0.0` | Counterclockwise rotation angle in degrees. |
-| `text` | `str` | `""` | Embedded text label (can be shifted below the face using `text_xy_shift`). |
+| `text` | `str` | `""` | Embedded text label (can be shifted below the face using `xy_shift`). |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
 #### Code Examples
@@ -1128,7 +1128,7 @@ triangle(
         shape_fill_color=CssColors.Gold, shape_line_color=CssColors.DarkGoldenRod, shape_line_width=2
     ),
     text="!",
-    text_style=Styles.Primary.patch(text_size=16, text_color=CssColors.Black, text_xy_shift=(0, -3)),
+    text_style=Styles.Primary.patch(text_size=16, text_color=CssColors.Black, xy_shift=(0, -3)),
 )
 
 # 2. Right-angle ramp element
@@ -1925,7 +1925,7 @@ rectangle(
     r=4,
     style=Styles.MutedDashed,
     text="VPC (10.0.0.0/16)",
-    text_style=Styles.SecondaryBold.patch(text_size=12, text_xy_shift=(-45, 34)),
+    text_style=Styles.SecondaryBold.patch(text_size=12, xy_shift=(-45, 34)),
 )
 
 # 2. Internet Gateway
@@ -1945,7 +1945,7 @@ rectangle(
     r=3,
     style=Styles.MutedDashed,
     text="Public Subnet (DMZ)",
-    text_style=Styles.SecondaryBold.patch(text_size=10, text_xy_shift=(-8, 12)),
+    text_style=Styles.SecondaryBold.patch(text_size=10, xy_shift=(-8, 12)),
 )
 rectangle(
     (46, 60),
@@ -1973,7 +1973,7 @@ rectangle(
     r=3,
     style=Styles.MutedDashed,
     text="Private App Subnet",
-    text_style=Styles.SecondaryBold.patch(text_size=10, text_xy_shift=(-8, 12)),
+    text_style=Styles.SecondaryBold.patch(text_size=10, xy_shift=(-8, 12)),
 )
 rectangle(
     (46, 24),
@@ -2000,7 +2000,7 @@ rectangle(
     r=3,
     style=Styles.MutedDashed,
     text="Database Tier (Multi-AZ)",
-    text_style=Styles.SecondaryBold.patch(text_size=10, text_xy_shift=(0, 25)),
+    text_style=Styles.SecondaryBold.patch(text_size=10, xy_shift=(0, 25)),
 )
 ellipse(
     (120, 56),
@@ -2311,7 +2311,7 @@ rectangle(
     r=3,
     style=Styles.PrimaryNeutral,
     text="CPU LOAD\n\n42%",
-    text_style=Styles.DarkBold.patch(text_size=11, text_xy_shift=(0, -8)),
+    text_style=Styles.DarkBold.patch(text_size=11, xy_shift=(0, -8)),
 )
 arc(
     (28, 48),
@@ -2330,7 +2330,7 @@ rectangle(
     r=3,
     style=Styles.Neutral,
     text="MEMORY\n\n78%",
-    text_style=Styles.DarkBold.patch(text_size=11, text_xy_shift=(0, -8)),
+    text_style=Styles.DarkBold.patch(text_size=11, xy_shift=(0, -8)),
 )
 arc(
     (70, 48),
@@ -2349,7 +2349,7 @@ rectangle(
     r=3,
     style=Styles.Neutral,
     text="NETWORK\n\nActive",
-    text_style=Styles.DarkBold.patch(text_size=11, text_xy_shift=(0, -8)),
+    text_style=Styles.DarkBold.patch(text_size=11, xy_shift=(0, -8)),
 )
 circle(
     (112, 48),
@@ -2413,6 +2413,6 @@ save()
    - To remove a shape border: set `line_width=0`.
    - To make the interior transparent: set `fill_color=Colors.Transparent` or `fill_alpha=0.0`.
 6. **Centering Text in Asymmetric Shapes**:
-   - For `triangle()` and `trapezoid()`, the default bounding-box center may place text too close to narrow edges. Use `text_style=Style(text_xy_shift=(dx, dy))` to nudge the text into visual balance.
+   - For `triangle()` and `trapezoid()`, the default bounding-box center may place text too close to narrow edges. Use `text_style=Style(xy_shift=(dx, dy))` to nudge the text into visual balance.
 7. **Orientation in `polygon()`**:
    - `polygon()` derives its orientation entirely from vertex order in `xys` and has no `angle` parameter. To rotate a custom polygon, use `shape(xy, path_points, angle=...)`.

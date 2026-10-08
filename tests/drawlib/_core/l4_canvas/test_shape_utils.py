@@ -139,7 +139,7 @@ class TestShapeUtil:
         assert t_obj.get_rotation() == 30.0
 
         # 2. With style, custom rotation, flip, and relative xy_shift
-        style = base_style.patch(text_angle=45.0, text_flip=True, text_xy_shift=(5.0, 10.0), text_line_spacing=1.5)
+        style = base_style.patch(angle=45.0, text_flip=True, xy_shift=(5.0, 10.0), text_line_spacing=1.5)
         t_obj = ShapeUtil.get_shape_text((50.0, 50.0), 0.0, "hello", style=style)
         assert t_obj.get_rotation() == 225.0  # (45.0 + 180) % 360
         # shift at angle 0: x + 5, y + 10
@@ -147,7 +147,7 @@ class TestShapeUtil:
         assert getattr(t_obj, "_linespacing") == 1.5
 
         # 3. Test absolute shift
-        abs_style = base_style.patch(text_xy_abs_shift=(3.0, -3.0))
+        abs_style = base_style.patch(xy_abs_shift=(3.0, -3.0))
         t_obj = ShapeUtil.get_shape_text((50.0, 50.0), 0.0, "hello", style=abs_style)
         assert t_obj.get_position() == (53.0, 47.0)
 

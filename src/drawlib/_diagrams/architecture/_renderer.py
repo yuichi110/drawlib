@@ -174,7 +174,7 @@ def _render_node_label(node: Node, nx: float, ny: float, default_node_text_style
         text_font=Font.SANSSERIF_REGULAR,
         text_halign=halign,
         text_valign=valign,
-        text_angle=node.text_angle,
+        angle=node.text_angle,
     )
     applied_style = base_style.patch(default_node_text_style)
     if node.text_style:

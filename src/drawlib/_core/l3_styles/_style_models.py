@@ -160,11 +160,8 @@ class Style(BaseModel):
     text_font: Font | None = None
     text_halign: HAlign | None = None
     text_valign: VAlign | None = None
-    text_angle: Angle | None = None
     text_flip: bool | None = None
     text_line_spacing: PosFloat | None = None
-    text_xy_shift: Coordinate | None = None
-    text_xy_abs_shift: Coordinate | None = None
     text_bg_fill_color: ColorType | None = None
     text_bg_fill_alpha: Alpha | None = None
     text_bg_line_color: ColorType | None = None
@@ -181,6 +178,11 @@ class Style(BaseModel):
     image_border_color: ColorType | None = None
     image_border_width: PosFloat | None = None
     image_border_style: LineStyle | None = None
+
+    # --- Offset & Transform Properties (xy_shift, xy_abs_shift, angle) ---
+    xy_shift: Coordinate | None = None
+    xy_abs_shift: Coordinate | None = None
+    angle: Angle | None = None
 
     def patch(
         self,
@@ -206,11 +208,8 @@ class Style(BaseModel):
         text_font: Font | None = None,
         text_halign: HAlign | None = None,
         text_valign: VAlign | None = None,
-        text_angle: Angle | None = None,
         text_flip: bool | None = None,
         text_line_spacing: PosFloat | None = None,
-        text_xy_shift: Coordinate | None = None,
-        text_xy_abs_shift: Coordinate | None = None,
         text_bg_fill_color: ColorType | None = None,
         text_bg_fill_alpha: Alpha | None = None,
         text_bg_line_color: ColorType | None = None,
@@ -225,6 +224,10 @@ class Style(BaseModel):
         image_border_color: ColorType | None = None,
         image_border_width: PosFloat | None = None,
         image_border_style: LineStyle | None = None,
+        # Offset & Transform Properties
+        xy_shift: Coordinate | None = None,
+        xy_abs_shift: Coordinate | None = None,
+        angle: Angle | None = None,
     ) -> Style:
         """Return a new Style instance with updated attributes.
 
@@ -247,11 +250,8 @@ class Style(BaseModel):
             text_font: Font family for text.
             text_halign: Horizontal alignment for text.
             text_valign: Vertical alignment for text.
-            text_angle: Rotation angle for text.
             text_flip: Whether text is flipped horizontally.
             text_line_spacing: Line spacing multiplier for multi-line text.
-            text_xy_shift: Relative XY coordinate shift.
-            text_xy_abs_shift: Absolute XY coordinate shift.
             text_bg_fill_color: Background box fill color for text.
             text_bg_fill_alpha: Background box fill alpha for text.
             text_bg_line_color: Background box border line color for text.
@@ -264,6 +264,9 @@ class Style(BaseModel):
             image_border_color: Border line color for images.
             image_border_width: Border line width for images.
             image_border_style: Border line style for images.
+            xy_shift: Relative XY coordinate shift.
+            xy_abs_shift: Absolute XY coordinate shift.
+            angle: Rotation angle in degrees.
 
         Returns:
             Style: New Style instance with updated attributes.

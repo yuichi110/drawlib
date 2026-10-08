@@ -236,10 +236,11 @@ class TestTextProperties:
             text_font=Font.SANSSERIF_BOLD,
             text_halign="center",
             text_valign="bottom",
-            text_angle=45.0,
+            angle=45.0,
             text_flip=True,
             text_line_spacing=1.5,
-            text_xy_shift=(2.0, 3.0),
+            xy_shift=(2.0, 3.0),
+            xy_abs_shift=(1.0, -1.0),
             text_bg_fill_color=Colors.Gray3,
             text_bg_fill_alpha=0.5,
             text_bg_line_color=Colors.Black,
@@ -251,10 +252,11 @@ class TestTextProperties:
         assert s.text_font == Font.SANSSERIF_BOLD
         assert s.text_halign == "center"
         assert s.text_valign == "bottom"
-        assert s.text_angle == 45.0
+        assert s.angle == 45.0
         assert s.text_flip is True
         assert s.text_line_spacing == 1.5
-        assert s.text_xy_shift == (2.0, 3.0)
+        assert s.xy_shift == (2.0, 3.0)
+        assert s.xy_abs_shift == (1.0, -1.0)
         assert s.text_bg_fill_color == Colors.Gray3
 
         patched = s.patch(text_line_spacing=2.0)

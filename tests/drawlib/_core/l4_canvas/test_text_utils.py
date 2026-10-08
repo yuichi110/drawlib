@@ -15,6 +15,7 @@ from matplotlib.font_manager import FontProperties
 from drawlib._core.l2_types import FontFile
 from drawlib._core.l3_fonts import FontRoboto, FontSansSerif
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import canvas, clear, text
 from drawlib._core.l4_canvas._text_util import TextUtil, resolve_svg_font_info
 from drawlib.styles import Colors
 
@@ -135,3 +136,23 @@ class TestTextUtil:
         assert bbox_trans is not None
         assert bbox_trans["facecolor"] == Colors.Transparent
         assert bbox_trans["edgecolor"] == Colors.Transparent
+
+    def test_canvas_text_shift_and_angle(self) -> None:
+        """Verifies canvas.text respects xy_shift, xy_abs_shift, and angle on Style."""
+        clear()
+        s = Style(
+            text_color=Colors.Black,
+            text_size=12.0,
+            text_font=FontSansSerif.LATO_REGULAR,
+            xy_shift=(5.0, 10.0),
+            xy_abs_shift=(1.0, -2.0),
+            angle=90.0,
+        )
+        text((20.0, 30.0), "Shifted", style=s)
+        artist = canvas._artists[-1]
+        assert getattr(artist, "get_rotation")() == 90.0
+        # xy_shift=(5, 10) rotated by 90 deg -> (-10, 5), plus xy_abs_shift=(1, -2) -> (20-10+1, 30+5-2) = (11, 33)
+        pos = getattr(artist, "get_position")()
+        assert abs(pos[0] - 11.0) < 1e-5
+        assert abs(pos[1] - 33.0) < 1e-5
+

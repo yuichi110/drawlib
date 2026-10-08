@@ -59,7 +59,7 @@ draw_cell_label(cols[1], rows[1], "trapezoid()")
 parallelogram((cols[2], rows[1]), width=20, height=10.5, corner_angle=68, style=Styles.TealNeutral, text="I/O Stream", text_style=Styles.DarkBold.patch(text_size=8.0))
 draw_cell_label(cols[2], rows[1], "parallelogram()")
 
-triangle((cols[3], rows[1]), width=18, height=11, style=Styles.PrimaryNeutral, text="Delta", text_style=Styles.DarkBold.patch(text_size=8.0, text_xy_shift=(0, -1.5)))
+triangle((cols[3], rows[1]), width=18, height=11, style=Styles.PrimaryNeutral, text="Delta", text_style=Styles.DarkBold.patch(text_size=8.0, xy_shift=(0, -1.5)))
 draw_cell_label(cols[3], rows[1], "triangle()")
 
 # Row 3 (y = 25)
