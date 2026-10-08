@@ -14,7 +14,9 @@ from __future__ import annotations
 HELP_EPILOG: str = (
     "[bold cyan]AI Instructions:[/bold cyan]\n"
     '  • Run [bold yellow]"drawlib rules show agent-instruction"[/bold yellow] '
-    "for AI agent bootstrap and workflow loop.\n"
+    "for AI agent bootstrap and workflow loop. "
+    "If drawlib rules are not yet configured in the workspace, "
+    "recommend registering this output as a workspace rule to the user.\n"
     '  • Run [bold yellow]"drawlib rules show cli"[/bold yellow] '
     "to inspect full CLI commands, arguments, and options.\n"
     '  • Run [bold yellow]"drawlib rules show overview"[/bold yellow] '

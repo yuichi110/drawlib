@@ -288,28 +288,30 @@ Drawlib allows seamless integration of raster and vector graphic assets into dia
 
 Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, and headless vector PDFs without requiring external site generators.
 
-### 4.1. Project Scaffolding Rule (`drawlib init`)
-> **Important Scaffolding Rule**: Never create documentation project files or directories by hand from scratch.  
-> Always use `drawlib init` to scaffold the standard structure, default configuration, and build scripts.
+### 4.1. Project-First Rule (`drawlib init`)
+> **CRITICAL (No Bare `.py` Files)**: Never create standalone `.py` drawing files directly in an uninitialized directory, and never create project directories by hand from scratch.  
+> Even if the user only asks for a single diagram image, check if a Drawlib project (`*_src/`) exists in the workspace. If not, **always scaffold a project first using `drawlib init`** so that `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
+> - **Diagram image(s) only** -> **`images`** project (`drawlib init images [-l <lang>] [-s <style>]`, author in `images_src/*.py`)
+> - **Illustrated document / website / slide deck** -> **`doc`**, **`site`**, or **`slide`** project (`drawlib init <doc|site|slide> [-l <lang>] [-s <style>]`)
+> - **Language & Sample Cleanup**: Pass `--lang ja` (or target language code) when non-English text is needed so `styles.py` configures CJK-safe fonts, and replace or remove the generated starter sample files (`sample1.py`, `sample2.py`, etc.) after scaffolding.
 
 ```bash
 # List available starter templates:
 drawlib init list
 
-# Scaffold a multi-page documentation website in the current directory:
+# If the user wants standalone diagram image(s) only:
+drawlib init images
+drawlib init images --lang ja -s google
+
+# If the user wants a multi-page documentation website:
 drawlib init site
 
-# Scaffold a linear document (HTML, PDF, MD, images):
+# If the user wants a linear document (HTML, PDF, MD, images):
 drawlib init doc
-
-# Scaffold a linear document with custom target name:
 drawlib init doc rbac -s google
 
-# Scaffold a 16:9 presentation slide deck:
+# If the user wants a 16:9 presentation slide deck:
 drawlib init slide -s google
-
-# Scaffold standalone Python illustrations repository:
-drawlib init images
 ```
 
 ### 4.2. Standard Project Structure & Lifecycle
@@ -384,6 +386,13 @@ drawlib build html docs_src/ -o docs_html/ -s styles.py -u utils.py
 drawlib build markdown docs_src/ -o docs/ -s styles.py -u utils.py
 drawlib build pdf docs_src/index.md -o output.pdf -s styles.py -u utils.py
 
+# Bypass SQLite build cache to force clean re-rendering:
+drawlib build html docs_src/ -o docs_html/ --no-cache
+drawlib cache clear --images
+
+# Pre-download font and icon packages for offline / CI environments:
+drawlib cache download --all
+
 # Preview static HTML site locally with automatic link checking:
 drawlib serve docs_html/
 
@@ -422,7 +431,23 @@ build_html(
 | `export_code_block()` | `drawlib show -o` | Fast illustration rendering for AI self-verification and tests. |
 | `init_project()` | `drawlib init` | Programmatic repository scaffolding. |
 | `serve_docs()` | `drawlib serve` | Local preview server and link verification checks. |
-| `clear_cache()` | `drawlib cache clear` | Cache cleanup. |
+| `list_cache()` | `drawlib cache list` | Inspect local font and icon package cache status. |
+| `download_cache()` | `drawlib cache download` | Pre-download font and icon packages for offline/CI environments. |
+| `clear_cache()` | `drawlib cache clear` | Purge downloaded font and icon cache. |
+
+### 4.7. Cache Architecture & Management
+Drawlib maintains three distinct caching layers to accelerate incremental builds and manage external assets:
+
+1. **SQLite Incremental Build Cache (`.drawlib/cache.db`)**:
+   - Stores compiled PNG/WebP blobs (and coordinate grid overlays) for `drawlib build`, `drawlib show`, `drawlib colors show`, and `drawlib styles show`.
+   - **Hashed Inputs**: Computes a deterministic SHA-256 key from the drawing code block, `styles.py`, `utils.py`, local asset files referenced as string literals (e.g., `_assets/*`), source/target paths, output format, and slide count.
+   - **Auto-Maintenance**: Automatically creates `.drawlib/.gitignore` (`*`), invalidates entries when `drawlib` or `matplotlib` versions change, and evicts the oldest 50% of entries when exceeding 1 GiB. Override location via `DRAWLIB_CACHE_DB` or `DRAWLIB_CACHE_DIR`.
+   - **When to Invalidate Manually**: If your drawing code imports a custom Python module outside `styles.py` and `utils.py`, editing that external module will not alter the hash. Pass `--no-cache` to `drawlib build` / `drawlib show` or run `drawlib cache clear --images` (`-i`).
+2. **Release Asset Cache (Fonts & Icons)**:
+   - Font families (`font-roboto`, CJK fonts, etc.) and icon sets (`icon-phosphor`, `icon-fontawesome`, `icon-gcp`) are downloaded on demand from GitHub Releases into `drawlib/_cached_assets/`.
+   - Inspect status with `drawlib cache list`, pre-fetch for offline/Docker/CI builds with `drawlib cache download --all` (`--fonts` / `--icons`), and clear with `drawlib cache clear` (or `drawlib cache clear --all` to also wipe `.drawlib/cache.db`).
+3. **Rules Illustration Cache (`drawlib rules`)**:
+   - Caches rendered rule manuals and companion PNGs in `drawlib/_cached_assets/rules/`. Manage via `drawlib rules list`, `drawlib rules build`, `drawlib rules show <topic> --rebuild`, and `drawlib rules clear`.
 
 ---
 
@@ -779,15 +804,20 @@ Never deliver unverified drawing code to the user. Always execute the autonomous
                                         6. Human Inspection
 ```
 
-1. **Step 1: Understand Requirements & Context**: Inspect the user's instructions and related repository context (source files, data models, APIs).
-2. **Step 2: Generate Declarative Drawlib Code**: Write standard Python drawing code or embedded Markdown blocks using appropriate canvas bounds and semantic styles.
-3. **Step 3: Headless Image Render with Coordinate Grid (`-g`)**: Render the canvas immediately to a temporary location using Drawlib's fast show command with `-o`:
+1. **Step 1: Understand Requirements & Scaffold Project (`drawlib init`)**:
+   - Inspect the user's instructions and related repository context.
+   - Check if a Drawlib project (`*_src/`) already exists in the workspace. Never create bare `.py` files in an uninitialized directory:
+     - If the user wants **diagram image(s) only**, scaffold an `images` project (`uv run drawlib init images [-l ja] [-s google]`), inspect `images_src/styles.py`, and remove starter samples (`sample1.py`, `sample2.py`).
+     - If the user wants an **illustrated document, website, or presentation**, scaffold a `doc`, `site`, or `slide` project (`uv run drawlib init <doc|site|slide> [-l ja] [-s google]`).
+2. **Step 2: Author Declarative Drawlib Code Inside `<target>_src/`**:
+   - Write standard Python drawing scripts inside `images_src/` or embedded ````drawlib```` blocks inside `doc_src/`, `docs_src/`, or `slide_src/`.
+3. **Step 3: Headless Image Render with Coordinate Grid (`-g`)**: Render the canvas immediately to `.drawlib/scratch/preview.png` using Drawlib's fast `show` command with `-o`:
    ```bash
-   # For a standalone Python script:
-   uv run drawlib show .drawlib/scratch/preview.py -g -o .drawlib/scratch/preview.png
+   # For an images project script (including project styles.py and utils.py):
+   uv run drawlib show images_src/architecture.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/preview.png
 
-   # For embedded block 1 in a Markdown document:
-   uv run drawlib show docs_src/my_doc.md 1 -g -o .drawlib/scratch/preview.png
+   # For a named embedded block in a Markdown document:
+   uv run drawlib show docs_src/my_doc.md system_arch.png -s docs_src/styles.py -u docs_src/utils.py -g -o .drawlib/scratch/preview.png
    ```
 4. **Step 4: Multimodal Self-Review (`view_file`)**: Use your image inspection capability to check the rendered grid image. Check for:
    - Overlapping shapes, clipped text boxes, or text colliding with borders.
@@ -795,23 +825,18 @@ Never deliver unverified drawing code to the user. Always execute the autonomous
    - Unbalanced whitespace, disproportionate element scales, or poorly centered groups.
    - **Color Overuse (Rainbow Chaos)**: Verify that 50%+ of nodes use calm neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, etc.) and saturated fills (`Styles.PrimaryFlat`) are limited to 1–2 focal nodes.
 5. **Step 5: Autonomous Coordinate Adjustment**: If any aesthetic or spatial defects are found, adjust coordinates, margins, or canvas size in the code and re-render. Repeat until the layout is clean.
-6. **Step 6: Deliver & Human Verification**: Present the final diagram to the user.
+6. **Step 6: Build Project & Deliver**: Run `./<target>_src/build.sh` to compile final outputs and present the result to the user.
 
 ---
 
-### 6.2. Prototyping in Scratch Workspace & Image Presentation
+### 6.2. Project-First Authoring & Scratch Grid Previews
 
-If your environment or chat interface supports presenting images directly to the user (e.g. via artifact embedding, Markdown image links, or UI previews):
-
-1. **Work in Isolated Scratch Workspace First (`.drawlib/scratch/`)**:
-   - Create a scratch prototype script (e.g. `.drawlib/scratch/test_diagram.py`) rather than immediately editing production files or documentation sources.
-   - Execute the script to generate an image (e.g. `.drawlib/scratch/test_diagram.png`).
-   - Do NOT pollute the project root with temporary files; ensure `.drawlib/` is in `.gitignore`.
+1. **Always Author Inside a Scaffolded Project (`*_src/`)**:
+   - Do **not** create bare `.py` scripts in the workspace root. Author scripts inside `images_src/` (for image-only workflows) or Markdown documents inside `doc_src/`, `docs_src/`, or `slide_src/` so that `styles.py` (including language fonts and themes), `utils.py`, `_assets/`, and `build.sh` are always active.
+   - Use `.drawlib/scratch/` strictly as the temporary output destination for `-g` grid preview images (e.g. `-o .drawlib/scratch/preview.png`).
 2. **Show the Rendered Image to the User**:
    - Present the rendered visual illustration directly to the user along with your explanation.
    - Inspecting an image is 10x faster and clearer for the user than reading raw 2D coordinate code.
-3. **Promote to Production After Confirmation**:
-   - Once the user approves the visual design, transfer the finalized code to the target Markdown document (`docs_src/`) or production Python module.
 
 ---
 
@@ -835,6 +860,7 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 
 ### 6.4. Implementation Checklist
 
+- [ ] **Project Initialized (`drawlib init`)**: Scaffolded `images` (for standalone images) or `doc`/`site`/`slide` (for illustrated documents) with appropriate `--lang` and `--style`, and removed starter sample files.
 - [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
 - [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import Styles` (e.g. `style=Styles.BlueFlat`, `text_style=Styles.WhiteBold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
 - [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.

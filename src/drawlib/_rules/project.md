@@ -4,10 +4,14 @@ Drawlib provides a complete project scaffolding and document build engine. It tu
 
 ---
 
-## 1. Project Scaffolding (`drawlib init`)
+## 1. Project-First Rule (`drawlib init` — No Bare `.py` Files)
 
-> **Important**: Do **NOT** create project structures from scratch manually.  
-> Always use `drawlib init` to scaffold the standard directory layout, configuration scripts, and build automations.
+> **CRITICAL for AI Agents & Developers**: Never create standalone `.py` drawing scripts directly in an uninitialized directory, and never construct project folders from scratch manually.  
+> Before writing any drawing code, check if a Drawlib project (`*_src/`) already exists in the workspace. If not, **always scaffold a project first using `drawlib init`** (or guide the user to choose one) so that `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
+> - **If the user wants diagram image(s) only**: Scaffold an **`images`** project (`drawlib init images`). Author scripts inside `images_src/*.py` and build to `images/` via `./images_src/build.sh`.
+> - **If the user wants an illustrated document, website, or presentation**: Scaffold a **`doc`**, **`site`**, or **`slide`** project (`drawlib init <doc|site|slide>`).
+> - **Pass `--lang` for Non-English Labels**: When the user prompts in Japanese (or requires CJK/multilingual typography), pass `--lang ja` (or target language code) to `drawlib init` so `styles.py` automatically configures CJK-safe fonts.
+> - **Clean Up Starter Samples**: After scaffolding, replace or delete the generated starter sample files (`sample1.py`, `sample2.py`, etc.) so only the user's requested diagrams are built.
 
 ### Basic Syntax:
 ```bash
@@ -16,6 +20,9 @@ drawlib init list
 
 # Scaffold a project in the current directory:
 drawlib init <type> [target] [options]
+
+# Standalone diagram images project with Japanese fonts & Google theme:
+drawlib init images --lang ja -s google
 
 # Custom target name (e.g. creates rbac_src/ and targets rbac.pdf, rbac_html/):
 drawlib init doc rbac -s google
@@ -32,16 +39,16 @@ drawlib init doc rbac -s google
 
 ---
 
-## 2. The 4 Project Types
+## 2. Choosing Among the 4 Project Types
 
-Drawlib features 4 built-in project starter templates tailored to different publication workflows:
+Drawlib features 4 built-in project starter templates tailored to different workflows:
 
-| Project Type | Purpose | Source Directory | Generated Artifacts | Best Used For |
+| Project Type | Purpose | Source Directory | Generated Artifacts | When AI Agents Should Choose This |
 | :--- | :--- | :--- | :--- | :--- |
-| **`doc`** | **Linear Document** | `doc_src/` | `doc.html` (Web preview)<br>`doc.pdf` (Printable vector PDF)<br>`doc.md` (GitHub Markdown)<br>`doc_images/*.png` (Extracted diagrams) | Technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. |
-| **`site`** | **Multi-Page Website** | `docs_src/` | `docs_html/` (HTML site)<br>`docs/` (GitHub Markdown) | Software documentation, technical guides, architectural handbooks, API manuals. |
-| **`slide`** | **Presentation Deck** | `slide_src/` | `slide/index.html` (Web)<br>`slide.pdf` (Printable vector PDF) | Conference talks, technical briefings, pitch decks, architectural presentations. |
-| **`images`** | **Standalone Image Scripts** | `images_src/` | `images/*.png` (or `.webp`) | Generating standalone architecture diagrams, social cards, or presentation assets from Python scripts. |
+| **`images`** | **Standalone Image Scripts** | `images_src/` | `images/*.png` (or `.webp`) | User wants **diagram image(s) only** (architecture figures, social cards, standalone illustrations). |
+| **`doc`** | **Linear Document** | `doc_src/` | `doc.html` (Web preview)<br>`doc.pdf` (Printable vector PDF)<br>`doc.md` (GitHub Markdown)<br>`doc_images/*.png` (Extracted diagrams) | User wants a **single linear technical document** (specifications, RFCs, design docs, whitepapers, PDF reports). |
+| **`site`** | **Multi-Page Website** | `docs_src/` | `docs_html/` (HTML site)<br>`docs/` (GitHub Markdown) | User wants a **multi-page documentation website** with a navigation sidebar (user guides, wikis, handbooks). |
+| **`slide`** | **Presentation Deck** | `slide_src/` | `slide/index.html` (Web)<br>`slide.pdf` (Printable vector PDF) | User wants a **16:9 presentation slide deck** (conference talks, technical briefings, pitch decks). |
 
 ---
 
@@ -255,7 +262,42 @@ Drawlib strictly prevents accidental source loss: `drawlib build` refuses to run
 
 ---
 
-## 7. Local Preview & Link Verification (`drawlib serve`)
+## 7. Build Cache & Asset Cache Management
+
+Drawlib automatically manages incremental build caching and external font/icon packages to keep compilation fast and reproducible:
+
+### 7.1 SQLite Incremental Build Cache (`.drawlib/cache.db`)
+- **Automatic Creation & Ignore Rules**: Running `drawlib build` or `drawlib show` creates `.drawlib/cache.db` alongside `.drawlib/.gitignore` (`*`) and `.drawlib/CACHEDIR.TAG` so cache binaries are never accidentally committed to Git.
+- **Deterministic SHA-256 Hashing**: Before executing any ````drawlib```` block or `.py` script, Drawlib hashes:
+  1. The Python drawing code content.
+  2. Global `styles.py` (`-s`) and `utils.py` (`-u`) file contents.
+  3. Local asset files referenced as string literals in the code (e.g., images in `_assets/` or relative to the document/project root).
+  4. Source/target file paths, output format (`png` / `webp`), and slide count (`total_slides`).
+- **Auto-Invalidation & Size Cap**: Cache tables are automatically invalidated when `drawlib` or `matplotlib` versions change, and the oldest 50% of entries are evicted whenever total cached blobs exceed 1 GiB.
+- **Custom Cache Path (CI/CD)**: Override the SQLite cache location via `DRAWLIB_CACHE_DB` or `DRAWLIB_CACHE_DIR`.
+- **When to Bypass or Clear Cache**:
+  If a drawing script imports a custom external Python module outside `styles.py` and `utils.py`, editing that external module will not change the block's hash automatically. Force re-rendering via:
+  ```bash
+  # Bypass cache for a single build or preview command:
+  drawlib build html docs_src/ -o docs_html/ --no-cache
+  drawlib show docs_src/index.md arch.png -g -o .drawlib/scratch/test.png --no-cache
+
+  # Or purge the SQLite image cache table:
+  drawlib cache clear --images
+  ```
+
+### 7.2 Font & Icon Release Asset Cache (`drawlib cache`)
+- Font families (`font-roboto`, CJK fonts, etc.) and icon packs (`icon-phosphor`, `icon-fontawesome`, `icon-gcp`) are downloaded on demand from GitHub Releases into `drawlib/_cached_assets/`.
+- For offline environments, Docker images, or CI runners, pre-fetch all packages before building:
+  ```bash
+  drawlib cache list              # Inspect cached packages and disk usage
+  drawlib cache download --all    # Pre-download all font and icon packages
+  drawlib cache clear --all       # Clear all font, icon, and SQLite image caches
+  ```
+
+---
+
+## 8. Local Preview & Link Verification (`drawlib serve`)
 
 Preview the generated static HTML site with built-in asset and broken-link scanning:
 
@@ -275,12 +317,12 @@ drawlib serve docs_html/ --check
 
 ---
 
-## 8. Recommended Agent & Developer Workflow
+## 9. Recommended Agent & Developer Workflow
 
 When creating or modifying documentation:
 1. **Rapid Diagram Iteration**:
    Do **not** rebuild the entire documentation site to test a single diagram!
-   Export and inspect individual diagrams instantly into the isolated `.drawlib/scratch/` directory using `drawlib show` (ensure `.drawlib/` is in `.gitignore`):
+   Export and inspect individual diagrams instantly into the isolated `.drawlib/scratch/` directory using `drawlib show` (`.drawlib/` is automatically gitignored):
    ```bash
    uv run drawlib show docs_src/architecture/index.md 1 -g -o .drawlib/scratch/test.png
    ```
@@ -299,7 +341,7 @@ When creating or modifying documentation:
 
 ---
 
-## 9. Related Rules
+## 10. Related Rules
 
 - AI Agent Instructions: `uv run drawlib rules show agent-instruction`
 - Aesthetic & Style Guide: `uv run drawlib rules show style-guide`

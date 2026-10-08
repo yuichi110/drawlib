@@ -253,8 +253,10 @@ def test_cli_help_shows_ai_instructions(cmd_args: list[str]) -> None:
     """Test that all CLI commands display the AI Instructions epilog in their help text."""
     res = run_drawlib_cli(cmd_args)
     assert res.returncode == 0
+    normalized_stdout = " ".join(res.stdout.split())
     assert "AI Instructions:" in res.stdout
     assert "drawlib rules show agent-instruction" in res.stdout
+    assert "recommend registering this output as a workspace rule to the user." in normalized_stdout
     assert "drawlib rules show cli" in res.stdout
     assert "drawlib rules show overview" in res.stdout
     assert "drawlib rules list" in res.stdout

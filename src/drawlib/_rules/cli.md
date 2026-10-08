@@ -43,7 +43,9 @@ drawlib styles show default -o styles.png                  # Export style matrix
 
 # Cache and stylesheet preset management
 drawlib cache list                                         # Inspect cached font and icon assets
-drawlib cache clear                                        # Purge downloaded font and icon cache
+drawlib cache clear                                        # Purge downloaded font, icon, and CLI image cache
+drawlib cache clear --images                               # Clear SQLite build image cache (.drawlib/cache.db)
+drawlib cache clear --all                                  # Clear all caches (fonts, icons, and SQLite image cache)
 drawlib cache download --all                               # Pre-download all font/icon release assets
 drawlib css list                                           # List built-in HTML and PDF stylesheets
 drawlib css show html google -o style.css                  # Export Google styling preset
@@ -287,7 +289,10 @@ drawlib build image scripts/ -o assets/ -f webp
 
 Bootstraps new documentation projects with production-ready file layouts, sample illustrations, navigation configurations, and automated build scripts.
 
-> **Guideline for AI Agents & Developers**: Never craft documentation directory structures manually. Always scaffold projects using `drawlib init` to guarantee structural compliance.
+> **Project-First Guideline for AI Agents & Developers**: Never create standalone `.py` drawing scripts directly in an uninitialized directory, and never craft project directory structures manually. Always scaffold a project first using `drawlib init`:
+> - If the user wants **diagram image(s) only**, run `drawlib init images [-l <lang>] [-s <style>]` and author scripts inside `images_src/`.
+> - If the user wants an **illustrated document, website, or slide deck**, run `drawlib init <doc|site|slide> [-l <lang>] [-s <style>]`.
+> - After scaffolding, replace or remove the starter sample files (`sample1.py`, `sample2.py`, etc.).
 
 ### Syntax:
 ```bash
@@ -564,15 +569,16 @@ drawlib serve docs_html/ --skip-check
 
 ## 5. Cache Management (`drawlib cache`)
 
-Drawlib manages two distinct caching layers to maximize performance and minimize redundant network transfers and image rendering:
-1. **Release Asset Cache**: Locally cached font families and icon sets downloaded from official GitHub Releases.
-2. **Diagram Build Cache**: A local SQLite database (`.drawlib/cache.db`) storing hashes of illustration code and rendered image binaries.
+Drawlib manages three caching layers to maximize performance and minimize redundant network transfers and image rendering:
+1. **Release Asset Cache**: Locally cached font families and icon sets downloaded from official GitHub Releases into `drawlib/_cached_assets/`.
+2. **SQLite Diagram & CLI Image Cache**: A local SQLite database (`.drawlib/cache.db`) storing hashes of illustration code and rendered image binaries (`image_cache` and `cli_image_cache`).
+3. **Rules Illustration Cache**: Cached rule documents and companion PNG illustrations in `drawlib/_cached_assets/rules/` (managed via `drawlib rules build` and `drawlib rules clear`).
 
 ### Subcommands:
 ```text
 drawlib cache
 ├── list        List all downloadable font and icon packages and their local cache status
-├── clear       Delete all locally cached font and icon files (alias: purge)
+├── clear       Delete locally cached font, icon, and/or SQLite image cache entries
 └── download    Pre-download font and/or icon packages from GitHub Releases
 ```
 
@@ -603,18 +609,33 @@ Cached packages: 3/5 (Total local size: 5.64 MB)
 ---
 
 ### 5.2 `drawlib cache clear`
-Deletes all locally downloaded font and icon files from disk to reclaim storage:
+Deletes locally cached font packages, icon packages, and/or SQLite image cache entries:
+
+#### Options:
+| Option | Shorthand | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `--images` | `-i` | flag | `False` | Clear only the SQLite image cache (`.drawlib/cache.db`). |
+| `--all` | `-a` | flag | `False` | Clear all caches including fonts, icons, and the SQLite image cache. |
+
+*(When run without options, `drawlib cache clear` clears downloaded font/icon packages and the CLI catalog image cache.)*
 
 ```bash
-drawlib cache clear
-# Hidden alias:
-drawlib cache purge
+drawlib cache clear                # Clear font, icon, and CLI catalog image caches
+drawlib cache clear --images       # Clear SQLite build & CLI image cache (.drawlib/cache.db)
+drawlib cache clear --all          # Clear all caches (fonts, icons, and SQLite image cache)
 ```
 
 ---
 
 ### 5.3 `drawlib cache download`
-Pre-fetches font and icon asset archives from GitHub Releases. Ideal for provisioning CI/CD build runners or offline development environments:
+Pre-fetches font and icon asset archives from GitHub Releases. Ideal for provisioning CI/CD build runners, Docker images, or offline development environments:
+
+#### Options:
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `--all` | flag | `True` | Download all font and icon packages (default). |
+| `--fonts` | flag | `False` | Download font packages only. |
+| `--icons` | flag | `False` | Download icon packages only. |
 
 ```bash
 drawlib cache download --all       # Pre-download all font and icon packages
@@ -624,25 +645,33 @@ drawlib cache download --icons     # Download icon packages only
 
 ---
 
-### 5.4 SQLite Diagram Build Cache & Cache Bypassing
-When compiling Markdown documents or batch images, Drawlib computes a SHA-256 hash derived from:
-- The exact Python drawing code content.
-- The global configuration script hash (if `-c` / `--config` is supplied).
-- The requested image output format (`png` or `webp`).
+### 5.4 SQLite Diagram Build Cache (`.drawlib/cache.db`) & Cache Bypassing
+When compiling Markdown documents, slides, or batch images, Drawlib computes a deterministic SHA-256 cache key derived from:
+- **Drawing Code Hash**: Exact Python drawing code content inside the block or `.py` script.
+- **Styles & Utils Hashes**: Global `-s` / `--styles` (`styles.py`) and `-u` / `--utils` (`utils.py`) file hashes.
+- **Referenced Local Assets**: Any local files referenced as string literals in the code (resolved from the document directory, project root, or `_assets/`).
+- **Execution Context**: Source/target file paths, output image format (`png` or `webp`), and slide context (`total_slides`).
 
-If the computed hash matches an entry in `.drawlib/cache.db`, Drawlib restores the cached image directly without executing Python code, speeding up document compilation significantly.
+If the computed hash matches an entry in `.drawlib/cache.db`, Drawlib restores the cached image binary (and coordinate grid overlay if `-g` is used) in sub-millisecond time without executing Python code.
 
-To bypass the build cache and force fresh diagram generation:
+#### Automatic Maintenance & Environment Variables:
+- **Git Ignore Safety**: Automatically generates `.drawlib/.gitignore` (`*`) and `.drawlib/CACHEDIR.TAG`.
+- **Version Invalidation & LRU Eviction**: Automatically resets cached tables when `drawlib` or `matplotlib` versions change, and evicts the oldest 50% of entries when total cached blobs exceed 1 GiB.
+- **Custom Database Location**: Override the SQLite database path via `DRAWLIB_CACHE_DB=/path/to/cache.db` or `DRAWLIB_CACHE_DIR=/path/to/dir`.
+
+#### When to Bypass or Clear the Build Cache:
+If your drawing code imports a custom external Python helper module outside `styles.py` and `utils.py`, modifying that external module will not change the block's SHA-256 key. Force fresh diagram generation via `--no-cache` or `drawlib cache clear --images`:
+
 ```bash
+# Bypass SQLite cache for a single build or preview run:
 drawlib build html docs_src/ -o docs_html/ --no-cache
 drawlib build markdown docs_src/ -o docs/ --no-cache
 drawlib build pdf docs_src/ -o out.pdf --no-cache
 drawlib build image scripts/ -o assets/ --no-cache
-```
+drawlib show docs_src/index.md arch.png -g -o .drawlib/scratch/arch.png --no-cache
 
-To clean the SQLite build cache completely, remove the local cache folder:
-```bash
-rm -rf .drawlib/
+# Or clear the SQLite image cache database via CLI:
+drawlib cache clear --images
 ```
 
 ---

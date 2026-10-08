@@ -23,12 +23,14 @@ Traditional technical documentation suffers from severe tool fragmentation:
 
 1. **Draw with Drawlib (No Raw SVGs or Matplotlib Boilerplate)**:
    Never generate raw SVG files or complex low-level matplotlib boilerplate. Always use Drawlib's declarative Python API and high-level components.
-2. **Scaffold Projects with `drawlib init` (Never from Scratch)**:
-   Never manually construct documentation project folders or directory structures. Always use the built-in scaffolding CLI:
-   - `uv run drawlib init site` (Multi-page documentation website with navigation sidebar)
-   - `uv run drawlib init doc` (Linear technical document / spec / RFC)
-   - `uv run drawlib init slide` (16:9 presentation slide deck)
-   - `uv run drawlib init image` (Batch standalone drawing scripts)
+2. **Project-First Rule: Always Start with `drawlib init` (No Bare `.py` Files)**:
+   Never create standalone `.py` drawing files directly in an uninitialized directory, and never construct project folders from scratch. Even if the user only asks for a single diagram image, check if a Drawlib project (`*_src/`) exists in the workspace; if not, **always scaffold a project first using `drawlib init`** (or guide the user to choose one) so `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
+   - **Diagram image(s) only** -> **`images`** project: `uv run drawlib init images [target] [-l <lang>] [-s <style>]` (author `.py` scripts in `images_src/`, build to `images/` via `./images_src/build.sh`)
+   - **Linear document / spec / RFC / PDF** -> **`doc`** project: `uv run drawlib init doc [target] [-l <lang>] [-s <style>]` (author in `doc_src/*.md`)
+   - **Multi-page documentation website** -> **`site`** project: `uv run drawlib init site [target] [-l <lang>] [-s <style>]` (author in `docs_src/**/*.md`)
+   - **16:9 presentation slide deck** -> **`slide`** project: `uv run drawlib init slide [target] [-l <lang>] [-s <style>]` (author in `slide_src/*.md`)
+   - **Pass `--lang` for Non-English Diagrams**: When the user prompts in Japanese (or needs CJK/multilingual labels), pass `--lang ja` (e.g. `uv run drawlib init images --lang ja`) so `styles.py` automatically configures CJK-safe fonts.
+   - **Clean Up Starter Samples**: After scaffolding, replace or delete the generated starter sample files (`sample1.py`, `sample2.py`, etc.) so only the user's requested diagrams are built.
 3. **Start with Overview**:
    Before writing drawing code, inspect canvas geometry, coordinates, and lifecycle rules:
    `uv run drawlib rules show overview`
@@ -78,6 +80,8 @@ save()
 ````
 - **Attributes**: Always specify `file:<name>.png` and `caption:"..."`. Never rely on auto-numbered filenames (`0.png`).
 - **Source of Truth**: Always edit `<base>_src/` (e.g. `docs_src/`). Never manually edit generated output directories (`docs/`, `docs_html/`).
+- **Incremental Build Cache (`.drawlib/cache.db`)**: `drawlib build` and `drawlib show` cache rendered images by hashing the code block, `styles.py`, `utils.py`, and referenced local assets (`_assets/`). If you edit an external imported Python module outside `styles.py`/`utils.py`, pass `--no-cache` or run `uv run drawlib cache clear --images` to force re-rendering.
+- **Font & Icon Asset Cache**: Pre-download font and icon packages for offline or CI builds via `uv run drawlib cache download --all` (inspect with `uv run drawlib cache list`, clear all with `uv run drawlib cache clear --all`).
 
 ---
 
@@ -90,7 +94,7 @@ uv run drawlib rules show overview      # Geometry, coordinate space (0,0 at bot
 uv run drawlib rules show style-guide   # Color tokens, typography, 50%+ neutral rule
 uv run drawlib rules show anim-guide    # Animation loop idioms and component animation patterns
 uv run drawlib rules show slide-guide   # 16:9 slide authoring, ::: block/note syntax, stage layouts
-uv run drawlib rules show project       # Project structures, navbar.md, build options
+uv run drawlib rules show project       # Project structures, navbar.md, build & cache options
 uv run drawlib rules show cli           # CLI commands (build, show, init, serve, cache)
 uv run drawlib rules show api           # Complete API index & symbol cheat sheet
 uv run drawlib rules show lib-<module>  # Module specifics (e.g. lib-shapes, lib-lines, lib-diagrams, lib-graph)
