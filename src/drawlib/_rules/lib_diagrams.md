@@ -678,7 +678,7 @@ sd.connect(
     bend=-0.35,
     start_side="bottom",
     end_side="bottom",
-    text_style=Styles.Dark.patch(text_valign="top"),
+    text_style=Styles.Dark.patch(valign="top"),
 )
 
 # Self-transition heartbeat loop

@@ -210,8 +210,8 @@ def draw_chapter_divider(
         title,
         style=Styles.BlackBold.patch(
             text_size=22.0,
-            text_halign="left",
-            text_valign="center",
+            halign="left",
+            valign="center",
             text_color=(15, 23, 42),
         ),
     )
@@ -221,8 +221,8 @@ def draw_chapter_divider(
             subtitle,
             style=Styles.Black.patch(
                 text_size=12.0,
-                text_halign="left",
-                text_valign="center",
+                halign="left",
+                valign="center",
                 text_color=(71, 85, 105),
             ),
         )
@@ -268,8 +268,8 @@ def draw_chapter_divider(
                 topic,
                 style=Styles.BlackBold.patch(
                     text_size=10.5,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                     text_color=(30, 41, 59),
                 ),
             )
@@ -383,8 +383,8 @@ def draw_curved_agenda(
                 title_str,
                 style=Styles.BlackBold.patch(
                     text_size=10.5,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                     text_color=(15, 23, 42),
                 ),
             )
@@ -393,8 +393,8 @@ def draw_curved_agenda(
                 sub_str,
                 style=Styles.Black.patch(
                     text_size=8.2,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                     text_color=(100, 116, 139),
                 ),
             )
@@ -404,8 +404,8 @@ def draw_curved_agenda(
                 title_str,
                 style=Styles.BlackBold.patch(
                     text_size=11.0,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                     text_color=(15, 23, 42),
                 ),
             )
@@ -458,8 +458,8 @@ def draw_kpi_cards(
             metric,
             style=Styles.BlackBold.patch(
                 text_size=15.0,
-                text_halign="left",
-                text_valign="center",
+                halign="left",
+                valign="center",
                 text_color=accent,
             ),
         )
@@ -471,8 +471,8 @@ def draw_kpi_cards(
                 label,
                 style=Styles.BlackBold.patch(
                     text_size=11.0,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                     text_color=(15, 23, 42),
                 ),
             )
@@ -484,8 +484,8 @@ def draw_kpi_cards(
                 subtext,
                 style=Styles.Black.patch(
                     text_size=8.5,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                     text_color=(100, 116, 139),
                 ),
             )

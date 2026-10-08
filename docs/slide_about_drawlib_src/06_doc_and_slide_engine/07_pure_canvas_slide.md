@@ -44,12 +44,12 @@ rectangle(
 text(
     (8.0, 101.0),
     "Full-Canvas Pure Stage  —  ::: block (0, 0) (1920, 1080)  +  setup(width=192, height=108)",
-    style=Styles.WhiteBold.patch(text_size=12.8, text_halign="left"),
+    style=Styles.WhiteBold.patch(text_size=12.8, halign="left"),
 )
 text(
     (8.0, 94.0),
     "100% Programmatic Slide Design: Header Banner, Cloud ArchitectureDiagram, BarChart & KPI Cards on One Unified Vector Canvas",
-    style=Styles.White.patch(text_size=9.2, text_color=(199, 210, 254), text_halign="left"),
+    style=Styles.White.patch(text_size=9.2, text_color=(199, 210, 254), halign="left"),
 )
 rectangle(
     (174.0, 98.5),
@@ -131,7 +131,7 @@ line((94.0, 28.5), (98.0, 28.5), arrow_head="->", style=Styles.PrimaryBold)
 text(
     (8.0, 4.5),
     "Chapter 6: Documentation & Slide Engine — Full-Canvas Pure Stage (::: block (0, 0) (1920, 1080))",
-    style=Styles.Muted.patch(text_size=8.2, text_halign="left"),
+    style=Styles.Muted.patch(text_size=8.2, halign="left"),
 )
 
 save()

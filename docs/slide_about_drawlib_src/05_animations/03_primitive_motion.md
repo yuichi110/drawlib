@@ -83,7 +83,7 @@ for step_idx, (pkt_x, active_idx, status_msg, dt) in enumerate(schedule):
 
         # VPC Container around Gateway, Worker, DB
         rectangle((60.5, 45), width=62, height=34, r=2.0, style=Styles.PrimaryNeutral)
-        text((32.5, 58.5), "Production VPC (10.0.0.0/16)", style=Styles.MutedBold.patch(text_size=8.5, text_halign="left"))
+        text((32.5, 58.5), "Production VPC (10.0.0.0/16)", style=Styles.MutedBold.patch(text_size=8.5, halign="left"))
 
         # Connectors between hops
         for i in range(len(nodes) - 1):

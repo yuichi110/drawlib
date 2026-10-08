@@ -43,7 +43,7 @@ rectangle((53, 61), width=102, height=42, r=2.0, style=Styles.MutedOutline)
 text(
     (5, 78.5),
     "Workflow 2 Live Output: layout = g.calc() -> layout.offset() -> layout.draw()",
-    style=Styles.DarkBold.patch(text_size=8.8, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=8.8, halign="left"),
 )
 
 g = LayerGraph(direction="LR", rank_sep=11.0, default_node_width=20.0, default_node_height=9.5)
@@ -88,7 +88,7 @@ bubblespeech(
 text(
     (5, 35.5),
     "3 Progressive Workflows — From 1-Line Auto-Layout to Exported Primitives",
-    style=Styles.DarkBold.patch(text_size=8.8, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=8.8, halign="left"),
 )
 
 code_w12 = """# 1. Direct Auto-Layout:

@@ -77,16 +77,16 @@ class ShapeUtil:
 
         size = shape_style.text_size if shape_style.text_size is not None else 16
         font = shape_style.text_font if shape_style.text_font is not None else Font.SANSSERIF_REGULAR
-        halign = shape_style.text_halign if shape_style.text_halign is not None else "center"
-        valign = shape_style.text_valign if shape_style.text_valign is not None else "center"
+        halign = shape_style.halign if shape_style.halign is not None else "center"
+        valign = shape_style.valign if shape_style.valign is not None else "center"
 
         return Style(
             supports={"text"},
             text_color=text_col,
             text_size=size,
             text_font=font,
-            text_halign=halign,
-            text_valign=valign,
+            halign=halign,
+            valign=valign,
             text_line_spacing=shape_style.text_line_spacing,
         )
 
@@ -132,8 +132,8 @@ class ShapeUtil:
         default_halign = "center" if is_centered_mode else "left"
         default_valign = "center" if is_centered_mode else "bottom"
 
-        text_halign = style.text_halign if style.text_halign is not None else default_halign
-        text_valign = style.text_valign if style.text_valign is not None else default_valign
+        halign = style.halign if style.halign is not None else default_halign
+        valign = style.valign if style.valign is not None else default_valign
 
         if is_default_center:
             h_shifts = {"left": width / 2.0, "right": -width / 2.0}
@@ -142,10 +142,10 @@ class ShapeUtil:
             h_shifts = {"center": -width / 2.0, "right": -width}
             v_shifts = {"center": -height / 2.0, "top": -height}
 
-        x += h_shifts.get(text_halign, 0.0)
-        y += v_shifts.get(text_valign, 0.0)
+        x += h_shifts.get(halign, 0.0)
+        y += v_shifts.get(valign, 0.0)
 
-        return (x, y), style.patch(text_halign=text_halign, text_valign=text_valign)
+        return (x, y), style.patch(halign=halign, valign=valign)
 
     @staticmethod
     def build_matplotlib_path(path_points: PathPoints) -> Path:

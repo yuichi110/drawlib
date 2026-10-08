@@ -36,9 +36,9 @@ class TestCanvasPatches:
         arc((50, 50), 30, 50, style=s_def)
 
         # Alignments and text
-        arc((50, 50), 30, 50, style=s_def.patch(text_halign="left", text_valign="bottom"), text="Hello")
-        arc((50, 50), 30, 50, style=s_def.patch(text_halign="center", text_valign="center"), text="Hello")
-        arc((50, 50), 30, 50, style=s_def.patch(text_halign="right", text_valign="top"), text="Hello")
+        arc((50, 50), 30, 50, style=s_def.patch(halign="left", valign="bottom"), text="Hello")
+        arc((50, 50), 30, 50, style=s_def.patch(halign="center", valign="center"), text="Hello")
+        arc((50, 50), 30, 50, style=s_def.patch(halign="right", valign="top"), text="Hello")
 
         # Custom styling
         arc(
@@ -74,21 +74,21 @@ class TestCanvasPatches:
         circle(
             xy=(50, 50),
             radius=30,
-            style=s_def.patch(text_halign="left", text_valign="bottom"),
+            style=s_def.patch(halign="left", valign="bottom"),
             text="Hello",
             angle=45,
         )
         circle(
             xy=(50, 50),
             radius=30,
-            style=s_def.patch(text_halign="center", text_valign="center"),
+            style=s_def.patch(halign="center", valign="center"),
             text="Hello",
             angle=45,
         )
         circle(
             xy=(50, 50),
             radius=30,
-            style=s_def.patch(text_halign="right", text_valign="top"),
+            style=s_def.patch(halign="right", valign="top"),
             text="Hello",
             angle=45,
         )
@@ -135,21 +135,21 @@ class TestCanvasPatches:
             xy=(50, 50),
             width=40,
             height=20,
-            style=s_white.patch(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(halign="left", valign="bottom"),
             text="Hello",
         )
         ellipse(
             xy=(50, 50),
             width=40,
             height=20,
-            style=s_white.patch(text_halign="center", text_valign="center"),
+            style=s_white.patch(halign="center", valign="center"),
             text="Hello",
         )
         ellipse(
             xy=(50, 50),
             width=40,
             height=20,
-            style=s_white.patch(text_halign="right", text_valign="top"),
+            style=s_white.patch(halign="right", valign="top"),
             text="Hello",
         )
 
@@ -189,14 +189,14 @@ class TestCanvasPatches:
             radius=30,
             num_vertex=8,
             text="Hello",
-            style=s_white.patch(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(halign="left", valign="bottom"),
         )
         regularpolygon(
             xy=(50, 50),
             radius=30,
             num_vertex=8,
             text="Hello",
-            style=s_white.patch(text_halign="center", text_valign="center"),
+            style=s_white.patch(halign="center", valign="center"),
         )
 
         # Angle orientation
@@ -233,14 +233,14 @@ class TestCanvasPatches:
             (50, 50),
             radius=30,
             width=10,
-            style=s_white.patch(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(halign="left", valign="bottom"),
             text="Hello",
         )
         wedge(
             (50, 50),
             radius=30,
             width=10,
-            style=s_white.patch(text_halign="center", text_valign="center"),
+            style=s_white.patch(halign="center", valign="center"),
             text="Hello",
         )
 
@@ -287,14 +287,14 @@ class TestCanvasPatches:
             (50, 50),
             radius=30,
             width=10,
-            style=s_white.patch(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(halign="left", valign="bottom"),
             text="Hello",
         )
         donuts(
             (50, 50),
             radius=30,
             width=10,
-            style=s_white.patch(text_halign="center", text_valign="center"),
+            style=s_white.patch(halign="center", valign="center"),
             text="Hello",
         )
 
@@ -334,7 +334,7 @@ class TestCanvasPatches:
             radius=30,
             angle_start=45,
             angle_end=90,
-            style=s_white.patch(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(halign="left", valign="bottom"),
             text="Hello",
         )
         fan(
@@ -342,7 +342,7 @@ class TestCanvasPatches:
             radius=30,
             angle_start=45,
             angle_end=90,
-            style=s_white.patch(text_halign="center", text_valign="center"),
+            style=s_white.patch(halign="center", valign="center"),
             text="Hello",
         )
 

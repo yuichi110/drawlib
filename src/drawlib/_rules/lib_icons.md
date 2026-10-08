@@ -344,17 +344,17 @@ Drawlib provides fine-grained control over geometry, alignment, alpha transparen
 
 ### 6.1. Anchor Alignment System
 
-By default, an icon's center is pinned to `xy`. You can align icons to edges or corners via `Style(text_halign=..., text_valign=...)`:
+By default, an icon's center is pinned to `xy`. You can align icons to edges or corners via `Style(halign=..., valign=...)`:
 
 ```text
-                      text_valign="top"
+                      valign="top"
              ┌────────────────────────────────┐
              │                                │
-text_halign  │       (x, y) Center Anchor     │ text_halign
- ="left"     │  text_halign/valign="center"   │  ="right"
+halign  │       (x, y) Center Anchor     │ halign
+ ="left"     │  halign/valign="center"   │  ="right"
              │                                │
              └────────────────────────────────┘
-                    text_valign="bottom"
+                    valign="bottom"
 ```
 
 ```drawlib show-code
@@ -373,7 +373,7 @@ circle((25, 24), radius=0.6, style=Styles.RedFlat)
 text((25, 9), "center, center", style=Styles.Primary.patch(text_size=9))
 
 # Bottom-left aligned: icon expands up and right from (x, y)
-align_bl = Styles.Primary.patch(text_halign="left", text_valign="bottom")
+align_bl = Styles.Primary.patch(halign="left", valign="bottom")
 phosphor.hard_drives((65, 18), width=12, style=align_bl)
 circle((65, 18), radius=0.6, style=Styles.RedFlat)
 text((71, 9), "left, bottom", style=Styles.Primary.patch(text_size=9))
@@ -600,10 +600,10 @@ text((77.5, 82), "End-to-End Traffic Routing, Microservices, Caching, and Persis
 
 # 2. Boundary Containers: GCP Project & VPC Network
 rectangle((88, 41), width=124, height=68, r=4, style=Styles.MutedDashed)
-text((30, 71), "Google Cloud Project (prod-us-central1)", style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"))
+text((30, 71), "Google Cloud Project (prod-us-central1)", style=Styles.DarkBold.patch(text_size=9.5, halign="left"))
 
 rectangle((88, 38), width=116, height=54, r=3, style=Styles.Muted)
-text((34, 61), "Custom VPC Network (10.0.0.0/16)", style=Styles.Muted.patch(text_size=8.5, text_halign="left"))
+text((34, 61), "Custom VPC Network (10.0.0.0/16)", style=Styles.Muted.patch(text_size=8.5, halign="left"))
 
 # 3. Public Internet Tier (Users & CDN)
 phosphor.user((13, 42), width=9, style=Styles.DarkBold)
@@ -878,9 +878,9 @@ GCP icons rely on cached PNG assets downloaded on-demand from GitHub Releases. I
 ./dcli assets sync --tag v0.3
 ```
 
-### Pitfall 4: Misaligning Icons with `text_halign` and `text_valign`
+### Pitfall 4: Misaligning Icons with `halign` and `valign`
 
-Unlike shapes which default to `text_halign="center"`, custom icon styles configured with `Style(text_halign="left", text_valign="bottom")` shift the anchor from the icon's center to its lower-left corner. If you connect lines to `(x, y)` assuming it is the center, your arrows will point to the icon's corner instead of its middle.
+Unlike shapes which default to `halign="center"`, custom icon styles configured with `Style(halign="left", valign="bottom")` shift the anchor from the icon's center to its lower-left corner. If you connect lines to `(x, y)` assuming it is the center, your arrows will point to the icon's corner instead of its middle.
 
 ---
 

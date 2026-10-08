@@ -198,15 +198,15 @@ z
    </g>
    <g id="text_12">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="137.454545" y="350.403409" transform="rotate(-0 137.454545 350.403409)"></text>
+     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="137.454545" y="344.676136" transform="rotate(-0 137.454545 344.676136)"></text>
     </g>
    </g>
    <g id="text_13">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(110.284389 369.965455)">Markdown +</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(110.284389 362.847273)">Markdown +</text>
     </g>
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(104.869624 378.965455)">drawlib Blocks</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(104.869624 371.847273)">drawlib Blocks</text>
     </g>
    </g>
    <g id="patch_14">
@@ -219,15 +219,15 @@ z
    </g>
    <g id="text_14">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="137.454545" y="461.676136" transform="rotate(-0 137.454545 461.676136)"></text>
+     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="137.454545" y="455.948864" transform="rotate(-0 137.454545 455.948864)"></text>
     </g>
    </g>
    <g id="text_15">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(113.333842 480.301619)">styles.py &amp;</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(113.333842 473.183438)">styles.py &amp;</text>
     </g>
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(120.772202 490.238182)">utils.py</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(120.772202 483.12)">utils.py</text>
     </g>
    </g>
    <g id="patch_15">
@@ -240,12 +240,12 @@ z
    </g>
    <g id="text_16">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 57px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #ffffff" x="340.363636" y="413.573864" transform="rotate(-0 340.363636 413.573864)"></text>
+     <text style="font-size: 57px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #ffffff" x="340.363636" y="410.595682" transform="rotate(-0 340.363636 410.595682)"></text>
     </g>
    </g>
    <g id="text_17">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="340.363636" y="435.829091" transform="rotate(-0 340.363636 435.829091)">drawlib build</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="340.363636" y="432.703636" transform="rotate(-0 340.363636 432.703636)">drawlib build</text>
     </g>
    </g>
    <g id="patch_16">
@@ -258,12 +258,12 @@ z
    </g>
    <g id="text_18">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="576" y="312.767045" transform="rotate(-0 576 312.767045)"></text>
+     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="576" y="309.788864" transform="rotate(-0 576 309.788864)"></text>
     </g>
    </g>
    <g id="text_19">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576" y="334.374545" transform="rotate(-0 576 334.374545)">HTML Docs Site</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576" y="331.249091" transform="rotate(-0 576 331.249091)">HTML Docs Site</text>
     </g>
    </g>
    <g id="patch_17">
@@ -276,12 +276,12 @@ z
    </g>
    <g id="text_20">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="576" y="410.948864" transform="rotate(-0 576 410.948864)"></text>
+     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="576" y="407.970682" transform="rotate(-0 576 407.970682)"></text>
     </g>
    </g>
    <g id="text_21">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576" y="432.128864" transform="rotate(-0 576 432.128864)">Vector PDF Spec</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576" y="429.003409" transform="rotate(-0 576 429.003409)">Vector PDF Spec</text>
     </g>
    </g>
    <g id="patch_18">
@@ -294,12 +294,12 @@ z
    </g>
    <g id="text_22">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="576" y="509.130682" transform="rotate(-0 576 509.130682)"></text>
+     <text style="font-size: 51px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="576" y="506.1525" transform="rotate(-0 576 506.1525)"></text>
     </g>
    </g>
    <g id="text_23">
     <g clip-path="url(#p2281568558)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576" y="530.738182" transform="rotate(-0 576 530.738182)">16:9 Slide Deck</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576" y="527.612727" transform="rotate(-0 576 527.612727)">16:9 Slide Deck</text>
     </g>
    </g>
   </g>

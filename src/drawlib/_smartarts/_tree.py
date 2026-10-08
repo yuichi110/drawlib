@@ -169,7 +169,7 @@ class TreeNode:
         Returns:
             TreeNode: The current tree node instance.
         """
-        style = style.patch(text_halign="left", text_valign="center")
+        style = style.patch(halign="left", valign="center")
 
         item = _TreeNodeDrawingItem(
             location=location,
@@ -272,7 +272,7 @@ class TreeNode:
 
         # draw text
         if self.show:
-            patched_text_style = effective_text_style.patch(text_halign="left")
+            patched_text_style = effective_text_style.patch(halign="left")
             if self._drawing_item_name is None:
                 text(xy=xy, text=self._text, style=patched_text_style)
 

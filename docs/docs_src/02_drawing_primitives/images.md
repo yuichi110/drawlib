@@ -59,7 +59,7 @@ By default, `(x, y)` anchors the center of the image. To position an image by it
 ```python
 from drawlib.styles import Styles
 
-bottom_left_style = Styles.PrimaryBold.patch(text_halign="left", text_valign="bottom")
+bottom_left_style = Styles.PrimaryBold.patch(halign="left", valign="bottom")
 image((10, 10), width=25, image="logo.png", style=bottom_left_style)
 ```
 

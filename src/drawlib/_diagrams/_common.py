@@ -139,8 +139,8 @@ def render_diagram_title(
         text_size=default_size,
         text_font=Font.SANSSERIF_BOLD,
         text_color=default_color,
-        text_halign=default_halign,
-        text_valign=default_valign,
+        halign=default_halign,
+        valign=default_valign,
     )
     applied_style = base_title_style.patch(title_style) if title_style is not None else base_title_style
     canvas_text(xy=xy, text=title, style=applied_style)
@@ -268,8 +268,8 @@ def render_icon_text_card(
             text_size=12.0,
             text_font=Font.SANSSERIF_REGULAR,
             text_color=(35, 35, 40, 1.0),
-            text_halign="center",
-            text_valign="center",
+            halign="center",
+            valign="center",
         )
         applied_text_style = base_text_style.patch(default_node_text_style)
         if text_style is not None:

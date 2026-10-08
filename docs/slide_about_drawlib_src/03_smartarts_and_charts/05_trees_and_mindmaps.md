@@ -41,7 +41,7 @@ rectangle((21, 42), width=38, height=78, r=2.0, style=Styles.NeutralFlat)
 text(
     (5, 76.5),
     "Monorepo Structure (TreeNode)",
-    style=Styles.DarkBold.patch(text_size=9.2, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.2, halign="left"),
 )
 
 TreeNode.register_drawing_item(
@@ -110,7 +110,7 @@ rectangle((72, 42), width=60, height=78, r=2.0, style=Styles.MutedOutline)
 text(
     (45, 76.5),
     "4-Way System Taxonomy (MindMapNode)",
-    style=Styles.DarkBold.patch(text_size=9.2, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.2, halign="left"),
 )
 
 txt_root = Styles.WhiteBold.patch(text_size=8.0)

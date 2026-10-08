@@ -76,8 +76,8 @@ def _draw_y_grid_and_ticks(
     tick_label_style = y_axis.tick_label_style or chart.axis_text_style
     if tick_label_style is not None:
         tick_label_style = tick_label_style.patch(
-            text_halign="right",
-            text_valign="center",
+            halign="right",
+            valign="center",
         )
 
     for tick in ticks:
@@ -108,8 +108,8 @@ def _draw_x_grid_and_ticks(
     tick_label_style = x_axis.tick_label_style or chart.axis_text_style
     if tick_label_style is not None:
         tick_label_style = tick_label_style.patch(
-            text_halign="center",
-            text_valign="top",
+            halign="center",
+            valign="top",
         )
 
     for tick in ticks:
@@ -166,14 +166,14 @@ def _draw_axis_titles(
     if x_axis.label and x_label_style is not None:
         x_cx = (p_min_x + p_max_x) / 2.0
         x_cy = p_min_y - 5.5
-        x_style = x_label_style.patch(text_halign="center", text_valign="center")
+        x_style = x_label_style.patch(halign="center", valign="center")
         canvas_text(xy=(x_cx, x_cy), text=x_axis.label, style=ensure_text_style(x_style))
 
     y_label_style = y_axis.label_style or chart.axis_text_style
     if y_axis.label and y_label_style is not None:
         y_cx = p_min_x - 9.0
         y_cy = (p_min_y + p_max_y) / 2.0
-        y_style = y_label_style.patch(text_halign="center", text_valign="center")
+        y_style = y_label_style.patch(halign="center", valign="center")
         canvas_text(xy=(y_cx, y_cy), text=y_axis.label, angle=90.0, style=ensure_text_style(y_style))
 
 
@@ -258,7 +258,7 @@ def _draw_points_and_labels(
         if pt.label:
             l_style = pt.label_style or chart.value_text_style
             if l_style is not None:
-                l_style = l_style.patch(text_halign="left", text_valign="center")
+                l_style = l_style.patch(halign="left", valign="center")
                 canvas_text(xy=(cx + pt.radius + 0.8, cy), text=pt.label, style=ensure_text_style(l_style))
 
 
@@ -315,7 +315,7 @@ def render_scatter_chart(chart: ScatterChart, xy: tuple[float, float]) -> None:
 
     if chart.title and chart.title_style is not None:
         title_y = by + chart_h - 2.5
-        t_style = chart.title_style.patch(text_halign="center", text_valign="center")
+        t_style = chart.title_style.patch(halign="center", valign="center")
         canvas_text(xy=(bx + chart_w / 2.0, title_y), text=chart.title, style=ensure_text_style(t_style))
 
     _draw_y_grid_and_ticks(chart, chart.y_axis, y_ticks, eff_min_y, eff_max_y, p_min_x, p_min_y, p_max_x, plot_h)

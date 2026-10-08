@@ -213,11 +213,11 @@ z
    </g>
    <g id="AnnotationBbox_1">
     <image xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAABOUlEQVR4nO2XTQ6CMBCFO8aFGn/u5FVUbuHSSxi8gmtXHkAXJnoEE3fGGP8VWheIAg7ttAiy4FuR8Dq8viktMFYQBvyL8fwugjc2O86WazcoYcNODTDtZOmEirrcuY16zUpUh2n9miWiz9RRGPkBX5ngfIwQB2hDDPVjJLsuoKTfmiCS1LM1Ikk9WyMS/mgk3Cc0LMs+ce8ugL/hxGHZJ84AgAv3ZncbFalOUrOMjgKgv0NUrUJXrJEoGRuJ30jwxTo6J9jwRVzZN9hiTSERs7MiN2sk8VHXHhy9NnL3Ou23qqZ1cpNIYSRKYSSK8q0Zz+5CqhKMTVaOROChOsXViaiswstNQn7UmuRf3hpG0vrf8NAwYjpr2gSIRkzS8MfQJkA0YpKG3hj8mzXAYb9dqDSPi6hrPTXPPAEMC1DmTWKYDQAAAABJRU5ErkJggg==" id="image2fc8ccdb62" transform="scale(1 -1) translate(0 -24.48)" x="133.92" y="-244.44" width="24.48" height="24.48"/>
+iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAABR0lEQVR4nO2XQW7CMBBFZywWUKntnbgKtLforqdAcISyZsUBYMcVkLplgVQ1FZ7pIjjClpNJ7AFlkbdJFH9Pvj32OAEY8EF3s97/8W3D94ngcCRPvJg9YUy7OVw8naVLsXp7GYe6mNbFNEn2PTi4du1XIhsR42NwbYuvl410jZ+IYmryUDCiM2X5RnQmJN1I9X6MPu3MqAphbbXBGdEQEQCAYSYKJ99p+aoFNyBmYmBAYIrFvN4aYKLQcjTB76ufSucKTh1OS2yL5fx5LOnqYiosVh0GIyHiGinhOmkSGWvk/nU+MTV19YIb2prJHur081x+tDAV24/XSWqckSwRQCwHk1nqe7NrBiMhvTEi7pqv3a9t6o6IJvwyjyEdnuKuQTSZs9auKj8gNe1KVW/WyAOMtKt0HYyklk711Nz3BFZKjdI/xcAN/w4PcRb64Uz9AAAAAElFTkSuQmCC" id="image0d9f8d2be6" transform="scale(1 -1) translate(0 -24.48)" x="133.92" y="-242.28" width="24.48" height="24.48"/>
    </g>
    <g id="text_10">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="146.25" y="280.774375" transform="rotate(-0 146.25 280.774375)">Cloud LB</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="146.25" y="278.98375" transform="rotate(-0 146.25 278.98375)">Cloud LB</text>
     </g>
    </g>
    <g id="patch_17">
@@ -230,11 +230,11 @@ z
    </g>
    <g id="AnnotationBbox_2">
     <image xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADqElEQVR4nO2XS0wTQRjH/7O7SBUqPhDfjxDxEVGjtHogBNsSE4kXNCYS8WDi4+DrYOLB4kVS1It3PehFxWCMJiYihpZECCEpUaORRDGR+IiA4osqfezueFhmnZXptoV6MPF/2dmZ79v57f/7drcF/iuJyq7WfCq7XqPaxXgDEfq39pfYgCjSbCJJ8tJDG7aJAj0NX0YZjCcQsQWeFAjTHE/xPVFg++mZUwHDEALI2XbHBOnZfYukDudDKLyBEbrxQOu+rILwKmvaoYnmo8P9XVYoghnLyi9nwx0LSGzwx0MAIIQIAbsulJazcV/LqWWUUhNgsjCWDZ8dv1/Jxovq1q4WZoxtXrKtsb+93im9675o5ngDEeo7F9MnDWJsZBzmbV/RK0oI1TstOS/vnngY8uebzUO1OJmIO+NAemrTaVpD3safZi8ZMMRSKveR7j0TBuFVdq0mJpqPR4bCAACqW/JD/jwp5HeaN+KcX3o1XXeEIKNvvvkBgMjSFNF659niTWy8vPr87D/XQ/58ggwbWQjy/GRbIxuXXthaaneBJeWHP4nmQ/VO6X34SgkP42n4OpoRCACA6hoAOBY4nwk34ho0mV7cOfqKjyOS4kjmTlKQntrbSqqNmCrPDEfs1kP+fEL1RJSdewMRum5v8660QHi5mnYK3w26GgkCgCzn5qW6RvvpmVN5dwpXVTfz7tjaGw+RqESRCwCKjwpjoxUlFAAcHX1pP/Ysh8+ztZ/oci4FQBTowPgv/7DPHfue7u4Agq41B9cWTLvIcggwwtaSghQW/L5BZYsqi2I0YAoA5Cuy8CPJa9Dn1glXgaJg2OJg0h75cEu2ffbzFIONApjW2m3r7JDPTWEDAaQoDQBUHNOEtX9duZEC9k024HVrEjFulgDo+Pxt1s7HL7+IYoUgaqes0rGHrbvX/qW4puOJkGXMBVMiF3gJS0OjxKiLDGHtBzzuBBt/jCcsaw0li6t4CIdE9FQQgMCRhYXGkQDI8ahCxyTJyCOwgmbqguWaf07031Bsa1E5a7o5nhMMm6A8BKWUZgIB2DTr+v1iN25uWGkBHfC64hIhOez8wcev1XVP+1oygRgHogYVjX28e/vF/cFUFAwTiwsA5mboAi9LaSg1zjVA+INodOtmjW3KQ+QQok0GAkhSGkeV6hDNj2i6+U5gyrQXksl0JNFm36RMfFC2ICwgTDlVqvDi7zyuEcBw49KbgS3ZhBint83yI7v1QZ9rQv9Z/in9AgBDUhmfE6ySAAAAAElFTkSuQmCC" id="imagefdf18f7b23" transform="scale(1 -1) translate(0 -24.48)" x="205.2" y="-244.44" width="24.48" height="24.48"/>
+iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADwUlEQVR4nO2XW2gUVxjH/2dmdjcmqwYxxmjEREWLV4wbX3zIZmwovdgHBS+RPhbEiiCCrcQYUBdvSKEPtq8+SETUavtSxOyupU3VJCioeIHcqKnxFoydamJm5vNhPePs5pvZTTe++T1955zvm/M73+VwBvgg6SKkEjm1jgCgfeNZwRnW7Hv6r6oWhAEg3hBmbfIRJXMi0rzO5gx7Wg5/InU9ZlBN06Pb7wWk58f2SgCAAHva3stHW91jNVi0UI8ZNO4gTy/39kh96U+f/8oZk22+zpzTYwbNrdubd6rSUkNEBADB4oIvOONEY3FI6jdP1gelPju6y47uHxwZN5COTedG1YyXLKk/OewuWkVRtXxS5bnxiua1Fjff136iCiBACAGkOsg2h3rluh4zSI+96M4bZKD17zIAEEKwkPd+/ua67PrqbVcaACDZNLUivaWVirFGZ9RmXT9c65f60uOfHvJznli2+IB7nHm/jAWGPTVZ1hAABKcUfsut+11o8Yaw+PPIfGddjxmkH3jBpjkrSMfm8xOyOUqJ7hsc1dLDg/+kwwpFyRadrF0ir/5MGTL66wFAUdWAl2+8ISzINnvkWI8ZtOq7zj/GBDJwtW+5H2DrwXnNUl/y1ek1XnaJxuJKd3RCE0tXcdHxBOn6/soNqS86VtfM2RBZIwBQ8tFnv/hBA2/b3DZNOdZjBk2atVLNCpLaCQQAE2ZO2sgtJ/ZMDnLzXpJsLA50XmxyNo9siTtgmp/jXyUXnJByhbCjomzO7ngtAGBajjBt2u8W4rUgpG4j6ecbEZnIwMcm266755Z35rg/AODx6mqnNmybrGktbc53PSMyktRMmC4aH3F/kJOHesRUhVD97L1TYyLlqNIrbrmvNjKUHTEVBfdZvKBZkC1figKpB3SrkLMJKCIEAN0vh09z6101VXfDmroAAAQIwzbdmZXoWOgFzNKNXNKcQ3D1cWrZ/On61MkPAf6E7lrwsskU32L1KlIJQUiLOsoLgsINQQDlAgEwqXn5m/ZfNifZeqUt7c5B+vWIqbgKcuutrsCZR89Mzj8nkICGQgB4/orucA5PVlfbmY30f1LhC3Lo63eZKlljsYVFb+vKMM173dGq/iJVLXU+JkBTLrXl/Nz0BNm5QSEAIOJvjz1zZjonDWvaglzaMldh6YN1Jju/vXJG2s+XAGAT7HwhAFdE7IRmW1nfUSmRxbr++v1QcmD0wygvEMtK5d4OgO2aB9EVzrxA/qnIFCcFsi5CNWaYMyxPdhQBwGvLfj7eEB+EkzeiCFWOCo1CPgAAAABJRU5ErkJggg==" id="image3d6c05bd64" transform="scale(1 -1) translate(0 -24.48)" x="205.2" y="-242.28" width="24.48" height="24.48"/>
    </g>
    <g id="text_11">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="217.5" y="280.774375" transform="rotate(-0 217.5 280.774375)">Cloud Run</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="217.5" y="278.98375" transform="rotate(-0 217.5 278.98375)">Cloud Run</text>
     </g>
    </g>
    <g id="patch_18">
@@ -247,11 +247,11 @@ z
    </g>
    <g id="AnnotationBbox_3">
     <image xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAEgElEQVR4nO1Xb0yVZRT/Pc/7XoGbXBYSCuGfsilpA4WLRbKKC6ypbGJI/t36UNLc1PrUmIJbBplf8ktricvRVCRH2JptFX8ulg6FG9qINMUrkGuIsSBgvtz7vu/pg4H35T7P5RKrT/6+vc95zjm/55znnPO8wENYwWai7CofMcDAAYBM03CXOdT/jUjq0fyzdrjWRfUXAyCxCea73rQ3dul/QsRZU0iidceNGoCPSfW6f9yT5a07dmFGRNJPFIwyVbGLZKZuau3bz0QFrmUfGNKYokSI9hOZprvUoYRNJO1EgcZVsTEAuF3Tyfq+vCZnDyBxdSGS134mjOB9rxxNe+0W3xMfzlOFJhiYKOv3egerO99p3BbSuwTLNh15bV7KtiqZvGnfbGYlMvkOcMDz6hfS1Dl3N8x1zHuuL3Dtbs/xzR2VOz+X6bgOjhDMKYgs2ulcHffCgnOeLXUhSzDt5AYf54rN4a2aJAmMJeHSkRR1tPeWIbPzUvmwrsPbdr40NdNCJBScpzcSTHHKCTrFdJ0AGBPaItPwu8tiZk3lQ0okuSL73dmLY/fL5APf9zx762NPq0Wn6PDKxBVvtFvNPogUU8ZuNJbMWRIWkfRTr5hMcjqmMrRtrA0rirmHdDJ1TSrvail+vvdsdUsQEVnDMnXS2rfXRYlkABCVGM/s8YvjBq603JXtyT7wl8YULmwJ45dVejH/aPKy7srLMjFc5SNkiWcRQETkLo3mk/e69zsiASAhay2eXnNaeGBLmBfuSNvac7S9WuY8tXJdp80RuQwAmC8J0b9VSInaHrHTt2/zIFLjSMp6PfX2+U9/EhIR4cm3VjliM+cPAeIRZ2j61WjvJ4YaEf2MzMadm1WFncd21YXyIyWSdnKDjyvcJhQS3fNsqRPOoOzyoVHGxPMJILRWrlBGem6akyUWIhm1RUR60J4JeDbLO60IrophCmxyge5M0xhrLouJDCIiq5rBy31rug5d+EbmTKtXR8GhRubo0kH51PrShQtWlXSLZMJZM8GZMfJsqpVetJaP2EHnUqVElFjdoF+iXjaWy3Sz3x/2M2L/VCuhaV+0lUg48NWrJmNiHRrjGPww9cE3QDt+70j46qp2JxzbUxLRvlP9Cpf3G1uuzgCg35UhfUYQEc1t8kgjLCVy/bjS/EQCe1EkIwKlv2lEdXhJ+D5cFMfVSylpPtmYmBOpkPL1xSBSE5vzMzk78x6XlszgCHU+VmBIe4UIP+ctr4837bkyeYOvP3nrDz2/Woj4G9SgqvEDmj1Xl86Z6aA/xzkKMDtgLeT4xjYGACHzZgMi/Q0qfVDM5/9bAnsyHI7+nAwaJwGI70PQmr9Z1aFD+NomgjkrT5e+xAPR58owOBMfVNfJn3jOY3ksSatmSRLQWRWcrnGYHHqES7eMgP48pw8mE48FAKVD12yVnmFdJAurjxzezVN3redXJq8TAO1iPDT341LdVnOgIt/tLZ3Kx7R/OfVG1SBG/M+KlVJ1GwM92tAW8v7NmEgg+lxOgzN2/yc8jKb1ENPB3712o2YhwroYAAAAAElFTkSuQmCC" id="image345c15d087" transform="scale(1 -1) translate(0 -24.48)" x="276.48" y="-214.2" width="24.48" height="24.48"/>
+iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAEpElEQVR4nO1XW0wUVxj+zswsuquLC3IJVjTekl5IrLBA0KJceqENtVG0aW0TYg3p1bZpGi9RaIVN4cG2D01a09ho6IVKmuWBF1tgoZomtYCtWrS12Au0BIS6yhaX3Zk5fx9wkWXPWVAxfemXTDLn/Od8/zfnv8wM8D9mGHn7vL68ykv+W+VhN7PJ+ZLnk9iUrKdENoMP/n2sfEnCbRPiyFqA5a/lEACAxnbau2vBGEn39J6qSfyl3jU0I0KcRzZxEAnXESezc4tbA4D8qmGdKYomJOGce8pj1RsWsurQ+r9Uq2WBbNOZV4+qgf4RLrJZ7HEsd1ev0AYAimbhzTtnRYgaFxK/ZqFt6fbsERmB4Qu+/0NZ44syuwj37TvvitEW7BkbESY/t7e35ZnvDzx2KEyI8/OSyGCrzOzY/IX4uAEsLtp657Lc984BgM/v+aDdtf4F2dqCt4YNkBJxEp49c1mEEALAiIyOJ90WGSEA5Lt8nDEmza8QuQx5Vd6AolhihEKmQkbdxiBjLEwgAZh34bCUhnjA31o+3zYd/qhCVuxY/ca89JQ3J9GPb/v9QMfSobY/fgOApJUbk9Mer+2XcRmmd+hYRWritIVYlzhwT3WhtDkwi2q0l9RHDd39+4M6DwSludV9/JXEnqMfhfWX6zlSX2KAQ1jrxIl3bnFH7QMy5LmGDYVFJmmIt7XcrgLAddUCET9XHZvj6xq8KnOSv294lGnKLADgpj7aVhFnnbymbW+sBgDa3NlYu2uQY0KSM4Up4/ehm9CJ6L7gh6fKGp+VOc/4dEOfwpNT7D37Q8+FiAiTqnv2WmNkHLmurkoLW1zOTd3fVhFnCxMSDfFrUh1Lt2d5RTZbTxU0fZFYEAgjgW9qT1QWlU7lI6oQZ12JCQZFZOMGBU4+7Z49cS6/cniUqWOhEiFaf4kwZB7ZZBKR0Dk4eNfOJtXfOywVDwDaHBvW7u43wRQhj2kG/vm6Yr5dKETY4q+hz30uq6/+bHtU7xI4lmdZ07d6pAkfOiVpratzY/iJ4jppyVY/p2S/vkn5Noz0JK94aAevmjh3ufs7f8hZ4dtXAjSqXktiUU4BiE1Lmu2s26DLHANAahKgN2sku4JfWmigMJMuFmbSu2uT7NG48lw+PW3bO8+HxtOqmmCLZjCSNDsC99bcyxmY8HR1TqN3tHZE9JfJkAq52KB2xdnZ3TJ7aY0R91kzLk+ci7cp+CknIyLXQkFQAEpoaRcmcJiQ4hwW21ClXpE57/FS07LN5oMy+0R0FK84uMjv2Caz/znv0sF094WyCCF6syasGt2A31ZkTOtVLsPAuiyDaSQMbVJLOwMgblYhEIGKd5sptyICADb/eiZuqjVhofF/pQU0BcJ3BBEo5gEjqvDJGChwSr/kTOJ6iqdz3Jc0WYNNGmdMbFcdRIrTFLf+h3P4UNAQ/34AlPtjp3J+IPIjf8rydVeqpY+uZodl9obj/ImrTQvPPmJNPi1bY9qCp1MaT62M5ueGfjn9LeoVjVjs2IjgrV4lpyCMJnnap+wfNyVkIvoLnIbCWFglEIiSWzpuKI9mDC/fleD4eF1q9n/i/HbgX63MwwX2giYdAAAAAElFTkSuQmCC" id="image66a17c0d95" transform="scale(1 -1) translate(0 -24.48)" x="276.48" y="-212.76" width="24.48" height="24.48"/>
    </g>
    <g id="text_12">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="288.75" y="250.450625" transform="rotate(-0 288.75 250.450625)">Cloud SQL</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="288.75" y="248.66" transform="rotate(-0 288.75 248.66)">Cloud SQL</text>
     </g>
    </g>
    <g id="patch_19">
@@ -264,11 +264,11 @@ z
    </g>
    <g id="AnnotationBbox_4">
     <image xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAADSUlEQVR4nO2XT0gUURzHv+/tOK7/Qi21tBSiQg8SpRJmHlpNojAxC+zYLaJaMIqgTqHniCS6dIv0UoSRQtlakVSsSyEaduhSEqUi6rq67s7Mr8M606w748y4Ih38nt789vfefH5/3pu3wKb+A7lzSrinI0iejiCpNmHDIXJLXIevjkor7XxDIbJLuB7CdzOTqWNmPMVcoT4hJKYgXW8jIpqcQaDorFxlNi8tu5hXX/sqG0HYBll6KciMg9ul9nYq7P4zRXvOyC9jh7x+zbASArAozYM2nhntF4jrIIhALJ/mm6frcWSqEd5OpTQiIaSfd/cSp2i/QACwq8bLrSCAVTIS7BXm3CKy1OdHC3tw/tSY5l/Z3UIEIND6RLNVdJ2WP+b1aMEtKJlo9o9ra5pBACa7JtovKCqkokCumW5yxX4Zs4yieqoJEjEa3NrH7EIABqX51evqUd9BROHUBsnxFheIKKMh5GgjJIDkiawRACQJUfGYnOYUQi99Fjwd87SabxxI5JWgNVXacUlcK4D+jWmj3vR4iw0QxmIlKWyRHJ8vcevoxi8eP1xULZ72oGI8QwcS7HXNquPJWWNn+4rPwFRXmTtGyEwD1EDcItuybJHNnNeq4ZGfS1Y+Cc2a4nG+SxJlFjihps3/3BZIMgqce+oCgPHuYZcRBMAg5JafNJqrRb/gK1we/UgKZkh30sZzKBKYS2BYMiy9BrL0qWBdQMzFBQAgLhpkK8nSWJ8OOi1vmMjkqGGPJDTmdH2VlNvvj7ObpXsth82HO5VNRnYtI2FZmQEAiWCYumRUXlSaauWjgRS/CeSo43xxfa+yeReHwgAAItNqxvUIUazsI7UHLMuvSErIygcATjRcz1THvltZpj2ZUOaJuioCCJJC0cKBwJo/fKr0X93V7iQJhEFJ7gIYBM5T/tRVhpOBqGufswUBmDT+RF2VdkMjIqXAN+S4gWOZBVo9A5YQpiAAMH704KzIXVvU53fTc1fOfP52zy6AqvzXflu7fFWn23t3ui8U71j8ZyEQGG1zi5F9vkDW98Vw9HLJ9oobu4vepnCesXK+XQhLEFUro0wUxS3lBMARiF7jnsqQyFjCP73fEWlw//svtU7X25SZ/gIIeiJ+latysQAAAABJRU5ErkJggg==" id="imageb78d9f00a1" transform="scale(1 -1) translate(0 -24.48)" x="276.48" y="-273.96" width="24.48" height="24.48"/>
+iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAC4klEQVR4nO2WT0gUURzHv7+Z2XUtozAxC/RUeypEdDtIkDoeLEiyqKRLh4IoOtmpPESUSYSEh+xgHbqUFmZBGoW6GUHgrlR2irAO0T+lTFltdWff65A7jrszO2+dwYL6nmbe+703n/n9vu8P8F9/iaqaIryqKcIT79KfgkhuW3YQI8RAYw45ArlwWFrz+rp0Z7ZPiQ22yrucQgAApYabK/pYmZMleOzino6wPWoD684EQggk1qek1FNEZUc176tRxEQgbEGSIY5fjnvbe3gMAMo69nIACNd36XPM9incWGvOwWuGfuj9VhAAoKSD4POkW8d3QyaOcE9XLB14+XgtA5H0PO8+CIAoBGBh1kQmCICnWiOZxKtDAMrHalndtf11iTbOue0EKSDGcniqNWEzJ+M86Lh5b26kuQbgICLaeTp4RBhk5on82TnEgp51Nj1K2DC6MtAuDOLRqAAAmI9PO4VIyOiN2pZvP21BDqrITjxnbYvnuAUCAD5MfAGASDTLZwty45QyAwCMgbkJAQC9jYXr7WJSzNpwlXndBjGqct+JzUIgV7pZfKkfIYkkAKAsydLoVNo6YtZuuaEtReEDXdYrjcc1kKwwLWL6ozrIRHPJ/FPITbYFDpB1mrCM9xGi32XLUbyyEMjZTYX+1DDOILBN26AA4Jh+eHKFWa9eGsZ5XCKSjxUVvDnz9sOiLIbr75r+xVJggoNtUbMePSMFA2FXjWtUxbnJtKf2IhCjvqoBVzc1SZIVAOBDbXlWMYtKUJm7mjpL/AwA8vtDjg89QOx2BiRlJPh9Uh80pgYcmhNQz0/pmc34YmTMhBOYMTXAbwVVAgCFTw/bxVtSGiE0xmY3BIctT06jVikSRreX6mNlIL62P2S7ENKmyywjGwdf0JSmpcSGy7f0FmX7dhjbLr77WNzy/pPp2ZIRCABc8hcVHypc91JkMqMyNbtwcEXuas/tEv9c2iAOlj8Qcmnz+9f1CxbSAJj2ahRfAAAAAElFTkSuQmCC" id="image79760c7c9b" transform="scale(1 -1) translate(0 -24.48)" x="276.48" y="-272.52" width="24.48" height="24.48"/>
    </g>
    <g id="text_13">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="288.75" y="310.2825" transform="rotate(-0 288.75 310.2825)">BigQuery</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="288.75" y="308.491875" transform="rotate(-0 288.75 308.491875)">BigQuery</text>
     </g>
    </g>
    <g id="patch_20">
@@ -281,12 +281,12 @@ z
    </g>
    <g id="text_14">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 25px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="56.25" y="267.34375" transform="rotate(-0 56.25 267.34375)"></text>
+     <text style="font-size: 25px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="56.25" y="265.6375" transform="rotate(-0 56.25 265.6375)"></text>
     </g>
    </g>
    <g id="text_15">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="56.25" y="280.774375" transform="rotate(-0 56.25 280.774375)">Users</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="56.25" y="278.98375" transform="rotate(-0 56.25 278.98375)">Users</text>
     </g>
    </g>
    <g id="patch_21">

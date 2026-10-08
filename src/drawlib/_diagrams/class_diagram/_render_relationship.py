@@ -334,8 +334,8 @@ def _render_start_annotations(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=text_color,
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             ),
         )
     if rel.start_role:
@@ -346,8 +346,8 @@ def _render_start_annotations(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=muted_color,
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             ),
         )
 
@@ -384,8 +384,8 @@ def _render_end_annotations(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=text_color,
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             ),
         )
     if rel.end_role:
@@ -396,8 +396,8 @@ def _render_end_annotations(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=muted_color,
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             ),
         )
 
@@ -430,8 +430,8 @@ def _render_relationship_annotations(
             text_bg_fill_alpha=0.9,
             text_bg_line_color=(226, 232, 240, 1.0),
             text_bg_line_width=0.5,
-            text_halign="center",
-            text_valign="center",
+            halign="center",
+            valign="center",
         )
         applied_text_style = rel.text_style or default_edge_text_style
         label_style = base_label_style.patch(applied_text_style)

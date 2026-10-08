@@ -52,7 +52,7 @@ rectangle((48, 42), width=92, height=80, r=2.0, style=Styles.MutedOutline)
 text(
     (6, 77),
     "Unified 4-Phase Lifecycle (ChevronProcess)",
-    style=Styles.DarkBold.patch(text_size=10, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=10, halign="left"),
 )
 lifecycle = ChevronProcess(
     style=Styles.Neutral,
@@ -98,7 +98,7 @@ bp.draw(xy=(8, 50))
 text(
     (49, 52),
     "Declarative Python API (SourceCode)",
-    style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
 )
 snippet = """from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles

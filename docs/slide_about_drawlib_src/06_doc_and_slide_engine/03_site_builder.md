@@ -101,7 +101,7 @@ text((19.5, 12.0), "Active Page Highlighted", style=Styles.MutedBold.patch(text_
 
 # Right Content Pane with show-code Interactive Card
 rectangle((61.5, 26.0), width=55.0, height=34.0, r=1.2, style=Styles.Neutral)
-text((37.0, 39.5), "# Cloud Architecture Specification", style=Styles.DarkBold.patch(text_size=9.2, text_halign="left"))
+text((37.0, 39.5), "# Cloud Architecture Specification", style=Styles.DarkBold.patch(text_size=9.2, halign="left"))
 
 # Interactive show-code container inside page
 rectangle((61.5, 23.5), width=49.0, height=23.0, r=1.5, style=Styles.White)

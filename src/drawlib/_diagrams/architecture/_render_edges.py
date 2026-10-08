@@ -176,8 +176,8 @@ def draw_single_edge(
         text_bg_fill_color=(255, 255, 255, 0.9),
         text_bg_line_color=None,
         text_bg_line_width=0,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     applied_text_style = edge.text_style or default_edge_text_style
     label_style = base_label_style.patch(applied_text_style)

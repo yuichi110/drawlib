@@ -13,7 +13,7 @@ from drawlib.text import text
 setup(width=142, height=54)
 
 header_ts = Styles.WhiteBold.patch(text_size=10.0)
-ts_body = Styles.Dark.patch(text_size=7.8, text_halign="left")
+ts_body = Styles.Dark.patch(text_size=7.8, halign="left")
 
 # 1. Drawlib (CLI & Knowledge Base)
 rectangle((22.0, 24.0), width=32.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)

@@ -149,8 +149,8 @@ def _render_entity(
         text_size=13,
         text_font=Font.SANSSERIF_BOLD,
         text_color=header_text_color,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     canvas_text(xy=(cx, header_cy), text=entity.name, style=header_text_style)
 
@@ -204,8 +204,8 @@ def _render_entity(
                     text_size=9,
                     text_font=Font.SANSSERIF_BOLD,
                     text_color=badge_color,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                 ),
             )
 
@@ -219,8 +219,8 @@ def _render_entity(
                 text_size=9.5,
                 text_font=col_font,
                 text_color=body_text_color,
-                text_halign="left",
-                text_valign="center",
+                halign="left",
+                valign="center",
             ),
         )
 
@@ -234,8 +234,8 @@ def _render_entity(
                     text_size=8.5,
                     text_font=Font.SANSSERIF_REGULAR,
                     text_color=(100, 116, 139, 1.0),
-                    text_halign="right",
-                    text_valign="center",
+                    halign="right",
+                    valign="center",
                 ),
             )
 
@@ -476,8 +476,8 @@ def _render_relationship_label(
         text_bg_fill_alpha=0.9,
         text_bg_line_color=(226, 232, 240, 1.0),
         text_bg_line_width=0.5,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     applied_text_style = custom_text_style or default_edge_text_style
     label_style = base_label_style.patch(applied_text_style)

@@ -17,13 +17,13 @@ setup(width=120, height=50)
 
 # 1. Alignment anchors (red dots mark coordinate anchor xy)
 circle((30, 35), radius=1.5, style=Styles.DangerFlat)
-text((30, 35), "Left-Aligned", style=Styles.DarkBold.patch(text_halign="left", text_valign="center"))
+text((30, 35), "Left-Aligned", style=Styles.DarkBold.patch(halign="left", valign="center"))
 
 circle((30, 20), radius=1.5, style=Styles.DangerFlat)
-text((30, 20), "Center-Aligned", style=Styles.DarkBold.patch(text_halign="center", text_valign="center"))
+text((30, 20), "Center-Aligned", style=Styles.DarkBold.patch(halign="center", valign="center"))
 
 circle((30, 5), radius=1.5, style=Styles.DangerFlat)
-text((30, 5), "Right-Aligned", style=Styles.DarkBold.patch(text_halign="right", text_valign="center"))
+text((30, 5), "Right-Aligned", style=Styles.DarkBold.patch(halign="right", valign="center"))
 
 # 2. Rotated text
 text((75, 25), "Rotated 45°", angle=45, style=Styles.DarkBold)
@@ -74,15 +74,15 @@ save()
 
 ## 3. Alignment & Line Spacing (`halign`, `valign`, `text_line_spacing`)
 
-### 3.1. Anchor Alignments (`text_halign` & `text_valign`)
+### 3.1. Anchor Alignments (`halign` & `valign`)
 
 By default, text is centered horizontally and vertically at `xy`. You can alter the alignment using style attributes:
 
-- **`text_halign`**:
+- **`halign`**:
   - `"center"` *(default)*: Centered horizontally at `x`.
   - `"left"`: Left edge starts at `x`.
   - `"right"`: Right edge ends at `x`.
-- **`text_valign`**:
+- **`valign`**:
   - `"center"` *(default)*: Centered vertically at `y`.
   - `"top"`: Top edge touches `y`.
   - `"bottom"`: Baseline touches `y`.
@@ -102,7 +102,7 @@ circle((30, 17.5), radius=2, style=Styles.DangerFlat)
 text(
     (35, 17.5),
     "Aligned Label",
-    style=Styles.PrimaryBold.patch(text_halign="left", text_valign="center"),
+    style=Styles.PrimaryBold.patch(halign="left", valign="center"),
 )
 
 save()

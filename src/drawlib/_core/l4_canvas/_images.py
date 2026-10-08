@@ -108,12 +108,12 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
 
         has_wrong_style = False
         patch_kwargs: dict[str, Any] = {}
-        if style.text_halign is not None and style.text_halign != "center":
+        if style.halign is not None and style.halign != "center":
             has_wrong_style = True
-            patch_kwargs["text_halign"] = "center"
-        if style.text_valign is not None and style.text_valign != "center":
+            patch_kwargs["halign"] = "center"
+        if style.valign is not None and style.valign != "center":
             has_wrong_style = True
-            patch_kwargs["text_valign"] = "center"
+            patch_kwargs["valign"] = "center"
         if has_wrong_style:
             logger.warning("image() with angle only accepts Style alignment center.")
             style = style.patch(**patch_kwargs)
@@ -122,8 +122,8 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
 
     @staticmethod
     def _shift_xy(x: float, y: float, width: float, height: float, style: Style) -> Coordinate:
-        halign = style.text_halign if style.text_halign is not None else "center"
-        valign = style.text_valign if style.text_valign is not None else "center"
+        halign = style.halign if style.halign is not None else "center"
+        valign = style.valign if style.valign is not None else "center"
         if halign == "center" and valign == "center":
             return (x, y)
 
@@ -177,8 +177,8 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
 
         border_color = style.image_border_color if style.image_border_color is not None else (0, 0, 0)
         shapestyle = Style(
-            text_halign=style.text_halign,
-            text_valign=style.text_valign,
+            halign=style.halign,
+            valign=style.valign,
             shape_line_style=style.image_border_style if style.image_border_style is not None else "solid",
             shape_line_width=style.image_border_width,
             shape_line_color=border_color,

@@ -46,8 +46,8 @@ rectangle((51, 46), width=80, height=45, style=Styles.White)
 
 # Origin (0, 0) badge at top-left of stage frame (11, 68.5)
 circle((11, 68.5), radius=1.6, style=Styles.AccentFlat)
-text((11, 71.2), "Stage (0, 0) Top-Left", style=Styles.PrimaryBold.patch(text_size=7.8, text_halign="left"))
-text((91, 20.8), "(1920, 1080)", style=Styles.MutedBold.patch(text_size=7.8, text_halign="right"))
+text((11, 71.2), "Stage (0, 0) Top-Left", style=Styles.PrimaryBold.patch(text_size=7.8, halign="left"))
+text((91, 20.8), "(1920, 1080)", style=Styles.MutedBold.patch(text_size=7.8, halign="right"))
 
 # Header Block: (80, 40) (1760, 60)
 rectangle(
@@ -83,7 +83,7 @@ rectangle(
 )
 # Canvas bottom-left origin indicator inside right block
 circle((47.0, 30.8), radius=1.5, style=Styles.AccentFlat)
-text((49.2, 32.5), "Canvas (0, 0)", style=Styles.WhiteBold.patch(text_size=7.2, text_halign="left"))
+text((49.2, 32.5), "Canvas (0, 0)", style=Styles.WhiteBold.patch(text_size=7.2, halign="left"))
 
 # Footer & Page Number Blocks
 rectangle(

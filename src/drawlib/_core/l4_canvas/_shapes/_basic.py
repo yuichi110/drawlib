@@ -307,7 +307,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             text_style,
         )
 
-        style = style.patch(text_halign=None, text_valign=None)
+        style = style.patch(halign=None, valign=None)
         options = ShapeUtil.get_shape_options(style)
         self._artists.append(Polygon(xy=xys, closed=True, **options))
 

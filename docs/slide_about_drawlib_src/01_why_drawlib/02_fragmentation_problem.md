@@ -41,7 +41,7 @@ rectangle(
     r=3,
     style=Styles.MutedDashed,
 )
-text((8, 73), "Traditional Fragmented Workflow (Disconnected Silos)", style=Styles.DarkBold.patch(text_size=10.5, text_halign="left"))
+text((8, 73), "Traditional Fragmented Workflow (Disconnected Silos)", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
 
 # Silo 1: Git
 rectangle((20, 55), width=24, height=22, r=2.5, style=Styles.Neutral)
@@ -73,7 +73,7 @@ rectangle(
     r=3,
     style=Styles.SecondaryNeutral,
 )
-text((8, 30), "The Drawlib Paradigm: Single Source of Truth in Git", style=Styles.DarkBold.patch(text_size=10.5, text_halign="left"))
+text((8, 30), "The Drawlib Paradigm: Single Source of Truth in Git", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
 
 rectangle(
     (28, 16),

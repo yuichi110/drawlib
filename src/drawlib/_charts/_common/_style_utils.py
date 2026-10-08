@@ -59,7 +59,7 @@ def ensure_text_style(
         base = base.patch(text_size=size, text_font=font)
     patched = base.patch(style)
     if halign is not None or valign is not None:
-        patched = patched.patch(text_halign=halign, text_valign=valign)
+        patched = patched.patch(halign=halign, valign=valign)
     return patched
 
 

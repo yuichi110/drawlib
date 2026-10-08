@@ -42,7 +42,7 @@ rectangle((52, 62), width=100, height=40, r=2.0, style=Styles.MutedOutline)
 text(
     (6, 78.5),
     "Production Microservice SLA Matrix — Table.draw_flexible()",
-    style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
 )
 
 table = Table(
@@ -98,7 +98,7 @@ table.draw_flexible(
 text(
     (6, 37.5),
     "Embedded Vector Code Container — SourceCode.draw(show_linenum=True)",
-    style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
 )
 
 envoy_snippet = """# Envoy Rate-Limit & Circuit-Breaker Filter Config

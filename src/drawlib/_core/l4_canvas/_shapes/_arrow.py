@@ -87,7 +87,7 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         x2, y2 = xy2
         x, y = ((x1 + x2) / 2, (y1 + y2) / 2)
         angle = get_angle(xy1, xy2)
-        style = style.patch(text_halign="center", text_valign="center")
+        style = style.patch(halign="center", valign="center")
 
         # arrow_tail_external_rectangle. left-bottom -> left-top ...
         distance = get_distance(xy1, xy2)

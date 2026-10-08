@@ -124,8 +124,8 @@ def _render_groups(
                 text_size=12,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=(80, 80, 85, 1.0),
-                text_halign="left",
-                text_valign="top",
+                halign="left",
+                valign="top",
             )
             if group.text_style:
                 title_style = title_style.patch(group.text_style)

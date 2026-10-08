@@ -109,8 +109,8 @@ for active_step in range(4):
             else:
                 is_active = i == active_step
                 c_style = Styles.PrimaryFlat if is_active else Styles.White
-                t_title = Styles.WhiteBold.patch(text_size=9.5, text_halign="left") if is_active else Styles.DarkBold.patch(text_size=9.5, text_halign="left")
-                t_desc = Styles.White.patch(text_size=8.2, text_halign="left") if is_active else Styles.Muted.patch(text_size=8.2, text_halign="left")
+                t_title = Styles.WhiteBold.patch(text_size=9.5, halign="left") if is_active else Styles.DarkBold.patch(text_size=9.5, halign="left")
+                t_desc = Styles.White.patch(text_size=8.2, halign="left") if is_active else Styles.Muted.patch(text_size=8.2, halign="left")
                 badge_st = Styles.AccentFlat if is_active else Styles.SecondaryFlat
 
                 rectangle((48, cy), width=82, height=8.8, r=1.5, style=c_style)

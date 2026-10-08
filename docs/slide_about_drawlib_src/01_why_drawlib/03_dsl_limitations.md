@@ -32,7 +32,7 @@ setup(width=100, height=82)
 
 # Top Panel: Rigid Black-Box DSL
 rectangle((50, 60), width=92, height=34, r=3, style=Styles.MutedDashed)
-text((8, 73), "Black-Box Text DSL (Opaque Heuristic Auto-Layout)", style=Styles.DarkBold.patch(text_size=10, text_halign="left"))
+text((8, 73), "Black-Box Text DSL (Opaque Heuristic Auto-Layout)", style=Styles.DarkBold.patch(text_size=10, halign="left"))
 
 # Tangled / misaligned nodes
 n1 = (20, 62)
@@ -55,7 +55,7 @@ text((60, 56), "Unavoidable\nWire Crossings!", style=Styles.DangerBold.patch(tex
 
 # Bottom Panel: Drawlib Deterministic + Auto-Layout Hybrid
 rectangle((50, 20), width=92, height=36, r=3, style=Styles.PrimaryNeutral)
-text((8, 34), "Drawlib: Deterministic Coordinates + Inspectable Solvers", style=Styles.DarkBold.patch(text_size=10, text_halign="left"))
+text((8, 34), "Drawlib: Deterministic Coordinates + Inspectable Solvers", style=Styles.DarkBold.patch(text_size=10, halign="left"))
 
 rectangle((18, 17), width=18, height=10, r=2, style=Styles.PrimaryFlat, text="Gateway", text_style=Styles.WhiteBold.patch(text_size=9))
 rectangle((48, 24), width=20, height=9, r=2, style=Styles.Neutral, text="Auth Svc")

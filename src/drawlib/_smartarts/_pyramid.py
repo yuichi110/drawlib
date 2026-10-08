@@ -199,7 +199,7 @@ class Pyramid:
         current_height = 0.0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style.patch(text_halign="center", text_valign="bottom")
+            style = item.style.patch(halign="center", valign="bottom")
             text_style = _resolve_pyramid_text_style(item, ensure_angle=False)
 
             is_last = i == len(items) - 1
@@ -248,7 +248,7 @@ class Pyramid:
         current_height = 0.0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style.patch(text_halign="center", text_valign="bottom")
+            style = item.style.patch(halign="center", valign="bottom")
             text_style = _resolve_pyramid_text_style(item, ensure_angle=True)
 
             is_last = i == len(items) - 1
@@ -300,7 +300,7 @@ class Pyramid:
         current_height = 0.0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style.patch(text_halign="center", text_valign="center")
+            style = item.style.patch(halign="center", valign="center")
             text_style = _resolve_pyramid_text_style(item, ensure_angle=True)
 
             is_last = i == len(items) - 1
@@ -353,7 +353,7 @@ class Pyramid:
         current_height = 0.0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style.patch(text_halign="center", text_valign="center")
+            style = item.style.patch(halign="center", valign="center")
             text_style = _resolve_pyramid_text_style(item, ensure_angle=True)
 
             is_last = i == len(items) - 1

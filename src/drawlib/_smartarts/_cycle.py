@@ -481,8 +481,8 @@ class Cycle:
                 text_size=9.5 if self._node_shape != "rectangle" else 9.0,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=default_title_color,
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             )
         )
 
@@ -512,8 +512,8 @@ class Cycle:
                     text_size=desc_size,
                     text_font=Font.SANSSERIF_REGULAR,
                     text_color=default_desc_color,
-                    text_halign="center",
-                    text_valign="center",
+                    halign="center",
+                    valign="center",
                 )
             )
             canvas_text(xy=(nx, title_y), text=item.text, style=t_style)
@@ -551,8 +551,8 @@ class Cycle:
                     text_size=8.0,
                     text_font=Font.SANSSERIF_REGULAR,
                     text_color=(70, 70, 70, 1.0),
-                    text_halign=halign,
-                    text_valign=valign,
+                    halign=halign,
+                    valign=valign,
                 )
             )
             canvas_text(xy=(dx, dy), text=item.description, style=d_style)
@@ -588,8 +588,8 @@ class Cycle:
             text_size=11.0,
             text_font=Font.SANSSERIF_BOLD,
             text_color=def_center_title_col,
-            text_halign="center",
-            text_valign="center",
+            halign="center",
+            valign="center",
         )
 
         if not has_desc:
@@ -601,8 +601,8 @@ class Cycle:
                 text_size=7.5,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=def_center_desc_col,
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             )
             canvas_text(xy=(cx, title_y), text=center.text, style=t_style)
             canvas_text(xy=(cx, desc_y), text=center.description, style=d_style)

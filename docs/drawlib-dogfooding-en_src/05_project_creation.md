@@ -30,7 +30,7 @@ from drawlib.text import text
 setup(width=135, height=54)
 
 header_ts = Styles.WhiteBold.patch(text_size=9.2)
-ts_body = Styles.Dark.patch(text_size=7.8, text_halign="left")
+ts_body = Styles.Dark.patch(text_size=7.8, halign="left")
 ts_bold = Styles.DarkBold.patch(text_size=8.5)
 
 # 1. Scaffold: drawlib init

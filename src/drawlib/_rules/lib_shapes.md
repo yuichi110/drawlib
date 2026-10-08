@@ -142,12 +142,12 @@ Center-Anchored:                       Bottom-Left Anchored:
 
 ### 1.4 Alignment Transformation Engine (`halign` & `valign`)
 
-When positioning shapes relative to layout grids or text baselines, you can override default anchor behavior by setting `text_halign` and `text_valign` on the shape's `Style`:
+When positioning shapes relative to layout grids or text baselines, you can override default anchor behavior by setting `halign` and `valign` on the shape's `Style`:
 
 | Alignment Attribute | Valid Options | Default for Center Shapes | Default for Bounding-Box Shapes |
 | :--- | :--- | :--- | :--- |
-| `text_halign` | `"left"`, `"center"`, `"right"` | `"center"` | `"center"` (if `angle != 0`) / `"left"` (if unrotated) |
-| `text_valign` | `"bottom"`, `"center"`, `"top"` | `"center"` | `"center"` (if `angle != 0`) / `"bottom"` (if unrotated) |
+| `halign` | `"left"`, `"center"`, `"right"` | `"center"` | `"center"` (if `angle != 0`) / `"left"` (if unrotated) |
+| `valign` | `"bottom"`, `"center"`, `"top"` | `"center"` | `"center"` (if `angle != 0`) / `"bottom"` (if unrotated) |
 
 #### Transformation Mathematics
 For a shape with unrotated width $W$ and height $H$, the internal alignment engine shifts the anchor coordinates `(x, y)` according to the following formulas:
@@ -160,7 +160,7 @@ For a shape with unrotated width $W$ and height $H$, the internal alignment engi
   - Horizontal: `"left"`: $x' = x$ | `"center"`: $x' = x - \frac{W}{2}$ | `"right"`: $x' = x - W$
   - Vertical: `"bottom"`: $y' = y$ | `"center"`: $y' = y - \frac{H}{2}$ | `"top"`: $y' = y - H$
 
-> **Important**: `arrow`, `arrow_polyline`, and `polygon` compute vertices directly from coordinate vectors and **ignore** `text_halign` and `text_valign`.
+> **Important**: `arrow`, `arrow_polyline`, and `polygon` compute vertices directly from coordinate vectors and **ignore** `halign` and `valign`.
 
 ---
 
@@ -190,8 +190,8 @@ custom_shape_style = Style(
     shape_line_color=CssColors.SteelBlue,      # Stroke boundary color
     shape_line_width=2.5,                      # Stroke thickness in points (0 disables border)
     shape_line_style="dashed",                 # "solid" | "dashed" | "dotted" | "dashdot"
-    text_halign="center",                      # Layout horizontal anchor
-    text_valign="center",                      # Layout vertical anchor
+    halign="center",                      # Layout horizontal anchor
+    valign="center",                      # Layout vertical anchor
 )
 ```
 
@@ -202,8 +202,8 @@ Unless overridden, all shapes inherit these baseline attributes:
 - `shape_line_color`: `Colors.Black` `(0, 0, 0)`
 - `shape_line_width`: `1.0`
 - `shape_line_style`: `"solid"`
-- `text_halign`: `"center"`
-- `text_valign`: `"center"`
+- `halign`: `"center"`
+- `valign`: `"center"`
 
 To eliminate a shape's border line entirely, explicitly set `shape_line_width=0`. To make a shape completely hollow/transparent, pass `shape_fill_alpha=0.0`.
 
@@ -287,7 +287,7 @@ def circle(
 #### Geometric & Alignment Mechanics
 - **Anchor**: Geometric center `(x, y)`.
 - Bounding box is $2r \times 2r$.
-- Setting `style.text_halign="left"` shifts the circle so that `x` aligns with its left tangent boundary ($x' = x + r$).
+- Setting `style.halign="left"` shifts the circle so that `x` aligns with its left tangent boundary ($x' = x + r$).
 - `angle` does not alter the appearance of a symmetric circle, but rotates embedded text around the center point.
 
 #### Code Examples
@@ -1228,7 +1228,7 @@ def polygon(
 
 #### Geometric & Alignment Mechanics
 - The path automatically closes by connecting the final vertex back to the first vertex.
-- **Important**: `polygon` has **no `angle` parameter** and **ignores `text_halign`/`text_valign`**. Vertex coordinates directly dictate orientation and position.
+- **Important**: `polygon` has **no `angle` parameter** and **ignores `halign`/`valign`**. Vertex coordinates directly dictate orientation and position.
 
 #### Code Examples
 ```drawlib show-code

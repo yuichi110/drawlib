@@ -475,7 +475,7 @@ def render_styles_matrix(
             style=Style(
                 text_size=8.0,
                 text_font=Font.SANSSERIF_BOLD,
-                text_halign="right",
+                halign="right",
                 text_color=Color(60, 60, 60),
             ),
         )

@@ -51,7 +51,7 @@ Drawlib uses a mathematical Cartesian coordinate space:
 - **Origin `(0, 0)`**: Strictly located at the **bottom-left corner** of the canvas.
 - **X-Axis**: Increases horizontally from left to right (`0` to `width`).
 - **Y-Axis**: Increases vertically from bottom to top (`0` to `height`).
-- **Default Anchor**: Shape and text coordinates `(x, y)` refer to the **geometric center** by default (unless alignment parameters such as `text_halign` or `text_valign` are customized).
+- **Default Anchor**: Shape and text coordinates `(x, y)` refer to the **geometric center** by default (unless alignment parameters such as `halign` or `valign` are customized).
 
 ```text
   Y ^

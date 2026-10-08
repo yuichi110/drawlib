@@ -105,13 +105,13 @@ class BoxList:
             align: The alignment of the boxes relative to the starting point.
             scale: Proportional scale factor around xy. Defaults to 1.0.
         """
-        default_patched_style = self._style.patch(text_halign="center", text_valign="center")
+        default_patched_style = self._style.patch(halign="center", valign="center")
         with transform(origin=xy, scale=scale):
             for is_custom_pass in (False, True):
                 for index, item in enumerate(self._list):
                     if not item.show:
                         continue
-                    patched_style = item.style.patch(text_halign="center", text_valign="center")
+                    patched_style = item.style.patch(halign="center", valign="center")
                     is_custom = patched_style != default_patched_style or item.text_style != self._text_style
                     if is_custom != is_custom_pass:
                         continue

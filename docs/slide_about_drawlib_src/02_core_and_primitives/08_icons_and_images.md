@@ -44,7 +44,7 @@ setup(width=100, height=82)
 
 # Row 1: Phosphor Vector Icons (5 Weights & Semantic Colors)
 rectangle((50, 68), width=90, height=22, r=2.5, style=Styles.LightFlat)
-text((9, 76), "1. Phosphor Vector Icons (1,500+ Icons × 5 Weights)", style=Styles.DarkBold.patch(text_size=9.0, text_halign="left"))
+text((9, 76), "1. Phosphor Vector Icons (1,500+ Icons × 5 Weights)", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 p_items = [
     (18, phosphor.cloud, Styles.Primary.patch(icon_style="thin"), "thin"),
@@ -59,7 +59,7 @@ for cx, fn, st, lbl in p_items:
 
 # Row 2: Official GCP Cloud Icons (250+ Icons)
 rectangle((50, 41), width=90, height=22, r=2.5, style=Styles.LightFlat)
-text((9, 49), "2. Official Google Cloud Architecture Icons (250+ Icons)", style=Styles.DarkBold.patch(text_size=9.0, text_halign="left"))
+text((9, 49), "2. Official Google Cloud Architecture Icons (250+ Icons)", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 gcp_items = [
     (18, gcp.cloud_load_balancing, "Load Balancing"),
@@ -73,7 +73,7 @@ for cx, fn, lbl in gcp_items:
 
 # Row 3: Dimage Raster Processing (_assets/linux.png)
 rectangle((50, 14), width=90, height=22, r=2.5, style=Styles.LightFlat)
-text((9, 22), "3. Dimage Raster Image Processing (_assets/linux.png)", style=Styles.DarkBold.patch(text_size=9.0, text_halign="left"))
+text((9, 22), "3. Dimage Raster Image Processing (_assets/linux.png)", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 linux_img = Dimage("_assets/linux.png")
 image((24, 13.5), width=10.5, image=linux_img)

@@ -43,7 +43,7 @@ low_level_items = [
 for idx, item in enumerate(low_level_items):
     cy = 58 - idx * 7.2
     rectangle((26, cy), width=38, height=5.4, r=1.2, style=Styles.White)
-    text((9, cy), f"✗  {item}", style=Styles.Dark.patch(text_size=8.0, text_halign="left"))
+    text((9, cy), f"✗  {item}", style=Styles.Dark.patch(text_size=8.0, halign="left"))
 
 # Right Card: Drawlib High-Level Declarative API
 rectangle((74, 42), width=44, height=70, r=3, style=Styles.PrimaryNeutral)
@@ -61,7 +61,7 @@ drawlib_items = [
 for idx, item in enumerate(drawlib_items):
     cy = 58 - idx * 7.2
     rectangle((74, cy), width=38, height=5.4, r=1.2, style=Styles.White)
-    text((57, cy), f"✓  {item}", style=Styles.PrimaryBold.patch(text_size=8.0, text_halign="left"))
+    text((57, cy), f"✓  {item}", style=Styles.PrimaryBold.patch(text_size=8.0, halign="left"))
 
 save()
 ```

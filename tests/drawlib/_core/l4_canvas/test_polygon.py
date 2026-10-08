@@ -48,9 +48,9 @@ class TestCanvasPolygon:
         )
 
         # Alignments
-        triangle((50, 50), 30, 40, style=s_white.patch(text_halign="left", text_valign="bottom"))
-        triangle((50, 50), 30, 40, style=s_white.patch(text_halign="center", text_valign="center"))
-        triangle((50, 50), 30, 40, style=s_white.patch(text_halign="right", text_valign="top"))
+        triangle((50, 50), 30, 40, style=s_white.patch(halign="left", valign="bottom"))
+        triangle((50, 50), 30, 40, style=s_white.patch(halign="center", valign="center"))
+        triangle((50, 50), 30, 40, style=s_white.patch(halign="right", valign="top"))
 
         # Topvertex shifts
         triangle((50, 50), 30, 40, topvertex_x=0, style=s_primary)
@@ -75,9 +75,9 @@ class TestCanvasPolygon:
         parallelogram((50, 50), 30, 20, 60, style=s_primary)
 
         # Alignments
-        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(text_halign="left", text_valign="bottom"))
-        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(text_halign="center", text_valign="center"))
-        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(text_halign="right", text_valign="top"))
+        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(halign="left", valign="bottom"))
+        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(halign="center", valign="center"))
+        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(halign="right", valign="top"))
 
         # Text & custom text style
         parallelogram((50, 50), 30, 20, 60, text="hello", style=s_primary)
@@ -123,11 +123,11 @@ class TestCanvasPolygon:
                 shape_line_style="dashdot",
             ),
         )
-        trapezoid((50, 50), 30, 40, 20, style=s_white.patch(text_halign="left", text_valign="bottom"))
-        trapezoid((50, 50), 30, 40, 20, style=s_white.patch(text_halign="center", text_valign="center"))
+        trapezoid((50, 50), 30, 40, 20, style=s_white.patch(halign="left", valign="bottom"))
+        trapezoid((50, 50), 30, 40, 20, style=s_white.patch(halign="center", valign="center"))
 
         # Width options
-        trapezoid((50, 50), 30, 40, 60, style=s_white.patch(text_halign="center", text_valign="center"))
+        trapezoid((50, 50), 30, 40, 60, style=s_white.patch(halign="center", valign="center"))
 
         # Topedge offset coordinates
         trapezoid((50, 50), 30, 40, 20, topedge_x=0, style=s_primary)
@@ -160,8 +160,8 @@ class TestCanvasPolygon:
                 shape_line_width=3,
             ),
         )
-        rhombus((50, 50), 20, 40, style=s_white.patch(text_halign="left", text_valign="bottom"))
-        rhombus((50, 50), 20, 40, style=s_white.patch(text_halign="center", text_valign="center"))
+        rhombus((50, 50), 20, 40, style=s_white.patch(halign="left", valign="bottom"))
+        rhombus((50, 50), 20, 40, style=s_white.patch(halign="center", valign="center"))
 
         # Text & angles
         rhombus((50, 50), 20, 40, text="hello", style=s_primary)
@@ -185,14 +185,14 @@ class TestCanvasPolygon:
             width=10,
             height=15,
             corner_angle=60,
-            style=s_white.patch(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(halign="left", valign="bottom"),
         )
         chevron(
             xy=(50, 50),
             width=10,
             height=15,
             corner_angle=60,
-            style=s_white.patch(text_halign="center", text_valign="center"),
+            style=s_white.patch(halign="center", valign="center"),
         )
 
         # Custom text and styling
@@ -244,8 +244,8 @@ class TestCanvasPolygon:
         star((50, 50), 8, 30, 15, text="Hello", style=s_primary)
 
         # Alignments
-        star((50, 50), 5, 30, 15, style=s_white.patch(text_halign="left", text_valign="bottom"), text="Hello")
-        star((50, 50), 5, 30, 15, style=s_white.patch(text_halign="center", text_valign="center"), text="Hello")
+        star((50, 50), 5, 30, 15, style=s_white.patch(halign="left", valign="bottom"), text="Hello")
+        star((50, 50), 5, 30, 15, style=s_white.patch(halign="center", valign="center"), text="Hello")
 
         # Custom styling & angles
         star(

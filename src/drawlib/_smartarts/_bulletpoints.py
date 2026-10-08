@@ -112,7 +112,7 @@ class BulletPoints:
             style: Style for the bullet shape.
             args: Additional arguments passed to the drawing function.
         """
-        style = style.patch(text_halign="center", text_valign="center")
+        style = style.patch(halign="center", valign="center")
 
         item = _BulletPointsShape(
             function=function,
@@ -170,7 +170,7 @@ class BulletPoints:
                 if bullet_text.show:
                     indent = bullet_text.indent
                     text_ = bullet_text.text
-                    text_style = bullet_text.text_style.patch(text_halign="left", text_valign="center")
+                    text_style = bullet_text.text_style.patch(halign="left", valign="center")
 
                     x = xy[0] + self._indent_width * indent
                     text(

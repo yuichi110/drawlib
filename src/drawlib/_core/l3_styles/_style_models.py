@@ -158,8 +158,6 @@ class Style(BaseModel):
     text_color: ColorType | None = None
     text_size: Size | None = None
     text_font: Font | None = None
-    text_halign: HAlign | None = None
-    text_valign: VAlign | None = None
     text_flip: bool | None = None
     text_line_spacing: PosFloat | None = None
     text_bg_fill_color: ColorType | None = None
@@ -179,7 +177,9 @@ class Style(BaseModel):
     image_border_width: PosFloat | None = None
     image_border_style: LineStyle | None = None
 
-    # --- Offset & Transform Properties (xy_shift, xy_abs_shift, angle) ---
+    # --- Offset & Transform Properties (halign, valign, xy_shift, xy_abs_shift, angle) ---
+    halign: HAlign | None = None
+    valign: VAlign | None = None
     xy_shift: Coordinate | None = None
     xy_abs_shift: Coordinate | None = None
     angle: Angle | None = None
@@ -206,8 +206,6 @@ class Style(BaseModel):
         text_color: ColorType | None = None,
         text_size: Size | None = None,
         text_font: Font | None = None,
-        text_halign: HAlign | None = None,
-        text_valign: VAlign | None = None,
         text_flip: bool | None = None,
         text_line_spacing: PosFloat | None = None,
         text_bg_fill_color: ColorType | None = None,
@@ -225,6 +223,8 @@ class Style(BaseModel):
         image_border_width: PosFloat | None = None,
         image_border_style: LineStyle | None = None,
         # Offset & Transform Properties
+        halign: HAlign | None = None,
+        valign: VAlign | None = None,
         xy_shift: Coordinate | None = None,
         xy_abs_shift: Coordinate | None = None,
         angle: Angle | None = None,
@@ -248,8 +248,6 @@ class Style(BaseModel):
             text_color: Font color for text.
             text_size: Font size for text.
             text_font: Font family for text.
-            text_halign: Horizontal alignment for text.
-            text_valign: Vertical alignment for text.
             text_flip: Whether text is flipped horizontally.
             text_line_spacing: Line spacing multiplier for multi-line text.
             text_bg_fill_color: Background box fill color for text.
@@ -264,6 +262,8 @@ class Style(BaseModel):
             image_border_color: Border line color for images.
             image_border_width: Border line width for images.
             image_border_style: Border line style for images.
+            halign: Horizontal alignment ("left", "center", "right").
+            valign: Vertical alignment ("bottom", "center", "top").
             xy_shift: Relative XY coordinate shift.
             xy_abs_shift: Absolute XY coordinate shift.
             angle: Rotation angle in degrees.

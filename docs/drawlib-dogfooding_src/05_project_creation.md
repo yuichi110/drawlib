@@ -29,7 +29,7 @@ from drawlib.text import text
 
 setup(width=135, height=54)
 
-ts_body = Styles.Dark.patch(text_size=8.5, text_halign="left")
+ts_body = Styles.Dark.patch(text_size=8.5, halign="left")
 
 # 1. スキャフォールド: drawlib init
 rectangle((23.5, 24.0), width=35.0, height=38.0, r=2.0, style=Styles.MutedDashed)

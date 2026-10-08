@@ -125,8 +125,8 @@ def _render_nodes(
             text_size=text_size,
             text_font=Font.SANSSERIF_REGULAR,
             text_color=text_color,
-            text_halign="center",
-            text_valign="center",
+            halign="center",
+            valign="center",
         )
         if node.text_style:
             text_style = text_style.patch(node.text_style)

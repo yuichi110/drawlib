@@ -43,7 +43,7 @@ text((49, 75), "SQLite Incremental Build Cache Architecture & Speedup", style=St
 
 # Top Section: Hash Computation & Lookup Flow
 rectangle((49, 58.0), width=86, height=24.0, r=2.0, style=Styles.PrimaryNeutral)
-text((9.0, 67.0), "1. Deterministic SHA-256 Cache Key Pipeline", style=Styles.PrimaryBold.patch(text_size=8.8, text_halign="left"))
+text((9.0, 67.0), "1. Deterministic SHA-256 Cache Key Pipeline", style=Styles.PrimaryBold.patch(text_size=8.8, halign="left"))
 
 rectangle(
     (21.0, 55.5),

@@ -215,7 +215,7 @@ class GridLayout:
         with transform(origin=xy, scale=scale):
             # draw outer rectangle
             if outer_style is not None:
-                outer_style = outer_style.patch(text_halign="left", text_valign="bottom")
+                outer_style = outer_style.patch(halign="left", valign="bottom")
                 if outer_r is None:
                     outer_r = self._r
 
@@ -252,7 +252,7 @@ class GridLayout:
                 rr1 = item.position[1] + item.height - 1
 
                 r = item.r
-                style = item.style.patch(text_halign="left", text_valign="bottom")
+                style = item.style.patch(halign="left", valign="bottom")
                 text = item.text
                 text_style = item.text_style
 

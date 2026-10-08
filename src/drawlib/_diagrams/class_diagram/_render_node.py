@@ -82,8 +82,8 @@ def render_class_node(
                 text_size=7.5,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=(203, 213, 225, 1.0),
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             ),
         )
         canvas_text(
@@ -93,8 +93,8 @@ def render_class_node(
                 text_size=10.5,
                 text_font=header_font,
                 text_color=header_text_color,
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             ),
         )
     else:
@@ -105,8 +105,8 @@ def render_class_node(
                 text_size=11.0,
                 text_font=header_font,
                 text_color=header_text_color,
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             ),
         )
 
@@ -136,8 +136,8 @@ def render_class_node(
                     text_size=8.5,
                     text_font=Font.SANSSERIF_REGULAR,
                     text_color=body_text_color,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                 ),
             )
             curr_y -= node.row_height
@@ -166,8 +166,8 @@ def render_class_node(
                     text_size=8.5,
                     text_font=Font.SANSSERIF_REGULAR,
                     text_color=body_text_color,
-                    text_halign="left",
-                    text_valign="center",
+                    halign="left",
+                    valign="center",
                 ),
             )
             curr_y -= node.row_height

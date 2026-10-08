@@ -40,7 +40,7 @@ rectangle((50, 70), width=96, height=24, r=2.0, style=Styles.NeutralFlat)
 text(
     (6, 78.5),
     "Cloud CI/CD Release Pipeline — ChevronProcess(flat_left_end=True)",
-    style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
 )
 
 pipeline = ChevronProcess(
@@ -69,7 +69,7 @@ rectangle((50, 29), width=96, height=52, r=2.0, style=Styles.MutedOutline)
 text(
     (6, 51.5),
     "SRE Incident Response Loop — Cycle() + set_center()",
-    style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
 )
 
 incident_cycle = Cycle(
@@ -111,12 +111,12 @@ incident_cycle.draw(xy=(34, 24.5), radius=16.2, align="center")
 
 # Right callout summary inside bottom panel
 rectangle((77, 26.5), width=32, height=34, r=1.5, style=Styles.Neutral)
-text((64, 39.5), "Cycle Highlights:", style=Styles.DarkBold.patch(text_size=8.5, text_halign="left"))
-text((64, 34.0), "• Auto-distributed angles", style=Styles.Dark.patch(text_size=7.8, text_halign="left"))
-text((64, 29.0), "• Curved arc connectors", style=Styles.Dark.patch(text_size=7.8, text_halign="left"))
-text((64, 24.0), "• Center hub via set_center()", style=Styles.Dark.patch(text_size=7.8, text_halign="left"))
-text((64, 19.0), "• Per-node show=True/False", style=Styles.Dark.patch(text_size=7.8, text_halign="left"))
-text((64, 14.0), "• 50%+ neutral grounding", style=Styles.Dark.patch(text_size=7.8, text_halign="left"))
+text((64, 39.5), "Cycle Highlights:", style=Styles.DarkBold.patch(text_size=8.5, halign="left"))
+text((64, 34.0), "• Auto-distributed angles", style=Styles.Dark.patch(text_size=7.8, halign="left"))
+text((64, 29.0), "• Curved arc connectors", style=Styles.Dark.patch(text_size=7.8, halign="left"))
+text((64, 24.0), "• Center hub via set_center()", style=Styles.Dark.patch(text_size=7.8, halign="left"))
+text((64, 19.0), "• Per-node show=True/False", style=Styles.Dark.patch(text_size=7.8, halign="left"))
+text((64, 14.0), "• 50%+ neutral grounding", style=Styles.Dark.patch(text_size=7.8, halign="left"))
 
 save()
 ```

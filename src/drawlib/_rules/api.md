@@ -189,11 +189,11 @@ Renders single-line or multi-line strings with explicit anchor alignments.
 
 | Function | Parameters | Description |
 | :--- | :--- | :--- |
-| `text(xy, text, ...)` | `(xy, text, *, style, angle=0.0)` | Standard horizontal text string. Alignments controlled via `style.text_halign` / `style.text_valign`. |
+| `text(xy, text, ...)` | `(xy, text, *, style, angle=0.0)` | Standard horizontal text string. Alignments controlled via `style.halign` / `style.valign`. |
 | `text_vertical(xy, text, ...)` | `(xy, text, *, style, angle=0.0)` | Vertically stacked characters (ideal for East Asian scripts or vertical axis labels). |
 
-- **`style.text_halign` Options**: `"left"`, `"center"`, `"right"`
-- **`style.text_valign` Options**: `"bottom"`, `"center"`, `"top"`
+- **`style.halign` Options**: `"left"`, `"center"`, `"right"`
+- **`style.valign` Options**: `"bottom"`, `"center"`, `"top"`
 - **`style.text_line_spacing`**: `float | None` (line spacing multiplier for multi-line strings `\n`, e.g. `1.6` or `2.0`; defaults to `None` which uses `1.2`)
 
 ```drawlib show-code file:text_typography.png
@@ -207,8 +207,8 @@ setup(width=120, height=45)
 text((60, 36), "System Architecture", style=Styles.DarkBold)
 
 # Left-aligned and right-aligned annotations using style.patch()
-text((15, 20), "Left Aligned", style=Styles.Dark.patch(text_halign="left"))
-text((105, 20), "Right Aligned", style=Styles.Dark.patch(text_halign="right"))
+text((15, 20), "Left Aligned", style=Styles.Dark.patch(halign="left"))
+text((105, 20), "Right Aligned", style=Styles.Dark.patch(halign="right"))
 
 # Vertical text
 text_vertical((60, 16), "STATUS", style=Styles.MutedBold)

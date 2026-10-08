@@ -41,7 +41,7 @@ setup(width=104, height=84)
 text(
     (4, 79),
     "Multi-Tier Platform Matrix (GridLayout)",
-    style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
 )
 
 grid = GridLayout(
@@ -89,7 +89,7 @@ grid.draw(
 text(
     (56, 79),
     "Software Testing Pyramid (Pyramid)",
-    style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
 )
 
 pyramid = Pyramid(
@@ -121,7 +121,7 @@ pyramid.draw(
 text(
     (4, 15.5),
     "Regional Cluster Health Ribbon — BoxList(align='left')",
-    style=Styles.DarkBold.patch(text_size=8.8, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=8.8, halign="left"),
 )
 ribbon = BoxList(
     style=Styles.Neutral,

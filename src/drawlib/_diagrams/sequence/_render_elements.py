@@ -203,8 +203,8 @@ def render_groups(
                 text_size=11,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=(90, 95, 105, 1.0),
-                text_halign="left",
-                text_valign="bottom",
+                halign="left",
+                valign="bottom",
             )
             if group.text_style:
                 title_style = title_style.patch(group.text_style)
@@ -302,8 +302,8 @@ def render_message_label(
     base_label_style = Style(
         text_size=10,
         text_font=Font.SANSSERIF_REGULAR,
-        text_halign="center",
-        text_valign="bottom",
+        halign="center",
+        valign="bottom",
     )
     applied_text_style = custom_text_style or default_edge_text_style
     label_style = base_label_style.patch(applied_text_style)
@@ -349,8 +349,8 @@ def render_note(
         text_size=10,
         text_font=Font.SANSSERIF_REGULAR,
         text_color=(60, 55, 45, 1.0),
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     if note.text_style:
         text_style = text_style.patch(note.text_style)
@@ -416,8 +416,8 @@ def render_blocks(
             text_size=9,
             text_font=Font.SANSSERIF_BOLD,
             text_color=(60, 70, 90, 1.0),
-            text_halign="center",
-            text_valign="center",
+            halign="center",
+            valign="center",
         )
         if block.text_style:
             block_text_style = block_text_style.patch(block.text_style)

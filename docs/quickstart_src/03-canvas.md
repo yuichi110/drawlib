@@ -58,14 +58,14 @@ setup(width=120, height=60, dpi=150, grid=True)
 - **`dpi`**: Dots per inch (default `100`). At `100` DPI, a canvas of `100` units renders at `1000px` width.
 - **`grid=True`**: Overlays grid lines every 10 units and coordinate numbers every 20 units. Extremely useful during rapid development to inspect exact alignment.
 
-## Alignment & Text Anchors (`text_halign` and `text_valign`)
+## Alignment & Text Anchors (`halign` and `valign`)
 
-Text labels support horizontal (`text_halign`) and vertical (`text_valign`) alignment configured via style attributes or `.patch()`:
+Text labels support horizontal (`halign`) and vertical (`valign`) alignment configured via style attributes or `.patch()`:
 
-- **Horizontal Alignment (`text_halign`)**: `"left"`, `"center"`, `"right"`.
-- **Vertical Alignment (`text_valign`)**: `"bottom"`, `"center"`, `"top"`.
+- **Horizontal Alignment (`halign`)**: `"left"`, `"center"`, `"right"`.
+- **Vertical Alignment (`valign`)**: `"bottom"`, `"center"`, `"top"`.
 
-```drawlib 620px center file:canvas_text_alignment.png caption:"Figure 3.2: Text Alignment Anchors with text_halign"
+```drawlib 620px center file:canvas_text_alignment.png caption:"Figure 3.2: Text Alignment Anchors with halign"
 from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import circle
@@ -85,6 +85,6 @@ for x, align_mode, label, st in anchors:
     line((x, 10), (x, 38), style=Styles.MutedDashed)
     # Red anchor dot
     circle((x, 24), radius=1.5, style=Styles.DangerFlat)
-    text((x, 24), label, style=Styles.PrimaryBold.patch(text_halign=align_mode, text_size=8.5))
-    text((x, 6), f"text_halign='{align_mode}'", style=st.patch(text_size=8.5))
+    text((x, 24), label, style=Styles.PrimaryBold.patch(halign=align_mode, text_size=8.5))
+    text((x, 6), f"halign='{align_mode}'", style=st.patch(text_size=8.5))
 ```

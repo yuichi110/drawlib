@@ -15,7 +15,7 @@ from drawlib.text import text
 setup(width=140, height=56)
 
 header_ts = Styles.WhiteBold.patch(text_size=9.5)
-ts_body = Styles.Dark.patch(text_size=7.5, text_halign="left")
+ts_body = Styles.Dark.patch(text_size=7.5, halign="left")
 
 # 1. Slide Source Markdown & Canvas
 rectangle((24.0, 26.0), width=36.0, height=38.0, r=2.0, style=Styles.PrimaryOutline)

@@ -110,18 +110,18 @@ z
    </g>
    <g id="text_3">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 57px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="96.923077" y="286.283654" transform="rotate(-0 96.923077 286.283654)"></text>
+     <text style="font-size: 57px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="96.923077" y="278.183654" transform="rotate(-0 96.923077 278.183654)"></text>
     </g>
    </g>
    <g id="text_4">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(70.294952 306.735721)">Mobile &amp; Web</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(70.294952 298.185721)">Mobile &amp; Web</text>
     </g>
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(76.627452 314.735721)">Client App</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(76.627452 306.185721)">Client App</text>
     </g>
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(72.003702 323.495721)">(3-line label)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(72.003702 314.945721)">(3-line label)</text>
     </g>
    </g>
    <g id="patch_10">
@@ -134,12 +134,12 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 61px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #ffffff" x="276.923077" y="288.899038" transform="rotate(-0 276.923077 288.899038)"></text>
+     <text style="font-size: 61px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #ffffff" x="276.923077" y="284.779808" transform="rotate(-0 276.923077 284.779808)"></text>
     </g>
    </g>
    <g id="text_6">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="276.923077" y="316.325673" transform="rotate(-0 276.923077 316.325673)">API Gateway</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="276.923077" y="312.535288" transform="rotate(-0 276.923077 312.535288)">API Gateway</text>
     </g>
    </g>
    <g id="patch_11">
@@ -152,12 +152,12 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 54px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="540" y="135.259615" transform="rotate(-0 540 135.259615)"></text>
+     <text style="font-size: 54px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="540" y="131.625" transform="rotate(-0 540 131.625)"></text>
     </g>
    </g>
    <g id="text_8">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="540" y="160.107308" transform="rotate(-0 540 160.107308)">Auth Worker</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="540" y="156.559231" transform="rotate(-0 540 156.559231)">Auth Worker</text>
     </g>
    </g>
    <g id="patch_12">
@@ -170,12 +170,12 @@ z
    </g>
    <g id="text_9">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 54px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="540" y="287.567308" transform="rotate(-0 540 287.567308)"></text>
+     <text style="font-size: 54px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="540" y="283.932692" transform="rotate(-0 540 283.932692)"></text>
     </g>
    </g>
    <g id="text_10">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="540" y="312.415" transform="rotate(-0 540 312.415)">Order Worker</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="540" y="308.866923" transform="rotate(-0 540 308.866923)">Order Worker</text>
     </g>
    </g>
    <g id="patch_13">
@@ -188,12 +188,12 @@ z
    </g>
    <g id="text_11">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 54px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="540" y="439.875" transform="rotate(-0 540 439.875)"></text>
+     <text style="font-size: 54px; font-family: 'drawlib-phosphor-regular', 'Phosphor'; text-anchor: middle; fill: #4862da" x="540" y="436.240385" transform="rotate(-0 540 436.240385)"></text>
     </g>
    </g>
    <g id="text_12">
     <g clip-path="url(#p063954342d)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="540" y="464.230817" transform="rotate(-0 540 464.230817)">Audit Logger</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="540" y="460.68274" transform="rotate(-0 540 460.68274)">Audit Logger</text>
     </g>
    </g>
    <g id="text_13">

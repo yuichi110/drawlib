@@ -50,7 +50,7 @@ txt_cluster = Styles.DarkBold.patch(text_size=5.8)
 
 # 1. Top-Left Panel: ArchitectureGraph (Compass + Nested Containers)
 rectangle((28, 63), width=50, height=38, r=1.5, style=Styles.MutedOutline)
-text((5, 79.5), "1. ArchitectureGraph (Compass + VPC)", style=Styles.DarkBold.patch(text_size=7.5, text_halign="left"))
+text((5, 79.5), "1. ArchitectureGraph (Compass + VPC)", style=Styles.DarkBold.patch(text_size=7.5, halign="left"))
 
 g_arch = ArchitectureGraph(
     direction="LR",
@@ -71,7 +71,7 @@ g_arch.draw(xy=(4.5, 45.5), width=60.0, height=38.0, margin=3.0, scale=0.78)
 
 # 2. Top-Right Panel: LayerGraph (Sugiyama Layered DAG)
 rectangle((80, 63), width=50, height=38, r=1.5, style=Styles.MutedOutline)
-text((57, 79.5), "2. LayerGraph (Sugiyama DAG)", style=Styles.DarkBold.patch(text_size=7.5, text_halign="left"))
+text((57, 79.5), "2. LayerGraph (Sugiyama DAG)", style=Styles.DarkBold.patch(text_size=7.5, halign="left"))
 
 g_layer = LayerGraph(
     direction="LR",
@@ -94,7 +94,7 @@ g_layer.draw(xy=(55.0, 44.0), width=50.0, height=33.0, margin=3.5)
 
 # 3. Bottom-Left Panel: TreeGraph (Reingold-Tilford Hierarchy)
 rectangle((19, 21), width=32, height=38, r=1.5, style=Styles.MutedOutline)
-text((5, 37.5), "3. TreeGraph", style=Styles.DarkBold.patch(text_size=7.5, text_halign="left"))
+text((5, 37.5), "3. TreeGraph", style=Styles.DarkBold.patch(text_size=7.5, halign="left"))
 
 g_tree = TreeGraph(
     root="root",
@@ -112,7 +112,7 @@ g_tree.draw(xy=(3.0, 2.0), width=32.0, height=33.0, margin=3.0)
 
 # 4. Bottom-Center Panel: RadialGraph (Concentric Hub & Spoke)
 rectangle((54, 21), width=34, height=38, r=1.5, style=Styles.MutedOutline)
-text((39, 37.5), "4. RadialGraph", style=Styles.DarkBold.patch(text_size=7.5, text_halign="left"))
+text((39, 37.5), "4. RadialGraph", style=Styles.DarkBold.patch(text_size=7.5, halign="left"))
 
 g_rad = RadialGraph(
     hub="hub",
@@ -131,7 +131,7 @@ g_rad.draw(xy=(37.0, 2.0), width=34.0, height=33.0, margin=3.5)
 
 # 5. Bottom-Right Panel: GridGraph (2D Matrix + Channel Routing)
 rectangle((89, 21), width=32, height=38, r=1.5, style=Styles.MutedOutline)
-text((75, 37.5), "5. GridGraph", style=Styles.DarkBold.patch(text_size=7.5, text_halign="left"))
+text((75, 37.5), "5. GridGraph", style=Styles.DarkBold.patch(text_size=7.5, halign="left"))
 
 g_grid = GridGraph(
     columns=2,

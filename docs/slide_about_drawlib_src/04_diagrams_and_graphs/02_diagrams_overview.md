@@ -38,7 +38,7 @@ rectangle((52, 42), width=100, height=80, r=2.0, style=Styles.MutedOutline)
 text(
     (6, 77.5),
     "drawlib.diagrams — 6 Specialized Software Engineering Engines",
-    style=Styles.DarkBold.patch(text_size=9.8, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.8, halign="left"),
 )
 
 # 3 Columns x 2 Rows Matrix of the 6 Engines
@@ -125,7 +125,7 @@ for cx, cy, title_str, sub_str, bullets, hdr_style, body_style in cards:
         text(
             (cx - 13.0, cy + 0.5 - idx * 3.4),
             line_str,
-            style=Styles.Dark.patch(text_size=6.5, text_halign="left"),
+            style=Styles.Dark.patch(text_size=6.5, halign="left"),
         )
 
 save()

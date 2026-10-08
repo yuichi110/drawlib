@@ -32,7 +32,7 @@ class TestCanvasArrow:
         clear()
         styles = default_styles
         s_def = styles.Primary
-        s_lbl = s_def.patch(text_size=14, text_halign="left")
+        s_lbl = s_def.patch(text_size=14, halign="left")
 
         # Simple arrow
         text((5, 10), "simple", style=s_lbl)

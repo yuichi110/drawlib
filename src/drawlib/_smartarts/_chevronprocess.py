@@ -206,10 +206,10 @@ class ChevronProcess:
         has_desc = bool(item.description.strip())
 
         t_style = item.text_style
-        if t_style.text_halign is None or t_style.text_valign is None:
+        if t_style.halign is None or t_style.valign is None:
             t_style = t_style.patch(
-                text_halign=t_style.text_halign or "center",
-                text_valign=t_style.text_valign or "center",
+                halign=t_style.halign or "center",
+                valign=t_style.valign or "center",
             )
 
         if has_desc:
@@ -217,10 +217,10 @@ class ChevronProcess:
             desc_y = cy - h * 0.18
 
             d_style = item.description_style
-            if d_style.text_halign is None or d_style.text_valign is None:
+            if d_style.halign is None or d_style.valign is None:
                 d_style = d_style.patch(
-                    text_halign=d_style.text_halign or "center",
-                    text_valign=d_style.text_valign or "center",
+                    halign=d_style.halign or "center",
+                    valign=d_style.valign or "center",
                 )
 
             canvas_text(xy=(cx, title_y), text=item.text, style=t_style)

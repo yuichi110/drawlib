@@ -41,7 +41,7 @@ setup(width=100, height=82)
 
 # Section 1: Anti-Pattern vs Best Practice (50%+ Neutral Rule)
 rectangle((50, 66), width=90, height=26, r=2.5, style=Styles.LightFlat)
-text((9, 75), "1. Anti-Pattern (Rainbow Chaos) vs. 50%+ Neutral Discipline", style=Styles.DarkBold.patch(text_size=9.0, text_halign="left"))
+text((9, 75), "1. Anti-Pattern (Rainbow Chaos) vs. 50%+ Neutral Discipline", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 # Left: Rainbow Chaos (Anti-Pattern)
 text((27, 69.5), "✗ Anti-Pattern: All Saturated Fills", style=Styles.DangerBold.patch(text_size=8.0))
@@ -57,7 +57,7 @@ rectangle((85, 61), width=11, height=9, r=1.5, style=Styles.SecondaryNeutral, te
 
 # Section 2: Structural Variants Matrix
 rectangle((50, 38), width=90, height=22, r=2.5, style=Styles.LightFlat)
-text((9, 45.5), "2. Orthogonal Style Variants (Styles.<Role><Variant>)", style=Styles.DarkBold.patch(text_size=9.0, text_halign="left"))
+text((9, 45.5), "2. Orthogonal Style Variants (Styles.<Role><Variant>)", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 variants = [
     (18, Styles.PrimaryFlat, Styles.WhiteBold.patch(text_size=7.5), "PrimaryFlat"),
@@ -70,7 +70,7 @@ for cx, st, tst, lbl in variants:
 
 # Section 3: Color Interpolation (get_intermediate_colors)
 rectangle((50, 13), width=90, height=20, r=2.5, style=Styles.LightFlat)
-text((9, 19.5), "3. Color Interpolation: get_intermediate_colors(Primary, Secondary)", style=Styles.DarkBold.patch(text_size=9.0, text_halign="left"))
+text((9, 19.5), "3. Color Interpolation: get_intermediate_colors(Primary, Secondary)", style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 ramp = get_intermediate_colors(Colors.Primary, Colors.Secondary, num=4, include_ends=True)
 for i, col in enumerate(ramp):

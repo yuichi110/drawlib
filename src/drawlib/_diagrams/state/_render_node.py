@@ -123,8 +123,8 @@ def _render_box_state(node: State, center_xy: tuple[float, float], default_node_
             text_size=11,
             text_font=Font.SANSSERIF_BOLD,
             text_color=text_color,
-            text_halign="center",
-            text_valign="center",
+            halign="center",
+            valign="center",
         )
         if node.style is not None and node.style.text_color is not None:
             text_style = text_style.patch(node.style)
@@ -142,8 +142,8 @@ def _render_box_state(node: State, center_xy: tuple[float, float], default_node_
         text_size=11,
         text_font=Font.SANSSERIF_BOLD,
         text_color=text_color,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     if node.style is not None and node.style.text_color is not None:
         name_style = name_style.patch(node.style)
@@ -163,8 +163,8 @@ def _render_box_state(node: State, center_xy: tuple[float, float], default_node_
         text_size=9,
         text_font=Font.SANSSERIF_REGULAR,
         text_color=(100, 116, 139, 1.0),
-        text_halign="left",
-        text_valign="center",
+        halign="left",
+        valign="center",
     )
     for i, action in enumerate(node.actions):
         act_y = div_y - 1.8 - i * row_h
@@ -191,8 +191,8 @@ def _render_oval_state(node: State, center_xy: tuple[float, float], default_node
         text_size=11,
         text_font=Font.SANSSERIF_BOLD,
         text_color=text_color,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     if node.style is not None and node.style.text_color is not None:
         text_style = text_style.patch(node.style)
@@ -224,8 +224,8 @@ def _render_circle_state(node: State, center_xy: tuple[float, float], default_no
         text_size=10.5,
         text_font=Font.SANSSERIF_BOLD,
         text_color=text_color,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     if node.style is not None and node.style.text_color is not None:
         text_style = text_style.patch(node.style)
@@ -267,8 +267,8 @@ def _render_double_circle_state(node: State, center_xy: tuple[float, float], def
         text_size=10.0,
         text_font=Font.SANSSERIF_BOLD,
         text_color=text_color,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     if node.style is not None and node.style.text_color is not None:
         text_style = text_style.patch(node.style)
@@ -291,8 +291,8 @@ def _render_text_only_state(node: State, center_xy: tuple[float, float], default
         text_size=11,
         text_font=Font.SANSSERIF_BOLD,
         text_color=text_color,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
@@ -320,8 +320,8 @@ def _render_initial_state(node: InitialState, center_xy: tuple[float, float], de
             text_size=9,
             text_font=Font.SANSSERIF_REGULAR,
             text_color=(100, 116, 139, 1.0),
-            text_halign="center",
-            text_valign="top",
+            halign="center",
+            valign="top",
         )
         canvas_text(xy=(cx, cy - node.radius - 1.0), text=node.name, style=label_style)
 
@@ -359,8 +359,8 @@ def _render_final_state(node: FinalState, center_xy: tuple[float, float], defaul
             text_size=9,
             text_font=Font.SANSSERIF_REGULAR,
             text_color=(100, 116, 139, 1.0),
-            text_halign="center",
-            text_valign="top",
+            halign="center",
+            valign="top",
         )
         canvas_text(xy=(cx, cy - r_outer - 1.0), text=node.name, style=label_style)
 
@@ -382,8 +382,8 @@ def _render_choice_state(node: ChoiceState, center_xy: tuple[float, float], defa
             text_size=9,
             text_font=Font.SANSSERIF_REGULAR,
             text_color=(100, 116, 139, 1.0),
-            text_halign="center",
-            text_valign="bottom",
+            halign="center",
+            valign="bottom",
         )
         canvas_text(xy=(cx, cy + node.size / 2.0 + 1.0), text=node.name, style=label_style)
 
@@ -411,7 +411,7 @@ def _render_fork_join_state(node: ForkJoinState, center_xy: tuple[float, float],
             text_size=9,
             text_font=Font.SANSSERIF_REGULAR,
             text_color=(100, 116, 139, 1.0),
-            text_halign="center",
-            text_valign="bottom",
+            halign="center",
+            valign="bottom",
         )
         canvas_text(xy=(cx, cy + node.height / 2.0 + 1.0), text=node.name, style=label_style)

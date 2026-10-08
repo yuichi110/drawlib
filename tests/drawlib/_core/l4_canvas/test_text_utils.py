@@ -50,7 +50,7 @@ class TestTextUtil:
         assert TextUtil.get_text_options(None) == {}
 
         # 2. Test mapped values
-        style = Style(text_color=(0, 255, 0), text_halign="center", text_valign="top")
+        style = Style(text_color=(0, 255, 0), halign="center", valign="top")
         options = TextUtil.get_text_options(style)
         assert options["color"] == (0.0, 1.0, 0.0, 1.0)
         assert options["horizontalalignment"] == "center"

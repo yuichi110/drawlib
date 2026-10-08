@@ -102,9 +102,9 @@ class CanvasTextFeature(CanvasBase):
         """
         style.validate_for("text")
 
-        if style.text_halign != "center":
+        if style.halign != "center":
             logger.warning("Style.halign must be center on text_vertical(). Fix halign.")
-            style = style.patch(text_halign="center")
+            style = style.patch(halign="center")
 
         vertical_text = "\n".join(text)
         self.text(xy=xy, text=vertical_text, angle=angle, style=style)

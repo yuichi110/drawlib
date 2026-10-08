@@ -234,8 +234,8 @@ class TestTextProperties:
             text_color=Colors.Black,
             text_size=18.0,
             text_font=Font.SANSSERIF_BOLD,
-            text_halign="center",
-            text_valign="bottom",
+            halign="center",
+            valign="bottom",
             angle=45.0,
             text_flip=True,
             text_line_spacing=1.5,
@@ -250,8 +250,8 @@ class TestTextProperties:
         assert s.text_color == Colors.Black
         assert s.text_size == 18.0
         assert s.text_font == Font.SANSSERIF_BOLD
-        assert s.text_halign == "center"
-        assert s.text_valign == "bottom"
+        assert s.halign == "center"
+        assert s.valign == "bottom"
         assert s.angle == 45.0
         assert s.text_flip is True
         assert s.text_line_spacing == 1.5
@@ -265,9 +265,9 @@ class TestTextProperties:
     def test_invalid_text_properties(self):
         """Test invalid text property values raise ValueError."""
         with pytest.raises(ValueError):
-            Style(**{"text_halign": "middle"})
+            Style(**{"halign": "middle"})
         with pytest.raises(ValueError):
-            Style(**{"text_valign": "middle"})
+            Style(**{"valign": "middle"})
         with pytest.raises(ValueError):
             Style(text_size=-5.0)
         with pytest.raises(ValueError):

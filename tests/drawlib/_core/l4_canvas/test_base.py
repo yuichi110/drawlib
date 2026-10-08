@@ -94,7 +94,7 @@ class TestCanvasBase:
         # With alignment and style
         polygon(
             xys=[(10, 10), (10, 50), (80, 30)],
-            style=s_def.patch(text_halign="center", text_valign="center"),
+            style=s_def.patch(halign="center", valign="center"),
         )
 
         # Custom line style
@@ -137,9 +137,9 @@ class TestCanvasBase:
 
         # Alignment options (unfilled/unbordered in original test)
         s_align = s_def.patch(shape_fill_color=Colors.Transparent, shape_line_width=0)
-        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(text_halign="left", text_valign="bottom"))
-        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(text_halign="center", text_valign="center"))
-        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(text_halign="right", text_valign="top"))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(halign="left", valign="bottom"))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(halign="center", valign="center"))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(halign="right", valign="top"))
 
         # Different angles
         rectangle((50, 50), 40, 20, angle=45, text="Rectangle", style=s_def)

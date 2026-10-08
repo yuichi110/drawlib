@@ -380,17 +380,17 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
 </figure>
 <hr />
 <h2>3. Alignment &amp; Line Spacing (<code>halign</code>, <code>valign</code>, <code>text_line_spacing</code>)</h2>
-<h3>3.1. Anchor Alignments (<code>text_halign</code> &amp; <code>text_valign</code>)</h3>
+<h3>3.1. Anchor Alignments (<code>halign</code> &amp; <code>valign</code>)</h3>
 <p>By default, text is centered horizontally and vertically at <code>xy</code>. You can alter the alignment using style attributes:</p>
 <ul>
-<li><strong><code>text_halign</code></strong>:
+<li><strong><code>halign</code></strong>:
 <ul>
 <li><code>&quot;center&quot;</code> <em>(default)</em>: Centered horizontally at <code>x</code>.</li>
 <li><code>&quot;left&quot;</code>: Left edge starts at <code>x</code>.</li>
 <li><code>&quot;right&quot;</code>: Right edge ends at <code>x</code>.</li>
 </ul>
 </li>
-<li><strong><code>text_valign</code></strong>:
+<li><strong><code>valign</code></strong>:
 <ul>
 <li><code>&quot;center&quot;</code> <em>(default)</em>: Centered vertically at <code>y</code>.</li>
 <li><code>&quot;top&quot;</code>: Top edge touches <code>y</code>.</li>
@@ -412,7 +412,7 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
 <span class="n">text</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">),</span>
     <span class="s2">"Aligned Label"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_valign</span><span class="o">=</span><span class="s2">"center"</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"center"</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>

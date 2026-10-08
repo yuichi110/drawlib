@@ -29,7 +29,7 @@ clear()
 setup(width=110, height=84)
 
 # Top Section: CI/CD Workflow Pipeline via ChevronProcess
-text((8, 78), "1. Git-Native Authoring & CI/CD Lifecycle", style=Styles.DarkBold.patch(text_size=11, text_halign="left"))
+text((8, 78), "1. Git-Native Authoring & CI/CD Lifecycle", style=Styles.DarkBold.patch(text_size=11, halign="left"))
 
 pipeline = ChevronProcess(
     style=Styles.Neutral,
@@ -52,7 +52,7 @@ pipeline.add("4. Publish", description="Site / PDF / Slides", style=Styles.Secon
 pipeline.draw(xy=(6, 57), width=98.0, height=16.0)
 
 # Bottom Section: ArchitectureDiagram showing SoT fan-out
-text((8, 49), "2. One Source Directory -> Four Publishing Targets", style=Styles.DarkBold.patch(text_size=11, text_halign="left"))
+text((8, 49), "2. One Source Directory -> Four Publishing Targets", style=Styles.DarkBold.patch(text_size=11, halign="left"))
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,

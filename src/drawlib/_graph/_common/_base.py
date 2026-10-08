@@ -142,8 +142,8 @@ class BaseGraph(ABC):
             text_size=10,
             text_font=Font.SANSSERIF_BOLD,
             text_color=(100, 100, 105, 1.0),
-            text_halign="left",
-            text_valign="top",
+            halign="left",
+            valign="top",
         )
 
     def _build_clusters_layout(

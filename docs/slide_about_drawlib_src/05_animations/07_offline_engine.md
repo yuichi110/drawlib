@@ -45,7 +45,7 @@ text(
 
 # Phase 1: Build Time (Top)
 rectangle((49, 59.5), width=86, height=21.0, r=2.0, style=Styles.PrimaryNeutral)
-text((9.0, 67.5), "PHASE 1: COMPILE TIME (drawlib build)", style=Styles.PrimaryBold.patch(text_size=8.5, text_halign="left"))
+text((9.0, 67.5), "PHASE 1: COMPILE TIME (drawlib build)", style=Styles.PrimaryBold.patch(text_size=8.5, halign="left"))
 
 rectangle(
     (20.0, 57.5),
@@ -83,7 +83,7 @@ text((62.0, 47.8), "Works over file:// & http:// (Zero CORS)", style=Styles.Prim
 
 # Phase 2: Browser Runtime (Bottom)
 rectangle((49, 24.5), width=86, height=37.0, r=2.0, style=Styles.SecondaryNeutral)
-text((9.0, 40.5), "PHASE 2: BROWSER RUNTIME (slide.js State Machine)", style=Styles.DarkBold.patch(text_size=8.5, text_halign="left"))
+text((9.0, 40.5), "PHASE 2: BROWSER RUNTIME (slide.js State Machine)", style=Styles.DarkBold.patch(text_size=8.5, halign="left"))
 
 # Step A: atob() -> ArrayBuffer
 rectangle(

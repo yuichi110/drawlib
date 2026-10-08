@@ -52,8 +52,6 @@ Style(
     text_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
     text_size: float | Literal["small", "medium", "large"] | None = None,
     text_font: FontBase | FontFile | None = None,
-    text_halign: Literal["left", "center", "right"] | None = None,
-    text_valign: Literal["bottom", "center", "top"] | None = None,
     text_flip: bool | None = None,
     text_line_spacing: float | None = None,
     text_bg_fill_color: tuple[int, int, int] | tuple[int, int, int, float] | Color | str | None = None,
@@ -74,6 +72,8 @@ Style(
     image_border_style: Literal["solid", "dashed", "dotted", "dashdot"] | None = None,
 
     # Offset & Transform Properties
+    halign: Literal["left", "center", "right"] | None = None,
+    valign: Literal["bottom", "center", "top"] | None = None,
     xy_shift: tuple[float, float] | None = None,
     xy_abs_shift: tuple[float, float] | None = None,
     angle: float | None = None,
@@ -97,12 +97,12 @@ Style(
 | `text_color` | `ColorType` | Color for embedded text or standalone text labels. |
 | `text_size` | `float \| str` | Font size in points or semantic label (`"small"`, `"medium"`, `"large"`). |
 | `text_font` | `FontBase` | Font instance (e.g. `FontRoboto.ROBOTO_BOLD`, `Font.SANSSERIF_REGULAR`). |
-| `text_halign` | `str` | Horizontal alignment: `"left"`, `"center"`, `"right"`. |
-| `text_valign` | `str` | Vertical alignment: `"bottom"`, `"center"`, `"top"`. |
 | `text_flip` | `bool` | Whether to mirror text horizontally. |
 | `text_line_spacing` | `float` | Line spacing multiplier for multi-line text (default: `1.2`). |
 | `icon_color` | `ColorType` | Color for vector icons. |
 | `icon_style` | `str` | Icon weight/fill style variant (`"regular"`, `"bold"`, `"fill"`, etc.). |
+| `halign` | `str` | Horizontal alignment: `"left"`, `"center"`, `"right"`. |
+| `valign` | `str` | Vertical alignment: `"bottom"`, `"center"`, `"top"`. |
 | `xy_shift` | `tuple` | Normalized relative offset `(dx, dy)` in the target's rotated coordinate space. |
 | `xy_abs_shift` | `tuple` | Absolute coordinate offset `(dx, dy)` in canvas units. |
 | `angle` | `float` | Counter-clockwise rotation angle in degrees. |

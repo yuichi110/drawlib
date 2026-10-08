@@ -61,7 +61,7 @@ text(
 - **`xy` (tuple[float, float])**: The anchor point `(x, y)` on the canvas.
 - **`text` (str)**: The string content to render. Supports newline characters (`\n`) for multi-line blocks.
 - **`style` (Style)**: Required keyword-only `Style` instance (e.g. `Styles.PrimaryBold`, `Styles.Primary`, `Styles.BlueBold` or custom `Style(...)`).
-  Alignment is controlled via `Style(text_halign="...", text_valign="...")` (`text_halign`: `"left"`, `"center"`, `"right"`; `text_valign`: `"bottom"`, `"center"`, `"top"`). Font size is controlled via `Style(text_size=...)` or `style.patch(text_size=...)`.
+  Alignment is controlled via `Style(halign="...", valign="...")` (`halign`: `"left"`, `"center"`, `"right"`; `valign`: `"bottom"`, `"center"`, `"top"`). Font size is controlled via `Style(text_size=...)` or `style.patch(text_size=...)`.
 - **`angle` (float)**: Counter-clockwise rotation angle in degrees around the anchor point `xy` (default: 0.0).
 
 ### 2.2. `text_vertical()` Specification
@@ -77,7 +77,7 @@ text_vertical(
 ) -> None
 ```
 
-> **Rule for Vertical Text**: `style.text_halign` must be `"center"`. If another alignment is specified, Drawlib will issue a warning and automatically patch it to `"center"` to ensure glyph centerlines remain aligned.
+> **Rule for Vertical Text**: `style.halign` must be `"center"`. If another alignment is specified, Drawlib will issue a warning and automatically patch it to `"center"` to ensure glyph centerlines remain aligned.
 
 > [!TIP]
 > ### Best Practice: Adjusting Font Size and Text Attributes via `style.patch()`
@@ -97,7 +97,7 @@ text_vertical(
 >     "Supplementary description",
 >     style=Styles.Secondary.patch(
 >         text_size=10,
->         text_halign="left",
+>         halign="left",
 >         text_color=Colors.Gray5,
 >     ),
 > )
@@ -146,13 +146,13 @@ circle(anchor, radius=0.8, style=Styles.RedFlat)
 
 # Text aligned left-bottom from the anchor
 style_lb = Styles.Primary.patch(
-    text_halign="left", text_valign="bottom", text_color=Colors.Blue, text_font=Font.SANSSERIF_BOLD
+    halign="left", valign="bottom", text_color=Colors.Blue, text_font=Font.SANSSERIF_BOLD
 )
 text(anchor, "Left-Bottom", style=style_lb)
 
 # Text aligned right-top from the anchor
 style_rt = Styles.Primary.patch(
-    text_halign="right", text_valign="top", text_color=Colors.Green, text_font=Font.SANSSERIF_BOLD
+    halign="right", valign="top", text_color=Colors.Green, text_font=Font.SANSSERIF_BOLD
 )
 text(anchor, "Right-Top", style=style_rt)
 
@@ -205,8 +205,8 @@ When pre-defined styles are insufficient, pass a custom `Style` instance to cont
 - **`text_color` (tuple | str | Color)**: Color of the glyphs (e.g. `Colors.Blue`, `"#1a73e8"`).
 - **`text_size` (float)**: Font size in points (e.g. `12`, `18`, `28`).
 - **`text_font` (Font | FontFile)**: Font family definition.
-- **`text_halign` (str)**: `"left"`, `"center"`, `"right"`.
-- **`text_valign` (str)**: `"bottom"`, `"center"`, `"top"`.
+- **`halign` (str)**: `"left"`, `"center"`, `"right"`.
+- **`valign` (str)**: `"bottom"`, `"center"`, `"top"`.
 - **`text_line_spacing` (float)**: Line spacing multiplier for multi-line text (default: `1.2`).
 
 ### 5.2. Text Background Box Attributes in `Style`
@@ -232,8 +232,8 @@ badge_style = Style(
     text_color=Colors.White,
     text_size=14,
     text_font=FontSerif.MERRIWEATHER_REGULAR,
-    text_halign="center",
-    text_valign="center",
+    halign="center",
+    valign="center",
     text_bg_fill_color=Colors.Navy,
     text_bg_fill_alpha=0.9,
     text_bg_line_color=CssColors.LightBlue,
@@ -311,10 +311,10 @@ text((50, 25), "Corporate Brand Typography", style=custom_style)
 
 ### 7.1. Behavior & Line Spacing
 - Line spacing is calculated relative to `text_size` (default multiplier: `1.2`). You can customize the vertical spacing between lines via `style.patch(text_line_spacing=1.6)`.
-- The entire multi-line block conforms to the specified `text_halign` and `text_valign`.
-  - With `text_halign="center"` (default), each line is individually centered.
-  - With `text_halign="left"`, all lines align flush to the left boundary.
-  - With `text_halign="right"`, all lines align flush to the right boundary.
+- The entire multi-line block conforms to the specified `halign` and `valign`.
+  - With `halign="center"` (default), each line is individually centered.
+  - With `halign="left"`, all lines align flush to the left boundary.
+  - With `halign="right"`, all lines align flush to the right boundary.
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
@@ -401,7 +401,7 @@ save()
 When adding text to Drawlib illustrations:
 
 1. **Hierarchy & Neutral Text Colors**:
-   - Diagram titles: `text_size=20–24` via `Styles.DarkBold.patch(text_size=22)`, `text_halign="center"` at canvas top.
+   - Diagram titles: `text_size=20–24` via `Styles.DarkBold.patch(text_size=22)`, `halign="center"` at canvas top.
    - Container / node headers: `text_size=12–14` via `text_style=Styles.WhiteBold` (on dark/colored fill) or `Styles.DarkBold` (on light fill).
    - Metadata / annotations: `text_size=9–11` via `Styles.Muted.patch(text_size=10)` or `Styles.Dark`.
    - **Neutral Text Rule**: Never use `Styles.Primary` or `Styles.Secondary` for general text, titles, or body labels without deliberate reason. Default to `Styles.Dark` on light backgrounds and `Styles.Light` / `Styles.White` on dark backgrounds.

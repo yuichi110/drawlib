@@ -117,7 +117,7 @@ sd.connect(
     bend=-0.38,
     start_side="bottom",
     end_side="bottom",
-    text_style=Styles.Dark.patch(text_size=6.8, text_valign="top"),
+    text_style=Styles.Dark.patch(text_size=6.8, valign="top"),
 )
 
 # Concurrent fork/join branches

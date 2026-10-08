@@ -40,7 +40,7 @@ rectangle((52, 42), width=100, height=80, r=2.0, style=Styles.MutedOutline)
 text(
     (6, 78),
     "Single-Canvas Coexistence: Architecture Nodes + Live Telemetry Charts",
-    style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
 )
 
 # 1. Left Side: Architecture Topology Nodes on the Same Canvas

@@ -93,8 +93,8 @@ def render_lanes(
                 text_size=text_size,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=(30, 41, 59, 1.0),
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             )
             header_text_style = (
                 default_header_text_style.patch(lane.text_style) if lane.text_style else default_header_text_style
@@ -155,8 +155,8 @@ def render_lanes(
                 text_size=text_size,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=(30, 41, 59, 1.0),
-                text_halign="center",
-                text_valign="center",
+                halign="center",
+                valign="center",
             )
             header_text_style = (
                 default_header_text_style.patch(lane.text_style) if lane.text_style else default_header_text_style

@@ -55,12 +55,12 @@ text((58, 70.5), "10-15% Safe Perimeter Margin Zone", style=Styles.MutedBold.pat
 line((12, 10), (106, 10), arrow_head="->", style=Styles.DarkBold.patch(line_width=2.2))
 line((12, 10), (12, 84), arrow_head="->", style=Styles.DarkBold.patch(line_width=2.2))
 
-text((104, 5), "+X Axis (width)", style=Styles.DarkBold.patch(text_size=9.5, text_halign="right"))
-text((15, 83), "+Y Axis (height)", style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"))
+text((104, 5), "+X Axis (width)", style=Styles.DarkBold.patch(text_size=9.5, halign="right"))
+text((15, 83), "+Y Axis (height)", style=Styles.DarkBold.patch(text_size=9.5, halign="left"))
 
 # Origin (0, 0) Badge
 circle((12, 10), radius=2.0, style=Styles.AccentFlat)
-text((16, 6), "Origin (0, 0)\nBottom-Left", style=Styles.AccentBold.patch(text_size=8.5, text_halign="left"))
+text((16, 6), "Origin (0, 0)\nBottom-Left", style=Styles.AccentBold.patch(text_size=8.5, halign="left"))
 
 # Center-Anchored Hero Shape at (cx, cy)
 cx, cy = 58, 44
@@ -78,7 +78,7 @@ circle((cx, cy - 4.5), radius=1.6, style=Styles.WhiteFlat)
 # Dashed coordinate projection lines
 line((12, cy - 4.5), (cx, cy - 4.5), style=Styles.PrimaryDashed)
 line((cx, 10), (cx, cy - 4.5), style=Styles.PrimaryDashed)
-text((9, cy - 4.5), "cy", style=Styles.PrimaryBold.patch(text_size=9, text_halign="right"))
+text((9, cy - 4.5), "cy", style=Styles.PrimaryBold.patch(text_size=9, halign="right"))
 text((cx, 6.5), "cx", style=Styles.PrimaryBold.patch(text_size=9))
 
 save()

@@ -43,7 +43,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#p5a0ea125fc)">
-     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="72" y="60.625898" transform="rotate(-0 72 60.625898)">1. Explicit Anchor Alignment (text_halign)</text>
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="72" y="60.625898" transform="rotate(-0 72 60.625898)">1. Explicit Anchor Alignment (halign)</text>
     </g>
    </g>
    <g id="patch_3">

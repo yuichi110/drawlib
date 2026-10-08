@@ -148,8 +148,8 @@ class TextUtil:
         color = ColorUtil.get_mplot_rgba(style.text_color)
         options: dict[str, Any] = {
             "color": color,
-            "horizontalalignment": style.text_halign if style.text_halign is not None else "center",
-            "verticalalignment": style.text_valign if style.text_valign is not None else "center",
+            "horizontalalignment": style.halign if style.halign is not None else "center",
+            "verticalalignment": style.valign if style.valign is not None else "center",
             "linespacing": style.text_line_spacing,
         }
 

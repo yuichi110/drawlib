@@ -11,11 +11,11 @@ from drawlib.fonts import Font, FontFile, FontMonoSpace, FontRoboto, FontSourceC
 from drawlib.styles import Styles
 from drawlib.text import text, text_vertical
 
-# Anchor alignment via text_halign & text_valign
+# Anchor alignment via halign & valign
 text((20, 60), "Left Anchor",
-     style=Styles.DarkBold.patch(text_halign="left"))
+     style=Styles.DarkBold.patch(halign="left"))
 text((80, 60), "Right Anchor",
-     style=Styles.DarkBold.patch(text_halign="right"))
+     style=Styles.DarkBold.patch(halign="right"))
 
 # Built-in font families & custom TTF/OTF files
 text((50, 40), "Roboto Bold",
@@ -43,20 +43,20 @@ from drawlib.text import text, text_vertical
 clear()
 setup(width=100, height=82)
 
-# Top Card: Anchor Alignment Precision (text_halign & text_valign)
+# Top Card: Anchor Alignment Precision (halign & valign)
 rectangle((50, 65), width=90, height=26, r=2.5, style=Styles.LightFlat)
-text((10, 74), "1. Explicit Anchor Alignment (text_halign)", style=Styles.DarkBold.patch(text_size=9.5, text_halign="left"))
+text((10, 74), "1. Explicit Anchor Alignment (halign)", style=Styles.DarkBold.patch(text_size=9.5, halign="left"))
 
 line((50, 54), (50, 71), style=Styles.PrimaryDashed.patch(line_width=1.5))
 
 circle((50, 68), radius=1.0, style=Styles.AccentFlat)
-text((50, 68), '  halign="left"', style=Styles.DarkBold.patch(text_size=9.0, text_halign="left"))
+text((50, 68), '  halign="left"', style=Styles.DarkBold.patch(text_size=9.0, halign="left"))
 
 circle((50, 62), radius=1.0, style=Styles.AccentFlat)
-text((50, 62), 'halign="center"', style=Styles.PrimaryBold.patch(text_size=9.0, text_halign="center"))
+text((50, 62), 'halign="center"', style=Styles.PrimaryBold.patch(text_size=9.0, halign="center"))
 
 circle((50, 56), radius=1.0, style=Styles.AccentFlat)
-text((50, 56), 'halign="right"  ', style=Styles.DarkBold.patch(text_size=9.0, text_halign="right"))
+text((50, 56), 'halign="right"  ', style=Styles.DarkBold.patch(text_size=9.0, halign="right"))
 
 # Bottom Card: Font Families & Vertical Text
 rectangle((50, 26), width=90, height=44, r=2.5, style=Styles.Neutral)
@@ -69,27 +69,27 @@ text_vertical((13, 26), "FONTS", style=Styles.WhiteBold.patch(text_size=9.5))
 text(
     (22, 41),
     "Font.SANSSERIF_BOLD — Universal Latin + CJK",
-    style=Styles.DarkBold.patch(text_font=Font.SANSSERIF_BOLD, text_size=9.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_font=Font.SANSSERIF_BOLD, text_size=9.5, halign="left"),
 )
 text(
     (22, 33),
     "FontRoboto.ROBOTO_REGULAR — Clean Western UI",
-    style=Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_REGULAR, text_size=9.5, text_halign="left"),
+    style=Styles.PrimaryBold.patch(text_font=FontRoboto.ROBOTO_REGULAR, text_size=9.5, halign="left"),
 )
 text(
     (22, 25),
     "FontMonoSpace.ROBOTO_MONO_REGULAR — 10.0.0.1:443",
-    style=Styles.Dark.patch(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR, text_size=9.0, text_halign="left"),
+    style=Styles.Dark.patch(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR, text_size=9.0, halign="left"),
 )
 text(
     (22, 17),
     "FontSourceCode.SOURCECODEPRO — def draw():",
-    style=Styles.SecondaryBold.patch(text_font=FontSourceCode.SOURCECODEPRO, text_size=9.0, text_halign="left"),
+    style=Styles.SecondaryBold.patch(text_font=FontSourceCode.SOURCECODEPRO, text_size=9.0, halign="left"),
 )
 text(
     (22, 9),
     "Line Spacing & Rotation (angle=0..360, text_line_spacing)",
-    style=Styles.MutedBold.patch(text_size=8.5, text_halign="left"),
+    style=Styles.MutedBold.patch(text_size=8.5, halign="left"),
 )
 
 save()

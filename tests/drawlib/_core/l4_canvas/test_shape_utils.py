@@ -97,34 +97,34 @@ class TestShapeUtil:
     def test_apply_alignment(self) -> None:
         """Verifies alignment shifting logic for all horizontal and vertical alignment settings."""
         # 1. Angle is None, is_default_center = False (defaults to left/bottom)
-        style = Style(text_halign=None, text_valign=None)
+        style = Style(halign=None, valign=None)
         xy, updated_style = ShapeUtil.apply_alignment((10.0, 20.0), 4.0, 6.0, None, style, is_default_center=False)
-        assert updated_style.text_halign == "left"
-        assert updated_style.text_valign == "bottom"
+        assert updated_style.halign == "left"
+        assert updated_style.valign == "bottom"
         assert xy == (10.0, 20.0)
 
         # 2. Angle is None, is_default_center = True (defaults to center/center)
-        style = Style(text_halign=None, text_valign=None)
+        style = Style(halign=None, valign=None)
         xy, updated_style = ShapeUtil.apply_alignment((10.0, 20.0), 4.0, 6.0, None, style, is_default_center=True)
-        assert updated_style.text_halign == "center"
-        assert updated_style.text_valign == "center"
+        assert updated_style.halign == "center"
+        assert updated_style.valign == "center"
         assert xy == (10.0, 20.0)
 
         # 3. With angle (always defaults to center/center)
-        style = Style(text_halign=None, text_valign=None)
+        style = Style(halign=None, valign=None)
         xy, updated_style = ShapeUtil.apply_alignment((10.0, 20.0), 4.0, 6.0, 45.0, style, is_default_center=False)
-        assert updated_style.text_halign == "center"
-        assert updated_style.text_valign == "center"
+        assert updated_style.halign == "center"
+        assert updated_style.valign == "center"
         # Center-alignment adjustments
         assert xy == (8.0, 17.0)
 
         # 4. Explicit non-center alignments when is_default_center = False
-        style = Style(text_halign="right", text_valign="top")
+        style = Style(halign="right", valign="top")
         xy, _ = ShapeUtil.apply_alignment((10.0, 20.0), 4.0, 6.0, None, style, is_default_center=False)
         assert xy == (6.0, 14.0)
 
         # 5. Explicit non-center alignments when is_default_center = True
-        style = Style(text_halign="left", text_valign="bottom")
+        style = Style(halign="left", valign="bottom")
         xy, _ = ShapeUtil.apply_alignment((10.0, 20.0), 4.0, 6.0, None, style, is_default_center=True)
         assert xy == (12.0, 23.0)
 
@@ -208,7 +208,7 @@ class TestShapeUtil:
 
     def test_transform_shape_path_points(self) -> None:
         """Verifies transform_shape_path_points centers, aligns, rotates, and places points."""
-        style = Style(text_halign="center", text_valign="center")
+        style = Style(halign="center", valign="center")
         points: PathPoints = [(0.0, 0.0), (10.0, 0.0), (10.0, 10.0), (0.0, 10.0)]
 
         # Center placement at (50, 50) with default center
@@ -222,7 +222,7 @@ class TestShapeUtil:
         assert center_xy == (50.0, 50.0)
         assert transformed[0] == (45.0, 45.0)
         assert transformed[2] == (55.0, 55.0)
-        assert eff_style.text_halign == "center"
+        assert eff_style.halign == "center"
 
         # Empty points raise ValueError
         empty_points: PathPoints = []

@@ -75,7 +75,7 @@ rectangle(
     r=2.5,
     style=Styles.White,
 )
-text((16, 83), "Layer z:1 — Base Architecture Canvas", style=Styles.MutedBold.patch(text_size=8.5, text_halign="left"))
+text((16, 83), "Layer z:1 — Base Architecture Canvas", style=Styles.MutedBold.patch(text_size=8.5, halign="left"))
 rectangle((28, 65), width=22, height=14, r=1.5, style=Styles.PrimaryNeutral, text="Ingress Edge", text_style=Styles.DarkBold.patch(text_size=8.5))
 rectangle((62, 65), width=22, height=14, r=1.5, style=Styles.SecondaryNeutral, text="Core Mesh", text_style=Styles.DarkBold.patch(text_size=8.5))
 line((39, 65), (51, 65), arrow_head="->", style=Styles.DarkBold)
@@ -88,7 +88,7 @@ rectangle(
     r=2.5,
     style=Styles.BlueNeutral,
 )
-text((29, 55), "Layer z:5 — Overlapping Telemetry Overlay", style=Styles.PrimaryBold.patch(text_size=8.5, text_halign="left"))
+text((29, 55), "Layer z:5 — Overlapping Telemetry Overlay", style=Styles.PrimaryBold.patch(text_size=8.5, halign="left"))
 rectangle(
     (45, 41),
     width=26,
@@ -114,7 +114,7 @@ line((35, 22), (24, 22), arrow_head="<-", style=Styles.PrimaryBold)
 text(
     (43, 22),
     "Live HTML ::: box (z:15) overlaps across X=920 boundary!",
-    style=Styles.DarkBold.patch(text_size=8.5, text_halign="left"),
+    style=Styles.DarkBold.patch(text_size=8.5, halign="left"),
 )
 
 save()

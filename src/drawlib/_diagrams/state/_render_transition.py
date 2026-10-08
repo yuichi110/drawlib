@@ -173,7 +173,7 @@ def _render_self_transition(
     ratio = trans.loop_ratio if 0.5 <= trans.loop_ratio <= 0.98 else 0.88
     side = trans.loop_side if trans.is_loop else _resolve_self_loop_orientation(trans.start_side, trans.end_side)
 
-    loop_xy, center_angle, label_pos, text_halign, text_valign = _compute_loop_geometry(
+    loop_xy, center_angle, label_pos, halign, valign = _compute_loop_geometry(
         node=node,
         center=center,
         side=side,
@@ -200,15 +200,15 @@ def _render_self_transition(
             )
             .patch(applied_text_style)
             .patch(
-                text_halign=(
-                    trans.text_style.text_halign
-                    if trans.text_style and trans.text_style.text_halign is not None
-                    else text_halign
+                halign=(
+                    trans.text_style.halign
+                    if trans.text_style and trans.text_style.halign is not None
+                    else halign
                 ),
-                text_valign=(
-                    trans.text_style.text_valign
-                    if trans.text_style and trans.text_style.text_valign is not None
-                    else text_valign
+                valign=(
+                    trans.text_style.valign
+                    if trans.text_style and trans.text_style.valign is not None
+                    else valign
                 ),
             )
         )
@@ -276,14 +276,14 @@ def _render_orthogonal_transition(
             )
             .patch(applied_text_style)
             .patch(
-                text_halign=(
-                    trans.text_style.text_halign
-                    if trans.text_style and trans.text_style.text_halign is not None
+                halign=(
+                    trans.text_style.halign
+                    if trans.text_style and trans.text_style.halign is not None
                     else "center"
                 ),
-                text_valign=(
-                    trans.text_style.text_valign
-                    if trans.text_style and trans.text_style.text_valign is not None
+                valign=(
+                    trans.text_style.valign
+                    if trans.text_style and trans.text_style.valign is not None
                     else "bottom"
                 ),
             )
@@ -322,8 +322,8 @@ def _render_curved_or_direct_transition(
     label_style = Style(
         text_size=8.5,
         text_font=Font.SANSSERIF_REGULAR,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     ).patch(applied_text_style)
 
     # Compute label offset along normal vector

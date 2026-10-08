@@ -129,9 +129,9 @@ line((10, 40), (110, 40), style=tier_style)
 line((10, 20), (110, 20), style=tier_style)
 
 # Tier labels
-text((12, 42), "Presentation Tier", style=Styles.Dark.patch(text_size=9.5, text_halign="left"))
-text((12, 22), "Application Tier", style=Styles.Dark.patch(text_size=9.5, text_halign="left"))
-text((12, 2), "Persistence Tier", style=Styles.Dark.patch(text_size=9.5, text_halign="left"))
+text((12, 42), "Presentation Tier", style=Styles.Dark.patch(text_size=9.5, halign="left"))
+text((12, 22), "Application Tier", style=Styles.Dark.patch(text_size=9.5, halign="left"))
+text((12, 2), "Persistence Tier", style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
 # 2. Service nodes (Hero API Gateway in PrimaryFlat, others in neutral cards)
 rectangle((30, 48), width=24, height=10, style=Styles.Neutral, text="Web Client")
@@ -802,7 +802,7 @@ protocols = [
 
 for i, (label, color_val, pattern, thickness, arrow) in enumerate(protocols):
     y = 45 - i * 11
-    text((10, y), label, style=Styles.Dark.patch(text_size=10.5, text_halign="left"))
+    text((10, y), label, style=Styles.Dark.patch(text_size=10.5, halign="left"))
     line(
         (70, y),
         (110, y),
@@ -837,8 +837,8 @@ badge_style = Styles.Primary.patch(
     text_bg_fill_color=Colors.White,    # Masks the underlying line stroke
     text_bg_line_color=Colors.Gray5,    # Optional border around the label badge
     text_bg_line_width=0.5,             # Subtle border width
-    text_halign="center",
-    text_valign="center",
+    halign="center",
+    valign="center",
 )
 ```
 
@@ -880,8 +880,8 @@ def draw_labeled_line(
         text_bg_fill_color=Colors.White,
         text_bg_line_color=Colors.Gray3,
         text_bg_line_width=0.5,
-        text_halign="center",
-        text_valign="center",
+        halign="center",
+        valign="center",
     )
     text((mx, my), label, style=badge)
 
@@ -970,8 +970,8 @@ from drawlib.text import text
 
 setup(width=120, height=50)
 line((60, 5), (60, 45), style=Styles.MutedDashed.patch(line_width=1.5))
-text((58, 43), "Public DMZ", style=Styles.Dark.patch(text_size=9, text_halign="right"))
-text((62, 43), "Private Subnet", style=Styles.Dark.patch(text_size=9, text_halign="left"))
+text((58, 43), "Public DMZ", style=Styles.Dark.patch(text_size=9, halign="right"))
+text((62, 43), "Private Subnet", style=Styles.Dark.patch(text_size=9, halign="left"))
 
 rectangle((25, 25), width=22, height=12, style=Styles.Neutral, text="Reverse Proxy")
 rectangle((95, 25), width=22, height=12, style=Styles.PrimaryFlat, text="App Backend", text_style=Styles.WhiteBold)

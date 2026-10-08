@@ -48,7 +48,7 @@ rectangle(
     r=3,
     style=Styles.PrimaryNeutral,
 )
-text((14, 51), "VPC Boundary: center=(50, 32.5), size=80x45", style=Styles.PrimaryBold.patch(text_size=8.5, text_halign="left"))
+text((14, 51), "VPC Boundary: center=(50, 32.5), size=80x45", style=Styles.PrimaryBold.patch(text_size=8.5, halign="left"))
 
 # Node 1 at (25, 30)
 rectangle(

@@ -87,7 +87,7 @@ class TestCanvasImage:
             xy=(55, 25),
             width=30,
             image=IMAGE_FILE,
-            style=Style(image_border_width=2, text_halign="left", text_valign="bottom"),
+            style=Style(image_border_width=2, halign="left", valign="bottom"),
         )
         save(f"{OUTPUT_DIR}test_file_border.png")
 
@@ -133,7 +133,7 @@ class TestCanvasImage:
                 xy=(50, 50),
                 width=30,
                 image=IMAGE_FILE,
-                style=Style(text_halign="invalid_halign"),
+                style=Style(halign="invalid_halign"),
             )
 
     def test_image_style_shift_and_angle(self) -> None:
