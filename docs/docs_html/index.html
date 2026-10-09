@@ -429,8 +429,8 @@
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span><span class="p">,</span> <span class="n">circle</span>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
@@ -447,6 +447,7 @@
 <span class="c1"># Connectors</span>
 <span class="n">line</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 <span class="n">line</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
@@ -465,6 +466,97 @@
 <li><strong>Data Charts</strong>: Pure-Python bar, line, area, pie, radar, scatter, and Gantt charts without external graphing dependencies.</li>
 <li><strong>Technical Diagrams</strong>: Cloud architectures (<code>ArchitectureDiagram</code>), flowcharts (<code>FlowDiagram</code>), API sequences (<code>SequenceDiagram</code>), UML class diagrams (<code>ClassDiagram</code>), ER diagrams (<code>ERDiagram</code>), and state machines (<code>StateDiagram</code>).</li>
 </ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="index_images/index_high_level_visualizations.png" alt="index_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Drawlib High-Level Visualization Ecosystem</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># 1. Top-Left: Auto-Layout Graphs (Hero primary header)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">35</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"1. Auto-Layout Graphs (drawlib.graph)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.6</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">38.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"ArchitectureGraph • LayerGraph • TreeGraph</span><span class="se">\n</span><span class="s2">RadialGraph • GridGraph • Nested Clusters"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Top-Right: Technical Diagrams</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"2. Technical Diagrams (drawlib.diagrams)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.6</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mf">38.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Architecture • Flow • Sequence</span><span class="se">\n</span><span class="s2">Class • ER • State"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Bottom-Left: SmartArts &amp; GeoMap</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">35</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"3. SmartArts &amp; GeoMap (drawlib.smartarts)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.6</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"ChevronProcess • Cycle • Table</span><span class="se">\n</span><span class="s2">TreeNode • MindMapNode • GeoMap"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. Bottom-Right: Pure-Python Charts</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"4. Pure-Python Charts (drawlib.charts)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.6</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Bar • Line • Area • Pie</span><span class="se">\n</span><span class="s2">Radar • Scatter • Gantt"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <h3>3. Integrated Documentation Compiler</h3>
 <p>Write your technical spec or system architecture in standard Markdown with embedded <code>drawlib</code> blocks. A single command (<code>drawlib build</code>) compiles everything into:</p>
 <ul>

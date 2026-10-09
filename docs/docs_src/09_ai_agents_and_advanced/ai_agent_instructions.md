@@ -10,6 +10,65 @@ Drawlib was built from the ground up for the era of AI-assisted engineering. Ins
 2. **High-Level Domain Abstractions**: AI agents can instantiate enterprise architecture topologies, UML class models, and data charts in fewer than 20 lines of Python.
 3. **On-Demand Knowledge Retrieval**: Drawlib includes a built-in terminal rules catalog (`drawlib rules show <topic>`). Agents can fetch targeted API specifications on demand without consuming valuable context window space with massive upfront manuals.
 
+```drawlib fold-code 650px center file:ai_agent_project_first_workflow.png caption:"The Four Core Rules for Autonomous AI Coding Agents Using Drawlib"
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=142, height=46)
+
+text((71, 40.5), "Four Core Directives for Autonomous AI Coding Agents", style=Styles.DarkBold.patch(text_size=8.8))
+
+# Stage 1: Project-First Init
+rectangle(
+    (21.5, 20.5),
+    width=29,
+    height=27,
+    style=Styles.Neutral.patch(shape_r=2.0),
+    text="1. Project-First Init\n\ndrawlib init\n<doc|site|slide|images>\n\nScaffold styles.py & build.sh",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+
+# Stage 2: Query Rules
+rectangle(
+    (54.5, 20.5),
+    width=29,
+    height=27,
+    style=Styles.SecondaryNeutral.patch(shape_r=2.0),
+    text="2. Query Rules\n\ndrawlib rules show <topic>\n\nLoad exact API &\nstyle-guide on demand",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+
+# Stage 3: High-Level & Neutral
+rectangle(
+    (87.5, 20.5),
+    width=29,
+    height=27,
+    style=Styles.PrimaryFlat.patch(shape_r=2.0),
+    text="3. High-Level & Neutral\n\nGraph, Diagrams,\nSmartArts, Charts\n\n50%+ Neutral + file:",
+    text_style=Styles.WhiteBold.patch(text_size=6.8),
+)
+
+# Stage 4: Grid Self-Repair
+rectangle(
+    (120.5, 20.5),
+    width=29,
+    height=27,
+    style=Styles.Neutral.patch(shape_r=2.0),
+    text="4. Grid Self-Repair\n\ndrawlib show -g\n\nInspect coordinates\n& fix overlaps",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+
+# Left-to-right workflow connectors
+line((36.0, 20.5), (40.0, 20.5), arrow_head="->", style=Styles.DarkBold)
+line((69.0, 20.5), (73.0, 20.5), arrow_head="->", style=Styles.DarkBold)
+line((102.0, 20.5), (106.0, 20.5), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
 ---
 
 ## 2. Recommended Agent Instruction Template

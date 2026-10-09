@@ -121,6 +121,108 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 | **`slide`** | `slide_src/` | `slide_html/`, `slide.pdf`, `slide_images/` | 16:9 presentation slide decks (interactive web deck + printable vector PDF). |
 | **`images`** *(alias: `image`)* | `images_src/` | `images/*.png` (or `.webp`) | Batch rendering standalone Python drawing scripts to image assets. |
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/doc_builder_four_templates_matrix.png" alt="overview_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Overview of the Four Drawlib Project Starter Templates and Their Outputs</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=140, height=58)
+
+cards = [
+    (
+        36,
+        43,
+        "1. doc (Linear Spec / RFC)",
+        Styles.SecondaryNeutral,
+        Styles.DarkBold,
+        "doc_src/*.md\n(00_cover, 01_...)",
+        "doc.pdf & doc_html/\ndoc_markdown/\ndoc_images/",
+    ),
+    (
+        104,
+        43,
+        "2. site (Documentation Website)",
+        Styles.PrimaryFlat,
+        Styles.WhiteBold,
+        "docs_src/**/*.md\n+ navbar.md",
+        "docs_html/ (Web)\ndocs_markdown/\ndocs_images/",
+    ),
+    (
+        36,
+        15,
+        "3. slide (16:9 Presentation Deck)",
+        Styles.PrimaryNeutral,
+        Styles.DarkBold,
+        "slide_src/*.md\n(1920x1080 stage)",
+        "slide_html/ (?presenter=1)\nslide.pdf\nslide_images/",
+    ),
+    (
+        104,
+        15,
+        "4. images (Batch Python Scripts)",
+        Styles.SecondaryNeutral,
+        Styles.DarkBold,
+        "images_src/*.py\n+ styles.py",
+        "images/*.png\n*.webp / *.svg",
+    ),
+]
+
+for cx, cy, title, hdr_style, hdr_text_style, src_text, out_text in cards:
+    # Outer card container
+    rectangle(
+        (cx, cy),
+        width=64,
+        height=24,
+        style=Styles.Neutral.patch(shape_r=2.0),
+    )
+    # Header banner
+    rectangle(
+        (cx, cy + 8.2),
+        width=61,
+        height=5.6,
+        style=hdr_style.patch(shape_r=1.2),
+        text=title,
+        text_style=hdr_text_style.patch(text_size=8.0),
+    )
+    # Source box (left)
+    rectangle(
+        (cx - 17.5, cy - 2.5),
+        width=25,
+        height=12.5,
+        style=Styles.PrimaryNeutral.patch(shape_r=1.2),
+        text=src_text,
+        text_style=Styles.DarkBold.patch(text_size=7.4),
+    )
+    # Arrow
+    line((cx - 5.0, cy - 2.5), (cx - 0.5, cy - 2.5), arrow_head="->", style=Styles.DarkBold)
+    # Output box (right)
+    rectangle(
+        (cx + 15.0, cy - 2.5),
+        width=31,
+        height=12.5,
+        style=Styles.SecondaryNeutral.patch(shape_r=1.2),
+        text=out_text,
+        text_style=Styles.Dark.patch(text_size=7.3),
+    )
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 3. Chapter Structure

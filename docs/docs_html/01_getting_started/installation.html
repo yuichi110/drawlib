@@ -462,11 +462,61 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pl
 $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"drawlib[pdf]"</span>
 $<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium
 </code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="installation_images/installation_setup_workflow.png" alt="installation_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Three-Step Drawlib Environment Setup Workflow</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">138</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+
+<span class="c1"># Step 1: Core Package (Hero focal origin)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Step 1: Core Package</span><span class="se">\n\n</span><span class="s2">uv add drawlib</span><span class="se">\n</span><span class="s2">pip install drawlib</span><span class="se">\n</span><span class="s2">(Python 3.11+ • Zero heavy deps)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Step 2: Optional PDF Engine (Neutral card)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">69</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s1">'Step 2: Optional PDF Engine</span><span class="se">\n\n</span><span class="s1">uv add "drawlib[pdf]"</span><span class="se">\n</span><span class="s1">playwright install chromium</span><span class="se">\n</span><span class="s1">(Headless vector PDF export)'</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Step 3: Offline Asset Pre-fetch (SecondaryNeutral card)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">115</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Step 3: Offline Asset Pre-fetch</span><span class="se">\n\n</span><span class="s2">drawlib cache download --all</span><span class="se">\n</span><span class="s2">(Pre-cache fonts, icons &amp; maps</span><span class="se">\n</span><span class="s2">for CI / air-gapped builds)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Connectors</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">42</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">88</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>4. Asset &amp; Build Cache Management (<code>drawlib cache</code>)</h2>
 <p>To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official Google Cloud icons), multilingual fonts, and geographic map datasets are downloaded on demand upon first use and cached inside <code>drawlib/_cached_assets/</code> (managed via <code>drawlib cache</code>). Meanwhile, project-local incremental diagram builds are cached separately in <code>.drawlib/cache.db</code>.</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="installation_images/installation_two_tier_cache.png" alt="installation_1" style="width: 650px; max-width: 100%;" />
+  <img src="installation_images/installation_two_tier_cache.png" alt="installation_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Two-Tier Asset and Incremental Build Cache Architecture</figcaption>
 </figure>
 <details class="drawlib-code-details">

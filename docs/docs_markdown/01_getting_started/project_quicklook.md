@@ -19,7 +19,7 @@ Instead of writing documentation in static wikis and manually copying and pastin
 <summary>Source Code</summary>
 
 ```python
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
 from drawlib.styles import Styles
@@ -40,6 +40,7 @@ rectangle((98, 14), width=28, height=12, style=Styles.SecondaryNeutral, text="do
 line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.DarkBold)
 line((72, 25), (84, 31), arrow_head="->", style=Styles.DarkBold)
 line((72, 20), (84, 14), arrow_head="->", style=Styles.DarkBold)
+save()
 ```
 
 </details>
@@ -75,6 +76,106 @@ Drawlib supports four starter project types:
 - **`site`**: Multi-page documentation website (`docs_html/`), Markdown site (`docs_markdown/` or `docs/`), and diagrams (`docs_images/`).
 - **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide.pdf`), and diagrams (`slide_images/`).
 - **`images`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="project_quicklook_images/project_scaffolding_types.png" alt="project_quicklook_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">The Four Drawlib Project Scaffolding Archetypes (drawlib init)</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=138, height=58)
+
+# 1. Top-Left: drawlib init site (Hero header)
+rectangle((35.5, 42.5), width=61, height=23, style=Styles.Neutral.patch(shape_r=2))
+rectangle(
+    (35.5, 49.5),
+    width=57,
+    height=6,
+    style=Styles.PrimaryFlat.patch(shape_r=1.2),
+    text="1. drawlib init site (Multi-Page Website)",
+    text_style=Styles.WhiteBold.patch(text_size=8.5),
+)
+rectangle(
+    (35.5, 38.5),
+    width=57,
+    height=11.5,
+    style=Styles.SecondaryNeutral.patch(shape_r=1),
+    text="Source: docs_src/**/*.md + navbar.md\n-> docs_html/ (Web Site) + docs_markdown/",
+    text_style=Styles.Dark.patch(text_size=7.9),
+)
+
+# 2. Top-Right: drawlib init doc
+rectangle((102.5, 42.5), width=61, height=23, style=Styles.Neutral.patch(shape_r=2))
+rectangle(
+    (102.5, 49.5),
+    width=57,
+    height=6,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
+    text="2. drawlib init doc (Linear Spec & PDF)",
+    text_style=Styles.DarkBold.patch(text_size=8.5),
+)
+rectangle(
+    (102.5, 38.5),
+    width=57,
+    height=11.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1),
+    text="Source: doc_src/00_cover.md, 01_*.md\n-> doc.pdf + doc_html/ + doc_markdown/",
+    text_style=Styles.Dark.patch(text_size=7.9),
+)
+
+# 3. Bottom-Left: drawlib init slide
+rectangle((35.5, 15.5), width=61, height=23, style=Styles.SecondaryNeutral.patch(shape_r=2))
+rectangle(
+    (35.5, 22.5),
+    width=57,
+    height=6,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="3. drawlib init slide (16:9 Slide Deck)",
+    text_style=Styles.DarkBold.patch(text_size=8.5),
+)
+rectangle(
+    (35.5, 11.5),
+    width=57,
+    height=11.5,
+    style=Styles.Neutral.patch(shape_r=1),
+    text="Source: slide_src/*.md (1920x1080 16:9)\n-> slide_html/ (Presenter View) + slide.pdf",
+    text_style=Styles.Dark.patch(text_size=7.9),
+)
+
+# 4. Bottom-Right: drawlib init images
+rectangle((102.5, 15.5), width=61, height=23, style=Styles.Neutral.patch(shape_r=2))
+rectangle(
+    (102.5, 22.5),
+    width=57,
+    height=6,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
+    text="4. drawlib init images (Batch Scripts)",
+    text_style=Styles.DarkBold.patch(text_size=8.5),
+)
+rectangle(
+    (102.5, 11.5),
+    width=57,
+    height=11.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1),
+    text="Source: images_src/*.py + styles.py\n-> images/*.png / *.webp / *.svg",
+    text_style=Styles.Dark.patch(text_size=7.9),
+)
+
+save()
+```
+
+</details>
+
+
 
 ---
 

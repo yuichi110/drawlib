@@ -5,8 +5,8 @@ Drawlib is a pure-Python drawing library and documentation compiler crafted for 
 Designed from the ground up for modern software engineering and **autonomous AI coding agents**, Drawlib eliminates manual GUI drawing tools and brittle image files. Developers and LLM agents can create, version-control, and publish publication-grade architectural diagrams, flowcharts, data charts, and complete multi-page documentation sites entirely from declarative Python code.
 
 ```drawlib fold-code 650px center file:drawlib_code_to_publication.png caption:"From Code to Publication with Drawlib"
-from drawlib.canvas import setup
-from drawlib.shapes import rectangle, circle
+from drawlib.canvas import save, setup
+from drawlib.shapes import rectangle
 from drawlib.lines import line
 from drawlib.styles import Styles
 
@@ -23,6 +23,7 @@ rectangle((98, 22.5), width=28, height=18, style=Styles.SecondaryNeutral, text="
 # Connectors
 line((40, 22.5), (48, 22.5), arrow_head="->", style=Styles.DarkBold)
 line((76, 22.5), (84, 22.5), arrow_head="->", style=Styles.DarkBold)
+save()
 ```
 
 ---
@@ -40,6 +41,92 @@ Avoid assembling hundreds of primitive shapes by hand. Drawlib provides producti
 - **SmartArts**: Process pipelines (`ChevronProcess`), cyclical loops (`Cycle`), data tables (`Table`), and trees (`Tree`).
 - **Data Charts**: Pure-Python bar, line, area, pie, radar, scatter, and Gantt charts without external graphing dependencies.
 - **Technical Diagrams**: Cloud architectures (`ArchitectureDiagram`), flowcharts (`FlowDiagram`), API sequences (`SequenceDiagram`), UML class diagrams (`ClassDiagram`), ER diagrams (`ERDiagram`), and state machines (`StateDiagram`).
+
+```drawlib fold-code 650px center file:index_high_level_visualizations.png caption:"Drawlib High-Level Visualization Ecosystem"
+from drawlib.canvas import save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=136, height=58)
+
+# 1. Top-Left: Auto-Layout Graphs (Hero primary header)
+rectangle((35, 42.5), width=60, height=23, style=Styles.Neutral.patch(shape_r=2))
+rectangle(
+    (35, 49.5),
+    width=56,
+    height=6,
+    style=Styles.PrimaryFlat.patch(shape_r=1.2),
+    text="1. Auto-Layout Graphs (drawlib.graph)",
+    text_style=Styles.WhiteBold.patch(text_size=8.6),
+)
+rectangle(
+    (35, 38.5),
+    width=56,
+    height=11.5,
+    style=Styles.SecondaryNeutral.patch(shape_r=1),
+    text="ArchitectureGraph • LayerGraph • TreeGraph\nRadialGraph • GridGraph • Nested Clusters",
+    text_style=Styles.Dark.patch(text_size=8.0),
+)
+
+# 2. Top-Right: Technical Diagrams
+rectangle((101, 42.5), width=60, height=23, style=Styles.Neutral.patch(shape_r=2))
+rectangle(
+    (101, 49.5),
+    width=56,
+    height=6,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
+    text="2. Technical Diagrams (drawlib.diagrams)",
+    text_style=Styles.DarkBold.patch(text_size=8.6),
+)
+rectangle(
+    (101, 38.5),
+    width=56,
+    height=11.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1),
+    text="Architecture • Flow • Sequence\nClass • ER • State",
+    text_style=Styles.Dark.patch(text_size=8.0),
+)
+
+# 3. Bottom-Left: SmartArts & GeoMap
+rectangle((35, 15.5), width=60, height=23, style=Styles.SecondaryNeutral.patch(shape_r=2))
+rectangle(
+    (35, 22.5),
+    width=56,
+    height=6,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="3. SmartArts & GeoMap (drawlib.smartarts)",
+    text_style=Styles.DarkBold.patch(text_size=8.6),
+)
+rectangle(
+    (35, 11.5),
+    width=56,
+    height=11.5,
+    style=Styles.Neutral.patch(shape_r=1),
+    text="ChevronProcess • Cycle • Table\nTreeNode • MindMapNode • GeoMap",
+    text_style=Styles.Dark.patch(text_size=8.0),
+)
+
+# 4. Bottom-Right: Pure-Python Charts
+rectangle((101, 15.5), width=60, height=23, style=Styles.Neutral.patch(shape_r=2))
+rectangle(
+    (101, 22.5),
+    width=56,
+    height=6,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.2),
+    text="4. Pure-Python Charts (drawlib.charts)",
+    text_style=Styles.DarkBold.patch(text_size=8.6),
+)
+rectangle(
+    (101, 11.5),
+    width=56,
+    height=11.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1),
+    text="Bar • Line • Area • Pie\nRadar • Scatter • Gantt",
+    text_style=Styles.Dark.patch(text_size=8.0),
+)
+
+save()
+```
 
 ### 3. Integrated Documentation Compiler
 Write your technical spec or system architecture in standard Markdown with embedded ````drawlib```` blocks. A single command (`drawlib build`) compiles everything into:

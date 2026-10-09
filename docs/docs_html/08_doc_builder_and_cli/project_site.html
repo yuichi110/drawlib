@@ -569,6 +569,104 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <li><strong>Strict Build-Time Validation</strong>: If any linked document does not exist, the build immediately aborts with an error indicating the file and line number.</li>
 <li><strong>Active Page Tracking</strong>: The currently viewed page is automatically highlighted (<code>.nav-item.active</code>) with dynamic relative path resolution.</li>
 </ol>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="project_site_images/project_site_navbar_architecture.png" alt="project_site_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">How navbar.md and Markdown Pages Compile into the Two-Column Documentation Site UI</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Left: Source directory container</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">27</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">27</span><span class="p">,</span> <span class="mf">54.5</span><span class="p">),</span> <span class="s2">"Source Directory (docs_src/)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"docs_src/navbar.md</span><span class="se">\n\n</span><span class="s2"># Brand Header</span><span class="se">\n</span><span class="s2">## Category Groupings</span><span class="se">\n</span><span class="s2">- [Page](path.md)</span><span class="se">\n</span><span class="s2">- [GitHub](https://...)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"docs_src/**/*.md</span><span class="se">\n\n</span><span class="s2">• index.md &amp; Chapter Pages</span><span class="se">\n</span><span class="s2">• ```drawlib Diagrams</span><span class="se">\n</span><span class="s2">• template.html &amp; style.css"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Middle: Compiler step</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">63.5</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">),</span> <span class="s2">"drawlib build html"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">63.5</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="s2">"Link Validation &amp;</span><span class="se">\n</span><span class="s2">Active Path Tracking"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">))</span>
+
+<span class="c1"># Right: Compiled Two-Column Site UI (docs_html/)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">112</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">112</span><span class="p">,</span> <span class="mf">54.5</span><span class="p">),</span> <span class="s2">"Compiled Two-Column Site UI (docs_html/)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="c1"># Left Sticky Sidebar</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">47.2</span><span class="p">),</span> <span class="s2">"Left Sticky Sidebar"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">93</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">20.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Brand Header (#)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.6</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">35.8</span><span class="p">),</span> <span class="s2">"▾ Core Infrastructure"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.4</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">93</span><span class="p">,</span> <span class="mf">30.2</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">20.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"• VPC Architecture"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.6</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">93</span><span class="p">,</span> <span class="mf">23.2</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">20.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"• Storage Tier"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.6</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">16.8</span><span class="p">),</span> <span class="s2">"▸ Microservices"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.4</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">93</span><span class="p">,</span> <span class="mf">11.2</span><span class="p">),</span> <span class="s2">"• GitHub Repo ↗"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.4</span><span class="p">))</span>
+
+<span class="c1"># Right Main Content Pane</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">125</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">125</span><span class="p">,</span> <span class="mf">47.2</span><span class="p">),</span> <span class="s2">"Right Main Content Pane"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">125</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">31.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Rendered Markdown Prose</span><span class="se">\n</span><span class="s2">Headings, Tables &amp; Code UI"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">125</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">31.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Embedded Diagram Figure</span><span class="se">\n</span><span class="s2">(&lt;figure&gt; + High-Res PNG/SVG</span><span class="se">\n</span><span class="s2">+ Collapsible Python Code)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>4. Static Asset Synchronization</h2>
 <p>Any static assets placed in <code>docs_src/</code> (such as custom logos, sample data files, or images in <code>_assets/</code>) are recursively mirrored to <code>docs_html/</code> and <code>docs/</code>, preserving folder hierarchies.</p>

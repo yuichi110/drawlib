@@ -639,6 +639,99 @@ Runs HTML, PDF, and Image builds in sequence.</li>
 <li><strong>Right Middle (Control Bar)</strong>: <code>◀ Prev</code> / <code>Next ▶</code> navigation, <strong><code>▶ Play Animation</code> button</strong> (synchronized with the main window; automatically disabled/grayed out on slides without animations), and an elapsed presentation timer (<code>00:00</code>).</li>
 <li><strong>Right Bottom (Speaker Notes)</strong>: Compiled speaker notes with <code>A-</code> / <code>A+</code> font-size controls.</li>
 </ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="project_slide_images/slide_presenter_view_layout.png" alt="project_slide_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Presenter View (?presenter=1) 4-Pane Workspace and BroadcastChannel Synchronization</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">156</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="c1"># Left Container: Presenter View Window (?presenter=1)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">47</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">86</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">47</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span> <span class="s2">"Presenter View Window (index.html?presenter=1)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="c1"># Pane 1: Left Column (Slide Thumbnails Strip)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">49.2</span><span class="p">),</span> <span class="s2">"1. Thumbnails"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Slide 1"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Slide 2 (Active)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Slide 3"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Instant Jump"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">))</span>
+
+<span class="c1"># Pane 2: Top-Right (Live 16:9 Current Slide Preview)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"2. Live 16:9 Current Slide Preview</span><span class="se">\n</span><span class="s2">(Synchronized Stage + Active Animation State)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Pane 3: Middle-Right (Control &amp; Timer Bar)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"3. Control &amp; Timer Bar (◀ Prev | Next ▶ | ▶ Play Anim | 00:00)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Pane 4: Bottom-Right (Speaker Notes Pane)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"4. Speaker Notes Pane (::: note Markdown)</span><span class="se">\n</span><span class="s2">• Key talking points &amp; cues      [ A- ] / [ A+ ] Font Controls"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Bidirectional BroadcastChannel Sync Connector</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="p">(</span><span class="mi">112</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">),</span> <span class="s2">"Real-Time</span><span class="se">\n</span><span class="s2">BroadcastChannel</span><span class="se">\n</span><span class="s2">Sync"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="s2">"Slide Index &amp;</span><span class="se">\n</span><span class="s2">Anim Playback"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.6</span><span class="p">))</span>
+
+<span class="c1"># Right Container: Audience Main Stage Window</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">132</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">132</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span> <span class="s2">"Audience Main Stage"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">132</span><span class="p">,</span> <span class="mf">51.8</span><span class="p">),</span> <span class="s2">"(1920x1080 Fullscreen)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">132</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"16:9 Main Stage</span><span class="se">\n\n</span><span class="s2">Slide 2 Content</span><span class="se">\n</span><span class="s2">&amp; Diagrams"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">132</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Speaker Notes Hidden</span><span class="se">\n</span><span class="s2">Zero Presenter Chrome"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <h3>Interactive Animation Playback (<code>anim-trigger</code>, <code>anim-loop</code>, <code>anim-pause</code>):</h3>
 <p>When embedding APNG (<code>.png</code> / <code>.apng</code>) or Animated WebP (<code>.webp</code>) diagrams inside slides, you can attach playback control attributes to the <code>drawlib</code> code fence:</p>
 <pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file:workflow.webp anim-trigger:click anim-loop:once anim-pause:2,4

@@ -80,6 +80,89 @@ save()
 
 
 
+### Symptom: Label Overflow or Connector Line Cutting Across Node Text
+- **Cause**:
+  1. Single-line labels that are wider than the enclosing rectangle's `width` spill past the left and right borders.
+  2. Drawlib uses the **Painter's Algorithm** (elements are rendered in the exact order they are called). Calling `line()` between two node centers *after* calling `rectangle()` draws the line right on top of the intermediate node's label.
+- **Solution**:
+  1. Insert explicit `\n` line breaks (`"Authentication\nService"`) and widen the card (e.g. `width=32`).
+  2. Anchor connectors to shape perimeter edges (`cx ± width/2`) or draw background connectors *before* foreground nodes.
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="debugging_images/debugging_text_overflow_and_z_order.png" alt="debugging_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Common Visual Bugs and Fixes: Text Box Sizing and Painter's Algorithm Z-Order</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=142, height=58)
+
+# Left Panel: Common Visual Bugs (Anti-Patterns)
+text((36, 52.5), "Common Visual Bugs (Anti-Patterns)", style=Styles.DangerBold.patch(text_size=8.0))
+rectangle((36, 26.5), width=60, height=44, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
+
+# Bug 1: Narrow box where "Authentication Service" overflows borders
+text((36, 44.5), "1. Single-Line Label Overflows Narrow Box (w=16)", style=Styles.DangerBold.patch(text_size=6.9))
+rectangle(
+    (36, 36.0),
+    width=16,
+    height=10,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="Authentication Service",
+    text_style=Styles.DarkBold.patch(text_size=7.6),
+)
+
+# Bug 2: Connector line drawn after node cuts across text label
+text((36, 24.5), "2. line() Drawn After rectangle() Cuts Across Label", style=Styles.DangerBold.patch(text_size=6.9))
+rectangle((15, 14.0), width=12, height=9, style=Styles.Neutral.patch(shape_r=1.2), text="Client", text_style=Styles.DarkBold.patch(text_size=7.2))
+rectangle((36, 14.0), width=18, height=10, style=Styles.Neutral.patch(shape_r=1.2), text="API Node", text_style=Styles.DarkBold.patch(text_size=7.4))
+rectangle((57, 14.0), width=12, height=9, style=Styles.Neutral.patch(shape_r=1.2), text="DB", text_style=Styles.DarkBold.patch(text_size=7.2))
+# Anti-pattern: line drawn after middle node cuts right over "API Node"
+line((21, 14.0), (51, 14.0), arrow_head="->", style=Styles.DangerBold)
+
+# Center Transition Arrow
+line((67.5, 26.5), (74.5, 26.5), arrow_head="->", style=Styles.DarkBold)
+
+# Right Panel: Recommended Fixes (Best Practices)
+text((106, 52.5), "Recommended Fixes (Best Practices)", style=Styles.DarkBold.patch(text_size=8.0))
+rectangle((106, 26.5), width=60, height=44, style=Styles.Neutral.patch(shape_r=2.0))
+
+# Fix 1: Multi-line wrap + widened card (width=32)
+text((106, 44.5), "1. Multi-Line Wrap (\\n) + Widened Card (w=32)", style=Styles.DarkBold.patch(text_size=6.9))
+rectangle(
+    (106, 36.0),
+    width=32,
+    height=10.5,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    text="Authentication\nService",
+    text_style=Styles.WhiteBold.patch(text_size=7.6),
+)
+
+# Fix 2: Perimeter-anchored connectors (cx ± w/2) & clean Z-order
+text((106, 24.5), "2. Anchor Connectors to Perimeter Edges (cx ± w/2)", style=Styles.DarkBold.patch(text_size=6.9))
+rectangle((85, 14.0), width=12, height=9, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="Client", text_style=Styles.DarkBold.patch(text_size=7.2))
+rectangle((106, 14.0), width=18, height=10, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="API Node", text_style=Styles.DarkBold.patch(text_size=7.4))
+rectangle((127, 14.0), width=12, height=9, style=Styles.PrimaryNeutral.patch(shape_r=1.2), text="DB", text_style=Styles.DarkBold.patch(text_size=7.2))
+line((91, 14.0), (97, 14.0), arrow_head="->", style=Styles.DarkBold)
+line((115, 14.0), (121, 14.0), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
+</details>
+
+
+
 ---
 
 ## 2. CLI Diagnostics & Developer Mode

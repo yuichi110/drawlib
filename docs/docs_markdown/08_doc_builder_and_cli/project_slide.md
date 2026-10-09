@@ -230,6 +230,108 @@ Pressing **`P`** or **`S`** (or clicking the `🗒` button in the bottom-right c
 - **Right Middle (Control Bar)**: `◀ Prev` / `Next ▶` navigation, **`▶ Play Animation` button** (synchronized with the main window; automatically disabled/grayed out on slides without animations), and an elapsed presentation timer (`00:00`).
 - **Right Bottom (Speaker Notes)**: Compiled speaker notes with `A-` / `A+` font-size controls.
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="project_slide_images/slide_presenter_view_layout.png" alt="project_slide_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Presenter View (?presenter=1) 4-Pane Workspace and BroadcastChannel Synchronization</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=156, height=64)
+
+# Left Container: Presenter View Window (?presenter=1)
+rectangle((47, 32), width=86, height=56, style=Styles.Neutral)
+text((47, 56.5), "Presenter View Window (index.html?presenter=1)", style=Styles.DarkBold.patch(text_size=8.2))
+
+# Pane 1: Left Column (Slide Thumbnails Strip)
+rectangle((17.5, 29.5), width=21, height=46, style=Styles.SecondaryNeutral)
+text((17.5, 49.2), "1. Thumbnails", style=Styles.DarkBold.patch(text_size=7.0))
+rectangle((17.5, 41.5), width=17.5, height=8.5, style=Styles.Neutral, text="Slide 1", text_style=Styles.Dark.patch(text_size=6.8))
+rectangle(
+    (17.5, 30.5),
+    width=17.5,
+    height=8.5,
+    style=Styles.PrimaryNeutral,
+    text="Slide 2 (Active)",
+    text_style=Styles.PrimaryBold.patch(text_size=6.5),
+)
+rectangle((17.5, 19.5), width=17.5, height=8.5, style=Styles.Neutral, text="Slide 3", text_style=Styles.Dark.patch(text_size=6.8))
+text((17.5, 11.0), "Instant Jump", style=Styles.Muted.patch(text_size=6.5))
+
+# Pane 2: Top-Right (Live 16:9 Current Slide Preview)
+rectangle(
+    (59, 42.5),
+    width=56,
+    height=20,
+    style=Styles.PrimaryFlat,
+    text="2. Live 16:9 Current Slide Preview\n(Synchronized Stage + Active Animation State)",
+    text_style=Styles.WhiteBold.patch(text_size=7.5),
+)
+
+# Pane 3: Middle-Right (Control & Timer Bar)
+rectangle(
+    (59, 27.0),
+    width=56,
+    height=7.5,
+    style=Styles.PrimaryNeutral,
+    text="3. Control & Timer Bar (◀ Prev | Next ▶ | ▶ Play Anim | 00:00)",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+
+# Pane 4: Bottom-Right (Speaker Notes Pane)
+rectangle(
+    (59, 13.5),
+    width=56,
+    height=15,
+    style=Styles.SecondaryNeutral,
+    text="4. Speaker Notes Pane (::: note Markdown)\n• Key talking points & cues      [ A- ] / [ A+ ] Font Controls",
+    text_style=Styles.Dark.patch(text_size=7.0),
+)
+
+# Bidirectional BroadcastChannel Sync Connector
+line((90, 32), (112, 32), arrow_head="<->", style=Styles.PrimaryBold)
+text((101, 40.0), "Real-Time\nBroadcastChannel\nSync", style=Styles.PrimaryBold.patch(text_size=7.4))
+text((101, 23.5), "Slide Index &\nAnim Playback", style=Styles.Muted.patch(text_size=6.6))
+
+# Right Container: Audience Main Stage Window
+rectangle((132, 32), width=40, height=56, style=Styles.Neutral)
+text((132, 56.5), "Audience Main Stage", style=Styles.DarkBold.patch(text_size=8.2))
+text((132, 51.8), "(1920x1080 Fullscreen)", style=Styles.Muted.patch(text_size=7.0))
+
+rectangle(
+    (132, 34.5),
+    width=34,
+    height=24,
+    style=Styles.PrimaryNeutral,
+    text="16:9 Main Stage\n\nSlide 2 Content\n& Diagrams",
+    text_style=Styles.DarkBold.patch(text_size=7.5),
+)
+rectangle(
+    (132, 14.0),
+    width=34,
+    height=11,
+    style=Styles.SecondaryNeutral,
+    text="Speaker Notes Hidden\nZero Presenter Chrome",
+    text_style=Styles.Dark.patch(text_size=6.8),
+)
+
+save()
+```
+
+</details>
+
+
+
 ### Interactive Animation Playback (`anim-trigger`, `anim-loop`, `anim-pause`):
 When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams inside slides, you can attach playback control attributes to the ````drawlib```` code fence:
 

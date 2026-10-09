@@ -127,6 +127,106 @@ Global flags apply before any top-level command (`drawlib [GLOBAL_OPTIONS] COMMA
 
 ## 3. Compilation Subsystem (`drawlib build`)
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="cli_reference_images/cli_build_and_show_targets.png" alt="cli_reference_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Interactive Single-Diagram Preview (drawlib show) vs. Full Project Compilation (drawlib build)</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=140, height=56)
+
+# Top Panel: Fast Interactive Loop (drawlib show)
+rectangle((70, 42), width=132, height=22, style=Styles.MutedDashed.patch(shape_r=2.0))
+text(
+    (70, 50.2),
+    "Fast Interactive Loop: drawlib show (Single-Diagram Preview & Inspection)",
+    style=Styles.DarkBold.patch(text_size=8.2),
+)
+
+rectangle(
+    (24, 39.2),
+    width=34,
+    height=11.5,
+    style=Styles.Neutral.patch(shape_r=1.5),
+    text="script.py or\ndoc.md + <diagram.png>",
+    text_style=Styles.DarkBold.patch(text_size=7.6),
+)
+line((41, 39.2), (49, 39.2), arrow_head="->", style=Styles.DarkBold)
+
+rectangle(
+    (69, 39.2),
+    width=40,
+    height=11.5,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    text="drawlib show\n-g -o preview.png",
+    text_style=Styles.WhiteBold.patch(text_size=7.8),
+)
+line((89, 39.2), (97, 39.2), arrow_head="->", style=Styles.DarkBold)
+
+rectangle(
+    (115, 39.2),
+    width=36,
+    height=11.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="Coordinate Grid Overlay\nfor Rapid Inspection",
+    text_style=Styles.DarkBold.patch(text_size=7.6),
+)
+
+# Bottom Panel: Full Project Compilation (drawlib build)
+rectangle((70, 15), width=132, height=22, style=Styles.MutedDashed.patch(shape_r=2.0))
+text(
+    (70, 23.2),
+    "Full Project Compilation: drawlib build (Incremental Multi-Target Publishing)",
+    style=Styles.DarkBold.patch(text_size=8.2),
+)
+
+rectangle(
+    (24, 12.2),
+    width=34,
+    height=11.5,
+    style=Styles.Neutral.patch(shape_r=1.5),
+    text="<project>_src/ +\n.drawlib/cache.db",
+    text_style=Styles.DarkBold.patch(text_size=7.6),
+)
+line((41, 12.2), (49, 12.2), arrow_head="->", style=Styles.DarkBold)
+
+rectangle(
+    (69, 12.2),
+    width=40,
+    height=11.5,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
+    text="drawlib build\n<html | md | pdf | slide | image>",
+    text_style=Styles.DarkBold.patch(text_size=7.4),
+)
+line((89, 12.2), (97, 12.2), arrow_head="->", style=Styles.DarkBold)
+
+rectangle(
+    (115, 12.2),
+    width=36,
+    height=11.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="Published Deliverables\n(HTML, PDF, MD, Assets)",
+    text_style=Styles.DarkBold.patch(text_size=7.6),
+)
+
+save()
+```
+
+</details>
+
+
+
 ### 3.1 `drawlib build html`
 Compiles Markdown documents or directories into a responsive static HTML documentation website (`site` when `navbar.md` is present) or merged single-page HTML document (`doc` when `navbar.md` is absent).
 

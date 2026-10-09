@@ -560,6 +560,99 @@
 </tr>
 </tbody>
 </table>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/doc_builder_four_templates_matrix.png" alt="overview_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Overview of the Four Drawlib Project Starter Templates and Their Outputs</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">36</span><span class="p">,</span>
+        <span class="mi">43</span><span class="p">,</span>
+        <span class="s2">"1. doc (Linear Spec / RFC)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+        <span class="s2">"doc_src/*.md</span><span class="se">\n</span><span class="s2">(00_cover, 01_...)"</span><span class="p">,</span>
+        <span class="s2">"doc.pdf &amp; doc_html/</span><span class="se">\n</span><span class="s2">doc_markdown/</span><span class="se">\n</span><span class="s2">doc_images/"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">104</span><span class="p">,</span>
+        <span class="mi">43</span><span class="p">,</span>
+        <span class="s2">"2. site (Documentation Website)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="s2">"docs_src/**/*.md</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
+        <span class="s2">"docs_html/ (Web)</span><span class="se">\n</span><span class="s2">docs_markdown/</span><span class="se">\n</span><span class="s2">docs_images/"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">36</span><span class="p">,</span>
+        <span class="mi">15</span><span class="p">,</span>
+        <span class="s2">"3. slide (16:9 Presentation Deck)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+        <span class="s2">"slide_src/*.md</span><span class="se">\n</span><span class="s2">(1920x1080 stage)"</span><span class="p">,</span>
+        <span class="s2">"slide_html/ (?presenter=1)</span><span class="se">\n</span><span class="s2">slide.pdf</span><span class="se">\n</span><span class="s2">slide_images/"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">104</span><span class="p">,</span>
+        <span class="mi">15</span><span class="p">,</span>
+        <span class="s2">"4. images (Batch Python Scripts)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+        <span class="s2">"images_src/*.py</span><span class="se">\n</span><span class="s2">+ styles.py"</span><span class="p">,</span>
+        <span class="s2">"images/*.png</span><span class="se">\n</span><span class="s2">*.webp / *.svg"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">hdr_style</span><span class="p">,</span> <span class="n">hdr_text_style</span><span class="p">,</span> <span class="n">src_text</span><span class="p">,</span> <span class="n">out_text</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
+    <span class="c1"># Outer card container</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="c1"># Header banner</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">8.2</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">61</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">hdr_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">hdr_text_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="c1"># Source box (left)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">17.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">src_text</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="c1"># Arrow</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="c1"># Output box (right)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span> <span class="o">+</span> <span class="mf">15.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">out_text</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.3</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>3. Chapter Structure</h2>
 <p>Dive deeper into each builder subsystem:</p>

@@ -157,6 +157,117 @@ A `doc` project compiles into 4 distinct target artifacts:
 
 ## 4. Chapter Ordering, Cover Page & Table of Contents Mechanics
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="project_doc_images/project_doc_chapter_merge_and_toc.png" alt="project_doc_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Lexicographical Chapter Merging and Automatic Table of Contents (--toc) Injection</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=148, height=58)
+
+# Left Container: doc_src/ Lexicographical Source Chapters
+rectangle((21, 29), width=34, height=48, style=Styles.MutedDashed.patch(shape_r=2.0))
+text((21, 49.5), "doc_src/ (Sorted)", style=Styles.DarkBold.patch(text_size=8.0))
+
+src_chapters = [
+    (39.5, "00_cover.md\n(1st Chapter)"),
+    (27.0, "01_overview.md\n(2nd Chapter)"),
+    (14.5, "02_design.md\n(3rd Chapter)"),
+]
+for sy, label in src_chapters:
+    rectangle(
+        (21, sy),
+        width=28,
+        height=9.5,
+        style=Styles.Neutral.patch(shape_r=1.5),
+        text=label,
+        text_style=Styles.DarkBold.patch(text_size=7.6),
+    )
+
+# Center Container: Merged Linear Document Stream (--page-break)
+rectangle((74, 29), width=48, height=48, style=Styles.MutedDashed.patch(shape_r=2.0))
+text((74, 49.5), "Merged Stream (--page-break)", style=Styles.DarkBold.patch(text_size=8.0))
+
+rectangle(
+    (74, 42.0),
+    width=42,
+    height=7.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
+    text="1. 00_cover.md (Cover Page)",
+    text_style=Styles.DarkBold.patch(text_size=7.5),
+)
+rectangle(
+    (74, 32.0),
+    width=42,
+    height=8.0,
+    style=Styles.PrimaryFlat.patch(shape_r=1.2),
+    text="[Auto Table of Contents (--toc)]\nInjected between 1st & 2nd chapter",
+    text_style=Styles.WhiteBold.patch(text_size=7.3),
+)
+rectangle(
+    (74, 22.0),
+    width=42,
+    height=7.5,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="2. 01_overview.md (--page-break)",
+    text_style=Styles.DarkBold.patch(text_size=7.5),
+)
+rectangle(
+    (74, 12.0),
+    width=42,
+    height=7.5,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="3. 02_design.md (--page-break)",
+    text_style=Styles.DarkBold.patch(text_size=7.5),
+)
+
+# Arrows: Source -> Merged Stream
+line((35, 39.5), (53, 42.0), arrow_head="->", style=Styles.DarkBold)
+line((35, 27.0), (53, 22.0), arrow_head="->", style=Styles.DarkBold)
+line((35, 14.5), (53, 12.0), arrow_head="->", style=Styles.DarkBold)
+
+# Right: Exported Linear Deliverables
+rectangle(
+    (126, 37.5),
+    width=34,
+    height=13,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
+    text="doc.pdf\n(A4 Vector PDF\n+ Cover & TOC)",
+    text_style=Styles.DarkBold.patch(text_size=7.8),
+)
+rectangle(
+    (126, 19.5),
+    width=34,
+    height=13,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="doc_html/index.html\n(Single-Page\nWeb Specification)",
+    text_style=Styles.DarkBold.patch(text_size=7.8),
+)
+
+# Connectors: Merged Stream -> Deliverables
+line((98, 29.0), (103, 29.0), style=Styles.DarkBold)
+line((103, 19.5), (103, 37.5), style=Styles.DarkBold)
+line((103, 37.5), (109, 37.5), arrow_head="->", style=Styles.DarkBold)
+line((103, 19.5), (109, 19.5), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
+</details>
+
+
+
 Because a `doc` project does not use a `navbar.md` sidebar file, Drawlib merges all `.md` files in `doc_src/` (excluding `README.md`) into a single linear document for both `doc_html/index.html` and `doc.pdf`:
 1. **Lexicographical Chapter Sorting**: Name your chapter files with numeric prefixes (`00_cover.md`, `01_overview.md`, `02_design.md`, `03_benchmarks.md`) so they are merged in deterministic reading order.
 2. **Cover Page Convention (`00_cover.md`)**: The first file in sorted order acts as the document cover page. When `--toc` (`--generate-index`) is passed to `drawlib build pdf`, the automated Table of Contents is inserted cleanly **between the 1st document (`00_cover.md`) and the 2nd document (`01_overview.md`)**.

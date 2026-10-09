@@ -155,6 +155,99 @@ The sidebar navigation structure is governed entirely by `docs_src/navbar.md`:
 5. **Strict Build-Time Validation**: If any linked document does not exist, the build immediately aborts with an error indicating the file and line number.
 6. **Active Page Tracking**: The currently viewed page is automatically highlighted (`.nav-item.active`) with dynamic relative path resolution.
 
+```drawlib fold-code 650px center file:project_site_navbar_architecture.png caption:"How navbar.md and Markdown Pages Compile into the Two-Column Documentation Site UI"
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=150, height=62)
+
+# Left: Source directory container
+rectangle((27, 31), width=46, height=54, style=Styles.MutedDashed)
+text((27, 54.5), "Source Directory (docs_src/)", style=Styles.DarkBold.patch(text_size=8.2))
+
+rectangle(
+    (27, 39.5),
+    width=40,
+    height=22,
+    style=Styles.PrimaryNeutral,
+    text="docs_src/navbar.md\n\n# Brand Header\n## Category Groupings\n- [Page](path.md)\n- [GitHub](https://...)",
+    text_style=Styles.Dark.patch(text_size=7.4),
+)
+rectangle(
+    (27, 15.5),
+    width=40,
+    height=18,
+    style=Styles.Neutral,
+    text="docs_src/**/*.md\n\n• index.md & Chapter Pages\n• ```drawlib Diagrams\n• template.html & style.css",
+    text_style=Styles.Dark.patch(text_size=7.4),
+)
+
+# Middle: Compiler step
+line((50, 31), (77, 31), arrow_head="->", style=Styles.DarkBold)
+text((63.5, 36.0), "drawlib build html", style=Styles.PrimaryBold.patch(text_size=7.8))
+text((63.5, 25.5), "Link Validation &\nActive Path Tracking", style=Styles.Muted.patch(text_size=6.8))
+
+# Right: Compiled Two-Column Site UI (docs_html/)
+rectangle((112, 31), width=68, height=54, style=Styles.SecondaryNeutral)
+text((112, 54.5), "Compiled Two-Column Site UI (docs_html/)", style=Styles.DarkBold.patch(text_size=8.2))
+
+# Left Sticky Sidebar
+rectangle((93, 28.5), width=24, height=44, style=Styles.Neutral)
+text((93, 47.2), "Left Sticky Sidebar", style=Styles.DarkBold.patch(text_size=7.0))
+rectangle(
+    (93, 41.5),
+    width=20.5,
+    height=5.5,
+    style=Styles.SecondaryNeutral,
+    text="Brand Header (#)",
+    text_style=Styles.DarkBold.patch(text_size=6.6),
+)
+text((93, 35.8), "▾ Core Infrastructure", style=Styles.DarkBold.patch(text_size=6.4))
+rectangle(
+    (93, 30.2),
+    width=20.5,
+    height=5.5,
+    style=Styles.PrimaryFlat,
+    text="• VPC Architecture",
+    text_style=Styles.WhiteBold.patch(text_size=6.6),
+)
+rectangle(
+    (93, 23.2),
+    width=20.5,
+    height=5.5,
+    style=Styles.Neutral,
+    text="• Storage Tier",
+    text_style=Styles.Dark.patch(text_size=6.6),
+)
+text((93, 16.8), "▸ Microservices", style=Styles.DarkBold.patch(text_size=6.4))
+text((93, 11.2), "• GitHub Repo ↗", style=Styles.Muted.patch(text_size=6.4))
+
+# Right Main Content Pane
+rectangle((125, 28.5), width=36, height=44, style=Styles.Neutral)
+text((125, 47.2), "Right Main Content Pane", style=Styles.DarkBold.patch(text_size=7.2))
+rectangle(
+    (125, 38.0),
+    width=31.5,
+    height=10.5,
+    style=Styles.PrimaryNeutral,
+    text="Rendered Markdown Prose\nHeadings, Tables & Code UI",
+    text_style=Styles.Dark.patch(text_size=7.0),
+)
+rectangle(
+    (125, 20.0),
+    width=31.5,
+    height=19.5,
+    style=Styles.SecondaryNeutral,
+    text="Embedded Diagram Figure\n(<figure> + High-Res PNG/SVG\n+ Collapsible Python Code)",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+
+save()
+```
+
 ---
 
 ## 4. Static Asset Synchronization

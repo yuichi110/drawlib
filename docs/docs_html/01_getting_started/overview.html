@@ -460,6 +460,97 @@
 <li><strong>Algorithmic Geometry</strong>: Leverage loops, list comprehensions, and trigonometric functions to generate grids, circular cycles, and trees without manual drag-and-drop positioning.</li>
 <li><strong>Centralized Style Governance</strong>: Theme tokens (<code>DefaultStyles</code>, <code>GoogleStyles</code>, <code>MonochromeStyles</code>) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy.</li>
 </ol>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/overview_paradigm_shift.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Legacy Diagramming Approaches vs. Drawlib Illustration as Code</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="c1"># Left container: Legacy Approaches (Fragmented &amp; Fragile)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">35</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Legacy Approaches (Fragmented &amp; Fragile)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"GUI Drag-and-Drop Tools</span><span class="se">\n</span><span class="s2">No Git diffs • AI agents cannot edit binary PNGs"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Raw SVG XML Generation</span><span class="se">\n</span><span class="s2">Text overflows boxes • Manual trig &amp; path math breaks"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Low-Level Matplotlib</span><span class="se">\n</span><span class="s2">Academic plotting API • Dozens of lines per box"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Right container: The Drawlib Solution ("Illustration as Code")</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s1">'The Drawlib Solution ("Illustration as Code")'</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Declarative Domain APIs</span><span class="se">\n</span><span class="s2">Graphs, Diagrams, SmartArts, Charts in pure Python"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Git &amp; PR Friendly</span><span class="se">\n</span><span class="s2">Clean code diffs + deterministic SQLite build cache"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"AI-Native Self-Correction</span><span class="se">\n</span><span class="s2">On-demand CLI rules + multimodal grid (-g) verification"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Transition arrows from Legacy pain points to Drawlib solutions</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <hr />
 <h2>AI-Native by Design</h2>
 <p>Drawlib is purposely designed for the era of <strong>AI-assisted software development</strong>.</p>
@@ -474,7 +565,7 @@
 <h2>Layered Architecture</h2>
 <p>Drawlib is structured into four cohesive layers, ensuring both low-level flexibility and high-level productivity:</p>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/drawlib_layered_architecture.png" alt="overview_1" style="width: 650px; max-width: 100%;" />
+  <img src="overview_images/drawlib_layered_architecture.png" alt="overview_2" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Drawlib Layered Architecture</figcaption>
 </figure>
 <details class="drawlib-code-details">

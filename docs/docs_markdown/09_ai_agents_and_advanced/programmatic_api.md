@@ -39,6 +39,129 @@ from drawlib.tools import (
 )
 ```
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="programmatic_api_images/programmatic_api_tools_overview.png" alt="programmatic_api_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Architecture of the drawlib.tools Programmatic Automation API</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=156, height=60)
+
+# Left Column: External Callers
+text((20, 53.5), "External Callers", style=Styles.DarkBold.patch(text_size=8.2))
+
+rectangle(
+    (20, 43),
+    width=28,
+    height=11,
+    style=Styles.Neutral.patch(shape_r=1.5),
+    text="Python CI/CD\nScripts",
+    text_style=Styles.DarkBold.patch(text_size=7.5),
+)
+rectangle(
+    (20, 29),
+    width=28,
+    height=11,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="Pytest Suites\n(Visual & Link Tests)",
+    text_style=Styles.DarkBold.patch(text_size=7.3),
+)
+rectangle(
+    (20, 15),
+    width=28,
+    height=11,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
+    text="Custom Doc\nPipelines",
+    text_style=Styles.DarkBold.patch(text_size=7.5),
+)
+
+# Right Container: drawlib.tools Facade + 3x2 Subsystem Grid
+rectangle((101, 30), width=98, height=50, style=Styles.MutedDashed.patch(shape_r=2.5))
+
+rectangle(
+    (101, 48.5),
+    width=90,
+    height=8.0,
+    style=Styles.PrimaryFlat.patch(shape_r=1.8),
+    text="drawlib.tools — Programmatic Python Automation Facade",
+    text_style=Styles.WhiteBold.patch(text_size=8.2),
+)
+
+# Row 1 of 3x2 Grid
+rectangle(
+    (70.25, 34.5),
+    width=28.5,
+    height=15,
+    style=Styles.Neutral.patch(shape_r=1.5),
+    text="1. Document & Slide\nCompilers\nbuild_html, build_markdown,\nbuild_pdf, build_slide, build_image",
+    text_style=Styles.DarkBold.patch(text_size=6.5),
+)
+rectangle(
+    (101.0, 34.5),
+    width=28.5,
+    height=15,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="2. Block Inspection\n& Extraction\nlist_code_blocks, export_\ncode_block, extract_images",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+rectangle(
+    (131.75, 34.5),
+    width=28.5,
+    height=15,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
+    text="3. In-Memory\nImage Engine\nget_dimage,\nget_dimage_from_code",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+
+# Row 2 of 3x2 Grid
+rectangle(
+    (70.25, 15.5),
+    width=28.5,
+    height=15,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
+    text="4. Project\nScaffolding\ninit_project,\nlist_project_types",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+rectangle(
+    (101.0, 15.5),
+    width=28.5,
+    height=15,
+    style=Styles.Neutral.patch(shape_r=1.5),
+    text="5. Preview Server\n& Link Audit\nserve_docs,\nscan_broken_links",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+rectangle(
+    (131.75, 15.5),
+    width=28.5,
+    height=15,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="6. Cache & CSS\nTheme API\nlist_cache, download_\ncache, clear_cache, get_css",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+
+# Connectors from External Callers to drawlib.tools Container
+line((34, 43), (52, 43), arrow_head="->", style=Styles.DarkBold)
+line((34, 29), (52, 29), arrow_head="->", style=Styles.DarkBold)
+line((34, 15), (52, 15), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
+</details>
+
+
+
 | Category | Function | Description |
 | :--- | :--- | :--- |
 | **Compilation** | `build_html(input_dir, output_dir=None, *, image_format="png", styles_path=None, utils_path=None, no_cache=False, css_mode="external")` | Compile Markdown directory (`site` or `doc`) into static HTML. |
@@ -198,7 +321,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="programmatic_api_images/programmatic_api_in_memory_dimage.png" alt="programmatic_api_1" style="width: 600px; max-width: 100%;" />
+  <img src="programmatic_api_images/programmatic_api_in_memory_dimage.png" alt="programmatic_api_2" style="width: 600px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Generating an In-Memory Dimage via get_dimage_from_code() and Compositing onto Canvas</figcaption>
 </figure>
 

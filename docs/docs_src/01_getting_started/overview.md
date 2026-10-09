@@ -41,6 +41,92 @@ Drawlib treats architectural illustrations as first-class software artifacts gov
 4. **Algorithmic Geometry**: Leverage loops, list comprehensions, and trigonometric functions to generate grids, circular cycles, and trees without manual drag-and-drop positioning.
 5. **Centralized Style Governance**: Theme tokens (`DefaultStyles`, `GoogleStyles`, `MonochromeStyles`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy.
 
+```drawlib fold-code 650px center file:overview_paradigm_shift.png caption:"Legacy Diagramming Approaches vs. Drawlib Illustration as Code"
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=140, height=56)
+
+# Left container: Legacy Approaches (Fragmented & Fragile)
+rectangle((35, 28), width=62, height=48, style=Styles.SecondaryNeutral.patch(shape_r=2.5))
+rectangle(
+    (35, 46.5),
+    width=58,
+    height=6.5,
+    style=Styles.Neutral.patch(shape_r=1.5),
+    text="Legacy Approaches (Fragmented & Fragile)",
+    text_style=Styles.DarkBold.patch(text_size=8.8),
+)
+rectangle(
+    (35, 36.5),
+    width=58,
+    height=10,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="GUI Drag-and-Drop Tools\nNo Git diffs • AI agents cannot edit binary PNGs",
+    text_style=Styles.Dark.patch(text_size=7.8),
+)
+rectangle(
+    (35, 24.5),
+    width=58,
+    height=10,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="Raw SVG XML Generation\nText overflows boxes • Manual trig & path math breaks",
+    text_style=Styles.Dark.patch(text_size=7.8),
+)
+rectangle(
+    (35, 12.5),
+    width=58,
+    height=10,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="Low-Level Matplotlib\nAcademic plotting API • Dozens of lines per box",
+    text_style=Styles.Dark.patch(text_size=7.8),
+)
+
+# Right container: The Drawlib Solution ("Illustration as Code")
+rectangle((105, 28), width=62, height=48, style=Styles.Neutral.patch(shape_r=2.5))
+rectangle(
+    (105, 46.5),
+    width=58,
+    height=6.5,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    text='The Drawlib Solution ("Illustration as Code")',
+    text_style=Styles.WhiteBold.patch(text_size=8.8),
+)
+rectangle(
+    (105, 36.5),
+    width=58,
+    height=10,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
+    text="Declarative Domain APIs\nGraphs, Diagrams, SmartArts, Charts in pure Python",
+    text_style=Styles.Dark.patch(text_size=7.8),
+)
+rectangle(
+    (105, 24.5),
+    width=58,
+    height=10,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
+    text="Git & PR Friendly\nClean code diffs + deterministic SQLite build cache",
+    text_style=Styles.Dark.patch(text_size=7.8),
+)
+rectangle(
+    (105, 12.5),
+    width=58,
+    height=10,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.2),
+    text="AI-Native Self-Correction\nOn-demand CLI rules + multimodal grid (-g) verification",
+    text_style=Styles.Dark.patch(text_size=7.8),
+)
+
+# Transition arrows from Legacy pain points to Drawlib solutions
+line((64, 36.5), (76, 36.5), arrow_head="->", style=Styles.DarkBold)
+line((64, 24.5), (76, 24.5), arrow_head="->", style=Styles.DarkBold)
+line((64, 12.5), (76, 12.5), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
 ---
 
 ## AI-Native by Design

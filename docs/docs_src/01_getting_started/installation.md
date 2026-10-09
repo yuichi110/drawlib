@@ -62,6 +62,51 @@ $ pip install "drawlib[pdf]"
 $ playwright install chromium
 ```
 
+```drawlib fold-code 650px center file:installation_setup_workflow.png caption:"Three-Step Drawlib Environment Setup Workflow"
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+setup(width=138, height=44)
+
+# Step 1: Core Package (Hero focal origin)
+rectangle(
+    (23, 22),
+    width=38,
+    height=32,
+    style=Styles.PrimaryFlat.patch(shape_r=2),
+    text="Step 1: Core Package\n\nuv add drawlib\npip install drawlib\n(Python 3.11+ • Zero heavy deps)",
+    text_style=Styles.WhiteBold.patch(text_size=8.0),
+)
+
+# Step 2: Optional PDF Engine (Neutral card)
+rectangle(
+    (69, 22),
+    width=38,
+    height=32,
+    style=Styles.Neutral.patch(shape_r=2),
+    text='Step 2: Optional PDF Engine\n\nuv add "drawlib[pdf]"\nplaywright install chromium\n(Headless vector PDF export)',
+    text_style=Styles.Dark.patch(text_size=8.0),
+)
+
+# Step 3: Offline Asset Pre-fetch (SecondaryNeutral card)
+rectangle(
+    (115, 22),
+    width=38,
+    height=32,
+    style=Styles.SecondaryNeutral.patch(shape_r=2),
+    text="Step 3: Offline Asset Pre-fetch\n\ndrawlib cache download --all\n(Pre-cache fonts, icons & maps\nfor CI / air-gapped builds)",
+    text_style=Styles.Dark.patch(text_size=8.0),
+)
+
+# Connectors
+line((42, 22), (50, 22), arrow_head="->", style=Styles.DarkBold)
+line((88, 22), (96, 22), arrow_head="->", style=Styles.DarkBold)
+
+save()
+```
+
 ---
 
 ## 4. Asset & Build Cache Management (`drawlib cache`)

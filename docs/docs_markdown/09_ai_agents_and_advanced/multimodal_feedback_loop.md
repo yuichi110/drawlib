@@ -125,6 +125,116 @@ Using vision inspection tools (such as `view_file` or an image viewer), the agen
 ### Stage 5: Iterative Refinement
 Because the coordinate grid directly reveals the exact `(x, y)` location of every visual defect, the agent can adjust coordinates deterministically (e.g. "Move box X from 45.0 to 52.0 to eliminate overlap") rather than guessing.
 
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="multimodal_feedback_loop_images/multimodal_before_after_comparison.png" alt="multimodal_feedback_loop_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Before vs. After Multimodal Self-Correction Using the Coordinate Grid (-g)</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from drawlib.canvas import save, setup
+from drawlib.lines import line, lines
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=142, height=58)
+
+# Left Panel: Draft 1 with Visual Defects
+text((36, 52.5), "Draft 1: Visual Defects Detected with -g", style=Styles.DangerBold.patch(text_size=8.0))
+rectangle((36, 26.5), width=60, height=44, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
+
+# Narrow box (width=16) causing label overflow
+rectangle(
+    (36, 40.5),
+    width=16,
+    height=9,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="OrderPaymentGateway",
+    text_style=Styles.DarkBold.patch(text_size=8.0),
+)
+# Intermediate node
+rectangle(
+    (36, 27.0),
+    width=18,
+    height=8.5,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="Auth Cache",
+    text_style=Styles.DarkBold.patch(text_size=7.4),
+)
+# Bottom node
+rectangle(
+    (36, 15.0),
+    width=18,
+    height=8.0,
+    style=Styles.Neutral.patch(shape_r=1.2),
+    text="Database",
+    text_style=Styles.DarkBold.patch(text_size=7.4),
+)
+# Colliding arrow cutting straight through intermediate node
+line((36, 36.0), (36, 19.0), arrow_head="->", style=Styles.DangerBold)
+
+# Red callout badge with high-contrast white text
+rectangle(
+    (36, 7.8),
+    width=52,
+    height=4.8,
+    style=Styles.DangerFlat.patch(shape_r=1.0),
+    text="Defects: Text overflow & arrow collision",
+    text_style=Styles.WhiteBold.patch(text_size=6.9),
+)
+
+# Center Transition Arrow
+line((67.5, 26.5), (74.5, 26.5), arrow_head="->", style=Styles.DarkBold)
+
+# Right Panel: Draft 2 Self-Corrected
+text((106, 52.5), "Draft 2: Self-Corrected After Grid Inspection", style=Styles.DarkBold.patch(text_size=8.0))
+rectangle((106, 26.5), width=60, height=44, style=Styles.Neutral.patch(shape_r=2.0))
+
+# Widened focal box (width=28) with wrapped label
+rectangle(
+    (102, 40.5),
+    width=28,
+    height=9.5,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    text="Order Payment\nGateway",
+    text_style=Styles.WhiteBold.patch(text_size=7.4),
+)
+rectangle(
+    (102, 27.0),
+    width=28,
+    height=8.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="Auth Cache",
+    text_style=Styles.DarkBold.patch(text_size=7.4),
+)
+rectangle(
+    (102, 15.0),
+    width=28,
+    height=8.0,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
+    text="Database",
+    text_style=Styles.DarkBold.patch(text_size=7.4),
+)
+
+# Clean step connectors & orthogonal detour routing around intermediate node
+line((102, 35.75), (102, 31.25), arrow_head="->", style=Styles.DarkBold)
+line((102, 22.75), (102, 19.0), arrow_head="->", style=Styles.DarkBold)
+lines([(116, 40.5), (126, 40.5), (126, 15.0), (116, 15.0)], arrow_head="->", style=Styles.DarkBold)
+
+text((106, 7.8), "Fixed: Widened boxes (w=28) & orthogonal detour", style=Styles.DarkBold.patch(text_size=6.9))
+
+save()
+```
+
+</details>
+
+
+
 ### Stage 6: Deliver Final Asset
 The agent compiles the clean, verified drawing into the document or commits the Python script with 100% confidence.
 

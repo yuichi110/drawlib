@@ -88,6 +88,113 @@ Before executing any embedded ````drawlib```` block or standalone `.py` script, 
 
 If the digest matches an entry in `.drawlib/cache.db`, Drawlib restores the rendered image binary directly from SQLite in **< 1 ms** without invoking Python or Matplotlib.
 
+```drawlib fold-code 650px center file:caching_sha256_lookup_flow.png caption:"Incremental Build Cache SHA-256 Digest Computation and Hit/Miss Workflow"
+from drawlib.canvas import save, setup
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=156, height=62)
+
+# Left Stack: 4 Input Cards
+rectangle(
+    (22, 52.5),
+    width=36,
+    height=10.5,
+    style=Styles.Neutral,
+    text="1. Code Block Source\n(Python script or ```drawlib)",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+rectangle(
+    (22, 38.5),
+    width=36,
+    height=10.5,
+    style=Styles.Neutral,
+    text="2. styles.py & utils.py\n(Project theme & helpers)",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+rectangle(
+    (22, 24.5),
+    width=36,
+    height=10.5,
+    style=Styles.Neutral,
+    text="3. Referenced _assets/ Files\n(Local images & data blobs)",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+rectangle(
+    (22, 10.5),
+    width=36,
+    height=10.5,
+    style=Styles.Neutral,
+    text="4. Format & DPI Context\n(png/webp/svg & total_slides)",
+    text_style=Styles.DarkBold.patch(text_size=6.8),
+)
+
+# Center Focal Card: SHA-256 Digest Lookup
+rectangle(
+    (72, 31.5),
+    width=34,
+    height=22,
+    style=Styles.PrimaryFlat,
+    text="SHA-256 Digest\nLookup\n(.drawlib/cache.db)",
+    text_style=Styles.WhiteBold.patch(text_size=8.0),
+)
+
+# Converging arrows from 4 inputs to SHA-256 Digest Lookup
+line((40, 52.5), (55, 37.5), arrow_head="->", style=Styles.DarkBold)
+line((40, 38.5), (55, 33.5), arrow_head="->", style=Styles.DarkBold)
+line((40, 24.5), (55, 29.5), arrow_head="->", style=Styles.DarkBold)
+line((40, 10.5), (55, 25.5), arrow_head="->", style=Styles.DarkBold)
+
+# Top Branch: Cache HIT
+line((89, 37.0), (104, 47.5), arrow_head="->", style=Styles.SuccessBold)
+text((95.0, 45.5), "HIT", style=Styles.SuccessBold.patch(text_size=7.5))
+rectangle(
+    (128, 47.5),
+    width=48,
+    height=18,
+    style=Styles.PrimaryNeutral,
+    text="Cache HIT (< 1 ms)\n\nRestore PNG/WebP/SVG Blob\n(Skip Python & Matplotlib)",
+    text_style=Styles.DarkBold.patch(text_size=7.4),
+)
+
+# Bottom Branch: Cache MISS
+line((89, 26.0), (104, 15.5), arrow_head="->", style=Styles.DarkBold)
+text((95.0, 17.5), "MISS", style=Styles.DarkBold.patch(text_size=7.5))
+rectangle((128, 15.5), width=48, height=22, style=Styles.SecondaryNeutral)
+text((128, 23.5), "Cache MISS Workflow", style=Styles.DarkBold.patch(text_size=7.4))
+
+rectangle(
+    (112.5, 12.0),
+    width=13.5,
+    height=11,
+    style=Styles.Neutral,
+    text="Execute\nSandbox",
+    text_style=Styles.DarkBold.patch(text_size=6.4),
+)
+line((119.25, 12.0), (121.25, 12.0), arrow_head="->", style=Styles.DarkBold)
+rectangle(
+    (128.0, 12.0),
+    width=13.5,
+    height=11,
+    style=Styles.Neutral,
+    text="Store in\nSQLite",
+    text_style=Styles.DarkBold.patch(text_size=6.4),
+)
+line((134.75, 12.0), (136.75, 12.0), arrow_head="->", style=Styles.DarkBold)
+rectangle(
+    (143.5, 12.0),
+    width=13.5,
+    height=11,
+    style=Styles.Neutral,
+    text="1 GiB LRU\nEviction",
+    text_style=Styles.DarkBold.patch(text_size=6.4),
+)
+
+save()
+```
+
 ### 1.2. Automatic Cache Maintenance & Environment Variables
 - **Library Version Invalidation**: Cache tables are automatically invalidated whenever the installed `drawlib` or `matplotlib` version changes.
 - **1 GiB Size Cap**: When cached image blobs exceed `1 GiB`, Drawlib automatically evicts the oldest 50% of entries.
