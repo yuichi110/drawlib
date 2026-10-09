@@ -55,13 +55,18 @@ def _get_map_patch_options(style: Style, fallback_border_style: Style | None = N
     line_col = style.shape_line_color
     line_style = style.shape_line_style if style.shape_line_style is not None else "solid"
 
-    # When highlighting a region with a Flat style (e.g. Styles.PrimaryFlat), preserve the map's boundary stroke
-    if (line_w <= 0.0 or line_col is None) and fallback_border_style is not None:
-        fb_w = fallback_border_style.shape_line_width or 0.0
-        if fb_w > 0.0 and fallback_border_style.shape_line_color is not None:
+    # When highlighting a region with a Flat fill style (e.g. Styles.PrimaryFlat),
+    # preserve the map's boundary stroke so adjacent territories remain distinct.
+    if facecolor != "none" and (line_w <= 0.0 or line_col is None) and fallback_border_style is not None:
+        fb = fallback_border_style
+        fb_w = fb.shape_line_width or 0.0
+        if fb_w <= 0.0 or fb.shape_line_color is None or (fb.alpha is not None and fb.alpha <= 0.0):
+            fb = Styles.Neutral
+            fb_w = fb.shape_line_width or 0.0
+        if fb_w > 0.0 and fb.shape_line_color is not None:
             line_w = fb_w
-            line_col = fallback_border_style.shape_line_color
-            line_style = fallback_border_style.shape_line_style or "solid"
+            line_col = fb.shape_line_color
+            line_style = fb.shape_line_style or "solid"
 
     if line_col is None or line_w <= 0.0:
         edgecolor: tuple[float, float, float, float] | str = "none"
@@ -395,6 +400,31 @@ class GeoMap:
         pad_lat = max(0.01, (max_lat - min_lat) * 0.02)
         return (min_lon - pad_lon, max_lon + pad_lon), (min_lat - pad_lat, max_lat + pad_lat)
 
+    def _render_elements(
+        self,
+        active_elements: list[GeoElement],
+        proj: GeoProjection,
+    ) -> None:
+        """Append projected PathPatch artists for all visible map elements."""
+        default_elems = [e for e in active_elements if e.id not in self._element_styles]
+        custom_elems = [e for e in active_elements if e.id in self._element_styles]
+
+        default_opts = _get_map_patch_options(self._style)
+        if default_opts["facecolor"] != "none" or default_opts["edgecolor"] != "none":
+            for elem in default_elems:
+                mpl_path = _build_element_mpl_path(elem.polygons, proj)
+                if mpl_path is not None:
+                    canvas._artists.append(PathPatch(mpl_path, **default_opts))
+
+        for elem in custom_elems:
+            custom_style = self._element_styles[elem.id]
+            opts = _get_map_patch_options(custom_style, fallback_border_style=self._style)
+            if opts["facecolor"] == "none" and opts["edgecolor"] == "none":
+                continue
+            mpl_path = _build_element_mpl_path(elem.polygons, proj)
+            if mpl_path is not None:
+                canvas._artists.append(PathPatch(mpl_path, **opts))
+
     @validate_call
     def draw(
         self,
@@ -444,10 +474,6 @@ class GeoMap:
         )
         self._last_projection = proj
 
-        # Draw default-styled elements first, then custom-styled elements so highlighted borders stay on top
-        default_elems = [e for e in active_elements if e.id not in self._element_styles]
-        custom_elems = [e for e in active_elements if e.id in self._element_styles]
-
         with transform(origin=xy, scale=scale):
             if self._background_style is not None:
                 bg_cx = proj.box_x + proj.box_width * 0.5
@@ -458,19 +484,7 @@ class GeoMap:
                     height=proj.box_height,
                     style=self._background_style,
                 )
-
-            default_opts = _get_map_patch_options(self._style)
-            for elem in default_elems:
-                mpl_path = _build_element_mpl_path(elem.polygons, proj)
-                if mpl_path is not None:
-                    canvas._artists.append(PathPatch(mpl_path, **default_opts))
-
-            for elem in custom_elems:
-                custom_style = self._element_styles[elem.id]
-                opts = _get_map_patch_options(custom_style, fallback_border_style=self._style)
-                mpl_path = _build_element_mpl_path(elem.polygons, proj)
-                if mpl_path is not None:
-                    canvas._artists.append(PathPatch(mpl_path, **opts))
+            self._render_elements(active_elements, proj)
 
         return self
 

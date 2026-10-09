@@ -38,6 +38,15 @@ class TestGeoMapPresets:
         assert 10.0 <= jp_xy[1] <= 80.0
         assert len(canvas._artists) > 100
 
+    def test_world_transparent_default_and_asia_crop(self) -> None:
+        m = GeoMap(World, style=Styles.Transparent)
+        m.set_style(["China", "North Korea", "Vietnam", "Laos"], Styles.Neutral)
+        m.set_style(["South Korea", "Taiwan", "Philippines"], Styles.PrimaryNeutral)
+        m.set_style(["Japan", "Hong Kong"], Styles.PrimaryFlat)
+        m.draw((10, 10), width=120, height=90, lon_range=(106, 146), lat_range=(18, 46))
+        # Only the 8 styled countries intersecting the viewport are added as PathPatch artists
+        assert len(canvas._artists) == 8
+
     def test_japan_preset_elements_and_coordinates(self) -> None:
         m = GeoMap(Countries.Japan, style=Styles.Neutral, background_style=Styles.LightFlat)
         elements = m.get_elements()
