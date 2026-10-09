@@ -517,18 +517,18 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 <span class="w">   </span><span class="k">-</span><span class="w"> </span>Always import PascalCase tokens: <span class="sb">`from drawlib.styles import Colors, Styles`</span>.
 <span class="w">   </span><span class="k">-</span><span class="w"> </span>Ground at least 50% of nodes in calm neutral styles (<span class="sb">`Styles.Neutral`</span>, <span class="sb">`Styles.PrimaryNeutral`</span>, <span class="sb">`Styles.SecondaryNeutral`</span>) and reserve saturated fills (<span class="sb">`Styles.PrimaryFlat`</span>, <span class="sb">`Styles.AccentFlat`</span>) for 1–2 focal points.
 
-<span class="k">4.</span> The Multimodal Self-Correction Loop:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Always include an explicit <span class="sb">`file:&lt;name&gt;.png`</span> and <span class="sb">`caption:"..."`</span> on every embedded ```drawlib block.
+<span class="k">4.</span> The 3-Stage Multimodal Self-Correction Loop:
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Always include an explicit <span class="sb">`file:&lt;name&gt;.png`</span> and <span class="sb">`caption:"..."`</span> on every embedded ```drawlib block, place a Top Hero at Lines 5–15 with <span class="sb">`fold-code`</span>, omit narrow <span class="sb">`px`</span> width caps, and keep <span class="sb">`text_size &gt;= 10.0`</span>.
 <span class="w">   </span><span class="k">-</span><span class="w"> </span>Render headlessly with the coordinate grid (<span class="sb">`-g`</span>):
      <span class="sb">`uv run drawlib show docs_src/page.md &lt;name&gt;.png -g -o .drawlib/scratch/preview.png`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Visually inspect <span class="sb">`.drawlib/scratch/preview.png`</span> for text clipping, overlapping labels, or cramped margins, and iterate until clean.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Visually inspect <span class="sb">`.drawlib/scratch/preview.png`</span> for text clipping, overlapping labels, or cramped margins, and verify the built HTML page in a <span class="sb">`1280×920`</span> headless browser viewport.
 
 <span class="k">5.</span> Fetch Rules on Demand:
-   Run <span class="sb">`uv run drawlib rules show &lt;topic&gt;`</span> (e.g. <span class="sb">`overview`</span>, <span class="sb">`style-guide`</span>, <span class="sb">`lib-graph`</span>, <span class="sb">`lib-diagrams`</span>, <span class="sb">`lib-charts`</span>, <span class="sb">`lib-smartarts`</span>, <span class="sb">`anim-guide`</span>).
+   Run <span class="sb">`uv run drawlib rules show &lt;topic&gt;`</span> (e.g. <span class="sb">`overview`</span>, <span class="sb">`style-guide`</span>, <span class="sb">`review-guide`</span>, <span class="sb">`project-overview`</span>, <span class="sb">`project-site`</span>, <span class="sb">`lib-graph`</span>, <span class="sb">`lib-diagrams`</span>, <span class="sb">`lib-charts`</span>, <span class="sb">`lib-smartarts`</span>, <span class="sb">`anim-guide`</span>).
 </code></pre>
 <hr />
 <h2>3. Dynamic Knowledge Retrieval (<code>drawlib rules</code>)</h2>
-<p>Instead of pasting entire documentation manuals into prompts, train your agent to query <code>drawlib rules</code> on demand. Drawlib ships with <strong>27 modular rule manuals</strong> (8 general guidelines + 19 library module specifications):</p>
+<p>Instead of pasting entire documentation manuals into prompts, train your agent to query <code>drawlib rules</code> on demand. Drawlib ships with <strong>31 modular rule manuals</strong> (12 general guidelines + 19 library module specifications):</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="ai_agent_instructions_images/ai_agent_on_demand_rules_architecture.png" alt="ai_agent_instructions_2" />
   <figcaption class="drawlib-caption">On-Demand Rule Retrieval Workflow for AI Coding Agents</figcaption>
@@ -555,17 +555,17 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">35.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">24.8</span><span class="p">),</span> <span class="s2">"CLI Rules</span><span class="se">\n</span><span class="s2">rules show"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
-<span class="c1"># Right: 27 Modular Manuals Container</span>
+<span class="c1"># Right: 31 Modular Manuals Container</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">((</span><span class="mf">88.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">106.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="s2">"27 Rule Manuals"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">106.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span> <span class="s2">"31 Rule Manuals"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mf">36.8</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"8 General Manuals</span><span class="se">\n</span><span class="s2">overview, style-guide,</span><span class="se">\n</span><span class="s2">anim-guide, api..."</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"12 General Manuals</span><span class="se">\n</span><span class="s2">overview, style-guide,</span><span class="se">\n</span><span class="s2">review-guide, project-*"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
@@ -590,19 +590,24 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<pre><code class="language-bash"><span class="c1"># List all 27 modular rule topics and cache status:</span>
+<pre><code class="language-bash"><span class="c1"># List all 31 modular rule topics and cache status:</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>list
 
 <span class="c1"># Retrieve targeted manuals:</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>agent-instruction<span class="w">    </span><span class="c1"># Workflow loop &amp; bootstrap rules</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>overview<span class="w">             </span><span class="c1"># Cartesian geometry &amp; canvas lifecycle</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>style-guide<span class="w">          </span><span class="c1"># 6-color semantic system &amp; 50%+ neutral baseline</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>review-guide<span class="w">         </span><span class="c1"># 3-stage multimodal review loop &amp; 720pt font math</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>anim-guide<span class="w">           </span><span class="c1"># Animation loop idioms &amp; component patterns</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>slide-guide<span class="w">          </span><span class="c1"># 1920x1080 slide stage authoring &amp; templates</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-overview<span class="w">     </span><span class="c1"># 4 project archetypes &amp; decision matrix</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-images<span class="w">       </span><span class="c1"># Standalone images project (images_src/*.py)</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-doc<span class="w">          </span><span class="c1"># Linear document &amp; PDF project (doc_src/*.md)</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-site<span class="w">         </span><span class="c1"># Multi-page documentation website (docs_src/**/*.md)</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-slide<span class="w">        </span><span class="c1"># 1920x1080 slide stage authoring &amp; templates (slide_src/*.md)</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>api<span class="w">                  </span><span class="c1"># Complete API index &amp; symbol cheat sheet</span>
 </code></pre>
 <h3>3.1 Complete <code>drawlib rules</code> Topic Catalog</h3>
-<h4>General Guidelines (8 Topics):</h4>
+<h4>General Guidelines (12 Topics):</h4>
 <table>
 <thead>
 <tr>
@@ -624,16 +629,32 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">Visual hierarchy, 50%+ neutral baseline rule, 6 semantic colors, and typography sizing.</td>
 </tr>
 <tr>
+<td style="text-align:left"><strong><code>review-guide</code></strong></td>
+<td style="text-align:left">Autonomous 3-stage multimodal review loop, <code>720pt</code> typography scaling, and coordinate anchor table.</td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>anim-guide</code></strong></td>
 <td style="text-align:left">Animation loop idioms (Re-Draw vs. Mutate) across primitives, SmartArts, charts, diagrams, and graphs.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>slide-guide</code></strong></td>
-<td style="text-align:left">16:9 slide stage (<code>1920x1080</code>), <code>::: block</code> / <code>::: note</code> syntax, layout templates, and Presenter View.</td>
+<td style="text-align:left"><strong><code>project-overview</code></strong></td>
+<td style="text-align:left">Architecture of the 4 project archetypes (<code>images</code>, <code>doc</code>, <code>site</code>, <code>slide</code>), shared files, and cache.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>project</code></strong></td>
-<td style="text-align:left">Project scaffolding (<code>drawlib init</code>), 4 archetypes (<code>doc</code>, <code>site</code>, <code>slide</code>, <code>images</code>), and <code>navbar.md</code>.</td>
+<td style="text-align:left"><strong><code>project-images</code></strong></td>
+<td style="text-align:left">Standalone images project (<code>images_src/*.py</code> -&gt; <code>images/*.png</code>), <code>save()</code> redirection, and grid review.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>project-doc</code></strong></td>
+<td style="text-align:left">Linear technical document &amp; PDF project (<code>doc_src/*.md</code>), <code>00_cover.md</code>, <code>--toc</code>, and page-break sizing.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>project-site</code></strong></td>
+<td style="text-align:left">Multi-page website (<code>docs_src/**/*.md</code>), <code>navbar.md</code> syntax, Top Hero rule, and <code>drawlib serve --check</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>project-slide</code></strong></td>
+<td style="text-align:left">16:9 slide stage (<code>1920x1080</code>), <code>::: block</code> / <code>::: note</code> syntax, layout templates, and Presenter View.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>cli</code></strong></td>

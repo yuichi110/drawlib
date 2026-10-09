@@ -1,6 +1,6 @@
 # Drawlib Agent Drawing Guidelines
 
-Drawlib is a modern Python diagramming and visualization library designed around the philosophy of **"Illustration as Code"**.  
+Drawlib is a modern Python diagramming and visualization library designed around the dual paradigms of **"Illustration as Code"** and **"Illustrated Documentation as Code"**.  
 It allows developers, system architects, and AI coding agents to create clean, publication-ready architectural schemas, workflows, data visualizations, and technical documentation using declarative, reproducible Python code.
 
 This document serves as the high-level architectural foundation. When you need exhaustive function-by-function reference, refer to the on-demand topic rule commands detailed in [Section 5](#5-topic-reference-catalog--rules-commands).
@@ -116,14 +116,15 @@ The canvas represents the virtual Cartesian drawing plane upon which all graphic
             X-axis increases RIGHTWARD
 ```
 
-### 2.2. Coordinate Alignment (`halign` & `valign`)
-By default, all shapes, containers, and text blocks interpret coordinate `(x, y)` as the geometric **center** (`halign="center"`, `valign="center"`).  
-Drawlib supports explicit anchor alignment to streamline layout construction without manual arithmetic offsets:
-- **`halign` (Horizontal Alignment)**:
+### 2.2. Coordinate Alignment (`halign` & `valign`) & Anchor Semantics
+By default, primitive shapes, icons, images, and text blocks interpret coordinate `(x, y)` as the geometric **center** (`halign="center"`, `valign="center"`), whereas high-level composite components interpret `(x, y)` as the **bottom-left corner** `(x0, y0)`:
+- **Center-Anchored `(cx, cy)`**: `shapes.*`, `text.text()`, `icons.*` (`phosphor`, `gcp`, `font_icon`), `images.image()` — span `[cx - w/2, cx + w/2]` × `[cy - h/2, cy + h/2]`.
+- **Bottom-Left-Anchored `(x0, y0)`**: `smartarts.*`, `charts.*`, `diagrams.*`, `graph.*` — span `[x0, x0 + width]` × `[y0, y0 + height]`. To center a composite component horizontally on a canvas of width `W`, pass `x0 = (W - width) / 2`.
+- **`halign` (Horizontal Alignment on Primitives/Text)**:
   - `"center"`: Anchor `x` is the horizontal midpoint of the element (default).
   - `"left"`: Anchor `x` is the left edge; element extends to the right (`x -> x + width`).
   - `"right"`: Anchor `x` is the right edge; element extends to the left (`x - width -> x`).
-- **`valign` (Vertical Alignment)**:
+- **`valign` (Vertical Alignment on Primitives/Text)**:
   - `"center"`: Anchor `y` is the vertical midpoint of the element (default).
   - `"bottom"`: Anchor `y` is the bottom edge; element extends upward (`y -> y + height`).
   - `"top"`: Anchor `y` is the top edge; element extends downward (`y - height -> y`).
@@ -360,9 +361,9 @@ save()
 ```
 ````
 
-**Block Header Options**:
-- **Code Visibility**: `hide-code` (default, image only), `show-code` (code + image), `fold-code` (image + collapsed `<details>` dropdown).
-- **Dimensions**: `400px`, `600px`, `100%` (width tokens).
+**Block Header Options & Typography Sizing (`720pt` Canvas Law)**:
+- **Code Visibility**: `hide-code` (default, image only), `show-code` (code + image), `fold-code` (image + collapsed `<details>` dropdown). Always use **`fold-code`** on the **Top Hero diagram (`Lines 5–15`)** so the illustration appears immediately above the fold.
+- **Dimensions & `720pt` Typography Scaling**: Drawlib maps every canvas width to `720pt` (`10 inches`), meaning rendered HTML font size equals $\text{text\_size} \times \frac{\text{Displayed Width}}{720}$. **Omit narrow pixel width caps** (such as `400px` or `600px`) on standard documentation diagrams so figures expand to `100%` of `.drawlib-image`, and set **`text_size >= 10.0`** (standard `10.5`–`12.0`, titles `12.0`–`14.0`, floor `9.5`) so diagram text matches `16px` HTML body prose.
 - **Alignment**: `center`, `left`, `right`.
 - **Caption & Filename**: `caption:"Figure Title"`, `file:custom_name.png`. **Always specify `file:<name>.png`** so blocks are uniquely addressable by name across builds and prevent off-by-one errors from content shifts.
 
@@ -484,22 +485,29 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.2. Project Architecture & Scaffolding (`project`)
-- **Command**: `drawlib rules show project`
-- **Scope**: Scaffolding with `drawlib init`, 4 starter templates (`site`, `doc`, `slide`, `images`), `docs_src/` directory layout, `navbar.md` navigation authoring, code block options, and multi-image compilation.
+### 5.2. Project Architecture & Template-Specific Guides (`project-*`)
+- **Commands**:
+  - `drawlib rules show project-overview` (Scaffolding with `drawlib init`, choosing among the 4 archetypes, `styles.py`/`utils.py`, and cache architecture)
+  - `drawlib rules show project-images` (Standalone `.py` diagram scripts in `images_src/`, `clear()` lifecycle, and AST collision checks)
+  - `drawlib rules show project-doc` (Linear documents, whitepapers, `00_cover.md` + `--toc`, and A4 vector PDF export in `doc_src/`)
+  - `drawlib rules show project-site` (Multi-page documentation websites, `navbar.md` sidebar rules, and Top Hero layout in `docs_src/`)
+  - `drawlib rules show project-slide` (16:9 widescreen presentation decks, `1920×1080` `::: block` / `::: note` syntax, and Presenter View in `slide_src/`)
 - **Key Syntax**:
   ```bash
   drawlib init site
+  drawlib init doc
+  drawlib init slide
   drawlib init images
   ```
-- **When to read**: Refer to this rule when setting up a new documentation site or image gallery, structuring navigation sidebars, troubleshooting missing document errors, or organizing build scripts.
+- **When to read**: Refer to `project-overview` and the matching `project-<type>` guide when initializing or authoring any Drawlib project.
 
 ---
 
-### 5.3. Diagram Style Guide & Aesthetics (`style-guide`)
-- **Command**: `drawlib rules show style-guide`
-- **Scope**: Visual hierarchy, the 7-color semantic design system for technical diagrams, semantic roles vs raw palette colors, standard canvas aspect ratios, coordinate grid alignment, and typography sizing scales.
-- **When to read**: Refer to this rule before authoring diagrams to ensure harmonious color palettes, generous margins, proper text padding, and publication-grade visual quality.
+### 5.3. Diagram Style Guide & Aesthetics (`style-guide`) & Review Guide (`review-guide`)
+- **Commands**: `drawlib rules show style-guide` and `drawlib rules show review-guide`
+- **Scope (`style-guide`)**: Visual hierarchy, the 7-color semantic design system for technical diagrams, semantic roles vs raw palette colors, standard canvas aspect ratios, coordinate grid alignment, and typography sizing scales.
+- **Scope (`review-guide`)**: The **3-Stage Autonomous Multimodal Review & Self-Correction Loop** (Stage 1: Static & Anchor Check, Stage 2: `-g` Grid Inspection, Stage 3: `1280×920` Browser HTML Verification), the **`720pt` Canvas Typography Formula** ($\text{CSS px} = \text{text\_size} \times \text{Width} / 720$), and the `Center` vs. `Bottom-Left` coordinate anchor reference table.
+- **When to read**: Read `style-guide` before authoring diagrams, and read `review-guide` when verifying diagram geometry, fixing text sizing, or auditing documentation pages in a headless browser.
 
 ---
 
@@ -759,15 +767,15 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.22. Presentation Slides & Stage (`lib-slide` & `slide-guide`)
-- **Commands**: `drawlib rules show slide-guide` (Markdown block syntax & stage layouts) and `drawlib rules show lib-slide` (Python API)
+### 5.22. Presentation Slides & Stage (`lib-slide` & `project-slide`)
+- **Commands**: `drawlib rules show project-slide` (Markdown block syntax & stage layouts) and `drawlib rules show lib-slide` (Python API)
 - **Scope**: Universal 16:9 widescreen presentation stage (1920x1080), container layout blocks (`::: block`, `::: note`), dynamic `current_slide` runtime proxy, `SlideContext`, `BoundingBox`, `build_slide()`, interactive `<canvas>` animations, Presenter View (`?presenter=1`), and vector PDF presentation export.
 - **Key Syntax**:
   ```python
   from drawlib.slide import BoundingBox, current_slide
   text((7, 1.5), current_slide.text, style=Styles.MutedSmall)
   ```
-- **When to read**: Refer to `slide-guide` when authoring presentation slide decks, placing `::: block` containers, or adding speaker notes, and `lib-slide` when using the `drawlib.slide` Python API.
+- **When to read**: Refer to `project-slide` when authoring presentation slide decks, placing `::: block` containers, or adding speaker notes, and `lib-slide` when using the `drawlib.slide` Python API.
 
 ---
 
@@ -789,43 +797,38 @@ drawlib rules show <topic> --rebuild
 
 ## 6. Autonomous AI Workflow & Implementation Guide
 
-When an AI coding agent is tasked with creating, modifying, or reviewing Drawlib illustrations, adhere to the following workflow principles to guarantee deterministic, publication-quality results.
+When an AI coding agent is tasked with creating, modifying, or reviewing Drawlib illustrations and documentation, adhere to the **3-Stage Autonomous Review & Self-Correction Loop** (for exhaustive criteria and formulas, run `uv run drawlib rules show review-guide`).
 
-### 6.1. The Autonomous Self-Correction Loop
+### 6.1. The 3-Stage Autonomous Self-Correction Loop
 
-Never deliver unverified drawing code to the user. Always execute the autonomous feedback loop before reporting task completion:
+Never deliver unverified drawing code or documentation pages to the user. Always execute all 3 stages before reporting task completion:
 
 ```text
-1. User Request ──> 2. AI Writes Code ──> 3. Render Image (-g) ──> 4. Multimodal Review
-                           ▲                                                │
-                           └──────── 5. Issues Found? Fix & Retry ──────────┘
-                                                │ (Pass)
-                                                ▼
-                                        6. Human Inspection
+1. Stage 1: Static & Anchor Check ──> 2. Stage 2: Grid Review (-g + view_file)
+                                                        │
+   4. Deliver <── 3. Stage 3: Browser HTML Review (1280x920 + view_file)
 ```
 
 1. **Step 1: Understand Requirements & Scaffold Project (`drawlib init`)**:
-   - Inspect the user's instructions and related repository context.
    - Check if a Drawlib project (`*_src/`) already exists in the workspace. Never create bare `.py` files in an uninitialized directory:
-     - If the user wants **diagram image(s) only**, scaffold an `images` project (`uv run drawlib init images [-l ja] [-s google]`), inspect `images_src/styles.py`, and remove starter samples (`sample1.py`, `sample2.py`).
-     - If the user wants an **illustrated document, website, or presentation**, scaffold a `doc`, `site`, or `slide` project (`uv run drawlib init <doc|site|slide> [-l ja] [-s google]`).
-2. **Step 2: Author Declarative Drawlib Code Inside `<target>_src/`**:
-   - Write standard Python drawing scripts inside `images_src/` or embedded ````drawlib```` blocks inside `doc_src/`, `docs_src/`, or `slide_src/`.
-3. **Step 3: Headless Image Render with Coordinate Grid (`-g`)**: Render the canvas immediately to `.drawlib/scratch/preview.png` using Drawlib's fast `show` command with `-o`:
-   ```bash
-   # For an images project script (including project styles.py and utils.py):
-   uv run drawlib show images_src/architecture.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/preview.png
+     - **Diagram image(s) only** -> `uv run drawlib init images [-l ja] [-s google]` (remove starter `sample1.py`, `sample2.py`).
+     - **Illustrated document / website / slide deck** -> `uv run drawlib init <doc|site|slide> [-l ja] [-s google]`.
+2. **Step 2: Author Rich Declarative Code (`Stage 1 — Static & Anchor Check`)**:
+   - In documentation (`docs_src/` / `doc_src/`), place a **Top Hero diagram at Lines 5–15** with `fold-code`, include **`2+` diagrams per page**, omit narrow `px` width caps on fences, and keep **`text_size >= 10.0`** (standard `10.5`–`12.0`, headers `12.0`–`14.0`).
+   - Combine standardized icons (`phosphor`, `gcp`) with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`), respecting **Center `(cx, cy)`** anchors for primitives vs. **Bottom-Left `(x0, y0)`** anchors for composite components.
+3. **Step 3: Micro-Geometry Grid Review (`Stage 2 — drawlib show -g` + `view_file`)**:
+   - Render each diagram with the 10-unit/5-unit coordinate grid to `.drawlib/scratch/preview.png`:
+     ```bash
+     # Standalone script in images_src/:
+     uv run drawlib show images_src/architecture.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/preview.png
 
-   # For a named embedded block in a Markdown document:
-   uv run drawlib show docs_src/my_doc.md system_arch.png -s docs_src/styles.py -u docs_src/utils.py -g -o .drawlib/scratch/preview.png
-   ```
-4. **Step 4: Multimodal Self-Review (`view_file`)**: Use your image inspection capability to check the rendered grid image. Check for:
-   - Overlapping shapes, clipped text boxes, or text colliding with borders.
-   - Arrowhead routing that cuts through elements instead of connecting boundary edges cleanly.
-   - Unbalanced whitespace, disproportionate element scales, or poorly centered groups.
-   - **Color Overuse (Rainbow Chaos)**: Verify that 50%+ of nodes use calm neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, etc.) and saturated fills (`Styles.PrimaryFlat`) are limited to 1–2 focal nodes.
-5. **Step 5: Autonomous Coordinate Adjustment**: If any aesthetic or spatial defects are found, adjust coordinates, margins, or canvas size in the code and re-render. Repeat until the layout is clean.
-6. **Step 6: Build Project & Deliver**: Run `./<target>_src/build.sh` to compile final outputs and present the result to the user.
+     # Named block in Markdown:
+     uv run drawlib show docs_src/my_doc.md system_arch.png -s docs_src/styles.py -u docs_src/utils.py -g -o .drawlib/scratch/preview.png
+     ```
+   - Inspect `.drawlib/scratch/preview.png` via `view_file`. Fix any overlapping labels, clipped borders, off-center `Bottom-Left` anchors, cramped perimeter margins (`< 4–6` units), or Rainbow Color Chaos (`50%+` of nodes must use calm `*Neutral` styles; limit saturated `*Flat` fills to 1–2 focal nodes).
+4. **Step 4: Macro-Page Browser HTML Verification (`Stage 3 — Playwright 1280×920` + `view_file`)**:
+   - For `site`, `doc`, or `slide` projects, build HTML (`./<target>_src/build.sh`), run link validation (`uv run drawlib serve <target>_html/ --check`), and capture a `1280×920` headless Chromium screenshot of the rendered HTML page.
+   - Inspect the browser screenshot via `view_file` to verify that the **Top Hero diagram is immediately visible above the fold** and that **in-diagram labels match the surrounding `16px` HTML body prose** in visual size. Clean up `.drawlib/scratch/` when done.
 
 ---
 
@@ -833,7 +836,7 @@ Never deliver unverified drawing code to the user. Always execute the autonomous
 
 1. **Always Author Inside a Scaffolded Project (`*_src/`)**:
    - Do **not** create bare `.py` scripts in the workspace root. Author scripts inside `images_src/` (for image-only workflows) or Markdown documents inside `doc_src/`, `docs_src/`, or `slide_src/` so that `styles.py` (including language fonts and themes), `utils.py`, `_assets/`, and `build.sh` are always active.
-   - Use `.drawlib/scratch/` strictly as the temporary output destination for `-g` grid preview images (e.g. `-o .drawlib/scratch/preview.png`).
+   - Use `.drawlib/scratch/` strictly as the temporary output destination for `-g` grid preview and browser verification images.
 2. **Show the Rendered Image to the User**:
    - Present the rendered visual illustration directly to the user along with your explanation.
    - Inspecting an image is 10x faster and clearer for the user than reading raw 2D coordinate code.
@@ -861,7 +864,7 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 ### 6.4. Implementation Checklist
 
 - [ ] **Project Initialized (`drawlib init`)**: Scaffolded `images` (for standalone images) or `doc`/`site`/`slide` (for illustrated documents) with appropriate `--lang` and `--style`, and removed starter sample files.
-- [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
-- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import Styles` (e.g. `style=Styles.BlueFlat`, `text_style=Styles.WhiteBold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
-- [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.
-- [ ] **Clean Separation of Concerns**: Decouple data lists/dictionaries from drawing loops for maintainability.
+- [ ] **Top Hero & `720pt` Typography (`Stage 1`)**: `2+` diagrams per page, Top Hero at `Lines 5–15` with `fold-code`, no narrow `px` width caps on fences, and `text_size >= 10.0`.
+- [ ] **Palette & Neutral Baseline**: `from drawlib.styles import Colors, Styles` with `50%+` neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`) and `1–2` focal hero nodes (`Styles.PrimaryFlat`).
+- [ ] **Grid Overlay Validation (`Stage 2`)**: Exported with `-g` to `.drawlib/scratch/` and inspected via `view_file` for anchor accuracy, margins (`>= 4–6` units), and zero text collisions.
+- [ ] **Browser HTML Verification (`Stage 3`)**: Verified zero broken links (`drawlib serve --check`) and inspected a `1280×920` browser screenshot via `view_file` to confirm above-the-fold Hero visibility and prose-to-diagram font balance.

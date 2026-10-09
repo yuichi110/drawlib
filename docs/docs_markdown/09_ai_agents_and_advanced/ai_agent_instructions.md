@@ -107,21 +107,21 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
    - Always import PascalCase tokens: `from drawlib.styles import Colors, Styles`.
    - Ground at least 50% of nodes in calm neutral styles (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`) and reserve saturated fills (`Styles.PrimaryFlat`, `Styles.AccentFlat`) for 1–2 focal points.
 
-4. The Multimodal Self-Correction Loop:
-   - Always include an explicit `file:<name>.png` and `caption:"..."` on every embedded ```drawlib block.
+4. The 3-Stage Multimodal Self-Correction Loop:
+   - Always include an explicit `file:<name>.png` and `caption:"..."` on every embedded ```drawlib block, place a Top Hero at Lines 5–15 with `fold-code`, omit narrow `px` width caps, and keep `text_size >= 10.0`.
    - Render headlessly with the coordinate grid (`-g`):
      `uv run drawlib show docs_src/page.md <name>.png -g -o .drawlib/scratch/preview.png`
-   - Visually inspect `.drawlib/scratch/preview.png` for text clipping, overlapping labels, or cramped margins, and iterate until clean.
+   - Visually inspect `.drawlib/scratch/preview.png` for text clipping, overlapping labels, or cramped margins, and verify the built HTML page in a `1280×920` headless browser viewport.
 
 5. Fetch Rules on Demand:
-   Run `uv run drawlib rules show <topic>` (e.g. `overview`, `style-guide`, `lib-graph`, `lib-diagrams`, `lib-charts`, `lib-smartarts`, `anim-guide`).
+   Run `uv run drawlib rules show <topic>` (e.g. `overview`, `style-guide`, `review-guide`, `project-overview`, `project-site`, `lib-graph`, `lib-diagrams`, `lib-charts`, `lib-smartarts`, `anim-guide`).
 ````
 
 ---
 
 ## 3. Dynamic Knowledge Retrieval (`drawlib rules`)
 
-Instead of pasting entire documentation manuals into prompts, train your agent to query `drawlib rules` on demand. Drawlib ships with **27 modular rule manuals** (8 general guidelines + 19 library module specifications):
+Instead of pasting entire documentation manuals into prompts, train your agent to query `drawlib rules` on demand. Drawlib ships with **31 modular rule manuals** (12 general guidelines + 19 library module specifications):
 
 
 
@@ -154,17 +154,17 @@ rectangle((62, 29), width=26, height=22, style=Styles.PrimaryNeutral.patch(shape
 phosphor.terminal_window((62, 35.2), width=4.6, style=Styles.PrimaryBold)
 text((62, 24.8), "CLI Rules\nrules show", style=Styles.DarkBold.patch(text_size=10.5))
 
-# Right: 27 Modular Manuals Container
+# Right: 31 Modular Manuals Container
 rectangle((104, 29), width=40, height=50, style=Styles.MutedDashed.patch(shape_r=2.5))
 phosphor.book_open((88.5, 49.5), width=4.4, style=Styles.PrimaryBold)
-text((106.5, 49.5), "27 Rule Manuals", style=Styles.DarkBold.patch(text_size=10.8))
+text((106.5, 49.5), "31 Rule Manuals", style=Styles.DarkBold.patch(text_size=10.8))
 
 rectangle(
     (104, 36.8),
     width=35,
     height=15.5,
     style=Styles.Neutral.patch(shape_r=1.5),
-    text="8 General Manuals\noverview, style-guide,\nanim-guide, api...",
+    text="12 General Manuals\noverview, style-guide,\nreview-guide, project-*",
     text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 rectangle(
@@ -194,30 +194,39 @@ save()
 
 
 ```bash
-# List all 27 modular rule topics and cache status:
+# List all 31 modular rule topics and cache status:
 uv run drawlib rules list
 
 # Retrieve targeted manuals:
 uv run drawlib rules show agent-instruction    # Workflow loop & bootstrap rules
 uv run drawlib rules show overview             # Cartesian geometry & canvas lifecycle
 uv run drawlib rules show style-guide          # 6-color semantic system & 50%+ neutral baseline
+uv run drawlib rules show review-guide         # 3-stage multimodal review loop & 720pt font math
 uv run drawlib rules show anim-guide           # Animation loop idioms & component patterns
-uv run drawlib rules show slide-guide          # 1920x1080 slide stage authoring & templates
+uv run drawlib rules show project-overview     # 4 project archetypes & decision matrix
+uv run drawlib rules show project-images       # Standalone images project (images_src/*.py)
+uv run drawlib rules show project-doc          # Linear document & PDF project (doc_src/*.md)
+uv run drawlib rules show project-site         # Multi-page documentation website (docs_src/**/*.md)
+uv run drawlib rules show project-slide        # 1920x1080 slide stage authoring & templates (slide_src/*.md)
 uv run drawlib rules show api                  # Complete API index & symbol cheat sheet
 ```
 
 ### 3.1 Complete `drawlib rules` Topic Catalog
 
-#### General Guidelines (8 Topics):
+#### General Guidelines (12 Topics):
 
 | Topic Name | Primary Scope |
 | :--- | :--- |
 | **`agent-instruction`** | AI agent bootstrap instructions, project-first rule, and multimodal workflow loop. |
 | **`overview`** | Canvas lifecycle (`setup`, `clear`, `save`), bottom-left `(0, 0)` coordinates, and core imports. |
 | **`style-guide`** | Visual hierarchy, 50%+ neutral baseline rule, 6 semantic colors, and typography sizing. |
+| **`review-guide`** | Autonomous 3-stage multimodal review loop, `720pt` typography scaling, and coordinate anchor table. |
 | **`anim-guide`** | Animation loop idioms (Re-Draw vs. Mutate) across primitives, SmartArts, charts, diagrams, and graphs. |
-| **`slide-guide`** | 16:9 slide stage (`1920x1080`), `::: block` / `::: note` syntax, layout templates, and Presenter View. |
-| **`project`** | Project scaffolding (`drawlib init`), 4 archetypes (`doc`, `site`, `slide`, `images`), and `navbar.md`. |
+| **`project-overview`** | Architecture of the 4 project archetypes (`images`, `doc`, `site`, `slide`), shared files, and cache. |
+| **`project-images`** | Standalone images project (`images_src/*.py` -> `images/*.png`), `save()` redirection, and grid review. |
+| **`project-doc`** | Linear technical document & PDF project (`doc_src/*.md`), `00_cover.md`, `--toc`, and page-break sizing. |
+| **`project-site`** | Multi-page website (`docs_src/**/*.md`), `navbar.md` syntax, Top Hero rule, and `drawlib serve --check`. |
+| **`project-slide`** | 16:9 slide stage (`1920x1080`), `::: block` / `::: note` syntax, layout templates, and Presenter View. |
 | **`cli`** | Complete CLI command, flag, and exit code reference manual. |
 | **`api`** | Comprehensive API index and symbol signature cheat sheet across all `drawlib.*` modules. |
 

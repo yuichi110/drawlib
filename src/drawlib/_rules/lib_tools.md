@@ -276,5 +276,5 @@ def test_architecture_diagram_generation(tmp_path: Path) -> None:
 
 ## 7. Related Rules
 - CLI Commands & Terminal Usage: `uv run drawlib rules show cli`
-- Project Architecture & Scaffolding: `uv run drawlib rules show project`
+- Project Architecture & Scaffolding: `uv run drawlib rules show project-overview`
 - Canvas Lifecycle & Export: `uv run drawlib rules show lib-canvas`

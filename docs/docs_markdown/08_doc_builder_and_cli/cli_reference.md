@@ -361,16 +361,19 @@ drawlib cache clear --all           # Clear all caches (fonts, icons, maps, and 
 Inspect built-in architectural and library manuals (with on-demand companion illustration rendering into `_cached_assets/rules/`) from the terminal:
 
 ```bash
-drawlib rules list                        # List all 27 rule topics and cache status
+drawlib rules list                        # List all 31 rule topics and cache status
 drawlib rules show agent-instruction      # View AI agent bootstrap manual
 drawlib rules show overview               # View Cartesian geometry principles
 drawlib rules show style-guide            # View 50%+ neutral baseline & semantic color rules
+drawlib rules show review-guide           # View 3-stage multimodal review loop & 720pt font math
 drawlib rules show anim-guide             # View animation idioms across all modules
-drawlib rules show slide-guide            # View 1920x1080 slide authoring & stage rules
+drawlib rules show project-overview       # View 4 project archetypes & shared architecture
+drawlib rules show project-site           # View multi-page website authoring & navbar.md rules
+drawlib rules show project-slide          # View 1920x1080 slide authoring & stage rules
 drawlib rules show lib-graph              # View declarative graph layout solvers
 drawlib rules show lib-diagrams --raw     # Output raw Markdown without building/checking cache
 drawlib rules show lib-shapes --rebuild   # Force regenerate companion rule illustrations
-drawlib rules build --all                 # Pre-build illustrations for all 27 rule topics
+drawlib rules build --all                 # Pre-build illustrations for all 31 rule topics
 drawlib rules clear                       # Delete cached rule documents and generated images
 ```
 

@@ -15,16 +15,18 @@ utils.draw_page_number()
 Why do AI coding agents struggle with niche libraries? Because their training data is outdated or incomplete. Drawlib solves this by **shipping its complete AI agent manual inside the Python package**:
 
 ```bash
-# 1. List all 24+ embedded rule manuals
+# 1. List all 31 embedded rule manuals
 uv run drawlib rules list
 
 # 2. Core orientation & design discipline
 uv run drawlib rules show overview
 uv run drawlib rules show style-guide
+uv run drawlib rules show review-guide
 uv run drawlib rules show api
 
-# 3. Specialized authoring & module deep-dives
-uv run drawlib rules show slide-guide
+# 3. Project archetypes & module deep-dives
+uv run drawlib rules show project-overview
+uv run drawlib rules show project-slide
 uv run drawlib rules show anim-guide
 uv run drawlib rules show lib-diagrams
 uv run drawlib rules show lib-charts
@@ -72,7 +74,7 @@ grid.add(
     width=1,
     height=1,
     style=Styles.PrimaryNeutral,
-    text="1. Core & Visual Discipline\n• overview (Cartesian 0,0)\n• style-guide (50%+ Neutral)",
+    text="1. Core & Review Discipline\n• overview & style-guide\n• review-guide (3-Stage Loop)",
     text_style=Styles.DarkBold.patch(text_size=8.2),
 )
 grid.add(
@@ -80,7 +82,7 @@ grid.add(
     width=1,
     height=1,
     style=Styles.PrimaryNeutral,
-    text="2. Master API & CLI Index\n• api (Complete Symbol Index)\n• cli & project (Scaffolding)",
+    text="2. Master API & Projects\n• api & cli Reference\n• project-* (4 Archetypes)",
     text_style=Styles.DarkBold.patch(text_size=8.2),
 )
 grid.add(
@@ -88,7 +90,7 @@ grid.add(
     width=1,
     height=1,
     style=Styles.SecondaryNeutral,
-    text="3. Slides & Animations\n• slide-guide (1920x1080 Stage)\n• anim-guide & lib-anim",
+    text="3. Slides & Animations\n• project-slide (1920x1080)\n• anim-guide & lib-anim",
     text_style=Styles.DarkBold.patch(text_size=8.2),
 )
 grid.add(

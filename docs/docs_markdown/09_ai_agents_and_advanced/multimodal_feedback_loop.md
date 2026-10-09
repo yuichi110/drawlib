@@ -210,8 +210,13 @@ save()
 
 
 
-### Stage 6: Deliver Final Asset
-The agent compiles the clean, verified drawing into the document or commits the Python script with 100% confidence.
+### Stage 6: Macro-Page Browser HTML Verification (`1280×920` Viewport)
+For illustrated documentation (`docs_src/` or `doc_src/`), inspecting a standalone PNG in isolation is not enough—a diagram rendered at `1000px` can still appear unreadable in HTML if capped by a narrow pixel width (`600px`) or authored with `text_size=8.0`.
+Before delivering, the agent compiles the HTML site (`./docs_src/build.sh`), validates links (`uv run drawlib serve docs_html/ --check`), and inspects a `1280×920` headless Chromium screenshot of the rendered HTML page to verify:
+1. **Above-the-Fold Top Hero (`Lines 5–15`, `fold-code`)**: The `# Title`, lead paragraph, and complete Top Hero diagram are visible immediately without scrolling.
+2. **Prose-to-Diagram Font Harmony (`720pt` Canvas Law)**: Because Drawlib maps every canvas width to `720pt` ($\text{CSS px} = \text{text\_size} \times \text{Width} / 720$), omitting narrow `px` width caps and keeping `text_size >= 10.0` ensures diagram labels match `16px` HTML body prose.
+
+> **Tip**: Run `uv run drawlib rules show review-guide` for the complete 3-Stage Autonomous Review & Self-Correction manual, including the `Center` vs. `Bottom-Left` coordinate anchor reference table.
 
 ---
 
@@ -221,9 +226,12 @@ When performing a multimodal self-review, check off each item in this matrix:
 
 | Verification Area | Common Visual Flaw | Deterministic Fix |
 |---|---|---|
-| **Canvas Padding** | Outer nodes or labels touching canvas perimeter | Increase canvas dimensions in `setup(width=..., height=...)` or inset outer shapes by at least `8–12` units from all edges. |
+| **HTML Typography (`720pt` Law)** | Diagram labels look tiny next to `16px` HTML prose | Omit narrow pixel widths (`500px`/`600px`) on fences, set `text_size >= 10.0` (standard `10.5`–`12.0`), and widen boxes by `20%–30%`. |
+| **Above-the-Fold Hero** | Reader sees only a wall of text or a 50-line code block on page load | Place the first diagram at `Lines 5–15` using `fold-code` and combine `phosphor`/`gcp` icons with `SmartArts`/`Diagrams`. |
+| **Anchor Semantics** | `Table`, `BarChart`, or `FlowDiagram` shifted off-center to the right | Remember `shapes`/`text`/`icons` use **Center `(cx, cy)`**, whereas `SmartArts`/`Charts`/`Diagrams`/`Graphs` use **Bottom-Left `(x0, y0)`** (`x0 = (W - width) / 2`). |
+| **Canvas Padding** | Outer nodes or labels touching canvas perimeter | Increase canvas dimensions in `setup(width=..., height=...)` or inset outer shapes by at least `4–8` units from all edges. |
 | **Node Alignment** | Jagged, slightly crooked horizontal or vertical connection lines | Ensure horizontally aligned nodes share the exact same `y` coordinate and vertically stacked nodes share the exact same `x` coordinate. |
-| **Label Breathing Room** | Multi-line text touching or overflowing card borders | Increase box `width` / `height`, insert explicit `\n` line breaks, or lower `text_size` via `.patch(text_size=...)`. |
+| **Label Breathing Room** | Multi-line text touching or overflowing card borders | Increase box `width` / `height` or insert explicit `\n` line breaks. |
 | **Arrowheads & Edge Labels** | Arrowhead clipped inside target node, or parallel edge labels colliding | Add `padding=1.5` or `2.0` on connectors, route return paths onto distinct sides (`from_side="bottom"`, `to_side="bottom"`), or use `label_offset=(dx, dy)`. |
 | **50%+ Neutral Baseline** | Confusing multi-color "rainbow" diagram where every node competes for attention | Ground 50%+ of shapes in calm neutral styles (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`), use `Styles.MutedDashed` for boundary containers, and reserve saturated hero fills (`Styles.PrimaryFlat`) for 1–2 focal components. |
 | **Text Luminance Contrast** | Dark text over dark `Flat` fill or white text over light `Neutral` fill | Always pair saturated `Flat` fills (`Styles.PrimaryFlat`, `Styles.DangerFlat`) with `text_style=Styles.WhiteBold`, and light `Neutral` fills with `Styles.DarkBold` or `Styles.Dark`. |

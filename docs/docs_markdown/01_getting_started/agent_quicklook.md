@@ -151,8 +151,9 @@ Ensure your agent knows how to query on-demand rule topics and preview drawings 
 | **Canvas & Lifecycle Overview** | `uv run drawlib rules show overview` |
 | **Style Guide & 50%+ Neutral Rule** | `uv run drawlib rules show style-guide` |
 | **Animation Loop & Idioms** | `uv run drawlib rules show anim-guide` |
-| **16:9 Slide Authoring & Layouts** | `uv run drawlib rules show slide-guide` |
-| **Project Scaffolding & Structure** | `uv run drawlib rules show project` |
+| **Autonomous 3-Stage Review & Font Math** | `uv run drawlib rules show review-guide` |
+| **Project Overview (4 Archetypes)** | `uv run drawlib rules show project-overview` |
+| **Project Guides (`images`, `doc`, `site`, `slide`)** | `uv run drawlib rules show project-<images\|doc\|site\|slide>` |
 | **CLI Reference (`build`, `show`, `cache`)** | `uv run drawlib rules show cli` |
 | **Unified API Cheat Sheet** | `uv run drawlib rules show api` |
 | **Auto-Layout Graphs (`drawlib.graph`)** | `uv run drawlib rules show lib-graph` |

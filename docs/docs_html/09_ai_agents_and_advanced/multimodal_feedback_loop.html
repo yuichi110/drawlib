@@ -608,8 +608,16 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<h3>Stage 6: Deliver Final Asset</h3>
-<p>The agent compiles the clean, verified drawing into the document or commits the Python script with 100% confidence.</p>
+<h3>Stage 6: Macro-Page Browser HTML Verification (<code>1280×920</code> Viewport)</h3>
+<p>For illustrated documentation (<code>docs_src/</code> or <code>doc_src/</code>), inspecting a standalone PNG in isolation is not enough—a diagram rendered at <code>1000px</code> can still appear unreadable in HTML if capped by a narrow pixel width (<code>600px</code>) or authored with <code>text_size=8.0</code>.
+Before delivering, the agent compiles the HTML site (<code>./docs_src/build.sh</code>), validates links (<code>uv run drawlib serve docs_html/ --check</code>), and inspects a <code>1280×920</code> headless Chromium screenshot of the rendered HTML page to verify:</p>
+<ol>
+<li><strong>Above-the-Fold Top Hero (<code>Lines 5–15</code>, <code>fold-code</code>)</strong>: The <code># Title</code>, lead paragraph, and complete Top Hero diagram are visible immediately without scrolling.</li>
+<li><strong>Prose-to-Diagram Font Harmony (<code>720pt</code> Canvas Law)</strong>: Because Drawlib maps every canvas width to <code>720pt</code> ($\text{CSS px} = \text{text_size} \times \text{Width} / 720$), omitting narrow <code>px</code> width caps and keeping <code>text_size &gt;= 10.0</code> ensures diagram labels match <code>16px</code> HTML body prose.</li>
+</ol>
+<blockquote>
+<p><strong>Tip</strong>: Run <code>uv run drawlib rules show review-guide</code> for the complete 3-Stage Autonomous Review &amp; Self-Correction manual, including the <code>Center</code> vs. <code>Bottom-Left</code> coordinate anchor reference table.</p>
+</blockquote>
 <hr />
 <h2>2. Visual Self-Repair Checklist</h2>
 <p>When performing a multimodal self-review, check off each item in this matrix:</p>
@@ -623,9 +631,24 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </thead>
 <tbody>
 <tr>
+<td><strong>HTML Typography (<code>720pt</code> Law)</strong></td>
+<td>Diagram labels look tiny next to <code>16px</code> HTML prose</td>
+<td>Omit narrow pixel widths (<code>500px</code>/<code>600px</code>) on fences, set <code>text_size &gt;= 10.0</code> (standard <code>10.5</code>–<code>12.0</code>), and widen boxes by <code>20%–30%</code>.</td>
+</tr>
+<tr>
+<td><strong>Above-the-Fold Hero</strong></td>
+<td>Reader sees only a wall of text or a 50-line code block on page load</td>
+<td>Place the first diagram at <code>Lines 5–15</code> using <code>fold-code</code> and combine <code>phosphor</code>/<code>gcp</code> icons with <code>SmartArts</code>/<code>Diagrams</code>.</td>
+</tr>
+<tr>
+<td><strong>Anchor Semantics</strong></td>
+<td><code>Table</code>, <code>BarChart</code>, or <code>FlowDiagram</code> shifted off-center to the right</td>
+<td>Remember <code>shapes</code>/<code>text</code>/<code>icons</code> use <strong>Center <code>(cx, cy)</code></strong>, whereas <code>SmartArts</code>/<code>Charts</code>/<code>Diagrams</code>/<code>Graphs</code> use <strong>Bottom-Left <code>(x0, y0)</code></strong> (<code>x0 = (W - width) / 2</code>).</td>
+</tr>
+<tr>
 <td><strong>Canvas Padding</strong></td>
 <td>Outer nodes or labels touching canvas perimeter</td>
-<td>Increase canvas dimensions in <code>setup(width=..., height=...)</code> or inset outer shapes by at least <code>8–12</code> units from all edges.</td>
+<td>Increase canvas dimensions in <code>setup(width=..., height=...)</code> or inset outer shapes by at least <code>4–8</code> units from all edges.</td>
 </tr>
 <tr>
 <td><strong>Node Alignment</strong></td>
@@ -635,7 +658,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tr>
 <td><strong>Label Breathing Room</strong></td>
 <td>Multi-line text touching or overflowing card borders</td>
-<td>Increase box <code>width</code> / <code>height</code>, insert explicit <code>\n</code> line breaks, or lower <code>text_size</code> via <code>.patch(text_size=...)</code>.</td>
+<td>Increase box <code>width</code> / <code>height</code> or insert explicit <code>\n</code> line breaks.</td>
 </tr>
 <tr>
 <td><strong>Arrowheads &amp; Edge Labels</strong></td>

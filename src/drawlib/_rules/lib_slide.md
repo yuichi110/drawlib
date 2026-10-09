@@ -2,7 +2,7 @@
 
 This document covers the **`drawlib.slide` Python module API** (`current_slide`, `SlideContext`, `BoundingBox`, and `build_slide()`).
 
-*(For Markdown slide authoring, 1920×1080 stage coordinates, `::: block` and `::: note` syntax, layout templates, interactive animations, and Presenter View, run `uv run drawlib rules show slide-guide`.)*
+*(For Markdown slide authoring, 1920×1080 stage coordinates, `::: block` and `::: note` syntax, layout templates, interactive animations, and Presenter View, run `uv run drawlib rules show project-slide`.)*
 
 ---
 
@@ -168,10 +168,10 @@ When `build_slide()` runs, it performs the following steps automatically:
 
 ---
 
-## 6. Authoring Guide & Stage Layout Patterns (`slide-guide`)
+## 6. Authoring Guide & Stage Layout Patterns (`project-slide`)
 
-For comprehensive instructions on authoring slide Markdown files—including the **1920×1080 stage vs. Drawlib canvas coordinate systems**, **`::: block` and `::: note` syntax**, **copy-paste slide layout templates**, **interactive animation attributes (`anim-trigger`, `anim-loop`, `anim-pause`)**, and **Presenter View (`?presenter=1`)**—consult the dedicated Slide Authoring Guide:
+For comprehensive instructions on authoring slide Markdown files—including the **1920×1080 stage vs. Drawlib canvas coordinate systems**, **`::: block` and `::: note` syntax**, **copy-paste slide layout templates**, **interactive animation attributes (`anim-trigger`, `anim-loop`, `anim-pause`)**, and **Presenter View (`?presenter=1`)**—consult the dedicated Slide Project Guide:
 
 ```bash
-uv run drawlib rules show slide-guide
+uv run drawlib rules show project-slide
 ```

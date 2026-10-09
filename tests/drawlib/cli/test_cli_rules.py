@@ -46,9 +46,13 @@ def test_cli_rules_list() -> None:
         "agent-instruction",
         "overview",
         "style-guide",
+        "review-guide",
         "anim-guide",
-        "slide-guide",
-        "project",
+        "project-overview",
+        "project-images",
+        "project-doc",
+        "project-site",
+        "project-slide",
         "cli",
         "api",
         "lib-canvas",
@@ -80,9 +84,13 @@ def test_cli_rules_list() -> None:
         ("agent-instruction", "# Drawlib AI Agent Instructions"),
         ("overview", "# Drawlib Agent Drawing Guidelines"),
         ("style-guide", "# Drawlib Diagram Style Guide & Aesthetic Philosophy"),
+        ("review-guide", "# Drawlib Autonomous Review & Self-Correction Guide"),
         ("anim-guide", "# Drawlib Animation Design & Best Practices Guide"),
-        ("slide-guide", "# Drawlib Slide Authoring & Stage Layout Guide"),
-        ("project", "# Drawlib Project Architecture & Scaffolding Guidelines"),
+        ("project-overview", "# Drawlib Project Architecture & Overview Guidelines"),
+        ("project-images", "# Drawlib Standalone Images Project Guidelines (`project-images`)"),
+        ("project-doc", "# Drawlib Linear Document & PDF Project Guidelines (`project-doc`)"),
+        ("project-site", "# Drawlib Multi-Page Documentation Website Guidelines (`project-site`)"),
+        ("project-slide", "# Drawlib Presentation Slide Deck Guidelines (`project-slide`)"),
         ("cli", "# Drawlib CLI Guidelines"),
         ("api", "# Drawlib API Reference & Cheat Sheet"),
         ("lib-canvas", "# Drawlib Canvas Guidelines"),
@@ -127,13 +135,21 @@ def test_cli_rules_show_underscore_normalization() -> None:
     assert res_style.returncode == 0
     assert "# Drawlib Diagram Style Guide & Aesthetic Philosophy" in res_style.stdout
 
+    res_review = run_drawlib_cli(["rules", "show", "review_guide"])
+    assert res_review.returncode == 0
+    assert "# Drawlib Autonomous Review & Self-Correction Guide" in res_review.stdout
+
     res_anim = run_drawlib_cli(["rules", "show", "anim_guide"])
     assert res_anim.returncode == 0
     assert "# Drawlib Animation Design & Best Practices Guide" in res_anim.stdout
 
-    res_slide = run_drawlib_cli(["rules", "show", "slide_guide"])
-    assert res_slide.returncode == 0
-    assert "# Drawlib Slide Authoring & Stage Layout Guide" in res_slide.stdout
+    res_proj_overview = run_drawlib_cli(["rules", "show", "project_overview"])
+    assert res_proj_overview.returncode == 0
+    assert "# Drawlib Project Architecture & Overview Guidelines" in res_proj_overview.stdout
+
+    res_proj_slide = run_drawlib_cli(["rules", "show", "project_slide"])
+    assert res_proj_slide.returncode == 0
+    assert "# Drawlib Presentation Slide Deck Guidelines (`project-slide`)" in res_proj_slide.stdout
 
 
 @pytest.mark.parametrize(
@@ -146,6 +162,9 @@ def test_cli_rules_show_underscore_normalization() -> None:
         "theme",
         "docs",
         "doc",
+        "project",
+        "slide-guide",
+        "slide_guide",
         "preset_styles",
         "overview-min",
         "overview_min",

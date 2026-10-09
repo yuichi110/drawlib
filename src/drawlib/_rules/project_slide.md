@@ -1,8 +1,8 @@
-# Drawlib Slide Authoring & Stage Layout Guide
+# Drawlib Presentation Slide Deck Guidelines (`project-slide`)
 
-This guide defines the stage coordinate architecture, Markdown container block syntax (`::: block`, `::: note`), layout templates, interactive animation controls, and Presenter View workflows for authoring **16:9 widescreen presentation slide decks** in Drawlib.
+A **`slide` project** (`drawlib init slide`) compiles Markdown slide files (`slide_src/*.md`) into an **interactive 16:9 widescreen web presentation deck (`slide_html/index.html`)** with dual-window Presenter View (`?presenter=1`), a **high-resolution 1920×1080 vector PDF (`slide.pdf`)**, and **standalone vector/animated slide assets (`slide_images/`)**.
 
-*(For the Python runtime API in `drawlib.slide`—including `current_slide`, `SlideContext`, `BoundingBox`, and `build_slide()`—run `uv run drawlib rules show lib-slide`.)*
+*(For general project scaffolding, see `uv run drawlib rules show project-overview`. For the Python runtime API in `drawlib.slide`—including `current_slide`, `SlideContext`, `BoundingBox`, and `build_slide()`—run `uv run drawlib rules show lib-slide`. For the 3-stage review loop, see `uv run drawlib rules show review-guide`.)*
 
 ---
 
@@ -32,24 +32,73 @@ When authoring Drawlib slides, two distinct coordinate systems work together:
   (0, 1080) ───────────────────────── (1920, 1080)          (0, 0)                          (W, 0)
 ```
 
+```drawlib center fold-code file:project_slide_stage_anatomy.png caption:"1920x1080 Slide Stage Coordinates (Top-Left Origin) vs. Drawlib Canvas (Bottom-Left Origin)"
+from drawlib.canvas import save, setup
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=150, height=60, dpi=150)
+
+rectangle((75, 30), width=144, height=54, style=Styles.MutedDashed.patch(shape_r=2.5))
+text(
+    (75, 52),
+    "16:9 Slide Stage (1920x1080 Top-Left) + Embedded Drawlib Canvas (Bottom-Left)",
+    style=Styles.DarkBold.patch(text_size=12.0),
+)
+
+# Header block representation
+rectangle((62, 42.5), width=106, height=7.5, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
+text((62, 42.5), "::: block (80, 40) (1760, 60)  ->  # Slide Heading Title", style=Styles.PrimaryBold.patch(text_size=10.2))
+
+# Page number block
+rectangle((130, 42.5), width=26, height=7.5, style=Styles.Neutral.patch(shape_r=1.2))
+text((130, 42.5), "(1700, 1010)\nPage 3 / 12", style=Styles.DarkBold.patch(text_size=9.5))
+
+# Left Narrative Column
+rectangle((36, 22), width=54, height=27, style=Styles.Neutral.patch(shape_r=1.8))
+phosphor.list_bullets((15, 30.5), width=4.5, style=Styles.PrimaryBold)
+text((38, 30.5), "Left Narrative Block", style=Styles.DarkBold.patch(text_size=11.0))
+text(
+    (36, 19),
+    "::: block (80, 140) (740, 840)\n• Concise Markdown bullets\n• Key architectural takeaways",
+    style=Styles.Dark.patch(text_size=10.0),
+)
+
+# Right Diagram Column
+rectangle((106, 22), width=74, height=27, style=Styles.PrimaryFlat.patch(shape_r=1.8))
+phosphor.presentation_chart((76, 30.5), width=4.8, style=Styles.WhiteBold)
+text((108, 30.5), "Right Vector Diagram Block", style=Styles.WhiteBold.patch(text_size=11.0))
+text(
+    (106, 19),
+    "::: block (860, 140) (980, 840)\nsetup(width=98, height=84) -> file:arch.svg\nAspect Ratio 98:84 matches 980x840px!",
+    style=Styles.White.patch(text_size=10.0),
+)
+
+save()
+```
+
 ### 1.1. Golden Rule: Match Canvas Aspect Ratio to Block Dimensions
-Always set `setup(width=W, height=H)` proportional to the enclosing `::: block (x, y) (w, h)` pixel size (typically dividing pixel dimensions by `10` or `20`):
+Always set `setup(width=W, height=H)` proportional to the enclosing `::: block (x, y) (w, h)` pixel size (typically dividing pixel dimensions by `10`):
 
 | Enclosing `::: block` Size `(w, h)` | Recommended `setup(width, height)` | Aspect Ratio |
 | :--- | :--- | :--- |
 | `(1020, 840)` *(Right diagram column)* | `setup(width=102, height=84)` | `102 : 84` |
-| `(960, 840)` *(Half-width diagram column)* | `setup(width=96, height=84)` or `setup(width=138, height=78)` | `~8 : 7` |
+| `(980, 840)` *(Standard right diagram column)* | `setup(width=98, height=84)` | `98 : 84` |
+| `(960, 840)` *(Half-width diagram column)* | `setup(width=96, height=84)` | `8 : 7` |
 | `(1760, 840)` *(Full-width content area)* | `setup(width=176, height=84)` | `176 : 84` |
 | `(980, 1080)` *(Right half full-bleed)* | `setup(width=98, height=108)` | `98 : 108` |
 | `(1920, 1080)` *(Full-canvas hero slide)* | `setup(width=192, height=108)` | `16 : 9` |
 
-Matching the aspect ratio prevents unwanted horizontal or vertical padding inside the block container.
+Matching the aspect ratio prevents unwanted horizontal or vertical letterboxing inside the block container.
 
 ---
 
 ## 2. Slide Project Structure (`slide_src/`)
 
-Scaffold a new presentation project with `uv run drawlib init slide <dir>`. Each slide is an independent Markdown file sorted alphabetically/numerically:
+Scaffold a new presentation project with `uv run drawlib init slide [target] [-l <lang>] [-s <style>]`:
 
 ```text
 slide_src/
@@ -62,11 +111,11 @@ slide_src/
 ├── utils.py               # Reusable Python slide helpers (e.g. draw_page_number)
 ├── style.css              # Presentation theme & typography stylesheet
 ├── slide.js               # Interactive web presentation & Presenter View engine
-├── build.sh               # Master build script (HTML + images + PDF)
-├── build_html.sh          # Compile HTML slide deck (drawlib build)
-├── build_pdf.sh           # Export 1920×1080 vector PDF (drawlib pdf)
-├── build_image.sh         # Render standalone diagram assets
-└── serve.sh               # Live-reload preview server (drawlib serve)
+├── build.sh               # Master build script (HTML + PDF + Images)
+├── build_html.sh          # Compile HTML slide deck (slide_html/)
+├── build_pdf.sh           # Export 1920×1080 vector PDF (slide.pdf)
+├── build_image.sh         # Extract standalone slide diagram assets (slide_images/)
+└── serve.sh               # Local preview server (drawlib serve)
 ```
 
 - **File Discovery & Chapter Subdirectories**: All `.md` / `.markdown` files in `slide_src/` and any nested chapter subdirectories (e.g., `00_opening/01_title.md`, `01_why_drawlib/01_section.md` — skipping directories starting with `.` or `_`, `README.md`, and `navbar.md`) are discovered recursively and compiled in sorted relative-path order. Slides inside chapter subdirectories automatically inherit root `styles.py`, `utils.py`, and `_assets/`.
@@ -242,11 +291,11 @@ save()
 In slide projects, ````drawlib```` blocks default to **inline SVG** (`file:<name>.svg`):
 - The compiled `<svg>` is embedded directly into `<div class="slide-svg-container">`, giving crisp vector scaling at any screen resolution and making all diagram labels searchable with `Ctrl+F`.
 - **Automatic SVG Font & Font-Icon Bundling**:
-  - Whenever a slide SVG diagram uses Drawlib fonts (`Font`, `FontRoboto`, `FontSourceCodePro`, CJK fonts, etc.) or font icons (`phosphor`, `fontawesome`), Drawlib automatically embeds font metadata, copies the required `.ttf` / `.otf` files into `_assets/fonts/`, and injects `@font-face` rules into the compiled `style.css`.
-  - Both browser viewing (`index.html`) and headless Chromium PDF export (`build_pdf.sh`) render custom fonts and Phosphor/FontAwesome icons identically without requiring system-installed fonts.
+   - Whenever a slide SVG diagram uses Drawlib fonts (`Font`, `FontRoboto`, `FontSourceCode`, CJK fonts, etc.) or font icons (`phosphor`, `fontawesome`), Drawlib automatically embeds font metadata, copies the required `.ttf` / `.otf` files into `_assets/fonts/`, and injects `@font-face` rules into the compiled `style.css`.
+   - Both browser viewing (`index.html`) and headless Chromium PDF export (`build_pdf.sh`) render custom fonts and Phosphor/FontAwesome icons identically without requiring system-installed fonts.
 
 ### 5.2. Interactive `<canvas>` Animations (`anim-trigger`, `anim-loop`, `anim-pause`)
-When a ````drawlib```` block outputs an animated image (**`.png` APNG recommended and default**, or `.apng` / `.webp`), Drawlib embeds its Base64 payload (`data-base64`) into an interactive `<canvas class="drawlib-anim-canvas">` player so it works seamlessly both over HTTP and when opened directly via `file://`. You can control playback directly from the code fence attributes:
+When a ````drawlib```` block outputs an animated image (**`.png` APNG recommended and default**, or `.apng` / `.webp`), Drawlib embeds its Base64 payload (`data-base64`) into an interactive `<canvas class="drawlib-anim-canvas">` player so it works seamlessly both over HTTP and when opened directly via `file://`. Control playback directly from the code fence attributes:
 
 | Fence Attribute | Values | Default | Behavior |
 | :--- | :--- | :--- | :--- |
@@ -320,34 +369,31 @@ Press `P` or `S` (or click the `🗒` button in the bottom-right slide controls)
 ## 7. Reusable Deck Helpers (`utils.py`) & Vector PDF Export
 
 ### 7.1. Sharing Layout Macros via `utils.py`
-During slide compilation, `slide_src/` is automatically added to Python's import path so any ````drawlib```` block can `import utils`. Use `utils.py` to keep slide Markdown files clean and DRY:
+During slide compilation, `slide_src/` is automatically added to Python's import path so any ````drawlib```` block can `import utils` (or `from drawlib.utils import ...`). Use `utils.py` to keep slide Markdown files clean and DRY:
 - **Page Counter Helper (`utils.draw_page_number()`)**: Uses `from drawlib.slide import current_slide` with a transparent canvas (`setup(..., alpha=0.0)`) so every slide displays `"2 / 9"`, `"3 / 9"`, etc.
 - **Custom SmartArt / Card Macros**: Define deck-specific components (e.g. `draw_curved_agenda()`, `draw_kpi_cards()`, `service_card()`) in `utils.py` and invoke them with data tuples in each slide.
 
 ### 7.2. Building HTML & Exporting 1920×1080 Vector PDF
 ```bash
-# Build interactive HTML presentation deck
-uv run drawlib build slide_src/ -o slide_html/
+# Run full slide build (HTML + PDF + Images):
+./slide_src/build.sh
 
-# Live-reload preview server
-uv run drawlib serve slide_src/
-
-# Export 1920x1080 vector PDF via headless Chromium
-uv run drawlib pdf slide_html/ -o slide.pdf
+# Or run individual CLI commands:
+uv run drawlib build html slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
+uv run drawlib build pdf slide_src/ -o slide.pdf -s slide_src/styles.py -u slide_src/utils.py
+uv run drawlib serve slide_html/
 ```
 
 ---
 
-## 8. Slide Design Checklist for AI Agents
+## 8. Autonomous 3-Stage Review Checklist for `slide` Projects
 
-1. **Never Confuse Stage vs. Canvas Origin**:
+1. **Stage 1 — Coordinate & Aspect Ratio Audit**:
    - `::: block (x, y) (w, h)` uses **top-left `(0, 0)`** in `1920×1080` pixels (`Y=40` is top header; `Y=1010` is bottom footer).
    - `setup(width=W, height=H)` inside ````drawlib```` uses **bottom-left `(0, 0)`** (`Y=H` is top; `Y=0` is bottom).
-2. **Always Call `clear()` Before `setup()` in Slide Blocks**:
-   - Begin each slide ````drawlib```` block with `clear()` followed by `setup(width=..., height=...)` so state never leaks across blocks.
-3. **Match `setup(width, height)` Aspect Ratio to `::: block` `(w, h)`**:
-   - Keep `width : height` proportional to the block's pixel `(w, h)` (e.g. `(860, 140) (980, 840)` → `setup(width=98, height=84)`).
-4. **Use `.svg` for Static Diagrams and `.webp` / `.png` for Animations**:
-   - Use `file:<name>.svg` for all static diagrams (crisp vectors + auto-bundled fonts) and `file:<name>.webp` (or `.png`) when using `Animation()`.
-5. **Visual Review**:
-   - After building slides (`drawlib build` / `drawlib pdf`), inspect the generated PDF or rendered images with `view_file` to verify that text and diagrams do not clip or overlap across `::: block` boundaries.
+   - Always begin each slide ````drawlib```` block with `clear()` followed by `setup(width=..., height=...)` matching the enclosing `::: block` `(w, h)` aspect ratio.
+   - Use `file:<name>.svg` for static diagrams and `file:<name>.png` (or `.webp`) when using `Animation()`.
+2. **Stage 2 — Grid Preview (`drawlib show ... -g` + `view_file`)**:
+   - Export complex slide diagrams with `-g` to `.drawlib/scratch/preview.png` and inspect via `view_file` to ensure zero text collisions, `50%+` neutral balance, and clean perimeter margins.
+3. **Stage 3 — Full Slide Stage / PDF Verification (`view_file`)**:
+   - Run `./slide_src/build.sh` and inspect `slide.pdf` (or `1920×1080` browser screenshots of `slide_html/index.html`) via `view_file` to verify that text and diagrams do not overflow or collide across `::: block` boundaries.

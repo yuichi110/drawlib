@@ -161,5 +161,5 @@ uv run drawlib show diagram.py -s styles.py -g -o diagram.png
 - Canvas Geometry & Sizing: `uv run drawlib rules show lib-canvas`
 - Preset Styles & Color Palettes: `uv run drawlib rules show lib-preset-styles`
 - Style Model Customization: `uv run drawlib rules show lib-types`
-- Project Scaffolding & Structure: `uv run drawlib rules show project`
+- Project Scaffolding & Structure: `uv run drawlib rules show project-overview`
 - Developer CLI Reference: `uv run drawlib rules show cli`

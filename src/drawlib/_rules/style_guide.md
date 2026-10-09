@@ -362,8 +362,9 @@ Before assembling dozens of raw `rectangle` and `line` primitives, choose the ma
 ## 9. Related Rules
 
 - AI Agent Instructions: `uv run drawlib rules show agent-instruction`
+- Autonomous 3-Stage Review Guide: `uv run drawlib rules show review-guide`
 - Architecture & Coordinates: `uv run drawlib rules show overview`
-- Project Scaffolding & Docs: `uv run drawlib rules show project`
+- Project Scaffolding & Docs: `uv run drawlib rules show project-overview`
 - Preset Styles Matrix: `uv run drawlib rules show lib-preset-styles`
 - Dynamic Theming & Scripts: `uv run drawlib rules show lib-styles`
 - Color Palettes: `uv run drawlib rules show lib-preset-colors`
