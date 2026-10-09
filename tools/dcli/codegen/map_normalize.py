@@ -308,10 +308,18 @@ def _strip_jp_suffix(name_ja: str) -> str:
 
 def _strip_en_suffix(name_en: str) -> str:
     """Strip administrative suffix (To, Fu, Ken, Ku, Shi, Machi, Mura) from English name."""
+    if name_en.strip().lower() == "hokkai do":
+        return "Hokkaido"
     for suffix in (" To", " Fu", " Ken", " Ku", " Shi", " Machi", " Mura", "-to", "-fu", "-ken"):
         if name_en.endswith(suffix):
             return name_en[: -len(suffix)].strip()
     return name_en.strip()
+
+
+WORLD_SHORT_NAMES: dict[str, str] = {
+    "United States of America": "United States",
+    "People's Republic of China": "China",
+}
 
 
 def normalize_world_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
@@ -329,14 +337,18 @@ def normalize_world_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
         if not polys:
             continue
         p = raw_f.get("properties") or {}
+        adm0_a3 = str(p.get("ADM0_A3") or p.get("GU_A3") or "")
         iso_a3 = str(p.get("ISO_A3") or "")
         if not iso_a3 or iso_a3 == "-99":
-            iso_a3 = str(p.get("ISO_A3_EH") or p.get("ADM0_A3") or p.get("GU_A3") or "")
+            eh_a3 = str(p.get("ISO_A3_EH") or "")
+            iso_a3 = eh_a3 if eh_a3 == adm0_a3 else adm0_a3
         iso_a2 = str(p.get("ISO_A2") or "")
         if not iso_a2 or iso_a2 == "-99":
-            iso_a2 = str(p.get("ISO_A2_EH") or "")
+            eh_a3 = str(p.get("ISO_A3_EH") or "")
+            iso_a2 = str(p.get("ISO_A2_EH") or "") if eh_a3 == adm0_a3 else ""
 
-        name_en = str(p.get("NAME_EN") or p.get("NAME") or p.get("ADMIN") or iso_a3)
+        name_full = str(p.get("NAME_EN") or p.get("NAME") or p.get("ADMIN") or adm0_a3)
+        name_en = WORLD_SHORT_NAMES.get(name_full, name_full)
         name_ja = str(p.get("NAME_JA") or name_en)
         region = str(p.get("CONTINENT") or "")
         subregion = str(p.get("SUBREGION") or "")
@@ -350,7 +362,7 @@ def normalize_world_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
             if min(xs) <= lx <= max(xs) and min(ys) <= ly <= max(ys):
                 center_lonlat = [round(lx, 3), round(ly, 3)]
 
-        feature_id = iso_a3 if iso_a3 and iso_a3 != "-99" else name_en
+        feature_id = adm0_a3 if adm0_a3 and adm0_a3 != "-99" else name_en
         out_features.append(
             {
                 "type": "Feature",
@@ -360,6 +372,7 @@ def normalize_world_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
                     "iso_a2": iso_a2 if iso_a2 != "-99" else "",
                     "iso_a3": iso_a3 if iso_a3 != "-99" else "",
                     "name": name_en,
+                    "name_full": name_full,
                     "name_ja": name_ja,
                     "region": region,
                     "subregion": subregion,
@@ -369,7 +382,7 @@ def normalize_world_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
-    out_features.sort(key=lambda f: str(f["id"]))
+    out_features.sort(key=lambda f: str(f["properties"]["name"]))
     return {"type": "FeatureCollection", "features": out_features}
 
 
@@ -442,6 +455,7 @@ def normalize_tokyo_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
     )
 
     out_features: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
     for raw_f, polys in zip(valid_features, simplified_geoms, strict=True):
         if not polys:
             continue
@@ -449,6 +463,9 @@ def normalize_tokyo_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
         code = int(p["code"])
         name_full = str(p["ward_en"])
         name_en = _strip_en_suffix(name_full)
+        if name_en in seen_ids:
+            name_en = name_full
+        seen_ids.add(name_en)
         name_ja = str(p.get("ward_ja") or "")
         name_short_ja = _strip_jp_suffix(name_ja)
         raw_area = str(p.get("area_en") or "")
