@@ -30,6 +30,7 @@
 - [MindMap](./03_smartarts/mindmap.md)
 - [Lists & Grids](./03_smartarts/lists_and_grids.md)
 - [Speech & Code](./03_smartarts/speech_and_code.md)
+- [GeoMap](./03_smartarts/geomap.md)
 
 ## 4. Charts
 - [Charts Overview](./04_charts/overview.md)

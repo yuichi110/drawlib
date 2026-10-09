@@ -18,20 +18,22 @@ from typing import Any, Final
 
 from drawlib._core.l1_core import get_script_relative_path
 from drawlib._core.l1_core._const import ASSETS_DIR_PATH
+from drawlib._release_assets import ensure_asset_available
 from drawlib._smartarts._geomap._types import (
+    PRESET_DEFAULT_RANGES,
     Cities,
     Countries,
     GeoData,
     GeoElement,
     GeoPolygon,
     GeoTarget,
-    WorldPreset,
+    World,
 )
 
-PRESET_DEFAULT_RANGES: Final[dict[str, tuple[tuple[float, float], tuple[float, float]]]] = {
-    "world": ((-180.0, 180.0), (-60.0, 84.0)),
-    "japan": ((127.0, 146.0), (26.0, 46.0)),
-    "tokyo": ((138.9, 139.95), (35.5, 35.92)),
+LEGACY_PRESET_ALIASES: Final[dict[str, str]] = {
+    "world": "world:all",
+    "japan": "countries/japan",
+    "tokyo": "cities/japan_tokyo",
 }
 
 FALLBACK_ID_KEYS: Final[tuple[str, ...]] = (
@@ -216,8 +218,6 @@ def _build_geo_element(
     props = dict(feature.get("properties") or {})
     elem_id, elem_name = _resolve_feature_id_and_name(feature, props, idx, id_key, name_key)
     name_ja = str(props.get("name_ja") or props.get("nam_ja") or props.get("ward_ja") or "")
-    group = str(props.get("region") or props.get("group") or props.get("CONTINENT") or "")
-    group_ja = str(props.get("region_ja") or props.get("group_ja") or props.get("area_ja") or "")
 
     all_lons = [pt[0] for poly in polygons for pt in poly.exterior]
     all_lats = [pt[1] for poly in polygons for pt in poly.exterior]
@@ -235,8 +235,6 @@ def _build_geo_element(
         id=elem_id,
         name=elem_name,
         name_ja=name_ja,
-        group=group,
-        group_ja=group_ja,
         aliases=aliases,
         polygons=polygons,
         center_lonlat=center_lonlat,
@@ -308,17 +306,113 @@ def parse_geojson_dict(
     )
 
 
-@functools.lru_cache(maxsize=16)
-def _load_preset_geodata(preset_key: str) -> GeoData:
-    """Load and cache a preset GeoJSON dataset from _cached_assets/maps/."""
-    asset_path = Path(ASSETS_DIR_PATH) / "maps" / f"{preset_key}.geojson"
+WORLD_REGION_MATCHERS: Final[dict[str, tuple[set[str], set[str], set[str]]]] = {
+    "world:asia": (
+        {"Asia"},
+        {"Eastern Asia", "South-Eastern Asia", "Southern Asia", "Central Asia", "Western Asia"},
+        set(),
+    ),
+    "world:europe": ({"Europe"}, set(), set()),
+    "world:north_america": ({"North America"}, set(), set()),
+    "world:south_america": ({"South America"}, set(), set()),
+    "world:africa": (
+        {"Africa"},
+        {"Eastern Africa", "Middle Africa", "Northern Africa", "Southern Africa", "Western Africa"},
+        set(),
+    ),
+    "world:oceania": ({"Oceania"}, set(), set()),
+    "world:east_asia": (set(), {"Eastern Asia"}, set()),
+    "world:southeast_asia": (set(), {"South-Eastern Asia"}, set()),
+    "world:apac": ({"Oceania"}, {"Eastern Asia", "South-Eastern Asia", "Southern Asia"}, set()),
+    "world:middle_east": (set(), {"Western Asia"}, {"Egypt"}),
+}
+
+
+def _matches_world_region(elem: GeoElement, region_key: str) -> bool:
+    """Check whether a world country element belongs to a specific World regional preset."""
+    matcher = WORLD_REGION_MATCHERS.get(region_key)
+    if matcher is None:
+        return True
+    regions, subregions, names = matcher
+    reg = str(elem.properties.get("region") or "")
+    sub = str(elem.properties.get("subregion") or "")
+    return reg in regions or sub in subregions or elem.name in names
+
+
+@functools.lru_cache(maxsize=32)
+def _load_raw_asset_geodata(rel_key: str) -> GeoData:
+    """Load and cache a normalized GeoJSON file from _cached_assets/maps/<rel_key>.geojson."""
+    rel_file = f"{rel_key}.geojson"
+    asset_path = Path(ASSETS_DIR_PATH) / "maps" / rel_file
+    if not asset_path.is_file():
+        dev_source = Path("tools") / "release_assets" / "v0.3" / "maps" / rel_file
+        if dev_source.is_file():
+            asset_path = dev_source
+        else:
+            ensure_asset_available(f"maps/{rel_file}")
     if not asset_path.is_file():
         raise FileNotFoundError(
-            f"Preset map asset '{preset_key}.geojson' not found at {asset_path}. "
-            "Run './dcli codegen map' to generate cached map assets."
+            f"Preset map asset '{rel_file}' not found at {asset_path}. "
+            "Run './dcli codegen map' or 'drawlib cache download --maps' to obtain map assets."
         )
     raw_obj = json.loads(asset_path.read_text(encoding="utf-8"))
-    return parse_geojson_dict(raw_obj, dataset_name=preset_key)
+    return parse_geojson_dict(raw_obj, dataset_name=rel_key)
+
+
+@functools.lru_cache(maxsize=32)
+def _load_preset_geodata(preset_key: str) -> GeoData:
+    """Load and cache a preset GeoJSON dataset (including regional World subsets)."""
+    canonical_key = LEGACY_PRESET_ALIASES.get(preset_key, preset_key)
+
+    if canonical_key.startswith("world:"):
+        base_world = _load_raw_asset_geodata("world/world")
+        default_ranges = PRESET_DEFAULT_RANGES.get(canonical_key)
+        default_lon_range = default_ranges[0] if default_ranges else base_world.default_lon_range
+        default_lat_range = default_ranges[1] if default_ranges else base_world.default_lat_range
+
+        if canonical_key == "world:all":
+            return base_world.model_copy(
+                update={
+                    "name": canonical_key,
+                    "default_lon_range": default_lon_range,
+                    "default_lat_range": default_lat_range,
+                }
+            )
+
+        filtered = {
+            eid: elem
+            for eid, elem in base_world.elements.items()
+            if _matches_world_region(elem, canonical_key)
+        }
+        min_lon = min(e.bbox[0] for e in filtered.values())
+        min_lat = min(e.bbox[1] for e in filtered.values())
+        max_lon = max(e.bbox[2] for e in filtered.values())
+        max_lat = max(e.bbox[3] for e in filtered.values())
+        return GeoData(
+            name=canonical_key,
+            elements=filtered,
+            bbox=(min_lon, min_lat, max_lon, max_lat),
+            default_lon_range=default_lon_range,
+            default_lat_range=default_lat_range,
+        )
+
+    return _load_raw_asset_geodata(canonical_key)
+
+
+def _resolve_preset_key(target: GeoTarget) -> str | None:
+    """Return canonical preset key if target refers to a built-in preset, else None."""
+    if target is World:
+        return World.All.value
+    if isinstance(target, (World, Countries, Cities)):
+        return target.value
+    if isinstance(target, str):
+        lower_str = target.strip().lower()
+        if not lower_str.endswith((".geojson", ".json")):
+            if lower_str in LEGACY_PRESET_ALIASES:
+                return LEGACY_PRESET_ALIASES[lower_str]
+            if lower_str in PRESET_DEFAULT_RANGES or lower_str.startswith(("world:", "countries/", "cities/")):
+                return lower_str
+    return None
 
 
 def load_geodata(
@@ -330,15 +424,16 @@ def load_geodata(
     """Load GeoData from a preset enum, file path, GeoJSON dict, or __geo_interface__ object.
 
     Args:
-        target: Preset map enum (World, Countries.Japan, Cities.Tokyo), file path, or GeoJSON dict.
+        target: Preset map enum (World.All, Countries.Japan, Cities.Japan_Tokyo), file path, or GeoJSON dict.
         id_key: Optional property key for element IDs when loading custom GeoJSON.
         name_key: Optional property key for display names when loading custom GeoJSON.
 
     Returns:
         Loaded and normalized GeoData object.
     """
-    if isinstance(target, (WorldPreset, Countries, Cities)):
-        return _load_preset_geodata(target.value)
+    preset_key = _resolve_preset_key(target)
+    if preset_key is not None:
+        return _load_preset_geodata(preset_key)
 
     if isinstance(target, dict):
         return parse_geojson_dict(target, dataset_name="custom_dict", id_key=id_key, name_key=name_key)
@@ -348,9 +443,6 @@ def load_geodata(
         return parse_geojson_dict(geo_iface, dataset_name="geo_interface", id_key=id_key, name_key=name_key)
 
     target_str = str(target).strip()
-    if target_str.lower() in PRESET_DEFAULT_RANGES and not target_str.endswith((".geojson", ".json")):
-        return _load_preset_geodata(target_str.lower())
-
     cand_path = Path(target_str)
     file_path = cand_path if cand_path.is_file() else Path(get_script_relative_path(target_str))
     if not file_path.is_file():

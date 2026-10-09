@@ -100,6 +100,18 @@ class TestPackageResolution:
         assert icon_gcp is not None
         assert icon_gcp.name == "icon_gcp"
 
+        map_world = find_package_for_resource_path("maps/world/world.geojson")
+        assert map_world is not None
+        assert map_world.name == "map_world"
+
+        map_country = find_package_for_resource_path("maps/countries/japan.geojson")
+        assert map_country is not None
+        assert map_country.name == "map_countries"
+
+        map_city = find_package_for_resource_path("maps/cities/japan_tokyo.geojson")
+        assert map_city is not None
+        assert map_city.name == "map_cities"
+
     def test_find_package_for_file_path(self):
         """Verify file path mapping in download module."""
         pkg1 = _find_package_for_file_path("/path/to/drawlib/_cached_assets/fonts/roboto/regular.ttf")
@@ -113,6 +125,10 @@ class TestPackageResolution:
         pkg3 = _find_package_for_file_path("/path/to/drawlib/_cached_assets/icons/gcp/compute_engine.png")
         assert pkg3 is not None
         assert pkg3.name == "icon_gcp"
+
+        pkg4 = _find_package_for_file_path("/path/to/drawlib/_cached_assets/maps/countries/japan.geojson")
+        assert pkg4 is not None
+        assert pkg4.name == "map_countries"
 
         assert _find_package_for_file_path("/non_assets_path/arbitrary/file.txt") is None
 
@@ -220,7 +236,7 @@ class TestDownloadAndExtract:
         assert target_file.read_bytes() == b"downloaded"
 
     def test_download_all_release_assets(self):
-        """Test download_all_release_assets iterates over all 48 packages."""
+        """Test download_all_release_assets iterates over all 51 packages."""
         with patch("drawlib._release_assets.ReleaseAssetPackage.download_and_extract") as mock_dl:
             download_all_release_assets()
-            assert mock_dl.call_count == 48
+            assert mock_dl.call_count == 51

@@ -1,7 +1,7 @@
 {
   "format_version": "1.0",
   "provider": "maps",
-  "downloaded_at": "2026-10-09T02:47:40.877209+00:00",
+  "downloaded_at": "2026-10-09T05:41:08.964272+00:00",
   "sources": {
     "world_110m": {
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson",
@@ -19,6 +19,14 @@
       "size_bytes": 3083490,
       "features_count": 242
     },
+    "world_admin1_10m": {
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson",
+      "file_name": "ne_10m_admin_1_states_provinces.geojson",
+      "license": "Public Domain (Natural Earth)",
+      "sha256": "22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5",
+      "size_bytes": 40726851,
+      "features_count": 4596
+    },
     "japan": {
       "url": "https://raw.githubusercontent.com/dataofjapan/land/master/japan.geojson",
       "file_name": "japan.geojson",
@@ -34,6 +42,150 @@
       "sha256": "21bd8dc0e8eb8577f368328328cb4dac8e6ea26a9da8cdba55b58cfadbd361fa",
       "size_bytes": 6611773,
       "features_count": 63
+    },
+    "jp_kyoto": {
+      "url": "https://raw.githubusercontent.com/smartnews-smri/japan-topography/main/data/municipality/geojson/s0010/N03-21_26_210101.json",
+      "file_name": "jp_kyoto.json",
+      "license": "National Land Numerical Information (MLIT Japan) / smartnews-smri",
+      "sha256": "2a3484dc3a24b084020450d9bd28f57834a50843253d8fd93e93fea6fa2572c5",
+      "size_bytes": 93695,
+      "features_count": 36
+    },
+    "jp_osaka": {
+      "url": "https://raw.githubusercontent.com/smartnews-smri/japan-topography/main/data/municipality/geojson/s0010/N03-21_27_210101.json",
+      "file_name": "jp_osaka.json",
+      "license": "National Land Numerical Information (MLIT Japan) / smartnews-smri",
+      "sha256": "646c34aa4e70dedf650596bd4655d846b47882b43abafb61f5a0914cecf40991",
+      "size_bytes": 65985,
+      "features_count": 72
+    },
+    "jp_okinawa": {
+      "url": "https://raw.githubusercontent.com/smartnews-smri/japan-topography/main/data/municipality/geojson/s0010/N03-21_47_210101.json",
+      "file_name": "jp_okinawa.json",
+      "license": "National Land Numerical Information (MLIT Japan) / smartnews-smri",
+      "sha256": "853eeec5fe36670835864cfb552656fdf25b8b3b8927b2dd86ecb5130663a041",
+      "size_bytes": 234701,
+      "features_count": 42
+    },
+    "jp_hokkaido": {
+      "url": "https://raw.githubusercontent.com/smartnews-smri/japan-topography/main/data/municipality/geojson/s0010/N03-21_01_210101.json",
+      "file_name": "jp_hokkaido.json",
+      "license": "National Land Numerical Information (MLIT Japan) / smartnews-smri",
+      "sha256": "510c69fe570e89c5bb16c1475361ba70631d83bc3456b5c4f3d11137a327be16",
+      "size_bytes": 758103,
+      "features_count": 194
+    },
+    "jp_localgov_csv": {
+      "url": "https://raw.githubusercontent.com/codeforfukui/localgovjp/master/localgovjp-utf8.csv",
+      "file_name": "localgovjp-utf8.csv",
+      "license": "CC0 / Public Domain (codeforfukui/localgovjp)",
+      "sha256": "95d38f18f6b550a0c01f724cd55408966f2b0f433c1dd66666b4711f58984867",
+      "size_bytes": 363922,
+      "features_count": 0
+    },
+    "us_new_york": {
+      "url": "https://raw.githubusercontent.com/blackmad/neighborhoods/master/new-york-city-boroughs.geojson",
+      "file_name": "us_new_york.geojson",
+      "license": "Open Data NYC / blackmad/neighborhoods",
+      "sha256": "acb22bb0619426960f526a7f87c63ecbe47ae0b1b8c13d4d111aae01904dae8f",
+      "size_bytes": 1565846,
+      "features_count": 5
+    },
+    "us_san_francisco": {
+      "url": "https://raw.githubusercontent.com/blackmad/neighborhoods/master/san-francisco.geojson",
+      "file_name": "us_san_francisco.geojson",
+      "license": "DataSF / blackmad/neighborhoods",
+      "sha256": "83cfaed04859337d00c79097908b162cd19bd38dca3a64ca73005c4734ad95e7",
+      "size_bytes": 323187,
+      "features_count": 37
+    },
+    "us_los_angeles": {
+      "url": "https://raw.githubusercontent.com/blackmad/neighborhoods/master/los-angeles.geojson",
+      "file_name": "us_los_angeles.geojson",
+      "license": "LA Times Mapping LA / blackmad/neighborhoods",
+      "sha256": "078f0c96bd24b80335ce25ae44cc3e807161f65227ed56a77a66c322fdbb25a5",
+      "size_bytes": 526270,
+      "features_count": 114
+    },
+    "uk_london": {
+      "url": "https://raw.githubusercontent.com/blackmad/neighborhoods/master/london.geojson",
+      "file_name": "uk_london.geojson",
+      "license": "UK Open Government Licence / blackmad/neighborhoods",
+      "sha256": "ef8e3c447effb757ed46a1178de591d697fffd6fbd7e27bc1d0116c315d7802c",
+      "size_bytes": 4019568,
+      "features_count": 33
+    },
+    "fr_paris": {
+      "url": "https://raw.githubusercontent.com/blackmad/neighborhoods/master/paris.geojson",
+      "file_name": "fr_paris.geojson",
+      "license": "Open Data Paris / blackmad/neighborhoods",
+      "sha256": "e5f62ee19b563a2eae08128b6e262a35585b452982358d4b20be3e3ee8a227d3",
+      "size_bytes": 12720,
+      "features_count": 20
+    },
+    "de_berlin": {
+      "url": "https://raw.githubusercontent.com/funkeinteraktiv/Berlin-Geodaten/master/berlin_bezirke.geojson",
+      "file_name": "de_berlin.geojson",
+      "license": "Geoportal Berlin / funkeinteraktiv",
+      "sha256": "cb6b6e1b01a426c95154f3c18f67009634659c0e3d86b9a57daa9d74b0f2dbc7",
+      "size_bytes": 321208,
+      "features_count": 12
+    },
+    "it_rome": {
+      "url": "https://raw.githubusercontent.com/blackmad/neighborhoods/master/rome-rioni.geojson",
+      "file_name": "it_rome.geojson",
+      "license": "Open Data Roma / blackmad/neighborhoods",
+      "sha256": "a471e859aa39aa560c258251824981466e25e2163de017185ac9fff378d55ed2",
+      "size_bytes": 18557,
+      "features_count": 22
+    },
+    "kr_seoul": {
+      "url": "https://raw.githubusercontent.com/southkorea/seoul-maps/master/kostat/2013/json/seoul_municipalities_geo_simple.json",
+      "file_name": "kr_seoul.json",
+      "license": "KOSTAT / southkorea/seoul-maps",
+      "sha256": "2bb208614451c9f2a096cd62204063d6b27e57dcb7650a35ac19c06f1a84eb03",
+      "size_bytes": 57732,
+      "features_count": 25
+    },
+    "sg_singapore": {
+      "url": "https://raw.githubusercontent.com/yinshanyang/singapore/master/maps/2-planning-area.geojson",
+      "file_name": "sg_singapore.geojson",
+      "license": "Singapore Open Data / yinshanyang/singapore",
+      "sha256": "fc57f0427d158f33f4e1ce4455a65dddb09d3a904cd4c3d3d0448d0fbbcb6152",
+      "size_bytes": 4047175,
+      "features_count": 55
+    },
+    "cn_hong_kong": {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/810000_full.json",
+      "file_name": "cn_hong_kong.json",
+      "license": "DataV GeoAtlas",
+      "sha256": "69ae74ef15e964508e6619763affbbff669295e23db0ab487350b7a060aa2bc9",
+      "size_bytes": 132725,
+      "features_count": 18
+    },
+    "cn_shanghai": {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json",
+      "file_name": "cn_shanghai.json",
+      "license": "DataV GeoAtlas",
+      "sha256": "f699513d5eb63d56350018d90db92345aeefc88c9e4f76197ea405178b6c31ae",
+      "size_bytes": 83280,
+      "features_count": 16
+    },
+    "tw_towns": {
+      "url": "https://raw.githubusercontent.com/g0v/twgeojson/master/json/twTown1982.geo.json",
+      "file_name": "tw_towns.geo.json",
+      "license": "MIT / Taiwan Open Government Data (g0v/twgeojson)",
+      "sha256": "e8f6e19f1b41513818f287543f3be3a96ca7731e8e108715426efb6b2e0fcbb2",
+      "size_bytes": 20314776,
+      "features_count": 377
+    },
+    "au_sa4": {
+      "url": "https://raw.githubusercontent.com/cartdeco/Australia-json-data/master/ABS_SA4_2011.json",
+      "file_name": "au_sa4.topo.json",
+      "license": "CC-BY ABS / cartdeco/Australia-json-data",
+      "sha256": "a860bb8c354a432caa12048235e4e13f4cc223edbeb298e15735bcf1be5bbc99",
+      "size_bytes": 17352020,
+      "features_count": 106
     }
   }
 }

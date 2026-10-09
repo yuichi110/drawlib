@@ -152,6 +152,10 @@
                                 <a href="speech_and_code.html" >Speech & Code</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="geomap.html" >GeoMap</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -418,6 +422,12 @@ The <code>drawlib.smartarts</code> module eliminates this boilerplate by providi
 <td style="text-align:left">Top-Left <code>(x, y)</code></td>
 <td style="text-align:left"><code>add(..., show=True)</code>, <code>draw(..., scale=1.0)</code></td>
 </tr>
+<tr>
+<td style="text-align:left"><strong><code>GeoMap</code></strong></td>
+<td style="text-align:left">Geographical maps (<code>GeoMap.World.*</code>, <code>GeoMap.Countries.*</code>, <code>GeoMap.Cities.*</code>)</td>
+<td style="text-align:left">Bottom-Left <code>(x, y)</code></td>
+<td style="text-align:left"><code>get_areas()</code>, <code>set_area_styles()</code>, <code>draw()</code>, <code>get_area_xy()</code>, <code>lonlat_to_xy()</code></td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -426,7 +436,7 @@ The <code>drawlib.smartarts</code> module eliminates this boilerplate by providi
 <ul>
 <li><strong>Top-Left Anchored (<code>Table</code>, <code>TreeNode</code>, <code>BulletPoints</code>, <code>SourceCode</code>)</strong>:<br />
 You specify the top-left coordinate <code>(x, y)</code>. Content flows horizontally to the right and vertically downward (<code>y</code> decreases).</li>
-<li><strong>Bottom-Left Anchored (<code>ChevronProcess</code>, <code>GridLayout</code>, <code>Pyramid</code>)</strong>:<br />
+<li><strong>Bottom-Left Anchored (<code>ChevronProcess</code>, <code>GridLayout</code>, <code>Pyramid</code>, <code>GeoMap</code>)</strong>:<br />
 You specify the bottom-left coordinate <code>(x, y)</code>. The bounding container extends rightward and upward (<code>y</code> increases).</li>
 <li><strong>Center Anchored (<code>Cycle</code>, <code>MindMapNode</code>)</strong>:<br />
 You specify the center coordinate <code>(cx, cy)</code>. The diagram expands symmetrically or radially around the center.</li>

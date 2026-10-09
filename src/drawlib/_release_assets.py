@@ -10,7 +10,7 @@
 """Release assets packaging and download specifications for drawlib.
 
 Acts as the Single Source of Truth (SoT) defining all downloadable asset packages,
-archive structures, and contained files for fonts and icons.
+archive structures, and contained files for fonts, icons, and maps.
 """
 
 from __future__ import annotations
@@ -80,6 +80,9 @@ class ReleaseAssetPackageName(StrEnum):
     FONT_THAI_NOTO_SERIF = "font_thai_noto_serif"
     ICON_PHOSPHOR = "icon_phosphor"
     ICON_GCP = "icon_gcp"
+    MAP_CITIES = "map_cities"
+    MAP_COUNTRIES = "map_countries"
+    MAP_WORLD = "map_world"
 
 
 class ReleaseAssetPackages(BaseReleaseAssetPackages):
@@ -137,6 +140,9 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     font_thai_noto_serif: ReleaseAssetPackage
     icon_phosphor: ReleaseAssetPackage
     icon_gcp: ReleaseAssetPackage
+    map_cities: ReleaseAssetPackage
+    map_countries: ReleaseAssetPackage
+    map_world: ReleaseAssetPackage
 
 
 # ==============================================================================
@@ -849,6 +855,266 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "workload_identity_pool.png",
         ],
     ),
+    map_cities=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.MAP_CITIES,
+        category="map",
+        archive_name="map_cities.zip",
+        archive_sha256="387fd518706cc1db5040732bd7f0b66d08cdf11c3da297ea4fbc2a1f82c4bafe",
+        source_rel_path="maps/cities",
+        target_rel_path="maps/cities",
+        files=[
+            "australia_sydney.geojson",
+            "china_hong_kong.geojson",
+            "china_shanghai.geojson",
+            "france_paris.geojson",
+            "germany_berlin.geojson",
+            "italy_rome.geojson",
+            "japan_kyoto.geojson",
+            "japan_osaka.geojson",
+            "japan_tokyo.geojson",
+            "singapore_singapore.geojson",
+            "south_korea_seoul.geojson",
+            "taiwan_taipei.geojson",
+            "united_kingdom_london.geojson",
+            "united_states_los_angeles.geojson",
+            "united_states_new_york.geojson",
+            "united_states_san_francisco.geojson",
+        ],
+    ),
+    map_countries=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.MAP_COUNTRIES,
+        category="map",
+        archive_name="map_countries.zip",
+        archive_sha256="e8a0a0fd8bbee0ee25b5441042f821044ba81b008257fce620a579387222f1ec",
+        source_rel_path="maps/countries",
+        target_rel_path="maps/countries",
+        files=[
+            "afghanistan.geojson",
+            "aland.geojson",
+            "albania.geojson",
+            "algeria.geojson",
+            "andorra.geojson",
+            "angola.geojson",
+            "antigua_and_barbuda.geojson",
+            "argentina.geojson",
+            "armenia.geojson",
+            "aruba.geojson",
+            "australia.geojson",
+            "austria.geojson",
+            "azerbaijan.geojson",
+            "bahrain.geojson",
+            "bangladesh.geojson",
+            "barbados.geojson",
+            "belarus.geojson",
+            "belgium.geojson",
+            "belize.geojson",
+            "benin.geojson",
+            "bhutan.geojson",
+            "bolivia.geojson",
+            "bosnia_and_herzegovina.geojson",
+            "botswana.geojson",
+            "brazil.geojson",
+            "brunei.geojson",
+            "bulgaria.geojson",
+            "burkina_faso.geojson",
+            "burundi.geojson",
+            "cambodia.geojson",
+            "cameroon.geojson",
+            "canada.geojson",
+            "cape_verde.geojson",
+            "central_african_republic.geojson",
+            "chad.geojson",
+            "chile.geojson",
+            "china.geojson",
+            "colombia.geojson",
+            "comoros.geojson",
+            "congo.geojson",
+            "costa_rica.geojson",
+            "croatia.geojson",
+            "cuba.geojson",
+            "curacao.geojson",
+            "cyprus.geojson",
+            "czech_republic.geojson",
+            "denmark.geojson",
+            "djibouti.geojson",
+            "dominica.geojson",
+            "dominican_republic.geojson",
+            "dr_congo.geojson",
+            "east_timor.geojson",
+            "ecuador.geojson",
+            "egypt.geojson",
+            "el_salvador.geojson",
+            "equatorial_guinea.geojson",
+            "eritrea.geojson",
+            "estonia.geojson",
+            "eswatini.geojson",
+            "ethiopia.geojson",
+            "fiji.geojson",
+            "finland.geojson",
+            "france.geojson",
+            "french_polynesia.geojson",
+            "gabon.geojson",
+            "georgia.geojson",
+            "germany.geojson",
+            "ghana.geojson",
+            "greece.geojson",
+            "greenland.geojson",
+            "grenada.geojson",
+            "guam.geojson",
+            "guatemala.geojson",
+            "guernsey.geojson",
+            "guinea.geojson",
+            "guinea_bissau.geojson",
+            "guyana.geojson",
+            "haiti.geojson",
+            "honduras.geojson",
+            "hong_kong.geojson",
+            "hungary.geojson",
+            "iceland.geojson",
+            "india.geojson",
+            "indonesia.geojson",
+            "iran.geojson",
+            "iraq.geojson",
+            "ireland.geojson",
+            "isle_of_man.geojson",
+            "israel.geojson",
+            "italy.geojson",
+            "ivory_coast.geojson",
+            "jamaica.geojson",
+            "japan.geojson",
+            "jersey.geojson",
+            "jordan.geojson",
+            "kazakhstan.geojson",
+            "kenya.geojson",
+            "kiribati.geojson",
+            "kosovo.geojson",
+            "kuwait.geojson",
+            "kyrgyzstan.geojson",
+            "laos.geojson",
+            "latvia.geojson",
+            "lebanon.geojson",
+            "lesotho.geojson",
+            "liberia.geojson",
+            "libya.geojson",
+            "liechtenstein.geojson",
+            "lithuania.geojson",
+            "luxembourg.geojson",
+            "macau.geojson",
+            "madagascar.geojson",
+            "malawi.geojson",
+            "malaysia.geojson",
+            "maldives.geojson",
+            "mali.geojson",
+            "malta.geojson",
+            "marshall_islands.geojson",
+            "mauritania.geojson",
+            "mauritius.geojson",
+            "mexico.geojson",
+            "micronesia.geojson",
+            "moldova.geojson",
+            "monaco.geojson",
+            "mongolia.geojson",
+            "montenegro.geojson",
+            "morocco.geojson",
+            "mozambique.geojson",
+            "myanmar.geojson",
+            "namibia.geojson",
+            "nauru.geojson",
+            "nepal.geojson",
+            "netherlands.geojson",
+            "new_caledonia.geojson",
+            "new_zealand.geojson",
+            "nicaragua.geojson",
+            "niger.geojson",
+            "nigeria.geojson",
+            "north_korea.geojson",
+            "north_macedonia.geojson",
+            "norway.geojson",
+            "oman.geojson",
+            "pakistan.geojson",
+            "palau.geojson",
+            "palestine.geojson",
+            "panama.geojson",
+            "papua_new_guinea.geojson",
+            "paraguay.geojson",
+            "peru.geojson",
+            "philippines.geojson",
+            "poland.geojson",
+            "portugal.geojson",
+            "puerto_rico.geojson",
+            "qatar.geojson",
+            "romania.geojson",
+            "russia.geojson",
+            "rwanda.geojson",
+            "saint_kitts_and_nevis.geojson",
+            "saint_lucia.geojson",
+            "saint_vincent.geojson",
+            "samoa.geojson",
+            "san_marino.geojson",
+            "sao_tome_and_principe.geojson",
+            "saudi_arabia.geojson",
+            "senegal.geojson",
+            "serbia.geojson",
+            "seychelles.geojson",
+            "sierra_leone.geojson",
+            "singapore.geojson",
+            "sint_maarten.geojson",
+            "slovakia.geojson",
+            "slovenia.geojson",
+            "solomon_islands.geojson",
+            "somalia.geojson",
+            "somaliland.geojson",
+            "south_africa.geojson",
+            "south_korea.geojson",
+            "south_sudan.geojson",
+            "spain.geojson",
+            "sri_lanka.geojson",
+            "sudan.geojson",
+            "suriname.geojson",
+            "sweden.geojson",
+            "switzerland.geojson",
+            "syria.geojson",
+            "taiwan.geojson",
+            "tajikistan.geojson",
+            "tanzania.geojson",
+            "thailand.geojson",
+            "the_bahamas.geojson",
+            "the_gambia.geojson",
+            "togo.geojson",
+            "tonga.geojson",
+            "trinidad_and_tobago.geojson",
+            "tunisia.geojson",
+            "turkey.geojson",
+            "turkish_republic_of_northern_cyprus.geojson",
+            "turkmenistan.geojson",
+            "tuvalu.geojson",
+            "uganda.geojson",
+            "ukraine.geojson",
+            "united_arab_emirates.geojson",
+            "united_kingdom.geojson",
+            "united_states.geojson",
+            "united_states_virgin_islands.geojson",
+            "uruguay.geojson",
+            "uzbekistan.geojson",
+            "vanuatu.geojson",
+            "vatican_city.geojson",
+            "venezuela.geojson",
+            "vietnam.geojson",
+            "western_sahara.geojson",
+            "yemen.geojson",
+            "zambia.geojson",
+            "zimbabwe.geojson",
+        ],
+    ),
+    map_world=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.MAP_WORLD,
+        category="map",
+        archive_name="map_world.zip",
+        archive_sha256="19a1045e4dc7eda62f8da7595dd8b8d861a9ad217ee3762b1b0919c1babab244",
+        source_rel_path="maps/world",
+        target_rel_path="maps/world",
+        files=["world.geojson"],
+    ),
 )
 
 
@@ -856,7 +1122,7 @@ def get_all_release_asset_packages() -> list[ReleaseAssetPackage]:
     """Retrieve all defined release asset packages.
 
     Returns:
-        list[ReleaseAssetPackage]: Combined list of font and icon packages.
+        list[ReleaseAssetPackage]: Combined list of font, icon, and map packages.
     """
     return RELEASE_ASSET_PACKAGES.all()
 
@@ -877,6 +1143,15 @@ def get_icon_asset_packages() -> list[ReleaseAssetPackage]:
         list[ReleaseAssetPackage]: List of icon package definitions.
     """
     return [pkg for pkg in RELEASE_ASSET_PACKAGES.values() if pkg.category == "icon"]
+
+
+def get_map_asset_packages() -> list[ReleaseAssetPackage]:
+    """Retrieve all map asset packages.
+
+    Returns:
+        list[ReleaseAssetPackage]: List of map package definitions.
+    """
+    return [pkg for pkg in RELEASE_ASSET_PACKAGES.values() if pkg.category == "map"]
 
 
 def find_package_by_name(package_name: str | ReleaseAssetPackageName) -> ReleaseAssetPackage | None:
@@ -928,12 +1203,27 @@ def find_package_for_icon_path(icon_file_path: str) -> ReleaseAssetPackage | Non
     return RELEASE_ASSET_PACKAGES.get(target_name)
 
 
+def find_package_for_map_path(map_file_path: str) -> ReleaseAssetPackage | None:
+    """Identify which asset package contains a given map resource path.
+
+    Args:
+        map_file_path: Relative map path (e.g. 'maps/world/world.geojson', 'countries/japan.geojson').
+
+    Returns:
+        ReleaseAssetPackage | None: The containing package if matched, otherwise None.
+    """
+    normalized = map_file_path.strip("/").removeprefix("maps/")
+    family = normalized.split("/")[0] if "/" in normalized else normalized
+    target_name = f"map_{family}"
+    return RELEASE_ASSET_PACKAGES.get(target_name)
+
+
 def find_package_for_resource_path(resource_path: str) -> ReleaseAssetPackage | None:
-    """Identify which asset package contains a given resource path (font or icon).
+    """Identify which asset package contains a given resource path (font, icon, or map).
 
     Args:
         resource_path: Relative resource path
-            (e.g. 'fonts/roboto/regular.ttf', 'fonticons/phosphor/thin.ttf', 'icons/gcp/gce.png').
+            (e.g. 'fonts/roboto/regular.ttf', 'icons/gcp/gce.png', 'maps/countries/japan.geojson').
 
     Returns:
         ReleaseAssetPackage | None: The containing package if matched, otherwise None.
@@ -943,6 +1233,8 @@ def find_package_for_resource_path(resource_path: str) -> ReleaseAssetPackage | 
         return find_package_for_icon_path(norm)
     if norm.startswith("icons/") or norm.startswith("gcp/"):
         return find_package_for_icon_path(norm)
+    if norm.startswith(("maps/", "world/", "countries/", "cities/")):
+        return find_package_for_map_path(norm)
     return find_package_for_font_path(norm)
 
 
@@ -950,7 +1242,7 @@ def ensure_asset_available(resource_path: str, tag: str = DEFAULT_RELEASE_TAG) -
     """Ensure that the asset file for a given resource path is downloaded and available.
 
     Args:
-        resource_path: Relative path to font or icon file.
+        resource_path: Relative path to font, icon, or map file.
         tag: Release tag to download from if missing. Defaults to DEFAULT_RELEASE_TAG.
 
     Raises:
@@ -966,7 +1258,7 @@ def ensure_asset_available(resource_path: str, tag: str = DEFAULT_RELEASE_TAG) -
 
 
 def download_all_release_assets(tag: str = DEFAULT_RELEASE_TAG, force: bool = False) -> None:
-    """Download and extract all defined release asset packages (fonts and icons).
+    """Download and extract all defined release asset packages (fonts, icons, and maps).
 
     Args:
         tag: Release tag to download from. Defaults to DEFAULT_RELEASE_TAG.
@@ -1010,7 +1302,11 @@ __all__ = [
     "ensure_asset_available",
     "find_package_for_font_path",
     "find_package_for_icon_path",
+    "find_package_for_map_path",
     "find_package_for_resource_path",
     "get_all_release_asset_packages",
+    "get_font_asset_packages",
+    "get_icon_asset_packages",
+    "get_map_asset_packages",
     "get_release_asset_manifest",
 ]

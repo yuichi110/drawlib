@@ -16,6 +16,7 @@ from drawlib._core.l1_core import (
     FONT_DIR_PATH,
     FONT_ICON_DIR_PATH,
     ICON_DIR_PATH,
+    MAP_DIR_PATH,
     RULES_DIR_PATH,
     logger,
 )
@@ -39,14 +40,21 @@ def download_all_icons() -> None:
             pkg.download_and_extract()
 
 
+def download_all_maps() -> None:
+    """Download all map GeoJSON packages from GitHub Releases."""
+    for pkg in RELEASE_ASSET_PACKAGES.values():
+        if pkg.category == "map":
+            pkg.download_and_extract()
+
+
 def download_all_assets() -> None:
-    """Download all fonts and icons from GitHub Releases."""
+    """Download all fonts, icons, and maps from GitHub Releases."""
     download_all_release_assets()
 
 
 def purge_font_cache() -> None:
-    """Delete downloaded font, icon, and rules cache."""
-    for dir_path in [FONT_DIR_PATH, FONT_ICON_DIR_PATH, ICON_DIR_PATH, RULES_DIR_PATH]:
+    """Delete downloaded font, icon, map, and rules cache."""
+    for dir_path in [FONT_DIR_PATH, FONT_ICON_DIR_PATH, ICON_DIR_PATH, MAP_DIR_PATH, RULES_DIR_PATH]:
         if not os.path.exists(dir_path):
             continue
 

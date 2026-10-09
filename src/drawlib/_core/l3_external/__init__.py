@@ -16,6 +16,7 @@ from drawlib._core.l3_external._font import (
     download_all_assets,
     download_all_fonts,
     download_all_icons,
+    download_all_maps,
     purge_font_cache,
 )
 from drawlib._core.l3_external._package import (
@@ -33,6 +34,7 @@ __all__ = [
     "download_all_assets",
     "download_all_fonts",
     "download_all_icons",
+    "download_all_maps",
     "purge_font_cache",
     # _package.py
     "AssetManifest",

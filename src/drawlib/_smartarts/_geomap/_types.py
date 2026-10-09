@@ -7,42 +7,25 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Data models and preset target enumerations for drawlib.geo."""
+"""Data models and preset target enumerations for drawlib.smartarts.GeoMap."""
 
 from __future__ import annotations
 
-from enum import StrEnum
 from pathlib import Path
-from typing import Any, Final
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
+from drawlib._smartarts._geomap._presets import (
+    PRESET_DEFAULT_RANGES,
+    Cities,
+    Countries,
+    World,
+)
 
-class WorldPreset(StrEnum):
-    """Preset identifier for world map."""
+WorldPreset = World
 
-    World = "world"
-    WORLD = "world"
-
-
-World: Final[WorldPreset] = WorldPreset.World
-
-
-class Countries(StrEnum):
-    """Preset country map identifiers."""
-
-    Japan = "japan"
-    JAPAN = "japan"
-
-
-class Cities(StrEnum):
-    """Preset city/metropolitan map identifiers."""
-
-    Tokyo = "tokyo"
-    TOKYO = "tokyo"
-
-
-GeoTarget = WorldPreset | Countries | Cities | str | Path | dict[str, Any]
+GeoTarget = World | type[World] | Countries | Cities | str | Path | dict[str, Any]
 
 
 class GeoPolygon(BaseModel):
@@ -60,16 +43,14 @@ class GeoPolygon(BaseModel):
 
 
 class GeoElement(BaseModel):
-    """A single named geographical entity (country, prefecture, ward, or custom region).
+    """A single named geographical area (country, prefecture, ward, or custom region).
 
     Attributes:
-        id: Canonical identifier returned by ``get_elements()`` (e.g. ``"Japan"``, ``"Tokyo"``, ``"Chiyoda"``).
+        id: Canonical identifier returned by ``get_areas()`` (e.g. ``"Japan"``, ``"Tokyo"``, ``"Chiyoda"``).
         name: Display name in English.
         name_ja: Display name in Japanese, if available.
-        group: Group/region classification (e.g. ``"Asia"``, ``"Kanto"``, ``"23wards"``).
-        group_ja: Japanese group/region classification, if available.
         aliases: Lowercase lookup aliases (ISO codes, full/short names in EN/JA).
-        polygons: Tuple of ``GeoPolygon`` instances making up this element.
+        polygons: Tuple of ``GeoPolygon`` instances making up this area.
         center_lonlat: Representative interior ``(lon, lat)`` coordinate on the primary landmass.
         bbox: Bounding box tuple ``(min_lon, min_lat, max_lon, max_lat)``.
         properties: Original GeoJSON feature properties dictionary.
@@ -80,8 +61,6 @@ class GeoElement(BaseModel):
     id: str
     name: str
     name_ja: str = ""
-    group: str = ""
-    group_ja: str = ""
     aliases: tuple[str, ...] = ()
     polygons: tuple[GeoPolygon, ...]
     center_lonlat: tuple[float, float]
@@ -93,7 +72,7 @@ class GeoData(BaseModel):
     """Normalized collection of geographical elements loaded from GeoJSON.
 
     Attributes:
-        name: Dataset identifier (e.g. ``"world"``, ``"japan"``, ``"tokyo"``, or filename).
+        name: Dataset identifier (e.g. ``"world:all"``, ``"countries/japan"``, ``"cities/japan_tokyo"``).
         elements: Mapping from canonical element ID to ``GeoElement``.
         bbox: Overall bounding box ``(min_lon, min_lat, max_lon, max_lat)``.
         default_lon_range: Recommended default longitude viewport range ``(min_lon, max_lon)``.
@@ -110,6 +89,7 @@ class GeoData(BaseModel):
 
 
 __all__ = [
+    "PRESET_DEFAULT_RANGES",
     "Cities",
     "Countries",
     "GeoData",

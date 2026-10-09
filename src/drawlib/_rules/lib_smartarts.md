@@ -17,8 +17,9 @@ The `drawlib.smartarts` module provides high-level graphical components designed
 10. [Component 8: Pyramid (Tiered Stacks & Hierarchies)](#10-component-8-pyramid-tiered-stacks--hierarchies)
 11. [Component 9: BulletPoints (Formatted Bulleted Lists)](#11-component-9-bulletpoints-formatted-bulleted-lists)
 12. [Component 10: SourceCode (Syntax-Highlighted Code Containers)](#12-component-10-sourcecode-syntax-highlighted-code-containers)
-13. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
-14. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
+13. [Component 11: GeoMap (Geographical Vector Maps)](#12b-component-11-geomap-geographical-vector-maps)
+14. [Design Patterns & Coordinate Anchor Systems](#13-design-patterns--coordinate-anchor-systems)
+15. [Troubleshooting & Common Pitfalls](#14-troubleshooting--common-pitfalls)
 
 ---
 ## 1. Architectural Overview & Core Concepts
@@ -31,6 +32,7 @@ from drawlib.smartarts import (
     BulletPoints,
     ChevronProcess,
     Cycle,
+    GeoMap,
     GridLayout,
     MindMapNode,
     Pyramid,
@@ -51,7 +53,7 @@ from drawlib.types import Style
 ### 1.2 Coordinate Anchor Conventions
 Understanding anchor points is essential for programmatic generation and positioning:
 - **Top-Left Anchored**: `Table`, `TreeNode`, `BulletPoints`. You specify top-left coordinate `(x, y)`; elements flow rightward and downward.
-- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
+- **Bottom-Left Anchored**: `ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`. You specify bottom-left coordinate `(x, y)` of the bounding box; elements extend rightward and upward.
 - **Center Anchored**: `MindMapNode` (root node center `(x, y)`), `Cycle` (default `align="center"` anchors orbit center).
 
 ### 1.3 Style Resolution
@@ -82,6 +84,7 @@ All SmartArts follow a unified 4-phase lifecycle (**1. Instantiate -> 2. Registe
 | `Pyramid` | Bottom-Left `(x, y)` | Stacked layers | `add(show=True)`, `draw(scale=1.0)`, `draw_flexible(scale=1.0)` | Defense-in-depth, testing pyramid, memory hierarchies |
 | `BulletPoints` | Top-Left `(x, y)` | Downward list | `add(show=True)`, `set_indent()`, `set_bullet_style()`, `draw(scale=1.0)` | Architecture takeaways, RFC summaries, feature lists |
 | `SourceCode` | Top-Left `(x, y)` | Vector code block | `draw(scale=1.0)`, `get_text()` | Embedded configuration, code samples, API payloads |
+| `GeoMap` | Bottom-Left `(x, y)` | Equirectangular vector map | `get_areas()`, `set_area_styles()`, `draw()`, `get_area_xy()`, `lonlat_to_xy()` | Multi-region cloud topology, country/city territory maps |
 
 ---
 ## 3. Component 1: Table
@@ -860,6 +863,27 @@ spec:
 code_styles = SourceCodeStyles.get("dark", font_lang="en", text_size=10.0)
 SourceCode.draw(xy=(11, 86), width=88, code=k8s_yaml, styles=code_styles, code_lang="yaml", show_linenum=True)
 save()
+```
+
+---
+## 12b. Component 11: GeoMap (Geographical Vector Maps)
+
+`GeoMap` renders vector geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`, or custom GeoJSON files) onto the Drawlib canvas without external GIS dependencies.
+
+### Presets & Targets
+- `GeoMap.World`: `All`, `Asia`, `Europe`, `NorthAmerica`, `SouthAmerica`, `Africa`, `Oceania`, `EastAsia`, `SoutheastAsia`, `APAC`, `MiddleEast`
+- `GeoMap.Countries`: All 215 countries & territories (`Japan`, `UnitedStates`, `UnitedKingdom`, `Germany`, `France`, ...)
+- `GeoMap.Cities`: 16 global metropolitan maps (`Australia_Sydney`, `China_HongKong`, `China_Shanghai`, `France_Paris`, `Germany_Berlin`, `Italy_Rome`, `Japan_Kyoto`, `Japan_Osaka`, `Japan_Tokyo`, `Singapore_Singapore`, `SouthKorea_Seoul`, `Taiwan_Taipei`, `UnitedKingdom_London`, `UnitedStates_LosAngeles`, `UnitedStates_NewYork`, `UnitedStates_SanFrancisco`)
+- Custom GeoJSON: Any `.geojson` path (e.g. `"_assets/geodata/okinawa.geojson"`) or GeoJSON `dict`.
+
+### Constructor & 5-Method API
+```python
+m = GeoMap(target, *, area_style=Styles.Neutral, background_style=None, id_key=None, name_key=None)
+m.get_areas() -> list[str]
+m.set_area_styles(areas: list[str], style: Style) -> Self
+m.draw(xy=(0.0, 0.0), width=None, height=None, *, lon_range=None, lat_range=None, scale=1.0) -> Self
+m.get_area_xy(area: str) -> tuple[float, float]
+m.lonlat_to_xy(lon: float, lat: float) -> tuple[float, float]
 ```
 
 ---

@@ -32,6 +32,7 @@ The `drawlib.smartarts` module eliminates this boilerplate by providing **high-l
 | **`BoxList`** | Linear horizontal or vertical card sequences | Directional `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
 | **`BulletPoints`** | Architectural takeaways, RFC key points | Top-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
 | **`SourceCode`** | Syntax-highlighted code blocks in diagrams | Top-Left `(x, y)` | `add(..., show=True)`, `draw(..., scale=1.0)` |
+| **`GeoMap`** | Geographical maps (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`) | Bottom-Left `(x, y)` | `get_areas()`, `set_area_styles()`, `draw()`, `get_area_xy()`, `lonlat_to_xy()` |
 
 ---
 
@@ -40,7 +41,7 @@ The `drawlib.smartarts` module eliminates this boilerplate by providing **high-l
 Understanding anchor points is essential when combining SmartArts with other elements:
 - **Top-Left Anchored (`Table`, `TreeNode`, `BulletPoints`, `SourceCode`)**:  
   You specify the top-left coordinate `(x, y)`. Content flows horizontally to the right and vertically downward (`y` decreases).
-- **Bottom-Left Anchored (`ChevronProcess`, `GridLayout`, `Pyramid`)**:  
+- **Bottom-Left Anchored (`ChevronProcess`, `GridLayout`, `Pyramid`, `GeoMap`)**:  
   You specify the bottom-left coordinate `(x, y)`. The bounding container extends rightward and upward (`y` increases).
 - **Center Anchored (`Cycle`, `MindMapNode`)**:  
   You specify the center coordinate `(cx, cy)`. The diagram expands symmetrically or radially around the center.

@@ -7,10 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+from pathlib import Path
+
 import pytest
 
 from drawlib.canvas import canvas, clear, setup
-from drawlib.smartarts import Cities, Countries, GeoMap, World
+from drawlib.smartarts import GeoMap
 from drawlib.styles import Styles
 
 
@@ -19,54 +21,60 @@ class TestGeoMapPresets:
         clear()
         setup(width=160, height=100)
 
-    def test_world_preset_elements_and_draw(self) -> None:
-        m = GeoMap(World, style=Styles.Neutral)
-        elements = m.get_elements()
-        assert len(elements) > 150
-        assert "Japan" in elements
-        groups = m.get_groups()
-        assert "Asia" in groups
-        assert "Europe" in groups
+    def test_world_all_and_regional_presets(self) -> None:
+        m = GeoMap(GeoMap.World.All, area_style=Styles.Neutral)
+        areas = m.get_areas()
+        assert len(areas) > 150
+        assert "Japan" in areas
 
-        m.exclude_groups("Antarctica")
-        m.set_style("JP", style=Styles.PrimaryFlat)
-        m.set_style("日本", style=Styles.PrimaryFlat)
+        m.set_area_styles(["Antarctica"], style=Styles.Transparent)
+        m.set_area_styles(["JP", "日本"], style=Styles.PrimaryFlat)
         m.draw((10, 10), width=140, height=70)
 
-        jp_xy = m.get_element_xy("Japan")
+        jp_xy = m.get_area_xy("Japan")
         assert 10.0 <= jp_xy[0] <= 150.0
         assert 10.0 <= jp_xy[1] <= 80.0
         assert len(canvas._artists) > 100
 
+        # Regional World presets (e.g. Asia, EastAsia, Europe)
+        clear()
+        setup(width=160, height=100)
+        m_asia = GeoMap(GeoMap.World.Asia, area_style=Styles.Neutral)
+        asia_areas = m_asia.get_areas()
+        assert "Japan" in asia_areas
+        assert "India" in asia_areas
+        assert "France" not in asia_areas
+        m_asia.set_area_styles(["Japan", "Singapore"], style=Styles.PrimaryFlat)
+        m_asia.draw((10, 10), width=140, height=80)
+        assert len(canvas._artists) > 20
+
     def test_world_transparent_default_and_asia_crop(self) -> None:
-        m = GeoMap(World, style=Styles.Transparent)
-        m.set_style(["China", "North Korea", "Vietnam", "Laos"], Styles.Neutral)
-        m.set_style(["South Korea", "Taiwan", "Philippines"], Styles.PrimaryNeutral)
-        m.set_style(["Japan", "Hong Kong"], Styles.PrimaryFlat)
+        m = GeoMap(GeoMap.World.EastAsia, area_style=Styles.Transparent)
+        m.set_area_styles(["China", "North Korea"], Styles.Neutral)
+        m.set_area_styles(["South Korea", "Taiwan"], Styles.PrimaryNeutral)
+        m.set_area_styles(["Japan", "Hong Kong"], Styles.PrimaryFlat)
         m.draw((10, 10), width=120, height=90, lon_range=(106, 146), lat_range=(18, 46))
-        # Only the 8 styled countries intersecting the viewport are added as PathPatch artists
-        assert len(canvas._artists) == 8
+        assert len(canvas._artists) == 6
 
-    def test_japan_preset_elements_and_coordinates(self) -> None:
-        m = GeoMap(Countries.Japan, style=Styles.Neutral, background_style=Styles.LightFlat)
-        elements = m.get_elements()
-        assert len(elements) == 47
-        assert elements[0] == "Hokkaido"
-        assert "Tokyo" in elements
-        assert "Osaka" in elements
-        assert elements[-1] == "Okinawa"
+    def test_countries_presets(self) -> None:
+        m = GeoMap(GeoMap.Countries.Japan, area_style=Styles.Neutral, background_style=Styles.LightFlat)
+        areas = m.get_areas()
+        assert len(areas) == 47
+        assert areas[0] == "Hokkaido"
+        assert "Tokyo" in areas
+        assert "Osaka" in areas
+        assert areas[-1] == "Okinawa"
 
-        groups = m.get_groups()
-        assert "Kanto" in groups
-        assert "Kansai" in groups
-
-        m.set_group_style("Kanto", style=Styles.PrimaryNeutral)
-        m.set_styles({"Tokyo": Styles.PrimaryFlat, "大阪府": Styles.SecondaryFlat})
+        m.set_area_styles(
+            ["Ibaraki", "Tochigi", "Gunma", "Saitama", "Chiba", "Tokyo", "Kanagawa"],
+            style=Styles.PrimaryNeutral,
+        )
+        m.set_area_styles(["Tokyo"], style=Styles.PrimaryFlat)
+        m.set_area_styles(["大阪府"], style=Styles.SecondaryFlat)
         m.draw((10, 10), width=80, height=75)
 
-        tokyo_xy = m.get_element_xy("Tokyo")
-        osaka_xy = m.get_element_xy("Osaka")
-        # Tokyo is east and north of Osaka
+        tokyo_xy = m.get_area_xy("Tokyo")
+        osaka_xy = m.get_area_xy("Osaka")
         assert tokyo_xy[0] > osaka_xy[0]
         assert tokyo_xy[1] > osaka_xy[1]
 
@@ -74,22 +82,37 @@ class TestGeoMapPresets:
         assert abs(direct_xy[0] - tokyo_xy[0]) < 5.0
         assert abs(direct_xy[1] - tokyo_xy[1]) < 5.0
 
-    def test_tokyo_preset_23wards_filtering(self) -> None:
-        m = GeoMap(Cities.Tokyo)
-        assert len(m.get_elements()) == 62
-        assert m.get_groups() == ["23wards", "tama", "islands"]
+        # Verify global country preset (e.g. UnitedStates, Germany)
+        m_us = GeoMap(GeoMap.Countries.UnitedStates, area_style=Styles.Neutral)
+        assert "California" in m_us.get_areas()
+        assert "New York" in m_us.get_areas()
 
-        m.include_groups("23wards")
-        wards = m.get_elements()
-        assert len(wards) == 23
-        assert "Chiyoda" in wards
-        assert "Shibuya" in wards
+        m_de = GeoMap(GeoMap.Countries.Germany, area_style=Styles.Neutral)
+        assert "Berlin" in m_de.get_areas()
 
-        m.set_style(["Chiyoda", "渋谷区", "Minato"], style=Styles.PrimaryFlat)
+    def test_cities_presets_and_transparent_auto_zoom(self) -> None:
+        m = GeoMap(GeoMap.Cities.Japan_Tokyo, area_style=Styles.Transparent)
+        areas = m.get_areas()
+        assert len(areas) == 62
+        assert "Chiyoda" in areas
+        assert "Shibuya" in areas
+
+        wards_23 = areas[:23]
+        m.set_area_styles(wards_23, style=Styles.Neutral)
+        m.set_area_styles(["Chiyoda", "渋谷区", "Minato"], style=Styles.PrimaryFlat)
         m.draw((15, 15), width=60)
-        shibuya_xy = m.get_element_xy("渋谷")
-        chiyoda_xy = m.get_element_xy("Chiyoda")
+        shibuya_xy = m.get_area_xy("渋谷")
+        chiyoda_xy = m.get_area_xy("Chiyoda")
         assert chiyoda_xy[0] > shibuya_xy[0]
+        assert len(canvas._artists) == 23
+
+        # Check other global city presets
+        m_ny = GeoMap(GeoMap.Cities.UnitedStates_NewYork, area_style=Styles.Neutral)
+        assert "Manhattan" in m_ny.get_areas()
+        assert "Brooklyn" in m_ny.get_areas()
+
+        m_berlin = GeoMap(GeoMap.Cities.Germany_Berlin, area_style=Styles.Neutral)
+        assert "Mitte" in m_berlin.get_areas()
 
 
 class TestGeoMapCustomAndValidation:
@@ -97,13 +120,13 @@ class TestGeoMapCustomAndValidation:
         clear()
         setup(width=100, height=100)
 
-    def test_custom_geojson_dict_and_sizing_modes(self) -> None:
+    def test_custom_geojson_dict_and_file(self) -> None:
         sample_geojson = {
             "type": "FeatureCollection",
             "features": [
                 {
                     "type": "Feature",
-                    "properties": {"area_code": "A1", "name": "WestZone", "region": "West"},
+                    "properties": {"area_code": "A1", "name": "WestZone"},
                     "geometry": {
                         "type": "Polygon",
                         "coordinates": [[[130.0, 30.0], [135.0, 30.0], [135.0, 35.0], [130.0, 35.0], [130.0, 30.0]]],
@@ -111,7 +134,7 @@ class TestGeoMapCustomAndValidation:
                 },
                 {
                     "type": "Feature",
-                    "properties": {"area_code": "A2", "name": "EastZone", "region": "East"},
+                    "properties": {"area_code": "A2", "name": "EastZone"},
                     "geometry": {
                         "type": "Polygon",
                         "coordinates": [[[135.0, 30.0], [140.0, 30.0], [140.0, 35.0], [135.0, 35.0], [135.0, 30.0]]],
@@ -119,27 +142,27 @@ class TestGeoMapCustomAndValidation:
                 },
             ],
         }
-        m = GeoMap(sample_geojson, id_key="area_code", style=Styles.Neutral)
-        assert m.get_elements() == ["A1", "A2"]
-        m.set_style("WestZone", style=Styles.AccentFlat)
+        m = GeoMap(sample_geojson, id_key="area_code", area_style=Styles.Neutral)
+        assert m.get_areas() == ["A1", "A2"]
+        m.set_area_styles(["WestZone"], style=Styles.AccentFlat)
         m.draw((10, 10), height=40, lon_range=(129.0, 141.0), lat_range=(29.0, 36.0), scale=1.2)
 
-        p1 = m.get_element_xy("A1")
-        p2 = m.get_element_xy("A2")
+        p1 = m.get_area_xy("A1")
+        p2 = m.get_area_xy("A2")
         assert p2[0] > p1[0]
 
-        m.include_elements("A1").exclude_elements("A2")
-        assert m.get_elements() == ["A1"]
+        okinawa_path = Path("docs/docs_src/_assets/geodata/okinawa.geojson")
+        if okinawa_path.is_file():
+            m_oki = GeoMap(okinawa_path, area_style=Styles.Neutral)
+            assert "Naha" in m_oki.get_areas()
 
     def test_validation_errors(self) -> None:
-        m = GeoMap(Cities.Tokyo, style=Styles.Neutral)
+        m = GeoMap(GeoMap.Cities.Japan_Tokyo, area_style=Styles.Neutral)
         with pytest.raises(RuntimeError):
-            m.get_element_xy("Chiyoda")
+            m.get_area_xy("Chiyoda")
         with pytest.raises(RuntimeError):
             m.lonlat_to_xy(139.7, 35.6)
-        with pytest.raises(ValueError, match="Unknown map element"):
-            m.set_style("NonExistentPlace", style=Styles.Primary)
-        with pytest.raises(ValueError, match="Unknown map group"):
-            m.include_groups("NonExistentGroup")
+        with pytest.raises(ValueError, match="Unknown map area"):
+            m.set_area_styles(["NonExistentPlace"], style=Styles.Primary)
         with pytest.raises(ValueError, match="At least one of 'width' or 'height'"):
             m.draw((10, 10))

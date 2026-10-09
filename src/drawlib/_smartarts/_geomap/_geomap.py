@@ -11,9 +11,8 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
 from pathlib import Path
-from typing import Any, Self
+from typing import Any, ClassVar, Self
 
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path as MplPath
@@ -31,16 +30,10 @@ from drawlib._smartarts._geomap._types import (
     GeoData,
     GeoElement,
     GeoPolygon,
+    World,
     WorldPreset,
 )
 from drawlib.styles import Styles
-
-
-def _normalize_str_list(items: str | Sequence[str]) -> list[str]:
-    """Normalize a single string or sequence of strings into a list of strings."""
-    if isinstance(items, str):
-        return [items]
-    return [str(it) for it in items]
 
 
 def _get_map_patch_options(style: Style, fallback_border_style: Style | None = None) -> dict[str, Any]:
@@ -136,19 +129,27 @@ def _build_element_mpl_path(
 class GeoMap:
     """Geographical map component for rendering world, country, city, and custom GeoJSON maps.
 
-    Supports preset targets (``World``, ``Countries.Japan``, ``Cities.Tokyo``) as well as
-    custom GeoJSON file paths or dictionaries.
+    Supports preset targets (``GeoMap.World.All``, ``GeoMap.World.Asia``,
+    ``GeoMap.Countries.Japan``, ``GeoMap.Cities.Japan_Tokyo``) as well as custom GeoJSON
+    file paths or dictionaries.
 
     Attributes:
-        data: Normalized ``GeoData`` model containing map elements and bounding boxes.
+        World: Namespace of global and regional world map targets (e.g. ``GeoMap.World.All``, ``GeoMap.World.Asia``).
+        Countries: Namespace of preset country targets (e.g. ``GeoMap.Countries.Japan``).
+        Cities: Namespace of preset city targets (e.g. ``GeoMap.Cities.Japan_Tokyo``).
+        data: Normalized ``GeoData`` model containing map areas and bounding boxes.
     """
+
+    World: ClassVar[type[World]] = World
+    Countries: ClassVar[type[Countries]] = Countries
+    Cities: ClassVar[type[Cities]] = Cities
 
     @validate_call
     def __init__(
         self,
-        target: WorldPreset | Countries | Cities | str | Path | dict[str, Any],
+        target: World | type[World] | Countries | Cities | str | Path | dict[str, Any],
         *,
-        style: Style | None = None,
+        area_style: Style | None = None,
         background_style: Style | None = None,
         id_key: str | None = None,
         name_key: str | None = None,
@@ -156,45 +157,38 @@ class GeoMap:
         """Initialize a GeoMap instance.
 
         Args:
-            target: Preset target (``World``, ``Countries.Japan``, ``Cities.Tokyo``),
-                path to a ``.geojson`` file, or a parsed GeoJSON dictionary.
-            style: Default ``Style`` applied to all map elements. Defaults to ``Styles.Neutral``
-                with a map-optimized thin border (``shape_line_width=0.6``) when omitted.
+            target: Preset target (``GeoMap.World.All``, ``GeoMap.World.Asia``, ``GeoMap.Countries.Japan``,
+                ``GeoMap.Cities.Japan_Tokyo``), path to a ``.geojson`` file, or a parsed GeoJSON dictionary.
+            area_style: Default ``Style`` applied to all map areas. Defaults to ``Styles.Neutral``.
+                Pass ``Styles.Transparent`` to hide unstyled areas by default.
             background_style: Optional ``Style`` for the map bounding box background (e.g. ocean fill).
                 Defaults to ``None`` (transparent background).
-            id_key: Optional GeoJSON property key to use as element identifier for custom files.
-            name_key: Optional GeoJSON property key to use as element display name for custom files.
+            id_key: Optional GeoJSON property key to use as area identifier for custom files.
+            name_key: Optional GeoJSON property key to use as area display name for custom files.
         """
-        if style is None:
-            resolved_style = Styles.Neutral
+        if area_style is None:
+            resolved_area_style = Styles.Neutral
         else:
-            style.validate_for("shape")
-            resolved_style = style
+            area_style.validate_for("shape")
+            resolved_area_style = area_style
 
         if background_style is not None:
             background_style.validate_for("shape")
 
         self._data: GeoData = load_geodata(target, id_key=id_key, name_key=name_key)
-        self._style: Style = resolved_style
+        self._area_style: Style = resolved_area_style
         self._background_style: Style | None = background_style
 
-        # Lookup indexes for case-insensitive and alias resolution
+        # Lookup index for case-insensitive and alias resolution
         self._alias_to_id: dict[str, str] = {}
-        self._group_alias_to_group: dict[str, str] = {}
         for eid, elem in self._data.elements.items():
             for alias in elem.aliases:
                 self._alias_to_id.setdefault(alias, eid)
             # Ensure exact canonical id and name always win
             self._alias_to_id[eid.lower()] = eid
             self._alias_to_id[elem.name.lower()] = eid
-            if elem.group:
-                self._group_alias_to_group[elem.group.lower()] = elem.group
-                if elem.group_ja:
-                    self._group_alias_to_group[elem.group_ja.lower()] = elem.group
 
-        self._active_ids: set[str] = set(self._data.elements.keys())
-        self._filtered: bool = False
-        self._element_styles: dict[str, Style] = {}
+        self._area_styles: dict[str, Style] = {}
         self._last_projection: GeoProjection | None = None
 
     @property
@@ -202,190 +196,86 @@ class GeoMap:
         """Return the underlying normalized GeoData model."""
         return self._data
 
-    def _resolve_element_id(self, name_or_alias: str) -> str:
-        """Resolve an element name, ISO code, or Japanese name to its canonical element ID."""
+    def _resolve_area_id(self, name_or_alias: str) -> str:
+        """Resolve an area name, ISO code, or Japanese name to its canonical area ID."""
         key = name_or_alias.strip().lower()
         if key in self._alias_to_id:
             return self._alias_to_id[key]
         sample = ", ".join(list(self._data.elements.keys())[:8])
         raise ValueError(
-            f"Unknown map element {name_or_alias!r} in dataset '{self._data.name}'. "
-            f"Available elements include: [{sample}, ...]. Use get_elements() to inspect all."
+            f"Unknown map area {name_or_alias!r} in dataset '{self._data.name}'. "
+            f"Available areas include: [{sample}, ...]. Use get_areas() to inspect all."
         )
 
-    def _resolve_group_name(self, group_name: str) -> str:
-        """Resolve a group/region name (English or Japanese) to its canonical group name."""
-        key = group_name.strip().lower()
-        if key in self._group_alias_to_group:
-            return self._group_alias_to_group[key]
-        available = ", ".join(self.get_groups())
-        raise ValueError(
-            f"Unknown map group {group_name!r} in dataset '{self._data.name}'. "
-            f"Available groups: [{available}]."
-        )
-
-    def get_elements(self) -> list[str]:
-        """Return the list of active canonical element names in this map.
+    def get_areas(self) -> list[str]:
+        """Return the list of canonical area names in this map.
 
         Returns:
-            list[str]: Ordered list of element names (e.g. ``["Hokkaido", ..., "Okinawa"]``).
+            list[str]: Ordered list of area names (e.g. ``["Hokkaido", ..., "Okinawa"]``).
         """
-        return [eid for eid in self._data.elements if eid in self._active_ids]
-
-    def get_groups(self) -> list[str]:
-        """Return the list of available group/region names in this map.
-
-        Returns:
-            list[str]: Unique group names in order of appearance (e.g. ``["23wards", "tama", "islands"]``).
-        """
-        seen: dict[str, None] = {}
-        for elem in self._data.elements.values():
-            if elem.group and elem.group not in seen:
-                seen[elem.group] = None
-        return list(seen.keys())
+        return list(self._data.elements.keys())
 
     @validate_call
-    def include_elements(self, elements: str | Sequence[str]) -> Self:
-        """Restrict the map to render only the specified elements.
-
-        Args:
-            elements: Element name or sequence of element names to keep visible.
-
-        Returns:
-            Self: This GeoMap instance for method chaining.
-        """
-        resolved = {self._resolve_element_id(e) for e in _normalize_str_list(elements)}
-        self._active_ids &= resolved
-        self._filtered = True
-        return self
-
-    @validate_call
-    def exclude_elements(self, elements: str | Sequence[str]) -> Self:
-        """Exclude the specified elements from rendering.
-
-        Args:
-            elements: Element name or sequence of element names to hide.
-
-        Returns:
-            Self: This GeoMap instance for method chaining.
-        """
-        resolved = {self._resolve_element_id(e) for e in _normalize_str_list(elements)}
-        self._active_ids -= resolved
-        self._filtered = True
-        return self
-
-    @validate_call
-    def include_groups(self, groups: str | Sequence[str]) -> Self:
-        """Restrict the map to render only elements belonging to the specified groups.
-
-        Args:
-            groups: Group name or sequence of group names to keep (e.g. ``"23wards"``, ``"Kanto"``).
-
-        Returns:
-            Self: This GeoMap instance for method chaining.
-        """
-        target_groups = {self._resolve_group_name(g) for g in _normalize_str_list(groups)}
-        keep = {eid for eid, elem in self._data.elements.items() if elem.group in target_groups}
-        self._active_ids &= keep
-        self._filtered = True
-        return self
-
-    @validate_call
-    def exclude_groups(self, groups: str | Sequence[str]) -> Self:
-        """Exclude elements belonging to the specified groups from rendering.
-
-        Args:
-            groups: Group name or sequence of group names to hide (e.g. ``"islands"``, ``"Antarctica"``).
-
-        Returns:
-            Self: This GeoMap instance for method chaining.
-        """
-        target_groups = {self._resolve_group_name(g) for g in _normalize_str_list(groups)}
-        drop = {eid for eid, elem in self._data.elements.items() if elem.group in target_groups}
-        self._active_ids -= drop
-        self._filtered = True
-        return self
-
-    @validate_call
-    def set_style(
+    def set_area_styles(
         self,
-        element: str | Sequence[str],
+        areas: list[str],
         style: Style,
     ) -> Self:
-        """Assign a custom Style to one or more map elements.
+        """Assign a custom Style to the specified map areas.
 
         Args:
-            element: Single element name (or alias/ISO/Japanese name) or sequence of element names.
-            style: ``Style`` object to apply to the specified element(s).
+            areas: List of area names (or aliases/ISO/Japanese names) to style.
+            style: ``Style`` object to apply to the specified areas (pass ``Styles.Transparent``
+                to hide specific areas).
 
         Returns:
             Self: This GeoMap instance for method chaining.
         """
         style.validate_for("shape")
-        for item in _normalize_str_list(element):
-            eid = self._resolve_element_id(item)
-            self._element_styles[eid] = style
+        for item in areas:
+            eid = self._resolve_area_id(item)
+            self._area_styles[eid] = style
         return self
 
-    @validate_call
-    def set_styles(
-        self,
-        styles: Mapping[str, Style],
-    ) -> Self:
-        """Assign custom Styles to multiple map elements from a dictionary.
+    def _get_area_patch_options(self, area_id: str) -> dict[str, Any]:
+        """Return Matplotlib PathPatch options for a specific area ID."""
+        if area_id in self._area_styles:
+            return _get_map_patch_options(self._area_styles[area_id], fallback_border_style=self._area_style)
+        return _get_map_patch_options(self._area_style)
 
-        Args:
-            styles: Mapping from element name (or alias) to ``Style`` object.
-
-        Returns:
-            Self: This GeoMap instance for method chaining.
-        """
-        for elem_name, style in styles.items():
-            self.set_style(elem_name, style)
-        return self
-
-    @validate_call
-    def set_group_style(
-        self,
-        group: str | Sequence[str],
-        style: Style,
-    ) -> Self:
-        """Assign a custom Style to all elements in one or more groups.
-
-        Args:
-            group: Single group name or sequence of group names (e.g. ``"Kanto"``, ``"23wards"``).
-            style: ``Style`` object to apply to all elements in the group(s).
-
-        Returns:
-            Self: This GeoMap instance for method chaining.
-        """
-        style.validate_for("shape")
-        target_groups = {self._resolve_group_name(g) for g in _normalize_str_list(group)}
+    def _get_visible_elements(self) -> list[GeoElement]:
+        """Return all areas whose effective style is non-transparent."""
+        visible: list[GeoElement] = []
         for eid, elem in self._data.elements.items():
-            if elem.group in target_groups:
-                self._element_styles[eid] = style
-        return self
+            opts = self._get_area_patch_options(eid)
+            if opts["facecolor"] != "none" or opts["edgecolor"] != "none":
+                visible.append(elem)
+        return visible
 
     def _compute_auto_ranges(
         self,
-        active_elements: list[GeoElement],
+        visible_elements: list[GeoElement],
     ) -> tuple[tuple[float, float], tuple[float, float]]:
-        """Determine default (lon_range, lat_range) for the current active elements."""
-        if not self._filtered and self._data.default_lon_range and self._data.default_lat_range:
+        """Determine default (lon_range, lat_range) for the current visible areas."""
+        all_elements = list(self._data.elements.values())
+        is_subset = 0 < len(visible_elements) < len(all_elements)
+
+        if not is_subset and self._data.default_lon_range and self._data.default_lat_range:
             return self._data.default_lon_range, self._data.default_lat_range
 
-        min_lon = min(e.bbox[0] for e in active_elements)
-        min_lat = min(e.bbox[1] for e in active_elements)
-        max_lon = max(e.bbox[2] for e in active_elements)
-        max_lat = max(e.bbox[3] for e in active_elements)
+        target_elements = visible_elements if visible_elements else all_elements
+        min_lon = min(e.bbox[0] for e in target_elements)
+        min_lat = min(e.bbox[1] for e in target_elements)
+        max_lon = max(e.bbox[2] for e in target_elements)
+        max_lat = max(e.bbox[3] for e in target_elements)
 
-        # When filtering (e.g. Kanto or Tokyo), clamp to preset mainland bounds unless all elements lie outside
+        # When only a subset of areas is visible, clamp to preset mainland bounds unless all lie outside
         if self._data.default_lon_range and self._data.default_lat_range:
             d_lon0, d_lon1 = self._data.default_lon_range
             d_lat0, d_lat1 = self._data.default_lat_range
             in_bounds_lons: list[float] = []
             in_bounds_lats: list[float] = []
-            for elem in active_elements:
+            for elem in target_elements:
                 for poly in elem.polygons:
                     xs = [p[0] for p in poly.exterior]
                     ys = [p[1] for p in poly.exterior]
@@ -402,14 +292,14 @@ class GeoMap:
 
     def _render_elements(
         self,
-        active_elements: list[GeoElement],
         proj: GeoProjection,
     ) -> None:
-        """Append projected PathPatch artists for all visible map elements."""
-        default_elems = [e for e in active_elements if e.id not in self._element_styles]
-        custom_elems = [e for e in active_elements if e.id in self._element_styles]
+        """Append projected PathPatch artists for all visible map areas."""
+        all_elements = list(self._data.elements.values())
+        default_elems = [e for e in all_elements if e.id not in self._area_styles]
+        custom_elems = [e for e in all_elements if e.id in self._area_styles]
 
-        default_opts = _get_map_patch_options(self._style)
+        default_opts = _get_map_patch_options(self._area_style)
         if default_opts["facecolor"] != "none" or default_opts["edgecolor"] != "none":
             for elem in default_elems:
                 mpl_path = _build_element_mpl_path(elem.polygons, proj)
@@ -417,8 +307,8 @@ class GeoMap:
                     canvas._artists.append(PathPatch(mpl_path, **default_opts))
 
         for elem in custom_elems:
-            custom_style = self._element_styles[elem.id]
-            opts = _get_map_patch_options(custom_style, fallback_border_style=self._style)
+            custom_style = self._area_styles[elem.id]
+            opts = _get_map_patch_options(custom_style, fallback_border_style=self._area_style)
             if opts["facecolor"] == "none" and opts["edgecolor"] == "none":
                 continue
             mpl_path = _build_element_mpl_path(elem.polygons, proj)
@@ -456,11 +346,8 @@ class GeoMap:
         if scale <= 0:
             raise ValueError(f"scale must be positive (> 0), got {scale}.")
 
-        active_elements = [elem for eid, elem in self._data.elements.items() if eid in self._active_ids]
-        if not active_elements:
-            raise ValueError("No active map elements remain to draw after filtering.")
-
-        auto_lon, auto_lat = self._compute_auto_ranges(active_elements)
+        visible_elements = self._get_visible_elements()
+        auto_lon, auto_lat = self._compute_auto_ranges(visible_elements)
         eff_lon_range = lon_range if lon_range is not None else auto_lon
         eff_lat_range = lat_range if lat_range is not None else auto_lat
 
@@ -484,7 +371,7 @@ class GeoMap:
                     height=proj.box_height,
                     style=self._background_style,
                 )
-            self._render_elements(active_elements, proj)
+            self._render_elements(proj)
 
         return self
 
@@ -507,22 +394,22 @@ class GeoMap:
         return self._last_projection.project_canvas(lon, lat)
 
     @validate_call
-    def get_element_xy(self, element: str) -> tuple[float, float]:
-        """Return the representative canvas (x, y) coordinate for a named map element.
+    def get_area_xy(self, area: str) -> tuple[float, float]:
+        """Return the representative canvas (x, y) coordinate for a named map area.
 
         Args:
-            element: Element name, ISO code, or Japanese name (e.g. ``"Tokyo"``, ``"Japan"``, ``"Chiyoda"``).
+            area: Area name, ISO code, or Japanese name (e.g. ``"Tokyo"``, ``"Japan"``, ``"Chiyoda"``).
 
         Returns:
-            tuple[float, float]: Canvas coordinate ``(x, y)`` of the element's interior center.
+            tuple[float, float]: Canvas coordinate ``(x, y)`` of the area's interior center.
 
         Raises:
             RuntimeError: If called before ``draw()`` has been executed.
-            ValueError: If ``element`` is not found in the map.
+            ValueError: If ``area`` is not found in the map.
         """
         if self._last_projection is None:
-            raise RuntimeError("GeoMap.draw() must be called before querying element canvas coordinates.")
-        eid = self._resolve_element_id(element)
+            raise RuntimeError("GeoMap.draw() must be called before querying area canvas coordinates.")
+        eid = self._resolve_area_id(area)
         elem = self._data.elements[eid]
         lon, lat = elem.center_lonlat
         return self._last_projection.project_canvas(lon, lat)

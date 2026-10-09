@@ -11,9 +11,13 @@
 
 from __future__ import annotations
 
+import csv
 import hashlib
+import io
 import json
+import re
 import shutil
+import unicodedata
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,6 +43,195 @@ TOKYO_AREA_MAPPING: dict[str, tuple[str, str]] = {
     "Tama": ("tama", "多摩地域"),
     "Toushobu": ("islands", "島嶼部"),
 }
+
+WORLD_SHORT_NAMES: dict[str, str] = {
+    "United States of America": "United States",
+    "People's Republic of China": "China",
+    "Democratic Republic of the Congo": "DR Congo",
+    "Republic of the Congo": "Congo",
+    "Federated States of Micronesia": "Micronesia",
+    "Saint Vincent and the Grenadines": "Saint Vincent",
+    "São Tomé and Príncipe": "Sao Tome and Principe",
+    "Côte d'Ivoire": "Ivory Coast",
+    "Curacao": "Curacao",
+    "Curaçao": "Curacao",
+    "Saint Barthélemy": "Saint Barthelemy",
+    " Åland": "Aland",
+    "Åland": "Aland",
+}
+
+COUNTRY_DEFAULT_RANGES: dict[str, tuple[tuple[float, float], tuple[float, float]]] = {
+    "japan": ((127.0, 146.0), (26.0, 46.0)),
+    "united_states": ((-126.0, -66.0), (24.0, 50.0)),
+    "france": ((-5.5, 10.0), (41.0, 51.5)),
+    "united_kingdom": ((-8.5, 2.2), (49.8, 61.0)),
+    "netherlands": ((3.2, 7.3), (50.7, 53.6)),
+    "spain": ((-9.5, 4.5), (35.8, 44.0)),
+    "portugal": ((-9.6, -6.1), (36.8, 42.2)),
+    "norway": ((4.0, 31.5), (57.8, 71.5)),
+    "denmark": ((8.0, 15.3), (54.5, 58.0)),
+    "russia": ((19.0, 180.0), (41.0, 82.0)),
+    "new_zealand": ((166.0, 179.0), (-47.5, -34.0)),
+    "chile": ((-76.0, -66.0), (-56.0, -17.0)),
+    "ecuador": ((-81.5, -75.0), (-5.2, 1.6)),
+    "australia": ((112.0, 154.5), (-44.0, -10.0)),
+    "south_africa": ((16.0, 33.2), (-35.0, -22.0)),
+    "kiribati": ((172.0, 177.0), (-3.0, 4.0)),
+    "fiji": ((176.8, 180.0), (-21.0, -16.0)),
+}
+
+HK_DISTRICTS_EN: dict[str, str] = {
+    "中西区": "Central and Western",
+    "湾仔区": "Wan Chai",
+    "东区": "Eastern",
+    "南区": "Southern",
+    "油尖旺区": "Yau Tsim Mong",
+    "深水埗区": "Sham Shui Po",
+    "九龙城区": "Kowloon City",
+    "黄大仙区": "Wong Tai Sin",
+    "观塘区": "Kwun Tong",
+    "荃湾区": "Tsuen Wan",
+    "屯门区": "Tuen Mun",
+    "元朗区": "Yuen Long",
+    "北区": "North",
+    "大埔区": "Tai Po",
+    "西贡区": "Sai Kung",
+    "沙田区": "Sha Tin",
+    "葵青区": "Kwai Tsing",
+    "离岛区": "Islands",
+}
+
+SHANGHAI_DISTRICTS_EN: dict[str, str] = {
+    "黄浦区": "Huangpu",
+    "徐汇区": "Xuhui",
+    "长宁区": "Changning",
+    "静安区": "Jing'an",
+    "普陀区": "Putuo",
+    "虹口区": "Hongkou",
+    "杨浦区": "Yangpu",
+    "闵行区": "Minhang",
+    "宝山区": "Baoshan",
+    "嘉定区": "Jiading",
+    "浦东新区": "Pudong",
+    "金山区": "Jinshan",
+    "松江区": "Songjiang",
+    "青浦区": "Qingpu",
+    "奉贤区": "Fengxian",
+    "崇明区": "Chongming",
+}
+
+TAIPEI_DISTRICTS_EN: dict[str, str] = {
+    "松山區": "Songshan",
+    "信義區": "Xinyi",
+    "大安區": "Da'an",
+    "中山區": "Zhongshan",
+    "中正區": "Zhongzheng",
+    "大同區": "Datong",
+    "萬華區": "Wanhua",
+    "文山區": "Wenshan",
+    "南港區": "Nangang",
+    "內湖區": "Neihu",
+    "士林區": "Shilin",
+    "北投區": "Beitou",
+}
+
+
+def _to_ascii(text: str) -> str:
+    """Strip diacritics and convert text to plain ASCII."""
+    norm = unicodedata.normalize("NFKD", text)
+    return "".join(c for c in norm if not unicodedata.combining(c))
+
+
+def to_pascal_identifier(name: str) -> str:
+    """Convert an English country/region name into a valid PascalCase Python identifier."""
+    ascii_str = _to_ascii(name).replace("&", " And ")
+    words = re.findall(r"[A-Za-z0-9]+", ascii_str)
+    ident = "".join(w[0].upper() + w[1:] for w in words if w)
+    return f"_{ident}" if ident and ident[0].isdigit() else (ident or "Unknown")
+
+
+def to_snake_slug(name: str) -> str:
+    """Convert an English country/region name into a lowercase snake_case filename slug."""
+    ascii_str = _to_ascii(name).replace("&", " and ")
+    words = re.findall(r"[A-Za-z0-9]+", ascii_str.lower())
+    return "_".join(words) or "unknown"
+
+
+# Hiragana -> Hepburn Romaji conversion for Japanese municipalities
+_KANA_DIGRAPHS: dict[str, str] = {
+    "きゃ": "kya", "きゅ": "kyu", "きょ": "kyo",
+    "しゃ": "sha", "しゅ": "shu", "しょ": "sho",
+    "ちゃ": "cha", "ちゅ": "chu", "ちょ": "cho",
+    "にゃ": "nya", "にゅ": "nyu", "にょ": "nyo",
+    "ひゃ": "hya", "ひゅ": "hyu", "ひょ": "hyo",
+    "みゃ": "mya", "みゅ": "myu", "みょ": "myo",
+    "りゃ": "rya", "りゅ": "ryu", "りょ": "ryo",
+    "ぎゃ": "gya", "ぎゅ": "gyu", "ぎょ": "gyo",
+    "じゃ": "ja", "じゅ": "ju", "じょ": "jo",
+    "びゃ": "bya", "びゅ": "byu", "びょ": "byo",
+    "ぴゃ": "pya", "ぴゅ": "pyu", "ぴょ": "pyo",
+}
+
+_KANA_MONOGRAPHS: dict[str, str] = {
+    "あ": "a", "い": "i", "う": "u", "え": "e", "お": "o",
+    "か": "ka", "き": "ki", "く": "ku", "け": "ke", "こ": "ko",
+    "さ": "sa", "し": "shi", "す": "su", "せ": "se", "そ": "so",
+    "た": "ta", "ち": "chi", "つ": "tsu", "て": "te", "と": "to",
+    "な": "na", "に": "ni", "ぬ": "nu", "ね": "ne", "の": "no",
+    "は": "ha", "ひ": "hi", "ふ": "fu", "へ": "he", "ほ": "ho",
+    "ま": "ma", "み": "mi", "む": "mu", "め": "me", "も": "mo",
+    "や": "ya", "ゆ": "yu", "よ": "yo",
+    "ら": "ra", "り": "ri", "る": "ru", "れ": "re", "ろ": "ro",
+    "わ": "wa", "ゐ": "i", "ゑ": "e", "を": "o", "ん": "n",
+    "が": "ga", "ぎ": "gi", "ぐ": "gu", "げ": "ge", "ご": "go",
+    "ざ": "za", "じ": "ji", "ず": "zu", "ぜ": "ze", "ぞ": "zo",
+    "だ": "da", "ぢ": "ji", "づ": "zu", "で": "de", "ど": "do",
+    "ば": "ba", "び": "bi", "ぶ": "bu", "べ": "be", "ぼ": "bo",
+    "ぱ": "pa", "ぴ": "pi", "ぷ": "pu", "ぺ": "pe", "ぽ": "po",
+    "ぁ": "a", "ぃ": "i", "ぅ": "u", "ぇ": "e", "ぉ": "o",
+    "ー": "",
+}
+
+
+def _kana_to_romaji(kana: str) -> str:
+    """Convert hiragana string into Hepburn romaji (compressing long o/u vowels)."""
+    out: list[str] = []
+    i = 0
+    n = len(kana)
+    while i < n:
+        if kana[i] == "っ":
+            if i + 1 < n:
+                nxt = _KANA_DIGRAPHS.get(kana[i + 1 : i + 3]) or _KANA_MONOGRAPHS.get(kana[i + 1], "")
+                if nxt:
+                    out.append("t" if nxt.startswith("ch") else nxt[0])
+            i += 1
+            continue
+        if i + 1 < n and kana[i : i + 2] in _KANA_DIGRAPHS:
+            rom = _KANA_DIGRAPHS[kana[i : i + 2]]
+            i += 2
+        else:
+            rom = _KANA_MONOGRAPHS.get(kana[i], kana[i])
+            i += 1
+        out.append(rom)
+
+    joined = "".join(out)
+    # Standardize long vowels in Japanese place names (e.g. kyouto -> kyoto, oosaka -> osaka, chuou -> chuo)
+    joined = re.sub(r"ou", "o", joined)
+    joined = re.sub(r"oo", "o", joined)
+    joined = re.sub(r"uu", "u", joined)
+    return joined.capitalize()
+
+
+def _load_localgov_kana_map(csv_path: Path) -> dict[str, tuple[str, str]]:
+    """Load JIS 5-digit municipality code -> (kanji_name, kana_name) from localgovjp-utf8.csv."""
+    raw = csv_path.read_text(encoding="utf-8-sig")
+    reader = csv.DictReader(io.StringIO(raw))
+    mapping: dict[str, tuple[str, str]] = {}
+    for row in reader:
+        lgcode = (row.get("lgcode") or "").strip()
+        if len(lgcode) >= 5:
+            mapping[lgcode[:5]] = ((row.get("city") or "").strip(), (row.get("citykana") or "").strip())
+    return mapping
 
 
 def _rdp(points: list[Point2D], epsilon: float) -> list[Point2D]:
@@ -113,7 +306,6 @@ def _ring_interior_center(ring: Ring2D, decimals: int = 4) -> list[float]:
     cx /= 6.0 * signed_a
     cy /= 6.0 * signed_a
 
-    # Intersect horizontal scanline y = cy to ensure point lies strictly inside land
     xs_int: list[float] = []
     for i in range(len(ring) - 1):
         x1, y1 = ring[i]
@@ -310,16 +502,24 @@ def _strip_en_suffix(name_en: str) -> str:
     """Strip administrative suffix (To, Fu, Ken, Ku, Shi, Machi, Mura) from English name."""
     if name_en.strip().lower() == "hokkai do":
         return "Hokkaido"
-    for suffix in (" To", " Fu", " Ken", " Ku", " Shi", " Machi", " Mura", "-to", "-fu", "-ken"):
+    for suffix in (
+        " To",
+        " Fu",
+        " Ken",
+        " Ku",
+        " Shi",
+        " Machi",
+        " Mura",
+        "-to",
+        "-fu",
+        "-ken",
+        "-ku",
+        "-shi",
+        "-gu",
+    ):
         if name_en.endswith(suffix):
             return name_en[: -len(suffix)].strip()
     return name_en.strip()
-
-
-WORLD_SHORT_NAMES: dict[str, str] = {
-    "United States of America": "United States",
-    "People's Republic of China": "China",
-}
 
 
 def normalize_world_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
@@ -387,7 +587,7 @@ def normalize_world_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
 
 
 def normalize_japan_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
-    """Normalize Japan 47 prefectures into clean japan.geojson."""
+    """Normalize Japan 47 prefectures into clean countries/japan.geojson."""
     raw_features = sorted(
         raw_data.get("features", []),
         key=lambda f: int((f.get("properties") or {}).get("id", 99)),
@@ -437,8 +637,58 @@ def normalize_japan_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
     return {"type": "FeatureCollection", "features": out_features}
 
 
+def normalize_country_admin1_geojson(raw_features: list[dict[str, Any]]) -> dict[str, Any]:
+    """Normalize a single country's Admin-1 state/province features into a clean FeatureCollection."""
+    simplified_geoms = _topological_simplify_features(
+        raw_features,
+        epsilon=0.008,
+        decimals=4,
+        min_island_area=0.0002,
+    )
+
+    out_features: list[dict[str, Any]] = []
+    seen_names: set[str] = set()
+    for idx, (raw_f, polys) in enumerate(zip(raw_features, simplified_geoms, strict=True)):
+        if not polys:
+            continue
+        p = raw_f.get("properties") or {}
+        raw_name = str(p.get("name_en") or p.get("name") or p.get("gn_name") or f"Area_{idx + 1}").strip()
+        name_en = _to_ascii(raw_name) if raw_name else f"Area_{idx + 1}"
+        if not name_en:
+            name_en = raw_name
+        if name_en in seen_names:
+            iso_suffix = str(p.get("iso_3166_2") or p.get("postal") or (idx + 1))
+            name_en = f"{name_en} ({iso_suffix})"
+        seen_names.add(name_en)
+
+        name_ja = str(p.get("name_ja") or raw_name).strip()
+        iso_code = str(p.get("iso_3166_2") or p.get("adm1_code") or "").strip()
+
+        main_ring = _largest_exterior_ring(polys)
+        center_lonlat = _ring_interior_center(main_ring, decimals=4)
+
+        out_features.append(
+            {
+                "type": "Feature",
+                "id": name_en,
+                "properties": {
+                    "id": name_en,
+                    "iso_code": iso_code,
+                    "name": name_en,
+                    "name_full": raw_name,
+                    "name_ja": name_ja,
+                    "center_lonlat": center_lonlat,
+                },
+                "geometry": _polygons_to_geojson_geometry(polys),
+            }
+        )
+
+    out_features.sort(key=lambda f: str(f["properties"]["name"]))
+    return {"type": "FeatureCollection", "features": out_features}
+
+
 def normalize_tokyo_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
-    """Normalize Tokyo municipalities into clean tokyo.geojson."""
+    """Normalize Tokyo municipalities into clean cities/japan_tokyo.geojson."""
     valid_features = [
         f
         for f in raw_data.get("features", [])
@@ -496,58 +746,520 @@ def normalize_tokyo_geojson(raw_data: dict[str, Any]) -> dict[str, Any]:
     return {"type": "FeatureCollection", "features": out_features}
 
 
+def _resolve_jp_municipality_romaji(
+    code: str,
+    n3: str,
+    kana_full: str,
+    seen_names: set[str],
+) -> str:
+    """Resolve Hepburn Romaji name for a Japanese municipality from its kana reading."""
+    kana_parts = kana_full.split()
+    if len(kana_parts) >= 2:
+        city_kana, ward_kana = kana_parts[0], kana_parts[-1]
+        for suf in ("し", "ぐん"):
+            if city_kana.endswith(suf):
+                city_kana = city_kana[: -len(suf)]
+        for suf in ("く", "ちょう", "まち", "そん", "むら"):
+            if ward_kana.endswith(suf):
+                ward_kana = ward_kana[: -len(suf)]
+        city_rom = _kana_to_romaji(city_kana)
+        ward_rom = _kana_to_romaji(ward_kana)
+        # For capital city wards (Osaka-shi, Kyoto-shi, Sapporo-shi), use ward name directly unless collision
+        if n3 in {"大阪市", "京都市", "札幌市"} and ward_rom not in seen_names:
+            return ward_rom
+        return f"{city_rom} {ward_rom}" if city_rom != ward_rom else ward_rom
+
+    if kana_parts:
+        m_kana = kana_parts[0]
+        for suf in ("し", "ちょう", "まち", "そん", "むら", "く"):
+            if m_kana.endswith(suf) and len(m_kana) > len(suf):
+                m_kana = m_kana[: -len(suf)]
+                break
+        return _kana_to_romaji(m_kana)
+
+    return code
+
+
+def normalize_jp_prefecture_municipalities(
+    raw_data: dict[str, Any],
+    localgov_map: dict[str, tuple[str, str]],
+) -> dict[str, Any]:
+    """Normalize MLIT N03 municipality GeoJSON (e.g. Kyoto, Osaka, Okinawa, Hokkaido)."""
+    grouped_polys: dict[str, list[list[list[list[float]]]]] = defaultdict(list)
+    grouped_props: dict[str, dict[str, Any]] = {}
+
+    for feat in raw_data.get("features", []):
+        p = feat.get("properties") or {}
+        code = str(p.get("N03_007") or "").strip()
+        if not code:
+            continue
+        grouped_props.setdefault(code, p)
+        grouped_polys[code].extend(_extract_raw_polygons(feat.get("geometry") or {}))
+
+    merged_features: list[dict[str, Any]] = [
+        {
+            "type": "Feature",
+            "properties": grouped_props[code],
+            "geometry": {"type": "MultiPolygon", "coordinates": grouped_polys[code]},
+        }
+        for code in sorted(grouped_polys.keys())
+    ]
+
+    simplified_geoms = _topological_simplify_features(
+        merged_features,
+        epsilon=0.0005,
+        decimals=4,
+        min_island_area=0.000005,
+    )
+
+    out_features: list[dict[str, Any]] = []
+    seen_names: set[str] = set()
+    for feat, polys in zip(merged_features, simplified_geoms, strict=True):
+        if not polys:
+            continue
+        p = feat["properties"]
+        code = str(p["N03_007"]).strip()
+        n3 = str(p.get("N03_003") or "").strip()
+        n4 = str(p.get("N03_004") or "").strip()
+        full_ja = f"{n3}{n4}" if n3.endswith("市") else n4
+
+        _, kana_full = localgov_map.get(code, (full_ja, ""))
+        name_en = _resolve_jp_municipality_romaji(code, n3, kana_full, seen_names)
+        if name_en in seen_names:
+            name_en = f"{name_en} ({code})"
+        seen_names.add(name_en)
+
+        main_ring = _largest_exterior_ring(polys)
+        center_lonlat = _ring_interior_center(main_ring, decimals=4)
+
+        out_features.append(
+            {
+                "type": "Feature",
+                "id": name_en,
+                "properties": {
+                    "id": name_en,
+                    "code": int(code),
+                    "name": name_en,
+                    "name_full": full_ja,
+                    "name_ja": full_ja,
+                    "name_short_ja": _strip_jp_suffix(n4),
+                    "center_lonlat": center_lonlat,
+                },
+                "geometry": _polygons_to_geojson_geometry(polys),
+            }
+        )
+
+    return {"type": "FeatureCollection", "features": out_features}
+
+
+def _decode_topojson_to_geojson(topo: dict[str, Any], obj_name: str, filter_fn: Any) -> dict[str, Any]:
+    """Decode a TopoJSON object into a standard GeoJSON FeatureCollection."""
+    tf = topo.get("transform") or {}
+    scale = tf.get("scale", [1.0, 1.0])
+    translate = tf.get("translate", [0.0, 0.0])
+    raw_arcs = topo.get("arcs", [])
+
+    decoded_arcs: list[list[list[float]]] = []
+    for arc in raw_arcs:
+        x, y = 0, 0
+        pts: list[list[float]] = []
+        for dx, dy in arc:
+            x += dx
+            y += dy
+            pts.append([x * scale[0] + translate[0], y * scale[1] + translate[1]])
+        decoded_arcs.append(pts)
+
+    def decode_ring(arc_indices: list[int]) -> list[list[float]]:
+        ring: list[list[float]] = []
+        for idx in arc_indices:
+            seg = decoded_arcs[idx] if idx >= 0 else list(reversed(decoded_arcs[~idx]))
+            ring.extend(seg[1:] if ring else seg)
+        return ring
+
+    geoms = ((topo.get("objects") or {}).get(obj_name) or {}).get("geometries", [])
+    features: list[dict[str, Any]] = []
+    for g in geoms:
+        props = g.get("properties") or {}
+        if not filter_fn(props):
+            continue
+        g_type = g.get("type")
+        arcs = g.get("arcs", [])
+        if g_type == "Polygon":
+            coords = [decode_ring(r) for r in arcs]
+            geom = {"type": "Polygon", "coordinates": coords}
+        elif g_type == "MultiPolygon":
+            coords = [[decode_ring(r) for r in poly] for poly in arcs]
+            geom = {"type": "MultiPolygon", "coordinates": coords}
+        else:
+            continue
+        features.append({"type": "Feature", "properties": props, "geometry": geom})
+
+    return {"type": "FeatureCollection", "features": features}
+
+
+def normalize_generic_city_geojson(
+    raw_data: dict[str, Any],
+    *,
+    name_key: str = "name",
+    ja_key: str | None = None,
+    en_map: dict[str, str] | None = None,
+    strip_prefix: str | None = None,
+    epsilon: float = 0.0005,
+    decimals: int = 4,
+) -> dict[str, Any]:
+    """Normalize a city GeoJSON dataset into standard drawlib format."""
+    raw_features = raw_data.get("features", [])
+    simplified_geoms = _topological_simplify_features(
+        raw_features,
+        epsilon=epsilon,
+        decimals=decimals,
+        min_island_area=0.000005,
+    )
+
+    out_features: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for idx, (raw_f, polys) in enumerate(zip(raw_features, simplified_geoms, strict=True)):
+        if not polys:
+            continue
+        p = raw_f.get("properties") or {}
+        raw_name = str(p.get(name_key) or p.get("name") or f"Area_{idx + 1}").strip()
+        if en_map and raw_name in en_map:
+            name_en = en_map[raw_name]
+            name_ja = raw_name
+        else:
+            name_en = _strip_en_suffix(raw_name)
+            if strip_prefix and name_en.startswith(strip_prefix):
+                name_en = name_en[len(strip_prefix) :].strip()
+            if name_en.isupper() and len(name_en) > 3:
+                name_en = name_en.title()
+            name_ja = str(p.get(ja_key) or raw_name).strip() if ja_key else raw_name
+
+        if name_en in seen_ids:
+            name_en = f"{name_en} ({idx + 1})"
+        seen_ids.add(name_en)
+
+        main_ring = _largest_exterior_ring(polys)
+        center_lonlat = _ring_interior_center(main_ring, decimals=decimals)
+
+        out_features.append(
+            {
+                "type": "Feature",
+                "id": name_en,
+                "properties": {
+                    "id": name_en,
+                    "name": name_en,
+                    "name_full": raw_name,
+                    "name_ja": name_ja,
+                    "center_lonlat": center_lonlat,
+                },
+                "geometry": _polygons_to_geojson_geometry(polys),
+            }
+        )
+
+    return {"type": "FeatureCollection", "features": out_features}
+
+
+def _write_geojson(
+    norm_obj: dict[str, Any],
+    rel_path: str,
+    dest_dir: Path,
+    cache_dir: Path | None,
+    files_meta: dict[str, Any],
+    *,
+    category: str,
+    enum_name: str,
+    default_lon_range: tuple[float, float] | None = None,
+    default_lat_range: tuple[float, float] | None = None,
+) -> None:
+    """Serialize normalized GeoJSON and record entry in files_meta."""
+    compact_text = json.dumps(norm_obj, ensure_ascii=False, separators=(",", ":")) + "\n"
+    out_bytes = compact_text.encode("utf-8")
+
+    target_path = dest_dir / rel_path
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.write_bytes(out_bytes)
+
+    if cache_dir is not None and cache_dir.resolve() != dest_dir.resolve():
+        c_path = cache_dir / rel_path
+        c_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(target_path, c_path)
+
+    sha256 = hashlib.sha256(out_bytes).hexdigest()
+    features_count = len(norm_obj.get("features", []))
+    files_meta[rel_path] = {
+        "category": category,
+        "enum_name": enum_name,
+        "features_count": features_count,
+        "size_bytes": len(out_bytes),
+        "sha256": sha256,
+        "default_lon_range": list(default_lon_range) if default_lon_range else None,
+        "default_lat_range": list(default_lat_range) if default_lat_range else None,
+    }
+
+
+def _normalize_all_countries(
+    src_dir: Path,
+    dest_dir: Path,
+    cache_dir: Path | None,
+    w50_raw: dict[str, Any],
+    files_meta: dict[str, Any],
+) -> None:
+    """Normalize Japan and all Natural Earth 10m Admin-1 country maps."""
+    print("[*] Normalizing Countries (Japan + Natural Earth 10m Admin-1) ...")
+    jp_raw = json.loads((src_dir / "japan.geojson").read_text(encoding="utf-8"))
+    jp_norm = normalize_japan_geojson(jp_raw)
+    _write_geojson(
+        jp_norm,
+        "countries/japan.geojson",
+        dest_dir,
+        cache_dir,
+        files_meta,
+        category="countries",
+        enum_name="Japan",
+        default_lon_range=COUNTRY_DEFAULT_RANGES["japan"][0],
+        default_lat_range=COUNTRY_DEFAULT_RANGES["japan"][1],
+    )
+
+    admin1_raw = json.loads((src_dir / "ne_10m_admin_1_states_provinces.geojson").read_text(encoding="utf-8"))
+    admin1_by_a3: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for feat in admin1_raw.get("features", []):
+        a3 = str((feat.get("properties") or {}).get("adm0_a3") or "")
+        if a3:
+            admin1_by_a3[a3].append(feat)
+
+    seen_country_enums: set[str] = {"Japan"}
+    for w_feat in w50_raw.get("features", []):
+        wp = w_feat.get("properties") or {}
+        a3 = str(wp.get("ADM0_A3") or wp.get("GU_A3") or "")
+        if not a3 or a3 in {"JPN", "ATA"}:
+            continue
+        ftype = str(wp.get("TYPE") or "")
+        pop = float(wp.get("POP_EST") or 0)
+        if ftype not in {"Sovereign country", "Country", "Sovereignty"} and pop < 100000:
+            continue
+
+        raw_c_name = str(wp.get("NAME_EN") or wp.get("NAME") or wp.get("ADMIN") or a3)
+        c_name = WORLD_SHORT_NAMES.get(raw_c_name, raw_c_name)
+        enum_name = to_pascal_identifier(c_name)
+        if enum_name in seen_country_enums:
+            continue
+        seen_country_enums.add(enum_name)
+
+        slug = to_snake_slug(c_name)
+        a1_feats = admin1_by_a3.get(a3) or [w_feat]
+        c_norm = normalize_country_admin1_geojson(a1_feats)
+        if not c_norm.get("features"):
+            c_norm = normalize_country_admin1_geojson([w_feat])
+
+        def_ranges = COUNTRY_DEFAULT_RANGES.get(slug)
+        _write_geojson(
+            c_norm,
+            f"countries/{slug}.geojson",
+            dest_dir,
+            cache_dir,
+            files_meta,
+            category="countries",
+            enum_name=enum_name,
+            default_lon_range=def_ranges[0] if def_ranges else None,
+            default_lat_range=def_ranges[1] if def_ranges else None,
+        )
+
+
+def _normalize_all_cities(
+    src_dir: Path,
+    dest_dir: Path,
+    cache_dir: Path | None,
+    files_meta: dict[str, Any],
+) -> None:
+    """Normalize all 16 flagship global city maps and custom GeoJSON sample files."""
+    print("[*] Normalizing 16 flagship Cities ...")
+    localgov_map = _load_localgov_kana_map(src_dir / "localgovjp-utf8.csv")
+
+    tokyo_raw = json.loads((src_dir / "tokyo.geojson").read_text(encoding="utf-8"))
+    _write_geojson(
+        normalize_tokyo_geojson(tokyo_raw),
+        "cities/japan_tokyo.geojson",
+        dest_dir,
+        cache_dir,
+        files_meta,
+        category="cities",
+        enum_name="Japan_Tokyo",
+        default_lon_range=(138.9, 139.95),
+        default_lat_range=(35.5, 35.92),
+    )
+
+    for enum_name, slug, src_file in [
+        ("Japan_Osaka", "japan_osaka", "jp_osaka.json"),
+        ("Japan_Kyoto", "japan_kyoto", "jp_kyoto.json"),
+    ]:
+        raw_jp_city = json.loads((src_dir / src_file).read_text(encoding="utf-8"))
+        _write_geojson(
+            normalize_jp_prefecture_municipalities(raw_jp_city, localgov_map),
+            f"cities/{slug}.geojson",
+            dest_dir,
+            cache_dir,
+            files_meta,
+            category="cities",
+            enum_name=enum_name,
+        )
+
+    project_root = Path(__file__).resolve().parents[3]
+    docs_assets_dir = project_root / "docs" / "docs_src" / "_assets"
+    if docs_assets_dir.is_dir():
+        docs_geodata_dir = docs_assets_dir / "geodata"
+        docs_geodata_dir.mkdir(parents=True, exist_ok=True)
+        for sample_name, sample_src in [
+            ("okinawa.geojson", "jp_okinawa.json"),
+            ("hokkaido.geojson", "jp_hokkaido.json"),
+        ]:
+            sample_raw = json.loads((src_dir / sample_src).read_text(encoding="utf-8"))
+            sample_norm = normalize_jp_prefecture_municipalities(sample_raw, localgov_map)
+            (docs_geodata_dir / sample_name).write_text(
+                json.dumps(sample_norm, ensure_ascii=False, separators=(",", ":")) + "\n",
+                encoding="utf-8",
+            )
+
+    city_configs: list[tuple[str, str, str, dict[str, Any], tuple[float, float] | None, tuple[float, float] | None]] = [
+        ("UnitedStates_NewYork", "united_states_new_york", "us_new_york.geojson", {"name_key": "name"}, None, None),
+        (
+            "UnitedStates_SanFrancisco",
+            "united_states_san_francisco",
+            "us_san_francisco.geojson",
+            {"name_key": "name"},
+            (-122.53, -122.35),
+            (37.70, 37.84),
+        ),
+        (
+            "UnitedStates_LosAngeles",
+            "united_states_los_angeles",
+            "us_los_angeles.geojson",
+            {"name_key": "name"},
+            None,
+            None,
+        ),
+        ("UnitedKingdom_London", "united_kingdom_london", "uk_london.geojson", {"name_key": "name"}, None, None),
+        ("France_Paris", "france_paris", "fr_paris.geojson", {"name_key": "name"}, None, None),
+        ("Germany_Berlin", "germany_berlin", "de_berlin.geojson", {"name_key": "name"}, None, None),
+        ("Italy_Rome", "italy_rome", "it_rome.geojson", {"name_key": "name"}, None, None),
+        (
+            "SouthKorea_Seoul",
+            "south_korea_seoul",
+            "kr_seoul.json",
+            {"name_key": "name_eng", "ja_key": "name"},
+            None,
+            None,
+        ),
+        ("Singapore_Singapore", "singapore_singapore", "sg_singapore.geojson", {"name_key": "name"}, None, None),
+        (
+            "China_HongKong",
+            "china_hong_kong",
+            "cn_hong_kong.json",
+            {"name_key": "name", "en_map": HK_DISTRICTS_EN},
+            None,
+            None,
+        ),
+        (
+            "China_Shanghai",
+            "china_shanghai",
+            "cn_shanghai.json",
+            {"name_key": "name", "en_map": SHANGHAI_DISTRICTS_EN},
+            None,
+            None,
+        ),
+    ]
+
+    for enum_name, slug, src_file, kwargs, lon_r, lat_r in city_configs:
+        raw_c = json.loads((src_dir / src_file).read_text(encoding="utf-8"))
+        norm_c = normalize_generic_city_geojson(raw_c, **kwargs)
+        _write_geojson(
+            norm_c,
+            f"cities/{slug}.geojson",
+            dest_dir,
+            cache_dir,
+            files_meta,
+            category="cities",
+            enum_name=enum_name,
+            default_lon_range=lon_r,
+            default_lat_range=lat_r,
+        )
+
+    tw_raw = json.loads((src_dir / "tw_towns.geo.json").read_text(encoding="utf-8"))
+    taipei_feats = [
+        f
+        for f in tw_raw.get("features", [])
+        if (f.get("properties") or {}).get("COUNTYNAME") in {"台北市", "臺北市"}
+    ]
+    taipei_norm = normalize_generic_city_geojson(
+        {"type": "FeatureCollection", "features": taipei_feats},
+        name_key="TOWNNAME",
+        en_map=TAIPEI_DISTRICTS_EN,
+    )
+    _write_geojson(
+        taipei_norm,
+        "cities/taiwan_taipei.geojson",
+        dest_dir,
+        cache_dir,
+        files_meta,
+        category="cities",
+        enum_name="Taiwan_Taipei",
+    )
+
+    au_topo = json.loads((src_dir / "au_sa4.topo.json").read_text(encoding="utf-8"))
+    sydney_raw = _decode_topojson_to_geojson(
+        au_topo,
+        "ABS_SA4_2011",
+        lambda p: p.get("GCC_NAME11") == "Greater Sydney",
+    )
+    sydney_norm = normalize_generic_city_geojson(
+        sydney_raw,
+        name_key="SA4_NAME11",
+        strip_prefix="Sydney - ",
+    )
+    _write_geojson(
+        sydney_norm,
+        "cities/australia_sydney.geojson",
+        dest_dir,
+        cache_dir,
+        files_meta,
+        category="cities",
+        enum_name="Australia_Sydney",
+    )
+
+
 def normalize_all_maps(
     src_dir: Path,
     dest_dir: Path,
     cache_dir: Path | None = None,
 ) -> dict[str, Any]:
-    """Normalize raw map datasets from src_dir and write clean GeoJSONs to dest_dir (and cache_dir).
-
-    Args:
-        src_dir: Source directory containing raw GeoJSONs (tools/original_assets/maps).
-        dest_dir: Primary destination directory for normalized GeoJSONs.
-        cache_dir: Optional secondary directory (e.g. src/drawlib/_cached_assets/maps) to sync.
-
-    Returns:
-        Manifest dictionary summarizing normalized map files.
-    """
+    """Normalize all raw map datasets from src_dir into dest_dir (and cache_dir)."""
     dest_dir.mkdir(parents=True, exist_ok=True)
     if cache_dir is not None:
         cache_dir.mkdir(parents=True, exist_ok=True)
 
-    tasks = [
-        ("world.geojson", "ne_50m_admin_0_countries.geojson", normalize_world_geojson),
-        ("japan.geojson", "japan.geojson", normalize_japan_geojson),
-        ("tokyo.geojson", "tokyo.geojson", normalize_tokyo_geojson),
-    ]
+    for legacy in ("world.geojson", "japan.geojson", "tokyo.geojson"):
+        for d in (dest_dir, cache_dir):
+            if d is not None and (d / legacy).is_file():
+                (d / legacy).unlink()
 
     files_meta: dict[str, Any] = {}
-    for target_name, src_name, normalizer in tasks:
-        src_path = src_dir / src_name
-        if not src_path.exists():
-            raise FileNotFoundError(f"Original map file not found: {src_path}")
 
-        print(f"[*] Normalizing {src_name} -> {target_name} ...")
-        raw_obj = json.loads(src_path.read_text(encoding="utf-8"))
-        norm_obj = normalizer(raw_obj)
+    print("[*] Normalizing world/world.geojson ...")
+    w50_raw = json.loads((src_dir / "ne_50m_admin_0_countries.geojson").read_text(encoding="utf-8"))
+    world_norm = normalize_world_geojson(w50_raw)
+    _write_geojson(
+        world_norm,
+        "world/world.geojson",
+        dest_dir,
+        cache_dir,
+        files_meta,
+        category="world",
+        enum_name="All",
+        default_lon_range=(-180.0, 180.0),
+        default_lat_range=(-60.0, 84.0),
+    )
 
-        compact_text = json.dumps(norm_obj, ensure_ascii=False, separators=(",", ":")) + "\n"
-        out_bytes = compact_text.encode("utf-8")
-
-        target_path = dest_dir / target_name
-        target_path.write_bytes(out_bytes)
-        if cache_dir is not None and cache_dir.resolve() != dest_dir.resolve():
-            shutil.copy2(target_path, cache_dir / target_name)
-
-        sha256 = hashlib.sha256(out_bytes).hexdigest()
-        features_count = len(norm_obj.get("features", []))
-        files_meta[target_name] = {
-            "source_file": src_name,
-            "features_count": features_count,
-            "size_bytes": len(out_bytes),
-            "sha256": sha256,
-        }
-        print(f"    -> Wrote {target_name} ({len(out_bytes):,} bytes, {features_count} features)")
+    _normalize_all_countries(src_dir, dest_dir, cache_dir, w50_raw, files_meta)
+    _normalize_all_cities(src_dir, dest_dir, cache_dir, files_meta)
 
     manifest: dict[str, Any] = {
         "format_version": "1.0",
@@ -562,6 +1274,4 @@ def normalize_all_maps(
         (cache_dir / "manifest.json").write_text(manifest_text, encoding="utf-8")
 
     print(f"[✓] Normalized {len(files_meta)} map files into {dest_dir}")
-    if cache_dir is not None and cache_dir.resolve() != dest_dir.resolve():
-        print(f"[✓] Synced normalized map files into {cache_dir}")
     return manifest

@@ -409,6 +409,7 @@ High-level automated components for business and technical concepts. Every state
 | `BoxList` | Bottom-Left `(x, y)` | Feature callouts, card stacks | `b = BoxList(...); b.add(..., show=True); b.draw(xy, box_width, box_height, scale=1.0)` |
 | `BulletPoints` | Top-Left `(x, y)` | Bulleted technical notes | `b = BulletPoints(...); b.add(..., show=True); b.draw(xy, scale=1.0)` |
 | `SourceCode` | Top-Left `(x, y)` | Highlighted code snippets | `SourceCode.draw(xy, width, code, styles=..., scale=1.0)` |
+| `GeoMap` | Bottom-Left `(x, y)` | World, country, city & GeoJSON maps | `m = GeoMap(GeoMap.World.All); m.set_area_styles([...], style); m.draw(xy, width=...)` |
 
 ```drawlib show-code file:smartarts_chevron.png
 from drawlib.canvas import setup

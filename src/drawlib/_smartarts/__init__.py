@@ -13,7 +13,7 @@ from drawlib._smartarts._boxlist import BoxList, BoxListItem
 from drawlib._smartarts._bulletpoints import BulletPointItem, BulletPoints
 from drawlib._smartarts._chevronprocess import ChevronItem, ChevronProcess
 from drawlib._smartarts._cycle import Cycle, CycleCenter, CycleItem
-from drawlib._smartarts._geomap import Cities, Countries, GeoMap, World
+from drawlib._smartarts._geomap import GeoMap
 from drawlib._smartarts._gridlayout import GridItem, GridLayout
 from drawlib._smartarts._mindmap import MindMapNode
 from drawlib._smartarts._pyramid import Pyramid, PyramidItem
@@ -33,8 +33,6 @@ __all__ = [
     "BulletPoints",
     "ChevronItem",
     "ChevronProcess",
-    "Cities",
-    "Countries",
     "Cycle",
     "CycleCenter",
     "CycleItem",
@@ -48,7 +46,6 @@ __all__ = [
     "SourceCodeStyles",
     "Table",
     "TreeNode",
-    "World",
     "get_source_code_styles",
     "sourcecode",
 ]

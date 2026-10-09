@@ -115,7 +115,7 @@ def cmd_cache_list() -> None:
 def cmd_cache_download(
     all_assets: Annotated[
         bool,
-        typer.Option("--all", help="Download all font and icon packages (default)."),
+        typer.Option("--all", help="Download all font, icon, and map packages (default)."),
     ] = True,
     fonts: Annotated[
         bool,
@@ -125,10 +125,14 @@ def cmd_cache_download(
         bool,
         typer.Option("--icons", help="Download icon packages only."),
     ] = False,
+    maps: Annotated[
+        bool,
+        typer.Option("--maps", help="Download map packages only."),
+    ] = False,
 ) -> None:
-    """Pre-download font and/or icon packages from GitHub Releases."""
+    """Pre-download font, icon, and/or map packages from GitHub Releases."""
     try:
-        download_cache(all_assets=all_assets, fonts=fonts, icons=icons)
+        download_cache(all_assets=all_assets, fonts=fonts, icons=icons, maps=maps)
         print("Successfully downloaded requested cache assets.")
     except Exception as e:
         _handle_cache_error("Cache Error", e)

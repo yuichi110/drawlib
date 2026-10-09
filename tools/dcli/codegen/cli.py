@@ -18,6 +18,7 @@ import typer
 from tools.dcli.codegen.gcp_codegen import generate_gcp_code
 from tools.dcli.codegen.gcp_download import download_and_extract_gcp_icons
 from tools.dcli.codegen.gcp_normalize import normalize_all_gcp_icons
+from tools.dcli.codegen.map_codegen import generate_map_code
 from tools.dcli.codegen.map_download import download_original_maps
 from tools.dcli.codegen.map_normalize import normalize_all_maps
 from tools.dcli.codegen.phosphor import generate_phosphor_code
@@ -125,14 +126,15 @@ def gen_map(
         help="Source directory for raw original GeoJSON files.",
     ),
     dest_dir: str = typer.Option(
-        "src/drawlib/_cached_assets/maps",
+        "tools/release_assets/v0.3/maps",
         "--dest-dir",
-        help="Destination directory for normalized GeoJSON map files.",
+        help="Destination directory for normalized release asset GeoJSON map files.",
     ),
 ) -> None:
-    """Download and normalize preset GeoJSON map assets (world, japan, tokyo)."""
+    """Download, normalize, and generate bindings for preset GeoJSON map assets."""
     src_path = PROJECT_ROOT / src_dir if not Path(src_dir).is_absolute() else Path(src_dir)
     dest_path = PROJECT_ROOT / dest_dir if not Path(dest_dir).is_absolute() else Path(dest_dir)
+    cache_path = PROJECT_ROOT / "src/drawlib/_cached_assets/maps"
 
     should_download = download_only or (not normalize_only and not (src_path / "manifest.json").exists())
     should_normalize = normalize_only or not download_only
@@ -144,8 +146,14 @@ def gen_map(
 
     if should_normalize:
         console.print("[bold cyan]Normalizing GeoJSON map assets...[/bold cyan]")
-        normalize_all_maps(src_dir=src_path, dest_dir=dest_path)
+        normalize_all_maps(src_dir=src_path, dest_dir=dest_path, cache_dir=cache_path)
         console.print("[bold green]✓ GeoJSON map assets normalized successfully![/bold green]")
+
+    if not download_only:
+        manifest_file = dest_path / "manifest.json"
+        console.print("[bold cyan]Generating GeoMap preset Python bindings...[/bold cyan]")
+        generate_map_code(manifest_file=manifest_file)
+        console.print("[bold green]✓ GeoMap preset Python bindings generated successfully![/bold green]")
 
 
 if __name__ == "__main__":

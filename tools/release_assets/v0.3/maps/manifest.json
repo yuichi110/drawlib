@@ -1,0 +1,2216 @@
+{
+  "format_version": "1.0",
+  "provider": "maps",
+  "created_at": "2026-10-09T06:13:37.708389+00:00",
+  "total_files": 232,
+  "files": {
+    "world/world.geojson": {
+      "category": "world",
+      "enum_name": "All",
+      "features_count": 242,
+      "size_bytes": 760407,
+      "sha256": "da623b7003bedc4993ffd0c316958eb567bd9d8a330e11851cc9141b17b9b385",
+      "default_lon_range": [
+        -180.0,
+        180.0
+      ],
+      "default_lat_range": [
+        -60.0,
+        84.0
+      ]
+    },
+    "countries/japan.geojson": {
+      "category": "countries",
+      "enum_name": "Japan",
+      "features_count": 47,
+      "size_bytes": 371964,
+      "sha256": "e81fc1d0165e7e97b699c63fd021fff8ce99213d05cec50ffdd634d9f885fe26",
+      "default_lon_range": [
+        127.0,
+        146.0
+      ],
+      "default_lat_range": [
+        26.0,
+        46.0
+      ]
+    },
+    "countries/zimbabwe.geojson": {
+      "category": "countries",
+      "enum_name": "Zimbabwe",
+      "features_count": 10,
+      "size_bytes": 25940,
+      "sha256": "6424d02db190be1d1c77c5b454232fcd8c45930bc20cae584710a247ed4b2fae",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/zambia.geojson": {
+      "category": "countries",
+      "enum_name": "Zambia",
+      "features_count": 10,
+      "size_bytes": 33070,
+      "sha256": "54f5e7b17bfe9ac2ee6ddfbc1c66860dfe17e3e0ce47855d1608252bb8ac2503",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/yemen.geojson": {
+      "category": "countries",
+      "enum_name": "Yemen",
+      "features_count": 21,
+      "size_bytes": 28058,
+      "sha256": "4b761d1ceafc23379ee77c490bd08427bd342e05a8598c648e91b0d42997514e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/vietnam.geojson": {
+      "category": "countries",
+      "enum_name": "Vietnam",
+      "features_count": 63,
+      "size_bytes": 77529,
+      "sha256": "626a1e00d76f6324b00298c4b126cdc6f4df6676f3ac1fd0a02d3aecd5e702a1",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/venezuela.geojson": {
+      "category": "countries",
+      "enum_name": "Venezuela",
+      "features_count": 26,
+      "size_bytes": 60424,
+      "sha256": "f25cb0d5bd48b36bfd74f4025d1f292f0fe86667068e3110bfdccae5dcc53c0b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/vatican_city.geojson": {
+      "category": "countries",
+      "enum_name": "VaticanCity",
+      "features_count": 1,
+      "size_bytes": 414,
+      "sha256": "fcb782d440256d9a8f21ec227309ce419f9327a3696b3c883217353c14077fd4",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/vanuatu.geojson": {
+      "category": "countries",
+      "enum_name": "Vanuatu",
+      "features_count": 6,
+      "size_bytes": 9418,
+      "sha256": "2aeecee6e71dfb9015418c4a8cffc38b718184cc2ced9d5f2684c9b5e7af2428",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/uzbekistan.geojson": {
+      "category": "countries",
+      "enum_name": "Uzbekistan",
+      "features_count": 14,
+      "size_bytes": 26272,
+      "sha256": "db3fa4bf3b924f523efa6905c5ebf6fe28d5dd60d7f388349937821199230ff6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/uruguay.geojson": {
+      "category": "countries",
+      "enum_name": "Uruguay",
+      "features_count": 19,
+      "size_bytes": 26225,
+      "sha256": "eed360d3d6314a034a0fa7a6232efd84d5e1d1537a97095ea607d980734e58b8",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/micronesia.geojson": {
+      "category": "countries",
+      "enum_name": "Micronesia",
+      "features_count": 4,
+      "size_bytes": 2623,
+      "sha256": "faa490194be57beb06f8eab3a30bdff6d4ded9a5117346596b4c8ebd1a3ebdc0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/marshall_islands.geojson": {
+      "category": "countries",
+      "enum_name": "MarshallIslands",
+      "features_count": 2,
+      "size_bytes": 1777,
+      "sha256": "dd76adf905ef4460f3b9734192d8aeda1a88dcf255dacebbb6f92961c7692ce7",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/united_states_virgin_islands.geojson": {
+      "category": "countries",
+      "enum_name": "UnitedStatesVirginIslands",
+      "features_count": 3,
+      "size_bytes": 1433,
+      "sha256": "94897dcf1084556bdaf0c9e0a1211c8cf196c25e0e5f67aa15f170b208de8c35",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/guam.geojson": {
+      "category": "countries",
+      "enum_name": "Guam",
+      "features_count": 1,
+      "size_bytes": 635,
+      "sha256": "cd16943185ae535fb69143f2af1ab15a645e48a4fb30faac57d7e74976c0d2e4",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/puerto_rico.geojson": {
+      "category": "countries",
+      "enum_name": "PuertoRico",
+      "features_count": 1,
+      "size_bytes": 2534,
+      "sha256": "b08e2bb760ee09aeb5780665c9be44fc70fa94704da1ae8173e6e0d172d8718b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/united_states.geojson": {
+      "category": "countries",
+      "enum_name": "UnitedStates",
+      "features_count": 51,
+      "size_bytes": 362745,
+      "sha256": "816789bbd9c28466ecd5c1633bbf9943e4826eaa1571c10c704d3c9073f2f036",
+      "default_lon_range": [
+        -126.0,
+        -66.0
+      ],
+      "default_lat_range": [
+        24.0,
+        50.0
+      ]
+    },
+    "countries/jersey.geojson": {
+      "category": "countries",
+      "enum_name": "Jersey",
+      "features_count": 1,
+      "size_bytes": 485,
+      "sha256": "ec0ab53bed59ee03263ed44b8f97bc7bf4bb39191f55c74d0ddbd7a608cbb15c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/guernsey.geojson": {
+      "category": "countries",
+      "enum_name": "Guernsey",
+      "features_count": 1,
+      "size_bytes": 577,
+      "sha256": "53a6b8c2b6f8a249b42508a7f29b836b20b3c6c8c67119afeead5ff0609045b7",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/isle_of_man.geojson": {
+      "category": "countries",
+      "enum_name": "IsleOfMan",
+      "features_count": 1,
+      "size_bytes": 831,
+      "sha256": "24b63064f71c2dad9550c4a3857b065b4a1c508b66975be9c1b1a04c5c8c8e24",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/united_kingdom.geojson": {
+      "category": "countries",
+      "enum_name": "UnitedKingdom",
+      "features_count": 232,
+      "size_bytes": 206231,
+      "sha256": "64152986c6f739d76fa8dbac35d4ba4ed41bd8754f42da0160a669238a49e623",
+      "default_lon_range": [
+        -8.5,
+        2.2
+      ],
+      "default_lat_range": [
+        49.8,
+        61.0
+      ]
+    },
+    "countries/united_arab_emirates.geojson": {
+      "category": "countries",
+      "enum_name": "UnitedArabEmirates",
+      "features_count": 9,
+      "size_bytes": 12072,
+      "sha256": "396627c00e3c98a61c6754a76af5aab857da70967e20ad8a4f40610ea49d14fe",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/ukraine.geojson": {
+      "category": "countries",
+      "enum_name": "Ukraine",
+      "features_count": 25,
+      "size_bytes": 83394,
+      "sha256": "bd3619754578b0db5f41915df0566da77bf380e44f2db0db23134e7d4282193a",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/uganda.geojson": {
+      "category": "countries",
+      "enum_name": "Uganda",
+      "features_count": 112,
+      "size_bytes": 73280,
+      "sha256": "7013a6e954c38d81fa6bf497b624bf64398104fc976764b09ca36754b0b679ee",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/turkmenistan.geojson": {
+      "category": "countries",
+      "enum_name": "Turkmenistan",
+      "features_count": 5,
+      "size_bytes": 17039,
+      "sha256": "2534fc70aa2b7e4fedf63bdf907c88cf15cd53e2f32fd8309f52502f290a4dfc",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/turkey.geojson": {
+      "category": "countries",
+      "enum_name": "Turkey",
+      "features_count": 81,
+      "size_bytes": 107989,
+      "sha256": "6097fb908702db5f1d28f28ec84321bbe4bb6d514451beb12ff4cb6f8b0fd041",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/tunisia.geojson": {
+      "category": "countries",
+      "enum_name": "Tunisia",
+      "features_count": 23,
+      "size_bytes": 22988,
+      "sha256": "b3201284215112c8dbf10966a3057fc1a6e8a3b1b7fc3f932ece93d2adec20e1",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/trinidad_and_tobago.geojson": {
+      "category": "countries",
+      "enum_name": "TrinidadAndTobago",
+      "features_count": 16,
+      "size_bytes": 8485,
+      "sha256": "7371980af8035297578321a522bea2e4c7e1b8e8a57e9107feaf51b8f85c0a47",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/tonga.geojson": {
+      "category": "countries",
+      "enum_name": "Tonga",
+      "features_count": 5,
+      "size_bytes": 3327,
+      "sha256": "53f08fbe17b58830a3104a7b15cc7d05eba49ff08a6c45fac31855da74a77a80",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/togo.geojson": {
+      "category": "countries",
+      "enum_name": "Togo",
+      "features_count": 5,
+      "size_bytes": 6298,
+      "sha256": "3324828e87600cc6398b98e6e5566e8f4c499c486a04e587668686724009527d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/east_timor.geojson": {
+      "category": "countries",
+      "enum_name": "EastTimor",
+      "features_count": 13,
+      "size_bytes": 8727,
+      "sha256": "47e8ef8cc3a38d9ff3b9f890154732cc47da9761bcd32eb0e019652770d14962",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/thailand.geojson": {
+      "category": "countries",
+      "enum_name": "Thailand",
+      "features_count": 77,
+      "size_bytes": 112612,
+      "sha256": "774c2a974e73aeb16ba8fd1b51b3bec404685c35b3d2c4e865b6e28c948c5c7e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/tanzania.geojson": {
+      "category": "countries",
+      "enum_name": "Tanzania",
+      "features_count": 30,
+      "size_bytes": 54711,
+      "sha256": "7a3bf40c15293053200c79971f67ee179c31b11fa27d4c1ff7c70e4c1997e1f5",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/tajikistan.geojson": {
+      "category": "countries",
+      "enum_name": "Tajikistan",
+      "features_count": 5,
+      "size_bytes": 15223,
+      "sha256": "afa501a0cf84969e83fa69ff180a724cffb856d1c9dc0eaf0c63b9c056f9936a",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/taiwan.geojson": {
+      "category": "countries",
+      "enum_name": "Taiwan",
+      "features_count": 21,
+      "size_bytes": 18692,
+      "sha256": "c126a9b726a52ebfd766138e22c43243463c4c5348eb41da0a481039ededf7d0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/syria.geojson": {
+      "category": "countries",
+      "enum_name": "Syria",
+      "features_count": 15,
+      "size_bytes": 17064,
+      "sha256": "55c85f9f09620925d0e027ab21d9e6bf695d998eab20a570906540dcedd70e0b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/switzerland.geojson": {
+      "category": "countries",
+      "enum_name": "Switzerland",
+      "features_count": 26,
+      "size_bytes": 27899,
+      "sha256": "e5011de033acceb185058f269685a651590b198f35f91196d594c25c709df9f0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/sweden.geojson": {
+      "category": "countries",
+      "enum_name": "Sweden",
+      "features_count": 21,
+      "size_bytes": 60182,
+      "sha256": "051e1b9403a346e9755c13c2492c45cf46f064c881cb4cf73099fb82c92f74c1",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/eswatini.geojson": {
+      "category": "countries",
+      "enum_name": "Eswatini",
+      "features_count": 4,
+      "size_bytes": 3720,
+      "sha256": "690b1cba9381e2850c8045449622a10ce487a517c1f8a7bd9098eadb625e8c2b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/suriname.geojson": {
+      "category": "countries",
+      "enum_name": "Suriname",
+      "features_count": 10,
+      "size_bytes": 11408,
+      "sha256": "e5e468c713f926209d4b353e2dd65a22f1ee9d5abd282e2150adc1f1d8ff018d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/south_sudan.geojson": {
+      "category": "countries",
+      "enum_name": "SouthSudan",
+      "features_count": 10,
+      "size_bytes": 18192,
+      "sha256": "1a8e8521d226a9d436a90cfc3835b0bc23b313d4de20096389d430bba925210a",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/sudan.geojson": {
+      "category": "countries",
+      "enum_name": "Sudan",
+      "features_count": 17,
+      "size_bytes": 25727,
+      "sha256": "d21fa8e2dc7827814fd5377c2a976660ec15bdbe2f889259353657840d99e112",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/sri_lanka.geojson": {
+      "category": "countries",
+      "enum_name": "SriLanka",
+      "features_count": 25,
+      "size_bytes": 27128,
+      "sha256": "b6059abd342eca30580ba5b55923797338afc515f8129fe6660c097f9da26789",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/spain.geojson": {
+      "category": "countries",
+      "enum_name": "Spain",
+      "features_count": 52,
+      "size_bytes": 100578,
+      "sha256": "b6dd6178950d9b5b080781590130d9b433f29303947e4828efef20d5f614e332",
+      "default_lon_range": [
+        -9.5,
+        4.5
+      ],
+      "default_lat_range": [
+        35.8,
+        44.0
+      ]
+    },
+    "countries/south_korea.geojson": {
+      "category": "countries",
+      "enum_name": "SouthKorea",
+      "features_count": 17,
+      "size_bytes": 38433,
+      "sha256": "f9296efddffc01f121dbfc9cb32a1700f9b3306cf17ea455585688dcf84be260",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/south_africa.geojson": {
+      "category": "countries",
+      "enum_name": "SouthAfrica",
+      "features_count": 9,
+      "size_bytes": 49341,
+      "sha256": "68d13b22a19de5aec5817f80a3fd4fbf00cfe0bf2566a4aafcea10f74d857d44",
+      "default_lon_range": [
+        16.0,
+        33.2
+      ],
+      "default_lat_range": [
+        -35.0,
+        -22.0
+      ]
+    },
+    "countries/somalia.geojson": {
+      "category": "countries",
+      "enum_name": "Somalia",
+      "features_count": 13,
+      "size_bytes": 9569,
+      "sha256": "e5bc245ac114a702e36bc527ffc41dbd723f812f46924cd60169286210585d57",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/somaliland.geojson": {
+      "category": "countries",
+      "enum_name": "Somaliland",
+      "features_count": 1,
+      "size_bytes": 2015,
+      "sha256": "6fc052017e90a46f8bba60d22329fa2e132b9cc0c9d43226c0f5917b7d353660",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/solomon_islands.geojson": {
+      "category": "countries",
+      "enum_name": "SolomonIslands",
+      "features_count": 10,
+      "size_bytes": 18636,
+      "sha256": "9df201797bd942103d1ea308cdad140870b370cfc1cb703ef906da6869b726a0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/slovakia.geojson": {
+      "category": "countries",
+      "enum_name": "Slovakia",
+      "features_count": 8,
+      "size_bytes": 14121,
+      "sha256": "1a0302cb8a64ce8d27b3ee4e6d576fe141754e8f9cec8626a92fd74be98b3897",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/slovenia.geojson": {
+      "category": "countries",
+      "enum_name": "Slovenia",
+      "features_count": 193,
+      "size_bytes": 86931,
+      "sha256": "fba1154705b3c0daf5f86d27998970a7147bfdc5f3767d7ff0824c6ab5826787",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/singapore.geojson": {
+      "category": "countries",
+      "enum_name": "Singapore",
+      "features_count": 5,
+      "size_bytes": 2753,
+      "sha256": "1d2802955ec293406e6cb5b2ab6412482ad530916f43ca44e14affb994111e17",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/sierra_leone.geojson": {
+      "category": "countries",
+      "enum_name": "SierraLeone",
+      "features_count": 4,
+      "size_bytes": 8328,
+      "sha256": "9933fefb6e96d8d57171c50e9784bf41c5e70670e64c727416849ded809f2b03",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/seychelles.geojson": {
+      "category": "countries",
+      "enum_name": "Seychelles",
+      "features_count": 26,
+      "size_bytes": 10227,
+      "sha256": "c1d4810efa702d18f611ef0c49c80315dde4d9ae8be7d5fa9bb1e9756a172968",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/serbia.geojson": {
+      "category": "countries",
+      "enum_name": "Serbia",
+      "features_count": 25,
+      "size_bytes": 34966,
+      "sha256": "cfd60a551c0f4dab636d7540fd3c2c53971e00eee09364b1c3e9e35e9bca9186",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/senegal.geojson": {
+      "category": "countries",
+      "enum_name": "Senegal",
+      "features_count": 14,
+      "size_bytes": 23288,
+      "sha256": "ee0fb39ccbc860646d8530c9746d87864a06d781423cec1011d12a423e527d86",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/saudi_arabia.geojson": {
+      "category": "countries",
+      "enum_name": "SaudiArabia",
+      "features_count": 13,
+      "size_bytes": 38287,
+      "sha256": "e2e143f3170096a844afd78afaf4ad05841fae86d140fbe19772509230b7f4b6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/sao_tome_and_principe.geojson": {
+      "category": "countries",
+      "enum_name": "SaoTomeAndPrincipe",
+      "features_count": 2,
+      "size_bytes": 1053,
+      "sha256": "62c6b1072bbcf2645fbd08f5ef03c83b3dce0dbb23d60e9e598c7b620b93fb40",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/san_marino.geojson": {
+      "category": "countries",
+      "enum_name": "SanMarino",
+      "features_count": 9,
+      "size_bytes": 3313,
+      "sha256": "abfe99ec608f64e0d89f0eb231241b564c3cbb178440c3a73aa8dffc11eb38f4",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/samoa.geojson": {
+      "category": "countries",
+      "enum_name": "Samoa",
+      "features_count": 11,
+      "size_bytes": 5901,
+      "sha256": "6449d36cc0675a612ced75bc539fa3c81b6d0871ae59573996cfa6a496cd934b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/saint_vincent.geojson": {
+      "category": "countries",
+      "enum_name": "SaintVincent",
+      "features_count": 6,
+      "size_bytes": 2842,
+      "sha256": "5033415157ad7b1da88accd51daa7a9a98c5ea98d08804c8489868d49b1319c3",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/saint_lucia.geojson": {
+      "category": "countries",
+      "enum_name": "SaintLucia",
+      "features_count": 11,
+      "size_bytes": 4585,
+      "sha256": "f194f31898ded7424702039400f3d63596590b1a6e019bd2d5f1157886c3ee2e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/saint_kitts_and_nevis.geojson": {
+      "category": "countries",
+      "enum_name": "SaintKittsAndNevis",
+      "features_count": 14,
+      "size_bytes": 6108,
+      "sha256": "912adbe8e6854c1439a11c2edceaadf30798e21db7eb89dad4c2b7824ec53027",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/rwanda.geojson": {
+      "category": "countries",
+      "enum_name": "Rwanda",
+      "features_count": 5,
+      "size_bytes": 5414,
+      "sha256": "cbb1fdd1b2fcc7d4f4149c2d82d5ef26c4588d0fac233392ef77d3f24e126e4f",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/russia.geojson": {
+      "category": "countries",
+      "enum_name": "Russia",
+      "features_count": 86,
+      "size_bytes": 773342,
+      "sha256": "b4d2b65389ff2df70fb4d87b89d4c7a72d0a6ad4a522c807ce3a5a66d65637ea",
+      "default_lon_range": [
+        19.0,
+        180.0
+      ],
+      "default_lat_range": [
+        41.0,
+        82.0
+      ]
+    },
+    "countries/romania.geojson": {
+      "category": "countries",
+      "enum_name": "Romania",
+      "features_count": 42,
+      "size_bytes": 53872,
+      "sha256": "6d9a04464c50a9d665197717437f290766d9ef65bc66de6c86bafd769081bc0f",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/qatar.geojson": {
+      "category": "countries",
+      "enum_name": "Qatar",
+      "features_count": 7,
+      "size_bytes": 5107,
+      "sha256": "8640c318990dee7259215596c86f47f9e32d4b1dcc78bbc1bf786e0ec6ab498a",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/portugal.geojson": {
+      "category": "countries",
+      "enum_name": "Portugal",
+      "features_count": 20,
+      "size_bytes": 29205,
+      "sha256": "cf1866d13c5637c52143a6190f570dafea0f17f1d05dc10c369534365eff2e0b",
+      "default_lon_range": [
+        -9.6,
+        -6.1
+      ],
+      "default_lat_range": [
+        36.8,
+        42.2
+      ]
+    },
+    "countries/poland.geojson": {
+      "category": "countries",
+      "enum_name": "Poland",
+      "features_count": 16,
+      "size_bytes": 35537,
+      "sha256": "1a930e41b689f4270f36c3fdf83ae651f1a16c56c57f2bc9d9b1ed364cdf95ad",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/philippines.geojson": {
+      "category": "countries",
+      "enum_name": "Philippines",
+      "features_count": 118,
+      "size_bytes": 116349,
+      "sha256": "10338759bbb291868491cd6858e68ef1300d9b5615444172ccde3fd6ef44fac6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/peru.geojson": {
+      "category": "countries",
+      "enum_name": "Peru",
+      "features_count": 26,
+      "size_bytes": 62776,
+      "sha256": "12691f6a7d06693dd571458d9f67e0469bd757069c80f30983cdfcb8c8f8a55d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/paraguay.geojson": {
+      "category": "countries",
+      "enum_name": "Paraguay",
+      "features_count": 18,
+      "size_bytes": 28991,
+      "sha256": "105a06d0506a0f3f52c83403b29405515f8fdd4b71fe38f1a5ce4a791802f423",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/papua_new_guinea.geojson": {
+      "category": "countries",
+      "enum_name": "PapuaNewGuinea",
+      "features_count": 20,
+      "size_bytes": 48300,
+      "sha256": "408507f0e985345b7a15af2624c427598d7520327bd1379151d1ebb3bfc3f439",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/panama.geojson": {
+      "category": "countries",
+      "enum_name": "Panama",
+      "features_count": 12,
+      "size_bytes": 24769,
+      "sha256": "10046766938816569e4761b965d2bac8f80a83d4206586684c35efa1f27baa76",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/palau.geojson": {
+      "category": "countries",
+      "enum_name": "Palau",
+      "features_count": 16,
+      "size_bytes": 6289,
+      "sha256": "67e53f0d9a05ebb2df01dd762e013088a9c16233dd2b4a308322440463c8cb6b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/pakistan.geojson": {
+      "category": "countries",
+      "enum_name": "Pakistan",
+      "features_count": 8,
+      "size_bytes": 34912,
+      "sha256": "706b5af0d28f16ae08088ece700d78a6892f7002d819412dc0a5aa4d65916e8c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/oman.geojson": {
+      "category": "countries",
+      "enum_name": "Oman",
+      "features_count": 11,
+      "size_bytes": 11945,
+      "sha256": "548707e9255ce53a0e79996d0f4c2b300fb75b4c9304d1765452288fdf5b7038",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/norway.geojson": {
+      "category": "countries",
+      "enum_name": "Norway",
+      "features_count": 21,
+      "size_bytes": 146882,
+      "sha256": "0081d4a85643c3ff5869e7f5b88e0867243602ee2f458edcbedeef8409fa0d02",
+      "default_lon_range": [
+        4.0,
+        31.5
+      ],
+      "default_lat_range": [
+        57.8,
+        71.5
+      ]
+    },
+    "countries/north_korea.geojson": {
+      "category": "countries",
+      "enum_name": "NorthKorea",
+      "features_count": 11,
+      "size_bytes": 28172,
+      "sha256": "b7990f698283cf81c3d4c76850110d27b1dc6c77f1bf58938b46bf5b9ed52aa0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/nigeria.geojson": {
+      "category": "countries",
+      "enum_name": "Nigeria",
+      "features_count": 37,
+      "size_bytes": 64646,
+      "sha256": "9a604d461b1698b50a0f5ea490dfc49a8f8de4d092b1a63feb036cae0fab65b4",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/niger.geojson": {
+      "category": "countries",
+      "enum_name": "Niger",
+      "features_count": 8,
+      "size_bytes": 12077,
+      "sha256": "432ead1e71e3bb0ec434bd3dc1f58c0667982481ddb8c5207c3cd4f9f74641a4",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/nicaragua.geojson": {
+      "category": "countries",
+      "enum_name": "Nicaragua",
+      "features_count": 17,
+      "size_bytes": 20929,
+      "sha256": "4d154feb81bb27c3f7dc91544adfa995d0fafae54f10608e8353e6edc72fb199",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/new_zealand.geojson": {
+      "category": "countries",
+      "enum_name": "NewZealand",
+      "features_count": 24,
+      "size_bytes": 57730,
+      "sha256": "6ff755498e985b683b30b6b20f3dd96ff04b3225b17e86732f5fdff8f13aa9c3",
+      "default_lon_range": [
+        166.0,
+        179.0
+      ],
+      "default_lat_range": [
+        -47.5,
+        -34.0
+      ]
+    },
+    "countries/netherlands.geojson": {
+      "category": "countries",
+      "enum_name": "Netherlands",
+      "features_count": 15,
+      "size_bytes": 17162,
+      "sha256": "8c79e991c245ba38f3116e2960f7ba3eac73feed7ee2b792f7e2fa7fd03bdd68",
+      "default_lon_range": [
+        3.2,
+        7.3
+      ],
+      "default_lat_range": [
+        50.7,
+        53.6
+      ]
+    },
+    "countries/aruba.geojson": {
+      "category": "countries",
+      "enum_name": "Aruba",
+      "features_count": 1,
+      "size_bytes": 509,
+      "sha256": "c5751a83c8e181741f62ebabc6f7a2bb11da154d9bb3f90841a836e56c6c3fb2",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/curacao.geojson": {
+      "category": "countries",
+      "enum_name": "Curacao",
+      "features_count": 1,
+      "size_bytes": 558,
+      "sha256": "123f854e0c4d8244d152d295092fcabae96f377a09485aa2f1a76f5b7fd00307",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/nepal.geojson": {
+      "category": "countries",
+      "enum_name": "Nepal",
+      "features_count": 14,
+      "size_bytes": 22373,
+      "sha256": "90eda4bef259d3cf7739362b3ac3b34fa2a0803bcea153d7983e7e1e3a48f500",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/nauru.geojson": {
+      "category": "countries",
+      "enum_name": "Nauru",
+      "features_count": 14,
+      "size_bytes": 4634,
+      "sha256": "9c5aef5b582c16648b993206c325b13f5acc21a9b1c8c95c5a38b5108d7fdd89",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/namibia.geojson": {
+      "category": "countries",
+      "enum_name": "Namibia",
+      "features_count": 13,
+      "size_bytes": 26823,
+      "sha256": "06725e2d547f36e457c051858695cd2794be7369a03fabd77828f47a881e877c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/mozambique.geojson": {
+      "category": "countries",
+      "enum_name": "Mozambique",
+      "features_count": 11,
+      "size_bytes": 35167,
+      "sha256": "7f7e67e7553af3810f5f6e77c4ad97c6ed6fa537452f8a008770a9700a39d80f",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/morocco.geojson": {
+      "category": "countries",
+      "enum_name": "Morocco",
+      "features_count": 16,
+      "size_bytes": 29278,
+      "sha256": "2a0e9e3714ae7eb7e10e63e53d14c8caaf4824085fa978cd492a4ad82104f81b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/western_sahara.geojson": {
+      "category": "countries",
+      "enum_name": "WesternSahara",
+      "features_count": 1,
+      "size_bytes": 2063,
+      "sha256": "c192f6e7b238312c91f4827770bdc38088f274e6f25f92eb5d517df3688f6118",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/montenegro.geojson": {
+      "category": "countries",
+      "enum_name": "Montenegro",
+      "features_count": 21,
+      "size_bytes": 12797,
+      "sha256": "f43defc1ea347098b56d3289eacf1342a4587488738729b434102dd795def501",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/mongolia.geojson": {
+      "category": "countries",
+      "enum_name": "Mongolia",
+      "features_count": 22,
+      "size_bytes": 50432,
+      "sha256": "8ab6c3ad15b8fa131476bfa465c0f046a17373d0b7dec5fd1bf3c82dbad13f05",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/moldova.geojson": {
+      "category": "countries",
+      "enum_name": "Moldova",
+      "features_count": 40,
+      "size_bytes": 32615,
+      "sha256": "046b4ccfbff2dfb000e7bdbb1f178039546cea233e96690314bcb393b92e5f14",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/monaco.geojson": {
+      "category": "countries",
+      "enum_name": "Monaco",
+      "features_count": 1,
+      "size_bytes": 376,
+      "sha256": "a1d635dbf9caee6ed63dd840e051d669f571e7dde3b87905bf194922909b35d2",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/mexico.geojson": {
+      "category": "countries",
+      "enum_name": "Mexico",
+      "features_count": 33,
+      "size_bytes": 123897,
+      "sha256": "0f528d6c15ae391a6bc2ec8be256f7dba5368523c5246c2eacda7b64c98cf459",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/mauritius.geojson": {
+      "category": "countries",
+      "enum_name": "Mauritius",
+      "features_count": 16,
+      "size_bytes": 7636,
+      "sha256": "72da06b8281a0e282871ef60a8fcf710d23e5ff3274657ce2e1faa3bf8dfccfe",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/mauritania.geojson": {
+      "category": "countries",
+      "enum_name": "Mauritania",
+      "features_count": 13,
+      "size_bytes": 16253,
+      "sha256": "cafe8486afb336ed9e2193f294633bbcaf25e3e4b8bb207760b723736bbf860b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/malta.geojson": {
+      "category": "countries",
+      "enum_name": "Malta",
+      "features_count": 68,
+      "size_bytes": 23546,
+      "sha256": "b8483e01db0c378a397814219b54029e6d268d129aef255f5a0e70c87de67db5",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/mali.geojson": {
+      "category": "countries",
+      "enum_name": "Mali",
+      "features_count": 9,
+      "size_bytes": 22223,
+      "sha256": "dcd97cfd132c04b5dea1009028eb54e1a223983d55b7b6a13e1f1172397b4a65",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/maldives.geojson": {
+      "category": "countries",
+      "enum_name": "Maldives",
+      "features_count": 21,
+      "size_bytes": 8065,
+      "sha256": "064dd6f1fdf44ecb6836cce479724349ba48b041e372041d52ddd06ac7dfeb19",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/malaysia.geojson": {
+      "category": "countries",
+      "enum_name": "Malaysia",
+      "features_count": 16,
+      "size_bytes": 32173,
+      "sha256": "0213ca17d0ea22e3f0906ef90b4dd0178e51bc49321c02eb362549a7f1d0a6e1",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/malawi.geojson": {
+      "category": "countries",
+      "enum_name": "Malawi",
+      "features_count": 28,
+      "size_bytes": 23928,
+      "sha256": "d2b38dacf5da69dbd0af5f50ab2bfe017df2c6d9145f8d4a251fd66f55b33270",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/madagascar.geojson": {
+      "category": "countries",
+      "enum_name": "Madagascar",
+      "features_count": 22,
+      "size_bytes": 44077,
+      "sha256": "c15106f83643e30165486c85b7c16ed9be5f988db1e4caf23c8588f7817e5097",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/north_macedonia.geojson": {
+      "category": "countries",
+      "enum_name": "NorthMacedonia",
+      "features_count": 84,
+      "size_bytes": 48480,
+      "sha256": "606ba0c8891402b7c4f8796e813bb100484bd08e735683220a2f3cded190cf54",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/luxembourg.geojson": {
+      "category": "countries",
+      "enum_name": "Luxembourg",
+      "features_count": 3,
+      "size_bytes": 2516,
+      "sha256": "2725e8e4fd0c9b2e474772ee74148c70f52c6a09e001f892a4d6528e6196b424",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/lithuania.geojson": {
+      "category": "countries",
+      "enum_name": "Lithuania",
+      "features_count": 10,
+      "size_bytes": 18263,
+      "sha256": "42751bc21a242bfe8cc8b3347c2c79d06db47d6007279695d2791f2f28d4f54b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/liechtenstein.geojson": {
+      "category": "countries",
+      "enum_name": "Liechtenstein",
+      "features_count": 11,
+      "size_bytes": 4317,
+      "sha256": "9ae8be7e47fc55ff5261ee5ca6bffefda10570ebbdc995ddc2dc569ec2afd5f2",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/libya.geojson": {
+      "category": "countries",
+      "enum_name": "Libya",
+      "features_count": 22,
+      "size_bytes": 23636,
+      "sha256": "32ecb070faec9bf26837e21d0e8dfdc2573c0c6a7bd88c59bcc73cc33a823c0e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/liberia.geojson": {
+      "category": "countries",
+      "enum_name": "Liberia",
+      "features_count": 15,
+      "size_bytes": 16817,
+      "sha256": "92bfd7f9bd21e736d127a06d9b46f00e414f518f92221510027448ae38841fc6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/lesotho.geojson": {
+      "category": "countries",
+      "enum_name": "Lesotho",
+      "features_count": 10,
+      "size_bytes": 12068,
+      "sha256": "8742eb194551a19d0647045a0029c1e68ed40f1e2222d30f263cb0dec319f993",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/lebanon.geojson": {
+      "category": "countries",
+      "enum_name": "Lebanon",
+      "features_count": 6,
+      "size_bytes": 5588,
+      "sha256": "06df6e57f7b44e34fb2147508bd7d8660eddd0f67987582467460819aae7e8a9",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/latvia.geojson": {
+      "category": "countries",
+      "enum_name": "Latvia",
+      "features_count": 119,
+      "size_bytes": 84741,
+      "sha256": "2b7fb938ed7b05b67caa2f7aef65f47b6b74f7fe3a2bbd7cc5b7d781385ece8e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/laos.geojson": {
+      "category": "countries",
+      "enum_name": "Laos",
+      "features_count": 17,
+      "size_bytes": 33528,
+      "sha256": "17acb0513679096d9b015d75c3c46d6da735d72b54fa5af38dce668d3f767dab",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/kyrgyzstan.geojson": {
+      "category": "countries",
+      "enum_name": "Kyrgyzstan",
+      "features_count": 8,
+      "size_bytes": 21022,
+      "sha256": "c5d8adf8fe13252500c44bf8c2d15adc9acea2b630290d7987a290bbc25cbfd9",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/kuwait.geojson": {
+      "category": "countries",
+      "enum_name": "Kuwait",
+      "features_count": 6,
+      "size_bytes": 4176,
+      "sha256": "21b98af233f4a8bbb44d5f44d310f635ebd63f14ccd02ebf62d7e00ea6b413b3",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/kosovo.geojson": {
+      "category": "countries",
+      "enum_name": "Kosovo",
+      "features_count": 30,
+      "size_bytes": 18020,
+      "sha256": "92c1e5e51999c011861ef3f1cea127d251b4c462bafd381feb9750636bbd0156",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/kiribati.geojson": {
+      "category": "countries",
+      "enum_name": "Kiribati",
+      "features_count": 2,
+      "size_bytes": 5505,
+      "sha256": "acb228ffbcdc1607229ecd8e2dd369018182e759492f3c7c47aa250bd74537cc",
+      "default_lon_range": [
+        172.0,
+        177.0
+      ],
+      "default_lat_range": [
+        -3.0,
+        4.0
+      ]
+    },
+    "countries/kenya.geojson": {
+      "category": "countries",
+      "enum_name": "Kenya",
+      "features_count": 8,
+      "size_bytes": 20899,
+      "sha256": "544a5fb291c43598bf15f46b8d6ae74298155551ea35d77fec012a257ebfcdbd",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/kazakhstan.geojson": {
+      "category": "countries",
+      "enum_name": "Kazakhstan",
+      "features_count": 16,
+      "size_bytes": 65110,
+      "sha256": "57247b447fac3575aa33a61738774c57a81e6f27a717a7ddf75dcac291d983f5",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/jordan.geojson": {
+      "category": "countries",
+      "enum_name": "Jordan",
+      "features_count": 12,
+      "size_bytes": 9107,
+      "sha256": "c784bb999dbca218a9cf10b3c51ed6274a33ea9d4c73597cc63b2b3ae8ade5ca",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/jamaica.geojson": {
+      "category": "countries",
+      "enum_name": "Jamaica",
+      "features_count": 14,
+      "size_bytes": 8304,
+      "sha256": "08697c5283992878cb9607da1915540bfec6fd14c4cb51e27e0949ce32b44a8c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/italy.geojson": {
+      "category": "countries",
+      "enum_name": "Italy",
+      "features_count": 110,
+      "size_bytes": 131030,
+      "sha256": "f41dd09416a0be2e6a08eb94038832a2a7d02b8b49d6ab4a1d3ee6d3b035ddc6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/israel.geojson": {
+      "category": "countries",
+      "enum_name": "Israel",
+      "features_count": 6,
+      "size_bytes": 5951,
+      "sha256": "b1f0f17dc71ea124262930442c317d5b0d576306ba7ec1243bf595e12a565e0d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/palestine.geojson": {
+      "category": "countries",
+      "enum_name": "Palestine",
+      "features_count": 2,
+      "size_bytes": 1877,
+      "sha256": "ac2b86eb79ebae420f40199d711a579a46806c1b7a8021f4f0e1c6fd2d2a250b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/ireland.geojson": {
+      "category": "countries",
+      "enum_name": "Ireland",
+      "features_count": 34,
+      "size_bytes": 44586,
+      "sha256": "4dc4ad801520c1f1eb947ae524b393fe1b61434334d1b43d9bf3ea58b2d54154",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/iraq.geojson": {
+      "category": "countries",
+      "enum_name": "Iraq",
+      "features_count": 18,
+      "size_bytes": 28894,
+      "sha256": "1681f700fb217a4c3c7c2e9605ffe8512469459d58b90010b8d26dbbfc6e4ee9",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/iran.geojson": {
+      "category": "countries",
+      "enum_name": "Iran",
+      "features_count": 31,
+      "size_bytes": 67075,
+      "sha256": "e2d54135b5742b000f9386e9edde591e5ef60c6612cbd8f13ec4fe42be5da810",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/indonesia.geojson": {
+      "category": "countries",
+      "enum_name": "Indonesia",
+      "features_count": 33,
+      "size_bytes": 175354,
+      "sha256": "6ea024aca4a902368d8e1de8a019948ef7f5bbe67e50e3512e313564563514ad",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/india.geojson": {
+      "category": "countries",
+      "enum_name": "India",
+      "features_count": 36,
+      "size_bytes": 179038,
+      "sha256": "9f7399828cb759a427ed89c0156b249d0d70928e365cf8e931fdabc2e6856f07",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/iceland.geojson": {
+      "category": "countries",
+      "enum_name": "Iceland",
+      "features_count": 9,
+      "size_bytes": 30963,
+      "sha256": "7acb383b27b1c643db6b410066b5f87bd3e25b9a617fa697f82387ddca29c6cf",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/hungary.geojson": {
+      "category": "countries",
+      "enum_name": "Hungary",
+      "features_count": 43,
+      "size_bytes": 41665,
+      "sha256": "6b5a453a5148d36ed95727fcc26f1786ef6f2143866b6387a3a6ba4871e14a62",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/honduras.geojson": {
+      "category": "countries",
+      "enum_name": "Honduras",
+      "features_count": 18,
+      "size_bytes": 25934,
+      "sha256": "7b4537bbca21a1e9269596ce9d0ab5574c915367c5324859260f26a9dbea7b5d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/haiti.geojson": {
+      "category": "countries",
+      "enum_name": "Haiti",
+      "features_count": 10,
+      "size_bytes": 11657,
+      "sha256": "66ed6cdc36289a246d4c49046cc148e1ff6352dfd7853f0020d22f4f41a136c2",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/guyana.geojson": {
+      "category": "countries",
+      "enum_name": "Guyana",
+      "features_count": 10,
+      "size_bytes": 16827,
+      "sha256": "fbfb1c9f71e78bbbaa49a2897e4d4cb90099b604535647e94f72c107c7bf2d5d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/guinea_bissau.geojson": {
+      "category": "countries",
+      "enum_name": "GuineaBissau",
+      "features_count": 9,
+      "size_bytes": 14852,
+      "sha256": "3591cad38670cc1e8afb215102794b94942c2b38d871c80aa6d92acd4ed7cb9e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/guinea.geojson": {
+      "category": "countries",
+      "enum_name": "Guinea",
+      "features_count": 34,
+      "size_bytes": 40327,
+      "sha256": "a5c130091cd879634cfc8e278e604745642928dcdcac7c6d4463de50ee2a7996",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/guatemala.geojson": {
+      "category": "countries",
+      "enum_name": "Guatemala",
+      "features_count": 22,
+      "size_bytes": 23541,
+      "sha256": "81b5cd3ff81c956c41924be6724c5977522aae2289c2a7ed8abefdb7f0392c54",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/grenada.geojson": {
+      "category": "countries",
+      "enum_name": "Grenada",
+      "features_count": 7,
+      "size_bytes": 3001,
+      "sha256": "f30be5b7e74ce95e5994767a9d7b1b98fd284b7f062d9b83b0cc60613e0cded6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/greece.geojson": {
+      "category": "countries",
+      "enum_name": "Greece",
+      "features_count": 14,
+      "size_bytes": 51006,
+      "sha256": "f1fe5a72676f2971cef17b57b25c5ba4bced505d452de8b675386d7a47a61e95",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/ghana.geojson": {
+      "category": "countries",
+      "enum_name": "Ghana",
+      "features_count": 10,
+      "size_bytes": 21277,
+      "sha256": "c1f954276e2e374a81aa005a2afadadc026d0e22089d0069fac2c1418a46370c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/germany.geojson": {
+      "category": "countries",
+      "enum_name": "Germany",
+      "features_count": 16,
+      "size_bytes": 59833,
+      "sha256": "2fbb4e3365bc49f99ca60bff586f539c3e0ce2badc5b8383677b2c29390290d7",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/georgia.geojson": {
+      "category": "countries",
+      "enum_name": "Georgia",
+      "features_count": 12,
+      "size_bytes": 14643,
+      "sha256": "26aea8181659938a1a86cbe791f59e8c54c05bfcf0c4a4ab2720d3f158cf56cc",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/the_gambia.geojson": {
+      "category": "countries",
+      "enum_name": "TheGambia",
+      "features_count": 6,
+      "size_bytes": 4953,
+      "sha256": "93e73237472c7cbe6b5cb1474fc60d17fa70b7581c9213450c3c4bba295229a2",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/gabon.geojson": {
+      "category": "countries",
+      "enum_name": "Gabon",
+      "features_count": 9,
+      "size_bytes": 17846,
+      "sha256": "a98d5ec75c33d8d01d7e44c5d3579d0526b532df4bae1cd8b14421fd0447f347",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/france.geojson": {
+      "category": "countries",
+      "enum_name": "France",
+      "features_count": 101,
+      "size_bytes": 152660,
+      "sha256": "d64febdbbbf0e77cdaf7c4d66c0e382aef6c09a17a897bb2917e248b062a0d07",
+      "default_lon_range": [
+        -5.5,
+        10.0
+      ],
+      "default_lat_range": [
+        41.0,
+        51.5
+      ]
+    },
+    "countries/french_polynesia.geojson": {
+      "category": "countries",
+      "enum_name": "FrenchPolynesia",
+      "features_count": 5,
+      "size_bytes": 10583,
+      "sha256": "0adc74d275221addd11c60143020231380d163b0d1e58200128fe9e90390234f",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/new_caledonia.geojson": {
+      "category": "countries",
+      "enum_name": "NewCaledonia",
+      "features_count": 3,
+      "size_bytes": 8966,
+      "sha256": "21079e6abcb13ba364e40e3e7484a4901146b653d9a560a6d633ad295bb9156c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/aland.geojson": {
+      "category": "countries",
+      "enum_name": "Aland",
+      "features_count": 11,
+      "size_bytes": 5223,
+      "sha256": "cb33e4f19525a063b95774dae45b999abd38f84117e91c2066e43630df52a445",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/finland.geojson": {
+      "category": "countries",
+      "enum_name": "Finland",
+      "features_count": 18,
+      "size_bytes": 59764,
+      "sha256": "3da56ea418541226ed6da1b6069289defe433d822d2047a744ab4cd6068bcd1d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/fiji.geojson": {
+      "category": "countries",
+      "enum_name": "Fiji",
+      "features_count": 5,
+      "size_bytes": 14585,
+      "sha256": "21ffbca3a64beef036bcbfa4fb0e3306f724f2eb1c7a8fed371858fe0126cdc3",
+      "default_lon_range": [
+        176.8,
+        180.0
+      ],
+      "default_lat_range": [
+        -21.0,
+        -16.0
+      ]
+    },
+    "countries/ethiopia.geojson": {
+      "category": "countries",
+      "enum_name": "Ethiopia",
+      "features_count": 11,
+      "size_bytes": 34959,
+      "sha256": "2e6121e47b3f53f0bb4d805fde92e0dd6f92acdc8e7bde936d1359951d73aec5",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/estonia.geojson": {
+      "category": "countries",
+      "enum_name": "Estonia",
+      "features_count": 15,
+      "size_bytes": 20902,
+      "sha256": "351f3c82f368d4dfb7af7eed09ac8259e72e279b525bdb68d93999a405bb6ae6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/eritrea.geojson": {
+      "category": "countries",
+      "enum_name": "Eritrea",
+      "features_count": 6,
+      "size_bytes": 10606,
+      "sha256": "92693a1f594521ff22c4f9e6525d1ccd123745b786779e3b9cc014b8cc1bf985",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/equatorial_guinea.geojson": {
+      "category": "countries",
+      "enum_name": "EquatorialGuinea",
+      "features_count": 7,
+      "size_bytes": 5490,
+      "sha256": "74a1f4b00d13db3cc82bd70d343c06d83464780e0843d46a554581006b3fa2a8",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/el_salvador.geojson": {
+      "category": "countries",
+      "enum_name": "ElSalvador",
+      "features_count": 14,
+      "size_bytes": 12301,
+      "sha256": "12dca0e392f05ea7f2f89633669c90649dc9f5d7b9e91c27a4476b4d028839ad",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/egypt.geojson": {
+      "category": "countries",
+      "enum_name": "Egypt",
+      "features_count": 27,
+      "size_bytes": 33909,
+      "sha256": "d74ff48d2335ec2cf4805392af44747fc53af13df133b56832d074b2336ec6d6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/ecuador.geojson": {
+      "category": "countries",
+      "enum_name": "Ecuador",
+      "features_count": 24,
+      "size_bytes": 39375,
+      "sha256": "452428e5fc8f4e23e02b556de8f336d68f63b74ec63e9678a76ff0a59ad7d83a",
+      "default_lon_range": [
+        -81.5,
+        -75.0
+      ],
+      "default_lat_range": [
+        -5.2,
+        1.6
+      ]
+    },
+    "countries/dominican_republic.geojson": {
+      "category": "countries",
+      "enum_name": "DominicanRepublic",
+      "features_count": 32,
+      "size_bytes": 25991,
+      "sha256": "723c4748117833f247895b48ebde61f720882ac154b14cb2bbae6778685aabc1",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/dominica.geojson": {
+      "category": "countries",
+      "enum_name": "Dominica",
+      "features_count": 10,
+      "size_bytes": 4331,
+      "sha256": "18c903c56f9791223413373d04026ec079785c15706765a130e0c454eb7974e9",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/djibouti.geojson": {
+      "category": "countries",
+      "enum_name": "Djibouti",
+      "features_count": 6,
+      "size_bytes": 3912,
+      "sha256": "7ccac70fa3c3e78c2a2afcd786b1c3974f3590502783a0a48c7d4451265a6b0b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/greenland.geojson": {
+      "category": "countries",
+      "enum_name": "Greenland",
+      "features_count": 6,
+      "size_bytes": 179458,
+      "sha256": "a45c903a06a718557f1317bf72750f4d8391f0a0776242d88de396dd791cad41",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/denmark.geojson": {
+      "category": "countries",
+      "enum_name": "Denmark",
+      "features_count": 5,
+      "size_bytes": 18234,
+      "sha256": "f8842b5cdefe5036357440f0ac4b9c77eee0fcfd465e0981c35417b59f405a5c",
+      "default_lon_range": [
+        8.0,
+        15.3
+      ],
+      "default_lat_range": [
+        54.5,
+        58.0
+      ]
+    },
+    "countries/czech_republic.geojson": {
+      "category": "countries",
+      "enum_name": "CzechRepublic",
+      "features_count": 14,
+      "size_bytes": 22595,
+      "sha256": "659997fced37de9362f9cb2bf6fab93c232aee331b86e47579f8df15df6bd7f5",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/turkish_republic_of_northern_cyprus.geojson": {
+      "category": "countries",
+      "enum_name": "TurkishRepublicOfNorthernCyprus",
+      "features_count": 1,
+      "size_bytes": 1583,
+      "sha256": "0faf2793442e74bcf223c276b3b09e4eb36fc94eaacace6aab0293504ef608e4",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/cyprus.geojson": {
+      "category": "countries",
+      "enum_name": "Cyprus",
+      "features_count": 5,
+      "size_bytes": 4457,
+      "sha256": "f22c8b5aca6035512e26d691ad919ce1630c0f9bf3060d267cc1b6dd64ca46f8",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/cuba.geojson": {
+      "category": "countries",
+      "enum_name": "Cuba",
+      "features_count": 16,
+      "size_bytes": 35663,
+      "sha256": "326b8de0490b4baa29a69e0bdf0d41c85799742b92fa3d989a435b1b5d5aea18",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/croatia.geojson": {
+      "category": "countries",
+      "enum_name": "Croatia",
+      "features_count": 21,
+      "size_bytes": 34293,
+      "sha256": "dbb06ce603a7c5b557279b6e22e1c497f1ede971643e33e4a52e5f7f064cf3af",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/ivory_coast.geojson": {
+      "category": "countries",
+      "enum_name": "IvoryCoast",
+      "features_count": 19,
+      "size_bytes": 37187,
+      "sha256": "abb99f310b5d70deb363fb001bf3f03347499cd7f1d49a3e6fc1401052e78f57",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/costa_rica.geojson": {
+      "category": "countries",
+      "enum_name": "CostaRica",
+      "features_count": 7,
+      "size_bytes": 13489,
+      "sha256": "6f5e2e58c70223b088f3d0adf8dab891409a1d7d8da4ca67f55c1c8c9105b62c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/dr_congo.geojson": {
+      "category": "countries",
+      "enum_name": "DRCongo",
+      "features_count": 11,
+      "size_bytes": 48222,
+      "sha256": "001bdd47465f09ff66cb4e3640c05586b42978167906ebd5295b89dfdc826bc2",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/congo.geojson": {
+      "category": "countries",
+      "enum_name": "Congo",
+      "features_count": 12,
+      "size_bytes": 24577,
+      "sha256": "e41f369d1af0f468ce8c1bd25d18506ef166a8da83255a98c3d5b04148f39242",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/comoros.geojson": {
+      "category": "countries",
+      "enum_name": "Comoros",
+      "features_count": 3,
+      "size_bytes": 1615,
+      "sha256": "60f794866f5cad740321893f5fa3c1180f2886ba4812d5357c3f9d2058627f85",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/colombia.geojson": {
+      "category": "countries",
+      "enum_name": "Colombia",
+      "features_count": 34,
+      "size_bytes": 86724,
+      "sha256": "75e371116d577dfe74ca64309fa32d5e02fa7753dc709e73dc2a2f2db4eb3479",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/china.geojson": {
+      "category": "countries",
+      "enum_name": "China",
+      "features_count": 32,
+      "size_bytes": 294611,
+      "sha256": "b9747aa0786631c856f75474549771896f037596973049d7235958edff476479",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/macau.geojson": {
+      "category": "countries",
+      "enum_name": "Macau",
+      "features_count": 1,
+      "size_bytes": 516,
+      "sha256": "194d8400522aa5d5c1eec8762b199e523633cd5be756d0455a11817cf099509e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/hong_kong.geojson": {
+      "category": "countries",
+      "enum_name": "HongKong",
+      "features_count": 18,
+      "size_bytes": 9045,
+      "sha256": "58436877902708ef7c37d955438b4c5e2c3a7e18d28f8e7b5c81258c65610d3d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/chile.geojson": {
+      "category": "countries",
+      "enum_name": "Chile",
+      "features_count": 16,
+      "size_bytes": 154749,
+      "sha256": "1f6ae3ba124de631c417d49899358b2d85b5b731037ed792f3799edfd76e86e7",
+      "default_lon_range": [
+        -76.0,
+        -66.0
+      ],
+      "default_lat_range": [
+        -56.0,
+        -17.0
+      ]
+    },
+    "countries/chad.geojson": {
+      "category": "countries",
+      "enum_name": "Chad",
+      "features_count": 22,
+      "size_bytes": 30769,
+      "sha256": "68d835a27a7b03899361754395174d3df0e8d4880ff2a27c502f4154f2026c00",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/central_african_republic.geojson": {
+      "category": "countries",
+      "enum_name": "CentralAfricanRepublic",
+      "features_count": 17,
+      "size_bytes": 38305,
+      "sha256": "5f97109203e26a20ebbf1100e2d79054a0f898461a8c27d171ddcd69c411bf6f",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/cape_verde.geojson": {
+      "category": "countries",
+      "enum_name": "CapeVerde",
+      "features_count": 22,
+      "size_bytes": 10901,
+      "sha256": "74f1ae230651fe14c38e0f0f668799adac1b43697a0ab0e3d1343713100732dc",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/canada.geojson": {
+      "category": "countries",
+      "enum_name": "Canada",
+      "features_count": 13,
+      "size_bytes": 609878,
+      "sha256": "f0adbd69fe5920b254f6a16bec8293a73a703c61de40759ad9dfffac709be42e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/cameroon.geojson": {
+      "category": "countries",
+      "enum_name": "Cameroon",
+      "features_count": 10,
+      "size_bytes": 23232,
+      "sha256": "a00f7a90522c8b00a386443667fd60563fec0daff7a501871aee8268814183e0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/cambodia.geojson": {
+      "category": "countries",
+      "enum_name": "Cambodia",
+      "features_count": 24,
+      "size_bytes": 29729,
+      "sha256": "8d102782609dc7579c9208ae9f0fa3ff351886b64ad81652fabe62f8ad342c6c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/myanmar.geojson": {
+      "category": "countries",
+      "enum_name": "Myanmar",
+      "features_count": 14,
+      "size_bytes": 59359,
+      "sha256": "98d8e533aa91d58d27c1fbde88fac95323ef451ad020a76a07840bab6fd238ce",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/burundi.geojson": {
+      "category": "countries",
+      "enum_name": "Burundi",
+      "features_count": 17,
+      "size_bytes": 12962,
+      "sha256": "fbf10778adb2fe813e4c6cda9e6b58085d81e820f0e131f24ded8ffc1cdb7c23",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/burkina_faso.geojson": {
+      "category": "countries",
+      "enum_name": "BurkinaFaso",
+      "features_count": 45,
+      "size_bytes": 50877,
+      "sha256": "fd071b0274133961d9feee2465742795d102176519d8b0929548ff55e66f7c04",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/bulgaria.geojson": {
+      "category": "countries",
+      "enum_name": "Bulgaria",
+      "features_count": 28,
+      "size_bytes": 36911,
+      "sha256": "693bceb5e7a2cc300adb631d7e829b4727eb649fe39936beda272b319d256cf7",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/brunei.geojson": {
+      "category": "countries",
+      "enum_name": "Brunei",
+      "features_count": 4,
+      "size_bytes": 2569,
+      "sha256": "36cac327aefa7d975a574e69948e6a73295f2b27e438a88d6c639a133cce41af",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/brazil.geojson": {
+      "category": "countries",
+      "enum_name": "Brazil",
+      "features_count": 27,
+      "size_bytes": 198477,
+      "sha256": "e2749f1c898cc5e7ef235a7de34e042e4835624348e5a24c0c1bd56215f97e35",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/botswana.geojson": {
+      "category": "countries",
+      "enum_name": "Botswana",
+      "features_count": 15,
+      "size_bytes": 14873,
+      "sha256": "cfd7d61e3bb75de47269e6bc5105e4a55bd8f0e9caa34831a9ec499af88d0585",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/bosnia_and_herzegovina.geojson": {
+      "category": "countries",
+      "enum_name": "BosniaAndHerzegovina",
+      "features_count": 18,
+      "size_bytes": 19320,
+      "sha256": "e1b29ba3f50aa4590cffdb7fe182a2fca881c92c23481d5b89a20d495f752096",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/bolivia.geojson": {
+      "category": "countries",
+      "enum_name": "Bolivia",
+      "features_count": 9,
+      "size_bytes": 29193,
+      "sha256": "841a87f2162631e818dcfe304f0225a416dd06c7be415efc00c9124426057d70",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/bhutan.geojson": {
+      "category": "countries",
+      "enum_name": "Bhutan",
+      "features_count": 20,
+      "size_bytes": 18071,
+      "sha256": "f04871e9e3c4f50ef1c87c802d10fb9b8e770770e5f362655d3173035e02ad2a",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/benin.geojson": {
+      "category": "countries",
+      "enum_name": "Benin",
+      "features_count": 12,
+      "size_bytes": 10317,
+      "sha256": "c491bdc9df497c9e525e9a0192469e173334eb8002dfc600739012430dbbb25c",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/belize.geojson": {
+      "category": "countries",
+      "enum_name": "Belize",
+      "features_count": 6,
+      "size_bytes": 6873,
+      "sha256": "7b8baaa35b1ce02d01d1022b87a893f7aeb7bf0c5c4d3e3a7e6d6647e3e90683",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/belgium.geojson": {
+      "category": "countries",
+      "enum_name": "Belgium",
+      "features_count": 11,
+      "size_bytes": 19701,
+      "sha256": "54af16011fbda68fe86488495e8e36a8bf23b3cfd282c7677a118774196ac63b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/belarus.geojson": {
+      "category": "countries",
+      "enum_name": "Belarus",
+      "features_count": 7,
+      "size_bytes": 26048,
+      "sha256": "379074a9f30189281c0d74f53d15c1380d4b6ada868051f000b77213c768b2d0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/barbados.geojson": {
+      "category": "countries",
+      "enum_name": "Barbados",
+      "features_count": 11,
+      "size_bytes": 4403,
+      "sha256": "d245326a789ef11a10de1102a9797e3a10c8cc5f6dd5d20dee389780b5c72749",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/bangladesh.geojson": {
+      "category": "countries",
+      "enum_name": "Bangladesh",
+      "features_count": 7,
+      "size_bytes": 22936,
+      "sha256": "193dc0003484b00f1a2045ae98864a2305171680d2c2dfd2b81facbcea5a5af5",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/bahrain.geojson": {
+      "category": "countries",
+      "enum_name": "Bahrain",
+      "features_count": 5,
+      "size_bytes": 2545,
+      "sha256": "6303b81544615e1d2ee0faac88dc963b0e8867ab5473038634e3d60c53d035ad",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/the_bahamas.geojson": {
+      "category": "countries",
+      "enum_name": "TheBahamas",
+      "features_count": 30,
+      "size_bytes": 20907,
+      "sha256": "77e3794c0396fe6683da8462a36e295e5d436f622aae52f9424baa7746433bac",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/azerbaijan.geojson": {
+      "category": "countries",
+      "enum_name": "Azerbaijan",
+      "features_count": 78,
+      "size_bytes": 54445,
+      "sha256": "0964a941476681dc244ee47afc3b22b64b4133e4f1953089cb312e4aabd03fcf",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/austria.geojson": {
+      "category": "countries",
+      "enum_name": "Austria",
+      "features_count": 9,
+      "size_bytes": 16168,
+      "sha256": "972b509d6c83e074db87b9087b0fb3de720572add1c969016e7f1fefc1234f03",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/australia.geojson": {
+      "category": "countries",
+      "enum_name": "Australia",
+      "features_count": 11,
+      "size_bytes": 119311,
+      "sha256": "86a61f30cbb82ad32a5e393b3627520ff265c3ebfb24a8143efb48b6fdc7fa52",
+      "default_lon_range": [
+        112.0,
+        154.5
+      ],
+      "default_lat_range": [
+        -44.0,
+        -10.0
+      ]
+    },
+    "countries/armenia.geojson": {
+      "category": "countries",
+      "enum_name": "Armenia",
+      "features_count": 11,
+      "size_bytes": 11226,
+      "sha256": "b53e20494c30119d3a3c91828c328427733a4db56b5ede13386785cb4041a3d0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/argentina.geojson": {
+      "category": "countries",
+      "enum_name": "Argentina",
+      "features_count": 24,
+      "size_bytes": 76140,
+      "sha256": "9fce5ee1cf177af560cc01883fd704b64c2c271b40b518592c9f2597456378cd",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/antigua_and_barbuda.geojson": {
+      "category": "countries",
+      "enum_name": "AntiguaAndBarbuda",
+      "features_count": 8,
+      "size_bytes": 3800,
+      "sha256": "9a4e2c2b81ab6dc1d3587543ea79bd144c2331e2aba5df83ceea553f86baff13",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/angola.geojson": {
+      "category": "countries",
+      "enum_name": "Angola",
+      "features_count": 18,
+      "size_bytes": 45996,
+      "sha256": "4c790d815589743148754e63fefb7e57eca641c129f9d89948c1782b738ccf39",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/andorra.geojson": {
+      "category": "countries",
+      "enum_name": "Andorra",
+      "features_count": 7,
+      "size_bytes": 2970,
+      "sha256": "6f6cb4466eaf13cad7c1e98fef365214734709abc863b87132413bc91f49c627",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/algeria.geojson": {
+      "category": "countries",
+      "enum_name": "Algeria",
+      "features_count": 48,
+      "size_bytes": 55548,
+      "sha256": "b2dec1c47dbe9e47af56921b59ceb4e9fd8601e63b7be21a01841c601262db93",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/albania.geojson": {
+      "category": "countries",
+      "enum_name": "Albania",
+      "features_count": 12,
+      "size_bytes": 14051,
+      "sha256": "2ac83974cbe8d2b2f4f62769abe7ea952056c750820038d67b45231ff32b12c0",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/afghanistan.geojson": {
+      "category": "countries",
+      "enum_name": "Afghanistan",
+      "features_count": 34,
+      "size_bytes": 59496,
+      "sha256": "43d805ceaf41006fce72c0a7c5605e2299899c67ebe7ff372aa3f8621894bb1d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/sint_maarten.geojson": {
+      "category": "countries",
+      "enum_name": "SintMaarten",
+      "features_count": 1,
+      "size_bytes": 418,
+      "sha256": "760d559cbed66f7fb909c2a684b768a1d67b2cb9a8cd300760c4664062c9e33e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "countries/tuvalu.geojson": {
+      "category": "countries",
+      "enum_name": "Tuvalu",
+      "features_count": 1,
+      "size_bytes": 542,
+      "sha256": "dc1c69517d1bd5d340dff018089ede5fcc8aa6936aa80fdce416dfcd4e0cb02d",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/japan_tokyo.geojson": {
+      "category": "cities",
+      "enum_name": "Japan_Tokyo",
+      "features_count": 62,
+      "size_bytes": 180330,
+      "sha256": "fc658b8c88d34da143de3f920b36f7b4584e6bc2100c5c2168c70226f1fae400",
+      "default_lon_range": [
+        138.9,
+        139.95
+      ],
+      "default_lat_range": [
+        35.5,
+        35.92
+      ]
+    },
+    "cities/japan_osaka.geojson": {
+      "category": "cities",
+      "enum_name": "Japan_Osaka",
+      "features_count": 72,
+      "size_bytes": 44364,
+      "sha256": "10b4fad5c0978990991dc20335a6849bb83929a167438a7670f2e22131a1f58b",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/japan_kyoto.geojson": {
+      "category": "cities",
+      "enum_name": "Japan_Kyoto",
+      "features_count": 36,
+      "size_bytes": 51215,
+      "sha256": "db3ea63f6ddb0ad75d0534622aadb4bdbac379304936730ecfd226fbfa770470",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/united_states_new_york.geojson": {
+      "category": "cities",
+      "enum_name": "UnitedStates_NewYork",
+      "features_count": 5,
+      "size_bytes": 101988,
+      "sha256": "eb23859cff11e32598176be23019ecbc633a89a020230b2887778f8bc3c6eae6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/united_states_san_francisco.geojson": {
+      "category": "cities",
+      "enum_name": "UnitedStates_SanFrancisco",
+      "features_count": 37,
+      "size_bytes": 36825,
+      "sha256": "6fb8b59d788ed22763492efcfb9eb68c15317de1b653199772349fe4efd06741",
+      "default_lon_range": [
+        -122.53,
+        -122.35
+      ],
+      "default_lat_range": [
+        37.7,
+        37.84
+      ]
+    },
+    "cities/united_states_los_angeles.geojson": {
+      "category": "cities",
+      "enum_name": "UnitedStates_LosAngeles",
+      "features_count": 114,
+      "size_bytes": 85153,
+      "sha256": "9db4e0db95125c502ea93a8be3c96c698e432ba270593048a7fe66b7fac6882e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/united_kingdom_london.geojson": {
+      "category": "cities",
+      "enum_name": "UnitedKingdom_London",
+      "features_count": 33,
+      "size_bytes": 75456,
+      "sha256": "a0b6c81e2c0331a91f7fa536b208a097b1fbf321dceaa3f21ee4c45e66fb7053",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/france_paris.geojson": {
+      "category": "cities",
+      "enum_name": "France_Paris",
+      "features_count": 20,
+      "size_bytes": 9384,
+      "sha256": "5ce3923c6a5e71481c9e9644cf92b5f78b107f03fda4bf3aa1d639cb8bd89e80",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/germany_berlin.geojson": {
+      "category": "cities",
+      "enum_name": "Germany_Berlin",
+      "features_count": 12,
+      "size_bytes": 26869,
+      "sha256": "3206e4f05d44cad40ded446251364d0c033d4b8e6dc2f1a742a380a5e6eadf98",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/italy_rome.geojson": {
+      "category": "cities",
+      "enum_name": "Italy_Rome",
+      "features_count": 22,
+      "size_bytes": 10227,
+      "sha256": "d59e66948b99910b0d2bab91d481b12b7fc12d4f2f6ec7b6d375ff655327b77e",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/south_korea_seoul.geojson": {
+      "category": "cities",
+      "enum_name": "SouthKorea_Seoul",
+      "features_count": 25,
+      "size_bytes": 28076,
+      "sha256": "18e912de795786022086011316ffd7af5cb5657c22c5781efe57fafdd5bba9b4",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/singapore_singapore.geojson": {
+      "category": "cities",
+      "enum_name": "Singapore_Singapore",
+      "features_count": 55,
+      "size_bytes": 55836,
+      "sha256": "4d1cf3380363e8dc15b992aa72d720001814ed9777cc5b04f136925986f43919",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/china_hong_kong.geojson": {
+      "category": "cities",
+      "enum_name": "China_HongKong",
+      "features_count": 18,
+      "size_bytes": 47096,
+      "sha256": "d61bddfd5af106562b4797f6bca00e7f59f33c0e0148bd919c5d8a81e7458b65",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/china_shanghai.geojson": {
+      "category": "cities",
+      "enum_name": "China_Shanghai",
+      "features_count": 16,
+      "size_bytes": 63689,
+      "sha256": "fd6af25494a6d92cf2f40a966904fe44496d8b18e4b5c61ea7a0d558ef43bef6",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/taiwan_taipei.geojson": {
+      "category": "cities",
+      "enum_name": "Taiwan_Taipei",
+      "features_count": 12,
+      "size_bytes": 15359,
+      "sha256": "fe02d9b2391576dd5dd5ed9e775a763cb81870fd29910aa95568b92422919e47",
+      "default_lon_range": null,
+      "default_lat_range": null
+    },
+    "cities/australia_sydney.geojson": {
+      "category": "cities",
+      "enum_name": "Australia_Sydney",
+      "features_count": 15,
+      "size_bytes": 178810,
+      "sha256": "3a768b3e8bd00d152783887f5aeeddc83b12ab73e7e8e1e8669ea97cf4fbbd08",
+      "default_lon_range": null,
+      "default_lat_range": null
+    }
+  }
+}

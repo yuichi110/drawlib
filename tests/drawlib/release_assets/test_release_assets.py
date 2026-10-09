@@ -26,9 +26,11 @@ from drawlib._release_assets import (
     create_deterministic_zip_bytes,
     find_package_by_name,
     find_package_for_font_path,
+    find_package_for_map_path,
     get_all_release_asset_packages,
     get_font_asset_packages,
     get_icon_asset_packages,
+    get_map_asset_packages,
 )
 
 
@@ -61,6 +63,19 @@ def test_get_icon_asset_packages() -> None:
     assert len(gcp.files) >= 200
 
 
+def test_get_map_asset_packages() -> None:
+    """Test retrieving map asset packages."""
+    maps = get_map_asset_packages()
+    assert len(maps) == 3
+    names = {pkg.name for pkg in maps}
+    assert names == {"map_world", "map_countries", "map_cities"}
+    for pkg in maps:
+        assert pkg.category == "map"
+        assert pkg.archive_name.endswith(".zip")
+        assert pkg.source_rel_path.startswith("maps/")
+        assert pkg.target_rel_path.startswith("maps/")
+
+
 def test_get_all_release_asset_packages() -> None:
     """Test total consolidated list of packages."""
     all_pkgs = get_all_release_asset_packages()
@@ -90,6 +105,21 @@ def test_find_package_for_font_path() -> None:
     pkg_prefixed = find_package_for_font_path("fonts/cjk_japanese_noto_sans/bold.otf")
     assert pkg_prefixed is not None
     assert pkg_prefixed.name == "font_cjk_japanese_noto_sans"
+
+
+def test_find_package_for_map_path() -> None:
+    """Test resolving package from relative map file paths."""
+    pkg_world = find_package_for_map_path("maps/world/world.geojson")
+    assert pkg_world is not None
+    assert pkg_world.name == "map_world"
+
+    pkg_country = find_package_for_map_path("countries/japan.geojson")
+    assert pkg_country is not None
+    assert pkg_country.name == "map_countries"
+
+    pkg_city = find_package_for_map_path("maps/cities/japan_tokyo.geojson")
+    assert pkg_city is not None
+    assert pkg_city.name == "map_cities"
 
 
 def test_package_get_download_url() -> None:
@@ -124,7 +154,7 @@ def test_asset_manifest_serialization() -> None:
 def test_release_asset_packages_container() -> None:
     """Test ReleaseAssetPackages container attributes, indexing, and methods."""
     assert isinstance(RELEASE_ASSET_PACKAGES, ReleaseAssetPackages)
-    assert len(RELEASE_ASSET_PACKAGES) == 48
+    assert len(RELEASE_ASSET_PACKAGES) == 51
 
     # Direct attribute access with full IDE autocompletion
     roboto = RELEASE_ASSET_PACKAGES.font_roboto
@@ -140,12 +170,18 @@ def test_release_asset_packages_container() -> None:
     assert gcp.name == "icon_gcp"
     assert gcp.category == "icon"
 
+    map_world = RELEASE_ASSET_PACKAGES.map_world
+    assert map_world.name == "map_world"
+    assert map_world.category == "map"
+
     # Dict-like item access via string key and enum key
     assert RELEASE_ASSET_PACKAGES["font_roboto"] == roboto
     assert RELEASE_ASSET_PACKAGES[ReleaseAssetPackageName.FONT_ROBOTO] == roboto
     assert RELEASE_ASSET_PACKAGES["icon_phosphor"] == phosphor
     assert RELEASE_ASSET_PACKAGES["icon_gcp"] == gcp
     assert RELEASE_ASSET_PACKAGES[ReleaseAssetPackageName.ICON_GCP] == gcp
+    assert RELEASE_ASSET_PACKAGES["map_world"] == map_world
+    assert RELEASE_ASSET_PACKAGES[ReleaseAssetPackageName.MAP_WORLD] == map_world
 
     with pytest.raises(KeyError):
         _ = RELEASE_ASSET_PACKAGES["unknown_package"]
@@ -154,6 +190,7 @@ def test_release_asset_packages_container() -> None:
     assert RELEASE_ASSET_PACKAGES.get("font_roboto") == roboto
     assert RELEASE_ASSET_PACKAGES.get(ReleaseAssetPackageName.FONT_ROBOTO) == roboto
     assert RELEASE_ASSET_PACKAGES.get("icon_gcp") == gcp
+    assert RELEASE_ASSET_PACKAGES.get("map_world") == map_world
     assert RELEASE_ASSET_PACKAGES.get("unknown_package") is None
 
     # Containment
@@ -161,13 +198,15 @@ def test_release_asset_packages_container() -> None:
     assert ReleaseAssetPackageName.FONT_ROBOTO in RELEASE_ASSET_PACKAGES
     assert "icon_gcp" in RELEASE_ASSET_PACKAGES
     assert ReleaseAssetPackageName.ICON_GCP in RELEASE_ASSET_PACKAGES
+    assert "map_world" in RELEASE_ASSET_PACKAGES
+    assert ReleaseAssetPackageName.MAP_WORLD in RELEASE_ASSET_PACKAGES
     assert "unknown_package" not in RELEASE_ASSET_PACKAGES
 
     # Keys, values, items, all
-    assert len(RELEASE_ASSET_PACKAGES.keys()) == 48
-    assert len(RELEASE_ASSET_PACKAGES.values()) == 48
-    assert len(RELEASE_ASSET_PACKAGES.items()) == 48
-    assert len(RELEASE_ASSET_PACKAGES.all()) == 48
+    assert len(RELEASE_ASSET_PACKAGES.keys()) == 51
+    assert len(RELEASE_ASSET_PACKAGES.values()) == 51
+    assert len(RELEASE_ASSET_PACKAGES.items()) == 51
+    assert len(RELEASE_ASSET_PACKAGES.all()) == 51
 
 
 def test_release_asset_package_name_enum() -> None:
@@ -175,6 +214,9 @@ def test_release_asset_package_name_enum() -> None:
     assert ReleaseAssetPackageName.FONT_ROBOTO == "font_roboto"
     assert ReleaseAssetPackageName.ICON_PHOSPHOR == "icon_phosphor"
     assert ReleaseAssetPackageName.ICON_GCP == "icon_gcp"
+    assert ReleaseAssetPackageName.MAP_WORLD == "map_world"
+    assert ReleaseAssetPackageName.MAP_COUNTRIES == "map_countries"
+    assert ReleaseAssetPackageName.MAP_CITIES == "map_cities"
     assert str(ReleaseAssetPackageName.FONT_ROBOTO) == "font_roboto"
 
     # Find package by enum

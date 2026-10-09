@@ -18,13 +18,14 @@ from drawlib._core.l3_external import (
     download_all_assets,
     download_all_fonts,
     download_all_icons,
+    download_all_maps,
     purge_font_cache,
 )
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES
 
 
 def clear_cache() -> None:
-    """Delete all locally cached font and icon asset files."""
+    """Delete all locally cached font, icon, and map asset files."""
     purge_font_cache()
 
 
@@ -42,7 +43,7 @@ def clear_image_cache(cli_only: bool = False, build_only: bool = False) -> None:
 
 
 def list_cache() -> List[Dict[str, Any]]:
-    """Inspect all downloadable font and icon packages and their local cache status.
+    """Inspect all downloadable font, icon, and map packages and their local cache status.
 
     Returns:
         List[Dict[str, Any]]: List of package status dicts with keys
@@ -74,19 +75,24 @@ def download_cache(
     all_assets: bool = True,
     fonts: bool = False,
     icons: bool = False,
+    maps: bool = False,
 ) -> None:
-    """Pre-download font and/or icon packages into the local drawlib cache.
+    """Pre-download font, icon, and/or map packages into the local drawlib cache.
 
     Args:
-        all_assets (bool): Download both fonts and icons (default True if neither fonts nor icons is set).
+        all_assets (bool): Download all assets (default True if no specific category is set).
         fonts (bool): Download font packages only.
         icons (bool): Download icon packages only.
+        maps (bool): Download map packages only.
     """
-    if fonts and not icons:
-        download_all_fonts()
-    elif icons and not fonts:
-        download_all_icons()
-    elif all_assets or (fonts and icons):
+    if fonts or icons or maps:
+        if fonts:
+            download_all_fonts()
+        if icons:
+            download_all_icons()
+        if maps:
+            download_all_maps()
+    elif all_assets:
         download_all_assets()
     else:
         download_all_assets()

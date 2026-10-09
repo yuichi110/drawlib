@@ -16,8 +16,6 @@ from drawlib._smartarts import (
     BulletPoints,
     ChevronItem,
     ChevronProcess,
-    Cities,
-    Countries,
     Cycle,
     CycleCenter,
     CycleItem,
@@ -31,7 +29,6 @@ from drawlib._smartarts import (
     SourceCodeStyles,
     Table,
     TreeNode,
-    World,
     get_source_code_styles,
     sourcecode,
 )
@@ -43,8 +40,6 @@ __all__ = [
     "BulletPoints",
     "ChevronItem",
     "ChevronProcess",
-    "Cities",
-    "Countries",
     "Cycle",
     "CycleCenter",
     "CycleItem",
@@ -58,7 +53,6 @@ __all__ = [
     "SourceCodeStyles",
     "Table",
     "TreeNode",
-    "World",
     "get_source_code_styles",
     "sourcecode",
 ]

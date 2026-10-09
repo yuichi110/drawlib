@@ -40,8 +40,8 @@ class ReleaseAssetPackage(BaseModel):
     model_config = ConfigDict(frozen=True)
 
     name: str = Field(description="Unique package identifier, e.g. 'font_roboto'.")
-    category: Literal["font", "icon"] = Field(
-        description="Category of the asset package ('font' or 'icon').",
+    category: Literal["font", "icon", "map"] = Field(
+        description="Category of the asset package ('font', 'icon', or 'map').",
     )
     archive_name: str = Field(description="ZIP archive file name, e.g. 'font_roboto.zip'.")
     archive_sha256: str = Field(description="SHA-256 hex digest of the ZIP archive file.")
