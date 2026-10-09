@@ -87,7 +87,7 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         x2, y2 = xy2
         x, y = ((x1 + x2) / 2, (y1 + y2) / 2)
         angle = get_angle(xy1, xy2)
-        style = style.patch(halign="center", valign="center")
+        style = style.patch(halign="center", valign="center", angle=angle)
 
         # arrow_tail_external_rectangle. left-bottom -> left-top ...
         distance = get_distance(xy1, xy2)
@@ -126,7 +126,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         self.shape(
             xy=(x, y),
             path_points=points,
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -225,7 +224,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         head: ArrowHead = "->",
         angle_start: Angle = 0,
         angle_end: Angle = 180,
-        angle: Angle = 0,
         *,
         style: Style,
     ) -> None:
@@ -241,13 +239,13 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head: Arrow head type ("->", "<-", "<->").
             angle_start: Starting angle in degrees.
             angle_end: Ending angle in degrees.
-            angle: Rotation angle in degrees.
             style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
             style,
             None,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         width_int = width - tail_width
         width_ext = width + tail_width
@@ -373,7 +371,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         head_length: PosFloat,
         head: ArrowHead = "->",
         r: PosFloat = 0,
-        angle: Angle = 0,
         *,
         style: Style,
     ) -> None:
@@ -388,13 +385,13 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head_length: Length of arrow head.
             head: Arrow head type ("->", "<-", "<->").
             r: Corner radius.
-            angle: Rotation angle in degrees.
             style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
             style,
             None,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         p1 = (xy[0] - width / 2, xy[1] + height / 2)
         p2 = (xy[0] - width / 2, xy[1] - height / 2)
@@ -425,7 +422,6 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
         head_length: PosFloat,
         head: ArrowHead = "->",
         r: PosFloat = 0,
-        angle: Angle = 0,
         *,
         style: Style,
     ) -> None:
@@ -440,13 +436,13 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             head_length: Length of arrow head.
             head: Arrow head type ("->", "<-", "<->").
             r: Corner radius.
-            angle: Rotation angle in degrees.
             style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
             style,
             None,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         p1 = (xy[0] - width / 2, xy[1] + height / 2)
         p2 = (xy[0] - width / 2, xy[1] - height / 2)

@@ -6,7 +6,7 @@ Diagrams communicate faster when accompanied by standard iconography and project
 
 `drawlib.icons.phosphor` provides ~1,500 scalable vector icons covering computing, networking, devices, users, interfaces, and tools:
 
-Every icon is a pure Python function accepting `xy`, `width`, `angle`, and `style`:
+Every icon is a pure Python function accepting `xy`, `width`, and `style` (including `style.angle` for rotation):
 
 ```drawlib 620px center file:icons_phosphor.png caption:"Figure 6.1: Vector Iconography from Phosphor"
 from drawlib.canvas import setup

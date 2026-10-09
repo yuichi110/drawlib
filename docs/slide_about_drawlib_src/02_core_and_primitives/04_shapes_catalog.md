@@ -1,6 +1,6 @@
 ::: block (80, 45) (1760, 110)
 # 23 Geometric Primitives (`drawlib.shapes`)
-A rich vocabulary of vector shapes—all supporting `style`, `text`, `text_style`, and rotation `angle`.
+A rich vocabulary of vector shapes—all supporting `style` (including rotation `style.angle`), `text`, and `text_style`.
 :::
 
 ::: block (80, 165) (1760, 810)

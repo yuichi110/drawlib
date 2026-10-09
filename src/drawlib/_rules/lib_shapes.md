@@ -146,8 +146,8 @@ When positioning shapes relative to layout grids or text baselines, you can over
 
 | Alignment Attribute | Valid Options | Default for Center Shapes | Default for Bounding-Box Shapes |
 | :--- | :--- | :--- | :--- |
-| `halign` | `"left"`, `"center"`, `"right"` | `"center"` | `"center"` (if `angle != 0`) / `"left"` (if unrotated) |
-| `valign` | `"bottom"`, `"center"`, `"top"` | `"center"` | `"center"` (if `angle != 0`) / `"bottom"` (if unrotated) |
+| `halign` | `"left"`, `"center"`, `"right"` | `"center"` | `"center"` (if `style.angle != 0`) / `"left"` (if unrotated) |
+| `valign` | `"bottom"`, `"center"`, `"top"` | `"center"` | `"center"` (if `style.angle != 0`) / `"bottom"` (if unrotated) |
 
 #### Transformation Mathematics
 For a shape with unrotated width $W$ and height $H$, the internal alignment engine shifts the anchor coordinates `(x, y)` according to the following formulas:
@@ -166,8 +166,8 @@ For a shape with unrotated width $W$ and height $H$, the internal alignment engi
 
 ### 1.5 Rotation Coordinate Mathematics
 
-All shapes accepting an `angle` parameter rotate counterclockwise around the shape's **geometric center $(C_x, C_y)$**.
-Even for shapes anchored at the bottom-left, the center is computed first as $C = (x + W/2, y + H/2)$, rotated by $\theta = \text{radians}(\text{angle})$, and the vertices are transformed:
+All shapes supporting `style.angle` rotate counterclockwise around the shape's **geometric center $(C_x, C_y)$**.
+Even for shapes anchored at the bottom-left, the center is computed first as $C = (x + W/2, y + H/2)$, rotated by $\theta = \text{radians}(\text{style.angle})$, and the vertices are transformed:
 
 $$x_{\text{rot}} = (x - C_x)\cos\theta - (y - C_y)\sin\theta + C_x$$
 $$y_{\text{rot}} = (x - C_x)\sin\theta + (y - C_y)\cos\theta + C_y$$
@@ -213,7 +213,7 @@ To eliminate a shape's border line entirely, explicitly set `shape_line_width=0`
 
 Almost all shapes accept `text` and `text_style` parameters.
 - Text is automatically rendered at the centroid $(C_x, C_y)$ of the shape.
-- Text automatically rotates with the shape's `angle` unless overridden by `angle` in `text_style`.
+- Text automatically rotates with the shape's `style.angle` unless overridden by `angle` in `text_style`.
 - Text styling and font size can be customized through `text_style=Style(text_size=...)` or by patching preset styles like `Styles.WhiteBold.patch(text_size=...).`
 
 ```python
@@ -266,10 +266,10 @@ Draws a standard geometric circle.
 def circle(
     xy: tuple[float, float],
     radius: float,
-    angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style | None = None,
     text: str = "",
-    text_style: Style | str | None = None,
+    text_style: Style | None = None,
 ) -> None:
     ...
 ```
@@ -279,16 +279,15 @@ def circle(
 | :--- | :--- | :--- | :--- |
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
 | `radius` | `float` | *Required* | Radius of the circle (must be $> 0$). |
-| `angle` | `float` | `0.0` | Rotation angle in degrees CCW (affects embedded text orientation). |
-| `style` | `Style \| str \| None` | `None` | Preset style string or `Style` instance. |
+| `style` | `Style \| None` | `None` | `Style` instance (supports `angle` to rotate embedded text). |
 | `text` | `str` | `""` | Text label drawn at the circle center. |
-| `text_style` | `Style \| str \| None` | `None` | Preset text style string or `Style` instance. |
+| `text_style` | `Style \| None` | `None` | `Style` instance for text formatting. |
 
 #### Geometric & Alignment Mechanics
 - **Anchor**: Geometric center `(x, y)`.
 - Bounding box is $2r \times 2r$.
 - Setting `style.halign="left"` shifts the circle so that `x` aligns with its left tangent boundary ($x' = x + r$).
-- `angle` does not alter the appearance of a symmetric circle, but rotates embedded text around the center point.
+- `style.angle` does not alter the appearance of a symmetric circle, but rotates embedded text around the center point.
 
 #### Code Examples
 ```drawlib show-code
@@ -307,12 +306,12 @@ circle((30, 25), radius=14, style=Styles.GreenFlat, text="OK", text_style=Styles
 circle(
     (70, 25),
     radius=18,
-    angle=35,
     style=Styles.Primary.patch(
         shape_fill_color=CssColors.DeepSkyBlue,
         alpha=0.3,
         shape_line_style="dashed",
         shape_line_width=2,
+        angle=35,
     ),
     text="Zone B",
     text_style=Styles.Primary.patch(text_color=CssColors.Navy, text_size=12),
@@ -332,9 +331,8 @@ def donuts(
     xy: tuple[float, float],
     radius: float,
     width: float | None = None,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -347,8 +345,7 @@ def donuts(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
 | `radius` | `float` | *Required* | Outer radius of the annular ring. |
 | `width` | `float \| None` | `None` | Ring wall thickness. Inner radius = $\text{radius} - \text{width}$. If `None`, renders solid. |
-| `angle` | `float` | `0.0` | Rotation angle in degrees CCW (affects embedded text). |
-| `style` | `Style` | *Required* | Shape fill and stroke configuration. |
+| `style` | `Style \| None` | `None` | Shape fill and stroke configuration (supports `angle`). |
 | `text` | `str` | `""` | Label rendered in the center void of the donut. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
@@ -396,9 +393,8 @@ def ellipse(
     xy: tuple[float, float],
     width: float,
     height: float,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -411,14 +407,13 @@ def ellipse(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
 | `width` | `float` | *Required* | Total horizontal axis diameter before rotation. |
 | `height` | `float` | *Required* | Total vertical axis diameter before rotation. |
-| `angle` | `float` | `0.0` | Rotation angle in degrees CCW around center `xy`. |
-| `style` | `Style` | *Required* | Shape style object. |
+| `style` | `Style \| None` | `None` | Shape style object (supports `angle` for rotation around `xy`). |
 | `text` | `str` | `""` | Centered text annotation. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - Semi-major axis $a = \text{width} / 2$, Semi-minor axis $b = \text{height} / 2$.
-- When rotated by `angle`, the ellipse and its text rotate synchronously.
+- When rotated by `style.angle`, the ellipse and its text rotate synchronously.
 - Widely used for database entities (ER diagrams), start/end states in flowcharts, and distributed cache clusters.
 
 #### Code Examples
@@ -439,12 +434,12 @@ ellipse(
     (70, 22),
     width=38,
     height=18,
-    angle=335,
     style=Styles.Primary.patch(
         shape_fill_color=CssColors.AliceBlue,
         shape_line_color=CssColors.SteelBlue,
         shape_line_style="dashed",
         shape_line_width=2,
+        angle=335,
     ),
     text="In-Flight Job",
     text_style=Styles.Primary.patch(text_size=11, text_color=CssColors.Navy),
@@ -466,9 +461,8 @@ def wedge(
     angle_start: float,
     angle_end: float,
     width: float | None = None,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -483,8 +477,7 @@ def wedge(
 | `angle_start` | `float` | *Required* | Starting angle in degrees CCW. |
 | `angle_end` | `float` | *Required* | Ending angle in degrees CCW. |
 | `width` | `float \| None` | `None` | Annular thickness. If `None`, extends to apex `xy` (solid pie wedge). |
-| `angle` | `float` | `0.0` | Global rotational shift applied to the entire wedge. |
-| `style` | `Style` | *Required* | Shape fill and outline style. |
+| `style` | `Style \| None` | `None` | Shape fill and outline style (supports `angle` for global rotational shift). |
 | `text` | `str` | `""` | Centered text label. |
 | `text_style` | `Style \| None` | `None` | Style instance for text formatting. |
 
@@ -513,9 +506,11 @@ wedge(
     angle_start=45,
     angle_end=225,
     width=6,
-    angle=15,
     style=Styles.Primary.patch(
-        shape_fill_color=CssColors.Orange, shape_line_color=CssColors.DarkRed, shape_line_width=1.5
+        shape_fill_color=CssColors.Orange,
+        shape_line_color=CssColors.DarkRed,
+        shape_line_width=1.5,
+        angle=15,
     ),
     text="60%",
     text_style=Styles.WhiteBold.patch(text_size=11, text_color=CssColors.White),
@@ -536,9 +531,8 @@ def fan(
     radius: float,
     angle_start: float,
     angle_end: float,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -552,8 +546,7 @@ def fan(
 | `radius` | `float` | *Required* | Radius from apex to circular rim. |
 | `angle_start` | `float` | *Required* | Starting angle in degrees CCW. |
 | `angle_end` | `float` | *Required* | Ending angle in degrees CCW. |
-| `angle` | `float` | `0.0` | Global rotational offset in degrees. |
-| `style` | `Style` | *Required* | Shape fill and line style. |
+| `style` | `Style \| None` | `None` | Shape fill and line style (supports `angle` for rotational offset). |
 | `text` | `str` | `""` | Centered text label. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
@@ -606,9 +599,8 @@ def arc(
     height: float,
     angle_start: float,
     angle_end: float,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -623,8 +615,7 @@ def arc(
 | `height` | `float` | *Required* | Vertical diameter of the ellipse. |
 | `angle_start` | `float` | *Required* | Starting angle of the arc in degrees CCW. |
 | `angle_end` | `float` | *Required* | Ending angle of the arc in degrees CCW. |
-| `angle` | `float` | `0.0` | Global rotation angle around center `xy`. |
-| `style` | `Style` | *Required* | Stroke styling (`line_color`, `line_width`, `line_style`). |
+| `style` | `Style \| None` | `None` | Stroke styling (`line_color`, `line_width`, `line_style`, `angle`). |
 | `text` | `str` | `""` | Centered text label at `xy`. |
 | `text_style` | `Style \| None` | `None` | Text style parameters. |
 
@@ -659,8 +650,9 @@ arc(
     height=24,
     angle_start=315,
     angle_end=225,
-    angle=15,
-    style=Styles.PrimaryBold.patch(line_color=CssColors.Crimson, line_width=2, line_style="dashed"),
+    style=Styles.PrimaryBold.patch(
+        line_color=CssColors.Crimson, line_width=2, line_style="dashed", angle=15
+    ),
     text="Orbit A",
     text_style=Styles.Primary.patch(text_size=10, text_color=CssColors.Crimson),
 )
@@ -680,9 +672,8 @@ def cylinder(
     width: float,
     height: float,
     *,
-    style: Style,
+    style: Style | None = None,
     disks: int = 1,
-    angle: float = 0.0,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -695,9 +686,8 @@ def cylinder(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the cylinder. |
 | `width` | `float` | *Required* | Total horizontal width ($> 0$). |
 | `height` | `float` | *Required* | Total vertical height including top/bottom caps ($> 0$). |
-| `style` | `Style` | *Required* | Shape fill and stroke style. Top cap is automatically lightened for 3D depth. |
+| `style` | `Style \| None` | `None` | Shape fill and stroke style (supports `angle=90` or `-90` for horizontal pipes/queues). Top cap is automatically lightened for 3D depth. |
 | `disks` | `int` | `1` | Number of stacked storage disks ($\ge 1$). Values $> 1$ render curved divider seams. |
-| `angle` | `float` | `0.0` | Counterclockwise rotation angle in degrees (`angle=90` or `-90` for horizontal pipes/queues). |
 | `text` | `str` | `""` | Embedded text label centered on the cylinder body. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
@@ -734,9 +724,8 @@ def face(
     xy: tuple[float, float],
     radius: float,
     *,
-    style: Style,
+    style: Style | None = None,
     mood: Literal["smile", "neutral", "sad", "angry", "surprised"] = "smile",
-    angle: float = 0.0,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -748,9 +737,8 @@ def face(
 | :--- | :--- | :--- | :--- |
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the face circle. |
 | `radius` | `float` | *Required* | Radius of the face circle ($> 0$). |
-| `style` | `Style` | *Required* | Shape fill and stroke style. Eyes and mouth automatically derive their color from `shape_line_color` (or contrasting `text_color`/white on flat styles). |
+| `style` | `Style \| None` | `None` | Shape fill and stroke style (supports `angle`). Eyes and mouth automatically derive their color from `shape_line_color` (or contrasting `text_color`/white on flat styles). |
 | `mood` | `str` | `"smile"` | Facial expression: `"smile"`, `"neutral"`, `"sad"`, `"angry"`, or `"surprised"`. |
-| `angle` | `float` | `0.0` | Counterclockwise rotation angle in degrees. |
 | `text` | `str` | `""` | Embedded text label (can be shifted below the face using `xy_shift`). |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
@@ -797,9 +785,8 @@ def rectangle(
     width: float,
     height: float,
     r: float = 0.0,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -813,8 +800,7 @@ def rectangle(
 | `width` | `float` | *Required* | Width along horizontal axis (must be $> 0$). |
 | `height` | `float` | *Required* | Height along vertical axis (must be $> 0$). |
 | `r` | `float` | `0.0` | Corner rounding radius ($r \ge 0$). Must not exceed $\min(W, H)/2$. |
-| `angle` | `float` | `0.0` | Rotation in degrees CCW around geometric center. |
-| `style` | `Style` | *Required* | Fill and stroke style. |
+| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotation around geometric center). |
 | `text` | `str` | `""` | Embedded center text label. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
@@ -867,9 +853,8 @@ def parallelogram(
     width: float,
     height: float,
     corner_angle: float = 60.0,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -883,8 +868,7 @@ def parallelogram(
 | `width` | `float` | *Required* | Length of top and bottom parallel horizontal edges. |
 | `height` | `float` | *Required* | Perpendicular vertical height between base and top. |
 | `corner_angle` | `float` | `60.0` | Bottom-left interior slant angle ($0 < \theta < 180^\circ$). |
-| `angle` | `float` | `0.0` | Global CCW rotation angle around center. |
-| `style` | `Style` | *Required* | Shape fill and stroke style. |
+| `style` | `Style \| None` | `None` | Shape fill and stroke style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Centered text label. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
@@ -911,9 +895,11 @@ parallelogram(
     width=35,
     height=20,
     corner_angle=65,
-    angle=15,
     style=Styles.Primary.patch(
-        shape_fill_color=CssColors.LightYellow, shape_line_color=CssColors.GoldenRod, shape_line_width=2
+        shape_fill_color=CssColors.LightYellow,
+        shape_line_color=CssColors.GoldenRod,
+        shape_line_width=2,
+        angle=15,
     ),
     text="Kafka Stream",
     text_style=Styles.Primary.patch(text_size=10, text_color=CssColors.SaddleBrown),
@@ -933,9 +919,8 @@ def rhombus(
     xy: tuple[float, float],
     width: float,
     height: float,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -948,8 +933,7 @@ def rhombus(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the rhombus. |
 | `width` | `float` | *Required* | Total horizontal diagonal span between left and right vertices. |
 | `height` | `float` | *Required* | Total vertical diagonal span between bottom and top vertices. |
-| `angle` | `float` | `0.0` | Rotation angle in degrees CCW around center. |
-| `style` | `Style` | *Required* | Shape fill and line style. |
+| `style` | `Style \| None` | `None` | Shape fill and line style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Centered text label. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
@@ -982,9 +966,11 @@ rhombus(
     (72, 25),
     width=32,
     height=24,
-    angle=20,
     style=Styles.Primary.patch(
-        shape_fill_color=CssColors.MistyRose, shape_line_color=CssColors.Crimson, shape_line_width=2
+        shape_fill_color=CssColors.MistyRose,
+        shape_line_color=CssColors.Crimson,
+        shape_line_width=2,
+        angle=20,
     ),
     text="Audit",
     text_style=Styles.Primary.patch(text_size=11, text_color=CssColors.DarkRed),
@@ -1006,9 +992,8 @@ def trapezoid(
     bottomedge_width: float,
     topedge_width: float,
     topedge_x: float | None = None,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1023,8 +1008,7 @@ def trapezoid(
 | `bottomedge_width` | `float` | *Required* | Width of the bottom horizontal edge ($> 0$). |
 | `topedge_width` | `float` | *Required* | Width of the top horizontal edge ($> 0$). |
 | `topedge_x` | `float \| None` | `None` | X-offset of top-left vertex. Defaults to symmetric isosceles: `(bottomedge_width - topedge_width)/2`. |
-| `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style` | *Required* | Shape fill and stroke style. |
+| `style` | `Style \| None` | `None` | Shape fill and stroke style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Centered text label. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
@@ -1083,9 +1067,8 @@ def triangle(
     width: float,
     height: float,
     topvertex_x: float | None = None,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1099,8 +1082,7 @@ def triangle(
 | `width` | `float` | *Required* | Horizontal base length ($> 0$). |
 | `height` | `float` | *Required* | Perpendicular vertical height ($> 0$). |
 | `topvertex_x` | `float \| None` | `None` | Horizontal offset of apex from base left. Defaults to symmetric apex `width / 2`. |
-| `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style` | *Required* | Shape fill and outline style. |
+| `style` | `Style \| None` | `None` | Shape fill and outline style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Centered text label. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
@@ -1146,11 +1128,10 @@ Draws an equilateral regular polygon with $N$ equal sides, circumscribed in a ci
 ```python
 def regularpolygon(
     xy: tuple[float, float],
-    num_vertex: int,
     radius: float,
-    angle: float = 0.0,
+    num_vertex: int,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1161,15 +1142,14 @@ def regularpolygon(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)`. |
-| `num_vertex` | `int` | *Required* | Number of vertices / sides ($N \ge 3$). Note singular name! |
 | `radius` | `float` | *Required* | Circumscribed radius from center to each vertex. |
-| `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style` | *Required* | Shape fill and stroke style. |
+| `num_vertex` | `int` | *Required* | Number of vertices / sides ($N \ge 3$). Note singular name! |
+| `style` | `Style \| None` | `None` | Shape fill and stroke style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Centered text label. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
-- Centered at `xy`. Vertices generated at $\theta_k = \text{angle} + k(360^\circ / N)$.
+- Centered at `xy`. Vertices generated at $\theta_k = \text{style.angle} + k(360^\circ / N)$.
 - $N=3$ (equilateral triangle), $N=5$ (pentagon), $N=6$ (hexagon / Kubernetes pod), $N=8$ (octagon / stop sign).
 
 #### Code Examples
@@ -1183,16 +1163,18 @@ from drawlib.types import Style
 from drawlib.styles import Styles
 
 # 1. Hexagon (Kubernetes Pod / Microservice)
-regularpolygon((30, 22), num_vertex=6, radius=18, style=Styles.BlueFlat, text="Pod A")
+regularpolygon((30, 22), radius=18, num_vertex=6, style=Styles.BlueFlat, text="Pod A")
 
 # 2. Octagon (Security Firewall Boundary)
 regularpolygon(
     (70, 22),
-    num_vertex=8,
     radius=18,
-    angle=22.5,
+    num_vertex=8,
     style=Styles.Primary.patch(
-        shape_fill_color=CssColors.Tomato, shape_line_color=CssColors.DarkRed, shape_line_width=2
+        shape_fill_color=CssColors.Tomato,
+        shape_line_color=CssColors.DarkRed,
+        shape_line_width=2,
+        angle=22.5,
     ),
     text="WAF",
     text_style=Styles.WhiteBold.patch(text_size=12, text_color=CssColors.White),
@@ -1211,7 +1193,7 @@ Draws an arbitrary closed planar polygon through an explicit list of vertices.
 def polygon(
     xys: list[tuple[float, float]],
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1222,13 +1204,13 @@ def polygon(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xys` | `list[tuple[float, float]]` | *Required* | Sequence of coordinate vertices (minimum 3 points). |
-| `style` | `Style` | *Required* | Shape fill and line style. |
+| `style` | `Style \| None` | `None` | Shape fill and line style. |
 | `text` | `str` | `""` | Text placed at the centroid / bounding-box center. |
 | `text_style` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - The path automatically closes by connecting the final vertex back to the first vertex.
-- **Important**: `polygon` has **no `angle` parameter** and **ignores `halign`/`valign`**. Vertex coordinates directly dictate orientation and position.
+- **Important**: `polygon` ignores `style.angle` and `halign`/`valign`. Vertex coordinates directly dictate orientation and position.
 
 #### Code Examples
 ```drawlib show-code
@@ -1271,9 +1253,8 @@ def star(
     num_vertex: int,
     radius_ext: float,
     radius_int: float,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1287,8 +1268,7 @@ def star(
 | `num_vertex` | `int` | *Required* | Number of outer points ($N \ge 3$). Note singular name! |
 | `radius_ext` | `float` | *Required* | Outer radius from center to peaks (must be $> \text{radius\_int}$). |
 | `radius_int` | `float` | *Required* | Inner radius from center to valleys. |
-| `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style` | *Required* | Fill and stroke style. |
+| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Text label at center. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
@@ -1315,9 +1295,11 @@ star(
     num_vertex=8,
     radius_ext=18,
     radius_int=10,
-    angle=22.5,
     style=Styles.Primary.patch(
-        shape_fill_color=CssColors.LightCoral, shape_line_color=CssColors.FireBrick, shape_line_width=2
+        shape_fill_color=CssColors.LightCoral,
+        shape_line_color=CssColors.FireBrick,
+        shape_line_width=2,
+        angle=22.5,
     ),
     text="ALERT",
     text_style=Styles.Primary.patch(text_size=9, text_color=CssColors.DarkRed),
@@ -1342,7 +1324,7 @@ def bubblespeech(
     tail_vertex_xy: tuple[float, float],
     tail_end_ratio: float,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1359,7 +1341,7 @@ def bubblespeech(
 | `tail_start_ratio` | `float` | *Required* | Ratio in `[0.0, 1.0]` along edge where the tail begins. |
 | `tail_vertex_xy` | `tuple[float, float]` | *Required* | Target coordinates pointing to vertex of the tail. |
 | `tail_end_ratio` | `float` | *Required* | Ratio in `[0.0, 1.0]` along edge where the tail ends ($> \text{tail\_start\_ratio}$). |
-| `style` | `Style` | *Required* | Shape fill and outline style. |
+| `style` | `Style \| None` | `None` | Shape fill and outline style. |
 | `text` | `str` | `""` | Centered text label within bubble body. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
@@ -1411,9 +1393,8 @@ def shape(
         | tuple[tuple[float, float], tuple[float, float], tuple[float, float]]
     ],
     is_default_center: bool = False,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1426,8 +1407,7 @@ def shape(
 | `xy` | `tuple[float, float]` | *Required* | Reference starting point or geometric center. |
 | `path_points` | `list[...]` | *Required* | Sequence of relative coordinate offsets or Bezier control tuples. |
 | `is_default_center` | `bool` | `False` | If `False`, `xy` is path origin. If `True`, `xy` is centroid. |
-| `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style` | *Required* | Shape fill and stroke style. |
+| `style` | `Style \| None` | `None` | Shape fill and stroke style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Centered text label. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
@@ -1512,12 +1492,12 @@ Draws a straight 2D directed block arrow from `xy1` to `xy2`.
 def arrow(
     xy1: tuple[float, float],
     xy2: tuple[float, float],
-    tail_width: float | None = None,
-    head_width: float | None = None,
-    head_length: float | None = None,
-    head_angle: float | None = None,
+    tail_width: float,
+    head_width: float,
+    head_length: float,
     *,
-    style: Style,
+    head: Literal["->", "<-", "<->"] = "->",
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1529,11 +1509,11 @@ def arrow(
 | :--- | :--- | :--- | :--- |
 | `xy1` | `tuple[float, float]` | *Required* | Base center of the arrow tail `(x1, y1)`. |
 | `xy2` | `tuple[float, float]` | *Required* | Coordinate of the arrow tip `(x2, y2)`. |
-| `tail_width` | `float \| None` | `None` | Width of the rectangular shaft. Auto-proportioned if `None`. |
-| `head_width` | `float \| None` | `None` | Full transverse width of the arrowhead base. |
-| `head_length` | `float \| None` | `None` | Axial length of the arrowhead from base to tip. |
-| `head_angle` | `float \| None` | `None` | Arrowhead tip angle in degrees (mutually exclusive with `head_length`). |
-| `style` | `Style` | *Required* | Fill and stroke style. |
+| `tail_width` | `float` | *Required* | Width of the rectangular shaft. |
+| `head_width` | `float` | *Required* | Full transverse width of the arrowhead base. |
+| `head_length` | `float` | *Required* | Axial length of the arrowhead from base to tip. |
+| `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction. |
+| `style` | `Style \| None` | `None` | Fill and stroke style. |
 | `text` | `str` | `""` | Embedded label rendered along the arrow shaft. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
@@ -1582,14 +1562,13 @@ def arrow_l(
     xy: tuple[float, float],
     width: float,
     height: float,
-    head_width: float | None = None,
-    head_length: float | None = None,
-    head_angle: float | None = None,
-    tail_width: float | None = None,
+    tail_width: float,
+    head_width: float,
+    head_length: float,
+    head: Literal["->", "<-", "<->"] = "->",
     r: float = 0.0,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1600,13 +1579,12 @@ def arrow_l(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the bounding box. |
 | `width` | `float` | *Required* | Total bounding box width. |
 | `height` | `float` | *Required* | Total bounding box height. |
-| `head_width` | `float \| None` | `None` | Arrowhead width at the tip end. |
-| `head_length` | `float \| None` | `None` | Arrowhead axial length. |
-| `head_angle` | `float \| None` | `None` | Tip vertex angle in degrees. |
-| `tail_width` | `float \| None` | `None` | Width of the shaft. |
+| `tail_width` | `float` | *Required* | Width of the shaft. |
+| `head_width` | `float` | *Required* | Arrowhead width at the tip end. |
+| `head_length` | `float` | *Required* | Arrowhead axial length. |
+| `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction. |
 | `r` | `float` | `0.0` | Elbow corner rounding radius ($r \ge 0$). |
-| `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style` | *Required* | Fill and stroke style. |
+| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotation). |
 
 > **Important**: `arrow_l` **does not accept `text`**. Place external `drawlib.text.text()` labels next to the elbow.
 
@@ -1651,14 +1629,13 @@ def arrow_u(
     xy: tuple[float, float],
     width: float,
     height: float,
-    head_width: float | None = None,
-    head_length: float | None = None,
-    head_angle: float | None = None,
-    tail_width: float | None = None,
+    tail_width: float,
+    head_width: float,
+    head_length: float,
+    head: Literal["->", "<-", "<->"] = "->",
     r: float = 0.0,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1669,13 +1646,12 @@ def arrow_u(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the bounding box. |
 | `width` | `float` | *Required* | Total bounding box width. |
 | `height` | `float` | *Required* | Total bounding box height. |
-| `head_width` | `float \| None` | `None` | Arrowhead width. |
-| `head_length` | `float \| None` | `None` | Arrowhead axial length. |
-| `head_angle` | `float \| None` | `None` | Tip vertex angle in degrees. |
-| `tail_width` | `float \| None` | `None` | Width of the shafts. |
+| `tail_width` | `float` | *Required* | Width of the shafts. |
+| `head_width` | `float` | *Required* | Arrowhead width. |
+| `head_length` | `float` | *Required* | Arrowhead axial length. |
+| `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction. |
 | `r` | `float` | `0.0` | Corner rounding radius at turns. |
-| `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style` | *Required* | Fill and stroke style. |
+| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotation). |
 
 > **Important**: `arrow_u` **does not accept `text`**.
 
@@ -1701,9 +1677,11 @@ arrow_u(
     head_width=9,
     head_length=7,
     r=4,
-    angle=90,
     style=Styles.Primary.patch(
-        shape_fill_color=CssColors.Lavender, shape_line_color=CssColors.Purple, shape_line_width=1.5
+        shape_fill_color=CssColors.Lavender,
+        shape_line_color=CssColors.Purple,
+        shape_line_width=1.5,
+        angle=90,
     ),
 )
 save()
@@ -1721,15 +1699,16 @@ def arrow_arc(
     xy: tuple[float, float],
     width: float,
     height: float,
+    tail_width: float,
+    head_width: float,
+    head_angle: float,
     angle_start: float,
     angle_end: float,
-    head_width: float | None = None,
-    head_length: float | None = None,
-    head_angle: float | None = None,
-    tail_width: float | None = None,
-    angle: float = 0.0,
     *,
-    style: Style,
+    head: Literal["->", "<-", "<->"] = "->",
+    style: Style | None = None,
+    text: str = "",
+    text_style: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1740,16 +1719,13 @@ def arrow_arc(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the arc ellipse. |
 | `width` | `float` | *Required* | Horizontal diameter of the ellipse. |
 | `height` | `float` | *Required* | Vertical diameter of the ellipse. |
+| `tail_width` | `float` | *Required* | Width of the curved body shaft. |
+| `head_width` | `float` | *Required* | Arrowhead width at the end tip. |
+| `head_angle` | `float` | *Required* | Angular span of the arrowhead in degrees. |
 | `angle_start` | `float` | *Required* | Starting angle in degrees CCW. |
 | `angle_end` | `float` | *Required* | Ending angle in degrees CCW (location of arrowhead). |
-| `head_width` | `float \| None` | `None` | Arrowhead width at the end tip. |
-| `head_length` | `float \| None` | `None` | Arrowhead axial length. |
-| `head_angle` | `float \| None` | `None` | Tip vertex angle. |
-| `tail_width` | `float \| None` | `None` | Width of the curved body shaft. |
-| `angle` | `float` | `0.0` | Global rotational shift in degrees. |
-| `style` | `Style` | *Required* | Fill and stroke style. |
-
-> **Important**: `arrow_arc` **does not accept `text`**.
+| `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction. |
+| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotational shift). |
 
 #### Code Examples
 ```drawlib show-code
@@ -1761,18 +1737,19 @@ from drawlib.shapes import arrow_arc
 from drawlib.types import Style
 from drawlib.styles import Styles
 
-# 1. Circular process cycle arrow (90 to 0 degrees)
-arrow_arc((30, 25), width=30, height=30, angle_start=90, angle_end=0, tail_width=3, head_width=8, style=Styles.BlueFlat)
+# 1. Circular process cycle arrow (0 to 90 degrees)
+arrow_arc((30, 25), width=30, height=30, tail_width=3, head_width=8, head_angle=20, angle_start=0, angle_end=90, style=Styles.BlueFlat)
 
 # 2. Semi-circular feedback return arrow
 arrow_arc(
     (70, 25),
     width=32,
     height=24,
-    angle_start=180,
-    angle_end=0,
     tail_width=3,
     head_width=8,
+    head_angle=20,
+    angle_start=0,
+    angle_end=180,
     style=Styles.Primary.patch(
         shape_fill_color=CssColors.Gold, shape_line_color=CssColors.DarkGoldenRod, shape_line_width=1.5
     ),
@@ -1790,13 +1767,13 @@ Draws an arbitrary multi-segment polyline directed block arrow with optional rou
 ```python
 def arrow_polyline(
     xys: list[tuple[float, float]],
-    head_width: float | None = None,
-    head_length: float | None = None,
-    head_angle: float | None = None,
-    tail_width: float | None = None,
-    r: float = 0.0,
+    tail_width: float,
+    head_width: float,
+    head_length: float,
     *,
-    style: Style,
+    head: Literal["->", "<-", "<->"] = "->",
+    r: float = 0.0,
+    style: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1805,14 +1782,14 @@ def arrow_polyline(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xys` | `list[tuple[float, float]]` | *Required* | Sequence of path points. Arrowhead is attached to the final vertex. |
-| `head_width` | `float \| None` | `None` | Arrowhead width at final tip. |
-| `head_length` | `float \| None` | `None` | Arrowhead axial length. |
-| `head_angle` | `float \| None` | `None` | Tip vertex angle. |
-| `tail_width` | `float \| None` | `None` | Width of the polyline shaft. |
+| `tail_width` | `float` | *Required* | Width of the polyline shaft. |
+| `head_width` | `float` | *Required* | Arrowhead width at final tip. |
+| `head_length` | `float` | *Required* | Arrowhead axial length. |
+| `head` | `Literal["->", "<-", "<->"]` | `"->"` | Arrowhead direction. |
 | `r` | `float` | `0.0` | Corner rounding radius at all intermediate vertex joints. |
-| `style` | `Style` | *Required* | Fill and stroke style. |
+| `style` | `Style \| None` | `None` | Fill and stroke style. |
 
-> **Important**: `arrow_polyline` **does not accept `text`** or `angle`.
+> **Important**: `arrow_polyline` **does not accept `text`**.
 
 #### Code Examples
 ```drawlib show-code
@@ -1860,10 +1837,10 @@ def chevron(
     xy: tuple[float, float],
     width: float,
     height: float,
-    corner_angle: float = 60.0,
-    angle: float = 0.0,
+    corner_angle: float,
     *,
-    style: Style,
+    mirror: bool = False,
+    style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
 ) -> None:
@@ -1876,9 +1853,9 @@ def chevron(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the chevron. |
 | `width` | `float` | *Required* | Total horizontal length from rear notch apex to front point. |
 | `height` | `float` | *Required* | Total vertical height. |
-| `corner_angle` | `float` | `60.0` | Point/notch angle in degrees ($0 < \theta < 180^\circ$). |
-| `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style` | *Required* | Fill and stroke style. |
+| `corner_angle` | `float` | *Required* | Point/notch angle in degrees ($0 < \theta < 180^\circ$). |
+| `mirror` | `bool` | `False` | Mirror chevron horizontally if `True`. |
+| `style` | `Style \| None` | `None` | Fill and stroke style (supports `angle` for rotation). |
 | `text` | `str` | `""` | Embedded text label at center. |
 | `text_style` | `Style \| None` | `None` | Text styling parameters. |
 
@@ -2366,7 +2343,7 @@ save()
 
 ### 7.1 Function Capabilities Matrix
 
-| Function | Default Anchor | Primary Dimensions | Corner Radius `r` | Rotation `angle` | Supports `text` | Ignores `halign/valign` |
+| Function | Default Anchor | Primary Dimensions | Corner Radius `r` | Rotation (`style.angle`) | Supports `text` | Ignores `halign/valign` |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: |
 | `circle` | Center `(x, y)` | `radius` | No | Yes (text) | Yes | No |
 | `donuts` | Center `(x, y)` | `radius`, `width` | No | Yes (text) | Yes | No |
@@ -2410,9 +2387,9 @@ save()
    - *Error*: Passing `num_vertices=...` to `regularpolygon()` or `star()`.
    - *Resolution*: The parameter is singular: `num_vertex` (e.g., `num_vertex=6`).
 5. **No Border vs Transparent Fill**:
-   - To remove a shape border: set `line_width=0`.
-   - To make the interior transparent: set `fill_color=Colors.Transparent` or `fill_alpha=0.0`.
+   - To remove a shape border: set `shape_line_width=0`.
+   - To make the interior transparent: set `shape_fill_color=Colors.Transparent` or `alpha=0.0`.
 6. **Centering Text in Asymmetric Shapes**:
    - For `triangle()` and `trapezoid()`, the default bounding-box center may place text too close to narrow edges. Use `text_style=Style(xy_shift=(dx, dy))` to nudge the text into visual balance.
 7. **Orientation in `polygon()`**:
-   - `polygon()` derives its orientation entirely from vertex order in `xys` and has no `angle` parameter. To rotate a custom polygon, use `shape(xy, path_points, angle=...)`.
+   - `polygon()` derives its orientation entirely from vertex order in `xys` and ignores `style.angle`. To rotate a custom polygon, use `shape(xy, path_points, style=Style(angle=...))`.

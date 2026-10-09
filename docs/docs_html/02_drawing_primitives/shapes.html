@@ -361,9 +361,9 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 </tr>
 <tr>
 <td style="text-align:left"><code>style</code></td>
-<td style="text-align:left"><code>Style</code></td>
-<td style="text-align:left"><em>Required</em></td>
-<td style="text-align:left">Visual style defining fill color, border line style, and border width.</td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Visual style defining fill color, border line style, border width, alignment (<code>halign</code>/<code>valign</code>), and rotation (<code>angle</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>text</code></td>
@@ -373,15 +373,9 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 </tr>
 <tr>
 <td style="text-align:left"><code>text_style</code></td>
-<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">Text styling (color, font, weight). Defaults to active theme text style.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>angle</code></td>
-<td style="text-align:left"><code>float</code></td>
-<td style="text-align:left"><code>0.0</code></td>
-<td style="text-align:left">Rotation angle in degrees (counter-clockwise).</td>
 </tr>
 </tbody>
 </table>
@@ -413,7 +407,7 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <ul>
 <li><strong><code>circle(xy, radius, ...)</code></strong>: Draws a standard circle centered at <code>xy</code>.</li>
 <li><strong><code>donuts(xy, radius, width, ...)</code></strong>: Draws a concentric ring with an outer <code>radius</code> and wall thickness <code>width</code>.</li>
-<li><strong><code>ellipse(xy, width, height, angle=0.0, ...)</code></strong>: Draws an oval / ellipse with independent dimensions.</li>
+<li><strong><code>ellipse(xy, width, height, ...)</code></strong>: Draws an oval / ellipse with independent dimensions.</li>
 <li><strong><code>fan(xy, radius, angle_start, angle_end, ...)</code></strong>: Draws a circular pie sector bounded by angles.</li>
 <li><strong><code>wedge(xy, radius, width, angle_start, angle_end, ...)</code></strong>: Draws an angular donut slice.</li>
 </ul>
@@ -433,7 +427,7 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 <span class="n">cylinder</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">disks</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Primary</span><span class="se">\n</span><span class="s2">DB"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
 <span class="c1"># 3. Horizontal / rotated cylinder (e.g. message queue)</span>
-<span class="n">cylinder</span><span class="p">((</span><span class="mi">98</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">angle</span><span class="o">=-</span><span class="mi">90</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Queue"</span><span class="p">)</span>
+<span class="n">cylinder</span><span class="p">((</span><span class="mi">98</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">angle</span><span class="o">=-</span><span class="mi">90</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Queue"</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -442,10 +436,10 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
   <figcaption class="drawlib-caption">3D Cylinders and Multi-Disk Database Stacks</figcaption>
 </figure>
 <ul>
-<li><strong><code>cylinder(xy, width, height, *, style, disks=1, angle=0.0, text=&quot;&quot;, text_style=None)</code></strong>:
+<li><strong><code>cylinder(xy, width, height, *, style, disks=1, text=&quot;&quot;, text_style=None)</code></strong>:
 <ul>
 <li><code>disks</code>: Number of stacked disk segments (<code>1</code> for a standard cylinder; <code>2</code> or <code>3</code> adds internal elliptical divider seams).</li>
-<li><code>angle</code>: Counterclockwise rotation angle in degrees (<code>-90</code> or <code>90</code> for horizontal pipes/queues).</li>
+<li><code>style.angle</code>: Counterclockwise rotation angle in degrees (<code>-90</code> or <code>90</code> for horizontal pipes/queues).</li>
 <li>The top elliptical cap is automatically tinted lighter for 3D depth even on flat styles (<code>Styles.SecondaryFlat</code>), and embedded <code>text</code> is centered on the front body below the top cap.</li>
 </ul>
 </li>
@@ -480,7 +474,7 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
   <figcaption class="drawlib-caption">Expressive Actor and Status Faces (face)</figcaption>
 </figure>
 <ul>
-<li><strong><code>face(xy, radius, *, style, mood=&quot;smile&quot;, angle=0.0, text=&quot;&quot;, text_style=None)</code></strong>:
+<li><strong><code>face(xy, radius, *, style, mood=&quot;smile&quot;, text=&quot;&quot;, text_style=None)</code></strong>:
 <ul>
 <li><code>mood</code>: Facial expression (<code>&quot;smile&quot;</code>, <code>&quot;neutral&quot;</code>, <code>&quot;sad&quot;</code>, <code>&quot;angry&quot;</code>, or <code>&quot;surprised&quot;</code>).</li>
 <li>Eyes, eyebrows, and mouth automatically derive their color from <code>style.shape_line_color</code> (or contrasting <code>text_color</code> / white on borderless flat styles like <code>Styles.PrimaryFlat</code>).</li>
@@ -489,11 +483,11 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 </ul>
 <hr />
 <h2>6. Rectangular &amp; Planar Polygons</h2>
-<h3><code>rectangle(xy, width, height, r=0.0, angle=0.0, ...)</code></h3>
+<h3><code>rectangle(xy, width, height, r=0.0, ...)</code></h3>
 <p>Draws a rectangle centered at <code>xy</code>.</p>
 <ul>
 <li>Set <code>r</code> to create smooth <strong>rounded corners</strong> (e.g., <code>r=4.0</code>).</li>
-<li>Use <code>angle</code> to rotate around the geometric center.</li>
+<li>Use <code>style.angle</code> to rotate around the geometric center.</li>
 </ul>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
@@ -511,10 +505,10 @@ Unlike low-level canvas libraries where shapes must be constructed from complex 
 </figure>
 <ul>
 <li><strong><code>rhombus(xy, width, height, ...)</code></strong>: Symmetric diamond centered at <code>xy</code> (common for decision gates).</li>
-<li><strong><code>triangle(xy, width, height, angle=0.0, ...)</code></strong>: Isosceles triangle pointing upwards (or rotated).</li>
+<li><strong><code>triangle(xy, width, height, ...)</code></strong>: Isosceles triangle pointing upwards (or rotated via <code>style.angle</code>).</li>
 <li><strong><code>trapezoid(xy, height, bottomedge_width, topedge_width, ...)</code></strong>: Symmetrical or skewed trapezoid.</li>
-<li><strong><code>regularpolygon(xy, radius, num_vertex, angle=0.0, ...)</code></strong>: Equilateral polygon ($N$ vertices).</li>
-<li><strong><code>star(xy, num_vertex, radius_ext, radius_int, angle=0.0, ...)</code></strong>: Symmetrical multi-pointed star.</li>
+<li><strong><code>regularpolygon(xy, radius, num_vertex, ...)</code></strong>: Equilateral polygon ($N$ vertices).</li>
+<li><strong><code>star(xy, num_vertex, radius_ext, radius_int, ...)</code></strong>: Symmetrical multi-pointed star.</li>
 <li><strong><code>polygon(points, ...)</code></strong>: Arbitrary closed polygon from coordinate list <code>[(x1, y1), (x2, y2), ...]</code>.</li>
 </ul>
 <hr />

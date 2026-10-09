@@ -4,7 +4,7 @@ Drawlib provides a rich suite of 2D geometric primitives, flexible line connecti
 
 ## Shape Primitives (`drawlib.shapes`)
 
-Drawlib includes over 20 shape primitives. Every shape supports direct text embedding, corner radius rounding (`r`), rotation (`angle`), and full alignment controls:
+Drawlib includes over 20 shape primitives. Every shape supports direct text embedding, corner radius rounding (`r`), rotation (`style.angle`), and full alignment controls (`style.halign`, `style.valign`):
 
 ```drawlib 620px center file:shapes_primitives.png caption:"Figure 4.1: Selection of Drawlib Vector Shapes"
 from drawlib.canvas import setup

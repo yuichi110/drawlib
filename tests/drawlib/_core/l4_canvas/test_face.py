@@ -77,9 +77,8 @@ class TestCanvasFace:
         face(
             (50, 50),
             radius=12,
-            style=Styles.PrimaryNeutral,
+            style=Styles.PrimaryNeutral.patch(angle=30.0),
             mood="smile",
-            angle=30.0,
             text="Actor",
             text_style=Style(text_color=Colors.Black, text_size=12, text_font=Font.SANSSERIF_BOLD),
         )

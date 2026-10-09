@@ -16,7 +16,7 @@ import os
 from pydantic import validate_call
 
 import drawlib._cached_assets
-from drawlib._core.l2_types import Angle, Coordinate, IconStyle, PosFloat
+from drawlib._core.l2_types import Coordinate, IconStyle, PosFloat
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontMetadata, FontResource
 from drawlib._core.l3_styles import Style
@@ -79,7 +79,6 @@ class FontIconProvider:
         xy: Coordinate,
         width: PosFloat,
         code: str,
-        angle: Angle = 0.0,
         *,
         style: Style,
     ) -> None:
@@ -89,7 +88,6 @@ class FontIconProvider:
             xy: (x, y) coordinates of the icon center.
             width: Width of the icon.
             code: Unicode character or codepoint for the icon glyph.
-            angle: Rotation angle in degrees (default 0.0).
             style: Style object (required).
 
         Raises:
@@ -115,6 +113,5 @@ class FontIconProvider:
             width=width,
             code=code,
             file=font_metadata.abs_path,
-            angle=angle,
             style=style_obj,
         )

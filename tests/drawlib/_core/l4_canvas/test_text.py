@@ -45,8 +45,8 @@ class TestCanvasText:
         text(
             (30, 30),
             "Hello World",
-            angle=90,
             style=s_def.patch(
+                angle=90,
                 text_bg_line_color=Colors.Blue,
                 text_bg_fill_color=Colors.Yellow,
                 text_bg_line_style="dotted",
@@ -84,8 +84,8 @@ class TestCanvasText:
         text_vertical(
             (30, 30),
             "Hello World",
-            angle=90,
             style=s_def.patch(
+                angle=90,
                 text_bg_line_color=Colors.Blue,
                 text_bg_fill_color=Colors.Yellow,
                 text_bg_line_style="dotted",

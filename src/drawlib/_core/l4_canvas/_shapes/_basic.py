@@ -159,7 +159,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         path_points: PathPoints,
         *,
         style: Style,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
         is_default_center: bool = False,
@@ -170,7 +169,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             xy: Starting point of the shape.
             path_points: List of path points including control points for Bezier curves.
             style: Style of the shape (required).
-            angle (float, optional): Rotation angle of the shape.
             text (str, optional): Text to display along with the shape.
             text_style (Style | None, optional): Style of the text.
             is_default_center (bool, optional): Whether to place (xy) at the center of the shape.
@@ -182,6 +180,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         transformed_points, (cx, cy), effective_style = ShapeUtil.transform_shape_path_points(
             xy=xy,
@@ -215,7 +214,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         *,
         style: Style,
         r: PosFloat = 0.0,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -227,7 +225,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             height: Height of the rectangle.
             style: Style of the rectangle (required).
             r (float, optional): Radius for rounded corners (default is 0.0).
-            angle (int | float, optional): Rotation angle of the rectangle.
             text (str, optional): Text to display within the rectangle.
             text_style (Style | None, optional): Style of the text.
 
@@ -247,7 +244,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             self.shape(
                 xy=xy,
                 path_points=[p1, p2, p3, p4],
-                angle=angle,
                 style=style,
                 text=text,
                 text_style=text_style,
@@ -276,7 +272,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         self.shape(
             xy=xy,
             path_points=[p1, p2, p3, p4, p5, p6, p7, p8, p9],
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -334,7 +329,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         style: Style,
         angle_start: Angle = 0.0,
         angle_end: Angle = 360.0,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -347,7 +341,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             style: Style object (required).
             angle_start: Starting angle in degrees.
             angle_end: Ending angle in degrees.
-            angle: Rotation angle in degrees.
             text: Text to display inside shape.
             text_style: Style object for text.
         """
@@ -355,6 +348,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         xy, style = ShapeUtil.apply_alignment(xy, width, height, angle, style, is_default_center=True)
         options = ShapeUtil.get_shape_options(style)
@@ -389,7 +383,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         radius: PosFloat,
         *,
         style: Style,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -399,7 +392,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             xy: Center coordinates tuple (x, y).
             radius: Radius of the circle.
             style: Style object (required).
-            angle: Rotation angle in degrees.
             text: Text to display inside shape.
             text_style: Style object for text.
         """
@@ -407,6 +399,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         width = radius * 2
         height = radius * 2
@@ -440,7 +433,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         height: PosFloat,
         *,
         style: Style,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -450,7 +442,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             xy: Center coordinates (x, y) of the ellipse.
             width: Width (major axis) of the ellipse.
             height: Height (minor axis) of the ellipse.
-            angle (optional): Rotation angle of the ellipse in degrees.
             style: Style of the ellipse (required).
             text (optional): Text to display inside the ellipse.
             text_style (optional): Style of the text.
@@ -459,6 +450,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         xy, style = ShapeUtil.apply_alignment(
             xy=xy,
@@ -500,7 +492,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         radius: PosFloat,
         *,
         style: Style,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -510,7 +501,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             xy: Center coordinates (x, y) of the regular polygon.
             num_vertex: Number of vertices in the polygon.
             radius: Radius of the circumscribed circle.
-            angle (optional): Rotation angle of the polygon in degrees.
             style: Style of the polygon (required).
             text (optional): Text to display inside the polygon.
             text_style (optional): Style of the text.
@@ -519,6 +509,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         xy, style = ShapeUtil.apply_alignment(
             xy=xy,
@@ -563,7 +554,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         width: PosFloat | None = None,
         angle_start: Angle = 0,
         angle_end: Angle = 360,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -576,7 +566,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             width: Width of the wedge ring (inner radius = radius - width).
             angle_start: Starting theta angle in degrees.
             angle_end: Ending theta angle in degrees.
-            angle: Rotation angle in degrees.
             text: Text to display inside shape.
             text_style: Style object for text.
         """
@@ -584,6 +573,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         ext_width = radius * 2
         ext_height = radius * 2
@@ -620,7 +610,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         *,
         style: Style,
         width: PosFloat | None = None,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -631,7 +620,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             radius: Outer radius of the donut.
             style: Style object (required).
             width: Width of the donut ring.
-            angle: Rotation angle in degrees.
             text: Text to display inside shape.
             text_style: Style object for text.
         """
@@ -639,7 +627,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             xy=xy,
             radius=radius,
             width=width,
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -654,7 +641,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         style: Style,
         angle_start: Angle = 0,
         angle_end: Angle = 180,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -666,7 +652,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             style: Style object (required).
             angle_start: Starting theta angle in degrees.
             angle_end: Ending theta angle in degrees.
-            angle: Rotation angle in degrees.
             text: Text to display inside shape.
             text_style: Style object for text.
         """
@@ -676,7 +661,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             width=None,
             angle_start=angle_start,
             angle_end=angle_end,
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -691,7 +675,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         *,
         style: Style,
         disks: PosInt = 1,
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -703,7 +686,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             height: Height of the cylinder.
             style: Style object (required).
             disks: Number of stacked disks (default is 1).
-            angle: Rotation angle in degrees (default is 0.0).
             text: Text to display inside shape.
             text_style: Style object for text.
         """
@@ -711,6 +693,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         if width <= 0 or height <= 0:
             raise ValueError(f"width and height must be positive, but got width={width}, height={height}.")
@@ -908,7 +891,6 @@ class CanvasShapeBasicFeature(CanvasBase):
         *,
         style: Style,
         mood: FaceMood = "smile",
-        angle: Angle = 0.0,
         text: str = "",
         text_style: Style | None = None,
     ) -> None:
@@ -919,7 +901,6 @@ class CanvasShapeBasicFeature(CanvasBase):
             radius: Radius of the face circle.
             style: Style object (required).
             mood: Facial expression ("smile", "neutral", "sad", "angry", or "surprised").
-            angle: Rotation angle in degrees (default is 0.0).
             text: Text to display inside shape.
             text_style: Style object for text.
         """
@@ -927,6 +908,7 @@ class CanvasShapeBasicFeature(CanvasBase):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         if radius <= 0:
             raise ValueError(f"radius must be positive, but got radius={radius}.")

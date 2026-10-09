@@ -28,7 +28,6 @@ class Process(FlowNode):
         width: float = 24.0,
         height: float = 12.0,
         r: float = 0.0,
-        angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
         show: bool = True,
@@ -40,7 +39,6 @@ class Process(FlowNode):
             width: Width of the process box. Defaults to 24.0.
             height: Height of the process box. Defaults to 12.0.
             r: Corner radius for rounded corners. Defaults to 0.0.
-            angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
             show: Whether to render this node. Defaults to True.
@@ -50,7 +48,6 @@ class Process(FlowNode):
             width=width,
             height=height,
             r=r,
-            angle=angle,
             style=style,
             text_style=text_style,
             shape_type="process",
@@ -66,7 +63,6 @@ class Decision(FlowNode):
         text: str = "",
         width: float = 22.0,
         height: float = 14.0,
-        angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
         show: bool = True,
@@ -77,7 +73,6 @@ class Decision(FlowNode):
             text: Question or conditional expression (e.g. "Is Valid?").
             width: Width of the diamond. Defaults to 22.0.
             height: Height of the diamond. Defaults to 14.0.
-            angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
             show: Whether to render this node. Defaults to True.
@@ -87,7 +82,6 @@ class Decision(FlowNode):
             width=width,
             height=height,
             r=0.0,
-            angle=angle,
             style=style,
             text_style=text_style,
             shape_type="decision",
@@ -104,7 +98,6 @@ class Start(FlowNode):
         width: float = 20.0,
         height: float = 10.0,
         r: float = 5.0,
-        angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
         show: bool = True,
@@ -116,7 +109,6 @@ class Start(FlowNode):
             width: Width of the terminal shape. Defaults to 20.0.
             height: Height of the terminal shape. Defaults to 10.0.
             r: Corner radius. Defaults to 5.0 (half height for full stadium curve).
-            angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
             show: Whether to render this node. Defaults to True.
@@ -126,7 +118,6 @@ class Start(FlowNode):
             width=width,
             height=height,
             r=r,
-            angle=angle,
             style=style,
             text_style=text_style,
             shape_type="start",
@@ -143,7 +134,6 @@ class End(FlowNode):
         width: float = 20.0,
         height: float = 10.0,
         r: float = 5.0,
-        angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
         show: bool = True,
@@ -155,7 +145,6 @@ class End(FlowNode):
             width: Width of the terminal shape. Defaults to 20.0.
             height: Height of the terminal shape. Defaults to 10.0.
             r: Corner radius. Defaults to 5.0 (half height for full stadium curve).
-            angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
             show: Whether to render this node. Defaults to True.
@@ -165,7 +154,6 @@ class End(FlowNode):
             width=width,
             height=height,
             r=r,
-            angle=angle,
             style=style,
             text_style=text_style,
             shape_type="end",
@@ -181,7 +169,6 @@ class Data(FlowNode):
         text: str = "",
         width: float = 24.0,
         height: float = 12.0,
-        angle: float = 0.0,
         style: Style | None = None,
         text_style: Style | None = None,
         show: bool = True,
@@ -192,7 +179,6 @@ class Data(FlowNode):
             text: Input/output data description.
             width: Width of the parallelogram. Defaults to 24.0.
             height: Height of the parallelogram. Defaults to 12.0.
-            angle: Rotation angle in degrees. Defaults to 0.0.
             style: Optional Style for fill and border stroke.
             text_style: Optional Style for label text.
             show: Whether to render this node. Defaults to True.
@@ -202,7 +188,6 @@ class Data(FlowNode):
             width=width,
             height=height,
             r=0.0,
-            angle=angle,
             style=style,
             text_style=text_style,
             shape_type="data",

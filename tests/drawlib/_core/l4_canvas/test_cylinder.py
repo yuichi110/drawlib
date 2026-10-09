@@ -72,12 +72,12 @@ class TestCanvasCylinder:
     def test_cylinder_rotation(self) -> None:
         """Verify cylinder rendering with rotation angles."""
         # Tilted 45 degrees
-        cylinder((50, 50), width=20, height=30, angle=45.0, style=Styles.Primary)
+        cylinder((50, 50), width=20, height=30, style=Styles.Primary.patch(angle=45.0))
         assert len(canvas._artists) == 3
 
         # Horizontal cylinder (90 degrees)
         clear()
-        cylinder((50, 50), width=20, height=30, angle=90.0, style=Styles.PrimaryFlat)
+        cylinder((50, 50), width=20, height=30, style=Styles.PrimaryFlat.patch(angle=90.0))
         assert len(canvas._artists) == 2
 
     def test_cylinder_alpha_transparency(self) -> None:

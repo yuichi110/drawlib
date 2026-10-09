@@ -36,7 +36,7 @@ PHOSPHOR_HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 
 from __future__ import annotations
 
-from drawlib._core.l2_types import Angle, Coordinate, PosFloat
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._icons.font_icons.phosphor._base import _write
 '''
@@ -45,7 +45,6 @@ PHOSPHOR_FUNCTION_TEMPLATE = '''
 def {function_name}(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -55,11 +54,10 @@ def {function_name}(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\\u{icon_code}", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\\u{icon_code}", style=style)
 '''
 
 

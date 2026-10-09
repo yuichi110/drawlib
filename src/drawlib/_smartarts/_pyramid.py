@@ -262,10 +262,9 @@ class Pyramid:
                         (x, y),
                         width=item_width,
                         height=item_height,
-                        style=style,
+                        style=style.patch(angle=180),
                         text=text,
                         text_style=text_style,
-                        angle=180,
                     )
                 continue
 
@@ -300,7 +299,7 @@ class Pyramid:
         current_height = 0.0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style.patch(halign="center", valign="center")
+            style = item.style.patch(halign="center", valign="center", angle=270)
             text_style = _resolve_pyramid_text_style(item, ensure_angle=True)
 
             is_last = i == len(items) - 1
@@ -317,7 +316,6 @@ class Pyramid:
                         style=style,
                         text=text,
                         text_style=text_style,
-                        angle=270,
                     )
                 continue
 
@@ -336,7 +334,6 @@ class Pyramid:
                     style=style,
                     text=text,
                     text_style=text_style,
-                    angle=270,
                 )
             current_height += item_height + margins[i]
 
@@ -353,7 +350,7 @@ class Pyramid:
         current_height = 0.0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style.patch(halign="center", valign="center")
+            style = item.style.patch(halign="center", valign="center", angle=90)
             text_style = _resolve_pyramid_text_style(item, ensure_angle=True)
 
             is_last = i == len(items) - 1
@@ -370,7 +367,6 @@ class Pyramid:
                         style=style,
                         text=text,
                         text_style=text_style,
-                        angle=90,
                     )
                 continue
 
@@ -389,6 +385,5 @@ class Pyramid:
                     style=style,
                     text=text,
                     text_style=text_style,
-                    angle=90,
                 )
             current_height += item_height + margins[i]

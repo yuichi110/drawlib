@@ -173,8 +173,9 @@ def _draw_axis_titles(
     if y_axis.label and y_label_style is not None:
         y_cx = p_min_x - 9.0
         y_cy = (p_min_y + p_max_y) / 2.0
-        y_style = y_label_style.patch(halign="center", valign="center")
-        canvas_text(xy=(y_cx, y_cy), text=y_axis.label, angle=90.0, style=ensure_text_style(y_style))
+        y_angle = y_label_style.angle if y_label_style.angle is not None else 90.0
+        y_style = y_label_style.patch(halign="center", valign="center", angle=y_angle)
+        canvas_text(xy=(y_cx, y_cy), text=y_axis.label, style=ensure_text_style(y_style))
 
 
 def _draw_point_marker(

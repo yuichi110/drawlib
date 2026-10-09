@@ -28,7 +28,6 @@ image(
     xy: tuple[float, float],
     width: float,
     image: str | Image.Image | Dimage,
-    angle: float = 0.0,
     *,
     style: Style | None = None,
 )
@@ -37,11 +36,10 @@ image(
 ### Parameter Breakdown:
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | Required | Coordinate of the image center anchor point `(x, y)`. |
+| `xy` | `tuple[float, float]` | Required | Coordinate of the image anchor point `(x, y)`. |
 | `width` | `float` | Required | Width of the image in canvas units. Height is calculated automatically from the image aspect ratio. |
 | `image` | `str \| Image \| Dimage`| Required | Filesystem path to an image file (`.png`, `.jpg`, `.webp`), a PIL `Image`, or a `Dimage`. |
-| `angle` | `float` | `0.0` | Counter-clockwise rotation angle in degrees around the anchor point. |
-| `style` | `Style \| None` | `None` | Style controlling transparency (`alpha`), tint color (`image_tint_color`), or border (`image_border_width`, `image_border_color`). |
+| `style` | `Style \| None` | `None` | Style controlling rotation (`angle`), alignment (`halign`, `valign`), offset (`xy_shift`, `xy_abs_shift`), transparency (`alpha`), or border (`shape_line_width`, `shape_line_color`). |
 
 ### Anchor Alignment
 By default, `(x, y)` corresponds to the **geometric center** of the image in canvas coordinates.

@@ -52,17 +52,15 @@ text(
     xy: tuple[float, float],
     text: str,
     *,
-    style: Style,
-    angle: float = 0.0,
+    style: Style | None = None,
 ) -> None
 ```
 
 #### Parameter Breakdown:
 - **`xy` (tuple[float, float])**: The anchor point `(x, y)` on the canvas.
 - **`text` (str)**: The string content to render. Supports newline characters (`\n`) for multi-line blocks.
-- **`style` (Style)**: Required keyword-only `Style` instance (e.g. `Styles.PrimaryBold`, `Styles.Primary`, `Styles.BlueBold` or custom `Style(...)`).
-  Alignment is controlled via `Style(halign="...", valign="...")` (`halign`: `"left"`, `"center"`, `"right"`; `valign`: `"bottom"`, `"center"`, `"top"`). Font size is controlled via `Style(text_size=...)` or `style.patch(text_size=...)`.
-- **`angle` (float)**: Counter-clockwise rotation angle in degrees around the anchor point `xy` (default: 0.0).
+- **`style` (Style | None)**: Optional keyword-only `Style` instance (e.g. `Styles.PrimaryBold`, `Styles.Primary`, `Styles.BlueBold` or custom `Style(...)`).
+  Alignment is controlled via `Style(halign="...", valign="...")` (`halign`: `"left"`, `"center"`, `"right"`; `valign`: `"bottom"`, `"center"`, `"top"`). Font size is controlled via `Style(text_size=...)` or `style.patch(text_size=...)`. Counter-clockwise rotation angle around `xy` is controlled via `Style(angle=...)` or `style.patch(angle=...)`.
 
 ### 2.2. `text_vertical()` Specification
 Vertical text layout stacks glyphs vertically from top to bottom.
@@ -72,8 +70,7 @@ text_vertical(
     xy: tuple[float, float],
     text: str,
     *,
-    style: Style,
-    angle: float = 0.0,
+    style: Style | None = None,
 ) -> None
 ```
 
@@ -334,9 +331,9 @@ save()
 
 ---
 
-## 8. Rotated Text (`angle`)
+## 8. Rotated Text (`style.angle`)
 
-The `angle` parameter rotates text counter-clockwise around the specified anchor coordinate `xy`.
+The `style.angle` attribute rotates text counter-clockwise around the specified anchor coordinate `xy`.
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
@@ -346,10 +343,10 @@ from drawlib.styles import Styles
 setup(width=100, height=60)
 
 # Vertical axis label (-90 degrees or 90 degrees)
-text((10, 30), "Request Throughput (req/sec)", angle=90, style=Styles.PrimaryBold.patch(text_size=12))
+text((10, 30), "Request Throughput (req/sec)", style=Styles.PrimaryBold.patch(text_size=12, angle=90))
 
 # Diagonal watermark / status label (45 degrees)
-text((50, 30), "INTERNAL DRAFT ONLY", angle=45, style=Styles.Muted.patch(text_size=22))
+text((50, 30), "INTERNAL DRAFT ONLY", style=Styles.Muted.patch(text_size=22, angle=45))
 
 save()
 ```

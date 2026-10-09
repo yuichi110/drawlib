@@ -352,15 +352,14 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
 <pre><code class="language-python"><span class="n">text</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <ul>
 <li><strong><code>xy</code></strong>: Coordinate anchor point <code>(x, y)</code>.</li>
 <li><strong><code>text</code></strong>: The string content. Use <code>\n</code> to insert line breaks.</li>
-<li><strong><code>angle</code></strong>: Counter-clockwise rotation angle around <code>xy</code>.</li>
-<li><strong><code>style</code></strong>: Text styling (color, font size, weight, alignment).</li>
+<li><strong><code>style</code></strong>: Text styling (color, font size, weight, alignment <code>halign</code>/<code>valign</code>, rotation <code>angle</code>).</li>
 </ul>
 <h3>2.2. Vertical CJK Text (<code>text_vertical</code>)</h3>
 <p>Renders East Asian characters (Japanese, Chinese) in traditional top-to-bottom vertical layout:</p>

@@ -247,7 +247,7 @@ class TestCanvasArrow:
         )
 
         # Ellipse with 45 degrees orientation (quadrant 4)
-        ellipse(xy=(75, 75), width=40, height=20, style=styles.PrimaryDashed, angle=45)
+        ellipse(xy=(75, 75), width=40, height=20, style=styles.PrimaryDashed.patch(angle=45))
         arrow_arc(
             xy=(75, 75),
             width=40,
@@ -258,8 +258,7 @@ class TestCanvasArrow:
             head="->",
             angle_start=45,
             angle_end=135,
-            angle=45,
-            style=s_def,
+            style=s_def.patch(angle=45),
         )
 
         save(f"{OUTPUT_DIR}test_arrow_arc.png")
@@ -302,8 +301,7 @@ class TestCanvasArrow:
             head_width=5,
             head="->",
             r=5,
-            angle=90,
-            style=s_def,
+            style=s_def.patch(angle=90),
         )
         arrow_l(
             xy=(75, 75),
@@ -358,8 +356,7 @@ class TestCanvasArrow:
             head_width=5,
             head="->",
             r=5,
-            angle=90,
-            style=s_def,
+            style=s_def.patch(angle=90),
         )
         arrow_u(
             xy=(75, 25),

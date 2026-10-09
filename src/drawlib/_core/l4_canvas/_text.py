@@ -37,7 +37,6 @@ class CanvasTextFeature(CanvasBase):
         text: str,
         *,
         style: Style,
-        angle: Angle = 0.0,
     ) -> None:
         """Draw text on the canvas.
 
@@ -45,11 +44,9 @@ class CanvasTextFeature(CanvasBase):
             xy: Coordinates (x, y) of the text anchor point.
             text: Text string to be displayed.
             style: Style of the text (required).
-            angle (optional): Rotation angle of the text (in degrees).
         """
         style.validate_for("text")
-        if angle == 0.0 and style.angle is not None:
-            angle = style.angle
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         x, y = xy
         if style.xy_shift is not None:
@@ -90,7 +87,6 @@ class CanvasTextFeature(CanvasBase):
         text: str,
         *,
         style: Style,
-        angle: Angle = 0.0,
     ) -> None:
         """Draw vertical text on the canvas.
 
@@ -98,7 +94,6 @@ class CanvasTextFeature(CanvasBase):
             xy: Coordinates (x, y) of the text anchor point.
             text: Text string to be displayed vertically.
             style: Style of the text (required).
-            angle (optional): Rotation angle of the text (in degrees).
         """
         style.validate_for("text")
 
@@ -107,4 +102,4 @@ class CanvasTextFeature(CanvasBase):
             style = style.patch(halign="center")
 
         vertical_text = "\n".join(text)
-        self.text(xy=xy, text=vertical_text, angle=angle, style=style)
+        self.text(xy=xy, text=vertical_text, style=style)

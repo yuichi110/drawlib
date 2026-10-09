@@ -59,7 +59,7 @@ class TestCanvasPolygon:
 
         # Text & angles
         triangle((50, 50), 30, 40, text="Hello", style=s_primary)
-        triangle((50, 50), 30, 40, angle=45, text="Hello", style=s_primary)
+        triangle((50, 50), 30, 40, text="Hello", style=s_primary.patch(angle=45))
 
         save(f"{OUTPUT_DIR}test_triangle.png")
 
@@ -96,7 +96,7 @@ class TestCanvasPolygon:
         parallelogram((50, 50), 30, 20, 75, style=s_primary)
 
         # Rotation angles
-        parallelogram((50, 50), 30, 20, 60, angle=45, text="hello", style=s_primary, text_style=s_red_text)
+        parallelogram((50, 50), 30, 20, 60, text="hello", style=s_primary.patch(angle=45), text_style=s_red_text)
 
         save(f"{OUTPUT_DIR}test_parallelogram.png")
 
@@ -135,7 +135,7 @@ class TestCanvasPolygon:
         trapezoid((50, 50), 30, 40, 20, topedge_x=-10, style=s_primary)
 
         # Rotations & text
-        trapezoid((50, 50), 30, 40, 20, angle=45, text="Hello", style=s_primary)
+        trapezoid((50, 50), 30, 40, 20, text="Hello", style=s_primary.patch(angle=45))
 
         save(f"{OUTPUT_DIR}test_trapezoid.png")
 
@@ -165,7 +165,7 @@ class TestCanvasPolygon:
 
         # Text & angles
         rhombus((50, 50), 20, 40, text="hello", style=s_primary)
-        rhombus((50, 50), 20, 40, angle=45, text="hello", style=s_primary)
+        rhombus((50, 50), 20, 40, text="hello", style=s_primary.patch(angle=45))
 
         save(f"{OUTPUT_DIR}test_rhombus.png")
 
@@ -216,7 +216,7 @@ class TestCanvasPolygon:
 
         # Mirroring and angles
         chevron(xy=(50, 50), width=10, height=15, corner_angle=60, mirror=True, style=s_primary)
-        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, angle=45, text="chevron", style=s_primary)
+        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, text="chevron", style=s_primary.patch(angle=45))
 
         # Corner angle 30
         chevron(xy=(50, 50), width=10, height=15, corner_angle=30, style=s_primary)
@@ -260,6 +260,6 @@ class TestCanvasPolygon:
                 shape_fill_color=Colors.Transparent,
             ),
         )
-        star((50, 50), 5, 30, 15, angle=45, text="Hello", style=s_primary)
+        star((50, 50), 5, 30, 15, text="Hello", style=s_primary.patch(angle=45))
 
         save(f"{OUTPUT_DIR}test_star.png")

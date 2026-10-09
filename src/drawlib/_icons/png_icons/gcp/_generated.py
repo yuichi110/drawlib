@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._core.l2_types import Angle, Coordinate, PosFloat
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._icons.png_icons.gcp._base import _write
 
@@ -19,7 +19,6 @@ from drawlib._icons.png_icons.gcp._base import _write
 def access_context_manager(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29,17 +28,15 @@ def access_context_manager(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="access_context_manager", angle=angle, style=style)
+    _write(xy=xy, width=width, name="access_context_manager", style=style)
 
 
 def administration(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -49,17 +46,15 @@ def administration(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="administration", angle=angle, style=style)
+    _write(xy=xy, width=width, name="administration", style=style)
 
 
 def advanced_agent_modeling(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -69,17 +64,15 @@ def advanced_agent_modeling(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="advanced_agent_modeling", angle=angle, style=style)
+    _write(xy=xy, width=width, name="advanced_agent_modeling", style=style)
 
 
 def advanced_solutions_lab(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -89,17 +82,15 @@ def advanced_solutions_lab(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="advanced_solutions_lab", angle=angle, style=style)
+    _write(xy=xy, width=width, name="advanced_solutions_lab", style=style)
 
 
 def agent_assist(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -109,17 +100,15 @@ def agent_assist(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="agent_assist", angle=angle, style=style)
+    _write(xy=xy, width=width, name="agent_assist", style=style)
 
 
 def ai_hub(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -129,17 +118,15 @@ def ai_hub(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="ai_hub", angle=angle, style=style)
+    _write(xy=xy, width=width, name="ai_hub", style=style)
 
 
 def ai_hypercomputer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -149,17 +136,15 @@ def ai_hypercomputer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="ai_hypercomputer", angle=angle, style=style)
+    _write(xy=xy, width=width, name="ai_hypercomputer", style=style)
 
 
 def ai_platform(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -169,17 +154,15 @@ def ai_platform(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="ai_platform", angle=angle, style=style)
+    _write(xy=xy, width=width, name="ai_platform", style=style)
 
 
 def ai_platform_unified(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -189,17 +172,15 @@ def ai_platform_unified(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="ai_platform_unified", angle=angle, style=style)
+    _write(xy=xy, width=width, name="ai_platform_unified", style=style)
 
 
 def alloydb(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -209,17 +190,15 @@ def alloydb(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="alloydb", angle=angle, style=style)
+    _write(xy=xy, width=width, name="alloydb", style=style)
 
 
 def analytics_hub(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -229,17 +208,15 @@ def analytics_hub(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="analytics_hub", angle=angle, style=style)
+    _write(xy=xy, width=width, name="analytics_hub", style=style)
 
 
 def anthos(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -249,17 +226,15 @@ def anthos(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="anthos", angle=angle, style=style)
+    _write(xy=xy, width=width, name="anthos", style=style)
 
 
 def anthos_config_management(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -269,17 +244,15 @@ def anthos_config_management(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="anthos_config_management", angle=angle, style=style)
+    _write(xy=xy, width=width, name="anthos_config_management", style=style)
 
 
 def anthos_service_mesh(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -289,17 +262,15 @@ def anthos_service_mesh(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="anthos_service_mesh", angle=angle, style=style)
+    _write(xy=xy, width=width, name="anthos_service_mesh", style=style)
 
 
 def api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -309,17 +280,15 @@ def api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="api", style=style)
 
 
 def api_analytics(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -329,17 +298,15 @@ def api_analytics(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="api_analytics", angle=angle, style=style)
+    _write(xy=xy, width=width, name="api_analytics", style=style)
 
 
 def api_monetization(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -349,17 +316,15 @@ def api_monetization(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="api_monetization", angle=angle, style=style)
+    _write(xy=xy, width=width, name="api_monetization", style=style)
 
 
 def apigee(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -369,17 +334,15 @@ def apigee(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="apigee", angle=angle, style=style)
+    _write(xy=xy, width=width, name="apigee", style=style)
 
 
 def apigee_api_platform(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -389,17 +352,15 @@ def apigee_api_platform(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="apigee_api_platform", angle=angle, style=style)
+    _write(xy=xy, width=width, name="apigee_api_platform", style=style)
 
 
 def apigee_sense(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -409,17 +370,15 @@ def apigee_sense(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="apigee_sense", angle=angle, style=style)
+    _write(xy=xy, width=width, name="apigee_sense", style=style)
 
 
 def app_engine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -429,17 +388,15 @@ def app_engine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="app_engine", angle=angle, style=style)
+    _write(xy=xy, width=width, name="app_engine", style=style)
 
 
 def artifact_registry(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -449,17 +406,15 @@ def artifact_registry(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="artifact_registry", angle=angle, style=style)
+    _write(xy=xy, width=width, name="artifact_registry", style=style)
 
 
 def asset_inventory(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -469,17 +424,15 @@ def asset_inventory(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="asset_inventory", angle=angle, style=style)
+    _write(xy=xy, width=width, name="asset_inventory", style=style)
 
 
 def assured_workloads(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -489,17 +442,15 @@ def assured_workloads(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="assured_workloads", angle=angle, style=style)
+    _write(xy=xy, width=width, name="assured_workloads", style=style)
 
 
 def automl(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -509,17 +460,15 @@ def automl(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="automl", angle=angle, style=style)
+    _write(xy=xy, width=width, name="automl", style=style)
 
 
 def automl_natural_language(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -529,17 +478,15 @@ def automl_natural_language(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="automl_natural_language", angle=angle, style=style)
+    _write(xy=xy, width=width, name="automl_natural_language", style=style)
 
 
 def automl_tables(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -549,17 +496,15 @@ def automl_tables(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="automl_tables", angle=angle, style=style)
+    _write(xy=xy, width=width, name="automl_tables", style=style)
 
 
 def automl_translation(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -569,17 +514,15 @@ def automl_translation(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="automl_translation", angle=angle, style=style)
+    _write(xy=xy, width=width, name="automl_translation", style=style)
 
 
 def automl_video_intelligence(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -589,17 +532,15 @@ def automl_video_intelligence(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="automl_video_intelligence", angle=angle, style=style)
+    _write(xy=xy, width=width, name="automl_video_intelligence", style=style)
 
 
 def automl_vision(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -609,17 +550,15 @@ def automl_vision(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="automl_vision", angle=angle, style=style)
+    _write(xy=xy, width=width, name="automl_vision", style=style)
 
 
 def bare_metal_solutions(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -629,17 +568,15 @@ def bare_metal_solutions(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="bare_metal_solutions", angle=angle, style=style)
+    _write(xy=xy, width=width, name="bare_metal_solutions", style=style)
 
 
 def batch(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -649,17 +586,15 @@ def batch(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="batch", angle=angle, style=style)
+    _write(xy=xy, width=width, name="batch", style=style)
 
 
 def beyondcorp(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -669,17 +604,15 @@ def beyondcorp(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="beyondcorp", angle=angle, style=style)
+    _write(xy=xy, width=width, name="beyondcorp", style=style)
 
 
 def bigquery(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -689,17 +622,15 @@ def bigquery(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="bigquery", angle=angle, style=style)
+    _write(xy=xy, width=width, name="bigquery", style=style)
 
 
 def bigtable(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -709,17 +640,15 @@ def bigtable(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="bigtable", angle=angle, style=style)
+    _write(xy=xy, width=width, name="bigtable", style=style)
 
 
 def billing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -729,17 +658,15 @@ def billing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="billing", angle=angle, style=style)
+    _write(xy=xy, width=width, name="billing", style=style)
 
 
 def binary_authorization(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -749,17 +676,15 @@ def binary_authorization(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="binary_authorization", angle=angle, style=style)
+    _write(xy=xy, width=width, name="binary_authorization", style=style)
 
 
 def catalog(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -769,17 +694,15 @@ def catalog(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="catalog", angle=angle, style=style)
+    _write(xy=xy, width=width, name="catalog", style=style)
 
 
 def category_agents(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -789,17 +712,15 @@ def category_agents(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_agents", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_agents", style=style)
 
 
 def category_ai_machine_learning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -809,17 +730,15 @@ def category_ai_machine_learning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_ai_machine_learning", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_ai_machine_learning", style=style)
 
 
 def category_business_intelligence(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -829,17 +748,15 @@ def category_business_intelligence(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_business_intelligence", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_business_intelligence", style=style)
 
 
 def category_collaboration(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -849,17 +766,15 @@ def category_collaboration(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_collaboration", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_collaboration", style=style)
 
 
 def category_compute(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -869,17 +784,15 @@ def category_compute(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_compute", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_compute", style=style)
 
 
 def category_containers(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -889,17 +802,15 @@ def category_containers(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_containers", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_containers", style=style)
 
 
 def category_data_analytics(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -909,17 +820,15 @@ def category_data_analytics(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_data_analytics", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_data_analytics", style=style)
 
 
 def category_databases(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -929,17 +838,15 @@ def category_databases(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_databases", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_databases", style=style)
 
 
 def category_developer_tools(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -949,17 +856,15 @@ def category_developer_tools(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_developer_tools", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_developer_tools", style=style)
 
 
 def category_devops(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -969,17 +874,15 @@ def category_devops(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_devops", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_devops", style=style)
 
 
 def category_hybrid_multicloud(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -989,17 +892,15 @@ def category_hybrid_multicloud(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_hybrid_multicloud", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_hybrid_multicloud", style=style)
 
 
 def category_integration_services(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1009,17 +910,15 @@ def category_integration_services(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_integration_services", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_integration_services", style=style)
 
 
 def category_management_tools(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1029,17 +928,15 @@ def category_management_tools(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_management_tools", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_management_tools", style=style)
 
 
 def category_maps_geospatial(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1049,17 +946,15 @@ def category_maps_geospatial(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_maps_geospatial", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_maps_geospatial", style=style)
 
 
 def category_marketplace(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1069,17 +964,15 @@ def category_marketplace(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_marketplace", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_marketplace", style=style)
 
 
 def category_media_services(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1089,17 +982,15 @@ def category_media_services(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_media_services", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_media_services", style=style)
 
 
 def category_migration(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1109,17 +1000,15 @@ def category_migration(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_migration", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_migration", style=style)
 
 
 def category_mixed_reality(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1129,17 +1018,15 @@ def category_mixed_reality(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_mixed_reality", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_mixed_reality", style=style)
 
 
 def category_networking(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1149,17 +1036,15 @@ def category_networking(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_networking", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_networking", style=style)
 
 
 def category_observability(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1169,17 +1054,15 @@ def category_observability(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_observability", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_observability", style=style)
 
 
 def category_operations(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1189,17 +1072,15 @@ def category_operations(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_operations", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_operations", style=style)
 
 
 def category_security_identity(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1209,17 +1090,15 @@ def category_security_identity(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_security_identity", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_security_identity", style=style)
 
 
 def category_serverless_computing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1229,17 +1108,15 @@ def category_serverless_computing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_serverless_computing", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_serverless_computing", style=style)
 
 
 def category_storage(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1249,17 +1126,15 @@ def category_storage(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_storage", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_storage", style=style)
 
 
 def category_web3(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1269,17 +1144,15 @@ def category_web3(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_web3", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_web3", style=style)
 
 
 def category_web_mobile(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1289,17 +1162,15 @@ def category_web_mobile(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="category_web_mobile", angle=angle, style=style)
+    _write(xy=xy, width=width, name="category_web_mobile", style=style)
 
 
 def certificate_authority_service(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1309,17 +1180,15 @@ def certificate_authority_service(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="certificate_authority_service", angle=angle, style=style)
+    _write(xy=xy, width=width, name="certificate_authority_service", style=style)
 
 
 def certificate_manager(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1329,17 +1198,15 @@ def certificate_manager(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="certificate_manager", angle=angle, style=style)
+    _write(xy=xy, width=width, name="certificate_manager", style=style)
 
 
 def cloud_api_gateway(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1349,17 +1216,15 @@ def cloud_api_gateway(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_api_gateway", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_api_gateway", style=style)
 
 
 def cloud_apis(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1369,17 +1234,15 @@ def cloud_apis(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_apis", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_apis", style=style)
 
 
 def cloud_armor(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1389,17 +1252,15 @@ def cloud_armor(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_armor", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_armor", style=style)
 
 
 def cloud_asset_inventory(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1409,17 +1270,15 @@ def cloud_asset_inventory(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_asset_inventory", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_asset_inventory", style=style)
 
 
 def cloud_audit_logs(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1429,17 +1288,15 @@ def cloud_audit_logs(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_audit_logs", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_audit_logs", style=style)
 
 
 def cloud_build(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1449,17 +1306,15 @@ def cloud_build(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_build", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_build", style=style)
 
 
 def cloud_cdn(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1469,17 +1324,15 @@ def cloud_cdn(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_cdn", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_cdn", style=style)
 
 
 def cloud_code(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1489,17 +1342,15 @@ def cloud_code(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_code", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_code", style=style)
 
 
 def cloud_composer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1509,17 +1360,15 @@ def cloud_composer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_composer", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_composer", style=style)
 
 
 def cloud_data_fusion(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1529,17 +1378,15 @@ def cloud_data_fusion(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_data_fusion", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_data_fusion", style=style)
 
 
 def cloud_deploy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1549,17 +1396,15 @@ def cloud_deploy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_deploy", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_deploy", style=style)
 
 
 def cloud_deployment_manager(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1569,17 +1414,15 @@ def cloud_deployment_manager(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_deployment_manager", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_deployment_manager", style=style)
 
 
 def cloud_dns(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1589,17 +1432,15 @@ def cloud_dns(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_dns", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_dns", style=style)
 
 
 def cloud_domains(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1609,17 +1450,15 @@ def cloud_domains(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_domains", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_domains", style=style)
 
 
 def cloud_ekm(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1629,17 +1468,15 @@ def cloud_ekm(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_ekm", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_ekm", style=style)
 
 
 def cloud_endpoints(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1649,17 +1486,15 @@ def cloud_endpoints(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_endpoints", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_endpoints", style=style)
 
 
 def cloud_external_ip_addresses(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1669,17 +1504,15 @@ def cloud_external_ip_addresses(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_external_ip_addresses", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_external_ip_addresses", style=style)
 
 
 def cloud_firewall_rules(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1689,17 +1522,15 @@ def cloud_firewall_rules(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_firewall_rules", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_firewall_rules", style=style)
 
 
 def cloud_for_marketing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1709,17 +1540,15 @@ def cloud_for_marketing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_for_marketing", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_for_marketing", style=style)
 
 
 def cloud_functions(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1729,17 +1558,15 @@ def cloud_functions(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_functions", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_functions", style=style)
 
 
 def cloud_generic(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1749,17 +1576,15 @@ def cloud_generic(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_generic", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_generic", style=style)
 
 
 def cloud_gpu(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1769,17 +1594,15 @@ def cloud_gpu(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_gpu", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_gpu", style=style)
 
 
 def cloud_healthcare_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1789,17 +1612,15 @@ def cloud_healthcare_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_healthcare_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_healthcare_api", style=style)
 
 
 def cloud_healthcare_marketplace(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1809,17 +1630,15 @@ def cloud_healthcare_marketplace(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_healthcare_marketplace", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_healthcare_marketplace", style=style)
 
 
 def cloud_hsm(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1829,17 +1648,15 @@ def cloud_hsm(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_hsm", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_hsm", style=style)
 
 
 def cloud_ids(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1849,17 +1666,15 @@ def cloud_ids(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_ids", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_ids", style=style)
 
 
 def cloud_inference_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1869,17 +1684,15 @@ def cloud_inference_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_inference_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_inference_api", style=style)
 
 
 def cloud_interconnect(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1889,17 +1702,15 @@ def cloud_interconnect(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_interconnect", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_interconnect", style=style)
 
 
 def cloud_jobs_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1909,17 +1720,15 @@ def cloud_jobs_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_jobs_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_jobs_api", style=style)
 
 
 def cloud_load_balancing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1929,17 +1738,15 @@ def cloud_load_balancing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_load_balancing", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_load_balancing", style=style)
 
 
 def cloud_logging(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1949,17 +1756,15 @@ def cloud_logging(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_logging", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_logging", style=style)
 
 
 def cloud_media_edge(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1969,17 +1774,15 @@ def cloud_media_edge(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_media_edge", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_media_edge", style=style)
 
 
 def cloud_monitoring(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1989,17 +1792,15 @@ def cloud_monitoring(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_monitoring", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_monitoring", style=style)
 
 
 def cloud_nat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2009,17 +1810,15 @@ def cloud_nat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_nat", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_nat", style=style)
 
 
 def cloud_natural_language_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2029,17 +1828,15 @@ def cloud_natural_language_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_natural_language_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_natural_language_api", style=style)
 
 
 def cloud_network(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2049,17 +1846,15 @@ def cloud_network(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_network", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_network", style=style)
 
 
 def cloud_ops(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2069,17 +1864,15 @@ def cloud_ops(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_ops", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_ops", style=style)
 
 
 def cloud_optimization_ai(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2089,17 +1882,15 @@ def cloud_optimization_ai(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_optimization_ai", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_optimization_ai", style=style)
 
 
 def cloud_optimization_ai_fleet_routing_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2109,17 +1900,15 @@ def cloud_optimization_ai_fleet_routing_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_optimization_ai_fleet_routing_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_optimization_ai_fleet_routing_api", style=style)
 
 
 def cloud_router(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2129,17 +1918,15 @@ def cloud_router(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_router", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_router", style=style)
 
 
 def cloud_routes(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2149,17 +1936,15 @@ def cloud_routes(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_routes", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_routes", style=style)
 
 
 def cloud_run(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2169,17 +1954,15 @@ def cloud_run(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_run", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_run", style=style)
 
 
 def cloud_run_for_anthos(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2189,17 +1972,15 @@ def cloud_run_for_anthos(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_run_for_anthos", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_run_for_anthos", style=style)
 
 
 def cloud_scheduler(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2209,17 +1990,15 @@ def cloud_scheduler(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_scheduler", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_scheduler", style=style)
 
 
 def cloud_security_scanner(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2229,17 +2008,15 @@ def cloud_security_scanner(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_security_scanner", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_security_scanner", style=style)
 
 
 def cloud_shell(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2249,17 +2026,15 @@ def cloud_shell(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_shell", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_shell", style=style)
 
 
 def cloud_spanner(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2269,17 +2044,15 @@ def cloud_spanner(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_spanner", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_spanner", style=style)
 
 
 def cloud_sql(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2289,17 +2062,15 @@ def cloud_sql(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_sql", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_sql", style=style)
 
 
 def cloud_storage(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2309,17 +2080,15 @@ def cloud_storage(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_storage", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_storage", style=style)
 
 
 def cloud_tasks(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2329,17 +2098,15 @@ def cloud_tasks(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_tasks", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_tasks", style=style)
 
 
 def cloud_test_lab(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2349,17 +2116,15 @@ def cloud_test_lab(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_test_lab", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_test_lab", style=style)
 
 
 def cloud_tpu(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2369,17 +2134,15 @@ def cloud_tpu(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_tpu", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_tpu", style=style)
 
 
 def cloud_translation_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2389,17 +2152,15 @@ def cloud_translation_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_translation_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_translation_api", style=style)
 
 
 def cloud_vision_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2409,17 +2170,15 @@ def cloud_vision_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_vision_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_vision_api", style=style)
 
 
 def cloud_vpn(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2429,17 +2188,15 @@ def cloud_vpn(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="cloud_vpn", angle=angle, style=style)
+    _write(xy=xy, width=width, name="cloud_vpn", style=style)
 
 
 def compute_engine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2449,17 +2206,15 @@ def compute_engine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="compute_engine", angle=angle, style=style)
+    _write(xy=xy, width=width, name="compute_engine", style=style)
 
 
 def configuration_management(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2469,17 +2224,15 @@ def configuration_management(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="configuration_management", angle=angle, style=style)
+    _write(xy=xy, width=width, name="configuration_management", style=style)
 
 
 def connectivity_test(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2489,17 +2242,15 @@ def connectivity_test(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="connectivity_test", angle=angle, style=style)
+    _write(xy=xy, width=width, name="connectivity_test", style=style)
 
 
 def connectors(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2509,17 +2260,15 @@ def connectors(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="connectors", angle=angle, style=style)
+    _write(xy=xy, width=width, name="connectors", style=style)
 
 
 def contact_center_ai(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2529,17 +2278,15 @@ def contact_center_ai(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="contact_center_ai", angle=angle, style=style)
+    _write(xy=xy, width=width, name="contact_center_ai", style=style)
 
 
 def container_optimized_os(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2549,17 +2296,15 @@ def container_optimized_os(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="container_optimized_os", angle=angle, style=style)
+    _write(xy=xy, width=width, name="container_optimized_os", style=style)
 
 
 def container_registry(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2569,17 +2314,15 @@ def container_registry(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="container_registry", angle=angle, style=style)
+    _write(xy=xy, width=width, name="container_registry", style=style)
 
 
 def data_catalog(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2589,17 +2332,15 @@ def data_catalog(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="data_catalog", angle=angle, style=style)
+    _write(xy=xy, width=width, name="data_catalog", style=style)
 
 
 def data_labeling(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2609,17 +2350,15 @@ def data_labeling(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="data_labeling", angle=angle, style=style)
+    _write(xy=xy, width=width, name="data_labeling", style=style)
 
 
 def data_layers(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2629,17 +2368,15 @@ def data_layers(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="data_layers", angle=angle, style=style)
+    _write(xy=xy, width=width, name="data_layers", style=style)
 
 
 def data_loss_prevention_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2649,17 +2386,15 @@ def data_loss_prevention_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="data_loss_prevention_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="data_loss_prevention_api", style=style)
 
 
 def data_qna(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2669,17 +2404,15 @@ def data_qna(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="data_qna", angle=angle, style=style)
+    _write(xy=xy, width=width, name="data_qna", style=style)
 
 
 def data_studio(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2689,17 +2422,15 @@ def data_studio(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="data_studio", angle=angle, style=style)
+    _write(xy=xy, width=width, name="data_studio", style=style)
 
 
 def data_transfer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2709,17 +2440,15 @@ def data_transfer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="data_transfer", angle=angle, style=style)
+    _write(xy=xy, width=width, name="data_transfer", style=style)
 
 
 def database_migration_service(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2729,17 +2458,15 @@ def database_migration_service(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="database_migration_service", angle=angle, style=style)
+    _write(xy=xy, width=width, name="database_migration_service", style=style)
 
 
 def dataflow(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2749,17 +2476,15 @@ def dataflow(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="dataflow", angle=angle, style=style)
+    _write(xy=xy, width=width, name="dataflow", style=style)
 
 
 def datalab(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2769,17 +2494,15 @@ def datalab(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="datalab", angle=angle, style=style)
+    _write(xy=xy, width=width, name="datalab", style=style)
 
 
 def dataplex(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2789,17 +2512,15 @@ def dataplex(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="dataplex", angle=angle, style=style)
+    _write(xy=xy, width=width, name="dataplex", style=style)
 
 
 def datapol(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2809,17 +2530,15 @@ def datapol(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="datapol", angle=angle, style=style)
+    _write(xy=xy, width=width, name="datapol", style=style)
 
 
 def dataprep(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2829,17 +2548,15 @@ def dataprep(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="dataprep", angle=angle, style=style)
+    _write(xy=xy, width=width, name="dataprep", style=style)
 
 
 def dataproc(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2849,17 +2566,15 @@ def dataproc(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="dataproc", angle=angle, style=style)
+    _write(xy=xy, width=width, name="dataproc", style=style)
 
 
 def dataproc_metastore(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2869,17 +2584,15 @@ def dataproc_metastore(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="dataproc_metastore", angle=angle, style=style)
+    _write(xy=xy, width=width, name="dataproc_metastore", style=style)
 
 
 def datashare(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2889,17 +2602,15 @@ def datashare(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="datashare", angle=angle, style=style)
+    _write(xy=xy, width=width, name="datashare", style=style)
 
 
 def datastore(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2909,17 +2620,15 @@ def datastore(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="datastore", angle=angle, style=style)
+    _write(xy=xy, width=width, name="datastore", style=style)
 
 
 def datastream(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2929,17 +2638,15 @@ def datastream(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="datastream", angle=angle, style=style)
+    _write(xy=xy, width=width, name="datastream", style=style)
 
 
 def debugger(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2949,17 +2656,15 @@ def debugger(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="debugger", angle=angle, style=style)
+    _write(xy=xy, width=width, name="debugger", style=style)
 
 
 def developer_portal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2969,17 +2674,15 @@ def developer_portal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="developer_portal", angle=angle, style=style)
+    _write(xy=xy, width=width, name="developer_portal", style=style)
 
 
 def dialogflow(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2989,17 +2692,15 @@ def dialogflow(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="dialogflow", angle=angle, style=style)
+    _write(xy=xy, width=width, name="dialogflow", style=style)
 
 
 def dialogflow_cx(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3009,17 +2710,15 @@ def dialogflow_cx(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="dialogflow_cx", angle=angle, style=style)
+    _write(xy=xy, width=width, name="dialogflow_cx", style=style)
 
 
 def dialogflow_insights(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3029,17 +2728,15 @@ def dialogflow_insights(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="dialogflow_insights", angle=angle, style=style)
+    _write(xy=xy, width=width, name="dialogflow_insights", style=style)
 
 
 def distributed_cloud(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3049,17 +2746,15 @@ def distributed_cloud(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="distributed_cloud", angle=angle, style=style)
+    _write(xy=xy, width=width, name="distributed_cloud", style=style)
 
 
 def document_ai(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3069,17 +2764,15 @@ def document_ai(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="document_ai", angle=angle, style=style)
+    _write(xy=xy, width=width, name="document_ai", style=style)
 
 
 def early_access_center(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3089,17 +2782,15 @@ def early_access_center(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="early_access_center", angle=angle, style=style)
+    _write(xy=xy, width=width, name="early_access_center", style=style)
 
 
 def error_reporting(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3109,17 +2800,15 @@ def error_reporting(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="error_reporting", angle=angle, style=style)
+    _write(xy=xy, width=width, name="error_reporting", style=style)
 
 
 def eventarc(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3129,17 +2818,15 @@ def eventarc(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="eventarc", angle=angle, style=style)
+    _write(xy=xy, width=width, name="eventarc", style=style)
 
 
 def filestore(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3149,17 +2836,15 @@ def filestore(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="filestore", angle=angle, style=style)
+    _write(xy=xy, width=width, name="filestore", style=style)
 
 
 def financial_services_marketplace(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3169,17 +2854,15 @@ def financial_services_marketplace(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="financial_services_marketplace", angle=angle, style=style)
+    _write(xy=xy, width=width, name="financial_services_marketplace", style=style)
 
 
 def firestore(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3189,17 +2872,15 @@ def firestore(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="firestore", angle=angle, style=style)
+    _write(xy=xy, width=width, name="firestore", style=style)
 
 
 def fleet_engine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3209,17 +2890,15 @@ def fleet_engine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="fleet_engine", angle=angle, style=style)
+    _write(xy=xy, width=width, name="fleet_engine", style=style)
 
 
 def free_trial(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3229,17 +2908,15 @@ def free_trial(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="free_trial", angle=angle, style=style)
+    _write(xy=xy, width=width, name="free_trial", style=style)
 
 
 def functions(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3249,17 +2926,15 @@ def functions(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="functions", angle=angle, style=style)
+    _write(xy=xy, width=width, name="functions", style=style)
 
 
 def game_servers(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3269,17 +2944,15 @@ def game_servers(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="game_servers", angle=angle, style=style)
+    _write(xy=xy, width=width, name="game_servers", style=style)
 
 
 def gce(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3289,17 +2962,15 @@ def gce(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="gce", angle=angle, style=style)
+    _write(xy=xy, width=width, name="gce", style=style)
 
 
 def gce_systems_management(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3309,17 +2980,15 @@ def gce_systems_management(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="gce_systems_management", angle=angle, style=style)
+    _write(xy=xy, width=width, name="gce_systems_management", style=style)
 
 
 def gcs(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3329,17 +2998,15 @@ def gcs(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="gcs", angle=angle, style=style)
+    _write(xy=xy, width=width, name="gcs", style=style)
 
 
 def genomics(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3349,17 +3016,15 @@ def genomics(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="genomics", angle=angle, style=style)
+    _write(xy=xy, width=width, name="genomics", style=style)
 
 
 def gke(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3369,17 +3034,15 @@ def gke(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="gke", angle=angle, style=style)
+    _write(xy=xy, width=width, name="gke", style=style)
 
 
 def gke_on_prem(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3389,17 +3052,15 @@ def gke_on_prem(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="gke_on_prem", angle=angle, style=style)
+    _write(xy=xy, width=width, name="gke_on_prem", style=style)
 
 
 def google_cloud_marketplace(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3409,17 +3070,15 @@ def google_cloud_marketplace(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="google_cloud_marketplace", angle=angle, style=style)
+    _write(xy=xy, width=width, name="google_cloud_marketplace", style=style)
 
 
 def google_kubernetes_engine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3429,17 +3088,15 @@ def google_kubernetes_engine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="google_kubernetes_engine", angle=angle, style=style)
+    _write(xy=xy, width=width, name="google_kubernetes_engine", style=style)
 
 
 def google_maps_platform(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3449,17 +3106,15 @@ def google_maps_platform(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="google_maps_platform", angle=angle, style=style)
+    _write(xy=xy, width=width, name="google_maps_platform", style=style)
 
 
 def healthcare_nlp_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3469,17 +3124,15 @@ def healthcare_nlp_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="healthcare_nlp_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="healthcare_nlp_api", style=style)
 
 
 def home(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3489,17 +3142,15 @@ def home(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="home", angle=angle, style=style)
+    _write(xy=xy, width=width, name="home", style=style)
 
 
 def hyperdisk(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3509,17 +3160,15 @@ def hyperdisk(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="hyperdisk", angle=angle, style=style)
+    _write(xy=xy, width=width, name="hyperdisk", style=style)
 
 
 def iam(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3529,17 +3178,15 @@ def iam(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="iam", angle=angle, style=style)
+    _write(xy=xy, width=width, name="iam", style=style)
 
 
 def identity_and_access_management(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3549,17 +3196,15 @@ def identity_and_access_management(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="identity_and_access_management", angle=angle, style=style)
+    _write(xy=xy, width=width, name="identity_and_access_management", style=style)
 
 
 def identity_aware_proxy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3569,17 +3214,15 @@ def identity_aware_proxy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="identity_aware_proxy", angle=angle, style=style)
+    _write(xy=xy, width=width, name="identity_aware_proxy", style=style)
 
 
 def identity_platform(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3589,17 +3232,15 @@ def identity_platform(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="identity_platform", angle=angle, style=style)
+    _write(xy=xy, width=width, name="identity_platform", style=style)
 
 
 def iot_core(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3609,17 +3250,15 @@ def iot_core(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="iot_core", angle=angle, style=style)
+    _write(xy=xy, width=width, name="iot_core", style=style)
 
 
 def iot_edge(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3629,17 +3268,15 @@ def iot_edge(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="iot_edge", angle=angle, style=style)
+    _write(xy=xy, width=width, name="iot_edge", style=style)
 
 
 def key_access_justifications(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3649,17 +3286,15 @@ def key_access_justifications(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="key_access_justifications", angle=angle, style=style)
+    _write(xy=xy, width=width, name="key_access_justifications", style=style)
 
 
 def key_management_service(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3669,17 +3304,15 @@ def key_management_service(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="key_management_service", angle=angle, style=style)
+    _write(xy=xy, width=width, name="key_management_service", style=style)
 
 
 def kms(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3689,17 +3322,15 @@ def kms(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="kms", angle=angle, style=style)
+    _write(xy=xy, width=width, name="kms", style=style)
 
 
 def kuberun(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3709,17 +3340,15 @@ def kuberun(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="kuberun", angle=angle, style=style)
+    _write(xy=xy, width=width, name="kuberun", style=style)
 
 
 def launcher(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3729,17 +3358,15 @@ def launcher(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="launcher", angle=angle, style=style)
+    _write(xy=xy, width=width, name="launcher", style=style)
 
 
 def local_ssd(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3749,17 +3376,15 @@ def local_ssd(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="local_ssd", angle=angle, style=style)
+    _write(xy=xy, width=width, name="local_ssd", style=style)
 
 
 def looker(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3769,17 +3394,15 @@ def looker(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="looker", angle=angle, style=style)
+    _write(xy=xy, width=width, name="looker", style=style)
 
 
 def managed_service_for_microsoft_active_directory(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3789,17 +3412,15 @@ def managed_service_for_microsoft_active_directory(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="managed_service_for_microsoft_active_directory", angle=angle, style=style)
+    _write(xy=xy, width=width, name="managed_service_for_microsoft_active_directory", style=style)
 
 
 def mandiant(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3809,17 +3430,15 @@ def mandiant(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="mandiant", angle=angle, style=style)
+    _write(xy=xy, width=width, name="mandiant", style=style)
 
 
 def media_translation_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3829,17 +3448,15 @@ def media_translation_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="media_translation_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="media_translation_api", style=style)
 
 
 def memorystore(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3849,17 +3466,15 @@ def memorystore(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="memorystore", angle=angle, style=style)
+    _write(xy=xy, width=width, name="memorystore", style=style)
 
 
 def migrate_for_anthos(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3869,17 +3484,15 @@ def migrate_for_anthos(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="migrate_for_anthos", angle=angle, style=style)
+    _write(xy=xy, width=width, name="migrate_for_anthos", style=style)
 
 
 def migrate_for_compute_engine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3889,17 +3502,15 @@ def migrate_for_compute_engine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="migrate_for_compute_engine", angle=angle, style=style)
+    _write(xy=xy, width=width, name="migrate_for_compute_engine", style=style)
 
 
 def my_cloud(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3909,17 +3520,15 @@ def my_cloud(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="my_cloud", angle=angle, style=style)
+    _write(xy=xy, width=width, name="my_cloud", style=style)
 
 
 def network_connectivity_center(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3929,17 +3538,15 @@ def network_connectivity_center(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="network_connectivity_center", angle=angle, style=style)
+    _write(xy=xy, width=width, name="network_connectivity_center", style=style)
 
 
 def network_intelligence_center(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3949,17 +3556,15 @@ def network_intelligence_center(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="network_intelligence_center", angle=angle, style=style)
+    _write(xy=xy, width=width, name="network_intelligence_center", style=style)
 
 
 def network_security(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3969,17 +3574,15 @@ def network_security(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="network_security", angle=angle, style=style)
+    _write(xy=xy, width=width, name="network_security", style=style)
 
 
 def network_tiers(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3989,17 +3592,15 @@ def network_tiers(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="network_tiers", angle=angle, style=style)
+    _write(xy=xy, width=width, name="network_tiers", style=style)
 
 
 def network_topology(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4009,17 +3610,15 @@ def network_topology(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="network_topology", angle=angle, style=style)
+    _write(xy=xy, width=width, name="network_topology", style=style)
 
 
 def onboarding(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4029,17 +3628,15 @@ def onboarding(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="onboarding", angle=angle, style=style)
+    _write(xy=xy, width=width, name="onboarding", style=style)
 
 
 def os_configuration_management(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4049,17 +3646,15 @@ def os_configuration_management(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="os_configuration_management", angle=angle, style=style)
+    _write(xy=xy, width=width, name="os_configuration_management", style=style)
 
 
 def os_inventory_management(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4069,17 +3664,15 @@ def os_inventory_management(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="os_inventory_management", angle=angle, style=style)
+    _write(xy=xy, width=width, name="os_inventory_management", style=style)
 
 
 def os_patch_management(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4089,17 +3682,15 @@ def os_patch_management(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="os_patch_management", angle=angle, style=style)
+    _write(xy=xy, width=width, name="os_patch_management", style=style)
 
 
 def partner_interconnect(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4109,17 +3700,15 @@ def partner_interconnect(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="partner_interconnect", angle=angle, style=style)
+    _write(xy=xy, width=width, name="partner_interconnect", style=style)
 
 
 def partner_portal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4129,17 +3718,15 @@ def partner_portal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="partner_portal", angle=angle, style=style)
+    _write(xy=xy, width=width, name="partner_portal", style=style)
 
 
 def performance_dashboard(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4149,17 +3736,15 @@ def performance_dashboard(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="performance_dashboard", angle=angle, style=style)
+    _write(xy=xy, width=width, name="performance_dashboard", style=style)
 
 
 def permissions(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4169,17 +3754,15 @@ def permissions(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="permissions", angle=angle, style=style)
+    _write(xy=xy, width=width, name="permissions", style=style)
 
 
 def persistent_disk(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4189,17 +3772,15 @@ def persistent_disk(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="persistent_disk", angle=angle, style=style)
+    _write(xy=xy, width=width, name="persistent_disk", style=style)
 
 
 def phishing_protection(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4209,17 +3790,15 @@ def phishing_protection(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="phishing_protection", angle=angle, style=style)
+    _write(xy=xy, width=width, name="phishing_protection", style=style)
 
 
 def policy_analyzer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4229,17 +3808,15 @@ def policy_analyzer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="policy_analyzer", angle=angle, style=style)
+    _write(xy=xy, width=width, name="policy_analyzer", style=style)
 
 
 def premium_network_tier(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4249,17 +3826,15 @@ def premium_network_tier(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="premium_network_tier", angle=angle, style=style)
+    _write(xy=xy, width=width, name="premium_network_tier", style=style)
 
 
 def private_connectivity(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4269,17 +3844,15 @@ def private_connectivity(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="private_connectivity", angle=angle, style=style)
+    _write(xy=xy, width=width, name="private_connectivity", style=style)
 
 
 def private_service_connect(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4289,17 +3862,15 @@ def private_service_connect(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="private_service_connect", angle=angle, style=style)
+    _write(xy=xy, width=width, name="private_service_connect", style=style)
 
 
 def producer_portal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4309,17 +3880,15 @@ def producer_portal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="producer_portal", angle=angle, style=style)
+    _write(xy=xy, width=width, name="producer_portal", style=style)
 
 
 def profiler(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4329,17 +3898,15 @@ def profiler(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="profiler", angle=angle, style=style)
+    _write(xy=xy, width=width, name="profiler", style=style)
 
 
 def project(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4349,17 +3916,15 @@ def project(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="project", angle=angle, style=style)
+    _write(xy=xy, width=width, name="project", style=style)
 
 
 def pubsub(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4369,17 +3934,15 @@ def pubsub(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="pubsub", angle=angle, style=style)
+    _write(xy=xy, width=width, name="pubsub", style=style)
 
 
 def quantum_engine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4389,17 +3952,15 @@ def quantum_engine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="quantum_engine", angle=angle, style=style)
+    _write(xy=xy, width=width, name="quantum_engine", style=style)
 
 
 def quotas(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4409,17 +3970,15 @@ def quotas(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="quotas", angle=angle, style=style)
+    _write(xy=xy, width=width, name="quotas", style=style)
 
 
 def real_world_insights(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4429,17 +3988,15 @@ def real_world_insights(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="real_world_insights", angle=angle, style=style)
+    _write(xy=xy, width=width, name="real_world_insights", style=style)
 
 
 def recommendations_ai(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4449,17 +4006,15 @@ def recommendations_ai(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="recommendations_ai", angle=angle, style=style)
+    _write(xy=xy, width=width, name="recommendations_ai", style=style)
 
 
 def release_notes(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4469,17 +4024,15 @@ def release_notes(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="release_notes", angle=angle, style=style)
+    _write(xy=xy, width=width, name="release_notes", style=style)
 
 
 def retail_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4489,17 +4042,15 @@ def retail_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="retail_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="retail_api", style=style)
 
 
 def risk_manager(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4509,17 +4060,15 @@ def risk_manager(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="risk_manager", angle=angle, style=style)
+    _write(xy=xy, width=width, name="risk_manager", style=style)
 
 
 def runtime_config(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4529,17 +4078,15 @@ def runtime_config(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="runtime_config", angle=angle, style=style)
+    _write(xy=xy, width=width, name="runtime_config", style=style)
 
 
 def secret_manager(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4549,17 +4096,15 @@ def secret_manager(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="secret_manager", angle=angle, style=style)
+    _write(xy=xy, width=width, name="secret_manager", style=style)
 
 
 def security(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4569,17 +4114,15 @@ def security(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="security", angle=angle, style=style)
+    _write(xy=xy, width=width, name="security", style=style)
 
 
 def security_command_center(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4589,17 +4132,15 @@ def security_command_center(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="security_command_center", angle=angle, style=style)
+    _write(xy=xy, width=width, name="security_command_center", style=style)
 
 
 def security_health_advisor(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4609,17 +4150,15 @@ def security_health_advisor(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="security_health_advisor", angle=angle, style=style)
+    _write(xy=xy, width=width, name="security_health_advisor", style=style)
 
 
 def security_key_enforcement(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4629,17 +4168,15 @@ def security_key_enforcement(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="security_key_enforcement", angle=angle, style=style)
+    _write(xy=xy, width=width, name="security_key_enforcement", style=style)
 
 
 def security_operations(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4649,17 +4186,15 @@ def security_operations(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="security_operations", angle=angle, style=style)
+    _write(xy=xy, width=width, name="security_operations", style=style)
 
 
 def service_discovery(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4669,17 +4204,15 @@ def service_discovery(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="service_discovery", angle=angle, style=style)
+    _write(xy=xy, width=width, name="service_discovery", style=style)
 
 
 def speech_to_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4689,17 +4222,15 @@ def speech_to_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="speech_to_text", angle=angle, style=style)
+    _write(xy=xy, width=width, name="speech_to_text", style=style)
 
 
 def stackdriver(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4709,17 +4240,15 @@ def stackdriver(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="stackdriver", angle=angle, style=style)
+    _write(xy=xy, width=width, name="stackdriver", style=style)
 
 
 def standard_network_tier(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4729,17 +4258,15 @@ def standard_network_tier(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="standard_network_tier", angle=angle, style=style)
+    _write(xy=xy, width=width, name="standard_network_tier", style=style)
 
 
 def stream_suite(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4749,17 +4276,15 @@ def stream_suite(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="stream_suite", angle=angle, style=style)
+    _write(xy=xy, width=width, name="stream_suite", style=style)
 
 
 def support(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4769,17 +4294,15 @@ def support(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="support", angle=angle, style=style)
+    _write(xy=xy, width=width, name="support", style=style)
 
 
 def tensorflow_enterprise(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4789,17 +4312,15 @@ def tensorflow_enterprise(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="tensorflow_enterprise", angle=angle, style=style)
+    _write(xy=xy, width=width, name="tensorflow_enterprise", style=style)
 
 
 def text_to_speech(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4809,17 +4330,15 @@ def text_to_speech(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="text_to_speech", angle=angle, style=style)
+    _write(xy=xy, width=width, name="text_to_speech", style=style)
 
 
 def threat_intelligence(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4829,17 +4348,15 @@ def threat_intelligence(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="threat_intelligence", angle=angle, style=style)
+    _write(xy=xy, width=width, name="threat_intelligence", style=style)
 
 
 def tools_for_powershell(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4849,17 +4366,15 @@ def tools_for_powershell(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="tools_for_powershell", angle=angle, style=style)
+    _write(xy=xy, width=width, name="tools_for_powershell", style=style)
 
 
 def trace(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4869,17 +4384,15 @@ def trace(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="trace", angle=angle, style=style)
+    _write(xy=xy, width=width, name="trace", style=style)
 
 
 def traffic_director(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4889,17 +4402,15 @@ def traffic_director(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="traffic_director", angle=angle, style=style)
+    _write(xy=xy, width=width, name="traffic_director", style=style)
 
 
 def transfer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4909,17 +4420,15 @@ def transfer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="transfer", angle=angle, style=style)
+    _write(xy=xy, width=width, name="transfer", style=style)
 
 
 def transfer_appliance(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4929,17 +4438,15 @@ def transfer_appliance(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="transfer_appliance", angle=angle, style=style)
+    _write(xy=xy, width=width, name="transfer_appliance", style=style)
 
 
 def user_preferences(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4949,17 +4456,15 @@ def user_preferences(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="user_preferences", angle=angle, style=style)
+    _write(xy=xy, width=width, name="user_preferences", style=style)
 
 
 def vertex_ai(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4969,17 +4474,15 @@ def vertex_ai(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="vertex_ai", angle=angle, style=style)
+    _write(xy=xy, width=width, name="vertex_ai", style=style)
 
 
 def vertexai(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4989,17 +4492,15 @@ def vertexai(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="vertexai", angle=angle, style=style)
+    _write(xy=xy, width=width, name="vertexai", style=style)
 
 
 def video_intelligence_api(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5009,17 +4510,15 @@ def video_intelligence_api(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="video_intelligence_api", angle=angle, style=style)
+    _write(xy=xy, width=width, name="video_intelligence_api", style=style)
 
 
 def virtual_private_cloud(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5029,17 +4528,15 @@ def virtual_private_cloud(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="virtual_private_cloud", angle=angle, style=style)
+    _write(xy=xy, width=width, name="virtual_private_cloud", style=style)
 
 
 def visual_inspection(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5049,17 +4546,15 @@ def visual_inspection(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="visual_inspection", angle=angle, style=style)
+    _write(xy=xy, width=width, name="visual_inspection", style=style)
 
 
 def vmware_engine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5069,17 +4564,15 @@ def vmware_engine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="vmware_engine", angle=angle, style=style)
+    _write(xy=xy, width=width, name="vmware_engine", style=style)
 
 
 def vpc(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5089,17 +4582,15 @@ def vpc(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="vpc", angle=angle, style=style)
+    _write(xy=xy, width=width, name="vpc", style=style)
 
 
 def web_risk(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5109,17 +4600,15 @@ def web_risk(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="web_risk", angle=angle, style=style)
+    _write(xy=xy, width=width, name="web_risk", style=style)
 
 
 def web_security_scanner(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5129,17 +4618,15 @@ def web_security_scanner(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="web_security_scanner", angle=angle, style=style)
+    _write(xy=xy, width=width, name="web_security_scanner", style=style)
 
 
 def workflows(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5149,17 +4636,15 @@ def workflows(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="workflows", angle=angle, style=style)
+    _write(xy=xy, width=width, name="workflows", style=style)
 
 
 def workload_identity_pool(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5169,8 +4654,7 @@ def workload_identity_pool(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, name="workload_identity_pool", angle=angle, style=style)
+    _write(xy=xy, width=width, name="workload_identity_pool", style=style)

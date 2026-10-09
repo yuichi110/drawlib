@@ -31,15 +31,14 @@ Every icon is exposed as a function named after the icon:
 phosphor.<icon_name>(
     xy: tuple[float, float],
     width: float,
-    angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style | None = None,
 )
 ```
 
 - **`xy`**: Center coordinate anchor point.
 - **`width`**: Width in virtual coordinate units (height scales proportionally to maintain a 1:1 aspect ratio).
-- **`angle`**: Counter-clockwise rotation angle.
-- **`style`**: Tint color and visual style.
+- **`style`**: Tint color, rotation (`angle`), alignment (`halign`/`valign`), and visual style.
 
 ### The Five Typographic Weights
 Phosphor icons support 5 distinct weights controlled via `Style(icon_style="...")`:

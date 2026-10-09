@@ -142,26 +142,24 @@ class TestCanvasBase:
         rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(halign="right", valign="top"))
 
         # Different angles
-        rectangle((50, 50), 40, 20, angle=45, text="Rectangle", style=s_def)
-        rectangle((50, 50), 40, 20, angle=90, text="Rectangle", style=s_def)
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_def.patch(angle=45))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_def.patch(angle=90))
 
         # Text shift options
         rectangle(
             (50, 50),
             40,
             20,
-            angle=135,
             text="Rectangle",
-            style=s_def,
+            style=s_def.patch(angle=135),
             text_style=s_def.patch(xy_shift=(10, 5), text_flip=True, text_color=Colors.Red),
         )
         rectangle(
             (50, 50),
             40,
             20,
-            angle=135,
             text="Rectangle",
-            style=s_def,
+            style=s_def.patch(angle=135),
             text_style=s_def.patch(xy_abs_shift=(10, 5), text_flip=True, text_color=Colors.Red),
         )
 
@@ -171,9 +169,9 @@ class TestCanvasBase:
             40,
             20,
             r=3.0,
-            angle=45,
             text="Rectangle",
             style=s_def.patch(
+                angle=45,
                 shape_line_color=Colors.Blue,
                 shape_fill_color=Colors.Yellow,
                 alpha=0.5,

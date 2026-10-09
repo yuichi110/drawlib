@@ -36,8 +36,7 @@ class TestCanvasGcp:
         gcp.compute_engine(
             xy=(50, 50),
             width=20,
-            angle=45,
-            style=Style(),
+            style=Style(angle=45),
         )
         save(f"{OUTPUT_DIR}test_angle45.png")
 

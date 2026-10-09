@@ -26,15 +26,14 @@ Drawlib provides horizontal text, vertical CJK text, arbitrary rotation, multili
 text(
     xy: tuple[float, float],
     text: str,
-    angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style | None = None,
 )
 ```
 
 - **`xy`**: Coordinate anchor point `(x, y)`.
 - **`text`**: The string content. Use `\n` to insert line breaks.
-- **`angle`**: Counter-clockwise rotation angle around `xy`.
-- **`style`**: Text styling (color, font size, weight, alignment).
+- **`style`**: Text styling (color, font size, weight, alignment `halign`/`valign`, rotation `angle`).
 
 ### 2.2. Vertical CJK Text (`text_vertical`)
 

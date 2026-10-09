@@ -108,7 +108,7 @@ angle = get_angle(p1, p2)
 midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 4)
 
 # Rotate text along the line
-text(midpoint, f"Data Sync ({angle:.1f}°)", angle=angle, style=Styles.DarkBold)
+text(midpoint, f"Data Sync ({angle:.1f}°)", style=Styles.DarkBold.patch(angle=angle))
 
 save()
 ```
@@ -190,7 +190,8 @@ for i in range(num_clients):
     
     # Label line distance
     label_xy = ((hub_edge[0] + node_edge[0]) / 2, (hub_edge[1] + node_edge[1]) / 2 + 2)
-    text(label_xy, f"{dist:.0f}u", angle=angle_deg if angle_deg < 180 else angle_deg - 180, style=Styles.Dark.patch(text_size=7))
+    rot_angle = angle_deg if angle_deg < 180 else angle_deg - 180
+    text(label_xy, f"{dist:.0f}u", style=Styles.Dark.patch(text_size=7, angle=rot_angle))
     
     circle(node_xy, radius=6, style=Styles.SecondaryNeutral, text=f"N{i+1}", text_style=Styles.DarkBold)
 

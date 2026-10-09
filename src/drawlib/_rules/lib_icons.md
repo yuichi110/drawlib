@@ -87,17 +87,15 @@ Every Phosphor icon is exposed as a Python function directly under the `phosphor
 phosphor.<icon_name>(
     xy: tuple[float, float],
     width: float,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
 ) -> None
 ```
 
 #### Parameter Breakdown:
 - **`xy` (tuple[float, float])**: The center coordinate `(x, y)` where the icon is anchored. By default, alignment is centered.
 - **`width` (float)**: The horizontal width of the icon in canvas coordinate units. The height scales proportionally to maintain a strict 1:1 square aspect ratio.
-- **`angle` (float)**: Counter-clockwise rotation angle in degrees (0.0 to 360.0) around the anchor point `xy`. Default is 0.0.
-- **`style` (Style)**: Active `Style` instance (e.g. `Styles.Primary`, `Styles.PrimaryBold`, or custom `Style(icon_color=...)`). Required keyword-only argument.
+- **`style` (Style | None)**: Active `Style` instance (e.g. `Styles.Primary`, `Styles.PrimaryBold`, or custom `Style(icon_color=..., angle=...)`). Optional keyword-only argument.
 
 ### 3.2. The Five Phosphor Weights (`icon_style`)
 
@@ -195,8 +193,8 @@ font_icon(
     width: float,
     code: str,
     file: str,
-    angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style | None = None,
 ) -> None
 ```
 
@@ -205,8 +203,7 @@ font_icon(
 - **`width` (float)**: Physical width in canvas coordinate units. Internally, `get_fontsize_from_charwidth()` converts this into typographical points.
 - **`code` (str)**: Unicode character string or escape code representing the glyph (e.g. `"\uf09b"` for GitHub).
 - **`file` (str)**: Path to the `.ttf` font file (relative to working directory or absolute).
-- **`angle` (float)**: Rotation angle in degrees (default: 0.0).
-- **`style` (Style | str | None)**: Style object or preset name controlling color, alignment, and alpha.
+- **`style` (Style | None)**: Style object controlling color, rotation (`angle`), alignment (`halign`, `valign`), and transparency (`alpha`).
 
 ### 4.2. FontAwesome Free Brand & Solid Glyph Example
 
@@ -272,9 +269,8 @@ Each GCP service icon is exposed as a standalone function directly under `drawli
 gcp.<service_name>(
     xy: tuple[float, float],
     width: float,
-    angle: float = 0.0,
     *,
-    style: Style,
+    style: Style | None = None,
 ) -> None
 ```
 
@@ -381,9 +377,9 @@ text((71, 9), "left, bottom", style=Styles.Primary.patch(text_size=9))
 save()
 ```
 
-### 6.2. Rotation Angle (`angle`)
+### 6.2. Rotation Angle (`style.angle`)
 
-The `angle` argument rotates the icon counter-clockwise around its anchor point `xy`:
+The `style.angle` attribute rotates the icon counter-clockwise around its anchor point `xy`:
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
@@ -399,7 +395,7 @@ pad_x = 22
 
 for i, ang in enumerate(angles):
     x = start_x + pad_x * i
-    phosphor.airplane((x, 24), width=11, angle=ang, style=Styles.BlueBold)
+    phosphor.airplane((x, 24), width=11, style=Styles.BlueBold.patch(angle=ang))
     text((x, 9), f"{ang}°", style=Styles.Dark.patch(text_size=10))
 
 save()
@@ -867,7 +863,7 @@ gcp.compute_engine((20, 20), width=14)
 
 ### Pitfall 2: Rotating Icons Without Offsetting Labels
 
-If an icon is rotated using `angle=90`, its anchor point remains `(x, y)`. If you calculate the label position below `(x, y - 10)` without accounting for the rotation, the visual balance may appear disjointed. If the label itself should not rotate, keep `text()` at `angle=0` and compute offsets carefully.
+If an icon is rotated using `style.patch(angle=90)`, its anchor point remains `(x, y)`. If you calculate the label position below `(x, y - 10)` without accounting for the rotation, the visual balance may appear disjointed. If the label itself should not rotate, keep `text()` unrotated and compute offsets carefully.
 
 ### Pitfall 3: Asset Missing in Offline / Air-Gapped Environments
 
@@ -961,8 +957,7 @@ Security & Operations:
 | :--- | :--- | :--- | :--- |
 | `xy` | `tuple[float, float]` | *(Required)* | Canvas coordinate anchor point `(x, y)`. |
 | `width` | `float` | *(Required)* | Icon width in canvas coordinate units. Height preserves 1:1 aspect ratio. |
-| `angle` | `float` | `0.0` | Counter-clockwise rotation angle in degrees (0.0 to 360.0). |
-| `style` | `Style \| None`| `None` | Style object (e.g. `Styles.Blue`, `Styles.GreenFlat`, `Styles.RedBold`). |
+| `style` | `Style \| None`| `None` | Style object (e.g. `Styles.Blue`, `Styles.GreenFlat`, `Styles.RedBold`, `Style(angle=...)`). |
 
 ---
 

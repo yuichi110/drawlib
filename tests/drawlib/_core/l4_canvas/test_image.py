@@ -66,9 +66,9 @@ class TestCanvasImage:
     def test_image_angles(self) -> None:
         """Verify image rotation at different angles."""
         clear()
-        image(xy=(50, 50), width=30, angle=45, image=IMAGE_FILE)
-        image(xy=(50, 50), width=30, angle=90, image=IMAGE_FILE)
-        image(xy=(50, 50), width=30, angle=135, image=IMAGE_FILE)
+        image(xy=(50, 50), width=30, image=IMAGE_FILE, style=Style(angle=45))
+        image(xy=(50, 50), width=30, image=IMAGE_FILE, style=Style(angle=90))
+        image(xy=(50, 50), width=30, image=IMAGE_FILE, style=Style(angle=135))
         save(f"{OUTPUT_DIR}test_file_angles.png")
 
     def test_image_border_and_alignment(self) -> None:
@@ -119,8 +119,7 @@ class TestCanvasImage:
             xy=(50, 50),
             width=30,
             image=IMAGE_FILE,
-            angle=45,
-            style=Style(image_border_width=2),
+            style=Style(image_border_width=2, angle=45),
         )
         save(f"{OUTPUT_DIR}test_file_border_angle45.png")
 

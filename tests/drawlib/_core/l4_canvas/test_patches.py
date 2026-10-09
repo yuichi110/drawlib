@@ -54,8 +54,8 @@ class TestCanvasPatches:
         )
 
         # Theta spans & angles
-        arc((50, 50), 30, 50, angle=45, text="Hello", style=s_def)
-        arc((50, 50), 30, 50, angle=45, angle_start=90, angle_end=270, style=s_def)
+        arc((50, 50), 30, 50, text="Hello", style=s_def.patch(angle=45))
+        arc((50, 50), 30, 50, angle_start=90, angle_end=270, style=s_def.patch(angle=45))
 
         save(f"{OUTPUT_DIR}test_arc.png")
 
@@ -74,23 +74,20 @@ class TestCanvasPatches:
         circle(
             xy=(50, 50),
             radius=30,
-            style=s_def.patch(halign="left", valign="bottom"),
+            style=s_def.patch(halign="left", valign="bottom", angle=45),
             text="Hello",
-            angle=45,
         )
         circle(
             xy=(50, 50),
             radius=30,
-            style=s_def.patch(halign="center", valign="center"),
+            style=s_def.patch(halign="center", valign="center", angle=45),
             text="Hello",
-            angle=45,
         )
         circle(
             xy=(50, 50),
             radius=30,
-            style=s_def.patch(halign="right", valign="top"),
+            style=s_def.patch(halign="right", valign="top", angle=45),
             text="Hello",
-            angle=45,
         )
 
         # Custom line style
@@ -154,7 +151,7 @@ class TestCanvasPatches:
         )
 
         # Orientation angle
-        ellipse(xy=(50, 50), width=40, height=20, angle=45, text="Hello", style=s_primary)
+        ellipse(xy=(50, 50), width=40, height=20, text="Hello", style=s_primary.patch(angle=45))
 
         save(f"{OUTPUT_DIR}test_ellipse.png")
 
@@ -200,7 +197,7 @@ class TestCanvasPatches:
         )
 
         # Angle orientation
-        regularpolygon(xy=(50, 50), radius=30, num_vertex=5, angle=45, text="Hello", style=s_primary)
+        regularpolygon(xy=(50, 50), radius=30, num_vertex=5, text="Hello", style=s_primary.patch(angle=45))
 
         save(f"{OUTPUT_DIR}test_regularpolygon.png")
 
@@ -251,9 +248,8 @@ class TestCanvasPatches:
             angle_start=45,
             angle_end=270,
             width=10,
-            angle=120,
             text="Hello",
-            style=s_primary,
+            style=s_primary.patch(angle=120),
         )
 
         save(f"{OUTPUT_DIR}test_wedge.png")
@@ -299,7 +295,7 @@ class TestCanvasPatches:
         )
 
         # Rotation angle
-        donuts((50, 50), radius=30, width=10, angle=120, text="hungry", style=s_primary)
+        donuts((50, 50), radius=30, width=10, text="hungry", style=s_primary.patch(angle=120))
 
         save(f"{OUTPUT_DIR}test_donuts.png")
 
@@ -347,6 +343,6 @@ class TestCanvasPatches:
         )
 
         # Rotation angles
-        fan((50, 50), radius=30, angle_start=45, angle_end=270, angle=120, text="Hello", style=s_primary)
+        fan((50, 50), radius=30, angle_start=45, angle_end=270, text="Hello", style=s_primary.patch(angle=120))
 
         save(f"{OUTPUT_DIR}test_fan.png")

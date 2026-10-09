@@ -104,35 +104,35 @@ rectangle((50, 22), width=80, height=26, style=Styles.PrimaryFlat, text="Canvas 
 
 ## 3. Geometric Shapes Primitives (`drawlib.shapes`)
 
-All shape primitives accept `style: Style | None = None`, `text: str = ""`, and `text_style: Style | None = None`.  
+All shape primitives accept `style: Style | None = None` (including `style.angle` for rotation, `style.halign`/`style.valign` for alignment), `text: str = ""`, and `text_style: Style | None = None`.  
 Coordinates `xy` refer to the **center point** `(cx, cy)` unless otherwise noted.
 
 | Function | Geometric Parameters | Description |
 | :--- | :--- | :--- |
-| `rectangle(xy, width, height, ...)` | `r: float = 0`, `angle: float = 0` | Rectangle or rounded rectangle (`r > 0`). |
+| `rectangle(xy, width, height, ...)` | `r: float = 0` | Rectangle or rounded rectangle (`r > 0`). |
 | `circle(xy, radius, ...)` | `radius: float` | Perfect circle centered at `xy`. |
-| `cylinder(xy, width, height, ...)` | `disks: int = 1`, `angle: float = 0` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
-| `face(xy, radius, ...)` | `mood: str = "smile"`, `angle: float = 0` | Expressive face (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`) centered at `xy`. |
-| `ellipse(xy, width, height, ...)` | `angle: float = 0` | Ellipse centered at `xy` with rotation angle. |
-| `wedge(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Circular sector / wedge slice from `angle1` to `angle2`. |
-| `fan(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Fan shape (wedge with arc perimeter). |
-| `arc(xy, radius, angle1, angle2, ...)` | `angle1: float`, `angle2: float` | Arc segment perimeter. |
-| `donuts(xy, radius_outer, radius_inner, ...)` | `radius_outer: float`, `radius_inner: float` | Annular ring / donut shape. |
-| `triangle(xy1, xy2, xy3, ...)` | `xy1, xy2, xy3: tuple[float, float]` | Triangle defined by 3 vertices. |
-| `trapezoid(xy, width_bottom, width_top, height, ...)` | `width_bottom, width_top, height`, `angle: float = 0` | Symmetrical trapezoid. |
-| `parallelogram(xy, width, height, shift, ...)` | `width, height, shift`, `angle: float = 0` | Parallelogram with horizontal vertex skew `shift`. |
-| `rhombus(xy, width, height, ...)` | `width, height`, `angle: float = 0` | Diamond / rhombus shape. |
-| `regularpolygon(xy, radius, num_edges, ...)` | `radius, num_edges: int`, `angle: float = 0` | Regular N-sided polygon (pentagon, hexagon, etc.). |
-| `polygon(points, ...)` | `points: list[tuple[float, float]]` | Arbitrary closed polygon from coordinate list. |
-| `star(xy, num_vertex, radius_ext, radius_int, ...)` | `num_vertex: int`, `radius_ext: float`, `radius_int: float`, `angle: float = 0` | Multi-pointed star shape. |
-| `chevron(xy, width, height, corner_angle, ...)` | `width, height, corner_angle: float`, `mirror: bool = False`, `angle: float = 0` | Process chevron arrow shape centered at `xy`. |
-| `arrow(xy, width, height, ...)` | `width, height`, `angle: float = 0` | Block arrow shape pointing right (or rotated). |
-| `arrow_l(xy, width, height, ...)` | `width, height`, `angle: float = 0` | L-shaped bent block arrow. |
-| `arrow_u(xy, width, height, ...)` | `width, height`, `angle: float = 0` | U-turn block arrow. |
-| `arrow_arc(xy, radius, angle1, angle2, ...)` | `radius, angle1, angle2`, `width: float` | Curved circular block arrow. |
-| `arrow_polyline(points, width, ...)` | `points: list[tuple[float, float]]`, `width: float` | Polyline-following block arrow. |
+| `cylinder(xy, width, height, ...)` | `disks: int = 1` | 3D cylinder / multi-disk database stack (`disks > 1`) centered at `xy`. |
+| `face(xy, radius, ...)` | `mood: str = "smile"` | Expressive face (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, `"surprised"`) centered at `xy`. |
+| `ellipse(xy, width, height, ...)` | `width, height: float` | Ellipse centered at `xy`. |
+| `wedge(xy, radius, width, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Annular sector / wedge slice from `angle_start` to `angle_end`. |
+| `fan(xy, radius, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Circular pie sector from `angle_start` to `angle_end`. |
+| `arc(xy, width, height, angle_start, angle_end, ...)` | `angle_start: float`, `angle_end: float` | Arc segment perimeter. |
+| `donuts(xy, radius, width, ...)` | `radius: float`, `width: float` | Annular ring / donut shape. |
+| `triangle(xy, width, height, ...)` | `width, height: float`, `topvertex_x: float \| None = None` | Triangle defined by bounding box width and height. |
+| `trapezoid(xy, height, bottomedge_width, topedge_width, ...)` | `height, bottomedge_width, topedge_width: float` | Trapezoid with configurable top edge offset. |
+| `parallelogram(xy, width, height, corner_angle, ...)` | `width, height: float`, `corner_angle: float = 60.0` | Parallelogram with interior slant angle `corner_angle`. |
+| `rhombus(xy, width, height, ...)` | `width, height: float` | Diamond / rhombus shape. |
+| `regularpolygon(xy, radius, num_vertex, ...)` | `radius: float`, `num_vertex: int` | Regular N-sided polygon (pentagon, hexagon, etc.). |
+| `polygon(xys, ...)` | `xys: list[tuple[float, float]]` | Arbitrary closed polygon from coordinate list. |
+| `star(xy, num_vertex, radius_ext, radius_int, ...)` | `num_vertex: int`, `radius_ext: float`, `radius_int: float` | Multi-pointed star shape. |
+| `chevron(xy, width, height, corner_angle, ...)` | `width, height, corner_angle: float`, `mirror: bool = False` | Process chevron arrow shape centered at `xy`. |
+| `arrow(xy1, xy2, tail_width, head_width, head_length, ...)` | `xy1, xy2, tail_width, head_width, head_length`, `head: str = "->"` | Point-to-point block arrow shape. |
+| `arrow_l(xy, width, height, tail_width, head_width, head_length, ...)` | `width, height, tail_width, head_width, head_length` | L-shaped bent block arrow. |
+| `arrow_u(xy, width, height, tail_width, head_width, head_length, ...)` | `width, height, tail_width, head_width, head_length` | U-turn block arrow. |
+| `arrow_arc(xy, width, height, tail_width, head_width, ...)` | `width, height, tail_width, head_width, head_angle, angle_start, angle_end` | Curved circular block arrow. |
+| `arrow_polyline(xys, tail_width, head_width, head_length, ...)` | `xys: list[tuple[float, float]]`, `tail_width, head_width, head_length` | Polyline-following block arrow. |
 | `bubblespeech(xy, width, height, tail_edge, ...)` | `tail_edge, tail_start_ratio, tail_end_ratio, tail_vertex_xy` | Rectangular speech bubble with pointer tail. |
-| `shape(points, ...)` | `points: list[tuple[float, float]]` | Custom path shape. |
+| `shape(xy, path_points, ...)` | `path_points: list[...]` | Custom path shape. |
 
 ```drawlib show-code file:shapes_primitives.png
 from drawlib.canvas import setup
@@ -185,12 +185,12 @@ lines([(85, 12), (98, 12), (98, 28), (115, 28)], arrow_head="->", style=Styles.D
 
 ## 5. Text Typography (`drawlib.text`)
 
-Renders single-line or multi-line strings with explicit anchor alignments.
+Renders single-line or multi-line strings with explicit anchor alignments and rotation via `style`.
 
 | Function | Parameters | Description |
 | :--- | :--- | :--- |
-| `text(xy, text, ...)` | `(xy, text, *, style, angle=0.0)` | Standard horizontal text string. Alignments controlled via `style.halign` / `style.valign`. |
-| `text_vertical(xy, text, ...)` | `(xy, text, *, style, angle=0.0)` | Vertically stacked characters (ideal for East Asian scripts or vertical axis labels). |
+| `text(xy, text, ...)` | `(xy, text, *, style)` | Standard horizontal text string. Alignments and rotation controlled via `style.halign`, `style.valign`, and `style.angle`. |
+| `text_vertical(xy, text, ...)` | `(xy, text, *, style)` | Vertically stacked characters (ideal for East Asian scripts or vertical axis labels). |
 
 - **`style.halign` Options**: `"left"`, `"center"`, `"right"`
 - **`style.valign` Options**: `"bottom"`, `"center"`, `"top"`

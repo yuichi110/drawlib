@@ -12,10 +12,9 @@ All shape primitives share consistent keyword arguments:
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xy` | `tuple[float, float]` | *Required* | Coordinate anchor point `(x, y)` (geometric center for most shapes). |
-| `style` | `Style` | *Required* | Visual style defining fill color, border line style, and border width. |
+| `style` | `Style \| None` | `None` | Visual style defining fill color, border line style, border width, alignment (`halign`/`valign`), and rotation (`angle`). |
 | `text` | `str` | `""` | Embedded text label centered inside the shape. |
-| `text_style` | `Style` | `None` | Text styling (color, font, weight). Defaults to active theme text style. |
-| `angle` | `float` | `0.0` | Rotation angle in degrees (counter-clockwise). |
+| `text_style` | `Style \| None` | `None` | Text styling (color, font, weight). Defaults to active theme text style. |
 
 ---
 
@@ -61,7 +60,7 @@ save()
 
 - **`circle(xy, radius, ...)`**: Draws a standard circle centered at `xy`.
 - **`donuts(xy, radius, width, ...)`**: Draws a concentric ring with an outer `radius` and wall thickness `width`.
-- **`ellipse(xy, width, height, angle=0.0, ...)`**: Draws an oval / ellipse with independent dimensions.
+- **`ellipse(xy, width, height, ...)`**: Draws an oval / ellipse with independent dimensions.
 - **`fan(xy, radius, angle_start, angle_end, ...)`**: Draws a circular pie sector bounded by angles.
 - **`wedge(xy, radius, width, angle_start, angle_end, ...)`**: Draws an angular donut slice.
 
@@ -87,7 +86,7 @@ cylinder((25, 27.5), width=26, height=34, style=Styles.Neutral, text="Cache")
 cylinder((62, 27.5), width=28, height=36, disks=3, style=Styles.PrimaryFlat, text="Primary\nDB", text_style=Styles.WhiteBold)
 
 # 3. Horizontal / rotated cylinder (e.g. message queue)
-cylinder((98, 27.5), width=20, height=32, angle=-90, style=Styles.SecondaryNeutral, text="Queue")
+cylinder((98, 27.5), width=20, height=32, style=Styles.SecondaryNeutral.patch(angle=-90), text="Queue")
 
 save()
 ```
@@ -99,9 +98,9 @@ save()
 
 
 
-- **`cylinder(xy, width, height, *, style, disks=1, angle=0.0, text="", text_style=None)`**:
+- **`cylinder(xy, width, height, *, style, disks=1, text="", text_style=None)`**:
   - `disks`: Number of stacked disk segments (`1` for a standard cylinder; `2` or `3` adds internal elliptical divider seams).
-  - `angle`: Counterclockwise rotation angle in degrees (`-90` or `90` for horizontal pipes/queues).
+  - `style.angle`: Counterclockwise rotation angle in degrees (`-90` or `90` for horizontal pipes/queues).
   - The top elliptical cap is automatically tinted lighter for 3D depth even on flat styles (`Styles.SecondaryFlat`), and embedded `text` is centered on the front body below the top cap.
 
 ---
@@ -143,7 +142,7 @@ save()
 
 
 
-- **`face(xy, radius, *, style, mood="smile", angle=0.0, text="", text_style=None)`**:
+- **`face(xy, radius, *, style, mood="smile", text="", text_style=None)`**:
   - `mood`: Facial expression (`"smile"`, `"neutral"`, `"sad"`, `"angry"`, or `"surprised"`).
   - Eyes, eyebrows, and mouth automatically derive their color from `style.shape_line_color` (or contrasting `text_color` / white on borderless flat styles like `Styles.PrimaryFlat`).
 
@@ -151,10 +150,10 @@ save()
 
 ## 6. Rectangular & Planar Polygons
 
-### `rectangle(xy, width, height, r=0.0, angle=0.0, ...)`
+### `rectangle(xy, width, height, r=0.0, ...)`
 Draws a rectangle centered at `xy`. 
 - Set `r` to create smooth **rounded corners** (e.g., `r=4.0`).
-- Use `angle` to rotate around the geometric center.
+- Use `style.angle` to rotate around the geometric center.
 
 
 
@@ -178,10 +177,10 @@ save()
 
 
 - **`rhombus(xy, width, height, ...)`**: Symmetric diamond centered at `xy` (common for decision gates).
-- **`triangle(xy, width, height, angle=0.0, ...)`**: Isosceles triangle pointing upwards (or rotated).
+- **`triangle(xy, width, height, ...)`**: Isosceles triangle pointing upwards (or rotated via `style.angle`).
 - **`trapezoid(xy, height, bottomedge_width, topedge_width, ...)`**: Symmetrical or skewed trapezoid.
-- **`regularpolygon(xy, radius, num_vertex, angle=0.0, ...)`**: Equilateral polygon ($N$ vertices).
-- **`star(xy, num_vertex, radius_ext, radius_int, angle=0.0, ...)`**: Symmetrical multi-pointed star.
+- **`regularpolygon(xy, radius, num_vertex, ...)`**: Equilateral polygon ($N$ vertices).
+- **`star(xy, num_vertex, radius_ext, radius_int, ...)`**: Symmetrical multi-pointed star.
 - **`polygon(points, ...)`**: Arbitrary closed polygon from coordinate list `[(x1, y1), (x2, y2), ...]`.
 
 ---

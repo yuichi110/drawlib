@@ -47,7 +47,6 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
         xy: Coordinate,
         width: PosFloat,
         image: FilePath | Image.Image | Dimage,
-        angle: Angle = 0.0,
         *,
         style: Style | None = None,
     ) -> None:
@@ -58,13 +57,11 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
             width (float): Width of the image. Height is calculated automatically based on aspect ratio.
             image (str | Image | Dimage): Path to image file, PIL Image, or Dimage object.
                 If a relative file path is provided, it is resolved relative to the caller script directory.
-            angle (int | float, optional): Rotation angle in degrees (default is 0.0).
             style (Style | None, optional): Style of the image. Defaults to None.
         """
         if style is None:
             style = Style(image_border_width=0)
-        if angle == 0.0 and style.angle is not None:
-            angle = style.angle
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         x, y = xy
         if style.xy_shift is not None:
@@ -183,9 +180,10 @@ class CanvasImageFeature(CanvasShapeBasicFeature):
             shape_line_width=style.image_border_width,
             shape_line_color=border_color,
             shape_fill_color=BaseColors.Transparent,
+            angle=angle,
             alpha=style.alpha,
         )
-        self.rectangle(xy=xy, width=width, height=height, angle=angle, style=shapestyle)
+        self.rectangle(xy=xy, width=width, height=height, style=shapestyle)
 
 
 __all__ = ["CanvasImageFeature"]

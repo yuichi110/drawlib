@@ -141,6 +141,6 @@ angle = get_angle(p1, p2)
 midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 4)
 
 # Render rotated text parallel to the connection
-text(midpoint, f"Telemetry Stream ({angle:.1f}°)", angle=angle, style=Styles.DarkBold)
+text(midpoint, f"Telemetry Stream ({angle:.1f}°)", style=Styles.DarkBold.patch(angle=angle))
 save()
 ```

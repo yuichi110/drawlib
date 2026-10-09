@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._core.l2_types import Angle, Coordinate, PosFloat
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._icons.font_icons.phosphor._base import _write
 
@@ -19,7 +19,6 @@ from drawlib._icons.font_icons.phosphor._base import _write
 def acorn(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29,17 +28,15 @@ def acorn(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb9a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb9a", style=style)
 
 
 def activity(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -49,17 +46,15 @@ def activity(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue000", style=style)
 
 
 def address_book(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -69,17 +64,15 @@ def address_book(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6f8", style=style)
 
 
 def address_book_tabs(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -89,17 +82,15 @@ def address_book_tabs(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee4e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee4e", style=style)
 
 
 def air_traffic_control(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -109,17 +100,15 @@ def air_traffic_control(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecd8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecd8", style=style)
 
 
 def airplane(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -129,17 +118,15 @@ def airplane(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue002", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue002", style=style)
 
 
 def airplane_in_flight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -149,17 +136,15 @@ def airplane_in_flight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4fe", style=style)
 
 
 def airplane_landing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -169,17 +154,15 @@ def airplane_landing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue502", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue502", style=style)
 
 
 def airplane_takeoff(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -189,17 +172,15 @@ def airplane_takeoff(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue504", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue504", style=style)
 
 
 def airplane_taxiing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -209,17 +190,15 @@ def airplane_taxiing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue500", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue500", style=style)
 
 
 def airplane_tilt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -229,17 +208,15 @@ def airplane_tilt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5d6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5d6", style=style)
 
 
 def airplay(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -249,17 +226,15 @@ def airplay(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue004", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue004", style=style)
 
 
 def alarm(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -269,17 +244,15 @@ def alarm(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue006", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue006", style=style)
 
 
 def alien(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -289,17 +262,15 @@ def alien(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8a6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8a6", style=style)
 
 
 def align_bottom(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -309,17 +280,15 @@ def align_bottom(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue506", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue506", style=style)
 
 
 def align_bottom_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -329,17 +298,15 @@ def align_bottom_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb0c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb0c", style=style)
 
 
 def align_center_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -349,17 +316,15 @@ def align_center_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue50a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue50a", style=style)
 
 
 def align_center_horizontal_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -369,17 +334,15 @@ def align_center_horizontal_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb0e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb0e", style=style)
 
 
 def align_center_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -389,17 +352,15 @@ def align_center_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue50c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue50c", style=style)
 
 
 def align_center_vertical_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -409,17 +370,15 @@ def align_center_vertical_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb10", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb10", style=style)
 
 
 def align_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -429,17 +388,15 @@ def align_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue50e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue50e", style=style)
 
 
 def align_left_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -449,17 +406,15 @@ def align_left_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaee", style=style)
 
 
 def align_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -469,17 +424,15 @@ def align_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue510", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue510", style=style)
 
 
 def align_right_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -489,17 +442,15 @@ def align_right_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb12", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb12", style=style)
 
 
 def align_top(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -509,17 +460,15 @@ def align_top(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue512", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue512", style=style)
 
 
 def align_top_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -529,17 +478,15 @@ def align_top_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb14", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb14", style=style)
 
 
 def amazon_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -549,17 +496,15 @@ def amazon_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue96c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue96c", style=style)
 
 
 def ambulance(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -569,17 +514,15 @@ def ambulance(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue572", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue572", style=style)
 
 
 def anchor(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -589,17 +532,15 @@ def anchor(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue514", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue514", style=style)
 
 
 def anchor_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -609,17 +550,15 @@ def anchor_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5d8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5d8", style=style)
 
 
 def android_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -629,17 +568,15 @@ def android_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue008", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue008", style=style)
 
 
 def angle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -649,17 +586,15 @@ def angle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7bc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7bc", style=style)
 
 
 def angular_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -669,17 +604,15 @@ def angular_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb80", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb80", style=style)
 
 
 def aperture(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -689,17 +622,15 @@ def aperture(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue00a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue00a", style=style)
 
 
 def app_store_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -709,17 +640,15 @@ def app_store_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue974", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue974", style=style)
 
 
 def app_window(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -729,17 +658,15 @@ def app_window(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5da", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5da", style=style)
 
 
 def apple_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -749,17 +676,15 @@ def apple_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue516", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue516", style=style)
 
 
 def apple_podcasts_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -769,17 +694,15 @@ def apple_podcasts_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb96", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb96", style=style)
 
 
 def approximate_equals(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -789,17 +712,15 @@ def approximate_equals(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedaa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedaa", style=style)
 
 
 def archive(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -809,17 +730,15 @@ def archive(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue00c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue00c", style=style)
 
 
 def archive_box(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -829,17 +748,15 @@ def archive_box(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue00e", style=style)
 
 
 def archive_tray(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -849,17 +766,15 @@ def archive_tray(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue010", style=style)
 
 
 def armchair(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -869,17 +784,15 @@ def armchair(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue012", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue012", style=style)
 
 
 def arrow_arc_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -889,17 +802,15 @@ def arrow_arc_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue014", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue014", style=style)
 
 
 def arrow_arc_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -909,17 +820,15 @@ def arrow_arc_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue016", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue016", style=style)
 
 
 def arrow_bend_double_up_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -929,17 +838,15 @@ def arrow_bend_double_up_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue03a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue03a", style=style)
 
 
 def arrow_bend_double_up_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -949,17 +856,15 @@ def arrow_bend_double_up_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue03c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue03c", style=style)
 
 
 def arrow_bend_down_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -969,17 +874,15 @@ def arrow_bend_down_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue018", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue018", style=style)
 
 
 def arrow_bend_down_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -989,17 +892,15 @@ def arrow_bend_down_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue01a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue01a", style=style)
 
 
 def arrow_bend_left_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1009,17 +910,15 @@ def arrow_bend_left_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue01c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue01c", style=style)
 
 
 def arrow_bend_left_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1029,17 +928,15 @@ def arrow_bend_left_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue01e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue01e", style=style)
 
 
 def arrow_bend_right_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1049,17 +946,15 @@ def arrow_bend_right_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue020", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue020", style=style)
 
 
 def arrow_bend_right_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1069,17 +964,15 @@ def arrow_bend_right_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue022", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue022", style=style)
 
 
 def arrow_bend_up_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1089,17 +982,15 @@ def arrow_bend_up_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue024", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue024", style=style)
 
 
 def arrow_bend_up_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1109,17 +1000,15 @@ def arrow_bend_up_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue026", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue026", style=style)
 
 
 def arrow_circle_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1129,17 +1018,15 @@ def arrow_circle_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue028", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue028", style=style)
 
 
 def arrow_circle_down_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1149,17 +1036,15 @@ def arrow_circle_down_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue02a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue02a", style=style)
 
 
 def arrow_circle_down_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1169,17 +1054,15 @@ def arrow_circle_down_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue02c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue02c", style=style)
 
 
 def arrow_circle_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1189,17 +1072,15 @@ def arrow_circle_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue05a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue05a", style=style)
 
 
 def arrow_circle_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1209,17 +1090,15 @@ def arrow_circle_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue02e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue02e", style=style)
 
 
 def arrow_circle_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1229,17 +1108,15 @@ def arrow_circle_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue030", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue030", style=style)
 
 
 def arrow_circle_up_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1249,17 +1126,15 @@ def arrow_circle_up_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue032", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue032", style=style)
 
 
 def arrow_circle_up_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1269,17 +1144,15 @@ def arrow_circle_up_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue034", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue034", style=style)
 
 
 def arrow_clockwise(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1289,17 +1162,15 @@ def arrow_clockwise(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue036", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue036", style=style)
 
 
 def arrow_counter_clockwise(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1309,17 +1180,15 @@ def arrow_counter_clockwise(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue038", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue038", style=style)
 
 
 def arrow_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1329,17 +1198,15 @@ def arrow_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue03e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue03e", style=style)
 
 
 def arrow_down_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1349,17 +1216,15 @@ def arrow_down_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue040", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue040", style=style)
 
 
 def arrow_down_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1369,17 +1234,15 @@ def arrow_down_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue042", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue042", style=style)
 
 
 def arrow_elbow_down_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1389,17 +1252,15 @@ def arrow_elbow_down_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue044", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue044", style=style)
 
 
 def arrow_elbow_down_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1409,17 +1270,15 @@ def arrow_elbow_down_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue046", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue046", style=style)
 
 
 def arrow_elbow_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1429,17 +1288,15 @@ def arrow_elbow_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue048", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue048", style=style)
 
 
 def arrow_elbow_left_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1449,17 +1306,15 @@ def arrow_elbow_left_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue04a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue04a", style=style)
 
 
 def arrow_elbow_left_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1469,17 +1324,15 @@ def arrow_elbow_left_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue04c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue04c", style=style)
 
 
 def arrow_elbow_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1489,17 +1342,15 @@ def arrow_elbow_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue04e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue04e", style=style)
 
 
 def arrow_elbow_right_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1509,17 +1360,15 @@ def arrow_elbow_right_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue050", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue050", style=style)
 
 
 def arrow_elbow_right_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1529,17 +1378,15 @@ def arrow_elbow_right_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue052", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue052", style=style)
 
 
 def arrow_elbow_up_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1549,17 +1396,15 @@ def arrow_elbow_up_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue054", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue054", style=style)
 
 
 def arrow_elbow_up_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1569,17 +1414,15 @@ def arrow_elbow_up_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue056", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue056", style=style)
 
 
 def arrow_fat_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1589,17 +1432,15 @@ def arrow_fat_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue518", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue518", style=style)
 
 
 def arrow_fat_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1609,17 +1450,15 @@ def arrow_fat_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue51a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue51a", style=style)
 
 
 def arrow_fat_line_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1629,17 +1468,15 @@ def arrow_fat_line_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue51c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue51c", style=style)
 
 
 def arrow_fat_line_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1649,17 +1486,15 @@ def arrow_fat_line_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue51e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue51e", style=style)
 
 
 def arrow_fat_line_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1669,17 +1504,15 @@ def arrow_fat_line_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue520", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue520", style=style)
 
 
 def arrow_fat_line_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1689,17 +1522,15 @@ def arrow_fat_line_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue522", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue522", style=style)
 
 
 def arrow_fat_lines_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1709,17 +1540,15 @@ def arrow_fat_lines_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue524", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue524", style=style)
 
 
 def arrow_fat_lines_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1729,17 +1558,15 @@ def arrow_fat_lines_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue526", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue526", style=style)
 
 
 def arrow_fat_lines_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1749,17 +1576,15 @@ def arrow_fat_lines_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue528", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue528", style=style)
 
 
 def arrow_fat_lines_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1769,17 +1594,15 @@ def arrow_fat_lines_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue52a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue52a", style=style)
 
 
 def arrow_fat_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1789,17 +1612,15 @@ def arrow_fat_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue52c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue52c", style=style)
 
 
 def arrow_fat_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1809,17 +1630,15 @@ def arrow_fat_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue52e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue52e", style=style)
 
 
 def arrow_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1829,17 +1648,15 @@ def arrow_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue058", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue058", style=style)
 
 
 def arrow_line_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1849,17 +1666,15 @@ def arrow_line_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue05c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue05c", style=style)
 
 
 def arrow_line_down_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1869,17 +1684,15 @@ def arrow_line_down_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue05e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue05e", style=style)
 
 
 def arrow_line_down_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1889,17 +1702,15 @@ def arrow_line_down_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue060", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue060", style=style)
 
 
 def arrow_line_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1909,17 +1720,15 @@ def arrow_line_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue062", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue062", style=style)
 
 
 def arrow_line_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1929,17 +1738,15 @@ def arrow_line_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue064", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue064", style=style)
 
 
 def arrow_line_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1949,17 +1756,15 @@ def arrow_line_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue066", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue066", style=style)
 
 
 def arrow_line_up_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1969,17 +1774,15 @@ def arrow_line_up_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue068", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue068", style=style)
 
 
 def arrow_line_up_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1989,17 +1792,15 @@ def arrow_line_up_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue06a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue06a", style=style)
 
 
 def arrow_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2009,17 +1810,15 @@ def arrow_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue06c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue06c", style=style)
 
 
 def arrow_square_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2029,17 +1828,15 @@ def arrow_square_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue06e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue06e", style=style)
 
 
 def arrow_square_down_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2049,17 +1846,15 @@ def arrow_square_down_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue070", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue070", style=style)
 
 
 def arrow_square_down_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2069,17 +1864,15 @@ def arrow_square_down_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue072", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue072", style=style)
 
 
 def arrow_square_in(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2089,17 +1882,15 @@ def arrow_square_in(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5dc", style=style)
 
 
 def arrow_square_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2109,17 +1900,15 @@ def arrow_square_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue074", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue074", style=style)
 
 
 def arrow_square_out(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2129,17 +1918,15 @@ def arrow_square_out(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5de", style=style)
 
 
 def arrow_square_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2149,17 +1936,15 @@ def arrow_square_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue076", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue076", style=style)
 
 
 def arrow_square_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2169,17 +1954,15 @@ def arrow_square_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue078", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue078", style=style)
 
 
 def arrow_square_up_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2189,17 +1972,15 @@ def arrow_square_up_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue07a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue07a", style=style)
 
 
 def arrow_square_up_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2209,17 +1990,15 @@ def arrow_square_up_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue07c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue07c", style=style)
 
 
 def arrow_u_down_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2229,17 +2008,15 @@ def arrow_u_down_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue07e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue07e", style=style)
 
 
 def arrow_u_down_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2249,17 +2026,15 @@ def arrow_u_down_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue080", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue080", style=style)
 
 
 def arrow_u_left_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2269,17 +2044,15 @@ def arrow_u_left_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue082", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue082", style=style)
 
 
 def arrow_u_left_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2289,17 +2062,15 @@ def arrow_u_left_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue084", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue084", style=style)
 
 
 def arrow_u_right_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2309,17 +2080,15 @@ def arrow_u_right_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue086", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue086", style=style)
 
 
 def arrow_u_right_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2329,17 +2098,15 @@ def arrow_u_right_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue088", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue088", style=style)
 
 
 def arrow_u_up_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2349,17 +2116,15 @@ def arrow_u_up_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue08a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue08a", style=style)
 
 
 def arrow_u_up_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2369,17 +2134,15 @@ def arrow_u_up_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue08c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue08c", style=style)
 
 
 def arrow_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2389,17 +2152,15 @@ def arrow_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue08e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue08e", style=style)
 
 
 def arrow_up_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2409,17 +2170,15 @@ def arrow_up_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue090", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue090", style=style)
 
 
 def arrow_up_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2429,17 +2188,15 @@ def arrow_up_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue092", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue092", style=style)
 
 
 def arrows_clockwise(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2449,17 +2206,15 @@ def arrows_clockwise(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue094", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue094", style=style)
 
 
 def arrows_counter_clockwise(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2469,17 +2224,15 @@ def arrows_counter_clockwise(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue096", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue096", style=style)
 
 
 def arrows_down_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2489,17 +2242,15 @@ def arrows_down_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue098", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue098", style=style)
 
 
 def arrows_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2509,17 +2260,15 @@ def arrows_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb06", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb06", style=style)
 
 
 def arrows_in(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2529,17 +2278,15 @@ def arrows_in(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue09a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue09a", style=style)
 
 
 def arrows_in_cardinal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2549,17 +2296,15 @@ def arrows_in_cardinal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue09c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue09c", style=style)
 
 
 def arrows_in_line_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2569,17 +2314,15 @@ def arrows_in_line_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue530", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue530", style=style)
 
 
 def arrows_in_line_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2589,17 +2332,15 @@ def arrows_in_line_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue532", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue532", style=style)
 
 
 def arrows_in_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2609,17 +2350,15 @@ def arrows_in_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue09e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue09e", style=style)
 
 
 def arrows_left_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2629,17 +2368,15 @@ def arrows_left_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0a0", style=style)
 
 
 def arrows_merge(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2649,17 +2386,15 @@ def arrows_merge(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued3e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued3e", style=style)
 
 
 def arrows_out(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2669,17 +2404,15 @@ def arrows_out(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0a2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0a2", style=style)
 
 
 def arrows_out_cardinal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2689,17 +2422,15 @@ def arrows_out_cardinal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0a4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0a4", style=style)
 
 
 def arrows_out_line_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2709,17 +2440,15 @@ def arrows_out_line_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue534", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue534", style=style)
 
 
 def arrows_out_line_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2729,17 +2458,15 @@ def arrows_out_line_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue536", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue536", style=style)
 
 
 def arrows_out_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2749,17 +2476,15 @@ def arrows_out_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0a6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0a6", style=style)
 
 
 def arrows_split(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2769,17 +2494,15 @@ def arrows_split(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued3c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued3c", style=style)
 
 
 def arrows_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2789,17 +2512,15 @@ def arrows_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb04", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb04", style=style)
 
 
 def article(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2809,17 +2530,15 @@ def article(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0a8", style=style)
 
 
 def article_medium(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2829,17 +2548,15 @@ def article_medium(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5e0", style=style)
 
 
 def article_ny_times(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2849,17 +2566,15 @@ def article_ny_times(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5e2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5e2", style=style)
 
 
 def asclepius(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2869,17 +2584,15 @@ def asclepius(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee34", style=style)
 
 
 def asterisk(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2889,17 +2602,15 @@ def asterisk(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0aa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0aa", style=style)
 
 
 def asterisk_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2909,17 +2620,15 @@ def asterisk_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue832", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue832", style=style)
 
 
 def at(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2929,17 +2638,15 @@ def at(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ac", style=style)
 
 
 def atom(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2949,17 +2656,15 @@ def atom(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5e4", style=style)
 
 
 def avocado(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2969,17 +2674,15 @@ def avocado(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee04", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee04", style=style)
 
 
 def axe(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2989,17 +2692,15 @@ def axe(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9fc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9fc", style=style)
 
 
 def baby(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3009,17 +2710,15 @@ def baby(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue774", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue774", style=style)
 
 
 def baby_carriage(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3029,17 +2728,15 @@ def baby_carriage(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue818", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue818", style=style)
 
 
 def backpack(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3049,17 +2746,15 @@ def backpack(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue922", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue922", style=style)
 
 
 def backspace(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3069,17 +2764,15 @@ def backspace(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ae", style=style)
 
 
 def bag(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3089,17 +2782,15 @@ def bag(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0b0", style=style)
 
 
 def bag_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3109,17 +2800,15 @@ def bag_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5e6", style=style)
 
 
 def balloon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3129,17 +2818,15 @@ def balloon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue76c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue76c", style=style)
 
 
 def bandaids(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3149,17 +2836,15 @@ def bandaids(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0b2", style=style)
 
 
 def bank(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3169,17 +2854,15 @@ def bank(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0b4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0b4", style=style)
 
 
 def barbell(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3189,17 +2872,15 @@ def barbell(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0b6", style=style)
 
 
 def barcode(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3209,17 +2890,15 @@ def barcode(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0b8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0b8", style=style)
 
 
 def barn(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3229,17 +2908,15 @@ def barn(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec72", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec72", style=style)
 
 
 def barricade(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3249,17 +2926,15 @@ def barricade(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue948", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue948", style=style)
 
 
 def baseball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3269,17 +2944,15 @@ def baseball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue71a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue71a", style=style)
 
 
 def baseball_cap(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3289,17 +2962,15 @@ def baseball_cap(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea28", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea28", style=style)
 
 
 def baseball_helmet(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3309,17 +2980,15 @@ def baseball_helmet(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee4a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee4a", style=style)
 
 
 def basket(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3329,17 +2998,15 @@ def basket(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue964", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue964", style=style)
 
 
 def basketball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3349,17 +3016,15 @@ def basketball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue724", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue724", style=style)
 
 
 def bathtub(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3369,17 +3034,15 @@ def bathtub(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue81e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue81e", style=style)
 
 
 def battery_charging(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3389,17 +3052,15 @@ def battery_charging(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ba", style=style)
 
 
 def battery_charging_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3409,17 +3070,15 @@ def battery_charging_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0bc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0bc", style=style)
 
 
 def battery_empty(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3429,17 +3088,15 @@ def battery_empty(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0be", style=style)
 
 
 def battery_full(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3449,17 +3106,15 @@ def battery_full(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0c0", style=style)
 
 
 def battery_high(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3469,17 +3124,15 @@ def battery_high(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0c2", style=style)
 
 
 def battery_low(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3489,17 +3142,15 @@ def battery_low(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0c4", style=style)
 
 
 def battery_medium(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3509,17 +3160,15 @@ def battery_medium(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0c6", style=style)
 
 
 def battery_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3529,17 +3178,15 @@ def battery_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue808", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue808", style=style)
 
 
 def battery_plus_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3549,17 +3196,15 @@ def battery_plus_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec50", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec50", style=style)
 
 
 def battery_vertical_empty(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3569,17 +3214,15 @@ def battery_vertical_empty(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7c6", style=style)
 
 
 def battery_vertical_full(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3589,17 +3232,15 @@ def battery_vertical_full(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7c4", style=style)
 
 
 def battery_vertical_high(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3609,17 +3250,15 @@ def battery_vertical_high(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7c2", style=style)
 
 
 def battery_vertical_low(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3629,17 +3268,15 @@ def battery_vertical_low(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7be", style=style)
 
 
 def battery_vertical_medium(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3649,17 +3286,15 @@ def battery_vertical_medium(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7c0", style=style)
 
 
 def battery_warning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3669,17 +3304,15 @@ def battery_warning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0c8", style=style)
 
 
 def battery_warning_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3689,17 +3322,15 @@ def battery_warning_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ca", style=style)
 
 
 def beach_ball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3709,17 +3340,15 @@ def beach_ball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued24", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued24", style=style)
 
 
 def beanie(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3729,17 +3358,15 @@ def beanie(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea2a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea2a", style=style)
 
 
 def bed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3749,17 +3376,15 @@ def bed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0cc", style=style)
 
 
 def beer_bottle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3769,17 +3394,15 @@ def beer_bottle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7b0", style=style)
 
 
 def beer_stein(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3789,17 +3412,15 @@ def beer_stein(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb62", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb62", style=style)
 
 
 def behance_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3809,17 +3430,15 @@ def behance_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7f4", style=style)
 
 
 def bell(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3829,17 +3448,15 @@ def bell(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ce", style=style)
 
 
 def bell_ringing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3849,17 +3466,15 @@ def bell_ringing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5e8", style=style)
 
 
 def bell_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3869,17 +3484,15 @@ def bell_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0d0", style=style)
 
 
 def bell_simple_ringing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3889,17 +3502,15 @@ def bell_simple_ringing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5ea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5ea", style=style)
 
 
 def bell_simple_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3909,17 +3520,15 @@ def bell_simple_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0d2", style=style)
 
 
 def bell_simple_z(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3929,17 +3538,15 @@ def bell_simple_z(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5ec", style=style)
 
 
 def bell_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3949,17 +3556,15 @@ def bell_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0d4", style=style)
 
 
 def bell_z(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3969,17 +3574,15 @@ def bell_z(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5ee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5ee", style=style)
 
 
 def belt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3989,17 +3592,15 @@ def belt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea2c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea2c", style=style)
 
 
 def bezier_curve(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4009,17 +3610,15 @@ def bezier_curve(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb00", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb00", style=style)
 
 
 def bicycle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4029,17 +3628,15 @@ def bicycle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0d6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0d6", style=style)
 
 
 def binary(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4049,17 +3646,15 @@ def binary(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee60", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee60", style=style)
 
 
 def binoculars(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4069,17 +3664,15 @@ def binoculars(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea64", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea64", style=style)
 
 
 def biohazard(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4089,17 +3682,15 @@ def biohazard(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9e0", style=style)
 
 
 def bird(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4109,17 +3700,15 @@ def bird(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue72c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue72c", style=style)
 
 
 def blueprint(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4129,17 +3718,15 @@ def blueprint(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueda0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueda0", style=style)
 
 
 def bluetooth(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4149,17 +3736,15 @@ def bluetooth(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0da", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0da", style=style)
 
 
 def bluetooth_connected(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4169,17 +3754,15 @@ def bluetooth_connected(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0dc", style=style)
 
 
 def bluetooth_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4189,17 +3772,15 @@ def bluetooth_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0de", style=style)
 
 
 def bluetooth_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4209,17 +3790,15 @@ def bluetooth_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0e0", style=style)
 
 
 def boat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4229,17 +3808,15 @@ def boat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue786", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue786", style=style)
 
 
 def bomb(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4249,17 +3826,15 @@ def bomb(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee0a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee0a", style=style)
 
 
 def bone(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4269,17 +3844,15 @@ def bone(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7f2", style=style)
 
 
 def book(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4289,17 +3862,15 @@ def book(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0e2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0e2", style=style)
 
 
 def book_bookmark(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4309,17 +3880,15 @@ def book_bookmark(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0e4", style=style)
 
 
 def book_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4329,17 +3898,15 @@ def book_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0e6", style=style)
 
 
 def book_open_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4349,17 +3916,15 @@ def book_open_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8f2", style=style)
 
 
 def book_open_user(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4369,17 +3934,15 @@ def book_open_user(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uede0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uede0", style=style)
 
 
 def bookmark(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4389,17 +3952,15 @@ def bookmark(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0e8", style=style)
 
 
 def bookmark_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4409,17 +3970,15 @@ def bookmark_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ea", style=style)
 
 
 def bookmarks(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4429,17 +3988,15 @@ def bookmarks(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ec", style=style)
 
 
 def bookmarks_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4449,17 +4006,15 @@ def bookmarks_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5f0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5f0", style=style)
 
 
 def books(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4469,17 +4024,15 @@ def books(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue758", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue758", style=style)
 
 
 def boot(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4489,17 +4042,15 @@ def boot(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecca", style=style)
 
 
 def boules(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4509,17 +4060,15 @@ def boules(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue722", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue722", style=style)
 
 
 def bounding_box(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4529,17 +4078,15 @@ def bounding_box(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6ce", style=style)
 
 
 def bowl_food(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4549,17 +4096,15 @@ def bowl_food(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaa4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaa4", style=style)
 
 
 def bowl_steam(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4569,17 +4114,15 @@ def bowl_steam(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8e4", style=style)
 
 
 def bowling_ball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4589,17 +4132,15 @@ def bowling_ball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea34", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea34", style=style)
 
 
 def box_arrow_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4609,17 +4150,15 @@ def box_arrow_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue00e", style=style)
 
 
 def box_arrow_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4629,17 +4168,15 @@ def box_arrow_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee54", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee54", style=style)
 
 
 def boxing_glove(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4649,17 +4186,15 @@ def boxing_glove(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea36", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea36", style=style)
 
 
 def brackets_angle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4669,17 +4204,15 @@ def brackets_angle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue862", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue862", style=style)
 
 
 def brackets_curly(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4689,17 +4222,15 @@ def brackets_curly(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue860", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue860", style=style)
 
 
 def brackets_round(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4709,17 +4240,15 @@ def brackets_round(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue864", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue864", style=style)
 
 
 def brackets_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4729,17 +4258,15 @@ def brackets_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue85e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue85e", style=style)
 
 
 def brain(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4749,17 +4276,15 @@ def brain(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue74e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue74e", style=style)
 
 
 def brandy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4769,17 +4294,15 @@ def brandy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6b4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6b4", style=style)
 
 
 def bread(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4789,17 +4312,15 @@ def bread(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue81c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue81c", style=style)
 
 
 def bridge(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4809,17 +4330,15 @@ def bridge(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea68", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea68", style=style)
 
 
 def briefcase(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4829,17 +4348,15 @@ def briefcase(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ee", style=style)
 
 
 def briefcase_metal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4849,17 +4366,15 @@ def briefcase_metal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5f2", style=style)
 
 
 def broadcast(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4869,17 +4384,15 @@ def broadcast(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0f2", style=style)
 
 
 def broom(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4889,17 +4402,15 @@ def broom(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec54", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec54", style=style)
 
 
 def browser(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4909,17 +4420,15 @@ def browser(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0f4", style=style)
 
 
 def browsers(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4929,17 +4438,15 @@ def browsers(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0f6", style=style)
 
 
 def bug(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4949,17 +4456,15 @@ def bug(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5f4", style=style)
 
 
 def bug_beetle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4969,17 +4474,15 @@ def bug_beetle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5f6", style=style)
 
 
 def bug_droid(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4989,17 +4492,15 @@ def bug_droid(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5f8", style=style)
 
 
 def building(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5009,17 +4510,15 @@ def building(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue100", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue100", style=style)
 
 
 def building_apartment(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5029,17 +4528,15 @@ def building_apartment(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0fe", style=style)
 
 
 def building_office(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5049,17 +4546,15 @@ def building_office(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0ff", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0ff", style=style)
 
 
 def buildings(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5069,17 +4564,15 @@ def buildings(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue102", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue102", style=style)
 
 
 def bulldozer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5089,17 +4582,15 @@ def bulldozer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec6c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec6c", style=style)
 
 
 def bus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5109,17 +4600,15 @@ def bus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue106", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue106", style=style)
 
 
 def butterfly(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5129,17 +4618,15 @@ def butterfly(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea6e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea6e", style=style)
 
 
 def cable_car(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5149,17 +4636,15 @@ def cable_car(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue49c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue49c", style=style)
 
 
 def cactus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5169,17 +4654,15 @@ def cactus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue918", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue918", style=style)
 
 
 def caduceus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5189,17 +4672,15 @@ def caduceus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee34", style=style)
 
 
 def cake(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5209,17 +4690,15 @@ def cake(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue780", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue780", style=style)
 
 
 def calculator(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5229,17 +4708,15 @@ def calculator(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue538", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue538", style=style)
 
 
 def calendar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5249,17 +4726,15 @@ def calendar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue108", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue108", style=style)
 
 
 def calendar_blank(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5269,17 +4744,15 @@ def calendar_blank(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue10a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue10a", style=style)
 
 
 def calendar_check(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5289,17 +4762,15 @@ def calendar_check(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue712", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue712", style=style)
 
 
 def calendar_dot(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5309,17 +4780,15 @@ def calendar_dot(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7b2", style=style)
 
 
 def calendar_dots(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5329,17 +4798,15 @@ def calendar_dots(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7b4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7b4", style=style)
 
 
 def calendar_heart(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5349,17 +4816,15 @@ def calendar_heart(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8b0", style=style)
 
 
 def calendar_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5369,17 +4834,15 @@ def calendar_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea14", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea14", style=style)
 
 
 def calendar_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5389,17 +4852,15 @@ def calendar_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue714", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue714", style=style)
 
 
 def calendar_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5409,17 +4870,15 @@ def calendar_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea12", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea12", style=style)
 
 
 def calendar_star(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5429,17 +4888,15 @@ def calendar_star(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8b2", style=style)
 
 
 def calendar_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5449,17 +4906,15 @@ def calendar_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue10c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue10c", style=style)
 
 
 def call_bell(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5469,17 +4924,15 @@ def call_bell(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7de", style=style)
 
 
 def camera(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5489,17 +4942,15 @@ def camera(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue10e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue10e", style=style)
 
 
 def camera_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5509,17 +4960,15 @@ def camera_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec58", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec58", style=style)
 
 
 def camera_rotate(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5529,17 +4978,15 @@ def camera_rotate(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7a4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7a4", style=style)
 
 
 def camera_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5549,17 +4996,15 @@ def camera_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue110", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue110", style=style)
 
 
 def campfire(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5569,17 +5014,15 @@ def campfire(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9d8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9d8", style=style)
 
 
 def car(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5589,17 +5032,15 @@ def car(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue112", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue112", style=style)
 
 
 def car_battery(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5609,17 +5050,15 @@ def car_battery(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee30", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee30", style=style)
 
 
 def car_profile(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5629,17 +5068,15 @@ def car_profile(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8cc", style=style)
 
 
 def car_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5649,17 +5086,15 @@ def car_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue114", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue114", style=style)
 
 
 def cardholder(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5669,17 +5104,15 @@ def cardholder(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5fa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5fa", style=style)
 
 
 def cards(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5689,17 +5122,15 @@ def cards(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue0f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue0f8", style=style)
 
 
 def cards_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5709,17 +5140,15 @@ def cards_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee50", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee50", style=style)
 
 
 def caret_circle_double_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5729,17 +5158,15 @@ def caret_circle_double_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue116", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue116", style=style)
 
 
 def caret_circle_double_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5749,17 +5176,15 @@ def caret_circle_double_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue118", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue118", style=style)
 
 
 def caret_circle_double_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5769,17 +5194,15 @@ def caret_circle_double_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue11a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue11a", style=style)
 
 
 def caret_circle_double_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5789,17 +5212,15 @@ def caret_circle_double_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue11c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue11c", style=style)
 
 
 def caret_circle_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5809,17 +5230,15 @@ def caret_circle_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue11e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue11e", style=style)
 
 
 def caret_circle_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5829,17 +5248,15 @@ def caret_circle_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue120", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue120", style=style)
 
 
 def caret_circle_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5849,17 +5266,15 @@ def caret_circle_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue122", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue122", style=style)
 
 
 def caret_circle_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5869,17 +5284,15 @@ def caret_circle_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue124", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue124", style=style)
 
 
 def caret_circle_up_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5889,17 +5302,15 @@ def caret_circle_up_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue13e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue13e", style=style)
 
 
 def caret_double_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5909,17 +5320,15 @@ def caret_double_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue126", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue126", style=style)
 
 
 def caret_double_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5929,17 +5338,15 @@ def caret_double_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue128", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue128", style=style)
 
 
 def caret_double_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5949,17 +5356,15 @@ def caret_double_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue12a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue12a", style=style)
 
 
 def caret_double_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5969,17 +5374,15 @@ def caret_double_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue12c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue12c", style=style)
 
 
 def caret_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5989,17 +5392,15 @@ def caret_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue136", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue136", style=style)
 
 
 def caret_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6009,17 +5410,15 @@ def caret_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue138", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue138", style=style)
 
 
 def caret_line_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6029,17 +5428,15 @@ def caret_line_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue134", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue134", style=style)
 
 
 def caret_line_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6049,17 +5446,15 @@ def caret_line_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue132", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue132", style=style)
 
 
 def caret_line_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6069,17 +5464,15 @@ def caret_line_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue130", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue130", style=style)
 
 
 def caret_line_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6089,17 +5482,15 @@ def caret_line_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue12e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue12e", style=style)
 
 
 def caret_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6109,17 +5500,15 @@ def caret_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue13a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue13a", style=style)
 
 
 def caret_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6129,17 +5518,15 @@ def caret_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue13c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue13c", style=style)
 
 
 def caret_up_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6149,17 +5536,15 @@ def caret_up_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue140", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue140", style=style)
 
 
 def carrot(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6169,17 +5554,15 @@ def carrot(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued38", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued38", style=style)
 
 
 def cash_register(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6189,17 +5572,15 @@ def cash_register(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued80", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued80", style=style)
 
 
 def cassette_tape(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6209,17 +5590,15 @@ def cassette_tape(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued2e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued2e", style=style)
 
 
 def castle_turret(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6229,17 +5608,15 @@ def castle_turret(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9d0", style=style)
 
 
 def cat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6249,17 +5626,15 @@ def cat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue748", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue748", style=style)
 
 
 def cell_signal_full(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6269,17 +5644,15 @@ def cell_signal_full(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue142", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue142", style=style)
 
 
 def cell_signal_high(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6289,17 +5662,15 @@ def cell_signal_high(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue144", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue144", style=style)
 
 
 def cell_signal_low(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6309,17 +5680,15 @@ def cell_signal_low(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue146", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue146", style=style)
 
 
 def cell_signal_medium(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6329,17 +5698,15 @@ def cell_signal_medium(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue148", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue148", style=style)
 
 
 def cell_signal_none(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6349,17 +5716,15 @@ def cell_signal_none(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue14a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue14a", style=style)
 
 
 def cell_signal_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6369,17 +5734,15 @@ def cell_signal_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue14c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue14c", style=style)
 
 
 def cell_signal_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6389,17 +5752,15 @@ def cell_signal_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue14e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue14e", style=style)
 
 
 def cell_tower(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6409,17 +5770,15 @@ def cell_tower(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebaa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebaa", style=style)
 
 
 def certificate(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6429,17 +5788,15 @@ def certificate(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue766", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue766", style=style)
 
 
 def chair(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6449,17 +5806,15 @@ def chair(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue950", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue950", style=style)
 
 
 def chalkboard(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6469,17 +5824,15 @@ def chalkboard(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5fc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5fc", style=style)
 
 
 def chalkboard_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6489,17 +5842,15 @@ def chalkboard_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5fe", style=style)
 
 
 def chalkboard_teacher(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6509,17 +5860,15 @@ def chalkboard_teacher(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue600", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue600", style=style)
 
 
 def champagne(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6529,17 +5878,15 @@ def champagne(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaca", style=style)
 
 
 def charging_station(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6549,17 +5896,15 @@ def charging_station(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8d0", style=style)
 
 
 def chart_bar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6569,17 +5914,15 @@ def chart_bar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue150", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue150", style=style)
 
 
 def chart_bar_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6589,17 +5932,15 @@ def chart_bar_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue152", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue152", style=style)
 
 
 def chart_donut(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6609,17 +5950,15 @@ def chart_donut(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaa6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaa6", style=style)
 
 
 def chart_line(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6629,17 +5968,15 @@ def chart_line(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue154", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue154", style=style)
 
 
 def chart_line_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6649,17 +5986,15 @@ def chart_line_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8b6", style=style)
 
 
 def chart_line_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6669,17 +6004,15 @@ def chart_line_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue156", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue156", style=style)
 
 
 def chart_pie(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6689,17 +6022,15 @@ def chart_pie(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue158", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue158", style=style)
 
 
 def chart_pie_slice(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6709,17 +6040,15 @@ def chart_pie_slice(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue15a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue15a", style=style)
 
 
 def chart_polar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6729,17 +6058,15 @@ def chart_polar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaa8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaa8", style=style)
 
 
 def chart_scatter(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6749,17 +6076,15 @@ def chart_scatter(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaac", style=style)
 
 
 def chat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6769,17 +6094,15 @@ def chat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue15c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue15c", style=style)
 
 
 def chat_centered(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6789,17 +6112,15 @@ def chat_centered(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue160", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue160", style=style)
 
 
 def chat_centered_dots(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6809,17 +6130,15 @@ def chat_centered_dots(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue164", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue164", style=style)
 
 
 def chat_centered_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6829,17 +6148,15 @@ def chat_centered_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue162", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue162", style=style)
 
 
 def chat_centered_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6849,17 +6166,15 @@ def chat_centered_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue166", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue166", style=style)
 
 
 def chat_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6869,17 +6184,15 @@ def chat_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue168", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue168", style=style)
 
 
 def chat_circle_dots(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6889,17 +6202,15 @@ def chat_circle_dots(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue16c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue16c", style=style)
 
 
 def chat_circle_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6909,17 +6220,15 @@ def chat_circle_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue16a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue16a", style=style)
 
 
 def chat_circle_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6929,17 +6238,15 @@ def chat_circle_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue16e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue16e", style=style)
 
 
 def chat_dots(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6949,17 +6256,15 @@ def chat_dots(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue170", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue170", style=style)
 
 
 def chat_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6969,17 +6274,15 @@ def chat_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue15e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue15e", style=style)
 
 
 def chat_teardrop(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6989,17 +6292,15 @@ def chat_teardrop(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue172", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue172", style=style)
 
 
 def chat_teardrop_dots(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7009,17 +6310,15 @@ def chat_teardrop_dots(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue176", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue176", style=style)
 
 
 def chat_teardrop_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7029,17 +6328,15 @@ def chat_teardrop_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue174", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue174", style=style)
 
 
 def chat_teardrop_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7049,17 +6346,15 @@ def chat_teardrop_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue178", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue178", style=style)
 
 
 def chat_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7069,17 +6364,15 @@ def chat_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue17a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue17a", style=style)
 
 
 def chats(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7089,17 +6382,15 @@ def chats(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue17c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue17c", style=style)
 
 
 def chats_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7109,17 +6400,15 @@ def chats_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue17e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue17e", style=style)
 
 
 def chats_teardrop(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7129,17 +6418,15 @@ def chats_teardrop(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue180", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue180", style=style)
 
 
 def check(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7149,17 +6436,15 @@ def check(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue182", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue182", style=style)
 
 
 def check_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7169,17 +6454,15 @@ def check_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue184", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue184", style=style)
 
 
 def check_fat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7189,17 +6472,15 @@ def check_fat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueba6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueba6", style=style)
 
 
 def check_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7209,17 +6490,15 @@ def check_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue186", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue186", style=style)
 
 
 def check_square_offset(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7229,17 +6508,15 @@ def check_square_offset(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue188", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue188", style=style)
 
 
 def checkerboard(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7249,17 +6526,15 @@ def checkerboard(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8c4", style=style)
 
 
 def checks(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7269,17 +6544,15 @@ def checks(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue53a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue53a", style=style)
 
 
 def cheers(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7289,17 +6562,15 @@ def cheers(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea4a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea4a", style=style)
 
 
 def cheese(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7309,17 +6580,15 @@ def cheese(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9fe", style=style)
 
 
 def chef_hat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7329,17 +6598,15 @@ def chef_hat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued8e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued8e", style=style)
 
 
 def cherries(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7349,17 +6616,15 @@ def cherries(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue830", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue830", style=style)
 
 
 def church(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7369,17 +6634,15 @@ def church(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecea", style=style)
 
 
 def cigarette(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7389,17 +6652,15 @@ def cigarette(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued90", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued90", style=style)
 
 
 def cigarette_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7409,17 +6670,15 @@ def cigarette_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued92", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued92", style=style)
 
 
 def circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7429,17 +6688,15 @@ def circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue18a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue18a", style=style)
 
 
 def circle_dashed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7449,17 +6706,15 @@ def circle_dashed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue602", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue602", style=style)
 
 
 def circle_half(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7469,17 +6724,15 @@ def circle_half(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue18c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue18c", style=style)
 
 
 def circle_half_tilt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7489,17 +6742,15 @@ def circle_half_tilt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue18e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue18e", style=style)
 
 
 def circle_notch(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7509,17 +6760,15 @@ def circle_notch(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb44", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb44", style=style)
 
 
 def circle_wavy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7529,17 +6778,15 @@ def circle_wavy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue604", style=style)
 
 
 def circle_wavy_check(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7549,17 +6796,15 @@ def circle_wavy_check(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue606", style=style)
 
 
 def circle_wavy_question(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7569,17 +6814,15 @@ def circle_wavy_question(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue608", style=style)
 
 
 def circle_wavy_warning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7589,17 +6832,15 @@ def circle_wavy_warning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue60c", style=style)
 
 
 def circles_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7609,17 +6850,15 @@ def circles_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue190", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue190", style=style)
 
 
 def circles_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7629,17 +6868,15 @@ def circles_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue192", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue192", style=style)
 
 
 def circles_three_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7649,17 +6886,15 @@ def circles_three_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue194", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue194", style=style)
 
 
 def circuitry(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7669,17 +6904,15 @@ def circuitry(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9c2", style=style)
 
 
 def city(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7689,17 +6922,15 @@ def city(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea6a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea6a", style=style)
 
 
 def clipboard(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7709,17 +6940,15 @@ def clipboard(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue196", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue196", style=style)
 
 
 def clipboard_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7729,17 +6958,15 @@ def clipboard_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue198", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue198", style=style)
 
 
 def clock(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7749,17 +6976,15 @@ def clock(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue19a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue19a", style=style)
 
 
 def clock_afternoon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7769,17 +6994,15 @@ def clock_afternoon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue19c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue19c", style=style)
 
 
 def clock_clockwise(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7789,17 +7012,15 @@ def clock_clockwise(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue19e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue19e", style=style)
 
 
 def clock_countdown(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7809,17 +7030,15 @@ def clock_countdown(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued2c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued2c", style=style)
 
 
 def clock_counter_clockwise(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7829,17 +7048,15 @@ def clock_counter_clockwise(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1a0", style=style)
 
 
 def clock_user(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7849,17 +7066,15 @@ def clock_user(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedec", style=style)
 
 
 def closed_captioning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7869,17 +7084,15 @@ def closed_captioning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1a4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1a4", style=style)
 
 
 def cloud(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7889,17 +7102,15 @@ def cloud(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1aa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1aa", style=style)
 
 
 def cloud_arrow_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7909,17 +7120,15 @@ def cloud_arrow_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1ac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1ac", style=style)
 
 
 def cloud_arrow_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7929,17 +7138,15 @@ def cloud_arrow_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1ae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1ae", style=style)
 
 
 def cloud_check(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7949,17 +7156,15 @@ def cloud_check(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1b0", style=style)
 
 
 def cloud_fog(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7969,17 +7174,15 @@ def cloud_fog(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue53c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue53c", style=style)
 
 
 def cloud_lightning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7989,17 +7192,15 @@ def cloud_lightning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1b2", style=style)
 
 
 def cloud_moon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8009,17 +7210,15 @@ def cloud_moon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue53e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue53e", style=style)
 
 
 def cloud_rain(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8029,17 +7228,15 @@ def cloud_rain(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1b4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1b4", style=style)
 
 
 def cloud_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8049,17 +7246,15 @@ def cloud_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1b6", style=style)
 
 
 def cloud_snow(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8069,17 +7264,15 @@ def cloud_snow(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1b8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1b8", style=style)
 
 
 def cloud_sun(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8089,17 +7282,15 @@ def cloud_sun(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue540", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue540", style=style)
 
 
 def cloud_warning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8109,17 +7300,15 @@ def cloud_warning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea98", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea98", style=style)
 
 
 def cloud_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8129,17 +7318,15 @@ def cloud_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea96", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea96", style=style)
 
 
 def clover(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8149,17 +7336,15 @@ def clover(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedc8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedc8", style=style)
 
 
 def club(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8169,17 +7354,15 @@ def club(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1ba", style=style)
 
 
 def coat_hanger(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8189,17 +7372,15 @@ def coat_hanger(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7fe", style=style)
 
 
 def coda_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8209,17 +7390,15 @@ def coda_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7ce", style=style)
 
 
 def code(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8229,17 +7408,15 @@ def code(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1bc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1bc", style=style)
 
 
 def code_block(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8249,17 +7426,15 @@ def code_block(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueafe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueafe", style=style)
 
 
 def code_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8269,17 +7444,15 @@ def code_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1be", style=style)
 
 
 def codepen_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8289,17 +7462,15 @@ def codepen_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue978", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue978", style=style)
 
 
 def codesandbox_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8309,17 +7480,15 @@ def codesandbox_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea06", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea06", style=style)
 
 
 def coffee(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8329,17 +7498,15 @@ def coffee(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1c2", style=style)
 
 
 def coffee_bean(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8349,17 +7516,15 @@ def coffee_bean(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1c0", style=style)
 
 
 def coin(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8369,17 +7534,15 @@ def coin(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue60e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue60e", style=style)
 
 
 def coin_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8389,17 +7552,15 @@ def coin_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb48", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb48", style=style)
 
 
 def coins(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8409,17 +7570,15 @@ def coins(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue78e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue78e", style=style)
 
 
 def columns(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8429,17 +7588,15 @@ def columns(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue546", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue546", style=style)
 
 
 def columns_plus_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8449,17 +7606,15 @@ def columns_plus_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue544", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue544", style=style)
 
 
 def columns_plus_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8469,17 +7624,15 @@ def columns_plus_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue542", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue542", style=style)
 
 
 def command(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8489,17 +7642,15 @@ def command(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1c4", style=style)
 
 
 def compass(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8509,17 +7660,15 @@ def compass(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1c8", style=style)
 
 
 def compass_rose(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8529,17 +7678,15 @@ def compass_rose(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1c6", style=style)
 
 
 def compass_tool(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8549,17 +7696,15 @@ def compass_tool(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea0e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea0e", style=style)
 
 
 def computer_tower(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8569,17 +7714,15 @@ def computer_tower(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue548", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue548", style=style)
 
 
 def confetti(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8589,17 +7732,15 @@ def confetti(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue81a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue81a", style=style)
 
 
 def contactless_payment(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8609,17 +7750,15 @@ def contactless_payment(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued42", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued42", style=style)
 
 
 def control(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8629,17 +7768,15 @@ def control(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueca6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueca6", style=style)
 
 
 def cookie(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8649,17 +7786,15 @@ def cookie(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6ca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6ca", style=style)
 
 
 def cooking_pot(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8669,17 +7804,15 @@ def cooking_pot(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue764", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue764", style=style)
 
 
 def copy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8689,17 +7822,15 @@ def copy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1ca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1ca", style=style)
 
 
 def copy_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8709,17 +7840,15 @@ def copy_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1cc", style=style)
 
 
 def copyleft(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8729,17 +7858,15 @@ def copyleft(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue86a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue86a", style=style)
 
 
 def copyright(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8749,17 +7876,15 @@ def copyright(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue54a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue54a", style=style)
 
 
 def corners_in(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8769,17 +7894,15 @@ def corners_in(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1ce", style=style)
 
 
 def corners_out(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8789,17 +7912,15 @@ def corners_out(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1d0", style=style)
 
 
 def couch(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8809,17 +7930,15 @@ def couch(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7f6", style=style)
 
 
 def court_basketball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8829,17 +7948,15 @@ def court_basketball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee36", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee36", style=style)
 
 
 def cow(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8849,17 +7966,15 @@ def cow(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueabe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueabe", style=style)
 
 
 def cowboy_hat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8869,17 +7984,15 @@ def cowboy_hat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued12", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued12", style=style)
 
 
 def cpu(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8889,17 +8002,15 @@ def cpu(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue610", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue610", style=style)
 
 
 def crane(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8909,17 +8020,15 @@ def crane(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued48", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued48", style=style)
 
 
 def crane_tower(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8929,17 +8038,15 @@ def crane_tower(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued49", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued49", style=style)
 
 
 def credit_card(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8949,17 +8056,15 @@ def credit_card(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1d2", style=style)
 
 
 def cricket(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8969,17 +8074,15 @@ def cricket(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee12", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee12", style=style)
 
 
 def crop(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8989,17 +8092,15 @@ def crop(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1d4", style=style)
 
 
 def cross(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9009,17 +8110,15 @@ def cross(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8a0", style=style)
 
 
 def crosshair(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9029,17 +8128,15 @@ def crosshair(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1d6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1d6", style=style)
 
 
 def crosshair_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9049,17 +8146,15 @@ def crosshair_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1d8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1d8", style=style)
 
 
 def crown(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9069,17 +8164,15 @@ def crown(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue614", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue614", style=style)
 
 
 def crown_cross(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9089,17 +8182,15 @@ def crown_cross(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee5e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee5e", style=style)
 
 
 def crown_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9109,17 +8200,15 @@ def crown_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue616", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue616", style=style)
 
 
 def cube(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9129,17 +8218,15 @@ def cube(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1da", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1da", style=style)
 
 
 def cube_focus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9149,17 +8236,15 @@ def cube_focus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued0a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued0a", style=style)
 
 
 def cube_transparent(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9169,17 +8254,15 @@ def cube_transparent(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec7c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec7c", style=style)
 
 
 def currency_btc(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9189,17 +8272,15 @@ def currency_btc(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue618", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue618", style=style)
 
 
 def currency_circle_dollar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9209,17 +8290,15 @@ def currency_circle_dollar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue54c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue54c", style=style)
 
 
 def currency_cny(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9229,17 +8308,15 @@ def currency_cny(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue54e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue54e", style=style)
 
 
 def currency_dollar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9249,17 +8326,15 @@ def currency_dollar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue550", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue550", style=style)
 
 
 def currency_dollar_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9269,17 +8344,15 @@ def currency_dollar_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue552", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue552", style=style)
 
 
 def currency_eth(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9289,17 +8362,15 @@ def currency_eth(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueada", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueada", style=style)
 
 
 def currency_eur(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9309,17 +8380,15 @@ def currency_eur(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue554", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue554", style=style)
 
 
 def currency_gbp(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9329,17 +8398,15 @@ def currency_gbp(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue556", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue556", style=style)
 
 
 def currency_inr(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9349,17 +8416,15 @@ def currency_inr(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue558", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue558", style=style)
 
 
 def currency_jpy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9369,17 +8434,15 @@ def currency_jpy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue55a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue55a", style=style)
 
 
 def currency_krw(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9389,17 +8452,15 @@ def currency_krw(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue55c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue55c", style=style)
 
 
 def currency_kzt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9409,17 +8470,15 @@ def currency_kzt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec4c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec4c", style=style)
 
 
 def currency_ngn(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9429,17 +8488,15 @@ def currency_ngn(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb52", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb52", style=style)
 
 
 def currency_rub(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9449,17 +8506,15 @@ def currency_rub(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue55e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue55e", style=style)
 
 
 def cursor(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9469,17 +8524,15 @@ def cursor(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1dc", style=style)
 
 
 def cursor_click(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9489,17 +8542,15 @@ def cursor_click(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7c8", style=style)
 
 
 def cursor_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9509,17 +8560,15 @@ def cursor_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7d8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7d8", style=style)
 
 
 def cylinder(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9529,17 +8578,15 @@ def cylinder(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8fc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8fc", style=style)
 
 
 def database(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9549,17 +8596,15 @@ def database(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1de", style=style)
 
 
 def desk(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9569,17 +8614,15 @@ def desk(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued16", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued16", style=style)
 
 
 def desktop(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9589,17 +8632,15 @@ def desktop(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue560", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue560", style=style)
 
 
 def desktop_tower(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9609,17 +8650,15 @@ def desktop_tower(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue562", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue562", style=style)
 
 
 def detective(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9629,17 +8668,15 @@ def detective(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue83e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue83e", style=style)
 
 
 def dev_to_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9649,17 +8686,15 @@ def dev_to_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued0e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued0e", style=style)
 
 
 def device_mobile(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9669,17 +8704,15 @@ def device_mobile(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1e0", style=style)
 
 
 def device_mobile_camera(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9689,17 +8722,15 @@ def device_mobile_camera(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1e2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1e2", style=style)
 
 
 def device_mobile_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9709,17 +8740,15 @@ def device_mobile_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee46", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee46", style=style)
 
 
 def device_mobile_speaker(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9729,17 +8758,15 @@ def device_mobile_speaker(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1e4", style=style)
 
 
 def device_rotate(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9749,17 +8776,15 @@ def device_rotate(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedf2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedf2", style=style)
 
 
 def device_tablet(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9769,17 +8794,15 @@ def device_tablet(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1e6", style=style)
 
 
 def device_tablet_camera(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9789,17 +8812,15 @@ def device_tablet_camera(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1e8", style=style)
 
 
 def device_tablet_speaker(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9809,17 +8830,15 @@ def device_tablet_speaker(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1ea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1ea", style=style)
 
 
 def devices(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9829,17 +8848,15 @@ def devices(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueba4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueba4", style=style)
 
 
 def diamond(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9849,17 +8866,15 @@ def diamond(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1ec", style=style)
 
 
 def diamonds_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9869,17 +8884,15 @@ def diamonds_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8f4", style=style)
 
 
 def dice_five(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9889,17 +8902,15 @@ def dice_five(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1ee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1ee", style=style)
 
 
 def dice_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9909,17 +8920,15 @@ def dice_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1f0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1f0", style=style)
 
 
 def dice_one(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9929,17 +8938,15 @@ def dice_one(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1f2", style=style)
 
 
 def dice_six(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9949,17 +8956,15 @@ def dice_six(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1f4", style=style)
 
 
 def dice_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9969,17 +8974,15 @@ def dice_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1f6", style=style)
 
 
 def dice_two(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9989,17 +8992,15 @@ def dice_two(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1f8", style=style)
 
 
 def disc(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10009,17 +9010,15 @@ def disc(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue564", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue564", style=style)
 
 
 def disco_ball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10029,17 +9028,15 @@ def disco_ball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued98", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued98", style=style)
 
 
 def discord_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10049,17 +9046,15 @@ def discord_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue61a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue61a", style=style)
 
 
 def divide(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10069,17 +9064,15 @@ def divide(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1fa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1fa", style=style)
 
 
 def dna(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10089,17 +9082,15 @@ def dna(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue924", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue924", style=style)
 
 
 def dog(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10109,17 +9100,15 @@ def dog(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue74a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue74a", style=style)
 
 
 def door(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10129,17 +9118,15 @@ def door(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue61c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue61c", style=style)
 
 
 def door_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10149,17 +9136,15 @@ def door_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7e6", style=style)
 
 
 def dot(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10169,17 +9154,15 @@ def dot(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecde", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecde", style=style)
 
 
 def dot_outline(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10189,17 +9172,15 @@ def dot_outline(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uece0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uece0", style=style)
 
 
 def dots_nine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10209,17 +9190,15 @@ def dots_nine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1fc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1fc", style=style)
 
 
 def dots_six(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10229,17 +9208,15 @@ def dots_six(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue794", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue794", style=style)
 
 
 def dots_six_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10249,17 +9226,15 @@ def dots_six_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueae2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueae2", style=style)
 
 
 def dots_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10269,17 +9244,15 @@ def dots_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1fe", style=style)
 
 
 def dots_three_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10289,17 +9262,15 @@ def dots_three_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue200", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue200", style=style)
 
 
 def dots_three_circle_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10309,17 +9280,15 @@ def dots_three_circle_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue202", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue202", style=style)
 
 
 def dots_three_outline(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10329,17 +9298,15 @@ def dots_three_outline(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue204", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue204", style=style)
 
 
 def dots_three_outline_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10349,17 +9316,15 @@ def dots_three_outline_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue206", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue206", style=style)
 
 
 def dots_three_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10369,17 +9334,15 @@ def dots_three_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue208", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue208", style=style)
 
 
 def download(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10389,17 +9352,15 @@ def download(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue20a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue20a", style=style)
 
 
 def download_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10409,17 +9370,15 @@ def download_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue20c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue20c", style=style)
 
 
 def dress(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10429,17 +9388,15 @@ def dress(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea7e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea7e", style=style)
 
 
 def dresser(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10449,17 +9406,15 @@ def dresser(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue94e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue94e", style=style)
 
 
 def dribbble_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10469,17 +9424,15 @@ def dribbble_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue20e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue20e", style=style)
 
 
 def drone(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10489,17 +9442,15 @@ def drone(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued74", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued74", style=style)
 
 
 def drop(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10509,17 +9460,15 @@ def drop(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue210", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue210", style=style)
 
 
 def drop_half(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10529,17 +9478,15 @@ def drop_half(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue566", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue566", style=style)
 
 
 def drop_half_bottom(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10549,17 +9496,15 @@ def drop_half_bottom(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb40", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb40", style=style)
 
 
 def drop_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10569,17 +9514,15 @@ def drop_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee32", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee32", style=style)
 
 
 def drop_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10589,17 +9532,15 @@ def drop_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue954", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue954", style=style)
 
 
 def dropbox_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10609,17 +9550,15 @@ def dropbox_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7d0", style=style)
 
 
 def ear(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10629,17 +9568,15 @@ def ear(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue70c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue70c", style=style)
 
 
 def ear_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10649,17 +9586,15 @@ def ear_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue70e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue70e", style=style)
 
 
 def egg(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10669,17 +9604,15 @@ def egg(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue812", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue812", style=style)
 
 
 def egg_crack(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10689,17 +9622,15 @@ def egg_crack(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb64", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb64", style=style)
 
 
 def eject(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10709,17 +9640,15 @@ def eject(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue212", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue212", style=style)
 
 
 def eject_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10729,17 +9658,15 @@ def eject_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6ae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6ae", style=style)
 
 
 def elevator(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10749,17 +9676,15 @@ def elevator(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecc0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecc0", style=style)
 
 
 def empty(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10769,17 +9694,15 @@ def empty(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedbc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedbc", style=style)
 
 
 def engine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10789,17 +9712,15 @@ def engine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea80", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea80", style=style)
 
 
 def envelope(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10809,17 +9730,15 @@ def envelope(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue214", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue214", style=style)
 
 
 def envelope_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10829,17 +9748,15 @@ def envelope_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue216", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue216", style=style)
 
 
 def envelope_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10849,17 +9766,15 @@ def envelope_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue218", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue218", style=style)
 
 
 def envelope_simple_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10869,17 +9784,15 @@ def envelope_simple_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue21a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue21a", style=style)
 
 
 def equalizer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10889,17 +9802,15 @@ def equalizer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebbc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebbc", style=style)
 
 
 def equals(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10909,17 +9820,15 @@ def equals(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue21c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue21c", style=style)
 
 
 def eraser(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10929,17 +9838,15 @@ def eraser(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue21e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue21e", style=style)
 
 
 def escalator_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10949,17 +9856,15 @@ def escalator_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecba", style=style)
 
 
 def escalator_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10969,17 +9874,15 @@ def escalator_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecbc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecbc", style=style)
 
 
 def exam(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10989,17 +9892,15 @@ def exam(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue742", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue742", style=style)
 
 
 def exclamation_mark(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11009,17 +9910,15 @@ def exclamation_mark(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee44", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee44", style=style)
 
 
 def exclude(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11029,17 +9928,15 @@ def exclude(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue882", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue882", style=style)
 
 
 def exclude_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11049,17 +9946,15 @@ def exclude_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue880", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue880", style=style)
 
 
 def export(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11069,17 +9964,15 @@ def export(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaf0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaf0", style=style)
 
 
 def eye(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11089,17 +9982,15 @@ def eye(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue220", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue220", style=style)
 
 
 def eye_closed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11109,17 +10000,15 @@ def eye_closed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue222", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue222", style=style)
 
 
 def eye_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11129,17 +10018,15 @@ def eye_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue224", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue224", style=style)
 
 
 def eyedropper(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11149,17 +10036,15 @@ def eyedropper(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue568", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue568", style=style)
 
 
 def eyedropper_sample(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11169,17 +10054,15 @@ def eyedropper_sample(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueac4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueac4", style=style)
 
 
 def eyeglasses(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11189,17 +10072,15 @@ def eyeglasses(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7ba", style=style)
 
 
 def eyes(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11209,17 +10090,15 @@ def eyes(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee5c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee5c", style=style)
 
 
 def face_mask(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11229,17 +10108,15 @@ def face_mask(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue56a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue56a", style=style)
 
 
 def facebook_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11249,17 +10126,15 @@ def facebook_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue226", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue226", style=style)
 
 
 def factory(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11269,17 +10144,15 @@ def factory(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue760", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue760", style=style)
 
 
 def faders(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11289,17 +10162,15 @@ def faders(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue228", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue228", style=style)
 
 
 def faders_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11309,17 +10180,15 @@ def faders_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue22a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue22a", style=style)
 
 
 def fallout_shelter(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11329,17 +10198,15 @@ def fallout_shelter(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9de", style=style)
 
 
 def fan(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11349,17 +10216,15 @@ def fan(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9f2", style=style)
 
 
 def farm(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11369,17 +10234,15 @@ def farm(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec70", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec70", style=style)
 
 
 def fast_forward(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11389,17 +10252,15 @@ def fast_forward(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6a6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6a6", style=style)
 
 
 def fast_forward_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11409,17 +10270,15 @@ def fast_forward_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue22c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue22c", style=style)
 
 
 def feather(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11429,17 +10288,15 @@ def feather(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9c0", style=style)
 
 
 def fediverse_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11449,17 +10306,15 @@ def fediverse_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued66", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued66", style=style)
 
 
 def figma_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11469,17 +10324,15 @@ def figma_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue22e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue22e", style=style)
 
 
 def file(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11489,17 +10342,15 @@ def file(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue230", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue230", style=style)
 
 
 def file_archive(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11509,17 +10360,15 @@ def file_archive(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb2a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb2a", style=style)
 
 
 def file_arrow_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11529,17 +10378,15 @@ def file_arrow_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue232", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue232", style=style)
 
 
 def file_arrow_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11549,17 +10396,15 @@ def file_arrow_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue61e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue61e", style=style)
 
 
 def file_audio(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11569,17 +10414,15 @@ def file_audio(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea20", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea20", style=style)
 
 
 def file_c(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11589,17 +10432,15 @@ def file_c(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb32", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb32", style=style)
 
 
 def file_c_sharp(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11609,17 +10450,15 @@ def file_c_sharp(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb30", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb30", style=style)
 
 
 def file_cloud(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11629,17 +10468,15 @@ def file_cloud(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue95e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue95e", style=style)
 
 
 def file_code(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11649,17 +10486,15 @@ def file_code(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue914", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue914", style=style)
 
 
 def file_cpp(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11669,17 +10504,15 @@ def file_cpp(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb2e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb2e", style=style)
 
 
 def file_css(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11689,17 +10522,15 @@ def file_css(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb34", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb34", style=style)
 
 
 def file_csv(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11709,17 +10540,15 @@ def file_csv(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb1c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb1c", style=style)
 
 
 def file_dashed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11729,17 +10558,15 @@ def file_dashed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue704", style=style)
 
 
 def file_doc(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11749,17 +10576,15 @@ def file_doc(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb1e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb1e", style=style)
 
 
 def file_dotted(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11769,17 +10594,15 @@ def file_dotted(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue704", style=style)
 
 
 def file_html(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11789,17 +10612,15 @@ def file_html(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb38", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb38", style=style)
 
 
 def file_image(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11809,17 +10630,15 @@ def file_image(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea24", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea24", style=style)
 
 
 def file_ini(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11829,17 +10648,15 @@ def file_ini(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb33", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb33", style=style)
 
 
 def file_jpg(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11849,17 +10666,15 @@ def file_jpg(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb1a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb1a", style=style)
 
 
 def file_js(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11869,17 +10684,15 @@ def file_js(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb24", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb24", style=style)
 
 
 def file_jsx(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11889,17 +10702,15 @@ def file_jsx(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb3a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb3a", style=style)
 
 
 def file_lock(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11909,17 +10720,15 @@ def file_lock(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue95c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue95c", style=style)
 
 
 def file_magnifying_glass(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11929,17 +10738,15 @@ def file_magnifying_glass(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue238", style=style)
 
 
 def file_md(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11949,17 +10756,15 @@ def file_md(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued50", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued50", style=style)
 
 
 def file_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11969,17 +10774,15 @@ def file_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue234", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue234", style=style)
 
 
 def file_pdf(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11989,17 +10792,15 @@ def file_pdf(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue702", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue702", style=style)
 
 
 def file_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12009,17 +10810,15 @@ def file_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue236", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue236", style=style)
 
 
 def file_png(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12029,17 +10828,15 @@ def file_png(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb18", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb18", style=style)
 
 
 def file_ppt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12049,17 +10846,15 @@ def file_ppt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb20", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb20", style=style)
 
 
 def file_py(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12069,17 +10864,15 @@ def file_py(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb2c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb2c", style=style)
 
 
 def file_rs(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12089,17 +10882,15 @@ def file_rs(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb28", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb28", style=style)
 
 
 def file_search(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12109,17 +10900,15 @@ def file_search(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue238", style=style)
 
 
 def file_sql(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12129,17 +10918,15 @@ def file_sql(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued4e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued4e", style=style)
 
 
 def file_svg(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12149,17 +10936,15 @@ def file_svg(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued08", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued08", style=style)
 
 
 def file_text(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12169,17 +10954,15 @@ def file_text(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue23a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue23a", style=style)
 
 
 def file_ts(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12189,17 +10972,15 @@ def file_ts(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb26", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb26", style=style)
 
 
 def file_tsx(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12209,17 +10990,15 @@ def file_tsx(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb3c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb3c", style=style)
 
 
 def file_txt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12229,17 +11008,15 @@ def file_txt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb35", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb35", style=style)
 
 
 def file_video(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12249,17 +11026,15 @@ def file_video(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea22", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea22", style=style)
 
 
 def file_vue(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12269,17 +11044,15 @@ def file_vue(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb3e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb3e", style=style)
 
 
 def file_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12289,17 +11062,15 @@ def file_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue23c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue23c", style=style)
 
 
 def file_xls(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12309,17 +11080,15 @@ def file_xls(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb22", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb22", style=style)
 
 
 def file_zip(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12329,17 +11098,15 @@ def file_zip(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue958", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue958", style=style)
 
 
 def files(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12349,17 +11116,15 @@ def files(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue710", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue710", style=style)
 
 
 def film_reel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12369,17 +11134,15 @@ def film_reel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8c0", style=style)
 
 
 def film_script(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12389,17 +11152,15 @@ def film_script(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb50", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb50", style=style)
 
 
 def film_slate(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12409,17 +11170,15 @@ def film_slate(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8c2", style=style)
 
 
 def film_strip(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12429,17 +11188,15 @@ def film_strip(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue792", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue792", style=style)
 
 
 def fingerprint(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12449,17 +11206,15 @@ def fingerprint(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue23e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue23e", style=style)
 
 
 def fingerprint_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12469,17 +11224,15 @@ def fingerprint_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue240", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue240", style=style)
 
 
 def finn_the_human(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12489,17 +11242,15 @@ def finn_the_human(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue56c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue56c", style=style)
 
 
 def fire(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12509,17 +11260,15 @@ def fire(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue242", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue242", style=style)
 
 
 def fire_extinguisher(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12529,17 +11278,15 @@ def fire_extinguisher(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9e8", style=style)
 
 
 def fire_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12549,17 +11296,15 @@ def fire_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue620", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue620", style=style)
 
 
 def fire_truck(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12569,17 +11314,15 @@ def fire_truck(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue574", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue574", style=style)
 
 
 def first_aid(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12589,17 +11332,15 @@ def first_aid(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue56e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue56e", style=style)
 
 
 def first_aid_kit(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12609,17 +11350,15 @@ def first_aid_kit(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue570", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue570", style=style)
 
 
 def fish(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12629,17 +11368,15 @@ def fish(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue728", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue728", style=style)
 
 
 def fish_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12649,17 +11386,15 @@ def fish_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue72a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue72a", style=style)
 
 
 def flag(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12669,17 +11404,15 @@ def flag(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue244", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue244", style=style)
 
 
 def flag_banner(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12689,17 +11422,15 @@ def flag_banner(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue622", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue622", style=style)
 
 
 def flag_banner_fold(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12709,17 +11440,15 @@ def flag_banner_fold(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecf2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecf2", style=style)
 
 
 def flag_checkered(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12729,17 +11458,15 @@ def flag_checkered(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea38", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea38", style=style)
 
 
 def flag_pennant(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12749,17 +11476,15 @@ def flag_pennant(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecf0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecf0", style=style)
 
 
 def flame(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12769,17 +11494,15 @@ def flame(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue624", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue624", style=style)
 
 
 def flashlight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12789,17 +11512,15 @@ def flashlight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue246", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue246", style=style)
 
 
 def flask(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12809,17 +11530,15 @@ def flask(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue79e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue79e", style=style)
 
 
 def flip_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12829,17 +11548,15 @@ def flip_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued6a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued6a", style=style)
 
 
 def flip_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12849,17 +11566,15 @@ def flip_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued6c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued6c", style=style)
 
 
 def floppy_disk(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12869,17 +11584,15 @@ def floppy_disk(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue248", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue248", style=style)
 
 
 def floppy_disk_back(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12889,17 +11602,15 @@ def floppy_disk_back(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaf4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaf4", style=style)
 
 
 def flow_arrow(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12909,17 +11620,15 @@ def flow_arrow(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6ec", style=style)
 
 
 def flower(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12929,17 +11638,15 @@ def flower(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue75e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue75e", style=style)
 
 
 def flower_lotus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12949,17 +11656,15 @@ def flower_lotus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6cc", style=style)
 
 
 def flower_tulip(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12969,17 +11674,15 @@ def flower_tulip(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueacc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueacc", style=style)
 
 
 def flying_saucer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12989,17 +11692,15 @@ def flying_saucer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb4a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb4a", style=style)
 
 
 def folder(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13009,17 +11710,15 @@ def folder(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue24a", style=style)
 
 
 def folder_dashed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13029,17 +11728,15 @@ def folder_dashed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8f8", style=style)
 
 
 def folder_dotted(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13049,17 +11746,15 @@ def folder_dotted(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8f8", style=style)
 
 
 def folder_lock(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13069,17 +11764,15 @@ def folder_lock(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea3c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea3c", style=style)
 
 
 def folder_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13089,17 +11782,15 @@ def folder_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue254", style=style)
 
 
 def folder_notch(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13109,17 +11800,15 @@ def folder_notch(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue24a", style=style)
 
 
 def folder_notch_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13129,17 +11818,15 @@ def folder_notch_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue254", style=style)
 
 
 def folder_notch_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13149,17 +11836,15 @@ def folder_notch_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue256", style=style)
 
 
 def folder_notch_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13169,17 +11854,15 @@ def folder_notch_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue258", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue258", style=style)
 
 
 def folder_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13189,17 +11872,15 @@ def folder_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue256", style=style)
 
 
 def folder_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13209,17 +11890,15 @@ def folder_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue258", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue258", style=style)
 
 
 def folder_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13229,17 +11908,15 @@ def folder_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue25a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue25a", style=style)
 
 
 def folder_simple_dashed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13249,17 +11926,15 @@ def folder_simple_dashed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec2a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec2a", style=style)
 
 
 def folder_simple_dotted(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13269,17 +11944,15 @@ def folder_simple_dotted(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec2a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec2a", style=style)
 
 
 def folder_simple_lock(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13289,17 +11962,15 @@ def folder_simple_lock(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb5e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb5e", style=style)
 
 
 def folder_simple_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13309,17 +11980,15 @@ def folder_simple_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue25c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue25c", style=style)
 
 
 def folder_simple_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13329,17 +11998,15 @@ def folder_simple_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue25e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue25e", style=style)
 
 
 def folder_simple_star(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13349,17 +12016,15 @@ def folder_simple_star(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec2e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec2e", style=style)
 
 
 def folder_simple_user(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13369,17 +12034,15 @@ def folder_simple_user(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb60", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb60", style=style)
 
 
 def folder_star(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13389,17 +12052,15 @@ def folder_star(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea86", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea86", style=style)
 
 
 def folder_user(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13409,17 +12070,15 @@ def folder_user(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb46", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb46", style=style)
 
 
 def folders(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13429,17 +12088,15 @@ def folders(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue260", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue260", style=style)
 
 
 def football(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13449,17 +12106,15 @@ def football(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue718", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue718", style=style)
 
 
 def football_helmet(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13469,17 +12124,15 @@ def football_helmet(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee4c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee4c", style=style)
 
 
 def footprints(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13489,17 +12142,15 @@ def footprints(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea88", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea88", style=style)
 
 
 def fork_knife(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13509,17 +12160,15 @@ def fork_knife(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue262", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue262", style=style)
 
 
 def four_k(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13529,17 +12178,15 @@ def four_k(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea5c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea5c", style=style)
 
 
 def frame_corners(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13549,17 +12196,15 @@ def frame_corners(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue626", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue626", style=style)
 
 
 def framer_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13569,17 +12214,15 @@ def framer_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue264", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue264", style=style)
 
 
 def function(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13589,17 +12232,15 @@ def function(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebe4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebe4", style=style)
 
 
 def funnel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13609,17 +12250,15 @@ def funnel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue266", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue266", style=style)
 
 
 def funnel_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13629,17 +12268,15 @@ def funnel_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue268", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue268", style=style)
 
 
 def funnel_simple_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13649,17 +12286,15 @@ def funnel_simple_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue26a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue26a", style=style)
 
 
 def funnel_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13669,17 +12304,15 @@ def funnel_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue26c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue26c", style=style)
 
 
 def game_controller(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13689,17 +12322,15 @@ def game_controller(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue26e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue26e", style=style)
 
 
 def garage(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13709,17 +12340,15 @@ def garage(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecd6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecd6", style=style)
 
 
 def gas_can(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13729,17 +12358,15 @@ def gas_can(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8ce", style=style)
 
 
 def gas_pump(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13749,17 +12376,15 @@ def gas_pump(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue768", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue768", style=style)
 
 
 def gauge(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13769,17 +12394,15 @@ def gauge(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue628", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue628", style=style)
 
 
 def gavel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13789,17 +12412,15 @@ def gavel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea32", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea32", style=style)
 
 
 def gear(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13809,17 +12430,15 @@ def gear(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue270", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue270", style=style)
 
 
 def gear_fine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13829,17 +12448,15 @@ def gear_fine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue87c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue87c", style=style)
 
 
 def gear_six(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13849,17 +12466,15 @@ def gear_six(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue272", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue272", style=style)
 
 
 def gender_female(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13869,17 +12484,15 @@ def gender_female(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6e0", style=style)
 
 
 def gender_intersex(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13889,17 +12502,15 @@ def gender_intersex(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6e6", style=style)
 
 
 def gender_male(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13909,17 +12520,15 @@ def gender_male(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6e2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6e2", style=style)
 
 
 def gender_neuter(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13929,17 +12538,15 @@ def gender_neuter(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6ea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6ea", style=style)
 
 
 def gender_nonbinary(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13949,17 +12556,15 @@ def gender_nonbinary(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6e4", style=style)
 
 
 def gender_transgender(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13969,17 +12574,15 @@ def gender_transgender(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6e8", style=style)
 
 
 def ghost(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13989,17 +12592,15 @@ def ghost(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue62a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue62a", style=style)
 
 
 def gif(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14009,17 +12610,15 @@ def gif(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue274", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue274", style=style)
 
 
 def gift(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14029,17 +12628,15 @@ def gift(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue276", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue276", style=style)
 
 
 def git_branch(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14049,17 +12646,15 @@ def git_branch(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue278", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue278", style=style)
 
 
 def git_commit(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14069,17 +12664,15 @@ def git_commit(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue27a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue27a", style=style)
 
 
 def git_diff(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14089,17 +12682,15 @@ def git_diff(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue27c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue27c", style=style)
 
 
 def git_fork(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14109,17 +12700,15 @@ def git_fork(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue27e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue27e", style=style)
 
 
 def git_merge(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14129,17 +12718,15 @@ def git_merge(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue280", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue280", style=style)
 
 
 def git_pull_request(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14149,17 +12736,15 @@ def git_pull_request(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue282", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue282", style=style)
 
 
 def github_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14169,17 +12754,15 @@ def github_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue576", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue576", style=style)
 
 
 def gitlab_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14189,17 +12772,15 @@ def gitlab_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue694", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue694", style=style)
 
 
 def gitlab_logo_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14209,17 +12790,15 @@ def gitlab_logo_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue696", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue696", style=style)
 
 
 def globe(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14229,17 +12808,15 @@ def globe(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue288", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue288", style=style)
 
 
 def globe_hemisphere_east(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14249,17 +12826,15 @@ def globe_hemisphere_east(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue28a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue28a", style=style)
 
 
 def globe_hemisphere_west(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14269,17 +12844,15 @@ def globe_hemisphere_west(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue28c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue28c", style=style)
 
 
 def globe_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14289,17 +12862,15 @@ def globe_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue28e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue28e", style=style)
 
 
 def globe_simple_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14309,17 +12880,15 @@ def globe_simple_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue284", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue284", style=style)
 
 
 def globe_stand(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14329,17 +12898,15 @@ def globe_stand(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue290", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue290", style=style)
 
 
 def globe_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14349,17 +12916,15 @@ def globe_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue286", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue286", style=style)
 
 
 def goggles(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14369,17 +12934,15 @@ def goggles(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecb4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecb4", style=style)
 
 
 def golf(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14389,17 +12952,15 @@ def golf(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea3e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea3e", style=style)
 
 
 def goodreads_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14409,17 +12970,15 @@ def goodreads_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued10", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued10", style=style)
 
 
 def google_cardboard_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14429,17 +12988,15 @@ def google_cardboard_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7b6", style=style)
 
 
 def google_chrome_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14449,17 +13006,15 @@ def google_chrome_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue976", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue976", style=style)
 
 
 def google_drive_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14469,17 +13024,15 @@ def google_drive_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8f6", style=style)
 
 
 def google_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14489,17 +13042,15 @@ def google_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue292", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue292", style=style)
 
 
 def google_photos_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14509,17 +13060,15 @@ def google_photos_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb92", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb92", style=style)
 
 
 def google_play_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14529,17 +13078,15 @@ def google_play_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue294", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue294", style=style)
 
 
 def google_podcasts_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14549,17 +13096,15 @@ def google_podcasts_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb94", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb94", style=style)
 
 
 def gps(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14569,17 +13114,15 @@ def gps(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedd8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedd8", style=style)
 
 
 def gps_fix(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14589,17 +13132,15 @@ def gps_fix(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedd6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedd6", style=style)
 
 
 def gps_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14609,17 +13150,15 @@ def gps_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedd4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedd4", style=style)
 
 
 def gradient(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14629,17 +13168,15 @@ def gradient(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb42", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb42", style=style)
 
 
 def graduation_cap(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14649,17 +13186,15 @@ def graduation_cap(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue62c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue62c", style=style)
 
 
 def grains(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14669,17 +13204,15 @@ def grains(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec68", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec68", style=style)
 
 
 def grains_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14689,17 +13222,15 @@ def grains_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec6a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec6a", style=style)
 
 
 def graph(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14709,17 +13240,15 @@ def graph(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb58", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb58", style=style)
 
 
 def graphics_card(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14729,17 +13258,15 @@ def graphics_card(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue612", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue612", style=style)
 
 
 def greater_than(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14749,17 +13276,15 @@ def greater_than(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedc4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedc4", style=style)
 
 
 def greater_than_or_equal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14769,17 +13294,15 @@ def greater_than_or_equal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueda2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueda2", style=style)
 
 
 def grid_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14789,17 +13312,15 @@ def grid_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue296", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue296", style=style)
 
 
 def grid_nine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14809,17 +13330,15 @@ def grid_nine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec8c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec8c", style=style)
 
 
 def guitar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14829,17 +13348,15 @@ def guitar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea8a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea8a", style=style)
 
 
 def hair_dryer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14849,17 +13366,15 @@ def hair_dryer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea66", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea66", style=style)
 
 
 def hamburger(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14869,17 +13384,15 @@ def hamburger(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue790", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue790", style=style)
 
 
 def hammer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14889,17 +13402,15 @@ def hammer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue80e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue80e", style=style)
 
 
 def hand(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14909,17 +13420,15 @@ def hand(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue298", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue298", style=style)
 
 
 def hand_arrow_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14929,17 +13438,15 @@ def hand_arrow_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea4e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea4e", style=style)
 
 
 def hand_arrow_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14949,17 +13456,15 @@ def hand_arrow_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee5a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee5a", style=style)
 
 
 def hand_coins(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14969,17 +13474,15 @@ def hand_coins(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea8c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea8c", style=style)
 
 
 def hand_deposit(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14989,17 +13492,15 @@ def hand_deposit(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee82", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee82", style=style)
 
 
 def hand_eye(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15009,17 +13510,15 @@ def hand_eye(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea4c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea4c", style=style)
 
 
 def hand_fist(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15029,17 +13528,15 @@ def hand_fist(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue57a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue57a", style=style)
 
 
 def hand_grabbing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15049,17 +13546,15 @@ def hand_grabbing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue57c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue57c", style=style)
 
 
 def hand_heart(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15069,17 +13564,15 @@ def hand_heart(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue810", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue810", style=style)
 
 
 def hand_palm(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15089,17 +13582,15 @@ def hand_palm(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue57e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue57e", style=style)
 
 
 def hand_peace(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15109,17 +13600,15 @@ def hand_peace(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7cc", style=style)
 
 
 def hand_pointing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15129,17 +13618,15 @@ def hand_pointing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue29a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue29a", style=style)
 
 
 def hand_soap(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15149,17 +13636,15 @@ def hand_soap(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue630", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue630", style=style)
 
 
 def hand_swipe_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15169,17 +13654,15 @@ def hand_swipe_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec94", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec94", style=style)
 
 
 def hand_swipe_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15189,17 +13672,15 @@ def hand_swipe_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec92", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec92", style=style)
 
 
 def hand_tap(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15209,17 +13690,15 @@ def hand_tap(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec90", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec90", style=style)
 
 
 def hand_waving(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15229,17 +13708,15 @@ def hand_waving(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue580", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue580", style=style)
 
 
 def hand_withdraw(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15249,17 +13726,15 @@ def hand_withdraw(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee80", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee80", style=style)
 
 
 def handbag(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15269,17 +13744,15 @@ def handbag(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue29c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue29c", style=style)
 
 
 def handbag_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15289,17 +13762,15 @@ def handbag_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue62e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue62e", style=style)
 
 
 def hands_clapping(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15309,17 +13780,15 @@ def hands_clapping(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6a0", style=style)
 
 
 def hands_praying(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15329,17 +13798,15 @@ def hands_praying(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecc8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecc8", style=style)
 
 
 def handshake(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15349,17 +13816,15 @@ def handshake(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue582", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue582", style=style)
 
 
 def hard_drive(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15369,17 +13834,15 @@ def hard_drive(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue29e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue29e", style=style)
 
 
 def hard_drives(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15389,17 +13852,15 @@ def hard_drives(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2a0", style=style)
 
 
 def hard_hat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15409,17 +13870,15 @@ def hard_hat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued46", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued46", style=style)
 
 
 def hash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15429,17 +13888,15 @@ def hash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2a2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2a2", style=style)
 
 
 def hash_straight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15449,17 +13906,15 @@ def hash_straight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2a4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2a4", style=style)
 
 
 def head_circuit(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15469,17 +13924,15 @@ def head_circuit(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7d4", style=style)
 
 
 def headlights(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15489,17 +13942,15 @@ def headlights(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6fe", style=style)
 
 
 def headphones(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15509,17 +13960,15 @@ def headphones(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2a6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2a6", style=style)
 
 
 def headset(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15529,17 +13978,15 @@ def headset(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue584", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue584", style=style)
 
 
 def heart(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15549,17 +13996,15 @@ def heart(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2a8", style=style)
 
 
 def heart_break(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15569,17 +14014,15 @@ def heart_break(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebe8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebe8", style=style)
 
 
 def heart_half(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15589,17 +14032,15 @@ def heart_half(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec48", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec48", style=style)
 
 
 def heart_straight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15609,17 +14050,15 @@ def heart_straight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2aa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2aa", style=style)
 
 
 def heart_straight_break(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15629,17 +14068,15 @@ def heart_straight_break(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb98", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb98", style=style)
 
 
 def heartbeat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15649,17 +14086,15 @@ def heartbeat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2ac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2ac", style=style)
 
 
 def hexagon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15669,17 +14104,15 @@ def hexagon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2ae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2ae", style=style)
 
 
 def high_definition(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15689,17 +14122,15 @@ def high_definition(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea8e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea8e", style=style)
 
 
 def high_heel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15709,17 +14140,15 @@ def high_heel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8e8", style=style)
 
 
 def highlighter(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15729,17 +14158,15 @@ def highlighter(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec76", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec76", style=style)
 
 
 def highlighter_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15749,17 +14176,15 @@ def highlighter_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue632", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue632", style=style)
 
 
 def hockey(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15769,17 +14194,15 @@ def hockey(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec86", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec86", style=style)
 
 
 def hoodie(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15789,17 +14212,15 @@ def hoodie(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecd0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecd0", style=style)
 
 
 def horse(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15809,17 +14230,15 @@ def horse(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2b0", style=style)
 
 
 def hospital(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15829,17 +14248,15 @@ def hospital(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue844", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue844", style=style)
 
 
 def hourglass(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15849,17 +14266,15 @@ def hourglass(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2b2", style=style)
 
 
 def hourglass_high(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15869,17 +14284,15 @@ def hourglass_high(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2b4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2b4", style=style)
 
 
 def hourglass_low(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15889,17 +14302,15 @@ def hourglass_low(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2b6", style=style)
 
 
 def hourglass_medium(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15909,17 +14320,15 @@ def hourglass_medium(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2b8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2b8", style=style)
 
 
 def hourglass_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15929,17 +14338,15 @@ def hourglass_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2ba", style=style)
 
 
 def hourglass_simple_high(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15949,17 +14356,15 @@ def hourglass_simple_high(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2bc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2bc", style=style)
 
 
 def hourglass_simple_low(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15969,17 +14374,15 @@ def hourglass_simple_low(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2be", style=style)
 
 
 def hourglass_simple_medium(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15989,17 +14392,15 @@ def hourglass_simple_medium(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2c0", style=style)
 
 
 def house(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16009,17 +14410,15 @@ def house(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2c2", style=style)
 
 
 def house_line(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16029,17 +14428,15 @@ def house_line(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2c4", style=style)
 
 
 def house_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16049,17 +14446,15 @@ def house_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2c6", style=style)
 
 
 def hurricane(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16069,17 +14464,15 @@ def hurricane(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue88e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue88e", style=style)
 
 
 def ice_cream(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16089,17 +14482,15 @@ def ice_cream(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue804", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue804", style=style)
 
 
 def identification_badge(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16109,17 +14500,15 @@ def identification_badge(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6f6", style=style)
 
 
 def identification_card(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16129,17 +14518,15 @@ def identification_card(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2c8", style=style)
 
 
 def image(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16149,17 +14536,15 @@ def image(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2ca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2ca", style=style)
 
 
 def image_broken(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16169,17 +14554,15 @@ def image_broken(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7a8", style=style)
 
 
 def image_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16189,17 +14572,15 @@ def image_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2cc", style=style)
 
 
 def images(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16209,17 +14590,15 @@ def images(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue836", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue836", style=style)
 
 
 def images_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16229,17 +14608,15 @@ def images_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue834", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue834", style=style)
 
 
 def infinity(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16249,17 +14626,15 @@ def infinity(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue634", style=style)
 
 
 def info(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16269,17 +14644,15 @@ def info(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2ce", style=style)
 
 
 def instagram_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16289,17 +14662,15 @@ def instagram_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2d0", style=style)
 
 
 def intersect(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16309,17 +14680,15 @@ def intersect(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2d2", style=style)
 
 
 def intersect_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16329,17 +14698,15 @@ def intersect_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue87a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue87a", style=style)
 
 
 def intersect_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16349,17 +14716,15 @@ def intersect_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecc4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecc4", style=style)
 
 
 def intersection(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16369,17 +14734,15 @@ def intersection(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedba", style=style)
 
 
 def invoice(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16389,17 +14752,15 @@ def invoice(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee42", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee42", style=style)
 
 
 def island(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16409,17 +14770,15 @@ def island(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee06", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee06", style=style)
 
 
 def jar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16429,17 +14788,15 @@ def jar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7e0", style=style)
 
 
 def jar_label(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16449,17 +14806,15 @@ def jar_label(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7e1", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7e1", style=style)
 
 
 def jeep(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16469,17 +14824,15 @@ def jeep(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2d4", style=style)
 
 
 def joystick(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16489,17 +14842,15 @@ def joystick(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea5e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea5e", style=style)
 
 
 def kanban(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16509,17 +14860,15 @@ def kanban(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb54", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb54", style=style)
 
 
 def key(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16529,17 +14878,15 @@ def key(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2d6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2d6", style=style)
 
 
 def key_return(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16549,17 +14896,15 @@ def key_return(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue782", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue782", style=style)
 
 
 def keyboard(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16569,17 +14914,15 @@ def keyboard(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2d8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2d8", style=style)
 
 
 def keyhole(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16589,17 +14932,15 @@ def keyhole(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea78", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea78", style=style)
 
 
 def knife(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16609,17 +14950,15 @@ def knife(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue636", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue636", style=style)
 
 
 def ladder(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16629,17 +14968,15 @@ def ladder(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9e4", style=style)
 
 
 def ladder_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16649,17 +14986,15 @@ def ladder_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec26", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec26", style=style)
 
 
 def lamp(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16669,17 +15004,15 @@ def lamp(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue638", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue638", style=style)
 
 
 def lamp_pendant(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16689,17 +15022,15 @@ def lamp_pendant(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee2e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee2e", style=style)
 
 
 def laptop(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16709,17 +15040,15 @@ def laptop(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue586", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue586", style=style)
 
 
 def lasso(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16729,17 +15058,15 @@ def lasso(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedc6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedc6", style=style)
 
 
 def lastfm_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16749,17 +15076,15 @@ def lastfm_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue842", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue842", style=style)
 
 
 def layout(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16769,17 +15094,15 @@ def layout(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6d6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6d6", style=style)
 
 
 def leaf(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16789,17 +15112,15 @@ def leaf(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2da", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2da", style=style)
 
 
 def lectern(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16809,17 +15130,15 @@ def lectern(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue95a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue95a", style=style)
 
 
 def lego(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16829,17 +15148,15 @@ def lego(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8c6", style=style)
 
 
 def lego_smiley(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16849,17 +15166,15 @@ def lego_smiley(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8c7", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8c7", style=style)
 
 
 def lemniscate(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16869,17 +15184,15 @@ def lemniscate(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue634", style=style)
 
 
 def less_than(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16889,17 +15202,15 @@ def less_than(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedac", style=style)
 
 
 def less_than_or_equal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16909,17 +15220,15 @@ def less_than_or_equal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueda4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueda4", style=style)
 
 
 def letter_circle_h(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16929,17 +15238,15 @@ def letter_circle_h(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebf8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebf8", style=style)
 
 
 def letter_circle_p(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16949,17 +15256,15 @@ def letter_circle_p(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec08", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec08", style=style)
 
 
 def letter_circle_v(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16969,17 +15274,15 @@ def letter_circle_v(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec14", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec14", style=style)
 
 
 def lifebuoy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16989,17 +15292,15 @@ def lifebuoy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue63a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue63a", style=style)
 
 
 def lightbulb(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17009,17 +15310,15 @@ def lightbulb(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2dc", style=style)
 
 
 def lightbulb_filament(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17029,17 +15328,15 @@ def lightbulb_filament(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue63c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue63c", style=style)
 
 
 def lighthouse(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17049,17 +15346,15 @@ def lighthouse(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9f6", style=style)
 
 
 def lightning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17069,17 +15364,15 @@ def lightning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2de", style=style)
 
 
 def lightning_a(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17089,17 +15382,15 @@ def lightning_a(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea84", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea84", style=style)
 
 
 def lightning_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17109,17 +15400,15 @@ def lightning_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2e0", style=style)
 
 
 def line_segment(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17129,17 +15418,15 @@ def line_segment(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6d2", style=style)
 
 
 def line_segments(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17149,17 +15436,15 @@ def line_segments(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6d4", style=style)
 
 
 def line_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17169,17 +15454,15 @@ def line_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued70", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued70", style=style)
 
 
 def link(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17189,17 +15472,15 @@ def link(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2e2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2e2", style=style)
 
 
 def link_break(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17209,17 +15490,15 @@ def link_break(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2e4", style=style)
 
 
 def link_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17229,17 +15508,15 @@ def link_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2e6", style=style)
 
 
 def link_simple_break(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17249,17 +15526,15 @@ def link_simple_break(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2e8", style=style)
 
 
 def link_simple_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17269,17 +15544,15 @@ def link_simple_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2ea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2ea", style=style)
 
 
 def link_simple_horizontal_break(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17289,17 +15562,15 @@ def link_simple_horizontal_break(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2ec", style=style)
 
 
 def linkedin_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17309,17 +15580,15 @@ def linkedin_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2ee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2ee", style=style)
 
 
 def linktree_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17329,17 +15598,15 @@ def linktree_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedee", style=style)
 
 
 def linux_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17349,17 +15616,15 @@ def linux_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb02", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb02", style=style)
 
 
 def list(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17369,17 +15634,15 @@ def list(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2f0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2f0", style=style)
 
 
 def list_bullets(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17389,17 +15652,15 @@ def list_bullets(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2f2", style=style)
 
 
 def list_checks(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17409,17 +15670,15 @@ def list_checks(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueadc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueadc", style=style)
 
 
 def list_dashes(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17429,17 +15688,15 @@ def list_dashes(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2f4", style=style)
 
 
 def list_heart(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17449,17 +15706,15 @@ def list_heart(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebde", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebde", style=style)
 
 
 def list_magnifying_glass(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17469,17 +15724,15 @@ def list_magnifying_glass(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebe0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebe0", style=style)
 
 
 def list_numbers(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17489,17 +15742,15 @@ def list_numbers(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2f6", style=style)
 
 
 def list_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17509,17 +15760,15 @@ def list_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2f8", style=style)
 
 
 def list_star(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17529,17 +15778,15 @@ def list_star(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebdc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebdc", style=style)
 
 
 def lock(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17549,17 +15796,15 @@ def lock(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2fa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2fa", style=style)
 
 
 def lock_key(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17569,17 +15814,15 @@ def lock_key(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue2fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue2fe", style=style)
 
 
 def lock_key_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17589,17 +15832,15 @@ def lock_key_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue300", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue300", style=style)
 
 
 def lock_laminated(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17609,17 +15850,15 @@ def lock_laminated(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue302", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue302", style=style)
 
 
 def lock_laminated_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17629,17 +15868,15 @@ def lock_laminated_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue304", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue304", style=style)
 
 
 def lock_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17649,17 +15886,15 @@ def lock_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue306", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue306", style=style)
 
 
 def lock_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17669,17 +15904,15 @@ def lock_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue308", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue308", style=style)
 
 
 def lock_simple_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17689,17 +15922,15 @@ def lock_simple_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue30a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue30a", style=style)
 
 
 def lockers(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17709,17 +15940,15 @@ def lockers(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecb8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecb8", style=style)
 
 
 def log(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17729,17 +15958,15 @@ def log(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued82", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued82", style=style)
 
 
 def magic_wand(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17749,17 +15976,15 @@ def magic_wand(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6b6", style=style)
 
 
 def magnet(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17769,17 +15994,15 @@ def magnet(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue680", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue680", style=style)
 
 
 def magnet_straight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17789,17 +16012,15 @@ def magnet_straight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue682", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue682", style=style)
 
 
 def magnifying_glass(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17809,17 +16030,15 @@ def magnifying_glass(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue30c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue30c", style=style)
 
 
 def magnifying_glass_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17829,17 +16048,15 @@ def magnifying_glass_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue30e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue30e", style=style)
 
 
 def magnifying_glass_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17849,17 +16066,15 @@ def magnifying_glass_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue310", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue310", style=style)
 
 
 def mailbox(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17869,17 +16084,15 @@ def mailbox(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec1e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec1e", style=style)
 
 
 def map_pin(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17889,17 +16102,15 @@ def map_pin(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue316", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue316", style=style)
 
 
 def map_pin_area(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17909,17 +16120,15 @@ def map_pin_area(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee3a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee3a", style=style)
 
 
 def map_pin_line(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17929,17 +16138,15 @@ def map_pin_line(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue318", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue318", style=style)
 
 
 def map_pin_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17949,17 +16156,15 @@ def map_pin_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue314", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue314", style=style)
 
 
 def map_pin_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17969,17 +16174,15 @@ def map_pin_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee3e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee3e", style=style)
 
 
 def map_pin_simple_area(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17989,17 +16192,15 @@ def map_pin_simple_area(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee3c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee3c", style=style)
 
 
 def map_pin_simple_line(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18009,17 +16210,15 @@ def map_pin_simple_line(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee38", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee38", style=style)
 
 
 def map_trifold(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18029,17 +16228,15 @@ def map_trifold(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue31a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue31a", style=style)
 
 
 def markdown_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18049,17 +16246,15 @@ def markdown_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue508", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue508", style=style)
 
 
 def marker_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18069,17 +16264,15 @@ def marker_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue640", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue640", style=style)
 
 
 def martini(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18089,17 +16282,15 @@ def martini(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue31c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue31c", style=style)
 
 
 def mask_happy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18109,17 +16300,15 @@ def mask_happy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9f4", style=style)
 
 
 def mask_sad(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18129,17 +16318,15 @@ def mask_sad(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb9e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb9e", style=style)
 
 
 def mastodon_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18149,17 +16336,15 @@ def mastodon_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued68", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued68", style=style)
 
 
 def math_operations(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18169,17 +16354,15 @@ def math_operations(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue31e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue31e", style=style)
 
 
 def matrix_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18189,17 +16372,15 @@ def matrix_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued64", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued64", style=style)
 
 
 def medal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18209,17 +16390,15 @@ def medal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue320", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue320", style=style)
 
 
 def medal_military(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18229,17 +16408,15 @@ def medal_military(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecfc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecfc", style=style)
 
 
 def medium_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18249,17 +16426,15 @@ def medium_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue322", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue322", style=style)
 
 
 def megaphone(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18269,17 +16444,15 @@ def megaphone(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue324", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue324", style=style)
 
 
 def megaphone_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18289,17 +16462,15 @@ def megaphone_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue642", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue642", style=style)
 
 
 def member_of(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18309,17 +16480,15 @@ def member_of(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedc2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedc2", style=style)
 
 
 def memory(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18329,17 +16498,15 @@ def memory(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9c4", style=style)
 
 
 def messenger_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18349,17 +16516,15 @@ def messenger_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6d8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6d8", style=style)
 
 
 def meta_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18369,17 +16534,15 @@ def meta_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued02", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued02", style=style)
 
 
 def meteor(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18389,17 +16552,15 @@ def meteor(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9ba", style=style)
 
 
 def metronome(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18409,17 +16570,15 @@ def metronome(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec8e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec8e", style=style)
 
 
 def microphone(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18429,17 +16588,15 @@ def microphone(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue326", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue326", style=style)
 
 
 def microphone_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18449,17 +16606,15 @@ def microphone_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue328", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue328", style=style)
 
 
 def microphone_stage(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18469,17 +16624,15 @@ def microphone_stage(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue75c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue75c", style=style)
 
 
 def microscope(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18489,17 +16642,15 @@ def microscope(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec7a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec7a", style=style)
 
 
 def microsoft_excel_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18509,17 +16660,15 @@ def microsoft_excel_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb6c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb6c", style=style)
 
 
 def microsoft_outlook_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18529,17 +16678,15 @@ def microsoft_outlook_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb70", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb70", style=style)
 
 
 def microsoft_powerpoint_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18549,17 +16696,15 @@ def microsoft_powerpoint_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueace", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueace", style=style)
 
 
 def microsoft_teams_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18569,17 +16714,15 @@ def microsoft_teams_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb66", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb66", style=style)
 
 
 def microsoft_word_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18589,17 +16732,15 @@ def microsoft_word_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb6a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb6a", style=style)
 
 
 def minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18609,17 +16750,15 @@ def minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue32a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue32a", style=style)
 
 
 def minus_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18629,17 +16768,15 @@ def minus_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue32c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue32c", style=style)
 
 
 def minus_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18649,17 +16786,15 @@ def minus_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued4c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued4c", style=style)
 
 
 def money(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18669,17 +16804,15 @@ def money(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue588", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue588", style=style)
 
 
 def money_wavy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18689,17 +16822,15 @@ def money_wavy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee68", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee68", style=style)
 
 
 def monitor(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18709,17 +16840,15 @@ def monitor(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue32e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue32e", style=style)
 
 
 def monitor_arrow_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18729,17 +16858,15 @@ def monitor_arrow_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue58a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue58a", style=style)
 
 
 def monitor_play(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18749,17 +16876,15 @@ def monitor_play(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue58c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue58c", style=style)
 
 
 def moon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18769,17 +16894,15 @@ def moon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue330", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue330", style=style)
 
 
 def moon_stars(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18789,17 +16912,15 @@ def moon_stars(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue58e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue58e", style=style)
 
 
 def moped(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18809,17 +16930,15 @@ def moped(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue824", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue824", style=style)
 
 
 def moped_front(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18829,17 +16948,15 @@ def moped_front(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue822", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue822", style=style)
 
 
 def mosque(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18849,17 +16966,15 @@ def mosque(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecee", style=style)
 
 
 def motorcycle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18869,17 +16984,15 @@ def motorcycle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue80a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue80a", style=style)
 
 
 def mountains(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18889,17 +17002,15 @@ def mountains(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7ae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7ae", style=style)
 
 
 def mouse(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18909,17 +17020,15 @@ def mouse(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue33a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue33a", style=style)
 
 
 def mouse_left_click(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18929,17 +17038,15 @@ def mouse_left_click(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue334", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue334", style=style)
 
 
 def mouse_middle_click(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18949,17 +17056,15 @@ def mouse_middle_click(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue338", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue338", style=style)
 
 
 def mouse_right_click(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18969,17 +17074,15 @@ def mouse_right_click(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue336", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue336", style=style)
 
 
 def mouse_scroll(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18989,17 +17092,15 @@ def mouse_scroll(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue332", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue332", style=style)
 
 
 def mouse_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19009,17 +17110,15 @@ def mouse_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue644", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue644", style=style)
 
 
 def music_note(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19029,17 +17128,15 @@ def music_note(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue33c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue33c", style=style)
 
 
 def music_note_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19049,17 +17146,15 @@ def music_note_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue33e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue33e", style=style)
 
 
 def music_notes(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19069,17 +17164,15 @@ def music_notes(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue340", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue340", style=style)
 
 
 def music_notes_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19089,17 +17182,15 @@ def music_notes_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee0c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee0c", style=style)
 
 
 def music_notes_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19109,17 +17200,15 @@ def music_notes_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb7c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb7c", style=style)
 
 
 def music_notes_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19129,17 +17218,15 @@ def music_notes_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue342", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue342", style=style)
 
 
 def navigation_arrow(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19149,17 +17236,15 @@ def navigation_arrow(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueade", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueade", style=style)
 
 
 def needle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19169,17 +17254,15 @@ def needle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue82e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue82e", style=style)
 
 
 def network(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19189,17 +17272,15 @@ def network(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedde", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedde", style=style)
 
 
 def network_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19209,17 +17290,15 @@ def network_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueddc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueddc", style=style)
 
 
 def network_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19229,17 +17308,15 @@ def network_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedda", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedda", style=style)
 
 
 def newspaper(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19249,17 +17326,15 @@ def newspaper(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue344", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue344", style=style)
 
 
 def newspaper_clipping(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19269,17 +17344,15 @@ def newspaper_clipping(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue346", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue346", style=style)
 
 
 def not_equals(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19289,17 +17362,15 @@ def not_equals(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueda6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueda6", style=style)
 
 
 def not_member_of(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19309,17 +17380,15 @@ def not_member_of(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedae", style=style)
 
 
 def not_subset_of(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19329,17 +17398,15 @@ def not_subset_of(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedb0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedb0", style=style)
 
 
 def not_superset_of(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19349,17 +17416,15 @@ def not_superset_of(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedb2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedb2", style=style)
 
 
 def notches(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19369,17 +17434,15 @@ def notches(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued3a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued3a", style=style)
 
 
 def note(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19389,17 +17452,15 @@ def note(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue348", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue348", style=style)
 
 
 def note_blank(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19409,17 +17470,15 @@ def note_blank(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue34a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue34a", style=style)
 
 
 def note_pencil(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19429,17 +17488,15 @@ def note_pencil(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue34c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue34c", style=style)
 
 
 def notebook(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19449,17 +17506,15 @@ def notebook(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue34e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue34e", style=style)
 
 
 def notepad(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19469,17 +17524,15 @@ def notepad(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue63e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue63e", style=style)
 
 
 def notification(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19489,17 +17542,15 @@ def notification(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6fa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6fa", style=style)
 
 
 def notion_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19509,17 +17560,15 @@ def notion_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9a0", style=style)
 
 
 def nuclear_plant(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19529,17 +17578,15 @@ def nuclear_plant(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued7c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued7c", style=style)
 
 
 def number_circle_eight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19549,17 +17596,15 @@ def number_circle_eight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue352", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue352", style=style)
 
 
 def number_circle_five(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19569,17 +17614,15 @@ def number_circle_five(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue358", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue358", style=style)
 
 
 def number_circle_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19589,17 +17632,15 @@ def number_circle_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue35e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue35e", style=style)
 
 
 def number_circle_nine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19609,17 +17650,15 @@ def number_circle_nine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue364", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue364", style=style)
 
 
 def number_circle_one(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19629,17 +17668,15 @@ def number_circle_one(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue36a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue36a", style=style)
 
 
 def number_circle_seven(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19649,17 +17686,15 @@ def number_circle_seven(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue370", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue370", style=style)
 
 
 def number_circle_six(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19669,17 +17704,15 @@ def number_circle_six(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue376", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue376", style=style)
 
 
 def number_circle_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19689,17 +17722,15 @@ def number_circle_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue37c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue37c", style=style)
 
 
 def number_circle_two(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19709,17 +17740,15 @@ def number_circle_two(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue382", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue382", style=style)
 
 
 def number_circle_zero(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19729,17 +17758,15 @@ def number_circle_zero(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue388", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue388", style=style)
 
 
 def number_eight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19749,17 +17776,15 @@ def number_eight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue350", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue350", style=style)
 
 
 def number_five(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19769,17 +17794,15 @@ def number_five(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue356", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue356", style=style)
 
 
 def number_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19789,17 +17812,15 @@ def number_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue35c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue35c", style=style)
 
 
 def number_nine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19809,17 +17830,15 @@ def number_nine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue362", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue362", style=style)
 
 
 def number_one(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19829,17 +17848,15 @@ def number_one(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue368", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue368", style=style)
 
 
 def number_seven(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19849,17 +17866,15 @@ def number_seven(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue36e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue36e", style=style)
 
 
 def number_six(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19869,17 +17884,15 @@ def number_six(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue374", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue374", style=style)
 
 
 def number_square_eight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19889,17 +17902,15 @@ def number_square_eight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue354", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue354", style=style)
 
 
 def number_square_five(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19909,17 +17920,15 @@ def number_square_five(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue35a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue35a", style=style)
 
 
 def number_square_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19929,17 +17938,15 @@ def number_square_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue360", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue360", style=style)
 
 
 def number_square_nine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19949,17 +17956,15 @@ def number_square_nine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue366", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue366", style=style)
 
 
 def number_square_one(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19969,17 +17974,15 @@ def number_square_one(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue36c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue36c", style=style)
 
 
 def number_square_seven(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19989,17 +17992,15 @@ def number_square_seven(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue372", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue372", style=style)
 
 
 def number_square_six(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20009,17 +18010,15 @@ def number_square_six(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue378", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue378", style=style)
 
 
 def number_square_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20029,17 +18028,15 @@ def number_square_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue37e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue37e", style=style)
 
 
 def number_square_two(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20049,17 +18046,15 @@ def number_square_two(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue384", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue384", style=style)
 
 
 def number_square_zero(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20069,17 +18064,15 @@ def number_square_zero(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue38a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue38a", style=style)
 
 
 def number_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20089,17 +18082,15 @@ def number_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue37a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue37a", style=style)
 
 
 def number_two(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20109,17 +18100,15 @@ def number_two(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue380", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue380", style=style)
 
 
 def number_zero(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20129,17 +18118,15 @@ def number_zero(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue386", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue386", style=style)
 
 
 def numpad(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20149,17 +18136,15 @@ def numpad(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3c8", style=style)
 
 
 def nut(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20169,17 +18154,15 @@ def nut(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue38c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue38c", style=style)
 
 
 def ny_times_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20189,17 +18172,15 @@ def ny_times_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue646", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue646", style=style)
 
 
 def octagon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20209,17 +18190,15 @@ def octagon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue38e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue38e", style=style)
 
 
 def office_chair(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20229,17 +18208,15 @@ def office_chair(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea46", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea46", style=style)
 
 
 def onigiri(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20249,17 +18226,15 @@ def onigiri(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee2c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee2c", style=style)
 
 
 def open_ai_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20269,17 +18244,15 @@ def open_ai_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7d2", style=style)
 
 
 def option(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20289,17 +18262,15 @@ def option(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8a8", style=style)
 
 
 def orange(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20309,17 +18280,15 @@ def orange(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee40", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee40", style=style)
 
 
 def orange_slice(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20329,17 +18298,15 @@ def orange_slice(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued36", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued36", style=style)
 
 
 def oven(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20349,17 +18316,15 @@ def oven(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued8c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued8c", style=style)
 
 
 def package(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20369,17 +18334,15 @@ def package(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue390", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue390", style=style)
 
 
 def paint_brush(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20389,17 +18352,15 @@ def paint_brush(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6f0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6f0", style=style)
 
 
 def paint_brush_broad(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20409,17 +18370,15 @@ def paint_brush_broad(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue590", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue590", style=style)
 
 
 def paint_brush_household(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20429,17 +18388,15 @@ def paint_brush_household(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6f2", style=style)
 
 
 def paint_bucket(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20449,17 +18406,15 @@ def paint_bucket(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue392", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue392", style=style)
 
 
 def paint_roller(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20469,17 +18424,15 @@ def paint_roller(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6f4", style=style)
 
 
 def palette(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20489,17 +18442,15 @@ def palette(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6c8", style=style)
 
 
 def panorama(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20509,17 +18460,15 @@ def panorama(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaa2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaa2", style=style)
 
 
 def pants(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20529,17 +18478,15 @@ def pants(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec88", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec88", style=style)
 
 
 def paper_plane(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20549,17 +18496,15 @@ def paper_plane(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue394", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue394", style=style)
 
 
 def paper_plane_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20569,17 +18514,15 @@ def paper_plane_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue396", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue396", style=style)
 
 
 def paper_plane_tilt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20589,17 +18532,15 @@ def paper_plane_tilt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue398", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue398", style=style)
 
 
 def paperclip(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20609,17 +18550,15 @@ def paperclip(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue39a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue39a", style=style)
 
 
 def paperclip_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20629,17 +18568,15 @@ def paperclip_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue592", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue592", style=style)
 
 
 def parachute(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20649,17 +18586,15 @@ def parachute(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea7c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea7c", style=style)
 
 
 def paragraph(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20669,17 +18604,15 @@ def paragraph(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue960", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue960", style=style)
 
 
 def parallelogram(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20689,17 +18622,15 @@ def parallelogram(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecc6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecc6", style=style)
 
 
 def park(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20709,17 +18640,15 @@ def park(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecb2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecb2", style=style)
 
 
 def password(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20729,17 +18658,15 @@ def password(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue752", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue752", style=style)
 
 
 def path(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20749,17 +18676,15 @@ def path(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue39c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue39c", style=style)
 
 
 def patreon_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20769,17 +18694,15 @@ def patreon_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue98a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue98a", style=style)
 
 
 def pause(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20789,17 +18712,15 @@ def pause(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue39e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue39e", style=style)
 
 
 def pause_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20809,17 +18730,15 @@ def pause_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3a0", style=style)
 
 
 def paw_print(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20829,17 +18748,15 @@ def paw_print(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue648", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue648", style=style)
 
 
 def paypal_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20849,17 +18766,15 @@ def paypal_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue98c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue98c", style=style)
 
 
 def peace(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20869,17 +18784,15 @@ def peace(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3a2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3a2", style=style)
 
 
 def pen(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20889,17 +18802,15 @@ def pen(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3aa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3aa", style=style)
 
 
 def pen_nib(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20909,17 +18820,15 @@ def pen_nib(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3ac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3ac", style=style)
 
 
 def pen_nib_straight(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20929,17 +18838,15 @@ def pen_nib_straight(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue64a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue64a", style=style)
 
 
 def pencil(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20949,17 +18856,15 @@ def pencil(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3ae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3ae", style=style)
 
 
 def pencil_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20969,17 +18874,15 @@ def pencil_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3b0", style=style)
 
 
 def pencil_line(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20989,17 +18892,15 @@ def pencil_line(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3b2", style=style)
 
 
 def pencil_ruler(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21009,17 +18910,15 @@ def pencil_ruler(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue906", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue906", style=style)
 
 
 def pencil_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21029,17 +18928,15 @@ def pencil_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3b4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3b4", style=style)
 
 
 def pencil_simple_line(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21049,17 +18946,15 @@ def pencil_simple_line(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebc6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebc6", style=style)
 
 
 def pencil_simple_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21069,17 +18964,15 @@ def pencil_simple_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecf6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecf6", style=style)
 
 
 def pencil_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21089,17 +18982,15 @@ def pencil_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecf8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecf8", style=style)
 
 
 def pentagon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21109,17 +19000,15 @@ def pentagon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec7e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec7e", style=style)
 
 
 def pentagram(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21129,17 +19018,15 @@ def pentagram(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec5c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec5c", style=style)
 
 
 def pepper(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21149,17 +19036,15 @@ def pepper(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue94a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue94a", style=style)
 
 
 def percent(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21169,17 +19054,15 @@ def percent(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3b6", style=style)
 
 
 def person(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21189,17 +19072,15 @@ def person(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3a8", style=style)
 
 
 def person_arms_spread(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21209,17 +19090,15 @@ def person_arms_spread(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecfe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecfe", style=style)
 
 
 def person_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21229,17 +19108,15 @@ def person_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue72e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue72e", style=style)
 
 
 def person_simple_bike(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21249,17 +19126,15 @@ def person_simple_bike(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue734", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue734", style=style)
 
 
 def person_simple_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21269,17 +19144,15 @@ def person_simple_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee58", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee58", style=style)
 
 
 def person_simple_hike(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21289,17 +19162,15 @@ def person_simple_hike(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued54", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued54", style=style)
 
 
 def person_simple_run(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21309,17 +19180,15 @@ def person_simple_run(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue730", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue730", style=style)
 
 
 def person_simple_ski(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21329,17 +19198,15 @@ def person_simple_ski(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue71c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue71c", style=style)
 
 
 def person_simple_snowboard(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21349,17 +19216,15 @@ def person_simple_snowboard(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue71e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue71e", style=style)
 
 
 def person_simple_swim(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21369,17 +19234,15 @@ def person_simple_swim(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue736", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue736", style=style)
 
 
 def person_simple_tai_chi(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21389,17 +19252,15 @@ def person_simple_tai_chi(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued5c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued5c", style=style)
 
 
 def person_simple_throw(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21409,17 +19270,15 @@ def person_simple_throw(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue732", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue732", style=style)
 
 
 def person_simple_walk(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21429,17 +19288,15 @@ def person_simple_walk(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue73a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue73a", style=style)
 
 
 def perspective(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21449,17 +19306,15 @@ def perspective(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebe6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebe6", style=style)
 
 
 def phone(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21469,17 +19324,15 @@ def phone(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3b8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3b8", style=style)
 
 
 def phone_call(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21489,17 +19342,15 @@ def phone_call(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3ba", style=style)
 
 
 def phone_disconnect(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21509,17 +19360,15 @@ def phone_disconnect(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3bc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3bc", style=style)
 
 
 def phone_incoming(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21529,17 +19378,15 @@ def phone_incoming(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3be", style=style)
 
 
 def phone_list(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21549,17 +19396,15 @@ def phone_list(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3cc", style=style)
 
 
 def phone_outgoing(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21569,17 +19414,15 @@ def phone_outgoing(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3c0", style=style)
 
 
 def phone_pause(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21589,17 +19432,15 @@ def phone_pause(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3ca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3ca", style=style)
 
 
 def phone_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21609,17 +19450,15 @@ def phone_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec56", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec56", style=style)
 
 
 def phone_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21629,17 +19468,15 @@ def phone_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3c2", style=style)
 
 
 def phone_transfer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21649,17 +19486,15 @@ def phone_transfer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3c6", style=style)
 
 
 def phone_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21669,17 +19504,15 @@ def phone_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3c4", style=style)
 
 
 def phosphor_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21689,17 +19522,15 @@ def phosphor_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3ce", style=style)
 
 
 def pi(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21709,17 +19540,15 @@ def pi(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec80", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec80", style=style)
 
 
 def piano_keys(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21729,17 +19558,15 @@ def piano_keys(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9c8", style=style)
 
 
 def picnic_table(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21749,17 +19576,15 @@ def picnic_table(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee26", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee26", style=style)
 
 
 def picture_in_picture(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21769,17 +19594,15 @@ def picture_in_picture(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue64c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue64c", style=style)
 
 
 def piggy_bank(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21789,17 +19612,15 @@ def piggy_bank(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea04", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea04", style=style)
 
 
 def pill(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21809,17 +19630,15 @@ def pill(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue700", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue700", style=style)
 
 
 def ping_pong(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21829,17 +19648,15 @@ def ping_pong(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea42", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea42", style=style)
 
 
 def pint_glass(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21849,17 +19666,15 @@ def pint_glass(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedd0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedd0", style=style)
 
 
 def pinterest_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21869,17 +19684,15 @@ def pinterest_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue64e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue64e", style=style)
 
 
 def pinwheel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21889,17 +19702,15 @@ def pinwheel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb9c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb9c", style=style)
 
 
 def pipe(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21909,17 +19720,15 @@ def pipe(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued86", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued86", style=style)
 
 
 def pipe_wrench(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21929,17 +19738,15 @@ def pipe_wrench(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued88", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued88", style=style)
 
 
 def pix_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21949,17 +19756,15 @@ def pix_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecc2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecc2", style=style)
 
 
 def pizza(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21969,17 +19774,15 @@ def pizza(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue796", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue796", style=style)
 
 
 def placeholder(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21989,17 +19792,15 @@ def placeholder(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue650", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue650", style=style)
 
 
 def planet(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22009,17 +19810,15 @@ def planet(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue652", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue652", style=style)
 
 
 def plant(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22029,17 +19828,15 @@ def plant(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebae", style=style)
 
 
 def play(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22049,17 +19846,15 @@ def play(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3d0", style=style)
 
 
 def play_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22069,17 +19864,15 @@ def play_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3d2", style=style)
 
 
 def play_pause(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22089,17 +19882,15 @@ def play_pause(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8be", style=style)
 
 
 def playlist(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22109,17 +19900,15 @@ def playlist(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6aa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6aa", style=style)
 
 
 def plug(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22129,17 +19918,15 @@ def plug(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue946", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue946", style=style)
 
 
 def plug_charging(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22149,17 +19936,15 @@ def plug_charging(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb5c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb5c", style=style)
 
 
 def plugs(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22169,17 +19954,15 @@ def plugs(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb56", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb56", style=style)
 
 
 def plugs_connected(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22189,17 +19972,15 @@ def plugs_connected(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb5a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb5a", style=style)
 
 
 def plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22209,17 +19990,15 @@ def plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3d4", style=style)
 
 
 def plus_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22229,17 +20008,15 @@ def plus_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3d6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3d6", style=style)
 
 
 def plus_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22249,17 +20026,15 @@ def plus_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3d8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3d8", style=style)
 
 
 def plus_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22269,17 +20044,15 @@ def plus_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued4a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued4a", style=style)
 
 
 def poker_chip(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22289,17 +20062,15 @@ def poker_chip(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue594", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue594", style=style)
 
 
 def police_car(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22309,17 +20080,15 @@ def police_car(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec4a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec4a", style=style)
 
 
 def polygon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22329,17 +20098,15 @@ def polygon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6d0", style=style)
 
 
 def popcorn(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22349,17 +20116,15 @@ def popcorn(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb4e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb4e", style=style)
 
 
 def popsicle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22369,17 +20134,15 @@ def popsicle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebbe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebbe", style=style)
 
 
 def potted_plant(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22389,17 +20152,15 @@ def potted_plant(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec22", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec22", style=style)
 
 
 def power(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22409,17 +20170,15 @@ def power(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3da", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3da", style=style)
 
 
 def prescription(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22429,17 +20188,15 @@ def prescription(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7a2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7a2", style=style)
 
 
 def presentation(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22449,17 +20206,15 @@ def presentation(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue654", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue654", style=style)
 
 
 def presentation_chart(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22469,17 +20224,15 @@ def presentation_chart(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue656", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue656", style=style)
 
 
 def printer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22489,17 +20242,15 @@ def printer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3dc", style=style)
 
 
 def prohibit(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22509,17 +20260,15 @@ def prohibit(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3de", style=style)
 
 
 def prohibit_inset(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22529,17 +20278,15 @@ def prohibit_inset(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3e0", style=style)
 
 
 def projector_screen(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22549,17 +20296,15 @@ def projector_screen(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue658", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue658", style=style)
 
 
 def projector_screen_chart(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22569,17 +20314,15 @@ def projector_screen_chart(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue65a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue65a", style=style)
 
 
 def pulse(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22589,17 +20332,15 @@ def pulse(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue000", style=style)
 
 
 def push_pin(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22609,17 +20350,15 @@ def push_pin(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3e2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3e2", style=style)
 
 
 def push_pin_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22629,17 +20368,15 @@ def push_pin_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue65c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue65c", style=style)
 
 
 def push_pin_simple_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22649,17 +20386,15 @@ def push_pin_simple_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue65e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue65e", style=style)
 
 
 def push_pin_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22669,17 +20404,15 @@ def push_pin_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3e4", style=style)
 
 
 def puzzle_piece(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22689,17 +20422,15 @@ def puzzle_piece(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue596", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue596", style=style)
 
 
 def qr_code(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22709,17 +20440,15 @@ def qr_code(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3e6", style=style)
 
 
 def question(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22729,17 +20458,15 @@ def question(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3e8", style=style)
 
 
 def question_mark(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22749,17 +20476,15 @@ def question_mark(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3e9", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3e9", style=style)
 
 
 def queue(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22769,17 +20494,15 @@ def queue(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6ac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6ac", style=style)
 
 
 def quotes(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22789,17 +20512,15 @@ def quotes(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue660", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue660", style=style)
 
 
 def rabbit(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22809,17 +20530,15 @@ def rabbit(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueac2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueac2", style=style)
 
 
 def racquet(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22829,17 +20548,15 @@ def racquet(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee02", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee02", style=style)
 
 
 def radical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22849,17 +20566,15 @@ def radical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3ea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3ea", style=style)
 
 
 def radio(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22869,17 +20584,15 @@ def radio(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue77e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue77e", style=style)
 
 
 def radio_button(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22889,17 +20602,15 @@ def radio_button(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb08", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb08", style=style)
 
 
 def radioactive(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22909,17 +20620,15 @@ def radioactive(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9dc", style=style)
 
 
 def rainbow(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22929,17 +20638,15 @@ def rainbow(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue598", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue598", style=style)
 
 
 def rainbow_cloud(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22949,17 +20656,15 @@ def rainbow_cloud(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue59a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue59a", style=style)
 
 
 def ranking(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22969,17 +20674,15 @@ def ranking(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued62", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued62", style=style)
 
 
 def read_cv_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22989,17 +20692,15 @@ def read_cv_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued0c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued0c", style=style)
 
 
 def receipt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23009,17 +20710,15 @@ def receipt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3ec", style=style)
 
 
 def receipt_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23029,17 +20728,15 @@ def receipt_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued40", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued40", style=style)
 
 
 def record(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23049,17 +20746,15 @@ def record(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3ee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3ee", style=style)
 
 
 def rectangle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23069,17 +20764,15 @@ def rectangle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3f0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3f0", style=style)
 
 
 def rectangle_dashed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23089,17 +20782,15 @@ def rectangle_dashed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3f2", style=style)
 
 
 def recycle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23109,17 +20800,15 @@ def recycle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue75a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue75a", style=style)
 
 
 def reddit_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23129,17 +20818,15 @@ def reddit_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue59c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue59c", style=style)
 
 
 def repeat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23149,17 +20836,15 @@ def repeat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3f6", style=style)
 
 
 def repeat_once(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23169,17 +20854,15 @@ def repeat_once(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3f8", style=style)
 
 
 def replit_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23189,17 +20872,15 @@ def replit_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb8a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb8a", style=style)
 
 
 def resize(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23209,17 +20890,15 @@ def resize(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued6e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued6e", style=style)
 
 
 def rewind(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23229,17 +20908,15 @@ def rewind(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6a8", style=style)
 
 
 def rewind_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23249,17 +20926,15 @@ def rewind_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3fa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3fa", style=style)
 
 
 def road_horizon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23269,17 +20944,15 @@ def road_horizon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue838", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue838", style=style)
 
 
 def robot(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23289,17 +20962,15 @@ def robot(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue762", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue762", style=style)
 
 
 def rocket(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23309,17 +20980,15 @@ def rocket(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3fc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3fc", style=style)
 
 
 def rocket_launch(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23329,17 +20998,15 @@ def rocket_launch(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3fe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3fe", style=style)
 
 
 def rows(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23349,17 +21016,15 @@ def rows(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5a2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5a2", style=style)
 
 
 def rows_plus_bottom(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23369,17 +21034,15 @@ def rows_plus_bottom(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue59e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue59e", style=style)
 
 
 def rows_plus_top(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23389,17 +21052,15 @@ def rows_plus_top(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5a0", style=style)
 
 
 def rss(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23409,17 +21070,15 @@ def rss(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue400", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue400", style=style)
 
 
 def rss_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23429,17 +21088,15 @@ def rss_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue402", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue402", style=style)
 
 
 def rug(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23449,17 +21106,15 @@ def rug(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea1a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea1a", style=style)
 
 
 def ruler(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23469,17 +21124,15 @@ def ruler(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6b8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6b8", style=style)
 
 
 def sailboat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23489,17 +21142,15 @@ def sailboat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue78a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue78a", style=style)
 
 
 def scales(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23509,17 +21160,15 @@ def scales(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue750", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue750", style=style)
 
 
 def scan(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23529,17 +21178,15 @@ def scan(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebb6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebb6", style=style)
 
 
 def scan_smiley(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23549,17 +21196,15 @@ def scan_smiley(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebb4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebb4", style=style)
 
 
 def scissors(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23569,17 +21214,15 @@ def scissors(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueae0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueae0", style=style)
 
 
 def scooter(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23589,17 +21232,15 @@ def scooter(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue820", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue820", style=style)
 
 
 def screencast(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23609,17 +21250,15 @@ def screencast(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue404", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue404", style=style)
 
 
 def screwdriver(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23629,17 +21268,15 @@ def screwdriver(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue86e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue86e", style=style)
 
 
 def scribble(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23649,17 +21286,15 @@ def scribble(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue806", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue806", style=style)
 
 
 def scribble_loop(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23669,17 +21304,15 @@ def scribble_loop(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue662", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue662", style=style)
 
 
 def scroll(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23689,17 +21322,15 @@ def scroll(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb7a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb7a", style=style)
 
 
 def seal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23709,17 +21340,15 @@ def seal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue604", style=style)
 
 
 def seal_check(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23729,17 +21358,15 @@ def seal_check(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue606", style=style)
 
 
 def seal_percent(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23749,17 +21376,15 @@ def seal_percent(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue60a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue60a", style=style)
 
 
 def seal_question(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23769,17 +21394,15 @@ def seal_question(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue608", style=style)
 
 
 def seal_warning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23789,17 +21412,15 @@ def seal_warning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue60c", style=style)
 
 
 def seat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23809,17 +21430,15 @@ def seat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb8e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb8e", style=style)
 
 
 def seatbelt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23829,17 +21448,15 @@ def seatbelt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedfe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedfe", style=style)
 
 
 def security_camera(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23849,17 +21466,15 @@ def security_camera(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueca4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueca4", style=style)
 
 
 def selection(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23869,17 +21484,15 @@ def selection(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue69a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue69a", style=style)
 
 
 def selection_all(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23889,17 +21502,15 @@ def selection_all(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue746", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue746", style=style)
 
 
 def selection_background(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23909,17 +21520,15 @@ def selection_background(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaf8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaf8", style=style)
 
 
 def selection_foreground(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23929,17 +21538,15 @@ def selection_foreground(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaf6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaf6", style=style)
 
 
 def selection_inverse(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23949,17 +21556,15 @@ def selection_inverse(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue744", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue744", style=style)
 
 
 def selection_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23969,17 +21574,15 @@ def selection_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue69c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue69c", style=style)
 
 
 def selection_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23989,17 +21592,15 @@ def selection_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue69e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue69e", style=style)
 
 
 def shapes(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24009,17 +21610,15 @@ def shapes(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec5e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec5e", style=style)
 
 
 def share(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24029,17 +21628,15 @@ def share(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue406", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue406", style=style)
 
 
 def share_fat(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24049,17 +21646,15 @@ def share_fat(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued52", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued52", style=style)
 
 
 def share_network(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24069,17 +21664,15 @@ def share_network(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue408", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue408", style=style)
 
 
 def shield(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24089,17 +21682,15 @@ def shield(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue40a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue40a", style=style)
 
 
 def shield_check(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24109,17 +21700,15 @@ def shield_check(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue40c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue40c", style=style)
 
 
 def shield_checkered(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24129,17 +21718,15 @@ def shield_checkered(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue708", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue708", style=style)
 
 
 def shield_chevron(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24149,17 +21736,15 @@ def shield_chevron(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue40e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue40e", style=style)
 
 
 def shield_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24169,17 +21754,15 @@ def shield_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue706", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue706", style=style)
 
 
 def shield_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24189,17 +21772,15 @@ def shield_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue410", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue410", style=style)
 
 
 def shield_star(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24209,17 +21790,15 @@ def shield_star(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec34", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec34", style=style)
 
 
 def shield_warning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24229,17 +21808,15 @@ def shield_warning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue412", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue412", style=style)
 
 
 def shipping_container(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24249,17 +21826,15 @@ def shipping_container(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue78c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue78c", style=style)
 
 
 def shirt_folded(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24269,17 +21844,15 @@ def shirt_folded(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea92", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea92", style=style)
 
 
 def shooting_star(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24289,17 +21862,15 @@ def shooting_star(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecfa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecfa", style=style)
 
 
 def shopping_bag(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24309,17 +21880,15 @@ def shopping_bag(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue416", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue416", style=style)
 
 
 def shopping_bag_open(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24329,17 +21898,15 @@ def shopping_bag_open(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue418", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue418", style=style)
 
 
 def shopping_cart(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24349,17 +21916,15 @@ def shopping_cart(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue41e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue41e", style=style)
 
 
 def shopping_cart_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24369,17 +21934,15 @@ def shopping_cart_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue420", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue420", style=style)
 
 
 def shovel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24389,17 +21952,15 @@ def shovel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9e6", style=style)
 
 
 def shower(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24409,17 +21970,15 @@ def shower(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue776", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue776", style=style)
 
 
 def shrimp(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24429,17 +21988,15 @@ def shrimp(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueab4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueab4", style=style)
 
 
 def shuffle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24449,17 +22006,15 @@ def shuffle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue422", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue422", style=style)
 
 
 def shuffle_angular(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24469,17 +22024,15 @@ def shuffle_angular(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue424", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue424", style=style)
 
 
 def shuffle_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24489,17 +22042,15 @@ def shuffle_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue426", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue426", style=style)
 
 
 def sidebar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24509,17 +22060,15 @@ def sidebar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueab6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueab6", style=style)
 
 
 def sidebar_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24529,17 +22078,15 @@ def sidebar_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec24", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec24", style=style)
 
 
 def sigma(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24549,17 +22096,15 @@ def sigma(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueab8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueab8", style=style)
 
 
 def sign_in(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24569,17 +22114,15 @@ def sign_in(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue428", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue428", style=style)
 
 
 def sign_out(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24589,17 +22132,15 @@ def sign_out(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue42a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue42a", style=style)
 
 
 def signature(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24609,17 +22150,15 @@ def signature(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebac", style=style)
 
 
 def signpost(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24629,17 +22168,15 @@ def signpost(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue89c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue89c", style=style)
 
 
 def sim_card(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24649,17 +22186,15 @@ def sim_card(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue664", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue664", style=style)
 
 
 def siren(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24669,17 +22204,15 @@ def siren(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9b8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9b8", style=style)
 
 
 def sketch_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24689,17 +22222,15 @@ def sketch_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue42c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue42c", style=style)
 
 
 def skip_back(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24709,17 +22240,15 @@ def skip_back(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5a4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5a4", style=style)
 
 
 def skip_back_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24729,17 +22258,15 @@ def skip_back_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue42e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue42e", style=style)
 
 
 def skip_forward(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24749,17 +22276,15 @@ def skip_forward(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5a6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5a6", style=style)
 
 
 def skip_forward_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24769,17 +22294,15 @@ def skip_forward_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue430", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue430", style=style)
 
 
 def skull(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24789,17 +22312,15 @@ def skull(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue916", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue916", style=style)
 
 
 def skype_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24809,17 +22330,15 @@ def skype_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8dc", style=style)
 
 
 def slack_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24829,17 +22348,15 @@ def slack_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5a8", style=style)
 
 
 def sliders(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24849,17 +22366,15 @@ def sliders(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue432", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue432", style=style)
 
 
 def sliders_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24869,17 +22384,15 @@ def sliders_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue434", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue434", style=style)
 
 
 def slideshow(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24889,17 +22402,15 @@ def slideshow(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued32", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued32", style=style)
 
 
 def smiley(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24909,17 +22420,15 @@ def smiley(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue436", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue436", style=style)
 
 
 def smiley_angry(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24929,17 +22438,15 @@ def smiley_angry(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec62", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec62", style=style)
 
 
 def smiley_blank(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24949,17 +22456,15 @@ def smiley_blank(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue438", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue438", style=style)
 
 
 def smiley_meh(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24969,17 +22474,15 @@ def smiley_meh(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue43a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue43a", style=style)
 
 
 def smiley_melting(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24989,17 +22492,15 @@ def smiley_melting(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee56", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee56", style=style)
 
 
 def smiley_nervous(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25009,17 +22510,15 @@ def smiley_nervous(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue43c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue43c", style=style)
 
 
 def smiley_sad(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25029,17 +22528,15 @@ def smiley_sad(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue43e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue43e", style=style)
 
 
 def smiley_sticker(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25049,17 +22546,15 @@ def smiley_sticker(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue440", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue440", style=style)
 
 
 def smiley_wink(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25069,17 +22564,15 @@ def smiley_wink(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue666", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue666", style=style)
 
 
 def smiley_x_eyes(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25089,17 +22582,15 @@ def smiley_x_eyes(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue442", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue442", style=style)
 
 
 def snapchat_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25109,17 +22600,15 @@ def snapchat_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue668", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue668", style=style)
 
 
 def sneaker(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25129,17 +22618,15 @@ def sneaker(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue80c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue80c", style=style)
 
 
 def sneaker_move(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25149,17 +22636,15 @@ def sneaker_move(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued60", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued60", style=style)
 
 
 def snowflake(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25169,17 +22654,15 @@ def snowflake(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5aa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5aa", style=style)
 
 
 def soccer_ball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25189,17 +22672,15 @@ def soccer_ball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue716", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue716", style=style)
 
 
 def sock(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25209,17 +22690,15 @@ def sock(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecce", style=style)
 
 
 def solar_panel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25229,17 +22708,15 @@ def solar_panel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued7a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued7a", style=style)
 
 
 def solar_roof(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25249,17 +22726,15 @@ def solar_roof(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued7b", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued7b", style=style)
 
 
 def sort_ascending(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25269,17 +22744,15 @@ def sort_ascending(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue444", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue444", style=style)
 
 
 def sort_descending(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25289,17 +22762,15 @@ def sort_descending(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue446", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue446", style=style)
 
 
 def soundcloud_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25309,17 +22780,15 @@ def soundcloud_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8de", style=style)
 
 
 def spade(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25329,17 +22798,15 @@ def spade(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue448", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue448", style=style)
 
 
 def sparkle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25349,17 +22816,15 @@ def sparkle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6a2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6a2", style=style)
 
 
 def speaker_hifi(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25369,17 +22834,15 @@ def speaker_hifi(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea08", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea08", style=style)
 
 
 def speaker_high(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25389,17 +22852,15 @@ def speaker_high(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue44a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue44a", style=style)
 
 
 def speaker_low(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25409,17 +22870,15 @@ def speaker_low(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue44c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue44c", style=style)
 
 
 def speaker_none(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25429,17 +22888,15 @@ def speaker_none(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue44e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue44e", style=style)
 
 
 def speaker_simple_high(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25449,17 +22906,15 @@ def speaker_simple_high(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue450", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue450", style=style)
 
 
 def speaker_simple_low(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25469,17 +22924,15 @@ def speaker_simple_low(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue452", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue452", style=style)
 
 
 def speaker_simple_none(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25489,17 +22942,15 @@ def speaker_simple_none(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue454", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue454", style=style)
 
 
 def speaker_simple_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25509,17 +22960,15 @@ def speaker_simple_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue456", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue456", style=style)
 
 
 def speaker_simple_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25529,17 +22978,15 @@ def speaker_simple_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue458", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue458", style=style)
 
 
 def speaker_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25549,17 +22996,15 @@ def speaker_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue45a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue45a", style=style)
 
 
 def speaker_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25569,17 +23014,15 @@ def speaker_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue45c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue45c", style=style)
 
 
 def speedometer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25589,17 +23032,15 @@ def speedometer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee74", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee74", style=style)
 
 
 def sphere(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25609,17 +23050,15 @@ def sphere(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee66", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee66", style=style)
 
 
 def spinner(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25629,17 +23068,15 @@ def spinner(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue66a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue66a", style=style)
 
 
 def spinner_ball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25649,17 +23086,15 @@ def spinner_ball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee28", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee28", style=style)
 
 
 def spinner_gap(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25669,17 +23104,15 @@ def spinner_gap(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue66c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue66c", style=style)
 
 
 def spiral(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25689,17 +23122,15 @@ def spiral(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9fa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9fa", style=style)
 
 
 def split_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25709,17 +23140,15 @@ def split_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue872", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue872", style=style)
 
 
 def split_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25729,17 +23158,15 @@ def split_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue876", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue876", style=style)
 
 
 def spotify_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25749,17 +23176,15 @@ def spotify_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue66e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue66e", style=style)
 
 
 def spray_bottle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25769,17 +23194,15 @@ def spray_bottle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7e4", style=style)
 
 
 def square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25789,17 +23212,15 @@ def square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue45e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue45e", style=style)
 
 
 def square_half(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25809,17 +23230,15 @@ def square_half(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue462", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue462", style=style)
 
 
 def square_half_bottom(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25829,17 +23248,15 @@ def square_half_bottom(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb16", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb16", style=style)
 
 
 def square_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25849,17 +23266,15 @@ def square_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue690", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue690", style=style)
 
 
 def square_split_horizontal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25869,17 +23284,15 @@ def square_split_horizontal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue870", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue870", style=style)
 
 
 def square_split_vertical(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25889,17 +23302,15 @@ def square_split_vertical(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue874", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue874", style=style)
 
 
 def squares_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25909,17 +23320,15 @@ def squares_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue464", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue464", style=style)
 
 
 def stack(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25929,17 +23338,15 @@ def stack(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue466", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue466", style=style)
 
 
 def stack_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25949,17 +23356,15 @@ def stack_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedf4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedf4", style=style)
 
 
 def stack_overflow_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25969,17 +23374,15 @@ def stack_overflow_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb78", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb78", style=style)
 
 
 def stack_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25989,17 +23392,15 @@ def stack_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedf6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedf6", style=style)
 
 
 def stack_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26009,17 +23410,15 @@ def stack_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue468", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue468", style=style)
 
 
 def stairs(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26029,17 +23428,15 @@ def stairs(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8ec", style=style)
 
 
 def stamp(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26049,17 +23446,15 @@ def stamp(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea48", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea48", style=style)
 
 
 def standard_definition(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26069,17 +23464,15 @@ def standard_definition(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea90", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea90", style=style)
 
 
 def star(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26089,17 +23482,15 @@ def star(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue46a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue46a", style=style)
 
 
 def star_and_crescent(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26109,17 +23500,15 @@ def star_and_crescent(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecf4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecf4", style=style)
 
 
 def star_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26129,17 +23518,15 @@ def star_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6a4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6a4", style=style)
 
 
 def star_half(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26149,17 +23536,15 @@ def star_half(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue70a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue70a", style=style)
 
 
 def star_of_david(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26169,17 +23554,15 @@ def star_of_david(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue89e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue89e", style=style)
 
 
 def steam_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26189,17 +23572,15 @@ def steam_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uead4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uead4", style=style)
 
 
 def steering_wheel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26209,17 +23590,15 @@ def steering_wheel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9ac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9ac", style=style)
 
 
 def steps(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26229,17 +23608,15 @@ def steps(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecbe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecbe", style=style)
 
 
 def stethoscope(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26249,17 +23626,15 @@ def stethoscope(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7ea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7ea", style=style)
 
 
 def sticker(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26269,17 +23644,15 @@ def sticker(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5ac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5ac", style=style)
 
 
 def stool(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26289,17 +23662,15 @@ def stool(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea44", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea44", style=style)
 
 
 def stop(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26309,17 +23680,15 @@ def stop(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue46c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue46c", style=style)
 
 
 def stop_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26329,17 +23698,15 @@ def stop_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue46e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue46e", style=style)
 
 
 def storefront(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26349,17 +23716,15 @@ def storefront(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue470", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue470", style=style)
 
 
 def strategy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26369,17 +23734,15 @@ def strategy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea3a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea3a", style=style)
 
 
 def stripe_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26389,17 +23752,15 @@ def stripe_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue698", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue698", style=style)
 
 
 def student(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26409,17 +23770,15 @@ def student(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue73e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue73e", style=style)
 
 
 def subset_of(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26429,17 +23788,15 @@ def subset_of(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedc0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedc0", style=style)
 
 
 def subset_proper_of(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26449,17 +23806,15 @@ def subset_proper_of(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedb6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedb6", style=style)
 
 
 def subtitles(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26469,17 +23824,15 @@ def subtitles(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1a8", style=style)
 
 
 def subtitles_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26489,17 +23842,15 @@ def subtitles_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue1a6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue1a6", style=style)
 
 
 def subtract(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26509,17 +23860,15 @@ def subtract(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebd6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebd6", style=style)
 
 
 def subtract_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26529,17 +23878,15 @@ def subtract_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uebd4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uebd4", style=style)
 
 
 def subway(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26549,17 +23896,15 @@ def subway(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue498", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue498", style=style)
 
 
 def suitcase(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26569,17 +23914,15 @@ def suitcase(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5ae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5ae", style=style)
 
 
 def suitcase_rolling(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26589,17 +23932,15 @@ def suitcase_rolling(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9b0", style=style)
 
 
 def suitcase_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26609,17 +23950,15 @@ def suitcase_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5b0", style=style)
 
 
 def sun(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26629,17 +23968,15 @@ def sun(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue472", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue472", style=style)
 
 
 def sun_dim(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26649,17 +23986,15 @@ def sun_dim(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue474", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue474", style=style)
 
 
 def sun_horizon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26669,17 +24004,15 @@ def sun_horizon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5b6", style=style)
 
 
 def sunglasses(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26689,17 +24022,15 @@ def sunglasses(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue816", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue816", style=style)
 
 
 def superset_of(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26709,17 +24040,15 @@ def superset_of(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedb8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedb8", style=style)
 
 
 def superset_proper_of(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26729,17 +24058,15 @@ def superset_proper_of(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedb4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedb4", style=style)
 
 
 def swap(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26749,17 +24076,15 @@ def swap(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue83c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue83c", style=style)
 
 
 def swatches(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26769,17 +24094,15 @@ def swatches(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5b8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5b8", style=style)
 
 
 def swimming_pool(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26789,17 +24112,15 @@ def swimming_pool(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecb6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecb6", style=style)
 
 
 def sword(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26809,17 +24130,15 @@ def sword(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5ba", style=style)
 
 
 def synagogue(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26829,17 +24148,15 @@ def synagogue(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecec", style=style)
 
 
 def syringe(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26849,17 +24166,15 @@ def syringe(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue968", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue968", style=style)
 
 
 def t_shirt(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26869,17 +24184,15 @@ def t_shirt(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue670", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue670", style=style)
 
 
 def table(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26889,17 +24202,15 @@ def table(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue476", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue476", style=style)
 
 
 def tabs(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26909,17 +24220,15 @@ def tabs(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue778", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue778", style=style)
 
 
 def tag(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26929,17 +24238,15 @@ def tag(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue478", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue478", style=style)
 
 
 def tag_chevron(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26949,17 +24256,15 @@ def tag_chevron(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue672", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue672", style=style)
 
 
 def tag_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26969,17 +24274,15 @@ def tag_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue47a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue47a", style=style)
 
 
 def target(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26989,17 +24292,15 @@ def target(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue47c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue47c", style=style)
 
 
 def taxi(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27009,17 +24310,15 @@ def taxi(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue902", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue902", style=style)
 
 
 def tea_bag(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27029,17 +24328,15 @@ def tea_bag(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8e6", style=style)
 
 
 def telegram_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27049,17 +24346,15 @@ def telegram_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5bc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5bc", style=style)
 
 
 def television(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27069,17 +24364,15 @@ def television(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue754", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue754", style=style)
 
 
 def television_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27089,17 +24382,15 @@ def television_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueae6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueae6", style=style)
 
 
 def tennis_ball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27109,17 +24400,15 @@ def tennis_ball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue720", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue720", style=style)
 
 
 def tent(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27129,17 +24418,15 @@ def tent(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8ba", style=style)
 
 
 def terminal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27149,17 +24436,15 @@ def terminal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue47e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue47e", style=style)
 
 
 def terminal_window(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27169,17 +24454,15 @@ def terminal_window(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueae8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueae8", style=style)
 
 
 def test_tube(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27189,17 +24472,15 @@ def test_tube(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7a0", style=style)
 
 
 def text_a_underline(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27209,17 +24490,15 @@ def text_a_underline(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued34", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued34", style=style)
 
 
 def text_aa(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27229,17 +24508,15 @@ def text_aa(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6ee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6ee", style=style)
 
 
 def text_align_center(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27249,17 +24526,15 @@ def text_align_center(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue480", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue480", style=style)
 
 
 def text_align_justify(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27269,17 +24544,15 @@ def text_align_justify(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue482", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue482", style=style)
 
 
 def text_align_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27289,17 +24562,15 @@ def text_align_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue484", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue484", style=style)
 
 
 def text_align_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27309,17 +24580,15 @@ def text_align_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue486", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue486", style=style)
 
 
 def text_b(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27329,17 +24598,15 @@ def text_b(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5be", style=style)
 
 
 def text_bolder(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27349,17 +24616,15 @@ def text_bolder(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5be", style=style)
 
 
 def text_columns(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27369,17 +24634,15 @@ def text_columns(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec96", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec96", style=style)
 
 
 def text_h(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27389,17 +24652,15 @@ def text_h(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6ba", style=style)
 
 
 def text_h_five(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27409,17 +24670,15 @@ def text_h_five(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6c4", style=style)
 
 
 def text_h_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27429,17 +24688,15 @@ def text_h_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6c2", style=style)
 
 
 def text_h_one(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27449,17 +24706,15 @@ def text_h_one(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6bc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6bc", style=style)
 
 
 def text_h_six(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27469,17 +24724,15 @@ def text_h_six(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6c6", style=style)
 
 
 def text_h_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27489,17 +24742,15 @@ def text_h_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6c0", style=style)
 
 
 def text_h_two(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27509,17 +24760,15 @@ def text_h_two(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6be", style=style)
 
 
 def text_indent(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27529,17 +24778,15 @@ def text_indent(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea1e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea1e", style=style)
 
 
 def text_italic(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27549,17 +24796,15 @@ def text_italic(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5c0", style=style)
 
 
 def text_outdent(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27569,17 +24814,15 @@ def text_outdent(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea1c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea1c", style=style)
 
 
 def text_strikethrough(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27589,17 +24832,15 @@ def text_strikethrough(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5c2", style=style)
 
 
 def text_subscript(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27609,17 +24850,15 @@ def text_subscript(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec98", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec98", style=style)
 
 
 def text_superscript(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27629,17 +24868,15 @@ def text_superscript(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec9a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec9a", style=style)
 
 
 def text_t(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27649,17 +24886,15 @@ def text_t(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue48a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue48a", style=style)
 
 
 def text_t_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27669,17 +24904,15 @@ def text_t_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue488", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue488", style=style)
 
 
 def text_underline(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27689,17 +24922,15 @@ def text_underline(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5c4", style=style)
 
 
 def textbox(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27709,17 +24940,15 @@ def textbox(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueb0a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueb0a", style=style)
 
 
 def thermometer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27729,17 +24958,15 @@ def thermometer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5c6", style=style)
 
 
 def thermometer_cold(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27749,17 +24976,15 @@ def thermometer_cold(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5c8", style=style)
 
 
 def thermometer_hot(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27769,17 +24994,15 @@ def thermometer_hot(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5ca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5ca", style=style)
 
 
 def thermometer_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27789,17 +25012,15 @@ def thermometer_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5cc", style=style)
 
 
 def threads_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27809,17 +25030,15 @@ def threads_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued9e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued9e", style=style)
 
 
 def three_d(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27829,17 +25048,15 @@ def three_d(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea5a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea5a", style=style)
 
 
 def thumbs_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27849,17 +25066,15 @@ def thumbs_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue48c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue48c", style=style)
 
 
 def thumbs_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27869,17 +25084,15 @@ def thumbs_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue48e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue48e", style=style)
 
 
 def ticket(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27889,17 +25102,15 @@ def ticket(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue490", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue490", style=style)
 
 
 def tidal_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27909,17 +25120,15 @@ def tidal_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued1c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued1c", style=style)
 
 
 def tiktok_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27929,17 +25138,15 @@ def tiktok_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaf2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaf2", style=style)
 
 
 def tilde(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27949,17 +25156,15 @@ def tilde(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueda8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueda8", style=style)
 
 
 def timer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27969,17 +25174,15 @@ def timer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue492", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue492", style=style)
 
 
 def tip_jar(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27989,17 +25192,15 @@ def tip_jar(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7e2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7e2", style=style)
 
 
 def tipi(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28009,17 +25210,15 @@ def tipi(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued30", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued30", style=style)
 
 
 def tire(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28029,17 +25228,15 @@ def tire(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedd2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedd2", style=style)
 
 
 def toggle_left(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28049,17 +25246,15 @@ def toggle_left(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue674", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue674", style=style)
 
 
 def toggle_right(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28069,17 +25264,15 @@ def toggle_right(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue676", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue676", style=style)
 
 
 def toilet(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28089,17 +25282,15 @@ def toilet(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue79a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue79a", style=style)
 
 
 def toilet_paper(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28109,17 +25300,15 @@ def toilet_paper(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue79c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue79c", style=style)
 
 
 def toolbox(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28129,17 +25318,15 @@ def toolbox(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueca0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueca0", style=style)
 
 
 def tooth(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28149,17 +25336,15 @@ def tooth(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9cc", style=style)
 
 
 def tornado(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28169,17 +25354,15 @@ def tornado(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue88c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue88c", style=style)
 
 
 def tote(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28189,17 +25372,15 @@ def tote(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue494", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue494", style=style)
 
 
 def tote_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28209,17 +25390,15 @@ def tote_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue678", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue678", style=style)
 
 
 def towel(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28229,17 +25408,15 @@ def towel(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uede6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uede6", style=style)
 
 
 def tractor(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28249,17 +25426,15 @@ def tractor(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec6e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec6e", style=style)
 
 
 def trademark(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28269,17 +25444,15 @@ def trademark(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9f0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9f0", style=style)
 
 
 def trademark_registered(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28289,17 +25462,15 @@ def trademark_registered(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue3f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue3f4", style=style)
 
 
 def traffic_cone(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28309,17 +25480,15 @@ def traffic_cone(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9a8", style=style)
 
 
 def traffic_sign(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28329,17 +25498,15 @@ def traffic_sign(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue67a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue67a", style=style)
 
 
 def traffic_signal(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28349,17 +25516,15 @@ def traffic_signal(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9aa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9aa", style=style)
 
 
 def train(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28369,17 +25534,15 @@ def train(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue496", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue496", style=style)
 
 
 def train_regional(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28389,17 +25552,15 @@ def train_regional(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue49e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue49e", style=style)
 
 
 def train_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28409,17 +25570,15 @@ def train_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4a0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4a0", style=style)
 
 
 def tram(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28429,17 +25588,15 @@ def tram(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9ec", style=style)
 
 
 def translate(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28449,17 +25606,15 @@ def translate(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4a2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4a2", style=style)
 
 
 def trash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28469,17 +25624,15 @@ def trash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4a6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4a6", style=style)
 
 
 def trash_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28489,17 +25642,15 @@ def trash_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4a8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4a8", style=style)
 
 
 def tray(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28509,17 +25660,15 @@ def tray(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4aa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4aa", style=style)
 
 
 def tray_arrow_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28529,17 +25678,15 @@ def tray_arrow_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue010", style=style)
 
 
 def tray_arrow_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28549,17 +25696,15 @@ def tray_arrow_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee52", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee52", style=style)
 
 
 def treasure_chest(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28569,17 +25714,15 @@ def treasure_chest(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uede2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uede2", style=style)
 
 
 def tree(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28589,17 +25732,15 @@ def tree(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6da", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6da", style=style)
 
 
 def tree_evergreen(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28609,17 +25750,15 @@ def tree_evergreen(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6dc", style=style)
 
 
 def tree_palm(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28629,17 +25768,15 @@ def tree_palm(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue91a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue91a", style=style)
 
 
 def tree_structure(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28649,17 +25786,15 @@ def tree_structure(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue67c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue67c", style=style)
 
 
 def tree_view(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28669,17 +25804,15 @@ def tree_view(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee48", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee48", style=style)
 
 
 def trend_down(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28689,17 +25822,15 @@ def trend_down(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4ac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4ac", style=style)
 
 
 def trend_up(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28709,17 +25840,15 @@ def trend_up(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4ae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4ae", style=style)
 
 
 def triangle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28729,17 +25858,15 @@ def triangle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4b0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4b0", style=style)
 
 
 def triangle_dashed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28749,17 +25876,15 @@ def triangle_dashed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4b2", style=style)
 
 
 def trolley(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28769,17 +25894,15 @@ def trolley(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5b2", style=style)
 
 
 def trolley_suitcase(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28789,17 +25912,15 @@ def trolley_suitcase(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5b4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5b4", style=style)
 
 
 def trophy(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28809,17 +25930,15 @@ def trophy(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue67e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue67e", style=style)
 
 
 def truck(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28829,17 +25948,15 @@ def truck(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4b4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4b4", style=style)
 
 
 def truck_trailer(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28849,17 +25966,15 @@ def truck_trailer(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4b6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4b6", style=style)
 
 
 def tumblr_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28869,17 +25984,15 @@ def tumblr_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8d4", style=style)
 
 
 def twitch_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28889,17 +26002,15 @@ def twitch_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5ce", style=style)
 
 
 def twitter_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28909,17 +26020,15 @@ def twitter_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4ba", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4ba", style=style)
 
 
 def umbrella(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28929,17 +26038,15 @@ def umbrella(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue684", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue684", style=style)
 
 
 def umbrella_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28949,17 +26056,15 @@ def umbrella_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue686", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue686", style=style)
 
 
 def union(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28969,17 +26074,15 @@ def union(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedbe", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedbe", style=style)
 
 
 def unite(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28989,17 +26092,15 @@ def unite(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue87e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue87e", style=style)
 
 
 def unite_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29009,17 +26110,15 @@ def unite_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue878", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue878", style=style)
 
 
 def upload(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29029,17 +26128,15 @@ def upload(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4be", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4be", style=style)
 
 
 def upload_simple(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29049,17 +26146,15 @@ def upload_simple(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4c0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4c0", style=style)
 
 
 def usb(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29069,17 +26164,15 @@ def usb(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue956", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue956", style=style)
 
 
 def user(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29089,17 +26182,15 @@ def user(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4c2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4c2", style=style)
 
 
 def user_check(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29109,17 +26200,15 @@ def user_check(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueafa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueafa", style=style)
 
 
 def user_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29129,17 +26218,15 @@ def user_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4c4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4c4", style=style)
 
 
 def user_circle_check(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29149,17 +26236,15 @@ def user_circle_check(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec38", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec38", style=style)
 
 
 def user_circle_dashed(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29169,17 +26254,15 @@ def user_circle_dashed(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uec36", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uec36", style=style)
 
 
 def user_circle_gear(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29189,17 +26272,15 @@ def user_circle_gear(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4c6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4c6", style=style)
 
 
 def user_circle_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29209,17 +26290,15 @@ def user_circle_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4c8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4c8", style=style)
 
 
 def user_circle_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29229,17 +26308,15 @@ def user_circle_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4ca", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4ca", style=style)
 
 
 def user_focus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29249,17 +26326,15 @@ def user_focus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6fc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6fc", style=style)
 
 
 def user_gear(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29269,17 +26344,15 @@ def user_gear(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4cc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4cc", style=style)
 
 
 def user_list(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29289,17 +26362,15 @@ def user_list(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue73c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue73c", style=style)
 
 
 def user_minus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29309,17 +26380,15 @@ def user_minus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4ce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4ce", style=style)
 
 
 def user_plus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29329,17 +26398,15 @@ def user_plus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4d0", style=style)
 
 
 def user_rectangle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29349,17 +26416,15 @@ def user_rectangle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4d2", style=style)
 
 
 def user_sound(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29369,17 +26434,15 @@ def user_sound(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueca8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueca8", style=style)
 
 
 def user_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29389,17 +26452,15 @@ def user_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4d4", style=style)
 
 
 def user_switch(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29409,17 +26470,15 @@ def user_switch(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue756", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue756", style=style)
 
 
 def users(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29429,17 +26488,15 @@ def users(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4d6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4d6", style=style)
 
 
 def users_four(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29449,17 +26506,15 @@ def users_four(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue68c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue68c", style=style)
 
 
 def users_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29469,17 +26524,15 @@ def users_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue68e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue68e", style=style)
 
 
 def van(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29489,17 +26542,15 @@ def van(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue826", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue826", style=style)
 
 
 def vault(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29509,17 +26560,15 @@ def vault(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue76e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue76e", style=style)
 
 
 def vector_three(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29529,17 +26578,15 @@ def vector_three(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee62", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee62", style=style)
 
 
 def vector_two(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29549,17 +26596,15 @@ def vector_two(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee64", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee64", style=style)
 
 
 def vibrate(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29569,17 +26614,15 @@ def vibrate(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4d8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4d8", style=style)
 
 
 def video(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29589,17 +26632,15 @@ def video(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue740", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue740", style=style)
 
 
 def video_camera(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29609,17 +26650,15 @@ def video_camera(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4da", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4da", style=style)
 
 
 def video_camera_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29629,17 +26668,15 @@ def video_camera_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4dc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4dc", style=style)
 
 
 def video_conference(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29649,17 +26686,15 @@ def video_conference(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uedce", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uedce", style=style)
 
 
 def vignette(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29669,17 +26704,15 @@ def vignette(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueba2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueba2", style=style)
 
 
 def vinyl_record(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29689,17 +26722,15 @@ def vinyl_record(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecac", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecac", style=style)
 
 
 def virtual_reality(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29709,17 +26740,15 @@ def virtual_reality(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7b8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7b8", style=style)
 
 
 def virus(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29729,17 +26758,15 @@ def virus(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7d6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7d6", style=style)
 
 
 def visor(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29749,17 +26776,15 @@ def visor(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uee2a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uee2a", style=style)
 
 
 def voicemail(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29769,17 +26794,15 @@ def voicemail(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4de", style=style)
 
 
 def volleyball(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29789,17 +26812,15 @@ def volleyball(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue726", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue726", style=style)
 
 
 def wall(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29809,17 +26830,15 @@ def wall(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue688", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue688", style=style)
 
 
 def wallet(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29829,17 +26848,15 @@ def wallet(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue68a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue68a", style=style)
 
 
 def warehouse(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29849,17 +26866,15 @@ def warehouse(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecd4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecd4", style=style)
 
 
 def warning(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29869,17 +26884,15 @@ def warning(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4e0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4e0", style=style)
 
 
 def warning_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29889,17 +26902,15 @@ def warning_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4e2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4e2", style=style)
 
 
 def warning_diamond(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29909,17 +26920,15 @@ def warning_diamond(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue7fc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue7fc", style=style)
 
 
 def warning_octagon(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29929,17 +26938,15 @@ def warning_octagon(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4e4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4e4", style=style)
 
 
 def washing_machine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29949,17 +26956,15 @@ def washing_machine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uede8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uede8", style=style)
 
 
 def watch(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29969,17 +26974,15 @@ def watch(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4e6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4e6", style=style)
 
 
 def wave_sawtooth(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29989,17 +26992,15 @@ def wave_sawtooth(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea9c", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea9c", style=style)
 
 
 def wave_sine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30009,17 +27010,15 @@ def wave_sine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea9a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea9a", style=style)
 
 
 def wave_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30029,17 +27028,15 @@ def wave_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uea9e", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uea9e", style=style)
 
 
 def wave_triangle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30049,17 +27046,15 @@ def wave_triangle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ueaa0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ueaa0", style=style)
 
 
 def waveform(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30069,17 +27064,15 @@ def waveform(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue802", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue802", style=style)
 
 
 def waveform_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30089,17 +27082,15 @@ def waveform_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue800", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue800", style=style)
 
 
 def waves(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30109,17 +27100,15 @@ def waves(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6de", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6de", style=style)
 
 
 def webcam(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30129,17 +27118,15 @@ def webcam(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9b2", style=style)
 
 
 def webcam_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30149,17 +27136,15 @@ def webcam_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecdc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecdc", style=style)
 
 
 def webhooks_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30169,17 +27154,15 @@ def webhooks_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\uecae", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\uecae", style=style)
 
 
 def wechat_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30189,17 +27172,15 @@ def wechat_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue8d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue8d2", style=style)
 
 
 def whatsapp_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30209,17 +27190,15 @@ def whatsapp_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5d0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5d0", style=style)
 
 
 def wheelchair(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30229,17 +27208,15 @@ def wheelchair(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4e8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4e8", style=style)
 
 
 def wheelchair_motion(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30249,17 +27226,15 @@ def wheelchair_motion(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue89a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue89a", style=style)
 
 
 def wifi_high(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30269,17 +27244,15 @@ def wifi_high(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4ea", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4ea", style=style)
 
 
 def wifi_low(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30289,17 +27262,15 @@ def wifi_low(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4ec", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4ec", style=style)
 
 
 def wifi_medium(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30309,17 +27280,15 @@ def wifi_medium(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4ee", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4ee", style=style)
 
 
 def wifi_none(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30329,17 +27298,15 @@ def wifi_none(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4f0", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4f0", style=style)
 
 
 def wifi_slash(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30349,17 +27316,15 @@ def wifi_slash(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4f2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4f2", style=style)
 
 
 def wifi_x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30369,17 +27334,15 @@ def wifi_x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4f4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4f4", style=style)
 
 
 def wind(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30389,17 +27352,15 @@ def wind(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5d2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5d2", style=style)
 
 
 def windmill(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30409,17 +27370,15 @@ def windmill(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue9f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue9f8", style=style)
 
 
 def windows_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30429,17 +27388,15 @@ def windows_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue692", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue692", style=style)
 
 
 def wine(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30449,17 +27406,15 @@ def wine(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue6b2", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue6b2", style=style)
 
 
 def wrench(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30469,17 +27424,15 @@ def wrench(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue5d4", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue5d4", style=style)
 
 
 def x(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30489,17 +27442,15 @@ def x(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4f6", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4f6", style=style)
 
 
 def x_circle(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30509,17 +27460,15 @@ def x_circle(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4f8", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4f8", style=style)
 
 
 def x_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30529,17 +27478,15 @@ def x_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4bc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4bc", style=style)
 
 
 def x_square(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30549,17 +27496,15 @@ def x_square(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4fa", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4fa", style=style)
 
 
 def yarn(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30569,17 +27514,15 @@ def yarn(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ued9a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ued9a", style=style)
 
 
 def yin_yang(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30589,17 +27532,15 @@ def yin_yang(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue92a", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue92a", style=style)
 
 
 def youtube_logo(
     xy: Coordinate,
     width: PosFloat,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30609,8 +27550,7 @@ def youtube_logo(
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
             Default alignment is center, center.
         width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
         style: Style object (required).
 
     """
-    _write(xy=xy, width=width, code="\ue4fc", angle=angle, style=style)
+    _write(xy=xy, width=width, code="\ue4fc", style=style)

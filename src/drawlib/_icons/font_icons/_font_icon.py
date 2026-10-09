@@ -11,7 +11,7 @@
 
 from pydantic import validate_call
 
-from drawlib._core.l2_types import Angle, Coordinate, PosFloat
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_fonts import FontFile
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import get_fontsize_from_charwidth, text
@@ -24,7 +24,6 @@ def font_icon(
     width: PosFloat,
     code: str,
     file: str,
-    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -36,7 +35,6 @@ def font_icon(
         width: The width of the icon.
         code: The Unicode character or code point of the icon glyph to be drawn.
         file: The path to the font file.
-        angle: The rotation angle of the icon in degrees, ranging from 0.0 to 360.0. Defaults to 0.0.
         style: The style of the icon (required).
 
     """
@@ -57,4 +55,4 @@ def font_icon(
     )
 
     # draw icon as text
-    text(xy=xy, text=code, angle=angle, style=text_style)
+    text(xy=xy, text=code, style=text_style)

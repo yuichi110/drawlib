@@ -358,15 +358,14 @@
 <pre><code class="language-python"><span class="n">phosphor</span><span class="o">.&lt;</span><span class="n">icon_name</span><span class="o">&gt;</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <ul>
 <li><strong><code>xy</code></strong>: Center coordinate anchor point.</li>
 <li><strong><code>width</code></strong>: Width in virtual coordinate units (height scales proportionally to maintain a 1:1 aspect ratio).</li>
-<li><strong><code>angle</code></strong>: Counter-clockwise rotation angle.</li>
-<li><strong><code>style</code></strong>: Tint color and visual style.</li>
+<li><strong><code>style</code></strong>: Tint color, rotation (<code>angle</code>), alignment (<code>halign</code>/<code>valign</code>), and visual style.</li>
 </ul>
 <h3>The Five Typographic Weights</h3>
 <p>Phosphor icons support 5 distinct weights controlled via <code>Style(icon_style=&quot;...&quot;)</code>:</p>

@@ -26,7 +26,7 @@ circle((30, 5), radius=1.5, style=Styles.DangerFlat)
 text((30, 5), "Right-Aligned", style=Styles.DarkBold.patch(halign="right", valign="center"))
 
 # 2. Rotated text
-text((75, 25), "Rotated 45°", angle=45, style=Styles.DarkBold)
+text((75, 25), "Rotated 45°", style=Styles.DarkBold.patch(angle=45))
 
 # 3. Japanese Vertical text
 text_vertical((105, 40), "縦書き日本語", style=Styles.DarkBold)
@@ -44,15 +44,14 @@ save()
 text(
     xy: tuple[float, float],
     text: str,
-    angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style | None = None,
 )
 ```
 
 - **`xy`**: Coordinate anchor point `(x, y)`.
 - **`text`**: The string content. Use `\n` to insert line breaks.
-- **`angle`**: Counter-clockwise rotation angle around `xy`.
-- **`style`**: Text styling (color, font size, weight, alignment).
+- **`style`**: Text styling (color, font size, weight, alignment `halign`/`valign`, rotation `angle`).
 
 ### 2.2. Vertical CJK Text (`text_vertical`)
 

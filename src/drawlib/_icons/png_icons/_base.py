@@ -15,7 +15,7 @@ from pathlib import Path
 
 from pydantic import validate_call
 
-from drawlib._core.l2_types import Angle, Coordinate, PosFloat
+from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES, ReleaseAssetPackage, ensure_asset_available
@@ -84,7 +84,6 @@ class PngIconProvider:
         xy: Coordinate,
         width: PosFloat,
         name: str,
-        angle: Angle = 0.0,
         *,
         style: Style,
     ) -> None:
@@ -94,7 +93,6 @@ class PngIconProvider:
             xy: (x, y) coordinates of the icon center.
             width: Width of the icon.
             name: Base name of the icon file (without .png).
-            angle: Rotation angle in degrees (default 0.0).
             style: Style object (required).
         """
         if not isinstance(style, Style):
@@ -109,6 +107,5 @@ class PngIconProvider:
             xy=xy,
             width=width,
             image=abs_path,
-            angle=angle,
             style=applied_style,
         )

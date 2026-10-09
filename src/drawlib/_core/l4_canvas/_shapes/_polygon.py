@@ -52,7 +52,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         width: PosFloat,
         height: PosFloat,
         topvertex_x: float | None = None,
-        angle: Angle = 0.0,
         *,
         style: Style,
         text: str = "",
@@ -65,7 +64,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             width: Width of triangle.
             height: Height of triangle.
             topvertex_x: X-offset of top vertex relative to left edge.
-            angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
@@ -83,7 +81,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         self.shape(
             xy=xy,
             path_points=[p1, p2, p3],
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -96,7 +93,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         width: PosFloat,
         height: PosFloat,
         corner_angle: Angle90,
-        angle: Angle = 0.0,
         *,
         style: Style,
         text: str = "",
@@ -109,7 +105,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             width: Width of parallelogram.
             height: Height of parallelogram.
             corner_angle: Corner angle in degrees.
-            angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
@@ -132,7 +127,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         self.shape(
             xy=xy,
             path_points=[p1, p2, p3, p4],
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -146,7 +140,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         bottomedge_width: PosFloat,
         topedge_width: PosFloat,
         topedge_x: float | None = None,
-        angle: Angle = 0.0,
         *,
         style: Style,
         text: str = "",
@@ -160,7 +153,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             bottomedge_width: Width of bottom edge.
             topedge_width: Width of top edge.
             topedge_x: X-offset of top edge left vertex.
-            angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
@@ -180,7 +172,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         self.shape(
             xy=xy,
             path_points=[p1, p2, p3, p4],
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -192,7 +183,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         xy: Coordinate,
         width: PosFloat,
         height: PosFloat,
-        angle: Angle = 0.0,
         *,
         style: Style,
         text: str = "",
@@ -204,7 +194,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             xy: Center or bottom-left coordinate tuple (x, y).
             width: Horizontal diagonal length.
             height: Vertical diagonal length.
-            angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
@@ -222,7 +211,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         self.shape(
             xy=xy,
             path_points=[p1, p2, p3, p4],
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -236,7 +224,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         height: PosFloat,
         corner_angle: Angle90,
         mirror: bool = False,
-        angle: Angle = 0.0,
         *,
         style: Style,
         text: str = "",
@@ -250,7 +237,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             height: Height of chevron.
             corner_angle: Angle of the arrowhead point.
             mirror: Whether to mirror chevron horizontally.
-            angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
@@ -282,7 +268,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         self.shape(
             xy=xy,
             path_points=[p1, p2, p3, p4, p5, p6],
-            angle=angle,
             style=style,
             text=text,
             text_style=text_style,
@@ -295,7 +280,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
         num_vertex: NumVertex,
         radius_ext: PosFloat,
         radius_int: PosFloat,
-        angle: Angle = 0.0,
         *,
         style: Style,
         text: str = "",
@@ -308,7 +292,6 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             num_vertex: Number of star points.
             radius_ext: Outer radius of star points.
             radius_int: Inner radius of star points.
-            angle: Rotation angle in degrees.
             style: Style object.
             text: Text to display inside shape.
             text_style: Style object for text or None.
@@ -317,6 +300,7 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
             style,
             text_style,
         )
+        angle: Angle = style.angle if style.angle is not None else 0.0
 
         if radius_ext < radius_int:
             raise ValueError("radius_ext must be bigger than radius_int.")
@@ -353,10 +337,9 @@ class CanvasShapePolygonFeature(CanvasShapeBasicFeature):
 
         cx = x + width / 2
         cy = y + height / 2
-        effective_angle = angle if angle is not None else 0.0
         points2 = []
         for pp in points:
-            rx, ry = rotate_point(pp, angle=effective_angle)
+            rx, ry = rotate_point(pp, angle=angle)
             points2.append((rx + cx, ry + cy))
 
         # create Path
