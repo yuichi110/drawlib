@@ -45,38 +45,74 @@ Drawlib's unified component lifecycle (`add()` -> `draw()`) supports two clean l
 
 ---
 
-## 3. Primitives (`shapes`, `lines`, `text`, `icons`) & Smooth Color Transitions
+## 3. Primitives (`shapes`, `lines`, `text`, `icons`) — Coordinate & Color Interpolation
 
-When animating primitives (`rectangle`, `circle`, `line`, `text`, `phosphor`), compute per-frame coordinates, sizes, or colors and pass them to the drawing functions inside `with anim.frame():`.
+When animating primitives (`rectangle`, `circle`, `arrow`, `line`, `text`, `phosphor`), compute per-frame coordinates, sizes, or colors and pass them to the drawing functions inside `with anim.frame():`.
 
-### Smooth Color Interpolation (`get_intermediate_color` / `get_intermediate_colors`)
+### 3.1. Coordinate & Path Interpolation (`get_intermediate_points` / `get_intermediate_paths`)
+Drawlib provides pure coordinate and polyline-trajectory interpolation functions in `drawlib.math`:
+- `get_intermediate_point(xy1, xy2) -> tuple[float, float]`: Returns the exact 50% midpoint `(mx, my)`.
+- `get_intermediate_points(xy1, xy2, num=1, *, include_ends=False) -> list[tuple[float, float]]`: Returns `num` evenly spaced intermediate points between `xy1` and `xy2` (or `num + 2` points including `[xy1, ..., xy2]` when `include_ends=True`).
+- `get_intermediate_path_point(xys) -> tuple[float, float]`: Returns the 50% arc-length midpoint along a multi-point polyline `xys`.
+- `get_intermediate_path_points(xys, num=1, *, include_ends=False) -> list[tuple[float, float]]`: Returns `num` evenly spaced coordinates along the arc length of `xys` (for moving a packet/marker along an L- or U-shaped trajectory).
+- `get_intermediate_paths(xys, num=1, *, include_ends=False) -> list[list[tuple[float, float]]]`: Returns progressive prefix sub-paths `[(x0, y0), ..., (xt, yt)]` along `xys` (with full `xys` appended when `include_ends=True`), ready to pass directly to `lines()`, `lines_curved()`, or `arrow_polyline()`.
+
+Use `get_intermediate_points()` to animate moving packets (`circle(pt, ...)`) or progressively growing block arrows (`arrow(start_xy, pt, ...)`):
+
+```python
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.math import get_intermediate_points
+from drawlib.shapes import arrow, rectangle
+from drawlib.styles import Styles
+
+setup(width=100, height=40)
+anim = Animation(fps=10.0)
+
+start_xy, end_xy = (32, 20), (68, 20)
+tips = [*get_intermediate_points(start_xy, end_xy, num=5), end_xy]
+
+for i, tip_xy in enumerate(tips):
+    is_last = (i == len(tips) - 1)
+    with anim.frame(duration=2.0 if is_last else 0.12):
+        rectangle((20, 20), width=20, height=14, style=Styles.Neutral.patch(shape_r=2), text="Source")
+        dst_style = Styles.PrimaryFlat if is_last else Styles.Neutral
+        dst_text = Styles.WhiteBold if is_last else Styles.Dark
+        rectangle((80, 20), width=20, height=14, style=dst_style.patch(shape_r=2), text="Target", text_style=dst_text)
+        arrow(start_xy, tip_xy, tail_width=2.5, head_width=6.0, head_length=4.5, style=Styles.PrimaryFlat)
+
+save("growing_arrow.png")
+```
+
+### 3.2. Smooth Color Interpolation (`get_intermediate_color` / `get_intermediate_colors`)
 Drawlib provides pure functions in `drawlib.styles` (and `drawlib.preset_colors`) to compute intermediate `Color` objects between any two colors (`Color`, RGB/RGBA tuple, or hex string):
 - `get_intermediate_color(color1, color2) -> Color`: Returns the exact 50% midpoint color.
 - `get_intermediate_colors(color1, color2, num=1, *, include_ends=False) -> list[Color]`: Returns `num` evenly spaced intermediate colors. Pass `include_ends=True` to include `[color1, ..., color2]` (`num + 2` colors total) for direct iteration in an animation loop.
 
-Combine `get_intermediate_colors(..., include_ends=True)` with `Style.patch(shape_fill_color=c)` to create smooth highlight or fade transitions:
+Combine `get_intermediate_points()` and `get_intermediate_colors(..., include_ends=True)` with `Style.patch(shape_fill_color=c)` to create multi-phase motion and highlight transitions:
 
 ```python
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line
+from drawlib.math import get_intermediate_points
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Colors, Styles, get_intermediate_colors
 
 setup(width=100, height=40)
 anim = Animation(fps=10.0)
 
-# Pre-calculate packet X coordinates and receiver color fade sequence
-packet_xs = [25, 38, 52, 65, 75]
+# Pre-calculate packet waypoints and receiver color fade sequence
+packet_pts = get_intermediate_points((25, 20), (75, 20), num=3, include_ends=True)
 fade_colors = get_intermediate_colors(Colors.White, Colors.Primary, num=2, include_ends=True)
 
 # Phase 1: Packet travels from Sender to Receiver
-for pkt_x in packet_xs:
+for pkt_xy in packet_pts:
     with anim.frame():
         rectangle((20, 20), width=20, height=14, style=Styles.Neutral, text="Sender")
         rectangle((80, 20), width=20, height=14, style=Styles.Neutral, text="Receiver")
         line((30, 20), (70, 20), style=Styles.MutedDashed, arrow_head="->")
-        circle((pkt_x, 20), radius=2.5, style=Styles.PrimaryFlat)
+        circle(pkt_xy, radius=2.5, style=Styles.PrimaryFlat)
 
 # Phase 2: Receiver smoothly transitions from White to Primary
 for i, bg_color in enumerate(fade_colors):

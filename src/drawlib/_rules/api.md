@@ -61,7 +61,16 @@ from drawlib.images import Dimage, get_dimage_from_code, image
 from drawlib.fonts import Font, FontFile, get_font, list_fonts, list_system_fonts
 
 # 8. Geometry & Math
-from drawlib.math import get_angle, get_center_and_size, get_distance
+from drawlib.math import (
+    get_angle,
+    get_center_and_size,
+    get_distance,
+    get_intermediate_path_point,
+    get_intermediate_path_points,
+    get_intermediate_paths,
+    get_intermediate_point,
+    get_intermediate_points,
+)
 
 # 9. Animations (APNG & Animated WebP)
 from drawlib.anim import Animation
@@ -592,6 +601,11 @@ Helper functions to eliminate manual trigonometry:
 | `get_distance(xy1, xy2)` | `(xy1, xy2) -> float` | Distance `d` | Euclidean distance between two points. |
 | `get_angle(xy1, xy2)` | `(xy1, xy2) -> float` | Degrees `0.0 - 360.0` | Direction angle from `xy1` to `xy2`. |
 | `get_center_and_size(points)`| `(points) -> tuple[center, size]` | `((cx, cy), (w, h))` | Bounding box center and dimensions from point list. |
+| `get_intermediate_point(xy1, xy2)` | `(xy1, xy2) -> tuple[float, float]` | `(mx, my)` | Exact 50% midpoint between `xy1` and `xy2`. |
+| `get_intermediate_points(xy1, xy2, ...)` | `(xy1, xy2, num=1, *, include_ends=False) -> list[tuple[float, float]]` | `[(x, y), ...]` | `num` evenly spaced points between `xy1` and `xy2` (or `num + 2` when `include_ends=True`). |
+| `get_intermediate_path_point(xys)` | `(xys) -> tuple[float, float]` | `(mx, my)` | 50% arc-length midpoint along a multi-point polyline trajectory `xys`. |
+| `get_intermediate_path_points(xys, ...)` | `(xys, num=1, *, include_ends=False) -> list[tuple[float, float]]` | `[(x, y), ...]` | `num` evenly spaced points along the arc length of `xys` (or `num + 2` with endpoints). |
+| `get_intermediate_paths(xys, ...)` | `(xys, num=1, *, include_ends=False) -> list[list[tuple[float, float]]]` | `[[p0, ..., pt], ...]` | Progressive prefix sub-paths along `xys` (with full `xys` appended when `include_ends=True`). |
 
 ---
 

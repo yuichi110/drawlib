@@ -10,9 +10,14 @@ All public math utilities are imported from `drawlib.math`:
 
 ```python
 from drawlib.math import (
-    get_angle,            # Calculate angle in degrees from point A to point B
-    get_center_and_size,  # Compute center coordinates and bounding box dimensions
-    get_distance,         # Compute Euclidean distance between two points
+    get_angle,                     # Calculate angle in degrees from point A to point B
+    get_center_and_size,           # Compute center coordinates and bounding box dimensions
+    get_distance,                  # Compute Euclidean distance between two points
+    get_intermediate_path_point,   # Compute 50% arc-length midpoint along a polyline path
+    get_intermediate_path_points,  # Compute evenly spaced points along a polyline path
+    get_intermediate_paths,        # Compute progressive partial sub-paths along a polyline
+    get_intermediate_point,        # Compute the 50% midpoint between two points
+    get_intermediate_points,       # Compute evenly spaced points along a segment
 )
 ```
 
@@ -38,6 +43,18 @@ Calculates the Euclidean distance $\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$ between
 Computes the geometric midpoint and outer bounding box dimensions for an arbitrary collection of coordinates:
 - **Returns**: `((center_x, center_y), (width, height))`.
 - **Primary Use Case**: Dynamically enclosing multiple service nodes inside an automated background container rectangle with uniform padding.
+
+### 2.4 `get_intermediate_point(xy1, xy2)` & `get_intermediate_points(xy1, xy2, num=1, *, include_ends=False)`
+Computes linearly interpolated coordinates between `xy1` and `xy2`:
+- **`get_intermediate_point(xy1, xy2) -> tuple[float, float]`**: Returns the exact 50% midpoint `(mx, my)`.
+- **`get_intermediate_points(xy1, xy2, num=1, *, include_ends=False) -> list[tuple[float, float]]`**: Returns `num` evenly spaced intermediate points (or `num + 2` points including `xy1` and `xy2` when `include_ends=True`).
+- **Primary Use Case**: Animating moving packets or progressively extending block arrows (`arrow(xy1, pt, ...)`) and lines across frames.
+
+### 2.5 `get_intermediate_path_point(xys)`, `get_intermediate_path_points(xys, ...)` & `get_intermediate_paths(xys, ...)`
+Computes trajectory-aware intermediate points and progressive prefix sub-paths along a multi-point polyline `xys` (such as L-shaped or U-shaped routes):
+- **`get_intermediate_path_point(xys) -> tuple[float, float]`**: Returns the coordinate at 50% of the total arc length along `xys` (e.g., the center of the bottom bar of a U-shaped path).
+- **`get_intermediate_path_points(xys, num=1, *, include_ends=False) -> list[tuple[float, float]]`**: Returns `num` evenly spaced `(x, y)` coordinates along the trajectory of `xys` (or `num + 2` points with `include_ends=True`).
+- **`get_intermediate_paths(xys, num=1, *, include_ends=False) -> list[list[tuple[float, float]]]`**: Returns `num` progressive partial coordinate lists `[(x0, y0), ..., (xt, yt)]` starting at `xys[0]`, passing through all corners reached so far, and ending at the step's tip (plus the full `xys` at the end when `include_ends=True`). Ideal for growing `lines()`, `lines_curved()`, or `arrow_polyline()` along L/U trajectories.
 
 ---
 

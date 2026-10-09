@@ -343,9 +343,14 @@
 <h2>1. Imports &amp; Core Functions</h2>
 <p>All public math utilities are imported from <code>drawlib.math</code>:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.math</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">get_angle</span><span class="p">,</span>            <span class="c1"># Calculate angle in degrees from point A to point B</span>
-    <span class="n">get_center_and_size</span><span class="p">,</span>  <span class="c1"># Compute center coordinates and bounding box dimensions</span>
-    <span class="n">get_distance</span><span class="p">,</span>         <span class="c1"># Compute Euclidean distance between two points</span>
+    <span class="n">get_angle</span><span class="p">,</span>                     <span class="c1"># Calculate angle in degrees from point A to point B</span>
+    <span class="n">get_center_and_size</span><span class="p">,</span>           <span class="c1"># Compute center coordinates and bounding box dimensions</span>
+    <span class="n">get_distance</span><span class="p">,</span>                  <span class="c1"># Compute Euclidean distance between two points</span>
+    <span class="n">get_intermediate_path_point</span><span class="p">,</span>   <span class="c1"># Compute 50% arc-length midpoint along a polyline path</span>
+    <span class="n">get_intermediate_path_points</span><span class="p">,</span>  <span class="c1"># Compute evenly spaced points along a polyline path</span>
+    <span class="n">get_intermediate_paths</span><span class="p">,</span>        <span class="c1"># Compute progressive partial sub-paths along a polyline</span>
+    <span class="n">get_intermediate_point</span><span class="p">,</span>        <span class="c1"># Compute the 50% midpoint between two points</span>
+    <span class="n">get_intermediate_points</span><span class="p">,</span>       <span class="c1"># Compute evenly spaced points along a segment</span>
 <span class="p">)</span>
 </code></pre>
 <hr />
@@ -374,6 +379,20 @@
 <ul>
 <li><strong>Returns</strong>: <code>((center_x, center_y), (width, height))</code>.</li>
 <li><strong>Primary Use Case</strong>: Dynamically enclosing multiple service nodes inside an automated background container rectangle with uniform padding.</li>
+</ul>
+<h3>2.4 <code>get_intermediate_point(xy1, xy2)</code> &amp; <code>get_intermediate_points(xy1, xy2, num=1, *, include_ends=False)</code></h3>
+<p>Computes linearly interpolated coordinates between <code>xy1</code> and <code>xy2</code>:</p>
+<ul>
+<li><strong><code>get_intermediate_point(xy1, xy2) -&gt; tuple[float, float]</code></strong>: Returns the exact 50% midpoint <code>(mx, my)</code>.</li>
+<li><strong><code>get_intermediate_points(xy1, xy2, num=1, *, include_ends=False) -&gt; list[tuple[float, float]]</code></strong>: Returns <code>num</code> evenly spaced intermediate points (or <code>num + 2</code> points including <code>xy1</code> and <code>xy2</code> when <code>include_ends=True</code>).</li>
+<li><strong>Primary Use Case</strong>: Animating moving packets or progressively extending block arrows (<code>arrow(xy1, pt, ...)</code>) and lines across frames.</li>
+</ul>
+<h3>2.5 <code>get_intermediate_path_point(xys)</code>, <code>get_intermediate_path_points(xys, ...)</code> &amp; <code>get_intermediate_paths(xys, ...)</code></h3>
+<p>Computes trajectory-aware intermediate points and progressive prefix sub-paths along a multi-point polyline <code>xys</code> (such as L-shaped or U-shaped routes):</p>
+<ul>
+<li><strong><code>get_intermediate_path_point(xys) -&gt; tuple[float, float]</code></strong>: Returns the coordinate at 50% of the total arc length along <code>xys</code> (e.g., the center of the bottom bar of a U-shaped path).</li>
+<li><strong><code>get_intermediate_path_points(xys, num=1, *, include_ends=False) -&gt; list[tuple[float, float]]</code></strong>: Returns <code>num</code> evenly spaced <code>(x, y)</code> coordinates along the trajectory of <code>xys</code> (or <code>num + 2</code> points with <code>include_ends=True</code>).</li>
+<li><strong><code>get_intermediate_paths(xys, num=1, *, include_ends=False) -&gt; list[list[tuple[float, float]]]</code></strong>: Returns <code>num</code> progressive partial coordinate lists <code>[(x0, y0), ..., (xt, yt)]</code> starting at <code>xys[0]</code>, passing through all corners reached so far, and ending at the step's tip (plus the full <code>xys</code> at the end when <code>include_ends=True</code>). Ideal for growing <code>lines()</code>, <code>lines_curved()</code>, or <code>arrow_polyline()</code> along L/U trajectories.</li>
 </ul>
 <hr />
 <h2>3. Dynamic Automated Grouping Box</h2>

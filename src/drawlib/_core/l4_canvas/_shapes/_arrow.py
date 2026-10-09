@@ -92,6 +92,10 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
 
         # arrow_tail_external_rectangle. left-bottom -> left-top ...
         distance = get_distance(xy1, xy2)
+        if distance <= 1e-9:
+            return
+        max_head_len = distance / 2.0 if head == "<->" else distance
+        head_length = min(head_length, max_head_len)
         p11 = (0, head_width / 2 - tail_width / 2)
         p12 = (0, head_width / 2 + tail_width / 2)
         p13 = (distance, head_width / 2 + tail_width / 2)
@@ -176,13 +180,25 @@ class CanvasShapeArrowFeature(CanvasShapeBasicFeature):
             return new_point
 
         xys = LineUtil.sanitize_xys(xys)
+        if len(xys) < 2:
+            raise ValueError("xys must contain at least 2 distinct points.")
+
+        first_seg_len = math.hypot(xys[1][0] - xys[0][0], xys[1][1] - xys[0][1])
+        last_seg_len = math.hypot(xys[-1][0] - xys[-2][0], xys[-1][1] - xys[-2][1])
+        if len(xys) == 2 and head == "<->":
+            eff_start_hl = min(float(head_length), first_seg_len * 0.45)
+            eff_end_hl = min(float(head_length), last_seg_len * 0.45)
+        else:
+            eff_start_hl = min(float(head_length), first_seg_len * 0.9)
+            eff_end_hl = min(float(head_length), last_seg_len * 0.9)
+
         if head in {"<-", "<->"}:
-            xys_start = point_on_line(xys[0], xys[1], head_length)
+            xys_start = point_on_line(xys[0], xys[1], eff_start_hl)
         else:
             xys_start = xys[0]
 
         if head in {"->", "<->"}:
-            xys_end = point_on_line(xys[-1], xys[-2], head_length)
+            xys_end = point_on_line(xys[-1], xys[-2], eff_end_hl)
         else:
             xys_end = xys[-1]
 
@@ -553,13 +569,19 @@ class ArrowPolylineHelper:
 
         self._r = max(radii)
         points: Coordinates = [xys[0]]
+        last_joint_idx = len(xys) - 2
         for i in range(1, len(xys) - 1):
             r_joint = radii[i - 1]
-            if r_joint <= 0.0:
+            prev_dist = math.hypot(xys[i][0] - xys[i - 1][0], xys[i][1] - xys[i - 1][1])
+            next_dist = math.hypot(xys[i + 1][0] - xys[i][0], xys[i + 1][1] - xys[i][1])
+            max_prev = prev_dist * (0.9 if i == 1 else 0.49)
+            max_next = next_dist * (0.9 if i == last_joint_idx else 0.49)
+            eff_r = min(r_joint, max_prev, max_next)
+            if eff_r <= 0.0:
                 points.append(xys[i])
             else:
-                _, p_in = get_mid_points(xys[i - 1], xys[i], r_joint)
-                p_out, _ = get_mid_points(xys[i], xys[i + 1], r_joint)
+                _, p_in = get_mid_points(xys[i - 1], xys[i], eff_r)
+                p_out, _ = get_mid_points(xys[i], xys[i + 1], eff_r)
                 bezier_points = [p_in, xys[i], p_out]
                 points.extend(get_points(bezier_points))
         points.append(xys[-1])

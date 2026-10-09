@@ -26,6 +26,11 @@ from drawlib._core.l3_math import (
     get_angle,
     get_center_and_size,
     get_distance,
+    get_intermediate_path_point,
+    get_intermediate_path_points,
+    get_intermediate_paths,
+    get_intermediate_point,
+    get_intermediate_points,
     get_point_on_ellipse,
     get_rotated_path_points,
     get_rotated_points,
@@ -33,10 +38,94 @@ from drawlib._core.l3_math import (
     plus_2points,
     rotate_point,
 )
+from drawlib.canvas import clear
+from drawlib.shapes import arrow_polyline
+from drawlib.styles import Styles
 
 
 class TestGeometryMath:
     """Unit tests for geometric transformations and point arithmetic."""
+
+    def test_get_intermediate_point_and_points(self) -> None:
+        mid = get_intermediate_point((10.0, 20.0), (30.0, 60.0))
+        assert mid == (20.0, 40.0)
+
+        pts = get_intermediate_points((0.0, 0.0), (40.0, 80.0), num=3, include_ends=False)
+        assert pts == [(10.0, 20.0), (20.0, 40.0), (30.0, 60.0)]
+
+        pts_ends = get_intermediate_points((0.0, 0.0), (40.0, 80.0), num=3, include_ends=True)
+        assert pts_ends == [(0.0, 0.0), (10.0, 20.0), (20.0, 40.0), (30.0, 60.0), (40.0, 80.0)]
+
+        with pytest.raises(ValueError, match="num must be >= 1"):
+            get_intermediate_points((0.0, 0.0), (10.0, 10.0), num=0)
+
+    def test_get_intermediate_path_point_and_points(self) -> None:
+        # U-shaped path: seg0=60, seg1=80, seg2=60 -> total=200
+        u_path = [(10.0, 80.0), (10.0, 20.0), (90.0, 20.0), (90.0, 80.0)]
+
+        # 50% along path is at distance 100 -> midpoint of bottom bar (50, 20)
+        mid = get_intermediate_path_point(u_path)
+        assert mid == (50.0, 20.0)
+
+        # num=3 -> 25% (dist 50), 50% (dist 100), 75% (dist 150)
+        pts = get_intermediate_path_points(u_path, num=3, include_ends=False)
+        assert pts == [(10.0, 30.0), (50.0, 20.0), (90.0, 30.0)]
+
+        pts_ends = get_intermediate_path_points(u_path, num=3, include_ends=True)
+        assert pts_ends == [
+            (10.0, 80.0),
+            (10.0, 30.0),
+            (50.0, 20.0),
+            (90.0, 30.0),
+            (90.0, 80.0),
+        ]
+
+        # Degenerate zero-length path
+        assert get_intermediate_path_point([(5.0, 5.0), (5.0, 5.0)]) == (5.0, 5.0)
+
+        with pytest.raises(ValueError, match="at least 2 points"):
+            get_intermediate_path_point([(10.0, 20.0)])
+
+        with pytest.raises(ValueError, match="num must be >= 1"):
+            get_intermediate_path_points(u_path, num=0)
+
+    def test_get_intermediate_paths(self) -> None:
+        u_path = [(10.0, 80.0), (10.0, 20.0), (90.0, 20.0), (90.0, 80.0)]
+        sub_paths = get_intermediate_paths(u_path, num=3, include_ends=False)
+        assert sub_paths == [
+            [(10.0, 80.0), (10.0, 30.0)],
+            [(10.0, 80.0), (10.0, 20.0), (50.0, 20.0)],
+            [(10.0, 80.0), (10.0, 20.0), (90.0, 20.0), (90.0, 30.0)],
+        ]
+
+        sub_paths_ends = get_intermediate_paths(u_path, num=3, include_ends=True)
+        assert len(sub_paths_ends) == 4
+        assert sub_paths_ends[-1] == u_path
+
+        # Corner-exact hit: L-path with equal legs (10 + 10 = 20), num=1 (t=0.5 -> dist 10)
+        l_path = [(0.0, 10.0), (0.0, 0.0), (10.0, 0.0)]
+        l_subs = get_intermediate_paths(l_path, num=1)
+        assert l_subs == [[(0.0, 10.0), (0.0, 0.0)]]
+
+    def test_get_intermediate_paths_with_arrow_polyline(self) -> None:
+        clear()
+        u_path = [(20.0, 75.0), (20.0, 25.0), (80.0, 25.0), (80.0, 75.0)]
+        for sub_xys in get_intermediate_paths(u_path, num=20, include_ends=True):
+            arrow_polyline(
+                sub_xys,
+                tail_width=2.5,
+                head_width=6.0,
+                head_length=6.0,
+                style=Styles.PrimaryFlat.patch(shape_r=8.0),
+            )
+            arrow_polyline(
+                sub_xys,
+                tail_width=2.5,
+                head_width=6.0,
+                head_length=6.0,
+                head="<->",
+                style=Styles.PrimaryFlat.patch(shape_r=8.0),
+            )
 
     def test_rotate_point_origin(self) -> None:
         # Rotating (1, 0) by 90 degrees around origin -> (0, 1)
@@ -114,6 +203,11 @@ class TestGeometryMath:
         assert callable(dmath.get_angle)
         assert callable(dmath.get_distance)
         assert callable(dmath.get_center_and_size)
+        assert callable(dmath.get_intermediate_point)
+        assert callable(dmath.get_intermediate_points)
+        assert callable(dmath.get_intermediate_path_point)
+        assert callable(dmath.get_intermediate_path_points)
+        assert callable(dmath.get_intermediate_paths)
 
 
 class TestOrthogonalRouting:

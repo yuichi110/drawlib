@@ -14,6 +14,8 @@ from __future__ import annotations
 import math
 from typing import cast
 
+from pydantic import validate_call
+
 from drawlib._core.l2_types import (
     Angle,
     Bezier2,
@@ -22,6 +24,227 @@ from drawlib._core.l2_types import (
     Coordinates,
     PathPoints,
 )
+
+
+@validate_call
+def get_intermediate_points(
+    xy1: Coordinate,
+    xy2: Coordinate,
+    num: int = 1,
+    *,
+    include_ends: bool = False,
+) -> Coordinates:
+    """Calculate a sequence of evenly spaced intermediate points between two coordinates.
+
+    Divides the linear segment from ``xy1`` to ``xy2`` into ``num + 1`` equal
+    intervals and returns the ``num`` interior intermediate coordinates (or ``num + 2``
+    coordinates including ``xy1`` and ``xy2`` when ``include_ends=True``).
+
+    Args:
+        xy1: Starting coordinate tuple (x1, y1).
+        xy2: Ending coordinate tuple (x2, y2).
+        num: Number of intermediate points to generate (must be >= 1). Defaults to 1.
+        include_ends: If True, includes ``xy1`` at the start and ``xy2`` at the
+            end of the returned list. Defaults to False.
+
+    Returns:
+        list[tuple[float, float]]: List of interpolated (x, y) coordinates.
+
+    Raises:
+        ValueError: If ``num`` is less than 1.
+    """
+    if num < 1:
+        raise ValueError(f"num must be >= 1, got {num}.")
+
+    p1 = (float(xy1[0]), float(xy1[1]))
+    p2 = (float(xy2[0]), float(xy2[1]))
+
+    steps = num + 1
+    mids: Coordinates = []
+    for i in range(1, num + 1):
+        t = i / steps
+        x = p1[0] + (p2[0] - p1[0]) * t
+        y = p1[1] + (p2[1] - p1[1]) * t
+        mids.append((x, y))
+
+    if include_ends:
+        return [p1, *mids, p2]
+    return mids
+
+
+@validate_call
+def get_intermediate_point(
+    xy1: Coordinate,
+    xy2: Coordinate,
+) -> Coordinate:
+    """Calculate the midpoint (50%) intermediate point between two coordinates.
+
+    This is a convenience wrapper around ``get_intermediate_points(xy1, xy2, num=1)[0]``.
+
+    Args:
+        xy1: First coordinate tuple (x1, y1).
+        xy2: Second coordinate tuple (x2, y2).
+
+    Returns:
+        tuple[float, float]: The midpoint interpolated (x, y) coordinate.
+    """
+    return get_intermediate_points(xy1, xy2, num=1, include_ends=False)[0]
+
+
+def _prepare_path_segments(
+    xys: Coordinates,
+    num: int,
+) -> tuple[Coordinates, list[float], float]:
+    """Validate path vertices and precalculate segment lengths."""
+    if len(xys) < 2:
+        raise ValueError(f"xys must contain at least 2 points, got {len(xys)}.")
+    if num < 1:
+        raise ValueError(f"num must be >= 1, got {num}.")
+
+    pts: Coordinates = [(float(pt[0]), float(pt[1])) for pt in xys]
+    seg_lengths = [
+        math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1])
+        for i in range(len(pts) - 1)
+    ]
+    total_length = sum(seg_lengths)
+    return pts, seg_lengths, total_length
+
+
+def _sample_path_at_ratio(
+    pts: Coordinates,
+    seg_lengths: list[float],
+    total_length: float,
+    t: float,
+) -> tuple[Coordinate, Coordinates]:
+    """Sample a point and prefix sub-path at arc-length ratio t in [0, 1]."""
+    if total_length == 0.0:
+        return pts[0], [pts[0], pts[-1]]
+
+    target_dist = t * total_length
+    acc = 0.0
+
+    for i, seg_len in enumerate(seg_lengths):
+        if seg_len == 0.0:
+            continue
+        is_last = i == len(seg_lengths) - 1
+        if acc + seg_len >= target_dist or is_last:
+            local_t = max(0.0, min(1.0, (target_dist - acc) / seg_len))
+            p_start = pts[i]
+            p_end = pts[i + 1]
+            pt: Coordinate = (
+                p_start[0] + (p_end[0] - p_start[0]) * local_t,
+                p_start[1] + (p_end[1] - p_start[1]) * local_t,
+            )
+            prefix: Coordinates = list(pts[: i + 1])
+            is_duplicate_last = (
+                math.isclose(pt[0], prefix[-1][0], abs_tol=1e-9)
+                and math.isclose(pt[1], prefix[-1][1], abs_tol=1e-9)
+            )
+            if not is_duplicate_last or len(prefix) == 1:
+                prefix.append(pt)
+            return pt, prefix
+        acc += seg_len
+
+    return pts[-1], list(pts)
+
+
+@validate_call
+def get_intermediate_path_points(
+    xys: Coordinates,
+    num: int = 1,
+    *,
+    include_ends: bool = False,
+) -> Coordinates:
+    """Calculate evenly spaced intermediate points along a multi-point path trajectory.
+
+    Measures the total arc length across all consecutive segments of ``xys`` and
+    divides the trajectory into ``num + 1`` equal-distance intervals.
+
+    Args:
+        xys: Sequence of 2 or more (x, y) coordinates defining the polyline path.
+        num: Number of interior intermediate points to generate (must be >= 1).
+            Defaults to 1.
+        include_ends: If True, includes the start point ``xys[0]`` at the beginning
+            and the end point ``xys[-1]`` at the end of the returned list.
+            Defaults to False.
+
+    Returns:
+        list[tuple[float, float]]: List of interpolated (x, y) coordinates along the path.
+
+    Raises:
+        ValueError: If ``xys`` has fewer than 2 points or ``num`` is less than 1.
+    """
+    pts, seg_lengths, total_length = _prepare_path_segments(xys, num)
+    steps = num + 1
+    mids: Coordinates = []
+    for i in range(1, num + 1):
+        pt, _ = _sample_path_at_ratio(pts, seg_lengths, total_length, i / steps)
+        mids.append(pt)
+
+    if include_ends:
+        return [pts[0], *mids, pts[-1]]
+    return mids
+
+
+@validate_call
+def get_intermediate_path_point(
+    xys: Coordinates,
+) -> Coordinate:
+    """Calculate the 50% arc-length midpoint along a multi-point path trajectory.
+
+    This is a convenience wrapper around ``get_intermediate_path_points(xys, num=1)[0]``.
+
+    Args:
+        xys: Sequence of 2 or more (x, y) coordinates defining the polyline path.
+
+    Returns:
+        tuple[float, float]: The (x, y) coordinate halfway along the path's total length.
+
+    Raises:
+        ValueError: If ``xys`` has fewer than 2 points.
+    """
+    return get_intermediate_path_points(xys, num=1, include_ends=False)[0]
+
+
+@validate_call
+def get_intermediate_paths(
+    xys: Coordinates,
+    num: int = 1,
+    *,
+    include_ends: bool = False,
+) -> list[Coordinates]:
+    """Calculate progressive prefix sub-paths along a multi-point path trajectory.
+
+    Divides the total arc length of ``xys`` into ``num + 1`` equal-distance intervals
+    and returns for each step the partial polyline starting at ``xys[0]``, passing
+    through all intermediate corners reached so far, and ending at the current
+    interpolated tip point.
+
+    Args:
+        xys: Sequence of 2 or more (x, y) coordinates defining the polyline path.
+        num: Number of intermediate partial paths to generate (must be >= 1).
+            Defaults to 1.
+        include_ends: If True, appends the complete path ``xys`` as the final element
+            of the returned list. Every returned path is guaranteed to contain at
+            least 2 coordinates so it can be passed directly to ``lines()``,
+            ``lines_curved()``, or ``arrow_polyline()``. Defaults to False.
+
+    Returns:
+        list[list[tuple[float, float]]]: List of progressive partial coordinate lists.
+
+    Raises:
+        ValueError: If ``xys`` has fewer than 2 points or ``num`` is less than 1.
+    """
+    pts, seg_lengths, total_length = _prepare_path_segments(xys, num)
+    steps = num + 1
+    sub_paths: list[Coordinates] = []
+    for i in range(1, num + 1):
+        _, prefix = _sample_path_at_ratio(pts, seg_lengths, total_length, i / steps)
+        sub_paths.append(prefix)
+
+    if include_ends:
+        sub_paths.append(list(pts))
+    return sub_paths
 
 
 def rotate_point(

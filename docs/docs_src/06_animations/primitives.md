@@ -4,14 +4,119 @@ Low-level drawing primitives (`drawlib.shapes`, `drawlib.lines`, `drawlib.text`,
 
 ---
 
-## 1. Moving & Scaling Primitives Across Frames
+## 1. Coordinate & Path Interpolation (`get_intermediate_points` & `get_intermediate_paths`)
 
-Hoist static configuration (canvas dimensions, node coordinates, and trajectory lists) outside the loop, and redraw the scene at each step inside `with anim.frame():`:
+To move shapes or progressively extend block arrows and polylines along straight segments or multi-point trajectories (such as L-shaped or U-shaped paths), use the pure coordinate and path interpolation helpers in `drawlib.math`:
+
+```python
+from drawlib.math import (
+    get_intermediate_path_point,
+    get_intermediate_path_points,
+    get_intermediate_paths,
+    get_intermediate_point,
+    get_intermediate_points,
+)
+```
+
+| Function | Signature | Description |
+| :--- | :--- | :--- |
+| **`get_intermediate_point`** | `(xy1: Coordinate, xy2: Coordinate) -> tuple[float, float]` | Returns the single 50% midpoint `(mx, my)` between `xy1` and `xy2`. |
+| **`get_intermediate_points`** | `(xy1: Coordinate, xy2: Coordinate, num: int = 1, *, include_ends: bool = False) -> list[tuple[float, float]]` | Returns `num` evenly spaced intermediate `(x, y)` points along the segment from `xy1` to `xy2`. Set `include_ends=True` to return `[xy1, ..., xy2]` (`num + 2` points total). |
+| **`get_intermediate_path_point`** | `(xys: Coordinates) -> tuple[float, float]` | Returns the coordinate at 50% of the total arc length along a multi-point polyline `xys` (e.g., the center of the bottom bar of a U-shaped path). |
+| **`get_intermediate_path_points`** | `(xys: Coordinates, num: int = 1, *, include_ends: bool = False) -> list[tuple[float, float]]` | Returns `num` evenly spaced `(x, y)` coordinates along the arc length of `xys` (or `num + 2` points with `include_ends=True`). |
+| **`get_intermediate_paths`** | `(xys: Coordinates, num: int = 1, *, include_ends: bool = False) -> list[list[tuple[float, float]]]` | Returns `num` progressive prefix sub-paths `[(x0, y0), ..., (xt, yt)]` along `xys` (plus the complete path `xys` at the end when `include_ends=True`), ready to pass directly to `lines()`, `lines_curved()`, or `arrow_polyline()`. |
+
+### Animating a Growing Block Arrow (`arrow`)
+By iterating over intermediate tip coordinates from `start_xy` to `end_xy`, you can smoothly grow a block arrow across frames:
+
+```drawlib 650px center show-code file:anim_primitives_growing_arrow.png caption:"Growing Block Arrow with get_intermediate_points()"
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.math import get_intermediate_points
+from drawlib.shapes import arrow, rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=110, height=40)
+anim = Animation(fps=10.0)
+
+start_xy = (33, 20)
+end_xy = (77, 20)
+tip_points = [*get_intermediate_points(start_xy, end_xy, num=5), end_xy]
+
+for i, tip_xy in enumerate(tip_points):
+    is_last = (i == len(tip_points) - 1)
+    with anim.frame(duration=1.8 if is_last else 0.12):
+        rectangle((20, 20), width=22, height=15, style=Styles.Neutral.patch(shape_r=2), text="Source")
+        dst_style = Styles.PrimaryFlat if is_last else Styles.Neutral
+        dst_text = Styles.WhiteBold if is_last else Styles.Dark
+        rectangle((90, 20), width=22, height=15, style=dst_style.patch(shape_r=2), text="Target", text_style=dst_text)
+
+        arrow(
+            start_xy,
+            tip_xy,
+            tail_width=3.0,
+            head_width=7.0,
+            head_length=5.0,
+            style=Styles.PrimaryFlat,
+        )
+        if is_last:
+            text((55, 28), "Replicated", style=Styles.PrimaryBold.patch(text_size=8.5))
+
+save()
+```
+
+### Animating a Growing U-Shaped Polyline Arrow (`get_intermediate_paths` & `get_intermediate_path_point`)
+For L-shaped or U-shaped routes, `get_intermediate_paths(u_path, num=..., include_ends=True)` generates progressive partial polylines that preserve all corners passed so far, while `get_intermediate_path_point(u_path)` computes the true midpoint along the trajectory:
+
+```drawlib 650px center show-code file:anim_primitives_growing_u_arrow.png caption:"Growing U-Shaped Arrow and Trajectory Midpoint Label"
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.lines import lines_curved
+from drawlib.math import get_intermediate_path_point, get_intermediate_paths
+from drawlib.shapes import arrow_polyline, rectangle
+from drawlib.styles import Styles
+from drawlib.text import text
+
+setup(width=110, height=52)
+anim = Animation(fps=12.0)
+
+u_path = [(24, 30), (24, 12), (86, 12), (86, 30)]
+mid_xy = get_intermediate_path_point(u_path)
+sub_paths = get_intermediate_paths(u_path, num=8, include_ends=True)
+
+for i, sub_xys in enumerate(sub_paths):
+    is_last = (i == len(sub_paths) - 1)
+    with anim.frame(duration=1.8 if is_last else 0.12):
+        # Guide track & service cards
+        lines_curved(u_path, r=6, style=Styles.MutedDashed)
+        rectangle((24, 39), width=26, height=14, style=Styles.Neutral.patch(shape_r=2), text="Primary DB")
+        rectangle((55, 39), width=22, height=14, style=Styles.MutedDashed.patch(shape_r=2), text="Firewall")
+        dst_style = Styles.PrimaryFlat if is_last else Styles.Neutral
+        dst_text = Styles.WhiteBold if is_last else Styles.Dark
+        rectangle((86, 39), width=26, height=14, style=dst_style.patch(shape_r=2), text="DR Replica", text_style=dst_text)
+
+        # Growing U-shaped arrow with rounded corners
+        arrow_polyline(
+            sub_xys,
+            tail_width=2.5,
+            head_width=6.0,
+            head_length=4.5,
+            style=Styles.PrimaryFlat.patch(shape_r=6),
+        )
+        if is_last:
+            text((mid_xy[0], mid_xy[1] + 5.5), "Bypass Tunnel", style=Styles.PrimaryBold.patch(text_size=8.5))
+
+save()
+```
+
+### Animating a Moving Packet Along a Line
 
 ```drawlib 650px center show-code file:anim_primitives_packet.png caption:"Packet Transmission Between Services"
 from drawlib.anim import Animation
 from drawlib.canvas import save, setup
 from drawlib.lines import line
+from drawlib.math import get_intermediate_points
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
@@ -19,10 +124,10 @@ from drawlib.text import text
 setup(width=110, height=40)
 anim = Animation(fps=10.0)
 
-xs = [32, 41, 50, 59, 68, 77]
+pts = get_intermediate_points((32, 20), (77, 20), num=4, include_ends=True)
 
-for i, pkt_x in enumerate(xs):
-    is_last = (i == len(xs) - 1)
+for i, pkt_xy in enumerate(pts):
+    is_last = (i == len(pts) - 1)
     with anim.frame(duration=1.8 if is_last else 0.12):
         # Static baseline endpoints
         rectangle((20, 20), width=22, height=15, style=Styles.Neutral, text="Producer")
@@ -33,8 +138,8 @@ for i, pkt_x in enumerate(xs):
         # Wire and moving packet
         line((31, 20), (79, 20), style=Styles.MutedDashed, arrow_head="->")
         if not is_last:
-            circle((pkt_x, 20), radius=2.8, style=Styles.PrimaryFlat)
-            text((pkt_x, 27), "msg", style=Styles.PrimaryBold.patch(text_size=8))
+            circle(pkt_xy, radius=2.8, style=Styles.PrimaryFlat)
+            text((pkt_xy[0], 27), "msg", style=Styles.PrimaryBold.patch(text_size=8))
 
 save()
 ```
